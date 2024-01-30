@@ -3,7 +3,7 @@ public class Storage {
 
     }
     public String load() throws DukeException {
-//        return "";
-        throw new DukeException("Stub");
+        return "";
+//        throw new DukeException("Stub");
     }
 }

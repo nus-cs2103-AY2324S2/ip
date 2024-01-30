@@ -1,24 +1,35 @@
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
-    private final LocalDate deadline;
-    public Deadline(String description, String deadline) {
+    private final LocalDateTime deadline;
+    private final DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+    public Deadline(String description, String deadline) throws DukeException {
         super(description);
-        this.deadline = LocalDate.parse(deadline, DateTimeFormatter.ISO_LOCAL_DATE);
+        try {
+            this.deadline = LocalDateTime.parse(deadline, this.inputFormat);
+        } catch (DateTimeParseException e) {
+            throw new DukeException(DukeException.invalidFormat("Deadline"));
+        }
     }
-    public Deadline(String description, String deadline, boolean isDone) {
+    public Deadline(String description, String deadline, boolean isDone) throws DukeException {
         super(description, isDone);
-        this.deadline = LocalDate.parse(deadline, DateTimeFormatter.ISO_LOCAL_DATE);
+        try {
+            this.deadline = LocalDateTime.parse(deadline, this.inputFormat);
+        } catch (DateTimeParseException e) {
+            throw new DukeException(DukeException.invalidFormat("Deadline"));
+        }
     }
     public void isDueBy(String date) {
-        if (this.deadline.equals(LocalDate.parse(date))) {
+        if (this.deadline.equals(LocalDateTime.parse(date, this.inputFormat))) {
             System.out.println(this);
         }
     }
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(),
-                this.deadline.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
+                this.deadline.format(this.outputFormat));
     }
     @Override
     public String toFileFormat() {

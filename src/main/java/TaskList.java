@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;
-    public TaskList(String tasks) {
+    public TaskList(String tasks) throws DukeException {
         this.tasks = new ArrayList<>();
         final String[] tasksArr = tasks.split(",");
         for(int i = 0; i < tasksArr.length; ++i) {
@@ -25,7 +25,7 @@ public class TaskList {
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
-    private String getSize() {
+    public String getSize() {
         return String.format("You now have %d tasks in your list!", this.tasks.size());
     }
 //    private void updateFile() {
@@ -52,15 +52,20 @@ public class TaskList {
         if (idx < 0 || idx >= this.tasks.size()) {
             throw new DukeException(DukeException.INVALID_TASK_INDEX);
         } else {
-            return this.tasks.get(idx).uncheck();
+            if(this.tasks.get(idx).uncheck() == 0) {
+                System.out.printf("Uh oh! Workload + 1 by having the following task:\n"
+                        + "\t%s\n", this.tasks.get(idx));
+                return 0;
+            } else {
+                System.out.printf("Hmm. You seems to have not complete the task before:\n"
+                        + "\t%s\n", this.tasks.get(idx));
+                return -1;
+            }
         }
     }
 
     public void addTask(Task t) {
         this.tasks.add(t);
-        System.out.printf("Roger that! I have added the following task into your list:\n" +
-                "\t%s\n", t);
-        System.out.println(this.getSize());
     }
     public int deleteTask(int idx) throws DukeException {
         if (idx < 0 || idx >= this.tasks.size()) {

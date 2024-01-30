@@ -25,9 +25,19 @@ public class Duke {
     private void run() {
         this.ui.showWelcome();
         boolean isExit = false;
-//        while (!isExit) {
-//
-//        }
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
+        }
     }
     public static void main(String[] args) {
         new Duke("./data/tasks.txt").run();

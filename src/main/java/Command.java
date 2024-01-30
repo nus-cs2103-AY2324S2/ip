@@ -1,3 +1,11 @@
-abstract class Command {
-    abstract void execute(Storage storage, TaskList tasks, Ui ui);
+public abstract class Command {
+    public static enum TYPE {
+        CHECK,
+        UNCHECK,
+        DELETE
+    }
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public boolean isExit() {
+        return false;
+    }
 }

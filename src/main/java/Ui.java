@@ -4,16 +4,20 @@ public class Ui {
     private static final String START_LINE = "----------------"
             + "------------[Rep"
             + "ort]------------"
-            + "----------------\n";
+            + "----------------";
 
     private static final String END_LINE = "----------------"
             + "------------[End"
             + "ing]------------"
-            + "----------------\n";
+            + "----------------";
     private static final String WARNING_LINE = "----------------"
             + "-----------<WARN"
             + "ing!>-----------"
-            + "----------------\n";
+            + "----------------";
+    private static final String DIVIDER = "----------------"
+            + "----------------"
+            + "----------------"
+            + "----------------";
     private static void printStartLine() {
         System.out.print(Ui.START_LINE);
     }
@@ -24,12 +28,23 @@ public class Ui {
     private static void printWarningLine() {
         System.out.print(Ui.WARNING_LINE);
     }
+    public void showLine() {
+        System.out.println(Ui.DIVIDER);
+    }
+    public void showError(String errorMessage) {
+        System.out.println(errorMessage);
+    }
     public void showLoadingError() {
-        System.out.println("Error while loading tasks from file!");
+        System.out.println("Failed to load task list!");
     }
     public void showWelcome() {
         System.out.println(Duke.LOGO);
         System.out.printf("Hi! I am %s, how can I help you?\n", Duke.BOT_NAME);
+    }
+    public void showAddOutput(TaskList tasks, Task task) {
+        System.out.printf("Roger that! I have added the following task into your list:\n" +
+                "\t%s\n", task);
+        System.out.println(tasks.getSize());
     }
 //    public static void start() {
 //        Ui.printStartLine();
@@ -44,6 +59,10 @@ public class Ui {
                 + "Hope to see you again soon!";
         System.out.println(endings);
         Ui.printEndLine();
+    }
+    public String readCommand() {
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine();
     }
 
 //    public static void readCommand() {
