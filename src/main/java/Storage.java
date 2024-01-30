@@ -1,5 +1,8 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.io.File;
 import java.util.Scanner;
@@ -33,7 +36,9 @@ public class Storage {
                         taskList.add(todo);
                         break;
                     case "D":
-                        Deadline deadline = new Deadline(dataSplit[2], dataSplit[3]);
+                        LocalDateTime by = LocalDateTime.parse(
+                                dataSplit[3], Task.DATE_TIME_STRING_FORMAT);
+                        Deadline deadline = new Deadline(dataSplit[2], by);
                         if (isDone) {
                             deadline.mark();
                         } else {
@@ -42,7 +47,11 @@ public class Storage {
                         taskList.add(deadline);
                         break;
                     case "E":
-                        Event event = new Event(dataSplit[2], dataSplit[3], dataSplit[4]);
+                        LocalDateTime from = LocalDateTime.parse(
+                                dataSplit[3], Task.DATE_TIME_STRING_FORMAT);
+                        LocalDateTime to = LocalDateTime.parse(
+                                dataSplit[4], Task.DATE_TIME_STRING_FORMAT);
+                        Event event = new Event(dataSplit[2], from, to);
                         if (isDone) {
                             event.mark();
                         } else {
@@ -55,10 +64,10 @@ public class Storage {
             }
         } catch (IOException ioe) {
             System.out.println(ioe.getMessage());
-        } catch (IndexOutOfBoundsException ioobe) {
-            System.out.println("____________________________________________________________\n"
+        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
+            System.out.println(Buddy.LINE_BREAK
                     + "Contents of data file is not in the correct format.\nPlease delete/modify the file\n"
-                            + "____________________________________________________________\n");
+                            + Buddy.LINE_BREAK);
         }
         return taskList;
     }

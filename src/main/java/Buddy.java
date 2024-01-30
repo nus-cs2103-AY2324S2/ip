@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -5,7 +8,8 @@ public class Buddy {
     public enum Command {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
     }
-    private final String LINE_BREAK = "____________________________________________________________\n";
+    public static final String LINE_BREAK = "____________________________________________________________\n";
+    protected static final DateTimeFormatter DATE_TIME_PARSE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     ArrayList<Task> taskList;
     Storage storage = new Storage("buddy.txt");
 
@@ -136,12 +140,20 @@ public class Buddy {
                             throw new IllegalArgumentException("Please provide a deadline!");
                         }
 
+                        LocalDateTime by = LocalDateTime.parse(
+                                timeSplit[1].trim(), DATE_TIME_PARSE_FORMAT);
+
                         Deadline deadline = new Deadline(
-                                timeSplit[0].trim(), timeSplit[1].trim());
+                                timeSplit[0].trim(), by);
                         addTask(deadline);
                         break;
                     } catch (IllegalArgumentException iae) {
                         System.out.println(LINE_BREAK + iae.getMessage() + "\n" + LINE_BREAK);
+                        break;
+                    } catch (DateTimeParseException dtpe) {
+                        System.out.println(LINE_BREAK
+                                + "That's not a valid date!\nPlease use this format!: dd/mm/yyyy 2359\n"
+                                        + LINE_BREAK);
                         break;
                     }
                 case EVENT:
@@ -160,12 +172,22 @@ public class Buddy {
                             throw new IllegalArgumentException("Please provide an end date/time!");
                         }
 
+                        LocalDateTime from = LocalDateTime.parse(
+                                timeSplit2[0].trim(), DATE_TIME_PARSE_FORMAT);
+                        LocalDateTime to = LocalDateTime.parse(
+                                timeSplit2[1].trim(), DATE_TIME_PARSE_FORMAT);
+
                         Event event = new Event(
-                                timeSplit[0].trim(), timeSplit2[0].trim(), timeSplit2[1].trim());
+                                timeSplit[0].trim(), from, to);
                         addTask(event);
                         break;
                     } catch (IllegalArgumentException iae) {
                         System.out.println(LINE_BREAK + iae.getMessage() + "\n" + LINE_BREAK);
+                        break;
+                    } catch (DateTimeParseException dtpe) {
+                        System.out.println(LINE_BREAK
+                                + "That's not a valid date!\nPlease use this format!: dd/mm/yyyy 2359\n"
+                                        + LINE_BREAK);
                         break;
                     }
                 default:
