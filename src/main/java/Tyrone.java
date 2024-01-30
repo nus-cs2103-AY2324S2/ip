@@ -1,22 +1,9 @@
-import java.io.PrintWriter;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Tyrone {
-    private static final String logo = "\t████████╗██╗   ██╗██████╗  ██████╗ ███╗   ██╗███████╗\n" +
-            "\t╚══██╔══╝╚██╗ ██╔╝██╔══██╗██╔═══██╗████╗  ██║██╔════╝\n" +
-            "\t   ██║    ╚████╔╝ ██████╔╝██║   ██║██╔██╗ ██║█████╗\n" +
-            "\t   ██║     ╚██╔╝  ██╔══██╗██║   ██║██║╚██╗██║██╔══╝\n" +
-            "\t   ██║      ██║   ██║  ██║╚██████╔╝██║ ╚████║███████╗\n" +
-            "\t   ╚═╝      ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝\n";
-    private static final String greetMsg = "\tYo, what's crackin' fam! I'm Tyrone, your digital homie.\n" +
-            "\tWhat's the word? So I can help you out today.\n" +
-            "\n\t____________________________________________________________\n";
-    private static final Scanner reader = new Scanner(System.in);
-    private static final PrintWriter writer = new PrintWriter(System.out, true);
-    private static final TaskList taskList = new TaskList();
-
+    private final Ui UI;
+    private TaskList taskList = new TaskList();
     private enum Command {
         BYE,
         LIST,
@@ -27,121 +14,127 @@ public class Tyrone {
         UNMARK,
         DELETE
     }
-
     private static final HashMap<String, Command> cmdMap = new HashMap<>();
 
     public static void main(String[] args) {
-        try {
-            handleInitialize();
-            boolean isActive = true;
-            while (isActive) {
-                // extract the command
-                try {
-                    String input = reader.nextLine();
-                    String cmdStr = !input.contains(" ") ? input : input.substring(0, input.indexOf(" "));
-                    if (!cmdMap.containsKey(cmdStr)) {
-                        throw new TyroneCmdException("Command entered doesn't exist.");
-                    }
-                    Command cmd = cmdMap.get(cmdStr);
+        new Tyrone().run();
+    }
 
-                    // execute cmd logic respectively
-                    switch (cmd) {
-                    case BYE:
-                        handleByeCommand();
-                        isActive = false;
-                        break;
-                    case LIST:
-                        handleListCommand();
-                        break;
-                    case TODO:
-                        handleTodoCommand(input);
-                        break;
-                    case DEADLINE:
-                        handleDeadlineCommand(input);
-                        break;
-                    case EVENT:
-                        handleEventCommand(input);
-                        break;
-                    case MARK:
-                        handleMarkCommand(input);
-                        break;
-                    case UNMARK:
-                        handleUnmarkCommand(input);
-                        break;
-                    case DELETE:
-                        handleDeleteCommand(input);
-                        break;
-                    default:
-                        throw new TyroneCmdException("Command entered doesn't exist.");
-                    }
-                    taskList.saveTaskListToFile();
-                } catch (TyroneCmdException e) {
-                    writer.println(Tyrone.formatStringOutput(e.getMessage()));
-                }
-            }
-        } catch (TyroneStorageHelperException e) {
-            writer.println(Tyrone.formatStringOutput(e.getMessage()));
-            System.exit(1);
+    public Tyrone() {
+        this.UI = new Ui();
+        this.taskList = new TaskList();
+    }
+
+    public void run() {
+        start();
+        runUntilExit();
+        this.UI.outputByeMessage();
+        System.exit(0);
+    }
+
+    public void start() {
+        try {
+            cmdMap.put("bye", Command.BYE);
+            cmdMap.put("list", Command.LIST);
+            cmdMap.put("todo", Command.TODO);
+            cmdMap.put("deadline", Command.DEADLINE);
+            cmdMap.put("event", Command.EVENT);
+            cmdMap.put("mark", Command.MARK);
+            cmdMap.put("unmark", Command.UNMARK);
+            cmdMap.put("delete", Command.DELETE);
+            this.UI.outputWelcomeMessage();
+            taskList.loadTaskListFromFile();
+        } catch (StorageHelperException e) {
+            this.UI.outputFailedInitMessage();
+            throw new RuntimeException(e);
         }
     }
 
-    public static void handleInitialize() throws TyroneStorageHelperException {
-        cmdMap.put("bye", Command.BYE);
-        cmdMap.put("list", Command.LIST);
-        cmdMap.put("todo", Command.TODO);
-        cmdMap.put("deadline", Command.DEADLINE);
-        cmdMap.put("event", Command.EVENT);
-        cmdMap.put("mark", Command.MARK);
-        cmdMap.put("unmark", Command.UNMARK);
-        cmdMap.put("delete", Command.DELETE);
+    public void runUntilExit() {
+        boolean isActive = true;
+        while (isActive) {
+            try {
+                // extract the command
+                String rawUserCommand = this.UI.getRawUserCommand();
+                String cmdStr = !rawUserCommand.contains(" ") ? rawUserCommand : rawUserCommand.substring(0, rawUserCommand.indexOf(" "));
+                if (!cmdMap.containsKey(cmdStr)) {
+                    throw new IncorrectCommandException(Messages.MESSAGE_NOT_EXIST_CMD);
+                }
 
-        writer.println(logo + greetMsg);
-        taskList.loadTaskListFromFile();
+                Command cmd = cmdMap.get(cmdStr);
+                // execute cmd logic respectively
+                switch (cmd) {
+                case BYE:
+                    isActive = false;
+                    break;
+                case LIST:
+                    handleListCommand();
+                    break;
+                case TODO:
+                    handleTodoCommand(rawUserCommand);
+                    break;
+                case DEADLINE:
+                    handleDeadlineCommand(rawUserCommand);
+                    break;
+                case EVENT:
+                    handleEventCommand(rawUserCommand);
+                    break;
+                case MARK:
+                    handleMarkCommand(rawUserCommand);
+                    break;
+                case UNMARK:
+                    handleUnmarkCommand(rawUserCommand);
+                    break;
+                case DELETE:
+                    handleDeleteCommand(rawUserCommand);
+                    break;
+                default:
+                    throw new IncorrectCommandException(Messages.MESSAGE_NOT_EXIST_CMD);
+                }
+                taskList.saveTaskListToFile();
+            } catch (IncorrectCommandException e) {
+                this.UI.outputExceptionToUser(e.getMessage());
+            } catch (StorageHelperException e) {
+                this.UI.outputExceptionToUser(e.getMessage());
+                throw new RuntimeException(e);
+            }
+        }
     }
 
-    private static void handleByeCommand() {
-        writer.println(
-                Tyrone.formatStringOutput("Peace out! Crossin' my fingers for a speedy reunion, ya feel?"));
+    private void handleListCommand() {
+        final String MESSAGE_LIST = String.format(Messages.MESSAGE_LIST, taskList);
+        this.UI.outputResultToUser(MESSAGE_LIST);
     }
 
-    private static void handleListCommand() {
-        writer.println(Tyrone.formatStringOutput(
-                "Peep the lineup, here's the rundown of tasks on your list:\n" + "\t" + taskList));
-    }
+    private void handleTodoCommand(String input) throws IncorrectCommandException {
 
-    private static void handleTodoCommand(String input) throws TyroneCmdException {
         // validate general input
         if (isEmptyParam(input))
-            throw new TyroneCmdException("Can't leave that to-do description hanging dry.\n" +
-                    "\t\tGotta drop some words in there!");
+            throw new IncorrectCommandException(Messages.MESSAGE_TODO_EMPTY_DESC);
 
         // extract input param
         ToDo newItem = new ToDo(input.substring(5));
-        taskList.addItem(newItem);
-        writer.println(Tyrone.formatStringOutput("Got it added homie:\n" + "\t\t" + newItem +
-                "\n\tNow you have " + taskList.getListSize() + " in the list."));
+        this.taskList.addItem(newItem);
+        this.UI.outputResultToUser(String.format(Messages.MESSAGE_ADD_TASK, newItem, this.taskList.getListSize()));
     }
 
-    private static void handleDeadlineCommand(String input) throws TyroneCmdException {
+    private void handleDeadlineCommand(String input) throws IncorrectCommandException {
         // validate general input
-        String errorMsg = "Seems like the deadline command is incorrect.\n"
-                + "\t\tIt must be: \"deadline <task description> /by <yyyy-mm-dd[ HH:mm]>\".";
         if (isEmptyParam(input) || !input.contains("/by"))
-            throw new TyroneCmdException(errorMsg);
+            throw new IncorrectCommandException(Messages.MESSAGE_DEADLINE_INCORRECT);
 
         // extract input params
-        Deadline newItem = generateDeadlineFromInput(input.substring(9), errorMsg);
-        taskList.addItem(newItem);
-        writer.println(Tyrone.formatStringOutput("Got it added homie:\n" + "\t\t" + newItem +
-                "\n\tNow you have " + taskList.getListSize() + " in the list."));
+        Deadline newItem = generateDeadlineFromInput(input.substring(9));
+        this.taskList.addItem(newItem);
+        this.UI.outputResultToUser(String.format(Messages.MESSAGE_ADD_TASK, newItem, this.taskList.getListSize()));
     }
 
-    private static Deadline generateDeadlineFromInput(String input, String errorMsg) throws TyroneCmdException {
+    private Deadline generateDeadlineFromInput(String input) throws IncorrectCommandException {
         String[] params = input.split("/by");
 
         // check if enough params in the first place
         if (params.length != 2) {
-            throw new TyroneCmdException(errorMsg);
+            throw new IncorrectCommandException(Messages.MESSAGE_DEADLINE_INCORRECT);
         }
 
         String description = params[0].trim();
@@ -149,35 +142,29 @@ public class Tyrone {
 
         // validate params
         if (description.isEmpty() || deadlineDateTimeStr.isEmpty()) {
-            throw new TyroneCmdException(errorMsg);
+            throw new IncorrectCommandException(Messages.MESSAGE_DEADLINE_INCORRECT);
         }
 
         try {
             return new Deadline(description, new DateTime(deadlineDateTimeStr));
         } catch (DateTimeParseException e) {
-            throw new TyroneCmdException(errorMsg);
+            throw new IncorrectCommandException(Messages.MESSAGE_DEADLINE_INCORRECT);
         }
     }
 
-    private static void handleEventCommand(String input) throws TyroneCmdException {
-        String errorMsg = "Your event command is in incorrect format.\n"
-                + "\t\tGotta follow the groove: \"event <task description> "
-                + "/from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>\".";
+    private void handleEventCommand(String input) throws IncorrectCommandException {
 
         // validate general input
         if (isEmptyParam(input) || !input.contains("/from") || !input.contains("/to"))
-            throw new TyroneCmdException(errorMsg);
+            throw new IncorrectCommandException(Messages.MESSAGE_EVENT_INCORRECT);
 
         // extract input params
-        Event newItem = generateEventFromInput(input.substring(6), errorMsg);
-        taskList.addItem(newItem);
-        writer.println(
-                Tyrone.formatStringOutput(
-                        "Got it added homie:\n" + "\t\t" + newItem + "\n\tNow you have "
-                                + taskList.getListSize() + " in the list."));
+        Event newItem = generateEventFromInput(input.substring(6));
+        this.taskList.addItem(newItem);
+        this.UI.outputResultToUser(String.format(Messages.MESSAGE_ADD_TASK, newItem, this.taskList.getListSize()));
     }
 
-    private static Event generateEventFromInput(String input, String errorMsg) throws TyroneCmdException {
+    private Event generateEventFromInput(String input) throws IncorrectCommandException {
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
         String description = input.substring(0, fromIndex).trim();
@@ -186,19 +173,20 @@ public class Tyrone {
 
         // validate params
         if (description.isEmpty() || startDateTime.isEmpty() || endDateTime.isEmpty())
-            throw new TyroneCmdException(errorMsg);
+            throw new IncorrectCommandException(Messages.MESSAGE_EVENT_INCORRECT);
 
         try {
             return new Event(description, new DateTime(startDateTime), new DateTime(endDateTime));
         } catch (DateTimeParseException e) {
-            throw new TyroneCmdException(errorMsg);
+            throw new IncorrectCommandException(Messages.MESSAGE_EVENT_INCORRECT);
         }
     }
 
-    private static void handleMarkCommand(String input) throws TyroneCmdException {
+    private void handleMarkCommand(String input) throws IncorrectCommandException {
+        final String MESSAGE_INCORRECT_MARK_INDEX = String.format(Messages.MESSAGE_INCORRECT_COMMAND_INDEX, "mark");
         // validate general input
         if (isEmptyParam(input)) {
-            throw new TyroneCmdException("Can't leave that markup id empty. Gotta drop some number in there!");
+            throw new IncorrectCommandException(MESSAGE_INCORRECT_MARK_INDEX);
         }
 
         // extract input params
@@ -206,69 +194,53 @@ public class Tyrone {
             String param = input.substring(4).trim();
             int index = Integer.parseInt(param) - 1;
             if (taskList.getListSize() <= 0 || index < 0 || index >= taskList.getListSize())
-                throw new TyroneCmdException("It looks like you're trying to mark with an invalid id.\n" +
-                        "\t\tDouble-check that your 0 <= id < task list size.");
+                throw new IncorrectCommandException(MESSAGE_INCORRECT_MARK_INDEX);
             taskList.markItemDone(index);
-            writer.println(Tyrone.formatStringOutput("Dope! Check it, I've tagged this task as handled:\n" +
-                    "\t\t" + taskList.getItem(index)));
+            this.UI.outputResultToUser(String.format(Messages.MESSAGE_MARK, taskList.getItem(index)));
         } catch (NumberFormatException e) {
-            throw new TyroneCmdException("Your mark parameter id is acting up.\n" +
-                    "\t\tIt's gotta be a legit number matchin' up with the right task.");
+            throw new IncorrectCommandException(MESSAGE_INCORRECT_MARK_INDEX);
         }
     }
 
-    private static void handleUnmarkCommand(String input) throws TyroneCmdException {
+    private void handleUnmarkCommand(String input) throws IncorrectCommandException {
+        final String MESSAGE_INCORRECT_UNMARK_INDEX = String.format(Messages.MESSAGE_INCORRECT_COMMAND_INDEX, "unmark");
         // validate general input
         if (isEmptyParam(input)) {
-            throw new TyroneCmdException("Can't leave that unmarkup id empty. Gotta drop some number in there!");
+            throw new IncorrectCommandException(MESSAGE_INCORRECT_UNMARK_INDEX);
         }
 
         try {
             String param = input.substring(6).trim();
             int index = Integer.parseInt(param) - 1;
-            if (taskList.getListSize() == 0 || index < 0 || index >= taskList.getListSize())
-                throw new TyroneCmdException("It looks like you're trying to unmark with an invalid id.\n" +
-                        "\t\tDouble-check that your 0 <= id < task list size.");
-            taskList.unmarkItemDone(index);
-            writer.println(Tyrone.formatStringOutput(
-                    "A'ight, I've stamped this task as still in the works:\n" +
-                            "\t\t" + taskList.getItem(index)));
+            if (this.taskList.getListSize() == 0 || index < 0 || index >= this.taskList.getListSize())
+                throw new IncorrectCommandException(MESSAGE_INCORRECT_UNMARK_INDEX);
+            this.taskList.unmarkItemDone(index);
+            this.UI.outputResultToUser(String.format(Messages.MESSAGE_UNMARK, this.taskList.getItem(index)));
         } catch (NumberFormatException e) {
-            throw new TyroneCmdException("Your unmark parameter id is acting up.\n" +
-                    "\t\tIt's gotta be a legit number matchin' up with the right task.");
+            throw new IncorrectCommandException(MESSAGE_INCORRECT_UNMARK_INDEX);
         }
     }
 
-    private static void handleDeleteCommand(String input) throws TyroneCmdException {
+    private void handleDeleteCommand(String input) throws IncorrectCommandException {
+        final String MESSAGE_INCORRECT_DELETE_INDEX = String.format(Messages.MESSAGE_INCORRECT_COMMAND_INDEX, "delete");
         // validate general input
         if (isEmptyParam(input)) {
-            throw new TyroneCmdException("Can't leave that delete id empty. Gotta drop some number in there!");
+            throw new IncorrectCommandException(MESSAGE_INCORRECT_DELETE_INDEX);
         }
 
         try {
             String param = input.substring(6).trim();
             int index = Integer.parseInt(param) - 1;
-            if (taskList.getListSize() == 0 || index < 0 || index >= taskList.getListSize())
-                throw new TyroneCmdException("It looks like you're trying to delete with an invalid id.\n" +
-                        "\t\tDouble-check that your 0 <= id < task list size.");
-            Task delItem = taskList.deleteItem(index);
-            writer.println(Tyrone.formatStringOutput(
-                    "Boom! Task officially evicted from the list. Consider it gone:\n" +
-                            "\t\t" + delItem +
-                            "\n\tNow you have " + taskList.getListSize() + " in the list."));
+            if (this.taskList.getListSize() == 0 || index < 0 || index >= this.taskList.getListSize())
+                throw new IncorrectCommandException(MESSAGE_INCORRECT_DELETE_INDEX);
+            Task delItem = this.taskList.deleteItem(index);
+            this.UI.outputResultToUser(String.format(Messages.MESSAGE_DELETE, delItem, this.taskList.getListSize()));
         } catch (NumberFormatException e) {
-            throw new TyroneCmdException("Your delete parameter id is acting up.\n" +
-                    "\t\tIt's gotta be a legit number matchin' up with the right task.");
+            throw new IncorrectCommandException(MESSAGE_INCORRECT_DELETE_INDEX);
         }
     }
 
     private static boolean isEmptyParam(String input) {
         return !input.trim().contains(" ");
-    }
-
-    private static String formatStringOutput(String content) {
-        return ("\n\t____________________________________________________________\n" +
-                "\t" + content + "\n" +
-                "\n\t____________________________________________________________\n");
     }
 }
