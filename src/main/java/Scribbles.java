@@ -63,6 +63,12 @@ public class Scribbles {
         int numOfTasks = taskList.size();
         if (index <= numOfTasks) {
             taskList.get(index - 1).markComplete();
+
+            try {
+                saveFileData("src/main/java/taskData.txt");
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found.");
+            }
         }
     }
 
@@ -92,6 +98,12 @@ public class Scribbles {
         int numOfTasks = taskList.size();
         if (index <= numOfTasks) {
             taskList.get(index - 1).markIncomplete();
+
+            try {
+                saveFileData("src/main/java/taskData.txt");
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found.");
+            }
         }
     }
 
@@ -124,6 +136,13 @@ public class Scribbles {
             System.out.println("You can try the command \"todo [task description]\" instead.\n");
         } else {
             taskList.add(new Todo(description, false));
+
+            try {
+                saveFileData("src/main/java/taskData.txt");
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found.");
+            }
+
             System.out.println("I've added this to-do to your list: ");
             System.out.println(taskList.get(taskList.size() - 1).toString());
             System.out.println("Now you have " + taskList.size() + " task(s) in the list.\n");
@@ -146,6 +165,13 @@ public class Scribbles {
                 String taskDescription = description.split(" /by")[0];
                 String taskDeadline = description.split(" /by ")[1];
                 taskList.add(new Deadline(taskDescription, false, taskDeadline));
+
+                try {
+                    saveFileData("src/main/java/taskData.txt");
+                } catch (FileNotFoundException e) {
+                    System.out.println("File not found.");
+                }
+
                 System.out.println("I've added this deadline to your list:");
                 System.out.println(taskList.get(taskList.size() - 1).toString());
                 System.out.println("Now you have " + taskList.size() + " task(s) in the list.\n");
@@ -176,6 +202,13 @@ public class Scribbles {
                 String taskEnd = description.split(" /to ")[1];
                 if (!taskDescription.isEmpty() && !taskStart.isEmpty() && !taskEnd.isEmpty()) {
                     taskList.add(new Event(taskDescription, false, taskStart, taskEnd));
+
+                    try {
+                        saveFileData("src/main/java/taskData.txt");
+                    } catch (FileNotFoundException e) {
+                        System.out.println("File not found.");
+                    }
+
                     System.out.println("I've added this deadline to your list:");
                     System.out.println(taskList.get(taskList.size() - 1).toString());
                     System.out.println("Now you have " + taskList.size() + " task(s) in the list.\n");
@@ -197,6 +230,13 @@ public class Scribbles {
         if (index <= numOfTasks) {
             String taskRemoved = taskList.get(index - 1).toString();
             taskList.remove(index - 1);
+
+            try {
+                saveFileData("src/main/java/taskData.txt");
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found.");
+            }
+
             System.out.println("I've removed this task from your list:");
             System.out.println(taskRemoved);
             System.out.println("Now you have " + taskList.size() + " task(s) in the list.\n");
@@ -247,7 +287,11 @@ public class Scribbles {
             }
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Something went wrong: " + e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Uh oh! looks like the data in your file is corrupted and cannot be read! " +
+                    "Please verify data in the file to proceed. Proceeding without verification may cause " +
+                    "current data to disappear. \n");
         }
     }
 
@@ -259,7 +303,27 @@ public class Scribbles {
      */
     public static void saveFileData(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
-        Scanner data = new Scanner(f);
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.get(i);
+                if (task instanceof Todo) {
+                    writer.write("T | " + (task.isCompleted() ? "1" : "0") + " | " + task.getDescription());
+                }
+                if (task instanceof Deadline) {
+                    writer.write("D | " + (task.isCompleted() ? "1" : "0") + " | " + task.getDescription() +
+                            " | " + ((Deadline) task).getBy());
+                }
+                if (task instanceof Event) {
+                    writer.write("E | " + (task.isCompleted() ? "1" : "0") + " | " + task.getDescription() +
+                            " | " + ((Event) task).getStart() + " | " + ((Event) task).getEnd());
+                }
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
 
     /**
