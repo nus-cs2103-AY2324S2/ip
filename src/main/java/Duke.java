@@ -32,7 +32,7 @@ public class Duke {
             case "list":
                 int i = 1;
                 for(Task todo : todolist) {
-                    output = output.concat(i + ". " + todo.getTaskDescription() + "\n\t");
+                    output = output.concat(i + ". " + todo.toString() + "\n\t");
                     i++;
                 }
                 output = output.trim();
@@ -40,12 +40,12 @@ public class Duke {
             case "mark":
                 taskToMark = Integer.parseInt(input.split(" ")[1]) - 1;
                 todolist.get(taskToMark).markAsDone(true);
-                output = "Nice! I've marked this task as done:\n\t" + todolist.get(taskToMark).getTaskDescription();
+                output = "Nice! I've marked this task as done:\n\t" + todolist.get(taskToMark).toString();
                 break;
             case "unmark":
                 taskToMark = Integer.parseInt(input.split(" ")[1]) - 1;
                 todolist.get(taskToMark).markAsDone(false);
-                output = "OK, I've marked this task as not done yet:\n\t" + todolist.get(taskToMark).getTaskDescription();
+                output = "OK, I've marked this task as not done yet:\n\t" + todolist.get(taskToMark).toString();
                 break;
             default:
                 Task newtask = new Task(input);
