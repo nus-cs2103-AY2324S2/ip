@@ -53,7 +53,7 @@ public class Storage {
 
     private void saveToFile() {
         try {
-            FileWriter fileWriter = new FileWriter("./tsrc/main/java/Storage/data.txt");
+            FileWriter fileWriter = new FileWriter("./src/main/java/Storage/data.txt");
             fileWriter.write(toString());
             fileWriter.close();
         } catch (IOException e) {

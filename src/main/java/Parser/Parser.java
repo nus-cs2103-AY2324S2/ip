@@ -106,4 +106,8 @@ public class Parser {
         return ans;
     }
 
+    private boolean checkTimeFormat(String string) {
+        return true;
+    }
+
 }
