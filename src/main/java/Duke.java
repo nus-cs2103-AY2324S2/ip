@@ -1,6 +1,8 @@
 import java.util.Scanner;
+import java.util.Arrays;
 public class Duke {
     public static void main(String[] args) {
+
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -15,22 +17,37 @@ public class Duke {
                 " Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________\n";
 
+
         System.out.println(intro);
 
         Scanner input = new Scanner(System.in);
         System.out.println("Enter Message");
 
+        final int ArraySize = 100;
+        String[] Tasks = new String[ArraySize];
+        int counter = 0;
+
         while (true) {
+
             String message = input.nextLine();
             if (message.equals("bye")) {
                 System.out.println(outro);
                 break;
+            } else if (message.equals("list")) {
+                for( int i = 0; i < counter; i++ ){
+                    System.out.println("____________________________________________________________\n" +
+                            (i + 1) + ". " + Tasks[i] + "\n" +
+                            "____________________________________________________________\n");
+                }
             } else {
+                Tasks[counter] = message;
+                counter++;
                 System.out.println("____________________________________________________________\n" +
-                        message + "\n" +
+                        "added: " + message + "\n" +
                         "____________________________________________________________\n");
             }
 
         }
     }
 }
+
