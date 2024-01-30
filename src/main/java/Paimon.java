@@ -36,9 +36,9 @@ public class Paimon {
                 case "mark":
                     String markIndexString= parser.parseInput()[0];
                     int markIndex = Integer.parseInt(markIndexString);
-                    if (markIndex < taskList.getSize() && markIndex >= 0) {
-                        taskList.getTask(markIndex).setTaskState(true);
-                        System.out.println("Okay Traveller, I've marked this task as done! \n" + taskList.getTask(markIndex).getTask());
+                    if (markIndex < taskList.getSize() && markIndex >= 1) {
+                        taskList.getTask(markIndex - 1).setTaskState(true);
+                        System.out.println("Okay Traveller, I've marked this task as done! \n" + taskList.getTask(markIndex - 1).getTask());
                     } else {
                         System.out.println("Sorry Traveller, your input is invalid.");
                     }
@@ -46,9 +46,9 @@ public class Paimon {
                 case "unmark":
                     String unmarkIndexString = parser.parseInput()[0];
                     int unmarkIndex = Integer.parseInt(unmarkIndexString);
-                    if (unmarkIndex < taskList.getSize() && unmarkIndex >= 0) {
-                        taskList.getTask(unmarkIndex).setTaskState(false);
-                        System.out.println("Okay Traveller, I've marked this task as not done! \n" + taskList.getTask(unmarkIndex).getTask());
+                    if (unmarkIndex < taskList.getSize() && unmarkIndex >= 1) {
+                        taskList.getTask(unmarkIndex - 1).setTaskState(false);
+                        System.out.println("Okay Traveller, I've unmarked this task! \n" + taskList.getTask(unmarkIndex - 1).getTask());
                     } else {
                         System.out.println("Sorry Traveller, your input is invalid.");
                     }
@@ -57,7 +57,7 @@ public class Paimon {
                     String todoDescription = parser.parseInput()[0];
                     Task todoTask = new TodoTask(todoDescription);
                     taskList.addTask(todoTask);
-                    System.out.println("Okay Traveller, I've marked the following task! \n" + todoTask.getTask());
+                    System.out.println("Okay Traveller, I've added the following task! \n" + todoTask.getTask());
 
                     break;
                 case "deadline":
@@ -65,7 +65,7 @@ public class Paimon {
                     String deadlineEndDate = parser.parseInput()[1];
                     Task deadlineTask = new DeadlineTask(deadlineDescription, deadlineEndDate);
                     taskList.addTask(deadlineTask);
-                    System.out.println("Okay Traveller, I've marked the following task! \n" + deadlineTask.getTask());
+                    System.out.println("Okay Traveller, I've added the following task! \n" + deadlineTask.getTask());
                     break;
                 case "event":
                     String eventDescription = parser.parseInput()[0];
@@ -73,7 +73,7 @@ public class Paimon {
                     String eventEndDate = parser.parseInput()[2];
                     Task eventTask = new EventTask(eventDescription, eventStartDate, eventEndDate);
                     taskList.addTask(eventTask);
-                    System.out.println("Okay Traveller, I've marked the following task! \n" + eventTask.getTask());
+                    System.out.println("Okay Traveller, I've added the following task! \n" + eventTask.getTask());
 
                     break;
 

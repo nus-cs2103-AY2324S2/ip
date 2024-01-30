@@ -19,9 +19,13 @@ public class TaskList {
     }
     public void printTaskList() {
         int size = this.list.size();
+        if (size == 0) {
+            System.out.println("Your list is currently empty, add some tasks!");
+            return;
+        }
         System.out.println("Here is  your list so far! \n----->");
         for (int i = 0; i < size; i++) {
-            System.out.println(this.list.get(i).getTask());
+            System.out.println(Integer.toString(i + 1) + ": " + this.list.get(i).getTask());
         }
         System.out.println("----->");
     }
