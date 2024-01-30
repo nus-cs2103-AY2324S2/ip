@@ -1,4 +1,3 @@
-import javax.sound.sampled.Line;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -63,21 +62,21 @@ public class Ui {
         return rawInputLine;
     }
 
-    public void outputResultToUser(String result) {
+    public void outputResultToUser(CommandResult cmdResult) {
         outputToUser(
                 DIVIDER,
                 LINE_SEPARATOR,
-                result,
+                cmdResult.toString(),
                 LINE_SEPARATOR,
                 DIVIDER
         );
     }
 
-    public void outputExceptionToUser(String eMessage) {
+    public void outputExceptionToUser(Exception e) {
         outputToUser(
                 DIVIDER,
                 LINE_SEPARATOR,
-                String.format(Messages.MESSAGE_ERROR, eMessage),
+                String.format(Messages.MESSAGE_ERROR, e.getMessage()),
                 LINE_SEPARATOR,
                 DIVIDER
         );
@@ -88,5 +87,4 @@ public class Ui {
             this.output.println(m);
         }
     }
-
 }

@@ -7,11 +7,18 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (by: " + this.deadlineDateTime.formatDateTime() + ")";
+        return "[D] "
+                + super.toString()
+                + " (by: "
+                + this.deadlineDateTime.formatDateTime()
+                + ")";
     }
 
     @Override
     public String serializeTask() {
-        return "D | " + super.serializeTask() + " | " + this.deadlineDateTime.serializeDateTime();
+        return "D | "
+                + super.serializeTask()
+                + " | "
+                + this.deadlineDateTime.serializeDateTime();
     }
 }
