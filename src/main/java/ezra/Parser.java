@@ -1,6 +1,7 @@
 package ezra;
 
 import java.time.format.DateTimeParseException;
+
 import java.util.regex.Pattern;
 
 /**
@@ -57,9 +58,7 @@ public class Parser {
             String description = input.split("\\s", 2)[1];
             return new ToDo(description);
         } else {
-            throw new WrongFormatException(
-                    "Invalid 'todo' command format. Usage: todo <description>"
-            );
+            throw new WrongFormatException("Invalid 'todo' command format. Usage: todo <description>");
         }
     }
 
@@ -78,8 +77,7 @@ public class Parser {
             return new Deadline(description, by);
         } else {
             throw new WrongFormatException(
-                    "Invalid 'deadline' command format. Usage: deadline <description> /by <date time>"
-            );
+                    "Invalid 'deadline' command format. Usage: deadline <description> /by <date time>");
         }
     }
 
@@ -100,8 +98,7 @@ public class Parser {
             return new Event(description, from, to);
         } else {
             throw new WrongFormatException(
-                    "Invalid 'event' command format. Usage: event <description> /from <date time> /to <date time>"
-            );
+                    "Invalid 'event' command format. Usage: event <description> /from <date time> /to <date time>");
         }
     }
 
@@ -116,9 +113,7 @@ public class Parser {
         if (Pattern.matches("delete\\s\\d+", input)) {
             return Integer.parseInt(input.split("\\s")[1]) - 1;
         } else {
-            throw new WrongFormatException(
-                    "Invalid 'delete' command format. Usage: delete <existing task number>"
-            );
+            throw new WrongFormatException("Invalid 'delete' command format. Usage: delete <existing task number>");
         }
     }
 
@@ -133,9 +128,7 @@ public class Parser {
         if (Pattern.matches("mark\\s\\d+", input)) {
             return Integer.parseInt(input.split("\\s")[1]) - 1;
         } else {
-            throw new WrongFormatException(
-                    "Invalid 'mark' command format. Usage: mark <existing task number>"
-            );
+            throw new WrongFormatException("Invalid 'mark' command format. Usage: mark <existing task number>");
         }
     }
 
@@ -150,9 +143,7 @@ public class Parser {
         if (Pattern.matches("unmark\\s\\d+", input)) {
             return Integer.parseInt(input.split("\\s")[1]) - 1;
         } else {
-            throw new WrongFormatException(
-                    "Invalid 'unmark' command format. Usage: unmark <existing task number>"
-            );
+            throw new WrongFormatException("Invalid 'unmark' command format. Usage: unmark <existing task number>");
         }
     }
 }

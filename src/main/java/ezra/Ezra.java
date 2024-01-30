@@ -1,7 +1,8 @@
 package ezra;
 
-import java.io.File;
 import java.util.Scanner;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
@@ -33,6 +34,7 @@ public class Ezra {
      */
     public void run() {
         ui.greet();
+
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
