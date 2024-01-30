@@ -1,7 +1,5 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.sql.Array;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -14,7 +12,9 @@ public class Duke {
 
     private static final HashMap<String, Command> commandMap = new HashMap<>();
     
-    private static final ArrayList<Task> taskList = new ArrayList<>();
+    private static ArrayList<Task> taskList = new ArrayList<>();
+    
+    private static final Storage st = new Storage("data.txt");
     
     /**
      * Prints a message to the terminal, decorated with the Louie icon. 
@@ -121,11 +121,11 @@ public class Duke {
                             String.format("You tried to access an invalid task index: %s", args[1])
                     );
                 }
-                
                 t.mark();
                 Duke.print("CONGRATULATION!!!!!! you completed this task:\n" +
                         t.describe()
                 );
+                Duke.st.writeTasks(Duke.taskList);
             } catch (DukeException e) {
                 Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
@@ -162,6 +162,7 @@ public class Duke {
                 Duke.print("CONGRATULATION!!!!!! you un completed this task:\n" +
                         t.describe()
                 );
+                Duke.st.writeTasks(Duke.taskList);
             } catch (DukeException e) {
                 Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
@@ -180,6 +181,7 @@ public class Duke {
                 var t = new ToDo(str);
                 Duke.print(String.format("Ok, I've added a new todo...\n  %s", t.describe()));
                 taskList.add(t);
+                Duke.st.writeTasks(Duke.taskList);
             } catch (DukeException e) {
                 Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
@@ -236,6 +238,7 @@ public class Duke {
                 Task t = new Deadline(name.toString(), by.toString());
                 Duke.print(String.format("Ok, I've added a new deadline...\n  %s", t.describe()));
                 Duke.taskList.add(t);
+                Duke.st.writeTasks(Duke.taskList);
             } catch (DukeException e) {
                 Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
@@ -322,6 +325,7 @@ public class Duke {
                 var t = new Event(name.toString(), from.toString(), to.toString());
                 Duke.print(String.format("Ok, I've added a new event...\n  %s", t.describe()));
                 Duke.taskList.add(t);
+                Duke.st.writeTasks(Duke.taskList);
             } catch (DukeException e) {
                 Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
@@ -355,10 +359,20 @@ public class Duke {
                 Duke.print
                         ("I'm deleting this task. bye...\n" +
                         t.describe());
+                Duke.st.writeTasks(Duke.taskList);
             } catch (DukeException e) {
                 Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
+        
+        try {
+            Duke.taskList = Duke.st.loadTasks();
+        } catch (DukeException e) {
+            Duke.print(String.format
+                    ("Error loading task data: %s"
+                            + "\n\nPlease delete 'data.txt' and try again. Goodbye...", e.getMessage()));
+            System.exit(1);
+        }
         
         Duke.print("Hello, my name is... Louie!!!!\n" + 
                    "What can I do for you today?");
