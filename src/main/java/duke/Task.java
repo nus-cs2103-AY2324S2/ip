@@ -1,6 +1,11 @@
 package duke;
 
 import java.io.Serializable;
+
+/**
+ * Represents a general task in the Duke application.
+ * This is an abstract class that other specific types of tasks extend.
+ */
 public abstract class Task implements Serializable {
     private String description;
     private boolean isDone;
@@ -8,10 +13,16 @@ public abstract class Task implements Serializable {
         this.description = description;
         this.isDone = false;
     }
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks the task as not done.
+     */
     public void markAsNotDone() {
         this.isDone = false;
     }

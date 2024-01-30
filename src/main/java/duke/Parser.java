@@ -10,6 +10,9 @@ import Command.UnMarkCommand;
 import duke.DukeException;
 import duke.UI;
 
+/**
+ * The Parser class is responsible for interpreting user input and translating it into commands.
+ */
 public class Parser {
 
     /**
