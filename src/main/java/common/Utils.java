@@ -1,10 +1,10 @@
-package utilities;
+package common;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class DateTimeUtility {
+public class Utils {
     final static private String FORMAT = "d/M/yyyy HHmm";
 
     public static boolean isValidDateTime(String dateTime) {
@@ -42,5 +42,14 @@ public class DateTimeUtility {
     public static LocalDateTime parseDateTime(String dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT);
         return LocalDateTime.parse(dateTime, formatter);
+    }
+
+    public static boolean isInteger(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

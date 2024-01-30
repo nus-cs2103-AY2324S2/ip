@@ -1,7 +1,7 @@
 package tasks;
 
 import java.time.LocalDateTime;
-import utilities.DateTimeUtility;
+import common.Utils;
 
 public class Event extends Task {
 
@@ -19,12 +19,12 @@ public class Event extends Task {
         int statusValue = this.getStatus() ? 1 : 0;
 
         return String.format("event~%d~%s~%s~%s", statusValue,
-                this.description, DateTimeUtility.inputFormat(this.from), DateTimeUtility.inputFormat(this.to));
+                this.description, Utils.inputFormat(this.from), Utils.inputFormat(this.to));
     }
 
     //TODO format the date
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + DateTimeUtility.outputFormat(this.from) + " to: " + DateTimeUtility.outputFormat(this.to) + ")";
+        return "[E]" + super.toString() + " (from: " + Utils.outputFormat(this.from) + " to: " + Utils.outputFormat(this.to) + ")";
     }
 }
