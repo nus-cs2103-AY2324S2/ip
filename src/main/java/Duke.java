@@ -26,7 +26,7 @@ public class Duke {
         String[] parts;
         String command;
         String details;
-        int taskToMark = -1;
+        int taskNumber = -1;
         String output;
 
         while(true) {
@@ -54,14 +54,14 @@ public class Duke {
                 output = output.trim();
                 break;
             case "mark":
-                taskToMark = Integer.parseInt(details) - 1;
-                todolist.get(taskToMark).markAsDone(true);
-                output = "Nice! I've marked this task as done:\n\t" + todolist.get(taskToMark).toString();
+                taskNumber = Integer.parseInt(details) - 1;
+                todolist.get(taskNumber).markAsDone(true);
+                output = "Nice! I've marked this task as done:\n\t" + todolist.get(taskNumber).toString();
                 break;
             case "unmark":
-                taskToMark = Integer.parseInt(details) - 1;
-                todolist.get(taskToMark).markAsDone(false);
-                output = "OK, I've marked this task as not done yet:\n\t" + todolist.get(taskToMark).toString();
+                taskNumber = Integer.parseInt(details) - 1;
+                todolist.get(taskNumber).markAsDone(false);
+                output = "OK, I've marked this task as not done yet:\n\t" + todolist.get(taskNumber).toString();
                 break;
             case "todo":
                 try {
@@ -103,6 +103,12 @@ public class Duke {
                 addItem(event);
                 output = "added event: " + event.toString();
                 break;
+            case "delete":
+                taskNumber = Integer.parseInt(details) - 1;
+                Task t = removeItem(taskNumber);
+                output = "Noted. I've removed this task:" + t.toString();
+                break;
+
             default:
                 DukeException e = new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 output = e.toString();
@@ -118,5 +124,9 @@ public class Duke {
 
     public void addItem(Task item) {
         todolist.add(item);
+    }
+
+    public Task removeItem(int index) {
+        return todolist.remove(index);
     }
 }
