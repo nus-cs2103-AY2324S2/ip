@@ -9,9 +9,6 @@ public class Duke {
     Ui ui;
     TaskList taskList;
     Parser parser = new Parser();
-
-    String command = "";
-    String secondaryInput = "";
     Scanner scanner1;
     boolean isEnded = false;
 
