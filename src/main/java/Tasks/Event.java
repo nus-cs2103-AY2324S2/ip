@@ -20,12 +20,17 @@ public class Event extends Task {
         super(description);
 
         String desc = super.description;
-        if (!desc.contains("/from") || !desc.contains("/to")) throw new DukeException("Dates missing in description!");
+
+        if (!desc.contains("/from") || !desc.contains("/to")) {
+            throw new DukeException("Dates missing in description!");
+        }
 
         String[] descParsed = desc.split("/from");
         String[] dateParsed = descParsed[1].split("/to");
 
-        if (dateParsed.length <= 1 || dateParsed[0].isBlank() || dateParsed[1].isBlank()) throw new DukeException("Invalid dates!");
+        if (dateParsed.length <= 1 || dateParsed[0].isBlank() || dateParsed[1].isBlank()) {
+            throw new DukeException("Invalid dates!");
+        }
 
         try {
             LocalDate date1 = LocalDate.parse(dateParsed[0].trim());
@@ -34,10 +39,11 @@ public class Event extends Task {
             String formattedDate1 = date1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             String formattedDate2 = date2.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
 
-            super.description = descParsed[0].trim() + " (from: " + formattedDate1 + " to: " + formattedDate2+ ")";
+            super.description = descParsed[0].trim() + " (from: " + formattedDate1 + " to: " + formattedDate2 + ")";
         } catch (Exception e) {
             System.out.println("Unknown Date Format!");
-            super.description = descParsed[0].trim() + " (from: " + dateParsed[0].trim() + " to: " + dateParsed[1].trim()+ ")";
+            super.description = descParsed[0].trim() + " (from: " + dateParsed[0].trim() + " to: "
+                    + dateParsed[1].trim() + ")";
         }
     }
 

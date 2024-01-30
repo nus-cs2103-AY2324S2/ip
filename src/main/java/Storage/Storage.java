@@ -41,7 +41,7 @@ public class Storage {
             File saveFile = new File(SAVE_FILE);
 
             // Check if file exists, if not, create new file
-            if(!saveFile.exists() || saveFile.isDirectory()) {  
+            if (!saveFile.exists() || saveFile.isDirectory()) {
                 saveFile.createNewFile();
 
                 return;
@@ -53,7 +53,7 @@ public class Storage {
             while (fileReader.hasNextLine()) {
                 tasks.add(fileReader.nextLine());
             }
-            
+
             String taskUpdate = tasks.get(taskInt);
             String[] taskUpdateParsed = taskUpdate.split(" ", 3);
             taskUpdateParsed[1] = isDone.toString();
@@ -64,7 +64,7 @@ public class Storage {
             FileWriter saveFileWriter = new FileWriter(saveFile, false);
             BufferedWriter saveFileBufferedWriter = new BufferedWriter(saveFileWriter);
 
-            for (String taskString: tasks) {
+            for (String taskString : tasks) {
                 saveFileBufferedWriter.write(taskString + "\n");
             }
 
@@ -72,7 +72,7 @@ public class Storage {
         } catch (IOException e) {
             ui.printSingleLine("An error occurred.");
             e.printStackTrace();
-        } 
+        }
     }
 
     /**
@@ -85,7 +85,7 @@ public class Storage {
             File saveFile = new File(SAVE_FILE);
 
             // Check if file exists, if not, create new file
-            if(!saveFile.exists() || saveFile.isDirectory()) { 
+            if (!saveFile.exists() || saveFile.isDirectory()) {
                 saveFile.createNewFile();
 
                 return;
@@ -97,14 +97,14 @@ public class Storage {
             while (fileReader.hasNextLine()) {
                 tasks.add(fileReader.nextLine());
             }
-            
+
             tasks.remove(taskInt);
             fileReader.close();
 
             FileWriter saveFileWriter = new FileWriter(saveFile, false);
             BufferedWriter saveFileBufferedWriter = new BufferedWriter(saveFileWriter);
 
-            for (String taskString: tasks) {
+            for (String taskString : tasks) {
                 saveFileBufferedWriter.write(taskString + "\n");
             }
 
@@ -112,7 +112,7 @@ public class Storage {
         } catch (IOException e) {
             ui.printSingleLine("An error occurred.");
             e.printStackTrace();
-        } 
+        }
     }
 
     /**
@@ -126,7 +126,7 @@ public class Storage {
             File saveFile = new File(SAVE_FILE);
 
             // Check if file exists, if not, create new file
-            if(!saveFile.exists() || saveFile.isDirectory()) { 
+            if (!saveFile.exists() || saveFile.isDirectory()) {
                 saveFile.createNewFile();
             }
 
@@ -147,7 +147,7 @@ public class Storage {
                     ui.printSingleLine("Unkown Task Type: " + taskType);
                     break;
             }
-            
+
             saveFileBufferedWriter.close();
         } catch (IOException e) {
             ui.printSingleLine("An error occurred.");
@@ -163,9 +163,9 @@ public class Storage {
     public List<Task> loadTasks() {
         try {
             File saveFile = new File(SAVE_FILE);
-            
+
             // Check if file exists, if not, create new file
-            if(!saveFile.exists() || saveFile.isDirectory()) { 
+            if (!saveFile.exists() || saveFile.isDirectory()) {
                 saveFile.createNewFile();
 
                 return new ArrayList<>();
@@ -205,7 +205,7 @@ public class Storage {
         } catch (IOException e) {
             ui.printSingleLine("An error occurred.");
             e.printStackTrace();
-        } catch (DukeException e) { 
+        } catch (DukeException e) {
             ui.printSingleLine("DukeException occurred: " + e.toString());
         }
 
