@@ -1,1 +1,13 @@
 todo borrow book
+todo Read a book
+event Attend meeting /from 12:00 to/ 14:00
+mark 1
+unmark 0
+deadline
+list
+deadline CS2101 slides /by sunday
+mark 2
+list
+unmark 3
+deadline
+bye
