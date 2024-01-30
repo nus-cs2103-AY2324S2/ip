@@ -13,9 +13,19 @@ import java.util.Scanner;
 
 public class Duke {
 
+    private Ui ui;
 
+    public Duke() {
+        ui = new Ui();
+    }
+
+    public void run(){
+        ui.showWelcome();
+    }
 
     public static void main(String[] args) {
+
+        new Duke().run();
 
         String userInput = "";
 
@@ -24,13 +34,6 @@ public class Duke {
 
         // To read in user input
         Scanner sc = new Scanner(System.in);
-
-        String welcomeMessage = "\t ____________________________________________________________\n" +
-                "\t Hello! I'm JeromeGPT\n" +
-                "\t What can I do for you?\n" +
-                "\t ____________________________________________________________";
-
-        System.out.println(welcomeMessage);
 
 
         while (true) {
