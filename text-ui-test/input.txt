@@ -19,7 +19,7 @@ todo borrow book
 list
 deadline return book
 deadline return book /on Sunday
-deadline return book /by 12/3/45
+deadline return book /by 2011-01-23
 list
 event /from Mon /to Tue
 event project meeting /at Mon
