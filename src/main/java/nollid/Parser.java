@@ -1,5 +1,10 @@
 package nollid;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -19,6 +24,12 @@ import nollid.exceptions.InvalidCommandException;
  * Parser class provides a static method to parse user input and return the corresponding Command object.
  */
 public class Parser {
+    public static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
+    public static final LocalTime DEFAULT_TIME = LocalTime.of(0, 0);
+    public static final DateTimeFormatter DATE_INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy");
+    public static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy");
+    public static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
+
     /**
      * Parses the full user command and returns the appropriate Command object.
      *
@@ -55,6 +66,25 @@ public class Parser {
             return new HelpCommand();
         } else {
             throw new InvalidCommandException("No valid command detected.");
+        }
+    }
+
+    /**
+     * Returns a LocalDateTime object from a date (and time) string.
+     *
+     * @throws DateTimeParseException if unable to retrieve a date (and time) from the string.
+     */
+    public static LocalDateTime getLocalDateTimeFromString(String deadlineString) throws DateTimeParseException {
+        ArrayList<String> deadlineList = new ArrayList<>(Arrays.asList(deadlineString.split(" ")));
+
+        LocalDate deadlineDate = LocalDate.parse(deadlineList.get(0), Parser.DATE_INPUT_FORMAT);
+
+        // If only date provided, use the default time
+        if (deadlineList.size() == 1) {
+            return LocalDateTime.of(deadlineDate, Parser.DEFAULT_TIME);
+        } else {
+            LocalTime deadlineTime = LocalTime.parse(deadlineList.get(1), Parser.TIME_FORMAT);
+            return LocalDateTime.of(deadlineDate, deadlineTime);
         }
     }
 }

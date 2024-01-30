@@ -1,8 +1,8 @@
 package nollid.tasks;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+
+import nollid.Parser;
 
 /**
  * Deadline class represents a task with a specified deadline.
@@ -10,11 +10,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     public static final String USAGE_HINT = "Usage: deadline [task description] /by [d/m/yyyy] {hh:mm 24hr format}";
-    public static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HH:mm");
-    protected static final LocalTime DEFAULT_TIME = LocalTime.of(0, 0);
-    protected static final DateTimeFormatter DATE_INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy");
-    protected static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy");
-    protected static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
     protected LocalDateTime deadline;
 
     /**
@@ -33,7 +28,7 @@ public class Deadline extends Task {
     }
 
     public String getDeadlineString() {
-        return this.deadline.format(DATE_OUTPUT_FORMAT) + " " + this.deadline.format(TIME_FORMAT);
+        return this.deadline.format(Parser.DATE_OUTPUT_FORMAT) + " " + this.deadline.format(Parser.TIME_FORMAT);
     }
 
     @Override

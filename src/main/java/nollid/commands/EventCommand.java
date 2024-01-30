@@ -4,12 +4,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import nollid.Parser;
 import nollid.Storage;
 import nollid.TaskList;
 import nollid.Ui;
 import nollid.exceptions.NollidException;
 import nollid.tasks.Event;
-import nollid.tasks.Task;
 
 /**
  * EventCommand class represents a command for adding an Event task.
@@ -54,8 +54,8 @@ public class EventCommand extends Command {
         }
 
         try {
-            LocalDateTime fromDateTime = Task.getLocalDateTimeFromString(from.toString());
-            LocalDateTime toDateTime = Task.getLocalDateTimeFromString(to.toString());
+            LocalDateTime fromDateTime = Parser.getLocalDateTimeFromString(from.toString());
+            LocalDateTime toDateTime = Parser.getLocalDateTimeFromString(to.toString());
             Event task = new Event(taskDescription.toString(), fromDateTime, toDateTime);
             tasks.add(task);
 
