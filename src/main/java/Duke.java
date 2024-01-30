@@ -1,6 +1,8 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 public class Duke {
-    private static final Task[] tasksArr = new Task[100];
+    public static final List<Task> tasksList = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -37,6 +39,8 @@ public class Duke {
             completeTask(parsedInput);
         } else if (parsedInput[0].equalsIgnoreCase("unmark")) {
             uncompleteTask(parsedInput);
+        } else if (parsedInput[0].equalsIgnoreCase("delete")) {
+            deleteTask(parsedInput);
         } else {
             addTask(parsedInput);
         }
@@ -44,8 +48,8 @@ public class Duke {
 
     private static void listTasks() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < Task.getTaskCount(); i++) {
-            System.out.println("  " + (i + 1) + "." + tasksArr[i]);
+        for (int i = 0; i < tasksList.size(); i++) {
+            System.out.println("  " + (i + 1) + "." + tasksList.get(i));
         }
     }
     private static void addTask(String[] input) throws DukeException{
@@ -58,32 +62,32 @@ public class Duke {
             String[] parsedInput = input[1].split("/", 2);
             if (parsedInput.length != 2) {
                 throw new DukeException("Please enter task description and deadline \n correct format: deadline *task description* /by *deadline*");}
-            tasksArr[Task.getTaskCount()] = new Deadline(parsedInput[0], parsedInput[1].substring(3));
+            tasksList.add(new Deadline(parsedInput[0], parsedInput[1].substring(3)));
         } else if (input[0].equalsIgnoreCase("event")) {
             try {
                 String[] parsedInput = input[1].split("/", 3);
-                tasksArr[Task.getTaskCount()] = new Event(parsedInput[0], parsedInput[1].substring(5), parsedInput[2].substring(3));
+                tasksList.add(new Event(parsedInput[0], parsedInput[1].substring(5), parsedInput[2].substring(3)));
             } catch (Exception e){
                 throw new DukeException("Please enter event description and time in the correct format\ncorrect format: event *event name* /from *date-time* /to *date-time*");
             }
         } else if (input[0].equalsIgnoreCase("todo")) {
             if (input[1] == null) { throw new DukeException("Please enter task description");}
-            tasksArr[Task.getTaskCount()] = new Task(input[1]);
+            tasksList.add(new Task(input[1]));
         } else {
             throw new DukeException("Please enter correct instruction.\nHere are valid instructions: list, mark, unmark, deadline, event, todo");
         }
         System.out.println("Got it. I've added this task:");
-        System.out.println("added: " + tasksArr[Task.getTaskCount()-1].toString());
-        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.");
+        System.out.println("added: " + tasksList.get(tasksList.size()-1).toString());
+        System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
     }
 
     private static void completeTask(String[] inputTokens) throws DukeException{
         if (inputTokens.length != 2) { throw new DukeException("Please enter the task number that you want to mark as incomplete: ex. unmark 2"); }
         try {
             int index = Integer.parseInt(inputTokens[1]) - 1;
-            tasksArr[index].markAsDone();
+            tasksList.get(index).markAsDone();
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println(tasksArr[index]);
+            System.out.println(tasksList.get(index).toString());
         } catch (Exception e) {
             throw new DukeException("Please enter the valid task number");
         }
@@ -91,12 +95,26 @@ public class Duke {
     }
 
     private static void uncompleteTask(String[] inputTokens) throws DukeException{
-        if(inputTokens.length != 2) { throw new DukeException("Please enter the task number that you want to mark as incomplete: ex. unmark 2"); }
+        if(inputTokens.length != 2) { throw new DukeException("Please enter the task number that you want to mark as incomplete: ex. mark 2"); }
         try {
             int index = Integer.parseInt(inputTokens[1]) - 1;
-            tasksArr[index].markAsUndone();
+            tasksList.get(index).markAsUndone();
             System.out.println("OK, I've marked this task as not done yet");
-            System.out.println(tasksArr[index]);
+            System.out.println(tasksList.get(index).toString());
+        } catch(Exception e) {
+            throw new DukeException("Please enter the valid task number");
+        }
+    }
+
+    private static void deleteTask(String[] inputTokens) throws DukeException{
+        if(inputTokens.length != 2) { throw new DukeException("Please enter the task number that you want to delete: ex. delete 2"); }
+        try {
+            int index = Integer.parseInt(inputTokens[1]) - 1;
+            String task = tasksList.get(index).toString();
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(task);
+            tasksList.remove(index);
+            System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
         } catch(Exception e) {
             throw new DukeException("Please enter the valid task number");
         }

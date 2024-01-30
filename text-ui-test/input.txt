@@ -4,10 +4,17 @@ event Attend meeting /from 12:00 to/ 14:00
 mark 1
 unmark 0
 deadline
+delete 0
 list
 deadline CS2101 slides /by sunday
+event group project meeting /from 11am /to 12pm
+delete 1
 mark 2
+deadline /from 12:00 to/ 14:00
 list
 unmark 3
+delete
 deadline
+todo study
+list
 bye
