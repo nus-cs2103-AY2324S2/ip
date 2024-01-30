@@ -47,6 +47,12 @@ class TaskList{
         return arr.get(index).unmark_done();
     }
 
+    public String delete(int index) {
+        String ret = this.arr.get(index).toString();
+        this.arr.remove(index);
+        return ret;
+    }
+
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();

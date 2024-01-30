@@ -46,6 +46,9 @@ public class MeanDuke{
                     case "unmark":
                         output = MeanDuke.unmark(userInput);
                         break;
+                    case "delete":
+                        output = MeanDuke.delete(userInput);
+                        break;
                     default:
                         output = "What are you saying? Read the damn user manual, it was written for a reason";
                 }
@@ -145,4 +148,15 @@ public class MeanDuke{
         }
     }
 
+    private static String delete(String input) throws MeanDukeException{
+        String index_string = input.substring(6).strip(); //Remove "delete"
+        try {
+            int index = Integer.parseInt(index_string) - 1;
+            return "deleted task:\n  " + tasklist.delete(index);
+        } catch (NumberFormatException e) {
+            throw new MeanDukeException("Usage: \"delete <task_number>\"");
+        } catch (IndexOutOfBoundsException e) {
+            throw new MeanDukeException("Dude... you don't even have a task " + index_string);
+        }
+    }
 }
