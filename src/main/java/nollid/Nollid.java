@@ -1,3 +1,9 @@
+package nollid;
+
+import nollid.commands.Command;
+import nollid.exceptions.InvalidCommandException;
+import nollid.exceptions.NollidException;
+
 import java.nio.file.Path;
 import java.util.Scanner;
 

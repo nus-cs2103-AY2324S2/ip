@@ -1,3 +1,5 @@
+package nollid;
+
 import java.util.Scanner;
 
 public class Ui {

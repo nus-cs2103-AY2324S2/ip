@@ -1,3 +1,7 @@
+package nollid;
+
+import nollid.tasks.Task;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
