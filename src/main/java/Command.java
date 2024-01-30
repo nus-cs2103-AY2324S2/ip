@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -81,13 +83,15 @@ public enum Command {
             }
         } catch (ToothlessException e){
             System.out.println(e.getMessage());
+        } catch (DateTimeParseException e){
+            System.out.println("Type in date and time in this format: yyyy-mm-ddTHh:mm");
         } finally {
             System.out.println(splitLine);
             return isDone;
         }
     }
 
-    public static final Task createTask(Command c, String detail) throws ToothlessException{
+    public static final Task createTask(Command c, String detail) throws ToothlessException, DateTimeParseException{
         if(detail.equals("")){
             throw new ToothlessException("Human task no name :(");
         }
@@ -107,7 +111,7 @@ public enum Command {
                 newTask = new Deadline(description, date);
                 break;
             }
-            default: {
+            case Event: {
                 int date1Index = detail.indexOf("/from");
                 if (date1Index == -1){
                     throw new ToothlessException("Human event no start date D:");
@@ -121,14 +125,19 @@ public enum Command {
                 String startDate = detail.substring(0, date2Index - 1);
                 String endDate = detail.substring(date2Index + 4);
                 newTask = new Event(description, startDate, endDate);
+                break;
             }
+            default:
+                throw new ToothlessException("Can't create task!");
         }
         return newTask;
     }
 
     public static void loadTasks(String filepath) throws FileNotFoundException, ToothlessException{
+        LocalDateTime now = LocalDateTime.now();
         File file = new File(filepath);
         Scanner sc = new Scanner(file);
+        System.out.println("You have these undone tasks:");
         while (sc.hasNext()) {
             Task task;
             String[] storedTask = sc.nextLine().split(" \\| ");
@@ -146,6 +155,9 @@ public enum Command {
                     throw new ToothlessException("File corrupted O_O. Try again later.");
             }
             listOfTasks.add(task);
+            if (!task.isDone) {
+                printTaskState(task);
+            }
         }
     }
 
@@ -175,5 +187,9 @@ public enum Command {
 
     public static void printTaskState(Task task, int index){
         System.out.format("%d. ["+ task.getTaskIcon()+"]["+ task.getStatusIcon() + "] " + task + "\n", index + 1);
+    }
+
+    public static void printTaskState(Task task){
+        System.out.println(" ["+ task.getTaskIcon()+"]["+ task.getStatusIcon() + "] " + task);
     }
 }

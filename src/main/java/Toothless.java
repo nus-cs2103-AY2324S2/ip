@@ -66,8 +66,6 @@ public class Toothless {
         }
     }
 
-
-
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         Toothless toothless = new Toothless("./data/toothless.txt");
