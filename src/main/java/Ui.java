@@ -1,6 +1,6 @@
 // Based on the parsed input, generate a response
-public class Responder {
-    public static void respond(String[] words) {
+public class Ui {
+    public void respond(String[] words) {
         switch(words[0]) {
         case "hi":
             System.out.println(Storage.HI);
