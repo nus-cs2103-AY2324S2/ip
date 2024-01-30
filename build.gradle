@@ -3,6 +3,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
 }
 
 // Configure repositories for dependencies
@@ -47,10 +48,14 @@ test {
     }
 }
 
-// Javadoc generation configuration
+// Configure Javadoc generation
 javadoc {
     destinationDir = file("$buildDir/docs/javadoc")
 }
-
-// Add Javadoc generation to build task
 build.dependsOn javadoc
+
+// Configure checkstyle
+checkstyle {
+    toolVersion = '10.12.5'
+}
+build.dependsOn 'checkstyleMain', 'checkstyleTest'

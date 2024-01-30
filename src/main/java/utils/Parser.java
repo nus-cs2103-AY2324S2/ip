@@ -1,11 +1,21 @@
 package utils;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import commands.*;
+import commands.Add;
+import commands.Bye;
+import commands.Command;
+import commands.CommandType;
+import commands.Delete;
+import commands.List;
+import commands.Mark;
+import commands.Unmark;
 import exceptions.ConvoBotException;
-import tasks.*;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
 
 /**
  * The {@code Parser} class provides utility methods for parsing user input and task-related information.
@@ -30,11 +40,14 @@ public class Parser {
         try {
             commandType = CommandType.valueOf(inputList.get(0).toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new ConvoBotException("Invalid input. Input must be one of: bye, list, mark, unmark, delete, todo, deadline, event.");
+            String msg = "Invalid input. Input must be one of: bye, list, mark, unmark, delete, todo, deadline, event.";
+            throw new ConvoBotException(msg);
         }
 
         Command command = null;
-        int i = -1, j = -1, k = -1;
+        int i = -1;
+        int j = -1;
+        int k = -1;
         String description;
 
         switch (commandType) {
@@ -50,6 +63,7 @@ public class Parser {
             try {
                 i = Integer.parseInt(inputList.get(1)) - 1;
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                throw new ConvoBotException("Invalid input. Wrong number format or index.");
             }
             if (inputList.size() != 2) {
                 throw new ConvoBotException("Invalid input. Wrong number of arguments.");
@@ -61,6 +75,7 @@ public class Parser {
             try {
                 i = Integer.parseInt(inputList.get(1)) - 1;
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                throw new ConvoBotException("Invalid input. Wrong number format or index.");
             }
 
             if (inputList.size() != 2) {
@@ -73,6 +88,7 @@ public class Parser {
             try {
                 i = Integer.parseInt(inputList.get(1)) - 1;
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                throw new ConvoBotException("Invalid input. Wrong number format or index.");
             }
             if (inputList.size() != 2) {
                 throw new ConvoBotException("Invalid input. Wrong number of arguments.");
@@ -137,7 +153,7 @@ public class Parser {
         if (parts.length < 3 || parts.length > 5) {
             throw new IllegalArgumentException("Invalid line format: " + line);
         }
-        boolean isDone = (parts[1].equals("1") ? true : false);
+        boolean isDone = parts[1].equals("1");
         String description = parts[2];
         Task task;
         try {

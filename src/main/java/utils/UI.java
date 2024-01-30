@@ -3,7 +3,6 @@ package utils;
 import java.util.Scanner;
 
 import exceptions.ConvoBotException;
-import utils.TaskList;
 
 /**
  * The {@code UI} class provides methods for interacting with the user through the console.
@@ -11,8 +10,8 @@ import utils.TaskList;
  */
 public class UI {
 
+    private static final String LEFT_PADDING = "    ";
     private final Scanner scanner;
-    private final String LEFT_PADDING = "    ";
 
     /**
      * Constructs a new {@code UI} instance with a {@code Scanner} for reading user input.
@@ -37,7 +36,9 @@ public class UI {
      */
     public void showHorizontalLine(boolean newline) {
         System.out.println(LEFT_PADDING + "____________________________________________________________");
-        if (newline) System.out.println();
+        if (newline) {
+            System.out.println();
+        }
     }
 
     /**
@@ -69,10 +70,9 @@ public class UI {
         for (int i = 0; i < tasks.size(); i++) {
             int index = i + 1;
             try {
-                System.out.println(LEFT_PADDING + " " + Integer.toString(index)
-                        + "." + tasks.getTaskString(i));
+                System.out.println(LEFT_PADDING + " " + Integer.toString(index) + "." + tasks.getTaskString(i));
             } catch (ConvoBotException e) {
-                // Handle ConvoBotException
+                // impossible to reach here
             }
         }
     }

@@ -1,8 +1,8 @@
 package commands;
 
+import tasks.Task;
 import utils.TaskList;
 import utils.UI;
-import tasks.Task;
 
 /**
  * Represents a command to add a task to the task list.
