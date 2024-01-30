@@ -1,11 +1,20 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
     protected String start;
     protected String end;
 
-    public Event(String description, String start, String end) {
+    public Event(String description, String start, String end) throws DateTimeParseException {
         super(description);
-        this.start = start.trim();
-        this.end = end.trim();
+        String date1 = start.split(" ")[1];
+        String date2 = end.split(" ")[1];
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate1 = LocalDate.parse(date1, formatter);
+        LocalDate localDate2 = LocalDate.parse(date2, formatter);
+        this.start = localDate1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.end = localDate2.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     @Override
