@@ -1,13 +1,13 @@
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Parser {
     protected String userInput;
     protected ArrayList<String> words;
+
     public Parser (String userInput) {
         this.userInput = userInput;
         this.words = new ArrayList<>(Arrays.asList(userInput.split(" ")));}
@@ -16,15 +16,19 @@ public class Parser {
      * Returns a todo object with the task description
      * Handles errors where user fails to include task description
      */
-    public ToDos todoParser() throws IndexOutOfBoundsException {
-        if (!this.words.get(1).isEmpty()) {
-            StringBuilder description = new StringBuilder(this.words.get(1));
-            for (int i = 2; i < words.size(); i++) {
-                description.append(" ").append(this.words.get(i));
+    public ToDos todoParser() throws myBotException {
+        try {
+            if (!this.words.get(1).isEmpty()) {
+                StringBuilder description = new StringBuilder(this.words.get(1));
+                for (int i = 2; i < words.size(); i++) {
+                    description.append(" ").append(this.words.get(i));
+                }
+                return new ToDos(description.toString());
+            } else {
+                throw new IndexOutOfBoundsException();
             }
-            return new ToDos(description.toString());
-        } else {
-            throw new IndexOutOfBoundsException();
+        } catch (IndexOutOfBoundsException e) {
+            throw new myBotException("OOPS! The command is incomplete. Please provide a task description!");
         }
     }
 
@@ -112,15 +116,19 @@ public class Parser {
      * Deals with error when the user accidentally tries to mark a task which does not belong in the list of task
      * or when the user fails to include which task they want to mark as completed
      */
-    public int markParser(int currentNumOfTask) throws IndexOutOfBoundsException, myBotException {
-        if (!this.words.get(1).isEmpty()) {
-            if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
-                throw new myBotException("You have currently " + currentNumOfTask + " tasks. You cannot mark task larger or smaller than this!");
+    public int markParser(int currentNumOfTask) throws myBotException {
+        try {
+            if (!this.words.get(1).isEmpty()) {
+                if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
+                    throw new myBotException("You have currently " + currentNumOfTask + " tasks. You cannot mark task larger or smaller than this!");
+                } else {
+                    return Integer.parseInt(this.words.get(1)) - 1;
+                }
             } else {
-                return Integer.parseInt(this.words.get(1)) - 1;
+                throw new IndexOutOfBoundsException();
             }
-        } else {
-            throw new IndexOutOfBoundsException();
+        } catch (IndexOutOfBoundsException e) {
+            throw new myBotException("I'm not sure which task you wish to mark. Please specify the task you wish to mark and try again!");
         }
     }
 
@@ -129,15 +137,19 @@ public class Parser {
      * Deals with error when the user accidentally tries to un-mark a task which does not belong in the list of task
      * or when the user fails to include which task they want to un-mark
      */
-    public int unmarkParser(int currentNumOfTask) throws IndexOutOfBoundsException, myBotException {
-        if (!this.words.get(1).isEmpty()) {
-            if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
-                throw new myBotException("You have currently " + currentNumOfTask + " tasks. You cannot un-mark task larger or smaller than this!");
+    public int unmarkParser(int currentNumOfTask) throws myBotException {
+        try {
+            if (!this.words.get(1).isEmpty()) {
+                if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
+                    throw new myBotException("You have currently " + currentNumOfTask + " tasks. You cannot un-mark task larger or smaller than this!");
+                } else {
+                    return Integer.parseInt(this.words.get(1)) - 1;
+                }
             } else {
-                return Integer.parseInt(this.words.get(1)) - 1;
+                throw new IndexOutOfBoundsException();
             }
-        } else {
-            throw new IndexOutOfBoundsException();
+        } catch (IndexOutOfBoundsException e) {
+            throw new myBotException("I'm not sure which task you wish to un-mark. Please specify the task you wish to un-mark and try again!");
         }
     }
 
@@ -146,15 +158,19 @@ public class Parser {
      * Deals with error when the user accidentally tries to delete a task which does not belong in the list of task
      * or when the user fails to include which task they want to delete
      */
-    public int deleteParser(int currentNumOfTask) throws IndexOutOfBoundsException, myBotException {
-        if (!this.words.get(1).isEmpty()) {
-            if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
-                throw new myBotException("You have currently " + currentNumOfTask + " tasks. You cannot delete task larger or smaller than this!");
+    public int deleteParser(int currentNumOfTask) throws myBotException {
+        try {
+            if (!this.words.get(1).isEmpty()) {
+                if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
+                    throw new myBotException("You have currently " + currentNumOfTask + " tasks. You cannot delete task larger or smaller than this!");
+                } else {
+                    return Integer.parseInt(this.words.get(1)) - 1;
+                }
             } else {
-                return Integer.parseInt(this.words.get(1)) - 1;
+                throw new IndexOutOfBoundsException();
             }
-        } else {
-            throw new IndexOutOfBoundsException();
+        } catch (IndexOutOfBoundsException e) {
+            throw new myBotException("I'm not sure which task you wish to delete. Please specify the task you want to delete and try again!");
         }
     }
 
