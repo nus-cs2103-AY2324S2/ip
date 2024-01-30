@@ -21,6 +21,15 @@ public class Task {
     public void unmarkDone() {
         isDone = false;
     }
+
+    public Boolean getIsDone() {
+        return this.isDone;
+    }
+
+    public String getDescription() {
+        return this.taskName;
+    }
+
     @Override
     public String toString() {
         String checkMark = "[" + (isDone ? "X" : " ") + "] ";

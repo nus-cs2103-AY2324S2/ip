@@ -13,7 +13,7 @@ public class Solaire {
 
     public void startConversation() {
         greet();
-
+        toDoList = TaskIo.readFromLocal();
         while (true) {
             String input = acceptInput();
 
@@ -21,6 +21,7 @@ public class Solaire {
                 break;
             }
             processInput(input);
+            TaskIo.writeTasksToLocal(toDoList);
         }
         waveBye();
     }
