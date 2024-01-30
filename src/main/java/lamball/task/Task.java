@@ -1,4 +1,4 @@
-package Lamball.task;
+package lamball.task;
 
 public class Task {
     protected String description;
@@ -9,7 +9,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    private String getStatusIcon() {
         return isDone ? "X" : " ";
     }
     public void mark() {
