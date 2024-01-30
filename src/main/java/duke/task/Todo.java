@@ -5,6 +5,11 @@ public class Todo extends Task {
         super(task);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return String with type of task and description of todo.
+     */
     @Override
     public String printTask() {
         return "[T]" + super.printTask();

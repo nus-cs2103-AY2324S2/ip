@@ -13,11 +13,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage mechanism.
+ */
 public class Storage {
     private File f;
     private FileWriter fw;
     private Scanner s;
 
+    /**
+     * Constructor to create an instance that perform IO operations on file in parent.
+     *
+     * @param file Name of file to write to.
+     * @param parent Parent directory of the file.
+     */
     public Storage(String file, String parent) {
         this.f = new File(parent +"/" + file);
         File parentDir = new File(parent);
@@ -26,6 +35,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes String of tasks to file.
+     *
+     * @param list List of tasks to be written.
+     */
     public void writeToFile(TaskList list) {
         try {
             this.fw = new FileWriter(f);
@@ -37,6 +51,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns list of Tasks in readable format.
+     *
+     * @param taskList Holds the list of tasks.
+     * @return Structured String of all Tasks in taskList.
+     */
     private String write(TaskList taskList) {
         ArrayList<Task> list = taskList.getList();
         StringBuilder sb = new StringBuilder();
@@ -49,6 +69,12 @@ public class Storage {
         return sb.toString();
     }
 
+    /**
+     * Returns ArrayList of tasks read from file.
+     *
+     * @return ArrayList of Task.
+     * @throws DukeException If file not found due to no existing data saved.
+     */
     public ArrayList<Task> readFromFile() throws DukeException{
         ArrayList<Task> list = new ArrayList<Task>();
         if (f.exists()) {
@@ -64,6 +90,12 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Converts String into corresponding instances of Task.
+     *
+     * @param s Describes a Task.
+     * @return Task instance created based on s.
+     */
     private Task read(String s) {
         String[] cols = s.split(" \\| ");
         Task t = null;

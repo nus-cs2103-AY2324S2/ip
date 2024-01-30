@@ -13,6 +13,9 @@ import duke.exception.DukeException;
 
 import java.util.regex.Pattern;
 
+/**
+ * Represents a parser to process and parse command.
+ */
 public class Parser {
     public enum InputType {
         LIST,
@@ -26,6 +29,12 @@ public class Parser {
         UNKNOWN
     }
 
+    /**
+     * Returns the type of command by checking the keyword used at start of input.
+     *
+     * @param input Command input by user.
+     * @return Corresponding enum value of command.
+     */
     public static InputType getCommandType(String input) {
         if (input.equals("list")) {
             return InputType.LIST;
@@ -48,11 +57,25 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if input matches the regex pattern.
+     *
+     * @param input Command entered by user.
+     * @param pattern Regex pattern of a valid command format.
+     * @return True if matches, false otherwise.
+     */
     public static boolean matchPattern(String input, String pattern) {
         Pattern regexPattern = Pattern.compile(pattern);
         return regexPattern.matcher(input).matches();
     }
 
+    /**
+     * Returns the corresponding Command for command given by user.
+     *
+     * @param input Command entered by user.
+     * @return Subclass of Command based on keyword and format of command.
+     * @throws DukeException If command is not in the correct format.
+     */
     public static Command parseCommand(String input) throws DukeException{
         String lowerInput = input.trim().toLowerCase();
         InputType commandType = getCommandType(lowerInput);

@@ -9,6 +9,9 @@ import duke.util.Ui;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to add new event.
+ */
 public class EventCommand implements Command {
 
     private String input;
@@ -17,6 +20,14 @@ public class EventCommand implements Command {
         this.input = input;
     }
 
+    /**
+     * Creates a new Event based on description, start and end date time extracted from input and adds to TaskList.
+     *
+     * @param list Holds the tasks added.
+     * @param ui Display messages about executed operation.
+     * @param storage Handles IO storage operation.
+     * @throws DukeException If date time format is not valid.
+     */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         String[] task = input.split("/from");
