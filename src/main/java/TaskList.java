@@ -47,13 +47,13 @@ public class TaskList {
             System.out.println("\t" + newTask.announcement());
             System.out.println("\t\t" + newTask.toString());
         } else if (first.equals("deadline")) {
-            String[] secondaryInputSplit = second.split("/");
+            String[] secondaryInputSplit = second.split(" /");
             newTask = new Deadline(secondaryInputSplit[0], "D", secondaryInputSplit[1]);
             this.taskList.add(newTask);
             System.out.println("\t" + newTask.announcement());
             System.out.println("\t\t" + newTask.toString());
         } else if (first.equals("event")) {
-            String[] secondaryInputSplit = second.split("/");
+            String[] secondaryInputSplit = second.split(" /");
             newTask = new Event(secondaryInputSplit[0], "E", secondaryInputSplit[1],
                     secondaryInputSplit[2]);
             this.taskList.add(newTask);

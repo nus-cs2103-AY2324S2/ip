@@ -12,6 +12,6 @@ public class ToDo extends Task {
     }
 
     public String saveString() {
-        return this.getTaskTypeSingle() + "/" + this.getStatusBinary() + "/" + this.getTask();
+        return this.getTaskTypeSingle() + "|" + this.getStatusBinary() + "|" + this.getTask();
     }
 }

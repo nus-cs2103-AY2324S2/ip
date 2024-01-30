@@ -49,7 +49,7 @@ public class Task {
     }
 
     public String saveString() {
-        return "Type/Done/Description";
+        return "Type|Done|Description";
     }
     public String getTaskTypeSingle() {
         return this.taskType;

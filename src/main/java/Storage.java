@@ -23,7 +23,7 @@ public class Storage {
         Scanner scanner = new Scanner(file);
         while(scanner.hasNext()) {
             String inputLine = scanner.nextLine();
-            String[] inputComponents = inputLine.split("/", 5);
+            String[] inputComponents = inputLine.split("\\|", 5);
 
             Task currentTask = null;
             if(inputComponents[0].equals("T")) {

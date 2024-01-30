@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Duke {
@@ -83,6 +84,9 @@ public class Duke {
                 } else if (this.command.equals("event")) {
                     System.out.println("\tPlease input a start and end time or date with a / in front of both periods.");
                 }
+            } catch (DateTimeParseException e) {
+                System.out.println("\tInvalid DateTime Format. Please input as follows:");
+                System.out.println("\tdd-mm-yyyy hh:mm");
             }
         }
 
