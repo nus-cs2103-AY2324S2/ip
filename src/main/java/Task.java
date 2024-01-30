@@ -7,6 +7,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(boolean isDone, String description) {
+        this.isDone = isDone;
+        this.description = description;
+    }
+
     // Method to mark whether task is done or not.
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
@@ -20,6 +25,10 @@ public class Task {
     // Unmark.
     public void markNotDone() {
         isDone = false;
+    }
+
+    public String toFile() {
+        return "";
     }
 
     @Override
