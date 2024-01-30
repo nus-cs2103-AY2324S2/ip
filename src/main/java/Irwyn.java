@@ -9,8 +9,13 @@ import Tasks.ToDo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Irwyn {
+    private static final String filePath = System.getProperty("user.dir") + "/storage/taskData.txt";
     public static void main(String[] args) {
         String linebreak = "____________________________________________________________\n";
         ArrayList<Task> list = new ArrayList<>();
@@ -19,6 +24,47 @@ public class Irwyn {
                 + "What can I do for you?\n"
                 + linebreak;
         System.out.println(start);
+
+        // Load tasks from file
+        File file = new File(filePath);
+        if (file.exists()) {
+            try {
+                Scanner fileReader = new Scanner(file);
+                while (fileReader.hasNextLine()) {
+                    String data = fileReader.nextLine();
+                    String[] parts = data.split(" \\| ");
+                    switch (parts[0]) {
+                        case "T":
+                            list.add(new ToDo(parts[2]));
+                            if (parts[1].equals("1")) {
+                                list.get(list.size() - 1).mark();
+                            }
+                            break;
+                        case "D":
+                            list.add(new Deadline(parts[2], parts[3]));
+                            if (parts[1].equals("1")) {
+                                list.get(list.size() - 1).mark();
+                            }
+                            break;
+                        case "E":
+                            list.add(new Event(parts[2], parts[3], parts[4]));
+                            if (parts[1].equals("1")) {
+                                list.get(list.size() - 1).mark();
+                            }
+                            break;
+                    }
+                }
+                fileReader.close();
+            } catch (FileNotFoundException e) {
+                System.out.println(linebreak
+                        + "An error occurred while loading tasks from file."
+                        + linebreak);
+            }
+        } else {
+            System.out.println(linebreak
+                    + "Data file not found. A new file will be created."
+                    + linebreak);
+        }
 
         Scanner input = new Scanner(System.in);
         String userInput = input.nextLine();
@@ -96,6 +142,19 @@ public class Irwyn {
                             + linebreak);
                 } else {
                     throw new TaskException();
+                }
+
+                // Save tasks to file
+                try {
+                    FileWriter fileWriter = new FileWriter(filePath);
+                    for (Task task : list) {
+                        fileWriter.write(task.toFileFormat() + "\n");
+                    }
+                    fileWriter.close();
+                } catch (IOException e) {
+                    System.out.println(linebreak
+                            + "An error occurred while saving tasks to file."
+                            + linebreak);
                 }
             } catch (InputException e) {
                 System.out.println(linebreak

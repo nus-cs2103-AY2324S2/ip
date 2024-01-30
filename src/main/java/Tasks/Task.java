@@ -18,9 +18,20 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public void unmark() {
+        this.isDone = false;
+    }
+
+    public void mark() {
+        this.isDone = true;
+    }
+
+    public String toFileFormat() {
+        return (isDone ? "1" : "0") + " | " + description;
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description; // Override toString method to print task status
     }
 }
-
