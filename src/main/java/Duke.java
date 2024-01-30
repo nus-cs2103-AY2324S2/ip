@@ -6,7 +6,6 @@ import java.nio.file.Path;
 
 import task.Command;
 import task.DukeException;
-import task.InvalidDataFormatException;
 import task.TaskList;
 import task.TaskListParser;
 import task.UnknownCommandException;
@@ -67,7 +66,7 @@ public class Duke {
             System.out.println("Sylvia will start with an empty task list.");
             System.out.println("____________________________________________________________");
             return new TaskList();
-        } catch (InvalidDataFormatException e) {
+        } catch (DukeException e) {
             System.out.println("____________________________________________________________");
             System.out.println(e.getBotMessage());
             System.out.println("Sylvia will start with an empty task list.");

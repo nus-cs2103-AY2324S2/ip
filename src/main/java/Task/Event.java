@@ -1,19 +1,20 @@
 package task;
 
 public class Event extends Task {
-    private String startTime;
-    private String endTime;
+    private TaskDateTime startTime;
+    private TaskDateTime endTime;
 
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, String startTime, String endTime) throws DukeDateTimeParseException {
         super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = new TaskDateTime(startTime);
+        this.endTime = new TaskDateTime(endTime);
     }
 
-    public Event(String description, String startTime, String endTime, boolean isDone) {
+    public Event(String description, String startTime, String endTime, boolean isDone)
+            throws DukeDateTimeParseException {
         super(description, isDone);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = new TaskDateTime(startTime);
+        this.endTime = new TaskDateTime(endTime);
     }
 
     @Override
@@ -23,6 +24,6 @@ public class Event extends Task {
 
     @Override
     public String serialize() {
-        return "E | " + super.serialize() + " | " + startTime + " | " + endTime;
+        return "E | " + super.serialize() + " | " + startTime.serialize() + " | " + endTime.serialize();
     }
 }
