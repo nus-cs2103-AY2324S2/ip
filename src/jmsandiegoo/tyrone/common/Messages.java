@@ -1,3 +1,5 @@
+package jmsandiegoo.tyrone.common;
+
 public class Messages {
     /* General messages */
     public static String MESSAGE_LOGO = "████████╗██╗   ██╗██████╗  ██████╗ ███╗   ██╗███████╗\n"

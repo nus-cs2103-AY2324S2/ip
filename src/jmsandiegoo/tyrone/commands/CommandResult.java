@@ -1,3 +1,5 @@
+package jmsandiegoo.tyrone.commands;
+
 public class CommandResult {
     private final String commandResult;
 

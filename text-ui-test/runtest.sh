@@ -17,9 +17,8 @@ then
    rm -r data
 fi
 
-# compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
-then
+# find all Java files and compile them into the bin folder, terminates if an error occurred
+if ! find ../src/jmsandiegoo/tyrone -name '*.java' -type f -print0 | xargs -0 javac -d ../bin -Xlint:none; then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
