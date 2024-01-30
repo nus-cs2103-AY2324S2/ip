@@ -7,6 +7,7 @@ import Command.ExitCommand;
 import Command.ListTasksOnDateCommand;
 import Command.MarkCommand;
 import Command.UnMarkCommand;
+import Command.FindCommand;
 import duke.DukeException;
 import duke.UI;
 
@@ -46,6 +47,12 @@ public class Parser {
                 return parseEventCommand(input);
             case "tasks":
                 return parseTasksCommand(tasks, parts);
+            case "find":
+                if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                    throw new DukeException("The description of a find command cannot be empty.");
+                }
+                return new FindCommand(parts[1].trim());
+
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(" + "\n"
                         + "Please enter a valid command (bye, list, mark, unmark, delete, todo, event, deadline, tasks on)");
