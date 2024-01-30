@@ -1,4 +1,7 @@
 1.[T][ ] eat
-2.[D][ ] eat (by: 2024-01-30 23:59)
+2.[T][ ] cry
 3.[E][ ] e (from: 1 to: 2)
 4.[T][ ] sleep
+5.[D][ ] study (by: 30 May 2024 12:00)
+6.[D][ ] sleep (by: 29 Feb 2024 12:59)
+7.[D][ ] cry (by: 2 Feb 2024 00:00)

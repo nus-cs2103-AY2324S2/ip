@@ -5,7 +5,7 @@ import java.io.*;
 
 public class Duke {
     public static void main(String[] args) throws TaskNotFoundException, UnknownCommandException,
-            InvalidSyntaxException, IOException {
+            InvalidSyntaxException, IOException, InvalidDateTimeException {
         List taskList = new List(new ArrayList<>());
         String fileName = "./data/duke.txt";
         File f = new File(fileName);
@@ -70,6 +70,12 @@ public class Duke {
             if (input.split(" ")[0].equalsIgnoreCase("deadline")) {
                 if (input.split(" ").length > 1 &&
                         input.split(" /by ").length == 2) {
+                    try {
+                        LocalDateTime.parse(input.split("/by ")[1],
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                    } catch (Exception e) {
+                        throw new InvalidDateTimeException();
+                    }
                     taskList.addTask(new Deadline(
                             input.substring(9).split(" /by")[0],
                             LocalDateTime.parse(input.split("/by ")[1],

@@ -135,7 +135,7 @@ public class List {
                 description = currLine.split(" \\(by:")[0].split("] ")[1];
                 String dueDate = currLine.split("\\(by: ")[1].split("\\)")[0];
                 tasks.add(new Deadline(description, LocalDateTime.parse(dueDate,
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
+                        DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))));
                 break;
             case "E":
                 description = currLine.split(" \\(from:")[0].split("] ")[1];
