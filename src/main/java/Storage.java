@@ -4,10 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Storage {
     private static final String TASK_LIST_FILE_PATH = "data" + File.separator + "tasklist.txt";
+    private static final DateTimeFormatter DATE_TIME_STORAGE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
     
     public TaskList loadTaskList() {
         try {
@@ -26,12 +29,12 @@ public class Storage {
                     taskList.addTodo(description, isDone);
                     break;
                 case Deadline.DEADLINE_ICON:
-                    String by = tokens[3];
+                    LocalDateTime by = loadDateTime(tokens[3]);
                     taskList.addDeadline(description, isDone, by);
                     break;
                 case Event.EVENT_ICON:
-                    String from = tokens[3];
-                    String to = tokens[4];
+                    LocalDateTime from = loadDateTime(tokens[3]);
+                    LocalDateTime to = loadDateTime(tokens[4]);
                     taskList.addEvent(description, isDone, from, to);
                     break;
                 default:
@@ -77,11 +80,20 @@ public class Storage {
     private String toStorageFormat(Task task) {
         String typeStatusDescription = task.getTaskType() + " | " + task.getStatus() + " | " + task.getDescription();
         if (task instanceof Deadline) {
-            return typeStatusDescription + " | " + ((Deadline) task).getBy();
+            return typeStatusDescription + " | " + toStorageFormat(((Deadline) task).getDueDate());
         } else if (task instanceof Event) {
-            return typeStatusDescription + " | " + ((Event) task).getFrom() + " | " + ((Event) task).getTo();
+            return typeStatusDescription + " | " + toStorageFormat(((Event) task).getStart()) + " | " + 
+                    toStorageFormat(((Event) task).getEnd());
         } else {
             return typeStatusDescription;
         }
+    }
+    
+    private String toStorageFormat(LocalDateTime dateTime) {
+        return dateTime.format(DATE_TIME_STORAGE_FORMAT);
+    }
+    
+    private LocalDateTime loadDateTime(String dateTime) {
+        return LocalDateTime.parse(dateTime, DATE_TIME_STORAGE_FORMAT);
     }
 }

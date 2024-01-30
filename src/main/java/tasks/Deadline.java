@@ -1,15 +1,19 @@
 package tasks;
 
+import utilities.DateTime;
+
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
     public static final String DEADLINE_ICON = "D";
-    private String by;
+    private LocalDateTime by;
 
-    Deadline(String description, String by) {  // default access modifier
+    Deadline(String description, LocalDateTime by) {  // default access modifier
         super(description);
         this.by = by;
     }
     
-    Deadline(String description, boolean isDone, String by) {  // default access modifier
+    Deadline(String description, boolean isDone, LocalDateTime by) {  // default access modifier
         super(description, isDone);
         this.by = by;
     }
@@ -21,10 +25,10 @@ public class Deadline extends Task {
     
     @Override
     public String toString() {
-        return "[" + getTaskType() + "]" + super.toString() + " (by: " + by + ")";
+        return "[" + getTaskType() + "]" + super.toString() + " (by: " + DateTime.displayDateTimeToUser(by) + ")";
     }
     
-    public String getBy() {
+    public LocalDateTime getDueDate() {
         return by;
     }
 }

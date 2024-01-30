@@ -1,5 +1,6 @@
 package tasks;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -29,28 +30,28 @@ public class TaskList implements Iterable<Task> {
                 "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
-    public String addDeadline(String description, String dueDate) {
+    public String addDeadline(String description, LocalDateTime dueDate) {
         Deadline deadline = new Deadline(description, dueDate);
         taskList.add(deadline);
         return "Got it. I've added this task:\n" + deadline +
                 "\nNow you have " + taskList.size() + " tasks in the list.";
     }
     
-    public String addDeadline(String description, boolean isDone, String dueDate) {
+    public String addDeadline(String description, boolean isDone, LocalDateTime dueDate) {
         Deadline deadline = new Deadline(description, isDone, dueDate);
         taskList.add(deadline);
         return "Got it. I've added this task:\n" + deadline +
                 "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
-    public String addEvent(String eventDescription, String start, String end) {
+    public String addEvent(String eventDescription, LocalDateTime start, LocalDateTime end) {
         Event event = new Event(eventDescription, start, end);
         taskList.add(event);
         return "Got it. I've added this task:\n" + event +
                 "\nNow you have " + taskList.size() + " tasks in the list.";
     }
     
-    public String addEvent(String eventDescription, boolean isDone, String start, String end) {
+    public String addEvent(String eventDescription, boolean isDone, LocalDateTime start, LocalDateTime end) {
         Event event = new Event(eventDescription, isDone, start, end);
         taskList.add(event);
         return "Got it. I've added this task:\n" + event +
