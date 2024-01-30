@@ -1,0 +1,69 @@
+package chatbot;
+
+import chatbot.action.Action;
+import chatbot.action.ByeAction;
+import chatbot.action.exception.ActionException;
+import chatbot.io.InputParser;
+import chatbot.io.ui.Printer;
+import chatbot.storage.LocalStorage;
+import chatbot.task.TaskList;
+
+/**
+ * This encapsulates the behaviour of a Chatbot,
+ * which is the handling of the message content and executing commands.
+ *
+ * @author Titus Chew
+ */
+public class ChatBot {
+    /**
+     * Stores the name of this chatbot.
+     */
+    private final String chatBotName;
+
+    /**
+     * Stores the user's tasks
+     */
+    private final TaskList userList;
+
+    public static void main(String[] args) {
+        ChatBot chatBot = new ChatBot("Stratify");
+        chatBot.run();
+    }
+
+    /**
+     * Class constructor.
+     *
+     * @param chatBotName the name of this chatbot.
+     */
+    public ChatBot(String chatBotName) {
+        this.chatBotName = chatBotName;
+        userList = LocalStorage.loadTaskList();
+    }
+
+    /**
+     * Greets the user when entering a session with this chatbot.
+     */
+    private void greet() {
+        Printer.printMessages(
+                "Hello! I'm " + chatBotName + "!",
+                "What can I do for you?"
+        );
+    }
+
+    /**
+     * Reads and parses user input for commands.
+     */
+    public void run() {
+        greet();
+
+        Action userAction = null;
+        do {
+            try {
+                userAction = InputParser.getParsedInput();
+                userAction.execute(userList);
+            } catch (ActionException e) {
+                Printer.printMessages(e.getMessage());
+            }
+        } while (!(userAction instanceof ByeAction));
+    }
+}
