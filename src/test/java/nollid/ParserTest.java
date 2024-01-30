@@ -15,6 +15,9 @@ import nollid.commands.ByeCommand;
 import nollid.exceptions.InvalidCommandException;
 
 public class ParserTest {
+    /**
+     * Tests for a DateTimeParseException thrown when attempting to parse an invalid string.
+     */
     @Test
     public void getLocalDateTimeFromString_invalidString_exceptionThrown() {
         assertThrows(DateTimeParseException.class, () -> {
@@ -22,6 +25,10 @@ public class ParserTest {
         });
     }
 
+    /**
+     * Tests for successful creation of LocalDateTime object when only a date is supplied.
+     * The default time is midnight if no time is supplied.
+     */
     @Test
     public void getLocalDateTimeFromString_dateOnly_success() {
         LocalDate expectedDate = LocalDate.of(2222, 2, 22);
@@ -30,6 +37,9 @@ public class ParserTest {
         assertEquals(LocalDateTime.of(expectedDate, expectedTime), result);
     }
 
+    /**
+     * Tests for successful creation of LocalDateTime object when both date and time are supplied.
+     */
     @Test
     public void getLocalDateTimeFromString_dateAndTime_success() {
         LocalDate expectedDate = LocalDate.of(2222, 2, 22);
@@ -38,16 +48,32 @@ public class ParserTest {
         assertEquals(LocalDateTime.of(expectedDate, expectedTime), result);
     }
 
+    /**
+     * Tests for the successful creation of a ByeCommand when "bye" is parsed.
+     */
     @Test
     public void parse_byeCommand_success() throws InvalidCommandException {
         assertInstanceOf(ByeCommand.class, Parser.parse("bye"));
         assertInstanceOf(ByeCommand.class, Parser.parse("ByE"));
     }
 
+    /**
+     * Tests for InvalidCommandException thrown when no command is detected.
+     */
     @Test
     public void parse_noCommand_exceptionThrown() throws InvalidCommandException {
         assertThrows(InvalidCommandException.class, () -> {
             Parser.parse("");
+        });
+    }
+
+    /**
+     * Tests for InvalidCommandException thrown when an invalid command is detected.
+     */
+    @Test
+    public void parse_invalidCommand_exceptionThrown() throws InvalidCommandException {
+        assertThrows(InvalidCommandException.class, () -> {
+            Parser.parse("jdsfkjn");
         });
     }
 }
