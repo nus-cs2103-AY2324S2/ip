@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.io.File;
-// import java.io.FileWriter;
 import java.io.IOException;
 
 public class Program {
@@ -22,7 +21,7 @@ public class Program {
 
     public void start() {
         File f = this.retrieveFile();
-        taskList.loadList(f);
+        taskList.loadList(f, printList);
         this.greeting();
         while (this.running) {
             String userInput = this.userInputScanner.nextLine();
@@ -102,8 +101,8 @@ public class Program {
     private void end() {
         File file = new File("./data/linus.txt");
         taskList.saveList(file);
-        String exit = "Goodbye. See you later!";
-        this.printList.add(exit);
+        this.printList.add("Saving file!");
+        this.printList.add("Goodbye. See you later!");
         this.running = false;
     }
 }

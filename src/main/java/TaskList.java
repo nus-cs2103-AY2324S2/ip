@@ -135,8 +135,6 @@ public class TaskList {
             printList.add(String.format("%d. %s",
                     i + 1,
                     this.list.get(i)));
-            System.out.println(list.get(i));
-
         }
     }
 
@@ -150,41 +148,42 @@ public class TaskList {
         switch (taskType) {
             case "T":
                 task = new ToDo(fullDescription, isDone);
-                list.add(task);
                 break;
             case "D":
-                String[] splitBy = fullDescription.split(" (by: ", 2);
+                String[] splitBy = fullDescription.split(" \\(by: ", 2);
                 description = splitBy[0];
-                String byString = splitBy[1].substring(0, splitBy[1].length());
+                String byString = splitBy[1].substring(0, splitBy[1].length()-1);
                 task = new Deadline(description, byString, isDone);
-                list.add(task);
                 break;
-            case "E":
-                String[] splitFrom = fullDescription.split(" (from: ", 2);
+            default:
+                String[] splitFrom = fullDescription.split(" \\(from: ", 2);
                 String[] splitTo = splitFrom[1].split(" to: ", 2);
                 description = splitFrom[0];
                 String fromString = splitTo[0];
-                String toString = splitTo[1].substring(0, splitTo[1].length());
+                String toString = splitTo[1].substring(0, splitTo[1].length()-1);
                 task = new Event(description, fromString, toString, isDone);
-                list.add(task);
-                break;
-            default:
-                System.out.println("?");
         }
+        list.add(task);
 
     }
 
-    public void loadList(File file) {
+    public void loadList(File file, PrintList printList) {
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 this.textToTask(scanner.nextLine());
             }
             scanner.close();
+            printList.add("File retrieved!");
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            printList.add(e.getMessage());
+        } catch (Exception e) {
+            printList.add("File is corrupted :/");
+            printList.add("Making new file instead");
+            list = new ArrayList<Task>();
+        } finally {
+            printList.print();
         }
-
     }
 
     public void saveList(File file) {
@@ -197,9 +196,8 @@ public class TaskList {
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        } finally {
-            System.out.println("donedone");
         }
+
     }
 
 }
