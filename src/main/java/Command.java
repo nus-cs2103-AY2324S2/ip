@@ -132,9 +132,6 @@ public enum Command {
         while (sc.hasNext()) {
             Task task;
             String[] storedTask = sc.nextLine().split(" \\| ");
-            for (String s : storedTask){
-                System.out.println(s);
-            }
             switch (storedTask[0]){
                 case "T":
                     task = new Todo(storedTask[2], storedTask[1].equals("1"));
@@ -156,7 +153,7 @@ public enum Command {
         try {
             new File("./data/toothless.txt").getParentFile().mkdirs();
             FileWriter writer = new FileWriter("./data/toothless.txt");
-            for(Task task : listOfTasks){
+            for (Task task : listOfTasks){
                 writer.write(task.toWrite() + "\n");
             }
             writer.close();
@@ -165,7 +162,6 @@ public enum Command {
         } catch (IOException e){
             System.err.println("Unable to save task :(");
         }
-
     }
 
     public static int getTaskIndex(String detail) throws ToothlessException{
