@@ -1,3 +1,5 @@
+package TheAdvisor;
+
 public class Parser {
     public enum Prompts {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
