@@ -10,7 +10,7 @@ public class TaskList {
         taskStore = new ArrayList<Task>();
     }
 
-    public void markTask(int index) {
+    protected void markTask(int index) {
         Task currTask = taskStore.get(index);
         currTask.updateTask(true);
         System.out.println("*Honk!* Good Job!, Pengu has marked this task as done:\n" + currTask.toString());
