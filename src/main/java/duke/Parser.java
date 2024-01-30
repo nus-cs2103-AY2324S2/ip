@@ -1,8 +1,17 @@
 package duke;
 
 import duke.command.*;
+/**
+ * The Parser class translate the user input to various commands
+ */
 
 public class Parser {
+    /**
+     * Returns a Command class that represent the command to be executed
+     * @param command A string representation of the command by user input
+     * @return A specific command
+     * @throws DukeException if input is invalid
+     */
     public static Command parse(String command) throws DukeException {
         String[] commandArray = command.split(" ", 2);
         switch (commandArray[0].toUpperCase()) {

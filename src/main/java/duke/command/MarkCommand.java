@@ -9,10 +9,19 @@ import duke.task.Task;
 public class MarkCommand extends Command{
     private final int TASK_NUM;
 
+    /**
+     * Constructs a MarkCommand class with given parameter
+     * @param taskNum A string representation of task number
+     */
     public MarkCommand(String taskNum) {
         this.TASK_NUM = Integer.parseInt(taskNum);
     }
-
+    /**
+     * Marks the task based on given input and display marked message
+     * @param tasksList A TaskList class that represents task list
+     * @param ui A TextUi class that represents the ui
+     * @param storage A Storage class which represents the storage of file
+     */
     @Override
     public void execute(TaskList tasksList, TextUi ui, Storage storage) throws DukeException {
         if (TASK_NUM <= 0 | TASK_NUM > tasksList.getList().size()) {
@@ -23,7 +32,10 @@ public class MarkCommand extends Command{
         ui.showMarkTaskMessage(markedTask);
         storage.saveToFile(tasksList.getList());
     }
-
+    /**
+     * Returns a boolean value to indicate whether to exit the program
+     * @return a boolean value
+     */
     @Override
     public boolean isExit() {
         return false;
