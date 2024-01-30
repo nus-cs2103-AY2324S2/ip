@@ -35,7 +35,11 @@ public class Duke {
             command = parts[0];
             details = parts.length > 1 ? parts[1] : "";
             output = "";
-            
+
+            if (command.equals("bye")) {
+                break;
+            }
+
             switch (command) {
             case "list":
                 if (todolist.isEmpty()) {
