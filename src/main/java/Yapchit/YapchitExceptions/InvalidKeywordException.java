@@ -1,4 +1,4 @@
-package YapchitExceptions;
+package Yapchit.YapchitExceptions;
 
 public class InvalidKeywordException extends YapchitException{
 

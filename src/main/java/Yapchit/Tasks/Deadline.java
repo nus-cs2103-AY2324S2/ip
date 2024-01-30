@@ -1,6 +1,4 @@
-package Tasks;
-
-import Tasks.Task;
+package Yapchit.Tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
