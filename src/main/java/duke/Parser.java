@@ -12,6 +12,10 @@ import duke.Tasks.TaskList;
 
 import java.time.LocalDate;
 
+/**
+ * Class that takes in the user input and executes the command, returning a response string to be printed
+ * and the modified TaskList.
+ */
 public class Parser {
     //String response;
     String line;
@@ -20,6 +24,13 @@ public class Parser {
         this.line = "____________________________________________________________\n";
     }
 
+    /**
+     *
+     * @param tasksList TaskList to be modified depending on user input
+     * @param input User input to execute instructions on TaskList
+     * @return Returns a String response and modified TaskList
+     * @throws InvalidInstructionException if instruction is not formatted properly or has logical issues.
+     */
     public Pair<TaskList, String> parse(TaskList tasksList, String input) throws InvalidInstructionException {
         String output = "";
         if (!input.toLowerCase().equals("bye")) {
