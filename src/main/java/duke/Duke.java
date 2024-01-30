@@ -1,6 +1,9 @@
-import task.TaskList;
-import util.Storage;
-import util.Ui;
+package duke;
+
+import duke.task.TaskList;
+import duke.util.Parser;
+import duke.util.Storage;
+import duke.util.Ui;
 
 public class Duke {
     public Storage storage;

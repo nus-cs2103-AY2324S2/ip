@@ -1,4 +1,4 @@
-package util;
+package duke.util;
 
 import java.lang.Exception;
 

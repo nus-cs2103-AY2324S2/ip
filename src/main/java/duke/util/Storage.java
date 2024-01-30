@@ -1,6 +1,6 @@
-package util;
+package duke.util;
 
-import task.*;
+import duke.task.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -48,7 +48,7 @@ public class Storage {
                 task = new Event(description, eventAt, isDone);
                 break;
             default:
-                throw new IllegalStateException("I cannot recognize this task type!" + taskType);
+                throw new IllegalStateException("I cannot recognize this duke.task type!" + taskType);
         }
         return task;
     }
