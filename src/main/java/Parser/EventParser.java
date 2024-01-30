@@ -28,7 +28,7 @@ public class EventParser {
 
 
         } else {
-            throw new MalformedUserInputException();
+            throw new MalformedUserInputException("Your todo command is malformed.");
         }
     }
 
@@ -51,7 +51,7 @@ public class EventParser {
             }
 
         } else {
-            throw new MalformedUserInputException();
+            throw new MalformedUserInputException("Your deadline command is malformed.");
         }
     }
 
@@ -76,7 +76,7 @@ public class EventParser {
                 return newEventTask;
             }
         } else {
-            throw new MalformedUserInputException();
+            throw new MalformedUserInputException("Your event input is malformed.");
         }
     }
 
