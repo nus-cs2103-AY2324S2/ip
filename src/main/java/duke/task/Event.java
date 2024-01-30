@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Implementation of Task. Each Event comes with a description, start and end date.
  */
