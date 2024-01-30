@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -81,13 +82,15 @@ public enum Command {
             }
         } catch (ToothlessException e){
             System.out.println(e.getMessage());
+        } catch (DateTimeParseException e){
+            System.out.println("Type in date and time in this format: yyyy-mm-ddTHh:mm");
         } finally {
             System.out.println(splitLine);
             return isDone;
         }
     }
 
-    public static final Task createTask(Command c, String detail) throws ToothlessException{
+    public static final Task createTask(Command c, String detail) throws ToothlessException, DateTimeParseException{
         if(detail.equals("")){
             throw new ToothlessException("Human task no name :(");
         }
@@ -107,7 +110,7 @@ public enum Command {
                 newTask = new Deadline(description, date);
                 break;
             }
-            default: {
+            case Event: {
                 int date1Index = detail.indexOf("/from");
                 if (date1Index == -1){
                     throw new ToothlessException("Human event no start date D:");
@@ -122,6 +125,8 @@ public enum Command {
                 String endDate = detail.substring(date2Index + 4);
                 newTask = new Event(description, startDate, endDate);
             }
+            default:
+                throw new ToothlessException("Can't create task!");
         }
         return newTask;
     }
