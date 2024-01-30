@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.nio.file.Path;
 
 import task.Command;
+import task.CommandParser;
 import task.DukeException;
 import task.TaskList;
 import task.TaskListParser;
@@ -29,11 +30,10 @@ public class Duke {
     }
 
     private boolean runCommand(String commandString) {
-        // get the first word of the input
-        String[] words = commandString.split(" ", 2);
+        CommandParser parser = new CommandParser();
         Command command;
         try {
-            command = Command.newCommand(words[0], words.length > 1 ? words[1] : "");
+            command = Command.parse(commandString, parser);
             System.out.println("____________________________________________________________");
             boolean loopSignal = command.execute(list);
             System.out.println("____________________________________________________________");
