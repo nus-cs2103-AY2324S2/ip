@@ -1,9 +1,13 @@
 import java.io.FileNotFoundException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Duke {
 
     Scanner scanner = new Scanner(System.in);
@@ -34,12 +38,13 @@ public class Duke {
                     list.add(todo);
                     break;
                 case "D":
-                    Task deadline = new Deadlines(inputs[2], inputs[3], isDone);
+                    Task deadline = new Deadlines(inputs[2], LocalDateTime.parse(inputs[3]), isDone);
                     list.add(deadline);
                     break;
                 case "E":
-                    String[] time = inputs[3].split("-");
-                    Task event = new Events(inputs[2], time[0], time[1], isDone);
+                    String[] time = inputs[3].split("/");
+                    Task event = new Events(inputs[2], LocalDateTime.parse(time[0])
+                            , LocalDateTime.parse(time[1]), isDone);
                     list.add(event);
                     break;
                 }
@@ -69,6 +74,8 @@ public class Duke {
                 add(input);
             } else if (command.equals("delete")) {
                 delete(input);
+            } else if (command.equals("check")) {
+                check(input);
             } else {
                 throw new DukeInvalidCommand(rawInput);
             }
@@ -79,9 +86,10 @@ public class Duke {
         input();
     }
 
-    private void add(String[] input) throws DukeMissingArgument{
+    private void add(String[] input) throws DukeException{
         Task task;
         String command = input[0];
+        String timeFormat = "d/M/yyyy HHmm";
         if (command.equals("todo")) {
             try {
                 task = new ToDos(input[1], false);
@@ -91,15 +99,20 @@ public class Duke {
         } else if (command.equals("deadline")) {
             try {
                 String[] values = input[1].split(" /by ", 2);
-                task = new Deadlines(values[0], values[1], false);
-            } catch (ArrayIndexOutOfBoundsException e) {
+                LocalDateTime by = LocalDateTime.parse(values[1], DateTimeFormatter.ofPattern(timeFormat));
+                task = new Deadlines(values[0], by, false);
+            } catch (ArrayIndexOutOfBoundsException e1) {
                 throw new DukeMissingArgument(2,command);
+            } catch (DateTimeParseException e2) {
+                throw new DukeInvalidDateTimeFormat(timeFormat);
             }
         } else if (command.equals("event")) {
             try {
                 String[] event = input[1].split(" /from ", 2);
                 String[] time = event[1].split(" /to ");
-                task = new Events(event[0], time[0], time[1], false);
+                LocalDateTime from = LocalDateTime.parse(time[0], DateTimeFormatter.ofPattern(timeFormat));
+                LocalDateTime to = LocalDateTime.parse(time[1], DateTimeFormatter.ofPattern(timeFormat));
+                task = new Events(event[0], from, to, false);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeMissingArgument(3, command);
             }
@@ -175,6 +188,22 @@ public class Duke {
         } catch (IndexOutOfBoundsException e3) {
             int index = Integer.valueOf(input[1]);
             throw new DukeTaskNotFound(index);
+        }
+    }
+
+    private void check(String[] input) throws DukeException {
+        try {
+            LocalDate date = LocalDate.parse(input[1], DateTimeFormatter.ofPattern("d/M/yyyy"));
+            System.out.println(String.format("Tasks on %s:", input[1]));
+            for (Task item : list) {
+                item.happenOn(date);
+            }
+
+        } catch (DateTimeParseException e1) {
+            System.out.println(e1);
+            throw new DukeInvalidDateTimeFormat("d/M/yyyy");
+        } catch (ArrayIndexOutOfBoundsException e1) {
+            throw new DukeMissingArgument(1, input[0]);
         }
     }
 
