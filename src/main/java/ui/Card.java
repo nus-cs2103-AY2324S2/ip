@@ -1,12 +1,12 @@
-package messages;
+package ui;
 
-public class MessageBox {
+public class Card {
     private String message;
     private String smallSpace = "    ";
     private String bigSpace = "     ";
     private String line = "____________________________________________________________";
 
-    public MessageBox(String message) {
+    public Card(String message) {
         this.message = message;
         indentMessageBody();
     }

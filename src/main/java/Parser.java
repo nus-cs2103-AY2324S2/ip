@@ -1,12 +1,12 @@
 import commands.CommandType;
 import errors.InvalidBanterUsageError;
-import messages.MessageBox;
+import ui.Card;
 import tasks.TaskList;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
 import errors.Errors;
-import messages.Messages;
+import ui.Ui;
 import utilities.DateTime;
 
 public class Parser {
@@ -26,12 +26,12 @@ public class Parser {
 
     // Methods
     public void printGreetMessage() {
-        System.out.println(Messages.BANTER_LOGO);
-        Messages.GREET_MESSAGE.print();
+        System.out.println(Ui.BANTER_LOGO);
+        Ui.GREET_MESSAGE.print();
     }
 
     private void printExitMessage() {
-        Messages.EXIT_MESSAGE.print();
+        Ui.EXIT_MESSAGE.print();
     }
 
     public void respondUntilExit() {
@@ -70,7 +70,7 @@ public class Parser {
                         throw Errors.InvalidCommandError;
                 }
             } catch (InvalidBanterUsageError e) {
-                MessageBox errorMessage = new MessageBox(e.getMessage());
+                Card errorMessage = new Card(e.getMessage());
                 errorMessage.print();
             }
 
@@ -91,7 +91,7 @@ public class Parser {
     }
 
     private void parseList() {
-        MessageBox taskListMessage = new MessageBox(taskList.toString());
+        Card taskListMessage = new Card(taskList.toString());
         taskListMessage.print();
     }
 
@@ -101,7 +101,7 @@ public class Parser {
             throw Errors.MissingTodoDescriptionError;
         }
         String description = joinTokens(tokens, 1, tokens.length - 1);
-        MessageBox taskAddedMessage = new MessageBox(taskList.addTodo(description));
+        Card taskAddedMessage = new Card(taskList.addTodo(description));
         storage.saveTaskList(taskList);
         taskAddedMessage.print();
     }
@@ -124,7 +124,7 @@ public class Parser {
             throw Errors.MissingDeadlineDescriptionError;
         }
 
-        MessageBox taskAddedMessage = new MessageBox(taskList.addDeadline(description, dueDate));
+        Card taskAddedMessage = new Card(taskList.addDeadline(description, dueDate));
         storage.saveTaskList(taskList);
         taskAddedMessage.print();
     }
@@ -157,7 +157,7 @@ public class Parser {
             throw Errors.MissingEventDescriptionError;
         }
 
-        MessageBox taskAddedMessage = new MessageBox(taskList.addEvent(description, start, end));
+        Card taskAddedMessage = new Card(taskList.addEvent(description, start, end));
         storage.saveTaskList(taskList);
         taskAddedMessage.print();
     }
@@ -170,7 +170,7 @@ public class Parser {
         } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
             throw Errors.InvalidMarkTaskNumberError;
         }
-        MessageBox taskDoneMessage = new MessageBox(taskList.markTaskAsDone(taskNumber));
+        Card taskDoneMessage = new Card(taskList.markTaskAsDone(taskNumber));
         storage.saveTaskList(taskList);
         taskDoneMessage.print();
     }
@@ -183,7 +183,7 @@ public class Parser {
         } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
             throw Errors.InvalidUnmarkTaskNumberError;
         }
-        MessageBox taskUndoneMessage = new MessageBox(taskList.markTaskAsUndone(taskNumber));
+        Card taskUndoneMessage = new Card(taskList.markTaskAsUndone(taskNumber));
         storage.saveTaskList(taskList);
         taskUndoneMessage.print();
     }
@@ -196,7 +196,7 @@ public class Parser {
         } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
             throw Errors.InvalidDeleteTaskNumberError;
         }
-        MessageBox taskDeletedMessage = new MessageBox(taskList.deleteTask(taskNumber));
+        Card taskDeletedMessage = new Card(taskList.deleteTask(taskNumber));
         storage.saveTaskList(taskList);
         taskDeletedMessage.print();
     }

@@ -7,7 +7,7 @@ import java.util.Iterator;
 import errors.Errors;
 import errors.InvalidBanterUsageError;
 import errors.InvalidTaskNumberUsageError;
-import messages.Messages;
+import ui.Ui;
 
 public class TaskList implements Iterable<Task> {
     private ArrayList<Task> taskList;
@@ -71,7 +71,7 @@ public class TaskList implements Iterable<Task> {
         try {
             return taskList.get(taskNumber - 1).markAsDone();
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Messages.MARK_USAGE, this);
+            throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Ui.MARK_USAGE, this);
         }
     }
 
@@ -79,7 +79,7 @@ public class TaskList implements Iterable<Task> {
         try {
             return taskList.get(taskNumber - 1).markAsUndone();
         } catch(IndexOutOfBoundsException e) {
-            throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Messages.UNMARK_USAGE, this);
+            throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Ui.UNMARK_USAGE, this);
         }
     }
 
@@ -89,7 +89,7 @@ public class TaskList implements Iterable<Task> {
             return "Noted. I've removed this task:\n" + deleted +
                     "\nNow you have " + taskList.size() + " tasks in the list.";
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Messages.DELETE_USAGE, this);
+            throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Ui.DELETE_USAGE, this);
         }
     }
     

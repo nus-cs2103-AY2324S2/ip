@@ -1,8 +1,8 @@
-package messages;
+package ui;
 
 import commands.CommandType;
 
-public class Messages {
+public class Ui {
     public static final String BANTER_LOGO = ".______        ___      .__   __. .___________. _______ .______\n" +
             "|   _  \\      /   \\     |  \\ |  | |           ||   ____||   _  \\\n" +
             "|  |_)  |    /  ^  \\    |   \\|  | `---|  |----`|  |__   |  |_)  |\n" +
@@ -31,6 +31,6 @@ public class Messages {
 
 
     // Messages
-    public static final MessageBox GREET_MESSAGE = new MessageBox(GREET_MESSAGE_BODY);
-    public static final MessageBox EXIT_MESSAGE = new MessageBox(EXIT_MESSAGE_BODY);
+    public static final Card GREET_MESSAGE = new Card(GREET_MESSAGE_BODY);
+    public static final Card EXIT_MESSAGE = new Card(EXIT_MESSAGE_BODY);
 }
