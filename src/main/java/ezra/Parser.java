@@ -3,7 +3,18 @@ package ezra;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
+/**
+ * Parses user input commands and performs corresponding actions.
+ */
 public class Parser {
+
+    /**
+     * Reads the user input, processes the command, and updates the task list.
+     *
+     * @param input   The user input command.
+     * @param storage Storage object for writing tasks to a file.
+     * @param tasks   TaskList object for managing tasks.
+     */
     public static void read(String input, Storage storage, TaskList tasks) {
         Ui.horizontalLine();
         try {
@@ -34,6 +45,13 @@ public class Parser {
         Ui.horizontalLine();
     }
 
+    /**
+     * Parses a 'todo' command from the user input.
+     *
+     * @param input The user input command.
+     * @return A ToDo object representing the task to be added.
+     * @throws WrongFormatException If the command format is invalid.
+     */
     public static ToDo parseToDo(String input) throws WrongFormatException {
         if (Pattern.matches("todo\\s\\S.*", input)) {
             String description = input.split("\\s", 2)[1];
@@ -45,6 +63,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a 'deadline' command from the user input.
+     *
+     * @param input The user input command.
+     * @return A Deadline object representing the task to be added.
+     * @throws WrongFormatException If the command format is invalid.
+     */
     public static Deadline parseDeadline(String input) throws WrongFormatException {
         if (Pattern.matches("deadline\\s\\S.*\\s/by\\s\\S.*", input)) {
             String[] arr = input.split("\\s/by\\s");
@@ -58,6 +83,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses an 'event' command from the user input.
+     *
+     * @param input The user input command.
+     * @return An Event object representing the task to be added.
+     * @throws WrongFormatException If the command format is invalid.
+     */
     public static Event parseEvent(String input) throws WrongFormatException {
         if (Pattern.matches("event\\s\\S.*\\s/from\\s\\S.*\\s/to\\s\\S.*", input)) {
             String[] splitTo = input.split("\\s/to\\s");
@@ -73,6 +105,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a 'delete' command from the user input.
+     *
+     * @param input The user input command.
+     * @return The index of the task to be deleted. Invalid index is handled by delete in TaskList.
+     * @throws WrongFormatException If the command format is invalid.
+     */
     public static int parseDelete(String input) throws WrongFormatException {
         if (Pattern.matches("delete\\s\\d+", input)) {
             return Integer.parseInt(input.split("\\s")[1]) - 1;
@@ -83,6 +122,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a 'mark' command from the user input.
+     *
+     * @param input The user input command.
+     * @return The index of the task to be marked as done. Invalid index is handled by mark in TaskList.
+     * @throws WrongFormatException If the command format is invalid.
+     */
     public static int parseMark(String input) throws WrongFormatException {
         if (Pattern.matches("mark\\s\\d+", input)) {
             return Integer.parseInt(input.split("\\s")[1]) - 1;
@@ -93,6 +139,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses an 'unmark' command from the user input.
+     *
+     * @param input The user input command.
+     * @return The index of the task to be marked as not done. Invalid index is handled by unmark in TaskList.
+     * @throws WrongFormatException If the command format is invalid.
+     */
     public static int parseUnmark(String input) throws WrongFormatException {
         if (Pattern.matches("unmark\\s\\d+", input)) {
             return Integer.parseInt(input.split("\\s")[1]) - 1;

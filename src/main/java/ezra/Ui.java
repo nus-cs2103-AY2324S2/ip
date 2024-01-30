@@ -1,9 +1,20 @@
 package ezra;
 
+/**
+ * Represents the user interface for the Ezra task management application.
+ */
 public class Ui {
+
+    /**
+     * Prints a horizontal line to the console.
+     */
     public static void horizontalLine() {
         System.out.println("\t____________________________________________________________");
     }
+
+    /**
+     * Displays a greeting message to the user.
+     */
     public void greet() {
         Ui.horizontalLine();
         System.out.println("\tHello! I'm Ezra.\n\tWhat can I do for you?");
