@@ -1,9 +1,10 @@
-import Storage.txtFileStorage;
-import Task.Task;
-import Task.ToDoTask;
-import Task.DeadlineTask;
-import Task.EventTask;
+package Task;
 
+import Formatters.DateTimeFormatters;
+import Storage.txtFileStorage;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -20,14 +21,14 @@ public class TaskManager {
         return true;
     }
 
-    public boolean addDeadlineTask(String taskName, String deadline, boolean isCompleted) {
-        DeadlineTask newTask = new DeadlineTask(taskName, deadline, isCompleted);
+    public boolean addDeadlineTask(String taskName, LocalDate deadline, boolean isCompleted) {
+        DeadlineTask newTask = new DeadlineTask(taskName, isCompleted, deadline);
         this.userTasks.add(newTask);
         return true;
     }
 
-    public boolean addEventTask(String taskName, String startDateTime, String endDateTime, boolean isCompleted) {
-        EventTask newTask = new EventTask(taskName, startDateTime, endDateTime, isCompleted);
+    public boolean addEventTask(String taskName, LocalDateTime startDateTime, LocalDateTime endDateTime, boolean isCompleted) {
+        EventTask newTask = new EventTask(taskName, isCompleted, startDateTime, endDateTime);
         this.userTasks.add(newTask);
         return true;
     }
@@ -88,17 +89,17 @@ public class TaskManager {
             if (readContentWord[0].trim().equals("T")) {
                 this.addToDoTask(readContentWord[2].trim(), readContentWord[1].trim().equals("Y"));
             } else if (readContentWord[0].trim().equals("D")) {
-                this.addDeadlineTask(readContentWord[2].trim(), readContentWord[3].trim(), readContentWord[1].trim().equals("Y"));
+                LocalDate deadline = DateTimeFormatters.getInstance().storedDataDateFormatter(readContentWord[3].trim());
+                this.addDeadlineTask(readContentWord[2].trim(), deadline, readContentWord[1].trim().equals("Y"));
             } else if (readContentWord[0].trim().equals("E")) {
-                this.addEventTask(readContentWord[2].trim(), readContentWord[3].trim(), readContentWord[4].trim(), readContentWord[1].trim().equals("Y"));
+                LocalDateTime[] dateTimeRange = DateTimeFormatters.getInstance().storedDataDateTimeRangeFormatter(readContentWord[3].trim(), readContentWord[4].trim());
+                this.addEventTask(readContentWord[2].trim(), dateTimeRange[0], dateTimeRange[1], readContentWord[1].trim().equals("Y"));
             }
         }
     }
 
     public void initialise(){
-        if (!this.taskStorage.storageFileExist()) {
-            this.taskStorage.createTxtFileStorage();
-        }
+        this.taskStorage.initialiseTxtFileStorage();
         this.loadUserTaskFromFileStorage();
     }
 

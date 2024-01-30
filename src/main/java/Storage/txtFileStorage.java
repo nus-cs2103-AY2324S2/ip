@@ -13,7 +13,7 @@ public class txtFileStorage extends Storage{
         super(filepath);
     }
 
-    public void createTxtFileStorage() {
+    public void initialiseTxtFileStorage() {
         try {
             File file = new File(this.getFilepath());
             if (super.storageFileExist()) {
