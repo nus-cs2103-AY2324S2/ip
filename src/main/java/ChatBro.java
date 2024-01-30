@@ -20,7 +20,6 @@ public class ChatBro {
         for (int i = 0; i < 102; i++) {
             taskList.add(null);
         }
-        int taskCount = 0;
 
         while (!isQuit) {
             String input = sc.nextLine();
@@ -52,10 +51,10 @@ public class ChatBro {
                         for (int i = 1; i <= 100; i++) {
                             if (taskList.get(i) == null) {
                                 taskList.add(i, new ToDo(todoName));
-                                taskCount++;
+                                Task.incrementTaskCount();
                                 System.out.println("_________________________\n" +
                                         "Ok bro, I've added: \n" + taskList.get(i).toString() + "\n into your list.\n" +
-                                        "You've got " + taskCount + " task(s) now.\n" +
+                                        "You've got " + Task.getTaskCount() + " task(s) now.\n" +
                                         "_________________________\n");
                                 break;
                             }
@@ -88,10 +87,10 @@ public class ChatBro {
                         for (int i = 1; i <= 100; i++) {
                             if (taskList.get(i) == null) {
                                 taskList.add(i, new Deadline(deadlineName, deadlineSplit[1]));
-                                taskCount++;
+                                Task.incrementTaskCount();
                                 System.out.println("_________________________\n" +
                                         "Ok bro, I've added: \n" + taskList.get(i).toString() + "\n into your list.\n" +
-                                        "You've got " + taskCount + " task(s) now.\n" +
+                                        "You've got " + Task.getTaskCount() + " task(s) now.\n" +
                                         "_________________________\n");
                                 break;
                             }
@@ -132,10 +131,10 @@ public class ChatBro {
                         for (int i = 1; i <= 100; i++) {
                             if (taskList.get(i) == null) {
                                 taskList.add(i, new Event(eventName, eventToSplit[0], eventToSplit[1]));
-                                taskCount++;
+                                Task.incrementTaskCount();
                                 System.out.println("_________________________\n" +
                                         "Ok bro, I've added: \n" + taskList.get(i).toString() + "\n into your list.\n" +
-                                        "You've got " + taskCount + " task(s) now.\n" +
+                                        "You've got " + Task.getTaskCount() + " task(s) now.\n" +
                                         "_________________________\n");
                                 break;
                             }
@@ -190,7 +189,7 @@ public class ChatBro {
                     }
                     String taskName = taskList.get(taskNum3).toString();
                     taskList.remove(taskNum3);
-                    taskCount--;
+                    Task.decrementTaskCount();
                     System.out.println("_________________________\n" +
                             "Got it bro! Task " + taskNum3 + " has been removed:\n" +
                             taskName + "\n" +
