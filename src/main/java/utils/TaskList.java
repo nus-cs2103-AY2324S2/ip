@@ -42,6 +42,13 @@ public class TaskList {
         return taskList.get(i).toString();
     }
 
+    public String getTaskDescription(int i) throws ConvoBotException {
+        if (i < 0 || i >= taskList.size()) {
+            throw new ConvoBotException("Invalid input. You must specify a valid index.");
+        }
+        return taskList.get(i).getDescription();
+    }
+
     public void delete(int i) throws ConvoBotException {
         if (i < 0 || i >= taskList.size()) {
             throw new ConvoBotException("Invalid input. You must specify a valid index.");
