@@ -20,5 +20,11 @@ public abstract class DukeException extends Exception {
             super(message);
         }
     }
+
+    public static class CorruptedDataException extends DukeException {
+        public CorruptedDataException(String message) {
+            super(message);
+        }
+    }
 }
 

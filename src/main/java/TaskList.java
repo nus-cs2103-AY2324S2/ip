@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
-public class TaskList {
+public class TaskList implements Iterable<Task>{
     List<Task> taskList = new ArrayList<>();
 
     @Override
@@ -14,6 +15,11 @@ public class TaskList {
             count++;
         }
         return out.equals("") ? "Looks like you have nothing to do! Yay!\n" : out;
+    }
+
+    @Override
+    public Iterator<Task> iterator() {
+        return taskList.iterator();
     }
 
     public void add(Task taskName) {
