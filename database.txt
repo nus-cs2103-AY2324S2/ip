@@ -1,3 +1,4 @@
-D | cook coconut milk | true | Sunday
-T | abcd | true
-T | abcd | true
+T | 12345443r234 | false
+E | cook coconut milk | false | 2021-01-04 | 2021-02-01
+D | cook laksa | false | 2023-01-01
+T | iuyftdrtfyguhi | false
