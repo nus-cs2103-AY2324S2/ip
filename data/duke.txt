@@ -1,0 +1,5 @@
+[T][ ] idk what
+[T][X] hello
+[D][ ] i dont know what to do (by: today)
+[E][ ] i know what to do (from: now to: tomorrow)
+[T][X] last

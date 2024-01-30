@@ -1,6 +1,9 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class Task {
     private String description;
@@ -9,6 +12,10 @@ class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     public void markAsDone() {
@@ -29,6 +36,9 @@ class TodoTask extends Task {
     public TodoTask(String description) {
         super(description);
     }
+    public TodoTask(String description, boolean isDone) {
+        super(description, isDone);
+    }
 
     @Override
     public String toString() {
@@ -41,6 +51,10 @@ class DeadlineTask extends Task {
 
     public DeadlineTask(String description, String deadline) {
         super(description);
+        this.deadline = deadline;
+    }
+    public DeadlineTask(String description, String deadline, boolean isDone) {
+        super(description, isDone);
         this.deadline = deadline;
     }
 
@@ -59,6 +73,11 @@ class EventTask extends Task {
         this.startTime = startTime;
         this.endTime = endTime;
     }
+    public EventTask(String description, String startTime, String endTime, boolean isDone) {
+        super(description, isDone);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
 
     @Override
     public String toString() {
@@ -67,14 +86,146 @@ class EventTask extends Task {
 }
 
 public class Duke {
+    private static final String FILE_PATH = "./data/duke.txt";
+
+    private static void loadTasksFromFile(ArrayList<Task> tasks) {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            System.out.println("File path is incorrect... Quitting...");
+            return; // Handle the case where the file doesn't exist
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.length() < 7) {
+                    System.out.println("Error found: Bad input");
+                    System.out.println(line);
+                }
+                char taskType = line.charAt(1);
+                char isDoneX = line.charAt(4);
+                if (taskType == 'T') {
+                    String todoDescription = line.substring(7);
+                    if (isDoneX == 'X') {
+                        Task newTodo = new TodoTask(todoDescription, true);
+                        tasks.add(newTodo);
+                    } else if (isDoneX == ' ') {
+                        Task newTodo = new TodoTask(todoDescription);
+                        tasks.add(newTodo);
+                    } else {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Error found: Unrecognized todo's Done.");
+                        System.out.println(line);
+                        System.out.println("Removed from list");
+                        System.out.println("____________________________________________________________");
+//                        return;
+                    }
+                } else if (taskType == 'D') {
+                    if (!line.contains(" (by: ")) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Error found: Deadline task without a deadline.");
+                        System.out.println(line);
+                        System.out.println("Removed from list");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    }
+                    String deadlineDescription = line.substring(7, line.indexOf(" (by: "));
+                    Pattern pattern = Pattern.compile("\\(by: (.*?)\\)");
+                    Matcher matcher = pattern.matcher(line);
+                    String deadline = "";
+                    if (matcher.find()) {
+                        deadline = matcher.group(1);
+                    }
+                    if (isDoneX == 'X') {
+                        Task newDeadline = new DeadlineTask(deadlineDescription, deadline, true);
+                        tasks.add(newDeadline);
+                    } else if (isDoneX == ' ') {
+                        Task newDeadline = new DeadlineTask(deadlineDescription, deadline);
+                        tasks.add(newDeadline);
+                    } else {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Error found: Unrecognized deadline's Done.");
+                        System.out.println(line);
+                        System.out.println("Removed from list");
+                        System.out.println("____________________________________________________________");
+                    }
+                } else if (taskType == 'E') {
+                    if (!line.contains(" (from: ") && !line.contains(" to: ")) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Error found: Event task without a starting time and an ending time.");
+                        System.out.println(line);
+                        System.out.println("Removed from list");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    }
+                    if (!line.contains(" (from: ")) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Error found: Event task without a starting time.");
+                        System.out.println(line);
+                        System.out.println("Removed from list");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    }
+                    if (!line.contains(" to: ")) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Error found: Deadline task without an ending time.");
+                        System.out.println(line);
+                        System.out.println("Removed from list");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    }
+                    String eventDescription = line.substring(7, line.indexOf(" (from: "));
+                    Pattern pattern = Pattern.compile("\\(from: (.*?) to: (.*?)\\)");
+                    Matcher matcher = pattern.matcher(line);
+                    String startTime = "";
+                    String endTime = "";
+                    if (matcher.find()) {
+                        startTime = matcher.group(1);
+                        endTime = matcher.group(2);
+                    }
+                    if (isDoneX == 'X') {
+                        Task newEvent = new EventTask(eventDescription, startTime, endTime, true);
+                        tasks.add(newEvent);
+                    } else if (isDoneX == ' ') {
+                        Task newEvent = new EventTask(eventDescription, startTime, endTime);
+                        tasks.add(newEvent);
+                    } else {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Error found: Unrecognized event's Done.");
+                        System.out.println(line);
+                        System.out.println("Removed from list");
+                        System.out.println("____________________________________________________________");
+                    }
+                } else {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Error found: Unrecognized task type (task type should be one of T, D, E).");
+                    System.out.println(line);
+                    System.out.println("Removed from list");
+                    System.out.println("____________________________________________________________");
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
+    public static void saveTasksToFile(ArrayList<Task> tasks) throws IOException {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
+            for (Task task : tasks) {
+                writer.println(task);
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
 
     public static void messageWithHorizontalLines(String message) {
         System.out.println("____________________________________________________________\n" +
-                message + "\n" +
-                "____________________________________________________________");
+                           message + "\n" +
+                           "____________________________________________________________");
     }
 
-    private static void displayTaskList(ArrayList<Task> tasks) {
+    private static void messageTaskList(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             messageWithHorizontalLines("There are no tasks!");
         } else {
@@ -86,16 +237,6 @@ public class Duke {
             }
             System.out.println("____________________________________________________________");
         }
-    }
-
-    public static String printSucessfulAdded() {
-        String str = "Got it. I have added this task:\n";
-        return str;
-    }
-    public static String printCurrentTaskAmount(ArrayList<Task> tasks) {
-        int amount = tasks.size();
-        String str = "Now you have " + amount + " tasks in the list.";
-        return str;
     }
 
     private static void markTaskAsDone(ArrayList<Task> tasks, int taskIndex) {
@@ -118,6 +259,17 @@ public class Duke {
         }
     }
 
+    public static String printSucessfulAdded() {
+        String str = "Got it. I have added this task:\n";
+        return str;
+    }
+
+    public static String printCurrentTaskAmount(ArrayList<Task> tasks) {
+        int amount = tasks.size();
+        String str = "Now you have " + amount + " tasks in the list.";
+        return str;
+    }
+
     private static boolean isValidTaskIndex(ArrayList<Task> tasks, int taskIndex) {
         return taskIndex >= 1 && taskIndex <= tasks.size();
     }
@@ -133,14 +285,16 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         String botName = "Hammy";
         String welcomeStr = " Hello! I'm " + botName + "\n What can I do for you?";
         String byeStr = "Bye. Hope to see you again soon!";
         ArrayList<Task> tasks = new ArrayList<>();
-
         System.out.println(welcomeStr);
+
+        loadTasksFromFile(tasks);
+
         while (true) {
             String userInput = scanner.nextLine();
             String[] words = userInput.split(" ");
@@ -148,10 +302,11 @@ public class Duke {
 
             switch (command) {
                 case "bye":
+                    saveTasksToFile(tasks);
                     messageWithHorizontalLines(byeStr);
                     return;
                 case "list":
-                    displayTaskList(tasks);
+                    messageTaskList(tasks);
                     break;
                 case "done":
                     if (words.length > 1) {
