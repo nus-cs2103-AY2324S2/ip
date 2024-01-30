@@ -1,3 +1,5 @@
+package duke;
+
 import duke.command.Command;
 import duke.exception.ChatBotCommandException;
 import duke.exception.ChatBotParameterException;
