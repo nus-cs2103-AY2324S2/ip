@@ -1,5 +1,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.io.IOException;
 
 /**
  * Duke class
@@ -21,10 +25,13 @@ class ListAdder {
     private ArrayList<Task> taskList = new ArrayList<>();
     private int taskIndex;
     private static final String line = "____________________________________________________________";
+    private static final String FILE_PATH = "./data/duke.txt";
 
     public ListAdder() {
         this.taskIndex = 1;
+        loadData();
     }
+
 
     /**
      * Starts the program
@@ -69,6 +76,66 @@ class ListAdder {
         goodbye();
     }
 
+    /**
+     * Loads data from the file into taskList
+     */
+    private void loadData() {
+        try {
+            Path filePath = Paths.get(FILE_PATH);
+
+            if (Files.exists(filePath)) {
+                // Read all lines from the file
+                Files.lines(filePath)
+                        .forEach(this::parseAndAddTask);
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading data from file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Parses a line from the file and adds the corresponding task to the taskList
+     *
+     * @param line a line from the file
+     */
+    private void parseAndAddTask(String line) {
+        // TODO: Implement this method to parse the line and add the task to the taskList
+    }
+
+    /**
+     * Saves data to the file
+     */
+    private void saveData() {
+        try {
+            Path filePath = Paths.get(FILE_PATH);
+
+            // Create the file if it doesn't exist
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
+            }
+
+            // Write data to the file
+            Files.write(filePath, formatData().getBytes());
+        } catch (IOException e) {
+            System.out.println("Error saving data to file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Formats data for writing to the file
+     *
+     * @return formatted data as a string
+     */
+    private String formatData() {
+        StringBuilder formattedData = new StringBuilder();
+
+        for (Task task : taskList) {
+            // Format each task and append to the string
+            formattedData.append(task.formatForFile()).append(System.lineSeparator());
+        }
+
+        return formattedData.toString();
+    }
 
     /**
      * Greets user and prints instructions
@@ -359,6 +426,16 @@ class Task {
         } else {
             return "[ ] " + this.task;
         }
+    }
+
+    /**
+     * Formats the task for writing to the file
+     *
+     * @return formatted string
+     */
+    public String formatForFile() {
+        // TODO: Implement this method to format the task for writing to the file
+        return "";
     }
 }
 
