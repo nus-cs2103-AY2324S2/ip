@@ -22,11 +22,13 @@ public class Deadline extends Task{
 
     @Override
     public String toWrite(){
-        return "D | " + super.toWrite() + " | " + this.date;
+        return "D | " + super.toWrite()
+                + " | " + this.date;
     }
 
     @Override
     public String toString(){
-        return this.description + " (by: "+ this.date + ")";
+        return this.description
+                + " (by: "+ super.dateTimeFormat(this.date) + ")";
     }
 }

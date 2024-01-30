@@ -124,6 +124,7 @@ public enum Command {
                 String startDate = detail.substring(0, date2Index - 1);
                 String endDate = detail.substring(date2Index + 4);
                 newTask = new Event(description, startDate, endDate);
+                break;
             }
             default:
                 throw new ToothlessException("Can't create task!");

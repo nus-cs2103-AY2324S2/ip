@@ -25,11 +25,15 @@ public class Event extends Task{
 
     @Override
     public String toWrite(){
-        return "E | " + super.toWrite() + " | " + this.startDate + " | " + this.endDate;
+        return "E | " + super.toWrite()
+                + " | " + this.startDate
+                + " | " + this.endDate;
     }
 
     @Override
     public String toString(){
-        return this.description + " (from: " + this.startDate + " to: " + this.endDate + ")";
+        return this.description
+                + " (from: " + super.dateTimeFormat(this.startDate)
+                + " to: " + super.dateTimeFormat(this.endDate) + ")";
     }
 }

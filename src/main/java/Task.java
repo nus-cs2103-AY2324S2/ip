@@ -1,3 +1,7 @@
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone = false;
@@ -21,6 +25,10 @@ public abstract class Task {
 
     public String toWrite(){
         return (isDone ? 1 : 0) + " | " + this.description;
+    }
+
+    public String dateTimeFormat(LocalDateTime dateTime){
+        return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
     }
 
     public abstract String getTaskIcon();
