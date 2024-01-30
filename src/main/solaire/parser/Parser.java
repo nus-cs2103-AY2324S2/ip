@@ -1,5 +1,12 @@
+package solaire.parser;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import solaire.data.task.Deadline;
+import solaire.data.task.Event;
+import solaire.data.exception.SolaireException;
+import solaire.data.task.Task;
+import solaire.data.task.Todo;
 
 public class Parser {
 

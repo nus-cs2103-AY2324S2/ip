@@ -1,3 +1,5 @@
+package solaire.ui;
+
 import java.util.Scanner;
 
 public class Ui {

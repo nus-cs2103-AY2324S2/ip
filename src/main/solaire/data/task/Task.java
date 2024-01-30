@@ -1,3 +1,5 @@
+package solaire.data.task;
+
 public class Task {
     private static int count = 0;
     private int id;

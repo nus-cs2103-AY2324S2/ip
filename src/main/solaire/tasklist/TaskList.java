@@ -1,4 +1,10 @@
+package solaire.tasklist;
+
 import java.util.ArrayList;
+
+import solaire.data.exception.SolaireException;
+import solaire.data.task.Task;
+import solaire.parser.Parser;
 
 public class TaskList {
     ArrayList<Task> taskList = new ArrayList<>();
