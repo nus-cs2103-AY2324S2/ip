@@ -53,7 +53,7 @@ public class FileIO {
                 }
                 l.add(deadline);
             } else if (array_split[0].equals("E")) {
-                Event event = new Event(array_split[2], array_split[3], array_split[4]);
+                Event event = new Event(array_split[1], array_split[2], array_split[3]);
                 if (array_split[1].equals("1")) {
                     event.markDone();
                 }
