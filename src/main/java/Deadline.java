@@ -9,15 +9,11 @@ public class Deadline extends Task {
         this.time = LocalDate.parse(time);
     }
 
-    public Deadline(boolean done, String name, String time) {
-        super(done, name);
-        this.time = time;
-    }
-
     public Deadline(String name, String time) {
         super(name);
         this.time = LocalDate.parse(time);
     }
+
 
     @Override
     public String toSavedString() {
@@ -25,11 +21,6 @@ public class Deadline extends Task {
                 , this.done ? '1' : '0'
                 , this.name
                 , this.time.format(DateTimeFormatter.ISO_LOCAL_DATE));
-    }
-
-    @Override
-    public String toSavedString() {
-        return String.format("D,%s,%s,%s", this.done ? '1' : '0', this.name, this.time);
     }
 
     public String toString() {

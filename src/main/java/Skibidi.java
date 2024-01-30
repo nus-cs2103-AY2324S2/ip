@@ -1,5 +1,8 @@
+import java.io.IOException;
 import java.time.DateTimeException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -82,6 +85,8 @@ public class Skibidi {
             } catch (DateTimeException e) {
                 System.out.println("The format of your date is wrong! Make sure it is of the form 'yyyy-MM-dd'.");
                 System.out.println("More specifically: \n" + e.getMessage());
+            } catch (DukeWrongDateOrderException e) {
+                System.out.println("The end date should be after the start date");
             }
         }
     }
@@ -136,8 +141,11 @@ public class Skibidi {
             if (n.isEmpty() || f.isEmpty() || t.isEmpty()) {
                 throw new DukeEmptyArgumentException();
             }
-
-            this.list.add(new Event(n, f, t));
+            Event e = new Event(n, f, t);
+            if (!e.isCorrectOrder()) {
+                throw new DukeWrongDateOrderException();
+            }
+            this.list.add(e);
 
         } else {
             throw new DukeInvalidInputException();
@@ -195,7 +203,7 @@ public class Skibidi {
         }
     }
 
-    public void save() throws IOException {
+    public void save() throws IOException, IOException {
         // Check if the directory exists
         String userDir = System.getProperty("user.dir");
         Path pathDir = Paths.get(userDir, "data");
@@ -210,7 +218,7 @@ public class Skibidi {
         Files.createFile(pathFile);
         // Writing to the file
         writeToFile(pathFile);
-        System.out.println("Your list has been saved to /data/duke/txt");
+        System.out.println("Your list has been saved to /data/duke.txt");
     }
 
     private void writeToFile(Path f) throws IOException {
