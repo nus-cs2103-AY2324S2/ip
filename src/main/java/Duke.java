@@ -3,6 +3,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.io.*;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 public class Duke {
     public static class Task {
         String action;
@@ -35,9 +38,9 @@ public class Duke {
         }
     }
     public static class Event extends Task {
-        String from;
-        String to;
-        public Event(String input, boolean isDone, String from, String to) {
+        LocalDateTime from;
+        LocalDateTime to;
+        public Event(String input, boolean isDone, LocalDateTime from, LocalDateTime to) {
             super(input, isDone);
             this.from = from;
             this.to = to;
@@ -45,12 +48,12 @@ public class Duke {
         @Override
         public String toString() {
             String s = super.toString();
-            return "[E]" + s + "(from" + from + "to" + to + ")";
+            return "[E]" + s + "(from " + from.toString().replace("T", " ") + " to " + to.toString().replace("T", " ") + ")";
         }
         @Override
         public String export() {
             String s = super.toString();
-            return "[E]" + s + "/from" + from + "/to" + to ;
+            return "[E]" + s + "/from" + from.toString().replace("T", " ") + "/to" + to.toString().replace("T" , " ") ;
         }
     }
     public static class Todo extends Task {
@@ -68,21 +71,21 @@ public class Duke {
         }
     }
     public static class Deadline extends Task {
-        String by;
-        public Deadline(String input, boolean isDone, String by) {
+        LocalDateTime by;
+        public Deadline(String input, boolean isDone, LocalDateTime by) {
             super(input, isDone);
             this.by = by;
         }
         @Override
         public String toString() {
             String s = super.toString();
-            return "[D]" + s + "(by:" + by +")";
+            return "[D]" + s + "(by:" + by.toString().replace("T", " ") +")";
         }
 
         @Override
         public String export() {
             String s = super.toString();
-            return "[D]" + s + "/by" + by ;
+            return "[D]" + s + "/by" + by.toString().replace("T", " ") ;
         }
 
     }
@@ -142,12 +145,13 @@ public class Duke {
                     Matcher mUnmarked = pUnmarked.matcher(currentLine);
                     Matcher mMarked = pMarked.matcher(currentLine);
                     if (mTodo2.find()) {
+
                         if (mMarked.find()) {
-                            Todo n = new Todo(currentLine.substring(7), true );
+                            Todo n = new Todo(currentLine.substring(6), true );
                             n.mark();
                             List.add(n);
                         } else if (mUnmarked.find()){
-                            Todo n = new Todo(currentLine.substring(7), false);
+                            Todo n = new Todo(currentLine.substring(6), false);
                             n.unmark();
                             List.add(n);
                         }
@@ -155,14 +159,27 @@ public class Duke {
                         int finalIndex = currentLine.indexOf(by) + by.length();
                         String dL = currentLine.substring(finalIndex);
 
-                        String newInput = currentLine.substring(currentLine.indexOf(deadline) + deadline.length(), currentLine.indexOf(by));
+
+                        // Define the format of the input string
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        LocalDateTime ldt = null;
+                        try {
+                            // Parse the string into a LocalDate object
+                            ldt = LocalDateTime.parse(dL, formatter);
+
+                            // Output the LocalDate object
+
+                        } catch (DateTimeParseException e) {
+                            System.out.println("error in deadline");
+                        }
+                        String newInput = currentLine.substring(currentLine.indexOf(deadline) + deadline.length()- 1, currentLine.indexOf(by));
 
                         if (mMarked.find()) {
-                            Deadline n = new Deadline(newInput, true, dL);
+                            Deadline n = new Deadline(newInput, true, ldt);
                             n.mark();
                             List.add(n);
                         } else if (mUnmarked.find()){
-                            Deadline n = new Deadline(newInput, false, dL);
+                            Deadline n = new Deadline(newInput, false, ldt);
                             n.unmark();
                             List.add(n);
                         }
@@ -174,14 +191,24 @@ public class Duke {
 
                         String subTo = currentLine.substring(startIndexTo + to.length());
 
-                        String newInput = currentLine.substring(currentLine.indexOf(event) + event.length() + 3, startIndex);
+                        String newInput = currentLine.substring(currentLine.indexOf(event) + event.length() + 2, startIndex);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        LocalDateTime ldt = null;
+                        LocalDateTime ldt2 = null;
+                        try {
+                            // Parse the string into a LocalDate object
+                            ldt = LocalDateTime.parse(subFrom, formatter);
+                            ldt2 = LocalDateTime.parse(subTo, formatter);
 
+                        } catch (DateTimeParseException e) {
+                            System.out.println("error in event");
+                        }
                         if (mMarked.find()) {
-                            Event n = new Event(newInput, true, subFrom, subTo);
+                            Event n = new Event(newInput, true, ldt, ldt2);
                             n.mark();
                             List.add(n);
                         } else if (mUnmarked.find()){
-                            Event n = new Event(newInput, false, subFrom, subTo);
+                            Event n = new Event(newInput, false, ldt, ldt2);
                             n.unmark();
                             List.add(n);
                         }
@@ -388,13 +415,29 @@ public class Duke {
                 if (mFrom.find() && mTo.find()) {
                     int startIndex = input.indexOf(from);
                     int startIndexTo = input.indexOf(to);
-                    String subFrom = input.substring(startIndex + from.length(), startIndexTo);
+                    String subFrom = input.substring(startIndex + from.length(), startIndexTo-1);
                     String subTo = input.substring(startIndexTo + to.length());
                     String newInput = input.substring(input.indexOf(event) + event.length(), startIndex);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm");
+                    LocalDateTime ldt = null;
+                    LocalDateTime ldt2 = null;
+                    System.out.println(subFrom);
+                    System.out.println(subTo);
+                    try {
+                        // Parse the string into a LocalDate object
+                        ldt = LocalDateTime.parse(subFrom, formatter);
+                        ldt2 = LocalDateTime.parse(subTo, formatter);
+
+
+                    } catch (Exception e) {
+                        // Handle parsing exceptions
+                        System.out.println("Please enter a valid date/time");
+                        continue;
+                    }
                     if (newInput.trim().equals("")) {
                         System.out.println("Task cannot be empty!");
                     } else {
-                        Event n = new Event(newInput, false, subFrom, subTo);
+                        Event n = new Event(newInput, false, ldt, ldt2);
                         List.add(n);
                         length = length + 1;
                         System.out.println("OK, I have added this task :");
@@ -416,10 +459,23 @@ public class Duke {
                     int finalIndex = input.indexOf(by) + by.length();
                     String dL = input.substring(finalIndex);
                     String newInput = input.substring(input.indexOf(deadline) + deadline.length(), input.indexOf(by));
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm");
+                    LocalDateTime ldt = null;
+                    System.out.println(dL);
+                    try {
+                        // Parse the string into a LocalDate object
+                        ldt = LocalDateTime.parse(dL, formatter);
+
+
+                    } catch (Exception e) {
+                        // Handle parsing exceptions
+                        System.out.println("Please enter a valid date/time");
+                        continue;
+                    }
                     if (newInput.trim().equals("")) {
                         System.out.println("Task cannot be empty!");
                     } else {
-                        Deadline n = new Deadline(newInput, false, dL);
+                        Deadline n = new Deadline(newInput, false, ldt);
                         List.add(n);
                         length = length + 1;
                         System.out.println("OK, I have added this task :");
