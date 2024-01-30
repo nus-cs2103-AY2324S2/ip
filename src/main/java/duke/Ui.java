@@ -1,4 +1,6 @@
-import Tasks.TaskList;
+package duke;
+
+import duke.Tasks.TaskList;
 import javafx.util.Pair;
 import java.util.Scanner;
 public class Ui {
@@ -14,6 +16,7 @@ public class Ui {
             input = scanner.nextLine();
             taskList = this.printMessage(input, parser, taskList);
         }
+        this.bye();
         return taskList;
     }
 
@@ -24,15 +27,15 @@ public class Ui {
     }
 
     public void greet() {
-        Toothless.printLines();
+        this.printLines();
         System.out.println("Hello! I'm Toothless!\nWhat can I do for you?");
-        Toothless.printLines();
+        this.printLines();
     }
 
     public void bye() {
-        Toothless.printLines();
+        this.printLines();
         System.out.println("Bye. Hope to see you again soon!");
-        Toothless.printLines();
+        this.printLines();
     }
 
     public void printLines() {

@@ -1,4 +1,4 @@
-package Exceptions;
+package duke.Exceptions;
 
 public class MissingToDoNameException extends RuntimeException {
 

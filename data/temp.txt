@@ -6,4 +6,3 @@ D | 0 | return book  | Jan 30 2024
 D | 1 | return book  | Jan 30 2024
 D | 0 | don't return book  | Jan 30 2024
 D | 0 | return book  | Jan 30 2024
-D | 0 | return book  | Jan 30 2024

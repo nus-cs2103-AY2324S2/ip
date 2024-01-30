@@ -1,22 +1,16 @@
-import Exceptions.InvalidInstructionException;
-import Exceptions.MissingToDoNameException;
-import Exceptions.MissingTaskToMarkException;
-import Parsers.DateTimeParser;
-import Parsers.FileParser;
-import Tasks.*;
+package Duke;
+import duke.Parsers.FileParser;
+import duke.Tasks.*;
+import duke.Parsers.*;
+import duke.Ui;
+import duke.Parser;
+import duke.Storage;
 
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class Toothless {
 
