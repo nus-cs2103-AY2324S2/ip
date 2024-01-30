@@ -64,4 +64,9 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + this.from
                 + " to: " + this.to + ")";
     }
+
+    @Override
+    public String toSaveString() {
+        return "E | " + super.toSaveString() + " | " + this.from + " - " + this.to;
+    }
 }
