@@ -14,4 +14,8 @@ public class Task {
     public String getTaskDescription() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    public void markAsDone() {
+        isDone = true;
+    }
 }
