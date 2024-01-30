@@ -1,8 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class TaskList {
     private List<Task> tasklist;
@@ -26,12 +22,10 @@ public class TaskList {
     }
 
     public void delete(int num) {
-
         tasklist.remove(num);
     }
 
     public int length() {
-
         return tasklist.size();
     }
     public void iterateout() {

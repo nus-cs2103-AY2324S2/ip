@@ -42,6 +42,4 @@ public class Task {
     public void unmark() {
         this.isDone = false;
     }
-
-    //...
 }
