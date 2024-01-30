@@ -1,35 +1,38 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     // print list of stored tasks
     //Chatbot stores user commands in a fixed array
-    public static Task[] listStore = new Task[100];
+    public static ArrayList<Task> listStore = new ArrayList<>();
     public static int listCount = 0;
-    public static void printTasks(Task[] listStore, int listCount) {
+    public static String FILE_PATH = "data/duke.txt";
+    public static void printTasks(ArrayList<Task> listStore, int listCount) {
         for (int i = 0; i < listCount; i++) {
             int taskNum = i + 1;
-            System.out.println(taskNum + ". " + listStore[i]);
+            System.out.println(taskNum + ". " + listStore.get(i).toString());
         }
         System.out.println();
     }
 
     // function to mark task as done and print it
-    public static void markTaskAsDone(Task[] listStore, int taskNum) {
-        listStore[taskNum - 1].markAsDone();
-        System.out.println("Nice! I've marked this task as done:\n" + listStore[taskNum - 1].toString() + "\n");
+    public static void markTaskAsDone(ArrayList<Task> listStore, int taskNum) {
+        listStore.get(taskNum - 1).markAsDone();
+        System.out.println("Nice! I've marked this task as done:\n" + listStore.get(taskNum - 1).toString() + "\n");
     }
 
     //function to mark task as not done and print it
-    public static void markTaskAsNotDone(Task[] listStore, int taskNum) {
-        listStore[taskNum - 1].markAsNotdone();
-        System.out.println("OK, I've marked this task as not done yet:\n" + listStore[taskNum - 1].toString() + "\n");
+    public static void markTaskAsNotDone(ArrayList<Task> listStore, int taskNum) {
+        listStore.get(taskNum - 1).markAsNotdone();
+        System.out.println("OK, I've marked this task as not done yet:\n"
+                + listStore.get(taskNum - 1).toString() + "\n");
     }
 
     //function to delete task and move remaining tasks up in the list
-    public static void deleteTask(Task[] listStore, int taskNum) {
-        System.out.println("Noted. I've removed this task:\n" + listStore[taskNum - 1].toString());
+    public static void deleteTask(ArrayList<Task> listStore, int taskNum) {
+        System.out.println("Noted. I've removed this task:\n" + listStore.get(taskNum - 1).toString());
         for (int i = taskNum - 1; i < listCount - 1; i++) {
-            listStore[i] = listStore[i + 1];
+            listStore.set(i, listStore.get(i + 1));
         }
         listCount--;
         System.out.println("Now you have " + listCount + " tasks in the list.\n");
@@ -90,7 +93,7 @@ public class Duke {
                         throw new Exception("ChatterOOHNOO! Chatteroo doesn't understand what yoo mean!");
                     }
                     if (newTask != null) {
-                        listStore[listCount] = newTask;
+                        listStore.add(newTask);
                         listCount++;
                         System.out.println("Got it. I've added this task:\n" + newTask.toString());
                         if (listCount == 1) {
