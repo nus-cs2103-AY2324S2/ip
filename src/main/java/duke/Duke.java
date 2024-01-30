@@ -8,6 +8,8 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+import java.io.IOException;
+
 public class Duke {
 
     private final Storage storage;
@@ -20,7 +22,11 @@ public class Duke {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList();
-        storage.loadTasksFromFileToTaskList(tasks);
+        try {
+            storage.loadTasksFromFileToTaskList(tasks);
+        } catch (ChatBotParameterException | IOException e) {
+            ui.showLoadingError();
+        }
     }
 
     public void run() {
@@ -33,7 +39,7 @@ public class Duke {
                 Command c = Parser.parseCommand(fullCommand);
                 c.execute(storage, ui, tasks);
                 isExit = c.isExit();
-            } catch (ChatBotParameterException | ChatBotCommandException e) {
+            } catch (ChatBotCommandException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();

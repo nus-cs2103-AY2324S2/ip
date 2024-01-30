@@ -91,4 +91,8 @@ public class Ui {
     public void showDeletedTask(Task task) {
         System.out.println("Noted. I've removed this task: \n" + task.toString());
     }
+
+    public void showLoadingError() {
+        System.out.println("Loading data from file error.");
+    }
 }

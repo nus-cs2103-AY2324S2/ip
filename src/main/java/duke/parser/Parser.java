@@ -17,11 +17,15 @@ public class Parser {
         if (command.isEmpty()) {
             throw new ChatBotCommandException("Empty command.");
         }
-        String[] splitCommandArr = command.split("\\s+", 2);
-        String keyword = splitCommandArr[0];
+
+        //Split command String into
+        // keyword (i.e. first word) and
+        // parameters (the rest of command after whitespace)
+        String[] commandArr = command.split("\\s+", 2);
+        String keyword = commandArr[0];
         String parameters;
         try {
-            parameters = splitCommandArr[1];
+            parameters = commandArr[1];
         } catch (ArrayIndexOutOfBoundsException e) {
             parameters = "";
         }
