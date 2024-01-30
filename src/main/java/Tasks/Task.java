@@ -1,3 +1,5 @@
+package Tasks;
+
 public class Task {
     protected String name;
     protected boolean completed;

@@ -1,11 +1,14 @@
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
+package Main;
+
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
+
+import Commands.Command;
+import Parsing.Parser;
+import Utilities.Storage;
+import Utilities.TaskList;
+import Utilities.Ui;
+import Exceptions.YpxmmException;
 
 
 public class Ypxmm {
@@ -43,11 +46,9 @@ public class Ypxmm {
                 ui.showLine();
             }
         }
-        ui.sayGoodbye();
     }
 
     public static void main(String[] args) throws YpxmmException {
-
         new Ypxmm("/data/Ypxmm.txt").run();
     }
 }
