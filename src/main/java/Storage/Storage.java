@@ -18,7 +18,7 @@ import Tasks.ToDo;
 
 public class Storage {
 
-    private final String SAVE_FILE = "src/main/java/Kewqgy.txt";
+    private final String SAVE_FILE = "src/main/java/Data/Kewqgy.txt";
     private Ui ui;
 
     public Storage() {
