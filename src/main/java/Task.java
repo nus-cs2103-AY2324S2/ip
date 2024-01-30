@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * The Task class contains the task with a description and a status.
  */
-public class Task {
+public class Task implements Serializable{
     protected String description;
     protected boolean isDone;
 

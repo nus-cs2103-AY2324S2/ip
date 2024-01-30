@@ -1,4 +1,6 @@
 import java.util.*;
+import java.io.*;
+
 public class Duke {
     /**
      * The main method for the Duke program.
@@ -13,6 +15,7 @@ public class Duke {
         System.out.println("____________________________________________________________");
 
         List<Task> array = new ArrayList<>();
+        array = load();
 
         Scanner sc = new Scanner(System.in);
 
@@ -20,6 +23,7 @@ public class Duke {
             String order = sc.nextLine();
 
             if (order.equals("bye")) {
+                save(array);
                 System.out.println("____________________________________________________________");
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
@@ -58,6 +62,7 @@ public class Duke {
                     }
                     Task t = new Todo(task);
                     array.add(t);
+                    save(array);
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
                     System.out.println(t.toString());
@@ -74,6 +79,7 @@ public class Duke {
                 String due = order.substring(byIndex + 4);
                 Task t = new Deadline(task, due);
                 array.add(t);
+                save(array);
                 System.out.println("____________________________________________________________");
                 System.out.println("Got it. I've added this task:");
                 System.out.println(t.toString());
@@ -87,6 +93,7 @@ public class Duke {
                 String to = order.substring(toIndex + 4);
                 Task t = new Event(task, from, to);
                 array.add(t);
+                save(array);
                 System.out.println("____________________________________________________________");
                 System.out.println("Got it. I've added this task:");
                 System.out.println(t.toString());
@@ -100,6 +107,7 @@ public class Duke {
                 Task t = array.get(number - 1);
                 System.out.println(t.toString());
                 array.remove(number - 1);
+                save(array);
                 System.out.println("Now you have " + array.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
             } else {
@@ -107,6 +115,23 @@ public class Duke {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 System.out.println("____________________________________________________________");
             }
+        }
+    }
+
+    private static void save(List<Task> tasks) {
+        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("/Users/leedoye/ip/src/data/duke_tasks.txt"))) {
+            output.writeObject(tasks);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static List<Task> load() {
+        try (ObjectInputStream intput = new ObjectInputStream(new FileInputStream("/Users/leedoye/ip/src/data/duke_tasks.txt"))) {
+            return (List<Task>) intput.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("No existing tasks or file.");
+            return new ArrayList<>();
         }
     }
 }
