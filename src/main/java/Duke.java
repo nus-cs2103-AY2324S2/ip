@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -8,10 +10,13 @@ import java.util.Scanner;
 public class Duke {
     private ArrayList<Task> tasks;
     private int counter;
+
+    private Parser p;
     
     public Duke() {
         this.tasks = new ArrayList<Task>();
         this.counter = 0;
+        this.p = new Parser();
     }
     public static void main(String[] args) {
         Duke d = new Duke();
@@ -107,57 +112,34 @@ public class Duke {
      * @param name is the details of a Deadline task.
      */
     private void addDeadline(String name) {
+        //todo, use parser to take care of blank inputs
         String[] lst = name.split("deadline");
-        if (lst.length == 0 || checkBlankString(lst[1])) {
-            System.out.println("Don't leave the task description blank");
-        } else if (!name.contains("/")) {
-            System.out.println("Please leave a \" / \" for the due date");
-        } else {
-            lst = lst[1].split("/",3);
-            name = lst[0];
-            String date = lst[1];
-            if (checkBlankString(name) || checkBlankString(date)) {
-                System.out.println("Please fill in both the name and due date");
-                return;
-            }
-            Task t = new Deadline(name, date);
-            this.tasks.add(t);
-            this.counter += 1;
-            this.echo(name);
-        }
-
+        System.out.println("Please enter due date");
+        String date = this.p.getDate();
+        Task t = new Deadline(name, date);
+        this.tasks.add(t);
+        this.counter += 1;
+        this.echo(name);
     }
 
     /**
      * Adds a Event task to the list of tasks after verifying its details.
      * @param name is the details of a Event task.
      */
-    private void addEvent(String name) {
-        String[] lst = name.split("event");
-        if (lst.length == 0 || checkBlankString(lst[1])) {
-            System.out.println("Don't leave the task description blank");
-        } else if (!name.contains("/")) {
-            System.out.println("Please leave a \" / \" for the due date");
-        } else {
-            lst = lst[1].split("/", 4);
-            if (lst.length != 3) {
-                System.out.println("Please enter the correct format for event");
-                return;
-            }
-            name = lst[0];
-            String start = lst[1];
-            String end = lst[2];
-            if (checkBlankString(name) || checkBlankString(start) || checkBlankString(end)) {
-                System.out.println("Please fill in both the name and due date");
-                return;
-            }
-            Task t = new Event(name, start + " " + end);
-            this.tasks.add(t);
-            this.counter += 1;
-            this.echo(name);
-        }
 
+    private void addEvent(String name) {
+        //todo, use parser to take care of blank inputs
+        String[] lst = name.split("event");
+        System.out.println("Please enter a start date");
+        String start = this.p.getDate();
+        System.out.println("Please enter a end date");
+        String end = this.p.getDate();
+        Task t = new Event(name, start + " " + end);
+        this.tasks.add(t);
+        this.counter += 1;
+        this.echo(name);
     }
+
 
     /**
      * Prints out all the tasks
@@ -258,19 +240,12 @@ public class Duke {
                 int pos = Integer.parseInt(lst[1]);
                 this.tasks.get(pos - 1).doTask();
             } else {
-
                 this.addTask(cmd);
             }
 
-
-
-
         }
 
-
     }
-
-
 
 }
 
@@ -371,6 +346,61 @@ class Event extends Task{
     public String toString() {
         return "[E]" + super.toString() + this.time;
     }
+}
+
+class Parser {
+    Scanner input;
+
+    public Parser() {
+        this.input = new Scanner(System.in);
+    }
+
+    public String getDate() {
+        System.out.println("Please enter the date in the format of yyyy--mm--dd");
+        while (true) {
+            try {
+                LocalDate date = LocalDate.parse(input.next());
+                return date.toString();
+            } catch (DateTimeException e) {
+                System.out.println("Please enter the date of the correct format");
+            }
+
+        }
+    }
+
+    public String getTaskDescription() {
+        System.out.println("Please enter a task description");
+        while (true) {
+            String taskDescription = input.nextLine();
+            if (taskDescription.isEmpty()) {
+                System.out.println("Task description cannot be blank");
+            } else {
+                return taskDescription;
+            }
+        }
+
+    }
+
+    
+
+    public String getTaskType(String taskDescription) {
+        System.out.println("Please enter a task type");
+        ArrayList<String> lst = new ArrayList<>();
+        lst.add("event");
+        lst.add("todo");
+        lst.add("deadline");
+        while (true) {
+            String taskType = taskDescription;
+            if (!lst.contains(taskType)) {
+                System.out.println("Please enter a valid command");
+                taskDescription = input.nextLine();
+            } else {
+                return taskDescription;
+            }
+        }
+    }
+
+
 }
 
 
