@@ -2,10 +2,8 @@ import commands.ByeCommand;
 import commands.Command;
 import commands.CommandResult;
 import common.DataStorage;
-import exception.MalformedUserInputException;
-import parser.EventParser;
 import parser.Parser;
-import tasklist.Task;
+import ui.Ui;
 
 public class Duke {
 
