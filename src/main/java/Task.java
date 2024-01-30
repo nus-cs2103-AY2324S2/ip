@@ -24,6 +24,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String saveFormat() {
+        return this.toString();
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s",
