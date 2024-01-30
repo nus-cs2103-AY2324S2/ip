@@ -1,6 +1,7 @@
 package kervyn;
 
 import kervyn.Commands.*;
+import kervyn.Tasks.Event;
 import kervyn.Tasks.TaskList;
 
 /**
@@ -52,6 +53,9 @@ public class Parser {
                 break;
             case "event":
                 new EventCommand(taskList, userInput).executeCommand();
+                break;
+            case "find":
+                new FindCommand(taskList, userInput).executeCommand();
                 break;
             default:
                 System.out.println("\t I'm not sure what that means. Please specify the type of task eg. todo, deadline or event to create a task.");

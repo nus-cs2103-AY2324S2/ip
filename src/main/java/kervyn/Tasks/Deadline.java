@@ -30,4 +30,15 @@ public class Deadline extends Task {
         String formattedDeadline = this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy, ha"));
         return formattedDeadline;
     }
+
+    /**
+     * Converts the task to a string representation, including type, status, and description.
+     *
+     * @return A string representation of the Deadline task.
+     */
+    @Override
+    public String toString() {
+        return "\t[" + this.getCapitalType() + "]" + "[ ]" + this.getDescription() + " (by: " + this.getDeadline() + ")";
+    }
+
 }

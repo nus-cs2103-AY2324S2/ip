@@ -14,4 +14,14 @@ public class ToDo extends Task {
     public ToDo(String description, boolean status) {
         super(description, status, Type.TODO);
     }
+
+    /**
+     * Converts the task to a string representation, including type, status, and description.
+     *
+     * @return A string representation of the ToDO task.
+     */
+    @Override
+    public String toString() {
+        return "\t[" + this.getCapitalType() + "]" + "[ ]" + this.getDescription();
+    }
 }

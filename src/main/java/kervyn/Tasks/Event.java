@@ -43,4 +43,15 @@ public class Event extends Task {
         String formattedEndDate = this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy, ha"));
         return formattedEndDate;
     }
+
+    /**
+     * Converts the task to a string representation, including type, status, and description.
+     *
+     * @return A string representation of the Event task.
+     */
+    @Override
+    public String toString() {
+        return "\t[" + this.getCapitalType() + "]" + "[ ]" + this.getDescription() + " (from: " + this.getStartDate() + " to: " + this.getEndDate() + ")";
+    }
+
 }

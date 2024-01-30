@@ -172,4 +172,26 @@ public class TaskList {
             System.out.println("\tTask number provided doesn't exist. Please try again.");
         }
     }
+
+    public void findTask(ArrayList<Task> userTasks, String userInput) {
+        String[] processedUserInput = userInput.split(" ");
+        StringBuilder userKeywords = new StringBuilder();
+        ArrayList<Task> results = new ArrayList<>();
+
+        for (int i = 1; i < processedUserInput.length; i++) {
+            userKeywords.append(processedUserInput[i]);
+        }
+
+        for (int j = 0; j < userTasks.size(); j++) {
+            // Check the type of the tasks
+            String task = "";
+            if (userTasks.get(j) instanceof ToDo) {
+                task = "[" + userTasks.get(j).getCapitalType() + "]" + "[ ]" + userTasks.get(j).getDescription());
+            } else if (userTasks.get(j) instanceof Deadline) {
+
+            } else if (userTasks.get(j) instanceof Event) {
+
+            }
+        }
+    }
 }
