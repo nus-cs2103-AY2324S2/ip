@@ -1,15 +1,15 @@
-package Utilities;
+package utilities;
 
-import Command.Command;
-import Command.AddCommand;
-import Command.DeleteCommand;
-import Command.ExitCommand;
-import Command.ListCommand;
-import Command.MarkCommand;
-import Exceptions.DukeException;
-import Task.Todo;
-import Task.Deadline;
-import Task.Event;
+import command.Command;
+import command.AddCommand;
+import command.DeleteCommand;
+import command.ExitCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import exceptions.DukeException;
+import task.Todo;
+import task.Deadline;
+import task.Event;
 
 import java.time.format.DateTimeParseException;
 

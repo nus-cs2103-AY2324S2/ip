@@ -1,10 +1,10 @@
-package Command;
+package command;
 
-import Utilities.Storage;
-import Task.TaskList;
-import Utilities.Ui;
+import utilities.Storage;
+import task.TaskList;
+import utilities.Ui;
 
-import Exceptions.DukeException;
+import exceptions.DukeException;
 
 public abstract class Command {
     private boolean isExit;

@@ -1,15 +1,15 @@
-package Utilities;
+package utilities;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import Task.TaskList;
-import Task.Task;
-import Task.Todo;
-import Task.Deadline;
-import Task.Event;
+import task.TaskList;
+import task.Task;
+import task.Todo;
+import task.Deadline;
+import task.Event;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 

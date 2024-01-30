@@ -1,7 +1,7 @@
-package Utilities;
+package utilities;
 
-import Task.TaskList;
-import Task.Task;
+import task.TaskList;
+import task.Task;
 
 import java.util.Scanner;
 

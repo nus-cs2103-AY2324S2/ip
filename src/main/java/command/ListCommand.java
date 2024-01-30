@@ -1,8 +1,8 @@
-package Command;
+package command;
 
-import Utilities.Storage;
-import Task.TaskList;
-import Utilities.Ui;
+import utilities.Storage;
+import task.TaskList;
+import utilities.Ui;
 
 public class ListCommand extends Command {
     public ListCommand() {
