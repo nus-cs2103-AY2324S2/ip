@@ -13,7 +13,6 @@ public class TodoCommand extends Command {
             "\t %s\n" +
             "\t Now you have %d task(s) available!";
 
-    public static final String MESSAGE_INVALID_COMMAND = "\t Invalid Command Format.";
     public static final String MESSAGE_BLANK_EVENT = "\t The event name cannot be empty!";
 
     private final Todo toAdd;

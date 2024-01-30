@@ -7,7 +7,9 @@ import java.util.regex.Pattern;
 
 import common.Messages;
 import exception.MalformedUserInputException;
+import tasklist.Event;
 
+import static commands.EventCommand.EVENT_ARGUMENTS_FORMAT;
 import static commands.TodoCommand.MESSAGE_BLANK_EVENT;
 
 public class Parser {
@@ -31,6 +33,9 @@ public class Parser {
             case TodoCommand.COMMAND_WORD:
                 return prepareTodo(arguments);
 
+            case EventCommand.COMMAND_WORD:
+                return prepareEvent(arguments);
+
             case ByeCommand.COMMAND_WORD:
                 return new ByeCommand();
 
@@ -39,6 +44,32 @@ public class Parser {
 
             default:
                 return new IncorrectCommand(Messages.MESSAGE_INCORRECT);
+        }
+    }
+
+    private Command prepareEvent(String arguments) {
+        final Matcher matcher = EventCommand.EVENT_ARGUMENTS_FORMAT.matcher(arguments.trim());
+
+        if (!matcher.matches()) {
+            return new IncorrectCommand(EventCommand.MESSAGE_USAGE);
+        }
+
+        final String startTime = matcher.group("startTime");
+        final String endTime = matcher.group("endTime");
+        final String eventName = matcher.group("eventName");
+
+        if (startTime.isEmpty()) {
+            return new IncorrectCommand(EventCommand.MESSAGE_BLANK_START_TIME);
+        } else if (eventName.isEmpty()) {
+            return new IncorrectCommand(EventCommand.MESSAGE_BLANK_EVENT);
+        } else if (endTime.isEmpty()) {
+            return new IncorrectCommand(EventCommand.MESSAGE_BLANK_END_TIME);
+        } else {
+            try {
+                return new EventCommand(eventName, startTime, endTime);
+            } catch (MalformedUserInputException e) {
+                return new IncorrectCommand(e.getMessage());
+            }
         }
     }
 
