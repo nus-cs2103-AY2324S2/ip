@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Duke {
     private boolean isRunning;
-    private TaskList taskList = new TaskList();
+    private TaskList taskList;
 
     public static void main(String[] args) {
         Duke duke = new Duke();
@@ -25,6 +25,14 @@ public class Duke {
         printMessage(introMessage);
         printLine();
 
+        try {
+            this.taskList = new TaskList();
+        } catch (DukeException e) {
+            printMessage(e.getMessage());
+            printMessage("Exiting as tasklist.txt is corrupted.");
+            this.isRunning = false;
+        }
+
         while (this.isRunning) {
             try {
                 String userInput = scanner.nextLine();
@@ -36,11 +44,11 @@ public class Duke {
                 printLine();
             }
         }
-        printMessage("Bye. Purr-lease chat again soon!");
     }
 
     public void parseInput(String userInput) throws DukeException {
         if (userInput.equals("bye")) {
+            printMessage("Bye. Purr-lease chat again soon!");
             this.isRunning = false;
         } else if (userInput.equals("list")) {
             taskList.printList();

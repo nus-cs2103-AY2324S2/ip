@@ -1,16 +1,27 @@
 package task;
 
+import exception.DukeException;
+import storage.Storage;
+
 import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> taskList;
+    private Storage storage;
 
-    public TaskList() {
+    public TaskList() throws DukeException {
         this.taskList = new ArrayList<>();
+        this.storage = new Storage("./data/tasklist.txt");
+        this.taskList = this.storage.loadStorage(this.taskList);
     }
     
     public int size() {
         return taskList.size();
+    }
+    
+    public void saveTasks() throws DukeException {
+        this.storage.saveToStorage(this.taskList);
+        System.out.println("\tSuccessfully saved task data to tasklist.txt.");
     }
     
     public void markTask(int index) {
@@ -72,6 +83,10 @@ public class TaskList {
     }
 
     public void printList() {
+        if (this.size() == 0) {
+            System.out.print("\tOops! Looks like you haven't added any tasks yet!");
+        }
+        
         String listString = "";
         for (int i = 1; i <= taskList.size(); i++) {
             listString += "\t";
