@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 application {
@@ -21,4 +22,22 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+// Define the main class of your application
+mainClassName = 'Duke' // Replace with your own main class
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': mainClassName
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+shadowJar {
+    archiveFileName = 'duke.jar'
 }
