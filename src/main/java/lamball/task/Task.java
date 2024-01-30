@@ -1,4 +1,4 @@
-package Lamball.task;
+package lamball.task;
 
 public class Task {
     protected String description;

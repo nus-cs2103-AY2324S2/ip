@@ -1,4 +1,4 @@
-package Lamball;
+package lamball;
 
 import java.util.Scanner;
 

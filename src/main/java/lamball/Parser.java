@@ -1,5 +1,4 @@
-package Lamball;
-import Lamball.LamballParseException;
+package lamball;
 
 public class Parser {
     public static String[] parse(String msg) throws LamballParseException {

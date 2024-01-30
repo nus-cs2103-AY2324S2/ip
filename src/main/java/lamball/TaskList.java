@@ -1,9 +1,9 @@
-package Lamball;
+package lamball;
 
-import Lamball.task.Deadline;
-import Lamball.task.Event;
-import Lamball.task.Task;
-import Lamball.task.ToDo;
+import lamball.task.Deadline;
+import lamball.task.Event;
+import lamball.task.Task;
+import lamball.task.ToDo;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;

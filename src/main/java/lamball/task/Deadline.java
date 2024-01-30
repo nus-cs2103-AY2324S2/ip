@@ -1,4 +1,4 @@
-package Lamball.task;
+package lamball.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

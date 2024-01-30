@@ -1,7 +1,7 @@
-package Lamball;
+package lamball;
 
 public class Ui {
-    private static String welcomeMessage = "    Lamball\n" +
+    private static String welcomeMessage = "    lamball\n" +
             "    ____________________________________________________________\n" +
             "     Hello! I'm Lamball, your helpful sheep!\n" +
             "     Whaaat can I do for you?\n" +

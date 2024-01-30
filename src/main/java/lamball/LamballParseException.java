@@ -1,4 +1,4 @@
-package Lamball;
+package lamball;
 
 public class LamballParseException extends Exception {
     public LamballParseException(String message) {
