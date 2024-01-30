@@ -6,7 +6,7 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
     public String toString() {
-        return this.getTaskType() + this.getStatus() + " " + this.getTask() + getPeriod();
+        return this.getTaskType() + this.getStatus() + " " + this.getTask() + this.getPeriod();
     }
 
     public String getPeriod() {
@@ -15,5 +15,10 @@ public class Deadline extends Task {
 
     public String announcement() {
         return "New Deadline created!";
+    }
+
+    public String saveString() {
+        return this.getTaskTypeSingle() + "/" + this.getStatusBinary() + "/" + this.getTask() + "/" +
+                this.deadline;
     }
 }

@@ -7,7 +7,7 @@ public class Event extends Task {
         this.end = end;
     }
     public String toString() {
-        return this.getTaskType() + this.getStatus() + " " + this.getTask() + getPeriod();
+        return this.getTaskType() + this.getStatus() + " " + this.getTask() + this.getPeriod();
     }
 
     public String getPeriod() {
@@ -16,5 +16,10 @@ public class Event extends Task {
 
     public String announcement() {
         return "New Event created!";
+    }
+
+    public String saveString() {
+        return this.getTaskTypeSingle() + "/" + this.getStatusBinary() + "/" + this.getTask() + "/"
+                + this.start + "/" + this.end;
     }
 }

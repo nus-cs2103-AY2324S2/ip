@@ -28,6 +28,14 @@ public class Task {
         }
     }
 
+    public String getStatusBinary() {
+        if (isDone) {
+            return "1";
+        } else {
+            return "0";
+        }
+    }
+
     public String getTask() {
         return this.task;
     }
@@ -38,5 +46,12 @@ public class Task {
 
     public String announcement() {
         return "New task created!";
+    }
+
+    public String saveString() {
+        return "Type/Done/Description";
+    }
+    public String getTaskTypeSingle() {
+        return this.taskType;
     }
 }
