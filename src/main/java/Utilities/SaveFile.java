@@ -1,8 +1,15 @@
+package Utilities;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import Task.*;
+
+import Task.TaskList;
+import Task.Task;
+import Task.Todo;
+import Task.Deadline;
+import Task.Event;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
@@ -35,10 +42,10 @@ public class SaveFile {
         }
     }
 
-    public void saveToFile(ArrayList<Task> taskList) {
+    public void saveToFile(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(this.directoryName + "/" + this.fileName);
-            for (Task t : taskList) {
+            for (Task t : taskList.getList()) {
                 fw.write(t.toFileString());
                 fw.write((System.lineSeparator()));
             }
@@ -49,7 +56,7 @@ public class SaveFile {
     }
 
     public ArrayList<Task> readFile() {
-        ArrayList<Task> taskList = new ArrayList<>();
+        ArrayList<Task> taskList = new ArrayList<Task>();
         try {
             File f = new File(this.directoryName + "/" + this.fileName);
             Scanner s = new Scanner(f);
