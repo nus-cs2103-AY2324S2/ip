@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 import java.util.Scanner;
 public class TextUi {
     private final static String BORDER = "***************************";

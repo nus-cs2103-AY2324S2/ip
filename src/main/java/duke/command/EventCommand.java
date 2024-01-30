@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.TextUi;
+import duke.task.Task;
+import duke.task.Event;
+
 public class EventCommand extends Command {
     private final String DETAILS;
 

@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.TextUi;
+import duke.task.Task;
+
 class UnmarkCommand extends Command {
     private final int TASK_NUM;
 
@@ -6,9 +14,9 @@ class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasksList, TextUi ui, Storage storage) throws ExceptionDuke {
+    public void execute(TaskList tasksList, TextUi ui, Storage storage) throws DukeException {
         if (TASK_NUM <= 0 | TASK_NUM > tasksList.getList().size()) {
-            throw new ExceptionDuke("Invalid task number -.-!");
+            throw new DukeException("Invalid task number -.-!");
         }
         tasksList.unMark(TASK_NUM);
         Task unMarkedTask = tasksList.get(TASK_NUM);
