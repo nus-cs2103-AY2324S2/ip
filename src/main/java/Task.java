@@ -10,8 +10,6 @@ public class Task {
 
     public void markTask() {
         this.completed = true;
-        System.out.println("Upz la, mark for you already!");
-        System.out.println(this.toString());
     }
 
     public void setCompleted() {
@@ -20,8 +18,6 @@ public class Task {
 
     public void unmarkTask() {
         this.completed = false;
-        System.out.println("Eh wake up your idea, faster finish can or not?? Unmark for you already la!");
-        System.out.println(this.toString());
     }
 
     public String getStatusIcon() {

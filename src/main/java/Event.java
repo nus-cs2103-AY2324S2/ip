@@ -4,16 +4,13 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     protected LocalDateTime fromWhen;
     protected LocalDateTime toWhen;
+    protected DateTimeParser dateTimeParser;
 
-    public Event(String name, String fromWhen, String toWhen) {
+    public Event(String name, String fromWhenString, String toWhenString) {
         super(name);
-        this.fromWhen = parseTime(fromWhen);
-        this.toWhen = parseTime(toWhen);
-    }
-
-    private LocalDateTime parseTime(String timeString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-        return LocalDateTime.parse(timeString, formatter);
+        this.dateTimeParser = new DateTimeParser();
+        this.fromWhen = this.dateTimeParser.parseDateTime(fromWhenString);
+        this.toWhen = this.dateTimeParser.parseDateTime(toWhenString);
     }
 
     @Override
