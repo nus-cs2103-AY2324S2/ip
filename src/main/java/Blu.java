@@ -1,44 +1,61 @@
 import java.io.IOException;
-import java.util.Scanner;
-import exceptions.BluException;
+
+import command.ByeCommand;
+import command.Command;
+import exception.BluException;
+import parser.InputParser;
+import storage.Storage;
+import task.TaskList;
+import ui.UI;
 
 public class Blu {
-    private static final String PROMPT = "> ";
-    private static final String STORAGE_PATH = "../data/data.csv";
-    private static Storage storage;
+    private final String STORAGE_PATH = "../data/data.csv";
+    private TaskList taskList;
+    private Storage storage;
+    private UI ui;
 
-    private static String readUserInput(Scanner scanner) {
-        System.out.print(PROMPT);
-        return scanner.nextLine();
-    }
-    
     public static void main(String[] args) {
-        TaskList taskList = new TaskList();
+        new Blu().run();
+    }
+
+    private void run() {
+        init();
+        userInputLoop();
+        exit();
+    }
+
+    private void init() {
+        this.ui = new UI();
         try {
-            storage = new Storage(STORAGE_PATH);
-            taskList = storage.loadTasks();
+            this.storage = new Storage(STORAGE_PATH);
+            this.taskList = storage.loadTasks();
+            ui.showWelcomeMessage(STORAGE_PATH);
         } catch (IOException | BluException e) {
-            System.out.println(e.getMessage());
+            ui.showErrorMessage(e.getMessage());
             System.exit(1);
         }
-        Chatbot bot = new Chatbot("Blu", taskList, storage);
-        InputHandler inputHandler = new InputHandler();
-        bot.greet();
+    }
 
-        Scanner scanner = new Scanner(System.in);
-        String userInput = readUserInput(scanner);
-        while (!userInput.equals("bye")) {
-            if (!userInput.isEmpty()) {
-                try {
-                    inputHandler.handleInput(userInput, bot);
-                    storage.close();
-                } catch (IOException | BluException e) {
-                    System.out.println(e.getMessage());
-                } 
+    private void userInputLoop() {
+        boolean isBye = false;
+        do {
+            String userInput = ui.getUserInput();
+            if (userInput.isEmpty()) {
+                continue;
             }
-            userInput = readUserInput(scanner);
-        }
-        scanner.close();
-        bot.exit();
+            try {
+                Command command = new InputParser().parseInput(userInput);
+                command.execute(taskList, storage, ui);
+                if (command instanceof ByeCommand) {
+                    isBye = true;
+                }
+            } catch (BluException e) {
+                ui.showErrorMessage(e.getMessage());
+            }
+        } while(!isBye);       
+    }
+
+    private void exit() {
+        ui.exit();
     }
 }

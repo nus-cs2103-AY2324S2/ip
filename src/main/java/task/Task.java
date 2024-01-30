@@ -1,3 +1,4 @@
+package task;
 public abstract class Task {
     private String title;
     private boolean isMarked;
