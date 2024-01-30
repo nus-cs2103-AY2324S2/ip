@@ -19,6 +19,7 @@ public class Yapchit {
     private Parser parser;
     private Handler handler;
     private boolean isBye;
+    private String filePath;
 
     public Yapchit(String filePath){
         this.ui = new Ui();
@@ -26,9 +27,10 @@ public class Yapchit {
         this.isBye = false;
         this.parser = new Parser();
         this.handler = new Handler();
+        this.filePath = filePath;
 
         try{
-            this.tasks = storage.importFromFile(filePath);
+            this.tasks = storage.importFromFile(filePath, ui, handler, parser);
         } catch(YapchitException e){
             ui.printTasklistLoadError();
             this.tasks = new TaskList();
@@ -36,9 +38,10 @@ public class Yapchit {
     }
 
     public void run(){
-        // !(input.toLowerCase().equals("bye"))
+
+        ui.printIntro();
         String input = ui.scanInput();
-        while(!isBye){
+        while(!handler.checkIsBye(input)){
             try{
                 Operations k = parser.parseInputOperation(input);
                 String[] parts = parser.parseInputParts(input);
@@ -49,8 +52,8 @@ public class Yapchit {
                 input = ui.scanInput();
             }
         }
-        bot.handleFileUpdate(filePath);
-        bot.outro();
+        storage.updateFile(filePath, this.tasks);
+        ui.printOutro();
     }
 
     public static void main(String[] args) {

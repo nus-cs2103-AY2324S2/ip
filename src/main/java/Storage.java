@@ -2,7 +2,7 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import Tasks.ToDo;
-import YapchitExceptions.UnavailableListException;
+import YapchitExceptions.FileListParseException;
 import YapchitExceptions.YapchitException;
 
 import java.io.File;
@@ -18,43 +18,35 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public TaskList importFromFile(String filePath) throws YapchitException {
+    public TaskList importFromFile(String filePath, Ui ui, Handler handler, Parser parser) throws YapchitException {
         File f = new File(filePath);
         Scanner s;
         try {
             s = new Scanner(f);
         } catch (FileNotFoundException e){
-            throw new UnavailableListException("Could not locate existing file list");
+            throw new FileListParseException("Could not locate existing file list");
         }
+        TaskList tasks = new TaskList();
 
         while (s.hasNext()) {
             String input = s.nextLine();
-            String[] parts = input.split(" ");
+            String[] parts = parser.parseInputParts(input);
 
             try {
                 Yapchit.Operations k = Yapchit.Operations.valueOf(parts[0].toUpperCase());
-                switch (k) {
-                    case EVENT:
-                        this.handleEvent(input, false);
-                        break;
-                    case DEADLINE:
-                        this.handleDeadline(input, false);
-                        break;
-                    case TODO:
-                        this.handleTodo(input, false);
-                        break;
-                }
-            } catch (Exception e){
-                Ui.print("Error in parsing file. Some of the contents may be corrupted");
-                break;
+                handler.handleUpdateListFromFile(input, k, tasks, ui, parser);
+            } catch (YapchitException e){
+                throw new FileListParseException("Error in parsing file. Some of the contents may be corrupted");
             }
         }
 
+        return tasks;
     }
 
-    private void updateFile(String filePath){
+    public void updateFile(String filePath, TaskList tasks){
         String toWrite = "";
-        for(Task t : list){
+        for(int i = 0; i < tasks.getListSize(); i++){
+            Task t = tasks.getItem(i);
             if(t instanceof ToDo){
                 toWrite = toWrite + "todo "+ t.getName() + (t.getTag() == true ? "1" : "0") + "\n";
             }
@@ -69,7 +61,7 @@ public class Storage {
 
             if(t instanceof Deadline){
                 toWrite = toWrite
-                        + "event "+ t.getName()
+                        + "deadline "+ t.getName()
                         + " /by " + ((Deadline) t).getBy()
                         +(t.getTag() == true ? "1" : "0") + "\n";
             }

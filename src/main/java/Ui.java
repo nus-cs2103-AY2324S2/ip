@@ -11,14 +11,14 @@ public class Ui {
         String input = scanner.nextLine();
         return input;
     }
-    private void printIntro(){
+    public void printIntro(){
         String intro = "\t--------------------------------------------------\n"
                 + "\tHello! I'm Yapchit\n"
                 + "\tWhat can I do for you?\n"
                 + "\t--------------------------------------------------";
         print(intro);
     }
-    private void printOutro(){
+    public void printOutro(){
         String outro = "\t--------------------------------------------------\n"
                 + "\tBye. Hope to see you again soon!\n"
                 + "\t--------------------------------------------------";
@@ -26,7 +26,7 @@ public class Ui {
         print(outro);
     }
     public void printTasklistLoadError(){
-        print("Unable to load list from file.");
+        print("Unable to load existing list from file.\nThis could be due to corrupted file data or missing file.");
     }
     public void printTaskAdd(Task t, int size){
         this.printLine();

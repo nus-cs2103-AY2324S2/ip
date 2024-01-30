@@ -55,6 +55,20 @@ public class Handler {
         }
     }
 
+    public void handleUpdateListFromFile(String input, Yapchit.Operations op, TaskList tasks, Ui ui, Parser parser) throws InvalidDetailException{
+        switch (op) {
+            case EVENT:
+                this.handleEvent(input, false, tasks, ui);
+                break;
+            case DEADLINE:
+                this.handleDeadline(input, false, tasks, ui, parser);
+                break;
+            case TODO:
+                this.handleTodo(input, false, tasks, ui);
+                break;
+        }
+    }
+
     private void handleEvent(String input, boolean newTask, TaskList tasks, Ui ui) throws InvalidDetailException {
         int fromStart = input.indexOf("/from");
         int toStart = input.indexOf("/to");
@@ -105,7 +119,7 @@ public class Handler {
             throw new InvalidDetailException("Missing 'by' parameter in deadline detail");
         } else {
             if(9 == byStart || byStart + 4 >= input.length()){
-                throw new InvalidDetailException("Tasks.Deadline description and/or by parameter cannot be empty");
+                throw new InvalidDetailException("Deadline description and/or by parameter cannot be empty");
             }
             String desc = input.substring(9, byStart).strip();
             LocalDate by = parser.parseTimestamp(input.substring(byStart + 4).strip());
@@ -166,8 +180,9 @@ public class Handler {
         } else {
             try {
                 int num = Integer.parseInt(parts[1]);
+                Task t = tasks.getItem(num - 1);
                 tasks.delete(num - 1);
-                ui.printTaskDelete(tasks.getItem(num - 1), tasks.getListSize());
+                ui.printTaskDelete(t, tasks.getListSize());
             } catch (Exception e){
                 throw new InvalidDetailException("Invalid detail after delete. Please retry");
             }
@@ -200,5 +215,9 @@ public class Handler {
                 throw new InvalidDetailException("Invalid detail after unmark. Please retry");
             }
         }
+    }
+
+    public boolean checkIsBye(String input){
+        return input.toLowerCase().equals("bye");
     }
 }
