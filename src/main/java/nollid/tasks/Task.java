@@ -1,12 +1,5 @@
 package nollid.tasks;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /**
  * Task class represents a generic task with a description and completion status.
  */

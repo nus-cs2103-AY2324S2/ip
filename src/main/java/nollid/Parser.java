@@ -19,7 +19,6 @@ import nollid.commands.MarkCommand;
 import nollid.commands.TodoCommand;
 import nollid.commands.UnmarkCommand;
 import nollid.exceptions.InvalidCommandException;
-import nollid.tasks.Deadline;
 
 /**
  * Parser class provides a static method to parse user input and return the corresponding Command object.
@@ -30,6 +29,7 @@ public class Parser {
     public static final DateTimeFormatter DATE_INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy");
     public static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy");
     public static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
+
     /**
      * Parses the full user command and returns the appropriate Command object.
      *
