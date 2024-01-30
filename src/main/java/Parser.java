@@ -1,44 +1,64 @@
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    public static Command parse(String input) throws AtlasException, NullPointerException {
+    public static Command parse(String input, TaskList tasks, Ui ui, Storage storage) throws AtlasException {
         String[] parts = input.split(" ", 2);
         String command = parts[0];
         String details = parts.length > 1 ? parts[1] : null;
 
         switch (command) {
         case "bye":
-            return new Command(Command.CommandType.EXIT);
+            return new ExitCommand(tasks, ui, storage);
         case "list":
-            return new Command(Command.CommandType.LIST);
+            return new ListCommand(tasks, ui, storage);
         case "mark":
             int taskIndex = Integer.parseInt(details) - 1;
-            return new Command(Command.CommandType.MARK, taskIndex);
+            return new MarkCommand(tasks, ui, storage, taskIndex);
         case "unmark":
             taskIndex = Integer.parseInt(details) - 1;
-            return new Command(Command.CommandType.UNMARK, taskIndex);
+            return new UnmarkCommand(tasks, ui, storage, taskIndex);
         case "delete":
             taskIndex = Integer.parseInt(details) - 1;
-            return new Command(Command.CommandType.DELETE, taskIndex);
+            return new DeleteCommand(tasks, ui, storage, taskIndex);
         case "todo":
-            return new Command(Command.CommandType.ADD_TODO, new String[]{details});
+            return new AddToDoCommand(tasks, ui, storage, details);
         case "deadline":
             String[] deadlineDetails = details.split(" /by ");
-            return new Command(Command.CommandType.ADD_DEADLINE, deadlineDetails);
-        case "event":
-            String[] eventDetails = details.split(" /at ");
-            if (eventDetails.length != 2) {
-                throw new AtlasException("Invalid event format. Please use 'event [description] /at [start date] /at [end date]'.");
+            LocalDateTime by;
+            try {
+                by = LocalDateTime.parse(deadlineDetails[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            } catch (DateTimeParseException e) {
+                throw new InvalidDeadlineFormatException("Invalid date/time format. Please use 'yyyy-MM-dd HHmm'.\"");
             }
-            return new Command(Command.CommandType.ADD_EVENT, eventDetails);
+            return new AddDeadlineCommand(tasks, ui, storage, deadlineDetails[0], by);
+        case "event":
+            String[] eventParts = details.split(" /from | /to "); // Split by both "/from" and "/to"
+            if (eventParts.length != 3) {
+                throw new AtlasException("Invalid event format. Please use 'event [description] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm'.");
+            }
+            String description = eventParts[0];
+            LocalDateTime start;
+            LocalDateTime end;
+            try {
+                start = LocalDateTime.parse(eventParts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                end = LocalDateTime.parse(eventParts[2], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            } catch (DateTimeParseException e) {
+                throw new InvalidEventFormatException("Invalid date format for event. Please use 'yyyy-MM-dd HHmm'.");
+            }
+            return new AddEventCommand(tasks, ui, storage, description, start, end);
         case "tasks_on":
-            return new Command(Command.CommandType.TASKS_ON_DATE, new String[]{details});
-
-
+            LocalDate date;
+            try {
+                date = LocalDate.parse(details, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            } catch (DateTimeParseException e) {
+                throw new AtlasException("Invalid date format. Please use 'yyyy-MM-dd HHmm'.");
+            }
+            return new TasksOnDateCommand(tasks, ui, storage, date);
         default:
-            return new Command(Command.CommandType.INVALID);
+            return new InvalidCommand(tasks, ui, storage);
         }
     }
 

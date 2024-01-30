@@ -45,7 +45,7 @@ public class Ui {
     }
 
     public void showTasksOnDate(TaskList tasks, LocalDate date) {
-        ArrayList<Task> al = tasks.getTasks();
+        ArrayList<Task> al = tasks.getTasksOnDate(date);
         if (al.isEmpty()) {
             System.out.println("No tasks found on " + date);
         } else {

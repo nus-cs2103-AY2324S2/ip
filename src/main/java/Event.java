@@ -1,12 +1,13 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
     protected LocalDateTime start;
     protected LocalDateTime end;
 
-    public Event(String description, LocalDateTime start, LocalDateTime end) {
+    public Event(String description, LocalDateTime start, LocalDateTime end) throws DateTimeParseException {
         super(description);
         this.start = start;
         this.end = end;

@@ -55,7 +55,10 @@ public class TaskList {
                 }
             } else if (task instanceof Event) {
                 Event event = (Event) task;
-                if (event.getStart().toLocalDate().equals(date) || event.getEnd().toLocalDate().equals(date)) {
+                LocalDate startDate = event.getStart().toLocalDate();
+                LocalDate endDate = event.getEnd().toLocalDate();
+                if ((date.isEqual(startDate) || date.isAfter(startDate)) &&
+                        (date.isEqual(endDate) || date.isBefore(endDate))) {
                     tasksOnDate.add(task);
                 }
             }
@@ -63,13 +66,8 @@ public class TaskList {
         return tasksOnDate;
     }
 
-    public ArrayList<Task> getAllTasks() {
-        return new ArrayList<>(tasks); // Return a copy of the tasks list
-    }
-
     public ArrayList<Task> getTasks() {
         return tasks;
     }
-
 
 }

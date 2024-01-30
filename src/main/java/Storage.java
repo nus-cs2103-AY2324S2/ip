@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Storage {
-    private static String filePath;
+    private String filePath;
 
     private TaskList tasks;
 
@@ -49,7 +49,7 @@ public class Storage {
         }
     }
 
-    private static void ensureFileExists() {
+    private void ensureFileExists() {
         File file = new File(filePath);
         if (!file.exists()) {
             try {
