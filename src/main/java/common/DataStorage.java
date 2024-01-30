@@ -1,3 +1,5 @@
+package common;
+
 import exception.MalformedUserInputException;
 import exception.NoTaskCreatedYetException;
 import exception.TooManyTasksException;
