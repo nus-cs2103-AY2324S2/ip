@@ -6,7 +6,7 @@ public class ByeCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Quits the program.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_EXIT_ACKNOWLEDGMENT = "Exiting as requested ...";
+    public static final String MESSAGE_EXIT_ACKNOWLEDGMENT = "\t Exiting as requested ...";
 
     @Override
     public CommandResult execute() {
