@@ -1,16 +1,12 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.FileReader;
-import java.io.BufferedWriter;
 
 public class hirwan {
     static String FILE_PATH = "C:\\Users\\eugen\\Documents\\National University of Singapore\\Y2S2\\CS2103T\\IP\\src\\main\\java\\data\\hirwan.txt";
     static List<String> List = new ArrayList<>();
-    static List<String> type = new ArrayList<>();
+//    static List<String> type = new ArrayList<>();
     public static void main(String[] args) {
         String logo = "I'm hirwan \n"
                 + "_________________________________\n"
@@ -18,13 +14,18 @@ public class hirwan {
                 + "_________________________________\n";
 
         System.out.println("Hello! " + logo);
-        int count = 1;
+
+        try {
+            File filePath = new File(FILE_PATH);
+            Scanner scan = new Scanner(filePath);
+            while (scan.hasNext()) {
+                List.add(scan.nextLine());
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println("Error: file to read data from cannot be found!");
+        }
 
         try (BufferedWriter fileWrite = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
-//            FileWriter Write = new FileWriter(FILE_PATH);
-
-//            FileReader fileRead = new FileReader(FILE_PATH);
-
             while (true) {
                 Scanner scanner = new Scanner(System.in);
                 String text = scanner.nextLine();
@@ -48,10 +49,8 @@ public class hirwan {
                     try {
                         System.out.println("Got it. I've added this task: \n  " + "[T][ ] " + text.substring(5));
                         List.add(". " + "[T][ ] " + text.substring(5));
-//                    indexes.add(count);
-                        type.add("[T]");
-                        System.out.println("Now you have " + count + " tasks in the list.");
-                        count++;
+//                        type.add("[T]");
+                        System.out.println("Now you have " + List.size() + " tasks in the list.");
                         writeTask();
                     } catch (StringIndexOutOfBoundsException e) {
                         System.out.println("Error: Please enter a description for your todo command");
@@ -65,9 +64,8 @@ public class hirwan {
                         List.add(". " + "[D][ ] " + item + " (by: " + Day + ")");
 //                    indexes.add(count);
                         System.out.println("Got it. I've added this task:\n  " + "[D][ ] " + item + " (by: " + Day + ")");
-                        type.add("[D]");
-                        System.out.println("Now you have " + count + " tasks in the list.");
-                        count++;
+//                        type.add("[D]");
+                        System.out.println("Now you have " + List.size() + " tasks in the list.");
                         writeTask();
                     } catch (StringIndexOutOfBoundsException e) {
                         System.out.println("Error: Please enter a description or date for your deadline command");
@@ -82,11 +80,9 @@ public class hirwan {
                         String end = text.substring(Indexend + 5);
                         String item = text.substring(6, Indexstart);
                         List.add(". " + "[E][ ] " + item + " (from: " + start + " to: " + end + ")");
-//                    indexes.add(count);
                         System.out.println("Got it. I've added this task:\n  " + "[E][ ] " + item + " (from: " + start + " to: " + end + ")");
-                        type.add("[E]");
-                        System.out.println("Now you have " + count + " tasks in the list.");
-                        count++;
+//                        type.add("[E]");
+                        System.out.println("Now you have " + List.size() + " tasks in the list.");
                         writeTask();
                     } catch (StringIndexOutOfBoundsException e) {
                         System.out.println("Error: Please enter a description or date for your event to command");
@@ -96,7 +92,9 @@ public class hirwan {
                         String number = text.substring(5);
                         int numberint = Integer.parseInt(number);
                         String temp = List.get(numberint - 1).substring(9);
-                        List.set(numberint - 1, ". " + type.get(numberint - 1) + "[X] " + temp);
+                        String type = List.get(numberint - 1).substring(2, 5);
+
+                        List.set(numberint - 1, ". " + type + "[X] " + temp);
                         System.out.println("Nice! I've marked this task as done: \n" + "[X] " + temp);
                         writeTask();
                     } catch (IndexOutOfBoundsException e) {
@@ -109,7 +107,9 @@ public class hirwan {
                         String number = text.substring(7);
                         int numberint = Integer.parseInt(number);
                         String temp = List.get(numberint - 1).substring(9);
-                        List.set(numberint - 1, ". " + type.get(numberint - 1) + "[ ] " + temp);
+                        String type = List.get(numberint - 1).substring(2, 5);
+
+                        List.set(numberint - 1, ". " + type + "[ ] " + temp);
                         System.out.println("OK, I've marked this task as not done yet: \n" + "[ ] " + temp);
                         writeTask();
                     } catch (IndexOutOfBoundsException e) {
@@ -122,10 +122,9 @@ public class hirwan {
                         int numberint = Integer.parseInt(text.substring(7)) - 1;
                         System.out.println("Noted. I've removed this task:\n"
                                 + "  " + List.get(numberint).substring(2) + "\n"
-                                + "Now you have " + (count - 2) + " tasks in the list.");
+                                + "Now you have " + (List.size() - 1) + " tasks in the list.");
                         List.remove(numberint);
-                        type.remove(numberint);
-                        count--;
+//                        type.remove(numberint);
                         writeTask();
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Error: Please enter a valid index for deletion!");
