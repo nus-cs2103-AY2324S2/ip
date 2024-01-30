@@ -155,4 +155,17 @@ public class Ui {
     public void parseDateError(String dateString) {
         System.err.println("Error parsing date: " + dateString + ". Please use the format 'yyyy-MM-dd HHmm'.");
     }
+    public void displayMatchingTasks(ArrayList<Task> matchingTasks) {
+        this.displayLine();
+        System.out.println("Here are the matching tasks in your list:");
+        int taskIndex = 1;
+        for (Task task : matchingTasks) {
+            System.out.println(taskIndex + "." + task.toString());
+            taskIndex++;
+        }
+        this.displayLine();
+    }
+    public void findFormatError() {
+        System.err.println("Please input command in format 'find ____' e.g. 'find book' ");
+    }
 }

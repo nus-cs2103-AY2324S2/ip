@@ -18,7 +18,7 @@ public class TaskList {
         loadTasksFromFile();
     }
     enum CommandType {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND;
         static CommandType getCommandType(String command) {
             try {
                 return valueOf(command.toUpperCase());
@@ -165,6 +165,21 @@ public class TaskList {
                     }
                 } catch (NumberFormatException e) {
                     ui.invalidTaskNumber(command[1]);
+                }
+                break;
+            case FIND:
+                try {
+                    String keyword = command[1].toLowerCase(); // Convert keyword to lowercase for case-insensitive search
+                    ArrayList<Task> matchingTasks = new ArrayList<>();
+
+                    for (Task task : taskList) {
+                        if (task.getDescription().toLowerCase().contains(keyword)) {
+                            matchingTasks.add(task);
+                        }
+                    }
+                    ui.displayMatchingTasks(matchingTasks);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    ui.findFormatError();
                 }
                 break;
             default:
