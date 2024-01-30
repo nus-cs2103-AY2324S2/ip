@@ -18,7 +18,7 @@ public class Duke {
                 System.out.println("Error creating the file...");
             }
         } else {
-            System.out.println("File already exists, you can continue");
+            System.out.println("You have all your previous tasks saved in previous file you created.");
         }
 
         Command.readFile(FILE_LOCATION, tasklist);
