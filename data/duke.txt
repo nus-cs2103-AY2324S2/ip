@@ -1,3 +1,2 @@
 T | 0 | j
-T | 0 | f
 E | 1 | e | sun from mon
