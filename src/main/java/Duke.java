@@ -18,7 +18,7 @@ public class Duke {
             }
             try{
                 processCommand(userInput, taskList);
-            }catch (DukeException e) {
+            }catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -39,9 +39,9 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
-    private static void processCommand(String userInput, List<Task> taskList) throws DukeException {
+    private static void processCommand(String userInput, List<Task> taskList) throws Exception {
         if(userInput.trim().isEmpty()) {
-            throw new DukeException("Command cannot be empty.");
+            throw new IllegalArgumentException("Command cannot be empty.");
         }
         String[] parts = userInput.split(" ");
         String command = parts[0];
@@ -50,38 +50,53 @@ public class Duke {
             if (userInput.equals("list")) {
                 displayList(taskList);
             } else if(command.equals("todo") || command.equals("deadline") || command.equals("event")){
-                addTask(userInput,taskList);
+                addTask(userInput, taskList);
             } else if(command.equals("mark")) {
-                int taskIndex = Integer.valueOf(parts[1]) - 1;
-                if (taskIndex >= 0 && taskIndex < taskList.size()) {
-                    taskList.get(taskIndex).markAsDone();
-                    System.out.println("Nice, I've marked this task as done for you:");
-                    System.out.println((taskList.get(taskIndex)));
-                } else {
-                    System.out.println("Please check how many tasks are there in your list.");
-                }
+                markTask(userInput, taskList);
             } else if (command.equals("unmark")) {
-                int taskIndex = Integer.valueOf(parts[1]) - 1;
-                if (taskIndex >= 0 && taskIndex < taskList.size()) {
-                    taskList.get(taskIndex).markAsUndone();
-                    System.out.println("Okay, I've marked this task as not done for you:");
-                    System.out.println((taskList.get(taskIndex)));
-                } else {
-                System.out.println("Please check how many tasks are there in your list.");
-                }
+                unmarkTask(userInput, taskList);
+            } else if (command.equals("delete")) {
+                deleteTask(userInput, taskList);
             } else {
                 throw new DukeException("Hey, please choose from the following commands\n" +
                         "if you want to add task, please use todo, deadline or event\n" +
                         "if you want to mark or unmark task, please use mark or unmark\n" +
+                        "if you want delete a task, please use delete\n" +
                         "if you want to view the existing task list, please enter list.");
             }
         }catch (DukeException e) {
             System.out.println("------------------------------");
-            System.out.println("OOPS!!!" + e.getMessage());
+            System.out.println(e.getMessage());
             System.out.println("------------------------------");
         }
     }
+    private static void markTask(String userInput, List<Task> taskList) {
+        String[] parts = userInput.split(" ");
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new IllegalArgumentException("Please provide a task number.");
+        }
+        int taskIndex = Integer.valueOf(parts[1]) - 1;
+        if (taskIndex < 0 || taskIndex >= taskList.size()) {
+            throw new IndexOutOfBoundsException("Please check how many tasks are there in your list.");
+        }
+        taskList.get(taskIndex).markAsDone();
+        System.out.println("Nice, I've marked this task as done for you:");
+        System.out.println((taskList.get(taskIndex)));
+    }
 
+    private static void unmarkTask(String userInput, List<Task> taskList) {
+        String[] parts = userInput.split(" ");
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new IllegalArgumentException("Please provide a task number.");
+        }
+        int taskIndex = Integer.valueOf(parts[1]) - 1;
+        if (taskIndex < 0 || taskIndex >= taskList.size()) {
+            throw new IndexOutOfBoundsException("Please check how many tasks are there in your list.");
+        }
+        taskList.get(taskIndex).markAsUndone();
+        System.out.println("Nice, I've marked this task as undone for you:");
+        System.out.println((taskList.get(taskIndex)));
+    }
     private static void addTask(String userInput, List<Task> taskList) {
         String[] parts = userInput.split(" ", 2);
         String command = parts[0];
@@ -90,17 +105,17 @@ public class Duke {
         try{
             if (command.equals("todo")){
                 if(parts.length < 2 || parts[1].trim().isEmpty()){
-                    throw new DukeException("The description of a todo task cannot be empty.");
+                    throw new IllegalArgumentException("The description of a todo task cannot be empty.");
                 }
                 ToDo newTask = new ToDo(taskInfo);
                 taskList.add(newTask);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(newTask);
-                System.out.println("Now you have " + taskList.size() + "tasks left in the list.");
+                System.out.println("Now you have " + taskList.size() + " task(s) left in the list.");
             } else if (command.equals("deadline")) {
                 String[] details = taskInfo.split("/by", 2);
                 if (details.length != 2) {
-                    throw new DukeException("Invalid format for deadline, please include a task description and date/time details.");
+                    throw new IllegalArgumentException("Invalid format for deadline, please include a task description and date/time details.");
                 }
                 String taskDescription = details[0].trim();
                 String deadline = details[1].trim();
@@ -108,11 +123,11 @@ public class Duke {
                 taskList.add(newTask);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(newTask);
-                System.out.println("Now you have " + taskList.size() + " tasks left in the list.");
+                System.out.println("Now you have " + taskList.size() + " task(s) left in the list.");
             } else if (command.equals("event")) {
                 String[] taskDetails = taskInfo.split("/from", 2);
                 if (taskDetails.length != 2) {
-                    throw new DukeException("Invalid format for event, please include a task description and date/time details.");
+                    throw new IllegalArgumentException("Invalid format for event, please include a task description and date/time details.");
                 }
                 String taskDescription = taskDetails[0].trim();
                 String dateTimeDetails = taskDetails[1].trim();
@@ -123,12 +138,30 @@ public class Duke {
                 taskList.add(newTask);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(newTask);
-                System.out.println("Now you have " + taskList.size() + " tasks left in the list.");
+                System.out.println("Now you have " + taskList.size() + " task(s) left in the list.");
             }
-        }catch (DukeException e) {
+        }catch (Exception e) {
             System.out.println("------------------------------");
             System.out.println("OOPS!!!" + e.getMessage());
             System.out.println("------------------------------");
         }
+    }
+    private static void deleteTask(String userInput, List<Task> taskList) throws Exception{
+        String[] parts = userInput.split(" ");
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new IllegalArgumentException("Please provide the task number to delete.");
+        }
+
+        int taskIndex = Integer.valueOf(parts[1]) - 1;
+        if (taskIndex < 0 || taskIndex >= taskList.size()) {
+            throw new IndexOutOfBoundsException("Invalid task number. Please provide a valid task number.");
+        }
+
+        Task removedTask = taskList.remove(taskIndex);
+        System.out.println("---------------------------");
+        System.out.println("I've removed this task:");
+        System.out.println(" " + removedTask);
+        System.out.println("Now you have " + taskList.size() + " task(s) left in the list. ");
+        System.out.println("---------------------------");
     }
 }
