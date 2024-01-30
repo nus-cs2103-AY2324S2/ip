@@ -25,7 +25,9 @@ public class Task {
     }
 
     public String saveFormat() {
-        return this.toString();
+        String isDoneSave = (isDone ? "1" : "0");
+        return String.format("%s||%s",
+                isDoneSave, description);
     }
 
     @Override

@@ -17,7 +17,8 @@ public class Deadline extends Task {
 
     @Override
     public String saveFormat() {
-        return "[D]" + super.toString() + "(by: " + by.saveFormat() + ")";
+        return String.format("%s||%s||%s",
+                "[D]",super.saveFormat(), by.saveFormat());
     }
 
     @Override

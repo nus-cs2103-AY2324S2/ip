@@ -20,8 +20,8 @@ public class Event extends Task{
 
     @Override
     public String saveFormat() {
-        return "[E]" + super.toString() + 
-                String.format(" (from: %s to: %s)", from.saveFormat(), to.saveFormat());
+        return String.format("%s||%s||%s||%s",
+                "[E]", super.saveFormat(), from.saveFormat(), to.saveFormat());
     }
 
     @Override
