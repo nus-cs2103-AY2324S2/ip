@@ -13,7 +13,7 @@ public class Task {
         this.isDone = b;
     }
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.name;
     }
 }

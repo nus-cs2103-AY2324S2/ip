@@ -1,143 +1,38 @@
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
+import java.io.IOException;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 public class Duke {
-    private final TaskManager tm = new TaskManager();
-    Scanner sc = new Scanner(System.in);
+    private TaskList list;
+    private Ui ui;
+    private Storage storage;
 
-    private void greet() {
-        System.out.println("Hello! I'm Friendy.");
-        System.out.println("What can I do for you?");
-    }
-
-    private void farewell() {
-        System.out.println("Bye. I will miss you!");
-    }
-
-    private void addTask(Task t) {
-        tm.addTask(t);
-    }
-
-    private String[] listen() {
-        return sc.nextLine().split(" ");
-    }
-
-    private void list() {
-        tm.listTasks();
-    }
-    private void mark(int i) {
-        System.out.println("Setting task as done...");
-        tm.markDone(i);
-        tm.listTasks();
-    }
-
-    private void unmark(int i) {
-        System.out.println("Setting task as not done...");
-        tm.undo(i);
-        tm.listTasks();
-    }
-
-    private void delete(int i) {
-        System.out.println("Deleting task...");
-        tm.deleteTask(i);
-    }
-
-    private Event createEvent(String s) throws DukeException {
-        int fromIndex = s.indexOf("/from");
-        int toIndex = s.indexOf("/to");
-        if (fromIndex == -1 || toIndex == -1 || s.length() < 7) {
-            throw new DukeException("Format Error, Event must be in format: Event /from YYYY-MM-DD HHmm /to YYYY-MM-DD HHmm");
-        }
-        String eventName = s.substring(6, fromIndex - 1);
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
-            String from = s.substring(fromIndex + 6, toIndex - 1);
-            String to = s.substring(toIndex + 4);
-            return new Event(eventName, from, to);
-        } catch (StringIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new DukeException("Format Error, Event must be in format: Event /from YYYY-MM-DD HHmm /to YYYY-MM-DD HHmm");
+            list = new TaskList(storage.load());
+        } catch (DukeException | IOException e) {
+            ui.showError(e.getMessage());
+            list = new TaskList();
         }
     }
 
-    private Deadline createDeadline(String s) throws DukeException {
-        int byIndex = s.indexOf("/by");
-        if (byIndex == -1 || s.length() < 10) {
-            throw new DukeException("Format Error, Deadline must be in format: Deadline /by YYYY-MM-DD HHmm");
-        }
-        String deadlineName = s.substring(9, byIndex - 1);
-        try {
-            String deadlineBy = s.substring(byIndex + 4);
-            return new Deadline(deadlineName, deadlineBy);
-        } catch (StringIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new DukeException("Format Error, Deadline must be in format: Deadline /by YYYY-MM-DD HHmm");
-        }
-    }
-
-    private Todo createTodo(String s) throws DukeException {
-        if (s.length() < 6) {
-            throw new DukeException("Error, description of todo is missing");
-        }
-        String name = s.substring(5);
-        return new Todo(name);
-    }
-    public static void main(String[] args) {
-        Duke d = new Duke();
-        d.greet();
+    public void run() {
+        ui.greet();
         boolean end = false;
-        while(!end) {
-            String[] s = d.listen();
-            String s1 = String.join(" ", s);
-            switch (s[0]) {
-                case "bye":
-                    d.farewell();
-                    end = true;
-                    break;
-                case "list":
-                    d.list();
-                    break;
-                case "mark":
-                    d.mark(Integer.parseInt(s[1]));
-                    break;
-                case "unmark":
-                    d.unmark(Integer.parseInt(s[1]));
-                    break;
-                case "delete":
-                    d.delete(Integer.parseInt(s[1]));
-                    break;
-                case "todo":
-                    try {
-                        Todo t = d.createTodo(s1);
-                        d.addTask(t);
-                    } catch (DukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case "deadline":
-                    try {
-                        Deadline dl = d.createDeadline(s1);
-                        d.addTask(dl);
-                    } catch (DukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case "event":
-                    try {
-                        Event e = d.createEvent(s1);
-                        d.addTask(e);
-                    } catch (DukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                default:
-                    try {
-                        throw new DukeException("Unknown Command");
-                    } catch (DukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
+        while (!end) {
+            try {
+                String input = ui.readInput();
+                Command c = Parser.parse(input);
+                c.execute(list, ui, storage);
+                end = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new Duke("data/duke.txt").run();
     }
 }
 
