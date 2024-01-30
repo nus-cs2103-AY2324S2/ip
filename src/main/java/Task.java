@@ -2,10 +2,6 @@ import java.io.File;
 public class Task {
     private String task;
     private boolean isDone;
-    private String start;
-    private String end;
-    private String ddl;
-    private String name;
 
     public Task(String task) {
         this.task = task;
@@ -13,7 +9,6 @@ public class Task {
 
     public void mark() {
         isDone = true;
-        //modify the file
     }
     public String mark(int number, String name, Task task) {
         isDone = true;
@@ -30,7 +25,6 @@ public class Task {
 
     public void unmark() {
         isDone = false;
-        // modify the file
     }
 
     public String unmark(int number, String name, Task task) {
