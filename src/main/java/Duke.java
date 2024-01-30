@@ -1,31 +1,44 @@
+import Exceptions.DukeException;
+import Exceptions.InvalidTaskNameException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+    private static final String[] COMMANDS = {"help", "list", "todo", "deadline", "event",
+            "mark", "unmark", "delete", "bye"};
+
     public static void main(String[] args) {
         String logo = "                             -------,\n"
-                    + "                            |   --  |\n"
-                    + "                            |  |  | |\n"
-                    + " ---- -   -  ---  ---  ---  |   --  |\n"
-                    + "|     |   | |   |  |  |   | |  ,----'\n"
-                    + "|     |---| |---   |   `-_  |  |     \n"
-                    + "|     |   | | \\    |  |   | |  |     \n"
-                    + " ---- -   - -  -  ---  ---   --      \n";
+                + "                            |   --  |\n"
+                + "                            |  |  | |\n"
+                + " ---- -   -  ---  ---  ---  |   --  |\n"
+                + "|     |   | |   |  |  |   | |  ,----'\n"
+                + "|     |---| |---   |   `-_  |  |     \n"
+                + "|     |   | | \\    |  |   | |  |     \n"
+                + " ---- -   - -  -  ---  ---   --      \n";
         String horizontalLine = "_____________________________________________________";
-        String userInput = "";
+        String introduction = "\nOink Oink!\nI'm Chris P Bacon but you can call me ChrisP! Oink!\n"
+                + "What can I do for you today? :D\n"
+                + "~Type 'help' for more command info~\n";
+        String help = "Oink! Here are the Command Words:\n'list' - displays the list of task\n"
+                + "'todo ...' - to add new task\n'deadline ... /by ...' - to add task with deadline\n"
+                + "'event ... /from ... /to ...' - to add an event\n"
+                + "'mark <task no.>' - to mark a task done\n'unmark <task no.>' - to unmark a task\n"
+                + "'delete <task no.>' - to delete a task\n'bye' - to exit the chatbot";
+
         ArrayList<Task> taskList = new ArrayList<Task>(100);
         int listCount = 0;
         Scanner scan = new Scanner(System.in);
 
         System.out.println(logo + horizontalLine
-                + "\nOink Oink!\nI'm Chris P Bacon but you can call me ChrisP! Oink!\n"
-                + "What can I do for you today? :D\n"
-                + "~Type 'help' for more command info~\n" + horizontalLine);
+                + introduction + horizontalLine);
 
         // Get user's first input.
+        String userInput = "";
         userInput = scan.nextLine();
 
-        while (!userInput.equalsIgnoreCase("bye")) {
+        while (!userInput.equals(COMMANDS[8])) {
             try {
                 System.out.println(horizontalLine);
 
@@ -35,14 +48,10 @@ public class Duke {
                 boolean isEvent = userInput.startsWith("event");
 
                 // If input = "help", list down the command words.
-                if (userInput.equalsIgnoreCase("help")) {
-                    System.out.println("Oink! Here are the Command Words:\n'list' - displays the list of task\n"
-                            + "'todo ...' - to add new task\n'deadline ... /by ...' - to add task with deadline\n"
-                            + "'event ... /from ... /to ...' - to add an event\n"
-                            + "'mark <task no.>' - to mark a task done\n'unmark <task no.>' - to unmark a task\n"
-                            + "'delete <task no.>' - to delete a task\n'bye' - to exit the chatbot");
+                if (userInput.startsWith("help")) {
+                    System.out.println(help);
 
-                } else if (userInput.equalsIgnoreCase("list")) {
+                } else if (userInput.startsWith("list")) {
                     if (listCount == 0) {
                         System.out.println("Oink! There are no tasks! Yeehaww");
 
@@ -70,7 +79,7 @@ public class Duke {
                         // Adds a new todo task to the list.
                         if (len < 6) {
                             // If user did not input task name.
-                            throw new DukeException("Ooink oink! What's the name of your task?\n"
+                            throw new InvalidTaskNameException("Ooink oink! What's the name of your task?\n"
                                     + " >> todo ...");
                         } else {
                             Todo t = new Todo(userInput.substring(5));
@@ -83,7 +92,7 @@ public class Duke {
                         boolean isWrongInput = len < 10 || idx < 0 || len < idx + 4;
                         if (isWrongInput) {
                             // If user did not input task description.
-                            throw new DukeException("Ooink oink! Please describe your deadline >.<\n"
+                            throw new InvalidTaskNameException("Ooink oink! Please describe your deadline >.<\n"
                                     + " >> deadline ... /by ...");
                         } else {
                             String name = userInput.substring(9, idx - 1);
@@ -100,7 +109,7 @@ public class Duke {
                                 || len < fromIdx + 6 || len < toIdx + 4;
                         if (isWrongInput) {
                             // If user did not input task description.
-                            throw new DukeException("Ooink oink! Please describe your event >.<\n"
+                            throw new InvalidTaskNameException("Ooink oink! Please describe your event >.<\n"
                                     + " >> event ... /from ... /to ...");
                         } else {
                             String name = userInput.substring(6, userInput.lastIndexOf("/from") - 1);
@@ -116,7 +125,7 @@ public class Duke {
                     // if user entered input that cannot be recognised.
                     throw new DukeException("Ooink oink! I'm sorry, I don't understand.\nType 'help' for command info!");
                 }
-            } catch (DukeException e) {
+            } catch (DukeException | InvalidTaskNameException e) {
                 System.out.println(e.getMessage());
             }
             System.out.println(horizontalLine);
