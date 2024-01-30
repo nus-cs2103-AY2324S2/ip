@@ -9,7 +9,7 @@ public class DukeException extends Exception{
     public DukeException() {
         super("      ______________________________________________________________________________________\n"
                 + "      Oops! I'm afraid I don't understand what that means.\n"
-                + "      Try adding a todo task like this: todo buy strawberry shortcake \n"
+                + "      Try adding a todo task like this: todo buy strawberry shortcake\n"
                 + "      ______________________________________________________________________________________\n");
     }
 

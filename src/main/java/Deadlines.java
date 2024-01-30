@@ -15,22 +15,29 @@ public class Deadlines extends Task{
         if (!isLast) {
             if (num == 1) {
                 System.out.print("      ________________________________________________________\n");
-                System.out.printf("      Here are the tasks in your list: \n      %d.%s[%s] %s(by: %s)\n",
+                System.out.printf("      Here are the tasks in your list:\n      %d.%s[%s] %s (by: %s)\n",
                         num, this.getTag(), this.getStatusIcon(), this.getDescription(), this.date);
             } else {
-                System.out.printf("      %d.%s[%s] %s(by: %s)\n",
+                System.out.printf("      %d.%s[%s] %s (by: %s)\n",
                         num, this.getTag(), this.getStatusIcon(), this.getDescription(), this.date);
             }
         } else {
-            System.out.printf("      %d.%s[%s] %s(by: %s)\n",
-                    num, this.getTag(), this.getStatusIcon(), this.getDescription(), this.date);
-            System.out.print("      ________________________________________________________\n");
+            if (num == 1) {
+                System.out.print("      ________________________________________________________\n");
+                System.out.printf("      Here are the tasks in your list:\n      %d.%s[%s] %s (by: %s)\n",
+                        num, this.getTag(), this.getStatusIcon(), this.getDescription(), this.date);
+                System.out.print("      ________________________________________________________\n");
+            } else {
+                System.out.printf("      %d.%s[%s] %s (by: %s)\n",
+                        num, this.getTag(), this.getStatusIcon(), this.getDescription(), this.date);
+                System.out.print("      ________________________________________________________\n");
+            }
         }
     }
 
     @Override
     public void printFullDesc() {
-        System.out.printf("         %s[%s] %s(by: %s)\n",
+        System.out.printf("         %s[%s] %s (by: %s)\n",
                 this.getTag(), this.getStatusIcon(), this.getDescription(), this.date);
     }
 }

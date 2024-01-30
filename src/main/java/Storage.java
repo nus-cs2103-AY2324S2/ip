@@ -35,11 +35,17 @@ public class Storage {
     }
 
     public void printList() {
-        for (int i = 0; i < this.list.size(); i++) {
-            if (i < this.list.size() - 1 && this.list.size() != 1) { //not last element
-                this.list.get(i).printTaskDesc(i + 1, false);
-            } else {
-                this.list.get(i).printTaskDesc(i + 1, true);
+        if (this.list.size() == 0) {
+            System.out.print("      ________________________________________________________\n");
+            System.out.print("      Currently you have 0 tasks in the list!\n");
+            System.out.print("      ________________________________________________________\n");
+        } else {
+            for (int i = 0; i < this.list.size(); i++) {
+                if (i < this.list.size() - 1 && this.list.size() != 1) { //not last element
+                    this.list.get(i).printTaskDesc(i + 1, false);
+                } else {
+                    this.list.get(i).printTaskDesc(i + 1, true);
+                }
             }
         }
     }

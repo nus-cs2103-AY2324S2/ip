@@ -3,15 +3,15 @@ import java.util.Scanner;
 public class Duke {
 
     private static final String line = "      ________________________________________________________\n";
-    private static String logo = "     _______       ______     _______    _______    ___  ___  \n"
-            + "    |   _  \"\\     /    \" \\   |   _  \"\\  |   _  \"\\  |\"  \\/\"  | \n"
-            + "    (. |_)  :)   // ____  \\  (. |_)  :) (. |_)  :)  \\   \\  /  \n"
-            + "    |:     \\/   /  /    ) :) |:     \\/  |:     \\/    \\\\  \\/ \n"
-            + "    (|  _  \\\\  (: (____/ //  (|  _  \\\\  (|  _  \\\\    /   /  \n"
-            + "    |: |_)  :)  \\        /   |: |_)  :) |: |_)  :)  /   / \n"
+    private static String logo = "     _______       ______     _______    _______    ___  ___\n"
+            + "    |   _  \"\\     /    \" \\   |   _  \"\\  |   _  \"\\  |\"  \\/\"  |\n"
+            + "    (. |_)  :)   // ____  \\  (. |_)  :) (. |_)  :)  \\   \\  /\n"
+            + "    |:     \\/   /  /    ) :) |:     \\/  |:     \\/    \\\\  \\/\n"
+            + "    (|  _  \\\\  (: (____/ //  (|  _  \\\\  (|  _  \\\\    /   /\n"
+            + "    |: |_)  :)  \\        /   |: |_)  :) |: |_)  :)  /   /\n"
             + "    (_______/    \\\"_____/    (_______/  (_______/  |___/";
     public static void intro() {
-        System.out.println("Hello! I'm \n" + Duke.logo + "\n\n What can I do for you today? :) \n");
+        System.out.println("Hello! I'm\n" + Duke.logo + "\n\n What can I do for you today? :)\n");
     }
 
     public static void emptyDesc(String tasktype) throws DukeException {
