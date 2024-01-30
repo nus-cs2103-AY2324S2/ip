@@ -44,7 +44,9 @@ public class Storage {
             taskList.createNewFile();
         }
         Scanner sc = new Scanner(taskList);
-        sc.nextLine();
+        if (sc.hasNextLine()) {
+            sc.nextLine();
+        }
         ArrayList<Task> list = new ArrayList<>();
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
