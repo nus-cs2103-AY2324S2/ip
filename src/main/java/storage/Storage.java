@@ -36,7 +36,7 @@ public class Storage {
         }
     }
 
-    public static void localToList(String data, TaskList tasks) {
+    public static void localToList(String data, TaskList tasks) throws TobiasException {
         try {
             if (data.startsWith("T")) {
                 boolean isDone = Integer.parseInt(data.substring(8,9)) == 1;
@@ -96,6 +96,8 @@ public class Storage {
                 localToList(s.nextLine(), tasks);
             }
             s.close();
+        } catch (TobiasException tE) {
+            tE.printMessage();
         } catch (IOException e) {
             System.out.println("local to current function " + e.getMessage());
         }

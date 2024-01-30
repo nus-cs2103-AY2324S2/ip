@@ -238,9 +238,13 @@ public class Parser {
             ExitCommand ec = new ExitCommand();
             return ec;
         }
-        throw new TobiasException(
-                "    You can ask me  stuff like       : 'bye', 'list', 'mark', 'unmark','delete'\n" +
-                "    You can ask me to create these   : 'todo', 'deadline', 'event'");
+        else {
+            throw new TobiasException(
+                    "    You can ask me  stuff like       : 'bye', 'list', 'mark', 'unmark','delete'\n" +
+                            "    You can ask me to create these   : 'todo', 'deadline', 'event'");
 
+        }
+
+        return new NoreplyCommand();
     }
 }
