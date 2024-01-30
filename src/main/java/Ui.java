@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
-public class PrintList {
+public class Ui {
     private final String BORDER = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
     private ArrayList<String> printList;
 
 
-    public PrintList() {
+    public Ui() {
         this.printList = new ArrayList<String>();
     }
     
@@ -16,6 +16,8 @@ public class PrintList {
     public void print() {
         System.out.println(this.toString());
     }
+
+
 
     @Override
     public String toString() {

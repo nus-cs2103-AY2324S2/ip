@@ -8,19 +8,19 @@ public class Program {
     private Boolean running;
     private Scanner userInputScanner;
     private TaskList taskList;
-    private PrintList printList;
+    private Ui ui;
 
     public Program() {
         this.running = true;
         this.userInputScanner = new Scanner(System.in);
         this.taskList = new TaskList();
-        this.printList = new PrintList();
+        this.ui = new Ui();
 
     }
 
     public void start() {
         File f = this.retrieveFile();
-        taskList.loadList(f, printList);
+        taskList.loadList(f, ui);
         this.greeting();
         while (this.running) {
             String userInput = this.userInputScanner.nextLine();
@@ -34,18 +34,18 @@ public class Program {
 
         if (!parentDir.exists()) {
             parentDir.mkdirs();
-            printList.add("Created data folder as none was found");
+            ui.add("Created data folder as none was found");
         }
         try {
             if (file.createNewFile()) {
-                printList.add("Created linus.txt to read files from");
+                ui.add("Created linus.txt to read files from");
             } else {
-                printList.add("Retrieving file...");
+                ui.add("Retrieving file...");
             }
         } catch (IOException e) {
-            printList.add("Could not create file :/");
+            ui.add("Could not create file :/");
         }
-        printList.print();
+        ui.print();
         return file;
     }
 
@@ -60,14 +60,14 @@ public class Program {
                     this.end();
                     break;
                 case "list":
-                    this.taskList.getList(this.printList);
+                    this.taskList.getList(this.ui);
                     break;
                 case "mark": case "unmark": case "delete":
                     if (userInput.length != 2) {
                         throw new DukeCeption("A number is required after writing this command");
                     } else {
                         taskNumber = userInput[1];
-                        this.taskList.markOrDelete(command, taskNumber, this.printList);
+                        this.taskList.markOrDelete(command, taskNumber, ui);
                     }
                     break;
                 case "todo": case "deadline": case "event":
@@ -75,16 +75,16 @@ public class Program {
                     throw new DukeCeption("Event description cannot be empty");
                 } else {
                     String task = userInput[1];
-                    this.taskList.addTask(command, task, this.printList);
+                    this.taskList.addTask(command, task, ui);
                 }
                     break;
                 default:
                     throw new DukeCeption("Sorry I don't recognize that command :/");
             }
         } catch (Exception e) {
-            printList.add(e.getMessage());
+            ui.add(e.getMessage());
         } finally {
-            this.printList.print();
+            ui.print();
         }
 
     }
@@ -92,16 +92,16 @@ public class Program {
     private void greeting() {
         String greeting = String.format("Hello I'm %s", this.NAME);
         String request = "What can I do for you?";
-        this.printList.add(greeting);
-        this.printList.add(request);
-        this.printList.print();
+        this.ui.add(greeting);
+        this.ui.add(request);
+        this.ui.print();
     }
 
     private void end() {
         File file = new File("./data/linus.txt");
         taskList.saveList(file);
-        this.printList.add("Saving file!");
-        this.printList.add("Goodbye. See you later!");
+        this.ui.add("Saving file!");
+        this.ui.add("Goodbye. See you later!");
         this.running = false;
     }
 }
