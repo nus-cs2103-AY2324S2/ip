@@ -9,9 +9,11 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    protected String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+
+    protected String statusFormatter() { return (isDone ? "1" : "0"); }
 
     protected void mark() {
         this.isDone = true;
@@ -21,9 +23,12 @@ public class Task {
         this.isDone = false;
     }
 
+    protected String taskFormatter() {
+        return String.format("T | %s | %s\n", statusFormatter(), description);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s",this.getStatusIcon(),  this.description);
     }
-
 }
