@@ -1,18 +1,18 @@
-
-import java.io.IOException;
 import java.io.InputStreamReader;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import static java.lang.System.exit;
+
 
 public class Duke {
-    private static ArrayList<Task> list;
+    //private static ArrayList<Task> list;
     private static Storage storage;
+    private static TaskList list;
+    private static Ui ui;
+    private static Parser parser;
     private static final String FILE_PATH = "data/duke.txt";
 
 
+<<<<<<< Updated upstream
     public static void intro(String name, String logo) {
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm \n" + name);
@@ -147,9 +147,22 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         String name = "Bingus";
         intro(name, logo);
-        storage = new Storage(FILE_PATH);
-        list = storage.load();// array to store tasks given
+=======
 
+
+
+
+
+
+    public static void main(String[] args) throws DukeException {
+        ui = new Ui();
+        ui.intro();
+>>>>>>> Stashed changes
+        storage = new Storage(FILE_PATH);
+        list = new TaskList(storage.load());// array to store tasks given
+        parser = new Parser(list, storage);
+
+<<<<<<< Updated upstream
 
         int n = list.size();
         Scanner bfn = new Scanner(
@@ -200,11 +213,14 @@ public class Duke {
             }catch(DukeException ex){
                     System.out.println("Exception occured: " + ex);
                     str = bfn.nextLine();
+=======
+        ui.read_commands(parser);
+>>>>>>> Stashed changes
 
 
                 }
         }
 
-    }
-}
+
+
 
