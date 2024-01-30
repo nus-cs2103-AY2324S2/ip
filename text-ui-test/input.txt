@@ -1,6 +1,1 @@
-list
-unmark 1
-list
-unmark 3
-list
 bye
