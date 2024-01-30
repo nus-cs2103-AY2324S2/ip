@@ -6,11 +6,11 @@ import java.util.Scanner;
 public class Reacher {
     public static void main(String[] args) {
             Scanner scanner = new Scanner(System.in);
-        List<Task> memory = new ArrayList<>();
+        ArrayList<Task> memory = new ArrayList<>();
         System.out.println("Hello!\n" +
                 "I'm Reacher.\n" +
                 "Give me tasks.\n" +
-                "Pls say bye");
+                "Functions are edit, list, delete and bye");
         while (true) {
             try {
                 String input = scanner.nextLine();
@@ -36,7 +36,7 @@ public class Reacher {
                             throw new ReacherException("No such task number");
                         }
                         Task task = memory.get(num - 1);
-                        System.out.println("Mark Done or Undone?");
+                        System.out.println("Mark Done or Undone or Delete?");
                         String change = scanner.nextLine();
                         if (change.equalsIgnoreCase("done")) {
                             task.markDone();
@@ -44,13 +44,15 @@ public class Reacher {
                         } else if (change.equalsIgnoreCase("undone")) {
                             task.markNotDone();
                             System.out.println("Task " + num + " marked Undone");
-                        } else {
-                            throw new ReacherException("u did not write done or undone.");
+                        } else if (change.equalsIgnoreCase("delete")) {
+                            memory.remove(num);
+                            System.out.println("Task " + num + " deleted");
+                        }else {
+                            throw new ReacherException("u did not write done, undone or delete.");
                         }
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
-
                 } else {
                     System.out.println("What type of task is this?(Deadline, Event, Todo)");
                     try {
