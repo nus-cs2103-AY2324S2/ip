@@ -2,6 +2,7 @@ package duke;
 
 import duke.tasks.Task;
 
+import java.lang.reflect.AnnotatedArrayType;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -35,7 +36,7 @@ public class TaskList {
 
     public String listTasks() {
         if (this.tasks.size() == 0) {
-            return "There are no tasks currently :)";
+            return "There are no tasks currently :)\n" + TextTemplate.LINE_BREAK;
         }
         StringBuilder response = new StringBuilder("Here are the tasks in your list:");
         for (int i = 0; i < this.tasks.size(); ++i) {
@@ -57,6 +58,31 @@ public class TaskList {
         Task t = this.tasks.get(taskNum);
         t.unmark();
         return t;
+    }
+
+    private ArrayList<Task> find(String keyword) {
+        ArrayList<Task> match = new ArrayList<>();
+        for (Task t: this.tasks) {
+            if (t.containsKeyword(keyword)) {
+                match.add(t);
+            }
+        }
+        return match;
+    }
+    public String findToString(String keyword) {
+        ArrayList<Task> match = this.find(keyword);
+        if (match.isEmpty()) {
+            return "There are no matching tasks! :(\n" + TextTemplate.LINE_BREAK;
+        }
+        StringBuilder response = new StringBuilder("Here are the matching tasks in your list:");
+        for (int i = 0; i < match.size(); ++i) {
+            Task t = match.get(i);
+            String taskString = "\n" + String.valueOf(i+1) + ". " + t.toString();
+            response.append(taskString);
+        }
+        response.append("\n");
+        response.append(TextTemplate.LINE_BREAK);
+        return response.toString();
     }
 
     public String toString() {

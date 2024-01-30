@@ -112,6 +112,13 @@ public class InputParser {
         return TextTemplate.ADD_TASK + "\n" + d.toString() + "\n" + taskCounterMsg + "\n" + TextTemplate.LINE_BREAK;
     }
 
+    private String matchKeyword(String input, TaskList tasks) {
+        String[] parts = input.split(" ", 2);
+        String keyword = parts[1];
+
+        return tasks.findToString(keyword);
+    }
+
     private static LocalDateTime parseDateTime(String s) throws InvalidDateFormException {
         // Parse the end string into LocalDateTime
         LocalDateTime dateTime;
@@ -157,6 +164,9 @@ public class InputParser {
         if (Pattern.matches("delete \\d+", input)) {
             return Actions.DELETE;
         }
+        if (Pattern.matches("find .+", input)) {
+            return Actions.MATCH;
+        }
         return Actions.INVALID;
     }
 
@@ -180,6 +190,8 @@ public class InputParser {
             return this.addEvent(input, tasks);
         case DEADLINE:
             return this.addDeadline(input, tasks);
+        case MATCH:
+            return this.matchKeyword(input, tasks);
         case INVALID:
             throw new InvalidInputException();
         }

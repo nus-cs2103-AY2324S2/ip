@@ -25,6 +25,13 @@ public abstract class Task {
         return dateTime.format(formatter);
     }
 
+    public boolean containsKeyword(String keyword) {
+        if (this.desc.contains(keyword)) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean isDone() {
         return isDone;
     }
