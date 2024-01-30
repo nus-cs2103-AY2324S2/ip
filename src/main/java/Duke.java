@@ -21,11 +21,6 @@ public class Duke {
 
     public void run(){
         ui.showWelcome();
-    }
-
-    public static void main(String[] args) {
-
-        new Duke().run();
 
         String userInput = "";
 
@@ -157,6 +152,12 @@ public class Duke {
             System.out.println("\t You are too busy .... how come you got so many tasks??");
             System.out.println("\t See la the array no space already. Delete some stuff or restart the program please.");
         }
+    }
+
+    public static void main(String[] args) {
+
+        new Duke().run();
+
     }
 
     public static void handleCommandWithIndex(DataStorage dataStorage, String userInput, TypeOfActions typeOfActions) {
