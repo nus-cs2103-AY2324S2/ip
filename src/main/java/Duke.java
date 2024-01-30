@@ -3,12 +3,15 @@ import java.util.Scanner;
 import DukeException.InvalidCommandException;
 import DukeException.ListOutofBoundsException;
 import DukeException.MissingArgumentsException;
+
 import Storage.Deadlines;
 import Storage.Events;
 import Storage.Todos;
-import UI.UI;
-import Parser.Parser;
 import Storage.Task;
+
+import UI.UI;
+
+import Parser.Parser;
 
 
 public class Duke {

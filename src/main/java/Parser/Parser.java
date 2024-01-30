@@ -1,7 +1,12 @@
 package Parser;
 
 import DukeException.*;
+
 import java.util.Arrays;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 enum COMMANDS {
     LIST, BYE, DELETE, UNMARK, MARK, TODO, EVENT, DEADLINE, INVALID
@@ -80,9 +85,19 @@ public class Parser {
                 ans[0] = "event";
                 ans[1] = this.input.substring(space + 1, slash).trim();
                 int from = this.input.indexOf(" ", slash + 1);
-                ans[2] = this.input.substring(from + 1, sSlash).trim();
                 int to = this.input.indexOf(" ", sSlash + 1);
-                ans[3] = this.input.substring(to + 1, this.input.length()).trim();
+                try {
+                    checkTimeFormat(this.input.substring(from + 1, sSlash).trim());
+                    ans[2] = this.input.substring(from + 1, sSlash).trim();
+                } catch (Exception e) {
+                    System.out.println("caught");
+                }
+                try {
+                    checkTimeFormat(this.input.substring(to + 1, this.input.length()).trim());
+                    ans[3] = this.input.substring(to + 1, this.input.length()).trim();
+                } catch (Exception e) {
+                    System.out.println("caught");
+                }
             }
             break;
         case "deadline":
@@ -105,5 +120,10 @@ public class Parser {
         }
         return ans;
     }
+
+    private boolean checkTimeFormat(String string) {
+       return true;
+    }
+
 
 }
