@@ -1,4 +1,10 @@
+package solaire;
+
 import java.util.Scanner;
+
+import solaire.storage.Storage;
+import solaire.tasklist.TaskList;
+import solaire.ui.Ui;
 
 public class Solaire {
     private TaskList taskList;
@@ -11,6 +17,11 @@ public class Solaire {
     public Solaire() {
         this.ui = new Ui(new Scanner(System.in));
         this.taskList = new TaskList(Storage.loadFromLocal());
+    }
+
+    public static void main(String[] args) {
+        Solaire solaire = new Solaire();
+        solaire.startConversation();
     }
 
     public void startConversation() {

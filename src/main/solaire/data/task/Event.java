@@ -1,3 +1,5 @@
+package solaire.data.task;
+
 public class Event extends Task {
     String from;
     String to;

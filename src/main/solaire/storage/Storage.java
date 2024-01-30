@@ -1,5 +1,13 @@
+package solaire.storage;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import solaire.data.task.Deadline;
+import solaire.data.task.Event;
+import solaire.data.task.Task;
+import solaire.data.task.Todo;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.IOException;
@@ -15,7 +23,7 @@ public class Storage {
         taskList.clear();
 
         // Read from target file
-        String filePath = "src/main/resources/Solaire.txt";
+        String filePath = "src/main/solaire/resources/Solaire.txt";
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(filePath));
