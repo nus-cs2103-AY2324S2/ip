@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public class FileParser {
     private static final String separator = ",";
-    
+
     /**
      * Parses a datetime string into a LocalDateTime object.
      *

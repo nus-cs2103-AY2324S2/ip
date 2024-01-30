@@ -47,6 +47,18 @@ public abstract class Task {
     }
 
     /**
+     * Returns whether the task's description contains the keyword.
+     *
+     * @return true if the task's description contains the keyword, false otherwise
+     */
+    public boolean containsKeyword(String keyword) {
+        if (this.desc.contains(keyword)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Returns whether the task is done.
      *
      * @return true if the task is done, false otherwise
