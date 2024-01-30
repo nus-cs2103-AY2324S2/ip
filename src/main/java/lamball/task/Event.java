@@ -6,6 +6,15 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
+
+    /**
+     * Constructor for Event task.
+     *
+     * @param description Name of task.
+     * @param from Start date of event.
+     * @param to End date of event.
+     * @throws DateTimeParseException if invalid date is provided.
+     */
     public Event(String description, String from, String to) throws DateTimeParseException {
         super(description);
         this.from = LocalDate.parse(from);

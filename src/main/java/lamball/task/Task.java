@@ -4,6 +4,12 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+
+    /**
+     * Constructor for Task.
+     *
+     * @param description Name of task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -20,9 +26,20 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns task in command format for chatbot use.
+     *
+     * @return Task represented in command form.
+     */
     public String command() {
         return "How did you get here?";
     }
+
+    /**
+     * Returns string representation of task for list printing
+     *
+     * @return String task represented in printing format
+     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

@@ -12,10 +12,16 @@ public class TaskList {
     String indent = "    ____________________________________________________________\n";
     protected ArrayList<Task> tasks;
 
+
+    /**
+     * Constructor for TaskList
+     *
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
-    public void printList() {
+
+    private void printList() {
         System.out.println(indent);
         System.out.println("    Here aaaaare the taaaasks in your list:");
         for(int i = 0; i < tasks.size(); i++) {
@@ -23,7 +29,8 @@ public class TaskList {
         }
         System.out.println(indent);
     }
-    public boolean mark(String[] parts, boolean isInit) throws LamballParseException {
+
+    private boolean mark(String[] parts, boolean isInit) throws LamballParseException {
         // Checks if index is within range of list
         int idx = Integer.valueOf(parts[1]) - 1;
         if (idx >= tasks.size() || idx < 0) {
@@ -40,7 +47,7 @@ public class TaskList {
         return true;
     }
 
-    public boolean unMark(String[] parts) throws LamballParseException {
+    private boolean unMark(String[] parts) throws LamballParseException {
         // Checks if index is within range of list
         int idx = Integer.valueOf(parts[1]) - 1;
         if (idx >= tasks.size() || idx < 0) {
@@ -53,7 +60,7 @@ public class TaskList {
         return true;
     }
 
-    public boolean toDo(String[] parts, boolean isInit) throws LamballParseException {
+    private boolean toDo(String[] parts, boolean isInit) throws LamballParseException {
         Task temp = new ToDo(parts[1]);
         tasks.add(temp);
         if (!isInit) {
@@ -63,7 +70,7 @@ public class TaskList {
         }
         return true;
     }
-    public boolean deadline(String[] parts, boolean isInit) throws LamballParseException {
+    private boolean deadline(String[] parts, boolean isInit) throws LamballParseException {
         String[] furtherSplit = parts[1].split(" /", 2);
         if (furtherSplit.length < 2 || !furtherSplit[1].substring(0,3).equals("by ")) {
             throw new LamballParseException("Deadline is in the wrong formaaaaaaat, baa. :(\n    Correct fo" + "rmaaat " +
@@ -85,7 +92,7 @@ public class TaskList {
         }
     }
 
-    public boolean event(String[] parts, boolean isInit) throws LamballParseException {
+    private boolean event(String[] parts, boolean isInit) throws LamballParseException {
         String[] furtherSplit = parts[1].split(" /", 3);
         if (furtherSplit.length < 3 || !furtherSplit[1].substring(0,5).equals("from ") ||
                 !furtherSplit[2].substring(0,3).equals("to ")) {
@@ -108,7 +115,7 @@ public class TaskList {
         }
     }
 
-    public boolean deleteFromList(String[] parts) throws LamballParseException {
+    private boolean deleteFromList(String[] parts) throws LamballParseException {
         // Checks if index is within range of list
         int idx = Integer.valueOf(parts[1]) - 1;
         if (idx >= tasks.size() || idx < 0) {
@@ -121,6 +128,15 @@ public class TaskList {
         return true;
     }
 
+
+    /**
+     * Runs the command when provided with the parsed format.
+     *
+     * @param command 2 Element string array in the format command type, arguments
+     * @param isInit Whether this marking was during the initialization process.
+     * @return Boolean indicating whether to keep the chatbot active after the command.
+     * @throws LamballParseException if invalid arguments provided.
+     */
     public boolean runComd(String[] command, boolean isInit) throws LamballParseException {
         switch(command[0]) {
             case "mark": {

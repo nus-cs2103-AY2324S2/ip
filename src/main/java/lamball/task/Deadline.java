@@ -6,6 +6,14 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     protected LocalDate by;
+
+    /**
+     * Constructor for Deadline task.
+     *
+     * @param description Name of task.
+     * @param by due date of deadline
+     * @throws DateTimeParseException if invalid date is provided.
+     */
     public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
         this.by = LocalDate.parse(by);
