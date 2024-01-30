@@ -1,6 +1,27 @@
 import java.util.Scanner;
 
 public class Youdon {
+
+    // function to detect when task desc is missing
+    public static void detectMissingDesc(String input) throws YoudonException.EmptyDescException {
+        if ((input.equals("todo")) || (input.equals("deadline")) || (input.equals("event"))) {
+            throw new YoudonException.EmptyDescException("Hey! The task description is empty!");
+        }
+    }
+
+    // function to detect when command is invalid
+    public static void detectInvalidCommand(String input) throws YoudonException.InvalidCommandException {
+        switch (input) {
+            case "todo":
+            case "deadline":
+            case "event":
+                break;
+            default:
+                throw new YoudonException.InvalidCommandException("Sorry, I do not recognise that command.");
+        }
+    }
+
+
     public static void main(String[] args) {
         // initialise array and index
         Task[] taskList = new Task[100];
@@ -22,6 +43,23 @@ public class Youdon {
 
         // when there is input present
         while (!(data.isEmpty())) {
+            // try-catch block for exceptions
+            try {
+                detectMissingDesc(data);
+                detectInvalidCommand(data);
+            } catch (YoudonException.EmptyDescException | YoudonException.InvalidCommandException e) {
+                // print out error message
+                System.out.println(line);
+                System.out.println(e.getMessage());
+                System.out.println(line);
+                // update data to next input
+                if (input.hasNextLine()) {
+                    data = input.nextLine();
+                } else {
+                    data = "";
+                }
+            }
+
             // if input == "bye", print chatbot bye message
             if (data.equals("bye")) {
                 System.out.println(line);
