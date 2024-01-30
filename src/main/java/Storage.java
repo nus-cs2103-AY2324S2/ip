@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class Storage {
-    protected static File path;
-    public static ArrayList<Task> loadTasks() throws IOException {
+    protected File path;
+    public ArrayList<Task> loadTasks() throws IOException {
         path = new File(Paths.get(".").toAbsolutePath().normalize().toString() + "/data");
 
         if (!path.exists()) {
@@ -22,9 +22,9 @@ public class Storage {
         return parseText();
     }
 
-    private static ArrayList<Task> parseText() throws IOException {
+    private ArrayList<Task> parseText() throws IOException {
         ArrayList<Task> tasks = new ArrayList<Task>();
-        BufferedReader br = Files.newBufferedReader(Paths.get(path.toString()+"/data.txt"));
+        BufferedReader  br = Files.newBufferedReader(Paths.get(path.toString() + "/data.txt"));
 
         while(br.ready()) {
             String[] text = br.readLine().split(Pattern.quote(" | "));
@@ -49,7 +49,7 @@ public class Storage {
 
         return tasks;
     }
-    public static void saveTasks(ArrayList<Task> tasks) throws IOException {
+    public void saveTasks(ArrayList<Task> tasks) throws IOException {
         StringBuilder s = new StringBuilder();
 
         for(Task t : tasks) {
