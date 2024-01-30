@@ -116,6 +116,8 @@ public class Duke {
 
                 "dd/MM/yyyy",
                 "dd-MM-yyyy",
+                "yyyy-MM-dd",
+
                 "dd/MM/yy",
                 "dd-MM-yy",
                 "ddMMyyyy",
