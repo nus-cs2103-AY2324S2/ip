@@ -11,7 +11,7 @@ public class Event extends Task{
 
     public Event(String description, String from, String to, boolean isDone) {
         super(description, isDone);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         LocalDateTime parseDateTimeFrom = LocalDateTime.parse(from, formatter);
         LocalDateTime parseDateTimeTo = LocalDateTime.parse(to, formatter);
         this.from = new DateTask(parseDateTimeFrom);
@@ -20,8 +20,8 @@ public class Event extends Task{
 
     @Override
     public String saveFormat() {
-        return String.format("%s||%s||%s||%s",
-                "[E]", super.saveFormat(), from.saveFormat(), to.saveFormat());
+        return String.format("%s;;%s;;%s;;%s",
+                "E", super.saveFormat(), from.saveFormat(), to.saveFormat());
     }
 
     @Override

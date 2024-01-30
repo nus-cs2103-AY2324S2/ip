@@ -26,7 +26,7 @@ public class Task {
 
     public String saveFormat() {
         String isDoneSave = (isDone ? "1" : "0");
-        return String.format("%s||%s",
+        return String.format("%s;;%s",
                 isDoneSave, description);
     }
 

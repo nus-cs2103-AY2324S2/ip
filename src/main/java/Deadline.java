@@ -10,15 +10,15 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         LocalDateTime parsedDateTimeBy = LocalDateTime.parse(by, formatter);
         this.by = new DateTask(parsedDateTimeBy);
     }
 
     @Override
     public String saveFormat() {
-        return String.format("%s||%s||%s",
-                "[D]",super.saveFormat(), by.saveFormat());
+        return String.format("%s;;%s;;%s",
+                "D",super.saveFormat(), by.saveFormat());
     }
 
     @Override
