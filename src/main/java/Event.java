@@ -15,7 +15,7 @@ public class Event extends Task{
 
     @Override
     public String toFileFormat() {
-        return "E | " + super.toFileFormat() + " | " + start + "-" + end;
+        return "E | " + super.toFileFormat() + " | " + start+ "-" + end;
     }
 
     public static Task fromFileFormat(String line) throws JayneException {
