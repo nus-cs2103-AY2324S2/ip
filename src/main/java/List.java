@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -132,13 +134,16 @@ public class List {
             case "D":
                 description = currLine.split(" \\(by:")[0].split("] ")[1];
                 String dueDate = currLine.split("\\(by: ")[1].split("\\)")[0];
-                tasks.add(new Deadline(description, dueDate));
+                tasks.add(new Deadline(description, LocalDateTime.parse(dueDate,
+                        DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))));
                 break;
             case "E":
                 description = currLine.split(" \\(from:")[0].split("] ")[1];
                 String startDate = currLine.split("\\(from: ")[1].split(" to:")[0];
                 String endDate = currLine.split("to: ")[1].split("\\)")[0];
-                tasks.add(new Event(description, startDate, endDate));
+                tasks.add(new Event(description, LocalDateTime.parse(startDate,
+                        DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")),
+                        LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))));
                 break;
             }
             if (isDone) {

@@ -1,8 +1,10 @@
-public class Event extends Task {
-    private String startDate;
-    private String endDate;
+import java.time.LocalDateTime;
 
-    public Event(String description, String startDate, String endDate) {
+public class Event extends Task {
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+
+    public Event(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description);
         isDone = false;
         this.startDate = startDate;
@@ -11,7 +13,25 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startDate + " to: " +
-                endDate + ")";
+        String month = String.valueOf(startDate.getMonth());
+        String shortForm = month.charAt(0) + month.substring(1, 3).toLowerCase();
+        String day = startDate.getDayOfMonth() < 10 ? "0" + startDate.getDayOfMonth()
+                : String.valueOf(startDate.getDayOfMonth());
+        String minute = startDate.getMinute() < 10 ? "0" + startDate.getMinute()
+                : String.valueOf(startDate.getMinute());
+        String hour = startDate.getHour() < 10 ? "0" + startDate.getHour()
+                : String.valueOf(startDate.getHour());
+        String eMonth = String.valueOf(endDate.getMonth());
+        String eShortForm = eMonth.charAt(0) + eMonth.substring(1, 3).toLowerCase();
+        String eDay = endDate.getDayOfMonth() < 10 ? "0" + endDate.getDayOfMonth()
+                : String.valueOf(endDate.getDayOfMonth());
+        String eMinute = endDate.getMinute() < 10 ? "0" + endDate.getMinute()
+                : String.valueOf(endDate.getMinute());
+        String eHour = endDate.getHour() < 10 ? "0" + endDate.getHour()
+                : String.valueOf(endDate.getHour());
+        return "[E]" + super.toString() + " (from: " + day + " " + shortForm
+                + " " + startDate.getYear() + " " + hour + ":" + minute + " to: "
+                + eDay + " " + eShortForm + " " + endDate.getYear() + " " + eHour + ":"
+                + eMinute + ")";
     }
 }
