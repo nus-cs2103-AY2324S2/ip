@@ -69,7 +69,8 @@ public class Duke {
             }
             if (input.split(" ")[0].equalsIgnoreCase("deadline")) {
                 if (input.split(" ").length > 1 &&
-                        input.split(" /by ").length == 2) {
+                        input.split(" /by ").length == 2 &&
+                        input.substring(9).split("/by ")[0].length() > 0) {
                     try {
                         LocalDateTime.parse(input.split("/by ")[1],
                                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
@@ -89,7 +90,8 @@ public class Duke {
                 if (input.split(" ").length > 1 &&
                     input.split(" /from ").length == 2 &&
                     input.split(" /from ")[1].split(" /to ").length == 2 &&
-                    input.split(" /to ").length == 2) {
+                    input.split(" /to ").length == 2 &&
+                    input.substring(6).split("/from ")[0].length() > 0) {
                     taskList.addTask(new Event(
                             input.substring(6).split(" /from")[0],
                             input.split("/from ")[1].split(" /to")[0],
