@@ -9,7 +9,9 @@ mark 2
 list
 event party /FROM Monday 2pm /to 4pm
 mark -2
+delete 1
 mark 12098765456t7yuioi8765467890-98765789
 mark
 list
+delete 3
 unmark

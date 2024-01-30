@@ -36,8 +36,7 @@ public class DataStorage {
 
 
         } catch (IOException e) {
-            System.err.println("An error occurred while opening the file. \n" +
-                    "An error occurred on your device; please check that there is at least 100 MB of free disk space.");
+            System.err.println("An error occurred while opening the file. \n" + "An error occurred on your device; please check that there is at least 100 MB of free disk space.");
             System.exit(1); // Exit the program. Non-zero indicates abnormal termination.
         }
 
@@ -63,7 +62,6 @@ public class DataStorage {
 
 
     public void addTaskToFile(String line, boolean isAppend) {
-        System.out.println(line);
         try {
             // Solution below adapted from: https://www.w3schools.com/java/java_files_create.asp
             FileWriter myWriter = new FileWriter(this.file, isAppend);
@@ -107,19 +105,23 @@ public class DataStorage {
 
     private Task parseTask(String line) throws MalformedUserInputException {
         String[] splitTask = line.split(" \\| ");
+        int length = splitTask.length;
 
         // TODO: Handle a dirty input.
         if (line.startsWith("T")) {
             // then it is a task
+            if (length != 3) throw new MalformedUserInputException("Your database is corrupted.");
             return new Todo(splitTask[1], Boolean.valueOf(splitTask[2]));
         } else if (line.startsWith("D")) {
             // then it is a deadline
+            if (length != 4) throw new MalformedUserInputException("Your database is corrupted.");
             return new Deadline(splitTask[1], splitTask[3], Boolean.valueOf(splitTask[2]));
         } else if (line.startsWith("E")) {
             // then it is an event
+            if (length != 5) throw new MalformedUserInputException("Your database is corrupted.");
             return new Event(splitTask[1], splitTask[3], splitTask[4], Boolean.valueOf(splitTask[2]));
         } else {
-            throw new MalformedUserInputException();
+            throw new MalformedUserInputException("Your database is potentially corrupted");
         }
     }
 
@@ -152,7 +154,6 @@ public class DataStorage {
 
 
     public void deleteTask(int indexToDelete) throws NoTaskCreatedYetException {
-        System.out.println(indexToDelete + " " + taskCount);
         if (indexToDelete < 0 || indexToDelete > this.maxTask) {
             throw new IndexOutOfBoundsException();
         } else if (indexToDelete >= this.taskCount) {
