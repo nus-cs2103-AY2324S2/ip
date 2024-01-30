@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /* Events: tasks that start at a specific date/time and
  * ends at a specific date/time e.g.,
  * (a) event team project meeting /from 2-10-2019 /to 2-4pm
@@ -5,20 +9,39 @@
  * */
 public class Event extends Task {
 
-    private String startDate;
+    private String startDateString, endDateString;
 
-    private String endDate;
+    private LocalDate startDate, endDate;
 
-    public Event(String description, String startDate, String endDate) {
+    
+
+    public Event(String description, String startDateString, String endDateString) {
         super(description);
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDateString = startDateString;
+        this.endDateString = endDateString;
+
+        try {
+            startDate = LocalDate.parse(startDateString);
+            endDate = LocalDate.parse(endDateString);
+        } catch (DateTimeParseException e) {
+            startDate = null;
+            endDate = null;
+        }
+
     }
 
-    public Event(String description, int isDone, String startDate, String endDate) {
+    public Event(String description, int isDone, String startDateString, String endDateString) {
         super(description, isDone);
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDateString = startDateString;
+        this.endDateString = endDateString;
+
+        try {
+            startDate = LocalDate.parse(startDateString);
+            endDate = LocalDate.parse(endDateString);
+        } catch (DateTimeParseException e) {
+            startDate = null;
+            endDate = null;
+        }
     }
 
     @Override
@@ -29,17 +52,23 @@ public class Event extends Task {
     // project meeting (from: Aug 6th 2pm to: 4pm)
     @Override
     public String listTaskString() {
-        return "[E]" + super.listTaskString()
-                + " (from: " + startDate
-                + " to: " + endDate + ")";
+        if (startDate == null) {
+            return "[E]" + super.listTaskString()
+                    + " (from: " + startDateString
+                    + " to: " + endDateString + ")";
+        } else {
+            return "[E]" + super.listTaskString()
+                    + " (from: " + startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                    + " to: " + endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        }
     }
 
     public String getStartDate() {
-        return this.startDate;
+        return this.startDateString;
     }
 
     public String getEndDate() {
-        return this.endDate;
+        return this.endDateString;
     }
 
 

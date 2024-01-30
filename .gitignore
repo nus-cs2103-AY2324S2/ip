@@ -17,4 +17,5 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 
 # Data Files
-/data/
+data/*
+!data/.gitkeep
