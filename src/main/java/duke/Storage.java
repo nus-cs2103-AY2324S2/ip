@@ -24,7 +24,6 @@ public class Storage {
                 throw new StorageException("Failed to create file: " + f.getAbsolutePath());
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
             throw new StorageException("Error creating file: " + f.getAbsolutePath());
         }
     }

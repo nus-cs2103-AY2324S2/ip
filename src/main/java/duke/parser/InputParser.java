@@ -32,8 +32,8 @@ public class InputParser {
         return tasks.listTasks();
     }
 
-    private String markTask(String s, TaskList tasks) throws InvalidInputException {
-        String[] parts = s.split("\\s+");
+    private String markTask(String input, TaskList tasks) throws InvalidInputException {
+        String[] parts = input.split("\\s+");
         int taskNum = Integer.parseInt(parts[1]) - 1;
         if (taskNum >= tasks.size()) {
             throw new InvalidInputException(TextTemplate.TASK_DOES_NOT_EXIST);
@@ -42,8 +42,8 @@ public class InputParser {
         return TextTemplate.MARK_TASK + "\n" + t.toString() + "\n" + TextTemplate.LINE_BREAK;
     }
 
-    private String unmarkTask(String s, TaskList tasks) throws InvalidInputException {
-        String[] parts = s.split("\\s+", 2);
+    private String unmarkTask(String input, TaskList tasks) throws InvalidInputException {
+        String[] parts = input.split("\\s+", 2);
         int taskNum = Integer.parseInt(parts[1]) - 1;
         if (taskNum >= tasks.size()) {
             throw new InvalidInputException(TextTemplate.TASK_DOES_NOT_EXIST);
@@ -52,8 +52,8 @@ public class InputParser {
         return TextTemplate.UNMARK_TASK + "\n" + t.toString() + "\n" + TextTemplate.LINE_BREAK;
     }
 
-    private String deleteTask(String s, TaskList tasks) throws InvalidInputException {
-        String[] parts = s.split("\\s+", 2);
+    private String deleteTask(String input, TaskList tasks) throws InvalidInputException {
+        String[] parts = input.split("\\s+", 2);
         int taskNum = Integer.parseInt(parts[1]) - 1;
         if (taskNum >= tasks.size()) {
             throw new InvalidInputException(TextTemplate.TASK_DOES_NOT_EXIST);
@@ -62,17 +62,17 @@ public class InputParser {
         return TextTemplate.DELETE_TASK + "\n" + t.toString() + "\n" + TextTemplate.LINE_BREAK;
     }
 
-    private String addTodo(String s, TaskList tasks) {
-        String[] parts = s.split(" ", 2);
-        TodoTask t = new TodoTask(parts[1]);
-        tasks.add(t);
+    private String addTodo(String input, TaskList tasks) {
+        String[] parts = input.split(" ", 2);
+        TodoTask todo = new TodoTask(parts[1]);
+        tasks.add(todo);
 
         String taskCounterMsg = String.format(TextTemplate.TASK_COUNT, tasks.size());
-        return TextTemplate.ADD_TASK + "\n" + t.toString() + "\n" + taskCounterMsg + "\n" + TextTemplate.LINE_BREAK;
+        return TextTemplate.ADD_TASK + "\n" + todo.toString() + "\n" + taskCounterMsg + "\n" + TextTemplate.LINE_BREAK;
     }
 
-    private String addEvent(String s, TaskList tasks) {
-        String[] parts = s.split(" /from ", 2);
+    private String addEvent(String input, TaskList tasks) {
+        String[] parts = input.split(" /from ", 2);
         String desc = parts[0].split(" ", 2)[1];
         String[] duration = parts[1].split(" /to ", 2);
         LocalDateTime start;
@@ -85,11 +85,11 @@ public class InputParser {
             return e.getMessage() + "\n" + TextTemplate.LINE_BREAK;
         }
 
-        EventTask e = new EventTask(desc, start, end);
-        tasks.add(e);
+        EventTask event = new EventTask(desc, start, end);
+        tasks.add(event);
 
         String taskCounterMsg = String.format(TextTemplate.TASK_COUNT, tasks.size());
-        return TextTemplate.ADD_TASK + "\n" + e.toString() + "\n" + taskCounterMsg + "\n" + TextTemplate.LINE_BREAK;
+        return TextTemplate.ADD_TASK + "\n" + event.toString() + "\n" + taskCounterMsg + "\n" + TextTemplate.LINE_BREAK;
     }
 
     private String addDeadline(String s, TaskList tasks) {
@@ -97,32 +97,32 @@ public class InputParser {
         String[] firstPart = parts[0].split(" ", 2);
         String desc = firstPart[1];
         String end = parts[1];
-        LocalDateTime deadline;
+        LocalDateTime deadlineTime;
 
         try {
-            deadline = parseDateTime(end);
+            deadlineTime = parseDateTime(end);
         } catch (InvalidDateFormException e) {
             return e.getMessage() + "\n" + TextTemplate.LINE_BREAK;
         }
 
-        DeadlineTask d = new DeadlineTask(desc, deadline);
-        tasks.add(d);
+        DeadlineTask deadline = new DeadlineTask(desc, deadlineTime);
+        tasks.add(deadline);
 
         String taskCounterMsg = String.format(TextTemplate.TASK_COUNT, tasks.size());
-        return TextTemplate.ADD_TASK + "\n" + d.toString() + "\n" + taskCounterMsg + "\n" + TextTemplate.LINE_BREAK;
+        return TextTemplate.ADD_TASK + "\n" + deadline.toString() + "\n" + taskCounterMsg + "\n" + TextTemplate.LINE_BREAK;
     }
 
-    private static LocalDateTime parseDateTime(String s) throws InvalidDateFormException {
+    private static LocalDateTime parseDateTime(String input) throws InvalidDateFormException {
         // Parse the end string into LocalDateTime
         LocalDateTime dateTime;
         try {
-            if (s.length() == 10) {
+            if (input.length() == 10) {
                 // If the end string is in the format yyyy-mm-dd
-                dateTime = LocalDateTime.parse(s + "T00:00:00");
+                dateTime = LocalDateTime.parse(input + "T00:00:00");
             } else {
                 // If the end string is in the format yyyy-mm-dd HHmm
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                dateTime = LocalDateTime.parse(s, formatter);
+                dateTime = LocalDateTime.parse(input, formatter);
             }
             return dateTime;
         } catch (Exception e) {

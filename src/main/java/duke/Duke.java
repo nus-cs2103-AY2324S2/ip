@@ -32,10 +32,6 @@ public class Duke {
         }
     }
 
-    private void exit() {
-        this.ui.exit();
-    }
-
     public void run() {
         while (this.ui.isActive()) {
             String input = this.ui.readNextLine();
