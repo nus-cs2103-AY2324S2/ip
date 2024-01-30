@@ -181,4 +181,25 @@ public class TaskList {
             System.out.println("\tSomething went wrong: " + e.getMessage());
         }
     }
+
+    public void find(String keyword) {
+        ArrayList<Integer> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < this.arrayList.size(); i++) {
+            if (this.arrayList.get(i).description.contains(keyword)) {
+                matchingTasks.add(i);
+            }
+        }
+        if (matchingTasks.size() == 0) {
+            System.out.println("\tThere are no matching tasks in your list:");
+            return;
+        }
+        System.out.println("\tHere are the matching tasks in your list:");
+        for (Integer i : matchingTasks) {
+            System.out.printf(
+                    "\t%d.%s\n",
+                    i + 1,
+                    this.arrayList.get(i));
+        }
+    }
+
 }
