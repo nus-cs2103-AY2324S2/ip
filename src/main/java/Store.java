@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -41,6 +42,9 @@ public class Store {
                 task = new Deadline(description, by);
             } catch (IndexOutOfBoundsException e) {
                 throw new DiboException("Oh no sir! Please state the deadline of the task :D");
+            } catch (DateTimeParseException e) {
+                throw new DiboException("Oh no sir! Please state the deadline of the task "
+                        + "in this format: yyyy-mm-dd");
             }
             break;
         default:
@@ -50,6 +54,9 @@ public class Store {
                 task = new Event(description, from, to);
             } catch (IndexOutOfBoundsException e) {
                 throw new DiboException("Oh no sir! Please state the start and end of the task :D");
+            } catch (DateTimeParseException e) {
+                throw new DiboException("Oh no sir! Please state the deadline of the task "
+                        + "in this format: yyyy-mm-dd");
             }
         }
 
@@ -64,6 +71,7 @@ public class Store {
         this.storage.add(t);
         this.count++;
     }
+
     public void displayStore() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < count; ++i) {

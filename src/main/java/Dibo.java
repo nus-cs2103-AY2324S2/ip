@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Dibo {
@@ -86,7 +87,10 @@ public class Dibo {
                         + "for you to store your task list but was unable to do so.\n"
                         + "Please do us a favour and check the path name:D");
             }
-        }  catch (NumberFormatException | IndexOutOfBoundsException e) {
+        } catch (DateTimeParseException e) {
+            throw new DiboException("Oh no sir! The file seems to be corrupted :O "
+                    + " The dates are not in the correct format. It ought to be: yyyy-mm-dd  :(");
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DiboException("Oh no sir! The file seems to be corrupted :O "
                     + " You might want to take a look at the formatting of the text file :(");
         }
