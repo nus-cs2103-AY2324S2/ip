@@ -12,4 +12,8 @@ public class Event extends Task{
     public String toString() {
         return "[E]" + super.toString() + "(" + from + to + ")";
     }
+
+    public String getFromTo() {
+        return from + to;
+    }
 }
