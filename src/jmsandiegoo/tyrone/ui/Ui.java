@@ -1,3 +1,8 @@
+package jmsandiegoo.tyrone.ui;
+
+import jmsandiegoo.tyrone.commands.CommandResult;
+import jmsandiegoo.tyrone.common.Messages;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;

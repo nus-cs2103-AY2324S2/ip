@@ -1,3 +1,8 @@
+package jmsandiegoo.tyrone.commands;
+
+import jmsandiegoo.tyrone.common.Messages;
+import jmsandiegoo.tyrone.data.Event;
+
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
     private final Event eventItem;

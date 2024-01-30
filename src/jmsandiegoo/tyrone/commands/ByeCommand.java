@@ -1,3 +1,7 @@
+package jmsandiegoo.tyrone.commands;
+
+import jmsandiegoo.tyrone.common.Messages;
+
 public class ByeCommand extends Command {
     public static final String COMMAND_WORD = "bye";
 

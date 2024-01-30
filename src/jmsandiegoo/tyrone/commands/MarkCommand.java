@@ -1,3 +1,8 @@
+package jmsandiegoo.tyrone.commands;
+
+import jmsandiegoo.tyrone.common.Messages;
+import jmsandiegoo.tyrone.exceptions.CommandExecutionException;
+
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
     private final int index;

@@ -1,3 +1,8 @@
+package jmsandiegoo.tyrone.commands;
+
+import jmsandiegoo.tyrone.common.Messages;
+import jmsandiegoo.tyrone.exceptions.CommandExecutionException;
+
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
     private final int index;
