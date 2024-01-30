@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 public class Todo extends Task {
 
     public Todo(String name) {
@@ -8,4 +9,16 @@ public class Todo extends Task {
         return "[T]";
     }
 
+=======
+public class Todo extends Task {
+
+    public Todo(String name) {
+        super(name);
+    }
+    @Override
+    public String getType(){
+        return "[T]";
+    }
+
+>>>>>>> branch-Level-7
 }

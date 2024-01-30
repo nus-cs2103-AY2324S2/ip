@@ -6,7 +6,7 @@ This is a project template for a greenfield Java project. It's named after the J
 
 Prerequisites: JDK 11, update Intellij to the most recent version.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
+1. Open Intellij (if you are not in the welcome screen, click `FileManager` > `Close Project` to close the existing project first)
 1. Open the project into Intellij as follows:
    1. Click `Open`.
    1. Select the project directory, and click `OK`.

@@ -1,23 +1,26 @@
 import java.util.*;
 public class Duke {
-    static String line = "    ____________________________________________________________";
-    static String indent = "     ";
-    static String name = "Alfred";
+    private String filePath = "./data/saveData.txt";
 
-    public static void separate(){
+    private FileManager myFileManager = new FileManager(filePath);
+    private String line = "    ____________________________________________________________";
+    private String indent = "     ";
+    private String name = "Alfred";
+
+    public void separate(){
         System.out.println(line);
     }
-    public static void spacing() {
+    public void spacing() {
         separate();
         System.out.println("");
     }
 
-    public static void intro() {
+    public void intro() {
         separate();
         System.out.println(indent + "Hello! I'm " + name + "\n     What can I do for you?");
         spacing();
     }
-    public static void leave() {
+    public void leave() {
         System.out.println(indent + "Bye. Hope to see you again soon!");
         spacing();
     }
@@ -79,12 +82,17 @@ public class Duke {
     public void start(){
         intro();
         Scanner input = new Scanner(System.in);
+<<<<<<< HEAD
         ArrayList<Task> taskList = new ArrayList<Task>();
+=======
+        ArrayList<Task> taskList = myFileManager.loadFile();
+>>>>>>> branch-Level-7
         while(true) {
             String current = input.nextLine();
             if(current.equals("bye")) {
                 separate();
                 leave();
+                myFileManager.saveFile(taskList);
                 break;
             } else if(current.equals("list")) {
                 separate();
@@ -146,8 +154,16 @@ public class Duke {
                 }
             }
         }
+<<<<<<< HEAD
     }
 
+=======
+        myFileManager.saveFile(taskList);
+    }
+
+
+
+>>>>>>> branch-Level-7
     public static void main(String[] args){
         Duke duke = new Duke();
         duke.start();
