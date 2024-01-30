@@ -15,12 +15,31 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
+    public Event(String description, int isDone, String startDate, String endDate) {
+        super(description, isDone);
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    @Override
+    public char getTaskType() {
+        return 'E';
+    }
+
     // project meeting (from: Aug 6th 2pm to: 4pm)
     @Override
     public String listTaskString() {
         return "[E]" + super.listTaskString()
                 + " (from: " + startDate
                 + " to: " + endDate + ")";
+    }
+
+    public String getStartDate() {
+        return this.startDate;
+    }
+
+    public String getEndDate() {
+        return this.endDate;
     }
 
 

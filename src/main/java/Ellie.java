@@ -27,10 +27,15 @@ public class Ellie {
     }
 
 
+
+
     private final Tracker tracker;
 
+    private final Storage storage;
+
     public Ellie() {
-        tracker = new Tracker();
+        storage = new Storage("./data/toDoList.txt");
+        tracker = new Tracker(storage);
     }
 
     public void start() {

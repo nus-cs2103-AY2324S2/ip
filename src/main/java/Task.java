@@ -7,6 +7,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Task(String description, int isDone) {
+        this.description = description;
+        this.isDone = isDone != 0;
+    }
+
     @Override
     public String toString() {
         return this.description;
@@ -14,6 +19,10 @@ public abstract class Task {
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public int getIsDone(){
+        return isDone ? 1 : 0;
     }
 
     public String listTaskString() {
@@ -27,5 +36,7 @@ public abstract class Task {
     public void unmarkTask() {
         this.isDone = false;
     }
+
+    public abstract char getTaskType();
 
 }

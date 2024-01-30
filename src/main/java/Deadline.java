@@ -9,10 +9,24 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    public Deadline(String description, int isDone, String dueDate) {
+        super(description, isDone);
+        this.dueDate = dueDate;
+    }
+
+    @Override
+    public char getTaskType() {
+        return 'D';
+    }
+
     @Override
     public String listTaskString() {
         return "[D]" + super.listTaskString()
                 + " (by: " + this.dueDate + ")";
+    }
+
+    public String getDueDate() {
+        return this.dueDate;
     }
 
 }

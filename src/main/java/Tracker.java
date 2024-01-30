@@ -3,20 +3,27 @@ import java.util.ArrayList;
 public class Tracker {
 
     private final ArrayList<Task> taskList;
+    private final Storage storage;
 
-    public Tracker() {
+    public Tracker(Storage storage) {
         taskList = new ArrayList<>();
+        this.storage = storage;
+        storage.load(taskList);
+
+
     }
 
     public void addTask(Task element) {
         taskList.add(element);
+        saveTasks();
+
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + element.listTaskString());
         System.out.println("Now you have " + this.taskQuantity() + " tasks in the list.\n");
     }
 
     public void listTasks() {
-        if (taskList.size() == 0) {
+        if (taskList.isEmpty()) {
             System.out.println("No items in list!\n");
             return;
         }
@@ -42,6 +49,7 @@ public class Tracker {
 
         Task task = taskList.get(index - 1);
         task.markTask();
+        saveTasks();
 
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + task.listTaskString() + "\n");
@@ -56,6 +64,7 @@ public class Tracker {
 
         Task task = taskList.get(index - 1);
         task.unmarkTask();
+        saveTasks();
 
         System.out.println("Nice! I've marked this task as not done yet:");
         System.out.println("  " + task.listTaskString() + "\n");
@@ -69,10 +78,15 @@ public class Tracker {
         }
 
         Task removedTask = taskList.remove(index - 1);
+        saveTasks();
         System.out.println("Got it! I've removed this task from your list:");
         System.out.println("  " + removedTask.listTaskString() + "\n");
 
 
+    }
+
+    private void saveTasks() {
+        storage.save(taskList);
     }
 
 

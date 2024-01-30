@@ -7,6 +7,15 @@ public class Todo extends Task {
         super(description);
     }
 
+    public Todo(String description, int isDone) {
+        super(description, isDone);
+    }
+
+    @Override
+    public char getTaskType() {
+        return 'T';
+    }
+
     @Override
     public String listTaskString() {
         return "[T]" + super.listTaskString();
