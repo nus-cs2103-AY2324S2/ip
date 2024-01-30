@@ -18,7 +18,6 @@ public class Storage {
                 file.createNewFile();
             }
             TaskList data = TaskListParser.parse(file);
-            System.out.println("Data loaded successfully!");
             return data;
         } catch (DukeException | IOException e) {
             throw new StorageLoadException("Failed to load data from file: " + filePath,
