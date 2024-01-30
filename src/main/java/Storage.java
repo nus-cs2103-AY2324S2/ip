@@ -57,7 +57,7 @@ public class Storage {
     }
 
     /**
-     * Loads taskList from datafile in memory
+     * Loads taskList from datafile and returns a TaskList object
      *
      * @return TaskList object
      * @see TaskList
