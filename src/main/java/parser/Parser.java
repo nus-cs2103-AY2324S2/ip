@@ -234,6 +234,26 @@ public class Parser {
                 e.printMessage();
             }
         }
+        else if (command.startsWith("find")) {
+            try {
+                if (command.equals("find")) {
+                    throw new TobiasException("    Please enter what you are finding for after 'find' !!!");
+                }
+
+                String blank = command.substring(4,5);
+
+                if (!blank.isBlank()) {
+                    throw new TobiasException("    Kindly enter what you are finding a space after find !!!");
+                }
+
+                String keyWord = command.substring(5);
+                FindCommand fc = new FindCommand(keyWord);
+                return fc;
+
+            } catch (TobiasException e) {
+                e.printMessage();
+            }
+        }
         else if (command.equals("bye")) {
             ExitCommand ec = new ExitCommand();
             return ec;

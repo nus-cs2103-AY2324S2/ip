@@ -58,4 +58,32 @@ public class TaskList {
             e.printMessage();
         }
     }
+
+    public void printListFind(String keyword) throws TobiasException {
+        List<Task> foundResults = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.hasKeyword(keyword)) {
+                foundResults.add(task);
+            }
+        }
+
+        try {
+            if (foundResults.isEmpty()) {
+                throw new TobiasException("    Could not find any results containing : " + keyword);
+            } else {
+                Ui.printDivider();
+
+                System.out.println("    Here are the matching tasks in your list:");
+                for (Task task : foundResults) {
+                    int index = tasks.indexOf(task);
+                    task.taskPrinter(index);
+                }
+
+                Ui.printDivider();
+            }
+        } catch (TobiasException e) {
+            e.printMessage();
+        }
+    }
 }
