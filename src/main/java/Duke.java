@@ -24,6 +24,7 @@ public class Duke {
             // Read and process user input
             String command = scanner.nextLine();
             String[] tokens = command.split(" ", 2);
+            tasks = TaskLoader.load();
             System.out.println("\n============================================================\n");
 
             // Handle different commands
@@ -119,6 +120,7 @@ public class Duke {
             }
 
             System.out.println("\n============================================================\n");
+            TaskLoader.save(tasks);
         }
 
         scanner.close();
