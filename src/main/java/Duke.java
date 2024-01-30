@@ -2,9 +2,6 @@ import java.io.*;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -13,10 +10,9 @@ import java.time.format.DateTimeFormatter;
  */
 public class Duke {
     private static ArrayList<Task> storage = new ArrayList<>();
-    private static final String FILEPATH = "./data/duke.txt";
+    //private static final String FILEPATH = "./data/duke.txt";
     public static void main(String[] args) {
-        createFolder();
-        loadFile();
+        Storage fileSave = new Storage();
         Scanner scanner = new Scanner(System.in);
 
         //SAY HI, don't change
@@ -133,13 +129,13 @@ public class Duke {
 
             if ("mark".equalsIgnoreCase(split[0])) {
                 task.markAsDone();
-                saveTasks();
+                //saveTasks();
                 System.out.println("I've marked this task as done:\n  " + task);
             }
 
             else if ("unmark".equalsIgnoreCase(split[0])) {
                 task.unmarkTask();
-                saveTasks();
+                //saveTasks();
                 System.out.println("I've unmarked this task! It is now not done yet:\n  " + task);
             }
 
@@ -156,7 +152,7 @@ public class Duke {
         String description = input.substring(5).trim();
         Todo todo = new Todo(description);
         storage.add(todo);
-        saveTasks();
+        //saveTasks();
         System.out.println("Ok! I've added this todo: " + todo);
         System.out.println("Now you have " + storage.size() + " tasks in your list.");
     }
@@ -175,12 +171,12 @@ public class Duke {
                 LocalDate d1 = LocalDate.parse(date, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
                 Deadlines deadline = new Deadlines(description, d1);
                 storage.add(deadline);
-                saveTasks();
+                //saveTasks();
                 System.out.println("Ok! I've added this deadline: " + deadline);
             } else {
                 Deadlines deadline = new Deadlines(description, date);
                 storage.add(deadline);
-                saveTasks();
+                //saveTasks();
                 System.out.println("Ok! I've added this deadline: " + deadline);
             }
             System.out.println("Now you have " + storage.size() + " tasks in your list.");
@@ -208,13 +204,13 @@ public class Duke {
                     LocalDate d2 = LocalDate.parse(toDate);
                     Event event = new Event(description, d1, d2);
                     storage.add(event);
-                    saveTasks();
+                    //saveTasks();
                     System.out.println("Ok! I've added this event: " + event);
                 }
             } else {
                 Event event = new Event(description, fromDate, toDate);
                 storage.add(event);
-                saveTasks();
+                //saveTasks();
                 System.out.println("Ok! I've added this event: " + event);
             }
             System.out.println("Now you have " + storage.size() + " tasks in your list.");
@@ -234,7 +230,7 @@ public class Duke {
         try {
             int index = Integer.parseInt(splitParts[1]) - 1;
             Task removedTask = storage.remove(index);
-            saveTasks();
+            //saveTasks();
             System.out.println("Ok! I have removed this task from your list:\n  " + removedTask);
             System.out.println("Now you have " + storage.size() + " tasks in your list.");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -271,46 +267,6 @@ public class Duke {
     private static boolean validateEventInput(String input) {
         String[] splitParts = input.substring(6).split("/from", 2);
         return splitParts.length > 1;
-    }
-
-    //TO SAVE FILES Level 7
-
-    private static void createFolder() {
-        Path folder = Paths.get("./data/");
-        if (Files.notExists(folder)) {
-            try {
-                Files.createDirectories(folder);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private static void saveTasks() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH))) {
-            for (Task task : storage) {
-                writer.write(task.toString());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void loadFile() {
-        File file = new File(FILEPATH);
-        if (!file.exists()) {
-            return;
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                storage.add(new Task(line));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     // HANDLE DATES
