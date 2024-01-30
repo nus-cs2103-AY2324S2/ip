@@ -1,8 +1,8 @@
 package cappy.task;
 
-import java.time.LocalDateTime;
-
 import cappy.parser.Parser;
+
+import java.time.LocalDateTime;
 
 public class Event extends Task {
     /**
@@ -32,12 +32,28 @@ public class Event extends Task {
 
     @Override
     public String toCsv() {
-        return TYPE_SYMBOL + "," + (super.getDone() ? "1" : "0") + "," + super.getDescription() + "," + Parser.dateTimeToString(this.begin) + "," + Parser.dateTimeToString(this.end);
+        return TYPE_SYMBOL
+                + ","
+                + (super.getDone() ? "1" : "0")
+                + ","
+                + super.getDescription()
+                + ","
+                + Parser.dateTimeToString(begin)
+                + ","
+                + Parser.dateTimeToString(end);
     }
 
     @Override
     public String toString() {
-        return "[" + TYPE_SYMBOL + "]" + super.toString() + " (from: " + Parser.dateTimeToString(this.begin) + " to: " + Parser.dateTimeToString(this.end) + ")";
+        return "["
+                + TYPE_SYMBOL
+                + "]"
+                + super.toString()
+                + " (from: "
+                + Parser.dateTimeToString(begin)
+                + " to: "
+                + Parser.dateTimeToString(end)
+                + ")";
     }
 
     @Override
@@ -46,6 +62,6 @@ public class Event extends Task {
             return false;
         }
         Event other = (Event) obj;
-        return super.equals(other) && this.begin.equals(other.begin) && this.end.equals(other.end);
+        return super.equals(other) && begin.equals(other.begin) && end.equals(other.end);
     }
 }

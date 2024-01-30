@@ -1,10 +1,12 @@
 package cappy.task;
 
-import java.time.LocalDateTime;
-import org.junit.jupiter.api.Test;
+import static cappy.parser.Parser.DATE_TIME_FORMAT;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static cappy.parser.Parser.DATE_TIME_FORMAT;
+
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
 
 public class EventTest {
     @Test

@@ -1,13 +1,12 @@
 package cappy.command;
 
-import java.io.IOException;
-import cappy.task.Todo;
-import cappy.task.Task;
+import cappy.error.CappyException;
+import cappy.parser.ParsedInput;
+import cappy.storage.Storage;
 import cappy.task.TaskList;
 import cappy.ui.Ui;
-import cappy.storage.Storage;
-import cappy.parser.ParsedInput;
-import cappy.error.CappyException;
+
+import java.io.IOException;
 
 public class ListCommand extends Command {
     /**
@@ -21,7 +20,8 @@ public class ListCommand extends Command {
      * @throws IOException    If an I/O error occurs while interacting with the storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, ParsedInput input) throws CappyException, IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage, ParsedInput input)
+            throws CappyException, IOException {
         String[] messages = new String[tasks.size() + 1];
         messages[0] = "Here are the tasks in your list:";
         System.arraycopy(tasks.toString().split("\n"), 0, messages, 1, tasks.size());

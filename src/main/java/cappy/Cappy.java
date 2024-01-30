@@ -1,14 +1,14 @@
 package cappy;
 
-import java.io.IOException;
-
-import cappy.parser.Parser;
-import cappy.parser.ParsedInput;
 import cappy.command.CommandType;
+import cappy.error.CappyException;
+import cappy.parser.ParsedInput;
+import cappy.parser.Parser;
 import cappy.storage.Storage;
 import cappy.task.TaskList;
 import cappy.ui.Ui;
-import cappy.error.CappyException;
+
+import java.io.IOException;
 
 public class Cappy {
     private static TaskList TASKS;

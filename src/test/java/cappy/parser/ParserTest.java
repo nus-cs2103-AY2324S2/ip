@@ -1,30 +1,37 @@
 package cappy.parser;
 
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.time.LocalDateTime;
-import org.junit.jupiter.api.Test;
-import cappy.error.CappyException;
-import cappy.command.CommandType;
-import cappy.task.Todo;
-import cappy.task.Deadline;
-import cappy.task.Event;
-import cappy.task.Task;
+import static cappy.parser.Parser.DATE_TIME_FORMAT;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-import static cappy.parser.Parser.DATE_TIME_FORMAT;
+
+import cappy.command.CommandType;
+import cappy.error.CappyException;
+import cappy.task.Deadline;
+import cappy.task.Event;
+import cappy.task.Task;
+import cappy.task.Todo;
+
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ParserTest {
-    private static final LocalDateTime DUE = LocalDateTime.parse("2023-01-29T12:00", DATE_TIME_FORMAT);
-    private static final LocalDateTime FROM = LocalDateTime.parse("2023-01-29T12:00", DATE_TIME_FORMAT);
-    private static final LocalDateTime TO = LocalDateTime.parse("2023-01-30T14:00", DATE_TIME_FORMAT);
+    private static final LocalDateTime DUE =
+            LocalDateTime.parse("2023-01-29T12:00", DATE_TIME_FORMAT);
+    private static final LocalDateTime FROM =
+            LocalDateTime.parse("2023-01-29T12:00", DATE_TIME_FORMAT);
+    private static final LocalDateTime TO =
+            LocalDateTime.parse("2023-01-30T14:00", DATE_TIME_FORMAT);
 
     @Test
     public void parse_emptyString() throws CappyException {
         HashMap<String, String> namedArgs = new HashMap<>();
         ArrayList<String> positionalArgs = new ArrayList<>();
-        ParsedInput expectedParsedInput = new ParsedInput(CommandType.EMPTY, namedArgs, positionalArgs);
+        ParsedInput expectedParsedInput =
+                new ParsedInput(CommandType.EMPTY, namedArgs, positionalArgs);
         assertEquals(expectedParsedInput, Parser.parse(""));
     }
 
@@ -32,7 +39,8 @@ public class ParserTest {
     public void parse_invalidCommand() throws CappyException {
         HashMap<String, String> namedArgs = new HashMap<>();
         ArrayList<String> positionalArgs = new ArrayList<>();
-        ParsedInput expectedParsedInput = new ParsedInput(CommandType.INVALID, namedArgs, positionalArgs);
+        ParsedInput expectedParsedInput =
+                new ParsedInput(CommandType.INVALID, namedArgs, positionalArgs);
         assertEquals(expectedParsedInput, Parser.parse("nonExistentCommand"));
     }
 
@@ -40,7 +48,8 @@ public class ParserTest {
     public void parse_missingValueForOption() {
         HashMap<String, String> namedArgs = new HashMap<>();
         ArrayList<String> positionalArgs = new ArrayList<>();
-        ParsedInput expectedParsedInput = new ParsedInput(CommandType.DEADLINE, namedArgs, positionalArgs);
+        ParsedInput expectedParsedInput =
+                new ParsedInput(CommandType.DEADLINE, namedArgs, positionalArgs);
         try {
             assertEquals(expectedParsedInput, Parser.parse("deadline description /by"));
             fail();
@@ -58,11 +67,13 @@ public class ParserTest {
     @Test
     public void parse_valueForOption() throws CappyException {
         HashMap<String, String> namedArgs = new HashMap<>();
-        namedArgs.put("by","2023-01-29T12:00");
+        namedArgs.put("by", "2023-01-29T12:00");
         ArrayList<String> positionalArgs = new ArrayList<>();
         positionalArgs.add("description");
-        ParsedInput expectedParsedInput = new ParsedInput(CommandType.DEADLINE, namedArgs, positionalArgs);
-        assertEquals(expectedParsedInput, Parser.parse("deadline description /by 2023-01-29T12:00"));
+        ParsedInput expectedParsedInput =
+                new ParsedInput(CommandType.DEADLINE, namedArgs, positionalArgs);
+        assertEquals(
+                expectedParsedInput, Parser.parse("deadline description /by 2023-01-29T12:00"));
     }
 
     @Test
@@ -70,7 +81,8 @@ public class ParserTest {
         HashMap<String, String> namedArgs = new HashMap<>();
         ArrayList<String> positionalArgs = new ArrayList<>();
         positionalArgs.add("description");
-        ParsedInput expectedParsedInput = new ParsedInput(CommandType.TODO, namedArgs, positionalArgs);
+        ParsedInput expectedParsedInput =
+                new ParsedInput(CommandType.TODO, namedArgs, positionalArgs);
         assertEquals(expectedParsedInput, Parser.parse("todo description"));
     }
 

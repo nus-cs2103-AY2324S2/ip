@@ -1,18 +1,18 @@
 package cappy.parser;
 
+import cappy.command.CommandType;
+import cappy.error.CappyException;
+import cappy.task.Deadline;
+import cappy.task.Event;
+import cappy.task.Task;
+import cappy.task.Todo;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.time.format.DateTimeFormatter;
-
-import cappy.command.CommandType;
-import cappy.error.CappyException;
-import cappy.task.Task;
-import cappy.task.Todo;
-import cappy.task.Deadline;
-import cappy.task.Event;
 
 /**
  * Handles parsing user input and converting data formats.
@@ -25,7 +25,8 @@ public class Parser {
     /**
      * The DateTimeFormatter for parsing and formatting date-time strings.
      */
-    public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+    public static final DateTimeFormatter DATE_TIME_FORMAT =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     /**
      * Parses a input String into a ParsedInput object.
@@ -35,7 +36,7 @@ public class Parser {
      * @throws CappyException If the input is not valid.
      */
     public static ParsedInput parse(String input) throws CappyException {
-        StringTokenizer st = new StringTokenizer(input,  " ");
+        StringTokenizer st = new StringTokenizer(input, " ");
         int numTokens = st.countTokens();
         if (numTokens == 0) {
             return new ParsedInput(CommandType.EMPTY, new HashMap<>(), new ArrayList<>());
@@ -114,4 +115,3 @@ public class Parser {
         }
     }
 }
-

@@ -1,13 +1,11 @@
 package cappy.storage;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.FileWriter;
-import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.lang.AutoCloseable;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Manages storage operations for the task management system.
@@ -33,9 +31,9 @@ public class Storage implements AutoCloseable {
     public Storage(String path) throws IOException {
         this.path = path;
         this.file = new File(path);
-        this.file.getParentFile().mkdirs();
-        this.file.createNewFile();
-        this.writer = new BufferedWriter(new FileWriter(this.file, true));
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+        this.writer = new BufferedWriter(new FileWriter(file, true));
     }
 
     /**
@@ -46,10 +44,10 @@ public class Storage implements AutoCloseable {
      */
     public void empty() throws IOException {
         close();
-        try (FileWriter fileWriter = new FileWriter(this.file, false)) {
+        try (FileWriter fileWriter = new FileWriter(file, false)) {
             fileWriter.write("");
         }
-        this.writer = new BufferedWriter(new FileWriter(this.file));
+        writer = new BufferedWriter(new FileWriter(file));
     }
 
     /**
@@ -69,7 +67,7 @@ public class Storage implements AutoCloseable {
      * @throws IOException If an I/O error occurs.
      */
     public String readAll() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(this.file));
+        BufferedReader reader = new BufferedReader(new FileReader(file));
         StringBuilder builder = new StringBuilder();
         String line = reader.readLine();
         while (line != null) {

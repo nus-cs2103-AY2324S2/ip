@@ -1,8 +1,8 @@
 package cappy.task;
 
-import java.time.LocalDateTime;
-
 import cappy.parser.Parser;
+
+import java.time.LocalDateTime;
 
 public class Deadline extends Task {
     /**
@@ -26,13 +26,25 @@ public class Deadline extends Task {
 
     @Override
     public String toCsv() {
-        return TYPE_SYMBOL + "," + (super.getDone() ? "1" : "0") + "," + super.getDescription() + ","
-                + Parser.dateTimeToString(this.due) + ",";
+        return TYPE_SYMBOL
+                + ","
+                + (super.getDone() ? "1" : "0")
+                + ","
+                + super.getDescription()
+                + ","
+                + Parser.dateTimeToString(due)
+                + ",";
     }
 
     @Override
     public String toString() {
-        return "[" + TYPE_SYMBOL + "]" + super.toString() + " (by: " + Parser.dateTimeToString(this.due) + ")";
+        return "["
+                + TYPE_SYMBOL
+                + "]"
+                + super.toString()
+                + " (by: "
+                + Parser.dateTimeToString(due)
+                + ")";
     }
 
     @Override
@@ -41,6 +53,6 @@ public class Deadline extends Task {
             return false;
         }
         Deadline other = (Deadline) obj;
-        return super.equals(other) && this.due.equals(other.due);
+        return super.equals(other) && due.equals(other.due);
     }
 }
