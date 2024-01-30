@@ -1,23 +1,19 @@
 public class UkeCat {
-
-    private Ui ui;
+    private final Ui ui;
 
     public UkeCat() {
         ui = new Ui();
     }
 
     public void run() {
-
+        ui.welcome();
         FileManager.loadTasks();
-
         try {
-            // Welcome msg
-            System.out.println(Storage.LINE + Storage.WELCOME + Storage.LINE);
             // Read user input
             while (true) {
                 Parser.parse();
                 if (Storage.words[0].equals("bye")) {
-                    System.out.println(Storage.BYE);
+                    ui.bye();
                     Parser.closeScanner();
                     System.exit(0);
                 }
