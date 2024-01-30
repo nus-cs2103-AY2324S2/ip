@@ -7,10 +7,10 @@ import java.io.IOException;
 public class FileManager {
     // Load data on startup
     // If data file not found, create one
-    // TODO: read data line by line
-    // TODO: for each line, ask Storage to loadTask()
-    // TODO: Storage asks Parser to parse line
-    // TODO: Task can be created to be added (with mark info too)
+    // Reads data line by line
+    // For each line, ask Storage to loadTask()
+    // Storage asks Parser to parse line
+    // Task can be created to be added (with mark info too)
     public static void loadTasks() {
         File f = new File("data/taskData.txt");
         try (Scanner s = new Scanner(f)) {

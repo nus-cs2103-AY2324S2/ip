@@ -6,7 +6,7 @@ UkeCat:
 Parser:
 - Parses the initial user input, stores info in storage
 
-Responder:
+Ui:
 - Based on input, respond or call for further parsing
 - Can give default replies
 - Can ask storage to add / remove tasks
