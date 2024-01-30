@@ -8,7 +8,7 @@ import cappy.task.TaskList;
 import cappy.ui.Ui;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 /**
@@ -21,12 +21,12 @@ import java.util.List;
 public class ParsedInput {
     private CommandType commandType;
     private Command command;
-    private HashMap<String, String> namedArguments;
+    private Map<String, String> namedArguments;
     private List<String> positionalArguments;
 
     public ParsedInput(
             CommandType commandType,
-            HashMap<String, String> namedArguments,
+            Map<String, String> namedArguments,
             List<String> positionalArguments) {
         this.commandType = commandType;
         this.command = commandType.getCommand();
