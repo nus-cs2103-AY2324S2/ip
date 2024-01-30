@@ -1,10 +1,9 @@
-import exceptions.InvalidDateTimeException;
-import exceptions.InvalidKeyException;
-import exceptions.WrongFormatException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+package duke.tasks;
+
+import duke.exceptions.InvalidDateTimeException;
+import duke.exceptions.InvalidKeyException;
+import duke.exceptions.WrongFormatException;
+import duke.utils.KeyEnum;
 
 import java.io.IOException;
 import java.util.ArrayList;

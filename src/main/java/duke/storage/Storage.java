@@ -1,7 +1,6 @@
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+package duke.storage;
+
+import duke.tasks.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -48,7 +47,7 @@ public class Storage {
     }
 
     /**
-     * write all the tasks in the task list to the file stored
+     * write all the duke.tasks in the task list to the file stored
      * @param taskList
      * @throws IOException
      */

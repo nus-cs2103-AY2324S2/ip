@@ -1,6 +1,8 @@
-import exceptions.EmptyBodyException;
-import exceptions.InvalidKeyException;
-import exceptions.WrongFormatException;
+package duke.utils;
+
+import duke.exceptions.EmptyBodyException;
+import duke.exceptions.InvalidKeyException;
+import duke.exceptions.WrongFormatException;
 
 public class Parser {
     private KeyEnum currentKey = KeyEnum.INVALID;

@@ -1,6 +1,6 @@
 import org.junit.Assert;
 import org.junit.Test;
-import utils.DukeDateFormater;
+import duke.utils.DukeDateFormater;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

@@ -1,5 +1,12 @@
-import exceptions.BaseException;
-import tasks.Task;
+package duke;
+
+import duke.exceptions.BaseException;
+import duke.storage.Storage;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.ui.UI;
+import duke.utils.KeyEnum;
+import duke.utils.Parser;
 
 import java.io.IOException;
 
