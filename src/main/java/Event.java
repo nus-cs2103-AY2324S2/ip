@@ -3,9 +3,6 @@
  * and ends at a specific date/time.
  */
 public class Event extends Task {
-    protected String from = "";
-    protected String to = "";
-
     /**
      * Constructor for an Event object.
      *
@@ -14,9 +11,17 @@ public class Event extends Task {
      * @param to end of event
      */
     public Event(String name, String from, String to) {
-        super(name);
-        this.from = from;
-        this.to = to;
+        super(name + " (from: " + from + " to: " + to + ")");
+    }
+
+    /**
+     * Constructor for loading from file.
+     *
+     * @param description of event
+     * @param b isDone
+     */
+    public Event(String description, boolean b) {
+        super(description, b);
     }
 
     /**
@@ -25,6 +30,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString();
     }
 }
