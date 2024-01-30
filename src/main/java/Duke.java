@@ -1,115 +1,66 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.file.Path;
-
+import duke.ProgramState;
+import duke.UI;
 import task.Command;
+import task.CommandParser;
 import task.DukeException;
+import task.Storage;
+import task.StorageLoadException;
+import task.StorageSaveException;
 import task.TaskList;
-import task.TaskListParser;
-import task.UnknownCommandException;
 
 public class Duke {
     private static final String chatbotName = "Sylvia";
 
     private static final String dataFilePath = "data/duke.txt";
-    private static final Path dataPath = Path.of(dataFilePath);
-    private static final String curDir = System.getProperty("user.dir") + System.getProperty("file.separator");
+
+    private Storage storage;
+    private TaskList list;
+    private UI ui;
+    private ProgramState state;
+    private CommandParser parser;
 
     public Duke() {
+        this.parser = new CommandParser();
+        this.ui = new UI(chatbotName);
+        this.state = new ProgramState();
+        this.storage = new Storage(dataFilePath);
+        try {
+            list = storage.load();
+        } catch (StorageLoadException e) {
+            ui.showBotError(e);
+            list = new TaskList();
+        }
     }
 
-    private TaskList list;
-
-    public void greet() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm " + chatbotName + "\nWhat can I do for you?");
-        System.out.println("____________________________________________________________");
-    }
-
-    private boolean runCommand(String commandString) {
-        // get the first word of the input
-        String[] words = commandString.split(" ", 2);
+    private String runCommand(String commandString) {
         Command command;
         try {
-            command = Command.newCommand(words[0], words.length > 1 ? words[1] : "");
-            System.out.println("____________________________________________________________");
-            boolean loopSignal = command.execute(list);
-            System.out.println("____________________________________________________________");
-            return loopSignal;
-        } catch (UnknownCommandException e) {
-            System.out.println("____________________________________________________________");
-            System.out.println(e.getBotMessage());
-            System.out.println("____________________________________________________________");
+            command = Command.parse(commandString, parser);
+            String response = command.execute(list, state);
+            return response;
         } catch (DukeException e) {
-            System.out.println(e.getBotMessage());
-            System.out.println("____________________________________________________________");
+            ui.showBotError(e);
         }
-        return true; // bot should continue running after invalid user input
-    }
-
-    private TaskList readData() {
-        System.out.println("Loading data from file " + curDir + dataPath + "...");
-        try {
-            File file = new File(dataFilePath);
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            }
-            System.out.println("Data loaded successfully!");
-            return TaskListParser.parse(file);
-        } catch (IOException e) {
-            System.out.println("____________________________________________________________");
-            System.out.println(
-                    "An error occurred while reading data from file " + curDir + dataPath + ": " + e.getMessage());
-            System.out.println("Sylvia will start with an empty task list.");
-            System.out.println("____________________________________________________________");
-            return new TaskList();
-        } catch (DukeException e) {
-            System.out.println("____________________________________________________________");
-            System.out.println(e.getBotMessage());
-            System.out.println("Sylvia will start with an empty task list.");
-            System.out.println("____________________________________________________________");
-            return new TaskList();
-        }
+        return null; // should not be shown
     }
 
     public void run() {
-        this.list = readData();
-        String input = "";
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        boolean loopSignal = true;
+        ui.showWelcomeMessage();
 
-        while (loopSignal) {
-            try {
-                input = reader.readLine();
-            } catch (IOException e) {
-                System.out.println("____________________________________________________________");
-                System.out.println("Sorry, something went wrong: " + e.getMessage());
-                System.out.println("____________________________________________________________");
-                break;
-            }
-            loopSignal = runCommand(input);
+        while (state.isNormal()) {
+            String input = ui.readCommand();
+            ui.showResponse(runCommand(input));
         }
         // only write data to file when the bot is about to exit
-        writeData();
-    }
-
-    private void writeData() {
         try {
-            TaskListParser.writeToFile(list, new File(dataFilePath));
-        } catch (IOException e) {
-            System.out.println("____________________________________________________________");
-            System.out.println("An error occurred while writing data to file " + System.getProperty("user.dir")
-                    + dataFilePath + ": " + e.getMessage());
-            System.out.println("____________________________________________________________");
+            storage.save(list);
+        } catch (StorageSaveException e) {
+            ui.showBotError(e);
         }
     }
 
     public static void main(String[] args) {
         Duke chatbot = new Duke();
-        chatbot.greet();
         chatbot.run();
     }
 }

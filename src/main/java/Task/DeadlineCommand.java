@@ -1,5 +1,7 @@
 package task;
 
+import duke.ProgramState;
+
 public class DeadlineCommand extends Command {
     private String taskDescription;
     private String dueTime;
@@ -8,10 +10,10 @@ public class DeadlineCommand extends Command {
         super(body);
         String[] parts = body.split("/by", 2);
         this.taskDescription = parts[0].trim();
-        this.dueTime = parts[1].trim();
+        this.dueTime = parts.length > 1 ? parts[1].trim() : "";
     }
 
-    public boolean execute(TaskList list) throws DukeException {
+    public String execute(TaskList list, ProgramState state) throws DukeException {
         if (taskDescription.isEmpty()) {
             throw new EmptyTaskDescriptionException("The description of a deadline cannot be empty.",
                     "The description of a deadline cannot be empty.");
@@ -21,7 +23,8 @@ public class DeadlineCommand extends Command {
         }
         Task task = new Deadline(taskDescription, dueTime);
         list.addTask(task);
-        System.out.println("Added: " + task + "\nYou now have " + list.size() + " tasks in the list.");
-        return true;
+        String response = ("Added: " + task + "\nYou now have " + list.size() + " tasks in the list.");
+        state.setNormal();
+        return response;
     }
 }

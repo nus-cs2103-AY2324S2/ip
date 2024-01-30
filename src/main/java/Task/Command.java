@@ -1,5 +1,7 @@
 package task;
 
+import duke.ProgramState;
+
 public abstract class Command {
     private String body;
 
@@ -11,29 +13,9 @@ public abstract class Command {
         return body;
     }
 
-    public static Command newCommand(String name, String body) throws UnknownCommandException {
-        switch (name) {
-        case "list":
-            return new ListCommand();
-        case "mark":
-            return new MarkCommand(body);
-        case "unmark":
-            return new UnmarkCommand(body);
-        case "bye":
-            return new ExitCommand();
-        case "todo":
-            return new TodoCommand(body);
-        case "deadline":
-            return new DeadlineCommand(body);
-        case "event":
-            return new EventCommand(body);
-        case "delete":
-            return new DeleteCommand(body);
-        default:
-            throw new UnknownCommandException("Unknown command: " + name + " " + body,
-                    "I'm sorry, but I don't know what that means :<");
-        }
+    public static Command parse(String input, CommandParser parser) throws DukeException {
+        return parser.parse(input);
     }
 
-    abstract public boolean execute(TaskList list) throws DukeException;
+    public abstract String execute(TaskList list, ProgramState state) throws DukeException;
 }

@@ -1,24 +1,29 @@
 package task;
 
-public class MarkCommand extends Command {
-    public MarkCommand(String body) {
-        super(body);
-    }
+import duke.ProgramState;
 
-    public boolean execute(TaskList list) throws DukeException {
-        String body = getBody();
-        if (body.isEmpty()) {
-            throw new InvalidTaskIndexException("The index of a task cannot be empty.",
+public class MarkCommand extends Command {
+    private int index;
+
+    public MarkCommand(String body) throws DukeException {
+        super(body);
+        try {
+            this.index = Integer.parseInt(body);
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskIndexException("The index of a task must be an integer.",
                     "Sorry, but I don't know which task you want to mark as done.");
         }
-        int index = Integer.parseInt(body);
+    }
+
+    public String execute(TaskList list, ProgramState state) throws DukeException {
         if (index < 1 || index > list.size()) {
             throw new InvalidTaskIndexException(
                     "The index of a task cannot be less than 1 or greater than the number of tasks.",
                     "Sorry, but task number " + index + " does not exist. You only have " + list.size() + " tasks.");
         }
         list.markTaskAsDone(index);
-        System.out.println("Done: " + list.get(index - 1));
-        return true;
+        state.setNormal();
+        String response = ("Done: " + list.get(index - 1));
+        return response;
     }
 }

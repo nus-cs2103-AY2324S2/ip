@@ -1,24 +1,29 @@
 package task;
 
-public class UnmarkCommand extends Command {
-    public UnmarkCommand(String body) {
-        super(body);
-    }
+import duke.ProgramState;
 
-    public boolean execute(TaskList list) throws DukeException {
-        String body = getBody();
-        if (body.isEmpty()) {
-            throw new InvalidTaskIndexException("The index of a task cannot be empty.",
+public class UnmarkCommand extends Command {
+    private int index;
+
+    public UnmarkCommand(String body) throws DukeException {
+        super(body);
+        try {
+            this.index = Integer.parseInt(body);
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskIndexException("The index of a task must be an integer.",
                     "Sorry, but I don't know which task you want to mark as undone.");
         }
-        int index = Integer.parseInt(body);
+    }
+
+    public String execute(TaskList list, ProgramState state) throws DukeException {
         if (index < 1 || index > list.size()) {
             throw new InvalidTaskIndexException(
                     "The index of a task cannot be less than 1 or greater than the number of tasks.",
                     "Sorry, but task number " + index + " does not exist. You only have " + list.size() + " tasks.");
         }
         list.unmarkTaskAsDone(index);
-        System.out.println("Undone: " + list.get(index - 1));
-        return true;
+        String response = ("Undone: " + list.get(index - 1));
+        state.setNormal();
+        return response;
     }
 }
