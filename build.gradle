@@ -1,25 +1,44 @@
+// Apply necessary plugins
 plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+// Configure repositories for dependencies
 repositories {
     mavenCentral()
 }
 
+// Define project dependencies
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.10.0'
 }
 
+// Configure application-related settings
+application {
+    mainClass.set("ConvoBot")
+}
+
+// Configure settings for Shadow
+shadowJar {
+    archiveBaseName = "convobot"
+    archiveClassifier = null
+    dependsOn("distZip", "distTar")
+}
+
+// Configure run task settings
+run {
+    standardInput = System.in
+}
+
+// Configure test task
 test {
     useJUnitPlatform()
-
     testLogging {
         events "passed", "skipped", "failed"
-
         showExceptions true
         exceptionFormat "full"
         showCauses true
@@ -28,16 +47,10 @@ test {
     }
 }
 
-application {
-    mainClass.set("ConvoBot")
+// Javadoc generation configuration
+javadoc {
+    destinationDir = file("$buildDir/docs/javadoc")
 }
 
-shadowJar {
-    archiveBaseName = "convobot"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
-}
-
-run {
-    standardInput = System.in
-}
+// Add Javadoc generation to build task
+build.dependsOn javadoc
