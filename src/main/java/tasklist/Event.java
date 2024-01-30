@@ -1,16 +1,16 @@
 package tasklist;
 
 import exception.MalformedUserInputException;
-import parser.DateTimeParser;
+import common.DateTimeHandler;
 
 public class Event extends Task {
-    private DateTimeParser startTime;
-    private DateTimeParser endTime;
+    private DateTimeHandler startTime;
+    private DateTimeHandler endTime;
 
     public Event(String description, String startTime, String endTime, boolean isDone) throws MalformedUserInputException {
         super(description, isDone);
-        this.startTime = new DateTimeParser(startTime);
-        this.endTime = new DateTimeParser(endTime);
+        this.startTime = new DateTimeHandler(startTime);
+        this.endTime = new DateTimeHandler(endTime);
     }
 
     @Override

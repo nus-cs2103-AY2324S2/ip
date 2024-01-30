@@ -2,11 +2,10 @@ package commands;
 
 import exception.MalformedUserInputException;
 import tasklist.Deadline;
-import tasklist.Event;
 
 import java.util.regex.Pattern;
 
-import static parser.DateTimeParser.DATE_INPUT_FORMAT_STRING;
+import static common.DateTimeHandler.DATE_INPUT_FORMAT_STRING;
 
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";

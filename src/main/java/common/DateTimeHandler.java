@@ -1,4 +1,4 @@
-package parser;
+package common;
 
 import exception.MalformedUserInputException;
 
@@ -6,7 +6,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class DateTimeParser {
+public class DateTimeHandler {
 
     // Solution adapted from: https://stackoverflow.com/questions/22463062/how-can-i-parse-format-dates-with-localdatetime-java-8
     public static String DATE_INPUT_FORMAT_STRING = "yyyy-MM-dd";
@@ -15,7 +15,7 @@ public class DateTimeParser {
 
     private LocalDate localDate;
 
-    public DateTimeParser(String dateTime) throws MalformedUserInputException {
+    public DateTimeHandler(String dateTime) throws MalformedUserInputException {
         try {
             // Possible formats
             // 12 May

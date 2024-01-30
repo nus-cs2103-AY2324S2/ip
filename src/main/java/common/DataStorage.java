@@ -50,7 +50,6 @@ public class DataStorage {
     }
 
     public void addTask(Task task) {
-
             this.tasksList.add(task);
             addTaskToFile(task.toStorageString(), true);
             this.taskCount++;

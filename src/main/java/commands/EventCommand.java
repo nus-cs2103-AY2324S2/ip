@@ -1,14 +1,11 @@
 package commands;
 
 import exception.MalformedUserInputException;
-import parser.DateTimeParser;
 import tasklist.Event;
-import tasklist.Todo;
 
 import java.util.regex.Pattern;
 
-import static parser.DateTimeParser.DATE_INPUT_FORMAT;
-import static parser.DateTimeParser.DATE_INPUT_FORMAT_STRING;
+import static common.DateTimeHandler.DATE_INPUT_FORMAT_STRING;
 
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
