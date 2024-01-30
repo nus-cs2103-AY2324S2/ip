@@ -20,29 +20,29 @@ public class Commands {
     public static final String EVENT = "event";
     public static final String HELP = "help";
 
-    public static void processTask(TaskList tasks, String input) throws DukeException {
-        String command = getCommandType(input);
-        int i = parseIndex(input);
-
-        if (i == -1) {
-            throw new InvalidCommandException();
-
-        } else if (i < 0 || i > tasks.size() - 1) {
-            throw new InvalidIndexException();
-
-        } else {
-            switch (command) {
-            case MARK:
-                markTask(tasks, i);
-                break;
-            case UNMARK:
-                unmarkTask(tasks, i);
-                break;
-            case DELETE:
-                deleteTask(tasks, i);
-            }
-        }
-    }
+//    public static void processTask(TaskList tasks, String input) throws DukeException {
+//        String command = getCommandType(input);
+//        int i = parseIndex(input);
+//
+//        if (i == -1) {
+//            throw new InvalidCommandException();
+//
+//        } else if (i < 0 || i > tasks.size() - 1) {
+//            throw new InvalidIndexException();
+//
+//        } else {
+//            switch (command) {
+//            case MARK:
+//                markTask(tasks, i);
+//                break;
+//            case UNMARK:
+//                unmarkTask(tasks, i);
+//                break;
+//            case DELETE:
+//                deleteTask(tasks, i);
+//            }
+//        }
+//    }
 
     public static void createTask(TaskList tasks, String input) throws DukeException {
         String[] details = input.split(" ", 2);

@@ -1,27 +1,36 @@
 package objects;
-import exception.DukeException;
-import exception.InvalidCommandException;
+import commands.*;
+import exception.*;
 import view.EncaseLines;
 
 import static objects.Commands.*;
 import static utils.InputUtil.getCommandType;
+import static utils.InputUtil.parseIndex;
 
 public class Processor {
     public static void process (String input, TaskList tasks) {
         input = input.trim().toLowerCase();
-        String command = getCommandType(input);
+        String commandType = getCommandType(input);
+        Command command = null;
 
         try {
-            switch (command) {
+            switch (commandType) {
                 case LIST:
-                    listTasks(tasks);
+                    command = new ListTasks(tasks);
                     break;
 
                 case MARK:
-                case UNMARK:
-                case DELETE:
-                    processTask(tasks, input);
+                    command = new MarkTask(tasks, parseIndex(input));
                     break;
+
+                case UNMARK:
+                    command = new UnmarkTask(tasks, parseIndex(input));
+                    break;
+
+                case DELETE:
+                    command = new DeleteTask(tasks, parseIndex(input));
+                    break;
+
 
                 case TODO:
                 case DEADLINE:
@@ -30,7 +39,7 @@ public class Processor {
                     break;
 
                 case HELP:
-                    printHelp();
+                    command = new Help();
                     break;
 
                 default:
@@ -40,6 +49,15 @@ public class Processor {
         } catch (DukeException e) {
             EncaseLines.display(e.getMessage());
 
+        }
+
+        if (command != null) {
+            try {
+                command.execute();
+
+            } catch (DukeException e) {
+                EncaseLines.display(e.getMessage());
+            }
         }
     }
 }
