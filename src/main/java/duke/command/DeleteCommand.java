@@ -11,11 +11,6 @@ public class DeleteCommand extends Command {
         super(keyword, parameters);
     }
 
-    /**
-     * @param storage
-     * @param ui
-     * @param taskList
-     */
     @Override
     public void execute(Storage storage, Ui ui, TaskList taskList) {
         try {
