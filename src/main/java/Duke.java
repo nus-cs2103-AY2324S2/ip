@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -37,6 +40,7 @@ public class Duke {
      */
     private void echo(String task) {
         System.out.println("added: " + task);
+
     }
 
     /**
@@ -162,8 +166,45 @@ public class Duke {
         for (int i = 0; i < counter; i++) {
             System.out.println(i + 1 + "." + this.tasks.get(i));
         }
+        this.saveTask();
         return;
     }
+
+    /**
+     * Saves the tasks to a .txt file
+     */
+    private void saveTask() {
+        File f = new File("data/tasks.txt");
+        try {
+            f.createNewFile();
+        } catch (IOException e) {
+            f.getParentFile().mkdirs();
+            saveTask();
+
+        }
+        updateFile("data/tasks.txt");
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    public void updateFile (String filename){
+        try {
+            for (int i = 0; i < counter; i++) {
+                writeToFile(filename, this.tasks.get(i) + System.lineSeparator());
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+
+
+
 
 
     /**
@@ -292,6 +333,7 @@ class ToDo extends Task{
     public ToDo(String name) {
         super(name);
     }
+
 
     @Override
     public String toString() {
