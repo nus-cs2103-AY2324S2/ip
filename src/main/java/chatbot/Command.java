@@ -18,7 +18,7 @@ public enum Command {
 
     private final String rep;
     private String args = "";
-    private boolean isBreaking;
+    private final boolean isBreaking;
 
 
     Command(String cmd) {

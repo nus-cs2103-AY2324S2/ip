@@ -3,7 +3,7 @@ package chatbot;
 import java.io.IOException;
 
 public class Duke {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         try {
             Plana p = new Plana();
             p.init();
