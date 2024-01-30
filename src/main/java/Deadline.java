@@ -8,4 +8,6 @@ public class Deadline extends Task {
     public String getRep() {
         return String.format("[D]%s (by:%s)", super.getRep(), this.dueDate);
     }
+    @Override
+    public String fileRep() { return "D|" + super.fileRep() + "|" + dueDate; }
 }
