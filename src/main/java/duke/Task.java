@@ -1,5 +1,7 @@
+package duke;
+
 import java.io.Serializable;
-abstract class Task implements Serializable {
+public abstract class Task implements Serializable {
     private String description;
     private boolean isDone;
     Task(String description) {

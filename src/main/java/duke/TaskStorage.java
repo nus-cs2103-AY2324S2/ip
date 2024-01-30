@@ -1,10 +1,12 @@
+package duke;
+
 import java.io.*;
 import java.util.ArrayList;
 
 public class TaskStorage {
-    private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FILE_PATH = "../data/duke.txt";
 
-    public static void saveTasks(ArrayList<Task> tasks) {
+    public static void saveTasks(ArrayList<Task> tasks) throws DukeException {
         try {
             File file = new File(FILE_PATH);
             File directory = file.getParentFile();
@@ -22,11 +24,11 @@ public class TaskStorage {
             objectOut.close();
             fileOut.close();
         } catch (IOException e) {
-            System.out.println("An error occurred while saving tasks: " + e.getMessage());
+            throw new DukeException("An error occurred while saving tasks: " + e.getMessage());
         }
     }
 
-    public static ArrayList<Task> loadTasks() {
+    public static ArrayList<Task> loadTasks() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(FILE_PATH);
 
@@ -41,11 +43,11 @@ public class TaskStorage {
             objectIn.close();
             fileIn.close();
         } catch (FileNotFoundException e) {
-            System.out.println("No saved tasks found. Starting a new task list.");
+            throw new DukeException("No saved tasks found. Starting a new task list.");
         } catch (InvalidClassException | ClassNotFoundException e) {
-            System.out.println("Task data is corrupted or in an incompatible format.");
+            throw new DukeException("duke.Task data is corrupted or in an incompatible format.");
         } catch (IOException e) {
-            System.out.println("Error occurred while reading the file: " + e.getMessage());
+            throw new DukeException("Error occurred while reading the file: " + e.getMessage());
         }
 
         return tasks;

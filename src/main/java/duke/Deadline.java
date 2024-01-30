@@ -1,10 +1,12 @@
+package duke;
+
 import java.time.LocalDateTime;;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     private LocalDateTime by;
-    Deadline(String description, String by) throws DukeException{
+    Deadline(String description, String by) throws DukeException {
         super(description);
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");

@@ -1,11 +1,13 @@
+package duke;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;;
+;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
-    Event(String description, String from, String to) throws DukeException{
+    Event(String description, String from, String to) throws DukeException {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         try {
