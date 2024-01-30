@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Duke {
     private static void botUnknownFormat(int i) {
@@ -63,6 +65,7 @@ public class Duke {
                             ls.add(t);
                         } else {
                             botUnknownFormat(i);
+                            System.out.println("brk pt 1");
                         }
                     } catch (Exception e) {
                         botUnknownFormat(i);
@@ -78,7 +81,7 @@ public class Duke {
                             ls.add(t);
                         } else if (Integer.valueOf(arr[2]) == 1) {
                             //Event Finished
-                            String[] temp = arr[3].split("to", 2);
+                            String[] temp = arr[3].split(" to ", 2);
                             String timeOfto = "to" + temp[1];
                             Task t = new Event(arr[2], temp[0], timeOfto);
                             t.mark();
@@ -245,15 +248,19 @@ public class Duke {
                      try {
                          String[] date = cmd[1].split("/by", 2);
                          try {
-                             Task t = new Deadline(date[0], date[1]);
+                             String d = date[1].trim();
+                             Task t = new Deadline(date[0], d);
                              ls.add(t);
                              System.out.println("  " + added + "\n" +
                                      "    " + t.toString() + "\n" +
                                      "  Now u have " + ls.size() +
                                      " tasks in the list."+ "\n" + divider);
                              command = myCom.nextLine();
-                         } catch (Exception exc) {
-                             System.out.println("Plz enter a date for the deadline using '/by'\n" + divider);
+                         }
+                         catch (Exception exc) {
+                             System.out.println("Plz enter a date for the deadline using '/by'");
+                             System.out.println("Also notice the format should be like this: yyyy-mm-dd'");
+                             System.out.println(divider);
                              command = myCom.nextLine();
                          }
                      } catch (Exception exc) {
