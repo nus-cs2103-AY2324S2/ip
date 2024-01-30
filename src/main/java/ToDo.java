@@ -7,4 +7,9 @@ public class ToDo extends Task {
     public String describe() {
         return String.format("[T]%s", super.describe());
     }
+
+    @Override
+    public String toStorageString() {
+        return String.format("T,%s", super.toStorageString());
+    }
 }

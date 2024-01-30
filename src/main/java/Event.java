@@ -18,6 +18,6 @@ public class Event extends Task {
 
     @Override
     public String toStorageString() {
-        return String.format("%s,%s,%s", super.toStorageString(), this.from, this.to);
+        return String.format("E,%s,%s,%s", super.toStorageString(), this.from, this.to);
     }
 }
