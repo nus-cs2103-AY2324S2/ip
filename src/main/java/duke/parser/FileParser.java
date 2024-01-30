@@ -17,16 +17,16 @@ import java.util.Scanner;
  */
 public class FileParser {
     private static final String separator = ",";
-
+    
     /**
      * Parses a datetime string into a LocalDateTime object.
      *
-     * @param s the datetime string to parse
+     * @param input the datetime string to parse
      * @return the parsed LocalDateTime object
      */
-    private static LocalDateTime parseDateTime(String s) {
+    private static LocalDateTime parseDateTime(String input) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(s, formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(input, formatter);
         return dateTime;
     }
 
@@ -40,6 +40,7 @@ public class FileParser {
     public static ArrayList<Task> readFile(File f) throws FileNotFoundException {
         Scanner scanner = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();
+
         while (scanner.hasNext()) {
             String s = scanner.nextLine();
             String[] parts = s.split(separator);

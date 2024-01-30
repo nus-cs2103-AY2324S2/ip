@@ -40,9 +40,6 @@ public class Duke {
         }
     }
 
-    private void exit() {
-        this.ui.exit();
-    }
 
     /**
      * Runs the Duke application, continuously accepting user input and processing commands until
