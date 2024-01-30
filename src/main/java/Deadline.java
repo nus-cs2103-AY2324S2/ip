@@ -1,6 +1,3 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 public class Deadline extends Task {
     protected DateTask by;
 
@@ -10,9 +7,7 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        LocalDateTime parsedDateTimeBy = LocalDateTime.parse(by, formatter);
-        this.by = new DateTask(parsedDateTimeBy);
+        this.by = new DateTask(by);
     }
 
     @Override

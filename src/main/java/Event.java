@@ -1,7 +1,4 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-public class Event extends Task{
+public class Event extends Task {
     protected DateTask from;
     protected DateTask to;
 
@@ -11,11 +8,8 @@ public class Event extends Task{
 
     public Event(String description, String from, String to, boolean isDone) {
         super(description, isDone);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        LocalDateTime parseDateTimeFrom = LocalDateTime.parse(from, formatter);
-        LocalDateTime parseDateTimeTo = LocalDateTime.parse(to, formatter);
-        this.from = new DateTask(parseDateTimeFrom);
-        this.to = new DateTask(parseDateTimeTo);
+        this.from = new DateTask(from);
+        this.to = new DateTask(to);
     }
 
     @Override
