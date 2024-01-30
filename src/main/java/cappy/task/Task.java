@@ -20,7 +20,7 @@ public abstract class Task implements CsvFormat {
     /**
      * The status of the Task, true if it is done.
      */
-    private boolean done;
+    private boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -28,7 +28,7 @@ public abstract class Task implements CsvFormat {
 
     public Task(String description, boolean isDone) {
         this.description = description;
-        this.done = isDone;
+        this.isDone = isDone;
     }
 
     public String getDescription() {
@@ -39,26 +39,26 @@ public abstract class Task implements CsvFormat {
      * Returns the status of the Task, true if it is done.
      */
     public boolean getDone() {
-        return done;
+        return isDone;
     }
 
     /**
      * Sets the status of the task to be done (complete).
      */
     public void done() {
-        done = true;
+        isDone = true;
     }
 
     /**
      * Sets the status of the task to be undone (incomplete).
      */
     public void undone() {
-        done = false;
+        isDone = false;
     }
 
     @Override
     public String toString() {
-        return "[" + (done ? "X" : " ") + "] " + description;
+        return "[" + (isDone ? "X" : " ") + "] " + description;
     }
 
     @Override
@@ -67,6 +67,6 @@ public abstract class Task implements CsvFormat {
             return false;
         }
         Task other = (Task) obj;
-        return description.equals(other.description) && done == other.done;
+        return description.equals(other.description) && isDone == other.isDone;
     }
 }

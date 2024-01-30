@@ -96,17 +96,17 @@ public class Parser {
         String[] data = csvLine.split(",");
         try {
             String type = data[0];
-            boolean done = data[1].equals("1");
+            boolean isDone = data[1].equals("1");
             String description = data[2];
             if (type.equals(Todo.TYPE_SYMBOL)) {
-                return new Todo(description, done);
+                return new Todo(description, isDone);
             } else if (type.equals(Deadline.TYPE_SYMBOL)) {
                 LocalDateTime due = parseDateTime(data[3]);
-                return new Deadline(description, done, due);
+                return new Deadline(description, isDone, due);
             } else if (type.equals(Event.TYPE_SYMBOL)) {
                 LocalDateTime from = parseDateTime(data[3]);
                 LocalDateTime to = parseDateTime(data[4]);
-                return new Event(description, done, from, to);
+                return new Event(description, isDone, from, to);
             } else {
                 throw new CappyException("Invalid Type");
             }
