@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.function.Function;
@@ -6,6 +8,11 @@ import java.util.function.Supplier;
 public abstract class Task {
     protected final String name;
     protected boolean done;
+    
+    public static final DateTimeFormatter INPUT_TIME_FORMATTER 
+            = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    public static final DateTimeFormatter OUTPUT_TIME_FORMATTER 
+            = DateTimeFormatter.ofPattern("hh:mm a, M-dd-yyyy");
 
     public Task(String name) {
         this.name = name;
