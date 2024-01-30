@@ -50,6 +50,6 @@ public class StoredTaskList extends TaskList {
     @Override
     public void removeTask(int idx) throws RemiError {
         super.removeTask(idx);
-        Storage.store(super);
+        Storage.store(this);
     }
 }
