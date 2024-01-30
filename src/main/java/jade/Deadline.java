@@ -12,4 +12,9 @@ public class Deadline extends Task{
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(),this.deadlineDate);
     }
+
+    @Override
+    public String taskFormatter() {
+        return String.format("D | %s | %s | %s\n", statusFormatter(), description, deadlineDate);
+    }
 }

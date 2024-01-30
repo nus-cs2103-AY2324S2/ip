@@ -1,14 +1,22 @@
 package jade;
-import java.util.*;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Jade {
     public String line = "\t——————————————————————————————————————————\n";
     public String logo = "\t  ____   ___    ____     ______\n"
-                              + "\t  |  |  / _ \\  |  ___ \\ / |____/\n"
-                              + "\t  |  | | | | | | |  | | | |____\n"
-                              + "\t  |  | | |_| | | |  | | | |____|\n"
-                              + "\t|\\|  | | ___ | | |__| | | |____\n"
-                              + "\t \\___| |_| |_| |_____/  \\_|____\\\n";
+            + "\t  |  |  / _ \\  |  ___ \\ / |____/\n"
+            + "\t  |  | | | | | | |  | | | |____\n"
+            + "\t  |  | | |_| | | |  | | | |____|\n"
+            + "\t|\\|  | | ___ | | |__| | | |____\n"
+            + "\t \\___| |_| |_| |_____/  \\_|____\\\n";
     private boolean exitProg = false;
     private List<Task> userList;
 
@@ -76,6 +84,7 @@ public class Jade {
         String todoDescription = String.join(" ", Arrays.copyOfRange(command, 1, command.length));
         Task todoT = new Todo(todoDescription);
         userList.add(todoT);
+        saveChange();
         System.out.printf("%s\tGot it. I've added this task:\n\t %s\n\tNow you have %d task(s) in the list.\n%s", line, todoT, userList.size(), line);
     }
 
@@ -84,6 +93,7 @@ public class Jade {
         String deadlineDate = String.join(" ", Arrays.copyOfRange(command, Arrays.asList(command).indexOf("/by") + 1, command.length));
         Task deadlineT = new Deadline(deadlineDescription, deadlineDate);
         userList.add(deadlineT);
+        saveChange();
         System.out.printf("%s\tGot it. I've added this task:\n\t %s\n\tNow you have %d task(s) in the list.\n%s", line, deadlineT, userList.size(), line);
     }
 
@@ -93,8 +103,8 @@ public class Jade {
         String endDate = String.join(" ", Arrays.copyOfRange(command, Arrays.asList(command).indexOf("/to") + 1, command.length));
         Task eventT = new Event(eventDescription, startDate, endDate);
         userList.add(eventT);
+        saveChange();
         System.out.printf("%s\tGot it. I've added this task:\n\t %s\n\tNow you have %d task(s) in the list.\n%s", line, eventT, userList.size(), line);
-
     }
 
     public void printList() {
@@ -108,12 +118,14 @@ public class Jade {
     public void markDone(String inputIndex) {
         int indexMark = Integer.parseInt(inputIndex);
         userList.get(indexMark-1).mark();
+        saveChange();
         System.out.printf("%s\tNice, I've marked this task as done:\n\t  %s\n%s", line, userList.get(indexMark-1), line);
     }
 
     public void unmarkDone(String inputIndex) {
         int indexUnmark = Integer.parseInt(inputIndex);
         userList.get(indexUnmark-1).unMark();
+        saveChange();
         System.out.printf("%s\tOK, I've marked this task as not done yet:\n\t  %s\n%s", line, userList.get(indexUnmark-1), line);
     }
 
@@ -121,6 +133,7 @@ public class Jade {
         int indexUnmark = Integer.parseInt(inputIndex);
         Task deletedTask = userList.get(indexUnmark-1);
         userList.remove(indexUnmark-1);
+        saveChange();
         System.out.printf("%s\tOK, I've deleted this task:\n\t  %s\n\tNow you have %d task(s) in the list.\n%s", line, deletedTask, userList.size(), line);
     }
 
@@ -129,4 +142,31 @@ public class Jade {
         exitProg = true;
     }
 
+    public String listFormatter() {
+        StringBuilder sb = new StringBuilder();
+        for (Task task : userList) {
+            sb.append(task.taskFormatter());
+        }
+        return sb.toString();
+    }
+
+    private void saveChange() {
+        try {
+            Path dataDir = java.nio.file.Paths.get(System.getProperty("user.dir"), "data");
+            File jadeDir = new File(dataDir.toString());
+            if (!jadeDir.exists()) {
+                jadeDir.mkdir();
+            }
+            Path dataFilePath = java.nio.file.Paths.get(System.getProperty("user.dir"), "data", "jadeList.txt");
+            File jadeList = new File(dataFilePath.toString());
+            if (!jadeList.exists()) {
+                jadeList.createNewFile();
+            }
+            FileWriter jadeListWriter = new FileWriter(jadeList);
+            jadeListWriter.write(listFormatter());
+            jadeListWriter.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
 }
