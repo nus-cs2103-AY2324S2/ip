@@ -36,4 +36,10 @@ public class EventCommand implements Command {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public boolean equals(Object a) {
+        EventCommand ec = (EventCommand) a;
+        return this.input.equals(ec.input);
+    }
 }

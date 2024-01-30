@@ -30,6 +30,12 @@ public class DeadlineCommand implements Command {
     }
 
     @Override
+    public boolean equals(Object a) {
+        DeadlineCommand dc = (DeadlineCommand) a;
+        return this.input.equals(dc.input);
+    }
+
+    @Override
     public boolean isExit() {
         return false;
     }

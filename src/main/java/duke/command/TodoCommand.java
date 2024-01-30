@@ -27,4 +27,10 @@ public class TodoCommand implements Command {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public boolean equals(Object a) {
+        TodoCommand tc = (TodoCommand) a;
+        return this.input.equals(tc.input);
+    }
 }

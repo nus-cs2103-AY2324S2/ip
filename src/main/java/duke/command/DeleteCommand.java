@@ -22,12 +22,18 @@ public class DeleteCommand implements Command {
             ui.showDeleted(t, list);
             storage.writeToFile(list);
         } else {
-            throw new DukeException("duke.task.Task (" + num + ") not found.\n" + list.print());
+            throw new DukeException("Task (" + num + ") not found.\n" + list.print());
         }
     }
 
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    @Override
+    public boolean equals(Object a) {
+        DeleteCommand dc = (DeleteCommand) a;
+        return this.input.equals(dc.input);
     }
 }
