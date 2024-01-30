@@ -1,0 +1,41 @@
+package jivox;
+
+import jivox.task.Todo;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class TodoTest {
+
+    private Todo todo;
+
+    @BeforeEach
+    public void setUp() {
+        todo = new Todo("Take out trash");
+    }
+
+    @Test
+    public void testGetType() {
+        assertEquals("T", todo.getType());
+    }
+
+    @Test
+    public void testToString() {
+        assertEquals("[T][ ] Take out trash", todo.toString());
+    }
+
+    @Test
+    public void testSaveFormat() {
+        assertEquals("T | 0 | Take out trash", todo.saveFormat());
+
+        todo.mark();
+        assertEquals("T | 1 | Take out trash", todo.saveFormat());
+    }
+
+    @Test
+    public void testMarkDone() {
+        assertFalse(todo.getStatus());
+        todo.mark();
+        assertTrue(todo.getStatus());
+    }
+}
