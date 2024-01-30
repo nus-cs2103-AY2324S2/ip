@@ -1,10 +1,10 @@
-package Command;
+package command;
 
-import Utilities.Storage;
-import Task.TaskList;
-import Utilities.Ui;
-import Task.Task;
-import Exceptions.DukeException;
+import utilities.Storage;
+import task.TaskList;
+import utilities.Ui;
+import task.Task;
+import exceptions.DukeException;
 
 public class MarkCommand extends Command {
     private int taskIndex;
@@ -21,8 +21,8 @@ public class MarkCommand extends Command {
         try {
             Task taskToMark = taskList.markTask(this.taskIndex, this.isMarked);
             ui.showMarkTask(taskToMark, this.isMarked);
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Invalid input. Please provide a valid task index.");
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new DukeException("Invalid input. Please provide a valid task index or check that the task exists.");
         }
         storage.save(taskList);
     }

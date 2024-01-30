@@ -1,9 +1,9 @@
-package Command;
-import Utilities.Ui;
-import Utilities.Storage;
-import Task.TaskList;
-import Exceptions.DukeException;
-import Task.Task;
+package command;
+import utilities.Ui;
+import utilities.Storage;
+import task.TaskList;
+import exceptions.DukeException;
+import task.Task;
 
 public class DeleteCommand extends Command {
     private int taskToDeleteIndex;
@@ -17,7 +17,7 @@ public class DeleteCommand extends Command {
         try {
             Task removedTask = taskList.deleteTask(this.taskToDeleteIndex);
             ui.showDelete(removedTask);
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new DukeException("Invalid input. Please provide a valid task index or check that the task exists.");
         }
         storage.save(taskList);

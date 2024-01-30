@@ -1,11 +1,12 @@
-package Task;
-
-import Task.Task;
+package task;
 
 import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> taskList;
+    public TaskList() {
+        this.taskList = new ArrayList<>();
+    }
     public TaskList(ArrayList<Task> taskArray) {
         this.taskList = taskArray;
     }

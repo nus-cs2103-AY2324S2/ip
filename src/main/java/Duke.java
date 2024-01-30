@@ -1,9 +1,9 @@
-import Task.TaskList;
-import Utilities.Ui;
-import Command.Command;
-import Exceptions.DukeException;
-import Utilities.Storage;
-import Utilities.Parser;
+import task.TaskList;
+import utilities.Ui;
+import command.Command;
+import exceptions.DukeException;
+import utilities.Storage;
+import utilities.Parser;
 
 public class Duke {
     private Ui ui;
