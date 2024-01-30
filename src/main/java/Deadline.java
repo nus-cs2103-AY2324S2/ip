@@ -2,8 +2,6 @@
  * Deadlines are tasks that need to be done before a specific date/time.
  */
 public class Deadline extends Task {
-    protected String deadline = "";
-
     /**
      * Constructor for a Deadline object.
      *
@@ -11,8 +9,17 @@ public class Deadline extends Task {
      * @param d deadline
      */
     public Deadline(String name, String d) {
-        super(name);
-        this.deadline = d;
+        super(name + " (by: " + d + ")");
+    }
+
+    /**
+     * Constructor for loading from file.
+     *
+     * @param description of task
+     * @param b isDone
+     */
+    public Deadline(String description, boolean b) {
+        super(description, b);
     }
 
     /**
@@ -21,6 +28,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return "[D]" + super.toString();
     }
 }

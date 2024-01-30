@@ -18,6 +18,17 @@ public class Task {
     }
 
     /**
+     * Constructor for loading from file.
+     *
+     * @param name task name
+     * @param b isDone
+     */
+    public Task(String name, boolean b) {
+        this.name = name;
+        this.isDone = b;
+    }
+
+    /**
      * Marks the task done and prints out that the user has completed the task.
      */
     public void markDone() {
@@ -37,30 +48,23 @@ public class Task {
 
     /**
      * Add a task to the list and print out the details.
-     * Also updates the list count
      *
      * @param num task number
-     * @return the new list count
      */
-    public int printAddTask(int num) {
-        num++;
+    public void printAddTask(int num) {
         System.out.println("Oink! Nice I have added this task:\n"
                 + " >> " + this + "\nOink's task count: " + num);
-        return num;
     }
 
     /**
      * Removes a task from the list and print out the details.
-     * Also updates the list count
      *
      * @param num task number
-     * @return the new list count
      */
-    public int printDeleteTask(int num) {
+    public void printDeleteTask(int num) {
         num--;
         System.out.println("Oink! Yosh I have removed this task:\n"
                 + " >> " + this + "\nOink's task count: " + num);
-        return num;
     }
 
     /**
