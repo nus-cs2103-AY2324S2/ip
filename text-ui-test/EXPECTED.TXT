@@ -1,7 +1,33 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello
+I'm Reacher.
+What do u want?
+Pls say bye
+What type of task is this?
+I've added [T][ ] eat
+What type of task is this?
+When is the start?
+When is the end?
+I've added [E][ ] drive(from:fri 5pm  to:fri 8pm)
+What type of task is this?
+When is the deadline?
+I've added [D][ ] homework (by: 11jan)
+Tasks:
+1[T][ ] eat
+2[E][ ] drive(from:fri 5pm  to:fri 8pm)
+3[D][ ] homework (by: 11jan)
+Which task number would u like to edit?
+Mark Done or Undone?
+Task 3 marked done
+Tasks:
+1[T][ ] eat
+2[E][ ] drive(from:fri 5pm  to:fri 8pm)
+3[D][X] homework (by: 11jan)
+Which task number would u like to edit?
+Mark Done or Undone?
+Task 3 marked Undone
+Tasks:
+1[T][ ] eat
+2[E][ ] drive(from:fri 5pm  to:fri 8pm)
+3[D][ ] homework (by: 11jan)
+bye
 
