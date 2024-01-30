@@ -1,6 +1,16 @@
 package lamball;
 
+import java.time.format.DateTimeParseException;
+
 public class Parser {
+
+    /**
+     * Parses command into String array in the form command type, arguments.
+     *
+     * @param msg Original input command.
+     * @return String array of length 2, containing command type and arguments respectively.
+     * @throws LamballParseException if invalid arguments are parsed.
+     */
     public static String[] parse(String msg) throws LamballParseException {
         String[] parts = msg.split(" ", 2);
         switch (parts[0]) {

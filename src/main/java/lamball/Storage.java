@@ -16,6 +16,12 @@ public class Storage {
     protected String filePath = "src/main/java/data/list.txt";
     protected String tempFilePath = "src/main/java/data/tempfile.txt";
 
+    /**
+     * Obtains and initializes list from saved text file locally.
+     *
+     * @param lamb Initialized Lamball chatbot instance.
+     */
+
     public static void obtainSavedFile(Lamball lamb) {
         File folder = new File("src/main/java/data");
         if (!folder.exists()) {
@@ -78,6 +84,12 @@ public class Storage {
         tempFile.renameTo(savedList);
     }
 
+    /**
+     * Replaces specified line in text file.
+     *
+     * @param toWrite Replacement line.
+     * @param index Index of line to replace.
+     */
     public static void replaceLine(String toWrite, int index) {
         String filePath = "src/main/java/data/list.txt";
         try {
@@ -102,6 +114,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes specified line in text file.
+     *
+     * @param index Index of line to delete.
+     */
     public static void deleteLine(int index) {
         String filePath = "src/main/java/data/list.txt";
         try {
@@ -126,6 +143,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Replaces specified line in text file.
+     *
+     * @param filePath File path of the text file.
+     * @param toAdd Line to be appended to the text file.
+     */
     public static void writeToFile(String filePath, String toAdd) {
         try {
             FileWriter fw = new FileWriter(filePath, true);
@@ -137,6 +160,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Replaces specified line in text file. Default hardcoded path provided.
+     *
+     * @param toAdd Line to be appended to the text file.
+     */
     public static void writeToFile(String toAdd) {
         String filePath = "src/main/java/data/list.txt";
         try {
