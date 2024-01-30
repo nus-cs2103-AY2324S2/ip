@@ -1,24 +1,28 @@
 public class Task {
     protected String description;
-    protected boolean isDone;
+    protected int isDone;
 
-    public Task(String description) {
+    public Task(String description, int isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        if (isDone == 0) {
+            return " ";
+        } else {
+            return "X";
+        }
     }
 
     public void markAsDone() {
-        this.isDone = true;
+        this.isDone = 1;
         System.out.println("This task is marked as done:\n"
                 + this);
     }
 
     public void markAsUndone() {
-        this.isDone = false;
+        this.isDone = 0;
         System.out.println("This task is marked as not done yet:\n"
                 + this);
     }
