@@ -7,7 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 public class Duke {
-    private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FILE_PATH = "./data/jamie.txt";
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in); // Declare Scanner instance
 
