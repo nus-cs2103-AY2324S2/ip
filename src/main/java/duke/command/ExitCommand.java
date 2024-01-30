@@ -11,19 +11,13 @@ public class ExitCommand extends Command {
     }
 
     /**
+     * Signal the ChatBot to exit
      * @return true
      */
     @Override
     public boolean isExit() {
         return true;
     }
-
-    /**
-     * @param storage
-     * @param ui
-     * @param taskList
-     */
-
 
     @Override
     public void execute(Storage storage, Ui ui, TaskList taskList) {

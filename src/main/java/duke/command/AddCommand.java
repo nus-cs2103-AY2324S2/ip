@@ -11,12 +11,7 @@ public class AddCommand extends Command{
     public AddCommand(String keyword, String parameters) {
         super(keyword, parameters);
     }
-
-    /**
-     * @param storage
-     * @param ui
-     * @param taskList
-     */
+    
     @Override
     public void execute(Storage storage, Ui ui, TaskList taskList) {
         Task task = null;
