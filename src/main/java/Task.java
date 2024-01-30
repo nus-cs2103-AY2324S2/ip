@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+
+
 public class Task {
     protected String name;
     protected boolean isDone;
@@ -9,6 +12,9 @@ public class Task {
 
     public String saveOutput() {
         return String.format("| %d | %s", isDone ? 1 : 0, name);
+    }
+
+    public void happenOn(LocalDate date) {
     }
 
     public void taskInfo() {

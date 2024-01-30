@@ -1,9 +1,19 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Deadlines extends Task{
     private Task task;
-    private String by;
-    public Deadlines(String name, String by, Boolean status) {
+    private LocalDateTime by;
+    public Deadlines(String name, LocalDateTime by, Boolean status) {
         super(name, status);
         this.by = by;
+    }
+
+    @Override
+    public void happenOn(LocalDate date) {
+        if (date.isEqual(by.toLocalDate())) {
+            this.taskInfo();
+        }
     }
 
     @Override
@@ -15,6 +25,6 @@ public class Deadlines extends Task{
     public void taskInfo() {
         System.out.print("[D]");
         super.taskInfo();
-        System.out.println(" (by: " + by + ")");
+        System.out.println(" (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm")) + "hrs )");
     }
 }
