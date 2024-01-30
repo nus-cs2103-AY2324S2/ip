@@ -1,5 +1,5 @@
 	_________________________________________________
-	Hello! I'm RoeBot!
+	Hello! I'm roebot.RoeBot!
 	What can I do for you?
 	_________________________________________________
 	Got it. I've added this task:

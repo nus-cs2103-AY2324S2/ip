@@ -3,10 +3,15 @@ plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 repositories {
     mavenCentral()
+}
+javafx {
+    version = "17.0.8"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 dependencies {
@@ -17,6 +22,7 @@ dependencies {
 checkstyle {
     toolVersion = '10.2'
 }
+
 
 test {
     useJUnitPlatform()
@@ -33,7 +39,7 @@ test {
 }
 
 application {
-    mainClass.set("Duke")
+    mainClass.set("roebot.Main")
 }
 
 shadowJar {

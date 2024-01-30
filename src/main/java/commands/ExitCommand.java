@@ -8,9 +8,11 @@ import services.UI;
  * Exits the program.
  */
 
-public class ExitCommand extends Command {
+public class ExitCommand extends AbstractCommand {
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) {
+    public UserCommand execute(TaskList taskList, UI ui, Storage storage) {
         ui.printExitMessage();
+        // monkey fix?
+        return new ExitUserCommand();
     }
 }

@@ -7,10 +7,10 @@ import services.UI;
 /**
  * List task list command.
  */
-public class ListCommand extends Command {
+public class ListCommand extends AbstractCommand {
 
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) {
-        taskList.listTasks();
+    public UserCommand execute(TaskList taskList, UI ui, Storage storage) {
+        return new UserCommand(taskList.listTasks());
     }
 }

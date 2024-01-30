@@ -21,6 +21,9 @@ public class TaskList {
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
+    public TaskList(List<Task> tasks) {
+        this.tasks = new ArrayList<>(tasks);
+    }
 
     /**
      * Returns the list of tasks.
@@ -29,6 +32,11 @@ public class TaskList {
      */
     public List<Task> getTasks() {
         return this.tasks;
+    }
+
+
+    public Task getTask(int index) {
+        return this.tasks.get(index);
     }
 
     /**
@@ -51,7 +59,7 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      * @throws DukeException If the index is out of range.
      */
-    public void deleteTask(int index) throws DukeException {
+    public Task deleteTask(int index) throws DukeException {
         if (this.tasks.size() == 0) {
             throw new DukeException("Task index is out of range.");
         }
@@ -64,6 +72,12 @@ public class TaskList {
         System.out.println(
                 "\tNow you have " + this.tasks.size() + " task"
                         + (this.tasks.size() == 1 ? "" : "s") + " in the list");
+        return deletedTask;
+    }
+
+    public String getTaskSummary() {
+        return "\tNow you have " + this.tasks.size() + " task"
+                + (this.tasks.size() == 1 ? "" : "s") + " in the list";
     }
 
     /**
@@ -101,19 +115,26 @@ public class TaskList {
     /**
      * Lists all tasks in the task list.
      */
-    public void listTasks() {
+    public String listTasks() {
         if (this.tasks.size() == 0) {
             System.out.println("\tThe task list is empty.");
+            return "\tThe task list is empty.";
         } else {
-            System.out.println("\tHere are the tasks in your list: ");
+            StringBuilder sb = new StringBuilder();
+            sb.append("\tHere are the tasks in your list: \n");
+            //System.out.println("\tHere are the tasks in your list: ");
             for (int i = 0; i < this.tasks.size(); i++) {
                 Task currTask = this.tasks.get(i);
+                sb.append("\t" + (i + 1) + "." + currTask.toString());
+                sb.append("\n");
                 System.out.println("\t" + (i + 1) + "." + currTask.toString());
             }
+            return sb.toString();
         }
+
     }
 
-    public List<Task> findTasks(String word) throws DukeException {
+    public TaskList findTasks(String word) throws DukeException {
         Pattern pattern = Pattern.compile(Pattern.quote(word), Pattern.CASE_INSENSITIVE);
         List<Task> foundTasks = new ArrayList<>();
         for (Task task: this.tasks) {
@@ -131,6 +152,6 @@ public class TaskList {
             Task currTask = foundTasks.get(i);
             System.out.println("\t" + (i + 1) + "." + currTask.toString());
         }
-        return foundTasks;
+        return new TaskList(foundTasks);
     }
 }

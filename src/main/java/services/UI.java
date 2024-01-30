@@ -31,7 +31,7 @@ public class UI {
      */
     public void printIntroMessage() {
         printHorizontalLine();
-        System.out.println("\tHello! I'm RoeBot!");
+        System.out.println("\tHello! I'm roebot.RoeBot!");
         System.out.println("\tWhat can I do for you?");
         printHorizontalLine();
     }

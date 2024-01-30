@@ -7,14 +7,15 @@ import services.UI;
 /**
  * Represents an invalid command.
  */
-public class InvalidCommand extends Command {
+public class InvalidCommand extends AbstractCommand {
     private String message;
     public InvalidCommand(String message) {
         this.message = message;
     }
 
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) {
+    public UserCommand execute(TaskList taskList, UI ui, Storage storage) {
         ui.printMessage(this.message);
+        return new UserCommand("\t" + this.message);
     }
 }

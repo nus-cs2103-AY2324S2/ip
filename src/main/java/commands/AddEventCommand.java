@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 /**
  * Add Event to task list command.
  */
-public class AddEventCommand extends Command {
+public class AddEventCommand extends AbstractCommand {
     private String name;
     private LocalDateTime start;
     private LocalDateTime end;
@@ -22,9 +22,10 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) {
+    public UserCommand execute(TaskList taskList, UI ui, Storage storage) {
         Event event = new Event(this.name, this.start, this.end);
         taskList.addTask(event);
         storage.saveTasks(taskList);
+        return new UserCommand("\tAdded event: ", "\t" + event, taskList.getTaskSummary());
     }
 }

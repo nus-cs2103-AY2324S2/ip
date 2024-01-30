@@ -9,18 +9,20 @@ import services.UI;
 /**
  * Finds a task from the task list.
  */
-public class FindCommand extends Command {
+public class FindCommand extends AbstractCommand {
     private String name;
     public FindCommand(String name) {
         this.name = name;
     }
 
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) {
+    public UserCommand execute(TaskList taskList, UI ui, Storage storage) {
         try {
-            taskList.findTasks(this.name);
+            TaskList foundTasks = taskList.findTasks(this.name);
+            return new UserCommand("\tHere are the list of tasks: ", foundTasks.listTasks());
         } catch (DukeException e) {
             System.out.println("\tNo task with " + this.name + " found");
+            return new UserCommand("\tNo task with " + this.name + " found");
         }
     }
 }

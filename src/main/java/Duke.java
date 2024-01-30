@@ -1,9 +1,0 @@
-/**
- * Starter Duke Class.
- */
-public class Duke {
-    public static void main(String[] args) {
-        RoeBot bot = new RoeBot();
-        bot.start();
-    }
-}

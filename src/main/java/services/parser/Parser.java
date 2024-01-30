@@ -24,7 +24,7 @@ public class Parser {
      * @param userInput The user's input as a string.
      * @return Command The command corresponding to the user's input.
      */
-    public Command parseCommand(String userInput) {
+    public AbstractCommand parseCommand(String userInput) {
         String[] parsed = userInput.split(" ", 2);
         String initialCommand = parsed[0].toUpperCase();
         switch (initialCommand) {
@@ -57,7 +57,7 @@ public class Parser {
      * @param userInput The user's input as a string.
      * @return Command An AddEventCommand if input is valid, otherwise an InvalidCommand.
      */
-    public Command parseAddEvent(String userInput) {
+    public AbstractCommand parseAddEvent(String userInput) {
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             return new InvalidCommand("OOPS! Please enter a task name");
@@ -84,7 +84,7 @@ public class Parser {
      * @param userInput The user's input as a string.
      * @return Command An AddDeadlineCommand if input is valid, otherwise an InvalidCommand.
      */
-    public Command parseAddDeadline(String userInput) {
+    public AbstractCommand parseAddDeadline(String userInput) {
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             return new InvalidCommand("OOPS! Please enter a task name");
@@ -110,7 +110,7 @@ public class Parser {
      * @param userInput The user's input as a string.
      * @return Command An AddTodoCommand if input is valid, otherwise an InvalidCommand.
      */
-    public Command parseAddTodo(String userInput) {
+    public AbstractCommand parseAddTodo(String userInput) {
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             return new InvalidCommand("OOPS! Please enter a task name");
@@ -124,7 +124,7 @@ public class Parser {
      * @param userInput The user's input as a string.
      * @return Command A DeleteTaskCommand if input is valid, otherwise an InvalidCommand.
      */
-    public Command parseDelete(String userInput) {
+    public AbstractCommand parseDelete(String userInput) {
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             return new InvalidCommand("OOPS! Please enter an index");
@@ -138,7 +138,7 @@ public class Parser {
      * @param userInput The user's input as a string.
      * @return Command A UnmarkTaskCommand if input is valid, otherwise an InvalidCommand.
      */
-    public Command parseUnmark(String userInput) {
+    public AbstractCommand parseUnmark(String userInput) {
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             return new InvalidCommand("OOPS! Please enter an index");
@@ -152,7 +152,7 @@ public class Parser {
      * @param userInput The user's input as a string.
      * @return Command A MarkTaskCommand if input is valid, otherwise an InvalidCommand.
      */
-    public Command parseMark(String userInput) {
+    public AbstractCommand parseMark(String userInput) {
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             return new InvalidCommand("OOPS! Please enter an index");
@@ -166,7 +166,7 @@ public class Parser {
      * @param userInput The user's input as a string.
      * @return Command A FindCommand if input is valid, otherwise an InvalidCommand.
      */
-    public Command parseFind(String userInput) {
+    public AbstractCommand parseFind(String userInput) {
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             return new InvalidCommand("OOPS! Please enter an task to find");

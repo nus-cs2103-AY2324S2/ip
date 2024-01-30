@@ -7,7 +7,6 @@ import services.UI;
 /**
  * Represents an executable command as an abstract class.
  */
-public abstract class Command {
-    public abstract void execute(TaskList taskList, UI ui, Storage storage);
-
+public abstract class AbstractCommand {
+    public abstract UserCommand execute(TaskList taskList, UI ui, Storage storage);
 }

@@ -1,4 +1,7 @@
-import commands.Command;
+package roebot;
+
+import commands.AbstractCommand;
+import commands.UserCommand;
 import services.TaskList;
 import services.Storage;
 import services.UI;
@@ -19,22 +22,21 @@ public class RoeBot {
         this.taskList = new TaskList();
         this.ui = new UI();
         this.parser = new Parser();
-    }
-
-    public void start() {
         try {
             storage.loadTasks(this.taskList);
         } catch (IOException e) {
             System.out.println("FIX THIS ERROR");
         }
-        this.ui.printIntroMessage();
-        String userInput;
-        do {
-            userInput = this.ui.nextCommand();
-            Command c = this.parser.parseCommand(userInput);
-            c.execute(taskList, ui, storage);
-            ui.printHorizontalLine();
-        } while (!userInput.equals("bye"));
+    }
+
+    public String getResponse(String input) {
+        return "Roebot understands: " + input;
+    }
+
+    public UserCommand getResult(String userInput) {
+        AbstractCommand c = this.parser.parseCommand(userInput);
+
+        return c.execute(taskList, ui, storage);
     }
 
 }
