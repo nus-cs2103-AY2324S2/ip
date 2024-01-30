@@ -1,3 +1,5 @@
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a generic task with a description and a completion status.
  */
@@ -55,6 +57,7 @@ public class Task {
      */
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
         return "[" + (isDone ? "X" : " ") + "] " + this.getDescription();
     }
 }

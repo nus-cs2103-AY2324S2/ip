@@ -14,6 +14,8 @@ public class Yoda {
         // Scanner to read user input from the console.
         Scanner scanner = new Scanner(System.in);
 
+        Parser commandParser = new Parser(yoda);
+
         // Display the initial greeting message from Yoda.
         yoda.printGreeting();
 
@@ -23,17 +25,15 @@ public class Yoda {
             String input = scanner.nextLine();
 
             try {
-                // Handle the user's input and perform the appropriate action.
-                yoda.handleUserInput(input);
+                // Use CommandParser to handle the user input
+                commandParser.parseAndExecute(input);
             } catch (EmptyDescriptionException | UnknownCommandException | InvalidTaskException | TimeMissingException e) {
-                // Catch specific exceptions and print their messages.
                 yoda.printMessage(e.getMessage());
             } catch (Exception e) {
-                // Catch any other exceptions and throw a RuntimeException.
-                throw new RuntimeException(e);
+                // For any other exceptions, print an error message
+                yoda.printMessage("Error occurred: " + e.getMessage());
             }
         }
-
         // Close the scanner to prevent resource leaks.
         scanner.close();
     }

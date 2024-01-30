@@ -3,6 +3,8 @@ import java.util.List;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.stream.Collectors;
 
 public class YodaUI {
 
@@ -27,6 +29,13 @@ public class YodaUI {
      */
     public boolean isChatting() {
         return this.isChatting;
+    }
+
+    /**
+     * Stops the chatbot from chatting.
+     */
+    public void stopChatting() {
+        this.isChatting = false;
     }
 
     /**
@@ -62,7 +71,7 @@ public class YodaUI {
      * Adds a new task to the list.
      * @param task The task to be added.
      */
-    private void addTask(Task task) {
+    public void addTask(Task task) {
         tasks.add(task);
         printMessage("Hmm, added this task, I have:\n" + task + "\nTasks in the list, now you have " + tasks.size() + ", hmm.");
     }
@@ -71,7 +80,7 @@ public class YodaUI {
     /**
      * Displays all the tasks in the list.
      */
-    private void showTasks() {
+    public void showTasks() {
         if (tasks.isEmpty()) {
             printMessage("Empty, your task list is.");
             return;
@@ -85,88 +94,11 @@ public class YodaUI {
     }
 
 
-    /**
-     * Handles user input and performs actions based on the command.
-     * @param input The user input string.
-     * @throws Exception if there is an issue in processing the command.
-     */
-    public void handleUserInput(String input) throws Exception {
-        String[] parts = input.split("\\s+", 2);
-        Command command = Command.fromString(parts[0]);
-
-        try {
-            switch (command) {
-                case BYE:
-                    printMessage("Farewell. See you again, I hope!");
-                    this.isChatting = false;
-                    break;
-                case LIST:
-                    showTasks();
-                    break;
-                case SAVE:
-                    saveTasks();
-                    break;
-                case DELETE:
-                    performTaskOperation(parts, this::deleteTask);
-                    break;
-                case MARK:
-                    performTaskOperation(parts, this::markTaskAsDone);
-                    break;
-                case UNMARK:
-                    performTaskOperation(parts, this::markTaskAsUndone);
-                    break;
-                case TODO:
-                    addTask(new Todo(parts[1]));
-                    break;
-                case DEADLINE:
-                    String[] deadlineParts = parts[1].split(" /by ", 2);
-                    addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
-                    break;
-                case EVENT:
-                    String[] eventParts = parts[1].split(" /from ", 2);
-                    String[] timeParts = eventParts[1].split(" /to ", 2);
-                    addTask(new Event(eventParts[0], timeParts[0], timeParts[1]));
-                    break;
-                default:
-                    printMessage("Sorry, I am. What that means, I do not know :-(");
-            }
-        } catch (Exception e) {
-            printMessage(e.getMessage());
-        }
+    // You might need a method in YodaUI to get the size of the task list
+    public int getTaskCount() {
+        return tasks.size();
     }
 
-    /**
-     * Performs a task operation (delete, mark, unmark) based on the user input.
-     * @param parts The split input containing the command and task number.
-     * @param operation The operation to be performed on the task.
-     * @throws Exception if the task number is invalid.
-     */
-    private void performTaskOperation(String[] parts, TaskOperation operation) throws Exception {
-        if (parts.length > 1) {
-            int taskNumber = parseTaskNumber(parts[1]);
-            operation.perform(taskNumber);
-        } else {
-            throw new Exception("Specify a task number, you must.");
-        }
-    }
-
-    /**
-     * Parses the task number from the input string.
-     * @param input The input string containing the task number.
-     * @return The parsed task number.
-     * @throws Exception if the input is not a valid number or out of range.
-     */
-    private int parseTaskNumber(String input) throws Exception {
-        try {
-            int taskNumber = Integer.parseInt(input);
-            if (taskNumber <= 0 || taskNumber > tasks.size()) {
-                throw new Exception("Valid task number, provide you must.");
-            }
-            return taskNumber;
-        } catch (NumberFormatException e) {
-            throw new Exception("A number, enter you must.");
-        }
-    }
 
     /**
      * Prints a message wrapped with lines for better readability.
@@ -176,14 +108,6 @@ public class YodaUI {
         printLine();
         System.out.println("" + message);
         printLine();
-    }
-
-    /**
-     * Functional interface for task operations like delete, mark, and unmark.
-     */
-    @FunctionalInterface
-    private interface TaskOperation {
-        void perform(int taskNumber) throws Exception;
     }
 
     /**
@@ -216,14 +140,13 @@ public class YodaUI {
 
         if (task instanceof Deadline) {
             Deadline deadlineTask = (Deadline) task;
-            details += " | " + deadlineTask.getBy();
+            details += " | " + deadlineTask.getByString();
         } else if (task instanceof Event) {
             Event eventTask = (Event) task;
-            details += " | " + eventTask.getFrom() + " to " + eventTask.getTo();
+            details += " | " + eventTask.getFromString() + " to " + eventTask.getToString();
         }
         return type + " | " + status + " | " + details;
     }
-
 
 
     /**
