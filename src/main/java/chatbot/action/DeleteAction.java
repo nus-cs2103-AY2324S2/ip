@@ -4,14 +4,22 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.exception.InvalidArgumentValueException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
+import chatbot.action.util.ExpectedArgument;
 import chatbot.io.ui.Printer;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 
 /**
- * DeleteAction encapsulates behaviour of deleting a task from the task list.
+ * This encapsulates behaviour of deleting a {@link Task} from the {@link TaskList}.
  */
 public class DeleteAction extends Action {
+    /**
+     * The command for deleting a {@link Task}.
+     */
+    private static final Command COMMAND = new Command(
+            new ExpectedArgument("delete", "index")
+    );
+
     /**
      * Constructor for this delete action.
      *
@@ -19,7 +27,7 @@ public class DeleteAction extends Action {
      * @throws ActionException If the action fails has unrecognizable or missing arguments.
      */
     public DeleteAction(Argument[] arguments) throws ActionException {
-        super(Command.DELETE, arguments);
+        super(COMMAND, arguments);
     }
 
     /**
@@ -67,5 +75,12 @@ public class DeleteAction extends Action {
                 "Noted. I've removed this task:",
                 "    " + task
         );
+    }
+
+    /**
+     * Gets the name of the {@link Command}.
+     */
+    public static String getName() {
+        return COMMAND.getName();
     }
 }

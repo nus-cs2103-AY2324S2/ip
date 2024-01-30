@@ -49,14 +49,18 @@ public class ToDo extends Task {
      *
      * @param readableString the to-do as a human-readable string
      * @return the to-do
+     * @throws IllegalStateException If the regex doesn't match the pattern
      */
-    public static ToDo parseToDo(String readableString) {
+    public static ToDo parseToDo(String readableString) throws IllegalStateException {
         Matcher matcher = Pattern
                 .compile(REGEX_PATTERN)
                 .matcher(readableString);
 
-        matcher.find();
-        return new ToDo(matcher);
+        if (matcher.find()) {
+            return new ToDo(matcher);
+        } else {
+            return null;
+        }
     }
 
     /**

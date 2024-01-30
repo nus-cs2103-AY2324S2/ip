@@ -3,6 +3,7 @@ package chatbot.action;
 import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
+import chatbot.action.util.ExpectedArgument;
 import chatbot.io.ui.Printer;
 import chatbot.task.TaskList;
 
@@ -13,13 +14,20 @@ import chatbot.task.TaskList;
  */
 public class ByeAction extends Action {
     /**
+     * The command for ending the chat
+     */
+    private static final Command COMMAND = new Command(
+            new ExpectedArgument("bye")
+    );
+
+    /**
      * Constructor for this bye action.
      *
      * @param arguments the arguments supplied with the command
      * @throws ActionException If the action fails has unrecognizable or missing arguments.
      */
     public ByeAction(Argument[] arguments) throws ActionException {
-        super(Command.BYE, arguments);
+        super(COMMAND, arguments);
     }
 
     /**
@@ -31,5 +39,12 @@ public class ByeAction extends Action {
     public void execute(TaskList taskList) {
         // Perform behaviour
         Printer.printMessages("Bye! Hope to see you again soon!");
+    }
+
+    /**
+     * Gets the name of the {@link Command}.
+     */
+    public static String getName() {
+        return COMMAND.getName();
     }
 }

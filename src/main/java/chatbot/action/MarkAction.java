@@ -4,16 +4,24 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.exception.InvalidArgumentValueException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
+import chatbot.action.util.ExpectedArgument;
 import chatbot.io.ui.Printer;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 
 /**
- * MarkAction encapsulates the behaviour of marking a task as done.
+ * This encapsulates the behaviour of marking a {@link Task} as done.
  *
  * @author Titus Chew
  */
 public class MarkAction extends Action {
+    /**
+     * The command for marking a {@link Task} as done.
+     */
+    private static final Command COMMAND = new Command(
+            new ExpectedArgument("mark", "index")
+    );
+
     /**
      * Constructor for this mark action.
      *
@@ -21,7 +29,7 @@ public class MarkAction extends Action {
      * @throws ActionException If the action fails has unrecognizable or missing arguments.
      */
     public MarkAction(Argument[] arguments) throws ActionException {
-        super(Command.MARK, arguments);
+        super(COMMAND, arguments);
     }
 
     /**
@@ -69,5 +77,12 @@ public class MarkAction extends Action {
                 "Nice! I've marked this task as done:",
                 "    " + task
         );
+    }
+
+    /**
+     * Gets the name of the {@link Command}.
+     */
+    public static String getName() {
+        return COMMAND.getName();
     }
 }

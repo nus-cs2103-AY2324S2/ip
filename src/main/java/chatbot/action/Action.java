@@ -5,6 +5,7 @@ import chatbot.action.exception.UnrecognizedCommandException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.task.TaskList;
+import chatbot.value.StringValue;
 
 /**
  * An Action encapsulates the behaviour of a {@link Command} and it's {@link Argument}(s).
@@ -40,21 +41,21 @@ public abstract class Action {
      * @throws ActionException If the command or arguments are not one of the expected values.
      */
     public static Action of(String command, Argument[] parsedArguments) throws ActionException {
-        if (command.equals(Command.BYE.getName())) {
+        if (command.equals(ByeAction.getName())) {
             return new ByeAction(parsedArguments);
-        } else if (command.equals(Command.LIST.getName())) {
+        } else if (command.equals(ListAction.getName())) {
             return new ListAction(parsedArguments);
-        } else if (command.equals(Command.MARK.getName())) {
+        } else if (command.equals(MarkAction.getName())) {
             return new MarkAction(parsedArguments);
-        } else if (command.equals(Command.UNMARK.getName())) {
+        } else if (command.equals(UnmarkAction.getName())) {
             return new UnmarkAction(parsedArguments);
-        } else if (command.equals(Command.ADD_TODO.getName())) {
+        } else if (command.equals(AddTodoAction.getName())) {
             return new AddTodoAction(parsedArguments);
-        } else if (command.equals(Command.ADD_DEADLINE.getName())) {
+        } else if (command.equals(AddDeadlineAction.getName())) {
             return new AddDeadlineAction(parsedArguments);
-        } else if (command.equals(Command.ADD_EVENT.getName())) {
+        } else if (command.equals(AddEventAction.getName())) {
             return new AddEventAction(parsedArguments);
-        } else if (command.equals(Command.DELETE.getName())) {
+        } else if (command.equals(DeleteAction.getName())) {
             return new DeleteAction(parsedArguments);
         } else {
             throw new UnrecognizedCommandException(command);
@@ -76,15 +77,17 @@ public abstract class Action {
      * @param name the non-null name of the argument to find
      * @return the value of the argument with that name, or null if not found
      */
-    final String findArgument(String name) {
+    final StringValue findArgument(String name) {
         for (Argument arg : suppliedArguments) {
             if (arg.hasSameArgumentName(name)) {
                 return arg.getValue();
             }
         }
-        // null represents that the argument of that name does not exist,
+
+        // this represents that the argument of that name does not exist,
         // which should not happen, since the argument has been validated.
-        return null;
+        // so an empty StringValue is returned.
+        return new StringValue("");
     }
 
     /**
@@ -93,7 +96,7 @@ public abstract class Action {
      * @return the value of the default argument
      */
     final String findDefaultArgument() {
-        return findArgument(command.getName());
+        return findArgument(command.getName()).toString();
     }
 
     /**

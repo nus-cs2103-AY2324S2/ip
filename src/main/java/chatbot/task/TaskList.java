@@ -1,6 +1,7 @@
 package chatbot.task;
 
 import chatbot.storage.LocalStorage;
+import chatbot.value.DateStringValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +73,7 @@ public class TaskList {
      * @param name the name of the to-do to add
      * @return the task that is added
      */
-    public Task addDeadline(String name, String by) {
+    public Task addDeadline(String name, DateStringValue by) {
         return add(new Deadline(name, by));
     }
 
@@ -82,7 +83,7 @@ public class TaskList {
      * @param name the name of the to-do to add
      * @return the task that is added
      */
-    public Task addEvent(String name, String from, String to) {
+    public Task addEvent(String name, DateStringValue from, DateStringValue to) {
         return add(new Event(name, from, to));
     }
 

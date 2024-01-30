@@ -1,5 +1,7 @@
 package chatbot.action.util;
 
+import chatbot.value.StringValue;
+
 /**
  * Argument stores a {@link Command} argument's name, and it's associated value.
  * <ul>
@@ -9,7 +11,8 @@ package chatbot.action.util;
  * @author Titus Chew
  */
 public class Argument {
-    final String name, value;
+    final String name;
+    final StringValue value;
 
     /**
      * Constructor for this argument without a value
@@ -30,7 +33,7 @@ public class Argument {
      */
     public Argument(String name, String value) {
         this.name = name;
-        this.value = value;
+        this.value = (value == null) ? null :new StringValue(value);
     }
 
     /**
@@ -47,7 +50,7 @@ public class Argument {
      *
      * @return the value
      */
-    public String getValue() {
+    public StringValue getValue() {
         return value;
     }
 

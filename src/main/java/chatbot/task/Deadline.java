@@ -36,11 +36,11 @@ public class Deadline extends Task {
      * Constructor for this deadline.
      *
      * @param name the name of this deadline
-     * @param deadline the deadline (possibly date/time) of this chatbot.task
+     * @param deadline the deadline (possibly date/time) of this task
      */
-    public Deadline(String name, String deadline) {
+    public Deadline(String name, DateStringValue deadline) {
         super(name);
-        this.deadline = new DateStringValue(deadline);
+        this.deadline = deadline;
     }
 
     /**
@@ -65,8 +65,11 @@ public class Deadline extends Task {
                 .compile(REGEX_PATTERN)
                 .matcher(readableString);
 
-        matcher.find();
-        return new Deadline(matcher);
+        if (matcher.find()) {
+            return new Deadline(matcher);
+        } else {
+            return null;
+        }
     }
 
     /**

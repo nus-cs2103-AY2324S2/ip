@@ -4,16 +4,24 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.exception.InvalidArgumentValueException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
+import chatbot.action.util.ExpectedArgument;
 import chatbot.io.ui.Printer;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 
 /**
- * UnmarkAction encapsulates the behaviour of marking a task as not done.
+ * This encapsulates the behaviour of marking a {@link Task} as not done.
  *
  * @author Titus Chew
  */
 public class UnmarkAction extends Action {
+    /**
+     * The command for marking a {@link Task} as not done.
+     */
+    private static final Command COMMAND = new Command(
+            new ExpectedArgument("unmark", "index")
+    );
+
     /**
      * Constructor for this unmark action.
      *
@@ -21,7 +29,7 @@ public class UnmarkAction extends Action {
      * @throws ActionException If the action fails has unrecognizable or missing arguments.
      */
     public UnmarkAction(Argument[] arguments) throws ActionException {
-        super(Command.UNMARK, arguments);
+        super(COMMAND, arguments);
     }
 
     /**
@@ -69,5 +77,12 @@ public class UnmarkAction extends Action {
                 "Ok, I've marked this task as not done yet:",
                 "    " + task
         );
+    }
+
+    /**
+     * Gets the name of the {@link Command}.
+     */
+    public static String getName() {
+        return COMMAND.getName();
     }
 }

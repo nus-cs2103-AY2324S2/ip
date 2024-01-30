@@ -43,10 +43,10 @@ public class Event extends Task {
      * @param startDateTime the starting date/time of this event
      * @param endDateTime the ending date/time of this event
      */
-    public Event(String name, String startDateTime, String endDateTime) {
+    public Event(String name, DateStringValue startDateTime, DateStringValue endDateTime) {
         super(name);
-        this.startDateTime = new DateStringValue(startDateTime);
-        this.endDateTime = new DateStringValue(endDateTime);
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 
     /**
@@ -72,8 +72,11 @@ public class Event extends Task {
                 .compile(REGEX_PATTERN)
                 .matcher(readableString);
 
-        matcher.find();
-        return new Event(matcher);
+        if (matcher.find()) {
+            return new Event(matcher);
+        } else {
+            return null;
+        }
     }
 
     /**

@@ -7,63 +7,11 @@ import chatbot.action.exception.UnrecognizedArgumentException;
 import java.lang.StringBuilder;
 
 /**
- * Command defines the possible unique callable names, and it's {@link Argument}(s).
+ * This defines the {@link Argument}(s) of a {@link Command}.
  *
  * @author Titus Chew
  */
-public enum Command {
-    /**
-     * Ends the chat.
-     */
-    BYE(
-            new ExpectedArgument("bye")
-    ),
-    /**
-     * List the stored text.
-     */
-    LIST(
-            new ExpectedArgument("list")
-    ),
-    /**
-     * Mark the chatbot.task as done.
-     */
-    MARK(
-            new ExpectedArgument("mark", "index")
-    ),
-    /**
-     * Mark the chatbot.task as not done.
-     */
-    UNMARK(
-            new ExpectedArgument("unmark", "index")
-    ),
-    /**
-     * Adds a to-do chatbot.task.
-     */
-    ADD_TODO(
-            new ExpectedArgument("todo", "name")
-    ),
-    /**
-     * Adds a deadline chatbot.task.
-     */
-    ADD_DEADLINE(
-            new ExpectedArgument("deadline", "name"),
-            new ExpectedArgument("by", "by_date")
-    ),
-    /**
-     * Adds an event chatbot.task.
-     */
-    ADD_EVENT(
-            new ExpectedArgument("event", "name"),
-            new ExpectedArgument("from", "start_date"),
-            new ExpectedArgument("to", "end_date")
-    ),
-    /**
-     * Deletes a chatbot.task.
-     */
-    DELETE(
-            new ExpectedArgument("delete", "index")
-    );
-
+public class Command {
     /**
      * Stores the usage hint for this command.
      */
@@ -87,7 +35,7 @@ public enum Command {
      *
      * @param arguments the arguments of this command
      */
-    Command(ExpectedArgument... arguments) {
+    public Command(ExpectedArgument... arguments) {
         // Name of the argument is the first argument
         this.name = arguments[0].getName();
         this.arguments = arguments;

@@ -3,16 +3,27 @@ package chatbot.action;
 import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
+import chatbot.action.util.ExpectedArgument;
 import chatbot.io.ui.Printer;
+import chatbot.task.Deadline;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
+import chatbot.value.DateStringValue;
 
 /**
- * AddDeadlineCommand encapsulates the behaviour of adding a deadline.
+ * This encapsulates the behaviour of adding a {@link Deadline}.
  *
  * @author Titus Chew
  */
 public class AddDeadlineAction extends Action {
+    /**
+     * The command for adding a {@link Deadline}.
+     */
+    private static final Command COMMAND = new Command(
+            new ExpectedArgument("deadline", "name"),
+            new ExpectedArgument("by", "by_date")
+    );
+
     /**
      * Constructor for this add deadline action.
      *
@@ -20,7 +31,7 @@ public class AddDeadlineAction extends Action {
      * @throws ActionException If the action fails has unrecognizable or missing arguments.
      */
     public AddDeadlineAction(Argument[] arguments) throws ActionException {
-        super(Command.ADD_DEADLINE, arguments);
+        super(COMMAND, arguments);
     }
 
     /**
@@ -30,8 +41,8 @@ public class AddDeadlineAction extends Action {
      */
     @Override
     public void execute(TaskList taskList) {
-        String name = findDefaultArgument(),
-                by = findArgument("by");
+        String name = findDefaultArgument();
+        DateStringValue by = new DateStringValue(findArgument("by"));
 
         // Perform behaviour
         Task task = taskList.addDeadline(name, by);
@@ -40,5 +51,12 @@ public class AddDeadlineAction extends Action {
                 "    " + task,
                 "Now you have " + taskList.size() + " task(s) in the list."
         );
+    }
+
+    /**
+     * Gets the name of the {@link Command}.
+     */
+    public static String getName() {
+        return COMMAND.getName();
     }
 }
