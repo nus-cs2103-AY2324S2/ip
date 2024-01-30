@@ -2,7 +2,7 @@ package util;
 
 import java.lang.Exception;
 
-public class DukeException {
+public class DukeException extends Throwable {
     protected Exception exception;
     public DukeException(Exception exception) {
         this.exception = exception;
