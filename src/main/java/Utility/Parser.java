@@ -91,7 +91,7 @@ public class Parser {
         }
     }
 
-    private static String formatDate(String s) throws DukeException {
+    protected static String formatDate(String s) throws DukeException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
             LocalDateTime date = LocalDateTime.parse(s, formatter);
