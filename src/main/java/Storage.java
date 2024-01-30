@@ -11,6 +11,7 @@ public class Storage {
     public Storage(String filePath) throws DukeException {
         this.filePath = filePath;
         try {
+            System.out.println("Reading from " + filePath + "...\n");
             createFolder();
             createFile();
         } catch (IOException e) {
