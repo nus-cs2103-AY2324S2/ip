@@ -1,9 +1,8 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static final int MAX_NO_OF_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_NO_OF_TASKS];
-    private static int taskCount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -35,6 +34,9 @@ public class Duke {
             case "list":
                 printTaskList();
                 break;
+            case "delete":
+                deleteTask(parts[1]);
+                break;
             case "mark":
             case "unmark":
                 markOrUnmarkTask(command, parts[1]);
@@ -52,19 +54,19 @@ public class Duke {
     private static void markOrUnmarkTask(String command, String taskNumberStr) throws DukeException {
         try {
             int taskNumber = Integer.parseInt(taskNumberStr) - 1;
-            if (taskNumber < 0 || taskNumber >= taskCount) {
+            if (taskNumber < 0 || taskNumber >= tasks.size()) {
                 throw new DukeException("Oopsie! I can't seem to find that task. Could it be a magical invisible task?.");
             }
+            Task task = tasks.get(taskNumber);
             if (command.equalsIgnoreCase("mark")) {
-                tasks[taskNumber].markAsDone();
+                task.markAsDone();
                 System.out.println("____________________________________________________________");
-                System.out.println("Nice! I've marked this task as done:\n  " + tasks[taskNumber]);
+                System.out.println("Nice! I've marked this task as done:\n  " + task);
             } else {
-                tasks[taskNumber].unmarkAsDone();
+                task.unmarkAsDone();
                 System.out.println("____________________________________________________________");
-                System.out.println("OK, I've marked this task as not done yet:\n  " + tasks[taskNumber]);
+                System.out.println("OK, I've marked this task as not done yet:\n  " + task);
             }
-            System.out.println("____________________________________________________________");
         } catch (NumberFormatException e) {
             throw new DukeException("Whoops! Looks like that's not a valid number for a task. Numbers only, please!");
         }
@@ -92,19 +94,35 @@ public class Duke {
         }
 
         if (newTask != null) {
-            tasks[taskCount++] = newTask;
+            tasks.add(newTask);
             System.out.println("____________________________________________________________");
             System.out.println("Got it. I've added this task:\n  " + newTask);
-            System.out.println("Now you have " + taskCount + " tasks in the list.");
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println("____________________________________________________________");
+        }
+    }
+
+    private static void deleteTask(String taskNumberStr) throws DukeException {
+        try {
+            int taskNumber = Integer.parseInt(taskNumberStr) - 1;
+            if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                throw new DukeException("Uh-oh, can't find that task. Are you sure it's the right number?");
+            }
+            Task removedTask = tasks.remove(taskNumber);
+            System.out.println("____________________________________________________________");
+            System.out.println("Noted. I've removed this task:\n  " + removedTask);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("____________________________________________________________");
+        } catch (NumberFormatException e) {
+            throw new DukeException("Whoops! Looks like that's not a valid number for a task. Numbers only, please!");
         }
     }
 
     private static void printTaskList() {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + "." + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
         }
         System.out.println("____________________________________________________________");
     }
