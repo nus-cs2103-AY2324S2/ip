@@ -1,4 +1,4 @@
-package taskTypes;
+package drew.tasktypes;
 
 /**
  * This class represents the Event task.
@@ -17,5 +17,10 @@ public class Event extends Task{
      */
     public String statusString() {
         return String.format("[E]%s (from: %s to: %s)", super.statusString(), this.startDate, this.endDate);
+    }
+    @Override
+    public String toSaveFormatString() {
+        String status = (super.isDone) ? "1" : "0";
+        return String.format("E | %s | %s | %s | %s\n", status, super.toString(), this.startDate, this.endDate);
     }
 }
