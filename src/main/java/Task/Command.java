@@ -1,5 +1,7 @@
 package task;
 
+import duke.ProgramState;
+
 public abstract class Command {
     private String body;
 
@@ -15,5 +17,5 @@ public abstract class Command {
         return parser.parse(input);
     }
 
-    abstract public boolean execute(TaskList list) throws DukeException;
+    public abstract String execute(TaskList list, ProgramState state) throws DukeException;
 }

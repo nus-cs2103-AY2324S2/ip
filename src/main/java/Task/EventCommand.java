@@ -1,5 +1,7 @@
 package task;
 
+import duke.ProgramState;
+
 public class EventCommand extends Command {
     private String taskDescription;
     private String startTime;
@@ -13,7 +15,7 @@ public class EventCommand extends Command {
         this.endTime = parts[2].trim();
     }
 
-    public boolean execute(TaskList list) throws DukeException {
+    public String execute(TaskList list, ProgramState state) throws DukeException {
         if (taskDescription.isEmpty()) {
             throw new EmptyTaskDescriptionException("The description of an event cannot be empty.",
                     "The description of an event cannot be empty.");
@@ -26,7 +28,8 @@ public class EventCommand extends Command {
         }
         Task task = new Event(taskDescription, startTime, endTime);
         list.addTask(task);
-        System.out.println("Added: " + task + "\nYou now have " + list.size() + " tasks in the list.");
-        return true;
+        String response = ("Added: " + task + "\nYou now have " + list.size() + " tasks in the list.");
+        state.setNormal();
+        return response;
     }
 }

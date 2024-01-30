@@ -1,12 +1,15 @@
 package task;
 
+import duke.ProgramState;
+
 public class ExitCommand extends Command {
     public ExitCommand() {
         super("");
     }
 
-    public boolean execute(TaskList list) {
-        System.out.println("Cya!");
-        return false;
+    public String execute(TaskList list, ProgramState state) {
+        String response = "Cya!";
+        state.setExit();
+        return response;
     }
 }

@@ -1,11 +1,13 @@
 package task;
 
+import duke.ProgramState;
+
 public class UnmarkCommand extends Command {
     public UnmarkCommand(String body) {
         super(body);
     }
 
-    public boolean execute(TaskList list) throws DukeException {
+    public String execute(TaskList list, ProgramState state) throws DukeException {
         String body = getBody();
         if (body.isEmpty()) {
             throw new InvalidTaskIndexException("The index of a task cannot be empty.",
@@ -18,7 +20,8 @@ public class UnmarkCommand extends Command {
                     "Sorry, but task number " + index + " does not exist. You only have " + list.size() + " tasks.");
         }
         list.unmarkTaskAsDone(index);
-        System.out.println("Undone: " + list.get(index - 1));
-        return true;
+        String response = ("Undone: " + list.get(index - 1));
+        state.setNormal();
+        return response;
     }
 }

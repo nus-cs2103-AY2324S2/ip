@@ -1,11 +1,13 @@
 package task;
 
+import duke.ProgramState;
+
 public class TodoCommand extends Command {
     public TodoCommand(String body) {
         super(body);
     }
 
-    public boolean execute(TaskList list) throws DukeException {
+    public String execute(TaskList list, ProgramState state) throws DukeException {
         String body = getBody();
         if (body.isEmpty()) {
             throw new DukeException("The description of a todo cannot be empty.",
@@ -13,7 +15,8 @@ public class TodoCommand extends Command {
         }
         Task task = new Todo(body);
         list.addTask(task);
-        System.out.println("Added: " + task + "\nYou now have " + list.size() + " tasks in the list.");
-        return true;
+        String response = ("Added: " + task + "\nYou now have " + list.size() + " tasks in the list.");
+        state.setNormal();
+        return response;
     }
 }
