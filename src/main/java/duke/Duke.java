@@ -1,10 +1,8 @@
-import java.io.InputStreamReader;
-import java.util.Scanner;
-
+package duke;
 
 
 public class Duke {
-    //private static ArrayList<Task> list;
+    //private static ArrayList<duke.Task> list;
     private static Storage storage;
     private static TaskList list;
     private static Ui ui;
