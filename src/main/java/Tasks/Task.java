@@ -26,9 +26,9 @@ public class Task {
     }
 
     public Task(String description) throws DukeException {
-        if (description.split(" ").length == 1) throw new DukeException("Description cannot be empty!");
+        if (description.isEmpty()) throw new DukeException("Description cannot be empty!");
 
-        this.description = description.split(" ", 2)[1];
+        this.description = description;
         this.isDone = false;
     }
 
