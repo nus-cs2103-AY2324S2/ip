@@ -184,7 +184,7 @@ public class Duke {
             System.out.println("\t ____________________________________________________________");
             System.out.println("\t Please do not enter an invalid index. There are " + dataStorage.getTaskCount() + " task(s) currently.");
             System.out.println("\t ____________________________________________________________");
-        } catch (NumberFormatException numberFormatException) {
+        } catch (NumberFormatException | MalformedUserInputException numberFormatException) {
             System.out.println("\t ____________________________________________________________");
             System.out.println("\t  Please enter positive integers 1, 2, 3, ... etc only.");
             System.out.println("\t ____________________________________________________________");
