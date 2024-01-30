@@ -9,12 +9,22 @@ public class Duke {
         System.out.println("Hello! I'm AcademicWeapon");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
-        String action;
+        //String action;
+        Action action = Action.TODO;
         ArrayList<Task> lst = new ArrayList<>();
         do {
         String input = br.readLine();
         String[] inputParts = input.split(" ", 2);
-        action = inputParts[0];
+        try {
+            action = Action.valueOf(inputParts[0].toUpperCase());
+        } catch (IllegalArgumentException e) {
+            System.out.println("____________________________________________________________");
+            System.out.println("Invalid action. Please enter a valid command.");
+            System.out.println("List, mark, unmark, todo, deadline, event, bye, delete.");
+            System.out.println("____________________________________________________________");
+            continue;
+        }
+
         String parameters;
         if (inputParts.length == 2) {
             parameters = inputParts[1];
@@ -23,7 +33,7 @@ public class Duke {
         }
 
         try {
-            DukeExceptions.validateInput(action, parameters);
+            DukeExceptions.validateInput(action.toString(), parameters);
         } catch (DukeExceptions e) {
             System.out.println("____________________________________________________________");
             System.out.println(e.getMessage());
@@ -32,7 +42,7 @@ public class Duke {
         }
 
             switch (action) {
-                case "list":
+                case LIST:
                     System.out.println("____________________________________________________________");
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < lst.size(); i++) {
@@ -41,7 +51,7 @@ public class Duke {
                     }
                     System.out.println("____________________________________________________________");
                     break;
-                case "mark":
+                case MARK:
                     int indexToMark = Integer.parseInt(inputParts[1]);
                     Task markTask = lst.get(indexToMark - 1);
                     markTask.markAsDone();
@@ -50,7 +60,7 @@ public class Duke {
                     System.out.println(markTask.toString());
                     System.out.println("____________________________________________________________");
                     break;
-                case "unmark":
+                case UNMARK:
                     int indexToUnmark = Integer.parseInt(inputParts[1]);
                     Task unmarkTask = lst.get(indexToUnmark - 1);
                     unmarkTask.markAsNotDone();
@@ -59,7 +69,7 @@ public class Duke {
                     System.out.println(unmarkTask.toString());
                     System.out.println("____________________________________________________________");
                     break;
-                case "todo":
+                case TODO:
                     Task addToDoTask = new Todo(inputParts[1]);
                     lst.add(addToDoTask);
                     System.out.println("____________________________________________________________");
@@ -68,7 +78,7 @@ public class Duke {
                     System.out.println("Now you have " + lst.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                     break;
-                case "deadline":
+                case DEADLINE:
                     String[] splitAgain = inputParts[1].split("/by");
                     Task addDeadlineTask = new Deadline(splitAgain[0], splitAgain[1]);
                     lst.add(addDeadlineTask);
@@ -78,7 +88,7 @@ public class Duke {
                     System.out.println("Now you have " + lst.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                     break;
-                case "event":
+                case EVENT:
                     String[] splitOnce = inputParts[1].split("/from ");
                     String message = splitOnce[0];
                     String[] splitTwice = splitOnce[1].split("/to ");
@@ -90,12 +100,12 @@ public class Duke {
                     System.out.println("Now you have " + lst.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                     break;
-                case "bye":
+                case BYE:
                     System.out.println("____________________________________________________________");
                     System.out.println("Bye. Hope to see you again soon!");
                     System.out.println("____________________________________________________________");
                     break;
-                case "delete":
+                case DELETE:
                     try {
                         DukeExceptions.checkListNotEmpty(lst);
                     } catch (DukeExceptions e) {
@@ -121,7 +131,7 @@ public class Duke {
                     lst.add(toAddTask);
                     System.out.println("____________________________________________________________");
             }
-        } while(!action.equals("bye"));
+        } while(action != Action.BYE);
 
         br.close();
     }

@@ -13,12 +13,12 @@ public class DukeExceptions extends Exception {
 
     public static void validateInput(String action, String parameters) throws DukeExceptions{
         switch(action) {
-            case "todo":
+            case "TODO":
                 if (parameters.equals(" ")) {
                     throw new DukeExceptions("OOPS!!! The description of a todo cannot be empty.");
                 }
                 break;
-            case "deadline":
+            case "DEADLINE":
                 if (parameters.equals(" ")) {
                     throw new DukeExceptions("OOPS!!! The description of a deadline cannot be empty.");
                 }
@@ -29,7 +29,7 @@ public class DukeExceptions extends Exception {
                     throw new DukeExceptions("OOPS!!! The due date of a deadline cannot be empty.");
                 }
                 break;
-            case "event":
+            case "EVENT":
                 if (parameters.equals(" ")) {
                     throw new DukeExceptions("OOPS!!! The description of an event cannot be empty.");
                 }
@@ -44,27 +44,27 @@ public class DukeExceptions extends Exception {
                     throw new DukeExceptions("OOPS!!! The period of an event cannot be empty.");
                 }
                 break;
-            case "mark":
+            case "MARK":
                 if (parameters.equals(" ")) {
                     throw new DukeExceptions("Please include the index to mark.");
                 }
                 break;
-            case "unmark":
+            case "UNMARK":
                 if (parameters.equals(" ")) {
                     throw new DukeExceptions("Please include the index to unmark.");
                 }
                 break;
-            case "list":
+            case "LIST":
                 if (!parameters.equals(" ")) {
                     throw new DukeExceptions("OOPS!!! You have included extra information, which I cannot read");
                 }
                 break;
-            case "bye":
+            case "BYE":
                 if (!parameters.equals(" ")) {
                     throw new DukeExceptions("OOPS!!! You have included extra information, which I cannot read");
                 }
                 break;
-            case "delete":
+            case "DELETE":
                 if (parameters.equals(" ")) {
                     throw new DukeExceptions("OOPS!!! You have to include which number to delete.");
                 }
