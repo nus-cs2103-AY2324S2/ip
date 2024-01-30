@@ -2,6 +2,7 @@ package drake;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import drake.task.Deadline;
@@ -11,7 +12,7 @@ import drake.task.TaskList;
 import drake.task.Todo;
 
 enum Command {
-    BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;
+    BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND;
     
     // Method to get the appropriate enum value from a string input
     public static Command fromString(String commandString) {
@@ -32,6 +33,8 @@ enum Command {
             return EVENT;
         case "delete":
             return DELETE;
+        case "find":
+            return FIND;
         default:
             return INVALID;
         }
@@ -109,6 +112,11 @@ public class Drake {
                     Task deletedTask = TASKS.deleteTask(deleteIndex);
                     UI.showDeleteTask(deletedTask, TASKS.size());
                     break;
+                    case FIND:
+                        String keyword = Parser.parseKeyword(input);
+                        ArrayList<Task> matchingTasks = TASKS.findTasksByKeyword(keyword);
+                        UI.showMatchingTasks(matchingTasks);
+                        break;
                 case INVALID:
                     throw new NotValidCommand("That's not a valid command!");
                 }
