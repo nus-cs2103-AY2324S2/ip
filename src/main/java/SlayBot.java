@@ -14,7 +14,6 @@ public class SlayBot {
     public void run() {
         this.ui.start();
     }
-
     public static void main(String[] args) {
         new SlayBot().run();
     }
