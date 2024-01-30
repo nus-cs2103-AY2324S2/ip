@@ -3,18 +3,18 @@
  *
  * @author Billy Ho Cheng En
  */
-abstract class Task{
-    private String description;
+abstract class Task {
+    String task_symbol;
+    private final String description;
     private boolean is_done;
     private String done_symbol;
-    String task_symbol;
 
     /**
      * Constructor for a task list.
      *
      * @param description textual description of the task
      */
-    public Task(String description, String task_symbol){
+    public Task(String description, String task_symbol) {
         this.description = description;
         this.is_done = false;
         this.done_symbol = "[ ]";
@@ -26,8 +26,8 @@ abstract class Task{
      *
      * @return true if task was change from not done to done. Else false.
      */
-    public boolean markDone(){
-        if(this.is_done){
+    public boolean markDone() {
+        if (this.is_done) {
             return false;
         } else {
             this.is_done = true;
@@ -41,8 +41,8 @@ abstract class Task{
      *
      * @return true if task was change from done to not done. Else false.
      */
-    public boolean unmarkDone(){
-        if(this.is_done){
+    public boolean unmarkDone() {
+        if (this.is_done) {
             this.is_done = false;
             this.done_symbol = "[ ]";
             return true;
@@ -52,7 +52,7 @@ abstract class Task{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.task_symbol + this.done_symbol + " " + this.description;
     }
 }

@@ -5,16 +5,15 @@
  */
 
 import java.util.ArrayList;
-import java.lang.StringBuilder;
 
-class TaskList{
+class TaskList {
 
-    private ArrayList<Task> arr;
+    private final ArrayList<Task> arr;
 
     /**
      * Constructor for a task list.
      */
-    public TaskList(){
+    public TaskList() {
         arr = new ArrayList<Task>(100);
     }
 
@@ -23,7 +22,7 @@ class TaskList{
      *
      * @param task The task to be added.
      */
-    public void add(Task task){
+    public void add(Task task) {
         this.arr.add(task);
     }
 
@@ -33,7 +32,7 @@ class TaskList{
      * @param index the index of the task to be marked done
      * @return true if task was already done, else false
      */
-    public boolean markDone(int index){
+    public boolean markDone(int index) {
         return arr.get(index).markDone();
     }
 
@@ -43,7 +42,7 @@ class TaskList{
      * @param index the index of the task to be marked not done
      * @return true if task was already not done, else false
      */
-    public boolean unmarkDone(int index){
+    public boolean unmarkDone(int index) {
         return arr.get(index).unmarkDone();
     }
 
@@ -54,9 +53,9 @@ class TaskList{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < arr.size(); i++) {
+        for (int i = 0; i < arr.size(); i++) {
             sb.append((i + 1) + ". " + arr.get(i) + "\n");
         }
         return sb.toString();

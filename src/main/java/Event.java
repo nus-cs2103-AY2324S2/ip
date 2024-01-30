@@ -1,12 +1,12 @@
-public class Event extends Task{
+public class Event extends Task {
 
-    private String from;
-    private String to;
     private static final String TYPE_SYMBOL = "[E]";
+    private final String from;
+    private final String to;
 
-    public Event(String description, String from, String to) throws MeanDukeException{
+    public Event(String description, String from, String to) throws MeanDukeException {
         super(description, TYPE_SYMBOL);
-        if(from.isEmpty() || to.isEmpty()){
+        if (from.isEmpty() || to.isEmpty()) {
             throw new MeanDukeException("Usage: \"add event <description> /from <start> /to <end>\"");
         }
         this.from = from;
@@ -14,7 +14,7 @@ public class Event extends Task{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return super.toString() + " (" + this.from + " - " + this.to + ")";
     }
 }
