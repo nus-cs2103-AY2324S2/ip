@@ -24,6 +24,7 @@ public class Duke {
             // Read and process user input
             String command = scanner.nextLine();
             String[] tokens = command.split(" ", 2);
+            tasks = TaskLoader.load();
             System.out.println("\n============================================================\n");
 
             // Handle different commands
@@ -107,9 +108,9 @@ public class Duke {
                     if (i < 0 || i >= tasks.size()) {
                         throw new DukeException("☹ OOPS!!! The task number is invalid.");
                     }
-                    tasks.remove(i);
+                    Task removedTask = tasks.remove(i);
                     System.out.println("Noted. I've removed this task:");
-                    System.out.println(tasks.get(i).toString());
+                    System.out.println(removedTask);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -119,6 +120,7 @@ public class Duke {
             }
 
             System.out.println("\n============================================================\n");
+            TaskLoader.save(tasks);
         }
 
         scanner.close();
