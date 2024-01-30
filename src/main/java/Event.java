@@ -9,11 +9,19 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + this.startDateTime.formatDateTime() + " to: " + this.endDateTime.formatDateTime() +")";
+        return "[E] "
+                + super.toString()
+                + " (from: " + this.startDateTime.formatDateTime()
+                + " to: " + this.endDateTime.formatDateTime() +")";
     }
 
     @Override
     public String serializeTask() {
-        return "E | " + super.serializeTask() + " | " + this.startDateTime.serializeDateTime() + " - " + this.endDateTime.serializeDateTime();
+        return "E | "
+                + super.serializeTask()
+                + " | "
+                + this.startDateTime.serializeDateTime()
+                + " - "
+                + this.endDateTime.serializeDateTime();
     }
 }

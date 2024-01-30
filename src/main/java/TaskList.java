@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -8,38 +7,6 @@ import java.util.Scanner;
 public class TaskList {
     private ArrayList<Task> items;
     private static final StorageHelper storageHelper = new StorageHelper();
-    private static class StorageHelper {
-        private static final String directoryPath = "data";
-        private static final String fileName = "task_list.txt";
-
-        public File loadFile() throws IOException {
-            // check if the directory exists if not create it
-            File directory = new File(directoryPath);
-            directory.mkdir();
-
-            // check if the file exists if not create it
-            File file = new File(directoryPath + "/" + fileName);
-            file.createNewFile();
-
-            return file;
-        }
-
-        public void saveFile(String content) throws IOException {
-            // check if the directory exists if not create it
-            File directory = new File(directoryPath);
-            directory.mkdir();
-
-            // check if the file exists if not create it
-            File file = new File(directoryPath + "/" + fileName);
-            file.createNewFile();
-
-            // write into the file
-            FileWriter fw = new FileWriter(file);
-            fw.write(content);
-            fw.close();
-        }
-
-    }
 
     public TaskList() {
         this.items = new ArrayList<>();
@@ -53,7 +20,7 @@ public class TaskList {
         return this.items.get(index);
     }
 
-    public void loadTaskListFromFile() throws TyroneStorageHelperException {
+    public void loadTaskListFromFile() throws StorageHelperException {
         try {
             File file = storageHelper.loadFile();
 
@@ -86,11 +53,11 @@ public class TaskList {
         } catch (IOException | DateTimeParseException e) {
             System.out.println(e.getMessage());
             this.items = new ArrayList<>();
-            throw new TyroneStorageHelperException("Error loading the local task list file.");
+            throw new StorageHelperException("Error loading the local task list file.");
         }
     }
 
-    public void saveTaskListToFile() throws TyroneStorageHelperException {
+    public void saveTaskListToFile() throws StorageHelperException {
         StringBuilder content = new StringBuilder();
         for (Task item : this.items) {
             content.append(item.serializeTask()).append("\n");
@@ -99,7 +66,7 @@ public class TaskList {
         try {
             storageHelper.saveFile(content.toString());
         } catch (IOException | SecurityException e) {
-            throw new TyroneStorageHelperException("Failed to save the list changes locally. My bad...");
+            throw new StorageHelperException("Failed to save the list changes locally. My bad...");
         }
     }
 
@@ -129,7 +96,6 @@ public class TaskList {
     public String toString() {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < items.size(); ++i) {
-            if (i > 0) output.append("\t");
             output.append(i + 1).append(".  ").append(items.get(i).toString());
             if (i < items.size() - 1) output.append("\n");
         }

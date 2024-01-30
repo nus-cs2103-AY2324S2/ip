@@ -1,321 +1,373 @@
-	████████╗██╗   ██╗██████╗  ██████╗ ███╗   ██╗███████╗
-	╚══██╔══╝╚██╗ ██╔╝██╔══██╗██╔═══██╗████╗  ██║██╔════╝
-	   ██║    ╚████╔╝ ██████╔╝██║   ██║██╔██╗ ██║█████╗
-	   ██║     ╚██╔╝  ██╔══██╗██║   ██║██║╚██╗██║██╔══╝
-	   ██║      ██║   ██║  ██║╚██████╔╝██║ ╚████║███████╗
-	   ╚═╝      ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
-	Yo, what's crackin' fam! I'm Tyrone, your digital homie.
-	What's the word? So I can help you out today.
+████████╗██╗   ██╗██████╗  ██████╗ ███╗   ██╗███████╗
+╚══██╔══╝╚██╗ ██╔╝██╔══██╗██╔═══██╗████╗  ██║██╔════╝
+   ██║    ╚████╔╝ ██████╔╝██║   ██║██╔██╗ ██║█████╗
+   ██║     ╚██╔╝  ██╔══██╗██║   ██║██║╚██╗██║██╔══╝
+   ██║      ██║   ██║  ██║╚██████╔╝██║ ╚████║███████╗
+   ╚═╝      ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
 
-	____________________________________________________________
 
+Yo, what's crackin' fam! I'm Tyrone, your digital homie.
+What's the word? So I can help you out today.
 
-	____________________________________________________________
-	Got it added homie:
-		[T] [ ] borrow book
-	Now you have 1 in the list.
 
-	____________________________________________________________
+____________________________________________________________
+____________________________________________________________
 
 
-	____________________________________________________________
-	Peep the lineup, here's the rundown of tasks on your list:
-	1.  [T] [ ] borrow book
+Got it added homie:
+[T] [ ] borrow book
+Now you have  1 in the list.
 
-	____________________________________________________________
 
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
-	Got it added homie:
-		[D] [ ] return book (by: Jan 25 2024 02:00pm )
-	Now you have 2 in the list.
 
-	____________________________________________________________
+Peep the lineup, here's the rundown of tasks on your list:
+1.  [T] [ ] borrow book
 
 
-	____________________________________________________________
-	Got it added homie:
-		[E] [ ] project meeting (from: Feb 14 2024  to: Feb 18 2024 )
-	Now you have 3 in the list.
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
 
+Got it added homie:
+[D] [ ] return book (by: Jan 25 2024 02:00pm)
+Now you have  2 in the list.
 
-	____________________________________________________________
-	Peep the lineup, here's the rundown of tasks on your list:
-	1.  [T] [ ] borrow book
-	2.  [D] [ ] return book (by: Jan 25 2024 02:00pm )
-	3.  [E] [ ] project meeting (from: Feb 14 2024  to: Feb 18 2024 )
 
-	____________________________________________________________
+____________________________________________________________
+____________________________________________________________
 
 
-	____________________________________________________________
-	Dope! Check it, I've tagged this task as handled:
-		[T] [X] borrow book
+Got it added homie:
+[E] [ ] project meeting (from: Feb 14 2024 to: Feb 18 2024)
+Now you have  3 in the list.
 
-	____________________________________________________________
 
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
-	Dope! Check it, I've tagged this task as handled:
-		[D] [X] return book (by: Jan 25 2024 02:00pm )
 
-	____________________________________________________________
+Peep the lineup, here's the rundown of tasks on your list:
+1.  [T] [ ] borrow book
+2.  [D] [ ] return book (by: Jan 25 2024 02:00pm)
+3.  [E] [ ] project meeting (from: Feb 14 2024 to: Feb 18 2024)
 
 
-	____________________________________________________________
-	Dope! Check it, I've tagged this task as handled:
-		[E] [X] project meeting (from: Feb 14 2024  to: Feb 18 2024 )
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
 
+Dope! Check it, I've tagged this task as handled:
+[T] [X] borrow book
 
-	____________________________________________________________
-	Peep the lineup, here's the rundown of tasks on your list:
-	1.  [T] [X] borrow book
-	2.  [D] [X] return book (by: Jan 25 2024 02:00pm )
-	3.  [E] [X] project meeting (from: Feb 14 2024  to: Feb 18 2024 )
 
-	____________________________________________________________
+____________________________________________________________
+____________________________________________________________
 
 
-	____________________________________________________________
-	A'ight, I've stamped this task as still in the works:
-		[E] [ ] project meeting (from: Feb 14 2024  to: Feb 18 2024 )
+Dope! Check it, I've tagged this task as handled:
+[D] [X] return book (by: Jan 25 2024 02:00pm)
 
-	____________________________________________________________
 
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
-	A'ight, I've stamped this task as still in the works:
-		[D] [ ] return book (by: Jan 25 2024 02:00pm )
 
-	____________________________________________________________
+Dope! Check it, I've tagged this task as handled:
+[E] [X] project meeting (from: Feb 14 2024 to: Feb 18 2024)
 
 
-	____________________________________________________________
-	A'ight, I've stamped this task as still in the works:
-		[T] [ ] borrow book
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
 
+Peep the lineup, here's the rundown of tasks on your list:
+1.  [T] [X] borrow book
+2.  [D] [X] return book (by: Jan 25 2024 02:00pm)
+3.  [E] [X] project meeting (from: Feb 14 2024 to: Feb 18 2024)
 
-	____________________________________________________________
-	Peep the lineup, here's the rundown of tasks on your list:
-	1.  [T] [ ] borrow book
-	2.  [D] [ ] return book (by: Jan 25 2024 02:00pm )
-	3.  [E] [ ] project meeting (from: Feb 14 2024  to: Feb 18 2024 )
 
-	____________________________________________________________
+____________________________________________________________
+____________________________________________________________
 
 
-	____________________________________________________________
-	Boom! Task officially evicted from the list. Consider it gone:
-		[T] [ ] borrow book
-	Now you have 2 in the list.
+A'ight, I've stamped this task as still in the works:
+[E] [ ] project meeting (from: Feb 14 2024 to: Feb 18 2024)
 
-	____________________________________________________________
 
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
-	Peep the lineup, here's the rundown of tasks on your list:
-	1.  [D] [ ] return book (by: Jan 25 2024 02:00pm )
-	2.  [E] [ ] project meeting (from: Feb 14 2024  to: Feb 18 2024 )
 
-	____________________________________________________________
+A'ight, I've stamped this task as still in the works:
+[D] [ ] return book (by: Jan 25 2024 02:00pm)
 
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Command entered doesn't exist.
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
 
+A'ight, I've stamped this task as still in the works:
+[T] [ ] borrow book
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Can't leave that to-do description hanging dry.
-		Gotta drop some words in there!
 
-	____________________________________________________________
+____________________________________________________________
+____________________________________________________________
 
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Seems like the deadline command is incorrect.
-		It must be: "deadline <task description> /by <yyyy-mm-dd[ HH:mm]>".
+Peep the lineup, here's the rundown of tasks on your list:
+1.  [T] [ ] borrow book
+2.  [D] [ ] return book (by: Jan 25 2024 02:00pm)
+3.  [E] [ ] project meeting (from: Feb 14 2024 to: Feb 18 2024)
 
-	____________________________________________________________
 
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Seems like the deadline command is incorrect.
-		It must be: "deadline <task description> /by <yyyy-mm-dd[ HH:mm]>".
 
-	____________________________________________________________
+Boom! Task officially evicted from the list. Consider it gone:
+[T] [ ] borrow book
+Now you have  2 in the list.
 
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Seems like the deadline command is incorrect.
-		It must be: "deadline <task description> /by <yyyy-mm-dd[ HH:mm]>".
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
 
+Peep the lineup, here's the rundown of tasks on your list:
+1.  [D] [ ] return book (by: Jan 25 2024 02:00pm)
+2.  [E] [ ] project meeting (from: Feb 14 2024 to: Feb 18 2024)
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Seems like the deadline command is incorrect.
-		It must be: "deadline <task description> /by <yyyy-mm-dd[ HH:mm]>".
 
-	____________________________________________________________
+____________________________________________________________
+____________________________________________________________
 
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Seems like the deadline command is incorrect.
-		It must be: "deadline <task description> /by <yyyy-mm-dd[ HH:mm]>".
+Hey homie, we've got a hiccup...
+Command entered doesn't exist.
 
-	____________________________________________________________
 
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Your event command is in incorrect format.
-		Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>".
 
-	____________________________________________________________
+Hey homie, we've got a hiccup...
+Can't leave that to-do description hanging dry.
+Gotta drop some words in there!
 
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Your event command is in incorrect format.
-		Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>".
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
 
+Hey homie, we've got a hiccup...
+Your deadline command has incorrect format.
+Gotta follow the groove: "deadline <task description> /by <yyyy-mm-dd[ HH:mm]>"
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Your event command is in incorrect format.
-		Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>".
 
-	____________________________________________________________
+____________________________________________________________
+____________________________________________________________
 
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Your event command is in incorrect format.
-		Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>".
+Hey homie, we've got a hiccup...
+Your deadline command has incorrect format.
+Gotta follow the groove: "deadline <task description> /by <yyyy-mm-dd[ HH:mm]>"
 
-	____________________________________________________________
 
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Your event command is in incorrect format.
-		Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>".
 
-	____________________________________________________________
+Hey homie, we've got a hiccup...
+Your deadline command has incorrect format.
+Gotta follow the groove: "deadline <task description> /by <yyyy-mm-dd[ HH:mm]>"
 
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Your event command is in incorrect format.
-		Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>".
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
 
+Hey homie, we've got a hiccup...
+Your deadline command has incorrect format.
+Gotta follow the groove: "deadline <task description> /by <yyyy-mm-dd[ HH:mm]>"
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Your event command is in incorrect format.
-		Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>".
 
-	____________________________________________________________
+____________________________________________________________
+____________________________________________________________
 
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Your event command is in incorrect format.
-		Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>".
+Hey homie, we've got a hiccup...
+Your deadline command has incorrect format.
+Gotta follow the groove: "deadline <task description> /by <yyyy-mm-dd[ HH:mm]>"
 
-	____________________________________________________________
 
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Can't leave that markup id empty. Gotta drop some number in there!
 
-	____________________________________________________________
+Hey homie, we've got a hiccup...
+Your event command has incorrect format.
+Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>"
 
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		It looks like you're trying to mark with an invalid id.
-		Double-check that your 0 <= id < task list size.
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
 
+Hey homie, we've got a hiccup...
+Your event command has incorrect format.
+Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>"
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Your mark parameter id is acting up.
-		It's gotta be a legit number matchin' up with the right task.
 
-	____________________________________________________________
+____________________________________________________________
+____________________________________________________________
 
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Can't leave that unmarkup id empty. Gotta drop some number in there!
+Hey homie, we've got a hiccup...
+Your event command has incorrect format.
+Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>"
 
-	____________________________________________________________
 
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		It looks like you're trying to unmark with an invalid id.
-		Double-check that your 0 <= id < task list size.
 
-	____________________________________________________________
+Hey homie, we've got a hiccup...
+Your event command has incorrect format.
+Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>"
 
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Your unmark parameter id is acting up.
-		It's gotta be a legit number matchin' up with the right task.
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
 
+Hey homie, we've got a hiccup...
+Your event command has incorrect format.
+Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>"
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Can't leave that delete id empty. Gotta drop some number in there!
 
-	____________________________________________________________
+____________________________________________________________
+____________________________________________________________
 
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		It looks like you're trying to delete with an invalid id.
-		Double-check that your 0 <= id < task list size.
+Hey homie, we've got a hiccup...
+Your event command has incorrect format.
+Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>"
 
-	____________________________________________________________
 
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
-	Hey homie, we've got a hiccup...
-		Your delete parameter id is acting up.
-		It's gotta be a legit number matchin' up with the right task.
 
-	____________________________________________________________
+Hey homie, we've got a hiccup...
+Your event command has incorrect format.
+Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>"
 
 
-	____________________________________________________________
-	Peace out! Crossin' my fingers for a speedy reunion, ya feel?
+____________________________________________________________
+____________________________________________________________
 
-	____________________________________________________________
 
+Hey homie, we've got a hiccup...
+Your event command has incorrect format.
+Gotta follow the groove: "event <task description> /from <yyyy-mm-dd[ HH:mm]> /to <yyyy-mm-dd[ HH:mm]>"
+
+
+____________________________________________________________
+____________________________________________________________
+
+
+Hey homie, we've got a hiccup...
+Your mark id is acting up.
+Double check that: 1 <= id <= task list size
+
+
+____________________________________________________________
+____________________________________________________________
+
+
+Hey homie, we've got a hiccup...
+Your mark id is acting up.
+Double check that: 1 <= id <= task list size
+
+
+____________________________________________________________
+____________________________________________________________
+
+
+Hey homie, we've got a hiccup...
+Your mark id is acting up.
+Double check that: 1 <= id <= task list size
+
+
+____________________________________________________________
+____________________________________________________________
+
+
+Hey homie, we've got a hiccup...
+Your unmark id is acting up.
+Double check that: 1 <= id <= task list size
+
+
+____________________________________________________________
+____________________________________________________________
+
+
+Hey homie, we've got a hiccup...
+Your unmark id is acting up.
+Double check that: 1 <= id <= task list size
+
+
+____________________________________________________________
+____________________________________________________________
+
+
+Hey homie, we've got a hiccup...
+Your unmark id is acting up.
+Double check that: 1 <= id <= task list size
+
+
+____________________________________________________________
+____________________________________________________________
+
+
+Hey homie, we've got a hiccup...
+Your delete id is acting up.
+Double check that: 1 <= id <= task list size
+
+
+____________________________________________________________
+____________________________________________________________
+
+
+Boom! Task officially evicted from the list. Consider it gone:
+null
+Now you have  2 in the list.
+
+
+____________________________________________________________
+____________________________________________________________
+
+
+Hey homie, we've got a hiccup...
+Your delete id is acting up.
+Double check that: 1 <= id <= task list size
+
+
+____________________________________________________________
+____________________________________________________________
+
+
+Peace out! Crossin' my fingers for a speedy reunion, ya feel?
+
+
+____________________________________________________________
+____________________________________________________________
+
+
+Peace out! Crossin' my fingers for a speedy reunion, ya feel?
+
+
+____________________________________________________________
