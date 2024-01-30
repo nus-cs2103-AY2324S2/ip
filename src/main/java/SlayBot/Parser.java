@@ -40,7 +40,7 @@ public class Parser {
             deadline_title = combinedWord.substring(0, index);
         } else {
             if (deadline_title.isEmpty() && dateTime.isEmpty()) {
-                throw new InvalidDeadlineException("OOPS!!! Thedescription and date of a Deadline cannot be empty.");
+                throw new InvalidDeadlineException("OOPS!!! The description and date of a Deadline cannot be empty.");
             } else if (deadline_title.isEmpty()) {
                 throw new InvalidDeadlineException("OOPS!!! The description of a Deadline cannot be empty.");
             } else if (dateTime.isEmpty()) {
@@ -48,7 +48,7 @@ public class Parser {
             }
         }
 
-        LocalDateTime date = dateTimeParser(dateTime);
+        LocalDateTime date = parseDateTime(dateTime);
 
         return new Deadline(deadline_title, date);
     }
@@ -88,8 +88,8 @@ public class Parser {
         String afterFrom = combinedWord.substring(indexFrom + "/from".length(), indexTo).trim();
         String afterTo = combinedWord.substring(indexTo + "/to".length()).trim();
 
-        LocalDateTime startDate = dateTimeParser(afterFrom);
-        LocalDateTime endDate = dateTimeParser(afterTo);
+        LocalDateTime startDate = parseDateTime(afterFrom);
+        LocalDateTime endDate = parseDateTime(afterTo);
 
         return new Event(beforeFrom, startDate, endDate);
     }
@@ -125,7 +125,7 @@ public class Parser {
         }
     }
 
-    public LocalDateTime dateTimeParser(String dateTime) {
+    public LocalDateTime parseDateTime(String dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
 
         return LocalDateTime.parse(dateTime, formatter);

@@ -1,10 +1,12 @@
+package SlayBot;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import entity.ToDo;
 public class TaskListTest {
     @Test
     public void testRemoveTask() {
         TaskList tasks = new TaskList();
-        tasks.add(new Todo("test"));
+        tasks.addTask(new ToDo("test"));
 
         int initialSize = tasks.getSize();
         tasks.removeTask(0);
