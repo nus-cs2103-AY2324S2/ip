@@ -65,7 +65,7 @@ public class Skibidi {
             } catch (DukeEmptyArgumentException e) {
                 System.out.println("There is an argument that is empty!!!");
             } catch (DukeErroneousArgumentException e) {
-                System.out.println("There is an argument that is wrong!!!");
+                System.out.println("There is an argument that is of the wrong format!!!");
             }
         }
     }
@@ -92,9 +92,9 @@ public class Skibidi {
                 throw new DukeErroneousArgumentException();
             }
 
-            // Get name. If empty, throw exception
+            // Get name and time. If empty, throw exception
             String n = s.substring(9, first);
-            String t = s.substring(first + 4);
+            String t = s.substring(first + 4, first + 14);
             if (n.isEmpty() || t.isEmpty()) {
                 throw new DukeEmptyArgumentException();
             }
@@ -107,7 +107,7 @@ public class Skibidi {
             // Also, the format should adhere to "/from" and "/to"
             int first = s.indexOf('/');
             int second = s.indexOf('/', first + 1);
-            if (first == -1 || second == -1) {
+            if (first == -1 || second != first + 17) {
                 throw new DukeErroneousArgumentException();
             } else if (!s.startsWith("/from", first)
                     || !s.startsWith("/to", second)) {
@@ -115,8 +115,8 @@ public class Skibidi {
             }
 
             String n = s.substring(6, first - 1);
-            String f = s.substring(first + 6,  second);
-            String t = s.substring(second + 4);
+            String f = s.substring(first + 6,  second - 1);
+            String t = s.substring(second + 4, second + 14);
             if (n.isEmpty() || f.isEmpty() || t.isEmpty()) {
                 throw new DukeEmptyArgumentException();
             }
