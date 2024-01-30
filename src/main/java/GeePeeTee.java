@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class GeePeeTee {
 
@@ -234,10 +235,10 @@ public class GeePeeTee {
           task = new ToDo(description);
           break;
         case "D":
-          task = new Deadline(description, parts[3]);
+          task = new Deadline(description, LocalDate.parse(parts[3]));
           break;
         case "E":
-          task = new Event(description, parts[3], parts[4]);
+          task = new Event(description, LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
           break;
         default:
           throw new DukeException("File contains invalid task type.");
