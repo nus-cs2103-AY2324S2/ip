@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Duke {
     private static final String FILE_PATH = "./data/jamie.txt";
@@ -203,43 +205,59 @@ class ToDo extends Task {
 
 class Deadline extends Task {
 
-    protected String by;
+    protected LocalDateTime byDateTime;
 
     public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
-        this.by = by;
+        this.byDateTime = parseDateTime(by);
+    }
+
+    private LocalDateTime parseDateTime(String by) {
+        // Assuming that the date/time format is "dd/MM/yyyy HHmm"
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        return LocalDateTime.parse(by, formatter);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 
     @Override
     public String toFileString() {
-        return "D | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | " + by;
+        return "D | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | " + byDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
     }
 }
 
 
 class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime fromDateTime;
+    protected LocalDateTime toDateTime;
 
     public Event(String description, String from, String to, boolean isDone) {
         super(description, isDone);
-        this.from = from;
-        this.to = to;
+        this.fromDateTime = parseDateTime(from);
+        this.toDateTime = parseDateTime(to);
+    }
+
+    private LocalDateTime parseDateTime(String dateTime) {
+        // Assuming that the date/time format is "dd/MM/yyyy HHmm"
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        return LocalDateTime.parse(dateTime, formatter);
     }
 
     @Override
     public String toString() {
-        return  "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return  "[E]" + super.toString() +
+                " (from: " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) +
+                " to: " + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 
     @Override
     public String toFileString() {
-        return "E | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | " + from + " | " + to;
+        return "E | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | " +
+                fromDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) + " | " +
+                toDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 }
 
