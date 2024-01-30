@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
@@ -53,7 +55,9 @@ public class Program {
 
     private void readUserInput(String input) {
         String[] userInput = input.split(" ", 2);
-        String command = userInput[0].toLowerCase();
+        ArrayList<String> userInputList = new ArrayList<>(Arrays.asList(userInput));
+        userInputList.add("");
+        String command = userInputList.get(0).toLowerCase();
         String taskNumber;
 
         try {
@@ -65,20 +69,12 @@ public class Program {
                     this.taskList.getList(this.ui);
                     break;
                 case "mark": case "unmark": case "delete":
-                    if (userInput.length != 2) {
-                        throw new DukeCeption("A number is required after writing this command");
-                    } else {
-                        taskNumber = userInput[1];
-                        this.taskList.markOrDelete(command, taskNumber, ui);
-                    }
+                    taskNumber = userInputList.get(1);
+                    this.taskList.markOrDelete(command, taskNumber, ui);
                     break;
                 case "todo": case "deadline": case "event":
-                if (userInput.length != 2) {
-                    throw new DukeCeption("Event description cannot be empty");
-                } else {
-                    String task = userInput[1];
+                    String task = userInputList.get(1);
                     this.taskList.addTask(command, task, ui);
-                }
                     break;
                 default:
                     throw new DukeCeption("Sorry I don't recognize that command :/");
@@ -88,7 +84,6 @@ public class Program {
         } finally {
             ui.print();
         }
-
     }
 
     private void end() {
