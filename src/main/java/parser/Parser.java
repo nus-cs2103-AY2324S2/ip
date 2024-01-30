@@ -9,6 +9,13 @@ import java.time.format.DateTimeFormatter;
 
 public class Parser {
 
+    /**
+     * Takes in a string representation of date/time and returns it as a LocalDateTime object.
+     *
+     * @param dateTime String of the required date/time information.
+     * @return a LocalDateTime object with the provided date/time information.
+     * @throws TobiasException if the dateTime string does not follow format of dd-MM-yyyy HHmm.
+     * */
     public static LocalDateTime dateFromString(String dateTime) throws TobiasException {
         try {
             return LocalDateTime.parse(dateTime.trim(), DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
@@ -17,6 +24,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Takes in a command as a String and a TaskList.
+     * Interprets that command and returns the relevant Command object.
+     *
+     * @param command Type of command given as a String
+     * @param tasks TaskList
+     * @throws TobiasException for each possible type of commands and/or if command is not valid.
+     * @return The relevant type of Command object.
+     * */
     public static Command parseCommands(String command, TaskList tasks) throws TobiasException {
         if(command.equals("list")) {
             ListCommand lc = new ListCommand();

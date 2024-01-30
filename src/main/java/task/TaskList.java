@@ -9,22 +9,46 @@ import java.util.List;
 public class TaskList {
     private List<Task> tasks;
 
+    /**
+     * Constructor for TaskList.
+     * */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Adds task to the TaskList.
+     *
+     * @param task Task to be added to the TaskList.
+     * */
     public void addToList(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Gets the task at index from the TaskList.
+     *
+     * @param index index of Task to be retrieved from TaskList.
+     * */
     public Task getTask(int index) {
         return tasks.get(index);
     }
 
+    /**
+     * Removes the task at index from the TaskList.
+     *
+     * @param index index of Task to be removed from TaskList.
+     * */
     public void removeFromList(int index) {
         tasks.remove(index);
     }
 
+
+    /**
+     * Formats all the tasks in the TaskList to a save .txt format.
+     *
+     * @return String format of all the tasks in the list in a save .txt friendly format.
+     * */
     public String saveMechanism() {
         String result = "";
 
@@ -35,11 +59,23 @@ public class TaskList {
         return result;
     }
 
+
+    /**
+     * Number of tasks in the TaskList.
+     *
+     * @return number of tasks in the TaskList.
+     * */
     public int taskNum() {
         return tasks.size();
     }
 
-    public void printList() {
+
+    /**
+     * Prints all tasks in the TaskList in console.
+     *
+     * @throws TobiasException if the TaskList is empty.
+     * */
+    public void printList() throws TobiasException {
         try {
             if (tasks.isEmpty()) {
                 throw new TobiasException("    Your list is empty at the moment !");

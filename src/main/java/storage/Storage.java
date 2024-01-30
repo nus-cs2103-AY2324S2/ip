@@ -13,10 +13,19 @@ import java.util.Scanner;
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructor for a Storage.
+     *
+     * @param filePath The relative string file path of the saved data.
+     * */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Checks if there is a local saved txt file at the filePath.
+     * If there exists no such .txt file, it will create a new save file at the filePath.
+     * */
     public void createLocalStorage() {
         try {
             File file = new File(filePath);
@@ -36,6 +45,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads data of commands and adds them to the given TaskList.
+     *
+     * @param data String of commands.
+     * @param tasks TaskList.
+     * @throws TobiasException If the given data contains corrupted commands.
+     * */
     public static void localToList(String data, TaskList tasks) throws TobiasException {
         try {
             if (data.startsWith("T")) {
@@ -86,6 +102,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the local saved .txt file at the filePath.
+     * Calls localToList to interpret and add the commands that have been saved in the local .txt file.
+     * */
     public TaskList localToCurrent() {
         TaskList tasks = new TaskList();
         try {
@@ -99,11 +119,16 @@ public class Storage {
         } catch (TobiasException tE) {
             tE.printMessage();
         } catch (IOException e) {
-            System.out.println("local to current function " + e.getMessage());
+            System.out.println(e.getMessage());
         }
         return tasks;
     }
 
+    /**
+     * Takes in a TaskList of tasks and stores it to the local save .txt file.
+     *
+     * @param tasks TaskList containing the tasks that need to be saved.
+     * */
     public void storeToLocal(TaskList tasks) {
         String result = tasks.saveMechanism();
 

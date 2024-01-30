@@ -38,7 +38,7 @@ public class StorageTest {
             Storage.localToList(testStoredCommand, testList);
 
             assert(expected.equals(testList.getTask(0)));
-            
+
         } catch (TobiasException e) {
             e.printMessage();
         }

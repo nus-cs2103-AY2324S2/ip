@@ -11,6 +11,11 @@ public class Tobias {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for the bot - Tobias.
+     *
+     * @param filePath The relative string file path of the saved data.
+     * */
     public Tobias(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -21,6 +26,10 @@ public class Tobias {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Runs the bot - Tobias until isExit is true
+     * */
     public void run() {
         ui.helloPrinter();
         boolean isExit = false;
