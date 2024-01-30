@@ -30,6 +30,8 @@ public class Duke {
                     taskManager.markTask(command);
                 } else if (command.startsWith("unmark")) {
                     taskManager.unmarkTask(command);
+                } else if (command.startsWith("delete")) {
+                    taskManager.deleteTask(command);
                 } else {
                     taskManager.addTask(command);
                 }

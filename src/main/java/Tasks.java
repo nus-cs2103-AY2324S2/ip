@@ -1,19 +1,13 @@
+import java.util.ArrayList;
+
 public class Tasks {
-    private static final int MAX_TASKS =100;
-    private static Task[] tasks;
-    private static int taskCount;
-
+    private static ArrayList<Task> tasks;
     public Tasks() {
-        tasks = new Task[MAX_TASKS];
-        taskCount = 0;
-    }
-
-    private static boolean isFull() {
-        return taskCount >= (MAX_TASKS - 1);
+        tasks = new ArrayList<>();
     }
 
     private static boolean isValidTaskId(int id) {
-        return id >= 0 && id < taskCount;
+        return id >= 0 && id < tasks.size();
     }
 
 
@@ -22,7 +16,7 @@ public class Tasks {
         if (words.length == 2) {
             int taskId = Integer.parseInt(words[1]) -1;
             if(isValidTaskId(taskId)) {
-                Task t = tasks[taskId];
+                Task t = tasks.get(taskId);
                 t.markAsDone();
                 System.out.println(" Nice ! I've marked this task as done: \n" + t);
             } else {
@@ -38,7 +32,7 @@ public class Tasks {
         if (words.length == 2) {
             int taskId = Integer.parseInt(words[1]) - 1;
             if (isValidTaskId(taskId)) {
-                Task t = tasks[taskId];
+                Task t = tasks.get(taskId);
                 t.markAsUndone();
                 System.out.println(" Ok, I've marked this task as not done yet: \n" + t);
             } else {
@@ -64,26 +58,42 @@ public class Tasks {
             default:
                 throw new DukeException(" Sorry! I don't know what that means :c ");
         }
+        tasks.add(t);
+        System.out.println(" Got it. I've added this task: \n" + t);
+        printTaskSize();
+    }
 
-        if (! Tasks.isFull()) {
-            tasks[taskCount++] = t;
-            System.out.println(" Got it. I've added this task: \n" + t);
-            System.out.println(" Now you have " + taskCount + " tasks in the list. ");
-        } else {
-            System.out.println(" Oops! Task list is full.");
-        }
+    private void printTaskSize(){
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list. ");
+
     }
 
     public void listOutTasks() {
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println(" No task added yet!");
         } else {
             System.out.println(" Here are the tasks in your list: ");
-            for(int i = 0; i < taskCount; i++) {
+            for(int i = 0; i < tasks.size(); i++) {
                 int seq = i+1;
-                Task t = tasks[i];
+                Task t = tasks.get(i);
                 System.out.println(" " + seq + ". " + t.toString());
             }
+        }
+    }
+
+    public void deleteTask(String command) throws DukeException {
+        String[] parts = command.trim().split(" ");
+        if (parts.length == 2) {
+            int taskIndex = Integer.parseInt(parts[1].trim()) - 1;
+            if(isValidTaskId(taskIndex)) {
+                Task removedTask = tasks.remove(taskIndex);
+                System.out.println(" Noted. I've removed this task:\n" + removedTask);
+                printTaskSize();
+            } else {
+                throw new DukeException(" Invalid task index");
+            }
+        } else {
+            throw new DukeException(" Invalid delete format. Try: delete <Task Index> ");
         }
     }
     private String getTaskType(String command) {
@@ -106,7 +116,7 @@ public class Tasks {
 
     private static Deadline handleDeadline(String command) throws DukeException{
         if (!command.contains(" ")) {
-            throw new DukeException(" The description of a todo cannot be empty.");
+            throw new DukeException(" The description of a deadline cannot be empty.");
         } else {
             String s = command.substring(8).trim();
             String[] parts = s.split("/by ", 2);
