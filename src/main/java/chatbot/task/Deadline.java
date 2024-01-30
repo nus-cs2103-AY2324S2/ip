@@ -1,0 +1,79 @@
+package chatbot.task;
+
+import chatbot.value.DateStringValue;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Deadlines: tasks that need to be done before a specific date/time.
+ *
+ * @author Titus Chew
+ */
+public class Deadline extends Task {
+    /**
+     * Stores the deadline of this.
+     */
+    private final DateStringValue deadline;
+
+    /**
+     * The icon for the task type.
+     */
+    static String TASK_TYPE_ICON = "D";
+
+    /**
+     * The format that a {@link Deadline} takes.
+     */
+    private static final String FORMAT = String.format("[%s]%s (by: %s)", TASK_TYPE_ICON, "%s", "%s");
+
+    /**
+     * The regex pattern that a {@link Deadline} takes.
+     */
+    private static final String REGEX_PATTERN =
+            String.format("\\[%s\\](?<task>.*)\\(by:(?<by>.*)\\)", TASK_TYPE_ICON);
+
+    /**
+     * Constructor for this deadline.
+     *
+     * @param name the name of this deadline
+     * @param deadline the deadline (possibly date/time) of this chatbot.task
+     */
+    public Deadline(String name, String deadline) {
+        super(name);
+        this.deadline = new DateStringValue(deadline);
+    }
+
+    /**
+     * Constructor for this deadline.
+     *
+     * @param matcher the matcher that has the relevant captured groups
+     */
+    public Deadline(Matcher matcher) {
+        super(matcher);
+        this.deadline = new DateStringValue(matcher.group("by"));
+    }
+
+    /**
+     * Parse a deadline from a human-readable string.
+     *
+     * @param readableString the deadline as a human-readable string
+     * @return the deadline
+     * @throws IllegalStateException If the regex doesn't match the pattern
+     */
+    public static Deadline parseDeadline(String readableString) throws IllegalStateException {
+        Matcher matcher = Pattern
+                .compile(REGEX_PATTERN)
+                .matcher(readableString);
+
+        matcher.find();
+        return new Deadline(matcher);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return String.format(FORMAT, super.toString(), deadline);
+    }
+}

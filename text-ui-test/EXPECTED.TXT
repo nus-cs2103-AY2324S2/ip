@@ -1,6 +1,4 @@
     ____________________________________________________________
-    I have found and loaded a previous save file successfully!
-    ____________________________________________________________
     Hello! I'm Stratify!
     What can I do for you?
     ____________________________________________________________
@@ -99,7 +97,6 @@
     OOPS!!! I'm sorry, but I don't know what `/on` means :-(
         Usage: `deadline <name> /by <by_date>`
     ____________________________________________________________
-2011-01-23
     ____________________________________________________________
     Got it. I've added this deadline:
         [D][ ] return book (by: Jan 23 2011)
@@ -124,8 +121,6 @@
     OOPS!!! The argument `/to` of `event` must be present!
         Usage: `event <name> /from <start_date> /to <end_date>`
     ____________________________________________________________
-null
-null
     ____________________________________________________________
     Got it. I've added this event:
         [E][ ] project meeting (from: Mon 2pm to: 4pm)
@@ -143,7 +138,6 @@ null
     OOPS!!! The argument value <name> of `deadline` must be present!
         Usage: `deadline <name> /by <by_date>`
     ____________________________________________________________
-null
     ____________________________________________________________
     Got it. I've added this deadline:
         [D][ ] do homework (by: no idea :-p)
