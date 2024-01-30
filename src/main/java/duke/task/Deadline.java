@@ -25,7 +25,8 @@ public class Deadline extends Task {
         try {
             date = LocalDateTime.parse(s, formatter);
         } catch (DateTimeParseException e) {
-            throw new DateTimeParseException("Invalid start/end date. Specify date in format 'dd-MM-yyyy HH:mm'.", e.getParsedString(), e.getErrorIndex());
+            throw new DateTimeParseException("Invalid start/end date. Specify date in format 'dd-MM-yyyy HH:mm'.",
+                    e.getParsedString(), e.getErrorIndex());
         }
         return date;
     }
@@ -42,7 +43,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("D | %s | %s", super.toString(), this.date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+        return String.format("D | %s | %s", super.toString(),
+                this.date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
     }
 
     /**

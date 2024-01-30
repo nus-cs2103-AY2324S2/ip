@@ -27,7 +27,8 @@ public class Event extends Task {
         try {
             date = LocalDateTime.parse(s, formatter);
         } catch (DateTimeParseException e) {
-            throw new DateTimeParseException("Invalid start/end date. Specify date in format 'dd-MM-yyyy HH:mm'.", e.getParsedString(), e.getErrorIndex());
+            throw new DateTimeParseException("Invalid start/end date. Specify date in format 'dd-MM-yyyy HH:mm'.",
+                    e.getParsedString(), e.getErrorIndex());
         }
         return date;
     }
@@ -44,7 +45,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("E | %s | %s | %s", super.toString(), this.start.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")), this.end.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+        return String.format("E | %s | %s | %s", super.toString(),
+                this.start.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")),
+                this.end.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
     }
 
     /**

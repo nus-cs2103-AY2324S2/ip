@@ -7,6 +7,7 @@ import duke.task.Todo;
 import duke.util.StorageStub;
 import duke.util.TaskList;
 import duke.util.Ui;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -61,7 +62,8 @@ public class MarkCommandTest {
         try {
             mc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub("", ""));
         } catch (DukeException e) {
-            assertEquals("Task (-2) not found.\n\t Here are the tasks in your list:\n\t\t 1." + t.printTask(), e.getMessage());
+            assertEquals("Task (-2) not found.\n\t Here are the tasks in your list:\n\t\t 1." + t.printTask(),
+                    e.getMessage());
         }
     }
 }
