@@ -1,3 +1,0 @@
-[T][ ] 213
-[D][X] eat (by: tomorrow)
-[E][ ] reading (from: 8978 to: 28739)
