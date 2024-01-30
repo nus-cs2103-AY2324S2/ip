@@ -4,11 +4,8 @@ import duke.Exceptions.InvalidInstructionException;
 import duke.Exceptions.MissingTaskToMarkException;
 import duke.Exceptions.MissingToDoNameException;
 import duke.Parsers.DateTimeParser;
-import duke.Tasks.Deadline;
-import duke.Tasks.Event;
-import duke.Tasks.ToDo;
+import duke.Tasks.*;
 import javafx.util.Pair;
-import duke.Tasks.TaskList;
 
 import java.time.LocalDate;
 
@@ -109,10 +106,25 @@ public class Parser {
                 }
 
 
-            } else if (input.toLowerCase().startsWith("delete")){
+            } else if (input.toLowerCase().startsWith("delete")) {
                 int index = Integer.parseInt(input.substring(7));
                 String response = tasksList.delete(index);
                 output += (response);
+
+            } else if (input.toLowerCase().startsWith("find")) {
+                String keyword = input.split(" ")[1];
+                TaskList temp = new TaskList();
+                for (Task t : tasksList.getTasksList()) {
+                    if (t.getTaskName().contains(keyword)) {
+                        temp.add(t);
+                    }
+
+                }
+                output += this.line;
+                output += "Here are the matching tasks in your list:\n";
+                output += temp.toString();
+                output += ("\n" + this.line);
+
             } else {
                 output += ("Try entering a valid instruction! Eg. 'Todo Chores' or 'Mark 2'\n");
             }
