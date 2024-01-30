@@ -17,14 +17,14 @@ public class TaskList {
         System.out.println("―――――――――――――――――――――――――――――――――――");
     }
 
-    public void unmarkTask(int index) {
+    protected void unmarkTask(int index) {
         Task currTask = taskStore.get(index);
         currTask.updateTask(false);
         System.out.println("*Honk!* Pengu has marked this task as not done yet:\n" + currTask.toString());
         System.out.println("―――――――――――――――――――――――――――――――――――");
     }
 
-    public void deleteTask(int index) {
+    protected void deleteTask(int index) {
         Task deletedTask = taskStore.remove(index);
         System.out.println(String.format("*Honk* Pengu has removed the following task:\n" + deletedTask.toString()
                 + "\nNow you have %s tasks left", taskStore.size()));
