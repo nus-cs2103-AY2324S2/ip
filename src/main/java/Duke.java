@@ -22,12 +22,19 @@ public class Duke {
     }
 
     public void handleInput() {
-        String input = scanner.nextLine();
-        String command = input.split(" ")[0];
+        String input;
+        String[] parts;
+        String command;
+        String details;
         int taskToMark = -1;
+        String output;
 
-        while (!command.equals("bye")) {
-            String output = "";
+        while(true) {
+            input = scanner.nextLine();
+            parts = input.split(" ", 2);
+            command = parts[0];
+            details = parts.length > 1 ? parts[1] : "";
+            output = "";
             switch (command) {
             case "list":
                 int i = 1;
@@ -38,19 +45,36 @@ public class Duke {
                 output = output.trim();
                 break;
             case "mark":
-                taskToMark = Integer.parseInt(input.split(" ")[1]) - 1;
+                taskToMark = Integer.parseInt(details) - 1;
                 todolist.get(taskToMark).markAsDone(true);
                 output = "Nice! I've marked this task as done:\n\t" + todolist.get(taskToMark).toString();
                 break;
             case "unmark":
-                taskToMark = Integer.parseInt(input.split(" ")[1]) - 1;
+                taskToMark = Integer.parseInt(details) - 1;
                 todolist.get(taskToMark).markAsDone(false);
                 output = "OK, I've marked this task as not done yet:\n\t" + todolist.get(taskToMark).toString();
                 break;
+            case "todo":
+                Task todo = new Todo(details);
+                output = "added todo: " + todo.toString();
+                addItem(todo);
+                break;
+            case "deadline":
+                String deadlineName = details.split("/by")[0];
+                String by = details.split("/by")[1];
+                Task deadline = new Deadline(deadlineName, by);
+                addItem(deadline);
+                output = "added deadline: " + deadline.toString();
+                break;
+            case "event":
+                String eventName = details.split("/from ")[0];
+                String from = details.split("/from ")[1].split(" /to")[0];
+                String to = details.split("/to ")[1];
+                Task event = new Event(eventName, from, to);
+                addItem(event);
+                output = "added event: " + event.toString();
+                break;
             default:
-                Task newtask = new Task(input);
-                output = "added: " + input;
-                addItem(newtask);
                 break;
             }
 
@@ -59,9 +83,6 @@ public class Duke {
                 System.out.println("\t" + output);
                 System.out.println(sep);
             }
-
-            input = scanner.nextLine();
-            command = input.split(" ")[0];
         }
     }
 
