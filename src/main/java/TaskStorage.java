@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -27,8 +26,8 @@ public class TaskStorage {
             if (task instanceof Deadline) {
                 jsonTask.put("deadline", ((Deadline) task).getDeadline());
             } else if (task instanceof Event) {
-                jsonTask.put("fromDate", ((Event) task).getFromDate());
-                jsonTask.put("toDate", ((Event) task).getToDate());
+                jsonTask.put("fromDate", ((Event) task).getFromDateTime());
+                jsonTask.put("toDate", ((Event) task).getToDateTime());
             }
 
             jsonArray.put(jsonTask);

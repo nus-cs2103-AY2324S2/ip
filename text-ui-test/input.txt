@@ -17,4 +17,10 @@ list
 unmark 3
 list
 delete 1
+deadline ps1 /by 2024-02-01 2359
+deadline ps2 /by 2024-02-01 9999
+deadline ps1 /by 2069-02-01 2359
+event career fair /from 2024-02-05 1300 /to 2024-02-10 2200
+event career fair /from 2024-02-05 1300 /to thisisnotadate
+event career fair /from 2024-02-05 9999 /to 2024-02-10 2200
 bye
