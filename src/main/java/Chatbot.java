@@ -25,7 +25,7 @@ public class Chatbot {
 
     private String goodbye = "\tBye. Hope to see you again soon!\n"
             + Chatbot.LINE;
-    private static final String DATA_DIRECTORY = "..\\src\\main\\java\\data";
+    private static final String DATA_DIRECTORY = ".\\src\\main\\java\\data";
     private static final String DATA_FILE = DATA_DIRECTORY + "/tasks.txt";
 
     private String name;
@@ -203,7 +203,7 @@ public class Chatbot {
             this.storageFill++;
         }
 
-        if (!isLoading) {
+        if (!isLoading) { // so that reading from existing tasks will not produce log
             System.out.println("\tGot it. I've added this task:\n\t" + newTask);
             System.out.println("\tNow you have " + this.storageFill + " tasks in the list.");
         }
@@ -242,12 +242,7 @@ public class Chatbot {
 
     private void loadTasks() {
         File file = new File(DATA_FILE);
-        this.isLoading = true;
-
-        if (!file.exists()) {
-            ErrorHandler.handleFileNotFoundException(DATA_FILE);
-            return;
-        }
+        this.isLoading = true; // start reading tasks from existing file
 
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {

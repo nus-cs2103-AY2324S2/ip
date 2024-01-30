@@ -4,3 +4,4 @@ Event | 0 | event project meeting /from Thursday 4pm /to 6pm
 Todo | 0 | todo Go school
 Deadline | 0 | deadline Task 4 /by Friday
 Event | 0 | event project meeting /from Thursday 4pm /to 6pm
+Todo | 0 | todo hi

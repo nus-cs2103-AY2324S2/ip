@@ -1,7 +1,7 @@
 public class ErrorHandler {
 
     public static void handleFileNotFoundException(String filePath) {
-        System.out.println("File not found: " + filePath + ". A new file will be created.");
+        System.out.println("File not found: " + filePath);
     }
 
     public static void handleIOException() {
