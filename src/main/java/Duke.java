@@ -35,8 +35,13 @@ public class Duke {
             command = parts[0];
             details = parts.length > 1 ? parts[1] : "";
             output = "";
+            
             switch (command) {
             case "list":
+                if (todolist.isEmpty()) {
+                    output = "Todolist is empty";
+                    break;
+                }
                 int i = 1;
                 for(Task todo : todolist) {
                     output = output.concat(i + ". " + todo.toString() + "\n\t");
