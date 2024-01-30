@@ -11,7 +11,7 @@ public class Storage {
     private File directory;
     private File storageFile;
 
-    public Storage() throws IOException,DukeException {
+    public Storage() throws DukeException,IOException {
         directory = new File(DATAFILEPATH);
         if (!directory.exists()) {
             directory.mkdir();
@@ -23,7 +23,7 @@ public class Storage {
         this.loadStorage();
     }
 
-    private void loadStorage() throws IOException,DukeException {
+    private void loadStorage() throws DukeException,IOException {
         Scanner s = new Scanner(storageFile);
         while (s.hasNextLine()) {
             String storedInput = s.nextLine();
