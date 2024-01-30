@@ -1,13 +1,20 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
 
 public class Duke {
+    private static final String FILE_PATH = "./data/duke.txt";
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in); // Declare Scanner instance
 
         ArrayList<Task> tasks = new ArrayList<>();
-        String chatbotName = "Jamie";
+        tasks = loadTasksFromFile();
 
+        String chatbotName = "Jamie";
         System.out.println("Hello! I'm " + chatbotName + "\nWhat can I do for you?");
 
         while (true) {
@@ -29,6 +36,7 @@ public class Duke {
                 } else {
                     addTask(userInput, tasks);
                 }
+                saveTasksToFile(tasks);
             } catch (JamieException e) {
                 System.out.println(" " + e.getMessage());
             }
@@ -100,6 +108,39 @@ public class Duke {
             throw new JamieException("Invalid command format for deleting a task.");
         }
     }
+
+    private static void saveTasksToFile(ArrayList<Task> tasks) throws JamieException {
+        try {
+            FileWriter writer = new FileWriter(FILE_PATH);
+            for (Task task : tasks) {
+                writer.write(task.toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            throw new JamieException("OOPS!!! Unable to save tasks to the file.");
+        }
+    }
+
+    private static ArrayList<Task> loadTasksFromFile() {
+        ArrayList<Task> loadedTasks = new ArrayList<>();
+        try {
+            File file = new File(FILE_PATH);
+            if (file.exists()) {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    String taskString = scanner.nextLine();
+                    Task task = TaskParser.parseFileString(taskString);
+                    if (task != null) {
+                        loadedTasks.add(task);
+                    }
+                }
+                scanner.close();
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file. Starting with an empty task list.");
+        }
+        return loadedTasks;
+    }
 }
 
 
@@ -107,13 +148,17 @@ class Task {
     private String description;
     private boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = false;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
     }
 
     public String getStatusIcon() {
@@ -131,18 +176,27 @@ class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + getDescription();
     }
+
+    public String toFileString() {
+        return "filestring";
+    }
 }
 
 
 class ToDo extends Task {
 
-    public ToDo(String description) {
-        super(description);
+    public ToDo(String description, boolean isDone) {
+        super(description, isDone);
     }
 
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    @Override
+    public String toFileString() {
+        return "T | " + (getIsDone() ? "1" : "0") + " | " + getDescription();
     }
 }
 
@@ -151,14 +205,19 @@ class Deadline extends Task {
 
     protected String by;
 
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, String by, boolean isDone) {
+        super(description, isDone);
         this.by = by;
     }
 
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        return "D | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | " + by;
     }
 }
 
@@ -167,8 +226,8 @@ class Event extends Task {
     protected String from;
     protected String to;
 
-    public Event(String description, String from, String to) {
-        super(description);
+    public Event(String description, String from, String to, boolean isDone) {
+        super(description, isDone);
         this.from = from;
         this.to = to;
     }
@@ -176,6 +235,11 @@ class Event extends Task {
     @Override
     public String toString() {
         return  "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        return "E | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | " + from + " | " + to;
     }
 }
 
@@ -195,13 +259,13 @@ class TaskParser {
                 if (details.trim().isEmpty()) {
                     throw new JamieException("OOPS!!! The description of a todo cannot be empty.");
                 }
-                return new ToDo(details);
+                return new ToDo(details, false);
             case "deadline":
                 String[] deadlineDetails = details.split(" /by ");
                 if (deadlineDetails.length != 2 || deadlineDetails[0].trim().isEmpty() || deadlineDetails[1].trim().isEmpty()) {
                     throw new JamieException("OOPS!!! Invalid format for deadline. Please use: deadline <description> /by <date>");
                 }
-                return new Deadline(deadlineDetails[0], deadlineDetails[1]);
+                return new Deadline(deadlineDetails[0], deadlineDetails[1], false);
             case "event":
                 String[] eventDetails = details.split(" /from ");
                 if (eventDetails.length != 2) {
@@ -211,9 +275,37 @@ class TaskParser {
                 if (eventTiming.length != 2 || eventTiming[0].trim().isEmpty() || eventTiming[1].trim().isEmpty()) {
                     throw new JamieException("OOPS!!! Invalid format for event timing. Please use: event <description> /from <start> /to <end>");
                 }
-                return new Event(eventDetails[0], eventTiming[0], eventTiming[1]);
+                return new Event(eventDetails[0], eventTiming[0], eventTiming[1], false);
         }
         throw new JamieException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+
+    public static Task parseFileString(String fileString) {
+        String[] parts = fileString.split(" \\| ");
+        if (parts.length >= 3) {
+            String type = parts[0];
+            boolean isDone = Integer.parseInt(parts[1]) == 1;
+            String details = parts[2];
+
+            switch (type) {
+                case "T":
+                    return new ToDo(details, isDone);
+                case "D":
+                    String[] deadlineDetails = details.split(" /by ");;
+                    if (deadlineDetails.length == 2) {
+                        return new Deadline(deadlineDetails[0], deadlineDetails[1], isDone);
+                    }
+                    break;
+                case "E":
+                    String[] eventDetails = details.split(" /from ");
+                    String[] eventTiming = eventDetails[1].split(" /to ");
+                    if (eventDetails.length == 2) {
+                        return new Event(eventDetails[0], eventTiming[0], eventTiming[1], isDone);
+                    }
+                    break;
+            }
+        }
+        return null;
     }
 }
 
