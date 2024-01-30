@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskLoader {
+public class Storage {
 
   public static List<Task> load() {
     try {
