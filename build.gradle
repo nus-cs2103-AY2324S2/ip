@@ -33,7 +33,6 @@ application {
 
 shadowJar {
     archiveBaseName = "kervyn"
-    archiveFileName = "kervyn.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
