@@ -63,7 +63,7 @@ public class InputsValidator {
         return false;
     }
 
-    public boolean validateAddToDoTaskInput(String userInput){
+    public boolean validateAddToDoTaskInput(String userInput) {
         String taskName = userInput.substring(addToDoTaskCommand.COMMAND.length()).trim();
         if (!taskName.isEmpty()) {
             return true;
@@ -73,7 +73,7 @@ public class InputsValidator {
         return false;
     }
 
-    public boolean validateAddDeadlineTaskInput(String userInput){
+    public boolean validateAddDeadlineTaskInput(String userInput) {
         int byIndex = userInput.indexOf("/by");
 
         if (byIndex != -1) {
@@ -115,8 +115,8 @@ public class InputsValidator {
                 String endDateTime = userInput.substring(toIndex + "/to".length()).trim();
                 if (isValidDateTime(startDateTime) && isValidDateTime(endDateTime)) {
 
-                    if (DateTimeFormatters.getInstance().userInputDateTimeFormatter(startDateTime).
-                            isBefore((DateTimeFormatters.getInstance().userInputDateTimeFormatter(endDateTime)))) {
+                    if (DateTimeFormatters.getInstance().userInputDateTimeFormatter(startDateTime)
+                            .isBefore((DateTimeFormatters.getInstance().userInputDateTimeFormatter(endDateTime)))) {
                         return true;
                     } else {
                         System.out.println("Invalid date-time order. Start date/time should be before end date/time.");
@@ -177,8 +177,8 @@ public class InputsValidator {
             int hour = Integer.parseInt(dateTimeParts[1].substring(0, 2));
             int minute = Integer.parseInt(dateTimeParts[1].substring(2));
 
-            return isValidDay(dateParts[0]) && isValidMonth(dateParts[1]) && isValidYear(dateParts[2]) &&
-                    hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59 && dateTimeParts[1].length() == 4;
+            return isValidDay(dateParts[0]) && isValidMonth(dateParts[1]) && isValidYear(dateParts[2])
+                    && hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59 && dateTimeParts[1].length() == 4;
         } catch (NumberFormatException e) {
             return false;
         }

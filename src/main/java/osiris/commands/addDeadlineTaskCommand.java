@@ -13,7 +13,7 @@ public class addDeadlineTaskCommand extends Command{
 
     private LocalDate deadline;
 
-    public addDeadlineTaskCommand(String taskName, LocalDate deadline){
+    public addDeadlineTaskCommand(String taskName, LocalDate deadline) {
         this.taskName = taskName;
         this.deadline = deadline;
     }

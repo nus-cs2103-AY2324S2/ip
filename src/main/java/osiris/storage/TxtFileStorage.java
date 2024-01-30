@@ -1,15 +1,14 @@
 package osiris.storage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.FileWriter;
 
 
-public class txtFileStorage extends Storage{
-
-    public txtFileStorage(String filepath) {
+public class TxtFileStorage extends Storage {
+    public TxtFileStorage(String filepath) {
         super(filepath);
     }
 
@@ -54,16 +53,6 @@ public class txtFileStorage extends Storage{
         }
 
         return readContents;
-    }
-
-    public void writeToTxtFileStorage(String content) {
-        try {
-            FileWriter fw = new FileWriter(this.getFilepath());
-            fw.write(content);
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Error: Unable to update Task Storage File.");
-        }
     }
 
     public void appendToTxtFileStorage(String content) {

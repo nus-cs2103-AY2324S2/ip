@@ -22,8 +22,7 @@ public class DateTimeFormatters {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         try {
-            LocalDate date = LocalDate.parse(dateStr, dateTimeFormatter);
-            return date;
+            return LocalDate.parse(dateStr, dateTimeFormatter);
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse the date-time string: " + dateStr);
             System.out.println("Please try /by dd-mm-yyyy for a deadline tasks.");
@@ -35,8 +34,7 @@ public class DateTimeFormatters {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
         try {
-            LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, dateTimeFormatter);
-            return dateTime;
+            return LocalDateTime.parse(dateTimeStr, dateTimeFormatter);
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse the date-time string: " + dateTimeStr);
             System.out.println("Please provide date time range 'dd-MM-yyyy HHmm' format.");
@@ -63,8 +61,7 @@ public class DateTimeFormatters {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
 
         try {
-            LocalDate date = LocalDate.parse(dateStr, dateTimeFormatter);
-            return date;
+            return LocalDate.parse(dateStr, dateTimeFormatter);
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse the date-time string: '" + dateStr);
             return null;
@@ -72,11 +69,10 @@ public class DateTimeFormatters {
     }
 
     public LocalDateTime storedDataDateTimeFormatter(String dateTimeStr) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
 
         try {
-            LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, dateTimeFormatter);
-            return dateTime;
+            return LocalDateTime.parse(dateTimeStr, dateTimeFormatter);
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse the date-time string: '" + dateTimeStr);
             return null;

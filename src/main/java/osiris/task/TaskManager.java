@@ -1,7 +1,7 @@
 package osiris.task;
 
 import osiris.formatters.DateTimeFormatters;
-import osiris.storage.txtFileStorage;
+import osiris.storage.TxtFileStorage;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,7 +13,7 @@ public class TaskManager {
 
     private ArrayList<Task> userTasks = new ArrayList<>();
 
-    private txtFileStorage taskStorage = new txtFileStorage(TASKSTORAGEFILEPATH);
+    private TxtFileStorage taskStorage = new TxtFileStorage(TASKSTORAGEFILEPATH);
 
     public boolean addToDoTask(String taskName, boolean isCompleted) {
         ToDoTask newTask = new ToDoTask(taskName, isCompleted);
