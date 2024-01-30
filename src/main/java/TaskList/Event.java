@@ -1,13 +1,18 @@
 package TaskList;
 
-public class Event extends Task {
-    private String startTime;
-    private String endTime;
+import CustomExceptions.MalformedUserInputException;
+import Parser.DateTimeParser;
 
-    public Event(String description, String startTime, String endTime, boolean isDone) {
+import java.time.LocalDate;
+
+public class Event extends Task {
+    private DateTimeParser startTime;
+    private DateTimeParser endTime;
+
+    public Event(String description, String startTime, String endTime, boolean isDone) throws MalformedUserInputException {
         super(description, isDone);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = new DateTimeParser(startTime);
+        this.endTime = new DateTimeParser(endTime);
     }
 
     @Override
@@ -17,7 +22,7 @@ public class Event extends Task {
 
     @Override
     public String toStorageString() {
-        return "E | " + this.getDescription() + " | " + super.getStatus() + " | " + this.startTime + " | " + this.endTime;
+        return "E | " + this.getDescription() + " | " + super.getStatus() + " | " + this.startTime.toStorageString() + " | " + this.endTime.toStorageString();
     }
 
 

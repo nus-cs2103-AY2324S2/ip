@@ -5,9 +5,14 @@ import CustomExceptions.TooManyTasksException;
 import Parser.EventParser;
 import TaskList.Task;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Duke {
+
 
 
     public static void main(String[] args) {
@@ -80,7 +85,8 @@ public class Duke {
                     System.out.println("\t ____________________________________________________________");
                     System.out.println("\t You have a malformed input for your deadline command. \n" +
                             "\t It is likely that you are missing the event name and or a by date.\n" +
-                            "\t Your command should be in this format: deadline return book /by Sunday"
+                            "\t Your command should be in this format: deadline return book /by Sunday \n" +
+                            "\t " + malformedUserInputException.getMessage()
                     );
                     System.out.println("\t ____________________________________________________________");
 
@@ -147,7 +153,6 @@ public class Duke {
             System.out.println("\t ____________________________________________________________");
             System.out.println("\t You are too busy .... how come you got so many tasks??");
             System.out.println("\t See la the array no space already. Delete some stuff or restart the program please.");
-            System.out.println("\t ____________________________________________________________");
         }
     }
 
@@ -198,4 +203,8 @@ public class Duke {
     }
 
 
+
+
+
 }
+

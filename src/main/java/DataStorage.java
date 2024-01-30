@@ -97,7 +97,7 @@ public class DataStorage {
         } catch (IOException e) {
             System.out.println("An error occurred while reading from the file.");
         } catch (MalformedUserInputException malformedUserInputException) {
-            System.out.println("Your database may be corrupted.");
+            System.out.println("Your database may be corrupted. " + malformedUserInputException.getMessage());
         }
 
         return tasksList;

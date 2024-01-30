@@ -1,12 +1,18 @@
 package TaskList;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import CustomExceptions.MalformedUserInputException;
+import Parser.DateTimeParser;
+
 public class Deadline extends Task {
 
-    private String by;
+    private DateTimeParser by;
 
-    public Deadline(String description, String by, boolean isDone) {
+    public Deadline(String description, String by, boolean isDone) throws MalformedUserInputException {
         super(description, isDone);
-        this.by = by;
+        this.by = new DateTimeParser(by);
     }
 
     @Override
@@ -16,7 +22,7 @@ public class Deadline extends Task {
 
     @Override
     public String toStorageString() {
-        return "D | " + this.getDescription() + " | " + super.getStatus() + " | " + this.by;
+        return "D | " + this.getDescription() + " | " + super.getStatus() + " | " + this.by.toStorageString();
     }
 
 
