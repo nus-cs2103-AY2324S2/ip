@@ -13,11 +13,11 @@ public class Reacher {
                 "Pls say bye");
         while (true) {
             String input = scanner.nextLine();
-            if (Objects.equals(input,"bye")) { //check for end request
+            if (input.equalsIgnoreCase("bye")) { //check for end request
                 System.out.println("bye");
                 break;
             }
-            else if (Objects.equals(input, "list")) {// check for list request
+            else if (input.equalsIgnoreCase( "list")) {// check for list request
                 System.out.println("Tasks:");
                 int c = 1;
                 for(Task task:memory) {
@@ -25,26 +25,44 @@ public class Reacher {
                     c++;
                 }
             }
-            else if (Objects.equals(input, "edit")) {
+            else if (input.equalsIgnoreCase( "edit")) {
                 System.out.println("Which task number would u like to edit?");
                 int num = scanner.nextInt();
                 scanner.nextLine();
                 Task task = memory.get(num - 1);
                 System.out.println("Mark Done or Undone?");
                 String change = scanner.nextLine();
-                if (Objects.equals(change, "done")) {
+                if (change.equalsIgnoreCase( "done")) {
                     task.markDone();
                     System.out.println("Task " + num + " marked done");
                 }
-                else  {
+                else if (change.equalsIgnoreCase( "undone")){
                     task.markNotDone();
                     System.out.println("Task " + num + " marked Undone");
                 }
             }
             else {
-                Task t = new Task(input);
-                memory.add(t);
-                System.out.println("I've added " + input);
+                System.out.println("What type of task is this?");
+                String type = scanner.nextLine();
+                if (type.equalsIgnoreCase("todo")) {
+                    Todos t = new Todos(input);
+                    memory.add(t);
+                    System.out.println("I've added " + t.toString());
+                } else if (type.equalsIgnoreCase("deadline")) {
+                    System.out.println("When is the deadline?");
+                    String deadline = scanner.nextLine();
+                    Deadline t = new Deadline(input, deadline);
+                    memory.add(t);
+                    System.out.println("I've added " + t.toString());
+                } else if (type.equalsIgnoreCase("event")) {
+                    System.out.println("When is the start?");
+                    String start = scanner.nextLine();
+                    System.out.println("When is the end?");
+                    String end = scanner.nextLine();
+                    Events t = new Events(input, start, end);
+                    memory.add(t);
+                    System.out.println("I've added " + t.toString());
+                }
             }
         }
         scanner.close();

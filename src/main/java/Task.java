@@ -17,6 +17,7 @@ public class Task {
     public void markNotDone() {
         this.isDone = false;
     }
+    @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
