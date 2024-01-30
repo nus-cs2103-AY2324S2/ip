@@ -1,6 +1,7 @@
 package chatbot.storage;
 
-import chatbot.io.ui.Printer;
+import chatbot.parse.TaskParser;
+import chatbot.ui.Printer;
 import chatbot.task.TaskList;
 import chatbot.task.Deadline;
 import chatbot.task.exception.InvalidTaskStringException;
@@ -104,7 +105,7 @@ public final class LocalStorage {
         try (BufferedReader br = Files.newBufferedReader(path)) {
             String line;
             while ((line = br.readLine()) != null) {
-                taskList.add(TaskList.parseTaskListItem(line));
+                taskList.add(TaskParser.parseTaskListItem(line));
             }
             Printer.addToPrintQueue("I have found and loaded a previous save file successfully!");
             return taskList;

@@ -1,4 +1,4 @@
-package chatbot.io.ui;
+package chatbot.ui;
 
 import java.util.*;
 

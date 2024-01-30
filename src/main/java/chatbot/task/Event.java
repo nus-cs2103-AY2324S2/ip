@@ -24,7 +24,7 @@ public final class Event extends Task {
     /**
      * The icon for the task type.
      */
-    static final String TASK_TYPE_ICON = "E";
+    private static final String TASK_TYPE_ICON = "E";
 
     /**
      * The format/pattern that an {@link Event} takes.
@@ -34,8 +34,8 @@ public final class Event extends Task {
     /**
      * The regex pattern that a {@link Deadline} takes.
      */
-    private static final String REGEX_PATTERN =
-            String.format("\\[%s\\](?<task>.*)\\(from:(?<from>.*)to:(?<to>.*)\\)", TASK_TYPE_ICON);
+    private static final Pattern REGEX_PATTERN = Pattern.compile(
+            String.format("\\[%s\\](?<task>.*)\\(from:(?<from>.*)to:(?<to>.*)\\)", TASK_TYPE_ICON));
 
     /**
      * Constructor for this event.
@@ -70,15 +70,23 @@ public final class Event extends Task {
      * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
     public static Event parseEvent(String readableString) throws InvalidTaskStringException {
-        Matcher matcher = Pattern
-                .compile(REGEX_PATTERN)
-                .matcher(readableString);
+        Matcher matcher = REGEX_PATTERN.matcher(readableString);
 
         if (matcher.find()) {
             return new Event(matcher);
         } else {
             throw new InvalidTaskStringException();
         }
+    }
+
+    /**
+     * Checks if the format of a string matches with the pattern.
+     *
+     * @param matchingString the string
+     * @return true if it matches, otherwise false.
+     */
+    public static boolean matchesEvent(String matchingString) {
+        return REGEX_PATTERN.matcher(matchingString).find();
     }
 
     /**

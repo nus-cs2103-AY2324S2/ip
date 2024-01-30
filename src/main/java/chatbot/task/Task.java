@@ -30,7 +30,8 @@ public abstract class Task {
     /**
      * The regex pattern that a {@link Task} takes.
      */
-    private static final String REGEX_PATTERN = "\\[(?<status>.)\\](?<name>.*)";
+    private static final Pattern REGEX_PATTERN = Pattern.compile(
+            "\\[(?<status>.)\\](?<name>.*)");
 
     /**
      * The text icon to indicate that a task is completed.
@@ -53,9 +54,7 @@ public abstract class Task {
      * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
     public Task(Matcher matcher) throws InvalidTaskStringException {
-        matcher = Pattern
-                .compile(REGEX_PATTERN)
-                .matcher(matcher.group("task"));
+        matcher = REGEX_PATTERN.matcher(matcher.group("task"));
 
         if (matcher.find()) {
             this.isCompleted = isStatusIconCompleted(matcher.group("status"));
@@ -63,29 +62,6 @@ public abstract class Task {
         } else {
             throw new InvalidTaskStringException();
         }
-
-
-    }
-
-    /**
-     * Parse a task from a human-readable string.
-     *
-     * @param readableString the task as a human-readable string
-     * @return the task
-     * @throws InvalidTaskStringException If the regex doesn't match the pattern
-     */
-    static Task parseTask(String readableString) throws InvalidTaskStringException {
-        // determine the type of task
-        String taskType = readableString.substring(1, 2);
-        if (taskType.equals(Deadline.TASK_TYPE_ICON)) {
-            return Deadline.parseDeadline(readableString);
-        } else if (taskType.equals(Event.TASK_TYPE_ICON)) {
-            return Event.parseEvent(readableString);
-        } else if (taskType.equals(ToDo.TASK_TYPE_ICON)) {
-            return ToDo.parseToDo(readableString);
-        }
-
-        throw new InvalidTaskStringException();
     }
 
     /**

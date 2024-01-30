@@ -20,7 +20,7 @@ public final class Deadline extends Task {
     /**
      * The icon for the task type.
      */
-    static String TASK_TYPE_ICON = "D";
+    private static final String TASK_TYPE_ICON = "D";
 
     /**
      * The format that a {@link Deadline} takes.
@@ -30,8 +30,8 @@ public final class Deadline extends Task {
     /**
      * The regex pattern that a {@link Deadline} takes.
      */
-    private static final String REGEX_PATTERN =
-            String.format("\\[%s\\](?<task>.*)\\(by:(?<by>.*)\\)", TASK_TYPE_ICON);
+    private static final Pattern REGEX_PATTERN = Pattern.compile(
+            String.format("\\[%s\\](?<task>.*)\\(by:(?<by>.*)\\)", TASK_TYPE_ICON));
 
     /**
      * Constructor for this deadline.
@@ -63,8 +63,7 @@ public final class Deadline extends Task {
      * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
     public static Deadline parseDeadline(String readableString) throws InvalidTaskStringException {
-        Matcher matcher = Pattern
-                .compile(REGEX_PATTERN)
+        Matcher matcher = REGEX_PATTERN
                 .matcher(readableString);
 
         if (matcher.find()) {
@@ -72,6 +71,16 @@ public final class Deadline extends Task {
         } else {
             throw new InvalidTaskStringException();
         }
+    }
+
+    /**
+     * Checks if the format of a string matches with the pattern.
+     *
+     * @param matchingString the string
+     * @return true if it matches, otherwise false.
+     */
+    public static boolean matchesDeadline(String matchingString) {
+        return REGEX_PATTERN.matcher(matchingString).find();
     }
 
     /**

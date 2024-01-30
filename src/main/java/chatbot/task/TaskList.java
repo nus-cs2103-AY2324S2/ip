@@ -1,7 +1,6 @@
 package chatbot.task;
 
 import chatbot.storage.LocalStorage;
-import chatbot.task.exception.InvalidTaskStringException;
 import chatbot.task.exception.OutOfBoundsException;
 import chatbot.value.DateStringValue;
 
@@ -9,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.StringBuilder;
 import java.util.function.Consumer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * This class encapsulates a {@link Task} list.
@@ -177,25 +174,5 @@ public final class TaskList {
             message.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
         }
         return message.toString();
-    }
-
-    /**
-     * Parse a task list item from a human-readable string.
-     *
-     * @param readableString the task list item as a human-readable string
-     * @return the task
-     * @throws InvalidTaskStringException If the regex doesn't match the pattern.
-     */
-    public static Task parseTaskListItem(String readableString) throws InvalidTaskStringException {
-        Matcher matcher = Pattern
-                .compile("\\d+\\.(?<task>.*)")
-                .matcher(readableString);
-
-        if (matcher.find()) {
-            String parsedString = matcher.group("task").trim();
-            return Task.parseTask(parsedString);
-        } else {
-            throw new InvalidTaskStringException();
-        }
     }
 }

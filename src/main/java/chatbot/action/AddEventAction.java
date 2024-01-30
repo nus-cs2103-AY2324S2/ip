@@ -4,7 +4,7 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
-import chatbot.io.ui.Printer;
+import chatbot.ui.Printer;
 import chatbot.task.Event;
 import chatbot.task.Task;
 import chatbot.task.TaskList;

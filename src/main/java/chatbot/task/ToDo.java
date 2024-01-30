@@ -14,7 +14,7 @@ public final class ToDo extends Task {
     /**
      * The icon for the task type.
      */
-    static final String TASK_TYPE_ICON = "T";
+    private static final String TASK_TYPE_ICON = "T";
 
     /**
      * The format that a {@link ToDo} takes.
@@ -24,8 +24,8 @@ public final class ToDo extends Task {
     /**
      * The regex pattern that a {@link Deadline} takes.
      */
-    private static final String REGEX_PATTERN =
-            String.format("\\[%s\\](?<task>.*)", TASK_TYPE_ICON);
+    private static final Pattern REGEX_PATTERN = Pattern.compile(
+            String.format("\\[%s\\](?<task>.*)", TASK_TYPE_ICON));
 
     /**
      * Constructor for this to-do.
@@ -54,15 +54,23 @@ public final class ToDo extends Task {
      * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
     public static ToDo parseToDo(String readableString) throws InvalidTaskStringException {
-        Matcher matcher = Pattern
-                .compile(REGEX_PATTERN)
-                .matcher(readableString);
+        Matcher matcher = REGEX_PATTERN.matcher(readableString);
 
         if (matcher.find()) {
             return new ToDo(matcher);
         } else {
             throw new InvalidTaskStringException();
         }
+    }
+
+    /**
+     * Checks if the format of a string matches with the pattern.
+     *
+     * @param matchingString the string
+     * @return true if it matches, otherwise false.
+     */
+    public static boolean matchesToDo(String matchingString) {
+        return REGEX_PATTERN.matcher(matchingString).find();
     }
 
     /**
