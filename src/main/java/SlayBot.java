@@ -5,6 +5,8 @@ import exception.InvalidTodoException;
 import exception.UnknownCommandException;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class SlayBot {
@@ -155,25 +157,30 @@ public class SlayBot {
     private static Deadline parseDeadline(String[] arr) throws InvalidDeadlineException {
         String deadline_title = "";
         String dateTime = "";
+        String combinedWord = "";
 
         for (int i = 1; i < arr.length; i++) {
-            if (arr[i].equals("/by")) {
-                dateTime = arr[i + 1];
-                i++;
-            } else {
-                deadline_title += arr[i] + " ";
+            combinedWord += arr[i] + " ";
+        }
+
+        int index = combinedWord.indexOf("/by");
+
+        if (index != -1) {
+            dateTime = combinedWord.substring(index + 3).trim();
+            deadline_title = combinedWord.substring(0, index);
+        } else {
+            if (deadline_title.isEmpty() && dateTime.isEmpty()) {
+                throw new InvalidDeadlineException("OOPS!!! Thedescription and date of a Deadline cannot be empty.");
+            } else if (deadline_title.isEmpty()) {
+                throw new InvalidDeadlineException("OOPS!!! The description of a Deadline cannot be empty.");
+            } else if (dateTime.isEmpty()) {
+                throw new InvalidDeadlineException("OOPS!!! The date of a Deadline cannot be empty.");
             }
         }
 
-        if (deadline_title.isEmpty() && dateTime.isEmpty()) {
-            throw new InvalidDeadlineException("OOPS!!! The description and date of a Deadline cannot be empty.");
-        } else if (deadline_title.isEmpty()) {
-            throw new InvalidDeadlineException("OOPS!!! The description of a Deadline cannot be empty.");
-        } else if (dateTime.isEmpty()) {
-            throw new InvalidDeadlineException("OOPS!!! The date of a Deadline cannot be empty.");
-        }
+        LocalDateTime date = dateTimeParser(dateTime);
 
-        return new Deadline(deadline_title, dateTime);
+        return new Deadline(deadline_title, date);
     }
 
     private static ToDo parseTodo(String[] arr) throws InvalidTodoException {
@@ -243,5 +250,11 @@ public class SlayBot {
             default:
                 throw new UnknownCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    private static LocalDateTime dateTimeParser(String dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+
+        return LocalDateTime.parse(dateTime, formatter);
     }
 }

@@ -1,8 +1,11 @@
 package entity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private String dateTime;
-    public Deadline(String title, String dateTime) {
+    private LocalDateTime dateTime;
+    public Deadline(String title, LocalDateTime dateTime) {
         super(title);
         this.dateTime = dateTime;
     }
@@ -17,10 +20,11 @@ public class Deadline extends Task {
     }
     @Override
     public String toString() {
+
         if (this.marked) {
-            return "[D][X] " + this.title + "by " + this.dateTime;
+            return "[D][X] " + this.title + "by " + this.dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         } else {
-            return "[D][ ] " + this.title + "by " + this.dateTime;
+            return "[D][ ] " + this.title + "by " + this.dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         }
     }
 }
