@@ -182,10 +182,15 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds tasks in the TaskList that contain the specified keyword in their descriptions.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     */
     public void find(String keyword) {
         ArrayList<Integer> matchingTasks = new ArrayList<>();
-        for (int i = 0; i < this.arrayList.size(); i++) {
-            if (this.arrayList.get(i).description.contains(keyword)) {
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).description.contains(keyword)) {
                 matchingTasks.add(i);
             }
         }
@@ -198,7 +203,7 @@ public class TaskList {
             System.out.printf(
                     "\t%d.%s\n",
                     i + 1,
-                    this.arrayList.get(i));
+                    this.tasks.get(i));
         }
     }
 

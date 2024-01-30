@@ -149,6 +149,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a 'find' command from the user input and extracts the keyword to search for.
+     *
+     * @param input The user input command.
+     * @return The keyword to search for in task descriptions.
+     * @throws WrongFormatException If the command format is invalid.
+     */
     public static String parseFind(String input) throws WrongFormatException {
         if (Pattern.matches("find\\s\\S.*", input)) {
             return input.split("\\s", 2)[1];
