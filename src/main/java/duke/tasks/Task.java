@@ -18,7 +18,7 @@ public abstract class Task {
     public Task(String taskName, Boolean done) {
         this.taskName = taskName;
         this.done = done;
-        this.identifier = "";
+        this.identifier = " ";
     }
 
     public void markDone() {
@@ -32,7 +32,9 @@ public abstract class Task {
     public String getIdentifier() {
         return identifier;
     }
-
+    public boolean getDone() {
+        return done;
+    }
     @Override
     public String toString() {
         return String.format("[%s] [%s] %s", identifier, done ? "X" : " ", taskName);

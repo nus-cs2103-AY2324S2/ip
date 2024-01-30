@@ -50,4 +50,8 @@ public class Deadline extends Task {
     public String getTaskName() {
         return super.getTaskName();
     }
+
+    public LocalDateTime getBy() {
+        return by;
+    }
 }

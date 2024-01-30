@@ -57,4 +57,11 @@ public class Event extends Task {
     public String getTaskName() {
         return super.getTaskName();
     }
+
+    public LocalDateTime getFrom() {
+        return from;
+    }
+    public LocalDateTime getTo() {
+        return to;
+    }
 }
