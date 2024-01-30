@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,6 +19,9 @@ public class Duke {
         DELETE,
         BYE
     }
+
+
+
     static ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -54,7 +61,6 @@ public class Duke {
                     addEvent(userInput);
 
                 } else if (splitInput[0].equalsIgnoreCase(Action.DELETE.toString())) {
-
                     deleteTask(userInput);
 
                 } else {
@@ -74,14 +80,26 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
+    /**
+     * Lists down the list of Tasks.
+     */
     public static void listMethod() {
         System.out.println("      Here are the tasks in your list:");
+        ArrayList<Task> allTasksFromFile = getTasksFromFile("duke");
+        tasks = allTasksFromFile;
         for (int i = 0; i < tasks.size(); i++) {
 
             System.out.println("      " + (i + 1) + "." + tasks.get(i).toString());
         }
     }
 
+    /**
+     * Adds a new ToDo.
+     * Adds the new ToDo inside the file.
+     *
+     * @param input the description of the ToDo.
+     * @throws DukeException If missing the description.
+     */
     public static void addToDo(String input) throws DukeException {
         String[] splitInput = input.split(" ");
         if (splitInput.length <= 1) {
@@ -91,14 +109,24 @@ public class Duke {
         for (int i = 1; i < splitInput.length; i++) {
             name += splitInput[i] + " ";
         }
-        ToDo newToDo= new ToDo(name.trim());
+        ToDo newToDo= new ToDo(name.trim(), false);
         tasks.add(newToDo);
+        ArrayList<Task> newToDoList = new ArrayList<>();
+        newToDoList.add(newToDo);
+        storeArrayListToFile("duke", newToDoList, false);//TODO Add the file function here
         System.out.println("      Got it. I've added this task:");
         System.out.println("      " + newToDo.toString());
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
 
     }
 
+    /**
+     * Adds a new Deadline.
+     * Adds the new Deadline inside the file.
+     *
+     * @param input the description and 'by' of the Deadline.
+     * @throws DukeException If missing the description or 'by'.
+     */
     public static void addDeadline(String input) throws DukeException {
         String[] splitInput = input.split(" ");
         if (splitInput.length <= 1) {
@@ -110,16 +138,25 @@ public class Duke {
             throw new DukeException("      Invalid format for new Deadline!");
         }
 
-
         String name = deadlineSplit[0].substring(9).trim();
         String by = deadlineSplit[1].substring(3).trim();
-        Deadline newDeadline = new Deadline(name, by);
+        Deadline newDeadline = new Deadline(name,false, by);
         tasks.add(newDeadline);
+        ArrayList<Task> newDeadlineList = new ArrayList<>();
+        newDeadlineList.add(newDeadline);
+        storeArrayListToFile("duke", newDeadlineList, false);//TODO Add the file function here
         System.out.println("      Got it. I've added this task:");
         System.out.println("      " + newDeadline.toString());
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    /**
+     * Adds a new Event.
+     * Adds the new Event inside the file.
+     *
+     * @param input the description, 'from', and 'to' of the Event.
+     * @throws DukeException if missing the description, 'from' or 'to'.
+     */
     public static void addEvent(String input) throws DukeException {
         String[] splitInput = input.split(" ");
         if (splitInput.length <= 1) {
@@ -134,13 +171,22 @@ public class Duke {
         String name = eventSplit[0].substring(6).trim();
         String start = eventSplit[1].substring(5).trim();
         String end = eventSplit[2].substring(3).trim();
-        Event newEvent = new Event(name, start, end);
+        Event newEvent = new Event(name, false, start, end);
         tasks.add(newEvent);
+        ArrayList<Task> newEventList = new ArrayList<>();
+        newEventList.add(newEvent);
+        storeArrayListToFile("duke", newEventList, false);//TODO Add the file function here
         System.out.println("      Got it. I've added this task:");
         System.out.println("      " + newEvent.toString());
         System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    /**
+     * Marks a task for being completed.
+     *
+     * @param input the index of the task.
+     * @throws DukeException If the size of tasks is 0, or no task is being selected.
+     */
     public static void markTask(String input) throws DukeException {
         String splitInput[] = input.split(" ");
         if (tasks.size() == 0) {
@@ -156,8 +202,8 @@ public class Duke {
         }
         if (choiceMark <= tasks.size() && choiceMark > 0) {
             tasks.get(choiceMark - 1).markAsDone();
+            storeArrayListToFile("duke", tasks, true);
             System.out.println("      Nice! I've marked this task as done:");
-//            System.out.println("        " + "[X] " + tasks.get(choiceMark - 1).toString());
             System.out.println("        " + tasks.get(choiceMark - 1).toString());
         } else {
             throw new DukeException("      Invalid choice.");
@@ -165,6 +211,12 @@ public class Duke {
 
     }
 
+    /**
+     * Unmarks a task for being incomplete.
+     *
+     * @param input the index of the task.
+     * @throws DukeException If the size of tasks is 0, or no task is being selected.
+     */
     public static void unmarkTask(String input) throws DukeException {
         String splitInput[] = input.split(" ");
         if (tasks.size() == 0) {
@@ -180,6 +232,7 @@ public class Duke {
         }
         if (choiceUnmark <= tasks.size() && choiceUnmark > 0) {
             tasks.get(choiceUnmark - 1).markAsUndone();
+            storeArrayListToFile("duke", tasks, true);
             System.out.println("      OK, I've marked this task as not done yet:");
 //            System.out.println("        " + "[ ] " + tasks.get(choiceUnmark - 1).toString());
             System.out.println("        " + tasks.get(choiceUnmark - 1).toString());
@@ -188,6 +241,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Deletes a task.
+     *
+     * @param input the index of the task.
+     * @throws DukeException If the size of tasks is 0, or no task is being selected.
+     */
     public static void deleteTask(String input) throws DukeException {
         String[] splitInput = input.split(" ");
         if (tasks.size() == 0) {
@@ -204,14 +263,39 @@ public class Duke {
         if (choiceDelete <= tasks.size() && choiceDelete > 0) {
             Task deletedTask = tasks.get(choiceDelete - 1);
             tasks.remove(choiceDelete - 1);
+            storeArrayListToFile("duke", tasks, true);
             System.out.println("      Noted, I've removed this task:");
             System.out.println("      " + deletedTask.toString());
             System.out.println("      Now you have " + tasks.size() + " tasks in the list.");
         } else {
             System.out.println("      Invalid choice");
         }
-
     }
+
+    /**
+     * Load the data into a txt file
+     *
+     * @param fileName name of the txt file
+     * @param tasks context to be stored in the txt file
+     * @param isOverwrite check if we need to delete the current context in the txt file
+     */
+    static void storeArrayListToFile(String fileName, ArrayList<Task> tasks, boolean isOverwrite) {
+        FileManager fileManager = new FileManager(fileName);
+        fileManager.writeArrayListToFile(tasks, isOverwrite);
+    }
+
+    /**
+     * Gets the list of Tasks from the file.
+     *
+     * @param filename the txt file.
+     * @return an ArrayList of Tasks.
+     */
+    static ArrayList<Task> getTasksFromFile(String filename) {
+        FileManager fileManager = new FileManager(filename);
+        return fileManager.loadTasksFromFile();
+    }
+
+
 }
 
 class Task {
@@ -219,9 +303,9 @@ class Task {
     private String description;
     private boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getDescription() {
@@ -243,8 +327,8 @@ class Task {
 
 class ToDo extends Task {
 
-    public ToDo(String description) {
-        super(description);
+    public ToDo(String description, boolean isDone) {
+        super(description, isDone);
     }
 
     @Override
@@ -255,8 +339,8 @@ class ToDo extends Task {
 
 class Deadline extends Task {
     String by;
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, boolean isDone, String by) {
+        super(description, isDone);
         this.by = by;
     }
 
@@ -273,8 +357,8 @@ class Deadline extends Task {
 class Event extends Task {
     String start;
     String end;
-    public Event(String description, String start, String end) {
-        super(description);
+    public Event(String description, boolean isDone, String start, String end) {
+        super(description, isDone);
         this.start = start;
         this.end = end;
     }
@@ -293,8 +377,3 @@ class Event extends Task {
     }
 }
 
-class DukeException extends Exception{
-    public DukeException(String message) {
-        super(message);
-    }
-}
