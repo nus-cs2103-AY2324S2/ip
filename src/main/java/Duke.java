@@ -17,8 +17,10 @@ public class Duke {
     private TaskList list;
     private UI ui;
     private ProgramState state;
+    private CommandParser parser;
 
     public Duke() {
+        this.parser = new CommandParser();
         this.ui = new UI(chatbotName);
         this.state = new ProgramState();
         this.storage = new Storage(dataFilePath);
@@ -30,26 +32,24 @@ public class Duke {
         }
     }
 
-    private boolean runCommand(String commandString) {
-        CommandParser parser = new CommandParser();
+    private String runCommand(String commandString) {
         Command command;
         try {
             command = Command.parse(commandString, parser);
-            boolean loopSignal = command.execute(list);
-            return loopSignal;
+            String response = command.execute(list, state);
+            return response;
         } catch (DukeException e) {
             ui.showBotError(e);
         }
-        return true; // bot should continue running after invalid user input
+        return null; // should not be shown
     }
 
     public void run() {
         ui.showWelcomeMessage();
-        boolean loopSignal = true;
 
-        while (loopSignal) {
+        while (state.isNormal()) {
             String input = ui.readCommand();
-            loopSignal = runCommand(input);
+            ui.showResponse(runCommand(input));
         }
         // only write data to file when the bot is about to exit
         try {
