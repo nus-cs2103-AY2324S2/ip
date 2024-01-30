@@ -1,10 +1,10 @@
 package tiny.tasks;
 
+import tiny.exceptions.TinyException;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-
-import tiny.exceptions.TinyException;
 
 public class Event extends Task {
     protected LocalDateTime startDateTime;
