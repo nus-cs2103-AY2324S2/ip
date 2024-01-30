@@ -1,10 +1,8 @@
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -190,23 +188,29 @@ public class Capone {
                     "Usage: deadline [description] /by [date]");
         }
 
-        Date date = null;
+        LocalDate date = null;
         LocalTime time = null;
         // Process input for the deadline (i.e. after the /by command).
         StringBuilder byDate = new StringBuilder();
         for (int i = byNdx + 1; i < inputList.size(); i++) {
-            if (isValidDate(inputList.get(i))) {
+            if (isDateFormat(inputList.get(i))) {
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 try {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    date = dateFormat.parse(inputList.get(i));
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                    date = LocalDate.parse(inputList.get(i), dateFormatter);
+                } catch (DateTimeException e) {
+                    throw new CaponeException("Oops! You have entered an invalid date. Please try again.");
                 }
+                continue;
             }
 
-            if (isValidTime(inputList.get(i))) {
+            if (isTimeFormat(inputList.get(i))) {
                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
-                time = LocalTime.parse(inputList.get(i), timeFormatter);
+                try {
+                    time = LocalTime.parse(inputList.get(i), timeFormatter);
+                } catch (DateTimeException e) {
+                    throw new CaponeException("Oops! You have entered an invalid time. Please try again.");
+                }
+                continue;
             }
 
             // If this is the last word to be added.
@@ -220,13 +224,15 @@ public class Capone {
 
         if (date != null) {
             if (time != null) {
-                tasks.add(new Deadline(description.toString(), false, date, time));
+                tasks.add(new Deadline(description.toString(), false, date.atTime(time)));
             } else {
-                tasks.add(new Deadline(description.toString(), false, date));
+                tasks.add(new Deadline(description.toString(), false, date.atStartOfDay()));
             }
         } else {
+            // If only the time is specified, the deadline will be the time at the next day.
             if (time != null) {
-                tasks.add(new Deadline(description.toString(), false, time));
+                tasks.add(new Deadline(description.toString(), false,
+                        LocalDate.now().plusDays(1).atTime(time)));
             } else {
                 tasks.add(new Deadline(description.toString(), false, byDate.toString()));
             }
@@ -243,7 +249,7 @@ public class Capone {
      * @param input the input string to be checked against.
      * @return true if a valid date is recognised, false otherwise.
      */
-    private static boolean isValidDate(String input) {
+    private static boolean isDateFormat(String input) {
         String dateFormatRegex = "\\d{4}-\\d{2}-\\d{2}";
 
         // Check if the input string matches the format
@@ -257,8 +263,8 @@ public class Capone {
      * @param input the input string to be checked against.
      * @return true if a valid time is recognised, false otherwise.
      */
-    public static boolean isValidTime(String input) {
-        String timeFormatRegex = "([01]\\d|2[0-3])([0-5]\\d)";
+    public static boolean isTimeFormat(String input) {
+        String timeFormatRegex = "(\\d{4})";
 
         // Check if the input string matches the format
         return input.matches(timeFormatRegex);
