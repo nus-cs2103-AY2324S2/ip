@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.exception.ChatBotParameterException;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -18,5 +17,5 @@ public abstract class Command {
         return false;
     }
 
-    abstract public void execute(Storage storage, Ui ui, TaskList taskList) throws ChatBotParameterException;
+    abstract public void execute(Storage storage, Ui ui, TaskList taskList);
 }
