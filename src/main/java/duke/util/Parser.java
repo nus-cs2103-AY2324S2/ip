@@ -1,5 +1,6 @@
-import task.*;
-import util.DukeException;
+package duke.util;
+
+import duke.task.*;
 
 public class Parser {
     public static void parse(String inputCommand, TaskList tasklist) {
