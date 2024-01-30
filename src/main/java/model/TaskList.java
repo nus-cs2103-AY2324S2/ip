@@ -50,14 +50,31 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        String res = "";
+        StringBuilder res = new StringBuilder();
         // NOTE: May be slow
         for (int i = 1; taskList.size() >= i; i++) {
-            res += String.format("%d. %s", i, getTask(i));
+            res.append(String.format("%d. %s", i, getTask(i)));
             if (i != taskList.size()) {
-                res += "\n";
+                res.append("\n");
             }
         }
-        return res;
+        return res.toString();
+    }
+
+    /**
+     * Returns a parsable string of the deadline task. Meant to be used for storage purposes.
+     *
+     * @return a parsable string representation of the task and all its details
+     */
+    public String parsableString() {
+        StringBuilder res = new StringBuilder();
+        // NOTE: May be slow
+        for (int i = 1; taskList.size() >= i; i++) {
+            res.append(getTask(i).parsableString());
+            if (i != taskList.size()) {
+                res.append("\n");
+            }
+        }
+        return res.toString();
     }
 }
