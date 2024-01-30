@@ -20,13 +20,14 @@ public class Task {
     }
 
     public String printTask() {
-        String taskMessage = "";
-        if (completed) {
-            taskMessage += "[X]";
-        } else {
-            taskMessage += "[ ]";
-        }
+        String taskMessage = this.completed ? "[X]" : "[ ]";
         taskMessage += this.name;
+        return taskMessage;
+    }
+
+    public String saveTask() {
+        String taskMessage = this.completed ? "1" : "0";
+        taskMessage += " |" + this.name;
         return taskMessage;
     }
 }

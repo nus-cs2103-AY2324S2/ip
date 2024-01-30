@@ -12,4 +12,9 @@ public class Event extends Task {
     public String printTask() {
         return "[E]" + super.printTask() + " (from: " + start + " to: " + end + ")";
     }
+
+    @Override
+    public String saveTask() {
+        return "E | " + super.saveTask() + " | " + this.start + " | " + this.end;
+    }
 }

@@ -1,8 +1,10 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
     private static final String NAME = "Fatnom";
+    private static Storage storage;
     private static final int lineLength = 60;
 
     public static String createLine() {
@@ -27,18 +29,18 @@ public class Duke {
     }
 
     public static void printAddedTask(String taskMessage, int totalNumOfTasks) {
-        String addedTaskMessage = "got it!! i've added this task:\n" +
-                                  "   " + taskMessage + "\n" +
-                                  "you now have " + totalNumOfTasks + " tasks in the task list!";
+        String addedTaskMessage = "got it!! i've added this task:\n"
+                + "   " + taskMessage + "\n"
+                + "you now have " + totalNumOfTasks + " tasks in the task list!";
         Duke.printLine();
         System.out.println(addedTaskMessage);
         Duke.printLine();
     }
 
     public static void printDeletedTask(String taskMessage, int remainingNumOfTasks) {
-        String deletedTaskMessage = "got it!! i've deleted this task:\n" +
-                                    "   " + taskMessage + "\n" +
-                                    "you now have " + remainingNumOfTasks + " tasks left in the task list!";
+        String deletedTaskMessage = "got it!! i've deleted this task:\n"
+                + "   " + taskMessage + "\n"
+                + "you now have " + remainingNumOfTasks + " tasks left in the task list!";
         Duke.printLine();
         System.out.println(deletedTaskMessage);
         Duke.printLine();
@@ -49,10 +51,16 @@ public class Duke {
             Scanner sc = new Scanner(System.in);
             ArrayList<Task> taskList= new ArrayList<>();
 
-            String welcomeMessage = "hello! i'm " + NAME + "!!!\n" +
-                                    "i see you've adopted me! yay :3\n" +
-                                    "what can i do for you?";
+            String welcomeMessage = "hello! i'm " + NAME + "!!!\n"
+                    + "i'm here to manage your tasklist!\n"
+                    + "what can i do for you?";
             Duke.printMessage(welcomeMessage);
+            try {
+                storage = new Storage();
+                taskList = Storage.loadData();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
 
             while (true) {
                 String input = sc.nextLine();
@@ -67,13 +75,13 @@ public class Duke {
                 } else if (command.equalsIgnoreCase("list")) {
                     String listMessage = "alright! here is your task list:\n";
                     if (taskList.size() == 0) {
-                        listMessage += ".\n" +
-                                       ".\n" +
-                                       ".\n" +
-                                       ".\n" +
-                                       ".\n" +
-                                       ".\n" +
-                                       "SURPRISE!! nothing at all! what a good life ~ :3";
+                        listMessage += ".\n"
+                                + ".\n"
+                                + ".\n"
+                                + ".\n"
+                                + ".\n"
+                                + ".\n"
+                                + "SURPRISE!! nothing at all! what a good life!";
                     }
                     for(int i = 0; i < taskList.size(); i++) {
                         int index = i + 1;
@@ -89,56 +97,55 @@ public class Duke {
                 } else if (command.equalsIgnoreCase("mark")) {
                     int taskNum = Integer.parseInt(inputTokens[1]);
                     if (taskNum == 0) {
-                        String exceptionMessage = Duke.createLine() + "\n" +
-                                                  "what!! task 0? how can i mark a task that doesn't exist?!\n" +
-                                                  "are you playing with me... :p\n" +
-                                                  Duke.createLine();
+                        String exceptionMessage = Duke.createLine() + "\n"
+                                + "task 0? how can i mark a task that doesn't exist?!\n"
+                                + Duke.createLine();
                         throw new DukeException(exceptionMessage);
                     } else if (taskNum > taskList.size()) {
-                        String exceptionMessage = Duke.createLine() + "\n" +
-                                                  "hahaha! you only have " + taskList.size() + " tasks in your task list!!\n" +
-                                                  "there's no task " + taskNum + "~ try again :3\n" +
-                                                  Duke.createLine();
+                        String exceptionMessage = Duke.createLine() + "\n"
+                                + "hahaha! you only have " + taskList.size() + " tasks in your task list!!\n"
+                                + "there's no task " + taskNum + "!\n"
+                                + Duke.createLine();
                         throw new DukeException(exceptionMessage);
                     }
                     taskList.get(taskNum - 1).complete();
-                    String markedMessage = "good job!!! i've marked this task as done:\n" +
-                                           "   " + taskList.get(taskNum - 1).printTask();
+                    String markedMessage = "good job!!! i've marked this task as done:\n"
+                            + "   " + taskList.get(taskNum - 1).printTask();
                     Duke.printMessage(markedMessage);
+                    Storage.saveData(taskList);
                     //command: unmark
                 } else if (command.equalsIgnoreCase("unmark")) {
                     int taskNum = Integer.parseInt(inputTokens[1]);
                     if (taskNum == 0) {
-                        String exceptionMessage = Duke.createLine() + "\n" +
-                                                  "what!! task 0? how can i unmark a task that doesn't exist?!\n" +
-                                                  "are you playing with me... :p\n" +
-                                                  Duke.createLine();
+                        String exceptionMessage = Duke.createLine() + "\n"
+                                + "task 0? how can i unmark a task that doesn't exist?!\n"
+                                + Duke.createLine();
                         throw new DukeException(exceptionMessage);
                     } else if (taskNum > taskList.size()) {
-                        String exceptionMessage = Duke.createLine() + "\n" +
-                                                  "hahaha! you only have " + taskList.size() + " tasks in your task list!!\n" +
-                                                  "there's no task " + taskNum + " ~ try again :3\n" +
-                                                  Duke.createLine();
+                        String exceptionMessage = Duke.createLine() + "\n"
+                                + "hahaha! you only have " + taskList.size() + " tasks in your task list!!\n"
+                                + "there's no task " + taskNum + "!\n"
+                                + Duke.createLine();
                         throw new DukeException(exceptionMessage);
                     }
                     taskList.get(taskNum - 1).unmark();
-                    String unmarkedMessage = "okay! i've unmarked this task:\n" +
-                                             "   " + taskList.get(taskNum - 1).printTask();
+                    String unmarkedMessage = "okay! i've unmarked this task:\n"
+                            + "   " + taskList.get(taskNum - 1).printTask();
                     Duke.printMessage(unmarkedMessage);
+                    Storage.saveData(taskList);
                     //command: delete
                 } else if (command.equalsIgnoreCase("delete")) {
                     int taskNum = Integer.parseInt(inputTokens[1]);
                     if (taskNum == 0) {
-                        String exceptionMessage = Duke.createLine() + "\n" +
-                                                  "beepbeep!!! there's no task 0!!!\n" +
-                                                  "hmf >:P\n" +
-                                                  Duke.createLine();
+                        String exceptionMessage = Duke.createLine() + "\n"
+                                + "error: there's no such thing as task 0!\n"
+                                + Duke.createLine();
                         throw new DukeException(exceptionMessage);
                     } else if (taskNum > taskList.size()) {
-                        String exceptionMessage = Duke.createLine() + "\n" +
-                                                  "hold up!! you only have " + taskList.size() + " tasks in your task list!!\n" +
-                                                  "there's no task " + taskNum + " ~ try again :3\n" +
-                                                  Duke.createLine();
+                        String exceptionMessage = Duke.createLine() + "\n"
+                                + "error! you only have " + taskList.size() + " tasks in your task list!!\n"
+                                + "there's no task " + taskNum + "!\n"
+                                + Duke.createLine();
                         throw new DukeException(exceptionMessage);
                     }
                     Task deletedTask = taskList.get(taskNum - 1);
@@ -146,14 +153,15 @@ public class Duke {
                     taskList.remove(taskNum - 1);
                     int remainingNumOfTasks = taskList.size();
                     Duke.printDeletedTask(deletedTaskMessage, remainingNumOfTasks);
+                    Storage.saveData(taskList);
                     //command: todo
                 } else if (command.equalsIgnoreCase("todo")) {
                     int len = inputTokens.length;
                     if (len == 1) {
-                        String exceptionMessage = Duke.createLine() + "\n" +
-                                                  "error!! you didn't specify what you want todo!\n" +
-                                                  "use this format instead: todo taskname :p\n" +
-                                                  Duke.createLine();
+                        String exceptionMessage = Duke.createLine() + "\n"
+                                + "error!! you didn't specify what you want to do!\n"
+                                + "use this format instead: todo taskname\n"
+                                + Duke.createLine();
                         throw new DukeException(exceptionMessage);
                     }
                     String todoName = "";
@@ -164,14 +172,15 @@ public class Duke {
                     taskList.add(addedTask);
                     int totalNumOfTasks = taskList.size();
                     Duke.printAddedTask(addedTask.printTask(), totalNumOfTasks);
+                    Storage.saveData(taskList);
                     //command: deadline
                 } else if (command.equalsIgnoreCase("deadline")) {
                     int len = inputTokens.length;
                     if (len == 1) {
-                        String exceptionMessage = Duke.createLine() + "\n" +
-                                                  "error!! you didn't specify the deadline task!\n" +
-                                                  "use this format instead: deadline taskname /by deadline :p\n" +
-                                                  Duke.createLine();
+                        String exceptionMessage = Duke.createLine() + "\n"
+                                + "error!! you didn't specify the deadline task!\n"
+                                + "use this format instead: deadline taskname /by deadline\n"
+                                + Duke.createLine();
                         throw new DukeException(exceptionMessage);
                     }
                     String deadlineName = "";
@@ -193,14 +202,15 @@ public class Duke {
                     taskList.add(addedTask);
                     int totalNumOfTasks = taskList.size();
                     Duke.printAddedTask(addedTask.printTask(), totalNumOfTasks);
+                    Storage.saveData(taskList);
                     //command: event
                 } else if (command.equalsIgnoreCase("event")) {
                     int len = inputTokens.length;
                     if (len == 1) {
-                        String exceptionMessage = Duke.createLine() + "\n" +
-                                                  "error!! you didn't specify the event!\n" +
-                                                  "use this format instead: event taskname /from startdate /to enddate :p\n" +
-                                                  Duke.createLine();
+                        String exceptionMessage = Duke.createLine() + "\n"
+                                + "error!! you didn't specify the event!\n"
+                                + "use this format instead: event taskname /from startdate /to enddate\n"
+                                + Duke.createLine();
                         throw new DukeException(exceptionMessage);
                     }
                     String eventName = "";
@@ -234,19 +244,20 @@ public class Duke {
                     taskList.add(addedTask);
                     int totalNumOfTasks = taskList.size();
                     Duke.printAddedTask(addedTask.printTask(), totalNumOfTasks);
+                    Storage.saveData(taskList);
                 } else {
-                    String exceptionMessage = Duke.createLine() + "\n" +
-                                              "hm? i don't understand what that means :(\n" +
-                                              "you can try any of these commands instead!!\n" +
-                                              "list\n" +
-                                              "mark\n" +
-                                              "unmark\n" +
-                                              "delete\n" +
-                                              "todo\n" +
-                                              "deadline\n" +
-                                              "event\n" +
-                                              "bye\n" +
-                                              Duke.createLine();
+                    String exceptionMessage = Duke.createLine() + "\n"
+                            + "hm? i don't understand what that means :(\n"
+                            + "you can try any of these commands instead!!\n"
+                            + "list\n"
+                            + "mark\n"
+                            + "unmark\n"
+                            + "delete\n"
+                            + "todo\n"
+                            + "deadline\n"
+                            + "event\n"
+                            + "bye\n"
+                            + Duke.createLine();
                     throw new DukeException(exceptionMessage);
                 }
             }
