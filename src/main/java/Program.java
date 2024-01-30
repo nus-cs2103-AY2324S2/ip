@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
 
 public class Program {
 
@@ -7,6 +9,7 @@ public class Program {
     private Scanner userInputScanner;
     private TaskList taskList;
     private PrintList printList;
+    // private final String FILE_PATH = "./data/linus.txt";
 
     public Program() {
         this.running = true;
@@ -17,11 +20,34 @@ public class Program {
     }
 
     public void start() {
+        File f = this.retrieveFile();
+        taskList.loadList(f, printList);
         this.greeting();
         while (this.running) {
             String userInput = this.userInputScanner.nextLine();
             this.readUserInput(userInput);
         }
+    }
+
+    public File retrieveFile() {
+        File file = new File("./data/linus.txt");
+        File parentDir = file.getParentFile();
+
+        if (!parentDir.exists()) {
+            parentDir.mkdirs();
+            printList.add("Created data folder as none was found");
+        }
+        try {
+            if (file.createNewFile()) {
+                printList.add("Created linus.txt to read files from");
+            } else {
+                printList.add("Retrieving file...");
+            }
+        } catch (IOException e) {
+            printList.add("Could not create file :/");
+        }
+        printList.print();
+        return file;
     }
 
     private void readUserInput(String input) {
@@ -73,8 +99,10 @@ public class Program {
     }
 
     private void end() {
-        String exit = "Goodbye. See you later!";
-        this.printList.add(exit);
+        File file = new File("./data/linus.txt");
+        taskList.saveList(file);
+        this.printList.add("Saving file!");
+        this.printList.add("Goodbye. See you later!");
         this.running = false;
     }
 }

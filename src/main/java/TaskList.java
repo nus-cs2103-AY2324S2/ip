@@ -1,4 +1,10 @@
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+// import java.io.BufferedWriter;
 
 public class TaskList {
     
@@ -127,8 +133,71 @@ public class TaskList {
         printList.add("Here are the tasks in your list:");
         for (int i = 0; i < this.list.size(); i++) {
             printList.add(String.format("%d. %s",
-                i + 1,
-                this.list.get(i)));
+                    i + 1,
+                    this.list.get(i)));
         }
     }
+
+    public void textToTask(String line) {
+        String taskType = line.substring(1,2);
+        boolean isDone = (line.substring(4,5).equals("X")) ? true : false;
+        String fullDescription = line.substring(7);
+        String description;
+        Task task;
+
+        switch (taskType) {
+            case "T":
+                task = new ToDo(fullDescription, isDone);
+                break;
+            case "D":
+                String[] splitBy = fullDescription.split(" \\(by: ", 2);
+                description = splitBy[0];
+                String byString = splitBy[1].substring(0, splitBy[1].length()-1);
+                task = new Deadline(description, byString, isDone);
+                break;
+            default:
+                String[] splitFrom = fullDescription.split(" \\(from: ", 2);
+                String[] splitTo = splitFrom[1].split(" to: ", 2);
+                description = splitFrom[0];
+                String fromString = splitTo[0];
+                String toString = splitTo[1].substring(0, splitTo[1].length()-1);
+                task = new Event(description, fromString, toString, isDone);
+        }
+        list.add(task);
+
+    }
+
+    public void loadList(File file, PrintList printList) {
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                this.textToTask(scanner.nextLine());
+            }
+            scanner.close();
+            printList.add("File retrieved!");
+        } catch (FileNotFoundException e) {
+            printList.add(e.getMessage());
+        } catch (Exception e) {
+            printList.add("File is corrupted :/");
+            printList.add("Making new file instead");
+            list = new ArrayList<Task>();
+        } finally {
+            printList.print();
+        }
+    }
+
+    public void saveList(File file) {
+        try {
+            FileWriter writer = new FileWriter(file, false);
+            for (Task line : list) {
+                writer.write(line.toString() + "\n");
+            }
+            writer.close();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
 }
