@@ -1,3 +1,4 @@
+package ellie.task;
 
 // To do class:  tasks without any date/time attached to it
 //  e.g., visit new theme park

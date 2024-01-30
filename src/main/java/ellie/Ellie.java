@@ -1,16 +1,15 @@
+package ellie;
+
+import ellie.exception.InvalidTaskInputException;
+import ellie.exception.UnknownInputException;
+import ellie.task.Deadline;
+import ellie.task.Event;
+import ellie.task.Task;
+import ellie.task.Todo;
+
 import java.util.Scanner;
 
 public class Ellie {
-
-    final static String horizontalLine = "____________________________________________________________";
-    final static String logoEllie =
-            " _______   ___       ___       ___  _______          \n" +
-                    "|\\  ___ \\ |\\  \\     |\\  \\     |\\  \\|\\  ___ \\         \n" +
-                    "\\ \\   __/|\\ \\  \\    \\ \\  \\    \\ \\  \\ \\   __/|        \n" +
-                    " \\ \\  \\_|/_\\ \\  \\    \\ \\  \\    \\ \\  \\ \\  \\_|/__      \n" +
-                    "  \\ \\  \\_|\\ \\ \\  \\____\\ \\  \\____\\ \\  \\ \\  \\_|\\ \\     \n" +
-                    "   \\ \\_______\\ \\_______\\ \\_______\\ \\__\\ \\_______\\    \n" +
-                    "    \\|_______|\\|_______|\\|_______|\\|__|\\|_______|    \n";
 
     enum Command {
         MARK,
@@ -27,19 +26,18 @@ public class Ellie {
     }
 
 
-
-
-    private final Tracker tracker;
-
+    private Ui ui;
+    private final TaskList taskList;
     private final Storage storage;
 
     public Ellie() {
         storage = new Storage("./data/toDoList.txt");
-        tracker = new Tracker(storage);
+        taskList = new TaskList(storage);
+        ui = new Ui();
     }
 
     public void start() {
-        hello();
+        ui.hello();
         Scanner reader = new Scanner(System.in);
         Command command = Command.UNKNOWN;
         String input = reader.nextLine();
@@ -85,7 +83,7 @@ public class Ellie {
             if (command == Command.BYE) {
                 break;
             } else if (command == Command.LIST) {
-                tracker.listTasks();
+                taskList.listTasks();
                 input = reader.nextLine();
                 continue;
             } else if (command == Command.HELP) {
@@ -121,28 +119,28 @@ public class Ellie {
             if (command == Command.MARK) {
                 if (isNumeric(stringBody)) {
                     int index = Integer.parseInt(stringBody);
-                    tracker.markTaskIndex(index);
+                    taskList.markTaskIndex(index);
                 } else {
                     System.out.println("Input a valid number to mark! \n Usage: mark [int]\n");
                 }
             } else if (command == Command.UNMARK) {
                 if (isNumeric(stringBody)) {
                     int index = Integer.parseInt(stringBody);
-                    tracker.unmarkTaskIndex(index);
+                    taskList.unmarkTaskIndex(index);
                 } else {
                     System.out.println("Input a valid number to unmark! \n Usage: unmark [int]\n");
                 }
             } else if (command == Command.DELETE) {
                 if (isNumeric(stringBody)) {
                     int index = Integer.parseInt(stringBody);
-                    tracker.deleteTaskIndex(index);
+                    taskList.deleteTaskIndex(index);
                 } else {
                     System.out.println("Input a valid number to delete! \n Usage: delete [int]\n");
                 }
 
             } else if (command == Command.TODO) {
                 Task task = new Todo(stringBody);
-                tracker.addTask(task);
+                taskList.addTask(task);
             } else if (command == Command.DEADLINE) {
                 if (!stringBody.contains("/by")) {
                     System.out.println("Please add a due date for your dateline using '/by'!");
@@ -156,7 +154,7 @@ public class Ellie {
                         System.out.println("Please add a deadline!");
                     } else {
                         Task task = new Deadline(event, dueDate);
-                        tracker.addTask(task);
+                        taskList.addTask(task);
                     }
                 }
             } else if (command == Command.EVENT) {
@@ -175,7 +173,7 @@ public class Ellie {
                     } else {
                         String[] duration = eventDuration.split("/to");
                         Task task = new Event(event, duration[0].trim(), duration[1].trim());
-                        tracker.addTask(task);
+                        taskList.addTask(task);
                     }
                 }
 
@@ -184,22 +182,11 @@ public class Ellie {
             input = reader.nextLine();
         }
 
-        goodbye();
+        ui.goodbye();
     }
 
     private static Boolean isNumeric(String string) {
         return string.matches("\\d+");
-    }
-
-    private void hello() {
-        System.out.println("Hello! I'm Ellie, your CS2103T chat bot! I help by tracking your tasks!");
-        System.out.println(logoEllie + "\n" + horizontalLine);
-        System.out.println("What can I do for you? Type 'help' to see available commands! \n");
-    }
-
-    private void goodbye() {
-        System.out.println("\n Bye! Hope to see you again soon!");
-        System.out.println(horizontalLine);
     }
 
 

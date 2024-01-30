@@ -1,3 +1,10 @@
+package ellie;
+
+import ellie.task.Deadline;
+import ellie.task.Event;
+import ellie.task.Task;
+import ellie.task.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
