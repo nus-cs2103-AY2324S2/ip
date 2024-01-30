@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+// import java.io.BufferedWriter;
 
 public class TaskList {
     
@@ -127,8 +131,26 @@ public class TaskList {
         printList.add("Here are the tasks in your list:");
         for (int i = 0; i < this.list.size(); i++) {
             printList.add(String.format("%d. %s",
-                i + 1,
-                this.list.get(i)));
+                    i + 1,
+                    this.list.get(i)));
+            System.out.println(list.get(i));
+
         }
     }
+
+    public void saveList(File file) {
+        try {
+            FileWriter writer = new FileWriter(file, false);
+            for (Task line : list) {
+                writer.write(line.toString() + "\n");
+            }
+            writer.close();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            System.out.println("donedone");
+        }
+    }
+
 }
