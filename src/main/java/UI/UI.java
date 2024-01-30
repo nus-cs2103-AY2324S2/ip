@@ -69,7 +69,7 @@ public class UI {
         System.out.println(storage);
     }
 
-    public void error(String error) {
+    public static void error(String error) {
         System.out.println(lines);
         System.out.println(error);
         System.out.println(lines);

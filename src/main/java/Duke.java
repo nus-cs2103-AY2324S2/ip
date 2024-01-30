@@ -10,6 +10,7 @@ import UI.UI;
 import Parser.Parser;
 import Storage.Task;
 
+
 public class Duke {
     public static void main(String[] args) {
         UI ui = new UI();
@@ -32,48 +33,48 @@ public class Duke {
             }
             Task task;
             switch (output[0]) {
-                case "bye":
-                    UI.goodbye();
-                    flag = false;
-                    break;
-                case "list":
-                    ui.listItems();
-                    break;
-                case "unmark":
-                    try {
-                        ui.unMarkTask(Integer.parseInt(output[1]) - 1);
-                    } catch (ListOutofBoundsException e){
-                        ui.error(e.getMessage());
-                    }
-                    break;
-                case "mark":
-                    try {
-                        ui.markTaskUI(Integer.parseInt(output[1]) - 1);
-                    } catch (ListOutofBoundsException e) {
-                        ui.error(e.getMessage());
-                    }
-                    break;
-                case "todo":
-                    task = new Todos(output[1]);
-                    ui.addItem(task);
-                    break;
-                case "deadline":
-                   task = new Deadlines(output[1], output[2]);
-                    ui.addItem(task);
-                    break;
-                case "event":
-                   task = new Events(output[1], output[2], output[3]);
-                    ui.addItem(task);
-                    break;
-                case "delete":
-                    try {
-                        ui.removeTask(Integer.parseInt(output[1]) - 1);
-                    } catch (ListOutofBoundsException e) {
-                        ui.error(e.getMessage());
-                    }
-                    break;
-                default:
-                    break;
+            case "bye":
+                UI.goodbye();
+                flag = false;
+                break;
+            case "list":
+                ui.listItems();
+                break;
+            case "unmark":
+                try {
+                    ui.unMarkTask(Integer.parseInt(output[1]) - 1);
+                } catch (ListOutofBoundsException e){
+                    ui.error(e.getMessage());
+                }
+                break;
+            case "mark":
+                try {
+                    ui.markTaskUI(Integer.parseInt(output[1]) - 1);
+                } catch (ListOutofBoundsException e) {
+                    ui.error(e.getMessage());
+                }
+                break;
+            case "todo":
+                task = new Todos(output[1]);
+                ui.addItem(task);
+                break;
+            case "deadline":
+                task = new Deadlines(output[1], output[2]);
+                ui.addItem(task);
+                break;
+            case "event":
+                task = new Events(output[1], output[2], output[3]);
+                ui.addItem(task);
+                break;
+            case "delete":
+                try {
+                    ui.removeTask(Integer.parseInt(output[1]) - 1);
+                } catch (ListOutofBoundsException e) {
+                    ui.error(e.getMessage());
+                }
+                break;
+            default:
+                break;
             }
         }
     }
