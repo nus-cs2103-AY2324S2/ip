@@ -18,7 +18,7 @@ public abstract class Deadline extends Template {
         list.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("added: " + task.toString());
-        System.out.println("Now you have " + list.size() + " task " + (list.size() == 1 ? "" : "s") + " in the list.");
+        numOfTasks(list);
         return true;
     }
 }

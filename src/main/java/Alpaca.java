@@ -52,17 +52,19 @@ public class Alpaca {
         if (input.toLowerCase().equals("bye")) {
             bye();
             return;
-        }
-        if (input.toLowerCase().equals("list")) list();
-        trying : try {
-            if (Mark.run(input, list)) break trying;
-            if (Unmark.run(input, list)) break trying;
-            if (Deadline.run(input, list)) break trying;
-            if (Event.run(input, list)) break trying;
-            if (ToDo.run(input, list)) break trying;
-            System.out.println("Me no understand :(");
-        } catch (ArrayIndexOutOfBoundsException | ValueNotFound | InvalidInput e) {
-            System.out.println(e.getMessage());
+        } else if (input.toLowerCase().equals("list")) list();
+        else {
+            trying : try {
+                if (Mark.run(input, list)) break trying;
+                if (Unmark.run(input, list)) break trying;
+                if (Deadline.run(input, list)) break trying;
+                if (Event.run(input, list)) break trying;
+                if (ToDo.run(input, list)) break trying;
+                if (Delete.run(input, list)) break trying;
+                System.out.println("Me no understand :(");
+            } catch (ArrayIndexOutOfBoundsException | ValueNotFound | InvalidInput e) {
+                System.out.println(e.getMessage());
+            }
         }
         divider();
         processInput();

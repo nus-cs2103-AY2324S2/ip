@@ -49,6 +49,14 @@ public abstract class Template {
         return result;
     }
 
+    protected static void numOfTasks(ArrayList<Task> list) {
+        if (list.size() == 0) {
+            System.out.println("Now you have no tasks in the list.");
+            return;
+        } 
+        System.out.println("Now you have " + list.size() + " task" + (list.size() == 1 ? "" : "s") + " in the list.");
+    }
+
     public static Boolean run(String input, ArrayList<Task> list) throws ArrayIndexOutOfBoundsException, ValueNotFound, InvalidInput {
         throw new ValueNotFound("Don't call template");
     }
