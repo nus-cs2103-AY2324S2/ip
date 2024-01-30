@@ -79,7 +79,7 @@ public class Parser {
     }
 
     public boolean canBeHandled(String s) {
-        return !(DateConvert(s) == null);
+        return (DateConvert(s) != null);
     }
 
     public LocalDate DateConvert(String s) {
@@ -88,10 +88,9 @@ public class Parser {
         for (String pattern : patterns) {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-                LocalDate date = LocalDate.parse(s, formatter);
-                return date; // Return the parsed date if successful
+                return LocalDate.parse(s, formatter);
             } catch (DateTimeParseException e) {
-                // Parsing failed for the current pattern, try the next one
+                continue;
             }
         }
         return null;
@@ -104,7 +103,6 @@ public class Parser {
             System.out.println("Deadline cannot be blank");
             return;
         }
-
         //create the deadline name
         for (int a = 1; a < temp.length; a++) {
             if (temp[a].startsWith("/by")) {
@@ -194,7 +192,6 @@ public class Parser {
             System.out.println("[exasperated quacking] You're not that busy - numbers from 1 to " + tasklist.length() +
                     " only, please.");
         }
-
     }
 
 }

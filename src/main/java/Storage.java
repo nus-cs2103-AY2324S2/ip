@@ -76,21 +76,18 @@ public class Storage {
     }
 
     public Task convert(String input) {
-        //assuming the file content is the task type first, then marked or not, then the name, then start/due and end
-        //separated by ~
         String[] inputs = input.split("~");
         String type = inputs[0];
         boolean marked = inputs[1].equals("marked");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         switch (type) {
-        case "T" -> {
+        case "T":
             Task task = new ToDo(inputs[2]);
             if (marked) {
                 task.mark();
             }
             return task;
-        }
-        case "E" -> {
+        case "E":
             LocalDate start = LocalDate.parse(inputs[3], dateFormatter);
             LocalDate end = LocalDate.parse(inputs[4], dateFormatter);
             Task task = new Event(inputs[2], start, end);
@@ -98,15 +95,13 @@ public class Storage {
                 task.mark();
             }
             return task;
-        }
-        case "D" -> {
+        case "D":
             LocalDate due = LocalDate.parse(inputs[3], dateFormatter);
             Task task = new Deadline(inputs[2], due);
             if (marked) {
                 task.mark();
             }
             return task;
-        }
         }
         return new Task("Error");
     }
