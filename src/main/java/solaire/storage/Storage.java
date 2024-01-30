@@ -3,6 +3,8 @@ package solaire.storage;
 import java.util.ArrayList;
 import java.util.List;
 
+import solaire.Solaire;
+import solaire.data.exception.SolaireException;
 import solaire.data.task.Deadline;
 import solaire.data.task.Event;
 import solaire.data.task.Task;
@@ -33,13 +35,15 @@ public class Storage {
             }
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
+        } catch (SolaireException e) {
+            throw new RuntimeException(e);
         }
 
         return taskList;
     }
 
     public static void write(ArrayList<Task> taskList) {
-        String filePath = "src/main/resources/Solaire.txt";
+        String filePath = "src/main/java/solaire/resources/Solaire.txt";
 
         try {
             Storage.taskList = taskList;
@@ -70,7 +74,7 @@ public class Storage {
         }
     }
 
-    private static void parseTasks(String line) {
+    private static void parseTasks(String line) throws SolaireException {
         String[] taskDetails = line.split(" \\| ");
         String taskType = taskDetails[0].trim();
         Boolean isComplete = taskDetails[1].trim().equals("1") ? true : false;

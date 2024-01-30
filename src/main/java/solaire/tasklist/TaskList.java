@@ -7,8 +7,11 @@ import solaire.data.task.Task;
 import solaire.parser.Parser;
 
 public class TaskList {
-    ArrayList<Task> taskList = new ArrayList<>();
+    ArrayList<Task> taskList;
 
+    public TaskList() {
+        this.taskList = new ArrayList<>();
+    }
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
@@ -44,6 +47,10 @@ public class TaskList {
                 throw new SolaireException("Please specify the ID of the task you wish to delete\n");
             } else {
                 Integer targetTaskId = Integer.parseInt(inputCommand[1]);
+
+                if (targetTaskId > this.taskList.size() || targetTaskId <= 0) {
+                    throw new SolaireException("Task number " + targetTaskId + " does not exist");
+                }
                 Task taskToDelete = taskList.get(targetTaskId - 1);
                 taskList.remove(taskToDelete);
                 System.out.println("Removed" + taskToDelete + " from your list");
