@@ -140,7 +140,8 @@ public class Duke {
                                     "   * deadline [desc] /by [desc]\n" +
                                     "   * list\n" +
                                     "   * mark [number]\n" +
-                                    "   * unmark [number]");
+                                    "   * unmark [number]\n" +
+                                    "   * delete [number]");
                     }
                 } catch (DukeException de) {
                     System.out.println(de.toString());
