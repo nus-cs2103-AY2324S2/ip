@@ -1,8 +1,10 @@
+package Utilities;
+
+import Tasks.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-
     private Scanner sc;
     public Ui() {
         this.sc = new Scanner(System.in);
