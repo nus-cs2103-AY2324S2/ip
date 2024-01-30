@@ -23,7 +23,7 @@ public class TaskList {
     }
 
     // List tasks
-    public void listTasks(ArrayList<Task> userTasks) {
+    public short listTasks(ArrayList<Task> userTasks) {
         System.out.println("\tHere are the tasks on your list:");
         for (int i = 0; i < userTasks.size(); i++) {
             Task task = userTasks.get(i);
@@ -32,21 +32,22 @@ public class TaskList {
             switch (type) {
                 case 'T':
                     System.out.println("\t" + (i + 1) + "." + "[" + type + "] " +  "[" + check + "] " + task.getDescription());
-                    break;
+                    return 1;
                 case 'D':
                     Deadline deadlineTask = (Deadline) task;
                     System.out.println("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] " + deadlineTask.getDescription() + " (by: " + deadlineTask.getDeadline() + ")");
-                    break;
+                    return 1;
                 case 'E':
                     Event eventTask = (Event) task;
                     System.out.println("\t" + (i + 1) + "." + "[" + type + "] " + "[" + check + "] "  + eventTask.getDescription() + " (from: " + eventTask.getStartDate() + " to: " + eventTask.getEndDate() + ")");
-                    break;
+                    return 1;
             }
         }
+        return 0;
     }
 
     // mark task
-    public void markTask(ArrayList<Task> userTasks, String[] processedUserInput) {
+    public short markTask(ArrayList<Task> userTasks, String[] processedUserInput) {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
             if (task.getStatus()) {
@@ -58,15 +59,18 @@ public class TaskList {
                 char type = task.getCapitalType();
                 System.out.println("\t[" + type + "] " + "[" + check + "] " + task.getDescription());
             }
+
+            return 1;
         }
         catch (IndexOutOfBoundsException e) {
             // Need to account for trying to mark a task that doesn't exist
             System.out.println("\tTask number provided doesn't exist. Please try again.");
         }
+        return 0;
     }
 
     // Unmark task
-    public void unMarkTask(ArrayList<Task> userTasks, String[] processedUserInput) {
+    public short unMarkTask(ArrayList<Task> userTasks, String[] processedUserInput) {
         try {
             Task task = userTasks.get(Integer.parseInt(processedUserInput[1]) - 1);
             if (!task.getStatus()) {
@@ -78,11 +82,14 @@ public class TaskList {
                 char type = task.getCapitalType();
                 System.out.println("\t[" + type + "] " + "[" + check + "] " + task.getDescription());
             }
+
+            return 1;
         }
         catch (IndexOutOfBoundsException e) {
             // Need to account for trying to unmark a task that doesn't exist
             System.out.println("\tTask number provided doesn't exist. Please try again.");
         }
+        return 0;
     }
 
     private static void taskAlreadyMarked() {

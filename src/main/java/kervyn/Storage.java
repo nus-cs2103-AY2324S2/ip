@@ -22,7 +22,7 @@ public class Storage {
         this.path = path;
     }
 
-    public void writeToFile(String content) {
+    public short writeToFile(String content) {
         try {
             String[] dirName = this.path.split("/");
             File dir = new File(dirName[0]);
@@ -42,11 +42,12 @@ public class Storage {
             bw.write(content + "\n");
 
             bw.close();
-
+            return 1;
         }
         catch (IOException e) {
             System.out.println("Uh oh, the file/directory doesn't seem to exist. No worries, one will be created for you at the end of your conversation!");
         }
+        return 0;
     }
 
     public ArrayList<Task> readTasks() throws IOException {
