@@ -17,6 +17,6 @@ public class ToDo extends Task{
      */
     @Override
     public String parsableString() {
-        return String.format("T,%s", super.parsableString());
+        return String.format("T|%s", super.parsableString());
     }
 }

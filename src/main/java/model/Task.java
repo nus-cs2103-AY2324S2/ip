@@ -47,6 +47,6 @@ public class Task {
             res += "V";
         }
 
-        return res + "," + label;
+        return res + "|" + label;
     }
 }
