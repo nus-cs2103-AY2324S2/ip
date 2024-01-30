@@ -49,7 +49,7 @@ public class FileManager {
                 Files.write(filePath, convertTasksToString(tasks).getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
             }
         } catch (IOException io) {
-            System.out.println("There is an error when writing to file. The error is " + io.getMessage());
+            System.out.println("      There is an error when writing to file. The error is " + io.getMessage());
         }
     }
 
@@ -64,7 +64,9 @@ public class FileManager {
             List<String> fileContentLines = Files.readAllLines(filePath);
             result = convertStringListToTasks(fileContentLines);
         } catch (IOException io) {
-            System.out.println("There is an error when reading the file.");
+            System.out.println("      There is an error when reading the file.");
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
         return result;
     }
@@ -92,7 +94,7 @@ public class FileManager {
                 result.append(((Deadline) task).getBy());
                 result.append(System.getProperty("line.separator"));
             } else {
-                result.append("D | ");
+                result.append("E | ");
                 result.append(task.getStatusIcon().equals("X") ? "1 | " : "0 | ");
                 result.append(task.getDescription() + " | ");
                 result.append(((Event) task).getStart() + " | ");
@@ -110,16 +112,16 @@ public class FileManager {
      * @param content the List of String to be converted.
      * @return an ArrayList of Tasks.
      */
-    private ArrayList<Task> convertStringListToTasks(List<String> content) {
+    private ArrayList<Task> convertStringListToTasks(List<String> content) throws DukeException {
         ArrayList<Task> fileTasks = new ArrayList<>();
         for (String i : content) {
             String[] stringAttributes = i.split("\\|");
             if (stringAttributes[0].trim().equals("T")) {
                 fileTasks.add(new ToDo(stringAttributes[2].trim(), stringAttributes[1].trim().equals("1") ? true : false));
             } else if (stringAttributes[0].trim().equals("D")) {
-                fileTasks.add(new Deadline(stringAttributes[2].trim(), stringAttributes[1].trim().equals("1") ? true : false, stringAttributes[3].trim()));
+                fileTasks.add(new Deadline(stringAttributes[2].trim(), stringAttributes[1].trim().equals("1") ? true : false, DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim())));
             } else if (stringAttributes[0].trim().equals("E")) {
-                fileTasks.add(new Event(stringAttributes[2].trim(), stringAttributes[1].trim().equals("1") ? true : false, stringAttributes[3].trim(), stringAttributes[4].trim()));
+                fileTasks.add(new Event(stringAttributes[2].trim(), stringAttributes[1].trim().equals("1") ? true : false, DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim()), DateTimeManager.convertStringToLocalDateTime(stringAttributes[4].trim())));
             }
         }
         return fileTasks;
@@ -131,7 +133,7 @@ public class FileManager {
      * @param content the String content to be converted.
      * @return an ArrayList of Tasks.
      */
-    private ArrayList<Task> convertStringToTasks(String content) {
+    private ArrayList<Task> convertStringToTasks(String content) throws DukeException {
         String[] individualStringTask = content.trim().split(System.lineSeparator());
         ArrayList<Task> fileTasks = new ArrayList<>();
         for (String i : individualStringTask) {
@@ -139,9 +141,9 @@ public class FileManager {
             if (stringAttributes[0].equals("T")) {
                 fileTasks.add(new ToDo(stringAttributes[2].trim(), stringAttributes[1].equals("1") ? true : false));
             } else if (stringAttributes[0].equals("D")) {
-                fileTasks.add(new Deadline(stringAttributes[2].trim(), stringAttributes[1].equals("1") ? true : false, stringAttributes[3].trim()));
+                fileTasks.add(new Deadline(stringAttributes[2].trim(), stringAttributes[1].equals("1") ? true : false, DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim())));
             } else if (stringAttributes[0].equals("E")) {
-                fileTasks.add(new Event(stringAttributes[2].trim(), stringAttributes[1].equals("1") ? true : false, stringAttributes[3].trim(), stringAttributes[4].trim()));
+                fileTasks.add(new Event(stringAttributes[2].trim(), stringAttributes[1].equals("1") ? true : false, DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim()), DateTimeManager.convertStringToLocalDateTime(stringAttributes[4].trim())));
             }
         }
         return fileTasks;
