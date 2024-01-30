@@ -1,5 +1,11 @@
+package duke.tasks;
+
+import duke.exceptions.DukeException;
+import duke.exceptions.DukeIllegalArgumentException;
+
 import java.util.ArrayList;
 import java.nio.file.Path;
+import duke.storage.Storage;
 
 public class TaskList {
     private static final String MARK_DONE_MESSAGE = "Nice! I've marked this task as done:%n%s";
@@ -131,9 +137,23 @@ public class TaskList {
         if (taskType.equals("T")) {
             taskList.add(new ToDo(description));
         } else if (taskType.equals("D")) {
-            taskList.add(new Deadline(description, by));
+            String byFormatted;
+            String[] dateTimeParts = by.replace("-", "/").split("T");
+            String[] HHmm = dateTimeParts[1].split(":");
+            byFormatted = dateTimeParts[0] + " " + HHmm[0] + HHmm[1];
+            taskList.add(new Deadline(description, byFormatted));
         } else {
-            taskList.add(new Event(description, from, to));
+            String fromFormatted;
+            String toFormatted;
+
+            String[] fromParts = from.replace("-", "/").split("T");
+            String[] fromHHmm = fromParts[1].split(":");
+            fromFormatted = fromParts[0] + " " + fromHHmm[0] + fromHHmm[1];
+
+            String[] toParts = to.replace("-", "/").split("T");
+            String[] toHHmm = toParts[1].split(":");
+            toFormatted = toParts[0] + " " + toHHmm[0] + toHHmm[1];
+            taskList.add(new Event(description, fromFormatted, toFormatted));
         }
 
         if (status.equals("X")) {

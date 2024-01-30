@@ -1,6 +1,7 @@
+package duke.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
 
 public class Deadline extends Task {
 

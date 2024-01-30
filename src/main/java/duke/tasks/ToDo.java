@@ -1,3 +1,5 @@
+package duke.tasks;
+
 public class ToDo extends Task {
 
     private static final String TODO_MESSAGE = "[T]%s";

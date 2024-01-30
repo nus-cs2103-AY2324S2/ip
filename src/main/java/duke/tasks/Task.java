@@ -1,3 +1,5 @@
+package duke.tasks;
+
 public class Task {
 
     private static final String TASK_MESSAGE = "[%s] %s";

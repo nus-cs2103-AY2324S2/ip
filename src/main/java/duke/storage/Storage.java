@@ -1,7 +1,10 @@
+package duke.storage;
+
+import duke.exceptions.DukeIOException;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.io.File;
-import java.io.FileReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -13,7 +16,6 @@ public class Storage {
     public Storage(String path) {
         this.path = path;
         File f = new File(path);
-        System.out.println(path);
 
         if (f.exists()) {
             return;

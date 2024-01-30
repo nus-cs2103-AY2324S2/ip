@@ -1,3 +1,8 @@
+import duke.exceptions.DukeException;
+import duke.exceptions.DukeUnknownCommandException;
+import duke.parser.Parser;
+import duke.tasks.TaskList;
+
 import java.util.Scanner;
 
 public class Duke {
