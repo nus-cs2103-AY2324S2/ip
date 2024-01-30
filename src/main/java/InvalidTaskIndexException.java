@@ -7,7 +7,7 @@ public class InvalidTaskIndexException extends DukeException {
 
     @Override
     public String toString() {
-        return String.format(" Stop trolling and pick a number\n within %d\n", currentSize);
+        return String.format(" Stop trolling and pick a positive number\n within %d\n", currentSize);
     }
 
 }
