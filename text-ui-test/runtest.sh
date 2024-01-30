@@ -25,8 +25,8 @@ fi
 F:/Misc/jdk-11.0.17/bin/java.exe -classpath ../bin Duke < input.txt > ACTUAL.TXT
 
 # copy generated data and delete the generated data folder
-mv ./data/duke.txt ./OUT-DATA.txt
-rm -r ./data
+# mv ./data/duke.txt ./OUT-DATA.txt
+# rm -r ./data
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT
