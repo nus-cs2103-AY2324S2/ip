@@ -6,7 +6,7 @@ import nollid.Storage;
 import nollid.TaskList;
 import nollid.Ui;
 import nollid.exceptions.NollidException;
-import nollid.tasks.ToDo;
+import nollid.tasks.Todo;
 
 /**
  * TodoCommand class represents a command to add a new ToDo task.
@@ -34,7 +34,7 @@ public class TodoCommand extends Command {
             }
         }
 
-        ToDo task = new ToDo(taskDescription.toString());
+        Todo task = new Todo(taskDescription.toString());
 
         tasks.add(task);
 

@@ -13,7 +13,7 @@ import nollid.exceptions.NollidException;
 import nollid.tasks.Deadline;
 import nollid.tasks.Event;
 import nollid.tasks.Task;
-import nollid.tasks.ToDo;
+import nollid.tasks.Todo;
 
 /**
  * Storage class handles loading and updating tasks from/to a file.
@@ -60,12 +60,12 @@ public class Storage {
 
                 switch (lineArray[0]) {
                 case "T":
-                    taskToAdd = new ToDo(taskDescription);
+                    taskToAdd = new Todo(taskDescription);
                     break;
                 case "D":
                     String deadlineString = lineArray[3];
                     try {
-                        LocalDateTime deadline = Task.getLocalDateTimeFromString(deadlineString);
+                        LocalDateTime deadline = Parser.getLocalDateTimeFromString(deadlineString);
                         taskToAdd = new Deadline(taskDescription, deadline);
                     } catch (DateTimeParseException e) {
                         System.out.println(e.getMessage());
@@ -77,8 +77,8 @@ public class Storage {
                     String to = lineArray[4];
 
                     try {
-                        LocalDateTime fromDateTime = Task.getLocalDateTimeFromString(from);
-                        LocalDateTime toDateTime = Task.getLocalDateTimeFromString(to);
+                        LocalDateTime fromDateTime = Parser.getLocalDateTimeFromString(from);
+                        LocalDateTime toDateTime = Parser.getLocalDateTimeFromString(to);
                         taskToAdd = new Event(taskDescription, fromDateTime, toDateTime);
                     } catch (DateTimeParseException | NollidException e) {
                         System.out.println(e.getMessage());
@@ -118,17 +118,17 @@ public class Storage {
         for (Task t : taskList) {
             String lineToWrite = "";
             try {
-                if (t instanceof ToDo) {
+                if (t instanceof Todo) {
                     lineToWrite = "T" + DELIMITER + t.getStatusNumber() + DELIMITER + t.getDescription() + "\n";
                 } else if (t instanceof Deadline) {
                     Deadline deadline = (Deadline) t;
                     lineToWrite = "D" + DELIMITER + deadline.getStatusNumber() + DELIMITER + deadline.getDescription()
-                            + DELIMITER + deadline.getDeadline().format(Deadline.SAVE_FORMAT) + "\n";
+                            + DELIMITER + deadline.getDeadline().format(Parser.SAVE_FORMAT) + "\n";
                 } else if (t instanceof Event) {
                     Event event = (Event) t;
                     lineToWrite = "E" + DELIMITER + event.getStatusNumber() + DELIMITER + event.getDescription()
-                            + DELIMITER + event.getFrom().format(Event.SAVE_FORMAT)
-                            + DELIMITER + event.getTo().format(Event.SAVE_FORMAT) + "\n";
+                            + DELIMITER + event.getFrom().format(Parser.SAVE_FORMAT)
+                            + DELIMITER + event.getTo().format(Parser.SAVE_FORMAT) + "\n";
                 }
 
                 if (isFirstLine) {

@@ -4,12 +4,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import nollid.Parser;
 import nollid.Storage;
 import nollid.TaskList;
 import nollid.Ui;
 import nollid.exceptions.NollidException;
 import nollid.tasks.Deadline;
-import nollid.tasks.Task;
 
 /**
  * DeadlineCommand class represents a command for adding a Deadline task.
@@ -54,7 +54,7 @@ public class DeadlineCommand extends Command {
         }
 
         try {
-            LocalDateTime deadline = Task.getLocalDateTimeFromString(deadlineString.toString());
+            LocalDateTime deadline = Parser.getLocalDateTimeFromString(deadlineString.toString());
             Deadline task = new Deadline(taskDescription.toString(), deadline);
             tasks.add(task);
 
