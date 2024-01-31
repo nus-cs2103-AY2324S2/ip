@@ -4,8 +4,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * The Parser class is responsible for interpreting and processing user commands.
+ * It provides various static methods to handle different types of tasks and commands.
+ */
 public class Parser {
 
+    /**
+     * Processes the user command and directs it to the appropriate method.
+     * Supports a variety of commands such as adding, deleting, and listing tasks.
+     *
+     * @param tl The TaskList to perform operations on.
+     * @param cmd The user input command to be processed.
+     * @throws DukeException If the command is invalid or incorrectly used.
+     */
     public static void checkCmd(TaskList tl, String cmd) throws DukeException {
         String[] commandArr = cmd.split(" ");
         switch (commandArr[0]) {
@@ -38,6 +50,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Prints all tasks in the TaskList.
+     * Outputs a formatted list of tasks or a message if the list is empty.
+     *
+     * @param tl The TaskList containing the tasks to be printed.
+     */
     public static void printLst(TaskList tl) {
         StringBuilder toPrint = new StringBuilder();
         if (tl.getLst().isEmpty()) {
@@ -52,6 +70,15 @@ public class Parser {
         Ui.beautify(toPrint.toString());
     }
 
+    /**
+     * Adds a Todo task to the TaskList.
+     * Validates and extracts task details from the command before adding the task.
+     *
+     * @param tl The TaskList to add the Todo task to.
+     * @param commandArr The array of strings representing the split user command.
+     * @param cmd The full user command string.
+     * @throws DukeException If the Todo task description is empty.
+     */
     public static void addTodo(TaskList tl, String[] commandArr, String cmd) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, the description of a todo cannot be empty :(");
@@ -65,6 +92,15 @@ public class Parser {
         Ui.beautify(toPrint);
     }
 
+    /**
+     * Adds a Deadline task to the TaskList.
+     * Validates and extracts task details including the deadline date from the command.
+     *
+     * @param tl The TaskList to add the Deadline task to.
+     * @param commandArr The array of strings representing the split user command.
+     * @param cmd The full user command string.
+     * @throws DukeException If the Deadline description or date is empty or incorrectly formatted.
+     */
     public static void addDeadline(TaskList tl, String[] commandArr, String cmd) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, the description and date of a deadline cannot be empty :(");
@@ -87,6 +123,15 @@ public class Parser {
         Ui.beautify(toPrint);
     }
 
+    /**
+     * Adds an Event task to the TaskList.
+     * Validates and extracts task details including the event start and end dates from the command.
+     *
+     * @param tl The TaskList to add the Event task to.
+     * @param commandArr The array of strings representing the split user command.
+     * @param cmd The full user command string.
+     * @throws DukeException If the Event description or dates are empty or incorrectly formatted.
+     */
     public static void addEvent(TaskList tl, String[] commandArr, String cmd) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, the description and start and end dates of an event cannot be empty :(");
@@ -118,6 +163,13 @@ public class Parser {
         Ui.beautify(toPrint);
     }
 
+    /**
+     * Finds and lists all tasks in the TaskList that contain the given keyword.
+     *
+     * @param tl The TaskList to search for tasks.
+     * @param commandArr The array of strings representing the split user command.
+     * @throws DukeException If the search keyword is not provided.
+     */
     public static void findTask(TaskList tl, String[] commandArr) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, please input what you want me to find");
@@ -139,6 +191,14 @@ public class Parser {
         Ui.beautify(toPrint.toString());
     }
 
+    /**
+     * Marks a task in the TaskList as done.
+     * Validates the task index before marking it.
+     *
+     * @param tl The TaskList containing the task to mark.
+     * @param commandArr The array of strings representing the split user command.
+     * @throws DukeException If the task index is invalid or not provided.
+     */
     public static void markTask(TaskList tl, String[] commandArr) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, please input the list index for me to mark");
@@ -156,6 +216,14 @@ public class Parser {
         Ui.beautify(toPrint);
     }
 
+    /**
+     * Marks a task in the TaskList as not done.
+     * Validates the task index before unmarking it.
+     *
+     * @param tl The TaskList containing the task to unmark.
+     * @param commandArr The array of strings representing the split user command.
+     * @throws DukeException If the task index is invalid or not provided.
+     */
     public static void unmarkTask(TaskList tl, String[] commandArr) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, please input the list index for me to unmark");
@@ -173,6 +241,14 @@ public class Parser {
         Ui.beautify(toPrint);
     }
 
+    /**
+     * Deletes a task from the TaskList.
+     * Validates the task index before deleting it.
+     *
+     * @param tl The TaskList containing the task to delete.
+     * @param commandArr The array of strings representing the split user command.
+     * @throws DukeException If the task index is invalid or not provided.
+     */
     public static void deleteTask(TaskList tl, String[] commandArr) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, please input the list index for me to delete");
