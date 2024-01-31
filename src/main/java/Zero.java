@@ -4,31 +4,55 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Hashtable;
+import java.util.List;
 
 public class Zero {
     private static final String name = "Zero";
     private static final String divider = "______\n";
 
-    //Checks if the string is null, empty or filled with spaces
+    // Checks if the string is null, empty or filled with spaces
     private static boolean isNullOrEmpty(String s) {
         return s == null || s.isEmpty() || s.trim().isEmpty();
     }
 
-    //filters input commands to give: [0] cmd, [1] name, [2] from/by, [3] to
-    private static String[] filterCommand(String[] s) {
-        String[] result = new String[4];
-        int idx = 1;
-        result[0] = s[0];
-        if (s.length == 1) return result;
-        result[1] = s[1];
-        for (int i = 2; i < s.length; i++) {
+    // For Mark, Unmark, Delete commands
+    // Checks if task index supplied is valid, returns -1 for invalid index
+    private static int checkIndex(String s, PrintWriter pw, ArrayList<Task> tasks) {
+        int idx;
+        try{
+            idx = Integer.parseInt(s) - 1;
+        } catch (NumberFormatException e) {
+            pw.println(Messages.INVALID_TASK_NUMBER);
+            return -1;
+        }
+        if (idx < 0 || idx >= tasks.size()) {
+            pw.printf(Messages.OUT_OF_RANGE_TASK_NUMBER.toString(), tasks.size());
+            return -1;
+        }
+        return idx;
+    }
+
+    // For ToDo, Deadline, Event commands
+    // Filter input arguements and returns keys for name, /by, /from, /to
+    private static Hashtable<String, String> filterArguements(String[] s) {
+        Hashtable<String, String> result = new Hashtable<>(3);
+        String type = "name";
+        StringBuilder arg = new StringBuilder();
+        for (int i = 1; i < s.length; i++) {
             if (s[i].startsWith("/")) {
-                i++;
-                result[++idx] = s[i];
+                result.put(type, arg.toString().trim());
+                type = s[i];
+                arg.setLength(0);
             } else {
-                result[idx] += " " +  s[i];
+                if (!isNullOrEmpty(s[i])) {
+                    arg.append(" ");
+                    arg.append(s[i]);
+                }
             }
         }
+        result.put(type, arg.toString().trim());
         return result;
     }
     
@@ -41,8 +65,10 @@ public class Zero {
 
         ArrayList<Task> tasks = new ArrayList<>();
         String[] cmd;
-        int idx;
-        Task t;
+        int r; // Temporary integer for results
+        Hashtable<String, String> dict; // Temporary dictionary for results
+        String s; // Temporary string for results
+        Task t; // Temporary task
         do {
             pw.print(">>>");
             pw.flush();
@@ -59,99 +85,73 @@ public class Zero {
                     pw.printf(Messages.LIST.toString(), list);
                     break;
                 case "mark":
-                    try{
-                        idx = Integer.parseInt(cmd[1]) - 1;
-                    } catch (NumberFormatException e) {
-                        pw.println(Messages.INVALID_INDEX);
-                        break;
-                    }
-                    if (idx < 0 || idx >= tasks.size()) {
-                        pw.printf(Messages.INVALID_NUMBER.toString(), tasks.size());
-                        break;
-                    }
-                    tasks.set(idx, tasks.get(idx).mark());
-                    pw.printf(Messages.MARKED.toString(), tasks.get(idx));
+                    r = checkIndex(cmd[1], pw, tasks);
+                    if (r == -1) break;
+                    tasks.set(r, tasks.get(r).mark());
+                    pw.printf(Messages.MARKED.toString(), tasks.get(r));
                     break;
                 case "unmark":
-                    try{
-                        idx = Integer.parseInt(cmd[1]) - 1;
-                    } catch (NumberFormatException e) {
-                        pw.println(Messages.INVALID_INDEX);
-                        break;
-                    }
-                    if (idx < 0 || idx >= tasks.size()) {
-                        pw.printf(Messages.INVALID_NUMBER.toString(), tasks.size());
-                        break;
-                    }
-                    tasks.set(idx, tasks.get(idx).unmark());
-                    pw.printf(Messages.UNMARKED.toString(), tasks.get(idx));
+                    r = checkIndex(cmd[1], pw, tasks);
+                    if (r == -1) break;
+                    tasks.set(r, tasks.get(r).unmark());
+                    pw.printf(Messages.UNMARKED.toString(), tasks.get(r));
                     break;
                 case "delete":
-                    try{
-                        idx = Integer.parseInt(cmd[1]) - 1;
-                    } catch (NumberFormatException e) {
-                        pw.println(Messages.INVALID_INDEX);
-                        break;
-                    }
-                    if (idx < 0 || idx >= tasks.size()) {
-                        pw.printf(Messages.INVALID_NUMBER.toString(), tasks.size());
-                        break;
-                    }
-                    t = tasks.remove(idx);
+                    r = checkIndex(cmd[1], pw, tasks);
+                    if (r == -1) break;
+                    t = tasks.remove(r);
                     pw.printf(Messages.REMOVE.toString(), t, tasks.size());
                     break;
                 case "todo":
+                    dict = filterArguements(cmd);
+                    s = dict.get("name");
+                    if (isNullOrEmpty(s)) {
+                        pw.printf(Messages.MISSING_TASK_NAME.toString(), "ToDo");
+                        break;
+                    }
+                    t = new ToDo(s);
+                    tasks.add(t);
+                    pw.printf(Messages.ADD.toString(), t, tasks.size());
+                    break;
                 case "deadline":
+                    dict = filterArguements(cmd);
+                    s = dict.get("name");
+                    if (isNullOrEmpty(s)) {
+                        pw.printf(Messages.MISSING_TASK_NAME.toString(), "Deadline");
+                        break;
+                    }
+                    String deadlineBy = dict.get("/by");
+                    if (isNullOrEmpty(deadlineBy)) {
+                        pw.println(Messages.INVALID_DEADLINE_DATE);
+                        break;
+                    }
+                    t = new Deadline(s, deadlineBy);
+                    tasks.add(t);
+                    pw.printf(Messages.ADD.toString(), t, tasks.size());
+                    break;
                 case "event":
-                    String[] fs = filterCommand(cmd);
-                    if (fs[0].equals("todo")) {
-                        if (isNullOrEmpty(fs[1])) {
-                            pw.println("Please name your ToDo task!\n" + divider);
-                            break;
-                        }
-                        t = new ToDo(fs[1]);
+                    dict = filterArguements(cmd);
+                    s = dict.get("name");
+                    if (isNullOrEmpty(s)) {
+                        pw.printf(Messages.MISSING_TASK_NAME.toString(), "Event");
+                        break;
                     }
-                    else if (fs[0].equals("deadline")) {
-                        if (isNullOrEmpty(fs[1]) && isNullOrEmpty(fs[2])) {
-                            pw.println("Please enter a name and date for your Deadline task!\n" + divider);
-                            break;
-                        }
-                        else if (isNullOrEmpty(fs[1])) {
-                            pw.println("Please name your Deadline task!\n" + divider);
-                            break;
-                        } else if (isNullOrEmpty(fs[2])) {
-                            pw.println("Please enter a date for your Deadline task!\n" + divider);
-                            break;
-                        }
-                        t = new Deadline(fs[1], fs[2]);
+                    String eventFrom = dict.get("/from");
+                    if (isNullOrEmpty(eventFrom)) {
+                        pw.println(Messages.INVALID_EVENT_FROM);
+                        break;
                     }
-                    else {
-                        boolean errDetected = false;
-                        if (isNullOrEmpty(fs[1])) {
-                            pw.println(divider + "Please NAME your Event task!\n");
-                            errDetected = true;
-                        }
-                        if (isNullOrEmpty(fs[2])) {
-                            if (errDetected) pw.print("And p");
-                            else pw.print(divider + "P");
-                            pw.println("lease enter a START DATE for your Event task!\n");
-                            errDetected = true;
-                        }
-                        if (isNullOrEmpty(fs[3])) {
-                            if (errDetected) pw.print("And p");
-                            else pw.print(divider + "P");
-                            pw.println("lease enter a END DATE for your Event task!\n");
-                            errDetected = true;
-                        }
-                        pw.print(divider);
-                        if (errDetected) break;
-                        t = new Event(fs[1], fs[2], fs[3]);
+                    String eventTo = dict.get("/to");
+                    if (isNullOrEmpty(eventTo)) {
+                        pw.println(Messages.INVALID_EVENT_TO);
+                        break;
                     }
+                    t = new Event(s, eventFrom, eventTo);
                     tasks.add(t);
                     pw.printf(Messages.ADD.toString(), t, tasks.size());
                     break;
                 default:
-                    pw.printf(Messages.DONT_UNDERSTAND.toString(), String.join(" ", cmd));
+                    pw.printf(Messages.INVALID_CMD.toString(), String.join(" ", cmd));
                     break;
             }
             pw.flush();
