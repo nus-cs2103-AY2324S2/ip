@@ -5,12 +5,15 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+
 public class Parser {
 private TaskList tasklist;
 
     public Parser(TaskList tasklist) {
         this.tasklist = tasklist;
     }
+
+
     public void parsing(String command) {
         if (command.equals("list")) {
             tasklist.list();
