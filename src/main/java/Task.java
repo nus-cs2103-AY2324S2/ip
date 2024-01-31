@@ -62,12 +62,12 @@ public abstract class Task {
      */
     public abstract String getTokens();
 
-    public static class ToDos extends Task {
-        public ToDos(String name) {
+    public static class ToDo extends Task {
+        public ToDo(String name) {
             super(name);
         }
 
-        public ToDos(String description, boolean isDone) {
+        public ToDo(String description, boolean isDone) {
             super(description, isDone);
         }
 
@@ -87,15 +87,15 @@ public abstract class Task {
         }
     }
 
-    public static class Events extends Task {
+    public static class Event extends Task {
         private LocalDate from;
         private LocalDate to;
-        public Events(String name, LocalDate from, LocalDate to) {
+        public Event(String name, LocalDate from, LocalDate to) {
             super(name);
             this.from = from;
             this.to = to;
         }
-        public Events(String name, boolean isDone, LocalDate from, LocalDate to) {
+        public Event(String name, boolean isDone, LocalDate from, LocalDate to) {
             super(name, isDone);
             this.from = from;
             this.to = to;
@@ -122,7 +122,7 @@ public abstract class Task {
         }
     }
 
-    public static class Deadlines extends Task {
+    public static class Deadline extends Task {
         private LocalDate by;
 
         /**
@@ -131,12 +131,12 @@ public abstract class Task {
          * @param description Brief description of task.
          * @param by LocalDateTine object
          */
-        public Deadlines(String description, LocalDate by) {
+        public Deadline(String description, LocalDate by) {
             super(description);
             this.by = by;
         }
 
-        public Deadlines(String name, boolean isDone, LocalDate by) {
+        public Deadline(String name, boolean isDone, LocalDate by) {
             super(name, isDone);
             this.by = by;
         }

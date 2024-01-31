@@ -85,7 +85,7 @@ public abstract class Command {
         }
 
         public void execute(TaskList list, Ui ui, Storage storage) {
-            Task.ToDos newTask = new Task.ToDos(this.description);
+            Task.ToDo newTask = new Task.ToDo(this.description);
             list.add(newTask);
             ui.showMessage("added new ToDo: " + newTask);
             ui.showMessage("Looks like you have " + list.countTasks() + " things left to do!");
@@ -102,7 +102,7 @@ public abstract class Command {
 
         @Override
         public void execute(TaskList list, Ui ui, Storage storage) {
-            Task.Deadlines newDeadline = new Task.Deadlines(description, by);
+            Task.Deadline newDeadline = new Task.Deadline(description, by);
             list.add(newDeadline);
             ui.showMessage("added new deadline: " + newDeadline);
             ui.showMessage("Looks like you have " + list.countTasks() + " things left to do!");
@@ -122,7 +122,7 @@ public abstract class Command {
 
         @Override
         public void execute(TaskList list, Ui ui, Storage storage) {
-            Task newEvent = new Task.Events(task, start, end);
+            Task newEvent = new Task.Event(task, start, end);
             list.add(newEvent);
             ui.showMessage("added new event: " + newEvent);
             ui.showMessage("Looks like you have " + list.countTasks() + " things left to do!");
