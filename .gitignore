@@ -10,6 +10,8 @@ src/main/resources/docs/
 
 # Ignore Java Class files
 *.class
+# Ignore builds
+*.jar
 
 # Ignore data log
 /data/
