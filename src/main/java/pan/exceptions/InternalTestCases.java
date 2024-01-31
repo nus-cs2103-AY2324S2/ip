@@ -3,6 +3,12 @@ package pan.exceptions;
 import pan.enums.Commands;
 
 public class InternalTestCases {
+    /**
+     * Checks whether a given instruction input by the user violates any missing information.
+     * 
+     * @param instruction String input read in by the user
+     * @throws MissingParameterException Occurs whenever a violation of missing information has been detected for a said command.
+     */
     public static void testMissingParameters(String instruction) throws MissingParameterException {
         String brokenCommand = instruction.split(" ")[0].trim();
         String backCommand = instruction.substring(brokenCommand.length()).trim();
@@ -28,6 +34,12 @@ public class InternalTestCases {
         }
     }
 
+    /**
+     * Checks whether a given instruction input by the user is indeed an actual command for the chatbot.
+     * 
+     * @param instruction String input read in by the user
+     * @throws InvalidCommandException Occurs whenever an invalid command has been detected.
+     */
     public static void testInvalidCommand(String instruction) throws InvalidCommandException {
         String brokenCommand = instruction.split(" ")[0];
         Commands [] commands = {Commands.BYE, Commands.DEADLINE, Commands.DELETE, Commands.EVENT, Commands.MARK, Commands.UNMARK, Commands.TODO};

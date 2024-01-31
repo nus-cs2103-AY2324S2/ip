@@ -8,6 +8,9 @@ import java.util.List;
 public class Storage {
     public Storage() {}
 
+    /**
+     * Persists the state of the tasks into a .txt file through overwriting the file at every function call.
+     */
     public void save(List<Task> tasks) {
         try{
             String filePath = "./src/main/java/pan/output/pan.txt";

@@ -4,19 +4,28 @@ import java.util.Scanner;
 import pan.enums.Commands;
 import pan.enums.TaskStatus;
 import pan.exceptions.InternalTestCases;
-import pan.exceptions.TaskIndexException;
 
 class Parser { 
     private Ui ui;
     private Scanner scanner;
     private TaskList taskList;
 
+    /**
+     * Constructs a Parser instance.
+     *
+     * @param ui Ui instance that parser depends on.
+     * @param scanner Scanner instance responsible to deal with I/O operations in CLI.
+     * @param taskList TaskList instance responsible for CRUD operations with chatbot's Tasks.
+     */
     public Parser(Ui ui, Scanner scanner, TaskList taskList) {
         this.ui = ui;
         this.scanner = scanner;
         this.taskList = taskList;
     }
 
+    /**
+     * Represents the driver method to parse and validate user logic.
+     */
     public void parseInput() {
         ui.hello();
         while (true) {
@@ -61,9 +70,6 @@ class Parser {
                     continue;
                 } else if (instruction.matches("(delete) \\d+")) {
                     String index = instruction.substring(6).trim();
-                    if (Integer.parseInt(index) > taskList.getTasks().size()) {
-                        throw new TaskIndexException("You have entered an invalid index!");
-                    }
                     taskList.delete(Integer.parseInt(index));
                     continue;
                 } else {
