@@ -1,7 +1,5 @@
 
 import java.io.*;
-import java.sql.Array;
-import java.sql.DataTruncation;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileOutputStream;
@@ -9,14 +7,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Duke {
-//    public static void main(String[] args) {
-//        zhen zh = new zhen();
-//        zh.greeting();
-//        zhen.print_message("Hello! I'm ZHEN\n What can I do for you? ");
-////        zh.echo(); // level1
-//        zh.store_task(); // level2
-//        zhen.print_message("Bye. Hope to see you again soon");
-//    }
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -24,29 +14,21 @@ public class Duke {
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-//        try {
-            tasks = new TaskList(storage.load());
-//        } catch (DukeException e) {
-//            ui.showLoadingError();
-//            tasks = new TaskList();
-//        }
+        tasks = new TaskList(storage.load());
     }
 
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
-//            try {
+            try {
                 String fullCommand = ui.readCommand();
-//                ui.showLine(); // show the divider line ("_______")
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-//            } catch (DukeException e) {
-//                ui.showError(e.getMessage());
-//            } finally {
-//                ui.showLine();
-//            }
+            } catch (Exception e) {
+                ui.print_message(e.getMessage());
+            }
         }
     }
 
@@ -73,40 +55,6 @@ class Ui{
     public String readCommand(){
         return obj.nextLine();
     }
-
-//    public void store_task(){
-////        database db = new database();
-////        db.readDisk();
-//        while(true){
-//            try {
-//                String msg = getuserinput();
-//                if (msg.equals("bye")) {
-//                    break;
-//                } else if (msg.equals("list")) {
-//                    print_message(tasks.toString());
-//                } else if (msg.length() >= 4 && msg.substring(0, 4).equals("todo")) {
-//                    db.insert(new Todos(msg.substring(4)));
-//                } else if (msg.length() >= 8 && msg.substring(0, 8).equals("deadline")) {
-//                    db.insert(new Deadline(msg.substring(8)));
-//                } else if (msg.length() >= 5 && msg.substring(0, 5).equals("event")) {
-//                    db.insert(new Event(msg.substring(5)));
-//                } else if (msg.length() > 4 && msg.substring(0, 4).equals("mark")) {
-//                    int number = Integer.parseInt(msg.substring(5));
-//                    db.mark(number);
-//                } else if (msg.length() > 6 && msg.substring(0, 6).equals("unmark")) {
-//                    int number = Integer.parseInt(msg.substring(7));
-//                    db.unmark(number);
-//                } else if (msg.length() > 6 && msg.substring(0, 6).equals("delete")) {
-//                    int number = Integer.parseInt(msg.substring(7));
-//                    db.delete(number);
-//                } else {
-//                    print_message("OOPS!!! I'm sorry, but I don't know what that means");
-//                }
-//            }catch(IllegalArgumentException e){
-//                print_message(" OOPS!!! The description cannot be empty.");
-//            }
-//        }
-//    }
 }
 class TaskList{
     private ArrayList<task> strlist = new ArrayList<>();
@@ -114,8 +62,6 @@ class TaskList{
     TaskList(ArrayList<task> tasklist){
         this.strlist = tasklist;
         number_task = this.strlist.size();
-    }
-    TaskList(){
     }
     public int accessNumberTask(){
         return number_task;
@@ -126,34 +72,20 @@ class TaskList{
     public void insert(task tsk){
         strlist.add(tsk);
         number_task++;
-//        Ui.print_message("Got it. I've added this task:\n  "
-//                +tsk.toString()+"\n "+
-//                "Now you have "+number_task+" tasks in the list.");
-//        Storage.writeDisk();
     }
     public String delete(int index){
         String temp = strlist.get(index-1).toString();
         strlist.remove(index-1);
         number_task--;
         return temp;
-//        Ui.print_message("Noted. I've removed this task:\n  "
-//                +temp+"\n "+
-//                "Now you have "+number_task+" tasks in the list.");
-//        writeDisk();
     }
     public String mark(int index){
         strlist.get(index-1).mark();
-//        Ui.print_message("Nice! I've marked this task as done:\n  "
-//                +strlist.get(index-1));
         return strlist.get(index-1).toString();
-//        writeDisk();
     }
     public String unmark(int index){
         strlist.get(index-1).unmark();
-//        Ui.print_message("OK, I've marked this task as not done yet:\n  "
-//                +strlist.get(index-1));
         return strlist.get(index-1).toString();
-//        writeDisk();
     }
     @Override
     public String toString(){
@@ -167,31 +99,6 @@ class TaskList{
         }
         return str;
     }
-//    public void writeDisk() {
-//        try {
-//            FileOutputStream file = new FileOutputStream("database.ser");
-//            ObjectOutputStream out = new ObjectOutputStream(file);
-//            out.writeObject(strlist);
-//            out.close();
-//            file.close();
-//        }catch(IOException e){
-////            System.out.println("Problem writing to hard disk.");
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public void readDisk() {
-//        try {
-//            FileInputStream file = new FileInputStream("database.ser");
-//            ObjectInputStream in = new ObjectInputStream(file);
-//            strlist = (ArrayList<task>) in.readObject();
-//            number_task = strlist.size();
-//            in.close();
-//            file.close();
-//        } catch (Exception e){
-//            return;
-//        }
-//    }
 }
 class task implements Serializable{
     private String message;
@@ -215,10 +122,6 @@ class task implements Serializable{
     protected String access_message(){
         return message;
     }
-    protected void change_message(String msg){
-        this.message = msg;
-    }
-
     @Override
     public String toString(){
         if (state == true){
@@ -246,19 +149,10 @@ class Todos extends task{
 }
 class Deadline extends task{
     LocalDate date;
-    public Deadline(String message){
+    public Deadline(String message, LocalDate toDate){
         super(message);
-        process_msg(message);
+        this.date = toDate;
     }
-    private void process_msg(String msg){
-//        change_message(access_message().substring(0,access_message().lastIndexOf('/')));
-//        this.date = access_message().substring(access_message().lastIndexOf('/')+4);
-        String[] strarr = msg.split("/by");
-        change_message(strarr[0].trim());
-        String temp = strarr[1].substring(0).trim();
-        this.date =Parser.parseDate(temp);
-    }
-
     @Override
     public String toString(){
         String msg;
@@ -274,22 +168,10 @@ class Deadline extends task{
 class Event extends task{
     LocalDate from_date;
     LocalDate to_date;
-    public Event(String message){
-//        super(message.substring(6,message.lastIndexOf('/')).substring(0,message.substring(6,message.lastIndexOf('/')).lastIndexOf('/')));
-//        String temp =message.substring(6,message.lastIndexOf('/'));
-//        this.to_date = message.substring(message.lastIndexOf('/')+4);
-//        this.from_date =temp.substring(temp.lastIndexOf('/')+6);
+    public Event(String message, LocalDate from_date, LocalDate to_date){
         super(message);
-        process_msg(message);
-    }
-    private void process_msg(String msg){
-        String[] strarr = msg.split("/from");
-        change_message(strarr[0].trim());
-        String[] strArr = strarr[1].split("/to");
-        String temp = strArr[1].trim();
-        this.to_date = Parser.parseDate(temp);
-        temp=strArr[0].trim();
-        this.from_date =Parser.parseDate(temp);
+        this.from_date = from_date;
+        this.to_date = to_date;
     }
 
     @Override
@@ -307,54 +189,53 @@ class Event extends task{
 }
 class Parser{
     public static LocalDate parseDate(String date){
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate date1 = LocalDate.parse(date, formatter);
-//            return date1.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            return date1;
-        }catch(Exception e){
-            return null;
-        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date1 = LocalDate.parse(date, formatter);
+        return date1;
     }
     public static Command parse(String msg){
-        try {
-//            String msg = getuserinput();
             if (msg.equals("bye")) {
-//                break;
                 return new ExitCommand();
             } else if (msg.equals("list")) {
-//                print_message(tasks.toString());
                 return new ListCommand();
             } else if (msg.length() >= 4 && msg.substring(0, 4).equals("todo")) {
-//                db.insert(new Todos(msg.substring(4)));
                 return new AddCommand(new Todos(msg.substring(4)));
-            } else if (msg.length() >= 8 && msg.substring(0, 8).equals("deadline")) {
-//                db.insert(new Deadline(msg.substring(8)));
 
-                return new AddCommand(new Deadline(msg.substring(8)));
+            } else if (msg.length() >= 8 && msg.substring(0, 8).equals("deadline")) {
+                String[] strarr = processDeadlineMsg(msg.substring(8));
+                return new AddCommand(new Deadline(strarr[0], parseDate(strarr[1])));
             } else if (msg.length() >= 5 && msg.substring(0, 5).equals("event")) {
-//                db.insert(new Event(msg.substring(5)));
-                return new AddCommand(new Event(msg.substring(5)));
+                String[] strarr = processEventMsg(msg.substring(5));
+                return new AddCommand(new Event(strarr[0], parseDate(strarr[1]),parseDate(strarr[2])));
+//                return new AddCommand(new Event(msg.substring(5)));
             } else if (msg.length() > 4 && msg.substring(0, 4).equals("mark")) {
                 int number = Integer.parseInt(msg.substring(5));
-//                db.mark(number);
                 return new MarkCommand(number);
             } else if (msg.length() > 6 && msg.substring(0, 6).equals("unmark")) {
                 int number = Integer.parseInt(msg.substring(7));
-//                db.unmark(number);
                 return new UnmarkCommand(number);
             } else if (msg.length() > 6 && msg.substring(0, 6).equals("delete")) {
                 int number = Integer.parseInt(msg.substring(7));
-//                db.delete(number);
                 return new DeleteCommand(number);
             } else {
-//                print_message("OOPS!!! I'm sorry, but I don't know what that means");
-                return null;
+                return new DontknowCommand();
             }
-        }catch(IllegalArgumentException e){
-//            print_message(" OOPS!!! The description cannot be empty.");
-            return null;
-        }
+    }
+    private static String[] processEventMsg(String msg){
+        String[] arr = new String[3];
+        String[] strarr = msg.split("/from");
+        arr[0] = strarr[0].trim();
+        String[] strArr = strarr[1].split("/to");
+        arr[1] = strArr[1].trim();
+        arr[2]=strArr[0].trim();
+        return arr;
+    }
+    private static String[] processDeadlineMsg(String msg){
+        String[] arr = new String[2];
+        String[] strarr = msg.split("/by");
+        arr[0] = (strarr[0].trim());
+        arr[1] = strarr[1].substring(0).trim();
+        return arr;
     }
 }
 class Storage{
@@ -370,8 +251,8 @@ class Storage{
             out.close();
             file.close();
         }catch(IOException e){
-//            System.out.println("Problem writing to hard disk.");
-            e.printStackTrace();
+            System.out.println("Problem writing to hard disk.");
+//            e.printStackTrace();
         }
     }
     public ArrayList<task> load() {
@@ -383,7 +264,7 @@ class Storage{
             file.close();
             return strlist;
         } catch (Exception e){
-            return null;
+            return new ArrayList<>();
         }
     }
 }
@@ -398,7 +279,6 @@ class AddCommand extends Command{
         this.tsk = tsk;
     }
     public void execute(TaskList tsks, Ui ui, Storage storage){
-
         tsks.insert(this.tsk);
         Ui.print_message("Got it. I've added this task:\n  "
                 +tsk.toString()+"\n "+
@@ -433,9 +313,6 @@ class MarkCommand extends Command{
     }
     public void execute(TaskList tsks, Ui ui, Storage storage){
         String temp = tsks.mark(markIndex);
-//        Ui.print_message("Noted. I've removed this task:\n  "
-//                +temp+"\n "+
-//                "Now you have "+tsks.accessNumberTask()+" tasks in the list.");
         Ui.print_message("Nice! I've marked this task as done:\n  "+ temp);
         storage.writeDisk(tsks.accessList());
     }
@@ -450,10 +327,6 @@ class UnmarkCommand extends Command{
     }
     public void execute(TaskList tsks, Ui ui, Storage storage){
         String temp = tsks.unmark(unmarkIndex);
-//        Ui.print_message("Noted. I've removed this task:\n  "
-//                +temp+"\n "+
-//                "Now you have "+tsks.accessNumberTask()+" tasks in the list.");
-//        Ui.print_message("Nice! I've marked this task as done:\n  "+ temp);
         Ui.print_message("OK, I've marked this task as not done yet:\n  "+temp);
         storage.writeDisk(tsks.accessList());
     }
@@ -464,11 +337,6 @@ class UnmarkCommand extends Command{
 }
 class ExitCommand extends Command{
     public void execute(TaskList tsks, Ui ui, Storage storage){
-//        String temp = tsks.unmark(unmarkIndex);
-//        Ui.print_message("Noted. I've removed this task:\n  "
-//                +temp+"\n "+
-//                "Now you have "+tsks.accessNumberTask()+" tasks in the list.");
-//        Ui.print_message("Nice! I've marked this task as done:\n  "+ temp);
         Ui.print_message("Bye");
     }
     public boolean isExit(){
@@ -477,12 +345,15 @@ class ExitCommand extends Command{
 }
 class ListCommand extends Command{
     public void execute(TaskList tsks, Ui ui, Storage storage){
-//        String temp = tsks.unmark(unmarkIndex);
-//        Ui.print_message("Noted. I've removed this task:\n  "
-//                +temp+"\n "+
-//                "Now you have "+tsks.accessNumberTask()+" tasks in the list.");
-//        Ui.print_message("Nice! I've marked this task as done:\n  "+ temp);
         Ui.print_message(tsks.toString());
+    }
+    public boolean isExit(){
+        return false;
+    }
+}
+class DontknowCommand extends Command{
+    public void execute(TaskList tsks, Ui ui, Storage storage){
+        Ui.print_message("OOPS!!! I'm sorry, but I don't know what that means");
     }
     public boolean isExit(){
         return false;
