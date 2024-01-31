@@ -99,6 +99,7 @@ public class TaskList {
     }
     /**
      * Marks a task as not completed.
+     *
      * @param idx The index to unmark the task done.
      */
     public void unmarkTask(int idx) {
@@ -125,6 +126,11 @@ public class TaskList {
         System.out.println("_________________________\n");
     }
 
+    /**
+     * Lists current tasks related to keyword given.
+     *
+     * @param keyword The keyword we are concerned about.
+     */
     public void listKeywords(String keyword) {
         System.out.println("_________________________\n"
             + "Asking shuheng for tasks related to " + keyword + "...\n");

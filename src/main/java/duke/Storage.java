@@ -35,6 +35,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates log.
+     */
     public void createLog() {
         File logFile = new File(this.path);
         try {
@@ -44,7 +47,7 @@ public class Storage {
         }
     }
 
-    public LocalDateTime restoreDateTime(String dateString) {
+    private LocalDateTime restoreDateTime(String dateString) {
         String[] decomposedDateString = dateString.split("T");
         String hhmm = decomposedDateString[1];
         String yymmdd = decomposedDateString[0];
@@ -57,7 +60,11 @@ public class Storage {
         int minute = Integer.parseInt(decomposedHhmm[1]);
         return LocalDateTime.of(year, month, day, hour, minute);
     }
-
+    /**
+     * Writes status of current task list to logs.
+     *
+     * @param currentList The current task list.
+     */
     public void writeLog(ArrayList<Task> currentList) {
         File logFile = new File(this.path);
         StringBuilder sb = new StringBuilder();
@@ -73,7 +80,12 @@ public class Storage {
             System.out.println("Problem writing to log! " + e.getMessage());
         }
     }
-
+    /**
+     * Loads history from current logs.
+     *
+     * @param currentList The current task list to be updated from logs.
+     * @throws CorruptedLogException Thrown when the log is corrupted.
+     */
     public void loadHistory(ArrayList<Task> currentList) throws CorruptedLogException {
         File logEntry = new File(this.path);
         try {
@@ -89,7 +101,7 @@ public class Storage {
         }
     }
 
-    public Task parseEntry(String logEntry) {
+    private Task parseEntry(String logEntry) {
         String[] entry = logEntry.split(",");
         boolean completeStatus = entry[1].equals("T");
         //System.out.println("Entry " + entry[1] + ": " + completeStatus);
