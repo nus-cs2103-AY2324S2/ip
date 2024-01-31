@@ -26,14 +26,12 @@ public class Parser {
                 }
                 return new UnmarkCommand(Integer.parseInt(split[1]));
             }
-
             case "todo": {
                 if (params.equals("")) {
                     throw new DukeException("The description of a todo cannot be empty.");
                 }
                 return new TodoCommand(params);
             }
-
             case "deadline": {
                 if (params.equals("")) {
                     throw new DukeException("The description of a deadline cannot be empty.");
@@ -45,7 +43,6 @@ public class Parser {
                 System.out.println(split1[1].strip());
                 return new DeadlineCommand(split1[0], Util.parseDate(split1[1].strip()));
             }
-
             case "event": {
                 if (params.equals("")) {
                     throw new DukeException("The description of an event cannot be empty.");
@@ -68,10 +65,15 @@ public class Parser {
                 return new DeleteCommand(Integer.parseInt(params) - 1);
             }
 
+            case "find": {
+                return new FindCommand(params.trim());
+            }
+
             case "bye": {
                 return new ByeCommand();
             }
             case "help":
+            // Fallthrough
             default: {
                 return new HelpCommand();
             }
