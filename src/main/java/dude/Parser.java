@@ -31,7 +31,8 @@ public class Parser {
         return true;
     }
 
-    private static boolean checkParameterExists(ArrayList<String> output, String command, String parameterName, String parameter) {
+    private static boolean checkParameterExists(
+            ArrayList<String> output, String command, String parameterName, String parameter) {
         if (!parameter.isEmpty()) {
             output.add(parameter);
             return true;
@@ -40,7 +41,8 @@ public class Parser {
         return false;
     }
 
-    private static boolean checkFlagExists(ArrayList<String> output, String command, String parameterName, String parameter) {
+    private static boolean checkFlagExists(
+            ArrayList<String> output, String command, String parameterName, String parameter) {
         String[] parameterSplit = parameter.split(" ", 2);
         if (!parameterSplit[0].equals(parameterName)) {
             Ui.print("Invalid flag name " + parameterName + " for command " + command + "\n");
@@ -50,7 +52,8 @@ public class Parser {
         return checkParameterExists(output, command, parameterName, arg);
     }
 
-    public static boolean getParameters(ArrayList<String> output, String command, String[] parameterNames, String args) {
+    public static boolean getParameters(
+            ArrayList<String> output, String command, String[] parameterNames, String args) {
         String[] argsSplit = args.split("/");
         if (argsSplit.length != parameterNames.length) {
             Ui.print("Invalid number of parameters for " + command + ", need to have: "
@@ -65,7 +68,8 @@ public class Parser {
         return true;
     }
 
-    public static boolean formatParameters(ArrayList<Object> formattedParameters, ArrayList<String> parameters, ParameterTypes[] formats) {
+    public static boolean formatParameters(
+            ArrayList<Object> formattedParameters, ArrayList<String> parameters, ParameterTypes[] formats) {
         for (int i = 0; i < formats.length; i++) {
             if (formats[i] == ParameterTypes.INTEGER) {
                 if (isNumeric(parameters.get(i))) {

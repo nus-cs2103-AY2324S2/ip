@@ -63,7 +63,8 @@ public class TaskList {
         }
         Task task = tasks.remove(index);
         storage.createRows(tasks);
-        Ui.print("Noted. I've removed this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.\n");
+        Ui.print(
+                "Noted. I've removed this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.\n");
 
     }
 }

@@ -2,7 +2,7 @@ package dude.task;
 
 public abstract class Task {
     private boolean done = false;
-    private String name;
+    private final String name;
 
     public Task(String name) {
 
