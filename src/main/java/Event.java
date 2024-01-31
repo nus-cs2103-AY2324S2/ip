@@ -16,4 +16,12 @@ public class Event extends Task{
             return "[E][ ] " + description + " (from: " + start + " to: " + end + ")";
         }
     }
+
+    public String getStart() {
+        return this.start;
+    }
+
+    public String getEnd() {
+        return this.end;
+    }
 }

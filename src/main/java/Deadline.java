@@ -15,4 +15,8 @@ public class Deadline extends Task{
 
         return "[D][ ] " + description + " (by: " + deadline +")";
     }
+
+    public String getDeadline() {
+        return deadline;
+    }
 }

@@ -1,19 +1,33 @@
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import  java.util.Scanner;
+import java.io.File;
 import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 
 public class Bit {
+
     public static String seperator = "---------------------------------------------------------";
+
+
+
+    private static  String fileName = "./data/bit.txt";
     public static void main(String[] args) {
 
         System.out.println("Hi! This is Bit!\nWhat shall we do today?\n");
-
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
 
+        File myFile = new File(fileName);
+        myFile.getParentFile().mkdirs();
+        if (!createFile(myFile)) {
+            System.out.println("Error! Something went wrong while creating your file!");
+            return;
+        }
+        loadFile(list);
+        cleanList();
 
         while(true) {
             System.out.println(seperator);
@@ -59,6 +73,7 @@ public class Bit {
 
 
         }
+        saveAll(list);
         System.out.println("Alright. See you soon!!");
 
     }
@@ -75,7 +90,6 @@ public class Bit {
                 }
                 list.add(new Todo(parts[1]));
                 int i = list.size();
-                saveToFile(parts[1], null, null);
                 System.out.println("I have added this todo: " + (i) + " " + list.get(i - 1).toString());
 
 
@@ -180,16 +194,97 @@ public class Bit {
         }
     }
 
-    public static void  saveToFile(String description, String start, String end) {
+    public static boolean createFile(File myFile) {
         try {
-            FileWriter myWriter = new FileWriter("./data/bit.txt");
-            if (start == null && end == null) {
-                myWriter.write("T | " + description);
+            if (myFile.createNewFile()) {
+                return true;
+            } else {
+                return true;
             }
+        } catch (IOException e) {
+            System.out.println(e);
+            return false;
+        }
+
+    }
+
+    public static void cleanList() {
+        try {
+            FileWriter myCleaner = new FileWriter(fileName);
+            myCleaner.write("");
+            myCleaner.close();
+        } catch (IOException e) {
+            return;
+        }
+    }
+    public static  void saveAll(ArrayList<Task> list) {
+
+        for (int i = 0; i < list.size(); i++) {
+            Task t = list.get(i);
+            if (t instanceof Todo) {
+                saveToFile(t.description);
+            } else if (t instanceof Deadline) {
+                saveToFile(t.description, ((Deadline) t).getDeadline());
+            } else if (t instanceof Event) {
+                saveToFile(t.description, ((Event) t).getStart(), ((Event) t).getEnd());
+            }
+
+        }
+    }
+
+    public static void  saveToFile(String description) {
+        try {
+            FileWriter myWriter = new FileWriter(fileName, true);
+            myWriter.write("T/" + description+ "\n");
             myWriter.close();
         } catch (IOException e) {
-            System.out.println("I was unable to save this taskto the harddisk, sorry!");
+            System.out.println("I was unable to add that to the list!");
         }
+    }
+
+    public static void saveToFile(String description, String deadline) {
+        try {
+            FileWriter myWriter = new FileWriter(fileName, true);
+            myWriter.write(("D/" + description + "/" + deadline +"\n"));
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("I was unable to add that to the list!");
+        }
+    }
+
+    public static void saveToFile(String description, String start, String end) {
+        try {
+            FileWriter myWriter = new FileWriter(fileName, true);
+            myWriter.write("E/" + description + "/" + start + "/" + end +"\n");
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("I was unable to add that to the list!");
+        }
+    }
+
+    public  static void loadFile(ArrayList<Task> list) {
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String next;
+            while ((next = br.readLine()) != null) {
+                String[] parts = next.split("/");
+                if (parts.length == 1) {
+                    return;
+                }
+                System.out.println(parts[0]);
+                System.out.println(parts[1]);
+                if (parts[0].equals("T")) {
+                    list.add(new Todo(parts[1]));
+                } else if (parts[0].equals("D")) {
+                    list.add(new Deadline(parts[1], parts[2]));
+                } else if (parts[0].equals("E")) {
+                    list.add(new Event(parts[1], parts[2], parts[3]));
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Errorrrr...");
+        }
+
     }
 
 
