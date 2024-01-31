@@ -19,9 +19,11 @@ or very trivial next few steps that you expect to take.
 
 ### Benefits
 Helps to reduce cognitive load of typing and thinking of the variable names.
-
 Speed up refactoring of code when shifting to more OOP, and it will consider the
-original code written to suggest the right code in new classes.
+Original code written to suggest the right code in new classes.
+Speeds up writing comments with similar code and contexts. Though it is not detailed at times,
+I can speed up the obvious parts and add on with more important details.
+
 
 ### Limitations
 Sometimes it is not able to suggest the right code, and you have to manually type it out.

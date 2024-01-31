@@ -3,13 +3,29 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a parser that handles users input and
+ * return the respective commands and descriptions.
+ */
 public class Parser {
     private String input;
     private String commandWord;
+
+    /**
+     * Initializes a Parser with the input from the user.
+     *
+     * @param input the input from the user
+     */
     public Parser(String input) {
         this.input = input;
     }
 
+    /**
+     * Returns the command word from the user input.
+     *
+     * @return command word trimmed from user input
+     * @throws DukeException if the command word is empty
+     */
     public String getCommandWord() throws DukeException {
         if (input.trim().isEmpty()) {
             throw new DukeException("Command cannot be empty.");
@@ -18,16 +34,37 @@ public class Parser {
         return commandWord;
     }
 
+    /**
+     * Returns the description for the new task from user input.
+     *
+     * @return description of the task
+     * @throws DukeException if the description is empty
+     */
     public String getDescription() throws DukeException {
         formatCheck("todo");
         return input.split(" ", 2)[1];
     }
 
+    /**
+     * Returns the date for the deadline task from user input.
+     *
+     * @return date in LocalDate format
+     * @throws DukeException if the date is empty
+     * @throws DateTimeParseException if the date is not in the correct format
+     */
     public LocalDate getBy() throws DukeException, DateTimeParseException {
         formatCheck("deadline");
         return Task.getInputDateFormat(input.split("/by ")[1].trim());
     }
 
+    /**
+     * Returns the date in array form for the event task from user input.
+     * The first element is the start date and the second element is the end date.
+     *
+     * @return array of dates in LocalDate format
+     * @throws DukeException if the date is empty
+     * @throws DateTimeParseException if the date is not in the correct format
+     */
     public LocalDate[] getFromTo() throws DukeException, DateTimeParseException {
         formatCheck("event");
         LocalDate from = Task.getInputDateFormat(input.split("/from")[1].split("/to")[0].trim());
@@ -69,6 +106,12 @@ public class Parser {
 
     }
 
+    /**
+     * Returns the index of the task to be modified from user input.
+     *
+     * @return index of the task
+     * @throws DukeException if the index is empty
+     */
     public int getIndex() throws DukeException {
         if (input.split(" ").length == 1) {
             throw new DukeException("The index of a task cannot be empty.");
