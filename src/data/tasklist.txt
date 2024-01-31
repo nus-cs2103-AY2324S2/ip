@@ -1,7 +1,9 @@
 T | 1 | read book
-D | 0 | return book | 2020-12-31
-E | 0 | project meeting | 2020-12-31 | 2021-12-31
+D | 0 | return book | 31/12/2020
+E | 0 | project meeting | 31/12/2020 | 31/12/2021
 T | 1 | join sports club
 T | 0 | food
-D | 0 | foods | 2020-12-12
-D | 0 | asa | 2000-10-31
+D | 0 | foods | 12/12/2020
+D | 0 | asa | 31/10/2000
+D | 0 | axe | 31/12/2012
+E | 0 | run | 30/11/2011 | 20/01/2021
