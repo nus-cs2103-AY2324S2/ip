@@ -1,8 +1,19 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
-        String name = "Jerry";
-        System.out.println("Hello! I'm " + name);
-        System.out.println("What can I do for you?\n");
-        System.out.println("Bye. Hope to see you again soon!");
+        BotManager manager = new BotManager("Jerry");
+        Scanner sc = new Scanner(System.in);
+        manager.greeting();
+        while (true) {
+            String prompt = sc.nextLine();
+            if (prompt.equals("bye")) {
+                break;
+            } else {
+                manager.answer(prompt);
+            }
+        }
+        manager.exit();
+        sc.close();
     }
 }
