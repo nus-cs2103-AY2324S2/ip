@@ -6,9 +6,12 @@ import java.io.InputStreamReader;
 
 import duke.DukeException;
 
+/**
+ * Represents the user interface of the bot.
+ */
 public class UI {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private String botName = "Duke";
+    private String botName = "Sylvia";
     private final BufferedReader reader;
 
     public UI(String name) {
@@ -33,6 +36,12 @@ public class UI {
         showLine();
     }
 
+    /**
+     * Shows the response from the bot. If the response is null, nothing will be
+     * shown.
+     * 
+     * @param response The response from the bot.
+     */
     public void showResponse(String response) {
         if (response == null) {
             return;
@@ -42,6 +51,11 @@ public class UI {
         showLine();
     }
 
+    /**
+     * Reads a command from the user.
+     * 
+     * @return The command from the user.
+     */
     public String readCommand() {
         String input = "";
         try {

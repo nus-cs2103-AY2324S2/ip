@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Represents a task.
+ */
 public abstract class Task {
     private String description;
     private boolean isDone;
@@ -18,6 +21,11 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Returns the escaped description of the task.
+     *
+     * @return The description of the task.
+     */
     protected static String escapeDescription(String description) {
         return description.replace("|", "\\|");
     }
@@ -36,6 +44,12 @@ public abstract class Task {
         return "[" + status + "] " + description;
     }
 
+    /**
+     * Returns the serialized string of this task. The serialized string will be
+     * stored in the data file.
+     *
+     * @return The serialized string of the task.
+     */
     public String serialize() {
         return (isDone ? "1" : "0") + " | " + escapedDescription;
     }

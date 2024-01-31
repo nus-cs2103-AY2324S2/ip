@@ -5,7 +5,21 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Represents a parser that parses a task list from a file.
+ */
 public class TaskListParser {
+    /**
+     * Parses a task list from a file.
+     * 
+     * @param file The file to parse from.
+     * @return The parsed task list.
+     * @throws IOException                If an I/O error occurs.
+     * @throws InvalidDataFormatException If the data file is not in the correct
+     *                                    format.
+     * @throws DukeDateTimeParseException If the date and time is not in the correct
+     *                                    format.
+     */
     public static TaskList parse(File file) throws IOException, InvalidDataFormatException, DukeDateTimeParseException {
         TaskList list = new TaskList();
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -17,6 +31,15 @@ public class TaskListParser {
         return list;
     }
 
+    /**
+     * Parses a task from a line in the data file.
+     * 
+     * @param line The line to parse from.
+     * @return The parsed task.
+     * @throws InvalidDataFormatException If the line is not in the correct format.
+     * @throws DukeDateTimeParseException If the date and time is not in the correct
+     *                                    format.
+     */
     private static Task parseTask(String line) throws InvalidDataFormatException, DukeDateTimeParseException {
         String[] words = line.split(" \\| ");
         if (words.length < 3)
@@ -38,6 +61,13 @@ public class TaskListParser {
         }
     }
 
+    /**
+     * Serializes a task list into a string. The serialized string will be stored in
+     * the data file.
+     * 
+     * @param list The task list to serialize.
+     * @return The serialized string.
+     */
     public static String serialize(TaskList list) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
