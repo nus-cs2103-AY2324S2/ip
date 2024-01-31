@@ -1,0 +1,10 @@
+todo read books
+deadline return books /by Sunday
+event project meeting /from Monday /to Wednesday
+list
+mark 2
+list
+mark 3
+unmark 2
+list
+bye

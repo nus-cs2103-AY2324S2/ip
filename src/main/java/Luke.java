@@ -4,10 +4,10 @@ import java.util.Scanner;
 public class Luke {
     public static void main(String[] args) {
         // Greetings
-        System.out.println("__________________________________________");
+        System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Luke");
         System.out.println("What can I do for you?");
-        System.out.println("__________________________________________");
+        System.out.println("____________________________________________________________");
 
         // user inputs
         Scanner sc = new Scanner(System.in);
@@ -17,7 +17,7 @@ public class Luke {
         // Conditions
         while (!input.equals("bye")) {
             if (input.equals("list")) {
-                System.out.println("__________________________________________");
+                System.out.println("____________________________________________________________");
                 System.out.println("Here are the tasks in your list:");
 
                 for (int i = 0; i < list.size(); i++) {
@@ -26,7 +26,7 @@ public class Luke {
 
                     }
                 }
-                System.out.println("__________________________________________");
+                System.out.println("____________________________________________________________");
 
             } else if (input.contains("mark")) {
                 String[] instruction = input.split(" ");
@@ -35,17 +35,17 @@ public class Luke {
 
                 if (markOrUnmark.equals("mark")) {
                     list.get(index).markAsDone();
-                    System.out.println("__________________________________________");
+                    System.out.println("____________________________________________________________");
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(list.get(index));
-                    System.out.println("__________________________________________");
+                    System.out.println("____________________________________________________________");
 
                 } else if (markOrUnmark.equals("unmark")) {
                     list.get(index).markAsUndone();
-                    System.out.println("__________________________________________");
+                    System.out.println("____________________________________________________________");
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(list.get(index));
-                    System.out.println("__________________________________________");
+                    System.out.println("____________________________________________________________");
 
                 }
 
@@ -79,7 +79,7 @@ public class Luke {
 
                 }
 
-                System.out.println("__________________________________________");
+                System.out.println("____________________________________________________________");
                 System.out.println("Got it. I've added this task: ");
                 System.out.println("  " + list.get(list.size() - 1));
                 if (list.size() == 1) {
@@ -87,7 +87,7 @@ public class Luke {
                 } else {
                     System.out.println("Now you have " + list.size() + " tasks in the list.");
                 }
-                System.out.println("__________________________________________");
+                System.out.println("____________________________________________________________");
 
             }
             input = sc.nextLine();
@@ -95,9 +95,9 @@ public class Luke {
         }
 
         // Bye and exits
-        System.out.println("__________________________________________");
+        System.out.println("____________________________________________________________");
         System.out.println("Bye! Hope to see you again soon!");
-        System.out.println("__________________________________________");
+        System.out.println("____________________________________________________________");
 
     }
 }
