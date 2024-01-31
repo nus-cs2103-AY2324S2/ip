@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Parser {
-    public static Command parse(String text) throws DukeException {
+    public static Command parse(String text, State state) throws DukeException {
         List<String> parts = Arrays.asList(text.split(" "));
         if (parts.isEmpty()) {
             throw new DukeException("Invalid Commands");
@@ -55,6 +55,21 @@ public class Parser {
                 String description = String.join(" ", parts.subList(0, fromIndex));
 
                 command = new AddEventCommand(description,start,deadline);
+            }
+            case "delete" -> {
+                if (parts.size() < 2) {
+                    throw new DukeException("Mamma Mia! Where is-a the index?");
+                }
+                String indexAsString = parts.get(1);
+                Integer index = Util.parseInt(indexAsString) - 1;
+                if (index == null) {
+                    throw new DukeException("Input-o Number-o please-o!");
+                }
+                if (index < 0 || index >= state.getTasks().size()) {
+                    throw new DukeException("Invalid number >:(");
+                }
+
+                command = new DeleteCommand(index);
             }
             default -> throw new DukeException("Mamma Mia! Me-no understand!");
         }
