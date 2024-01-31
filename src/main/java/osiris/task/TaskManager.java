@@ -98,6 +98,22 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Finds tasks containing the specified search string.
+     *
+     * @param searchString The string to search for within task descriptions.
+     * @return An ArrayList of task details containing the search string.
+     */
+    public ArrayList<String> findTask(String searchString) {
+        ArrayList<String> relevantTask = new ArrayList<>();
+        for (Task task: userTasks) {
+            if (task.toString().contains(searchString)) {
+                relevantTask.add(task.toString());
+            }
+        }
+        return relevantTask;
+    }
+
     public void initialise(){
         this.taskStorage.initialiseTxtFileStorage();
         this.loadUserTaskFromFileStorage();

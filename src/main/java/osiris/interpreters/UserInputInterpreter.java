@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import osiris.commands.Command;
+import osiris.commands.FindTasksCommand;
 import osiris.commands.NoCommand;
 import osiris.commands.UnsupportedCommand;
 import osiris.commands.addDeadlineTaskCommand;
@@ -103,6 +104,10 @@ public class UserInputInterpreter {
                 }
             }
             break;
+
+        case FindTasksCommand.COMMAND:
+            String searhString = userInput.substring(FindTasksCommand.COMMAND.length()).trim();
+            return new FindTasksCommand(searhString);
 
         default:
             return new UnsupportedCommand();
