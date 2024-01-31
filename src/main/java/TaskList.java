@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.FileWriter;
@@ -78,10 +79,10 @@ public class TaskList {
 
                 switch (parts[0]) {
                     case "E":
-                        task = new Event(parts[2], parts[3], parts[4]);
+                        task = new Event(parts[2], LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
                         break;
                     case "D":
-                        task = new Deadline(parts[2], parts[3]);
+                        task = new Deadline(parts[2], LocalDate.parse(parts[3]));
                         break;
                     case "T":
                         task = new Todo(parts[2]);

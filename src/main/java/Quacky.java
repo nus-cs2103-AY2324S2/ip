@@ -1,6 +1,6 @@
 import java.io.IOException;
 import java.util.Scanner;
-
+import java.time.LocalDate;
 public class Quacky {
     private static TaskList tasks = new TaskList();
 
@@ -20,54 +20,51 @@ public class Quacky {
         Scanner scanner = new Scanner(System.in);
         System.out.println(format("Quack! how u doing, Im Quacky. How can I help you?"));
         String command = scanner.nextLine();
+        String[] keywords = command.split(" ", 2);
         while (!command.equals("bye")) {
             try {
-                if (command.equals("list")) {
+                if (keywords[0].equals("list")) {
                     System.out.println(format(tasks.toString()));
-                } else if (command.startsWith("mark ")) {
-                    int space = command.indexOf(' ');
-                    int taskNumber = Integer.parseInt(command.substring(space + 1)) - 1;
+                } else if (keywords[0].equalsIgnoreCase("mark")) {
+                    int taskNumber = Integer.parseInt(keywords[1]) - 1;
                     tasks.markCompleteTask(taskNumber);
                     String message = "Quack! I marked this task as done \n\t" + tasks.printTask(taskNumber);
                     System.out.println(format(message));
-                } else if (command.startsWith("unmark ")) {
-                    int space = command.indexOf(' ');
-                    int taskNumber = Integer.parseInt(command.substring(space + 1)) - 1;
+                } else if (keywords[0].equalsIgnoreCase("unmark")) {
+                    int taskNumber = Integer.parseInt(keywords[1]) - 1;
                     tasks.unmarkCompleteTask(taskNumber);
                     String message = "Quack! I marked this task as not done\n\t" + tasks.printTask(taskNumber);
                     System.out.println(format(message));
-                } else if (command.startsWith("delete ")) {
-                    int space = command.indexOf(' ');
-                    int taskNumber = Integer.parseInt(command.substring(space + 1)) - 1;
+                } else if (keywords[0].equalsIgnoreCase("delete")) {
+                    int taskNumber = Integer.parseInt(keywords[1]) - 1;
                     tasks.deleteTask(taskNumber);
                     String message = "Quack! I removed this task:  \n\t" + tasks.printTask(taskNumber)
                                             + "\nNow you have " + tasks.taskNumber() + " tasks in the list.";
                     System.out.println(format(message));
                 }
-                else if (command.startsWith("todo")) {
+                else if (keywords[0].equalsIgnoreCase("todo")) {
                     if (command.trim().equals("todo")) {
                         throw new QuackyException("Quack? (Please provide a description for your task)");
                     }
-                    String taskDescription = command.substring(5);
-                    Task newTask = new Todo(taskDescription);
+                    Task newTask = new Todo(keywords[1]);
                     tasks.addTask(newTask);
                     System.out.println(format("Quack! I've added this task:\n\t" + newTask +
                             "\nNow you have " + tasks.taskNumber() + " tasks in the list."));
-                } else if (command.startsWith("deadline")) {
+                } else if (keywords[0].equalsIgnoreCase("deadline")) {
                     if (command.trim().equals("deadline")) {
                         throw new QuackyException("Quack? (Please provide a description for your task)");
                     }
                     String[] parts = command.substring(9).split(" /by ");
-                    Task newTask = new Deadline(parts[0], parts[1]);
+                    Task newTask = new Deadline(parts[0], LocalDate.parse(parts[1]));
                     tasks.addTask(newTask);
                     System.out.println(format("Got it. I've added this task:\n\t" + newTask +
                             "\nNow you have " + tasks.taskNumber() + " tasks in the list."));
-                } else if (command.startsWith("event")) {
+                } else if (keywords[0].equalsIgnoreCase("event")) {
                     if (command.trim().equals("event")) {
                         throw new QuackyException("Quack? (Please provide a description for your task)");
                     }
-                    String[] parts = command.substring(6).split(" /from | /to ");
-                    Task newTask = new Event(parts[0], parts[1], parts[2]);
+                    String[] parts = keywords[1].split(" /from | /to ");
+                    Task newTask = new Event(parts[0], LocalDate.parse(parts[1]), LocalDate.parse(parts[2]));
                     tasks.addTask(newTask);
                     System.out.println(format("Got it. I've added this task:\n\t" + newTask +
                             "\nNow you have " + tasks.taskNumber() + " tasks in the list."));
@@ -78,6 +75,7 @@ public class Quacky {
                 System.out.println(format(e.getMessage()));
             } finally {
                 command = scanner.nextLine();
+                keywords = command.split(" ", 2);
             }
     }
         try {
