@@ -8,14 +8,14 @@ import parsing.Parser;
 import storage.Storage;
 import utils.RemiError;
 
-public class Chatbot {
+public class Ui {
 
     private boolean exitLoop;
     private StoredTaskList taskList;
     private CommandList commandList;
     private Parser parser;
 
-    public Chatbot() {
+    public Ui() {
         this.exitLoop = false;
         this.taskList = Storage.get();
         this.commandList = new CommandList(this.taskList, this);

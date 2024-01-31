@@ -1,8 +1,8 @@
-import model.Chatbot;
+import model.Ui;
 
 public class Remi {
     public static void main(String[] args) {
-        Chatbot chatbot = new Chatbot();
+        Ui chatbot = new Ui();
         chatbot.ioLoop();
     }
 }

@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class CommandList {
     private HashMap<String, Command> commandLookup;
     private TaskList taskList;
-    private Chatbot chatbot;
+    private Ui chatbot;
 
     /**
      * Finds the option of the form ".../option...".
@@ -105,7 +105,7 @@ public class CommandList {
      *
      * @param taskList TaskList object from Chatbot
      */
-    public CommandList(TaskList taskList, Chatbot chatbot) {
+    public CommandList(TaskList taskList, Ui chatbot) {
         this.commandLookup = new HashMap<>();
         this.taskList = taskList;
         this.chatbot = chatbot;
