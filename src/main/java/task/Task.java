@@ -55,4 +55,13 @@ public class Task {
         return "|" + (this.isDone ? "1" : "0") + "|"
                 + this.description;
     }
+
+    /**
+     * Checks if task description contains the given keyword.
+     * @param keyword The keyword that the user is filtering.
+     * @return A boolean value depending on whether the task description contains the keyword.
+     */
+    public boolean contains(String keyword) {
+        return this.description.contains(keyword);
+    }
 }

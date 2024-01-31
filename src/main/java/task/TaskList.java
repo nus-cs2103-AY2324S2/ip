@@ -85,4 +85,20 @@ public class TaskList {
     public Task deleteTask(int taskIndex) {
         return this.taskList.remove(taskIndex);
     }
+
+    /**
+     * Returns a task list of all tasks with the matching keyword.
+     * @param keyword The keyword that the user is filtering.
+     * @return The task list with matching keywords.
+     */
+    public TaskList find(String keyword) {
+        ArrayList<Task> arr = new ArrayList<>();
+        for (Task task : this.taskList) {
+            if (task.contains(keyword)) {
+                arr.add(task);
+            }
+        }
+        TaskList foundTasks = new TaskList(arr);
+        return foundTasks;
+    }
 }
