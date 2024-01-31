@@ -8,28 +8,26 @@ public class Parser {
     public static Command parse(String input) throws DukeException {
         String[] split = input.split(" ", 2);
         String method = split[0];
+        String params = split.length == 1 ? "" : split[1];
 
         switch (method) {
             case "list": {
                 return new ListCommand();
             }
             case "mark": {
-                String params = split[1];
                 if (params.equals("")) {
                     throw new DukeException("The id of a mark cannot be empty.");
                 }
                 return new MarkCommand(Integer.parseInt(split[1]));
             }
             case "unmark": {
-                String params = split[1];
                 if (params.equals("")) {
-                    throw new DukeException("The id of a unmark cannot be empty.");
+                    throw new DukeException("The id of an unmark cannot be empty.");
                 }
                 return new UnmarkCommand(Integer.parseInt(split[1]));
             }
 
             case "todo": {
-                String params = split[1];
                 if (params.equals("")) {
                     throw new DukeException("The description of a todo cannot be empty.");
                 }
@@ -37,7 +35,6 @@ public class Parser {
             }
 
             case "deadline": {
-                String params = split[1];
                 if (params.equals("")) {
                     throw new DukeException("The description of a deadline cannot be empty.");
                 }
@@ -50,24 +47,21 @@ public class Parser {
             }
 
             case "event": {
-                String params = split[1];
                 if (params.equals("")) {
-                    throw new DukeException("The description of a event cannot be empty.");
+                    throw new DukeException("The description of an event cannot be empty.");
                 }
                 String[] split1 = params.split(" /from ", 2);
                 if (split1.length == 1) {
-                    throw new DukeException("The from of a event cannot be empty.");
+                    throw new DukeException("The from of an event cannot be empty.");
                 }
                 String[] split2 = split1[1].split(" /to ", 2);
                 if (split2.length == 1) {
-                    throw new DukeException("The to of a event cannot be empty.");
+                    throw new DukeException("The to of an event cannot be empty.");
                 }
                 return new EventCommand(split1[0], Util.parseDate(split2[0]), Util.parseDate(split2[1]));
 
             }
-
             case "delete": {
-                String params = split[1];
                 if (params.equals("")) {
                     throw new DukeException("The id of a delete cannot be empty.");
                 }
