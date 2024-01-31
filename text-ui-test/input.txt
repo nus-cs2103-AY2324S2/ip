@@ -1,6 +1,6 @@
 todo read book
-deadline return book /by June 6th
-event project meeting /from Aug 6th 2pm /to 4pm
+deadline return book /by 06/06/2024 1830
+event project meeting /from 11/11/2024 1400 /to 11/11/2024 1600
 list
 mark 1
 list

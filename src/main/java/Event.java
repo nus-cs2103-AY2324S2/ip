@@ -1,20 +1,26 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    private String fromDate;
-    private String toDate;
-    public Event(String task, String fromDate, String toDate) {
+    private LocalDateTime fromDateTime;
+    private LocalDateTime toDateTime;
+
+    public Event(String task, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
         super(task);
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+        this.fromDateTime = fromDateTime;
+        this.toDateTime = toDateTime;
     }
 
     @Override
     public String formatTask() {
         String status = getStatus() ? "1" : "0";
-        return String.format("T | %s | %s | %s | %s", status, super.formatTask(), fromDate, toDate);
+        return String.format("E | %s | %s | %s | %s", status, super.formatTask(), fromDateTime, toDateTime);
     }
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), fromDate, toDate);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(),
+                fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")),
+                toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")));
     }
 }

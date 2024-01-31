@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,7 +16,7 @@ public class Duke {
     private static final String FILE_PATH = "./data/duke.txt";
 
     private static Task readTask(String taskEntry) {
-        String[] fields = taskEntry.split(" \\| ", 4);
+        String[] fields = taskEntry.split(" \\| ", 5);
 
         Task task = null;
 
@@ -27,7 +30,8 @@ public class Duke {
             break;
 
         case "D":
-            task = new Deadline(fields[2], fields[3]);
+            LocalDateTime dueDateTime = LocalDateTime.parse(fields[3]);
+            task = new Deadline(fields[2], dueDateTime);
 
             if (fields[1].equals("1")) {
                 task.changeMark("MARK");
@@ -35,7 +39,9 @@ public class Duke {
             break;
 
         case "E":
-            task = new Event(fields[2], fields[3], fields[4]);
+            LocalDateTime fromDateTime = LocalDateTime.parse(fields[3]);
+            LocalDateTime toDateTime = LocalDateTime.parse(fields[4]);
+            task = new Event(fields[2], fromDateTime, toDateTime);
 
             if (fields[1].equals("1")) {
                 task.changeMark("MARK");
@@ -160,7 +166,7 @@ public class Duke {
                                 horizontalLine);
 
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new MissingArgumentException(command);
+                        throw new InvalidArgumentException(command);
 
                     } catch (IndexOutOfBoundsException e) {
                         throw new NoTaskFoundException(parts[1]);
@@ -176,7 +182,7 @@ public class Duke {
                                 task + "\n" + horizontalLine);
 
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new MissingArgumentException(command);
+                        throw new InvalidArgumentException(command);
 
                     } catch (IndexOutOfBoundsException e) {
                         throw new NoTaskFoundException(parts[1]);
@@ -192,7 +198,7 @@ public class Duke {
                                 task + "\n" + horizontalLine);
 
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new MissingArgumentException(command);
+                        throw new InvalidArgumentException(command);
 
                     } catch (IndexOutOfBoundsException e) {
                         throw new NoTaskFoundException(parts[1]);
@@ -209,14 +215,24 @@ public class Duke {
                                 + horizontalLine);
 
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new EmptyDescriptionException(command);
+                        throw new InvalidArgumentException(command);
                     }
                     break;
 
                 case DEADLINE:
                     try {
                         String[] splitDate = parts[1].split(" /by ", 2);
-                        Task newTask = new Deadline(splitDate[0], splitDate[1]);
+
+                        LocalDateTime dueDateTime;
+
+                        try {
+                            dueDateTime = LocalDateTime.parse(splitDate[1],
+                                    DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                        } catch (DateTimeParseException e) {
+                            throw new InvalidDateTimeFormatException(command);
+                        }
+
+                        Task newTask = new Deadline(splitDate[0], dueDateTime);
                         tasks.add(newTask);
                         String taskCounter = String.format("Now you have %s tasks in the list.\n", tasks.size());
                         System.out.println(horizontalLine
@@ -224,7 +240,7 @@ public class Duke {
                                 + horizontalLine);
 
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new EmptyDescriptionException(command);
+                        throw new InvalidArgumentException(command);
                     }
                     break;
 
@@ -232,7 +248,20 @@ public class Duke {
                     try {
                         String[] splitTaskName = parts[1].split(" /from ", 2);
                         String[] splitFromToDates = splitTaskName[1].split(" /to ", 2);
-                        Task newTask = new Event(splitTaskName[0], splitFromToDates[0], splitFromToDates[1]);
+
+                        LocalDateTime fromDateTime;
+                        LocalDateTime toDateTime;
+
+                        try {
+                            fromDateTime = LocalDateTime.parse(splitFromToDates[0],
+                                    DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                            toDateTime = LocalDateTime.parse(splitFromToDates[1],
+                                    DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                        } catch (DateTimeParseException e) {
+                            throw new InvalidDateTimeFormatException(command);
+                        }
+
+                        Task newTask = new Event(splitTaskName[0], fromDateTime, toDateTime);
                         tasks.add(newTask);
                         String taskCounter = String.format("Now you have %s tasks in the list.\n", tasks.size());
                         System.out.println(horizontalLine
@@ -240,7 +269,7 @@ public class Duke {
                                 + horizontalLine);
 
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new EmptyDescriptionException(command);
+                        throw new InvalidArgumentException(command);
                     }
                     break;
 
@@ -252,16 +281,16 @@ public class Duke {
                     break;
                 }
 
-            } catch (EmptyDescriptionException e) { // Handle empty task description
-                System.out.println(horizontalLine + e + horizontalLine);
-
-            } catch (MissingArgumentException e) { // Handle missing argument
+            } catch (InvalidArgumentException e) { // Handle missing argument
                 System.out.println(horizontalLine + e + horizontalLine);
 
             } catch (NoTaskFoundException e) { // Handle unknown task number
                 System.out.println(horizontalLine + e + horizontalLine);
 
             } catch (InvalidCommandException e) { // Handle invalid input error
+                System.out.println(horizontalLine + e + horizontalLine);
+
+            } catch (InvalidDateTimeFormatException e) {
                 System.out.println(horizontalLine + e + horizontalLine);
 
             }

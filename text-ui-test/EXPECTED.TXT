@@ -11,21 +11,21 @@ __________________________________________________________________
 
 __________________________________________________________________
 Got it. I've added this task:
-[D][ ] return book (by: June 6th)
+[D][ ] return book (by: Jun 06 2024 06:30 PM)
 Now you have 2 tasks in the list.
 __________________________________________________________________
 
 __________________________________________________________________
 Got it. I've added this task:
-[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+[E][ ] project meeting (from: Nov 11 2024 02:00 PM to: Nov 11 2024 04:00 PM)
 Now you have 3 tasks in the list.
 __________________________________________________________________
 
 __________________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] read book
-2. [D][ ] return book (by: June 6th)
-3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+2. [D][ ] return book (by: Jun 06 2024 06:30 PM)
+3. [E][ ] project meeting (from: Nov 11 2024 02:00 PM to: Nov 11 2024 04:00 PM)
 __________________________________________________________________
 
 __________________________________________________________________
@@ -36,8 +36,8 @@ __________________________________________________________________
 __________________________________________________________________
 Here are the tasks in your list:
 1. [T][X] read book
-2. [D][ ] return book (by: June 6th)
-3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+2. [D][ ] return book (by: Jun 06 2024 06:30 PM)
+3. [E][ ] project meeting (from: Nov 11 2024 02:00 PM to: Nov 11 2024 04:00 PM)
 __________________________________________________________________
 
 __________________________________________________________________
@@ -48,8 +48,8 @@ __________________________________________________________________
 __________________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] read book
-2. [D][ ] return book (by: June 6th)
-3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+2. [D][ ] return book (by: Jun 06 2024 06:30 PM)
+3. [E][ ] project meeting (from: Nov 11 2024 02:00 PM to: Nov 11 2024 04:00 PM)
 __________________________________________________________________
 
 __________________________________________________________________
@@ -65,8 +65,8 @@ __________________________________________________________________
 
 __________________________________________________________________
 Here are the tasks in your list:
-1. [D][ ] return book (by: June 6th)
-2. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+1. [D][ ] return book (by: Jun 06 2024 06:30 PM)
+2. [E][ ] project meeting (from: Nov 11 2024 02:00 PM to: Nov 11 2024 04:00 PM)
 __________________________________________________________________
 
 __________________________________________________________________
@@ -75,12 +75,12 @@ Please try another number.
 __________________________________________________________________
 
 __________________________________________________________________
-ERROR!! The 'DELETE' command is missing arguments! ;(
+ERROR!! The 'DELETE' command has invalid argument(s)! ;(
 Please fill it in.
 __________________________________________________________________
 
 __________________________________________________________________
-ERROR!! The 'MARK' command is missing arguments! ;(
+ERROR!! The 'MARK' command has invalid argument(s)! ;(
 Please fill it in.
 __________________________________________________________________
 
@@ -90,17 +90,17 @@ Please try again.
 __________________________________________________________________
 
 __________________________________________________________________
-ERROR!! The description of the 'TODO' task cannot be empty ;(
+ERROR!! The 'TODO' command has invalid argument(s)! ;(
 Please fill it in.
 __________________________________________________________________
 
 __________________________________________________________________
-ERROR!! The description of the 'DEADLINE' task cannot be empty ;(
+ERROR!! The 'DEADLINE' command has invalid argument(s)! ;(
 Please fill it in.
 __________________________________________________________________
 
 __________________________________________________________________
-ERROR!! The description of the 'EVENT' task cannot be empty ;(
+ERROR!! The 'EVENT' command has invalid argument(s)! ;(
 Please fill it in.
 __________________________________________________________________
 
