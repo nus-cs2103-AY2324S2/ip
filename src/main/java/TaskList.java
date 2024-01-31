@@ -20,13 +20,19 @@ public class TaskList implements Serializable {
     public String toString(int id) {
         return this.list.get(id).toString();
     }
-    public void setDone(int id, boolean isDone) {
-        this.list.get(id).setDone(isDone);
+    public void setStatus(int id, Task.Status status) {
+        this.list.get(id).setStatus(status);
     }
     public void remove(int id) {
         this.list.remove(id);
     }
     public void add(Task task) {
         this.list.add(task);
+    }
+    public boolean isValidId(int id) {
+        if (id < 0 || id >= this.list.size()) {
+            return false;
+        }
+        return true;
     }
 }
