@@ -54,12 +54,9 @@ public class Storage {
         Path filePath = Paths.get("src", "main", "java", "solaire", "resources", "Solaire.txt");
 
         try {
-            Files.createDirectory(filePath.getParent());
-            if (!Files.exists(filePath)) {
-                throw new IOException("File not found: " + filePath);
-                // or handle it differently based on your requirements
-            }
+            Files.createDirectories(filePath.getParent());
             Storage.taskList = taskList;
+
             BufferedWriter bw = Files.newBufferedWriter(filePath);
 
             for (Task task : taskList) {
