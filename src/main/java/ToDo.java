@@ -1,10 +1,16 @@
 public class ToDo extends Task{
-    public ToDo(String taskName) {
-        super(taskName);
+    static protected String ALIAS = "T";
+    public ToDo(String taskName, boolean status) {
+        super(taskName, status);
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[" + ALIAS + "]" + super.toString();
+    }
+
+    @Override
+    public String toStore() {
+        return ALIAS + super.toStore();
     }
 }

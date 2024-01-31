@@ -1,10 +1,10 @@
 public class Task {
     private String taskName;
-    private boolean status;
+    protected boolean status;
 
-    public Task(String taskName) {
+    public Task(String taskName, boolean status) {
         this.taskName = taskName;
-        status = false;
+        this.status = status;
     }
 
     public String getTaskName() {
@@ -25,6 +25,10 @@ public class Task {
     @Override
     public String toString() {
         return getStatusIcon() + " " + taskName;
+    }
+
+    public String toStore() {
+        return "," + Boolean.toString(status) +  "," + taskName;
     }
 }
 
