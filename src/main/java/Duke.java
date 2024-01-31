@@ -1,20 +1,21 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private static final int INDEX_START = 1;
     private final String horizontalLine = "____________________________________________________________\n";
     private final String name;
-    private final ArrayList<Task> tasks;
+    private final TaskList tasks;
+    private final Storage storage;
+    private static final String FILEPATH = "./data/duke.txt";
 
     private enum Command {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
     }
 
-
     public Duke(String name) {
         this.name = name;
-        this.tasks = new ArrayList<>();
+        this.storage = new Storage(FILEPATH);
+        this.tasks = new TaskList(storage.loadTasks());
     }
 
     public void greetUser() {
@@ -75,12 +76,13 @@ public class Duke {
             throw new DukeException("Invalid format. Please use 'todo', 'deadline', or 'event'.");
         }
 
-        tasks.add(t);
+        tasks.addTask(t);
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + t);
-        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(" Now you have " + tasks.getSize() + " tasks in the list.");
+        tasks.saveTask(storage);
     }
-    
+
     private void deleteToDo(String msg) throws DukeException{
         String[] part = msg.split(" ");
 
@@ -89,13 +91,13 @@ public class Duke {
 
             try {
                 int taskIndex = Integer.parseInt(index) - INDEX_START;
-                if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                    Task t = this.tasks.remove(taskIndex);
+                if (taskIndex >= 0 && taskIndex < tasks.getSize()) {
+                    Task t = this.tasks.deleteTask(taskIndex);
 
                     System.out.println(" Noted. I've removed this task:");
                     System.out.println("   " + t);
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-
+                    System.out.println(" Now you have " + tasks.getSize() + " tasks in the list.");
+                    tasks.saveTask(storage);
                 } else {
                     throw new DukeException("Task not found.");
                 }
@@ -112,11 +114,7 @@ public class Duke {
             System.out.println(" There are no tasks in the list.");
         } else {
             System.out.println(" Here are the tasks in your list:");
-            int taskCount = INDEX_START;
-            for (Task task : tasks) {
-                System.out.println(" " + taskCount + "." + task);
-                taskCount++;
-            }
+            tasks.printList(INDEX_START);
         }
     }
 
@@ -129,13 +127,14 @@ public class Duke {
 
             try {
                 int taskIndex = Integer.parseInt(index) - INDEX_START;
-                if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                    Task t = this.tasks.get(taskIndex);
+                if (taskIndex >= 0 && taskIndex < tasks.getSize()) {
+                    Task t = this.tasks.getTasks(taskIndex);
                     boolean isDone = command.equals(Command.MARK.name());
                     t.setDone(isDone);
                     System.out.println(isDone ? " Nice! I've marked this task as done:" :
                             " OK, I've marked this task as not done yet:");
                     System.out.println("   " + t);
+                    tasks.saveTask(storage);
                 } else {
                     throw new DukeException("Task not found.");
                 }
