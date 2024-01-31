@@ -1,3 +1,2 @@
-[T][ ] new task 1
-[D][ ] new task 2 (by: time abc)
-[E][ ] event abc (from: abc, to: def)
+T | ✓ | |   |  |   | abc
+T |   | |   | abc

@@ -44,7 +44,6 @@ class ListAdder {
     public void start() {
         greeting();
         Scanner sc = new Scanner(System.in);
-        loadTasklist();
 
         System.out.println("Enter a task:");
         String input = sc.nextLine();
@@ -102,20 +101,22 @@ class ListAdder {
 
             ArrayList<String> taskListFromFile = new ArrayList<>(Files.readAllLines(taskListPath));
             for (String task : taskListFromFile) {
-                String[] taskParts = task.split(" ", 2);
+                String[] taskParts = task.split("|", 3);
                 String taskType = taskParts[0];
-                String taskDescription = taskParts[1];
+                String taskStatus = taskParts[1];
+                String taskDescription = taskParts[2];
+                
                 switch (taskType) {
-                case "[T]":
+                case "T":
                     this.taskList.add(new Todo (taskDescription));
                     break;
-                case "[D]":
+                case "D":
                     String[] deadlineParts = taskDescription.split(" \\(by: ", 2);
                     String deadlineDescription = deadlineParts[0];
                     String deadlineBy = deadlineParts[1].substring(0, deadlineParts[1].length() - 1);
                     this.taskList.add(new Deadline (deadlineDescription, deadlineBy));
                     break;
-                case "[E]":
+                case "E":
                     String[] eventParts = taskDescription.split(" \\(from: ", 2);
                     String eventDescription = eventParts[0];
 
@@ -127,11 +128,14 @@ class ListAdder {
                     this.taskList.add(new Events (eventDescription, eventFrom, eventTo));
                     break;
                 default:
-                    throw new IOException("Error loading data from file: error in loadTasklist()");
+                    System.out.println(taskListFromFile); // debug line
+                    System.out.println("Unrecognized task type: " + task);
+                    throw new IOException("Error loading data from file: error in loadTasklist() try block");
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error loading data from file: error in loadTasklist()");
+            System.out.println("Error loading data from file: error in loadTasklist() catch block");
+            e.printStackTrace();
         }
     }
 
@@ -305,11 +309,15 @@ class ListAdder {
      * Prints taskList
      */
     private void printList() {
-        System.out.println("\t" + "Here is your to-do list:");
-        this.taskIndex = 1;
-        for (Task task : this.taskList) {
-            System.out.println("\t" + this.taskIndex + ". " + task);
-            this.taskIndex++;
+        if (this.taskList.isEmpty()) {
+            System.out.println("\t" + "Your tasklist is empty");
+        } else {
+            System.out.println("\t" + "Here is your to-do list:");
+            this.taskIndex = 1;
+            for (Task task : this.taskList) {
+                System.out.println("\t" + this.taskIndex + ". " + task);
+                this.taskIndex++;
+            }
         }
         printLine();
     }
@@ -393,13 +401,20 @@ class ListAdder {
      */
     private void helpline() {
         System.out.println("\t" + "Help: ");
-        System.out.println("\t" + "1. ADD TODO: todo <task>");
-        System.out.println("\t" + "2. ADD DEADLINE: deadline <task> /by <deadline>");
-        System.out.println("\t" + "3. ADD EVENT: event <task> /from <start time> /to <end time>");
-        System.out.println("\t" + "4. MARK DONE: mark done <task index>");
-        System.out.println("\t" + "5. MARK UNDONE: mark undone <task index>");
-        System.out.println("\t" + "6. DISPLAY TASK LIST: list");
-        System.out.println("\t" + "7. EXIT: bye");
+
+        String[] instructions = {
+            "DISPLAY LIST: list",
+            "ADD TODO: todo <task>",
+            "ADD DEADLINE: deadline <task> /by <deadline>",
+            "ADD EVENT: event <task> /from <start time> /to <end time>",
+            "MARK DONE: mark done <task index>",
+            "MARK UNDONE: mark undone <task index>",
+            "DELETE TASK: delete <task index>",
+            "EXIT: bye"
+        };
+        for (int i = 0; i < instructions.length; i++) {
+            System.out.println("\t" + (i + 1) + ". " + instructions[i]);
+        }
     }
 
     /**
@@ -453,13 +468,15 @@ class Task {
         return this.isDone;
     }
 
+    protected String taskType() {
+        return "";
+    }
+
     @Override
     public String toString() {
-        if (this.isDone) {
-            return "[X] " + this.task;
-        } else {
-            return "[ ] " + this.task;
-        }
+        return this.isDone 
+            ? taskType() + " | X | " + this.task
+            : taskType() + " |   | " + this.task;
     }
 }
 
@@ -473,8 +490,13 @@ class Todo extends Task {
     }
 
     @Override
+    protected String taskType() {
+        return "T";
+    }
+
+    @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return super.toString();
     }
 }
 
@@ -491,8 +513,13 @@ class Deadline extends Task {
     }
 
     @Override
+    protected String taskType() {
+        return "D";
+    }
+
+    @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return taskType() + super.toString() + " (by: " + by + ")";
     }
 }
 
@@ -509,7 +536,12 @@ class Events extends Task {
     }
 
     @Override
+    protected String taskType() {
+        return "E";
+    }
+
+    @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + at + ")";
+        return taskType() + super.toString() + " (from: " + at + ")";
     }
 }
