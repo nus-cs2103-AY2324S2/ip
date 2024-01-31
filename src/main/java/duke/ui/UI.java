@@ -17,6 +17,11 @@ public class UI {
         taskList.listTask();
     }
 
+    public void showMatchedList(TaskList taskList) {
+        System.out.println("Here are the matching tasks in your list: ");
+        taskList.listTask();
+    }
+
     public void onAddSuccess(Task task, Integer count) {
         System.out.println("Got it. I've added this task:");
         System.out.println(task);

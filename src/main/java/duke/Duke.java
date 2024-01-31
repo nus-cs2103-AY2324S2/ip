@@ -9,6 +9,7 @@ import duke.utils.KeyEnum;
 import duke.utils.Parser;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Duke {
     private TaskList tasks;
@@ -67,6 +68,9 @@ public class Duke {
                         storage.writeTasksToFile(tasks);
                         ui.onDelete(deletedTask, tasks);
                         break;
+                    case FIND:
+                        TaskList matchedTasks = tasks.findTasks(parser.getInputDetail());
+                        ui.showMatchedList(matchedTasks);
                 }
             } catch (BaseException e) {
                 ui.showErrorMsg(e.getMessage());

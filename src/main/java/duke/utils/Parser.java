@@ -27,6 +27,7 @@ public class Parser {
                 }
                 break;
             case TODO:
+            case FIND:
                 if (userInput.length() <= 5) {
                     throw new EmptyBodyException();
                 }
@@ -52,7 +53,6 @@ public class Parser {
                 } catch (Exception e) {
                     throw new InvalidKeyException("Please use a valid integer as key");
                 }
-
         }
     }
 
@@ -82,6 +82,8 @@ public class Parser {
             case "delete":
                 currentKey = KeyEnum.DELETE;
                 break;
+            case "find":
+                currentKey = KeyEnum.FIND;
         }
         if (this.currentKey.equals(KeyEnum.INVALID)) {
             // raise InvalidKeyException
