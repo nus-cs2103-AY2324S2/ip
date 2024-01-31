@@ -1,4 +1,7 @@
+package parser;
 import java.io.IOException;
+
+import processor.Processor;
 
 public class Parser {
     private final Processor processor;

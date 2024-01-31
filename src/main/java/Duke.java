@@ -1,5 +1,10 @@
 import java.io.IOException;
 
+import parser.Parser;
+import processor.Processor;
+import tasks.TaskList;
+import ui.Ui;
+
 public class Duke {
     private final Ui chatbotUi;
     private final TaskList taskList;

@@ -1,4 +1,8 @@
+package storage;
 import java.io.*;
+
+import tasks.Task;
+import tasks.TaskList;
 
 public class Storage {
     private final String filePath;
@@ -28,7 +32,7 @@ public class Storage {
         StringBuilder tasks = new StringBuilder();
         int i = 1;
         while ((line = reader.readLine()) != null) {
-            tasks.append(i + ". ").append(line).append("\n");
+            tasks.append(i++ + ". ").append(line).append("\n");
         }
         reader.close();
         return tasks.toString();

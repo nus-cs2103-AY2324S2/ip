@@ -1,9 +1,15 @@
+package processor;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-class Processor {
+import storage.Storage;
+import tasks.Task;
+import tasks.TaskList;
+import ui.Ui;
+
+public class Processor {
     private TaskList taskList;
     private Ui chatbotUi;
     private Storage storage;
