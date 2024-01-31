@@ -73,7 +73,8 @@ public class Storage {
                                 ((Deadline) t).getBy().format(DateTimeFormatter.ISO_LOCAL_DATE))
                         );
                     } else if (t instanceof Event) {
-                        this.data.write(String.format("E|%s|%s|%s|%s\n", t.getTaskName(), t.isDone(), ((Event) t).getFrom(), ((Event) t).getTo()));
+                        this.data.write(String.format("E|%s|%s|%s|%s\n",
+                                t.getTaskName(), t.isDone(), ((Event) t).getFrom(), ((Event) t).getTo()));
                     }
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
