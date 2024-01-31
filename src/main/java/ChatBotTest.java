@@ -1,5 +1,7 @@
-import java.sql.SQLOutput;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 public class ChatBotTest {
     public static void main(String[] args) {
@@ -92,12 +94,14 @@ public class ChatBotTest {
                             date = date + dlCommand[j];
                         }
                     }
-                    Deadline dl = new Deadline(rest, date);
-                    if (rest.length() > 0) {
+
+                    LocalDate dt = DateTimeCheck.timeCheckOnDate(date);
+                    Deadline dl = new Deadline(rest, dt);
+                    if (rest.length() > 0 && dt != null) {
                         p.dlJobs(dl);
                         FileManage.saveFiles(p.tasks);
                     } else {
-                        System.out.println("deadline? what thing make you so hurry that even dont tell me?");
+                        System.out.println("Did you type right?");
                     }
                 } catch (Exception e) {
                     System.out.println("Incorrect number or command");
@@ -135,12 +139,15 @@ public class ChatBotTest {
                             date2 = date2 + evCommand[k];
                         }
                     }
-                    Event e = new Event(rest, date1, date2);
-                    if (rest.length() > 0) {
+                    LocalDateTime dt1 = DateTimeCheck.timeCheckOnTime(date1.stripTrailing());
+                    LocalDateTime dt2 = DateTimeCheck.timeCheckOnTime(date2);
+                    boolean compareOfTime = DateTimeCheck.timeCompare(dt1, dt2);
+                    Event e = new Event(rest, dt1, dt2);
+                    if (!rest.isEmpty() && dt1 != null && dt2 != null && compareOfTime) {
                         p.evJobs(e);
                         FileManage.saveFiles(p.tasks);
                     } else {
-                        System.out.println("event what? I need a thing!");
+                        System.out.println("Did you type right?");
                     }
                 } catch (Exception e) {
                     System.out.println("Incorrect number or command");

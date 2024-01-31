@@ -1,9 +1,11 @@
 //// Solution below adapted by week2 iP Level-3 Partial solution
-public class Event extends Task{
-    protected String from;
-    protected String to;
+import java.time.LocalDateTime;
 
-    public Event(String destription, String from, String to) {
+public class Event extends Task{
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+
+    public Event(String destription, LocalDateTime from, LocalDateTime to) {
         super(destription);
         this.from = from;
         this.to = to;
