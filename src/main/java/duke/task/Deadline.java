@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
+/**
+ * The class representing a deadline task.
+ * */
 public class Deadline extends Task {
     String type = "[D]";
     LocalDate deadline;

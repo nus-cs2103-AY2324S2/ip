@@ -9,6 +9,9 @@ import duke.util.Storage;
 import duke.exception.DeleteInvalidException;
 import duke.exception.SaveStorageException;
 
+/**
+ * The class representing a delete task command.
+ * */
 public class DeleteCommand extends Command {
     String[] commandList;
 

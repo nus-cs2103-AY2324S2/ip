@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The class representing a storage component that loads and saves the tasklist into the disk.
+ * */
 public class Storage {
     String relativeFilePath;
 
@@ -25,6 +28,12 @@ public class Storage {
         this.relativeFilePath = relativeFilePath;
     }
 
+    /**
+     * Reads from the db.txt file and loads the data into a taskList.
+     *
+     * @return an ArrayList of tasks.
+     * @throws LoadStorageException If the file cannot be located.
+     * */
     public ArrayList<Task> load() throws LoadStorageException {
         ArrayList<Task> taskList = new ArrayList<Task>();
         try {
@@ -71,6 +80,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the taskList into the disk.
+     *
+     * @param taskList The taskList to be saved.
+     * @throws SaveStorageException If the file cannot be located.
+     * */
     public void save(TaskList taskList) throws SaveStorageException {
         List<String> linesToWrite = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {

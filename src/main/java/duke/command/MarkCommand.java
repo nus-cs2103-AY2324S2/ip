@@ -12,6 +12,9 @@ import duke.exception.SaveStorageException;
 
 import java.util.Objects;
 
+/**
+ * The abstract class representing a mark or unmark command.
+ * */
 public class MarkCommand extends Command {
     String[] commandList;
     String type;

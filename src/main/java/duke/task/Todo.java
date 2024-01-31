@@ -2,6 +2,9 @@ package duke.task;
 
 import java.util.Objects;
 
+/**
+ * The class representing an Event task.
+ * */
 public class Todo extends Task {
     String type = "[T]";
 

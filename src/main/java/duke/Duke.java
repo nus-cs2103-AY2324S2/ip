@@ -8,6 +8,9 @@ import duke.exception.DukeException;
 import duke.exception.LoadStorageException;
 import duke.command.Command;
 
+/**
+ * The main class for the chatbot application.
+ * */
 public class Duke {
     Storage storage;
     TaskList taskList;
@@ -25,6 +28,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Driver method for the chatbot.
+     * */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -42,7 +48,6 @@ public class Duke {
             }
         }
     }
-
 
     public static void main(String[] args) {
         new Duke("src/db.txt").run();
