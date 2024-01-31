@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Duke {
     static void greeting(String botName) {
@@ -14,9 +12,50 @@ public class Duke {
     }
 
     static void echo(String userInput, ArrayList<Task> TodoList) {
-        System.out.println("added: " + userInput);
-        Task t = new Task(userInput);
-        TodoList.add(t);
+        String[] words = userInput.split("\\s+");
+        if (words.length > 1) {
+            String firstWord = words[0];
+            int firstSpaceIndex = userInput.indexOf(' ');
+            String description = userInput.substring(firstSpaceIndex + 1);
+            switch (firstWord) {
+                case "todo": {
+                    Task t = new Todo(description);
+                    TodoList.add(t);
+                    listOverview(t, TodoList);
+                    break;
+                }
+                case "deadline": {
+                    String[] parts = description.split("\\\\by");
+                    String ddl_description = parts.length > 0 ? parts[0].trim() : "";
+                    String ddl_time = parts.length > 1 ? parts[1].trim() : "";
+                    Task t = new Deadline(ddl_description, ddl_time);
+                    TodoList.add(t);
+                    listOverview(t, TodoList);
+                    break;
+                }
+                case "event": {
+                    String[] parts = userInput.split("\\\\from|\\\\to");
+
+                    // Collect words before "\from" into one string
+                    String event_description = parts.length > 0 ? parts[0].trim() : "";
+
+                    // Collect words between "\from" and "\to" into one string
+                    String event_from = parts.length > 1 ? parts[1].trim() : "";
+
+                    // Collect words after "\to" into one string
+                    String event_to = parts.length > 2 ? parts[2].trim() : "";
+                    Task t = new Event(event_description, event_from, event_to);
+                    TodoList.add(t);
+                    listOverview(t, TodoList);
+                    break;
+                }
+                default:
+                    System.out.println("Sorry, I don't understand your command.");
+                    break;
+            }
+        } else {
+            System.out.println("Sorry, I don't understand your command.");
+        }
     }
 
     static void printList(ArrayList<Task> TodoList) {
@@ -25,6 +64,17 @@ public class Duke {
         for (int i = 0; i < length; i++) {
             String pos = String.valueOf(i + 1);
             System.out.println(pos + "." + TodoList.get(i));
+        }
+    }
+
+    static void listOverview(Task t, ArrayList<Task> TodoList) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println(t);
+        int length = TodoList.size();
+        if (length == 1) {
+            System.out.println("Now you have " + length + " task in the list.");
+        } else {
+            System.out.println("Now you have " + length + " tasks in the list.");
         }
     }
 
