@@ -25,4 +25,7 @@ public class Task {
         return index + ". [" + getStatusIcon() + "] " + description;
     }
 
+    public String save() {
+        return index + "|" + (isDone ? "1" : "0") + "|" + description;
+    }
 }
