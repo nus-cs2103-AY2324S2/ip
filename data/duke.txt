@@ -1,9 +1,7 @@
-[D][ ]  (by: Jan 10 2024)
-[D][ ]  (by: Jan 1 2023)
+[D][X]  (by: Jan 1 2023)
 [E][ ] test (from: Jan 1 2023 to: Jan 1 2024)
 [T][ ] try
 [E][ ] tester1 (from: Jan 1 2022 to: Jan 1 2023)
 [E][X] tester2 (from: Jan 1 2022 to: Jan 1 2023)
 [T][ ] 100 hours of effort
 [E][ ]  (from: Feb 2 2023 to: Jan 4 2024)
-[D][ ]  (by: Jan 2 2023)
