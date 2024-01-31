@@ -14,9 +14,6 @@ public class Pyrite {
         // Load list from file
         this.list = file.loadState(this.list);
         String input;
-        // Solution below inspired by
-        // https://stackoverflow.com/questions/31690570/java-scanner-command-system
-        // https://stackoverflow.com/questions/4822256/java-is-there-an-easy-way-to-select-a-subset-of-an-array
         while (true) {
             String commandString = ui.readCommand();
             Command command = Parser.parse(commandString);

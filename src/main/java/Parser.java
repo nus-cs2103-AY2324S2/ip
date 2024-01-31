@@ -20,6 +20,9 @@ public class Parser {
         }
         return -1;
     }
+    // Solution below inspired by
+    // https://stackoverflow.com/questions/31690570/java-scanner-command-system
+    // https://stackoverflow.com/questions/4822256/java-is-there-an-easy-way-to-select-a-subset-of-an-array
     public static Command parse(String commandString) {
         if (commandString.equals("bye")) {
             return new ExitCommand();
