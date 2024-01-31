@@ -33,6 +33,7 @@ public class Todo extends Task {
         return this.TYPE;
     }
 
+
     /**
      * Gets a shortened version of extra information.
      *

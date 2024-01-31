@@ -22,12 +22,10 @@ public class Event extends Task {
      */
     public Event(String description) {
         super(description.split("/")[0]);
-
         int fromId = description.indexOf("/from");
         int toId = description.indexOf("/to");
-        this.start = description.substring(fromId +6, toId-1);
-        this.end  = description.substring(toId +4);
-
+        this.start = description.substring(fromId + 6, toId - 1);
+        this.end  = description.substring(toId + 4);
     }
 
     /**

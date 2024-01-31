@@ -16,12 +16,11 @@ public class Lery {
 
     private Storage storage;
     private Ui ui;
+
     public Lery() {
         this.ui = new Ui();
         this.storage = new Storage();
-
     }
-
 
 
     /**
@@ -40,7 +39,6 @@ public class Lery {
         }
         while(scanner.hasNext()) {
             Parser p = new Parser(this.storage);
-
             String command = scanner.nextLine();
             if (command.equalsIgnoreCase("bye")) {
                 ui.exit();
@@ -62,8 +60,6 @@ public class Lery {
     public static void main(String[] args) {
         Lery Lery = new Lery();
         Lery.run();
-
     }
-
 
 }

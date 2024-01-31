@@ -25,14 +25,15 @@ public class Ui {
      * @param m the message to be printed.
      */
     public void printMessageWithLine(String m) {
-        System.out.println(this.LINE + m + "\n"+ this.LINE);
+        System.out.println(this.LINE + m + "\n" + this.LINE);
     }
 
     /**
      * Prints a greeting message with the Lery logo.
      */
     public void greet() {
-        System.out.println(this.LINE + logo + "Hello! I'm Lery.Lery"  + "\n" + "What can I do for you?\n" +this.LINE);
+        System.out.println(this.LINE + logo + "Hello! I'm Lery.Lery"
+                + "\n" + "What can I do for you?\n" + this.LINE);
 
     }
 

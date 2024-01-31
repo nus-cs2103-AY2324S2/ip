@@ -29,6 +29,7 @@ public class Parser {
      * @throws LeryException if the user command has an error.
      */
     public String parseCommand(String command) throws LeryException {
+
         TaskList taskList = this.storage.getTaskList();
         if (command.equalsIgnoreCase("list")) {
             return taskList.printList();
@@ -75,7 +76,7 @@ public class Parser {
      */
     public String parseAddTaskCommand(String command) throws LeryException {
         String msg = "Got it. I've added this task:\n";
-        Task newTask = new Task(command);
+        Task newTask;
         if (command.startsWith("todo")) {
             try {
                 newTask = new Todo(command.substring(5));
@@ -102,9 +103,10 @@ public class Parser {
         }
         this.storage.saveTasks(newTask);
 
-        msg = msg+"["+ newTask.getType()  +"]"+ "["+newTask.getStatusIcon() +"]" + " " +
-                newTask.getDescription() + newTask.getExtraInfo() +"\nNow you have " +
-                Integer.toString(this.storage.getSize()) +" tasks in the list.";
+        msg = msg + "[" + newTask.getType() + "]" + "[" + newTask.getStatusIcon()
+                + "]" + " " + newTask.getDescription() + newTask.getExtraInfo()
+                + "\nNow you have " + Integer.toString(this.storage.getSize())
+                + " tasks in the list.";
         return msg;
 
     }
@@ -117,9 +119,10 @@ public class Parser {
      */
     public String parseDeleteTaskCommand(Task task) {
         this.storage.delete(task);
-        String msg = "Noted. I've removed this task:\n" + task.getType() + "[" + task.getStatusIcon() + "]" +
-                " " + task.getDescription() + task.getExtraInfo() + "\nNow you have " +
-                Integer.toString(this.storage.getSize()) + " tasks in the list.\n";
+        String msg = "Noted. I've removed this task:\n" + task.getType() + "["
+                + task.getStatusIcon() + "]" + " " + task.getDescription()
+                + task.getExtraInfo() + "\nNow you have "
+                + Integer.toString(this.storage.getSize()) + " tasks in the list.\n";
         return msg;
     }
 }
