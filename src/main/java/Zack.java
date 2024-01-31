@@ -1,5 +1,9 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,7 +12,7 @@ public class Zack {
     private static int taskCount = 0;
 
     public enum TaskType {
-        BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE
+        BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE, DATE
     }
 
     private static Storage storage = new Storage("./data/zack.txt");
@@ -40,6 +44,9 @@ public class Zack {
                 break;
             case DELETE:
                 handleDelete(sections);
+                break;
+            case DATE:
+                handleDateSpecificTasks(sections);
                 break;
             }
         } catch (IllegalArgumentException e) {
@@ -169,6 +176,31 @@ public class Zack {
         System.out.println("____________________________________________________________\n");
     }
 
+    private static void handleDateSpecificTasks(String[] sections) throws ZackException {
+        if (sections.length < 2) {
+            throw new ZackException("No date provided. Please specify a date.");
+        }
+
+        LocalDate specificDate;
+        try {
+            specificDate = LocalDate.parse(sections[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (DateTimeParseException e) {
+            throw new ZackException("Invalid date format. Please enter a date in yyyy-MM-dd format.");
+        }
+
+        System.out.println("____________________________________________________________");
+        System.out.println("Tasks on " + specificDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+        for (Task task : tasks) {
+            if (task instanceof Deadline && ((Deadline) task).isOnDate(specificDate)) {
+                System.out.println(task);
+            } else if (task instanceof Event && ((Event) task).isHappeningOnDate(specificDate.atStartOfDay())) {
+                System.out.println(task);
+            }
+        }
+
+        System.out.println("____________________________________________________________\n");
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -189,9 +221,8 @@ public class Zack {
             }
             System.out.println("____________________________________________________________\n");
         } catch (ZackException e) {
-            System.out.println(e + " Starting with an empty task list.\n");
+            System.out.println(e + "\n");
         }
-
 
         // Listen for commands and exits when user types "bye"
         while (true) {

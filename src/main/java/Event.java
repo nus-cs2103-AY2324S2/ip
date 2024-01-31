@@ -3,8 +3,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
-
     private LocalDateTime from, to;
+
+    public boolean isHappeningOnDate(LocalDateTime date) {
+        return !from.toLocalDate().isAfter(date.toLocalDate()) && !to.toLocalDate().isBefore(date.toLocalDate());
+    }
 
     public Event(String description, String from, String to, boolean isDone) throws ZackException {
         super(description, isDone);
@@ -24,6 +27,9 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return "E | " + (isDone ? 1 : 0) + " | " + description + " | " + from + " to " + to;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        String formattedFrom = from.format(formatter);
+        String formattedTo = to.format(formatter);
+        return "E | " + (isDone ? 1 : 0) + " | " + description + " | " + formattedFrom + " to " + formattedTo;
     }
 }

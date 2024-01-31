@@ -1,9 +1,14 @@
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     private LocalDateTime by;
+
+    public boolean isOnDate(LocalDate date) {
+        return by.toLocalDate().equals(date);
+    }
 
     public Deadline(String description, String by, boolean isDone) throws ZackException {
         super(description, isDone);
@@ -21,6 +26,8 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
-        return "D | " + (isDone ? 1 : 0) + " | " + description + " | " + by;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        String formattedBy = by.format(formatter);
+        return "D | " + (isDone ? 1 : 0) + " | " + description + " | " + formattedBy;
     }
 }
