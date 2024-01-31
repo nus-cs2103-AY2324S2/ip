@@ -27,4 +27,13 @@ public class Event extends Task {
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), startTime, endTime);
     }
+
+    /**
+     * Converts the task into a string format suitable for writing to a file.
+     * @return The formatted string for writing to a file.
+     */
+    @Override
+    public String toFileString() {
+        return String.format("E | %d | %s | %s - %s", isDone ? 1 : 0, description, startTime, endTime);
+    }
 }

@@ -46,5 +46,14 @@ public class Task {
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), description);
     }
+
+    /**
+     * Converts the task into a string format suitable for writing to a file.
+     * @return The formatted string for writing to a file.
+     */
+    public String toFileString() {
+        return String.format("Task | %d | %s", isDone ? 1 : 0, description);
+    }
+
 }
 
