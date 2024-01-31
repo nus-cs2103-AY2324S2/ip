@@ -1,7 +1,28 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello it's a-me! Mario!
+What-a can I do fo' ya!
+No Tasks! Oopsie!
+Uh Oh! Mamma Mia! Me-no understand!
+Uh Oh! Mamma-Mia where's ur description!
+I added!–
+[T][] hello
+–Mamma-mia!
+Uh Oh! No /by???
+Uh Oh! Add something after your /by...
+I added!–
+[D][] deadline (by: 2pm)
+–Mamma-mia!
+Uh Oh! No /from???
+Uh Oh! No /to???
+Uh Oh! Add something after your /to...
+Uh Oh! Don't throw funny funny... Mamma-Mia!
+I added!–
+[E][] event (from: 2; to: 3)
+–Mamma-mia!
+1: [T][] hello
+2: [D][] deadline (by: 2pm)
+3: [E][] event (from: 2; to: 3)
 
+Uh Oh! Invalid number >:(
+Mamma-mia!
+[T][] hello
+Removed!
