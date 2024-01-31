@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 [D][X] meeting (by: Nov 11 2013)
 [D][ ] meeting (by: Dec 29 2023)
 [T][ ] meeting
 [T][X] meeting
+=======
+>>>>>>> ee6726a12902ca52c8fee4a30687bd0f29afad6d
