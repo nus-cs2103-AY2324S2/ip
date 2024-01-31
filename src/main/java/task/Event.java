@@ -4,6 +4,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import exception.DukeException;
+import exception.InvalidDateException;
+import exception.InvalidTaskFormatException;
 
 import java.time.LocalDate;
 
@@ -12,7 +14,7 @@ public class Event extends Task {
   protected LocalDate from;
   protected LocalDate by;
 
-  public static Event createFromInput(String input) throws DukeException {
+  public static Event createFromInput(String input) throws InvalidTaskFormatException, InvalidDateException {
     try {
       String[] parts = input.split("/from | /to ");
       String description = parts[0].split("event ")[1];
@@ -23,9 +25,9 @@ public class Event extends Task {
       LocalDate parsedBy = LocalDate.parse(by, formatter);
       return new Event(description, parsedAt, parsedBy);
     } catch (ArrayIndexOutOfBoundsException e) {
-      throw new DukeException("Invalid event format. Please use 'event description /from start /to end'.");
+      throw new InvalidTaskFormatException("Invalid event format. Please use 'event description /from date /to date'.");
     } catch (DateTimeParseException e) {
-      throw new DukeException("Invalid date format. Please use 'yyyy-MM-dd'.");
+      throw new InvalidDateException("Invalid date format. Please use 'yyyy-MM-dd'.");
     }
   }
 

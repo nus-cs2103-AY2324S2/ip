@@ -5,12 +5,14 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import exception.DukeException;
+import exception.InvalidDateException;
+import exception.InvalidTaskFormatException;
 
 public class Deadline extends Task {
 
   protected LocalDate by;
 
-  public static Deadline createFromInput(String input) throws DukeException {
+  public static Deadline createFromInput(String input) throws InvalidTaskFormatException, InvalidDateException {
     try {
       String[] parts = input.split("/by ");
       String description = parts[0].split("deadline ")[1];
@@ -19,9 +21,9 @@ public class Deadline extends Task {
       LocalDate parsedBy = LocalDate.parse(by, formatter);
       return new Deadline(description, parsedBy);
     } catch (ArrayIndexOutOfBoundsException e) {
-      throw new DukeException("Invalid deadline format. Please use 'deadline description /by date'.");
+      throw new InvalidTaskFormatException("Invalid deadline format. Please use 'deadline description /by date'.");
     } catch (DateTimeParseException e) {
-      throw new DukeException("Invalid date format. Please use 'yyyy-MM-dd'.");
+      throw new InvalidDateException("Invalid date format. Please use 'yyyy-MM-dd'.");
     }
   }
 

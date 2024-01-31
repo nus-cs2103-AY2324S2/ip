@@ -40,7 +40,6 @@ public class GeePeeTee {
     Scanner scanner = new Scanner(System.in);
     Parser parser = new Parser(taskList, storage, ui);
     while (!input.equals("bye")) {
-      try {
         input = scanner.nextLine();
         System.out.println("\n--------------------------------------------------");
         if (input.equals("bye")) {
@@ -49,9 +48,6 @@ public class GeePeeTee {
         }
         parser.parseInput(input);
 
-      } catch (DukeException e) {
-        ui.showErrorMessage(e.getMessage());
-      }
       System.out.println("--------------------------------------------------\n");
     }
   }
