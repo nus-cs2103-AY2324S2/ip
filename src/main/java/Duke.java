@@ -1,9 +1,14 @@
+import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Duke {
+    private static HashSet<String> validCommands = new HashSet<>();
+
     public static void main(String[] args) {
+        initialSetup();
         String logo = " ____        _        \n"
                     + "|  _ \\ _   _| | _____ \n"
                     + "| | | | | | | |/ / _ \\\n"
@@ -146,5 +151,15 @@ public class Duke {
                 System.out.println(gap + e.getMessage() + "\n" + gap);
             }
         }
+    }
+
+    private static void initialSetup() {
+        validCommands.addAll(Arrays.asList("bye",
+                "list",
+                "mark",
+                "unmark",
+                "todo",
+                "deadline",
+                "event"));
     }
 }
