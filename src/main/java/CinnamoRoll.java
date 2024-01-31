@@ -1,11 +1,13 @@
-import java.util.*;
-import java.lang.*;
+import java.util.ArrayList;
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 class CinnamoRoll {
 
     private ArrayList<Task> tasks;
     private static final String PATH = "src/main/Cinnamo.txt";
+    private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private enum Users {
         MARK,
         UNMARK,
@@ -20,14 +22,14 @@ class CinnamoRoll {
         this.tasks = new ArrayList<>();
     }
 
-    private final String logo = " ____        _        \n"
+    private static final String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
 
     void greet() {
-        System.out.println(this.logo);
+        System.out.println(logo);
         System.out.println("Hello! I'm CinnamoRoll!" + "\n" + "What can I do for you? \n");
     }
 
@@ -60,17 +62,17 @@ class CinnamoRoll {
                         break;
                     case "D":
                         String[] deadline = info[2].split("/by");
-                        task = new Deadlines(deadline[0], deadline[1], marked);
+                        task = new Deadlines(deadline[0], LocalDateTime.parse(deadline[1], this.format), marked);
                         this.tasks.add(task);
                         break;
                     case "E":
                         String[] event = info[2].split("/from | /to");
-                        task = new Events(event[0], event[1], event[2], marked);
+                        task = new Events(event[0], LocalDateTime.parse(event[1], this.format), LocalDateTime.parse(event[2], this.format), marked);
                         this.tasks.add(task);
                         break;
                 }
             }
-        } catch(FileNotFoundException ex){
+        } catch (FileNotFoundException ex) {
             System.out.println("File not Found:( I will create one for you!");
         } finally {
             File f = new File(PATH);
@@ -80,10 +82,9 @@ class CinnamoRoll {
 
     public void writeInto() throws IOException {
         try {
-            File f = new File(PATH);
-            FileWriter fw = new FileWriter(PATH);
-            fw.write(this.list());
-            fw.close();
+            FileWriter filewriter = new FileWriter(PATH);
+            filewriter.write(this.list());
+            filewriter.close();
         } catch (IOException ex) {
             System.out.println("No input provided!");
         }
@@ -102,8 +103,8 @@ class CinnamoRoll {
 
     private String deadline(String[] instruction) throws Exception, CinnamoDeadlineException {
         try {
-            String[] schedule = instruction[1].split("/by", 2);
-            Task task = new Deadlines(schedule[0], schedule[1]);
+            String[] schedule = instruction[1].split(" /by ", 2);
+            Task task = new Deadlines(schedule[0], LocalDateTime.parse(schedule[1], this.format));
             this.tasks.add(task);
             this.writeInto();
             return task.added(this.tasks.size());
@@ -114,8 +115,8 @@ class CinnamoRoll {
 
     private String event(String[] instruction) throws Exception, CinnamoEventException {
         try {
-            String[] schedule = instruction[1].split("/from | /to");
-            Task task = new Events(schedule[0], schedule[1], schedule[2]);
+            String[] schedule = instruction[1].split(" /from | /to ");
+            Task task = new Events(schedule[0], LocalDateTime.parse(schedule[1], this.format), LocalDateTime.parse(schedule[2], this.format));
             this.tasks.add(task);
             this.writeInto();
             return task.added(this.tasks.size());

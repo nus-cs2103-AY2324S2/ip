@@ -13,8 +13,8 @@ class Todos extends Task {
     }
 
     String added(int length) {
-        return "   Got it. I've added this task:\n" + "     " +
-                super.toString() + "\n" +
-                "   Now you have " + String.valueOf(length) + " tasks in the list";
+        return String.format("Got it. I've added this task:%n   " +
+                "%s%nNow you have %d tasks in the list", super.toString(), length);
+
     }
 }

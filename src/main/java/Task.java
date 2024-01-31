@@ -1,6 +1,4 @@
-import java.util.*;
-
-class Task {
+abstract class Task {
     protected final String taskname;
     boolean is_marked;
 
@@ -14,23 +12,19 @@ class Task {
         this.is_marked = marked;
     }
 
-    void marked() {
+    protected void marked() {
         this.is_marked = true;
     }
 
-    void unmarked() {
+    protected void unmarked() {
         this.is_marked = false;
     }
 
-    String getStatusIcon() {
-        return (is_marked ? "[X]" : "[ ]");
-    }
+    abstract String getStatusIcon();
 
-    String added(int i) {
-        return "   added: " + this.taskname;
-    }
+    abstract String added(int i);
 
     public String toString() {
-        return "   " + this.getStatusIcon() + " " + this.taskname;
+        return this.getStatusIcon() + " " + this.taskname;
     }
 }

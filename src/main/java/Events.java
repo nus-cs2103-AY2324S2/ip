@@ -1,15 +1,19 @@
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+
 class Events extends Task {
 
-    private final String from;
-    private final String to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
+    private final DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
-    Events(String str, String from, String to) {
+    Events(String str, LocalDateTime from, LocalDateTime to) {
         super(str);
         this.from = from;
         this.to = to;
     }
 
-    Events(String str, String from, String to, boolean marked) {
+    Events(String str, LocalDateTime from, LocalDateTime to, boolean marked) {
         super(str, marked);
         this.from = from;
         this.to = to;
@@ -20,12 +24,13 @@ class Events extends Task {
     }
 
     public String toString() {
-        return super.toString() + " (from: " + this.from + " to:" + this.to + ")";
+        return String.format("%s (from: %s to: %s)", super.toString(),
+                this.from.format(format), this.to.format(format));
+
     }
 
     String added(int length) {
-        return "   Got it. I've added this task:\n" + "     " +
-                this.toString() + "\n" +
-                "   Now you have " + String.valueOf(length) + " tasks in the list";
+        return String.format("Got it. I've added this task:%n   " +
+                "%s%nNow you have %d tasks in the list", this.toString(), length);
     }
 }
