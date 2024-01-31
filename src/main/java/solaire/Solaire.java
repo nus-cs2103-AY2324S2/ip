@@ -48,30 +48,30 @@ public class Solaire {
 
             switch (command) {
             case GREET:
-            ui.greet();
+                ui.greet();
                 break;
             case BYE:
-            ui.waveBye();
+                ui.waveBye();
                 break;
             case MARK:
-            taskList.markDone(Integer.parseInt(inputCommand[1]));
+                taskList.markDone(Integer.parseInt(inputCommand[1]));
                 break;
             case UNMARK:
-            taskList.unmarkDone(Integer.parseInt(inputCommand[1]));
+                taskList.unmarkDone(Integer.parseInt(inputCommand[1]));
                 break;
             case LIST:
-            taskList.showList();
+                taskList.showList();
                 break;
             case TODO:
             case DEADLINE:
             case EVENT:
-            taskList.processTaskCommand(input);
+                taskList.processTaskCommand(input);
                 break;
             case DELETE:
-            taskList.processRemoveFromList(input);
+                taskList.processRemoveFromList(input);
                 break;
             default:
-            System.out.print("Unsupported command pattern\n");
+                System.out.print("Unsupported command pattern\n");
                 break;
             }
         } catch (IllegalArgumentException e) {
