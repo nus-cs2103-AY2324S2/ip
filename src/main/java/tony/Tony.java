@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Tony {
     private Ui ui;
-    private TodoList lst;
+    private TodoList list;
     private Storage storage;
     private Scanner scanner;
     private Parser parser;
@@ -18,9 +18,10 @@ public class Tony {
         scanner = new Scanner(System.in);
         parser = new Parser();
         try {
-            lst = storage.load();
+            list = storage.load();
         } catch (Exception e) {
-            lst = new TodoList();
+            System.out.println(e.getMessage());
+            list = new TodoList();
         }
 
     }
@@ -33,34 +34,34 @@ public class Tony {
             try {
                 switch (command) {
                     case "list":
-                        lst.print();
+                        list.print();
                         break;
                     case "unmark":
                         String unmarkDescription = parser.parseDescription(input);
-                        lst.unmark(unmarkDescription);
+                        list.unmark(unmarkDescription);
                         break;
                     case "mark":
                         String markIndex = parser.parseDescription(input);
-                        lst.mark(markIndex);
+                        list.mark(markIndex);
                         break;
                     case "todo":
                         String todoDescription = parser.parseDescription(input);
                         Task toDo = new TaskFactory().createTask(TaskType.TODO, todoDescription);
-                        lst.add(toDo);
+                        list.add(toDo);
                         break;
                     case "deadline":
                         String[] deadlineParts = parser.parseTasksWithDate(input);
                         Task deadline = new TaskFactory().createTask(TaskType.DEADLINE, deadlineParts);
-                        lst.add(deadline);
+                        list.add(deadline);
                         break;
                     case "event":
                         String[] eventParts = parser.parseTasksWithDate(input);
                         Task event = new TaskFactory().createTask(TaskType.EVENT, eventParts);
-                        lst.add(event);
+                        list.add(event);
                         break;
                     case "delete":
                         String deleteDescription = parser.parseDescription(input);
-                        lst.delete(deleteDescription);
+                        list.delete(deleteDescription);
                         break;
                     default:
                         throw new IllegalArgumentException("Invalid command: " + command);
@@ -72,7 +73,7 @@ public class Tony {
             }
             input = scanner.nextLine();
         }
-        storage.saveToFile(lst.printTasksToString());
+        storage.saveToFile(list.printTasksToString());
         ui.goodbye();
     }
 

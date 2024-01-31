@@ -18,8 +18,8 @@ public class Storage {
                 list.loadTask(line);
             }
             System.out.println("Tasks have been loaded from " + filePath);
-        } catch (IOException e) {
-
+        } catch (Exception e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
         }
         return list;
     }

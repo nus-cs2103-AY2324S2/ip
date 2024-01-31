@@ -1,15 +1,12 @@
 package tony;
 
-import tony.tasks.Task;
-import tony.tasks.Deadline;
-import tony.tasks.Event;
-import tony.tasks.Todo;
-import tony.tasks.TaskType;
+import tony.tasks.*;
+import tony.exceptions.*;
 
 import java.time.LocalDateTime;
 
 public class TaskFactory {
-    public Task createTask(TaskType type, String... args) {
+    public Task createTask(TaskType type, String... args) throws InvalidTaskException {
         String description = args[0];
         switch (type) {
             case TODO:
@@ -20,7 +17,7 @@ public class TaskFactory {
                     LocalDateTime dueDate = Parser.parseDate(due);
                     return new Deadline(description, dueDate);
                 } catch (Exception e) {
-                    System.out.println("Error parsing LocalDateTime: " + e.getMessage());
+                    throw new InvalidTaskException("Error creating DEADLINE task " + e.getMessage());
                 }
             case EVENT:
                 try {
@@ -30,7 +27,7 @@ public class TaskFactory {
                     LocalDateTime to = Parser.parseDate(toString);
                     return new Event(description, from, to);
                 } catch (Exception e) {
-                    System.out.println("Error parsing LocalDateTime: " + e.getMessage());
+                    throw new InvalidTaskException("Error creating EVENT task " + e.getMessage());
                 }
             default:
                 throw new IllegalArgumentException("Invalid task type: " + type);
