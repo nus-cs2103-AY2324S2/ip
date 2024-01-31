@@ -4,8 +4,8 @@ package solaire.data.task;
  * Represents an event task with start and end time.
  */
 public class Event extends Task {
-    String from;
-    String to;
+    private String from;
+    private String to;
 
     /**
      * Creates an event task with start and end time.
@@ -24,12 +24,14 @@ public class Event extends Task {
         return this.from;
     }
 
-    public String getEnd() {
+    public String getEnd()
+    {
         return this.to;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "[E]" + super.toString() + "( from: " + from + " to: " + to + ")";
     }
 

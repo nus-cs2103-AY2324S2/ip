@@ -102,32 +102,29 @@ public class Storage {
         Boolean isComplete = taskDetails[1].trim().equals("1") ? true : false;
         String taskDescription = taskDetails[2].trim();
 
-        /*
-         * for (String x : taskDetails) System.out.println(x);
-         */
         switch (taskDetails.length) {
-        case 3: {
-            Task newTask = new Todo(taskDescription);
-            if (isComplete) {
-                newTask.markAsDone();
+            case 3: {
+                Task newTask = new Todo(taskDescription);
+                if (isComplete) {
+                    newTask.markAsDone();
+                }
+                taskList.add(newTask);
+                break;
             }
-            taskList.add(newTask);
-            break;
-        }
-        case 4: {
-            Task newTask;
-            if (taskType.trim().equals("D")) {
-                newTask = new Deadline(taskDescription, taskDetails[3]);
-            } else {
-                String[] timeDetails = taskDetails[3].split("\\-");
-                newTask = new Event(taskDescription, timeDetails[0], timeDetails[1]);
+            case 4: {
+                Task newTask;
+                if (taskType.trim().equals("D")) {
+                    newTask = new Deadline(taskDescription, taskDetails[3]);
+                } else {
+                    String[] timeDetails = taskDetails[3].split("\\-");
+                    newTask = new Event(taskDescription, timeDetails[0], timeDetails[1]);
+                }
+                if (isComplete) {
+                    newTask.markAsDone();
+                }
+                taskList.add(newTask);
+                break;
             }
-            if (isComplete) {
-                newTask.markAsDone();
-            }
-            taskList.add(newTask);
-            break;
-        }
         }
     }
 }
