@@ -67,7 +67,12 @@ public class Duke {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            try {
+                boolean isCreated = dataFile.createNewFile();
+            } catch (IOException e2) {
+                System.out.println("Error: Cannot create hard drive file.");
+                System.out.println("Data will not be saved after session end.");
+            }
         }
         while (!userInput.equals("bye")) {
             userInput = sc.nextLine();
