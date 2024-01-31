@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,6 +25,71 @@ public class Duke {
         this.list = new ArrayList<>();
     }
 
+    private void loadList() throws DukeException {
+        try {
+            File dataFolder = new File("./data");
+            if (!dataFolder.exists()) {
+                throw new DukeException("\nError! Data folder does not exist.\n\n");
+            }
+
+            File file = new File("./data/duke.txt");
+            if (!file.exists()) {
+                throw new DukeException("\nError! duke.txt file does not exist within the data folder.\n\n");
+            }
+
+            BufferedReader br = new BufferedReader(new FileReader(file));
+
+            String input;
+            while ((input = br.readLine()) != null) {
+                String[] splitInput = input.split(" \\| ");
+
+                if (splitInput[0].equals("T")) {
+                    Todo todo = new Todo(splitInput[2]);
+                    if (Integer.parseInt(splitInput[1]) == 1) {
+                        todo.markAsDone();
+                    }
+                    list.add(todo);
+                } else if (splitInput[0].equals("D")) {
+                    Deadline deadline = new Deadline(splitInput[2], splitInput[3]);
+                    if (Integer.parseInt(splitInput[1]) == 1) {
+                        deadline.markAsDone();
+                    }
+                    list.add(deadline);
+                } else if (splitInput[0].equals("E")) {
+                    Event event = new Event(splitInput[2], splitInput[3], splitInput[4]);
+                    if (Integer.parseInt(splitInput[1]) == 1) {
+                        event.markAsDone();
+                    }
+                    list.add(event);
+                } else {
+                    throw new DukeException("\nError! Incorrect duke.txt format: unexpected task type.\n\n");
+                }
+            }
+        } catch (IOException e) {
+            throw new DukeException("\nError! An IOException occurred.\n\n");
+        } catch (NumberFormatException e) {
+            throw new DukeException("\nError! Incorrect duke.txt format: unexpected value. Value should be 1 for done or 0 for not done.\n\n");
+        }
+    }
+
+
+    private void saveList() throws DukeException {
+        try {
+            File file = new File("./data/duke.txt");
+            file.getParentFile().mkdirs();
+
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+            for (Task l : list) {
+                bw.append(l.toFileString()).append("\n");
+            }
+            bw.close();
+        } catch (IOException e) {
+            throw new DukeException("\nAn IOException occurred.\n");
+        }
+    }
+
+
+
     /**
      * Initiates the chat by invoking the sayHi() method.
      * Handles user input to display the list for "list" input, exit the chat for "bye" input,
@@ -26,6 +97,11 @@ public class Duke {
      * separates responses based on the type of task.
      */
     private void startChat() {
+        try {
+            loadList();
+        } catch (DukeException e) {
+            System.out.print(e.getMessage());
+        }
         sayHi();
         boolean exited = false;
         while (!exited) {
@@ -57,6 +133,7 @@ public class Duke {
                 } else {
                     throw new DukeException("\nError! I don't know what that means. Types of tasks are limited to ToDos, Deadlines and Events.\n");
                 }
+                saveList();
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }

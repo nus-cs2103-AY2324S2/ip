@@ -25,4 +25,13 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
+    /**
+     * Converts the task into a string format suitable for writing to a file.
+     * @return The formatted string for writing to a file.
+     */
+    @Override
+    public String toFileString() {
+        return String.format("D | %d | %s | %s", isDone ? 1 : 0, description, by);
+    }
 }
