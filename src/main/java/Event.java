@@ -8,7 +8,7 @@ public class Event extends Task {
     }
 
     public String toString() {
-        return "[E]" + "[" + getStatusIcon() + "] " + this.description + " (from: " + this.start + " to: " +
-                this.end + ")";
+        return "[E]" + "[" + getStatusIcon() + "] " + this.description + " (from: " + stringToDate(this.start) + " to: " +
+                stringToDate(this.end) + ")";
     }
 }
