@@ -64,6 +64,19 @@ public class TaskList {
         Task task = tasks.remove(index);
         storage.createRows(tasks);
         Ui.print("Noted. I've removed this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.\n");
+    }
 
+    public void find(String keyword) {
+        ArrayList<Task> tasks = storage.listRows();
+        String listString = "";
+        int count = 1;
+        for (int i = 1; i < tasks.size() + 1; i++) {
+            Task task = tasks.get(i - 1);
+            if (task.contains(keyword)) {
+                listString += count + "." + task + "\n";
+                count++;
+            }
+        }
+        Ui.print("Here are the matching tasks in your list:\n" + listString);
     }
 }

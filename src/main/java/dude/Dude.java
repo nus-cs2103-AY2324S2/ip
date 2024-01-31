@@ -60,6 +60,16 @@ public class Dude {
                 }
                 taskList.delete((int) formattedParameters.get(0) - 1);
                 break;
+            case "find":
+                if (!Parser.parse(
+                        formattedParameters, command, ipArgs,
+                        new String[]{"keyword"},
+                        new Parser.ParameterTypes[]{Parser.ParameterTypes.STRING})
+                ) {
+                    continue;
+                }
+                taskList.find((String) formattedParameters.get(0));
+                break;
             case "todo":
                 if (!Parser.parse(
                         formattedParameters, command, ipArgs,

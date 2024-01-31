@@ -26,6 +26,10 @@ public abstract class Task {
         this.done = false;
     }
 
+    public boolean contains(String keyword) {
+        return this.name.contains(keyword);
+    }
+
     @Override
     public String toString() {
         String checkbox = "[" + (this.done ? "x" : " ") + "] ";
