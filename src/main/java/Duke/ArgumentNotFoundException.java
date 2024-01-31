@@ -1,4 +1,4 @@
-
+package Duke;
 
 public class ArgumentNotFoundException extends DukeException {
     public ArgumentNotFoundException(String command) {

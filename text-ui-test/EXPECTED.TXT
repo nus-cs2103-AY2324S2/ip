@@ -12,7 +12,7 @@ Exception: Invalid DateTime Format! Please use yyyy-mm-dd
 Got it. I've added this task:
 [E][ ] hiking (from: Mar 21 2000 to: Jan 12 2004)
 Now you have 2 tasks in the list.
-Here are the tasks in your list:a
+Here are the tasks in your list:
 1. [T][ ] study
 2. [E][ ] hiking (from: Mar 21 2000 to: Jan 12 2004)
 Exception: /by argument needed for deadline
