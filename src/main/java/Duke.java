@@ -65,7 +65,6 @@ public class Duke {
                         newTask = new Deadline(taskName, deadline);
                     }
                     if (inputArr[0].equals("event")) {
-                        // System.out.println(input);
                         int idxFrom = input.indexOf("/from");
                         int idxTo = input.indexOf("/to");
                         String taskName = input.substring(6, idxFrom - 1);
