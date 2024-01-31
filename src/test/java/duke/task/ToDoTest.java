@@ -5,8 +5,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * JUnit tests for the {@link ToDo} class.
+ */
 public class ToDoTest {
 
+    /**
+     * Tests the constructor for creating a ToDo task with a description.
+     * Verifies that the ToDo task is created successfully with the given description.
+     */
     @Test
     public void constructor_todoWithDescription_success() {
         try {
@@ -18,6 +25,10 @@ public class ToDoTest {
         }
     }
 
+    /**
+     * Tests the {@code toString} method for the string representation of a ToDo task.
+     * Verifies that the string representation matches the expected format.
+     */
     @Test
     public void toString_todoCheckStringRepresentation_success() {
         try {

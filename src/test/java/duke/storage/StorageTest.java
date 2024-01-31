@@ -10,24 +10,38 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * JUnit tests for the {@link Storage} class.
+ */
 public class StorageTest {
 
     private Storage storage;
     private TaskList taskList;
 
+
+    /**
+     * Set up tasks and storage before each test.
+     */
     @BeforeEach
     void setUp() {
-        taskList = new TaskList(new ArrayList<>());
+        taskList = new TaskList(new ArrayList < > ());
         storage = new Storage();
     }
 
+    /**
+     * Tests the {@code saveTasks} method, ensuring that tasks are saved to a file
+     * and then loaded correctly.
+     *
+     * @throws IOException    If an I/O error occurs during saving tasks.
+     * @throws DukeException If an error occurs during loading tasks.
+     */
     @Test
     void saveTasks_shouldSaveTasksToFile() throws IOException, DukeException {
         taskList.addEventTask(new Event("Test Event", "2022-12-31", "2023-01-01"));
 
         storage.saveTasks(taskList);
 
-        ArrayList<Task> loadedTasks = storage.load();
+        ArrayList < Task > loadedTasks = storage.load();
 
         assertEquals(taskList.size(), loadedTasks.size());
         for (int i = 0; i < taskList.size(); i++) {
@@ -38,14 +52,24 @@ public class StorageTest {
         deleteTestFile();
     }
 
+    /**
+     * Tests the {@code load} method when the file is empty.
+     * It should return an empty task list.
+     *
+     * @throws DukeException If an error occurs during loading tasks.
+     * @throws IOException    If an I/O error occurs during saving tasks.
+     */
     @Test
     void load_emptyFile_shouldReturnEmptyTaskList() throws DukeException, IOException {
         storage.saveTasks(new TaskList());
-        ArrayList<Task> loadedTasks = storage.load();
+        ArrayList < Task > loadedTasks = storage.load();
         assertTrue(loadedTasks.isEmpty());
         deleteTestFile();
     }
 
+    /**
+     * Deletes the test file created during testing.
+     */
     private void deleteTestFile() {
         File file = new File(Storage.FILE_PATH);
         if (file.exists()) {
