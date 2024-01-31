@@ -3,7 +3,7 @@ package jmsandiegoo.tyrone;
 import jmsandiegoo.tyrone.commands.ByeCommand;
 import jmsandiegoo.tyrone.commands.Command;
 import jmsandiegoo.tyrone.commands.CommandResult;
-import jmsandiegoo.tyrone.data.TaskList;
+import jmsandiegoo.tyrone.task.TaskList;
 import jmsandiegoo.tyrone.exceptions.CommandExecutionException;
 import jmsandiegoo.tyrone.exceptions.IncorrectCommandException;
 import jmsandiegoo.tyrone.exceptions.StorageHelperException;

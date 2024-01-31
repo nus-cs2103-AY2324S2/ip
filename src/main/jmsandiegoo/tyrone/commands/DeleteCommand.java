@@ -1,7 +1,7 @@
 package jmsandiegoo.tyrone.commands;
 
 import jmsandiegoo.tyrone.common.Messages;
-import jmsandiegoo.tyrone.data.Task;
+import jmsandiegoo.tyrone.task.Task;
 import jmsandiegoo.tyrone.exceptions.CommandExecutionException;
 
 public class DeleteCommand extends Command {

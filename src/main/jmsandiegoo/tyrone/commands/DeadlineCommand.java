@@ -1,7 +1,7 @@
 package jmsandiegoo.tyrone.commands;
 
 import jmsandiegoo.tyrone.common.Messages;
-import jmsandiegoo.tyrone.data.Deadline;
+import jmsandiegoo.tyrone.task.Deadline;
 
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
