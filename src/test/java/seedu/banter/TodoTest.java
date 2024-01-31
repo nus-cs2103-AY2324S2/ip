@@ -5,7 +5,7 @@ import seedu.banter.tasks.Todo;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ToDoTest {
+public class TodoTest {
     @Test
     public void todoInitialization() {
         String description = "Buy groceries";
