@@ -24,4 +24,8 @@ public abstract class Task {
         System.out.println("Alright. This task has been unmarked");
         System.out.println(toString());
     }
+
+    public String convertToText() {
+        return "";
+    }
 }
