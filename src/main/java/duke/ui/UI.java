@@ -27,9 +27,9 @@ public class UI {
     }
 
     public void showWelcomeMessage() {
+        showLine();
         System.out.println("Hello! I'm " + botName);
         System.out.println("What can I do for you?");
-        showLine();
         showLine();
     }
 
@@ -37,8 +37,8 @@ public class UI {
         if (response == null) {
             return;
         }
-        System.out.println(response);
         showLine();
+        System.out.println(response);
         showLine();
     }
 
