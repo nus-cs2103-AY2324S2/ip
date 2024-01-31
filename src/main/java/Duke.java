@@ -14,7 +14,7 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
-        String line = "============================================";
+        String line = "================================================================";
 
         String greet = "Wassup! I'm someBOTy.\n"
                      + "What are you here for?\n";

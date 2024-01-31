@@ -1,0 +1,13 @@
+todo borrow "Harry Potter"
+deadline burn "The Gollum Game" /by tonight
+event Career Fair /from Sun 2am /to Mon 2pm
+list
+deadline burn "Blue Eyes White Dragon"
+event CS2103T meeting /to later /from now
+event CS2101 presentation /from/to
+list
+mark 4
+mark 1
+mark 2
+list
+bye
