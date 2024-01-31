@@ -14,4 +14,12 @@ public class Task {
     public String getDescription() {
         return description;
     }
+
+    public void setDone() {
+        this.isDone = true;
+    }
+
+    public void setUndone() {
+        this.isDone = false;
+    }
 }
