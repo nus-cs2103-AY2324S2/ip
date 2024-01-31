@@ -1,9 +1,29 @@
 package model;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Task {
     private String label;
     private boolean isDone;
 
+    /**
+     * Tries to parse a string as a date, if impossible returns the original string.
+     *
+     * @param input input string that may or may not be a date
+     * @return the date as a string in "dd MMM yyyy" format
+     */
+    protected String formatDate(String input) {
+        try {
+            LocalDate date = LocalDate.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            return date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        } catch (DateTimeParseException e) {
+            return input;
+        }
+    }
     public Task(String label) {
         this.label = label;
         this.isDone = false;
