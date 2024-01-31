@@ -4,6 +4,12 @@ public class Event extends Task {
 
     protected String to;
 
+    /**
+     *
+     * @param description
+     * @param from
+     * @param to
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;

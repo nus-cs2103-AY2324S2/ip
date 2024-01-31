@@ -1,7 +1,13 @@
 public class DukeException {
 
     protected String description;
+
+    /**
+     *
+     * @param description
+     */
     public DukeException(String description) {
+
         this.description = description;
     }
 
