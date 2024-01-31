@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -40,6 +40,23 @@ public class Luke {
             return;
         }
 
+        //load the file
+        File historyFile = new File(String.valueOf(historyPath));
+        try {
+            BufferedReader b = new BufferedReader(new FileReader(historyFile));
+            while (true) {
+                String input = b.readLine();
+                if (input == null) {
+                    break;
+                }
+                history.add(makeTask(input));
+            }
+        } catch (FileNotFoundException e) {
+            return;
+        } catch (IOException e) {
+            return;
+        }
+
         Scanner sc = new Scanner(System.in);
         while (true) {
             //task mode
@@ -62,6 +79,7 @@ public class Luke {
             }
         }
     }
+
 
     private static ArrayList<Task> history = new ArrayList<>();
 
@@ -165,8 +183,8 @@ public class Luke {
     //Deletes a specified task. Takes in a string input.
     public static void deleteTask(String input) {
         String fullStatus;
+        int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
         try {
-            int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
             fullStatus = history.get(index).fullStatus();
             history.remove(index);
         } catch (IndexOutOfBoundsException e) {
