@@ -13,7 +13,7 @@ public class UI {
     }
 
     public void showList(TaskList taskList) {
-        System.out.println("Here are the duke.tasks in your list:");
+        System.out.println("Here are the tasks in your list:");
         taskList.listTask();
     }
 
@@ -56,6 +56,6 @@ public class UI {
     }
 
     public void showTaskListCount(Integer count) {
-        System.out.println("Now you have "+ count +" duke.tasks in the list." );
+        System.out.println("Now you have "+ count +" tasks in the list." );
     }
 }
