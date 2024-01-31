@@ -5,10 +5,10 @@ public class DeleteCommand extends Command{
     }
     @Override
     public String execute(TaskList tasks, StateFile file) {
-        String taskString = tasks.toString(this.id);
         if (!tasks.isValidId(this.id)){
             return "Task to delete does not exist.";
         }
+        String taskString = tasks.toString(this.id);
         tasks.remove(this.id);
         String saveResult = file.saveState(tasks);
         return "Noted. I've removed this task:\n"
