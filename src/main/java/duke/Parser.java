@@ -145,6 +145,23 @@ public class Parser {
     }
 
     /**
+     * Returns an Array of strings usable by find method.
+     *
+     * @param cmd find command
+     * @return str an array of strings separated by find and its keyword.
+     * @throws DukeException when given incorrect number of parameters.
+     */
+    public String[] parseFind(String cmd) throws DukeException {
+        String[] str = cmd.split(" ", 2);
+
+        if (str.length != 2) {
+            throw new DukeException("Missing params for find");
+        }
+
+        return str;
+    }
+
+    /**
      * Returns LocalDate object that can be used by deadline.
      * <p>
      * This method will validate that the input string is in the correct date format.
