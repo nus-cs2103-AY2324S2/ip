@@ -164,6 +164,7 @@ public class Event extends Task {
         return "E" + super.toSave() + " | " + startDatetimeSaveFormat() + " | " + endTimeSaveFormat();
     }
 
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + startDatetimeFormat() + " to: " + endTimeFormat() + ")";
     }

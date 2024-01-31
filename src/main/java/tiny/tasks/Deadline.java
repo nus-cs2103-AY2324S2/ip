@@ -110,6 +110,7 @@ public class Deadline extends Task {
         return "D" + super.toSave() + " | " + endDatetimeSaveFormat();
     }
 
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + endDatetimeFormat() + ")";
     }
