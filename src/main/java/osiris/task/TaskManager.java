@@ -171,7 +171,6 @@ public class TaskManager {
         }
     }
 
-
     /**
      * Initializes the task manager by loading tasks from file storage.
      */
@@ -180,6 +179,21 @@ public class TaskManager {
         this.loadUserTaskFromFileStorage();
     }
 
+    /**
+     * Finds tasks containing the specified search string.
+     *
+     * @param searchString The string to search for within task descriptions.
+     * @return An ArrayList of task details containing the search string.
+     */
+    public ArrayList<String> findTask(String searchString) {
+        ArrayList<String> relevantTask = new ArrayList<>();
+        for (Task task: userTasks) {
+            if (task.toString().contains(searchString)) {
+                relevantTask.add(task.toString());
+            }
+        }
+        return relevantTask;
+    }
 
     /**
      * Terminates the task manager by clearing file storage and storing tasks.

@@ -140,6 +140,19 @@ public class Ui {
         this.printSeparator();
     }
 
+    /** Prints the details of the found tasks to the user interface.
+     *
+     * @param taskDetailsList The list of task details to be printed.
+     */
+    public void printFoundUserTasks(ArrayList<String> taskDetailsList) {
+        this.printSeparator();
+        System.out.println("     Here are the matching tasks in your list:");
+        for (int i = 0; i < taskDetailsList.size(); i++) {
+            System.out.println("     " + (i + 1) + ". " + taskDetailsList.get(i));
+        }
+        this.printSeparator();
+    }
+
     /**
      * Prints a separator line to the console.
      */
