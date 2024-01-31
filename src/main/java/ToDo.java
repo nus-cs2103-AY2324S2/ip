@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+
+
 public class ToDo extends Task {
     
     ToDo(String description, int num) {
@@ -17,6 +20,11 @@ public class ToDo extends Task {
     @Override
     public String identifier() {
         return "[T]";
+    }
+
+    @Override
+    public LocalDate getDeadline() {
+        return null;
     }
     
 }

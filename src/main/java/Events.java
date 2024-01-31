@@ -1,11 +1,21 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
+
 class Events extends Task {
     private String start;
     private String end;
+    private LocalDateTime actualStart;
+    private LocalDateTime actualEnd;
 
-    Events(String description, String start, String end, int num) {
+    Events(String description, String start, String end, LocalDateTime actualStart, LocalDateTime actualEnd, int num) {
         super(description, num);
         this.start = start;
         this.end = end;
+        this.actualStart = actualStart;
+        this.actualEnd = actualEnd;
     }
 
     public String getStart() {
@@ -28,5 +38,10 @@ class Events extends Task {
     @Override
     public String identifier() {
         return "[E]";
+    }
+
+    @Override
+    public LocalDate getDeadline() {
+        return null;
     }
 }

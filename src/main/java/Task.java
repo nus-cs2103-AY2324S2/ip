@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 abstract class Task {
     private String description;
     private boolean marked;
@@ -31,6 +33,7 @@ abstract class Task {
     }
 
     abstract String identifier();
+    abstract LocalDate getDeadline();
     
 }
 
