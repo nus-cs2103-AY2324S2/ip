@@ -46,13 +46,13 @@ public class FileUtils {
     /**
      * The same as insert, just that we replace lines instead of inserting at specified index now
      * @param filePath
-     * @param index this is 1-indexed, in accordance to how the application indexes
+     * @param index this is 0-indexed
      * @param newLine
      */
     public static void update(Path filePath, int index, String newLine) {
         try {
             List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
-            lines.set(index-1, newLine);
+            lines.set(index, newLine);
             Files.write(filePath, lines, StandardCharsets.UTF_8);
         } catch (IOException ex) {
             ex.printStackTrace();
