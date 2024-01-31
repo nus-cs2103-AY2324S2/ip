@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +35,12 @@ abstract class Task {
   protected boolean done;
   protected TaskID id;
   protected String task;
+  protected static final DateTimeFormatter DATETIME_FORMAT = DateTimeFormatter.ofPattern(
+    "d/M/yyyy HH:mm"
+  );
+  protected static final DateTimeFormatter DATETIME_PRINT_FORMAT = DateTimeFormatter.ofPattern(
+    "MMM dd yyyy HH:mm"
+  );
 
   Task(String task, boolean done, TaskID id) {
     this.done = done;
@@ -80,39 +88,57 @@ class Todo extends Task {
 
 class Deadline extends Task {
 
-  private String deadline;
+  private LocalDateTime deadline;
 
   Deadline(String task, String deadline, boolean done) {
     super(task, done, TaskID.DEADLINE_ID);
-    this.deadline = deadline;
+    this.deadline = LocalDateTime.parse(deadline, DATETIME_FORMAT);
   }
 
   public String serialise() {
-    return String.format("%s%s", super.serialise(), deadline);
+    return String.format(
+      "%s%s",
+      super.serialise(),
+      deadline.format(DATETIME_FORMAT)
+    );
   }
 
   public String taskStr() {
-    return String.format("%s (by: %s)", task, deadline);
+    return String.format(
+      "%s (by: %s)",
+      task,
+      deadline.format(DATETIME_PRINT_FORMAT)
+    );
   }
 }
 
 class Event extends Task {
 
-  private String to;
-  private String from;
+  private LocalDateTime to;
+  private LocalDateTime from;
 
   Event(String task, String from, String to, boolean done) {
     super(task, done, TaskID.EVENT_ID);
-    this.from = from;
-    this.to = to;
+    this.from = LocalDateTime.parse(from, DATETIME_FORMAT);
+    this.to = LocalDateTime.parse(to, DATETIME_FORMAT);
   }
 
   public String serialise() {
-    return String.format("%s%s<0>%s", super.serialise(), to, from);
+    return String.format(
+      "%s%s<0>%s",
+      super.serialise(),
+      to.format(DATETIME_FORMAT),
+      from.format(DATETIME_FORMAT)
+    );
   }
 
   public String taskStr() {
-    return String.format("%s (from: %s to: %s)", task, from, to);
+    return String.format(
+      "%s (from: %s to: %s)",
+      task,
+      from.format(DATETIME_PRINT_FORMAT),
+      to.format(DATETIME_PRINT_FORMAT)
+    );
   }
 }
 
@@ -172,14 +198,15 @@ class DukeContext {
           String[] auxData = xs.length == 1
             ? new String[0]
             : xs[1].split("<0>");
+          String taskDesc = taskData[1];
           boolean isDone = taskData[2].equals("X");
           switch (taskData[0]) {
             case "T":
-              return new Todo(taskData[1], isDone);
+              return new Todo(taskDesc, isDone);
             case "E":
-              return new Event(taskData[1], auxData[0], auxData[1], isDone);
+              return new Event(taskDesc, auxData[0], auxData[1], isDone);
             default:
-              return new Deadline(taskData[1], auxData[0], isDone);
+              return new Deadline(taskDesc, auxData[0], isDone);
           }
         })
         .collect(Collectors.toCollection(ArrayList::new));

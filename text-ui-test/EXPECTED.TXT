@@ -17,12 +17,12 @@
 >>   
   ______________________________________________________
   Got it. I've added this task:
-    [D][ ] return book (by: Sunday)
+    [D][ ] return book (by: Dec 02 2019 18:00)
   Now you have 4 tasks in the list.
 >>   
   ______________________________________________________
   Got it. I've added this task:
-    [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    [E][ ] project meeting (from: Dec 02 2020 12:00 to: Dec 02 2020 14:00)
   Now you have 5 tasks in the list.
 >>   
   ______________________________________________________
@@ -34,8 +34,8 @@
     1.[T][ ] read book
     2.[T][X] return book
     3.[T][ ] buy bread
-    4.[D][ ] return book (by: Sunday)
-    5.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+    4.[D][ ] return book (by: Dec 02 2019 18:00)
+    5.[E][ ] project meeting (from: Dec 02 2020 12:00 to: Dec 02 2020 14:00)
 >>   
   ______________________________________________________
   OK, I've marked this task as not done yet:
@@ -46,8 +46,8 @@
     1.[T][ ] read book
     2.[T][ ] return book
     3.[T][ ] buy bread
-    4.[D][ ] return book (by: Sunday)
-    5.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+    4.[D][ ] return book (by: Dec 02 2019 18:00)
+    5.[E][ ] project meeting (from: Dec 02 2020 12:00 to: Dec 02 2020 14:00)
 >>   
   ______________________________________________________
   Noted. I've removed this task:
@@ -58,8 +58,8 @@
   Here are the tasks in your list:
     1.[T][ ] read book
     2.[T][ ] return book
-    3.[D][ ] return book (by: Sunday)
-    4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+    3.[D][ ] return book (by: Dec 02 2019 18:00)
+    4.[E][ ] project meeting (from: Dec 02 2020 12:00 to: Dec 02 2020 14:00)
 >>   
   ______________________________________________________
   Bye. Hope to see you again soon!
