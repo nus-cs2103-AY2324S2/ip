@@ -1,15 +1,17 @@
-import java.util.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 class Deadlines extends Task {
 
-    private final String deadline;
+    private final LocalDateTime deadline;
+    private final DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
-    Deadlines(String str, String by) {
+    Deadlines(String str, LocalDateTime by) {
         super(str);
         this.deadline = by;
     }
 
-    Deadlines(String str, String by, boolean marked) {
+    Deadlines(String str, LocalDateTime by, boolean marked) {
         super(str, marked);
         this.deadline = by;
     }
@@ -19,12 +21,12 @@ class Deadlines extends Task {
     }
 
     public String toString() {
-        return super.toString() + "(by:" + this.deadline + ")";
+        return String.format("%s (by: %s)", super.toString(), this.deadline.format(format));
     }
 
     String added(int length) {
-        return "   Got it. I've added this task:\n" + "     " +
-                this.toString() + "\n" +
-                "   Now you have " + String.valueOf(length) + " tasks in the list";
+        return String.format("Got it. I've added this task:%n   %s%n" +
+                "Now you have %d tasks in the list", this.toString(), length);
+
     }
 }
