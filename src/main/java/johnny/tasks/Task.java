@@ -42,4 +42,14 @@ public class Task {
         return dateTime.format(OUTPUT_DATE_FORMAT);
     }
 
+    /**
+     * Checks if Task name contains keyword.
+     *
+     * @param keyword String to be matched to Task name.
+     * @return True if name contains else false;
+     */
+    public boolean contains(String keyword) {
+        return name.contains(keyword);
+    }
+
 }

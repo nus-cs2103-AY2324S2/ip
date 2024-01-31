@@ -54,4 +54,46 @@ public class TaskList {
         tasks.add(task);
     }
 
+    /**
+     * Find all Tasks in TaskList that name contains keyword.
+     *
+     * @param keyword String to be matched to Task name.
+     * @return TaskList of all Tasks that contains keyword.
+     */
+    public TaskList find(String keyword) {
+        TaskList foundTasks = new TaskList();
+        for (Task task: tasks) {
+            if (task.contains(keyword)) {
+                foundTasks.addTask(task);
+            }
+        }
+        return foundTasks;
+    }
+
+    /**
+     * Check if 2 TaskLists are equal by checking all Tasks in TaskList.
+     *
+     * @param o Object to be compared with.
+     * @return True if the TaskLists are equal else false.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (o instanceof TaskList) {
+            TaskList t = (TaskList) o;
+            if (this.size() != t.size()) {
+                return false;
+            }
+            for (int i = 0; i < this.size(); i++) {
+                if (this.tasks.get(i) != t.tasks.get(i)) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
