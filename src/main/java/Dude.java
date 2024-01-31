@@ -82,49 +82,54 @@ public class Dude {
                 dude.list();
                 break;
             case "mark":
-                if (!Parser.getParameters(parameters, command, new String[]{"index"}, ipArgs)) continue;
-                if (!Parser.formatParameters(
-                        formattedParameters,
-                        parameters,
+                if (!Parser.parse(
+                        formattedParameters, command, ipArgs,
+                        new String[]{"index"},
                         new Parser.ParameterTypes[]{Parser.ParameterTypes.INTEGER})
-                ) continue;
+                ) {
+                    continue;
+                }
                 dude.mark((int) formattedParameters.get(0) - 1);
                 break;
             case "unmark":
-                if (!Parser.getParameters(parameters, command, new String[]{"index"}, ipArgs)) continue;
-                if (!Parser.formatParameters(
-                        formattedParameters,
-                        parameters,
+                if (!Parser.parse(
+                        formattedParameters, command, ipArgs,
+                        new String[]{"index"},
                         new Parser.ParameterTypes[]{Parser.ParameterTypes.INTEGER})
-                ) continue;
+                ) {
+                    continue;
+                }
                 dude.unmark((int) formattedParameters.get(0) - 1);
                 break;
             case "delete":
-                if (!Parser.getParameters(parameters, command, new String[]{"index"}, ipArgs)) continue;
-                if (!Parser.formatParameters(
-                        formattedParameters,
-                        parameters,
+                if (!Parser.parse(
+                        formattedParameters, command, ipArgs,
+                        new String[]{"index"},
                         new Parser.ParameterTypes[]{Parser.ParameterTypes.INTEGER})
-                ) continue;
+                ) {
+                    continue;
+                }
                 dude.delete((int) formattedParameters.get(0) - 1);
                 break;
             case "todo":
-                if (!Parser.getParameters(parameters, command, new String[]{"description"}, ipArgs)) continue;
-                if (!Parser.formatParameters(
-                        formattedParameters,
-                        parameters,
+                if (!Parser.parse(
+                        formattedParameters, command, ipArgs,
+                        new String[]{"description"},
                         new Parser.ParameterTypes[]{Parser.ParameterTypes.STRING})
-                ) continue;
+                ) {
+                    continue;
+                }
                 Todo todo = new Todo((String) formattedParameters.get(0));
                 dude.add(todo);
                 break;
             case "deadline": {
-                if (!Parser.getParameters(parameters, command, new String[]{"description", "by"}, ipArgs)) continue;
-                if (!Parser.formatParameters(
-                        formattedParameters,
-                        parameters,
+                if (!Parser.parse(
+                        formattedParameters, command, ipArgs,
+                        new String[]{"description", "by"},
                         new Parser.ParameterTypes[]{Parser.ParameterTypes.STRING, Parser.ParameterTypes.DATE})
-                ) continue;
+                ) {
+                    continue;
+                }
                 Deadline deadline = new Deadline(
                         (String) formattedParameters.get(0),
                         (String) formattedParameters.get(1));
@@ -132,12 +137,14 @@ public class Dude {
                 break;
             }
             case "event": {
-                if (!Parser.getParameters(parameters, command, new String[]{"description", "from", "to"}, ipArgs)) continue;
-                if (!Parser.formatParameters(
-                        formattedParameters,
-                        parameters,
-                        new Parser.ParameterTypes[]{Parser.ParameterTypes.STRING, Parser.ParameterTypes.DATE, Parser.ParameterTypes.DATE})
-                ) continue;
+                if (!Parser.parse(
+                        formattedParameters, command, ipArgs,
+                        new String[]{"description", "from", "to"},
+                        new Parser.ParameterTypes[]{
+                                Parser.ParameterTypes.STRING, Parser.ParameterTypes.DATE, Parser.ParameterTypes.DATE})
+                ) {
+                    continue;
+                }
                 Event event = new Event(
                         (String) formattedParameters.get(0),
                         (String) formattedParameters.get(1),

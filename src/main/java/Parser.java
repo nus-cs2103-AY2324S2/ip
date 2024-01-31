@@ -64,26 +64,40 @@ public class Parser {
         return true;
     }
 
-    public static boolean formatParameters(ArrayList<Object> foramttedParameters, ArrayList<String> parameters, ParameterTypes[] formats) {
+    public static boolean formatParameters(ArrayList<Object> formattedParameters, ArrayList<String> parameters, ParameterTypes[] formats) {
         for (int i = 0; i < formats.length; i++) {
             if (formats[i] == ParameterTypes.INTEGER) {
                 if (isNumeric(parameters.get(i))) {
-                    foramttedParameters.add(Integer.parseInt(parameters.get(i)));
+                    formattedParameters.add(Integer.parseInt(parameters.get(i)));
                 } else {
                     Ui.print("Format of " + parameters.get(i) + " is not an integer\n");
                     return false;
                 }
             } else if  (formats[i] == ParameterTypes.DATE) {
                 if (isDate(parameters.get(i))) {
-                    foramttedParameters.add(parameters.get(i).stripTrailing());
+                    formattedParameters.add(parameters.get(i).stripTrailing());
                 } else {
                     Ui.print("Format of " + parameters.get(i) + " is not a date (yyyy-mm-dd)\n");
                     return false;
                 }
             } else {
-                    foramttedParameters.add(parameters.get(i).stripTrailing());
+                    formattedParameters.add(parameters.get(i).stripTrailing());
             }
         }
         return true;
+    }
+
+    public static boolean parse(
+            ArrayList<Object> formattedParameters,
+            String command,
+            String args,
+            String[] parameterNames,
+            ParameterTypes[] formats
+    ) {
+        ArrayList<String> parameters = new ArrayList<>();
+        if (!Parser.getParameters(parameters, command, parameterNames, args)) {
+            return false;
+        }
+        return Parser.formatParameters(formattedParameters, parameters, formats);
     }
 }
