@@ -1,7 +1,12 @@
-package SlayBot;
-import org.junit.jupiter.api.Test;
+package slaybot;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import entity.ToDo;
+
+
 public class TaskListTest {
     @Test
     public void testRemoveTask() {

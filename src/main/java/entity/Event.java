@@ -33,10 +33,12 @@ public class Event extends Task {
     @Override
     public String toString() {
         if (this.marked) {
-            return "[E][X] " + this.title + " (from: " + this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+            return "[E][X] " + this.title + " (from: "
+                    + this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                     + " to: " + this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         } else {
-            return "[E][ ] " + this.title + " (from: " + this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+            return "[E][ ] " + this.title + " (from: "
+                    + this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                     + " to: " + this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         }
     }

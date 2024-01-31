@@ -1,7 +1,13 @@
-package SlayBot;
-import org.junit.jupiter.api.Test;
+package slaybot;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
+
+
+
 public class ParserTest {
     @Test
     public void testDateTimeParser() {

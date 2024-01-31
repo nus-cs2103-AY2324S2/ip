@@ -1,9 +1,10 @@
-package SlayBot;
-
-import entity.Task;
+package slaybot;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import entity.Task;
+
 public class TaskList {
     private List<Task> tasks;
 

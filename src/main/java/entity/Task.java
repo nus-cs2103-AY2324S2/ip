@@ -5,8 +5,8 @@ public abstract class Task {
     protected boolean marked;
 
     Task(String title) {
-            this.title = title;
-            this.marked = false;
+        this.title = title;
+        this.marked = false;
     }
 
     public String getTitle() {

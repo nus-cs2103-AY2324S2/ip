@@ -1,11 +1,11 @@
-package SlayBot;
+package slaybot;
 
-public class SlayBot {
+public class Slaybot {
 
     private TaskList tasks;
     private Ui ui;
 
-    public SlayBot() {
+    public Slaybot() {
         this.tasks = new TaskList();
         this.ui = new Ui(tasks);
     }
@@ -14,6 +14,6 @@ public class SlayBot {
         this.ui.start();
     }
     public static void main(String[] args) {
-        new SlayBot().run();
+        new Slaybot().run();
     }
 }

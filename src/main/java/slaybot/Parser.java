@@ -1,4 +1,7 @@
-package SlayBot;
+package slaybot;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import entity.Deadline;
 import entity.Event;
@@ -7,9 +10,6 @@ import exception.InvalidDeadlineException;
 import exception.InvalidEventException;
 import exception.InvalidTodoException;
 import exception.UnknownCommandException;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Parser {
 
@@ -26,7 +26,7 @@ public class Parser {
 
     }
     public Deadline parseDeadline(String[] arr) throws InvalidDeadlineException {
-        String deadline_title = "";
+        String deadlineTitle = "";
         String dateTime = "";
         String combinedWord = "";
 
@@ -38,11 +38,11 @@ public class Parser {
 
         if (index != -1) {
             dateTime = combinedWord.substring(index + 3).trim();
-            deadline_title = combinedWord.substring(0, index);
+            deadlineTitle = combinedWord.substring(0, index);
         } else {
-            if (deadline_title.isEmpty() && dateTime.isEmpty()) {
+            if (deadlineTitle.isEmpty() && dateTime.isEmpty()) {
                 throw new InvalidDeadlineException("OOPS!!! The description and date of a Deadline cannot be empty.");
-            } else if (deadline_title.isEmpty()) {
+            } else if (deadlineTitle.isEmpty()) {
                 throw new InvalidDeadlineException("OOPS!!! The description of a Deadline cannot be empty.");
             } else if (dateTime.isEmpty()) {
                 throw new InvalidDeadlineException("OOPS!!! The date of a Deadline cannot be empty.");
@@ -51,24 +51,24 @@ public class Parser {
 
         LocalDateTime date = parseDateTime(dateTime);
 
-        return new Deadline(deadline_title, date);
+        return new Deadline(deadlineTitle, date);
     }
 
     public ToDo parseTodo(String[] arr) throws InvalidTodoException {
-        String todo_title = "";
+        String todoTitle = "";
 
         if (arr.length - 1 == 0) {
             throw new InvalidTodoException("OOPS!!! The description of a Todo cannot be empty.");
         }
 
         for (int i = 1; i < arr.length; i++) {
-            todo_title += arr[i];
+            todoTitle += arr[i];
             if (i != arr.length - 1) {
-                todo_title += " ";
+                todoTitle += " ";
             }
         }
 
-        return new ToDo(todo_title);
+        return new ToDo(todoTitle);
     }
 
     public Event parseEvent(String[] splitWords) throws InvalidEventException {
@@ -97,33 +97,33 @@ public class Parser {
 
     public Command parseCommand(String[] arr) throws UnknownCommandException {
         switch (arr[0]) {
-            case "bye":
-                return Command.BYE;
+        case "bye":
+            return Command.BYE;
 
-            case "list":
-                return Command.LIST;
+        case "list":
+            return Command.LIST;
 
-            case "todo":
-                return Command.TODO;
+        case "todo":
+            return Command.TODO;
 
-            case "deadline":
-                return Command.DEADLINE;
+        case "deadline":
+            return Command.DEADLINE;
 
-            case "event":
-                return Command.EVENT;
+        case "event":
+            return Command.EVENT;
 
-            case "mark":
-                return Command.MARK;
+        case "mark":
+            return Command.MARK;
 
-            case "unmark":
-                return Command.UNMARK;
+        case "unmark":
+            return Command.UNMARK;
 
-            case "delete":
-                return Command.DELETE;
-            case "find":
-                return Command.FIND;
-            default:
-                throw new UnknownCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        case "delete":
+            return Command.DELETE;
+        case "find":
+            return Command.FIND;
+        default:
+            throw new UnknownCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 

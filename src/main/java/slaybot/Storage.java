@@ -1,6 +1,4 @@
-package SlayBot;
-
-import entity.Task;
+package slaybot;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+
+import entity.Task;
 
 /**
  * The Storage class deals with loading tasks from the file and saving tasks in the file
