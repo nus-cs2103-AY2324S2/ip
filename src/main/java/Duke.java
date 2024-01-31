@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Duke {
     public static void main(String[] args) {
@@ -9,49 +8,65 @@ public class Duke {
                 "____________________________________________________________\n");
 
         Scanner whatToDo = new Scanner(System.in);
-        Task task = new Task(whatToDo.nextLine().trim().toLowerCase());
+        String whatToDoCall = whatToDo.nextLine().trim().toLowerCase();
+        String[] command = whatToDoCall.split(" ", 2);
 
-        ArrayList<Task> listOfTasks = new ArrayList<>();
+        ArrayList<Task> listofTasks = new ArrayList<>();
 
-        while (!task.description.equals("bye")) {
-            if (task.description.equals("list")) {
+        while (!whatToDoCall.equals("bye")) {
+            if ((whatToDoCall.equals("list") | whatToDoCall.equals("List") | whatToDoCall.equals("LIST"))) {
                 System.out.println("____________________________________________________________\n");
-                for (Integer i = 1; i <= listOfTasks.size(); i++) {
-                    System.out.println(i.toString() + ".[" + listOfTasks.get(i-1).getStatusIcon() + "] "
-                    + listOfTasks.get(i-1).description);
+                System.out.println("Here are the tasks in your list:\n");
+                for (Integer i = 1; i <= listofTasks.size(); i++) {
+                    System.out.println(i.toString() + "." + listofTasks.get(i-1).toString());
                 }
                 System.out.println("____________________________________________________________\n");
-            } else if (task.isMark()) {
-//                String[] items = task.description.split(" ");
-//                int indToMark = Integer.parseInt(items[1]);
-                listOfTasks.get(task.indexToMarkOrUnmark).markComplete();
+            } else if (command[0].equals("mark")) {
+                int indexToMark = Integer.parseInt(command[1]) - 1;
+
+                listofTasks.get(indexToMark).markComplete();
                 System.out.println("____________________________________________________________\n");
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("[" + listOfTasks.get(task.indexToMarkOrUnmark).getStatusIcon() + "] "
-                        + listOfTasks.get(task.indexToMarkOrUnmark).description);
+                System.out.println(listofTasks.get(indexToMark).toString());
                 System.out.println("____________________________________________________________\n");
-            } else if (task.isUnmark()) {
-//                String[] items = task.description.split(" ");
-//                int indToMark = Integer.parseInt(items[1]);
-                listOfTasks.get(task.indexToMarkOrUnmark).markIncomplete();
+            } else if (command[0].equals("unmark")) {
+                int indexToUnmark = Integer.parseInt(command[1]) - 1;
+                listofTasks.get(indexToUnmark).markIncomplete();
                 System.out.println("____________________________________________________________\n");
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("[" + listOfTasks.get(task.indexToMarkOrUnmark).getStatusIcon() + "] "
-                        + listOfTasks.get(task.indexToMarkOrUnmark).description);
+                System.out.println(listofTasks.get(indexToUnmark).toString());
                 System.out.println("____________________________________________________________\n");
             } else {
-                listOfTasks.add(task);
-                System.out.println("____________________________________________________________\n");
-                System.out.println("added: " + task.description);
-                System.out.println("\n____________________________________________________________\n");
+                Task task = null;
+                if (command[0].equals("todo")) {
+                    task = new ToDo(command[1]);
+                } else if (command[0].equals("deadline")) {
+                    task = new Deadline(command[1]);
+                } else if (command[0].equals("event")) {
+                    task = new Event(command[1]);
+                } else {
+                    System.out.println("Invalid Input!");
+                    break;
+                }
+
+                listofTasks.add(task);
+                System.out.println("____________________________________________________________\n"
+                        + "Got it. I've added this task:\n"
+                        + task.toString() + "\n"
+                        + "Now you have " + listofTasks.size() + (listofTasks.size() <= 1 ?  " task in the list." : " tasks in the list.")
+                        + "\n____________________________________________________________\n");
             }
 
-            task = new Task(whatToDo.nextLine().trim().toLowerCase());
+            whatToDoCall = whatToDo.nextLine().trim().toLowerCase();
+            command = whatToDoCall.split(" ", 2);
         }
 
         System.out.println("____________________________________________________________\n"
                 + " Bye. Hope to see you again soon!\n -Your Only Friend\n"
                 + "____________________________________________________________\n");
+
+
+
 
     }
 }
