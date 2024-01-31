@@ -12,6 +12,9 @@ import exception.UnknownCommandException;
 
 import java.util.Scanner;
 
+/**
+ * The Ui class deals with interactions with the user
+ */
 public class Ui {
     public static final String DIVIDER = "____________________________________________________________";
     public static final String WELCOME_TEXT = "Hello! I'm SlayBot.SlayBot\nWhat can I do for you?";
@@ -24,6 +27,9 @@ public class Ui {
         this.tasks = tasks;
     }
 
+    /**
+     * Starts the user interface, allowing the user to interact with the SlayBot application.
+     */
     public void start() {
         Scanner sc = new Scanner(System.in);
         boolean flag = true;
