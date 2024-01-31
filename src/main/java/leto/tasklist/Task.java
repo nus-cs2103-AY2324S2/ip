@@ -1,4 +1,4 @@
-package LetoTasks;
+package leto.tasklist;
 
 public class Task {
     private boolean completed;
@@ -8,6 +8,11 @@ public class Task {
 
     public Task(String message) {
         this.completed = false;
+        this.message = message;
+    }
+
+    public Task(Boolean completed, String message) {
+        this.completed = completed;
         this.message = message;
     }
 
@@ -25,8 +30,16 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + (isCompleted() ? "✅" : " ") + "] " + this.message;
+        return "[" + (isCompleted() ? "X" : " ") + "] " + this.message;
     }
 
+    /**
+     * Returns the object as a row in a csv table according to format
+     * Completed,Task
+     * @return String in csv format
+     */
+    public String toCSVString() {
+        return (isCompleted() ? "Y" : "N") + "," + this.message;
+    }
 }
 
