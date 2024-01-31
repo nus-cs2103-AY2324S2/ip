@@ -27,7 +27,11 @@ public class EventCommand extends Command {
     private final Event toAdd;
 
     public EventCommand(String eventName, String startTime, String endTime) throws MalformedUserInputException {
-        this.toAdd = new Event(eventName, startTime, endTime, false);
+
+        if (eventName.isBlank()) {
+            throw new MalformedUserInputException(MESSAGE_BLANK_EVENT);
+        }
+        this.toAdd = new Event(eventName.trim(), startTime, endTime, false);
     }
 
     @Override
