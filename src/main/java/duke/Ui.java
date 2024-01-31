@@ -7,7 +7,8 @@ import java.util.Scanner;
 public class Ui {
     private final Scanner scanner;
     static String name = "Lunaris";
-    static String indentedLine = "  _________________________________________________________";
+    static String indentedLine =
+            "  _________________________________________________________";
 
     public Ui() {
         this.scanner = new Scanner(System.in);
