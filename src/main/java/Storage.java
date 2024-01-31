@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 
@@ -11,6 +12,8 @@ public class Storage {
     private File directory;
     private File storageFile;
 
+    public boolean isOccupied;
+
     public Storage() throws DukeException,IOException {
         directory = new File(DATAFILEPATH);
         if (!directory.exists()) {
@@ -20,20 +23,29 @@ public class Storage {
         if(!storageFile.exists()) {
             storageFile.createNewFile();
         }
-        this.loadStorage();
-    }
-
-    private void loadStorage() throws DukeException,IOException {
-        Scanner s = new Scanner(storageFile);
-        while (s.hasNextLine()) {
-            String storedInput = s.nextLine();
-            Duke.commandParser(storedInput, true);
+        if(storageFile.length() == 0) {
+            isOccupied = false;
+        } else {
+            isOccupied = true;
         }
     }
 
-    protected void saveStorage(String command) throws IOException {
-        FileWriter fw = new FileWriter(STORAGEFILEPATH, true);
-        fw.append("\n" + command);
+    protected ArrayList<Task> loadStorage() throws DukeException,IOException {
+        Scanner s = new Scanner(storageFile);
+        ArrayList<Task> loadedList = new ArrayList<>();
+        while (s.hasNextLine()) {
+            String storedInput = s.nextLine();
+            Task currTask = Duke.parseFileLine(storedInput);
+            loadedList.add(currTask);
+        }
+        return loadedList;
+    }
+
+    protected void saveStorage(ArrayList<Task> taskList) throws IOException {
+        FileWriter fw = new FileWriter(STORAGEFILEPATH, false);
+        for (Task t : taskList) {
+            fw.append(t.toString() + "\n");
+        }
         fw.close();
     }
 }
