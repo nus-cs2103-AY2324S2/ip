@@ -1,16 +1,6 @@
 package duke.exception;
 
-<<<<<<< Updated upstream
- public class DukeException extends Exception {
-        public DukeException(String message) {
-            super(message);
-        }
 
-        public String toString() {
-            return "Ummm, " + getMessage();
-        }
-}
-=======
 /**
  * DukeException is a custom exception class for handling exceptions specific to the Duke application.
  * It extends the standard Exception class and provides a customized toString method.
@@ -35,4 +25,3 @@ public class DukeException extends Exception {
         return "Ummm, " + getMessage();
     }
 }
->>>>>>> Stashed changes

@@ -14,8 +14,18 @@ import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * JUnit tests for the {@link Parser} class.
+ */
 public class ParserTest {
 
+    /**
+     * Tests the behavior of the {@code processCommand} method
+     * when the "bye" command is processed.
+     * It should set the running status to false.
+     *
+     * @throws DukeException If an error occurs during command processing.
+     */
     @Test
     void processCommandByeCommand_shouldSetRunningStatusToFalse() throws DukeException {
         TaskList taskList = new TaskList();
@@ -29,6 +39,13 @@ public class ParserTest {
         assertFalse(parser.getRunningStatus());
     }
 
+    /**
+     * Tests the behavior of the {@code processCommand} method
+     * when the "list" command is processed.
+     * It should print the task list to the standard output.
+     *
+     * @throws DukeException If an error occurs during command processing.
+     */
     @Test
     void processCommandListCommand_shouldPrintTaskList() throws DukeException { //only line separators is an issue, but produces correct output
         TaskList taskList = new TaskList();

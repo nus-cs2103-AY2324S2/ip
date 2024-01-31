@@ -9,14 +9,12 @@ import java.util.ArrayList;
  * The Ui class handles user interface-related operations in the Duke application.
  */
 public class Ui {
-
-    private ArrayList<Task> arr;
-
+    ArrayList < Task > arr;
     /**
      * Displays an error message indicating a problem with loading tasks.
      */
     public static void showLoadingError() {
-        System.out.println("Error loading tasks. Initializing with an empty task list.");
+        System.out.println("Error loading tasks. Initializing with an empty task list."); //fix?
     }
 
     /**
@@ -116,4 +114,5 @@ public class Ui {
     public static void unmarkTask(Task task) {
         System.out.println("OK, I've marked this task as not done yet: \n " + "[" + task.getType() + "][" + task.getStatusIcon() + "] " + task.getDescription());
     }
+
 }
