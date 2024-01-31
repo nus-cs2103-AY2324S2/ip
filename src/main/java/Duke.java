@@ -11,20 +11,18 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    static void echo(String userInput, ArrayList<String> TodoList) {
+    static void echo(String userInput, ArrayList<Task> TodoList) {
         System.out.println("added: " + userInput);
-        addToList(TodoList, userInput);
+        Task t = new Task(userInput);
+        TodoList.add(t);
     }
 
-    static void addToList(ArrayList<String> TodoList, String userInput) {
-        TodoList.add(userInput);
-    }
-
-    static void printList(ArrayList<String> TodoList) {
+    static void printList(ArrayList<Task> TodoList) {
+        System.out.println("Here are the tasks in your list:");
         int length = TodoList.size();
         for (int i = 0; i < length; i++) {
             String pos = String.valueOf(i + 1);
-            System.out.println(pos + ". " + TodoList.get(i));
+            System.out.println(pos + "." + TodoList.get(i).printTask());
         }
     }
 
@@ -39,7 +37,7 @@ public class Duke {
         String botName = "Zizhen";
         greeting(botName);
 
-        ArrayList<String> TodoList = new ArrayList<>();
+        ArrayList<Task> TodoList = new ArrayList<>();
 
         boolean isExit = false;
         while (!isExit) {
