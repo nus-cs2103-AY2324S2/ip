@@ -1,4 +1,4 @@
-package storage;
+package duke.storage;
 
 public class Task {
     protected String description;

@@ -1,6 +1,6 @@
-package parser;
+package duke.parser;
 
-import storage.Task;
+import duke.storage.Task;
 
 public class Token {
     private Command cmd;

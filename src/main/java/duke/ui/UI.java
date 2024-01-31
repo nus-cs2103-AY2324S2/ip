@@ -1,10 +1,10 @@
-package ui;
+package duke.ui;
 
-import storage.TaskList;
-import storage.Task;
-import storage.Storage;
+import duke.storage.TaskList;
+import duke.storage.Task;
+import duke.storage.Storage;
 
-import dukeException.*;
+import duke.dukeException.*;
 
 public class UI {
     private static final String lines = "    ____________________________________________________________";

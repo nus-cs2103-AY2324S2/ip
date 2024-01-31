@@ -1,4 +1,4 @@
-package dukeException;
+package duke.dukeException;
 
 public class MissingArgumentsExceptionDeadlines extends MissingArgumentsExceptionTodo{
     public MissingArgumentsExceptionDeadlines(String string) {

@@ -2,16 +2,16 @@ package duke;
 
 import java.util.Scanner;
 
-import dukeException.InvalidCommandException;
-import dukeException.ListOutofBoundsException;
-import dukeException.MissingArgumentsException;
+import duke.dukeException.InvalidCommandException;
+import duke.dukeException.ListOutofBoundsException;
+import duke.dukeException.MissingArgumentsException;
 
-import dukeException.WrongTimeFormatException;
+import duke.dukeException.WrongTimeFormatException;
 
-import ui.UI;
+import duke.ui.UI;
 
-import parser.Parser;
-import parser.Token;
+import duke.parser.Parser;
+import duke.parser.Token;
 
 public class Duke {
     public static void main(String[] args) {

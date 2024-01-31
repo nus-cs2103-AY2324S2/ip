@@ -1,11 +1,9 @@
-package storage;
+package duke.storage;
 
-import dukeException.ListOutofBoundsException;
-import parser.Parser;
-import parser.Command;
-import parser.Token;
+import duke.parser.Parser;
+import duke.parser.Token;
 
-import ui.UI;
+import duke.ui.UI;
 
 import java.io.File;
 import java.io.FileNotFoundException;

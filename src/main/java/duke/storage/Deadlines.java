@@ -1,4 +1,4 @@
-package storage;
+package duke.storage;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

@@ -1,6 +1,6 @@
-package parser;
+package duke.parser;
 
-import dukeException.*;
+import duke.dukeException.*;
 
 import java.time.LocalTime;
 import java.util.Arrays;
@@ -9,10 +9,10 @@ import java.time.LocalDate;
 import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
 
-import storage.Task;
-import storage.Events;
-import storage.Deadlines;
-import storage.Todos;
+import duke.storage.Task;
+import duke.storage.Events;
+import duke.storage.Deadlines;
+import duke.storage.Todos;
 
 public class Parser {
     private String input;

@@ -1,4 +1,4 @@
-package storage;
+package duke.storage;
 
 public class Todos extends Task {
     public Todos(String originalCommand, String description) {

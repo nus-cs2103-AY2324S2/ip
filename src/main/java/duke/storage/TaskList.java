@@ -1,11 +1,6 @@
-package storage;
+package duke.storage;
 
 import java.util.ArrayList;
-
-import java.io.FileWriter;
-import java.io.IOException;
-
-import ui.UI;
 
 public class TaskList {
     private static final String lines = "    ____________________________________________________________";

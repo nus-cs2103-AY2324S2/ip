@@ -1,4 +1,4 @@
-package dukeException;
+package duke.dukeException;
 
 public class WrongTimeFormatException extends Exception{
     public WrongTimeFormatException(String string) {
