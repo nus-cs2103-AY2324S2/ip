@@ -15,7 +15,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, TextUi ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, TextUi ui, Storage storage) {
         Task task = tasks.getTask(id);
         tasks.remove(id);
         ui.removeTask(task, tasks.size());

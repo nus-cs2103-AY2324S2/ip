@@ -5,8 +5,8 @@ import duke.utils.Util;
 import java.time.LocalDate;
 
 public class Event extends Task {
-    LocalDate start;
-    LocalDate end;
+    final LocalDate start;
+    final LocalDate end;
 
     public Event(String task, LocalDate start, LocalDate end) {
         super(task);

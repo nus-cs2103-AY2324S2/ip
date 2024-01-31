@@ -22,7 +22,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, TextUi ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, TextUi ui, Storage storage) {
         Task curr = new Event(task, from, to);
         tasks.add(curr);
         ui.showTask(curr, tasks.size());

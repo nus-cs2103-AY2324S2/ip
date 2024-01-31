@@ -5,7 +5,7 @@ import duke.utils.Util;
 import java.time.LocalDate;
 
 public class Deadline extends Task {
-    LocalDate deadline;
+    final LocalDate deadline;
 
     public Deadline(String task, LocalDate deadline) {
         super(task);
