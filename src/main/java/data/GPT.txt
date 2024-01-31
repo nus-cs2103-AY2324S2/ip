@@ -1,3 +1,2 @@
-T | rest | 0 | null | null
-T | slack | 1 | null | null
-T | wrank | 0 | null | null
+D | return book | 0 | 2/12/2019 1800 | null
+E | workout | 0 | 2/12/2024 1200 | 2/12/2024 1800

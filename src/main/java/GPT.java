@@ -1,8 +1,8 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import java.nio.file.Paths;
-import java.nio.file.Files;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +14,7 @@ enum TaskType {
 }
 
 public class GPT {
+    //private static final DateTimeFormatter DATE_FORMATT_OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy");
     private static final String FILE_PATH = "./data/GPT.txt";
 
 
@@ -152,9 +153,24 @@ public class GPT {
                     TaskType type = TaskType.valueOf(taskData[0]);
                     String name = taskData[1];
                     Boolean done = Integer.parseInt(taskData[2]) == 1;
-                    String description = taskData[3];
-                    String dateTime = taskData.length > 4 ? taskData[4] : "";
-                    loadedTasks.add(new Task(name, type, done, description, dateTime));
+                    String startTime = taskData.length > 3 ? taskData[3] : "";
+                    String endTime = taskData.length > 4 ? taskData[4] : "";
+
+                    switch(type) {
+
+                        case T:
+                            loadedTasks.add(new Task(name, type, done));
+                            break;
+                        case D:
+                            loadedTasks.add(new Task(name, type, done, startTime));
+                            break;
+
+                        case E:
+                            loadedTasks.add(new Task(name, type, done, startTime, endTime));
+                            break;
+
+                    }
+
                 } else {
                     System.out.println("Warning: Ignored corrupted line in the file: " + line);
                 }
@@ -168,7 +184,7 @@ public class GPT {
     private static void saveTasksToFile(ArrayList<Task> taskList) {
         try (FileWriter fw = new FileWriter(FILE_PATH)) {
             for (Task task : taskList) {
-                fw.write(task.getTaskType().name() + " | " +  task.getName()  + " | " + (task.isDone() ? 1 : 0) + " | " + task.startDate + " | " + task.endDate + "\n");
+                fw.write(task.getTaskType().name() + " | " +  task.getName()  + " | " + (task.isDone() ? 1 : 0) + " | " + task.getStartDateString() + " | " + task.getEndDateString() + "\n");
             }
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
