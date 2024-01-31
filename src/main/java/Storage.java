@@ -10,15 +10,16 @@ import java.time.format.DateTimeParseException;
 /** Helper class to manage all storage related methods of duke. */
 public class Storage {
     private File file;
-    private static final String DEFAULT_PATH = "./data/duke.txt";
+    private String filePath;
 
     /**
      * Constructs a Storage object with the data file
      *
      * Verifies if this file exists, and will create a new file/directory if needed
      */
-    public Storage() {
-        this.file = new File(DEFAULT_PATH);
+    public Storage(String filePath) {
+        this.file = new File(filePath);
+        this.filePath = filePath;
         try {
             // Check if the parent directory exists; if not, create it
             File parentDir = file.getParentFile();
@@ -32,9 +33,9 @@ public class Storage {
 
             // Check if file exist, if not create
             if (file.createNewFile()) {
-                System.out.println("Data not found, created new file at: " + DEFAULT_PATH);
+                System.out.println("Data not found, created new file at: " + filePath);
             } else {
-                System.out.println("Data found at: " + DEFAULT_PATH);
+                System.out.println("Data found at: " + filePath);
             }
         } catch (IOException e) {
             throw new RuntimeException("Error creating file: " + e.getMessage(), e);
@@ -49,7 +50,7 @@ public class Storage {
      */
     public void save(TaskList taskList) {
         try {
-            FileWriter fw = new FileWriter(DEFAULT_PATH);
+            FileWriter fw = new FileWriter(this.filePath);
             for (Task task : taskList) {
                 fw.write(task.getTokens() + System.lineSeparator());
             }
@@ -63,9 +64,10 @@ public class Storage {
      * Loads taskList from datafile and returns a TaskList object
      *
      * @return TaskList object
+     * @throws DukeException.StorageException
      * @see TaskList
      */
-    public TaskList load() {
+    public TaskList load() throws DukeException.StorageException{
         TaskList taskList = new TaskList();
 
         try {
@@ -75,16 +77,13 @@ public class Storage {
                 taskList.add(next_task);
             }
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (DukeException.CorruptedDataException e) {
-            System.out.println(e.getMessage() + "Please check the datafile and delete if not recoverable.");
-            throw new RuntimeException(e);
+            throw new DukeException.StorageException("File / Directory does not exist.");
         }
 
         return taskList;
     }
 
-    private Task parseLineFromStorage(String tokens) throws DukeException.CorruptedDataException {
+    private Task parseLineFromStorage(String tokens) throws DukeException.StorageException {
         try {
             String[] data = tokens.split(",");
             switch (data[0]) {
@@ -98,10 +97,10 @@ public class Storage {
 
                     return new Task.Deadlines(data[1], Boolean.parseBoolean(data[2]), LocalDate.parse(data[3], Task.getDateFormat()));
                 default:
-                    throw new DukeException.CorruptedDataException("Data file is corrupted, task type does not exist");
+                    throw new DukeException.StorageException("Data file is corrupted, task type does not exist");
             }
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
-            throw new DukeException.CorruptedDataException("Data file is corrupted, error parsing data: " + e.getMessage());
+            throw new DukeException.StorageException("Data file is corrupted, error parsing data: " + e.getMessage());
         }
     }
 }
