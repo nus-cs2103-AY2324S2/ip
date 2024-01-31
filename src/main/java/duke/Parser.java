@@ -10,12 +10,30 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
+/**
+ * Parser class parses user input and executes corresponding commands.
+ * Provides methods to handle various commands such as adding tasks, marking tasks as done, etc.
+ */
 public class Parser {
+
+    /**
+     * Constructs a Parser object.
+     */
     public Parser() {
 
     }
 
+    /**
+     * Parses user input and executes the corresponding command.
+     *
+     * @param userInput The user input to be parsed and executed.
+     * @param tasks     The TaskList object to perform operations on.
+     * @param ui        The Ui object for user interface interactions.
+     * @param storage   The Storage object for saving and loading tasks.
+     * @throws DukeException If an error occurs during the parsing or execution of the command.
+     */
     public static void parseAndExecute(String userInput, TaskList tasks, Ui ui, Storage storage) throws DukeException {
 
         //String[] words = userInput.split(" ");
@@ -71,12 +89,21 @@ public class Parser {
 
                 break;
 
-
+            case "FIND":
+                parseFind(tasks, ui);
+                break;
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means.");
         }
     }
 
+    /**
+     * Parses a deadline command and adds the corresponding task to the TaskList.
+     *
+     * @param tasks The TaskList object to add the task to.
+     * @param ui    The Ui object for user interface interactions.
+     * @throws DukeException If an error occurs during the parsing or execution of the command.
+     */
     public static void parseDeadline( TaskList tasks, Ui ui) throws DukeException{
         /*if (words.length < 4) {
             throw new DukeException("Insufficient information for creating a deadline task.");
@@ -142,6 +169,13 @@ public class Parser {
 
     }
 
+    /**
+     * Parses an event command and adds the corresponding task to the TaskList.
+     *
+     * @param tasks The TaskList object to add the task to.
+     * @param ui    The Ui object for user interface interactions.
+     * @throws DukeException If an error occurs during the parsing or execution of the command.
+     */
     public static void parseEvent( TaskList tasks, Ui ui) throws DukeException{
         /*if (words.length < 6) {
             throw new DukeException("Insufficient information for creating a event task.");
@@ -210,6 +244,13 @@ public class Parser {
 
     }
 
+    /**
+     * Parses a todo command and adds the corresponding task to the TaskList.
+     *
+     * @param tasks The TaskList object to add the task to.
+     * @param ui    The Ui object for user interface interactions.
+     * @throws DukeException If an error occurs during the parsing or execution of the command.
+     */
     public static void parseTodo( TaskList tasks, Ui ui) throws DukeException {
         /* if (words.length < 2) {
             throw new DukeException("Insufficient information for creating a event task.");
@@ -235,6 +276,14 @@ public class Parser {
         tasks.addTasks(new Todo(descriptionTodo));
 
     }
+
+    /**
+     * Parses a line from a saved file and constructs a Task object.
+     *
+     * @param line The line from the file representing a task.
+     * @return The Task object constructed from the line.
+     * @throws IOException If an error occurs during the parsing of the line.
+     */
     public static Task parseTaskFromLine(String line) throws IOException {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
@@ -278,5 +327,23 @@ public class Parser {
         }
 
         return task;
+    }
+
+    /**
+     * Parses the "find" command, searching for tasks containing a specified keyword.
+     * Retrieves user input for the keyword and displays matching tasks.
+     *
+     * @param tasks The TaskList containing the tasks to search.
+     * @param ui    The Ui object for handling user interface interactions.
+     */
+    public static void parseFind( TaskList tasks, Ui ui) {
+        String keyword = ui.getUserInput2().trim();
+        //System.out.println(descriptionTodo);
+        ArrayList<Task> matchingTasks = tasks.keywordSearch(keyword);
+
+        ui.showMessage("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            ui.showMessage((i + 1) + "." + matchingTasks.get(i).toString());
+        }
     }
 }
