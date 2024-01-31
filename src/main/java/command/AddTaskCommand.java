@@ -62,11 +62,7 @@ public class AddTaskCommand extends Command {
         System.out.println("Now you have " + t.getSize()+ " tasks in the list.");
         System.out.println("--------------------------");
 
-        try {
-            s.save(t.getList());
-        } catch (IOException e) {
-            throw new BelleException("Problem when trying to save data in AddTaskCommmand");
-        }
+        s.save(t.getList());
 
     }
 

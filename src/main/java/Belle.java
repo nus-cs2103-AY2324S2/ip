@@ -30,8 +30,6 @@ public class Belle {
             //ui.showLoadingError();
             System.out.println(e.getMessage());
             tasks = new TaskList(new ArrayList<>());
-        } catch (IOException e) {
-            System.out.println("IOException from storage from Belle.java");
         }
     }
 

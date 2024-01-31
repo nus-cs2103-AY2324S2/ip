@@ -6,7 +6,6 @@ import run.Ui;
 
 public class ByeCommand extends Command {
     public ByeCommand() {
-
     }
 
     @Override

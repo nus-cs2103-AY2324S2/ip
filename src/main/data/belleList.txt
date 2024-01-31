@@ -2,7 +2,7 @@ D , false , return book , 2/12/2019 1800
 T , false , abc
 T , false , happy
 E , false , project meeting , Mon 2pm , 4pm
-D , false , return book , Oct 15 2019
+D , true , return book , Oct 15 2019
 T , false , abc
 T , false , abc
 E , false , project meeting , Mon 2pm , 4pm
@@ -10,4 +10,5 @@ T , false , abc
 E , true , project meeting , Mon 2pm , 4pm
 T , false , abc
 D , false , return book , Sunday
-E , false , project meeting , Mon 2pm , 4pm
+D , false , swim , 6pm
+E , true , project meeting , Mon 2pm , 4pm

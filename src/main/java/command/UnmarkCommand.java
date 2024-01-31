@@ -29,8 +29,6 @@ public class UnmarkCommand extends Command {
             s.save(t.getList());
         } catch (IndexOutOfBoundsException e){
             throw new BelleException("This is not a valid number in my task list :(");
-        } catch (IOException e) {
-            throw new BelleException("run.Storage has error when running unmark command");
         }
     }
 
