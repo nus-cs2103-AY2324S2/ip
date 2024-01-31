@@ -44,7 +44,7 @@ public class Parser {
         return isExit;
     }
 
-    public String mark() throws TinyException {
+    private String mark() throws TinyException {
         try {
             String[] s = input.split(" ");
             if (s.length != 2 || !s[0].equals("mark")) {
@@ -62,7 +62,7 @@ public class Parser {
         }
     }
 
-    public String unmark() throws TinyException {
+    private String unmark() throws TinyException {
         try {
             String[] s = input.split(" ");
             if (s.length != 2 || !s[0].equals("unmark")) {
@@ -80,7 +80,7 @@ public class Parser {
         }
     }
 
-    public String todo() throws TinyException {
+    private String todo() throws TinyException {
         try {
             String name = "";
             String[] st = input.split("");
@@ -106,7 +106,7 @@ public class Parser {
         }
     }
 
-    public String deadline() throws TinyException {
+    private String deadline() throws TinyException {
         try {
             String name = "";
             String[] st = input.split("/by ");
@@ -127,7 +127,7 @@ public class Parser {
         }
     }
 
-    public String event() throws TinyException {
+    private String event() throws TinyException {
         try {
             String name = "";
             String[] s = input.split(" ");
@@ -149,7 +149,7 @@ public class Parser {
         }
     }
 
-    public String delete() throws TinyException {
+    private String delete() throws TinyException {
         try {
             String[] s = input.split(" ");
             if (s.length != 2 || !s[0].equals("delete")) {
@@ -172,15 +172,15 @@ public class Parser {
         }               
     }
 
-    public String bye() {
+    private String bye() {
         return "Bye. Hope to see you again soon!";
     }
 
-    public String cmdUnknown() {
+    private String cmdUnknown() {
         return "I'm sorry, but I don't know what that means :-(";
     }
 
-    public static boolean checkCmd(String input, String name, int len) {
+    private static boolean checkCmd(String input, String name, int len) {
         return input.length() >= len && input.substring(0, len).equals(name);
     }
 }
