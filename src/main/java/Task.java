@@ -7,6 +7,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean status) {
+        this.description = description;
+        this.isDone = status;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
@@ -36,5 +41,8 @@ public class Task {
     @Override
     public String toString() {
         return getStatusIcon() + " " + description;
+    }
+    public String convertToFileFormat() {
+        return (isDone ? "1" : "0") + " | " + description;
     }
 }
