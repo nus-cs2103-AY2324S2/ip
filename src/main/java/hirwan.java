@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class hirwan {
     static String FILE_PATH = "C:\\Users\\eugen\\Documents\\National University of Singapore\\Y2S2\\CS2103T\\IP\\src\\main\\java\\data\\hirwan.txt";
     static List<String> List = new ArrayList<>();
+
     public static void main(String[] args) {
         String logo = "I'm hirwan \n"
                 + "_________________________________\n"
@@ -22,23 +23,15 @@ public class hirwan {
         try (BufferedWriter fileWrite = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
             while (true) {
                 String text = Ui.input();
+                int input = Parser.translate(text);
 
-                boolean isList = text.equals("list");
-                boolean mark = text.startsWith("mark");
-                boolean unmark = text.startsWith("unmark");
-                boolean todo = text.startsWith("todo");
-                boolean deadline = text.startsWith("deadline");
-                boolean event = text.startsWith("event");
-                boolean delete = text.startsWith("delete");
-                boolean bye = text.equals("bye");
-
-                if (bye) {
+                if (input == 8) {
                     break;
-                } else if (isList) {
+                } else if (input == 1) {
                     for (String element : List) {
                         Ui.output(List.indexOf(element) + 1 + element);
                     }
-                } else if (todo) {
+                } else if (input == 2) {
                     try {
                         Ui.output("Got it. I've added this task: \n  " + "[T][ ] " + text.substring(5));
                         List.add(". " + "[T][ ] " + text.substring(5));
@@ -47,7 +40,7 @@ public class hirwan {
                     } catch (StringIndexOutOfBoundsException e) {
                         Ui.output("Error: Please enter a description for your todo command");
                     }
-                } else if (deadline) {
+                } else if (input == 3) {
                     try {
                         String delimiter = " /by";
                         int Index = text.indexOf(delimiter);
@@ -63,7 +56,7 @@ public class hirwan {
                     } catch (StringIndexOutOfBoundsException e) {
                         Ui.output("Error: Please enter a description or date for your deadline command");
                     }
-                } else if (event) {
+                } else if (input == 4) {
                     try {
                         String delimiterstart = " /from";
                         String delimiterend = " /to";
@@ -77,14 +70,14 @@ public class hirwan {
                         LocalDateTime endDate = translateDate(end);
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d 'of' MMMM yyyy, ha");
 
-                        List.add(". " + "[E][ ] " + item + " (from: " + startDate.format(formatter) + " to: " +  endDate.format(formatter) + ")");
+                        List.add(". " + "[E][ ] " + item + " (from: " + startDate.format(formatter) + " to: " + endDate.format(formatter) + ")");
                         Ui.output("Got it. I've added this task:\n  " + "[E][ ] " + item + " (from: " + startDate.format(formatter) + " to: " + endDate.format(formatter) + ")");
                         Ui.output("Now you have " + List.size() + " tasks in the list.");
-                       Storage.writeTask(List);
+                        Storage.writeTask(List);
                     } catch (StringIndexOutOfBoundsException e) {
                         Ui.output("Error: Please enter a description or date for your event to command");
                     }
-                } else if (mark) {
+                } else if (input == 5) {
                     try {
                         String number = text.substring(5);
                         int numberint = Integer.parseInt(number);
@@ -99,7 +92,7 @@ public class hirwan {
                     } catch (NumberFormatException e) {
                         Ui.output("Error: Please enter a numerical index to mark!");
                     }
-                } else if (unmark) {
+                } else if (input == 6) {
                     try {
                         String number = text.substring(7);
                         int numberint = Integer.parseInt(number);
@@ -114,7 +107,7 @@ public class hirwan {
                     } catch (NumberFormatException e) {
                         Ui.output("Error: Please enter a numerical index to unmark!");
                     }
-                } else if (delete) {
+                } else if (input == 7) {
                     try {
                         int numberint = Integer.parseInt(text.substring(7)) - 1;
                         Ui.output("Noted. I've removed this task:\n"
@@ -127,7 +120,7 @@ public class hirwan {
                     } catch (NumberFormatException e) {
                         Ui.output("Error: Please enter a numerical index to delete!");
                     }
-                } else {
+                } else if (input ==9) {
                     Ui.output("Error: I am sorry but I do not recognise this command");
                 }
             }
@@ -151,6 +144,7 @@ class Ui {
         String text = scanner.nextLine();
         return text;
     }
+
     public static void output(String printText) {
         System.out.println(printText);
     }
@@ -159,6 +153,7 @@ class Ui {
 class Storage {
     static List<String> List = new ArrayList<>();
     static String FILE_PATH = "C:\\Users\\eugen\\Documents\\National University of Singapore\\Y2S2\\CS2103T\\IP\\src\\main\\java\\data\\hirwan.txt";
+
     static public List<String> read() {
         try {
             File filePath = new File(FILE_PATH);
@@ -186,9 +181,31 @@ class Storage {
     }
 
 }
-//class Parser {
-//
-//}
+
+class Parser {
+    public static int translate(String text) {
+
+        if (text.equals("list")) {
+            return 1;
+        } else if (text.startsWith("todo")) {
+            return 2;
+        } else if (text.startsWith("deadline")) {
+            return 3;
+        } else if (text.startsWith("event")) {
+            return 4;
+        } else if (text.startsWith("mark")) {
+            return 5;
+        } else if (text.startsWith("unmark")) {
+            return 6;
+        } else if (text.startsWith("delete")) {
+            return 7;
+        } else if (text.equals("bye")) {
+            return 8;
+        } else {
+            return 9;
+        }
+    }
+}
 
 //class Tasklist {
 //

@@ -1,2 +1,3 @@
-. [T][ ] faj
-. [T][X] fja
+. [T][X] faj
+. [T][ ] fja
+. [T][ ] alfiak
