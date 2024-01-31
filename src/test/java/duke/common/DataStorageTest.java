@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.util.Random;
 
 import static javafx.beans.binding.Bindings.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,6 +25,10 @@ public class DataStorageTest {
     private static final String DEADLINE_DATABASE_FORMAT = "D | %s | %s | %s";
     private static final String EVENT_DATABASE_FORMAT = "E | %s | %s | %s | %s";
 
+    private final String[] activityNames = {"Running", "Swimming", "Cycling", "Hiking", "Skiing"};
+    private final String[] datesRange = {"2024-01-01", "2025-01-01", "2024-03-21", "2024-12-31", "2023-01-01"};
+
+    private final int NUMBER_OF_EVENTS = 200;
 
     private int getLineCount() {
         int count = 0;
@@ -137,6 +142,23 @@ public class DataStorageTest {
         assertEquals(this.getLine(currentLineCount), databaseEntry);
     }
 
+    // Taken from: https://www.baeldung.com/java-generating-random-numbers-in-range
+
+    public int getRandomNumberUsingNextInt(int max) {
+        int min = 0;
+        Random random = new Random();
+        return random.nextInt(max - min) + min;
+    }
+
+    public String getRandomEvent() {
+        int index = getRandomNumberUsingNextInt(activityNames.length);
+        return activityNames[index];
+    }
+
+    public String getRandomDate() {
+        int index = getRandomNumberUsingNextInt(datesRange.length);
+        return datesRange[index];
+    }
 
 
     @Test
