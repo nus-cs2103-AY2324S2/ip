@@ -25,5 +25,9 @@ public abstract class Task {
         return String.format("%s %s", checkBox, name);
     }
 
-    public abstract void writeToData() throws IOException;
+    public String dataString() {
+        return String.format("%s|%s", this.isDone, this.name);
+    }
+
+    public abstract void writeToData(String filePath) throws IOException;
 }

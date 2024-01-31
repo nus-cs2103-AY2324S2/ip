@@ -1,3 +1,4 @@
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class ToDo extends Task {
@@ -11,7 +12,10 @@ public class ToDo extends Task {
     }
 
     @Override
-    public void writeToData() throws IOException {
-
+    public void writeToData(String filePath) throws IOException {
+        FileWriter fileWriter = new FileWriter(filePath, true);
+        String writeData = String.format("%s|%s\n", "T", super.dataString());
+        fileWriter.write(writeData);
+        fileWriter.close();
     }
 }

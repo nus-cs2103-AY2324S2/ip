@@ -130,27 +130,17 @@ public class Duke {
             newTask = new Event(eventName, from, to);
         }
         try {
-            newTask.writeToData();
+            newTask.writeToData("./data/storage.txt");
         } catch (IOException e) {
             System.out.println("Error writing file to storage: " + e.getMessage());
         }
         addList(newTask, list);
     }
 
-    private static void loadTasks(ArrayList<Task> list) {
-        File file = new File("./data/storage.txt");
-        Scanner scanner = null;
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-                scanner = new Scanner(file);
-            } catch (IOException e) {
-                System.out.println("Error trying to create new data storage: " + e.getMessage());
-            }
-        }
+    private static void loadTasks(Scanner scanner, ArrayList<Task> list) {
         while (scanner.hasNext()) {
             String currentTask = scanner.nextLine();
-            String[] taskDetails = currentTask.split("|");
+            String[] taskDetails = currentTask.split("\\|");
             Task newTask = null;
             switch (taskDetails[0]) {
             case "T":
@@ -164,7 +154,7 @@ public class Duke {
                 break;
             }
             if (newTask != null) {
-                if (taskDetails[1].equals("1")) {
+                if (taskDetails[1].equals("true")) {
                     newTask.markDone();
                 } else {
                     newTask.markNotDone();
@@ -178,7 +168,26 @@ public class Duke {
         String name = "Yippee";
         ArrayList<Task> list = new ArrayList<>();
 
-        loadTasks(list);
+        //load previous tasks
+        File directory = new File("./data");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        File file = new File("./data/storage.txt");
+        Scanner fileSc = null;
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error trying to create new data storage: " + e.getMessage());
+            }
+        }
+        try {
+            fileSc = new Scanner(file);
+        } catch(FileNotFoundException e) {
+            System.out.println("Storage data file does not exist :(");
+        }
+        loadTasks(fileSc, list);
 
         //greeting
         System.out.println("    ____________________________________________________________");

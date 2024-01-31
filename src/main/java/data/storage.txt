@@ -1,0 +1,2 @@
+T|false|test
+D|false|yahoo|tomorrow
