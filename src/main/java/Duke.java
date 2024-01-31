@@ -24,6 +24,7 @@ public class Duke {
             try {
                 input = scanner.nextLine();
                 String[] inputs = input.split(" ", 2);
+                int index;
 
                 switch (inputs[0]) {
                     case "list":
@@ -59,7 +60,7 @@ public class Duke {
                         printAddSuccessMessage();
                         break;
                     case "mark":
-                        int index = Integer.parseInt(inputs[1]) - 1;
+                        index = Integer.parseInt(inputs[1]) - 1;
                         list.get(index).isDone(true);
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println(list.get(index));
@@ -69,6 +70,13 @@ public class Duke {
                         list.get(index).isDone(false);
                         System.out.println("OK, I've marked this task as not done yet:");
                         System.out.println(list.get(index));
+                        break;
+                    case "delete":
+                        index = Integer.parseInt(inputs[1]) - 1;
+                        Task removedTask = list.remove(index);
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println("  " + removedTask);
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
                         break;
                     case "bye":
                         System.out.println("Bye. Hope to see you again soon!");
