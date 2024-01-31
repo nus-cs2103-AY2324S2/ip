@@ -21,6 +21,11 @@ public class Deadline extends Task {
         }
         return new Deadline(t[0], t[1]);
     }
+    @Override
+    public String saveFormat() {
+        int check = this.completed ? 1 : 0;
+        return String.format("D | %d | %s | %s\n", check, this.taskName, this.deadline);
+    }
 
     @Override
     public String toString() {
