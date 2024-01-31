@@ -17,6 +17,16 @@ public class Parser {
         put("delete", Arrays.asList("delete"));
         put("bye", null);
     }};
+
+    /**
+     * Returns a Command class for execution after parsing the command
+     * string with relevant arguments.
+     *
+     * @param cmd Command String to parse.
+     * @return Command class for execution.
+     * @throws InvalidCmdException If command is unknown, or if parameters / arguments are
+     * missing.
+     */
     protected static Command parse(String cmd) throws InvalidCmdException {
         String[] token = cmd.split(" ");
         if (!Parser.CMD_LIST.containsKey(token[0])) {

@@ -6,12 +6,27 @@ public class Command {
     private String[] arguments;
     private boolean isExit = false;
 
-    public Command(String cmd, String[] args) {
+    /**
+     * Constructs a valid <code>Command</code> for execution. It however, does not take into account
+     * the validity of arguments specified by the user.
+     *
+     * @param cmd Main command.
+     * @param args Supplied arguments.
+     */
+    protected Command(String cmd, String[] args) {
         this.command = cmd;
         this.arguments = args;
     }
 
-    public void execute(TaskList tl, Ui ui, Storage st) throws DukeException {
+    /**
+     * Executes the command attached to the <code>Command</code> instance.
+     *
+     * @param tl <code>TaskList</code> instance to update tasks.
+     * @param ui <code>Ui</code> instance for CLI prints.
+     * @param st <code>Storage</code> instance to update file for persistence of task data.
+     * @throws DukeException If command fails.
+     */
+    protected void execute(TaskList tl, Ui ui, Storage st) throws DukeException {
         if (this.command.equals("bye")) {
             ui.echo("Bye. Hope to see you again soon!");
             this.isExit = true;
