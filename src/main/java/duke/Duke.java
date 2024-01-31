@@ -1,3 +1,5 @@
+package duke;
+
 import duke.util.Ui;
 import duke.util.Storage;
 import duke.util.Parser;
