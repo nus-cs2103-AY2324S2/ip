@@ -20,6 +20,8 @@ public class Task {
         this.isDone = false;
     }
 
+    public String fileString() { return (isDone ? "1 | " : "0 | ") + this.name; }
+
     @Override
     public String toString() {
         return this.getStatusIcon() + " " + this.name;
