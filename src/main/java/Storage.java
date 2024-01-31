@@ -49,8 +49,9 @@ public class Storage {
         return tasks;
     }
 
-    public void save(ArrayList<Task> tasks) {
+    public void save(TaskList tasklist) {
         try {
+            ArrayList<Task> tasks = tasklist.getTasks();
             File file = new File(this.filepath);
             if (!file.exists()) {
                 file.createNewFile();

@@ -9,11 +9,14 @@ public class TaskList {
         this(new ArrayList<Task>());
     }
 
-    private void add(Task task) {
-
+    public void add(Task task) {
+        tasks.add(task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
     }
 
-    private void delete(int taskNumber) throws DukeException {
+    public void delete(int taskNumber) throws DukeException {
         if (taskNumber > tasks.size()) {
             throw new DukeException("You do not have " + taskNumber + " tasks.");
         }
@@ -24,7 +27,7 @@ public class TaskList {
         System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
     }
 
-    private void mark(int taskNumber) throws DukeException {
+    public void mark(int taskNumber) throws DukeException {
         if (taskNumber > tasks.size()) {
             throw new DukeException("You do not have " + taskNumber + " tasks.");
         }
@@ -35,7 +38,7 @@ public class TaskList {
         System.out.println(t);
     }
 
-    private void unmark(int taskNumber) throws DukeException {
+    public void unmark(int taskNumber) throws DukeException {
         if (taskNumber > tasks.size()) {
             throw new DukeException("You do not have " + taskNumber + " tasks.");
         }
@@ -44,5 +47,9 @@ public class TaskList {
         t.unmark();
         System.out.println("Ok, I've marked this task as not done yet:");
         System.out.println(t);
+    }
+
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
     }
 }
