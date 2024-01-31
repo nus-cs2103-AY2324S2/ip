@@ -10,14 +10,26 @@ public class Ui {
     static String indentedLine =
             "  _________________________________________________________";
 
+    /**
+     * Constructor for Ui.
+     *
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Method to print an indented line.
+     *
+     */
     public void setIndentedLine() {
         System.out.println(indentedLine);
     }
 
+    /**
+     * Method to print welcome message.
+     *
+     */
     public void welcomeMessage() {
         setIndentedLine();
         System.out.println("  " + "Hey! I'm " + name + "\n" +
@@ -25,6 +37,10 @@ public class Ui {
         setIndentedLine();
     }
 
+    /**
+     * Method to print goodbye message.
+     *
+     */
     public void goodByeMessage() {
         setIndentedLine();
         System.out.println("  " +
@@ -32,6 +48,10 @@ public class Ui {
         setIndentedLine();
     }
 
+    /**
+     * Method to print loading error message.
+     *
+     */
     public void loadErrorMessage() {
         setIndentedLine();
         System.out.println("  " +
@@ -39,6 +59,11 @@ public class Ui {
         setIndentedLine();
     }
 
+    /**
+     * Method to print unmark message.
+     *
+     * @param task Task that was unmarked.
+     */
     public void unmarkMessage(Task task) {
         setIndentedLine();
         System.out.println("  " + "Ok, I've marked this task " +
@@ -47,6 +72,11 @@ public class Ui {
         setIndentedLine();
     }
 
+    /**
+     * Method to print mark message.
+     *
+     * @param task Task that was marked.
+     */
     public void markMessage(Task task) {
         setIndentedLine();
         System.out.println("  " + "Ok, I've marked this task " +
@@ -55,6 +85,11 @@ public class Ui {
         setIndentedLine();
     }
 
+    /**
+     * Method to print delete message.
+     *
+     * @param task Task that was deleted.
+     */
     public void deleteMessage(Task task) {
         setIndentedLine();
         System.out.println("  " + "Noted. I've removed this task:" +
@@ -63,6 +98,11 @@ public class Ui {
         setIndentedLine();
     }
 
+    /**
+     * Method that prints how many tasks are in the list.
+     *
+     * @param taskList List to be counted.
+     */
     public void listSizeMessage(TaskList taskList) {
         System.out.println("  " +
                 "Now you have " + taskList.getSize() + " tasks in the list.");

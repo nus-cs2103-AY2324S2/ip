@@ -25,6 +25,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the command and executes command related tasks.
+     *
+     * @param input Command.
+     * @param taskList The list.
+     * @param ui The ui.
+     * @throws DukeException if invalid command or format has been parsed.
+     */
     public static void parseCommand(String input, TaskList taskList, Ui ui) throws DukeException {
         Command category = Command.getCategory(input);
         int listSize = taskList.getSize();
@@ -182,8 +190,17 @@ public class Parser {
                 }
         }
     }
-    public static Task parseCategoryFromFile(String taskCategory) throws IOException {
-        String[] argument = taskCategory.split(" \\| ");
+
+
+    /**
+     * Parses the category from the file and creates new tasks and adds them to the tasklist.
+     *
+     * @param taskDescription Description of the task taken from the file.
+     * @return The correct category of task.
+     * @throws IOException if the category does not belong to any of the expected outcomes.
+     */
+    public static Task parseCategoryFromFile(String taskDescription) throws IOException {
+        String[] argument = taskDescription.split(" \\| ");
         String category = argument[0];
         String status = argument[1];
         String description = argument[2];
