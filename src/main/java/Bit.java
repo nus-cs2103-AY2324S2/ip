@@ -222,40 +222,55 @@ public class Bit {
         for (int i = 0; i < list.size(); i++) {
             Task t = list.get(i);
             if (t instanceof Todo) {
-                saveToFile(t.description);
+                saveToFile(t.isDone, t.description);
             } else if (t instanceof Deadline) {
-                saveToFile(t.description, ((Deadline) t).getDeadline());
+                saveToFile(t.isDone, t.description, ((Deadline) t).getDeadline());
             } else if (t instanceof Event) {
-                saveToFile(t.description, ((Event) t).getStart(), ((Event) t).getEnd());
+                saveToFile(t.isDone, t.description, ((Event) t).getStart(), ((Event) t).getEnd());
             }
 
         }
     }
 
-    public static void  saveToFile(String description) {
+    public static void  saveToFile(boolean marked, String description) {
         try {
             FileWriter myWriter = new FileWriter(fileName, true);
-            myWriter.write("T/" + description+ "\n");
+            myWriter.write("T/" + description);
+            if (marked) {
+                myWriter.write("/M\n");
+            } else {
+                myWriter.write("/U\n");
+            }
             myWriter.close();
         } catch (IOException e) {
             System.out.println("I was unable to add that to the list!");
         }
     }
 
-    public static void saveToFile(String description, String deadline) {
+    public static void saveToFile(boolean marked, String description, String deadline) {
         try {
             FileWriter myWriter = new FileWriter(fileName, true);
-            myWriter.write(("D/" + description + "/" + deadline +"\n"));
+            myWriter.write(("D/" + description + "/" + deadline));
+            if (marked) {
+                myWriter.write("/M\n");
+            } else {
+                myWriter.write("/U\n");
+            }
             myWriter.close();
         } catch (IOException e) {
             System.out.println("I was unable to add that to the list!");
         }
     }
 
-    public static void saveToFile(String description, String start, String end) {
+    public static void saveToFile(boolean marked, String description, String start, String end) {
         try {
             FileWriter myWriter = new FileWriter(fileName, true);
-            myWriter.write("E/" + description + "/" + start + "/" + end +"\n");
+            myWriter.write("E/" + description + "/" + start + "/" + end);
+            if (marked) {
+                myWriter.write("/M\n");
+            } else {
+                myWriter.write("/U\n");
+            }
             myWriter.close();
         } catch (IOException e) {
             System.out.println("I was unable to add that to the list!");
@@ -274,11 +289,23 @@ public class Bit {
                 System.out.println(parts[0]);
                 System.out.println(parts[1]);
                 if (parts[0].equals("T")) {
-                    list.add(new Todo(parts[1]));
+                    Task t = new Todo(parts[1]);
+                    if (parts[2].equals("M")) {
+                        t.complete();
+                    }
+                    list.add(t);
                 } else if (parts[0].equals("D")) {
-                    list.add(new Deadline(parts[1], parts[2]));
+                    Task d = new Deadline(parts[1], parts[2]);
+                    if (parts[3].equals("M")) {
+                        d.complete();
+                    }
+                    list.add(d);
                 } else if (parts[0].equals("E")) {
-                    list.add(new Event(parts[1], parts[2], parts[3]));
+                    Task e = new Event(parts[1], parts[2], parts[3]);
+                    if (parts[4].equals("M")) {
+                        e.complete();
+                    }
+                    list.add(e);
                 }
             }
         } catch (IOException e) {
