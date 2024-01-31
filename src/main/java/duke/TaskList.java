@@ -161,8 +161,9 @@ public class TaskList {
         }
         String keyword = str.replace("find", "");
         System.out.println("Here are the matching tasks in your list:");
+        int n = 0;
         for (int i = 0; i < list.size(); i++) {
-            int n = 0;
+
             Task task = list.get(i);
             if (task.description.contains(keyword)) {
                 n++;
