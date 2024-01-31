@@ -19,7 +19,7 @@ public class Duchess {
         TODO, DEADLINE, EVENT
     }
 
-    public Duchess() {
+    public Duchess() throws DuchessException {
         tasks = new ArrayList<>();
         taskCount = 0;
         loadDataFromFile();
@@ -44,7 +44,7 @@ public class Duchess {
     }
 
     //Load data from file
-    private void loadDataFromFile() {
+    private void loadDataFromFile() throws DuchessException {
         try {
             File file = new File(FILE_PATH);
             if (!file.exists()) {
@@ -80,7 +80,7 @@ public class Duchess {
     }
 
     // Method to parse task from a line read from file
-    private Task parseTaskFromFileString(String line) {
+    private Task parseTaskFromFileString(String line) throws DuchessException {
         Task task = null;
         // Parse the line and create task objects accordingly
         // Example line format: "T | 1 | read book"
