@@ -32,7 +32,7 @@ public class MarkCommand extends Command{
             storage.writeTasksToJsonFile(taskList);
 
             // Inform user that task has been marked.
-            ui.sendMessage("Nice! I've marked this task as done:\n" + markedTask);
+            ui.sendMessage("Nice! I've marked this task as done:\n" + markedTask + "\n");
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new CaponeException("Sorry, you have entered an invalid index.\n" +
                     "You can check the list of valid indices using the 'list' command.");

@@ -16,7 +16,7 @@ public class ByeCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
-        ui.sendMessage("Bye. Hope to see you again soon!");
+        ui.sendMessage("Bye. Hope to see you again soon!\n");
         scanner.close();
         System.exit(0);
     }

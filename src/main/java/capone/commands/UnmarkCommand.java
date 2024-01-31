@@ -31,7 +31,7 @@ public class UnmarkCommand extends Command {
             storage.writeTasksToJsonFile(taskList);
 
             // Inform user that task has been marked.
-            ui.sendMessage("OK, I've marked this task as not done yet:\n" + unmarkedTask);
+            ui.sendMessage("OK, I've marked this task as not done yet:\n" + unmarkedTask + "\n");
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new CaponeException("Sorry, you have entered an invalid index.\n" +
                     "You can check the list of valid indices using the 'list' command.");
