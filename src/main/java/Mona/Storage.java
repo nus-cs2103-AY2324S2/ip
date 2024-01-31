@@ -12,8 +12,6 @@ public class Storage {
     private String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
-    }
-    public void createLog() {
         String workingDirectory = System.getProperty("user.dir");
         try {
             Path dataDirectory = Paths.get(workingDirectory + "/data");
