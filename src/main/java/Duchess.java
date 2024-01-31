@@ -14,11 +14,6 @@ public class Duchess {
 
     private static final String FILE_PATH = "./data/duchess.txt";
 
-    // Enum to represent task types
-    private enum TaskType {
-        TODO, DEADLINE, EVENT
-    }
-
     public Duchess() throws DuchessException {
         tasks = new ArrayList<>();
         taskCount = 0;
