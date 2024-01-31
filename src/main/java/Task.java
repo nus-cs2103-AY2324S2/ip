@@ -1,6 +1,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String taskType;
 
     public Task(String description) {
         this.description = description;
@@ -30,5 +31,8 @@ public class Task {
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
+    }
+    public String getTaskType() {
+        return this.taskType;
     }
 }
