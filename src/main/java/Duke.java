@@ -1,8 +1,7 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class Duke {
     private static final String DIVIDER = "────────────────────────────────────────────────────────────";
@@ -43,31 +42,31 @@ public class Duke {
             }
 
             switch (command) {
-                case BYE:
-                    end();
-                case LIST:
-                    printList(inputArr);
-                    break;
-                case MARK:
-                    markTask(inputArr);
-                    break;
-                case UNMARK:
-                    unmarkTask(inputArr);
-                    break;
-                case TODO:
-                    addToDo(inputArr);
-                    break;
-                case DEADLINE:
-                    addDeadline(inputArr);
-                    break;
-                case EVENT:
-                    addEvent(inputArr);
-                    break;
-                case DELETE:
-                    deleteTask(inputArr);
-                    break;
-                default:
-                    throw new DukeException("I'm sorry, I didn't quite understand that.");
+            case BYE:
+                end();
+            case LIST:
+                printList(inputArr);
+                break;
+            case MARK:
+                markTask(inputArr);
+                break;
+            case UNMARK:
+                unmarkTask(inputArr);
+                break;
+            case TODO:
+                addToDo(inputArr);
+                break;
+            case DEADLINE:
+                addDeadline(inputArr);
+                break;
+            case EVENT:
+                addEvent(inputArr);
+                break;
+            case DELETE:
+                deleteTask(inputArr);
+                break;
+            default:
+                throw new DukeException("I'm sorry, I didn't quite understand that.");
             }
             System.out.println(DIVIDER);
         }
@@ -93,7 +92,8 @@ public class Duke {
         if (inputArr.size() == 0) {
             taskList.printList();
         } else {
-            throw new DukeException("Additional inputs have been detected.\nPlease only type 'list' to view your list.");
+            throw new DukeException("Additional inputs have been detected.\n"
+                    + "Please only type 'list' to view your list.");
         }
     }
 
@@ -112,6 +112,8 @@ public class Duke {
                     task.markAsDone();
                     System.out.println("The following task has been marked.");
                     System.out.println("→ " + task);
+
+                    writeToFile();
                 }
             }
         }
@@ -132,6 +134,8 @@ public class Duke {
                     task.markAsNotDone();
                     System.out.println("The following task has not been unmarked.");
                     System.out.println("→ " + task);
+
+                    writeToFile();
                 }
             }
         }
@@ -139,7 +143,8 @@ public class Duke {
 
     private void addToDo(ArrayList<String> inputArr) throws DukeException {
         if (inputArr.size() == 0) {
-            throw new DukeException("The task title is missing.\nPlease use the following format: todo [task title]");
+            throw new DukeException("The task title is missing.\n"
+                    + "Please use the following format: todo [task title]");
         } else {
             String taskName = String.join(" ", inputArr);
             ToDo newTask = new ToDo(taskName);
@@ -147,16 +152,24 @@ public class Duke {
             System.out.println("The following task has been added:");
             System.out.println("→ " + newTask);
             System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
+
+            appendToFile(newTask);
         }
     }
 
     private void addDeadline(ArrayList<String> inputArr) throws DukeException {
-        if (inputArr.size() == 0 || (inputArr.subList(inputArr.indexOf("/by") + 1, inputArr.size()).size() == 0 && inputArr.subList(0, inputArr.indexOf("/by")).size() == 0)) {
-            throw new DukeException("The task title and date time for the task is missing.\nPlease use the following format: deadline [task title] /by [datetime]");
-        } else if (!inputArr.contains("/by") || inputArr.subList(inputArr.indexOf("/by") + 1, inputArr.size()).size() == 0) {
-            throw new DukeException("The date time for the task is not found.\nPlease use the following format: deadline [task title] /by [datetime]");
+        if (inputArr.size() == 0
+                || (inputArr.subList(inputArr.indexOf("/by") + 1, inputArr.size()).size() == 0
+                    && inputArr.subList(0, inputArr.indexOf("/by")).size() == 0)) {
+            throw new DukeException("The task title and date time for the task is missing.\n"
+                    + "Please use the following format: deadline [task title] /by [datetime]");
+        } else if (!inputArr.contains("/by")
+                || inputArr.subList(inputArr.indexOf("/by") + 1, inputArr.size()).size() == 0) {
+            throw new DukeException("The date time for the task is not found.\n"
+                    + "Please use the following format: deadline [task title] /by [datetime]");
         } else if (inputArr.subList(0, inputArr.indexOf("/by")).size() == 0) {
-            throw new DukeException("The task title is missing.\nPlease use the following format: deadline [task title] /by [datetime]");
+            throw new DukeException("The task title is missing.\n"
+                    + "Please use the following format: deadline [task title] /by [datetime]");
         } else {
             String taskName = String.join(" ", inputArr.subList(0, inputArr.indexOf("/by")));
             String dateTime = String.join(" ", inputArr.subList(inputArr.indexOf("/by") + 1, inputArr.size()));
@@ -165,31 +178,49 @@ public class Duke {
             System.out.println("The following task has been added:");
             System.out.println("→ " + newTask);
             System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
+
+            appendToFile(newTask);
         }
     }
 
     private void addEvent(ArrayList<String> inputArr) throws DukeException {
         if (inputArr.size() == 0) {
-            throw new DukeException("The task title, start and end date time for the task is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
+            throw new DukeException("The task title, start and end date time for the task is missing.\n"
+                    + "Please use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
         } else if (!inputArr.contains("/from") && !inputArr.contains("/to")) {
-            throw new DukeException("The date time for the task is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
-        } else if (inputArr.contains("/from") && inputArr.contains("/to") && (inputArr.subList(0, inputArr.indexOf("/from")).size() == 0 && inputArr.subList(inputArr.indexOf("/to") + 1, inputArr.size()).size() == 0 && inputArr.subList(inputArr.indexOf("/from") + 1, inputArr.indexOf("/to")).size() == 0)) {
-            throw new DukeException("The task title, start and end date time for the task is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
-        } else if (!inputArr.contains("/to") || inputArr.subList(inputArr.indexOf("/to") + 1, inputArr.size()).size() == 0) {
-            throw new DukeException("The date time for the task is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
-        } else if (!inputArr.contains("/from") || inputArr.subList(inputArr.indexOf("/from") + 1, inputArr.indexOf("/to")).size() == 0) {
-            throw new DukeException("The date time for the task is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
+            throw new DukeException("The date time for the task is missing.\n"
+                    + "Please use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
+        } else if (inputArr.contains("/from")
+                && inputArr.contains("/to")
+                && (inputArr.subList(0, inputArr.indexOf("/from")).size() == 0
+                    && inputArr.subList(inputArr.indexOf("/to") + 1, inputArr.size()).size() == 0
+                    && inputArr.subList(inputArr.indexOf("/from") + 1, inputArr.indexOf("/to")).size() == 0)) {
+            throw new DukeException("The task title, start and end date time for the task is missing.\n"
+                    + "Please use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
+        } else if (!inputArr.contains("/to")
+                || inputArr.subList(inputArr.indexOf("/to") + 1, inputArr.size()).size() == 0) {
+            throw new DukeException("The date time for the task is missing.\n"
+                    + "Please use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
+        } else if (!inputArr.contains("/from")
+                || inputArr.subList(inputArr.indexOf("/from") + 1, inputArr.indexOf("/to")).size() == 0) {
+            throw new DukeException("The date time for the task is missing.\n"
+                    + "Please use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
         } else if (inputArr.subList(0, inputArr.indexOf("/from")).size() == 0) {
-            throw new DukeException("The task title is missing.\nPlease use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
+            throw new DukeException("The task title is missing.\n"
+                    + "Please use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
         } else {
             String taskName = String.join(" ", inputArr.subList(0, inputArr.indexOf("/from")));
-            String startDateTime = String.join(" ", inputArr.subList(inputArr.indexOf("/from") + 1, inputArr.indexOf("/to")));
-            String endDateTime = String.join(" ", inputArr.subList(inputArr.indexOf("/to") + 1, inputArr.size()));
+            String startDateTime = String.join(" ",
+                    inputArr.subList(inputArr.indexOf("/from") + 1, inputArr.indexOf("/to")));
+            String endDateTime = String.join(" ",
+                    inputArr.subList(inputArr.indexOf("/to") + 1, inputArr.size()));
             Event newTask = new Event(taskName, startDateTime, endDateTime);
             taskList.addTask(newTask);
             System.out.println("The following task has been added:");
             System.out.println("→ " + newTask);
             System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
+
+            appendToFile(newTask);
         }
     }
 
@@ -209,21 +240,95 @@ public class Duke {
                     System.out.println("The following task has been deleted.");
                     System.out.println("→ " + task);
                     System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
+
+                    writeToFile();
                 }
             }
         }
     }
 
+    private void load(String filePath) throws DukeException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            File file = new File(filePath);
+            File parentFolder = file.getParentFile();
+
+            if (!parentFolder.exists()) {
+                parentFolder.mkdirs();
+            }
+
+            if (!file.exists()) {
+                file.createNewFile();
+            } else {
+                BufferedReader br = new BufferedReader(new FileReader(file.getAbsoluteFile()));
+                String line = br.readLine();
+                while (line != null) {
+                    StringTokenizer st = new StringTokenizer(line, "|");
+                    String taskType = st.nextToken().trim();
+                    boolean isDone = "1".equals(st.nextToken().trim());
+                    String taskTitle = st.nextToken().trim();
+                    Task task = null;
+
+                    switch (taskType) {
+                    case "T":
+                        task = new ToDo(taskTitle, isDone);
+                        break;
+                    case "D":
+                        String dateTime = st.nextToken().trim();
+                        task = new Deadline(taskTitle, dateTime, isDone);
+                        break;
+                    case "E":
+                        String[] dateTimeArr = st.nextToken().split("-");
+                        String startDateTime = dateTimeArr[0].trim();
+                        String endDateTime = dateTimeArr[1].trim();
+                        task = new Event(taskTitle, startDateTime, endDateTime, isDone);
+                        break;
+                    default:
+                        throw new DukeException("Invalid task type");
+                    }
+                    tasks.add(task);
+                    line = br.readLine();
+                }
+            }
+            taskList = new TaskList(tasks);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void writeToFile() {
+        try {
+            FileWriter fw = new FileWriter("./data/duke.txt");
+            for (Task task : taskList.taskList) {
+                fw.write(task.toFile());
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void appendToFile(Task task) {
+        try {
+            FileWriter fw = new FileWriter("./data/duke.txt");
+            fw.write(task.toFile());
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         Duke duke = new Duke();
-         try {
-             System.out.println(DIVIDER);
-             System.out.println(LOGO);
-             System.out.println(GREETING);
-             System.out.println(DIVIDER);
-             duke.start();
+        try {
+            duke.load("./data/duke.txt");
+            System.out.println(DIVIDER);
+            System.out.println(LOGO);
+            System.out.println(GREETING);
+            System.out.println(DIVIDER);
+            duke.start();
         } catch (DukeException e) {
-             System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 }
