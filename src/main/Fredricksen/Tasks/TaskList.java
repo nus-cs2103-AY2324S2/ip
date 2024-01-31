@@ -1,7 +1,9 @@
+package Tasks;
+
 import java.util.ArrayList;
 
 public class TaskList {
-    ArrayList<Task> list;
+    private ArrayList<Task> list;
 
     public TaskList() {
         this.list = new ArrayList<>();
@@ -25,6 +27,10 @@ public class TaskList {
 
     public Task getTask(int index) {
         return this.list.get(index);
+    }
+
+    public ArrayList<Task> getList() {
+        return this.list;
     }
 
     public int size() {

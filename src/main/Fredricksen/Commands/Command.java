@@ -1,4 +1,10 @@
-import java.io.PrintStream;
+package Commands;
+
+import Tasks.TaskList;
+import Tasks.Task;
+import Ui.Ui;
+import Storages.Storage;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -133,7 +139,7 @@ public class Command {
         } else {
             switch (command[0]) {
                 case "list":
-                    ui.output(tasks.list.toString());
+                    ui.output(tasks.getList().toString());
                     break;
                 case "todo":
                 case "event":
