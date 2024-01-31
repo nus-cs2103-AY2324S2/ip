@@ -11,6 +11,10 @@ import seedu.banter.errors.Errors;
 import seedu.banter.ui.Ui;
 import seedu.banter.utilities.DateTime;
 
+
+/**
+ * Represents a parser that parses user input and functions as the app controller.
+ */
 public class Parser {
     private final TaskList taskList;
     private final Storage storage;
@@ -20,22 +24,32 @@ public class Parser {
     private static final String DEADLINE_DUE_DATE = "/by";
     private static final String EVENT_START = "/from";
     private static final String EVENT_END = "/to";
-
+    
+    /**
+     * Constructs a new Parser object.
+     * @param storage Storage object that handles loading and saving of tasks.
+     */
     public Parser(Storage storage) {
         this.storage = storage;
         taskList = this.storage.loadTaskList();
     }
 
     // Methods
+    /**
+     * Prints the greeting message.
+     */
     public void printGreetMessage() {
         System.out.println(Ui.BANTER_LOGO);
         Ui.GREET_MESSAGE.print();
     }
-
+    
     private void printExitMessage() {
         Ui.EXIT_MESSAGE.print();
     }
 
+    /**
+     * Responds to user input until the user exits the app, then print exit message.
+     */
     public void respondUntilExit() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -103,7 +117,7 @@ public class Parser {
             throw Errors.MissingTodoDescriptionError;
         }
         String description = joinTokens(tokens, 1, tokens.length - 1);
-        Card taskAddedMessage = new Card(taskList.addTodo(description));
+        Card taskAddedMessage = new Card(taskList.loadTodo(description));
         storage.saveTaskList(taskList);
         taskAddedMessage.print();
     }
@@ -126,7 +140,7 @@ public class Parser {
             throw Errors.MissingDeadlineDescriptionError;
         }
 
-        Card taskAddedMessage = new Card(taskList.addDeadline(description, dueDate));
+        Card taskAddedMessage = new Card(taskList.loadDeadline(description, dueDate));
         storage.saveTaskList(taskList);
         taskAddedMessage.print();
     }
@@ -159,7 +173,7 @@ public class Parser {
             throw Errors.MissingEventDescriptionError;
         }
 
-        Card taskAddedMessage = new Card(taskList.addEvent(description, start, end));
+        Card taskAddedMessage = new Card(taskList.loadEvent(description, start, end));
         storage.saveTaskList(taskList);
         taskAddedMessage.print();
     }

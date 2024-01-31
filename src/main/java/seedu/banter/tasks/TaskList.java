@@ -9,55 +9,95 @@ import seedu.banter.errors.InvalidBanterUsageError;
 import seedu.banter.errors.InvalidTaskNumberUsageError;
 import seedu.banter.ui.Ui;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList implements Iterable<Task> {
     private ArrayList<Task> taskList;
-
+    
+    /**
+     * Constructs a new TaskList object.
+     */
     public TaskList() {
         taskList = new ArrayList<>();
     }
 
-    public String addTodo(String description) {
+    /**
+     * Adds a Todo task to the TaskList.
+     * @param description Description of the Todo task.
+     * @return String representation of the Todo task.
+     */
+    public String loadTodo(String description) {
         Todo todo = new Todo(description);
         taskList.add(todo);
         return "Got it. I've added this task:\n" + todo +
                 "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
     
-    public String addTodo(String description, boolean isDone) {
+    /**
+     * Adds a Todo task to the TaskList.
+     * @param description Description of the Todo task.
+     * @param isDone Done status of the Todo task.
+     */
+    public void loadTodo(String description, boolean isDone) {
         Todo todo = new Todo(description, isDone);
         taskList.add(todo);
-        return "Got it. I've added this task:\n" + todo +
-                "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
 
-    public String addDeadline(String description, LocalDateTime dueDate) {
+    /**
+     * Adds a Deadline task to the TaskList.
+     * @param description Description of the Deadline task.
+     * @param dueDate Due date of the Deadline task.
+     * @return String representation of the Deadline task.
+     */
+    public String loadDeadline(String description, LocalDateTime dueDate) {
         Deadline deadline = new Deadline(description, dueDate);
         taskList.add(deadline);
         return "Got it. I've added this task:\n" + deadline +
                 "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
-    
-    public String addDeadline(String description, boolean isDone, LocalDateTime dueDate) {
+   
+    /**
+     * Adds a Deadline task to the TaskList.
+     * @param description Description of the Deadline task.
+     * @param isDone Done status of the Deadline task.
+     * @param dueDate Due date of the Deadline task.
+     */
+    public void loadDeadline(String description, boolean isDone, LocalDateTime dueDate) {
         Deadline deadline = new Deadline(description, isDone, dueDate);
         taskList.add(deadline);
-        return "Got it. I've added this task:\n" + deadline +
-                "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
 
-    public String addEvent(String eventDescription, LocalDateTime start, LocalDateTime end) {
+    /**
+     * Adds an Event task to the TaskList.
+     * @param eventDescription Description of the Event task.
+     * @param start Start time of the Event task.
+     * @param end End time of the Event task.
+     * @return String representation of the Event task.
+     */
+    public String loadEvent(String eventDescription, LocalDateTime start, LocalDateTime end) {
         Event event = new Event(eventDescription, start, end);
         taskList.add(event);
         return "Got it. I've added this task:\n" + event +
                 "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
     
-    public String addEvent(String eventDescription, boolean isDone, LocalDateTime start, LocalDateTime end) {
+    /**
+     * Adds an Event task to the TaskList.
+     * @param eventDescription Description of the Event task.
+     * @param isDone Done status of the Event task.
+     * @param start Start time of the Event task.
+     * @param end End time of the Event task.
+     */
+    public void loadEvent(String eventDescription, boolean isDone, LocalDateTime start, LocalDateTime end) {
         Event event = new Event(eventDescription, isDone, start, end);
         taskList.add(event);
-        return "Got it. I've added this task:\n" + event +
-                "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
-
+    
+    /**
+     * Adds a Todo task to the TaskList.
+     * @return String representation of the Todo task.
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Here are the banter.tasks in your list:");
@@ -67,6 +107,11 @@ public class TaskList implements Iterable<Task> {
         return sb.toString();
     }
 
+    /**
+     * Returns the number of tasks in the TaskList.
+     * @param taskNumber Number of tasks in the TaskList.
+     * @return Number of tasks in the TaskList.
+     */
     public String markTaskAsDone(int taskNumber) throws InvalidBanterUsageError {
         try {
             return taskList.get(taskNumber - 1).markAsDone();
@@ -75,6 +120,11 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
+    /**
+     * Returns the number of tasks in the TaskList.
+     * @param taskNumber Number of tasks in the TaskList.
+     * @return Number of tasks in the TaskList.
+     */
     public String markTaskAsUndone(int taskNumber) throws InvalidBanterUsageError {
         try {
             return taskList.get(taskNumber - 1).markAsUndone();
@@ -83,6 +133,11 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
+    /**
+     * Returns the number of tasks in the TaskList.
+     * @param taskNumber Number of tasks in the TaskList.
+     * @return Number of tasks in the TaskList.
+     */
     public String deleteTask(int taskNumber) throws InvalidBanterUsageError {
         try {
             Task deleted = taskList.remove(taskNumber - 1);

@@ -4,7 +4,6 @@ import seedu.banter.tasks.Deadline;
 import seedu.banter.tasks.Event;
 import seedu.banter.tasks.Task;
 import seedu.banter.tasks.TaskList;
-import seedu.banter.tasks.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,10 +13,22 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+
+/**
+ * Represents the storage of the task list.
+ */
 public class Storage {
     private static final String TASK_LIST_FILE_PATH = "data" + File.separator + "tasklist.txt";
     private static final DateTimeFormatter DATE_TIME_STORAGE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private static final String EVENT_REPRESENTATION = "E";
+    private static final String DEADLINE_REPRESENTATION = "D";
+    private static final String TODO_REPRESENTATION = "T";
+
     
+    /**
+     * Loads the task list from the file.
+     * @return Task list loaded from the file.
+     */
     public TaskList loadTaskList() {
         try {
             File file = new File(TASK_LIST_FILE_PATH);
@@ -31,17 +42,17 @@ public class Storage {
                 boolean isDone = status.equals(Task.IS_DONE);
                 String description = tokens[2];
                 switch (taskType) {
-                case Todo.TODO_ICON:
-                    taskList.addTodo(description, isDone);
+                    case TODO_REPRESENTATION:
+                    taskList.loadTodo(description, isDone);
                     break;
-                case Deadline.DEADLINE_ICON:
+                    case DEADLINE_REPRESENTATION:
                     LocalDateTime by = loadDateTime(tokens[3]);
-                    taskList.addDeadline(description, isDone, by);
+                    taskList.loadDeadline(description, isDone, by);
                     break;
-                case Event.EVENT_ICON:
+                    case EVENT_REPRESENTATION:
                     LocalDateTime from = loadDateTime(tokens[3]);
                     LocalDateTime to = loadDateTime(tokens[4]);
-                    taskList.addEvent(description, isDone, from, to);
+                    taskList.loadEvent(description, isDone, from, to);
                     break;
                 default:
                     System.out.println("Invalid task type: " + taskType);
@@ -65,6 +76,10 @@ public class Storage {
         }
     }
     
+    /**
+     * Saves the task list to the file.
+     * @param taskList Task list to be saved.
+     */
     public void saveTaskList(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(TASK_LIST_FILE_PATH);
@@ -84,14 +99,14 @@ public class Storage {
     }
     
     private String toStorageFormat(Task task) {
-        String typeStatusDescription = task.getTaskType() + " | " + task.getStatus() + " | " + task.getDescription();
+        String statusDescription = task.getStatus() + " | " + task.getDescription();
         if (task instanceof Deadline) {
-            return typeStatusDescription + " | " + toStorageFormat(((Deadline) task).getDueDate());
+            return DEADLINE_REPRESENTATION + " | " + statusDescription + " | " + toStorageFormat(((Deadline) task).getDueDate());
         } else if (task instanceof Event) {
-            return typeStatusDescription + " | " + toStorageFormat(((Event) task).getStart()) + " | " + 
+            return EVENT_REPRESENTATION + statusDescription + " | " + toStorageFormat(((Event) task).getStart()) + " | " + 
                     toStorageFormat(((Event) task).getEnd());
         } else {
-            return typeStatusDescription;
+            return TODO_REPRESENTATION + statusDescription;
         }
     }
     

@@ -5,7 +5,7 @@ public abstract class Task {  // default access modifier
     private boolean isDone;
     public static final String IS_DONE = "X";
     public static final String IS_NOT_DONE = " ";
-
+    
     Task(String description) {  // default access modifier
         this.description = description;
     }
