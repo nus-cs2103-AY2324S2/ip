@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 
 public class Duke {
     static String horzLine = "____________________________________________________________";
@@ -10,8 +10,7 @@ public class Duke {
             "\nBye. Hope to see you again soon!\n"
             + horzLine;
 
-    static Task[] taskStorage = new Task[100];
-    static int numInStorage = 0;
+    static ArrayList<Task> taskStorage = new ArrayList<>(100);
 
     public static void printWithLines(String message) {
         System.out.println(horzLine);
@@ -20,30 +19,60 @@ public class Duke {
     }
 
     public static void addTask(Task newTask) {
-        taskStorage[numInStorage] = newTask;
-        numInStorage++;
+        taskStorage.add(newTask);
         printWithLines("Got it. I've added this task:\n   " + newTask.toString() +
-                "\nNow you have " + numInStorage + (numInStorage > 1 ? " tasks ": " task ") +
+                "\nNow you have " + taskStorage.size() + (taskStorage.size() > 1 ? " tasks ": " task ") +
                 "in the list.");
     }
+
     public static void list() {
+        if (taskStorage.size() == 0) {
+            printWithLines("There's nothing in your list so far");
+            return;
+        }
         System.out.println(horzLine);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < numInStorage; i++) {
+        for (int i = 0; i < taskStorage.size(); i++) {
             int j = i + 1;
-            System.out.println(j + ". " + taskStorage[i].toString());
+            System.out.println(j + ". " + taskStorage.get(i).toString());
         }
         System.out.println(horzLine);
     }
 
-    public static void markDone(int index) {
-        taskStorage[index].markAsDone();
-        printWithLines("Nice! I've marked this task as done:\n  " + taskStorage[index].toString());
+    public static void delete(int index) throws DukeException {
+        if (taskStorage.size() == 0) {
+            throw new DukeException("Nothing is in the list yet");
+        }
+        if (index < 1 || index > taskStorage.size()) {
+            throw new DukeException("Please enter a number between 1 and " + taskStorage.size());
+        }
+        Task tempTask = taskStorage.get(index - 1);
+        taskStorage.remove(index - 1);
+        printWithLines("Noted. I've removed this task:\n   " + tempTask.toString() +
+                "\nNow you have " + taskStorage.size() + (taskStorage.size() > 1 ? " tasks ": " task ") +
+                "in the list.");
     }
 
-    public static void markNotDone(int index) {
-        taskStorage[index].markAsUndone();
-        printWithLines("OK, I've marked this task as not done yet:\n  " + taskStorage[index].toString());
+    public static void markDone(int index) throws DukeException {
+        if (taskStorage.size() == 0) {
+            throw new DukeException("Nothing is in the list yet");
+        }
+        if (index < 1 || index > taskStorage.size()) {
+            throw new DukeException("Please enter a number between 1 and " + taskStorage.size());
+        }
+        taskStorage.get(index - 1).markAsDone();
+        printWithLines("Nice! I've marked this task as done:\n  " + taskStorage.get(index - 1).toString());
+    }
+
+    public static void markNotDone(int index) throws DukeException {
+        if (taskStorage.size() == 0) {
+            throw new DukeException("Nothing is in the list yet");
+        }
+        if (index < 1 || index > taskStorage.size()) {
+            throw new DukeException("Please enter a number between 1 and " + taskStorage.size());
+        }
+        taskStorage.get(index - 1).markAsUndone();
+        printWithLines("OK, I've marked this task as not done yet:\n  " + taskStorage.get(index - 1).toString());
     }
 
     public static String[] getCommand(String userMessage) {
@@ -99,25 +128,33 @@ public class Duke {
                 list();
             } else if (userCmd.equalsIgnoreCase("mark") ||
                     userCmd.equalsIgnoreCase("unmark")) {
-                int taskIndex = -1;
-
                 try {
                     String possInteger = getCmdDetails(userCmd, cmdDetails);
-                    taskIndex = Integer.valueOf(possInteger);
-                    // check if index provided is too high
-                    if (taskIndex > numInStorage || taskIndex < 1) {
-                        printWithLines("Please enter a number between 1 and " + numInStorage);
+                    int taskIndex = Integer.valueOf(possInteger);
+
+                    if (userCmd.equalsIgnoreCase("unmark")) {
+                        markNotDone(taskIndex);
                     } else {
-                        if (userCmd.equalsIgnoreCase("unmark")) {
-                            markNotDone(taskIndex - 1);
-                        } else {
-                            markDone(taskIndex - 1);
-                        }
+                        markDone(taskIndex);
                     }
                 } catch (DukeException e) {
                     printWithLines(e.getMessage());
                 } catch (NumberFormatException e) {
-                    printWithLines("Invalid integer input!\nEnter a number between 1 and " + numInStorage);
+                    printWithLines((taskStorage.size() != 0 ?
+                            "Invalid input type\nEnter a number between 1 and " + taskStorage.size() :
+                            "Invalid input type\nCan't mark or unmark either cause the list is empty"));
+                }
+            } else if (userCmd.equalsIgnoreCase("delete")) {
+                try {
+                    String possInteger = getCmdDetails(userCmd, cmdDetails);
+                    int taskIndex = Integer.valueOf(possInteger);
+                    delete(taskIndex);
+                } catch (DukeException e) {
+                    printWithLines(e.getMessage());
+                } catch (NumberFormatException e) {
+                    printWithLines((taskStorage.size() != 0 ?
+                            "Invalid input type\nEnter a number between 1 and " + taskStorage.size() :
+                            "Invalid input type\nCan't mark or unmark either cause the list is empty"));
                 }
             } else if (userCmd.equalsIgnoreCase("todo")) {
                 try {
