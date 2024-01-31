@@ -9,7 +9,7 @@ import blu.task.TaskList;
 import blu.ui.UI;
 
 public class Blu {
-    private final String STORAGE_PATH = "../data/data.csv";
+    private static final String STORAGE_PATH = "../data/data.csv";
     private TaskList taskList;
     private Storage storage;
     private UI ui;
@@ -52,7 +52,7 @@ public class Blu {
             } catch (BluException e) {
                 ui.showErrorMessage(e.getMessage());
             }
-        } while(!isBye);       
+        } while(!isBye);     
     }
 
     private void exit() {

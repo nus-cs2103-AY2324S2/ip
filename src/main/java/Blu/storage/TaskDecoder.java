@@ -36,12 +36,12 @@ public class TaskDecoder {
 
     private static Event parseEvent(String[] tokens) throws BluException {
         try {
-        Event event = new Event(tokens[2], LocalDateTime.parse(tokens[3])
-                        , LocalDateTime.parse(tokens[4]));
-        if (tokens[1].equals("T")) {
-            event.setMarked();
-        }
-        return event;
+            Event event = new Event(tokens[2], LocalDateTime.parse(tokens[3]),
+                    LocalDateTime.parse(tokens[4]));
+            if (tokens[1].equals("T")) {
+                event.setMarked();
+            }
+            return event;
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             throw new BluException("Invalid event format in storage file");
         }
@@ -61,5 +61,4 @@ public class TaskDecoder {
             throw new BluException("Unrecognised task type");
         }
     }
-    
 }

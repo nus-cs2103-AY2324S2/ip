@@ -13,7 +13,7 @@ public class DeleteCommand extends Command {
         this.taskIdx = taskIdx;
     }
 
-     @Override
+    @Override
     public void execute(TaskList taskList, Storage storage, UI ui) throws BluException {
         Task task = taskList.getTask(taskIdx);
         taskList.deleteTask(taskIdx);

@@ -94,14 +94,14 @@ public class InputParser {
     private Command prepareUnmarkCommand(String[] tokens) throws BluException {
         if (!isNumberOfParamCorrect(tokens, 2)) {
             throw new IllegalCommandException("Please specify a task number to unmark\n"
-                                                    + "Usage: unmark <task_number>");
+                    + "Usage: unmark <task_number>");
         }
         try {
             int unmarkTaskIdx = Integer.parseInt(tokens[1]);
             return new UnmarkCommand(unmarkTaskIdx);
         } catch (NumberFormatException e) {
-            throw new IllegalCommandException(tokens[1] + " is not a valid integer!\n" 
-                                                    + "Usage: unmark <task_number>");
+            throw new IllegalCommandException(tokens[1] + " is not a valid integer!\n"
+                    + "Usage: unmark <task_number>");
         }
     }
 
@@ -109,7 +109,7 @@ public class InputParser {
         int baseIdx = 0;
         if (tokens.length < 2) {
             throw new IllegalCommandException("Description of a todo cannot be empty.\n"
-                                                    + "Usage: todo <task_title>");
+                    + "Usage: todo <task_title>");
         }
         String todoTitle = getParamValue(tokens, baseIdx, tokens.length);
         return new ToDoCommand(todoTitle);
@@ -122,7 +122,7 @@ public class InputParser {
         if (paramIdx == -1) {
             throw new IllegalCommandException(byParam + " parameter not found!\n"
                                                     + "Usage: deadline <task_title> /by <datetime>");
-        } 
+        }
         if (isParamEmpty(baseIdx, paramIdx)) {
             throw new IllegalCommandException("Description of a deadline cannot be empty.\n"
             + "Usage: deadline <task_title> /by <datetime>");
@@ -130,7 +130,7 @@ public class InputParser {
         String deadlineTitle = getParamValue(tokens, baseIdx, paramIdx);
         if (isParamEmpty(paramIdx, tokens.length)) {
             throw new IllegalCommandException("Datetime of deadline cannot be empty.\n"
-                                                    + "Usage: deadline <task_title> /by <datetime>");
+                    + "Usage: deadline <task_title> /by <datetime>");
         }
         String byStr = getParamValue(tokens, paramIdx, tokens.length);
         try {
@@ -138,7 +138,7 @@ public class InputParser {
             return new DeadlineCommand(deadlineTitle, byDateTime);
         } catch (DateTimeParseException e) {
             throw new IllegalCommandException("Invalid DateTime format.\n"
-                                                + "Please use dd-MM-yyyy format.");
+                    + "Please use dd-MM-yyyy format.");
         }
     }
 
@@ -149,19 +149,19 @@ public class InputParser {
         int fromParamIdx = findParamIdx(tokens, fromParam);
         int toParamIdx = findParamIdx(tokens, toParam);
         if (fromParamIdx == -1 || toParamIdx == -1) {
-            throw new IllegalCommandException(fromParam + " or " + toParam + " not found!\n" 
-                                                    + "Usage: event <task_title> /from <datetime> /to <datetime>");            
+            throw new IllegalCommandException(fromParam + " or " + toParam + " not found!\n"
+                    + "Usage: event <task_title> /from <datetime> /to <datetime>");            
         }
 
         if (isParamEmpty(baseIdx, fromParamIdx)) {
             throw new IllegalCommandException("Description of event cannot be empty.\n"
-                                                    + "Usage: event <task_title> /from <datetime> /to <datetime>");
+                    + "Usage: event <task_title> /from <datetime> /to <datetime>");
         }
 
         String eventTitle = getParamValue(tokens, 0, fromParamIdx);
         if (isParamEmpty(fromParamIdx, toParamIdx) || isParamEmpty(toParamIdx, tokens.length)) {
             throw new IllegalCommandException("Datetimes of event cannot be empty.\n"
-                                                    + "Usage: event <task_title> /from <datetime> /to <datetime>");
+                    + "Usage: event <task_title> /from <datetime> /to <datetime>");
         }
         String fromStr = getParamValue(tokens, fromParamIdx, toParamIdx);
         try {
@@ -174,21 +174,21 @@ public class InputParser {
             return new EventCommand(eventTitle, fromDateTime, toDateTime);
         } catch (DateTimeParseException e) {
             throw new IllegalCommandException("Invalid DateTime format.\n"
-                                                + "Please use dd-MM-yyyy format.");
+                    + "Please use dd-MM-yyyy format.");
         }
     }
 
     private Command prepareDeleteCommand(String[] tokens) throws IllegalCommandException {
         if (!isNumberOfParamCorrect(tokens, 2)) {
             throw new IllegalCommandException("Please specify a task number to delete\n"
-                                                    + "Usage: delete <task_number>");
+                    + "Usage: delete <task_number>");
         }
         try {
             int deleteTaskIdx = Integer.parseInt(tokens[1]);
             return new DeleteCommand(deleteTaskIdx);
         } catch (NumberFormatException e) {
-            throw new IllegalCommandException(tokens[1] + " is not a valid integer!\n" 
-                                                    + "Usage: delete <task_number>");
+            throw new IllegalCommandException(tokens[1] + " is not a valid integer!\n"
+                    + "Usage: delete <task_number>");
         }
     
     }

@@ -21,13 +21,14 @@ public class Event extends Task {
 
     @Override
     public String toCsv() {
-        return String.format("%s,%s,%s,%s,%s", TASK_TYPE, this.getIsMarked() ? "T" : "F", this.getTitle(), this.from, this.to);
+        return String.format("%s,%s,%s,%s,%s", TASK_TYPE, this.getIsMarked() ? "T" : "F",
+                this.getTitle(), this.from, this.to);
     }
-
     
     @Override
     public String toString() {
-        return String.format("[%s]%s (From: %s To: %s)", TASK_TYPE, super.toString(), displayDate(this.from), displayDate(this.to));
+        return String.format("[%s]%s (From: %s To: %s)", TASK_TYPE, super.toString(), 
+                displayDate(this.from), displayDate(this.to));
     }
 
     @Override

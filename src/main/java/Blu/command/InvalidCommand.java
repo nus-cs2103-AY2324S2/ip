@@ -13,7 +13,7 @@ public class InvalidCommand extends Command {
         this.invalidCmd = invalidCmd;
     }
     
-     @Override 
+    @Override
     public void execute(TaskList taskList, Storage storage, UI ui) throws BluException {
         throw new InvalidCommandException(this.invalidCmd);
     }
