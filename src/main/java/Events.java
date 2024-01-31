@@ -9,6 +9,12 @@ class Events extends Task {
         this.to = to;
     }
 
+    Events(String str, String from, String to, boolean marked) {
+        super(str, marked);
+        this.from = from;
+        this.to = to;
+    }
+
     String getStatusIcon() {
         return (this.is_marked ? "[E][X]" : "[E][ ]");
     }

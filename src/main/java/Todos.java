@@ -1,9 +1,11 @@
-import java.util.*;
-
 class Todos extends Task {
 
     Todos(String str) {
         super(str);
+    }
+
+    Todos(String str, boolean marked) {
+        super(str, marked);
     }
 
     String getStatusIcon() {

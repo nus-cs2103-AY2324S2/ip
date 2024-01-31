@@ -1,9 +1,11 @@
 import java.util.*;
 import java.lang.*;
+import java.io.*;
 
 class CinnamoRoll {
 
     private ArrayList<Task> tasks;
+    private static final String PATH = "src/main/Cinnamo.txt";
     private enum Users {
         MARK,
         UNMARK,
@@ -25,7 +27,7 @@ class CinnamoRoll {
             + "|____/ \\__,_|_|\\_\\___|\n";
 
     void greet() {
-        System.out.println(logo);
+        System.out.println(this.logo);
         System.out.println("Hello! I'm CinnamoRoll!" + "\n" + "What can I do for you? \n");
     }
 
@@ -33,32 +35,89 @@ class CinnamoRoll {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    private String todo(String[] instruction) throws CinnamoTodoException {
+    void load_data() throws IOException {
+        try {
+            BufferedReader bf = new BufferedReader(new FileReader(PATH));
+            String input;
+            while ((input = bf.readLine()) != null) {
+                Task task;
+                String[] info = input.split("|", 3);
+                boolean marked = false;
+                switch (info[1]) {
+                    case "X":
+                        marked = true;
+                        break;
+                    case " ":
+                        marked = false;
+                        break;
+                    default:
+                        System.out.println("Oops! No Markings Provided in Correct Format:(");
+                }
+                switch (info[0].toUpperCase()) {
+                    case "T":
+                        task = new Todos(info[2], marked);
+                        this.tasks.add(task);
+                        break;
+                    case "D":
+                        String[] deadline = info[2].split("/by");
+                        task = new Deadlines(deadline[0], deadline[1], marked);
+                        this.tasks.add(task);
+                        break;
+                    case "E":
+                        String[] event = info[2].split("/from | /to");
+                        task = new Events(event[0], event[1], event[2], marked);
+                        this.tasks.add(task);
+                        break;
+                }
+            }
+        } catch(FileNotFoundException ex){
+            System.out.println("File not Found:( I will create one for you!");
+        } finally {
+            File f = new File(PATH);
+            f.createNewFile();
+        }
+    }
+
+    public void writeInto() throws IOException {
+        try {
+            File f = new File(PATH);
+            FileWriter fw = new FileWriter(PATH);
+            fw.write(this.list());
+            fw.close();
+        } catch (IOException ex) {
+            System.out.println("No input provided!");
+        }
+    }
+
+    private String todo(String[] instruction) throws Exception, CinnamoTodoException {
         try {
             Task task = new Todos(instruction[1]);
             this.tasks.add(task);
+            this.writeInto();
             return task.added(this.tasks.size());
         } catch (ArrayIndexOutOfBoundsException exception) {
             throw new CinnamoTodoException();
         }
     }
 
-    private String deadline(String[] instruction) throws CinnamoDeadlineException {
+    private String deadline(String[] instruction) throws Exception, CinnamoDeadlineException {
         try {
             String[] schedule = instruction[1].split("/by", 2);
             Task task = new Deadlines(schedule[0], schedule[1]);
             this.tasks.add(task);
+            this.writeInto();
             return task.added(this.tasks.size());
         } catch (ArrayIndexOutOfBoundsException exception) {
             throw new CinnamoDeadlineException();
         }
     }
 
-    private String event(String[] instruction) throws CinnamoEventException {
+    private String event(String[] instruction) throws Exception, CinnamoEventException {
         try {
             String[] schedule = instruction[1].split("/from | /to");
             Task task = new Events(schedule[0], schedule[1], schedule[2]);
             this.tasks.add(task);
+            this.writeInto();
             return task.added(this.tasks.size());
         } catch (ArrayIndexOutOfBoundsException exception) {
             throw new CinnamoEventException();
@@ -73,11 +132,12 @@ class CinnamoRoll {
         return output;
     }
 
-    private String delete(String[] str) throws CinnamoIndexException {
+    private String delete(String[] str) throws Exception, CinnamoIndexException {
         try {
             int index = Integer.parseInt(str[1]);
             Task temp = this.tasks.get(index - 1);
             this.tasks.remove(index - 1);
+            this.writeInto();
             return "   Noted. I've removed the following task:\n" + "      " + temp.toString() + "\n" + "   Now, you have " +
                     String.valueOf(this.tasks.size()) + " tasks in the list";
         } catch (IndexOutOfBoundsException exception) {
@@ -85,27 +145,29 @@ class CinnamoRoll {
         }
     }
 
-    String mark(String[] str) throws CinnamoIndexException {
+    String mark(String[] str) throws Exception, CinnamoIndexException {
         try {
             int index = Integer.parseInt(str[1]) - 1;
             this.tasks.get(index).marked();
+            this.writeInto();
             return "   Nice! I've marked this task as done:\n" + "      " + this.tasks.get(index).toString();
         } catch (IndexOutOfBoundsException exception) {
             throw new CinnamoIndexException();
         }
     }
 
-    String unmark(String[] str) throws CinnamoIndexException {
+    String unmark(String[] str) throws Exception, CinnamoIndexException {
         try {
             int index = Integer.parseInt(str[1]) - 1;
             this.tasks.get(index).unmarked();
+            this.writeInto();
             return "   Ok! I've marked this task as not done yet:\n" + "      " + this.tasks.get(index).toString();
         } catch (IndexOutOfBoundsException exception) {
             throw new CinnamoIndexException();
         }
     }
 
-    void respond(String str) throws CinnamoException {
+    void respond(String str) throws Exception, CinnamoException {
         try {
             String[] arr = str.split(" ", 2);
             String instruction = arr[0].toUpperCase();
