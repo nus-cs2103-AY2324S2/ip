@@ -3,6 +3,9 @@ package entity;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Deadline class which extends the Task class and includes a deadline represented by a LocalDateTime object.
+ */
 public class Deadline extends Task {
     private LocalDateTime dateTime;
     public Deadline(String title, LocalDateTime dateTime) {
@@ -10,6 +13,11 @@ public class Deadline extends Task {
         this.dateTime = dateTime;
     }
 
+    /**
+     * Generates a string representation of the Deadline object for saving purposes.
+     *
+     * @return A string representation of the Deadline object for saving to a file.
+     */
     @Override
     public String save() {
         if (this.marked) {
