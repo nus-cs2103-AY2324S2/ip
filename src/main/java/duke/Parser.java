@@ -7,6 +7,7 @@ import duke.task.ToDo;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 public class Parser {
     public Parser() {
@@ -14,7 +15,7 @@ public class Parser {
     }
 
     public enum Command {
-        BYE, LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN;
+        BYE, LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND;
         public static Command getCategory(String input) {
             try {
                 return Command.valueOf(input.toUpperCase());
@@ -38,7 +39,8 @@ public class Parser {
                 if (unmarkId < 0 || unmarkId >= listSize) {
                     try {
                         ui.setIndentedLine();
-                        throw new DukeException("Sorry, please select a valid task for me to unmark!");
+                        throw new DukeException("Sorry, " +
+                                "please select a valid task for me to unmark!");
                     } catch (DukeException e) {
                         System.out.println("  " + e.getMessage());
                         ui.setIndentedLine();
@@ -52,7 +54,8 @@ public class Parser {
                 if (markId < 0 || markId >= listSize) {
                     try {
                         ui.setIndentedLine();
-                        throw new DukeException("Sorry, please select a valid task for me to mark!");
+                        throw new DukeException("Sorry, " +
+                                "please select a valid task for me to mark!");
                     } catch (DukeException e) {
                         System.out.println("  " + e.getMessage());
                         ui.setIndentedLine();
@@ -66,7 +69,8 @@ public class Parser {
                 if (deleteId < 0 || deleteId >= listSize) {
                     try {
                         ui.setIndentedLine();
-                        throw new DukeException("Sorry, please select a valid task for me to delete!");
+                        throw new DukeException("Sorry, p" +
+                                "lease select a valid task for me to delete!");
                     } catch (DukeException e) {
                         System.out.println("  " + e.getMessage());
                         ui.setIndentedLine();
@@ -81,8 +85,9 @@ public class Parser {
                 if (toDoDescription.isEmpty()) {
                     try {
                         ui.setIndentedLine();
-                        throw new DukeException("Sorry, please give me a description of the todo as well! >.<\n"
-                                + "  " + "Format should be todo (description)!");
+                        throw new DukeException("Sorry, " +
+                                "please give me a description of the todo as well! >.<\n" +
+                                "  " + "Format should be todo (description)!");
                     } catch (DukeException e) {
                         System.out.println("  " + e.getMessage());
                         ui.setIndentedLine();
@@ -100,9 +105,10 @@ public class Parser {
                 if (!deadlineDescription.contains(" /by ")) {
                     try {
                         ui.setIndentedLine();
-                        throw new DukeException("Sorry, please give me a description of the deadline as well! >.<\n"
-                                + "  "
-                                + "Format should be deadline (description) /by (yyyy-MM-dd HHmm!)");
+                        throw new DukeException("Sorry, " +
+                                "please give me a description of the deadline as well! >.<\n" +
+                                "  " +
+                                "Format should be deadline (description) /by (yyyy-MM-dd HHmm!)");
                     } catch (DukeException e) {
                         System.out.println("  " + e.getMessage());
                         ui.setIndentedLine();
@@ -121,7 +127,8 @@ public class Parser {
                     ui.listSizeMessage(taskList);
                     break;
                 } catch (DateTimeParseException e) {
-                    System.out.println("Sorry! Format should be deadline (description) /by (yyyy-MM-dd HHmm!)");
+                    System.out.println("Sorry! " +
+                            "Format should be deadline (description) /by (yyyy-MM-dd HHmm!)");
                     ui.setIndentedLine();
                     return;
                 }
@@ -130,10 +137,11 @@ public class Parser {
                 if (!eventDescription.contains(" /from ") || !eventDescription.contains(" /to ")) {
                     try {
                         ui.setIndentedLine();
-                        throw new DukeException("Sorry, please give me a description of the event as well! >.<\n"
-                                + "  "
-                                + "Format should be event "
-                                + "(description) /from (yyyy-MM-dd HHmm) /to (yyyy-MM-dd HHmm)!");
+                        throw new DukeException("Sorry, " +
+                                "please give me a description of the event as well! >.<\n" +
+                                "  " +
+                                "Format should be event " +
+                                "(description) /from (yyyy-MM-dd HHmm) /to (yyyy-MM-dd HHmm)!");
                     } catch (DukeException e) {
                         System.out.println("  " + e.getMessage());
                         ui.setIndentedLine();
@@ -160,6 +168,10 @@ public class Parser {
                     ui.setIndentedLine();
                     return;
                 }
+            case FIND:
+                String findDescription = ui.readCommandLine();
+                ArrayList<Task> matchedTasks = taskList.find(findDescription);
+                taskList.listMatchedTasks(matchedTasks, ui);
             default:
                 try {
                     ui.setIndentedLine();

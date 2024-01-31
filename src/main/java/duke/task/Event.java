@@ -11,7 +11,8 @@ public class Event extends Task {
 
     // code snippet below inspired from:
     // https://stackoverflow.com/questions/44600420/datetimeformatter-accepting-multiple-dates-and-converting-to-one-java-time-libr
-    protected DateTimeFormatter parser = DateTimeFormatter.ofPattern("[yyyy-MM-dd HHmm][MMM dd yyyy HHmm]");
+    protected DateTimeFormatter parser = DateTimeFormatter
+            .ofPattern("[yyyy-MM-dd HHmm][MMM dd yyyy HHmm]");
 
     public Event(String description, String start, String end) {
         super(description);
@@ -29,23 +30,26 @@ public class Event extends Task {
         this.endDateTime = LocalDateTime.parse(end, parser);
     }
 
-    public String startDateTimeFormat() {
-        return this.startDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+    public String formatStartDateTime() {
+        return this.startDateTime.format(DateTimeFormatter
+                .ofPattern("MMM dd yyyy HHmm"));
     }
 
-    public String endDateTimeFormat() {
-        return this.endDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+    public String formatEndDateTime() {
+        return this.endDateTime.format(DateTimeFormatter
+                .ofPattern("MMM dd yyyy HHmm"));
     }
 
     @Override
     public String toFile() {
         return "E | " + (isDone ? "1" : "0") + " | " + description
-                + " | " + this.startDateTimeFormat() + " - " + this.endDateTimeFormat();
+                + " | " + this.formatStartDateTime() +
+                " - " + this.formatEndDateTime();
     }
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + this.startDateTimeFormat()
-                + " to: " + this.endDateTimeFormat() + ")";
+                + " (from: " + this.formatStartDateTime()
+                + " to: " + this.formatEndDateTime() + ")";
     }
 }

@@ -29,6 +29,14 @@ public class Task {
         isDone = false;
     }
 
+    /**
+     * Method to return description of task.
+     *
+     * @return Description of task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
     public String toFile() {
         return "";
     }

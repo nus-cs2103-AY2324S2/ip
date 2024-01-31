@@ -9,7 +9,8 @@ public class Deadline extends Task {
 
     // code snippet below inspired from:
     // https://stackoverflow.com/questions/44600420/datetimeformatter-accepting-multiple-dates-and-converting-to-one-java-time-libr
-    protected DateTimeFormatter parser = DateTimeFormatter.ofPattern("[yyyy-MM-dd HHmm][MMM dd yyyy HHmm]");
+    protected DateTimeFormatter parser = DateTimeFormatter
+            .ofPattern("[yyyy-MM-dd HHmm][MMM dd yyyy HHmm]");
 
     public Deadline(String description, String by) {
         super(description);
@@ -23,19 +24,20 @@ public class Deadline extends Task {
         this.dateTime = LocalDateTime.parse(by, parser);
     }
 
-    public String dateTimeFormat() {
-        return this.dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+    public String formatDateTime() {
+        return this.dateTime.format(DateTimeFormatter
+                .ofPattern("MMM dd yyyy HHmm"));
     }
 
     @Override
     public String toFile() {
         return "D | " + (isDone ? "1" : "0")
-                + " | " + description + " | " + this.dateTimeFormat();
+                + " | " + description + " | " + this.formatDateTime();
     }
 
     @Override
     public String toString() {
         return "[D]" + super.toString()
-                + " (by: " + this.dateTimeFormat() + ")";
+                + " (by: " + this.formatDateTime() + ")";
     }
 }

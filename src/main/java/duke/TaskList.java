@@ -57,4 +57,42 @@ public class TaskList {
             ui.setIndentedLine();
         }
     }
+
+    /**
+     * Method to find tasks that match the search.
+     *
+     * @param match The keyword to be used.
+     * @return Arraylist of matched tasks.
+     */
+    public ArrayList<Task> find(String match) {
+        ArrayList<Task> matchedTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.getDescription().contains(match)) {
+                matchedTasks.add(task);
+            }
+        }
+        return matchedTasks;
+    }
+
+    /**
+     * Method to list out the tasks that match the search.
+     *
+     * @param matchedTasks List that contains matched tasks.
+     * @param ui Ui to set indented line.
+     */
+    public void listMatchedTasks(ArrayList<Task> matchedTasks, Ui ui) {
+        if (matchedTasks.isEmpty()) {
+            ui.setIndentedLine();
+            System.out.println("  Sorry, there are no tasks that match your search...");
+            ui.setIndentedLine();
+        } else {
+            ui.setIndentedLine();
+            System.out.println("  " + "Here are the tasks that match your search:");
+            for(int i = 0; i < matchedTasks.size(); i++) {
+                Task currTask = matchedTasks.get(i);
+                System.out.println("  " + (i + 1) + "." + currTask.toString());
+            }
+            ui.setIndentedLine();
+        }
+    }
 }
