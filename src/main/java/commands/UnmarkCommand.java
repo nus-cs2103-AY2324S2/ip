@@ -1,5 +1,7 @@
-import java.util.*;
-import java.io.*;
+package commands;
+
+import task.Task;
+import ui.Ui;
 
 public class UnmarkCommand extends Command {
     public static final String COMMAND = "unmark";

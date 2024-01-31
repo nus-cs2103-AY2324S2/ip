@@ -1,5 +1,6 @@
-import java.util.*;
-import java.io.*;
+package parser;
+
+import commands.*;
 
 public class Parser {
 

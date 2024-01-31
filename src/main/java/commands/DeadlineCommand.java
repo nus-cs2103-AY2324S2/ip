@@ -1,5 +1,9 @@
-import java.util.*;
-import java.io.*;
+package commands;
+
+import commands.Command;
+import exceptions.DukeException;
+import task.Deadline;
+import ui.Ui;
 
 public class DeadlineCommand extends Command {
 

@@ -1,10 +1,13 @@
-import java.time.LocalDate;
+package task;
+
+import task.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Event is a subclass of Task. It stores information of a task including
+ * Event is a subclass of task.Task. It stores information of a task including
  * the start and end date.
  * @author Koo Zhuo Hui
  */

@@ -1,5 +1,9 @@
-import java.util.*;
-import java.io.*;
+package commands;
+
+import commands.Command;
+import exceptions.DukeException;
+import task.Event;
+import ui.Ui;
 
 public class EventCommand extends Command {
 

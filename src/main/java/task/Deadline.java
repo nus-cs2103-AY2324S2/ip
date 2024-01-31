@@ -1,11 +1,13 @@
-import javax.swing.text.DateFormatter;
+package task;
+
+import task.Task;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Deadline is a subclass of Task that stores a task with a completion date.
+ * Deadline is a subclass of task.Task that stores a task with a completion date.
  * @author Koo Zhuo Hui
  */
 public class Deadline extends Task {

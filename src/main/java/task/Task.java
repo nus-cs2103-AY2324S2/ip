@@ -1,5 +1,7 @@
+package task;
+
 /**
- * The Task class encapsulates a task to be tracked by Howie.
+ * The task.Task class encapsulates a task to be tracked by Howie.
  * It stores information of the task and its status.
  * @author Koo Zhuo Hui
  */
@@ -8,7 +10,7 @@ public class Task {
     private boolean isDone;
 
     /**
-     * Constructor for Task.
+     * Constructor for task.Task.
      * @param s The name of the task.
      */
     public Task(String s) {
@@ -26,14 +28,14 @@ public class Task {
 
     /**
      * Retrieves the status of a task.
-     * @return Whether Task is completed, or not.
+     * @return Whether task.Task is completed, or not.
      */
     public boolean getStatus() {
         return isDone;
     }
 
     /**
-     * Set Task to complete status.
+     * Set task.Task to complete status.
      * @return Returns itself.
      */
     public Task setDone() {
@@ -42,7 +44,7 @@ public class Task {
     }
 
     /**
-     * Set Task to undone status.
+     * Set task.Task to undone status.
      * @return Returns itself.
      */
     public Task setUndone() {
@@ -56,8 +58,8 @@ public class Task {
     }
 
     /**
-     * Convert this Task to a string.
-     * @return A string representation of Task, including its status.
+     * Convert this task.Task to a string.
+     * @return A string representation of task.Task, including its status.
      */
     @Override
     public String toString() {

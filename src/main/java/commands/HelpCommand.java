@@ -1,5 +1,7 @@
-import java.util.*;
-import java.io.*;
+package commands;
+
+import commands.Command;
+import ui.Ui;
 
 public class HelpCommand extends Command {
 

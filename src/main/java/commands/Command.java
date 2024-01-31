@@ -1,5 +1,9 @@
+package commands;
+
+import exceptions.DukeException;
+import tasklists.TaskList;
+
 import java.io.IOException;
-import java.util.List;
 
 public class Command {
     protected TaskList tasks;

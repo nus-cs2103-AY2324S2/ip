@@ -1,5 +1,8 @@
-import java.util.*;
-import java.io.*;
+package commands;
+
+import exceptions.DukeException;
+import task.Task;
+import ui.Ui;
 
 public class TodoCommand extends Command {
 
@@ -18,7 +21,7 @@ public class TodoCommand extends Command {
             Task task = new Task(name.trim());
             tasks.add(task);
             Ui.printVLine();
-            System.out.println("Got it! Task has been added:\n" + task+ "\nNow you have "
+            System.out.println("Got it! task.Task has been added:\n" + task+ "\nNow you have "
                     + tasks.getList().size() + " tasks in the list.");
             Ui.printVLine();
         }

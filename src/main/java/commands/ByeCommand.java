@@ -1,5 +1,11 @@
-import java.util.*;
-import java.io.*;
+package commands;
+
+import exceptions.DukeException;
+import storage.Storage;
+import ui.Ui;
+
+import java.io.IOException;
+
 
 public class ByeCommand extends Command {
 
