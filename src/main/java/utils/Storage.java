@@ -35,12 +35,7 @@ public class Storage {
     public ArrayList<Task> read() {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
-            File file = new File(filePath);
-            file.getParentFile().mkdirs();
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            BufferedReader reader = new BufferedReader(new FileReader(file));
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
             while ((line = reader.readLine()) != null) {
                 Task task = Parser.parseTaskFromLine(line);
