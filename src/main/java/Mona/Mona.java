@@ -1,6 +1,9 @@
 package Mona;
 import java.util.Scanner;
 
+/**
+ * This class represents the main class used for gradle builds for my version of the Duke Chatbot.
+ */
 public class Mona {
     private Storage storage;
     private TaskList tasks;
@@ -17,6 +20,12 @@ public class Mona {
         UNMARK,
         DELETE
     }
+
+    /**
+     * Constructor for Mona, the Duke Chatbot
+     *
+     * @param filePath The location where logs are to be written to.
+     */
     public Mona(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -24,6 +33,10 @@ public class Mona {
         this.sc = new Scanner(System.in);
         this.parser = new Parser();
     }
+
+    /**
+     * Contains the main looping logic for Mona's interaction on the command line
+     */
     public void run() {
         while (true) {
             String input = sc.nextLine();
@@ -75,6 +88,12 @@ public class Mona {
             }
         }
     }
+
+    /**
+     * Runs Mona
+     * @param args
+     * @throws MonaException currently a catch all for possible exceptions that can occur while Mona is running.
+     */
     public static void main(String[] args) throws MonaException{
         new Mona("data/duke.txt").run();
     }

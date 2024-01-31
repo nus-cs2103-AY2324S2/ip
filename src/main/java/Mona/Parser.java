@@ -1,5 +1,15 @@
 package Mona;
+
+/**
+ * This class contains all logic for parsing the user input
+ */
 public class Parser {
+    /**
+     * Method for determining the type of command given by the user
+     * @param input the user input split by the " " delimiter
+     * @return Command enum indicating which of the predefined commands was called
+     * @throws MonaException thrown when an unknown command is encountered
+     */
     public Mona.Command getCurrentCommand(String[] input) throws MonaException{
         switch (input[0]) {
         case "bye":
@@ -22,6 +32,13 @@ public class Parser {
             throw new MonaException("Mona does not recognise this command!");
         }
     }
+
+    /**
+     * Method for getting the rest of the details following the type of task being added to the list
+     * @param command Command enum indicating which command was called
+     * @param input full user input from the command line
+     * @return an array containing the details to be used to instantiate tasks
+     */
     public String[] getDetails(Mona.Command command, String input) {
         String[] details = new String[3];
         switch (command) {
