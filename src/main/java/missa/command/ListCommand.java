@@ -2,7 +2,6 @@ package missa.command;
 
 import missa.TaskList;
 import missa.Ui;
-import missa.command.Command;
 
 /**
  * Represents list missa.command.

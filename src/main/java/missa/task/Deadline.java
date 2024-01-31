@@ -10,6 +10,12 @@ public class Deadline extends Task {
     /** missa.task.Deadline of task recorded */
     private LocalDateTime deadline;
 
+    /**
+     * Create a new deadline.
+     *
+     * @param task Content of task.
+     * @param deadline Deadline of the task.
+     */
     public Deadline(String task, LocalDateTime deadline) {
         super(task);
         this.deadline = deadline;

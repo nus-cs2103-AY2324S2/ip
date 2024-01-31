@@ -1,15 +1,16 @@
 package missa;
 
-import missa.task.Deadline;
-import missa.task.Event;
-import missa.task.ToDo;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import missa.task.Deadline;
+import missa.task.Event;
+import missa.task.ToDo;
 
 public class TaskListTest {
     @Test
@@ -30,7 +31,7 @@ public class TaskListTest {
     public void getUpdatedData_onlyDeadlineTasks() {
         TaskList tasks = new TaskList();
         LocalDateTime ddlTime = LocalDateTime.of(
-                LocalDate.of(2024,3,3), LocalTime.of(3, 0));
+                LocalDate.of(2024, 3, 3), LocalTime.of(3, 0));
         tasks.addTask(new Deadline("ddl", ddlTime));
         assertEquals("D | 0 | ddl | 2024-03-03T03:00", tasks.getUpdatedData());
     }
@@ -39,9 +40,9 @@ public class TaskListTest {
     public void getUpdatedData_onlyEventTasks() {
         TaskList tasks = new TaskList();
         LocalDateTime eventTime1 = LocalDateTime.of(
-                LocalDate.of(2024,3,3), LocalTime.of(3, 0));
+                LocalDate.of(2024, 3, 3), LocalTime.of(3, 0));
         LocalDateTime eventTime2 = LocalDateTime.of(
-                LocalDate.of(2024,3,3), LocalTime.of(4, 0));
+                LocalDate.of(2024, 3, 3), LocalTime.of(4, 0));
         tasks.addTask(new Event("event1", eventTime1, eventTime2));
         assertEquals("E | 0 | event1 | 2024-03-03T03:00 | 2024-03-03T04:00", tasks.getUpdatedData());
     }

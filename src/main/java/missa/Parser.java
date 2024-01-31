@@ -1,6 +1,18 @@
 package missa;
 
-import missa.command.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Arrays;
+
+import missa.command.AddCommand;
+import missa.command.ByeCommand;
+import missa.command.Command;
+import missa.command.DeleteCommand;
+import missa.command.FindCommand;
+import missa.command.ListCommand;
+import missa.command.MarkCommand;
+import missa.command.UnmarkCommand;
 import missa.exception.IncorrectTaskTypeException;
 import missa.exception.NoContentException;
 import missa.exception.NoSuchTaskException;
@@ -9,11 +21,6 @@ import missa.task.Deadline;
 import missa.task.Event;
 import missa.task.Task;
 import missa.task.ToDo;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Arrays;
 
 /**
  * A class that deals with making sense of the user missa.command.

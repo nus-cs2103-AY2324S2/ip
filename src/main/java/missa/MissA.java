@@ -1,10 +1,14 @@
 package missa;
 
-import missa.command.Command;
-import missa.exception.*;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import missa.command.Command;
+import missa.exception.IncorrectTaskTypeException;
+import missa.exception.NoContentException;
+import missa.exception.NoSuchTaskException;
+import missa.exception.NoTimingException;
+import missa.exception.WrongTaskDataException;
 
 /**
  * A chatbot class named as MissA.
@@ -17,6 +21,11 @@ public class MissA {
     private Parser parser = new Parser();
     private boolean isBye = false;
 
+    /**
+     * Create a MissA object.
+     *
+     * @param filePath Data file to be tracked.
+     */
     public MissA(String filePath) {
         this.storage = new Storage(filePath);
         try {

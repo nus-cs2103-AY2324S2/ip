@@ -1,7 +1,5 @@
 package missa.task;
 
-import missa.task.Task;
-
 /**
  * Represents tasks that have no duration and no deadline.
  */

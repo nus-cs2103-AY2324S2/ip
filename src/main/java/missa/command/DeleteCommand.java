@@ -2,7 +2,6 @@ package missa.command;
 
 import missa.TaskList;
 import missa.Ui;
-import missa.command.Command;
 import missa.task.Task;
 
 /**
@@ -13,6 +12,12 @@ public class DeleteCommand extends Command {
     private TaskList tasks;
     private Task removedTask;
 
+    /**
+     * Create a delete command.
+     *
+     * @param tasks Task list to delete from.
+     * @param index Index of task to be deleted.
+     */
     public DeleteCommand(TaskList tasks, int index) {
         this.tasks = tasks;
         this.index = index;

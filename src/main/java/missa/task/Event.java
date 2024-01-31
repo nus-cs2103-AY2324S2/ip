@@ -10,6 +10,13 @@ public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
+    /**
+     * Create a new event.
+     *
+     * @param task Content of event.
+     * @param from Start time of event.
+     * @param to End time of event.
+     */
     public Event(String task, LocalDateTime from, LocalDateTime to) {
         super(task);
         this.from = from;

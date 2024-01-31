@@ -1,19 +1,20 @@
 package missa;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import org.junit.jupiter.api.Test;
+
 import missa.command.Command;
 import missa.exception.IncorrectTaskTypeException;
 import missa.exception.NoContentException;
 import missa.exception.NoSuchTaskException;
 import missa.exception.NoTimingException;
 import missa.task.Task;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
     @Test

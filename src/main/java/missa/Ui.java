@@ -1,8 +1,8 @@
 package missa;
 
-import missa.task.Task;
-
 import java.util.Scanner;
+
+import missa.task.Task;
 
 /**
  * missa.Ui class that deals with interactions with the users.

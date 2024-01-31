@@ -1,11 +1,5 @@
 package missa;
 
-import missa.exception.WrongTaskDataException;
-import missa.task.Deadline;
-import missa.task.Event;
-import missa.task.Task;
-import missa.task.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,6 +8,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import missa.exception.WrongTaskDataException;
+import missa.task.Deadline;
+import missa.task.Event;
+import missa.task.Task;
+import missa.task.ToDo;
 /**
  * Deals with loading tasks from the file and saving tasks in the file.
  */

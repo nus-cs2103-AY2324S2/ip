@@ -1,8 +1,8 @@
 package missa;
 
-import missa.task.Task;
-
 import java.util.ArrayList;
+
+import missa.task.Task;
 
 /**
  * A class that contains the task list.
@@ -54,7 +54,7 @@ public class TaskList {
         return str;
     }
 
-    /*
+    /**
      * Returns matching items in task list.
      *
      * @param keyword String used to search for tasks.
@@ -73,7 +73,7 @@ public class TaskList {
         return str;
     }
 
-    /*
+    /**
      * Marks task as done.
      *
      * @param idx Index of task to be marked as done.
@@ -83,7 +83,7 @@ public class TaskList {
         t.mark();
     }
 
-    /*
+    /**
      * Marks task as not done.
      *
      * @param idx Index of task to be marked as not done.
@@ -93,7 +93,7 @@ public class TaskList {
         t.unmark();
     }
 
-    /*
+    /**
      * Removes task.
      *
      * @param idx Index of task to be removed from the list.
