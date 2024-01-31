@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * Parser class parses user input and executes corresponding commands.
@@ -88,7 +89,9 @@ public class Parser {
 
                 break;
 
-
+            case "FIND":
+                parseFind(tasks, ui);
+                break;
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means.");
         }
@@ -324,5 +327,23 @@ public class Parser {
         }
 
         return task;
+    }
+
+    /**
+     * Parses the "find" command, searching for tasks containing a specified keyword.
+     * Retrieves user input for the keyword and displays matching tasks.
+     *
+     * @param tasks The TaskList containing the tasks to search.
+     * @param ui    The Ui object for handling user interface interactions.
+     */
+    public static void parseFind( TaskList tasks, Ui ui) {
+        String keyword = ui.getUserInput2().trim();
+        //System.out.println(descriptionTodo);
+        ArrayList<Task> matchingTasks = tasks.keywordSearch(keyword);
+
+        ui.showMessage("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            ui.showMessage((i + 1) + "." + matchingTasks.get(i).toString());
+        }
     }
 }
