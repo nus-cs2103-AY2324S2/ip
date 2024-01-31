@@ -2,13 +2,16 @@
  * Todos are tasks without any date/time attached to it.
  */
 public class Todo extends Task {
+    protected String name = "";
+
     /**
      * Constructor for a todo object.
      *
      * @param name task name
      */
     public Todo(String name) {
-        super(name);
+        super();
+        this.name = name;
     }
 
     /**
@@ -18,15 +21,16 @@ public class Todo extends Task {
      * @param b isDone
      */
     public Todo(String name, boolean b) {
-        super(name, b);
+        super(b);
+        this.name = name;
     }
 
     /**
      * toString method for printing task description.
-     * @return task type + task status + task name
+     * @return task status + task type + task name
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return super.toString() + "[T] " + this.name;
     }
 }

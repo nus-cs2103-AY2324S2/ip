@@ -14,8 +14,8 @@ public class SaveAndLoad extends Duke {
         Scanner s = new Scanner(super.list); // create a Scanner using the File as the source
         while (s.hasNext()) {
             String str = s.nextLine();
-            char type = str.charAt(1);
-            boolean isDone = str.charAt(4) == 'x';
+            char type = str.charAt(4);
+            boolean isDone = str.charAt(1) == 'x';
             String task = str.substring(7);
             switch (type) {
             case 'T':
