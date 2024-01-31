@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Duke {
     private static List<Task> tasks = new ArrayList<>();
@@ -65,6 +66,9 @@ public class Duke {
                     // Delete a task
                     int taskIndex = parseTaskIndex(userInput);
                     deleteTask(taskIndex);
+                } else if (userInput.startsWith("find")) {
+                    String keyword = userInput.substring("find".length()).trim();
+                    findTasksByKeyword(keyword);
                 } else {
                     // Add the task to the array
                     tasks.add(createTask(userInput));
@@ -232,6 +236,23 @@ public class Duke {
             default:
                 throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    private static void findTasksByKeyword(String keyword) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Here are the matching tasks in your list:");
+
+        // Filter tasks based on the keyword
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toList());
+
+        // Display the matching tasks
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println(" " + (i + 1) + "." + matchingTasks.get(i));
+        }
+
+        System.out.println("____________________________________________________________");
     }
 
     // Create a deadline task based on user input
