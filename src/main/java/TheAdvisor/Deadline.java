@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 public class Deadline extends Task implements Serializable {
 
     // protected String by;
-    private final LocalDateTime by;
+    protected final LocalDateTime by;
 
     public Deadline(String description, LocalDateTime by) {
         super(description);

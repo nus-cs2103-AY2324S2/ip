@@ -4,12 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class Events extends Task implements Serializable {
-
-//    protected String start;
-//    protected String end;
-
-    private final LocalDateTime start;
-    private final LocalDateTime end;
+    protected final LocalDateTime start;
+    protected final LocalDateTime end;
 
     public Events(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
