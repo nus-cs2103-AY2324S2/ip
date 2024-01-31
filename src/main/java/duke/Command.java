@@ -23,6 +23,8 @@ public class Command {
             tl.mark(ui, st, this.arguments);
         } else if (this.command.equals("delete")) {
             tl.deleteTask(ui, st, this.arguments);
+        } else if (this.command.equals("find")) {
+            tl.find(ui, this.arguments[0]);
         } else {
             tl.addTask(ui, st, this.command, this.arguments);
         }

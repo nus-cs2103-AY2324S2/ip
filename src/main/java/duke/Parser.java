@@ -15,6 +15,7 @@ public class Parser {
         put("mark", Arrays.asList("mark"));
         put("unmark", Arrays.asList("unmark"));
         put("delete", Arrays.asList("delete"));
+        put("find", Arrays.asList("find"));
         put("bye", null);
     }};
     protected static Command parse(String cmd) throws InvalidCmdException {
