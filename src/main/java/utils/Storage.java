@@ -6,8 +6,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import tasks.Task;
@@ -37,8 +35,8 @@ public class Storage {
     public ArrayList<Task> read() {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
-            Files.createDirectories(Paths.get(filePath).getParent());
             File file = new File(filePath);
+            file.getParentFile().mkdirs();
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -62,7 +60,9 @@ public class Storage {
      */
     public void write(ArrayList<Task> taskList) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            File file = new File(filePath);
+            file.getParentFile().mkdirs();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             for (Task task : taskList) {
                 writer.write(task.toFile());
                 writer.newLine();
