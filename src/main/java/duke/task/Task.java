@@ -2,7 +2,11 @@ package duke.task;
 
 public abstract class Task {
     TodoState todoState;
-    String task;
+    final String task;
+
+    public String getTask() {
+        return task;
+    }
 
     public Task(String task) {
         this.todoState = TodoState.UNDONE;

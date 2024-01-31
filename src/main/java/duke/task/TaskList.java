@@ -1,13 +1,10 @@
 package duke.task;
 
-import duke.utils.Util;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
