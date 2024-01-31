@@ -7,9 +7,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class contains the logic for interacting with the data logs
+ */
 public class Storage {
     protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
     private String filePath;
+
+    /**
+     * Constructor for Storage
+     * @param filePath location for the logs to be written to
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         String workingDirectory = System.getProperty("user.dir");
@@ -22,6 +30,11 @@ public class Storage {
             System.out.println("Error occurred setting up log" + e.getMessage());
         }
     }
+
+    /**
+     * Method for adding the tasks stored in the logs to Mona's task list
+     * @param currentTasks Mona's task list for tasks stored in the logs to be added to
+     */
     public void readLog(List<Task> currentTasks) {
         File log = new File(this.filePath);
         try {
@@ -34,26 +47,37 @@ public class Storage {
             System.out.println("File not found:" + e.getMessage());
         }
     }
+
+    /**
+     * Method for translating the tasks stored in the logs into their corresponding Tasks
+     * @param logEntry the task stored in the log
+     * @return the corresponding task instance
+     */
     public static Task parseLogEntry(String[] logEntry) {
         String description = logEntry[2];
         boolean isCompleted = logEntry[1].equals("1");
         switch (logEntry[0]) {
-            case "T":
-                Task currTask = new Todo(description);
-                currTask.setCompletion(isCompleted);
-                return currTask;
-            case "D":
-                currTask = new Deadline(description, logEntry[3]);
-                currTask.setCompletion(isCompleted);
-                return currTask;
-            case "E":
-                currTask = new Event(description, logEntry[3], logEntry[4]);
-                currTask.setCompletion(isCompleted);
-                return currTask;
-            default:
-                return null;
+        case "T":
+            Task currTask = new Todo(description);
+            currTask.setCompletion(isCompleted);
+            return currTask;
+        case "D":
+            currTask = new Deadline(description, logEntry[3]);
+            currTask.setCompletion(isCompleted);
+            return currTask;
+        case "E":
+            currTask = new Event(description, logEntry[3], logEntry[4]);
+            currTask.setCompletion(isCompleted);
+            return currTask;
+        default:
+            return null;
         }
     }
+
+    /**
+     * Method for updating the logs when the task list is modified while Mona is running
+     * @param currentTasks Mona's task list which the user can directly interact with
+     */
     public void writeToFile(List<Task> currentTasks) {
         File log = new File(this.filePath);
         StringBuilder sb = new StringBuilder();
