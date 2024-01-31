@@ -1,10 +1,18 @@
-todo read books
-deadline return books /by Sunday
+todo
+deadline
+event
+blah
+todo read book
+todo go for a run
+deadline homework
+deadline homework /by Sunday
+event project meeting
 event project meeting /from Monday /to Wednesday
 list
 mark 2
 list
-mark 3
+mark 4
+list
 unmark 2
 list
 bye
