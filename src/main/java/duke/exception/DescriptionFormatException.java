@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class DescriptionFormatException extends Exception{
     public DescriptionFormatException(){
         super();

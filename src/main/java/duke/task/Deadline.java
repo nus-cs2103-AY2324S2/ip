@@ -1,6 +1,8 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+
 public class Deadline extends Task{
 
     private static DateTimeFormatter dFormatInp = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm");
@@ -27,13 +29,13 @@ public class Deadline extends Task{
         return symbol;
     }
     @Override
-    public String toString() { //method to get the string representation of Deadline
+    public String toString() { //method to get the string representation of Duke.Deadline
         String s = "[" + this.getSymbol() + "][" + this.getStatusIcon() + "] " + this.description
                 + " (by: " + this.deadline.format(dFormatOut) + ")";
         return s;
     }
 
-    public String toWrite() { //method to get the string representation of Deadline
+    public String toWrite() { //method to get the string representation of Duke.Deadline
         String s = this.getSymbol() + "/" + this.isDone + "/" + this.description
                 + "/" + this.deadline.format(dFormatInp);
         return s;

@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -31,13 +33,13 @@ public class Event extends Task{
     }
 
     @Override
-    public String toString() { //method to get the string representation of Event
+    public String toString() { //method to get the string representation of Duke.Event
         String s = "[" + this.getSymbol() + "][" + this.getStatusIcon() + "] " + this.description
                 + " (from: " + this.from.format(dFormatOut) + " to: " + this.to.format(dFormatOut) + ")";
         return s;
     }
 
-    public String toWrite() { //method to get the string representation of Event
+    public String toWrite() { //method to get the string representation of Duke.Event
         String s = this.getSymbol() + "/" + this.isDone + "/" + this.description
                 + "/" + this.from.format(dFormatInp) + "/" + this.to.format(dFormatInp);
         return s;

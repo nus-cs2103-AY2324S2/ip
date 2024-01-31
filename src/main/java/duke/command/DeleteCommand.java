@@ -1,8 +1,15 @@
+package duke.command;
+
+import duke.exception.CommandFormatException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+
 import java.io.IOException;
 
-public class MarkCommand extends Command{
+public class DeleteCommand extends Command{
     private String com;
-    public MarkCommand(String i){
+    public DeleteCommand(String i){
         super(0);
         com = i;
 
@@ -17,7 +24,7 @@ public class MarkCommand extends Command{
                 throw new CommandFormatException();
             }
             noArr = Integer.parseInt(inputs[1])-1;
-            String out = tl.mark(noArr);
+            String out = tl.delete(noArr);
             ui.showMessage(out);
             st.write(tl.getList());
         } catch (IndexOutOfBoundsException e){ //when the given number is out of bounds (exception handling)
@@ -25,9 +32,10 @@ public class MarkCommand extends Command{
         } catch (NumberFormatException e){ //when the given number is not a number (exception handling)
             ui.showMessage("The task number given is not a number");
         } catch (CommandFormatException e){
-            ui.showMessage("The command format for mark is mark number (e.g.: mark 1)");
+            ui.showMessage("The command format for delete is delete number (e.g.: delete 1)");
         } catch (IOException e){
             ui.showMessage("Save failed");
         }
     }
 }
+
