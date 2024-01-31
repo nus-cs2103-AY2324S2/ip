@@ -13,6 +13,10 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    public String fileSavingString() {
+        return "E | " + Integer.toString(super.isDone ? 1 : 0) + " | " + super.description + " | " + this.from + " | " + this.to;
+    }
 }
 
 // event project meeting /from Mon 2pm /to 4pm
