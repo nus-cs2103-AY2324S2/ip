@@ -4,11 +4,20 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Represents a duke chatbot that handles users input and add tasks.
+ * It also saves the tasks to a file.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates a Duke chatbot object.
+     *
+     * @param filePath the path of the file to save the tasks to
+     */
     public Duke(String filePath) {
         ui = new Ui();
         try {
@@ -23,6 +32,9 @@ public class Duke {
     }
 
 
+    /**
+     * Runs the Duke chatbot.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -95,6 +107,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Instantiates a Duke chatbot and runs it.
+     *
+     * @param args the arguments passed in
+     */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }

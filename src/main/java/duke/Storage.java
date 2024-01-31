@@ -7,14 +7,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Storage class to handle loading and saving of tasks to a text file.
+ */
 public class Storage {
-    private final String filePath;
+    private String filePath;
 
+    /**
+     * Initializes a Storage object with file path to text file.
+     *
+     * @param filePath the path of the file to save the tasks to
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> loadTaskslist() throws IOException, DukeException {
+    /**
+     * Loads the tasks from the file, processing of text to task is done in parseTasksFromString.
+     *
+     * @return the list of tasks loaded from the file.
+     * @throws IOException if there is an error reading the file.
+     * @throws DukeException if the file could not be created.
+     */
+    public List<Task> loadTaskslist() throws IOException, DukeException {
         ArrayList<Task> tasksList = new ArrayList<Task>();
 
         File file = new File(filePath);
@@ -69,8 +84,15 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Writes the tasks to the file and overwrites the file if it already exists.
+     *
+     * @param tasksList the list of tasks to be written to the file.
+     * @throws DukeException if there is an error writing to the file.
+     * @throws IOException if there is an error writing to the file.
+     */
     public void writeToFile(TaskList tasksList) throws DukeException, IOException {
-        FileWriter fileWriter = new FileWriter(filePath);
+        FileWriter fileWriter = new FileWriter(filePath, false);
         for (int i = 0; i < tasksList.getSize(); i++) {
             Task task = tasksList.getTask(i);
             if (task instanceof Todo) {
