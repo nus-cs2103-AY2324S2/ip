@@ -9,7 +9,7 @@ import duke.DukeException;
 public class UI {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private String botName = "Duke";
-    private BufferedReader reader;
+    private final BufferedReader reader;
 
     public UI(String name) {
         this.botName = name;
