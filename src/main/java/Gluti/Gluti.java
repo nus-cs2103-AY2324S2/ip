@@ -1,25 +1,25 @@
 package Gluti;
 
 import Gluti.helpers.FileStorage;
-import Gluti.utils.Task;
-import Gluti.utils.Todo;
-import Gluti.utils.Deadline;
-import Gluti.utils.Event;
+import Gluti.helpers.Ui;
 import Gluti.utils.GlutiException;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class Gluti {
     public static void main(String[] args) throws GlutiException, IOException {
         FileStorage fStorage = new FileStorage();
-        ArrayList<Task> storage = fStorage.readList();
-        Scanner sc = new Scanner(System.in);  // Create a Scanner object
-
-        String logo = " Hello! I'm Gluti\n" +
-                " What can I do for you?";
-        String end = " Bye. Hope to see you again soon!";
+        String logo = "Hello! I'm Gluti\n" +
+                "What can I do for you?";
+        String end = "Bye. Hope to see you again soon!";
+        System.out.println(logo);
+        Ui ui = new Ui(fStorage);
+        ui.run();
+        System.out.println(end);
+        /*
+        String logo = "Hello! I'm Gluti\n" +
+                "What can I do for you?";
+        String end = "Bye. Hope to see you again soon!";
         System.out.println(logo);
         //ArrayList<Task> storage = new ArrayList<>();
         String word = "";
@@ -134,8 +134,8 @@ public class Gluti {
 //                System.out.println("added: " + word + "\n");
                 break;
             }
-        }
-        fStorage.saveList(storage);
-        System.out.println(end);
+        }*/
+//        fStorage.saveList(storage);
+//        System.out.println(end);
     }
 }

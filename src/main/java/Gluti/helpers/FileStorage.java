@@ -10,7 +10,7 @@ public class FileStorage {
     protected static final File DATA_FILE = new File("./src/main/data/Gluti.txt");
     protected ArrayList<Task> tasklist = new ArrayList<>();
 
-    public FileStorage() throws IOException, GlutiException {
+    public FileStorage() throws GlutiException {
         checkifexist();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE));
@@ -23,6 +23,7 @@ public class FileStorage {
         } catch (IOException e) {
             e.printStackTrace();
         }
+//        System.out.println("Done mounting tasks");
     }
 
     public Task read(String line) {
@@ -64,7 +65,6 @@ public class FileStorage {
             default:
                 nextTask = null;
         }
-
         return nextTask;
     }
     private void checkifexist() throws GlutiException {
