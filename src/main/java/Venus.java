@@ -1,7 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Venus {
 
+    public enum TYPES {
+        LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, ALL;
+    }
     public static void main(String[] args) {
         String start =
                 "    ____________________________________________________________\n"
@@ -19,8 +23,15 @@ public class Venus {
         Scanner sc = new Scanner(System.in);
         String words = sc.nextLine();
 
-            while (!words.equals("bye")) {
-                if (words.equals("list")) {
+        while (!words.equals("bye")) {
+            String[] listType = words.toUpperCase().split(" ");
+            TYPES type = TYPES.valueOf(listType[0]);;
+            if (listType.length == 1) {
+                type = TYPES.ALL;
+            }
+
+            switch (type) {
+                case ALL:
                     int i = 1;
                     System.out.println(indented_lines
                             + "     Here are the tasks in your list:");
@@ -29,7 +40,8 @@ public class Venus {
                         i++;
                     }
                     System.out.println(indented_lines);
-                } else if (words.startsWith("mark ")) {
+                    break;
+                case MARK:
                     try {
                         int index = Integer.valueOf(words.substring(5)) - 1;
                         data.get(index).mark();
@@ -48,7 +60,8 @@ public class Venus {
                                 + "     Incorrect arguments for mark, please check\n"
                                 + indented_lines);
                     }
-                } else if (words.startsWith("unmark ")) {
+                    break;
+                case UNMARK:
                     try {
                         int index = Integer.valueOf(words.substring(7)) - 1;
                         data.get(index).unmark();
@@ -67,7 +80,7 @@ public class Venus {
                                 + "     Incorrect arguments for unmark, please check\n"
                                 + indented_lines);
                     }
-                } else if (words.startsWith("todo ")) {
+                case TODO:
                     try {
                         String word = words.substring(5);
                         TODO todo = new TODO(word);
@@ -84,7 +97,7 @@ public class Venus {
                                 + "     Incorrect arguments for todo, please check\n"
                                 + indented_lines);
                     }
-                } else if (words.startsWith("deadline ")) {
+                case DEADLINE:
                     try {
                         String dString = words.substring(9);
                         String[] parts = dString.split("/by");
@@ -110,15 +123,15 @@ public class Venus {
                                 + "\n"
                                 + indented_lines);
                     }
-                } else if (words.startsWith("event ")) {
+                case EVENT:
                     try {
                         String dString = words.substring(6);
                         String[] parts = dString.split("/");
                         if (parts.length != 2) {
                             throw new DukeException("Incorrect arguments for events");
                         }
-                        for (int i = 0; i < 3; i++) {
-                            parts[i] = parts[i].trim();
+                        for (int j = 0; j < 3; j++) {
+                            parts[j] = parts[j].trim();
                         }
                         Event event = new Event(parts[0], parts[1], parts[2]);
                         data.add(event);
@@ -141,7 +154,7 @@ public class Venus {
                                 + "\n"
                                 + indented_lines);
                     }
-                } else if (words.startsWith("delete ")){
+                case DELETE:
                     try {
                         int index = Integer.valueOf(words.substring(7)) - 1;
                         System.out.println(indented_lines
@@ -161,17 +174,16 @@ public class Venus {
                                 + "     Incorrect arguments for delete, please check\n"
                                 + indented_lines);
                     }
-
-                } else {
+                default:
                     Task ts = new Task(words);
                     data.add(ts);
                     System.out.println(indented_lines
                             + "     added: "
                             + words +
                             "\n" + indented_lines);
-                }
-                words = sc.nextLine();
             }
+            words = sc.nextLine();
+        }
         sc.close();
         System.out.println(end);
     }
