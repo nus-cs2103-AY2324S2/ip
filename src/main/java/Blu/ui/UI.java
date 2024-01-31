@@ -1,15 +1,15 @@
-package Blu.ui;
+package blu.ui;
 
-import static Blu.utils.Messages.MESSAGE_EXIT;
-import static Blu.utils.Messages.MESSAGE_GREET;
-import static Blu.utils.Messages.MESSAGE_STORAGE_PATH;
-import static Blu.utils.Messages.MESSAGE_DIVIDER;
+import static blu.utils.Messages.MESSAGE_DIVIDER;
+import static blu.utils.Messages.MESSAGE_EXIT;
+import static blu.utils.Messages.MESSAGE_GREET;
+import static blu.utils.Messages.MESSAGE_STORAGE_PATH;
 
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-import Blu.task.Task;
-import Blu.task.TaskList;
+import blu.task.Task;
+import blu.task.TaskList;
 
 public class UI {
     private static final String ANSI_RESET = "\u001B[0m";

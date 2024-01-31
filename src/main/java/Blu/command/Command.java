@@ -1,9 +1,9 @@
-package Blu.command;
+package blu.command;
 
-import Blu.exception.BluException;
-import Blu.storage.Storage;
-import Blu.task.TaskList;
-import Blu.ui.UI;
+import blu.exception.BluException;
+import blu.storage.Storage;
+import blu.task.TaskList;
+import blu.ui.UI;
 
 public abstract class Command {
     public abstract void execute(TaskList taskList, Storage storage, UI ui) throws BluException;

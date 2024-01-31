@@ -1,4 +1,4 @@
-package Blu.exception;
+package blu.exception;
 
 public class IllegalParameterException extends BluException {
     public IllegalParameterException(String message) {

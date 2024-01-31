@@ -1,13 +1,13 @@
-package Blu.command;
+package blu.command;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import Blu.exception.StorageException;
-import Blu.storage.Storage;
-import Blu.task.Deadline;
-import Blu.task.TaskList;
-import Blu.ui.UI;
+import blu.exception.StorageException;
+import blu.storage.Storage;
+import blu.task.Deadline;
+import blu.task.TaskList;
+import blu.ui.UI;
 
 public class DeadlineCommand extends Command {
     private final String description;

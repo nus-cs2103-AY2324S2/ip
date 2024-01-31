@@ -1,14 +1,14 @@
-package Blu.command;
+package blu.command;
 
 import java.io.IOException;
 
-import Blu.exception.BluException;
-import Blu.exception.IllegalParameterException;
-import Blu.exception.StorageException;
-import Blu.storage.Storage;
-import Blu.task.Task;
-import Blu.task.TaskList;
-import Blu.ui.UI;
+import blu.exception.BluException;
+import blu.exception.IllegalParameterException;
+import blu.exception.StorageException;
+import blu.storage.Storage;
+import blu.task.Task;
+import blu.task.TaskList;
+import blu.ui.UI;
 
 public class MarkCommand extends Command {
     private final int taskIdx;

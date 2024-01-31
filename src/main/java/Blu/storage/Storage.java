@@ -1,4 +1,4 @@
-package Blu.storage;
+package blu.storage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Blu.exception.BluException;
-import Blu.task.Task;
-import Blu.task.TaskList;
+import blu.exception.BluException;
+import blu.task.Task;
+import blu.task.TaskList;
 
 public class Storage implements AutoCloseable {
     private File file;

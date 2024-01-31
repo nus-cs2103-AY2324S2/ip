@@ -1,12 +1,12 @@
-package Blu.command;
+package blu.command;
 
 import java.io.IOException;
 
-import Blu.exception.StorageException;
-import Blu.storage.Storage;
-import Blu.task.TaskList;
-import Blu.task.ToDo;
-import Blu.ui.UI;
+import blu.exception.StorageException;
+import blu.storage.Storage;
+import blu.task.TaskList;
+import blu.task.ToDo;
+import blu.ui.UI;
 
 public class ToDoCommand extends Command {
     private final String description;

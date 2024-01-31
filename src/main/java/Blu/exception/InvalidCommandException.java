@@ -1,4 +1,4 @@
-package Blu.exception;
+package blu.exception;
 
 public class InvalidCommandException extends BluException {
     public InvalidCommandException(String message) {

@@ -1,14 +1,14 @@
-package Blu;
+package blu;
 
 import java.io.IOException;
 
-import Blu.command.ByeCommand;
-import Blu.command.Command;
-import Blu.exception.BluException;
-import Blu.parser.InputParser;
-import Blu.storage.Storage;
-import Blu.task.TaskList;
-import Blu.ui.UI;
+import blu.command.ByeCommand;
+import blu.command.Command;
+import blu.exception.BluException;
+import blu.parser.InputParser;
+import blu.storage.Storage;
+import blu.task.TaskList;
+import blu.ui.UI;
 
 public class Blu {
     private final String STORAGE_PATH = "../data/data.csv";

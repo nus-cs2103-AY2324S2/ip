@@ -1,4 +1,4 @@
-package Blu.exception;
+package blu.exception;
 
 public class StorageException extends BluException {
     public StorageException(String message) {

@@ -1,12 +1,12 @@
-package Blu.storage;
+package blu.storage;
 
 import java.time.LocalDateTime;
 
-import Blu.exception.BluException;
-import Blu.task.Deadline;
-import Blu.task.Event;
-import Blu.task.Task;
-import Blu.task.ToDo;
+import blu.exception.BluException;
+import blu.task.Deadline;
+import blu.task.Event;
+import blu.task.Task;
+import blu.task.ToDo;
 
 public class TaskDecoder {
     private static ToDo parseToDo(String[] tokens) {

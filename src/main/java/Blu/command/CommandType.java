@@ -1,4 +1,4 @@
-package Blu.command;
+package blu.command;
 
 public enum CommandType {
     LIST,

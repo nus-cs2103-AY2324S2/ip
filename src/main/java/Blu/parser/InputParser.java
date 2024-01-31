@@ -1,23 +1,23 @@
-package Blu.parser;
+package blu.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
-import Blu.command.ByeCommand;
-import Blu.command.Command;
-import Blu.command.CommandType;
-import Blu.command.ListCommand;
-import Blu.command.MarkCommand;
-import Blu.command.UnmarkCommand;
-import Blu.command.DeadlineCommand;
-import Blu.command.DeleteCommand;
-import Blu.command.EventCommand;
-import Blu.command.InvalidCommand;
-import Blu.command.ToDoCommand;
-import Blu.exception.BluException;
-import Blu.exception.IllegalCommandException;
+import blu.command.ByeCommand;
+import blu.command.Command;
+import blu.command.CommandType;
+import blu.command.DeadlineCommand;
+import blu.command.DeleteCommand;
+import blu.command.EventCommand;
+import blu.command.InvalidCommand;
+import blu.command.ListCommand;
+import blu.command.MarkCommand;
+import blu.command.ToDoCommand;
+import blu.command.UnmarkCommand;
+import blu.exception.BluException;
+import blu.exception.IllegalCommandException;
 
 public class InputParser {
     private static final DateTimeFormatter INPUT_DATETIMEFORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");

@@ -1,13 +1,13 @@
-package Blu.command;
+package blu.command;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import Blu.exception.StorageException;
-import Blu.storage.Storage;
-import Blu.task.Event;
-import Blu.task.TaskList;
-import Blu.ui.UI;
+import blu.exception.StorageException;
+import blu.storage.Storage;
+import blu.task.Event;
+import blu.task.TaskList;
+import blu.ui.UI;
 
 public class EventCommand extends Command {
     private final String description;

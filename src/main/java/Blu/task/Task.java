@@ -1,4 +1,4 @@
-package Blu.task;
+package blu.task;
 
 public abstract class Task {
     private String title;

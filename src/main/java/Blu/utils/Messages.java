@@ -1,4 +1,4 @@
-package Blu.utils;
+package blu.utils;
 
 public class Messages {
     public static final String MESSAGE_GREET = "Hello! I'm Blu. What can I do for you?";
