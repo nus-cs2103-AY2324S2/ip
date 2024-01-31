@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 public class Task {
     protected String description;
     protected int isDone;
@@ -5,6 +9,17 @@ public class Task {
     public Task(String description, int isDone) {
         this.description = description;
         this.isDone = isDone;
+    }
+
+    public String stringToDate(String input) {
+        try {
+            LocalDate ld = LocalDate.parse(input);
+            String date = ld.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            return date;
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please enter a date in yyyy-MM-dd format.");
+            return null;
+        }
     }
 
     public String getStatusIcon() {
