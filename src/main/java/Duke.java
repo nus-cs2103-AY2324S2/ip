@@ -1,19 +1,17 @@
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Scanner;
-
+import java.time.format.DateTimeParseException;
 
 class Utils {
     static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    static LocalDate parseDate(String date) {
-        return LocalDate.parse(date, dateFormat);
+    static LocalDate parseDate(String date) throws DukeException {
+        try {
+            return LocalDate.parse(date, dateFormat);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format. Please use dd/MM/yyyy");
+        }
     }
 
     static String formatDate(LocalDate date) {
@@ -92,7 +90,8 @@ class Event extends Task {
 
     @Override
     public String toFileString() {
-        return "E | " + (todoState == TodoState.DONE ? "1" : "0") + " | " + task + " | " + Utils.formatDate(start) + " | " + Utils.formatDate(end);
+        return "E | " + (todoState == TodoState.DONE ? "1" : "0") + " | " + task + " | " + Utils.formatDate(start)
+                + " | " + Utils.formatDate(end);
     }
 }
 
@@ -110,7 +109,6 @@ abstract class Task {
         this.task = task;
     }
 
-
     @Override
     public String toString() {
         return "[" + (todoState == TodoState.DONE ? "X" : " ") + "] " + task;
@@ -119,170 +117,63 @@ abstract class Task {
     public abstract String toFileString();
 }
 
-
 class DukeException extends Exception {
     public DukeException(String message) {
         super(message);
     }
 }
 
+class DukeConfig {
+    private final String filePath;
+
+    public DukeConfig(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public static DukeConfig Default() {
+        return new DukeConfig("./data/duke.txt");
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+}
+
 public class Duke {
-    static String line = "____________________________________________________________";
-    static String dataDir = "./data";
-    static String dataPath = dataDir + "/duke.txt";
+    private Ui ui;
+    private final Storage storage;
+    private TaskList tasks;
 
-
-    public static void main(String[] args) throws IOException, ParseException {
-
-        System.out.println(line);
-        System.out.println("Hello! I'm Brian\nWhat can I do for you?");
-        System.out.println(line);
-        ArrayList<Task> data = new ArrayList<>();
-        // Create file if it does not exist
-        new File(dataDir).mkdirs();
-        File file = new File(dataPath);
-        file.createNewFile();
-        // Read file
-        Scanner fileScanner = new Scanner(file);
+    public Duke(DukeConfig config) throws IOException {
+        ui = new Ui();
+        storage = new FileStorage(config.getFilePath());
         try {
-            while (fileScanner.hasNext()) {
-                String[] split = fileScanner.nextLine().split(" \\| ");
-                TodoState state = split[1].equals("1") ? TodoState.DONE : TodoState.UNDONE;
-                switch (split[0]) {
-                    case "T": {
-                        data.add(new Todo(split[2], state));
-                        break;
-                    }
-                    case "D": {
-                        data.add(new Deadline(split[2], Utils.parseDate(split[3]), state));
-                        break;
-                    }
-                    case "E": {
-                        data.add(new Event(split[2], Utils.parseDate(split[3]), Utils.parseDate(split[4]), state));
-                        break;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Error reading file");
-            data.clear();
-        } finally {
-            fileScanner.close();
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showFileLoadingError();
+            tasks = new TaskList();
         }
-        Scanner sc = new Scanner(System.in);
-        while (true) {
-            String[] input = sc.nextLine().split(" ", 2);
-            String method = input[0];
-            String params = input.length == 1 ? "" : input[1];
-            System.out.println(line);
-            try {
-                switch (method) {
-                    case "list": {
-                        for (int i = 0; i < data.size(); i++) {
-                            System.out.printf("%d. %s\n", i + 1, data.get(i));
-                        }
-                        break;
-                    }
-                    case "mark": {
-                        if (params.equals("")) {
-                            throw new DukeException("The id of a mark cannot be empty.");
-                        }
-                        int index = Integer.parseInt(params) - 1;
-                        data.get(index).todoState = TodoState.DONE;
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(data.get(index));
-                        break;
-                    }
-                    case "unmark": {
-                        if (params.equals("")) {
-                            throw new DukeException("The id of a unmark cannot be empty.");
-                        }
-                        int index = Integer.parseInt(params) - 1;
-                        data.get(index).todoState = TodoState.UNDONE;
-                        System.out.println("Okay! I've marked this task as not done yet");
-                        System.out.println(data.get(index));
-                        break;
-                    }
-                    case "todo": {
-                        if (params.equals("")) {
-                            throw new DukeException("The description of a todo cannot be empty.");
-                        }
+    }
 
-                        Task curr = new Todo(params);
-                        data.add(curr);
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(curr);
-                        System.out.printf("Now you have %d tasks in the list.\n", data.size());
-                        break;
-                    }
-                    case "deadline": {
-                        if (params.equals("")) {
-                            throw new DukeException("The description of a deadline cannot be empty.");
-                        }
-                        String[] split = params.split(" /by ", 2);
-                        if (split.length == 1) {
-                            throw new DukeException("The deadline of a deadline cannot be empty.");
-                        }
-                        Task curr = new Deadline(split[0], Utils.parseDate(split[1]));
-                        data.add(curr);
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(curr);
-                        System.out.printf("Now you have %d tasks in the list.\n", data.size());
-                        break;
-                    }
-                    case "event": {
-                        if (params.equals("")) {
-                            throw new DukeException("The description of a event cannot be empty.");
-                        }
-                        String[] split1 = params.split(" /from ", 2);
-                        if (split1.length == 1) {
-                            throw new DukeException("The from of a event cannot be empty.");
-                        }
-                        String[] split2 = split1[1].split(" /to ", 2);
-                        if (split2.length == 1) {
-                            throw new DukeException("The to of a event cannot be empty.");
-                        }
-                        Task curr = new Event(split1[0], Utils.parseDate(split2[0]), Utils.parseDate(split2[1]));
-                        data.add(curr);
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(curr);
-                        System.out.printf("Now you have %d tasks in the list.\n", data.size());
-                        break;
-                    }
-                    case "delete": {
-                        if (params.equals("")) {
-                            throw new DukeException("The id of a delete cannot be empty.");
-                        }
-                        int index = Integer.parseInt(params) - 1;
-                        Task curr = data.get(index - 1);
-                        data.remove(index);
-                        System.out.println("Noted. I've removed this task:");
-                        System.out.println(curr);
-                        System.out.printf("Now you have %d tasks in the list.\n", data.size());
-                        break;
-                    }
-                    case "bye": {
-                        System.out.println("Bye. Hope to see you again soon!");
-                        // write to disk
-                        file.delete();
-                        Writer fileWriter = new FileWriter(file);
-                        for (Task task : data) {
-                            fileWriter.write(task.toFileString() + "\n");
-                        }
-                        fileWriter.flush();
-                        fileWriter.close();
-                        System.exit(0);
-                        break;
-                    }
-                    default: {
-                        throw new DukeException("I'm sorry, but I don't know what that means :-(");
-                    }
-                }
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
             } catch (DukeException e) {
-                System.out.println("OOPS!!! " + e.getMessage());
+                ui.showError(e.getMessage());
             } finally {
-                System.out.println(line);
+                ui.showLine();
             }
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        new Duke(DukeConfig.Default()).run();
     }
 }
