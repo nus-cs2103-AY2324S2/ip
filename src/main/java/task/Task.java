@@ -1,3 +1,5 @@
+package task;
+
 public class Task {
     protected String description; // task description
     protected boolean completed; // true is task is completed

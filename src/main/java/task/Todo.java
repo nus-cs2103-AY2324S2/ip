@@ -1,3 +1,7 @@
+package task;
+
+import task.Task;
+
 public class Todo extends Task {
     public Todo(String description, boolean completed) {
         super(description, completed);
