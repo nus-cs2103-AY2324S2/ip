@@ -10,7 +10,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-
+/**
+ * Jivox handles the core functionality of the to-do list application.
+ */
 public class Jivox {
 
     private DatabaseHandler dbHandler;
@@ -20,13 +22,24 @@ public class Jivox {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
 
-    public Jivox(String FILE_PATH){
-        this.dbHandler = new DatabaseHandler(FILE_PATH);
+    /**
+     * Creates a new Jivox instance with the given file path.
+     *
+     * @param filePath The path to the database file.
+     */
+    public Jivox(String filePath){
+        this.dbHandler = new DatabaseHandler(filePath);
         this.list = new TaskList(dbHandler.load());
         this.ui = new Ui();
         this.parser = new Parser();
     }
 
+    /**
+     * Marks the task at the given index as completed.
+     *
+     * @param i The index of the task to mark.
+     * @throws JivoxException If index is invalid.
+     */
     private void mark(int i) throws JivoxException {
         if(i > this.list.getLength() || i < 0){
             throw new JivoxException("Oops! There are only " + this.list.getLength() + " Tasks!");
@@ -38,6 +51,12 @@ public class Jivox {
 
     }
 
+    /**
+     * Unmarks the task at the given index as completed.
+     *
+     * @param i The index of the task to unmark.
+     * @throws JivoxException If index is invalid.
+     */
     private void unmark(int i) throws JivoxException {
         if(i > this.list.getLength() || i < 0){
             throw new JivoxException("Oops! There are only " + this.list.getLength() + " Tasks!");
@@ -84,6 +103,13 @@ public class Jivox {
         dbHandler.save(this.list);
     }
 
+    /**
+     * Adds a new task of the given type and description.
+     *
+     * @param type The type of task (todo, deadline, event).
+     * @param description The task description.
+     * @throws JivoxException If unable to add the task.
+     */
     public void add(String type,String description) throws JivoxException {
         switch (type){
             case "todo":
@@ -99,8 +125,12 @@ public class Jivox {
         this.ui.showAdd(this.list.getTask(this.list.getLength()-1),this.list.getLength());
     }
 
-
-
+    /**
+     * Deletes the task at the given index.
+     *
+     * @param i The index of the task to delete.
+     * @throws JivoxException If index is invalid.
+     */
     public void delete(int i) throws JivoxException {
         if(i > this.list.getLength() || i < 0){
             throw new JivoxException("Oops! There are only " + this.list.getLength() + " Tasks!");
@@ -111,6 +141,11 @@ public class Jivox {
         this.ui.showDelete(t,this.list.getLength());
     }
 
+    /**
+     * Shows tasks due on the given date.
+     *
+     * @param input The date to show tasks for.
+     */
     public void show(String input){
         String[] split = this.parser.split(input,"/on ");
                // input.split("/on ");
@@ -118,6 +153,9 @@ public class Jivox {
         this.ui.showDeadline(this.list,time);
     }
 
+    /**
+     * Starts the application.
+     */
     public void run(){
         this.ui.greet();
         boolean isRunning = true;
