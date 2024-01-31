@@ -1,8 +1,11 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
 
 public class TalkingBox {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
         String NAME = "Talking Box";
         ArrayList<Task> taskList = new ArrayList<>();
@@ -22,6 +25,14 @@ public class TalkingBox {
 
         String taskType = in.next();
         String input = in.nextLine().trim();
+
+        File save = new File("save.txt");
+        if (!(save.exists())) {
+            System.out.println("Please create new save file!");
+            return;
+        }
+        FileWriter writer = new FileWriter("save.txt");
+
         while (!(taskType.equals("bye"))) {
             boolean error = false;
             try {
@@ -90,5 +101,11 @@ public class TalkingBox {
             input = in.nextLine().trim();
         }
         System.out.println("Goodbye!");
+        for (int i = 0; i < taskList.size(); i++) {
+            writer.write(i == 0 ? (i + 1) + ": " + taskList.get(i).toString()
+                    : System.lineSeparator() + (i + 1) + ": " + taskList.get(i).toString());
+        }
+        writer.close();
     }
+
 }
