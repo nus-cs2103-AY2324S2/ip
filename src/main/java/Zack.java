@@ -1,15 +1,19 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Zack {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int taskCount = 0;
 
     public enum TaskType {
         BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE
     }
 
-    private static void handleInput(String input) throws ZackException {
+    private static Storage storage = new Storage("./data/zack.txt");
+
+    private static void handleInput(String input) throws ZackException, IOException {
         String[] sections = input.split(" ", 2);
 
         try {
@@ -40,6 +44,10 @@ public class Zack {
             }
         } catch (IllegalArgumentException e) {
             throw new ZackException("I'm sorry, but I don't know what that means :-(");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            storage.save(tasks);
         }
     }
 
@@ -90,7 +98,7 @@ public class Zack {
         System.out.println("____________________________________________________________\n");
     }
 
-    private static void handleTask(String[] sections) throws ZackException {
+    private static void handleTask(String[] sections) throws ZackException, IOException {
         /* sections[0] here can only be 1 of 3 possibilities:
         1. "todo"
         2. "deadline"
@@ -105,14 +113,14 @@ public class Zack {
 
         Task newTask;
         if ("todo".equals(sections[0])) {
-            newTask = new Todo(sections[1]);
+            newTask = new Todo(sections[1], false);
         } else if ("deadline".equals(sections[0])) {
             String[] parts = sections[1].split(" /by ");
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                 throw new ZackException("The deadline command is incomplete or incorrectly formatted. " +
                         "Please include '/by' followed by the deadline.");
             }
-            newTask = new Deadline(parts[0], parts[1]);
+            newTask = new Deadline(parts[0], parts[1], false);
         } else {
             String[] parts = sections[1].split(" /from ");
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -124,7 +132,7 @@ public class Zack {
                 throw new ZackException("The event command is incomplete. " +
                         "Please include '/to' followed by the end time.");
             }
-            newTask = new Event(parts[0], times[0], times[1]);
+            newTask = new Event(parts[0], times[0], times[1], false);
         }
         addTask(newTask);
     }
@@ -170,6 +178,20 @@ public class Zack {
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________\n");
 
+        // load up the saved tasks when the chatbot starts up
+        try {
+            tasks = storage.load();
+            taskCount += tasks.size();
+            System.out.println("____________________________________________________________");
+            System.out.println("Here are the tasks that I have loaded from storage:");
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
+            System.out.println("____________________________________________________________\n");
+        } catch (ZackException e) {
+            System.out.println(e + " Starting with an empty task list.\n");
+        }
+
 
         // Listen for commands and exits when user types "bye"
         while (true) {
@@ -183,7 +205,7 @@ public class Zack {
                 System.out.println("____________________________________________________________");
                 System.out.println("OOPS!!! " + e.getMessage());
                 System.out.println("____________________________________________________________\n");
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | IOException e) {
                 throw new RuntimeException(e);
             }
 
