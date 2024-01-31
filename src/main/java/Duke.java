@@ -1,89 +1,27 @@
 import exception.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
-
-import java.util.Scanner;
-import java.util.ArrayList;
-
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class Duke {
-    ArrayList<Task> list;
-    public Duke() {
-        this.list = initTasks();
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList(storage.load());
     }
-    private static final String SEPERATOR = "------------------------------------------------";
-    private static final String INDENT = "    ";
-    private static final String INDENT_SEPERATOR = INDENT + SEPERATOR;
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
 
-        String logo = " ____\n"
-                    + "|  _ \\   ___   ___\n"
-                    + "| |_| | / _ \\ / _ \\\n"
-                    + "| |_| | | __/ | __/\n"
-                    + "|____/  \\___| \\___|\n";
-
-        String msg = SEPERATOR
-                + "\nHello! I'm Bee!\n"
-                + "What can I do for you?\n"
-                + SEPERATOR;
-
-        System.out.println(logo + "\n" + msg);
-
-        boolean isOutput = true;
-        String input;
-
-        Duke bee = new Duke();
-
-        while (isOutput) {
-            input = sc.nextLine();
+        while (!isExit) {
             try {
-                String temp = input.split(" ")[0];
-                Actions action = Actions.valueOf(temp.toUpperCase());
-                switch(action) {
-                case BYE:
-                    System.out.println(INDENT_SEPERATOR
-                            + "\n"
-                            + INDENT
-                            + "Bye. Hope to see you again soon!\n"
-                            + INDENT_SEPERATOR);
-                    isOutput = false;
-                    break;
-                case LIST:
-                    showList(bee.list);
-                    break;
-                case MARK:
-                    mark(input, bee.list);
-                    break;
-                case UNMARK:
-                    unmark(input, bee.list);
-                    break;
-                case TODO:
-                    todo(input, bee.list);
-                    break;
-                case DEADLINE:
-                    deadline(input, bee.list);
-                    break;
-                case EVENT:
-                    event(input, bee.list);
-                    break;
-                case DELETE:
-                    delete(input, bee.list);
-                    break;
-                default:
-                    // not a valid command
-                    throw new InvalidInputException(
-                            SEPERATOR
-                            + "Sorry this is an invalid input :("
-                            + SEPERATOR);
-                }
+                String fullCommand = ui.readCommand();
+                //ui.showLine(); // show the divider line ("_______")
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui);
+                isExit = c.isExit();
             } catch (EmptyInputException e) {
                 System.out.println(e.getMessage());
             } catch (EmptyTimeException e) {
@@ -95,16 +33,18 @@ public class Duke {
             } catch (InvalidInputException e) {
                 System.out.println("    OOPS!!! ");
             } catch (Exception e) {
-                System.out.println(INDENT_SEPERATOR + "\n    OOPS!!! Something went wrong D:\n"
-                        + INDENT_SEPERATOR);
+                System.out.println(Ui.INDENT_SEPERATOR + "\n    OOPS!!! Something went wrong D:\n"
+                        + Ui.INDENT_SEPERATOR);
             } finally {
-                writeTasks(bee.list);
+                storage.writeTasks(tasks);
             }
         }
-        sc.close();
     }
 
-    private static void writeTasks(ArrayList<Task> list) {
+    public static void main(String[] args) {
+        new Duke("data/tasks.txt").run();
+    }
+    /*private static void writeTasks(ArrayList<Task> list) {
         try {
             FileWriter fw = new FileWriter("./data/bee.txt");
             for (Task t : list) {
@@ -193,9 +133,9 @@ public class Duke {
         } finally {
             return list;
         }
-    }
+    }*/
 
-    // print the entire list
+    /*// print the entire list
     private static void showList(ArrayList<Task> list) {
         System.out.println(INDENT_SEPERATOR);
         System.out.println(INDENT + "Here are the tasks in your list:");
@@ -359,6 +299,6 @@ public class Duke {
             System.out.println(INDENT + "Now you have " + list.size() + " tasks in the list.");
         }
         System.out.println(INDENT_SEPERATOR);
-    }
+    }*/
 
 }
