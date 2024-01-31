@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-
     static ArrayList<Task> list = new ArrayList<>();
-
 
     public static void main(String[] args) {
         System.out.println(Constant.SEPERATOR);
@@ -24,15 +22,16 @@ public class Duke {
             try {
                 input = scanner.nextLine();
                 String[] inputs = input.split(" ", 2);
+                Command command = Command.valueOf(inputs[0].toUpperCase());
                 int index;
 
-                switch (inputs[0]) {
-                    case "list":
+                switch (command) {
+                    case LIST:
                         for (int i = 0; i < list.size(); i++) {
                             System.out.println((i + 1) + ". " + list.get(i));
                         }
                         break;
-                    case "todo":
+                    case TODO:
                         if (inputs.length < 2) {
                             throw new Exception("OOPS!!! Formatting error.");
                         }
@@ -40,7 +39,7 @@ public class Duke {
                         list.add(new Todo(inputs[1]));
                         printAddSuccessMessage();
                         break;
-                    case "deadline":
+                    case DEADLINE:
                         String[] deadlineInputs = inputs[1].split(" /by ", 2);
                         if (deadlineInputs.length < 2) {
                             throw new Exception("OOPS!!! Formatting error.");
@@ -49,7 +48,7 @@ public class Duke {
                         list.add(new Deadline(deadlineInputs[0], deadlineInputs[1]));
                         printAddSuccessMessage();
                         break;
-                    case "event":
+                    case EVENT:
                         String[] eventInputs = inputs[1].split(" /from ", 2);
                         String[] eventTimeInputs = eventInputs[1].split(" /to ", 2);
                         if (eventTimeInputs.length < 2) {
@@ -59,32 +58,33 @@ public class Duke {
                         list.add(new Event(eventInputs[0], eventTimeInputs[0], eventTimeInputs[1]));
                         printAddSuccessMessage();
                         break;
-                    case "mark":
+                    case MARK:
                         index = Integer.parseInt(inputs[1]) - 1;
                         list.get(index).isDone(true);
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println(list.get(index));
                         break;
-                    case "unmark":
+                    case UNMARK:
                         index = Integer.parseInt(inputs[1]) - 1;
                         list.get(index).isDone(false);
                         System.out.println("OK, I've marked this task as not done yet:");
                         System.out.println(list.get(index));
                         break;
-                    case "delete":
+                    case DELETE:
                         index = Integer.parseInt(inputs[1]) - 1;
                         Task removedTask = list.remove(index);
                         System.out.println("Noted. I've removed this task:");
                         System.out.println("  " + removedTask);
                         System.out.println("Now you have " + list.size() + " tasks in the list.");
                         break;
-                    case "bye":
+                    case BYE:
                         System.out.println("Bye. Hope to see you again soon!");
                         break event;
-                    default:
-                        throw new Exception("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
 
+                System.out.println(Constant.SEPERATOR);
+            } catch (IllegalArgumentException e) {
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 System.out.println(Constant.SEPERATOR);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
