@@ -13,8 +13,14 @@ import java.util.Scanner;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit tests for TxtFileStorage class.
+ */
 public class TxtFileStorageTest {
 
+    /**
+     * Test for checking if the storage file exists.
+     */
     @Test
     public void storageFileExistTest() {
         TxtFileStorage storage = new TxtFileStorage("Test.txt");
@@ -25,6 +31,10 @@ public class TxtFileStorageTest {
         testFile.delete();
         assertFalse(storage.storageFileExist());
     }
+
+    /**
+     * Test for initializing the text file storage.
+     */
     @Test
     public void initialiseTxtFileStorageTest() {
         TxtFileStorage storage = new TxtFileStorage("Test.txt");
@@ -35,7 +45,9 @@ public class TxtFileStorageTest {
         testFile.delete();
     }
 
-    @SuppressWarnings("checkstyle:Regexp")
+    /**
+     * Test for reading content from the text file storage.
+     */
     @Test
     public void readTxtFileStorageTest() {
         try {
@@ -69,6 +81,9 @@ public class TxtFileStorageTest {
         }
     }
 
+    /**
+     * Test for appending content to the text file storage.
+     */
     @Test
     public void appendToTxtFileStorageTest() {
         try {
@@ -107,6 +122,9 @@ public class TxtFileStorageTest {
         }
     }
 
+    /**
+     * Test for clearing content from the text file storage.
+     */
     @Test
     public void clearTxtFileStorage() {
         try {
