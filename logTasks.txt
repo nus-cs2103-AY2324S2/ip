@@ -1,3 +1,0 @@
-T | 1 | hi
-T | 0 | hihihi
-T | 0 | hihi
