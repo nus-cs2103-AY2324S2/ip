@@ -114,12 +114,13 @@ public class Friday {
                         System.out.println("Error. Deadline cannot be empty.");
                         break;
                     }
-                    String description = userInput.substring(8).split("/")[0].trim();
+                    int pos = userInput.indexOf("/by");
+                    String description = userInput.substring(8, pos).trim();
                     if (description.isEmpty()) {
                         System.out.println("Unknown deadline description.");
                         break;
                     }
-                    String by = userInput.split("/")[1].substring(2).trim();
+                    String by = userInput.substring(pos + 3).trim();
                     if (by.isEmpty()) {
                         System.out.println("Unknown deadline.");
                         break;
@@ -142,18 +143,19 @@ public class Friday {
                         System.out.println("Error. Event cannot be empty.");
                         break;
                     }
-                    String input = userInput.substring(5).trim();
-                    String descr = input.split("/")[0].trim();
+                    int pos_from = userInput.indexOf("/from");
+                    int pos_to = userInput.indexOf("/to");
+                    String descr = userInput.substring(5, pos_from).trim();
                     if (descr.isEmpty()) {
                         System.out.println("Unknown event description.");
                         break;
                     }
-                    String from = input.split("/")[1].substring(4).trim();
+                    String from = userInput.substring(pos_from + 5, pos_to).trim();
                     if (from.isEmpty()) {
                         System.out.println("Unknown event start time.");
                         break;
                     }
-                    String to = input.split("/")[2].substring(2).trim();
+                    String to = userInput.substring(pos_to + 3).trim();
                     if (to.isEmpty()) {
                         System.out.println("Unknown event end time.");
                         break;
