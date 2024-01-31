@@ -1,10 +1,13 @@
+package jayne;
+
 import java.util.Scanner;
+import jayne.task.TaskList;
 
 public class Jayne {
 
     private Ui ui;
     private TaskList taskList;
-    private  Storage storage;
+    private Storage storage;
     public Jayne(String filepath) {
         this.ui = new Ui();
         this.storage = new Storage(filepath);

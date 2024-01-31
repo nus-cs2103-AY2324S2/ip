@@ -1,3 +1,5 @@
+package jayne.task;
+import jayne.JayneException;
 public class Task {
     protected String description;
     protected boolean isDone;
