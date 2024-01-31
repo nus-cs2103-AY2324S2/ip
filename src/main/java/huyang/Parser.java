@@ -1,10 +1,22 @@
 package huyang;
 
+/**
+ * Parser class responsible for parsing user input commands.
+ */
 public class Parser {
+    /**
+     * Enumeration representing the possible command types.
+     */
     public enum CommandType {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE, UNKNOWN;
     }
 
+    /**
+     * Parses a user input command and determines its CommandType.
+     *
+     * @param input The user input command string.
+     * @return The CommandType corresponding to the parsed input.
+     */
     public CommandType parseCommand(String input) {
         input = input.toLowerCase();
         if (input.equals("list")) {

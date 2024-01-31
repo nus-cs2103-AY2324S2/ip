@@ -5,17 +5,39 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * TaskList class representing a list of tasks and providing operations to manipulate the tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructor for the TaskList class.
+     *
+     * @param tasks An ArrayList of tasks to initialize the task list.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Gets the list of tasks.
+     *
+     * @return An ArrayList containing the tasks.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Adds a task to the task list based on the given command type and input.
+     *
+     * @param input       The user input command.
+     * @param commandType The command type to determine the task type.
+     * @param ui          The user interface for printing messages.
+     * @return True if the task was added successfully, false otherwise.
+     * @throws TaskException If there is an issue adding the task.
+     */
     public boolean addTask(String input, Parser.CommandType commandType, Ui ui) throws TaskException {
         Task task;
         switch (commandType) {
@@ -36,6 +58,15 @@ public class TaskList {
         return true;
     }
 
+    /**
+     * Marks or unmarks a task in the task list based on the given command type and input.
+     *
+     * @param input       The user input command.
+     * @param commandType The command type to determine whether to mark or unmark the task.
+     * @param ui          The user interface for printing messages.
+     * @return True if the task was marked or unmarked successfully, false otherwise.
+     * @throws TaskException If there is an issue marking or unmarking the task.
+     */
     public boolean markOrUnmarkTask(String input, Parser.CommandType commandType, Ui ui) throws TaskException {
         int taskNumber = parseTaskNumber(input);
         Task task = tasks.get(taskNumber - 1);
@@ -50,6 +81,14 @@ public class TaskList {
         return true;
     }
 
+    /**
+     * Deletes a task from the task list based on the given input.
+     *
+     * @param input The user input command.
+     * @param ui    The user interface for printing messages.
+     * @return True if the task was deleted successfully, false otherwise.
+     * @throws TaskException If there is an issue deleting the task.
+     */
     public boolean deleteTask(String input, Ui ui) throws TaskException {
         int taskNumber = parseTaskNumber(input);
         Task removedTask = tasks.remove(taskNumber - 1);

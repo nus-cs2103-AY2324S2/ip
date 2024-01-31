@@ -4,12 +4,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The main class for the Huyang CLI chatbot that allows user
+ * input to keep track of tasks.
+ */
 public class Huyang {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructor for the Huyang class.
+     * Initializes the user interface, parser, and storage, and loads tasks from a file.
+     */
     public Huyang() {
         this.ui = new Ui();
         this.parser = new Parser();
@@ -21,7 +29,11 @@ public class Huyang {
             this.tasks = new TaskList(new ArrayList<>());
         }
     }
-
+    /**
+     * Starts the Huyang chatbot.
+     * Displays a greeting, processes user commands, and saves tasks to a file.
+     * Supports other features such as list, mark, unmark and delete.
+     */
     public void run() {
         ui.greet();
         Scanner scanner = new Scanner(System.in);
@@ -74,6 +86,11 @@ public class Huyang {
         ui.farewell();
     }
 
+    /**
+     * Main method to start the Huyang chatbot.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Huyang().run();
     }
