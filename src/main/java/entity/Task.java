@@ -13,7 +13,7 @@ public abstract class Task {
         return this.title;
     }
 
-    public boolean getMarked() {
+    public boolean isMarked() {
         return this.marked;
     }
 
