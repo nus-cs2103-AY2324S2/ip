@@ -134,6 +134,27 @@ public final class TaskList {
     }
 
     /**
+     * Finds matching {@link Task}(s) that matches the pattern.
+     *
+     * @param pattern the pattern to match with
+     * @return the indexes in the task list that matches the pattern
+     */
+    public int[] findMatchingTasks(String pattern) {
+        List<Integer> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).isContainingPattern(pattern)) {
+                matchingTasks.add(i);
+            }
+        }
+
+        int[] intArr = new int[matchingTasks.size()];
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            intArr[i] = matchingTasks.get(i);
+        }
+        return intArr;
+    }
+
+    /**
      * Gets a message regarding the size of this.
      *
      * @return a message containing information about the size of this
@@ -161,6 +182,24 @@ public final class TaskList {
         StringBuilder message = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             message.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
+        }
+        return message.toString();
+    }
+
+    /**
+     * Gets a human-readable description of this task list,
+     * filtered by indexes.
+     *
+     * @param sortedIndexes a sorted array of indexes (0-indexed)
+     * @return this task list as a human-readable string
+     */
+    public String toString(int[] sortedIndexes) {
+        StringBuilder message = new StringBuilder();
+        for (int i = 0, j = 0; i < tasks.size() && j < sortedIndexes.length; i++) {
+            if (sortedIndexes[j] == i) {
+                message.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
+                j++;
+            }
         }
         return message.toString();
     }

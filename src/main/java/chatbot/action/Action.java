@@ -61,6 +61,8 @@ public abstract class Action {
             return new AddEventAction(parsedArguments);
         } else if (command.equals(DeleteAction.getName())) {
             return new DeleteAction(parsedArguments);
+        } else if (command.equals(FindAction.getName())) {
+            return new FindAction(parsedArguments);
         } else {
             throw new UnrecognizedCommandException(command);
         }

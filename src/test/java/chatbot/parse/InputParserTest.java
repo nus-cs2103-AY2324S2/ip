@@ -6,6 +6,7 @@ import chatbot.action.AddEventAction;
 import chatbot.action.AddTodoAction;
 import chatbot.action.ByeAction;
 import chatbot.action.DeleteAction;
+import chatbot.action.FindAction;
 import chatbot.action.ListAction;
 import chatbot.action.MarkAction;
 import chatbot.action.UnmarkAction;
@@ -84,6 +85,13 @@ public class InputParserTest {
         try {
             Action action = InputParser.getParsedInput("delete 1");
             assertTrue(action instanceof DeleteAction);
+        } catch (ActionException e) {
+            fail();
+        }
+
+        try {
+            Action action = InputParser.getParsedInput("find something");
+            assertTrue(action instanceof FindAction);
         } catch (ActionException e) {
             fail();
         }
