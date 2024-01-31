@@ -14,6 +14,7 @@ import capone.commands.Command;
 import capone.commands.DeadlineCommand;
 import capone.commands.DeleteCommand;
 import capone.commands.EventCommand;
+import capone.commands.FindCommand;
 import capone.commands.HelpCommand;
 import capone.commands.InvalidCommand;
 import capone.commands.ListCommand;
