@@ -13,6 +13,7 @@ public class Duke {
     private DataStorage dataStorage;
 
     public Duke() {
+        // Grade
 
     }
 
