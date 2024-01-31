@@ -1,14 +1,15 @@
 package duke.ui;
 
+import duke.task.Task;
 import duke.task.TaskList;
 
 import java.util.Scanner;
 
-public class Ui {
+public class TextUi {
     private static final String LINE = "____________________________________________________________";
     private final Scanner scanner;
 
-    public Ui() {
+    public TextUi() {
         this.scanner = new Scanner(System.in);
     }
 
