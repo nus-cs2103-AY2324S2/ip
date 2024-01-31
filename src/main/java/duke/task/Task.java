@@ -143,5 +143,9 @@ public class Task {
         return "";
     }
 
+        public boolean check(String str) {
+            return task.contains(str);
+        }
+
 
 }

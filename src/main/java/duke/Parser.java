@@ -19,13 +19,14 @@ private TaskList tasklist;
 
     /**
      * Parses user's String input to commands that TaskList executes
-     * (i.e. mark, unmark, delete, todo, deadline, event)
+     * (i.e. mark, unmark, delete, find, todo, deadline, event)
      *
      * @param command String input from user
      * @throws StringIndexOutOfBoundsException When user does not specify the task to do after a command (e.g. todo)
      * @throws NumberFormatException When user does not leave a space between command and number (e.g. mark1)
      * @throws ArrayIndexOutOfBoundsException When user does not specify dates of deadline/event
      */
+
     public void parsing(String command) {
         if (command.equals("list")) {
             tasklist.list();
@@ -59,6 +60,13 @@ private TaskList tasklist;
                 System.out.println("Enter task to delete: e.g. delete 1");
             } catch (NumberFormatException e) {
                 System.out.println("Enter task to delete: e.g. delete 1");
+            }
+        } else if(command.startsWith("find")) {
+            try {
+                String str = command.substring(5);
+                tasklist.find(str);
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("What are you finding babe?");
             }
         } else {
             try {
