@@ -6,12 +6,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 /**
- * Duke Class
+ * Duke Class.
  * This is the main class for the chatbot.
  */
 public class Duke {
@@ -22,7 +26,7 @@ public class Duke {
      * @return String array containing instruction and descriptions.
      * @throws DukeException
      */
-    public static String[] validateInput(String input) throws DukeException {
+    public static String[] validateInput(String input, DateTimeFormatter inTimeFormat) throws DukeException {
         if (input.isEmpty()) {
             throw new DukeException("Helloooo!! please type something and follow the format below!!\n" +
                     "todo 'task description'\n" +
@@ -54,9 +58,33 @@ public class Duke {
             throw new DukeException("Sorry! You need to include a number to unmark your task!");
         } else if (subStr[0].equalsIgnoreCase(Instruction.DELETE.toString()) && subStr.length < 2) {
             throw new DukeException("Sorry! You need to include a number to delete your task!");
-        } else {
-            return subStr;
         }
+
+        if (subStr[0].equalsIgnoreCase(Instruction.DEADLINE.toString())) {
+            String[] ss = subStr[1].split("/by");
+            try {
+                LocalDateTime.parse(ss[1].trim(), inTimeFormat);
+            } catch (DateTimeParseException e) {
+                throw new DateTimeParseException("Your date/time format is wrong.\n" +
+                        "Please use yyyy-MM-dd HHmm format (e.g. 2024-01-01 1500).", ss[1].trim(), 0);
+            }
+        } else if (subStr[0].equalsIgnoreCase(Instruction.EVENT.toString())) {
+            String[] ss = subStr[1].split("/from");
+            String[] ss2 = ss[1].split("/to");
+            try {
+                LocalDateTime.parse(ss2[0].trim(), inTimeFormat);
+                LocalDateTime.parse(ss2[1].trim(), inTimeFormat);
+            } catch (DateTimeParseException e) {
+                if (e.getParsedString().equals(ss2[0].trim())) {
+                    throw new DateTimeParseException("Your date/time format is wrong.\n" +
+                            "Please use yyyy-MM-dd HHmm format (e.g. 2024-01-01 1500).", ss2[0].trim(), 0);
+                } else if (e.getParsedString().equals(ss2[1].trim())) {
+                    throw new DateTimeParseException("Your date/time format is wrong.\n" +
+                            "Please use yyyy-MM-dd HHmm format (e.g. 2024-01-01 1500).", ss2[1].trim(), 0);
+                }
+            }
+        }
+        return subStr;
     }
 
     /**
@@ -129,11 +157,13 @@ public class Duke {
         String fileName = "./data/history.txt";
         List<Task> lst = getInputFromFile(fileName);
         Scanner sc = new Scanner(System.in);
+        DateTimeFormatter inTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        DateTimeFormatter outTimeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hhmma");
 
         while (true) {
             String str = sc.nextLine();
             try {
-                String[] subStr = validateInput(str);
+                String[] subStr = validateInput(str, inTimeFormat);
                 String instr = subStr[0];
 
                 if (instr.equalsIgnoreCase(Instruction.BYE.toString())) {
@@ -172,7 +202,10 @@ public class Duke {
 
                 } else if (instr.equalsIgnoreCase(Instruction.DEADLINE.toString())) {
                     String[] ss = subStr[1].split("/by");
-                    Deadline deadline = new Deadline(ss[0], ss[1]);
+                    LocalDateTime inputTime = LocalDateTime.parse(ss[1].trim(), inTimeFormat);
+                    String formattedTime = inputTime.format(outTimeFormat);
+
+                    Deadline deadline = new Deadline(ss[0], formattedTime);
                     lst.add(deadline);
                     System.out.println("Got it. I've added this task:\n" + deadline);
                     System.out.println("Now you have " + lst.size() + " tasks in the list.");
@@ -180,7 +213,12 @@ public class Duke {
                 } else if (instr.equalsIgnoreCase(Instruction.EVENT.toString())) {
                     String[] ss = subStr[1].split("/from");
                     String[] ss2 = ss[1].split("/to");
-                    Event event = new Event(ss[0], ss2[0], ss2[1]);
+                    LocalDateTime inputFromTime = LocalDateTime.parse(ss2[0].trim(), inTimeFormat);
+                    String formattedFromTime = inputFromTime.format(outTimeFormat);
+                    LocalDateTime inputToTime = LocalDateTime.parse(ss2[1].trim(), inTimeFormat);
+                    String formattedToTime = inputToTime.format(outTimeFormat);
+
+                    Event event = new Event(ss[0], formattedFromTime, formattedToTime);
                     lst.add(event);
                     System.out.println("Got it. I've added this task:\n" + event);
                     System.out.println("Now you have " + lst.size() + " tasks in the list.");
@@ -192,7 +230,7 @@ public class Duke {
                     System.out.println("Now you have " + lst.size() + " tasks in the list.");
                 }
                 writeDataToFile(lst, fileName);
-            } catch (DukeException | IOException e) {
+            } catch (DukeException | IOException | DateTimeParseException e) {
                 System.out.println(e.getMessage());
             }
         }
