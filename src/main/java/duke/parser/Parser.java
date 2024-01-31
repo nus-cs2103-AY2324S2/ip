@@ -4,7 +4,18 @@ import duke.command.*;
 import duke.utils.DukeException;
 import duke.utils.Util;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
+
+    /**
+     * Parses user input into command for execution.
+     *
+     * @param input full user input string
+     * @return the command based on the user input
+     * @throws DukeException if the user input does not conform the expected format
+     */
     public static Command parse(String input) throws DukeException {
         String[] split = input.split(" ", 2);
         String method = split[0];
