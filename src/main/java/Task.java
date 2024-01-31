@@ -1,4 +1,8 @@
-public class Task {
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+public abstract class Task {
     private boolean isDone;
     private String name;
 
@@ -20,4 +24,6 @@ public class Task {
         String checkBox = isDone ? "[X]" : "[ ]";
         return String.format("%s %s", checkBox, name);
     }
+
+    public abstract void writeToData() throws IOException;
 }

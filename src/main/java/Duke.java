@@ -2,9 +2,14 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
     private static List<String> validCommands = new ArrayList<>(List.of("todo", "deadline", "event"));
+
     public static void echoText(String text) {
         System.out.println("    ____________________________________________________________");
         System.out.printf("      %s\n", text);
@@ -87,6 +92,7 @@ public class Duke {
             }
         }
     }
+
     private static void createTask(String[] split, ArrayList<Task> list) throws InvalidCommandException {
         Task newTask;
         if (!validCommands.contains(split[0].toLowerCase())) {
@@ -123,11 +129,56 @@ public class Duke {
             String to = toSplit[1].trim();
             newTask = new Event(eventName, from, to);
         }
+        try {
+            newTask.writeToData();
+        } catch (IOException e) {
+            System.out.println("Error writing file to storage: " + e.getMessage());
+        }
         addList(newTask, list);
     }
+
+    private static void loadTasks(ArrayList<Task> list) {
+        File file = new File("./data/storage.txt");
+        Scanner scanner = null;
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                scanner = new Scanner(file);
+            } catch (IOException e) {
+                System.out.println("Error trying to create new data storage: " + e.getMessage());
+            }
+        }
+        while (scanner.hasNext()) {
+            String currentTask = scanner.nextLine();
+            String[] taskDetails = currentTask.split("|");
+            Task newTask = null;
+            switch (taskDetails[0]) {
+            case "T":
+                newTask = new ToDo(taskDetails[2]);
+                break;
+            case "D":
+                newTask = new Deadline(taskDetails[2], taskDetails[3]);
+                break;
+            case "E":
+                newTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
+                break;
+            }
+            if (newTask != null) {
+                if (taskDetails[1].equals("1")) {
+                    newTask.markDone();
+                } else {
+                    newTask.markNotDone();
+                }
+                list.add(newTask);
+            }
+        }
+    }
+
     public static void main(String[] args) {
         String name = "Yippee";
         ArrayList<Task> list = new ArrayList<>();
+
+        loadTasks(list);
 
         //greeting
         System.out.println("    ____________________________________________________________");
@@ -139,8 +190,8 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         String command = sc.nextLine();
 
-        //echo until user inputs bye
-        while(!command.toLowerCase().equals("bye")) {
+        //keep checking for commands until user says bye
+        while (!command.toLowerCase().equals("bye")) {
             // split command by spaces
             String[] split = command.split("\\s+", 2);
             if (split[0].toLowerCase().equals("list")) {
@@ -148,7 +199,7 @@ public class Duke {
             } else if (split[0].toLowerCase().equals("mark")) {
                 try {
                     markTask(split, list);
-                } catch(InvalidCommandException e) {
+                } catch (InvalidCommandException e) {
                     System.out.println("    ____________________________________________________________");
                     System.out.printf("      %s\n", e.getMessage());
                     System.out.println("    ____________________________________________________________");
@@ -172,7 +223,7 @@ public class Duke {
             } else {
                 try {
                     createTask(split, list);
-                } catch(InvalidCommandException e) {
+                } catch (InvalidCommandException e) {
                     System.out.println("    ____________________________________________________________");
                     System.out.printf("      %s\n", e.getMessage());
                     System.out.println("    ____________________________________________________________");
@@ -180,12 +231,9 @@ public class Duke {
             }
             command = sc.nextLine();
         }
-
         //exit
         System.out.println("    ____________________________________________________________");
         System.out.println("      Bye! Hope to see you again soon wooo!");
         System.out.println("    ____________________________________________________________");
     }
-
-
 }
