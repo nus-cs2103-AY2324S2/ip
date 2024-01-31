@@ -1,5 +1,8 @@
 import Exceptions.*;
-import Tasks.*;
+import Tasks.Task;
+import Tasks.ToDo;
+import Tasks.Event;
+import Tasks.Deadline;
 
 
 import java.util.ArrayList;
@@ -96,9 +99,12 @@ public class Lelu {
         Lelu.greet();
         Lelu.tasks = new ArrayList<>();
         Lelu.index = 0;
+        Storage store = new Storage("./data/lelu.txt");
         while (true) {
             try {
+                store.load(Lelu.tasks);
                 Lelu.listen();
+                store.save(Lelu.tasks);
                 break;
             } catch (LeluException e) {
                 System.out.println(e.getMessage());

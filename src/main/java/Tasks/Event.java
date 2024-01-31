@@ -28,6 +28,11 @@ public class Event extends Task {
         return new Event(t[0], frTo[0], frTo[1]);
     }
     @Override
+    public String saveFormat() {
+        int check = this.completed ? 1 : 0;
+        return String.format("E | %d | %s | %s | %s\n", check, this.taskName, this.from, this.to);
+    }
+    @Override
     public String toString () {
         return String.format("[E]%s (From: %s To: %s)", super.toString(), this.from, this.to);
     }
