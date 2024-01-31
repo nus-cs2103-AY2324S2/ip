@@ -1,9 +1,12 @@
 package command;
+
+import exceptions.DukeException;
+
+import task.TaskList;
+import task.Task;
+
 import utilities.Ui;
 import utilities.Storage;
-import task.TaskList;
-import exceptions.DukeException;
-import task.Task;
 
 public class DeleteCommand extends Command {
     /**

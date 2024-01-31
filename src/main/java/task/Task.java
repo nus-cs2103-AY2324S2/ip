@@ -43,7 +43,8 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + (this.isDone ? "X" : " ") + "] " + this.description;
+        return "[" + (this.isDone ? "X" : " ") + "] "
+                + this.description;
     }
 
     /**
@@ -51,6 +52,7 @@ public class Task {
      * @return A string representing the task to be saved.
      */
     public String toFileString() {
-        return "|" + (this.isDone ? "1" : "0") + "|" + this.description;
+        return "|" + (this.isDone ? "1" : "0") + "|"
+                + this.description;
     }
 }

@@ -1,9 +1,9 @@
 package utilities;
 
+import java.util.ArrayList;
+
 import task.TaskList;
 import task.Task;
-
-import java.util.ArrayList;
 
 public class Storage {
     /**
