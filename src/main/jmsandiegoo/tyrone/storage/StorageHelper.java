@@ -34,5 +34,4 @@ public class StorageHelper {
         fw.write(content);
         fw.close();
     }
-
 }

@@ -27,7 +27,7 @@ test {
     }
 }
 
-sourceSets.main.java.srcDirs = ['src']
+sourceSets.main.java.srcDirs = ['src/main']
 
 application {
     mainClass.set("jmsandiegoo.tyrone.Tyrone")
