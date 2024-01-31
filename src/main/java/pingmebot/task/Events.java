@@ -21,6 +21,18 @@ public class Events extends Task {
         text += "event | " + isCompleted + " | " + this.description + " | " + this.start + " | " + this.end;
         return text;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Events otherEvent = (Events) obj;
+        return this.description.equals(otherEvent.description) && this.start.equals(otherEvent.start) && this.end.equals(otherEvent.end);
+    }
 }
 
 

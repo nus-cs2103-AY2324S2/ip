@@ -17,4 +17,18 @@ public class ToDos extends Task {
         text += "todo | " + isCompleted + " | " + this.description;
         return text;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        ToDos otherToDo = (ToDos) obj;
+        return this.description.equals(otherToDo.description);
+    }
+
+
 }

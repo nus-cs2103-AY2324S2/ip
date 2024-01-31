@@ -22,19 +22,11 @@ public class fileStorage {
         this.filePath = filePath;
         if (!myFile.exists()) {
             try {
-                if (this.myFile.getParentFile().mkdirs()) {
-                    System.out.println("Directory has been successfully created");
-                } else {
-                    System.out.println("Error creating directory...");
-                }
-
                 if (this.myFile.createNewFile()) {
                     System.out.println("File has been successfully created");
                 } else {
                     System.out.println("Error creating file...");
                 }
-
-
             } catch (IOException e) {
                 throw new myBotException(e.getMessage());
             }
