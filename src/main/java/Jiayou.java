@@ -3,6 +3,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.nio.file.*;
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Jiayou {
     private static final String LINE = "____________________________________________________________";
@@ -10,7 +13,7 @@ public class Jiayou {
     private ArrayList<Task> taskList = new ArrayList<Task>();
 
     private static enum CommandType {
-        TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, BYE
+        TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, SEARCH, BYE
     }
 
     public Jiayou() {
@@ -64,9 +67,13 @@ public class Jiayou {
                 newTask = new ToDo(content);
                 break;
             case "E":
-                String event = content.split(" \\| ", 2)[0];
-                String[] eventParts = content.split(" \\| ", 2)[1].split(" from | to ");
-                newTask = new Event(event, eventParts[0], eventParts[1]);
+                String[] eventParts = content.split(" \\| ", 2);
+                String description = eventParts[0];
+                String datePart = eventParts[1];
+                String[] dates = datePart.split(" to ");
+                String startDate = dates[0].substring(dates[0].indexOf("from") + 5).trim();
+                String endDate = dates[1].trim();
+                newTask = new Event(description, startDate, endDate);
                 break;
             case "D":
                 String[] deadlineParts = content.split(" \\| by");
@@ -137,6 +144,9 @@ public class Jiayou {
                 System.out.println("  " + newEvent);
                 System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                 break;
+            case SEARCH:
+                LocalDate date = LocalDate.parse(content);
+                searchByDate(date);
             }
             saveTasksToFile();
         } catch (IllegalArgumentException e) {
@@ -180,6 +190,23 @@ public class Jiayou {
         task.setStatus(false);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + task);
+    }
+
+    private void searchByDate(LocalDate date) {
+        System.out.println("Here are the tasks on " + date + " in your list:");
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task task = this.taskList.get(i);
+            if (task instanceof Event) {
+                if (date.equals(((Event) task).getFrom()) | date.equals((((Event) task).getTo())) | (date.isAfter((((Event) task).getFrom())) & date.isBefore(((Event) task).getTo()))) {
+                    System.out.println((i + 1) + "." + task.toString());
+                }
+            } else if (task instanceof Deadline) {
+                if (date.equals(((Deadline) task).getByTime())) {
+                    System.out.println((i + 1) + "." + task.toString());
+                }
+            }
+
+        }
     }
 
     public static void main(String[] args) {
