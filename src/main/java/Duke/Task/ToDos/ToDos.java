@@ -2,7 +2,16 @@ package Duke.Task.ToDos;
 
 import Duke.Task.Task;
 
+/**
+ * This class contains the functions for todos tasks.
+ * @author Tang Hao Liang
+ */
 public class ToDos extends Task {
+    /**
+     * Constructor that updates description for the task.
+     *
+     * @param description Todos' description.
+     */
     public ToDos(String description) {
         super(description);
     }

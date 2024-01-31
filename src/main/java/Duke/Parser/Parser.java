@@ -1,23 +1,36 @@
 package Duke.Parser;
 
 import Duke.DukeException.DukeException;
-import Duke.TaskList.TaskList;
-import Duke.Ui.Ui;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * This class reads in the input text and split it to the different groups.
+ * @author Tang Hao Liang
+ */
 public class Parser {
 
-    private boolean finished;
+    private boolean isFinished;
 
+    /**
+     * Constructor that sets the isFinished to false.
+     */
     public Parser() {
-        finished = false;
+        isFinished = false;
     }
 
-    public String[] parse(String in) throws DukeException {
-        String[] split = in.split(" ", 2);
+    /**
+     * Returns Array of string split into command and description.
+     * If the input is bye or list, return spilt.
+     *
+     * @param input User's input.
+     * @return Array of string split into command and description.
+     * @throws DukeException If command lacks description.
+     */
+
+    public String[] parse(String input) throws DukeException {
+        String[] split = input.split(" ", 2);
         if(split[0].equalsIgnoreCase("bye") || split[0].equalsIgnoreCase("list")) {
             return split;
         } else if(split.length == 1) {
@@ -27,14 +40,30 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns status of program.
+     *
+     * @return Program Status.
+     */
     public boolean isFinished() {
-        return finished;
+        return isFinished;
     }
 
+    /**
+     * Sets status to finished.
+     */
     public void bye() {
-        finished = true;
+        isFinished = true;
     }
 
+    /**
+     * Converts string to integer.
+     * Minuses 1 for array input.
+     *
+     * @param num User's input.
+     * @return Array get value.
+     * @throws DukeException If num is not a number.
+     */
     public int stringToNum(String num) throws DukeException {
         try {
             return Integer.parseInt(num) - 1;
@@ -43,19 +72,33 @@ public class Parser {
         }
     }
 
-    public String toDo(String out) throws DukeException {
-        if (out.length() <= 1) {
+    /**
+     * Returns task's description
+     *
+     * @param input User's input.
+     * @return Task's description.
+     * @throws DukeException If user's input is too short.
+     */
+    public String toDo(String input) throws DukeException {
+        if (input.length() <= 1) {
             throw new DukeException("Please enter something that you want to do. \n");
         } else {
-            return out;
+            return input;
         }
     }
 
-    public String[] deadline(String out) throws DukeException {
-        if (out.length() <= 1) {
+    /**
+     * Returns string array of description and deadline.
+     *
+     * @param input User's input.
+     * @return Task's description and deadline.
+     * @throws DukeException If description is too short and no deadline inputted.
+     */
+    public String[] deadline(String input) throws DukeException {
+        if (input.length() <= 1) {
             throw new DukeException("Please enter something that you want to do. \n");
         } else {
-            String[] split = out.split(" /by ");
+            String[] split = input.split(" /by ");
             if (split[0].length() <= 1) {
                 throw new DukeException("Please enter something that you want to do. \n");
             } else if (split.length != 2 || split[1].length() <= 1) {
@@ -66,11 +109,18 @@ public class Parser {
         }
     }
 
-    public String[] event(String out) throws DukeException {
-        if (out.length() <= 1) {
+    /**
+     * Returns string array of description and duration.
+     *
+     * @param input User's input.
+     * @return Task's description and duration.
+     * @throws DukeException If description is too short and no duration inputted.
+     */
+    public String[] event(String input) throws DukeException {
+        if (input.length() <= 1) {
             throw new DukeException("Please enter something that you want to do. \n");
         } else {
-            String[] split1 = out.split(" /from ");
+            String[] split1 = input.split(" /from ");
             if (split1[0].length() <= 1) {
                 throw new DukeException("Please enter something that you want to do. \n");
             } else if (split1.length != 2) {
@@ -86,6 +136,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts string to LocalDate.
+     *
+     * @param date Date in String.
+     * @return Date in LocalDate.
+     * @throws DukeException If date is not in correct format.
+     */
     public LocalDate stringToDate(String date) throws DukeException {
         try {
             return LocalDate.parse(date.strip());

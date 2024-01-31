@@ -2,10 +2,21 @@ package Duke.Task.Events;
 
 import Duke.Task.Task;
 
+/**
+ * This class contains the functions for event tasks.
+ * @author Tang Hao Liang
+ */
 public class Events extends Task {
     protected String from;
     protected String to;
 
+    /**
+     * Constructor that updates description and duration for the task.
+     *
+     * @param description Event's description.
+     * @param from Event's Start
+     * @param to Event's End
+     */
     public Events(String description, String from, String to) {
         super(description);
         this.from = from;

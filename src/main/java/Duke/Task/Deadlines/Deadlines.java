@@ -4,10 +4,19 @@ import Duke.Task.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-
+/**
+ * This class contains the functions for deadline tasks.
+ * @author Tang Hao Liang
+ */
 public class Deadlines extends Task {
     protected LocalDate by;
 
+    /**
+     * Constructor that updates description and date for the task.
+     *
+     * @param description Deadline's description
+     * @param by Task's deadline.
+     */
     public Deadlines(String description, LocalDate by) {
         super(description);
         this.by = by;

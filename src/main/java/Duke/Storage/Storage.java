@@ -12,14 +12,29 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class saves and loads the text file for the added task.
+ * @author Tang Hao Liang
+ */
 public class Storage {
 
     private static File file;
 
+    /**
+     * Constructor to create a new File class with the path to file.
+     *
+     * @param filePath Path to file
+     */
     public Storage(String filePath) {
         file = new File(filePath);
     }
 
+    /**
+     * Returns ArrayList of tasks from file.
+     *
+     * @return ArrayList of tasks.
+     * @throws IOException If file is corrupted.
+     */
     public ArrayList<Task> load() throws IOException {
         if (!file.exists()) {
             file.getParentFile().mkdir();
@@ -53,6 +68,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Saves current tasks list to file.
+     *
+     * @param taskList Current task list
+     * @throws DukeException If file is corrupted.
+     */
     public void arrayToFile(ArrayList<Task> taskList) throws DukeException {
         try {
             FileWriter fw = new FileWriter(file);
