@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
+    private static String name = "Alfred";
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
 //                + "|  _ \\ _   _| | _____ \n"
@@ -11,7 +12,7 @@ public class Duke {
         greet();
         command();
     }
-    static String name = "Alfred";
+
     static ArrayList<Task> listItems = new ArrayList<>();
     public static class Task {
         protected String description;
