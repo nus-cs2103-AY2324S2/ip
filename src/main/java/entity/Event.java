@@ -3,6 +3,10 @@ package entity;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Event class which extends the Task class and includes a start day and end day
+ * represented by LocalDateTime objects.
+ */
 public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -12,6 +16,11 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    /**
+     * Helper function to generate a string representation of the Event object for saving purposes.
+     *
+     * @return A string representation of the Event object for saving to a file.
+     */
     @Override
     public String save() {
         if (this.marked) {

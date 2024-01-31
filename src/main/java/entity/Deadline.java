@@ -14,7 +14,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Generates a string representation of the Deadline object for saving purposes.
+     * Helper function to generate a string representation of the Deadline object for saving purposes.
      *
      * @return A string representation of the Deadline object for saving to a file.
      */
