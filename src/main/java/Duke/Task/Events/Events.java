@@ -19,7 +19,7 @@ public class Events extends Task {
 
     @Override
     public String toFile() {
-        if(isDone){
+        if (isDone) {
             return "E|1|" + description + "|" + from + "|" + to;
         } else {
             return "E|0|" + description + "|" + from + "|" + to;

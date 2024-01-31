@@ -43,11 +43,11 @@ public class Ui {
         System.out.println(lnBreak + str + lnBreak);
     }
 
-    public static void printList(TaskList taskList) {
+    public static void printList(ArrayList<Task> taskList) {
         //Function to produce the string for the list to be printed
         String out = "Here are the tasks in your list:\n";
-        for(int i = 1; i < taskList.getSize() + 1; i++) {
-            out += i + "." + taskList.getTask(i - 1) + "\n";
+        for (int i = 1; i < taskList.size() + 1; i++) {
+            out += i + "." + taskList.get(i - 1) + "\n";
         }
         printString(out);
     }
