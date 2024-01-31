@@ -7,5 +7,10 @@ public class ToDo extends Task {
     public String getTypeIcon() {
         return "T";
     }
+
+    @Override
+    public String toFileFormat() {
+        return "T | " + (isDone? 1 : 0) + " | " + description;
+    }
 }
 

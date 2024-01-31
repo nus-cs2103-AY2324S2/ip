@@ -1,13 +1,20 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+
 
 public class Jerry {
     public static void main(String[] args) {
+        File directory = new File("./data");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
         Scanner scanner = new Scanner(System.in);
         String message = "Hello! I'm Jerry.\n" + "Anything I can do for you?";
         System.out.println(message);
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = HardDiskOperations.loadTasks("./data/jerry.txt");
 
         while (true) {
             String input = scanner.nextLine().trim();
@@ -32,6 +39,7 @@ public class Jerry {
                     taskIndex = Integer.parseInt(parts[1]) - 1;
                     if (taskIndex >= 0 && taskIndex < tasks.size()) {
                         tasks.get(taskIndex).markDone();
+                        HardDiskOperations.saveTasks(tasks, "./data/jerry.txt");
                         System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(taskIndex));
                     }
                     break;
@@ -40,6 +48,7 @@ public class Jerry {
                     taskIndex = Integer.parseInt(parts[1]) - 1;
                     if (taskIndex >= 0 && taskIndex < tasks.size()) {
                         tasks.get(taskIndex).markNotDone();
+                        HardDiskOperations.saveTasks(tasks, "./data/jerry.txt");
                         System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(taskIndex));
                     }
                     break;
@@ -52,6 +61,7 @@ public class Jerry {
                             taskIndex = Integer.parseInt(parts[1]) - 1;
                             if (taskIndex >= 0 && taskIndex < tasks.size()) {
                                 Task removedTask = tasks.remove(taskIndex);
+                                HardDiskOperations.saveTasks(tasks, "./data/jerry.txt");
                                 System.out.println("I've removed this task:\n  " + removedTask);
                                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                             } else {
@@ -69,6 +79,7 @@ public class Jerry {
                     } else {
                         ToDo todo = new ToDo(parts[1]);
                         tasks.add(todo);
+                        HardDiskOperations.saveTasks(tasks, "./data/jerry.txt");
                         System.out.println("Got it. I've added this task:\n  " + todo);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
@@ -82,6 +93,7 @@ public class Jerry {
                         String[] deadlineParts = parts[1].split(" /by ", 2);
                         Deadline deadline = new Deadline(deadlineParts[0], deadlineParts[1]);
                         tasks.add(deadline);
+                        HardDiskOperations.saveTasks(tasks, "./data/jerry.txt");
                         System.out.println("Got it. I've added this task:\n  " + deadline);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     }
@@ -95,6 +107,7 @@ public class Jerry {
                         String[] fromTo = eventParts[1].split(" /to ", 2);
                         Event event = new Event(eventParts[0], fromTo[0], fromTo[1]);
                         tasks.add(event);
+                        HardDiskOperations.saveTasks(tasks, "./data/jerry.txt");
                         System.out.println("Got it. I've added this task:\n  " + event);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     }
@@ -107,4 +120,7 @@ public class Jerry {
         }
     }
 }
+
+
+
 

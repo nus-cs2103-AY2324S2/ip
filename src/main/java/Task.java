@@ -21,5 +21,7 @@ public abstract class Task {
     public String toString() {
         return "[" + getTypeIcon() + "]" + (isDone ? "[X] " : "[ ] ") + description;
     }
+
+    public abstract String toFileFormat();
 }
 
