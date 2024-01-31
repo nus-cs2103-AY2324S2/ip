@@ -10,6 +10,9 @@ import duke.tasks.Events;
 import duke.tasks.Task;
 import duke.tasks.ToDos;
 
+/**
+ * This class represents the user-interface, that reads and write i/o to the user.
+ */
 public class UI {
 
     private Storage manager;
@@ -29,6 +32,12 @@ public class UI {
         FIND,
     }
 
+    /**
+     * This is a constructor for our user-interface.
+     * @param manager Manages storage and logging for our to-do list.
+     * @param parser Parses and handles user input.
+     * @param history The task list representing the history of what we have added.
+     */
     public UI(Storage manager, Parser parser, TaskList history) {
         this.history = history;
         this.manager = manager;

@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * This class represents a running instance of Duke, the task list!
+ */
 public class Duke {
 
     /**
