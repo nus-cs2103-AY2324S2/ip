@@ -39,4 +39,8 @@ public abstract class Task {
     public String serialize() {
         return (isDone ? "1" : "0") + " | " + escapedDescription;
     }
+
+    public boolean contains(String keyword) {
+        return description.contains(keyword);
+    }
 }
