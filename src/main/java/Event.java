@@ -16,7 +16,7 @@ public class Event extends Task {
     @Override
     public String parseToLogRepresentation() {
         int completionStatus = this.isDone ? 1 : 0;
-        return "E|" + completionStatus + "|" + this.description + "|" + this.start.format(outputFormatter) + "|" + this.end.format(formatter);
+        return "E|" + completionStatus + "|" + this.description + "|" + this.start.format(formatter) + "|" + this.end.format(formatter);
     }
     @Override
     public String toString() {
