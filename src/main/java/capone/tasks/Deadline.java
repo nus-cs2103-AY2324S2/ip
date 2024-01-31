@@ -1,19 +1,18 @@
-import java.text.SimpleDateFormat;
+package capone.tasks;
+
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Deadline extends Task {
     private String deadlineString;
     private LocalDateTime deadline;
 
-    Deadline(String description, boolean status, String deadline) {
+    public Deadline(String description, boolean status, String deadline) {
         super(TaskType.DEADLINE, description, status);
         this.deadlineString = deadline;
     }
 
-    Deadline(String description, boolean status, LocalDateTime deadline) {
+    public Deadline(String description, boolean status, LocalDateTime deadline) {
         super(TaskType.DEADLINE, description, status);
         this.deadline = deadline;
     }

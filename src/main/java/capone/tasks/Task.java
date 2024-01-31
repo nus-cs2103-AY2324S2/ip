@@ -1,3 +1,5 @@
+package capone.tasks;
+
 public abstract class Task {
     protected enum TaskType {
         TODO("todo"), DEADLINE("deadline"), EVENT("event");

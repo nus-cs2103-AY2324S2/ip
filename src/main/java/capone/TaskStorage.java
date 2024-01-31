@@ -1,3 +1,10 @@
+package capone;
+
+import capone.exceptions.TaskListCorruptedException;
+import capone.tasks.Deadline;
+import capone.tasks.Event;
+import capone.tasks.Task;
+import capone.tasks.ToDo;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,22 +14,38 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
 
 public class TaskStorage {
-    private static final String JSON_FILENAME = "tasks.json";
-    private static final String JSON_FILEPATH = "./data/";
+    private final String JSON_FILENAME;
+    private final String JSON_FILEPATH;
 
-    public static void writeTasksToJsonFile(List<Task> tasks) {
+    public TaskStorage(String path, String name) {
+        this.JSON_FILEPATH = path;
+        this.JSON_FILENAME = name;
+    }
+
+    private String getFullPath() {
+        return this.JSON_FILEPATH + this.JSON_FILENAME;
+    }
+
+    private String getFileName() {
+        return this.JSON_FILENAME;
+    }
+
+    private String getFilePath() {
+        return this.JSON_FILEPATH;
+    }
+
+    public void writeTasksToJsonFile(TaskList taskList) {
         JSONArray jsonArray = new JSONArray();
 
-        for (Task task : tasks) {
+        for (Task task : taskList) {
             JSONObject jsonTask = new JSONObject();
             jsonTask.put("taskType", task.getTaskType());
             jsonTask.put("description", task.getDescription());
             jsonTask.put("status", task.getStatus());
 
-            // Add type-specific information for Deadline and Event tasks
+            // Add type-specific information for capone.tasks.Deadline and capone.tasks.Event tasks
             if (task instanceof Deadline) {
                 jsonTask.put("deadline", ((Deadline) task).getDeadline());
             } else if (task instanceof Event) {
@@ -33,18 +56,18 @@ public class TaskStorage {
             jsonArray.put(jsonTask);
         }
 
-        try (FileWriter fileWriter = new FileWriter(JSON_FILEPATH + JSON_FILENAME)) {
+        try (FileWriter fileWriter = new FileWriter(this.getFullPath())) {
             jsonArray.write(fileWriter);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void readTasksFromJsonFile(List<Task> tasks) throws TaskListCorruptedException {
+    public void readTasksFromJsonFile(TaskList taskList) throws TaskListCorruptedException {
         try {
-            TaskStorage.initFileIfNotExist();
+            this.initFileIfNotExist();
 
-            String jsonContent = new String(Files.readAllBytes(Paths.get(JSON_FILEPATH + JSON_FILENAME)));
+            String jsonContent = new String(Files.readAllBytes(Paths.get(this.getFullPath())));
             JSONArray jsonArray = new JSONArray(jsonContent);
 
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -56,16 +79,16 @@ public class TaskStorage {
 
                 switch (type) {
                     case "todo":
-                        tasks.add(new ToDo(description, status));
+                        taskList.addTask(new ToDo(description, status));
                         break;
                     case "deadline":
                         String deadline = jsonTask.getString("deadline");
-                        tasks.add(new Deadline(description, status, deadline));
+                        taskList.addTask(new Deadline(description, status, deadline));
                         break;
                     case "event":
                         String fromDate = jsonTask.getString("fromDate");
                         String toDate = jsonTask.getString("toDate");
-                        tasks.add(new Event(description, status, fromDate, toDate));
+                        taskList.addTask(new Event(description, status, fromDate, toDate));
                         break;
                 }
             }
@@ -73,20 +96,20 @@ public class TaskStorage {
             e.printStackTrace();
         } catch (JSONException e) {
             initFileIfNotExist();
-            throw new TaskListCorruptedException("Task list file is corrupted." +
+            throw new TaskListCorruptedException("capone.tasks.Task list file is corrupted." +
                     " Creating new task list file.");
         }
     }
 
-    public static void initFileIfNotExist() {
+    public void initFileIfNotExist() {
         // Create the folder if it doesn't exist
-        File folder = new File(JSON_FILEPATH);
+        File folder = new File(this.getFilePath());
         if (!folder.exists()) {
             folder.mkdir();
         }
 
         // Create the file within the folder
-        File file = new File(folder, JSON_FILENAME);
+        File file = new File(folder, this.getFileName());
 
         if (!file.exists()) {
             try (FileWriter fileWriter = new FileWriter(file)) {
