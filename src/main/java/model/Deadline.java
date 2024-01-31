@@ -10,7 +10,7 @@ public class Deadline extends Task{
      */
     public Deadline(String label, String by) {
         super(label);
-        this.by = by;
+        this.by = formatDate(by);
     }
 
     @Override

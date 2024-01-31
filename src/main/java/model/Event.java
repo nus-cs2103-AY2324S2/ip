@@ -6,8 +6,8 @@ public class Event extends Task{
 
     public Event(String label, String from, String to) {
         super(label);
-        this.from = from;
-        this.to = to;
+        this.from = formatDate(from);
+        this.to = formatDate(to);
     }
 
     @Override
