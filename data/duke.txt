@@ -1,4 +1,4 @@
-T|0|eat
-D|0|eat |2002-11-29
+T|1|eat
 E|1|eat |11|b
-T|0|a
+T|1|a
+T|0|abc

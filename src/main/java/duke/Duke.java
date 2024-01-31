@@ -10,22 +10,32 @@ import duke.utils.Parser;
 
 import java.io.IOException;
 
+/**
+ * Main chatbot class.
+ */
 public class Duke {
-	private TaskList tasks;
-	private Storage storage;
-	private UI ui;
+    private TaskList tasks;
+    private Storage storage;
+    private UI ui;
 
-	public Duke(String filePath) {
-		this.ui = new UI();
-		this.storage = new Storage(filePath);
-		try {
-			this.tasks = new TaskList(storage.load());
-		} catch (IOException e) {
-			ui.showLoadingError();
-			this.tasks = new TaskList();
-		}
-	}
+    /**
+     * Initializes by loading the stored file.
+     * @param filePath Path of stored file.
+     */
+    public Duke(String filePath) {
+        this.ui = new UI();
+        this.storage = new Storage(filePath);
+        try {
+            this.tasks = new TaskList(storage.load());
+        } catch (IOException e) {
+            ui.showLoadingError();
+            this.tasks = new TaskList();
+        }
+    }
 
+    /**
+     * Runs the chatbot.
+     */
 	public void run() {
 		ui.onEnter();
 		while (true) {
