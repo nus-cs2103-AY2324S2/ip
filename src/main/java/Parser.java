@@ -1,9 +1,12 @@
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 
 public class Parser {
+
+    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     enum TaskType {
         TODO,
         DEADLINE,
@@ -74,14 +77,14 @@ public class Parser {
             case DEADLINE:
                 details = taskDetails.split(" /by ", 2);
                 name = details[0];
-                String doBy = details[1];
+                LocalDateTime doBy = LocalDateTime.parse(details[1], formatter);
                 return new Deadline(name, doBy);
             case EVENT:
                 details = taskDetails.split(" /from ", 2);
                 name = details[0];
                 String[] startAndEnd = details[1].split(" /to ", 2);
-                String start = startAndEnd[0];
-                String end = startAndEnd[1];
+                LocalDateTime start = LocalDateTime.parse(startAndEnd[0], formatter);
+                LocalDateTime end = LocalDateTime.parse(startAndEnd[1], formatter);
                 return new Event(name, start, end);
             default:
                 throw new DookException("Oh nyo! Wrong format for " + taskType + " command!");
@@ -130,14 +133,14 @@ public class Parser {
                 case DEADLINE:
                     details = description.split(" \\| ", 2);
                     name = details[0];
-                    String doBy = details[1].split("by: ", 2)[1];
+                    LocalDateTime doBy = LocalDateTime.parse(details[1].split("by: ", 2)[1], formatter);
                     return new Deadline(name, doBy, isDone);
                 case EVENT:
                     details = description.split(" \\| ", 2);
                     name = details[0];
                     String[] startAndEnd = details[1].split(" to: ", 2);
-                    String start = startAndEnd[0].split("from: ", 2)[1];
-                    String end = startAndEnd[1];
+                    LocalDateTime start = LocalDateTime.parse(startAndEnd[0].split("from: ", 2)[1], formatter);
+                    LocalDateTime end = LocalDateTime.parse(startAndEnd[1], formatter);
                     return new Event(name, start, end, isDone);
                 default:
                     throw new DookException("Oh nyo! Wrong format for " + taskType + " command in the file... :)");

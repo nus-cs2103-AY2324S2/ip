@@ -1,14 +1,16 @@
-public class Event extends Task {
-    private String start;
-    private String end;
+import java.time.LocalDateTime;
 
-    Event(String name, String start, String end) {
+public class Event extends Task {
+    private LocalDateTime start;
+    private LocalDateTime end;
+
+    Event(String name, LocalDateTime start, LocalDateTime end) {
         super(name);
         this.start = start;
         this.end = end;
     }
 
-    public Event(String name, String start, String end, boolean isDone) {
+    public Event(String name, LocalDateTime start, LocalDateTime end, boolean isDone) {
         this(name, start, end);
         this.isDone = isDone;
     }
@@ -18,11 +20,14 @@ public class Event extends Task {
         return String.format("E | %s | %s | from: %s to: %s",
                 this.getStatusIcon(),
                 this.getDescription(),
-                this.start,
-                this.end);
+                this.start.format(Parser.formatter),
+                this.end.format(Parser.formatter));
     }
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.start, this.end);
+        return String.format("[E]%s (from: %s to: %s)",
+                super.toString(),
+                this.start.format(Parser.formatter),
+                this.end.format(Parser.formatter));
     }
 }
