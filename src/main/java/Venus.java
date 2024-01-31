@@ -15,7 +15,7 @@ public class Venus {
         String indented_lines = "    ____________________________________________________________\n";
         System.out.println(start);
 
-        ArrayList<taskedString> data = new ArrayList<>();
+        ArrayList<Task> data = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         String words = sc.nextLine();
 
@@ -24,7 +24,7 @@ public class Venus {
                 int i = 1;
                 System.out.println(indented_lines
                         + "     Here are the tasks in your list:");
-                for (taskedString s : data) {
+                for (Task s : data) {
                     System.out.println("     " + i + "." + s);
                     i++;
                 }
@@ -55,8 +55,48 @@ public class Venus {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            } else if (words.startsWith("todo ")){
+                String word = words.substring(5);
+                TODO todo = new TODO(word);
+                data.add(todo);
+                System.out.println(indented_lines
+                        + "     Got it. I've added this task:\n"
+                        + "       "
+                        + todo.toString()
+                        + "\n"
+                        + "     Now you have "+ data.size() +" tasks in the list.\n"
+                        + indented_lines);
+            } else if (words.startsWith("deadline ")) {
+                String dString = words.substring(9);
+                String[] parts = dString.split("/by");
+                parts[0] = parts[0].trim();
+                parts[1] = parts[1].trim();
+                Deadline deadline = new Deadline(parts[0], parts[1]);
+                data.add(deadline);
+                System.out.println(indented_lines
+                        + "     Got it. I've added this task:\n"
+                        + "       "
+                        + deadline.toString()
+                        + "\n"
+                        + "     Now you have "+ data.size() +" tasks in the list.\n"
+                        + indented_lines);
+            } else if (words.startsWith("event ")) {
+                String dString = words.substring(6);
+                String[] parts = dString.split("/");
+                for (int i = 0; i < 3; i++){
+                    parts[i] = parts[i].trim();
+                }
+                Event event = new Event(parts[0], parts[1], parts[2]);
+                data.add(event);
+                System.out.println(indented_lines
+                        + "     Got it. I've added this task:\n"
+                        + "       "
+                        + event.toString()
+                        + "\n"
+                        + "     Now you have "+ data.size() +" tasks in the list.\n"
+                        + indented_lines);
             } else {
-                taskedString ts = new taskedString(words);
+                Task ts = new Task(words);
                 data.add(ts);
                 System.out.println(indented_lines
                         + "     added: "

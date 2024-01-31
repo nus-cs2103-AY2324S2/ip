@@ -1,7 +1,8 @@
-public class taskedString {
+public class Task {
     private String item;
     private boolean mark;
-    public taskedString(String item){
+    public Task(String item){
+        super();
         this.mark = false;
         this.item = item;
     }
@@ -12,6 +13,13 @@ public class taskedString {
         this.mark = false;
     }
 
+    public boolean getMark(){
+        return mark;
+    }
+
+    public String getItem(){
+        return item;
+    }
     @Override
     public String toString(){
         String X = mark ? "X" : " ";
