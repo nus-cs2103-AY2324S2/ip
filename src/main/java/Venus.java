@@ -141,6 +141,27 @@ public class Venus {
                                 + "\n"
                                 + indented_lines);
                     }
+                } else if (words.startsWith("delete ")){
+                    try {
+                        int index = Integer.valueOf(words.substring(7)) - 1;
+                        System.out.println(indented_lines
+                                + "     Noted. I've removed this task:\n"
+                                + "       "
+                                + data.get(index).toString()
+                                + "\n"
+                                + "     Now you have " + (data.size() - 1) + " tasks in the list.\n"
+                                + indented_lines);
+                        data.remove(index);
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println(indented_lines
+                                + "     Incorrect name or spelling for delete, please check\n"
+                                + indented_lines);
+                    } catch (NumberFormatException e) {
+                        System.out.println(indented_lines
+                                + "     Incorrect arguments for delete, please check\n"
+                                + indented_lines);
+                    }
+
                 } else {
                     Task ts = new Task(words);
                     data.add(ts);
