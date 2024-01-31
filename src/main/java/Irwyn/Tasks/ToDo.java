@@ -1,4 +1,4 @@
-package Tasks;
+package Irwyn.Tasks;
 
 public class ToDo extends Task {
 

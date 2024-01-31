@@ -1,4 +1,4 @@
-package Exceptions;
+package Irwyn.Exceptions;
 
 public class IrwynException extends Exception {
     public IrwynException(String msg) {

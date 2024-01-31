@@ -1,4 +1,4 @@
-package Exceptions;
+package Irwyn.Exceptions;
 
 public class TaskException extends InputException {
     public TaskException() {

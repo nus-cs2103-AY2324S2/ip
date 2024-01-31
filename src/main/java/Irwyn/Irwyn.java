@@ -1,11 +1,13 @@
-import Exceptions.CommandException;
-import Exceptions.InputException;
-import Exceptions.TaskException;
+package Irwyn;
 
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
+import Irwyn.Exceptions.CommandException;
+import Irwyn.Exceptions.InputException;
+import Irwyn.Exceptions.TaskException;
+
+import Irwyn.Tasks.Deadline;
+import Irwyn.Tasks.Event;
+import Irwyn.Tasks.Task;
+import Irwyn.Tasks.ToDo;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
