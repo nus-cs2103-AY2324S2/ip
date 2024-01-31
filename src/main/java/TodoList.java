@@ -9,6 +9,7 @@ import java.io.*;
 public class TodoList {
     List<Task> list = new ArrayList<>();
 
+
     public void add(Task item) {
         list.add(item);
         int numberOfTasks = list.size();
@@ -80,30 +81,9 @@ public class TodoList {
         return sb.toString();
     }
 
-    public void saveToFile(String filename) {
-        String tasksText = printTasksToString();
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            writer.write(tasksText);
-            System.out.println("Tasks have been saved to " + filename);
-        } catch (IOException e) {
-            System.out.println("Error saving tasks to file: " + e.getMessage());
-        }
-    }
-
-    public void loadData(String filename) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            String line;
-            list.clear(); // Clear the existing list before loading from file
-            while ((line = reader.readLine()) != null) {
-                Task task = createTaskFromLine(line);
-                list.add(task);
-            }
-
-            System.out.println("Tasks have been loaded from " + filename);
-        } catch (IOException e) {
-            list.clear();
-        }
+    public void loadTask(String line) {
+        Task task = createTaskFromLine(line);
+        list.add(task);
     }
 
     // Example of parsing task lines and creating Task objects

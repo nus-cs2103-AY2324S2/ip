@@ -6,20 +6,12 @@ public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
-    public Event(String[] parts) {
-        super(parts[0]);
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
+        super(description);
         this.type = TaskType.EVENT;
-        if (parts.length < 3) {
-            throw new IllegalArgumentException("Invalid input for event task. Expected: <description> /at <from> <to>");
-        }
-        try {
-            String fromString = parts[1].substring(5).trim();
-            String toString = parts[2].substring(3);
-            this.from = Parser.parseDate(fromString);
-            this.to = Parser.parseDate(toString);
-        } catch (Exception e) {
-            System.out.println("Error parsing LocalDateTime: " + e.getMessage());
-        }
+        this.from = from;
+        this.to = to;
+
     }
 
     @Override

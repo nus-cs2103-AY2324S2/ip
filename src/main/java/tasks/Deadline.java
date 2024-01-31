@@ -6,18 +6,10 @@ public class Deadline extends Task {
     private LocalDateTime dueDate;
 
 
-    public Deadline(String[] parts) {
-        super(parts[0]);
+    public Deadline(String description, LocalDateTime dueDate) {
+        super(description);
         this.type = TaskType.DEADLINE;
-        if (parts.length < 2) {
-            throw new IllegalArgumentException("Invalid input for deadline task. Expected: <description> /by <dueDate>");
-        }
-        try {
-            String due = parts[1].substring(3).trim();
-            this.dueDate = Parser.parseDate(due);
-        } catch (Exception e) {
-            System.out.println("Error parsing LocalDateTime: " + e.getMessage());
-        }
+        this.dueDate = dueDate;
     }
 
     @Override
