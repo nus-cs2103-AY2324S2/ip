@@ -1,4 +1,5 @@
-import java.util.Scanner;
+package pyrite;
+
 public class Duke {
     public static void main(String[] args) {
         Pyrite toDoList = new Pyrite();

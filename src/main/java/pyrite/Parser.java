@@ -1,3 +1,11 @@
+package pyrite;
+
+import pyrite.command.*;
+import pyrite.task.Deadline;
+import pyrite.task.Event;
+import pyrite.task.Task;
+import pyrite.task.ToDo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
@@ -71,7 +79,7 @@ public class Parser {
                     case "deadline":
                         if (byID == -1) {
                             return new UnknownCommand(commandString,
-                                    "Incomplete Command. Add deadline using '/by'.");
+                                    "Incomplete pyrite.command.Command. Add deadline using '/by'.");
                         }
                         String byString = String.join("",
                                 Arrays.copyOfRange(parameters,
@@ -88,7 +96,7 @@ public class Parser {
                     case "event":
                         if (fromID == -1 | toID == -1) {
                             return new UnknownCommand(commandString,
-                                    "Incomplete Command. Add start and end dates using '/from' and '/to'.");
+                                    "Incomplete pyrite.command.Command. Add start and end dates using '/from' and '/to'.");
                         }
                         String fromString;
                         String toString;

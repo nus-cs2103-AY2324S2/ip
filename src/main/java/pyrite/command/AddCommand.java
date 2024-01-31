@@ -1,3 +1,9 @@
+package pyrite.command;
+
+import pyrite.StateFile;
+import pyrite.task.Task;
+import pyrite.TaskList;
+
 public class AddCommand extends Command{
     private Task task;
     public AddCommand(Task task) {

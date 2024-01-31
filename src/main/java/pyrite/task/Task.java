@@ -1,6 +1,8 @@
+package pyrite.task;
+
 import java.io.Serializable;
 public class Task implements Serializable{
-    enum Status {
+    public enum Status {
         DONE,
         NOT_DONE
     }

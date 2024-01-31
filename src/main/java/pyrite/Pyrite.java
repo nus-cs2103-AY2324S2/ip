@@ -1,8 +1,8 @@
-import javax.imageio.IIOException;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.Arrays;
+package pyrite;
+
+import pyrite.command.Command;
+import pyrite.command.ExitCommand;
+
 public class Pyrite {
     static String name = "Pyrite";
 

@@ -1,6 +1,10 @@
+package pyrite;
+
+import pyrite.task.Task;
+
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.io.Serializable;
+
 public class TaskList implements Serializable {
     private ArrayList<Task> list = new ArrayList<>();
     public int indexOf(Task task) {

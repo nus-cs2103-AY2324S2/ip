@@ -1,3 +1,5 @@
+package pyrite;
+
 public class DukeException extends UnsupportedOperationException{
     private String error;
     public DukeException(String error) {

@@ -1,3 +1,8 @@
+package pyrite.command;
+
+import pyrite.StateFile;
+import pyrite.TaskList;
+
 public class UnknownCommand extends Command{
     private String command;
     private String reason;

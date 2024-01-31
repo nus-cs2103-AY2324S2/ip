@@ -1,3 +1,5 @@
+package pyrite;
+
 import java.util.Scanner;
 import java.util.stream.Collectors;
 public class UserInterface {

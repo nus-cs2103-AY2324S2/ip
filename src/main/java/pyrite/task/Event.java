@@ -1,3 +1,5 @@
+package pyrite.task;
+
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 public class Event extends Task {
