@@ -106,6 +106,20 @@ class TaskList {
     }
 
     /**
+     * Finds and prints out the tasks that matches the user's search keyword.
+     *
+     * @param searchKeyword String representation of the keyword that has been entered by the user.
+     */
+    public void find(String searchKeyword) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().contains(searchKeyword)) {
+                System.out.println("\t" + (i + 1) + "." + tasks.get(i).toString());
+            }
+        }
+    }
+
+    /**
      * Converts the date into a Java DateTime instance.
      *
      * @param dateStr String representation of a date that has been keyed in by the user.

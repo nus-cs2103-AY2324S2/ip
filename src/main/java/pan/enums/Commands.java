@@ -5,5 +5,5 @@ package pan.enums;
  * @author Jerome Goh
  */
 public enum Commands {
-    BYE, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE
+    BYE, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, FIND
 }

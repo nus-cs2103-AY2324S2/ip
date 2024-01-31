@@ -78,6 +78,9 @@ public class Parser {
                     String index = instruction.substring(6).trim();
                     taskList.delete(Integer.parseInt(index));
                     continue;
+                } else if (instruction.matches("\\bfind\\s(.+)")) {
+                    String searchKeyword = instruction.substring(4).trim();
+                    taskList.find(searchKeyword);
                 } else {
                     // catch other test cases
                     InternalTestCases.testMissingParameters(instruction);
