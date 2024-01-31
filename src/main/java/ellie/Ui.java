@@ -18,7 +18,7 @@ public class Ui {
     }
 
     public void hello() {
-        System.out.println("Hello! I'm ellie.Ellie, your CS2103T chat bot! I help by tracking your tasks!");
+        System.out.println("Hello! I'm Ellie, your CS2103T chat bot! I help by tracking your tasks!");
         System.out.println(logoEllie + "\n" + horizontalLine);
         System.out.println("What can I do for you? Type 'help' to see available commands! \n");
     }

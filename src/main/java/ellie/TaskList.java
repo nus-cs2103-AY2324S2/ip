@@ -12,7 +12,6 @@ public class TaskList {
         this.storage = storage;
         storage.load(taskArrayList);
 
-
     }
 
     public void addTask(Task element) {

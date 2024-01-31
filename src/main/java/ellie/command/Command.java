@@ -8,5 +8,8 @@ public abstract class Command {
 
     public abstract void run(TaskList tasklist);
 
+    public boolean isExit() {
+        return isExit;
+    }
 
 }

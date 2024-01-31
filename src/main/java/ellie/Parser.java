@@ -1,8 +1,6 @@
 package ellie;
 
-import ellie.command.Command;
-import ellie.command.ExitCommand;
-import ellie.command.ListCommand;
+import ellie.command.*;
 import ellie.exception.InvalidTaskInputException;
 import ellie.exception.UnknownInputException;
 import ellie.task.Deadline;
@@ -59,6 +57,7 @@ public class Parser {
             type = Type.HELP;
             break;
         case "bye":
+        case "exit":
             type = Type.BYE;
             break;
         default:
@@ -71,103 +70,93 @@ public class Parser {
         } else if (type == Type.LIST) {
             return new ListCommand();
         } else if (type == Type.HELP) {
-            System.out.println("Here's a list of supported commands so far:" +
-                    "\n help \n list \n mark/unmark [int] \n todo [task] \n " +
-                    "deadline [task] /by [date]  \n event [task] /from [date] /to [date] \n bye \n");
-            input = reader.nextLine();
-            continue;
-        } else if (command == Ellie.Command.UNKNOWN) {
+            return new HelpCommand();
+        } else if (type == Type.UNKNOWN) {
             try {
                 throw new UnknownInputException("Command Unknown or Missing");
             } catch (UnknownInputException e) {
-                System.out.println("Sorry! Not sure what you're referring to (╥_╥)");
-                System.out.println("Type 'help' to view the list of supported commands!\n");
-                input = reader.nextLine();
-                continue;
+                return new InvalidCommand("Sorry! Not sure what you're referring to (╥_╥) \n" +
+                                        "Type 'help' to view the list of supported commands!\n");
             }
         }
 
         // check for following input argument
-        try {
-            if (inputArray.length < 2) {
+        if (inputArray.length < 2) {
+            try {
                 throw new InvalidTaskInputException("command contains no argument");
+            } catch (InvalidTaskInputException e) {
+                return new InvalidCommand("Please input an argument! \n [command] [argument]\n");
             }
-        } catch (InvalidTaskInputException e) {
-            System.out.println("Please input an argument! \n [command] [argument]\n");
-            input = reader.nextLine();
-            continue;
         }
 
         String stringBody = inputArray[1];
 
-        if (command == Ellie.Command.MARK) {
+        if (type == Type.MARK) {
             if (isNumeric(stringBody)) {
                 int index = Integer.parseInt(stringBody);
-                taskList.markTaskIndex(index);
+                return new MarkUnmarkCommand(true, index);
             } else {
-                System.out.println("Input a valid number to mark! \n Usage: mark [int]\n");
+                return new InvalidCommand("Input a valid number to mark! \n Usage: mark [int]\n");
             }
-        } else if (command == Ellie.Command.UNMARK) {
+        } else if (type == Type.UNMARK) {
             if (isNumeric(stringBody)) {
                 int index = Integer.parseInt(stringBody);
-                taskList.unmarkTaskIndex(index);
+                return new MarkUnmarkCommand(false, index);
             } else {
-                System.out.println("Input a valid number to unmark! \n Usage: unmark [int]\n");
+                return new InvalidCommand("Input a valid number to unmark! \n Usage: unmark [int]\n");
             }
-        } else if (command == Ellie.Command.DELETE) {
+        } else if (type == Type.DELETE) {
             if (isNumeric(stringBody)) {
                 int index = Integer.parseInt(stringBody);
-                taskList.deleteTaskIndex(index);
+                return new DeleteCommand(index);
             } else {
-                System.out.println("Input a valid number to delete! \n Usage: delete [int]\n");
+                return new InvalidCommand("Input a valid number to delete! \n Usage: delete [int]\n");
             }
-
-        } else if (command == Ellie.Command.TODO) {
+        } else if (type == Type.TODO) {
             Task task = new Todo(stringBody);
-            taskList.addTask(task);
-        } else if (command == Ellie.Command.DEADLINE) {
+            return new AddCommand(task);
+        } else if (type == Type.DEADLINE) {
             if (!stringBody.contains("/by")) {
-                System.out.println("Please add a due date for your dateline using '/by'!");
+                return new InvalidCommand("Please add a due date for your dateline using '/by'!");
             } else {
                 String[] deadlineArray = stringBody.split("/by");
                 String event = deadlineArray[0].trim();
                 String dueDate = deadlineArray[1].trim();
-                if (event.equals("")) {
-                    System.out.println("Please add event name.");
-                } else if (dueDate.equals("")) {
-                    System.out.println("Please add a deadline!");
+                if (event.isEmpty()) {
+                    return new InvalidCommand("Please add event name.");
+                } else if (dueDate.isEmpty()) {
+                    return new InvalidCommand("Please add a deadline!");
                 } else {
                     Task task = new Deadline(event, dueDate);
-                    taskList.addTask(task);
+                    return new AddCommand(task);
                 }
             }
-        } else if (command == Ellie.Command.EVENT) {
+        } else if (type == Type.EVENT) {
             if (!stringBody.contains("/from")) {
-                System.out.println("Please add a start date for your event using '/from'!");
+                return new InvalidCommand("Please add a start date for your event using '/from'!");
             } else if (!stringBody.contains("/to")) {
-                System.out.println("Please add an end date for your event using '/to'!");
+                return new InvalidCommand("Please add an end date for your event using '/to'!");
             } else {
                 String[] deadlineArray = stringBody.split("/from");
                 String event = deadlineArray[0].trim();
                 String eventDuration = deadlineArray[1];
-                if (event.equals("")) {
-                    System.out.println("Please add event name.");
+                if (event.isEmpty()) {
+                    return new InvalidCommand("Please add event name.");
                 } else if (event.contains("/end")) {
-                    System.out.println("Please place /end [end time] after /from [start time]!");
+                    return new InvalidCommand("Please place /end [end time] after /from [start time]!");
                 } else {
                     String[] duration = eventDuration.split("/to");
                     Task task = new Event(event, duration[0].trim(), duration[1].trim());
-                    taskList.addTask(task);
+                    return new AddCommand(task);
                 }
             }
-
         }
 
-
-
-
-
+        return new InvalidCommand("General Error! This line should not be reached.");
     }
 
+    private static Boolean isNumeric(String string) {
+        return string.matches("\\d+");
+    }
 
 }
