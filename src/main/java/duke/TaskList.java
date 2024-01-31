@@ -23,6 +23,7 @@ public class TaskList {
 
     /**
      * Constructor for TaskList with existing ArrayList of tasks
+     *
      * @param newTasks ArrayList of tasks
      */
     public TaskList(ArrayList<Task> newTasks) {
@@ -31,6 +32,7 @@ public class TaskList {
 
     /**
      * Adds a task to the list of tasks
+     *
      * @param newTask Task to be added
      */
     public void addTask(Task newTask) {
@@ -39,6 +41,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the list of tasks
+     *
      * @param index Index of the task to be deleted
      * @return Task that was deleted
      */
@@ -48,6 +51,7 @@ public class TaskList {
 
     /**
      * Marks a task of the given index as done
+     *
      * @param index Index of the task to be marked as done
      */
     public void markTaskAsDone(int index) {
@@ -56,6 +60,7 @@ public class TaskList {
 
     /**
      * Marks a task of the given index as undone
+     *
      * @param index Index of the task to be marked as undone
      */
     public void markTaskAsUndone(int index) {
@@ -64,6 +69,7 @@ public class TaskList {
 
     /**
      * Returns the task of the given index
+     *
      * @param index Index of the task to be returned
      * @return Task of the given index
      */
@@ -73,6 +79,7 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the list
+     *
      * @return Number of tasks in the list
      */
     public int getSize() {
@@ -81,6 +88,7 @@ public class TaskList {
 
     /**
      * Returns the list of tasks to be printed to the user
+     *
      * @return List of tasks to be printed to the user
      */
     public String[] getTaskStrings() {
@@ -93,6 +101,7 @@ public class TaskList {
 
     /**
      * Returns the list of tasks to be saved to file
+     *
      * @return List of tasks to be saved to file
      */
     public String[] getFileStrings() {

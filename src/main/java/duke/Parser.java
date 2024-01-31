@@ -10,7 +10,7 @@ public class Parser {
     /**
      * Constructor for Parser
      */
-    public Parser () {
+    public Parser() {
 
     }
 
@@ -20,7 +20,7 @@ public class Parser {
      * @return Corresponding Command
      * @throws DukeException If the input string is not a valid command
      */
-    public Command parse(String input) throws DukeException{
+    public Command parse(String input) throws DukeException {
         String[] parts = input.split(" ");
         switch (parts[0]) {
             case "list":

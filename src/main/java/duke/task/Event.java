@@ -20,11 +20,12 @@ public class Event extends Task {
 
     /**
      * Constructor for Event with LocalDateTime
-     * @param description Description of the Event
+     *
+     * @param description  Description of the Event
      * @param newStartDate Start date of the Event in LocalDateTime format
-     * @param newEndDate End date of the Event in LocalDateTime format
+     * @param newEndDate   End date of the Event in LocalDateTime format
      */
-    public Event (String description, LocalDateTime newStartDate, LocalDateTime newEndDate) {
+    public Event(String description, LocalDateTime newStartDate, LocalDateTime newEndDate) {
         super(description);
         this.startDate = newStartDate;
         this.endDate = newEndDate;
@@ -32,11 +33,12 @@ public class Event extends Task {
 
     /**
      * Constructor for Event with String
-     * @param description Description of the Event
+     *
+     * @param description  Description of the Event
      * @param newStartDate Start date of the Event in String format
-     * @param newEndDate End date of the Event in String format
+     * @param newEndDate   End date of the Event in String format
      */
-    public Event (String description, String newStartDate, String newEndDate) {
+    public Event(String description, String newStartDate, String newEndDate) {
         super(description);
         this.startDate = LocalDateTime.parse(newStartDate);
         this.endDate = LocalDateTime.parse(newEndDate);
@@ -45,28 +47,31 @@ public class Event extends Task {
     /**
      * Returns the start date of the Event in String format
      */
-    public String formattedStartDate() {
+    public String formatStartDate() {
         return this.startDate.format(DateTimeFormatter.ofPattern(this.dateTimeFormat));
     }
 
     /**
      * Returns the end date of the Event in String format
      */
-    public String formattedEndDate() {
+    public String formatEndDate() {
         return this.endDate.format(DateTimeFormatter.ofPattern(this.dateTimeFormat));
     }
 
+
     /**
      * Represents the Event in String format
+     *
      * @return String format of the Event
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.formattedStartDate(), this.formattedEndDate());
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.formatStartDate(), this.formatEndDate());
     }
 
     /**
      * Represents the Event in String format for saving to file
+     *
      * @return String format of the Event for saving to file
      */
     @Override

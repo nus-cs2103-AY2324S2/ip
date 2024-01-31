@@ -46,8 +46,9 @@ public class Duke {
 
     /**
      * Constructor for Duke
+     *
      * @param filePath Path of the file
-     * @param botName Name of the bot
+     * @param botName  Name of the bot
      */
     public Duke(Path filePath, String botName) {
         ui = new Ui(botName);
@@ -116,10 +117,10 @@ public class Duke {
                 }
                 storage.updateFile(tasks.getFileStrings());
             } catch (duke.DukeException e) {
-                ui.lineBreak();
+                ui.printLineBreak();
                 System.out.println(e.getMessage());
             }
-            ui.lineBreak();
+            ui.printLineBreak();
             input = ui.readCommand();
         }
         ui.showGoodbye();
@@ -127,14 +128,12 @@ public class Duke {
 
     /**
      * Creates a LocalDateTime object from a string
+     *
      * @param input String to be parsed
      * @return LocalDateTime object
      * @throws DukeException If the string is not in a valid date-time format
      */
     public static LocalDateTime createDateTime(String input) throws DukeException {
-        //turn possiblePatterns into two arrays
-        //one for date, one for time
-        //then combine them in a nested loop
 
         String[] possibleDates = {
                 "d/M/yyyy",
@@ -151,15 +150,9 @@ public class Duke {
                 "dd/MM/yy",
                 "dd-MM-yy",
                 "ddMMyyyy",
-                "ddMMyy",
-        };
+                "ddMMyy",};
 
-        String[] possibleTimes = {
-                "HHmm",
-                "HH:mm",
-                "HH",
-                "h:mma",
-        };
+        String[] possibleTimes = {"HHmm", "HH:mm", "HH", "h:mma",};
 
         for (String datePattern : possibleDates) {
             for (String timePattern : possibleTimes) {
@@ -185,6 +178,7 @@ public class Duke {
 
     /**
      * Creates a To do task
+     *
      * @param description Description of the To do
      * @return To do task
      * @throws DukeException If the description is empty
@@ -196,12 +190,13 @@ public class Duke {
 
     /**
      * Creates a Deadline task
+     *
      * @param description Description of the Deadline
-     * @param dueDate Due date of the Deadline
+     * @param dueDate     Due date of the Deadline
      * @return Deadline task
      * @throws DukeException If the due date is not in a valid date-time format
      */
-    public static Deadline createDeadline(String description, String dueDate) throws DukeException{
+    public static Deadline createDeadline(String description, String dueDate) throws DukeException {
 
         LocalDateTime dueDateTime = createDateTime(dueDate);
         if (dueDateTime == null) {
@@ -213,9 +208,10 @@ public class Duke {
 
     /**
      * Creates an Event task
+     *
      * @param description Description of the Event
-     * @param startDate Start date of the Event
-     * @param endDate End date of the Event
+     * @param startDate   Start date of the Event
+     * @param endDate     End date of the Event
      * @return Event task
      * @throws DukeException If the start date is after the end date
      */
@@ -240,6 +236,7 @@ public class Duke {
 
     /**
      * Main method
+     *
      * @param args Command line arguments
      */
     public static void main(String[] args) {

@@ -22,6 +22,7 @@ abstract public class Task {
 
     /**
      * Constructor for Task
+     *
      * @param description Description of the Task
      */
     public Task(String description) {
@@ -31,6 +32,7 @@ abstract public class Task {
 
     /**
      * Returns the status icon of the Task
+     *
      * @return Status icon of the Task
      */
     public String getStatusIcon() {
@@ -39,6 +41,7 @@ abstract public class Task {
 
     /**
      * Returns the overview of the Task in String format
+     *
      * @return Overview of the Task in String format
      */
     @Override
@@ -48,6 +51,7 @@ abstract public class Task {
 
     /**
      * Returns the overview of the Task in String format for saving to file
+     *
      * @return Overview of the Task in String format for saving to file
      */
     public String toFileString() {

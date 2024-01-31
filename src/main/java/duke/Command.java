@@ -17,6 +17,7 @@ public class Command {
 
     /**
      * Constructor for Commands which do not require arguments
+     *
      * @param newType Type of the Command
      */
     public Command(Duke.CommandType newType) {
@@ -26,6 +27,7 @@ public class Command {
 
     /**
      * Constructor for Command
+     *
      * @param newType Type of the Command
      * @param newArgs Arguments required for running of command
      */

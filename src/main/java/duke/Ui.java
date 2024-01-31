@@ -95,7 +95,7 @@ public class Ui {
      */
     public void showTaskAdded(Task task, int len) {
         System.out.println("____________________________________________________________\n");
-        System.out.println( "Got it. I've added this task:");
+        System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + len + " tasks in the list.");
     }
@@ -132,7 +132,7 @@ public class Ui {
     /**
      * Prints a line break
      */
-    public void lineBreak() {
+    public void printLineBreak() {
         System.out.println("____________________________________________________________\n");
     }
 

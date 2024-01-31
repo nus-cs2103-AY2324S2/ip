@@ -3,7 +3,7 @@ package duke;
 /**
  * Represents a DukeException
  */
-public class DukeException extends Exception{
+public class DukeException extends Exception {
 
     /**
      * Constructor for DukeException
@@ -14,6 +14,7 @@ public class DukeException extends Exception{
 
     /**
      * Constructor for DukeException
+     *
      * @param message Error message to be displayed
      */
     public DukeException(String message) {

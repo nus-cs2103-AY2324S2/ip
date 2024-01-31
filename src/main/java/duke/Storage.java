@@ -27,6 +27,7 @@ public class Storage {
 
     /**
      * Constructor for Storage
+     *
      * @param newFilePath Path of the file
      */
     public Storage(Path newFilePath) {
@@ -35,6 +36,7 @@ public class Storage {
 
     /**
      * Returns the file given its path
+     *
      * @param path Path of the file
      * @return File
      * @throws DukeException If there is an error creating the file
@@ -54,6 +56,7 @@ public class Storage {
 
     /**
      * Updates the file with the given list of task Strings
+     *
      * @param tasks list of task Strings to be written to the file
      * @throws DukeException If there is an error updating the file
      */
@@ -74,6 +77,7 @@ public class Storage {
 
     /**
      * Loads the file and returns the list of parsed Task objects
+     *
      * @return List of tasks
      * @throws DukeException If there is an error loading the file
      */
