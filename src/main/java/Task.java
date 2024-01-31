@@ -23,12 +23,12 @@ public class Task {
         this.done = done;
     }
 
+    public String getDoneMarker() {
+        return done ? "[X]" : "[]";
+    }
+
     @Override
     public String toString() {
-        String doneMarker = "[]";
-        if (done) {
-            doneMarker = "[X]";
-        }
-        return String.format("%s %s", doneMarker, description);
+        return String.format("%s %s", getDoneMarker(), description);
     }
 }
