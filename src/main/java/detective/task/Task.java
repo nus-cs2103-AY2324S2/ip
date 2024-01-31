@@ -1,3 +1,5 @@
+package detective.task;
+
 public class Task {
     protected String name;
     protected boolean isDone;
@@ -8,7 +10,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return isDone ? "[Y] " : "[N] "; //mark done task with X
+        return isDone ? "[Y] " : "[N] "; //mark done detective.task with X
     }
 
     public void markAsDone() {

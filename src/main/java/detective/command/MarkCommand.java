@@ -1,3 +1,9 @@
+package detective.command;
+
+import detective.DukeException;
+import detective.TaskList;
+import detective.Ui;
+
 public class MarkCommand extends Command {
     private int num;
     private boolean isMark;
@@ -18,7 +24,7 @@ public class MarkCommand extends Command {
                 ui.showUnmark(taskList, num);
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("OOPS!! I haven't record this task!");
+            throw new DukeException("OOPS!! I haven't record this detective.task!");
         }
     }
 }

@@ -1,3 +1,10 @@
+package detective;
+
+import detective.command.*;
+import detective.task.Deadline;
+import detective.task.Event;
+import detective.task.ToDo;
+
 public class Parser {
     public static Command parseCommand(String input) throws DukeException {
         String[] inputContent = input.split(" ", 2);
@@ -59,7 +66,7 @@ public class Parser {
                     deleteTaskNum = Integer.parseInt(inputContent[1]) - 1;
                     return new DeleteCommand(deleteTaskNum);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("I haven't record this task!");
+                    throw new DukeException("I haven't record this detective.task!");
                 }
             default:
                 throw new DukeException("OOPS!! Sorry, but I don't know what that means. qwq");

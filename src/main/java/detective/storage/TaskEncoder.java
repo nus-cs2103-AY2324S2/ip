@@ -1,3 +1,7 @@
+package detective.storage;
+
+import detective.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskEncoder {

@@ -1,3 +1,10 @@
+package detective.command;
+
+import detective.DukeException;
+import detective.TaskList;
+import detective.Ui;
+import detective.task.ToDo;
+
 public class ToDoCommand extends Command {
     private ToDo task;
 

@@ -1,3 +1,7 @@
+package detective.storage;
+
+import detective.task.Task;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,7 +22,7 @@ public class Storage {
     public Storage(String file) throws InvalidStorageFilePathException {
         this.file = dataPath.resolve(file);
         if (!isValidPath(this.file)) {
-            throw new InvalidStorageFilePathException("OOPS!! Storage file should end with '.txt'");
+            throw new InvalidStorageFilePathException("OOPS!! detective.storage.Storage file should end with '.txt'");
         }
     }
 

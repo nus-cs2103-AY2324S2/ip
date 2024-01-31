@@ -1,3 +1,7 @@
+package detective;
+
+import detective.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList extends ArrayList<Task> {

@@ -1,3 +1,8 @@
+package detective;
+
+import detective.command.Command;
+import detective.storage.Storage;
+
 import java.util.Objects;
 
 public class Detective {

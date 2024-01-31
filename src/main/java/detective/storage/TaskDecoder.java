@@ -1,3 +1,10 @@
+package detective.storage;
+
+import detective.task.Deadline;
+import detective.task.Event;
+import detective.task.Task;
+import detective.task.ToDo;
+
 import java.util.ArrayList;
 import java.util.List;
 
