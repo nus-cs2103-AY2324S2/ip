@@ -1,7 +1,16 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 enum TaskID {
   TODO_ID("T"),
@@ -47,13 +56,21 @@ abstract class Task {
     return String.format("[%s][%s] %s", id, done ? "X" : " ", taskStr());
   }
 
+  public String serialise() {
+    return String.format("%s<0>%s<0>%s<1>", id, task, done ? "X" : " ");
+  }
+
   public abstract String taskStr();
 }
 
 class Todo extends Task {
 
-  Todo(String task) {
-    super(task, false, TaskID.TODO_ID);
+  Todo(String task, boolean done) {
+    super(task, done, TaskID.TODO_ID);
+  }
+
+  public String serialise() {
+    return String.format("%s", super.serialise());
   }
 
   public String taskStr() {
@@ -65,9 +82,13 @@ class Deadline extends Task {
 
   private String deadline;
 
-  Deadline(String task, String deadline) {
-    super(task, false, TaskID.DEADLINE_ID);
+  Deadline(String task, String deadline, boolean done) {
+    super(task, done, TaskID.DEADLINE_ID);
     this.deadline = deadline;
+  }
+
+  public String serialise() {
+    return String.format("%s%s", super.serialise(), deadline);
   }
 
   public String taskStr() {
@@ -80,10 +101,14 @@ class Event extends Task {
   private String to;
   private String from;
 
-  Event(String task, String from, String to) {
-    super(task, false, TaskID.EVENT_ID);
+  Event(String task, String from, String to, boolean done) {
+    super(task, done, TaskID.EVENT_ID);
     this.from = from;
     this.to = to;
+  }
+
+  public String serialise() {
+    return String.format("%s%s<0>%s", super.serialise(), to, from);
   }
 
   public String taskStr() {
@@ -93,18 +118,112 @@ class Event extends Task {
 
 class DukeContext {
 
-  public String name;
-  public Scanner scanner;
-  public ArrayList<Task> storedTasks;
+  private String name;
+  private Scanner scanner;
+  private ArrayList<Task> storedTasks;
 
   DukeContext(String name) {
     this.name = name;
     this.scanner = new Scanner(System.in);
-    this.storedTasks = new ArrayList<>();
+    this.storedTasks = loadTasks();
+  }
+
+  private File getFileHandle() throws IOException {
+    Path baseFolder = Paths.get(System.getProperty("user.dir"));
+    Path dataFolder = baseFolder.resolve("data");
+    if (!Files.exists(dataFolder) || !Files.isDirectory(dataFolder)) {
+      dataFolder.toFile().mkdirs();
+    }
+    Path taskFile = dataFolder.resolve("tasks.bin");
+    if (!Files.exists(taskFile)) {
+      taskFile.toFile().createNewFile();
+    }
+
+    return taskFile.toFile();
+  }
+
+  private void saveTasks() {
+    try {
+      String serialised = storedTasks
+        .stream()
+        .<String>map(t -> t.serialise())
+        .collect(Collectors.joining("<2>"));
+
+      FileWriter f = new FileWriter(getFileHandle());
+      f.write(serialised);
+      f.close();
+    } catch (IOException e) {
+      System.err.println("DukeContext.saveTasks: " + e.getMessage());
+    }
+  }
+
+  private ArrayList<Task> loadTasks() {
+    try {
+      FileInputStream f = new FileInputStream(getFileHandle());
+      String serialised = new String(f.readAllBytes());
+      f.close();
+      String[] tasksString = serialised.split("<2>");
+      return Arrays
+        .stream(tasksString)
+        .filter(s -> s.length() > 0)
+        .map(s -> {
+          String[] xs = s.split("<1>");
+          String[] taskData = xs[0].split("<0>");
+          String[] auxData = xs.length == 1
+            ? new String[0]
+            : xs[1].split("<0>");
+          boolean isDone = taskData[2].equals("X");
+          switch (taskData[0]) {
+            case "T":
+              return new Todo(taskData[1], isDone);
+            case "E":
+              return new Event(taskData[1], auxData[0], auxData[1], isDone);
+            default:
+              return new Deadline(taskData[1], auxData[0], isDone);
+          }
+        })
+        .collect(Collectors.toCollection(ArrayList::new));
+    } catch (IOException e) {
+      System.err.println("DukeContext.loadTasks: " + e.getMessage());
+      return new ArrayList<>();
+    }
   }
 
   public boolean checkTaskIdx(int idx) {
     return 0 <= idx && idx < storedTasks.size();
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public Scanner getScanner() {
+    return scanner;
+  }
+
+  public int numberOfTask() {
+    return storedTasks.size();
+  }
+
+  public void addTask(Task t) {
+    storedTasks.add(t);
+    saveTasks();
+  }
+
+  public void setDone(int idx, boolean done) {
+    storedTasks.get(idx).setDone(done);
+    saveTasks();
+  }
+
+  public Task popTask(int idx) {
+    Task t = storedTasks.get(idx);
+    storedTasks.remove(idx);
+    saveTasks();
+    return t;
+  }
+
+  public Task peekTask(int idx) {
+    return storedTasks.get(idx);
   }
 }
 
@@ -158,7 +277,7 @@ public class Duke {
   }
 
   private static void greet(DukeContext ctx) {
-    reply(String.format(GREET_FORMAT, ctx.name));
+    reply(String.format(GREET_FORMAT, ctx.getName()));
   }
 
   private static void bye() {
@@ -166,7 +285,7 @@ public class Duke {
   }
 
   private static boolean handleCommand(DukeContext ctx) {
-    String input = ctx.scanner.nextLine();
+    String input = ctx.getScanner().nextLine();
     String[] commands = input.split(" ");
     String c = commands[0];
     String errorStr;
@@ -178,8 +297,8 @@ public class Duke {
         return false;
       case "list":
         reply(LIST_MESSAGE);
-        for (int idx = 0; idx < ctx.storedTasks.size(); idx++) {
-          reply(String.format("  %d.%s", idx + 1, ctx.storedTasks.get(idx)));
+        for (int idx = 0; idx < ctx.numberOfTask(); idx++) {
+          reply(String.format("  %d.%s", idx + 1, ctx.peekTask(idx)));
         }
         return true;
       case "mark":
@@ -202,9 +321,9 @@ public class Duke {
             errorStr = String.format(ferr2, c, idxString);
             break;
           }
-          ctx.storedTasks.get(idx).setDone(isMark);
+          ctx.setDone(idx, isMark);
           reply(isMark ? MARK_MESSAGE : UNMARK_MESSAGE);
-          reply(String.format("  %s", ctx.storedTasks.get(idx)));
+          reply(String.format("  %s", ctx.peekTask(idx)));
           return true;
         }
       case "todo":
@@ -214,11 +333,11 @@ public class Duke {
             break;
           }
           String taskStr = cmdJoin(range(commands, 1, commands.length));
-          Task task = new Todo(taskStr);
-          ctx.storedTasks.add(task);
+          Task task = new Todo(taskStr, false);
+          ctx.addTask(task);
           reply(TODO_MESSAGE);
           reply(String.format("  %s", task));
-          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.storedTasks.size()));
+          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.numberOfTask()));
           return true;
         }
       case "deadline":
@@ -241,11 +360,11 @@ public class Duke {
             errorStr = String.format(ferr2, "deadline");
             break;
           }
-          Task task = new Deadline(taskStr, deadline);
-          ctx.storedTasks.add(task);
+          Task task = new Deadline(taskStr, deadline, false);
+          ctx.addTask(task);
           reply(TODO_MESSAGE);
           reply(String.format("  %s", task));
-          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.storedTasks.size()));
+          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.numberOfTask()));
           return true;
         }
       case "event":
@@ -270,25 +389,25 @@ public class Duke {
             break;
           }
           String taskStr = cmdJoin(range(commands, 1, fromIdx));
-          String from_str = cmdJoin(range(commands, fromIdx + 1, toIdx));
-          String to_str = cmdJoin(range(commands, toIdx + 1, cmds.size()));
+          String fromStr = cmdJoin(range(commands, fromIdx + 1, toIdx));
+          String toStr = cmdJoin(range(commands, toIdx + 1, cmds.size()));
           if (taskStr.length() == 0) {
             errorStr = String.format(ferr2, "task");
             break;
           }
-          if (from_str.length() == 0) {
+          if (fromStr.length() == 0) {
             errorStr = String.format(ferr2, "from");
             break;
           }
-          if (to_str.length() == 0) {
+          if (toStr.length() == 0) {
             errorStr = String.format(ferr2, "to");
             break;
           }
-          Task task = new Event(taskStr, from_str, to_str);
-          ctx.storedTasks.add(task);
+          Task task = new Event(taskStr, fromStr, toStr, false);
+          ctx.addTask(task);
           reply(TODO_MESSAGE);
           reply(String.format("  %s", task));
-          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.storedTasks.size()));
+          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.numberOfTask()));
           return true;
         }
       case "delete":
@@ -309,11 +428,10 @@ public class Duke {
             errorStr = String.format(ferr2, c, idxString);
             break;
           }
-          Task t = ctx.storedTasks.get(idx);
-          ctx.storedTasks.remove(idx);
+          Task t = ctx.popTask(idx);
           reply(DELETE_MESSAGE);
           reply(String.format("  %s", t));
-          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.storedTasks.size()));
+          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.numberOfTask()));
           return true;
         }
       default:
