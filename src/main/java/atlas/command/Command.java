@@ -4,52 +4,34 @@ import atlas.Storage;
 import atlas.TaskList;
 import atlas.Ui;
 import atlas.exception.AtlasException;
+
+/**
+ * The abstract Command class represents an executable command within the Atlas application.
+ * It serves as the base for all specific command types.
+ */
 public abstract class Command {
     protected TaskList tasks;
     protected Ui ui;
     protected Storage storage;
 
+    /**
+     * Constructs a Command with the specified TaskList, Ui, and Storage.
+     *
+     * @param tasks   The TaskList containing the tasks.
+     * @param ui      The Ui instance for interacting with the user.
+     * @param storage The Storage instance for loading and saving tasks.
+     */
     public Command(TaskList tasks, Ui ui, Storage storage) {
         this.tasks = tasks;
         this.ui = ui;
         this.storage = storage;
     }
 
+    /**
+     * Executes the command.
+     *
+     * @throws AtlasException If the command encounters problems during execution.
+     */
     public abstract void execute() throws AtlasException;
-//    public enum CommandType {
-//        ADD_TODO, ADD_DEADLINE, ADD_EVENT, LIST, MARK, UNMARK, DELETE, EXIT, TASKS_ON_DATE, INVALID
-//    }
-//
-//    private CommandType commandType;
-//    private String[] commandData;
-//    private int taskIndex;
-//
-//    public Command(CommandType commandType) {
-//        this.commandType = commandType;
-//        this.commandData = null;
-//        this.taskIndex = -1;
-//    }
-//
-//    public Command(CommandType commandType, String[] commandData) {
-//        this(commandType);
-//        this.commandData = commandData;
-//    }
-//
-//    public Command(CommandType commandType, int taskIndex) {
-//        this(commandType);
-//        this.taskIndex = taskIndex;
-//    }
-//
-//    // Getters
-//    public CommandType getCommandType() {
-//        return commandType;
-//    }
-//
-//    public String[] getCommandData() {
-//        return commandData;
-//    }
-//
-//    public int getTaskIndex() {
-//        return taskIndex;
-//    }
+
 }
