@@ -42,9 +42,9 @@ public class FileStorage {
                 break;
 
             case 'D':
-                seperator = line.indexOf(" (by: ");
+                seperator = line.indexOf("(by:");
                 description = line.substring(7, seperator);
-                String by = line.substring(seperator + 6, line.length() - 1);
+                String by = line.substring(seperator + 4, line.length() - 1);
                 nextTask = new Deadline(description, by);
                 if (completion == 'X') {
                     nextTask.setDone();

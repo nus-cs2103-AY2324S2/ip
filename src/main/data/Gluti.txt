@@ -1,3 +1,4 @@
 [T][ ] meet
 [D][ ] meeting (by: Friday)
 [E][ ] meets party (from: Monday to: 7pm)
+[D][ ] meeting (by: Nov 11 2013)
