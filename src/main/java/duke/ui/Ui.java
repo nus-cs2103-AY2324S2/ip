@@ -1,3 +1,7 @@
+package duke.ui;
+
+import duke.task.TaskList;
+
 public class Ui {
     private final static String LINE = "-----------------------------------------------------------------------";
 
@@ -43,7 +47,7 @@ public class Ui {
     }
 
     public static void mark(TaskList tasklist, String input, boolean status) {
-        int num = Integer.parseInt(input) - 1; // Task num starts from 0
+        int num = Integer.parseInt(input) - 1; // duke.task.Task num starts from 0
         tasklist.markTask(num, status);
 
         System.out.println(LINE);
@@ -53,7 +57,7 @@ public class Ui {
     }
 
     public static void delete(TaskList tasklist, String input) {
-        int num = Integer.parseInt(input) - 1; // Task num starts from 0
+        int num = Integer.parseInt(input) - 1; // duke.task.Task num starts from 0
         String deletedTask = tasklist.getTaskDescription(num);
         tasklist.deleteTask(num);
 

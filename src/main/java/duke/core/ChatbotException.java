@@ -1,3 +1,5 @@
+package duke.core;
+
 public class ChatbotException {
 
     public enum ErrorType {
@@ -5,9 +7,9 @@ public class ChatbotException {
         DEADLINE_EMPTY("OOPS!!! The deadline time cannot be empty."),
         EVENT_EMPTY("OOPS!!! The event times cannot be empty."),
         UNKNOWN_COMMAND("OOPS!!! I'm sorry, but I don't know what that means :-("),
-        TASK_CORRUPT("Task data is corrupted."),
+        TASK_CORRUPT("duke.task.Task data is corrupted."),
         TODO_CORRUPT("TODO data is corrupted."),
-        EVENT_CORRUPT("Event time data is corrupted."),
+        EVENT_CORRUPT("duke.task.Event time data is corrupted."),
         UNKNOWN_TASK("Unknown task type.");
 
 

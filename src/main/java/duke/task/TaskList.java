@@ -1,12 +1,14 @@
+package duke.task;
+import duke.storage.Storage;
+import duke.core.ChatbotException;
 import java.io.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskList {
 
     protected ArrayList<Task> tasks;
 
-    protected static int tasksCount = 0;
+    public static int tasksCount = 0;
 
     private static final String FILE_PATH = "./data/duke.txt";
 
@@ -106,11 +108,11 @@ public class TaskList {
             }
             tasksCount = tasks.size(); // Ensure the count reflects loaded tasks
         } catch (FileNotFoundException e) {
-            System.out.println("Task file not found. A new file will be created.");
+            System.out.println("duke.task.Task file not found. A new file will be created.");
         } catch (IOException e) {
             System.out.println("An error occurred while loading tasks.");
         } catch (Exception e) {
-            System.out.println("Task file is corrupted.");
+            System.out.println("duke.task.Task file is corrupted.");
         }
     }
 }
