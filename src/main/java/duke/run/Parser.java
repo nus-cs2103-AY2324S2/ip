@@ -10,6 +10,10 @@ import duke.command.Command;
 import duke.command.FindCommand;
 
 import duke.others.BelleException;
+
+/**
+ * Deals with making sense of the user command.
+ */
 public class Parser {
 
     /**

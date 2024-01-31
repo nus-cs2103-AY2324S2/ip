@@ -8,9 +8,17 @@ import duke.run.Ui;
 
 import duke.others.BelleException;
 
+/**
+ * Marks items as done.
+ */
 public class MarkCommand extends Command {
     private String index;
 
+    /**
+     * Constructs MarkCommand.
+     *
+     * @param index The index of item to mark as done.
+     */
     public MarkCommand(String index) {
         this.index = index;
     }

@@ -6,6 +6,9 @@ import duke.run.Ui;
 
 import duke.others.BelleException;
 
+/**
+ * Performs different functions based on type of command.
+ */
 public abstract class Command {
 
     /**

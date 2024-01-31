@@ -1,12 +1,19 @@
 package duke.tasks;
 
+/**
+ * Represents tasks.
+ */
 public class Task {
 
-    private boolean done = false;
+    private boolean isDone = false;
     private String name = "";
+
+    /**
+     * Constructs Task.
+     */
     public Task(String name, boolean done) {
         this.name = name;
-        this.done = done;
+        this.isDone = done;
     }
 
     public String getName() {
@@ -14,7 +21,7 @@ public class Task {
     }
 
     public String setIsDone() {
-        if (this.done) {
+        if (this.isDone) {
             return "X";
         } else {
             return " ";
@@ -22,11 +29,11 @@ public class Task {
     }
 
     public void setTaskDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void setTaskUndone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -44,6 +51,6 @@ public class Task {
     }
 
     public String getDone() {
-        return Boolean.toString(this.done);
+        return Boolean.toString(this.isDone);
     }
 }

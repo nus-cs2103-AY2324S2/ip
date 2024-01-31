@@ -2,10 +2,10 @@ package duke.run;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 
 import duke.tasks.Task;
 import duke.tasks.EventTask;
@@ -15,6 +15,9 @@ import duke.tasks.TodoTask;
 
 import duke.others.BelleException;
 
+/**
+ * Deals with loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
     private String filepath;
 

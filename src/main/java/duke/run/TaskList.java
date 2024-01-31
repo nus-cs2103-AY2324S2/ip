@@ -1,10 +1,13 @@
 package duke.run;
 
-import duke.tasks.Task;
-
 import java.util.ArrayList;
 
+import duke.tasks.Task;
 
+/**
+ * Contains the task list e.g., it has
+ * operations to add/delete tasks in the list.
+ */
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
 

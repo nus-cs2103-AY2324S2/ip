@@ -1,6 +1,10 @@
 package duke.tasks;
 
 import duke.others.DateFormatter;
+
+/**
+ * Represents tasks with deadline.
+ */
 public class DeadlineTask extends Task {
     private String deadline;
 
@@ -10,7 +14,6 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String name, boolean done, String deadline) {
         super(name, done);
         this.deadline = deadline;
-        //put date formatter here
         DateFormatter d = new DateFormatter(this.deadline);
         if (d.isValidDate()) {
             this.deadline = d.convertDate();

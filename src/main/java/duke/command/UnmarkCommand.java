@@ -8,9 +8,17 @@ import duke.run.Ui;
 
 import duke.others.BelleException;
 
+/**
+ * Marks items as undone.
+ */
 public class UnmarkCommand extends Command {
     private String index;
 
+    /**
+     * Constructs UnmarkCommand.
+     *
+     * @param index The index of item to mark as undone.
+     */
     public UnmarkCommand(String index) {
         this.index = index;
     }

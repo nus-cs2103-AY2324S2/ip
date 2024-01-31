@@ -6,10 +6,17 @@ import duke.run.Storage;
 import duke.run.TaskList;
 import duke.run.Ui;
 
-
+/**
+ * Finds specific task from list based on keyword.
+ */
 public class FindCommand extends Command {
     private String keyword;
 
+    /**
+     * Constructs FindCommand.
+     *
+     * @param keyword Specific word that user is searching for.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }

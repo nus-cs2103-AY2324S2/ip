@@ -2,24 +2,30 @@ package duke;
 
 import java.util.ArrayList;
 
+import duke.command.Command;
+
 import duke.run.Parser;
 import duke.run.Storage;
 import duke.run.TaskList;
 import duke.run.Ui;
 
-import duke.command.Command;
-
 import duke.others.BelleException;
 
-
-
+/**
+ * Manages tasks on a list in a chatbot form.
+ */
 public class Belle {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
     private Parser parser;
+
+    /**
+     * Constructs Belle.
+     *
+     * @param filePath Specifies filepath to store data.
+     */
     public Belle(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -28,12 +34,14 @@ public class Belle {
         try {
             tasks = new TaskList(storage.loadList());
         } catch (BelleException e) {
-            //ui.showLoadingError();
-            System.out.println(e.getMessage());
+            ui.printError(e.getMessage());
             tasks = new TaskList(new ArrayList<>());
         }
     }
 
+    /**
+     * Runs Belle chatbot.
+     */
     public void run() {
         ui.greet();
         boolean isExit = false;
@@ -44,7 +52,7 @@ public class Belle {
                 com.execute(storage, tasks, ui);
                 isExit = com.isExit();
             } catch (BelleException e) {
-                System.out.println(e.getMessage());
+                ui.printError(e.getMessage());
             }
         }
 

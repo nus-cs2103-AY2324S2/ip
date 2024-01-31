@@ -1,11 +1,17 @@
 package duke;
 
-
 import duke.run.Parser;
-import org.junit.jupiter.api.Test;
-import duke.others.BelleException;
-import duke.command.*;
 
+import duke.command.AddTaskCommand;
+import duke.command.ByeCommand;
+import duke.command.DeleteCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+import duke.command.ListCommand;
+
+import duke.others.BelleException;
+
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
@@ -57,7 +63,6 @@ public class ParserTest {
         }
     }
 
-
     @Test
     public void parseToDoTest(){
         try {
@@ -66,6 +71,7 @@ public class ParserTest {
             System.out.println(e.getMessage());
         }
     }
+
     @Test
     public void parseDeadlineTest(){
         try {
@@ -83,6 +89,4 @@ public class ParserTest {
             System.out.println(e.getMessage());
         }
     }
-
-
 }

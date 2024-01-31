@@ -1,17 +1,19 @@
 package duke.others;
 
-import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Convert dates to more readable form.
+ */
 public class DateFormatter{
     private String date;
 
     /**
      * Constructs DateFormatter.
      *
-     * @ param Date to convert.
+     * @param date to convert.
      */
     public DateFormatter(String date) {
         this.date = date;

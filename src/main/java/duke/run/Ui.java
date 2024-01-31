@@ -2,6 +2,9 @@ package duke.run;
 
 import java.util.Scanner;
 
+/**
+ * Deals with interactions with the user.
+ */
 public class Ui {
     private Scanner sc;
 
@@ -39,6 +42,10 @@ public class Ui {
         System.out.println("Till next time!! Goodbye.");
         System.out.println("--------------------------");
         this.sc.close();
+    }
+
+    public void printError(String msg) {
+        System.out.println(msg);
     }
 }
 

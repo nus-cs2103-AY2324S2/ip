@@ -11,10 +11,20 @@ import duke.run.Ui;
 
 import duke.others.BelleException;
 
+/**
+ * Adds item to tasklist.
+ */
 public class AddTaskCommand extends Command {
     private String type;
     private String msg;
 
+    /**
+     * Constructs AddTaskCommand.
+     *
+     * @param type Type of command.
+     * @param msg The remaining part of input string,
+     *            excluding the type.
+     */
     public AddTaskCommand(String type, String msg) {
         this.type = type;
         this.msg = msg;

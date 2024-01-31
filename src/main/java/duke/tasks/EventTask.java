@@ -1,6 +1,10 @@
 package duke.tasks;
 
 import duke.others.DateFormatter;
+
+/**
+ * Represents tasks with start and end time.
+ */
 public class EventTask extends Task {
 
     private String start;

@@ -4,9 +4,15 @@ import duke.run.Storage;
 import duke.run.TaskList;
 import duke.run.Ui;
 
+/**
+ * Lists out all items in the tasklist.
+ */
 public class ListCommand extends Command {
-    public ListCommand() {
 
+    /**
+     * Constructs ListCommand.
+     */
+    public ListCommand() {
     }
 
     @Override

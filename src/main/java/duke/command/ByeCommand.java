@@ -4,7 +4,14 @@ import duke.run.Storage;
 import duke.run.TaskList;
 import duke.run.Ui;
 
+/**
+ * Exits the program.
+ */
 public class ByeCommand extends Command {
+
+    /**
+     * Constructs ByeCommand.
+     */
     public ByeCommand() {
     }
 

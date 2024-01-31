@@ -8,9 +8,17 @@ import duke.run.Ui;
 
 import duke.others.BelleException;
 
+/**
+ * Deletes item from list.
+ */
 public class DeleteCommand extends Command {
     private String index;
 
+    /**
+     * Constructs DeleteCommand.
+     *
+     * @param index The index of item to delete.
+     */
     public DeleteCommand(String index) {
         this.index = index;
     }

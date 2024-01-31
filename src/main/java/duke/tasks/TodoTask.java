@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+ * Represents tasks with no deadline.
+ */
 public class TodoTask extends Task {
 
     /**
