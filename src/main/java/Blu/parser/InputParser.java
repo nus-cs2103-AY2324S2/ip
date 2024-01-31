@@ -11,6 +11,7 @@ import blu.command.CommandType;
 import blu.command.DeadlineCommand;
 import blu.command.DeleteCommand;
 import blu.command.EventCommand;
+import blu.command.FindCommand;
 import blu.command.InvalidCommand;
 import blu.command.ListCommand;
 import blu.command.MarkCommand;
@@ -39,6 +40,8 @@ public class InputParser {
             return prepareDeadlineCommand(tokens);
         case EVENT:
             return prepareEventCommand(tokens);
+        case FIND:
+            return prepareFindCommand(tokens);
         case DELETE:
             return prepareDeleteCommand(tokens);
         case BYE:
@@ -176,6 +179,16 @@ public class InputParser {
             throw new IllegalCommandException("Invalid DateTime format.\n"
                                                 + "Please use dd-MM-yyyy format.");
         }
+    }
+
+    private Command prepareFindCommand(String[] tokens) throws IllegalCommandException {
+        int baseIdx = 0;
+        if (tokens.length < 2) {
+            throw new IllegalCommandException("Search string cannot be empty.\n"
+                                                    + "Usage: todo <search_string>");
+        }
+        String searchString = getParamValue(tokens, baseIdx, tokens.length);
+        return new FindCommand(searchString);
     }
 
     private Command prepareDeleteCommand(String[] tokens) throws IllegalCommandException {
