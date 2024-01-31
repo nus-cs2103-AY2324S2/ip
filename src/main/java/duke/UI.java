@@ -51,6 +51,22 @@ public class UI {
         line();
     }
 
+    public void printFindList(ArrayList<Task> taskList) {
+        line();
+        if (taskList.isEmpty()) {
+            System.out.println("\tOh noes! The list is empty! :(");
+            line();
+            return;
+        }
+
+        System.out.println("These are all the tasks related:");
+
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println("\t" + (i + 1) + ". " + taskList.get(i));
+        }
+        line();
+    }
+
     public void showAddMsg(Task t, int size) {
         line();
         System.out.println("Understood. Added the following:");

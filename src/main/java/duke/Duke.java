@@ -44,6 +44,8 @@ public class Duke {
                 } else if (cmd.equals("delete")) {
                     tasks.deleteItem(parser.parseDelete(text));
                     storage.saveTasks(tasks.get());
+                } else if (cmd.equals("find")) {
+                    tasks.findItem(parser.parseFind(text));
                 } else {
                     throw new DukeException("Your input is invalid!");
                 }

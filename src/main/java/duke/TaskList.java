@@ -74,6 +74,18 @@ public class TaskList {
         }
     }
 
+    public void findItem(String[] cmd) {
+        String search = cmd[1];
+        ArrayList<Task> task = new ArrayList<>();
+        for (Task t : list) {
+            if (t.getDesc().contains(search)) {
+                task.add(t);
+            }
+        }
+
+        ui.printFindList(task);
+    }
+
     public ArrayList<Task> get() {
         return list;
     }

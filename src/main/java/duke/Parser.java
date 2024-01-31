@@ -106,6 +106,16 @@ public class Parser {
         return res;
     }
 
+    public String[] parseFind(String cmd) throws DukeException {
+        String[] str = cmd.split(" ", 2);
+
+        if (str.length != 2) {
+            throw new DukeException("Missing params for find");
+        }
+
+        return str;
+    }
+
     public LocalDate validDate(String str) throws DukeException {
         LocalDate ld;
 
