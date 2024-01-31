@@ -1,5 +1,6 @@
-import LetoTasks.Task;
-import LetoTasks.TaskListCommands;
+package leto;
+
+import leto.tasklist.TaskListCommands;
 
 import java.util.Scanner;
 
@@ -12,6 +13,7 @@ enum Commands {
     MARK,
     UNMARK,
     DELETE,
+    SAVE,
     DEFAULT
 }
 
@@ -23,6 +25,8 @@ public class CommandExecutor {
     }
 
     public static void readCommandAndExecute() {
+        TaskListCommands.initFromFile();
+
         boolean bye = false;
 
         while (!bye) {
@@ -40,6 +44,7 @@ public class CommandExecutor {
             switch (cmd) {
                 case BYE:
                     bye = true;
+                    TaskListCommands.saveTasks();
                     break;
                 case LIST:
                     System.out.println();
@@ -59,6 +64,9 @@ public class CommandExecutor {
                     break;
                 case DELETE:
                     TaskListCommands.deleteTask(inputs);
+                    break;
+                case SAVE:
+                    TaskListCommands.saveTasks();
                     break;
                 default:
                     System.out.println("  <<Duke Leto>>\n   >> Supported commands:\n" +
