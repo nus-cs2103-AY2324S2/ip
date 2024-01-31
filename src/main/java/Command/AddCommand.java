@@ -1,4 +1,6 @@
-package main.java.Command;
+import Task.Task;
+import Task.TaskList;
+
 public class AddCommand extends Command {
 
     private final Task task;

@@ -1,17 +1,17 @@
+import Task.Deadline;
+import Task.Event;
+import Task.TaskType;
+import Task.ToDo;
+import Task.Task;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 public class Parser {
 
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    enum TaskType {
-        TODO,
-        DEADLINE,
-        EVENT,
-    }
     private static final ArrayList<String> TASK_TYPES = new ArrayList<String>(Arrays.asList("todo", "deadline", "event"));
     public Command parse(String input) throws DookException {
         String[] split = input.split(" ", 2);
@@ -29,11 +29,11 @@ public class Parser {
             }
             switch (firstWord) {
                 case "todo":
-                    return new AddCommand(TaskType.TODO, secondWord);
+                    return new AddCommand(getTask(TaskType.TODO, secondWord));
                 case "deadline":
-                    return new AddCommand(TaskType.DEADLINE, secondWord);
+                    return new AddCommand(getTask(TaskType.DEADLINE, secondWord));
                 default:
-                    return new AddCommand(TaskType.EVENT, secondWord);
+                    return new AddCommand(getTask(TaskType.EVENT, secondWord));
             }
         } else if (firstWord.equals("mark")) {
             try {
@@ -69,7 +69,7 @@ public class Parser {
         String[] details;
         try {
             if (taskDetails.isBlank()) {
-                throw new DookException(":( Task description cannot be empty!");
+                throw new DookException(":( Task.Task description cannot be empty!");
             }
             switch (taskType) {
             case TODO:

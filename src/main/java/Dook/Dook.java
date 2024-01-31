@@ -1,3 +1,5 @@
+import Task.TaskList;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +35,9 @@ public class Dook {
         } catch (DookException e) {
             this.ui.println(e.getMessage());
         }
-        Scanner sc = new Scanner(System.in);
         boolean willExitLoop = false;
         while (!willExitLoop) {
-            String input = sc.nextLine();
+            String input = ui.getInput();
             this.ui.printSeparator();
             try {
                 Command c = this.parser.parse(input);

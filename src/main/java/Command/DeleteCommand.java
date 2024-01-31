@@ -1,3 +1,6 @@
+import Task.Task;
+import Task.TaskList;
+
 public class DeleteCommand extends Command {
     private final int positionToDelete;
 
