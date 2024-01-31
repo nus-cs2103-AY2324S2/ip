@@ -19,4 +19,12 @@ public class Deadline extends Task {
     public String toSaveFormat() {
         return "D | " + (super.isDone ? "1" : "0") + " | " + super.description + " | " + this.by;
     }
+
+    public static Deadline fromSaveFormat(String[] info) {
+        Deadline loadedTask =  new Deadline(info[2], LocalDate.parse(info[3]));
+        if (info[1].equals("1")) {
+            loadedTask.markAsDone();
+        }
+        return loadedTask;
+    }
 }
