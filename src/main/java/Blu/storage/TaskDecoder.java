@@ -9,7 +9,33 @@ import blu.task.Event;
 import blu.task.Task;
 import blu.task.ToDo;
 
+/**
+ * Decodes CSV strings into their associated Task objects. 
+ */
 public class TaskDecoder {
+
+    /**
+     * Parses CSV string to a Task object by determining its type
+     *
+     * @param csv The CSV string to be parsed into a Task object.
+     * @return The associated Task object.
+     * @throws BluException If the task type is unrecognized or if the CSV format is invalid.
+     */
+    public static Task fromCsv(String csv) throws BluException {
+        String[] tokens = csv.split(",");
+        String type = tokens[0];
+        switch (type) {
+        case "T":
+            return parseToDo(tokens);
+        case "D":
+            return parseDeadline(tokens);
+        case "E":
+            return parseEvent(tokens);
+        default:
+            throw new BluException("Unrecognised task type");
+        }
+    }
+
     private static ToDo parseToDo(String[] tokens) throws BluException {
         try {
             ToDo todo = new ToDo(tokens[2]);
@@ -46,20 +72,4 @@ public class TaskDecoder {
             throw new BluException("Invalid event format in storage file");
         }
     }
-
-    public static Task fromCsv(String csv) throws BluException {
-        String[] tokens = csv.split(",");
-        String type = tokens[0];
-        switch (type) {
-        case "T":
-            return parseToDo(tokens);
-        case "D":
-            return parseDeadline(tokens);
-        case "E":
-            return parseEvent(tokens);
-        default:
-            throw new BluException("Unrecognised task type");
-        }
-    }
-    
 }
