@@ -55,7 +55,7 @@ public class TaskManager {
         }
     }
 
-    private void listTasks() {
+    public void listTasks() {
         System.out.println("____________________________________________________________");
         if (tasks.isEmpty()) {
             System.out.println("No tasks in the list.");
@@ -68,7 +68,7 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
-    private void markTask(String[] tokens) {
+    public void markTask(String[] tokens) {
         if (tokens.length == 2) {
             int index = Integer.parseInt(tokens[1]);
             if (isValidIndex(index)) {
@@ -86,7 +86,7 @@ public class TaskManager {
         saveTasksToFile();
     }
 
-    private void unmarkTask(String[] tokens) {
+    public void unmarkTask(String[] tokens) {
         if (tokens.length == 2) {
             int index = Integer.parseInt(tokens[1]);
             if (isValidIndex(index)) {
@@ -213,5 +213,9 @@ public class TaskManager {
         } catch (IOException e) {
             System.out.println("Error resetting file: " + e.getMessage());
         }
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
     }
 }
