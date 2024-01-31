@@ -11,6 +11,9 @@ import exception.UnknownCommandException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Parser class deals with making sense of the user command
+ */
 public class Parser {
 
     enum Command {
@@ -22,8 +25,15 @@ public class Parser {
         MARK,
         UNMARK,
         DELETE,
-
     }
+
+    /**
+     * Parses the user input to create a Deadline object.
+     *
+     * @param arr The array of strings representing the user input.
+     * @return A Deadline object
+     * @throws InvalidDeadlineException If the user input does not meet the requirements for a Deadline.
+     */
     public Deadline parseDeadline(String[] arr) throws InvalidDeadlineException {
         String deadline_title = "";
         String dateTime = "";
@@ -53,6 +63,13 @@ public class Parser {
         return new Deadline(deadline_title, date);
     }
 
+    /**
+     * Parses the user input to create a ToDo object.
+     *
+     * @param arr The array of strings representing the user input.
+     * @return A ToDo object parsed from the user input.
+     * @throws InvalidTodoException If the user input does not meet the requirements for a ToDo.
+     */
     public ToDo parseTodo(String[] arr) throws InvalidTodoException {
         String todo_title = "";
 
@@ -70,15 +87,22 @@ public class Parser {
         return new ToDo(todo_title);
     }
 
-    public Event parseEvent(String[] splitWords) throws InvalidEventException {
+    /**
+     * Parses the user input to create an Event object.
+     *
+     * @param arr The array of strings representing the user input.
+     * @return An Event object parsed from the user input.
+     * @throws InvalidEventException If the user input does not meet the requirements for an Event.
+     */
+    public Event parseEvent(String[] arr) throws InvalidEventException {
         String combinedWord = "";
-        for (int i = 1; i < splitWords.length; i++) {
-            combinedWord += splitWords[i] + " ";
+        for (int i = 1; i < arr.length; i++) {
+            combinedWord += arr[i] + " ";
         }
         int indexFrom = combinedWord.indexOf("/from");
         int indexTo = combinedWord.indexOf("/to");
 
-        if (splitWords.length - 1 == 0) {
+        if (arr.length - 1 == 0) {
             throw new InvalidEventException("OOPS!!! The description of an Event cannot be empty.");
         } else if (indexFrom < 0 || indexTo < 0) {
             throw new InvalidEventException("OOPS!!! The date of an Event cannot be empty.");
@@ -94,6 +118,13 @@ public class Parser {
         return new Event(beforeFrom, startDate, endDate);
     }
 
+    /**
+     * Parses the user input to identify the command.
+     *
+     * @param arr The array of strings representing the user input.
+     * @return The Command enum representing the parsed command.
+     * @throws UnknownCommandException If the user input does not match any recognized command.
+     */
     public Command parseCommand(String[] arr) throws UnknownCommandException {
         switch (arr[0]) {
             case "bye":
@@ -125,6 +156,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Helper function to parse the string representation of date and time into a LocalDateTime object.
+     *
+     * @param dateTime The string representation of date and time.
+     * @return A LocalDateTime object parsed from the input string.
+     */
     public LocalDateTime parseDateTime(String dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
 
