@@ -1,14 +1,12 @@
-import java.util.Scanner;
-
 public class Duke {
-    private Ui chatbotUi;
-    private TaskList taskList;
-    private Process processor;
+    private final Ui chatbotUi;
+    private final TaskList taskList;
+    private final Parser processor;
 
     public Duke() {
         chatbotUi = new Ui();
         taskList = new TaskList();
-        processor = new Process(taskList, chatbotUi);
+        processor = new Parser(taskList, chatbotUi);
     }
 
     public void run() {
@@ -37,7 +35,7 @@ public class Duke {
             processor.userInputAddTask(userInput);
         } while (true);
 
-        System.out.println(chatbotUi.dividerWrapper(chatbotUi.bye()));
+        System.out.println(chatbotUi.dividerWrapper(Ui.bye()));
     }
 
     public static void main(String[] args) {

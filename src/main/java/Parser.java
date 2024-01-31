@@ -1,13 +1,24 @@
+import java.io.*;
 
-class Process {
+class Parser {
     private TaskList taskList;
     private Ui chatbotUi;
+    private File file;
 
-    public Process(TaskList taskList, Ui chatbotUi) {
+    public Parser(TaskList taskList, Ui chatbotUi) {
         this.taskList = taskList;
         this.chatbotUi = chatbotUi;
+        this.file = new File("src/data/tasks.txt");
     }
 
+    private void writeToFile() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        for (Task task : taskList.getTaskList()) {
+            writer.write(task.toString());
+            writer.newLine();
+        }
+        writer.close();
+    }
     public void userInputProcessMarkUnmark(String userInput){
         String[] array = userInput.split(" ");
         String command = array[0];
@@ -22,10 +33,13 @@ class Process {
                 taskList.unmarkTask(number - 1);
                 System.out.println(chatbotUi.dividerWrapper(chatbotUi.unmark() + "\n" + taskList.getTaskAtIndex(number - 1)));
             }
+            writeToFile();
         } catch (NumberFormatException e) {
             System.out.println(chatbotUi.dividerWrapper("You must use a number to mark."));
         } catch (IndexOutOfBoundsException e) {
             System.out.println(chatbotUi.dividerWrapper("You must select a number within the size of the Task List."));
+        } catch (IOException e) {
+            System.out.println(chatbotUi.dividerWrapper("Error writing to file."));
         }
     }
 
@@ -107,6 +121,12 @@ class Process {
                 System.out.println(chatbotUi.dividerWrapper("Invalid command. Please enter a valid command."));
         }
 
+        try {
+            writeToFile(); // write changes to file
+        } catch (IOException e) {
+            System.out.println(chatbotUi.dividerWrapper("Error writing to file."));
+        }
+
     }
 
 
@@ -123,10 +143,12 @@ class Process {
     public void userInputDeleteTask(String userInput) {
         String[] array = userInput.split(" ");
         try {
+
             int number = Integer.parseInt(array[1]);
             Task temp = taskList.getTaskAtIndex(number - 1);
             taskList.deleteAtIndex(number - 1);
             System.out.println(chatbotUi.dividerWrapper("Noted. I've removed this task:\n" + temp + "\nNow you have "+ taskList.size() + " tasks in the list"));
+            writeToFile();
         } catch (NumberFormatException e) {
             System.out.println(chatbotUi.dividerWrapper("You must use a number to delete successfully."));
         } catch (IndexOutOfBoundsException e) {
@@ -135,6 +157,8 @@ class Process {
                 System.out.println(chatbotUi.dividerWrapper("Can not delete, task list is empty!"));
             }
             System.out.println(chatbotUi.dividerWrapper("You must select a number within the scope of the task list"));
+        } catch (IOException e) {
+            System.out.println(chatbotUi.dividerWrapper("Error writing to file."));
         }
     }
 
