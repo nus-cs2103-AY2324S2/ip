@@ -4,6 +4,10 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         String name = "Georgie";
+<<<<<<< HEAD
+=======
+        //Task[] tasks = new Task[100];
+>>>>>>> f2aff4da2d94c377f82d474320a8e9b137b9202d
         ArrayList<Task> tasks = new ArrayList<>();
         int taskCounter = 0;
 
