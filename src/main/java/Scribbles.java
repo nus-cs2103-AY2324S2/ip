@@ -1,3 +1,13 @@
+package scribbles;
+
+import parser.Parser;
+import storage.Storage;
+import task.Deadline;
+import task.Event;
+import task.Todo;
+import tasklist.TaskList;
+import ui.Ui;
+
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
