@@ -6,6 +6,10 @@ import solaire.storage.Storage;
 import solaire.tasklist.TaskList;
 import solaire.ui.Ui;
 
+/**
+ * Represents the chatbot, Solaire.
+ * The chatbot can keep track of various types of tasks and mark/unmark tasks as complete.
+ */
 public class Solaire {
     private TaskList taskList;
     private Ui ui;
@@ -14,6 +18,9 @@ public class Solaire {
         GREET, BYE, MARK, UNMARK, LIST, TODO, EVENT, DEADLINE, DELETE
     }
 
+    /**
+     * Creates a new instance of the chatbot.
+     */
     public Solaire() {
         this.ui = new Ui(new Scanner(System.in));
         this.taskList = new TaskList(Storage.loadFromLocal());
@@ -24,6 +31,10 @@ public class Solaire {
         solaire.startConversation();
     }
 
+    /**
+     * Begins the chatbot's working loop.
+     * Runs infinitely until user inputs "bye".
+     */
     public void startConversation() {
         ui.greet(); // UI
 
@@ -40,7 +51,6 @@ public class Solaire {
         ui.waveBye(); // UI
     }
 
-    /* This can stay in Solaire for now */
     private void processInput(String input) {
         String[] inputCommand = input.split(" ", 2);
         try {

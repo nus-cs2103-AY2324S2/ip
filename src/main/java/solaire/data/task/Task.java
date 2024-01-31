@@ -1,6 +1,9 @@
 package solaire.data.task;
 
-public class Task {
+/**
+ * Represents a Task that can be marked complete/incomplete.
+ */
+public abstract class Task {
     private static int count = 0;
     private int id;
     private String taskName;
@@ -16,10 +19,16 @@ public class Task {
         return this.id;
     }
 
+    /**
+     * Marks the current task as "done".
+     */
     public void markAsDone() {
         isDone = true;
     }
 
+    /**
+     * Marks the current task as "not done".
+     */
     public void unmarkDone() {
         isDone = false;
     }

@@ -6,9 +6,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
     private LocalDate by;
 
+    /**
+     * Creates a task with a specified deadline.
+     *
+     * @param taskName description of the task.
+     * @param ddl deadline as a String.
+     * @throws SolaireException if ddl does not follow the LocalDate format specified.
+     */
     public Deadline(String taskName, String ddl) throws SolaireException {
         super(taskName);
         this.by = parseDeadline(ddl);

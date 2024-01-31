@@ -8,8 +8,19 @@ import solaire.data.exception.SolaireException;
 import solaire.data.task.Task;
 import solaire.data.task.Todo;
 
+/**
+ * Represents a utility class Parser.
+ * Given a string user input, parses the given input and returns a corresponding <code>Task</code> object
+ */
 public class Parser {
 
+    /**
+     * Parses a user input string and returns a corresponding <code>Task</code> object.
+     *
+     * @param input user input as String.
+     * @return Task a <code>Task</code> object corresponding to the parsed input.
+     * @throws SolaireException if input fails to pattern-match with given patterns.
+     */
     public static Task parseTaskInput(String input) throws SolaireException {
         if (input.startsWith("deadline")) {
             Matcher deadlinePattern = Pattern.compile("^(?i)deadline\\s+(.+)\\s+/by\\s+(\\S+.*)").matcher(input);
