@@ -1,3 +1,5 @@
+package dibo;
+
 import java.util.ArrayList;
 
 public class Dibo {

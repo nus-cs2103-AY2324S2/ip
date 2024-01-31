@@ -1,11 +1,13 @@
-public class DeleteCommand extends Command {
+package dibo;
+
+public class UnmarkCommand extends Command {
     private int taskId;
 
-    public DeleteCommand(int taskId) {
+    public UnmarkCommand(int taskId) {
         this.taskId = taskId;
     }
     public void run(TaskList taskList, Ui ui, Storage storage) throws DiboException {
-        ui.showDeleted(taskList.deleteTask(taskId), taskList.getSize());
+        ui.showUnmarked(taskList.unmarkTask(taskId));
         storage.save(taskList);
     }
 

@@ -1,3 +1,4 @@
+package dibo;
 public class AddCommand extends Command{
     String fullCommand;
 

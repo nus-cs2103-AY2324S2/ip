@@ -1,3 +1,4 @@
+package dibo;
 
 public class Parser {
     static Command parse(String fullCommand) throws DiboException {

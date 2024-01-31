@@ -1,3 +1,5 @@
+package dibo;
+
 public class MarkCommand extends Command {
     private int taskId;
 
