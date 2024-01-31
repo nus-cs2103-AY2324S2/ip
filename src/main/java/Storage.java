@@ -8,12 +8,25 @@ import java.util.List;
 
 public class Storage {
 
+  /**
+   * The path of the file to be saved to.
+   */
   private String path;
 
+  /**
+   * Constructs a Storage object with the given path.
+   *
+   * @param path The path of the file to be saved to.
+   */
   public Storage(String path) {
     this.path = path;
   }
 
+  /**
+   * Loads the list of tasks from the file.
+   *
+   * @return The list of tasks.
+   */
   public List<Task> load() {
     try {
       File file = new File(this.path);
@@ -49,6 +62,11 @@ public class Storage {
     }
   }
 
+  /**
+   * Saves the given list of tasks to the file.
+   *
+   * @param tasks The list of tasks to be saved.
+   */
   public void save(TaskList tasks) {
     try {
       FileWriter writer = new FileWriter(this.path);
