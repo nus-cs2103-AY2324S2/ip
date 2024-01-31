@@ -1,1 +1,11 @@
+todo test
+deadline test2 /by Mon
+event test3 /from Tues /to Wed
+list
+todo
+deadline  /by
+event  /from  /to
+list
+delete 2
+list
 bye

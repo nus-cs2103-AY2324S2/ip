@@ -2,7 +2,60 @@ ____________________________________________________________
 Greetings! I'm Destiny
 How may I serve you?
 ____________________________________________________________
-
+____________________________________________________________
+Got it. I've added this task:
+   [T][ ] test
+Now you have 1 task in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+   [D][ ] test2  (by: mon)
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+   [E][ ] test3  (from: Tues  to: Wed)
+Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] test
+2. [D][ ] test2  (by: mon)
+3. [E][ ] test3  (from: Tues  to: Wed)
+____________________________________________________________
+____________________________________________________________
+Something went wrong...
+Please enter a description for the todo command
+____________________________________________________________
+____________________________________________________________
+Something went wrong...
+Please enter the following:
+a description for this Deadline task
+a deadline after the '/by' command
+____________________________________________________________
+____________________________________________________________
+Something went wrong...
+Please enter the following:
+a description for this Deadline task
+a deadline after the '/from' command
+a deadline after the '/to' command
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] test
+2. [D][ ] test2  (by: mon)
+3. [E][ ] test3  (from: Tues  to: Wed)
+____________________________________________________________
+____________________________________________________________
+Noted. I've removed this task:
+   [D][ ] test2  (by: mon)
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] test
+2. [E][ ] test3  (from: Tues  to: Wed)
+____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
