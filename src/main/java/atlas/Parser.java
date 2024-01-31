@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * The Parser class is responsible for parsing user input and converting it into executable commands.
@@ -81,6 +82,8 @@ public class Parser {
                 throw new AtlasException("Invalid date format. Please use 'yyyy-MM-dd HHmm'.");
             }
             return new TasksOnDateCommand(tasks, ui, storage, date);
+        case "find":
+            return new FindCommand(tasks, ui, storage, details);
         default:
             return new InvalidCommand(tasks, ui, storage);
         }

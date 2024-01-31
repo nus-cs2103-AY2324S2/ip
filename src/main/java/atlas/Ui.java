@@ -134,4 +134,13 @@ public class Ui {
             }
         }
     }
+
+    public void showMatchingTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No matching tasks found");
+        }
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
+        }
+    }
 }
