@@ -22,6 +22,7 @@ public class DataStorage {
 
         this.file = new File(fileName);
 
+
         // Solution below adapted from https://www.w3schools.com/java/java_files_create.asp
         try {
 
