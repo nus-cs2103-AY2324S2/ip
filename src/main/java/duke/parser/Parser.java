@@ -1,11 +1,7 @@
 package duke.parser;
 
-import duke.commands.Command;
-import duke.commands.AddCommand;
-import duke.commands.DeleteCommand;
-import duke.commands.ExitCommand;
-import duke.commands.ListCommand;
-import duke.commands.MarkCommand;
+import duke.Duke;
+import duke.commands.*;
 import duke.data.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -39,6 +35,7 @@ public class Parser {
 		else if (cmd.equals("deadline")) return parseDeadline(fullCmd);
 		else if (cmd.equals("event")) return parseEvent(fullCmd);
 		else if (cmd.equals("delete")) return parseDelete(fullCmd);
+		else if (cmd.equals("find")) return parseFind(fullCmd);
 		else throw new DukeException("\tSorry, what do you mean?\n");
 	}
 
@@ -114,6 +111,19 @@ public class Parser {
 			return new DeleteCommand(deleteIndex);
 		} catch (Exception e) {
 			throw new DukeException(deleteFormTxt);
+		}
+	}
+
+	private static FindCommand parseFind(String fullCmd)
+			throws DukeException {
+		String findFormTxt = "\tPlease specify the keyword you wish to find!\n";
+		try {
+			if (fullCmd.split(" ", 2)[1].trim().isEmpty()) {
+				throw new DukeException(findFormTxt);
+			}
+			return new FindCommand(fullCmd.split(" ", 2)[1]);
+		} catch (Exception e) {
+			throw new DukeException(findFormTxt);
 		}
 	}
 

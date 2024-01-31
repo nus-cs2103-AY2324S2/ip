@@ -3,6 +3,7 @@ package duke.task;
 import duke.data.exception.DukeException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList {
 	private final List<Task> store;
@@ -41,6 +42,12 @@ public class TaskList {
 		if (taskComplete) updateTask.mark();
 		else updateTask.unmark();
 		return updateTask;
+	}
+
+	public List<Task> search(String searchString) {
+		return store.stream()
+				.filter(task -> task.getDetails().contains(searchString))
+				.collect(Collectors.toList());
 	}
 
 }

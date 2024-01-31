@@ -64,6 +64,14 @@ public class Ui {
 				"\t\t" + updateTask + "\n" + TXT_LINE);
 	}
 
+	public void find(List<Task> searchList) {
+		StringBuilder findTxt = new StringBuilder("\tHere's what I found:\n");
+		for (int i = 0; i < searchList.size(); i++) {
+			findTxt.append("\t ").append(i + 1).append(".").append(searchList.get(i)).append("\n");
+		}
+		System.out.println(TXT_LINE + findTxt + TXT_LINE);
+	}
+
 	public void showError(String errorMsg) {
 		if (errorMsg.equals("Description Blank")) {
 			System.out.println(TXT_LINE + TXT_NODESC + TXT_LINE);
