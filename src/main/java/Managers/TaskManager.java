@@ -32,34 +32,15 @@ public class TaskManager {
     return this.tasks.get(i);
   }
 
-  private void printSeparator() {
-    System.out.println("--------------------");
-  }
-
   protected void add(Task task) {
-    this.printSeparator();
-    System.out.println("Got it, I've added this task: \n  " + task);
     tasks.add(task);
-    System.out.println("Now you have " + tasks.size() + " tasks in the list");
-    this.printSeparator();
+    UIManager.add(task, tasks.size());
   }
 
   protected void delete(String input) {
     int i = Integer.parseInt(StringUtils.getValueOfCommand(input, Commands.DELETE.getCommand(), null)) - 1;
-
-    this.printSeparator();
     Task task = this.tasks.remove(i);
-    System.out.println("Noted, I've removed this task: \n  " + task);
-    System.out.println("Now you have " + tasks.size() + " tasks in the list");
-    this.printSeparator();
-  }
-
-  private void print() {
-    this.printSeparator();
-    for (int i = 0; i < this.tasks.size(); i++) {
-        System.out.println((i + 1) + ". " + this.get(i));
-    }
-    this.printSeparator();
+    UIManager.delete(task, this.tasks.size());
   }
 
   protected static String getCommand(String input) {
@@ -84,7 +65,7 @@ public class TaskManager {
       } else if (command.equals(EventDao.NAME)) {
         addEvent(input);
       } else if (command.equals(Commands.LIST.getCommand())) {
-        print();
+        UIManager.list(this.tasks);
       } else if (command.equals(Commands.MARK.getCommand())) {
         mark(input, true);
       } else if (command.equals(Commands.UNMARK.getCommand())) {
@@ -125,11 +106,9 @@ public class TaskManager {
   private void mark(String input, boolean isDone) {
     int taskIndex = Integer.parseInt(StringUtils.getValueOfCommand(input, Commands.MARK.getCommand(), null)) - 1;
     Task task = this.get(taskIndex);
-    this.printSeparator();
     TaskType type = getTypeOfTask(task.toString());
     task = TaskDao.mark((int)task.getId(), type.getCommand(), task, isDone);
-    System.out.println("Nice! I've marked this task as done: \n" + task);
-    this.printSeparator();
+    UIManager.mark(task, isDone);
   }
 
   /**
