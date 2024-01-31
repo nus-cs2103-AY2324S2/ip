@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,9 +8,21 @@ import java.util.List;
 
 public class Storage {
 
-  public static List<Task> load() {
+  private String path;
+
+  public Storage(String path) {
+    this.path = path;
+  }
+
+  public List<Task> load() {
     try {
-      FileReader reader = new FileReader("tasks.txt");
+      File file = new File(this.path);
+      boolean fileExists = file.exists();
+      if (!fileExists) {
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+      }
+      FileReader reader = new FileReader(this.path);
       BufferedReader bufferedReader = new BufferedReader(reader);
       String line;
       List<Task> tasks = new ArrayList<Task>();
@@ -36,9 +49,9 @@ public class Storage {
     }
   }
 
-  public static void save(List<Task> tasks) {
+  public void save(List<Task> tasks) {
     try {
-      FileWriter writer = new FileWriter("tasks.txt");
+      FileWriter writer = new FileWriter(this.path);
       for (Task task : tasks) {
         writer.write(task.serialize() + "\n");
       }
