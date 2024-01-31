@@ -1,15 +1,19 @@
+import java.io.IOException;
+
 public class Duke {
     private final Ui chatbotUi;
     private final TaskList taskList;
-    private final Parser processor;
+    private final Processor processor;
+    private final Parser parser;
 
     public Duke() {
         chatbotUi = new Ui();
         taskList = new TaskList();
-        processor = new Parser(taskList, chatbotUi);
+        processor = new Processor(taskList, chatbotUi);
+        parser = new Parser(processor);
     }
 
-    public void run() {
+    public void run() throws IOException {
         // Greet User
         System.out.print(chatbotUi.greetingBox());
 
@@ -18,27 +22,17 @@ public class Duke {
             userInput = chatbotUi.getCommand();
             if (userInput.equals("bye")) {
                 break;
-            }
-            if (userInput.startsWith("delete")) {
-                processor.userInputDeleteTask(userInput);
-                continue;
+            } else {
+            parser.processCommand(userInput);
+
             }
 
-            if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
-                processor.userInputProcessMarkUnmark(userInput);
-                continue;
-            }
-            if (userInput.equals("list")) {
-                processor.userInputListTasks();
-                continue;
-            }
-            processor.userInputAddTask(userInput);
         } while (true);
 
         System.out.println(chatbotUi.dividerWrapper(Ui.bye()));
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Duke d = new Duke();
         d.run();
     }
