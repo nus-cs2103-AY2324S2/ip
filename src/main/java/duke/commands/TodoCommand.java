@@ -54,6 +54,7 @@ public class TodoCommand extends Command {
     @Override
     public CommandResult execute() {
         dataStorage.addTask(this.toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString(), dataStorage.getTaskCount()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString(),
+                dataStorage.getTaskCount()));
     }
 }

@@ -28,7 +28,8 @@ public class ListCommand extends Command {
 
         for (int i = 0; i < dataStorage.getTaskCount(); i++) {
             Task currentTask = dataStorage.getTask(i);
-            listViewBuilder.append(String.format(MESSAGE_INDIVIDUAL_LISTING_FORMAT, i + 1, currentTask.toString()));
+            listViewBuilder.append(String.format(MESSAGE_INDIVIDUAL_LISTING_FORMAT, i + 1,
+                    currentTask.toString()));
 
             // Append blank line if it is not last line.
             if (i < dataStorage.getTaskCount() - 1) {
