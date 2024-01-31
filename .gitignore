@@ -14,8 +14,8 @@ src/main/resources/docs/
 bin/
 
 #Data Files
-data/
-data/tasks.txt
+/data/
+/data/tasks.txt
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
