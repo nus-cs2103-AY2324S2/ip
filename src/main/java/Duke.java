@@ -31,23 +31,23 @@ abstract class Task {
     this.task = task;
   }
 
-  public boolean is_done() {
+  public boolean isDone() {
     return done;
   }
 
-  public void set_done(boolean done) {
+  public void setDone(boolean done) {
     this.done = done;
   }
 
-  public String task_id() {
+  public String taskId() {
     return id.toString();
   }
 
   public String toString() {
-    return String.format("[%s][%s] %s", id, done ? "X" : " ", task_str());
+    return String.format("[%s][%s] %s", id, done ? "X" : " ", taskStr());
   }
 
-  public abstract String task_str();
+  public abstract String taskStr();
 }
 
 class Todo extends Task {
@@ -56,7 +56,7 @@ class Todo extends Task {
     super(task, false, TaskID.TODO_ID);
   }
 
-  public String task_str() {
+  public String taskStr() {
     return task;
   }
 }
@@ -70,7 +70,7 @@ class Deadline extends Task {
     this.deadline = deadline;
   }
 
-  public String task_str() {
+  public String taskStr() {
     return String.format("%s (by: %s)", task, deadline);
   }
 }
@@ -86,7 +86,7 @@ class Event extends Task {
     this.to = to;
   }
 
-  public String task_str() {
+  public String taskStr() {
     return String.format("%s (from: %s to: %s)", task, from, to);
   }
 }
@@ -95,16 +95,16 @@ class DukeContext {
 
   public String name;
   public Scanner scanner;
-  public ArrayList<Task> stored_tasks;
+  public ArrayList<Task> storedTasks;
 
   DukeContext(String name) {
     this.name = name;
     this.scanner = new Scanner(System.in);
-    this.stored_tasks = new ArrayList<>();
+    this.storedTasks = new ArrayList<>();
   }
 
-  public boolean check_taskidx(int idx) {
-    return 0 <= idx && idx < stored_tasks.size();
+  public boolean checkTaskIdx(int idx) {
+    return 0 <= idx && idx < storedTasks.size();
   }
 }
 
@@ -128,7 +128,7 @@ public class Duke {
   private static final String FROM_CMD = "/from";
   private static final String TO_CMD = "/to";
 
-  private static String cmd_join(String[] xs) {
+  private static String cmdJoin(String[] xs) {
     return String.join(" ", xs);
   }
 
@@ -140,11 +140,11 @@ public class Duke {
     System.out.println("  " + s);
   }
 
-  public static boolean is_number(String str) {
+  private static boolean isNumber(String str) {
     return str.matches("-?\\d+(\\.\\d+)?");
   }
 
-  private static void input_prompt() {
+  private static void inputPrompt() {
     System.out.print(">> ");
   }
 
@@ -152,7 +152,7 @@ public class Duke {
     reply(String.format("OOPS!! %s", msg));
   }
 
-  private static void message_start() {
+  private static void messageStart() {
     reply("");
     reply(MESSAGE_DELINEATOR);
   }
@@ -165,60 +165,60 @@ public class Duke {
     reply(BYE_MESSAGE);
   }
 
-  private static boolean handle_command(DukeContext ctx) {
+  private static boolean handleCommand(DukeContext ctx) {
     String input = ctx.scanner.nextLine();
     String[] commands = input.split(" ");
     String c = commands[0];
-    String error_str;
+    String errorStr;
 
-    message_start();
+    messageStart();
     switch (c) {
       case "end":
         bye();
         return false;
       case "list":
         reply(LIST_MESSAGE);
-        for (int idx = 0; idx < ctx.stored_tasks.size(); idx++) {
-          reply(String.format("  %d.%s", idx + 1, ctx.stored_tasks.get(idx)));
+        for (int idx = 0; idx < ctx.storedTasks.size(); idx++) {
+          reply(String.format("  %d.%s", idx + 1, ctx.storedTasks.get(idx)));
         }
         return true;
       case "mark":
       case "unmark":
         {
-          boolean is_mark = c.equals("mark");
+          boolean isMark = c.equals("mark");
           String ferr1 = "%s command: expected an integer argument.";
           String ferr2 = "%s command: no such task numbered %s.";
           if (commands.length != 2) {
-            error_str = String.format(ferr1, c);
+            errorStr = String.format(ferr1, c);
             break;
           }
-          String idx_s = commands[1];
-          if (!is_number(idx_s)) {
-            error_str = String.format(ferr1, c);
+          String idxString = commands[1];
+          if (!isNumber(idxString)) {
+            errorStr = String.format(ferr1, c);
             break;
           }
-          int idx = Integer.parseInt(idx_s) - 1;
-          if (!ctx.check_taskidx(idx)) {
-            error_str = String.format(ferr2, c, idx_s);
+          int idx = Integer.parseInt(idxString) - 1;
+          if (!ctx.checkTaskIdx(idx)) {
+            errorStr = String.format(ferr2, c, idxString);
             break;
           }
-          ctx.stored_tasks.get(idx).set_done(is_mark);
-          reply(is_mark ? MARK_MESSAGE : UNMARK_MESSAGE);
-          reply(String.format("  %s", ctx.stored_tasks.get(idx)));
+          ctx.storedTasks.get(idx).setDone(isMark);
+          reply(isMark ? MARK_MESSAGE : UNMARK_MESSAGE);
+          reply(String.format("  %s", ctx.storedTasks.get(idx)));
           return true;
         }
       case "todo":
         {
           if (commands.length < 2) {
-            error_str = "todo command: description cannot be empty.";
+            errorStr = "todo command: description cannot be empty.";
             break;
           }
-          String task_str = cmd_join(range(commands, 1, commands.length));
-          Task task = new Todo(task_str);
-          ctx.stored_tasks.add(task);
+          String taskStr = cmdJoin(range(commands, 1, commands.length));
+          Task task = new Todo(taskStr);
+          ctx.storedTasks.add(task);
           reply(TODO_MESSAGE);
           reply(String.format("  %s", task));
-          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.stored_tasks.size()));
+          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.storedTasks.size()));
           return true;
         }
       case "deadline":
@@ -227,25 +227,25 @@ public class Duke {
           String ferr1 = "deadline command: expected `%s` argument.";
           String ferr2 = "deadline command: %s description cannot be empty.";
           if (!cmds.contains(BY_CMD)) {
-            error_str = String.format(ferr1, BY_CMD);
+            errorStr = String.format(ferr1, BY_CMD);
             break;
           }
           int by_idx = cmds.indexOf(BY_CMD);
-          String task_str = cmd_join(range(commands, 1, by_idx));
-          String deadline = cmd_join(range(commands, by_idx + 1, cmds.size()));
-          if (task_str.length() == 0) {
-            error_str = String.format(ferr2, "task");
+          String taskStr = cmdJoin(range(commands, 1, by_idx));
+          String deadline = cmdJoin(range(commands, by_idx + 1, cmds.size()));
+          if (taskStr.length() == 0) {
+            errorStr = String.format(ferr2, "task");
             break;
           }
           if (deadline.length() == 0) {
-            error_str = String.format(ferr2, "deadline");
+            errorStr = String.format(ferr2, "deadline");
             break;
           }
-          Task task = new Deadline(task_str, deadline);
-          ctx.stored_tasks.add(task);
+          Task task = new Deadline(taskStr, deadline);
+          ctx.storedTasks.add(task);
           reply(TODO_MESSAGE);
           reply(String.format("  %s", task));
-          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.stored_tasks.size()));
+          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.storedTasks.size()));
           return true;
         }
       case "event":
@@ -256,39 +256,39 @@ public class Duke {
           String ferr3 =
             "event command: `%s` argument expected before `%s` argument.";
           if (!cmds.contains(FROM_CMD)) {
-            error_str = String.format(ferr1, FROM_CMD);
+            errorStr = String.format(ferr1, FROM_CMD);
             break;
           }
           if (!cmds.contains(TO_CMD)) {
-            error_str = String.format(ferr1, TO_CMD);
+            errorStr = String.format(ferr1, TO_CMD);
             break;
           }
-          int from_idx = cmds.indexOf(FROM_CMD);
-          int to_idx = cmds.indexOf(TO_CMD);
-          if (to_idx < from_idx) {
-            error_str = String.format(ferr3, FROM_CMD, TO_CMD);
+          int fromIdx = cmds.indexOf(FROM_CMD);
+          int toIdx = cmds.indexOf(TO_CMD);
+          if (toIdx < fromIdx) {
+            errorStr = String.format(ferr3, FROM_CMD, TO_CMD);
             break;
           }
-          String task_str = cmd_join(range(commands, 1, from_idx));
-          String from_str = cmd_join(range(commands, from_idx + 1, to_idx));
-          String to_str = cmd_join(range(commands, to_idx + 1, cmds.size()));
-          if (task_str.length() == 0) {
-            error_str = String.format(ferr2, "task");
+          String taskStr = cmdJoin(range(commands, 1, fromIdx));
+          String from_str = cmdJoin(range(commands, fromIdx + 1, toIdx));
+          String to_str = cmdJoin(range(commands, toIdx + 1, cmds.size()));
+          if (taskStr.length() == 0) {
+            errorStr = String.format(ferr2, "task");
             break;
           }
           if (from_str.length() == 0) {
-            error_str = String.format(ferr2, "from");
+            errorStr = String.format(ferr2, "from");
             break;
           }
           if (to_str.length() == 0) {
-            error_str = String.format(ferr2, "to");
+            errorStr = String.format(ferr2, "to");
             break;
           }
-          Task task = new Event(task_str, from_str, to_str);
-          ctx.stored_tasks.add(task);
+          Task task = new Event(taskStr, from_str, to_str);
+          ctx.storedTasks.add(task);
           reply(TODO_MESSAGE);
           reply(String.format("  %s", task));
-          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.stored_tasks.size()));
+          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.storedTasks.size()));
           return true;
         }
       case "delete":
@@ -296,31 +296,31 @@ public class Duke {
           String ferr1 = "%s command: expected an integer argument.";
           String ferr2 = "%s command: no such task numbered %s.";
           if (commands.length != 2) {
-            error_str = String.format(ferr1, c);
+            errorStr = String.format(ferr1, c);
             break;
           }
-          String idx_s = commands[1];
-          if (!is_number(idx_s)) {
-            error_str = String.format(ferr1, c);
+          String idxString = commands[1];
+          if (!isNumber(idxString)) {
+            errorStr = String.format(ferr1, c);
             break;
           }
-          int idx = Integer.parseInt(idx_s) - 1;
-          if (!ctx.check_taskidx(idx)) {
-            error_str = String.format(ferr2, c, idx_s);
+          int idx = Integer.parseInt(idxString) - 1;
+          if (!ctx.checkTaskIdx(idx)) {
+            errorStr = String.format(ferr2, c, idxString);
             break;
           }
-          Task t = ctx.stored_tasks.get(idx);
-          ctx.stored_tasks.remove(idx);
+          Task t = ctx.storedTasks.get(idx);
+          ctx.storedTasks.remove(idx);
           reply(DELETE_MESSAGE);
           reply(String.format("  %s", t));
-          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.stored_tasks.size()));
+          reply(String.format(TASKS_SUMMARY_MESSAGE, ctx.storedTasks.size()));
           return true;
         }
       default:
-        error_str = String.format("Unhandled command: %s", c);
+        errorStr = String.format("Unhandled command: %s", c);
         break;
     }
-    error(error_str);
+    error(errorStr);
     return true;
   }
 
@@ -329,7 +329,7 @@ public class Duke {
 
     greet(ctx);
     do {
-      input_prompt();
-    } while (handle_command(ctx));
+      inputPrompt();
+    } while (handleCommand(ctx));
   }
 }
