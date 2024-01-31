@@ -1,5 +1,13 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 /**
  * Represent the Chatbot class to be used for interaction with the user
  * CS2103T
@@ -21,6 +29,94 @@ public class Duke {
     }
 
 
+    public void dirAndFileSetUp(String directoryPath){
+        String fileToCheck = "duke.txt";
+
+        File directory = new File(directoryPath);
+        if (!directory.exists()){
+            directory.mkdir();
+        }
+
+        File file = new File(directoryPath + "/" + fileToCheck);
+        boolean hasRecords = true;
+        try {
+            hasRecords = file.createNewFile();
+        } catch(IOException e){
+            System.out.println("There seems to be previous records. Loading...");
+        }
+        if(hasRecords == false){
+            System.out.println("Previous records loaded.\n");
+            try {
+                Scanner scanner = new Scanner(file);
+                while(scanner.hasNextLine()){
+                    transferFileContent(scanner.nextLine());
+                }
+            } catch (FileNotFoundException e){
+                System.out.println("Error.");
+            } catch (DukeException e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public void transferFileContent (String line) throws DukeException{
+        String taskComponents[] = line.split("@");
+        Task taskAdded = new Task("Error. Unable to retrieve Task.");
+        if(taskComponents.length == 3){
+            taskAdded = new Todo(taskComponents[2]);
+
+        } else if (taskComponents.length == 4 ){
+            taskAdded = new Deadline(taskComponents[2],taskComponents[3]);
+
+        } else if (taskComponents.length == 5 ) {
+            taskAdded = new Event(taskComponents[2], taskComponents[3], taskComponents[4]);
+
+        }
+        tasks.add(taskAdded);
+        if(taskComponents[1].equals("1")){
+            taskAdded.markAsDone();
+        }
+    }
+
+    public void fileUpdate(Task taskToUpdate, int command, int lineNum) {
+        String taskString = taskToUpdate.toString(true);
+        try {
+            if(command == 0) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(
+                            "C:/repos/cs2103t stuff/data/duke.txt",true ));
+                File file = new File("C:/repos/cs2103t stuff/data/duke.txt");
+                if(file.length() != 0){
+                    writer.newLine();
+                }
+                writer.write(taskString);
+                writer.close();
+            } else {
+                File inputFile = new File("C:/repos/cs2103t stuff/data/duke.txt");
+                BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                String line;
+                StringBuilder sb = new StringBuilder();
+                int lineNumCount = 1;
+                while((line = reader.readLine()) != null) {
+                    if ((lineNumCount == lineNum)) {
+                        sb.append("");
+                    } else {
+                        sb.append(line);
+                        sb.append("\n");
+                    }
+                    lineNumCount++;
+                }
+                sb.deleteCharAt(sb.lastIndexOf("\n"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(inputFile));
+                writer.write(sb.toString());
+                writer.close();
+                reader.close();
+            }
+        } catch( IOException e){
+            System.out.println();
+        }
+    }
+
+
     /**
      * Activates once Chatbot is booted up
      * @return a greeting message
@@ -33,7 +129,8 @@ public class Duke {
                 "Deadline: deadline + task + /by...;\n" +
                 "View the task list with List/list, or close the chat with Bye/bye!\n" +
                 "Mark/Unmark a task in the list with mark (number) or unmark (number)\n" +
-                "Delete a task in the list with delete (number)---\n";
+                "Delete a task in the list with delete (number)\n" +
+                "Records will be remembered if you close me and reopen me!---\n";
     }
 
     /**
@@ -87,7 +184,8 @@ public class Duke {
      * Creates a Task in the Task Arraylist as requested by the user
      * @param echo string to be assessed and operated on
      */
-    private void taskMechanism(String echo) throws DukeException {
+    private Task taskMechanism(String echo) throws DukeException {
+        Task taskAdded = new Task("Error. Unable to retrieve Task.");
         try {
             String keyword = echo.split(" ")[0];
             if (keyword.equals("deadline")) {
@@ -97,7 +195,8 @@ public class Duke {
                     ||(deadline[1].equals(""))){
                     throw new DukeException("Empty task fields where applicable are not allowed.\n");
                 } else {
-                    tasks.add(new Deadline(deadline[0], deadline[1]));
+                    taskAdded = new Deadline(deadline[0], deadline[1]);
+
                 }
             } else if (keyword.equals("event")) {
                 String echo1[] = echo.split("event", 2);
@@ -108,7 +207,7 @@ public class Duke {
                     || (event1[1].matches("\\s+")) || (event1[1].matches(""))){
                     throw new DukeException("Empty task fields where applicable are not allowed.\n");
                 } else {
-                    tasks.add(new Event(event[0], event1[0], event1[1]));
+                    taskAdded = new Event(event[0], event1[0], event1[1]);
                 }
             } else if (keyword.equals("todo")) {
                 String todo[] = echo.split("todo", 2);
@@ -116,7 +215,7 @@ public class Duke {
                 if((todo[1]).matches("\\s+") ||(todo[1]).equals("")){
                     throw new DukeException("Empty task fields where applicable are not allowed.\n");
                 } else {
-                    tasks.add(new Todo(todo[1]));
+                    taskAdded = new Todo(todo[1]);
                 }
             } else {
                 throw new DukeException("Error.Please enter a todo, deadline or event with the relevant details!\n" +
@@ -124,6 +223,8 @@ public class Duke {
                         "Event: event + task + /from... + /to... ;\n" +
                         "Deadline: deadline + task + /by...;\n");
             }
+
+            tasks.add(taskAdded);
 
             System.out.println("Understood. I've added this task:\n "
                     + Task.currentTaskNum + "."
@@ -138,18 +239,19 @@ public class Duke {
                     "Deadline: deadline + task + /by...;\n");
         }
 
-
+        return taskAdded;
     }
 
     /**
      * Delete a Task in the Task Arraylist as requested by the user
      * @param echo string to be assessed and operated on
      */
-    private void deleteMechanism(String echo) {
+    private Task deleteMechanism(String echo) {
         String echo1[] = echo.split("delete ", 2);
         int numberToRemove = Integer.parseInt(echo1[1]);
+        Task removed = new Task("Task to be deleted");
         try {
-            Task removed = tasks.remove(numberToRemove - 1);
+            removed = tasks.remove(numberToRemove - 1);
             Task.currentTaskNum--;
             System.out.println("Very well. I have removed this task.\n" + removed
                     + "\nNow you have " + Task.currentTaskNum
@@ -157,8 +259,7 @@ public class Duke {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("There are only: " + Task.currentTaskNum + " task(s) in the list to delete.\n");
         }
-
-
+        return removed;
     }
 
     /**
@@ -178,9 +279,15 @@ public class Duke {
                 } else if (echo.matches("unmark -?[0-9]*") || echo.matches("mark -?[0-9]*")) {
                     this.markMechanism(echo);
                 } else if (echo.matches("delete -?[0-9]*")){
-                    this.deleteMechanism(echo);
+                    String echo1[] = echo.split("delete ", 2);
+                    int numberToRemove = Integer.parseInt(echo1[1]);
+                    Task removed = this.deleteMechanism(echo);
+                    if(numberToRemove <= Task.currentTaskNum + 1) {
+                        fileUpdate(removed, 1, numberToRemove);
+                    }
                 } else {
-                    this.taskMechanism(echo);
+                    Task added = this.taskMechanism(echo);
+                    fileUpdate(added, 0, 0);
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
@@ -190,8 +297,9 @@ public class Duke {
         System.out.println(bye());
     }
     public static void main(String[] args) {
-        Duke Balom = new Duke();
-        System.out.println(Balom.greet());
-        Balom.chatting();
+        Duke balom = new Duke();
+        balom.dirAndFileSetUp("C:/repos/cs2103t stuff/data");
+        System.out.println(balom.greet());
+        balom.chatting();
     }
 }

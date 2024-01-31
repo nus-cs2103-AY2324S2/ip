@@ -19,6 +19,7 @@ public class Deadline extends Task{
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
+        Task.currentTaskNum++;
     }
 
     /**
@@ -28,5 +29,11 @@ public class Deadline extends Task{
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by:" + this.by + ")";
+    }
+
+    @Override
+    public String toString(boolean update) {
+
+        return "D@" + super.toString(update) + "@" + this.by;
     }
 }

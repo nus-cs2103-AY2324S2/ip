@@ -26,6 +26,7 @@ public class Event extends Task{
         super(description);
         this.from =from;
         this.to = to;
+        Task.currentTaskNum++;
     }
 
     /**
@@ -35,5 +36,11 @@ public class Event extends Task{
     @Override
     public String toString() {
         return "[E]" + super.toString() + "(from:" + this.from + " to:" + this.to + ")";
+    }
+
+    @Override
+    public String toString(boolean update) {
+
+        return "E@" + super.toString(update) + "@" + this.from + "@" + this.to;
     }
 }

@@ -13,6 +13,7 @@ public class Todo extends Task{
      */
     public Todo(String description) {
         super(description);
+        Task.currentTaskNum++;
     }
 
     /**
@@ -22,5 +23,10 @@ public class Todo extends Task{
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+    @Override
+    public String toString(boolean update) {
+
+        return "T@" + super.toString(update);
     }
 }

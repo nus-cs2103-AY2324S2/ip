@@ -26,7 +26,6 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        currentTaskNum++;
     }
 
     /**
@@ -45,6 +44,14 @@ public class Task {
     public String toString(){
         return "[" + this.getStatusIcon() +"]"
                 + this.description;
+    }
+
+    public String toString(boolean update){
+        int isDoneInt = 0;
+        if(this.isDone == true){
+            isDoneInt = 1;
+        }
+        return isDoneInt +"@" + this.description;
     }
 
     /**
