@@ -1,13 +1,26 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
+
+
 public class Duke {
     public static void main(String[] args) {
+
+        Task[] tasks = new Task[100];
+        int counter = 0;
+
+        try {
+            counter = getFileContents(tasks, counter);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Hello! I'm Cookie");
         System.out.println("What can I do for you?\n");
-
-        Task[] tasks = new Task[100];
-        int counter = 0;
 
         while (true) {
             try {
@@ -136,6 +149,83 @@ public class Duke {
                 System.out.println(e.getMessage());
             }
 
+        }
+
+        writeToFile(tasks);
+    }
+
+    private static int getFileContents(Task[] tasks, int counter) throws FileNotFoundException{
+        try {
+            File f = new File("./tasksLog.txt");
+            if (!f.exists()) {
+                f.createNewFile();
+                return counter;
+            }
+
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String line = s.nextLine();
+                Task task = createTaskFromString(line);
+                tasks[counter] = task;
+                counter++;
+            }
+            return counter;
+
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+            return counter;
+        }
+    }
+
+    private static Task createTaskFromString(String line) {
+        String[] parts = line.split(" \\| ");
+        if (parts.length < 3) {
+            return null; // Invalid format
+        }
+
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        switch (type) {
+            case "T":
+                Todo todo = new Todo(description);
+                if (isDone) {
+                    todo.markAsDone();
+                }
+                return todo;
+            case "D":
+                String by = parts[3];
+                Deadline deadline = new Deadline(description, by);
+                if (isDone) {
+                    deadline.markAsDone();
+                }
+            case "E":
+                String fromTo = parts[3];
+                String[] fromToParts = fromTo.split(" ");
+                String from = fromToParts[0];
+                String to = fromToParts[1];
+                Event event = new Event(description, from, to);
+                if (isDone) {
+                    event.markAsDone();
+                }
+            default:
+                return null; // Unknown type
+        }
+    }
+
+    private static void writeToFile(Task[] tasks) {
+        try {
+            FileWriter fw = new FileWriter("./tasksLog.txt");
+            for (Task task : tasks) {
+                if (task == null) {
+                    break;
+                }
+                fw.write(task.toFileString() + '\n');
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
         }
     }
 }

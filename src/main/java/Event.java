@@ -14,4 +14,8 @@ public class Event extends Task {
         String status = getStatusIcon();
         return "[E][" + status + "] " + super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    public String toFileString() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " " + to;
+    }
 }

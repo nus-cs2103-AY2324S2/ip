@@ -18,4 +18,9 @@ public class Task {
     public void markAsDone() {
         isDone = true;
     }
+
+    // to return string representation of task for file writing
+    public String toFileString() {
+        return ""; // Override in subclasses
+    }
 }
