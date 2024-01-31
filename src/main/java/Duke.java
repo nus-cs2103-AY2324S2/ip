@@ -1,5 +1,7 @@
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -88,7 +90,7 @@ public class Duke {
             String taskType = currTask.getTaskType();
             String taskStatus = "";
             String taskDescription = currTask.getDescription();
-            String taskTime = "";
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             if (currTask.isDone) {
                 taskStatus = "1";
             } else {
@@ -98,12 +100,14 @@ public class Duke {
                 fw.write("T | " + taskStatus + " | " + taskDescription + "\n");
             } else if (currTask instanceof Deadline) {
                 taskType = "D";
-                taskTime = ((Deadline) currTask).getBy();
-                fw.write(taskType + " | " + taskStatus + " | " + taskDescription + " | " + taskTime + "\n");
+                String taskBy = ((Deadline) currTask).getBy().format(dateFormat);
+                fw.write(taskType + " | " + taskStatus + " | " + taskDescription + " | " + taskBy + "\n");
             } else if (currTask instanceof Event) {
                 taskType = "E";
-                taskTime = ((Event) currTask).getFrom() + "-" + ((Event) currTask).getTo();
-                fw.write(taskType + " | " + taskStatus + " | " + taskDescription + " | " + taskTime + "\n");
+                String taskFrom = ((Event) currTask).getFrom().format(dateFormat);
+                String taskTo = ((Event) currTask).getTo().format(dateFormat);
+                fw.write(taskType + " | " + taskStatus + " | " + taskDescription + " | "
+                        + taskFrom + " | " + taskTo + "\n");
             }
         }
         fw.close();
@@ -122,7 +126,6 @@ public class Duke {
             loadTasks();
         } catch (IOException e) {
             System.out.println("ChatterOOHNOO! Tasks can't be loaded from the file!");
-            return;
         }
         //Chatbot echos user commands
         Scanner sc = new Scanner(System.in);
