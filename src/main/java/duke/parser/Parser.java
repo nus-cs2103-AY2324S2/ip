@@ -68,6 +68,7 @@ public class Parser {
         }
     }
 
+
     private Command prepareFindCommand(String arguments) {
         if (arguments.isEmpty()) {
             return new IncorrectCommand(FindCommand.MESSAGE_EMPTY_SEARCH_TERM);
