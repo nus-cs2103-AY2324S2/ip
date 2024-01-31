@@ -1,15 +1,22 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
+    private LocalDateTime by;
 
-    protected String by;
-
-    public Deadline(String description, String by, boolean isDone) {
+    public Deadline(String description, String by, boolean isDone) throws ZackException {
         super(description, isDone);
-        this.by = by;
+        try {
+            this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new ZackException("Invalid date and time format. Please enter in yyyy-MM-dd HHmm format.");
+        }
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 
     @Override
