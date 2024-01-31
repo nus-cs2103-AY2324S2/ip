@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -8,13 +9,25 @@ public class Duke {
                 "____________________________________________________________\n");
 
         Scanner whatToDo = new Scanner(System.in);
-        String whatToDoCall = whatToDo.nextLine().trim();
+        String whatToDoCall = whatToDo.nextLine().trim().toLowerCase();
+
+        ArrayList listOfTasks = new ArrayList();
 
         while (!whatToDoCall.equals("bye")) {
-            System.out.println("____________________________________________________________\n");
-            System.out.println(whatToDoCall);
-            System.out.println("____________________________________________________________\n");
-            whatToDoCall = whatToDo.nextLine().trim();
+            if (whatToDoCall.equals("list")) {
+                System.out.println("____________________________________________________________\n");
+                for (Integer i = 1; i <= listOfTasks.size(); i++) {
+                    System.out.println(i.toString() + ". " + listOfTasks.get(i-1));
+                }
+                System.out.println("____________________________________________________________\n");
+            } else {
+                listOfTasks.add(whatToDoCall);
+                System.out.println("____________________________________________________________\n");
+                System.out.println("added: " + whatToDoCall);
+                System.out.println("\n____________________________________________________________\n");
+            }
+
+            whatToDoCall = whatToDo.nextLine().trim().toLowerCase();
         }
 
         System.out.println("____________________________________________________________\n"
