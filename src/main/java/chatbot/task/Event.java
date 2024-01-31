@@ -75,7 +75,7 @@ public final class Event extends Task {
      * @param matchingString the string
      * @return true if it matches, otherwise false.
      */
-    public static boolean matchesEvent(String matchingString) {
+    public static boolean isMatchingEvent(String matchingString) {
         return REGEX_PATTERN.matcher(matchingString).find();
     }
 

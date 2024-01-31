@@ -45,7 +45,7 @@ public final class LocalStorage {
      * @param taskList the task list instance to save into local storage
      */
     public static void saveTaskList(TaskList taskList) {
-        createSaveFile();
+        hasCreatedSaveFile();
 
         File saveFile = new File(RELATIVE_PATH + SAVE_FILE_NAME);
         try {
@@ -63,7 +63,7 @@ public final class LocalStorage {
      *
      * @return true if the file is created, otherwise false
      */
-    private static boolean createSaveFile() {
+    private static boolean hasCreatedSaveFile() {
         File folder = new File(RELATIVE_PATH);
         if (!folder.exists()) {
             folder.mkdirs();
@@ -83,7 +83,7 @@ public final class LocalStorage {
      * @return the {@link TaskList} stored in local storage, or a new instance if none exists
      */
     public static TaskList loadTaskList() {
-        if (createSaveFile()) {
+        if (hasCreatedSaveFile()) {
             return new TaskList();
         }
 

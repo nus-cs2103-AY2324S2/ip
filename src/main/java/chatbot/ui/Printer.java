@@ -12,7 +12,7 @@ public final class Printer {
     private static final String INDENT = "    ";
 
     /** Stores the messages to print. */
-    private static final Queue<String> printQueue = new LinkedList<>();
+    private static final Queue<String> PRINT_QUEUE = new LinkedList<>();
 
     /**
      * Inserts a horizontal line.
@@ -41,8 +41,8 @@ public final class Printer {
     public static void printMessages(String... messages) {
         insertLine();
 
-        while (!printQueue.isEmpty()) {
-            printMessage(printQueue.remove());
+        while (!PRINT_QUEUE.isEmpty()) {
+            printMessage(PRINT_QUEUE.remove());
             insertLine();
         }
 
@@ -59,6 +59,6 @@ public final class Printer {
      * @param messages the messages, separated by lines
      */
     public static void addToPrintQueue(String... messages) {
-        printQueue.addAll(Arrays.asList(messages));
+        PRINT_QUEUE.addAll(Arrays.asList(messages));
     }
 }

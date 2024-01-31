@@ -47,11 +47,11 @@ public final class TaskParser {
     private static Task parseTask(String readableString) throws InvalidTaskStringException {
         // note that the order of the tasks matters,
         // and should be from most specific to least specific.
-        if (Event.matchesEvent(readableString)) {
+        if (Event.isMatchingEvent(readableString)) {
             return Event.parseEvent(readableString);
-        } else if (Deadline.matchesDeadline(readableString)) {
+        } else if (Deadline.isMatchingDeadline(readableString)) {
             return Deadline.parseDeadline(readableString);
-        } else if (ToDo.matchesToDo(readableString)) {
+        } else if (ToDo.isMatchingToDo(readableString)) {
             return ToDo.parseToDo(readableString);
         }
 
