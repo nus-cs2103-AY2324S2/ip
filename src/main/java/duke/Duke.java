@@ -9,6 +9,11 @@ public class Duke {
 
     private static final String FILE_PATH = "./data/taskList.txt";
 
+    /**
+     * Constructor for Lunaris chatbot.
+     *
+     * @param filePath for locating filepath
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -20,6 +25,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
         ui.welcomeMessage();
         while (true) {

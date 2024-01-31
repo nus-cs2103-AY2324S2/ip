@@ -11,10 +11,21 @@ import java.util.Scanner;
 public class Storage {
     private final String FILE_PATH;
 
+    /**
+     * Constructor for Storage.
+     *
+     * @param file The file to be stored.
+     */
     public Storage(String file) {
         this.FILE_PATH = file;
     }
 
+    /**
+     * Loads the tasks from the stored file.
+     *
+     * @return An arraylist of tasks.
+     * @throws DukeException if file does not contain any suitable tasks.
+     */
     public ArrayList<Task> loadTasksFromFile() throws DukeException {
         String FILE_DIR = "./data";
         File directory = new File(FILE_DIR);
@@ -44,6 +55,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves task to the stored file.
+     *
+     * @param taskList The tasklist that contains the tasks.
+     * @throws IOException if unable to save tasks to the stored file.
+     */
     public void saveTasksToFile(ArrayList<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         StringBuilder msg = new StringBuilder();

@@ -13,6 +13,13 @@ public class Event extends Task {
     // https://stackoverflow.com/questions/44600420/datetimeformatter-accepting-multiple-dates-and-converting-to-one-java-time-libr
     protected DateTimeFormatter parser = DateTimeFormatter.ofPattern("[yyyy-MM-dd HHmm][MMM dd yyyy HHmm]");
 
+    /**
+     * Constructor for Event task.
+     *
+     * @param description Description of event task.
+     * @param start Date and Time of the start of the event task.
+     * @param end Date and Time of the end of the event task.
+     */
     public Event(String description, String start, String end) {
         super(description);
         this.start = start;
@@ -21,6 +28,14 @@ public class Event extends Task {
         this.endDateTime = LocalDateTime.parse(end, parser);
     }
 
+    /**
+     * Constructor for Event task with status. Used for file access.
+     *
+     * @param status isDone status of task. Either "1" or "0".
+     * @param description Description of event task.
+     * @param start Date and Time of the start of the event task.
+     * @param end Date and Time of the end of the event task.
+     */
     public Event(String status, String description, String start, String end) {
         super(status.equals("1"), description);
         this.start = start;
