@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -7,6 +11,9 @@ public class Duchess {
     private int taskCount;
     // Declare the scanner as a static field in the class
     private static Scanner scanner = new Scanner(System.in);
+
+    private static final String FILE_PATH = "./data/duchess.txt";
+
     // Enum to represent task types
     private enum TaskType {
         TODO, DEADLINE, EVENT
@@ -15,6 +22,7 @@ public class Duchess {
     public Duchess() {
         tasks = new ArrayList<>();
         taskCount = 0;
+        loadDataFromFile();
     }
 
     public static void main(String[] args) {
@@ -33,6 +41,71 @@ public class Duchess {
         }
 
         printHorizontalLine();
+    }
+
+    //Load data from file
+    private void loadDataFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                file.createNewFile(); // Create file if it doesn't exist
+            }
+
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                Task task = parseTaskFromFileString(line); // Parse task from file line
+                if (task != null) {
+                    tasks.add(task); // Add task to the list
+                    taskCount++;
+                }
+            }
+            fileScanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
+    //Saves the data to the file after every change, rewriting each task in the list
+    private void saveDataToFile() {
+        try (FileWriter writer = new FileWriter(FILE_PATH)) {
+            for (Task task : tasks) {
+                writer.write(task.toFileString() + "\n"); // Write each task to file
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    // Method to parse task from a line read from file
+    private Task parseTaskFromFileString(String line) {
+        Task task = null;
+        // Parse the line and create task objects accordingly
+        // Example line format: "T | 1 | read book"
+        String[] parts = line.split("\\|");
+        String type = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+
+        switch (type) {
+            case "T":
+                task = new ToDo(description, isDone);
+                break;
+            case "D":
+                String by = parts[3].trim();
+                task = new Deadline(description, isDone, by);
+                break;
+            case "E":
+                String from = parts[3].trim();
+                String to = parts[4].trim();
+                task = new Event(description, isDone, from, to);
+                break;
+            default:
+                System.out.println("Unknown task type: " + type);
+        }
+        return task;
     }
 
     //Add a ToDo to the task list
@@ -109,6 +182,7 @@ public class Duchess {
         if (taskCount < MAX_TASKS) {
             tasks.add(task);
             taskCount++;
+            saveDataToFile();
 
             printHorizontalLine();
             System.out.println(" Understood. I've added this " + taskType + " task:");
@@ -124,6 +198,7 @@ public class Duchess {
         if (isValidTaskIndex(taskIndex)) {
             Task deletedTask = tasks.remove(taskIndex);
             taskCount--;
+            saveDataToFile();
 
             printHorizontalLine();
             System.out.println(" Understood. I've deleted this task:");
@@ -139,6 +214,7 @@ public class Duchess {
     private void markTaskAsDone(int taskIndex) throws DuchessException {
         if (isValidTaskIndex(taskIndex)) {
             tasks.get(taskIndex).markAsDone();
+            saveDataToFile();
             printHorizontalLine();
             System.out.println(" Perfect! I've marked this task as done:");
             System.out.println(tasks.get(taskIndex).toString());
@@ -152,6 +228,7 @@ public class Duchess {
     private void unmarkTaskAsDone(int taskIndex) throws DuchessException {
         if (isValidTaskIndex(taskIndex)) {
             tasks.get(taskIndex).unmarkAsDone();
+            saveDataToFile();
             printHorizontalLine();
             System.out.println(" Understood, I've marked this task as not done yet:");
             System.out.println(tasks.get(taskIndex).toString());
