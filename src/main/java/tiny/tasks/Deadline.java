@@ -1,9 +1,9 @@
 package tiny.tasks;
 
+import tiny.exceptions.TinyException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import tiny.exceptions.TinyException;
 
 public class Deadline extends Task {
     protected LocalDateTime endDatetime;
@@ -45,7 +45,8 @@ public class Deadline extends Task {
         int day = 0;
         int hour = 0;
         int minute = 0;
-        String errorMsg = "Please ensure that you are using the format deadline <description> /by yyyy-MM-dd <time>. eg. deadline assignment /by 2024-01-29 1835";
+        String errorMsg = "Please ensure that you are using the format deadline <description> /by "
+                + "yyyy-MM-dd <time>. eg. deadline assignment /by 2024-01-29 1835";
         // Date
         try {
             String[] dateSplit = dateTimeSplit[0].split("-");

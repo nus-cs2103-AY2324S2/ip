@@ -1,9 +1,9 @@
 package tiny;
 
+import tiny.exceptions.TinyException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import tiny.exceptions.TinyException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,13 +35,13 @@ public class Storage {
             }
             File file = new File(filePath);
             Scanner sc = new Scanner(file);
-            ArrayList<String> dataFromFile = new ArrayList<>();
+            ArrayList<String> datas = new ArrayList<>();
             while (sc.hasNextLine()) {
                 String data = sc.nextLine();
-                dataFromFile.add(data);
+                datas.add(data);
             }
             sc.close();
-            return dataFromFile;
+            return datas;
         } catch (FileNotFoundException e) {
             throw new TinyException("File not found");
         }
