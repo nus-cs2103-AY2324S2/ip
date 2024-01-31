@@ -1,3 +1,5 @@
+package gpt;
+
 class Ui {
     public void printWelcomeMsg() {
         System.out.println("Hello!!!! I'm  CHAD GPT");
