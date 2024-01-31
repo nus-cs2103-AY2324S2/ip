@@ -1,4 +1,4 @@
-package Managers;
+package Enums;
 
 public enum Commands {
   LIST("list"),
