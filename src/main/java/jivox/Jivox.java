@@ -157,14 +157,14 @@ public class Jivox {
         this.ui.showDeadline(this.tasks, time);
     }
 
-    public void find(String input){
-        this.ui.showFind(this.list,input);
+    public void find(String input) {
+        this.ui.showFind(this.tasks, input);
     }
-    
+
     /**
      * Starts the application.
      */
-    public void run(){
+    public void run() {
         this.ui.greet();
         boolean isRunning = true;
         do {
@@ -247,7 +247,7 @@ public class Jivox {
                 this.show(input[1]);
                 break;
             case FIND:
-                this.ui.find(input[1]);
+                this.find(input[1]);
                 break;
             default:
                 System.out.println("Invalid Input");

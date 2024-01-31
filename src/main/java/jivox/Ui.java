@@ -16,7 +16,7 @@ import jivox.task.TaskList;
  */
 public class Ui {
 
-    private Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
 
     /**
      * Gets user input from the command line.
@@ -110,9 +110,16 @@ public class Ui {
         }
     }
 
-    public void showFind(TaskList list,String input){
+    /**
+     * Prints all the tasks that contains the input(String)
+     * in their description
+     * @param list current list of tasks.
+     * @param input input by the user to query in tasks.
+     */
+
+    public void showFind(TaskList list, String input) {
         addDivider();
-        if(list.getLength() == 0){
+        if (list.getLength() == 0) {
             System.out.println("You have No Task in your list");
         }
         else {
@@ -127,9 +134,9 @@ public class Ui {
             if (matchedTask.getLength() == 0) {
                 System.out.println("No Matching tasks found in the list!");
             }
-            else{
+            else {
                 System.out.println("Following are Matching tasks in your list:-");
-                for(int i = 0; i < matchedTask.getLength(); i++){
+                for (int i = 0; i < matchedTask.getLength(); i++) {
                     System.out.println(matchedTask.getTask(i));
                 }
             }
@@ -141,7 +148,7 @@ public class Ui {
     /**
      * Shows a divider.
      */
-    public void addDivider(){
+    public void addDivider() {
         System.out.println("============================================================");
     }
 
