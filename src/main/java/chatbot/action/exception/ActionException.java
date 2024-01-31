@@ -4,8 +4,8 @@ import chatbot.action.Action;
 import chatbot.exception.ChatBotException;
 
 /**
- * ActionException represents exceptions specific to {@link Action},
- * which are thrown when invalid input results in an action being invalid,
+ * This represents exceptions specific to {@link Action},
+ * which are thrown when invalid input results in an {@link Action} being invalid,
  * and is unable to recover a valid state.
  *
  * @author Titus Chew

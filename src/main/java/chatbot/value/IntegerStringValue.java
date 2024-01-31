@@ -1,6 +1,5 @@
 package chatbot.value;
 
-
 import chatbot.value.exception.InvalidValueTypeException;
 
 /**
@@ -10,9 +9,7 @@ import chatbot.value.exception.InvalidValueTypeException;
  * @author Titus Chew
  */
 public final class IntegerStringValue extends StringValue {
-    /**
-     * Stores the value as an {@link Integer}.
-     */
+    /** Stores the value as an {@link Integer}. */
     private final Integer integerValue;
 
     /**
@@ -36,7 +33,7 @@ public final class IntegerStringValue extends StringValue {
     }
 
     /**
-     * Factory method for taking in a {@link StringValue}, but trying to convert it to a date.
+     * Factory method for taking in a {@link StringValue}, but tries to convert it to a date.
      *
      * @param value the value as a {@link String}
      * @throws InvalidValueTypeException If the value cannot be converted.

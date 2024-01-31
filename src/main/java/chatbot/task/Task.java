@@ -11,31 +11,21 @@ import java.util.regex.Pattern;
  * @author Titus Chew
  */
 public abstract class Task {
-    /**
-     * The name of this task.
-     */
+    /** The name of this task.*/
     private final String name;
 
-    /**
-     * Whether this task is completed.
-     */
+    /** Whether this task is completed. */
     private boolean isCompleted = false;
 
-    /**
-     * The format that a {@link Task} takes.
-     */
+    /** The format that a {@link Task} takes. */
     private static final String FORMAT = "[%s] %s";
 
 
-    /**
-     * The regex pattern that a {@link Task} takes.
-     */
+    /** The regex pattern that a {@link Task} takes. */
     private static final Pattern REGEX_PATTERN = Pattern.compile(
             "\\[(?<status>.)\\](?<name>.*)");
 
-    /**
-     * The text icon to indicate that a task is completed.
-     */
+    /** The text icon to indicate that a task is completed. */
     private static final String COMPLETED_ICON = "X";
 
     /**
@@ -75,21 +65,21 @@ public abstract class Task {
     }
 
     /**
-     * Mark this task as done.
+     * Marks this task as done.
      */
     public void mark() {
         isCompleted = true;
     }
 
     /**
-     * Change the status of this task back to not done.
+     * Changes the status of this task back to not done.
      */
     public void unmark() {
         isCompleted = false;
     }
 
     /**
-     * Gets the icon of the text that depends on the task completion status.
+     * Gets the {@link #COMPLETED_ICON} of the text that depends on the task completion status.
      *
      * @return the icon
      */
@@ -98,7 +88,7 @@ public abstract class Task {
     }
 
     /**
-     * Checks if the status icon is completed
+     * Checks if the status icon is completed.
      *
      * @return true if the icon is {@value COMPLETED_ICON}, otherwise false
      */

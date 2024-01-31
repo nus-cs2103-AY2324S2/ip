@@ -9,14 +9,10 @@ import chatbot.task.TaskList;
  * @author Titus Chew
  */
 public final class OutOfBoundsException extends ChatBotException {
-    /**
-     * Stores the index.
-     */
+    /** Stores the index. */
     private final int index;
 
-    /**
-     * Stores the reason.
-     */
+    /** Stores the reason. */
     private final String reason;
     /**
      * Constructor for this exception that is an index of a {@link TaskList} being out of range.
@@ -29,9 +25,6 @@ public final class OutOfBoundsException extends ChatBotException {
         this.reason = reason;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getMessage() {
         return String.format("`%s` is out of bounds. %s", index, reason);

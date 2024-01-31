@@ -4,6 +4,7 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.exception.UnrecognizedCommandException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
+import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.value.StringValue;
 
@@ -16,15 +17,18 @@ import chatbot.value.StringValue;
  * @author Titus Chew
  */
 public abstract class Action {
+    /** Stores the {@link Command} of this */
     private final Command command;
+
+    /** Stores the supplied {@link Argument}(s) of this */
     private final Argument[] suppliedArguments;
 
     /**
-     * Constructor for this action, which validates that it's arguments are valid.
+     * Constructor for this action, which validates that it's {@link Argument}(s) are valid.
      *
-     * @param command the command associated with this action
-     * @param suppliedArguments the arguments supplied with the command
-     * @throws ActionException If the action fails has unrecognizable or missing arguments.
+     * @param command the {@link Command} associated with this action
+     * @param suppliedArguments the {@link Argument}(s) supplied with the command
+     * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
     public Action(Command command, Argument... suppliedArguments) throws ActionException {
         this.command = command;
@@ -35,10 +39,10 @@ public abstract class Action {
     /**
      * Factory method to create an action instance.
      *
-     * @param command the command as a string
-     * @param parsedArguments the arguments, parsed from the input
+     * @param command the {@link Command} as a string
+     * @param parsedArguments the {@link Argument}(s), parsed from the input
      * @return the action instance
-     * @throws ActionException If the command or arguments are not one of the expected values.
+     * @throws ActionException If the {@link Command} or {@link Argument}(s) are not one of the expected values.
      */
     public static Action of(String command, Argument[] parsedArguments) throws ActionException {
         if (command.equals(ByeAction.getName())) {
@@ -63,19 +67,19 @@ public abstract class Action {
     }
 
     /**
-     * Gets the command of this action.
+     * Gets the {@link Command} of this action.
      *
-     * @return the command associated with this action
+     * @return the {@link Command} associated with this action
      */
     final Command getCommand() {
         return command;
     }
 
     /**
-     * Finds the value of this action's argument by the argument name.
+     * Finds the value of this action's {@link Argument} by the {@link Argument} name.
      *
-     * @param name the non-null name of the argument to find
-     * @return the value of the argument with that name, or null if not found
+     * @param name the non-null name of the {@link Argument} to find
+     * @return the value of the {@link Argument} with that name, or null if not found
      */
     final StringValue findArgument(String name) {
         for (Argument arg : suppliedArguments) {
@@ -91,19 +95,19 @@ public abstract class Action {
     }
 
     /**
-     * Finds the default argument of this action.
+     * Finds the default {@link Argument} of this action.
      *
-     * @return the value of the default argument
+     * @return the value of the default {@link Argument}
      */
     final StringValue findDefaultArgument() {
         return findArgument(command.getName());
     }
 
     /**
-     * Executes this action, which may modify the state of stored tasks,
+     * Executes this action, which may modify the state of stored {@link Task}(s),
      * and may print to the console.
      *
-     * @param taskList the taskList that is used with the chatbot
+     * @param taskList the {@link TaskList} that is used with the chatbot
      * @throws ActionException If the action fails certain validation checks due to invalid input.
      */
     public abstract void execute(TaskList taskList) throws ActionException;

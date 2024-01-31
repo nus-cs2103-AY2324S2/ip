@@ -12,28 +12,22 @@ import java.lang.StringBuilder;
  * @author Titus Chew
  */
 public final class Command {
-    /**
-     * Stores the usage hint for this command.
-     */
+    /** Stores the usage hint for this. */
     private final String usageHint;
 
-    /**
-     * Stores this command name.
-     */
+    /** Stores this command name. */
     private final String name;
 
-    /**
-     * Stores the expected arguments of this command.
-     */
+    /** Stores the {@link ExpectedArgument}(s) of this. */
     private final ExpectedArgument[] arguments;
 
     /**
-     * Constructor for this command, which parses the expected arguments.
+     * Constructor for this command, which parses the expected {@link Argument}(s).
      * <ul>
-     * <li>The first argument has the name of the command.
-     * <li>If the value is null, there is no value for that argument. Otherwise, the value is required.
+     * <li>The first {@link Argument} has the name of the command.
+     * <li>If the value is null, there is no value for that {@link Argument}. Otherwise, the value is required.
      *
-     * @param arguments the arguments of this command
+     * @param arguments the {@link Argument}(s) of this command
      */
     public Command(ExpectedArgument... arguments) {
         // Name of the argument is the first argument
@@ -43,9 +37,12 @@ public final class Command {
     }
 
     /**
-     * Generates the usage string of this command using the arguments.
+     * Generates the usage string of this command using the {@link ExpectedArgument}(s).
+     * <p>
+     * The usage hint is generated when the command is constructed,
+     * and stored in this command.
      *
-     * @param arguments the expected arguments of this command
+     * @param arguments the {@link ExpectedArgument}(s) of this command
      * @return the usage hint
      */
     private String generateUsageHint(ExpectedArgument[] arguments) {
@@ -71,10 +68,10 @@ public final class Command {
     }
 
     /**
-     * Checks if the command expects an argument name.
+     * Checks if the command expects an {@link Argument} name.
      *
-     * @param otherArgument the argument with the name to find
-     * @return true if the command has that argument name, otherwise false
+     * @param otherArgument the {@link Argument} with the name to find
+     * @return true if the command has that {@link Argument} name, otherwise false
      */
     public boolean hasArgumentName(Argument otherArgument) {
         for (Argument arg : arguments) {
@@ -85,29 +82,19 @@ public final class Command {
         return false;
     }
 
-    /**
-     * Gets the command usage hint.
-     *
-     * @return the usage hint
-     */
     public String getUsageHint() {
         return usageHint;
     }
 
-    /**
-     * Gets the name of the command.
-     *
-     * @return the name
-     */
     public String getName() {
         return name;
     }
 
     /**
-     * Validates the supplied argument names and values.
+     * Validates the supplied {@link Argument} names and values.
      *
-     * @param suppliedArguments the argument names
-     * @throws ActionException If an argument is missing or invalid, or unrecognized.
+     * @param suppliedArguments the {@link Argument} names
+     * @throws ActionException If an {@link Argument} is missing or invalid, or unrecognized.
      */
     public void validateSuppliedArguments(Argument[] suppliedArguments) throws ActionException {
         validateArgumentsRecognized(suppliedArguments);
@@ -115,9 +102,9 @@ public final class Command {
     }
 
     /**
-     * Validates the argument names, that they are recognizable.
+     * Validates the {@link Argument} names, that they are recognizable.
      *
-     * @throws UnrecognizedArgumentException If an argument is unrecognizable.
+     * @throws UnrecognizedArgumentException If an {@link Argument} is unrecognizable.
      */
     private void validateArgumentsRecognized(Argument[] suppliedArguments) throws UnrecognizedArgumentException {
         for (Argument suppliedArg : suppliedArguments) {
@@ -128,9 +115,9 @@ public final class Command {
     }
 
     /**
-     * Validates that all argument names expected are present and not invalid.
+     * Validates that all {@link Argument} names expected are present and not invalid.
      *
-     * @throws ActionException If an argument is missing or invalid.
+     * @throws ActionException If an {@link Argument} is missing or invalid.
      */
     private void validateArgumentsPresentAndValid(Argument[] suppliedArguments) throws ActionException {
         for (ExpectedArgument expectedArg : this.arguments) {

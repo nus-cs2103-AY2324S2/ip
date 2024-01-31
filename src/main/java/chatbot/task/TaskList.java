@@ -10,12 +10,10 @@ import java.lang.StringBuilder;
 import java.util.function.Consumer;
 
 /**
- * This class encapsulates a {@link Task} list.
+ * This encapsulates a {@link Task} list.
  */
 public final class TaskList {
-    /**
-     * Stores the tasks.
-     */
+    /** Stores the tasks. */
     private final List<Task> tasks;
 
     /**
@@ -36,9 +34,9 @@ public final class TaskList {
     }
 
     /**
-     * Add a to-do to this list.
+     * Adds a {@link ToDo} to this list.
      *
-     * @param name the name of the to-do to add
+     * @param name the name of the {@link ToDo} to add
      * @return the task that is added
      */
     public Task addTodo(String name) {
@@ -59,9 +57,9 @@ public final class TaskList {
     }
 
     /**
-     * Add a deadline to this list.
+     * Add a {@link Deadline} to this list.
      *
-     * @param name the name of the to-do to add
+     * @param name the name of the {@link Deadline} to add
      * @return the task that is added
      */
     public Task addDeadline(String name, DateStringValue by) {
@@ -69,9 +67,9 @@ public final class TaskList {
     }
 
     /**
-     * Add an event to this list.
+     * Add an {@link Event} to this list.
      *
-     * @param name the name of the to-do to add
+     * @param name the name of the {@link Event} to add
      * @return the task that is added
      */
     public Task addEvent(String name, DateStringValue from, DateStringValue to) {
@@ -82,7 +80,7 @@ public final class TaskList {
      * Performs an operation on a {@link Task} in the list
      *
      * @param index the index of the {@link Task}
-     * @param taskConsumer a consumer that takes in a {@link Task}
+     * @param taskConsumer a {@link Consumer} that takes in a {@link Task}
      * @return the task that the operation was performed on
      * @throws OutOfBoundsException If the index is out of bounds.
      */
@@ -102,9 +100,9 @@ public final class TaskList {
     }
 
     /**
-     * Mark the task as done.
+     * Marks the task as done.
      *
-     * @param index the validated index of the task (0-indexed)
+     * @param index the index of the task (0-indexed)
      * @return the task that is marked
      * @throws OutOfBoundsException If the index is out of bounds.
      */
@@ -114,9 +112,9 @@ public final class TaskList {
     }
 
     /**
-     * Mark the task as not done.
+     * Marks the task as not done.
      *
-     * @param index the validated index of the task (0-indexed)
+     * @param index the index of the task (0-indexed)
      * @return the task that is marked
      * @throws OutOfBoundsException If the index is out of bounds.
      */
@@ -127,7 +125,7 @@ public final class TaskList {
     /**
      * Deletes a task from the task list.
      *
-     * @param index the validated index of the task (0-indexed)
+     * @param index the index of the task (0-indexed)
      * @return the task that is marked
      * @throws OutOfBoundsException If the index is out of bounds.
      */

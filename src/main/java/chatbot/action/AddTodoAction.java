@@ -10,14 +10,12 @@ import chatbot.task.TaskList;
 import chatbot.task.ToDo;
 
 /**
- * AddTodoCommand encapsulates the behaviour of adding a to-do.
+ * This encapsulates the behaviour of adding a {@link ToDo}.
  *
  * @author Titus Chew
  */
 public final class AddTodoAction extends Action {
-    /**
-     * The command for adding a {@link ToDo}.
-     */
+    /** The {@link Command} for adding a {@link ToDo}. */
     private static final Command COMMAND = new Command(
             new ExpectedArgument("todo", "name")
     );
@@ -25,17 +23,17 @@ public final class AddTodoAction extends Action {
     /**
      * Constructor for this add to-do action.
      *
-     * @param arguments the arguments supplied with the command
-     * @throws ActionException If the action fails has unrecognizable or missing arguments.
+     * @param arguments the {@link Argument}(s) supplied with the {@link Command}
+     * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
     public AddTodoAction(Argument[] arguments) throws ActionException {
         super(COMMAND, arguments);
     }
 
     /**
-     * Add a to-do to the user's list.
+     * Add a {@link ToDo} to the user's list.
      *
-     * @param taskList the taskList to modify
+     * @param taskList the {@link TaskList} to modify
      */
     @Override
     public void execute(TaskList taskList) {
@@ -50,9 +48,6 @@ public final class AddTodoAction extends Action {
         );
     }
 
-    /**
-     * Gets the name of the {@link Command}.
-     */
     public static String getName() {
         return COMMAND.getName();
     }

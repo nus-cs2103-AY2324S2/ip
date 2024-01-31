@@ -8,9 +8,6 @@ import chatbot.exception.ChatBotException;
  * @author Titus Chew
  */
 public final class InvalidTaskStringException extends ChatBotException {
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getMessage() {
         return "The regex pattern does not match the given string";

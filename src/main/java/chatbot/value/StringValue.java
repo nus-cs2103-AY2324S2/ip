@@ -2,15 +2,11 @@ package chatbot.value;
 
 /**
  * This encapsulates a value which must be a {@link String}.
- * <p>
- * Also allows for the conversion to other subtypes.
  *
  * @author Titus Chew
  */
 public class StringValue {
-    /**
-     * The {@link String} value stored.
-     */
+    /** The {@link String} value stored. */
     private final String stringValue;
 
     /**

@@ -3,6 +3,7 @@ package chatbot.parse;
 import chatbot.task.Deadline;
 import chatbot.task.Event;
 import chatbot.task.Task;
+import chatbot.task.TaskList;
 import chatbot.task.ToDo;
 import chatbot.task.exception.InvalidTaskStringException;
 
@@ -15,16 +16,14 @@ import java.util.regex.Pattern;
  * @author Titus Chew
  */
 public final class TaskParser {
-    /**
-     * Stores the pattern to match a task list item.
-     */
+    /** Stores the pattern to match a {@link TaskList} item. */
     public static Pattern TASK_ITEM_PATTERN = Pattern.compile("\\d+\\.(?<task>.*)");
 
     /**
-     * Parse a task list item from a human-readable string.
+     * Parses a {@link TaskList} item from a human-readable string.
      *
-     * @param readableString the task list item as a human-readable string
-     * @return the task
+     * @param readableString the {@link TaskList} item as a human-readable string
+     * @return the parsed @link Task}
      * @throws InvalidTaskStringException If the regex doesn't match the pattern.
      */
     public static Task parseTaskListItem(String readableString) throws InvalidTaskStringException {
@@ -39,10 +38,10 @@ public final class TaskParser {
     }
 
     /**
-     * Parse a task from a human-readable string.
+     * Parses a {@link Task} from a human-readable string.
      *
      * @param readableString the task as a human-readable string
-     * @return the task
+     * @return the parsed {@link Task}
      * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
     private static Task parseTask(String readableString) throws InvalidTaskStringException {

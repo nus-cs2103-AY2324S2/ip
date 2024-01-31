@@ -11,13 +11,13 @@ import chatbot.task.TaskList;
 import chatbot.value.DateStringValue;
 
 /**
- * AddEventCommand encapsulates the behaviour of adding an event.
+ * This encapsulates the behaviour of adding an {@link Event}.
  *
  * @author Titus Chew
  */
 public final class AddEventAction extends Action {
     /**
-     * The command for adding an {@link Event}.
+     * The {@link Command} for adding an {@link Event}.
      */
     private static final Command COMMAND = new Command(
             new ExpectedArgument("event", "name"),
@@ -28,17 +28,17 @@ public final class AddEventAction extends Action {
     /**
      * Constructor for this add event action.
      *
-     * @param arguments the arguments supplied with the command
-     * @throws ActionException If the action fails has unrecognizable or missing arguments.
+     * @param arguments the {@link Argument}(s) supplied with the {@link Command}
+     * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
     public AddEventAction(Argument[] arguments) throws ActionException {
         super(COMMAND, arguments);
     }
 
     /**
-     * Add an event to the task list.
+     * Add an {@link Event} to the {@link TaskList}.
      *
-     * @param taskList the taskList to modify
+     * @param taskList the {@link TaskList} to modify
      */
     @Override
     public void execute(TaskList taskList) {
@@ -55,9 +55,6 @@ public final class AddEventAction extends Action {
         );
     }
 
-    /**
-     * Gets the name of the {@link Command}.
-     */
     public static String getName() {
         return COMMAND.getName();
     }

@@ -1,5 +1,6 @@
 package chatbot.action;
 
+import chatbot.ChatBot;
 import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
@@ -8,14 +9,12 @@ import chatbot.ui.Printer;
 import chatbot.task.TaskList;
 
 /**
- * ByeAction encapsulates the behaviour when ending the chat.
+ * This encapsulates the behaviour when ending the chat.
  *
  * @author Titus Chew
  */
 public final class ByeAction extends Action {
-    /**
-     * The command for ending the chat
-     */
+    /** The {@link Command} for ending the chat */
     private static final Command COMMAND = new Command(
             new ExpectedArgument("bye")
     );
@@ -23,8 +22,8 @@ public final class ByeAction extends Action {
     /**
      * Constructor for this bye action.
      *
-     * @param arguments the arguments supplied with the command
-     * @throws ActionException If the action fails has unrecognizable or missing arguments.
+     * @param arguments the {@link Argument}(s) supplied with the {@link Command}
+     * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
     public ByeAction(Argument[] arguments) throws ActionException {
         super(COMMAND, arguments);
@@ -33,7 +32,7 @@ public final class ByeAction extends Action {
     /**
      * Greets the user when exiting the application.
      *
-     * @param taskList the taskList that is used with the chatbot
+     * @param taskList the {@link TaskList} that is used with the {@link ChatBot}
      */
     @Override
     public void execute(TaskList taskList) {
@@ -41,9 +40,6 @@ public final class ByeAction extends Action {
         Printer.printMessages("Bye! Hope to see you again soon!");
     }
 
-    /**
-     * Gets the name of the {@link Command}.
-     */
     public static String getName() {
         return COMMAND.getName();
     }

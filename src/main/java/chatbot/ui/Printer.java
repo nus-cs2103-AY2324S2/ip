@@ -3,19 +3,15 @@ package chatbot.ui;
 import java.util.*;
 
 /**
- * Deals with interactions with the user by printing to the console. (System.out)
+ * This encapsulates interactions with the user by printing to the console. (System.out)
  *
  * @author Titus Chew
  */
 public final class Printer {
-    /**
-     * The indentation size.
-     */
+    /** The indentation size. */
     private static final String INDENT = "    ";
 
-    /**
-     * Stores the messages to print.
-     */
+    /** Stores the messages to print. */
     private static final Queue<String> printQueue = new LinkedList<>();
 
     /**
