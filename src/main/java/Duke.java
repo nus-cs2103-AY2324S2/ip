@@ -2,11 +2,11 @@ import java.io.*;
 import java.util.*;
 public class Duke {
     public static void main(String[] args) throws IOException {
-        String logo = "   __     __   _  _    _  _\n"
-                    + " / __ \\  |  \\ | | \\ \\/ / | |\n"
-                    + "| |__| | |   \\| |  \\  /  | |\n"
-                    + "|  __  | | |\\   |  /  \\  | |\n"
-                    + "|_|  |_| |_| \\__| /_/\\_\\ |_|\n";
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
         String name = "Anxi";
         String line = "------------------------------------------------------------";
 
