@@ -4,6 +4,11 @@ import duke.task.Task;
 import duke.task.Deadline;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * This class contains JUnit test cases to verify the functionality of the TaskList class.
+ * It tests various methods of the TaskList class, for manipulating tasks from the list of tasks.
+ */
 public class TaskListTest {
     private static class UiMock extends Ui {
         private String output;

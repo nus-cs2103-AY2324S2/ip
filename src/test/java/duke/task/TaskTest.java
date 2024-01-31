@@ -3,6 +3,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains JUnit test cases to verify the functionality of the Task class.
+ */
 public class TaskTest {
 
     @Test

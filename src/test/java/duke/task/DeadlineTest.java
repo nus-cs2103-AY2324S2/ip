@@ -2,6 +2,10 @@ package duke.task;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * This class contains JUnit test cases to verify the functionality of the Deadline class.
+ */
 public class DeadlineTest {
     @Test
     public void deadlineInitializationTest() {

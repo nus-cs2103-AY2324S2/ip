@@ -8,6 +8,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains JUnit test cases to verify the functionality of the Ui class.
+ */
+
 public class UiTest {
 
     @Test
