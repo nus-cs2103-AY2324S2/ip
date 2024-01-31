@@ -17,10 +17,17 @@ import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
+/**
+ * Represents a local storage as a utility class.
+ * Reading from and writing to local storage is handled here.
+ */
 public class Storage {
-
     private static ArrayList<Task> taskList = new ArrayList<>();
 
+    /**
+     * Loads data from a pre-determined file path and generates a list of tasks for UI.
+     * @return an <code>ArrayList</code> of <code>Task</code> objects.
+     */
     public static ArrayList<Task> loadFromLocal() {
         // Clear current tasklist
         taskList.clear();
@@ -50,6 +57,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Formats the given taskList items and writes them into local file in pre-determined path.
+     *
+     * @param taskList an <code>ArrayList</code> of <code>Task</code> objects
+     */
     public static void write(ArrayList<Task> taskList) {
         Path filePath = Paths.get("src", "main", "java", "solaire", "resources", "Solaire.txt");
 

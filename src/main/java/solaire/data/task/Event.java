@@ -1,9 +1,19 @@
 package solaire.data.task;
 
+/**
+ * Represents an event task with start and end time.
+ */
 public class Event extends Task {
     String from;
     String to;
 
+    /**
+     * Creates an event task with start and end time.
+     *
+     * @param taskName description of the event.
+     * @param from start time.
+     * @param to end time.
+     */
     public Event(String taskName, String from, String to) {
         super(taskName);
         this.from = from;

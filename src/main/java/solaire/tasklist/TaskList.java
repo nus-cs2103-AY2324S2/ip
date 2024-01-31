@@ -6,6 +6,9 @@ import solaire.data.exception.SolaireException;
 import solaire.data.task.Task;
 import solaire.parser.Parser;
 
+/**
+ * Represents a list of Tasks.
+ */
 public class TaskList {
     ArrayList<Task> taskList;
 
@@ -20,6 +23,11 @@ public class TaskList {
         System.out.print("--------------------------------------------------\n");
     }
 
+    /**
+     * Parses and adds a task to the current list if input corresponds to task creation.
+     *
+     * @param input a user command input as String.
+     */
     public void processTaskCommand(String input) {
         try {
             addToList(Parser.parseTaskInput(input));
@@ -28,7 +36,7 @@ public class TaskList {
         }
     }
 
-    public void addToList(Task task) {
+    private void addToList(Task task) {
         if (task != null) {
             taskList.add(task);
             System.out.println("Added " + task + " to your list");
@@ -40,6 +48,11 @@ public class TaskList {
         return this.taskList;
     }
 
+    /**
+     * Removes a specified task from the list of Tasks.
+     *
+     * @param input user input command in the format "delete (index)".
+     */
     public void processRemoveFromList(String input) {
         try {
             String[] inputCommand = input.split(" ", 2);
@@ -61,6 +74,9 @@ public class TaskList {
 
     }
 
+    /**
+     * Prints the current list of tasks.
+     */
     public void showList() {
         System.out.print("Your list is as follows:\n " + "-------------------\n");
         for (Task item : taskList) {
@@ -68,6 +84,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Mark a specified task as done.
+     *
+     * @param id 1-indexed integer identifier of the task as shown in the UI.
+     */
     public void markDone(int id) {
         for (Task item : taskList) {
             if (item.getId() == id) {
@@ -80,6 +101,11 @@ public class TaskList {
         System.out.print("Couldn't find task associated with given id\n");
     }
 
+    /**
+     * Mark a specified task as "not done".
+     *
+     * @param id 1-indexed integer identifier of the task as shown in the UI.
+     */
     public void unmarkDone(int id) {
         for (Task item : taskList) {
             if (item.getId() == id) {
