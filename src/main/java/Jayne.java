@@ -1,55 +1,33 @@
 import java.util.Scanner;
 
 public class Jayne {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String dash = "___________________________________";
-        System.out.println(dash);
-        System.out.println("Hello, I'm Jayne");
-        System.out.println("What can I do for you?\n" + dash);
-        TaskList taskList = new TaskList();
 
-        while (true) {
+    private Ui ui;
+    private TaskList taskList;
+    private  Storage storage;
+    public Jayne(String filepath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filepath);
+        this.taskList = new TaskList(storage);
+    }
+    public void run() {
+        Scanner scanner = new Scanner(System.in);
+        ui.showWelcome();
+        Parser parser = new Parser(taskList, ui);
+        boolean isExit = false;
+        while (!isExit) {
             try {
                 String input = scanner.nextLine().trim();
                 if (input.isEmpty()) {
                     throw new JayneException("Input cannot be empty.");
                 }
-
-                String[] parts = input.split(" ", 2);
-
-                // Handle different cases
-                switch (parts[0].toLowerCase()) {
-                    case "bye":
-                        Handler.handleBye(dash);
-                        return; // Exit the program
-                    case "list":
-                        Handler.handleList(taskList, dash);
-                        break;
-                    case "mark":
-                        Handler.handleMark(parts, taskList, dash);
-                        break;
-                    case "unmark":
-                        Handler.handleUnmark(parts, taskList, dash);
-                        break;
-                    case "todo":
-                        Handler.handleTodo(parts, taskList, dash);
-                        break;
-                    case "deadline":
-                        Handler.handleDeadline(parts, taskList, dash);
-                        break;
-                    case "event":
-                        Handler.handleEvent(parts, taskList, dash);
-                        break;
-                    case "delete":
-                        Handler.handleDelete(parts, taskList, dash);
-                        break;
-                    default:
-                        throw new JayneException("What are you typing. please include either bye, list, mark, umark, todo, deadline or event in your inputs please");
-                }
+                isExit = parser.parse(input);
             } catch (JayneException e) {
-                System.out.println(dash + "\nHuh?!?!? " + e.getMessage() + "\n" + dash);
+                System.out.println("\nHuh?!?!? " + e.getMessage() + "\n");
             }
         }
+    }
+    public static void main(String[] args) {
+        new Jayne("./data/jayne.txt").run();
     }
 }

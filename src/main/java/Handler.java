@@ -1,5 +1,12 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 public class Handler {
-    public static void handleDelete(String[] parts, TaskList taskList, String dash) throws JayneException {
+    /**
+     * Handles deletion of task
+     */
+    private static final String dash = "___________________________________";
+    public static void handleDelete(String[] parts, TaskList taskList) throws JayneException {
         if (parts.length < 2) {
             throw JayneException.deleteEmptyException();
         }
@@ -13,10 +20,11 @@ public class Handler {
         } catch (NumberFormatException e) {
             throw JayneException.deleteInvalidException();
         }
-
-        taskList.saveTasks();
     }
-    public static void handleUnmark(String[] parts, TaskList taskList, String dash) throws JayneException {
+    /**
+     * Handles unmark of task
+     */
+    public static void handleUnmark(String[] parts, TaskList taskList) throws JayneException {
         if (parts.length < 2) {
             throw JayneException.unmarkEmptyException();
         }
@@ -30,11 +38,11 @@ public class Handler {
         } catch (NumberFormatException e) {
             throw JayneException.unmarkException();
         }
-
-        taskList.saveTasks();
     }
-
-    public static void handleDeadline(String[] parts, TaskList taskList, String dash) throws JayneException {
+    /**
+     * Handles deadline tasks
+     */
+    public static void handleDeadline(String[] parts, TaskList taskList) throws JayneException {
         if (parts.length < 2 || parts[1].isEmpty()) {
             throw new JayneException("The description of a deadline cannot be empty.");
         }
@@ -42,16 +50,22 @@ public class Handler {
         if (deadlineParts.length < 2 || deadlineParts[1].isEmpty()) {
             throw JayneException.deadlineException();
         }
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+            LocalDate.parse(deadlineParts[1], formatter);
+        } catch (DateTimeParseException e) {
+            throw new JayneException("Deadline date is in the wrong format. Please use yyyy-mm-dd.");
+        }
         Deadline newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
         taskList.addTask(newDeadline);
         System.out.println(dash + "\nGot it. I've added this task:");
         System.out.println("  " + newDeadline);
         System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n" + dash);
-
-        taskList.saveTasks();
     }
-
-    public static void handleTodo(String[] parts, TaskList taskList, String dash) throws JayneException {
+    /**
+     * Handles todo task
+     */
+    public static void handleTodo(String[] parts, TaskList taskList) throws JayneException {
         if (parts.length < 2 || parts[1].isEmpty()) {
             throw JayneException.todoException();
         }
@@ -60,11 +74,11 @@ public class Handler {
         System.out.println(dash + "\nGot it. I've added this task:");
         System.out.println("  " + newTodo);
         System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n"  + dash);
-
-        taskList.saveTasks();
     }
-
-    public static void handleEvent(String[] parts, TaskList taskList, String dash) throws JayneException {
+    /**
+     * Handles event task
+     */
+    public static void handleEvent(String[] parts, TaskList taskList) throws JayneException {
         if (parts.length < 2 || parts[1].isEmpty()) {
             throw JayneException.emptyEventException();
         }
@@ -81,11 +95,11 @@ public class Handler {
         System.out.println(dash + "\nGot it. I've added this task:");
         System.out.println("  " + newEvent);
         System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n" + dash);
-
-        taskList.saveTasks();
     }
-
-    public static void handleMark(String[] parts, TaskList taskList, String dash) throws JayneException {
+    /**
+     * Handles marking of task
+     */
+    public static void handleMark(String[] parts, TaskList taskList) throws JayneException {
         if (parts.length < 2) {
             throw JayneException.markEmptyException();
         }
@@ -99,18 +113,20 @@ public class Handler {
         } catch (NumberFormatException e) {
             throw JayneException.markInvalidTaskException();
         }
-
-        taskList.saveTasks();
     }
-
-    public static void handleBye(String dash) {
+    /**
+     * Prints bye
+     */
+    public static void handleBye() {
         System.out.println(dash);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(dash);
 
     }
-
-    public static void handleList(TaskList taskList, String dash) {
+    /**
+     * prints task
+     */
+    public static void handleList(TaskList taskList) {
         System.out.println(dash);
         taskList.display();
         System.out.println(dash);
