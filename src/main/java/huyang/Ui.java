@@ -116,6 +116,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays a list of found tasks based on a keyword search.
+     *
+     * @param tasks An ArrayList of tasks containing the tasks found with the given keyword.
+     */
     public void showFoundTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("No tasks found with the given keyword.");

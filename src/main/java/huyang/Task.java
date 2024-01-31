@@ -61,6 +61,13 @@ public abstract class Task {
     }
 
     /**
+     * Converts the task to a formatted string for saving to a file.
+     *
+     * @return A string in file format representing the task.
+     */
+    public abstract String toFileFormat();
+
+    /**
      * Returns a string representation of the task.
      *
      * @return A string representation of the task, including its status icon and name.
@@ -69,11 +76,4 @@ public abstract class Task {
     public String toString() {
         return getStatusIcon() + " " + taskName;
     }
-
-    /**
-     * Converts the task to a formatted string for saving to a file.
-     *
-     * @return A string in file format representing the task.
-     */
-    public abstract String toFileFormat();
 }

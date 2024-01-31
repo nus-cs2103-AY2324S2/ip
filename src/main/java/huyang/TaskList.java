@@ -155,6 +155,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds tasks that contain the given keyword in their task names.
+     *
+     * @param keyword The keyword to search for in task names (case-insensitive).
+     * @return An ArrayList of tasks that contain the keyword in their names.
+     */
     public ArrayList<Task> findTasks(String keyword) {
         return tasks.stream()
                 .filter(task -> task.getTaskName().toLowerCase().contains(keyword))
