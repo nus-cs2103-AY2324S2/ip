@@ -1,10 +1,7 @@
 package Duke.Parser;
 
 import Duke.DukeException.DukeException;
-import Duke.TaskList.TaskList;
-import Duke.Ui.Ui;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -16,8 +13,8 @@ public class Parser {
         finished = false;
     }
 
-    public String[] parse(String in) throws DukeException {
-        String[] split = in.split(" ", 2);
+    public String[] parse(String input) throws DukeException {
+        String[] split = input.split(" ", 2);
         if(split[0].equalsIgnoreCase("bye") || split[0].equalsIgnoreCase("list")) {
             return split;
         } else if(split.length == 1) {
@@ -43,19 +40,19 @@ public class Parser {
         }
     }
 
-    public String toDo(String out) throws DukeException {
-        if (out.length() <= 1) {
+    public String toDo(String input) throws DukeException {
+        if (input.length() <= 1) {
             throw new DukeException("Please enter something that you want to do. \n");
         } else {
-            return out;
+            return input;
         }
     }
 
-    public String[] deadline(String out) throws DukeException {
-        if (out.length() <= 1) {
+    public String[] deadline(String input) throws DukeException {
+        if (input.length() <= 1) {
             throw new DukeException("Please enter something that you want to do. \n");
         } else {
-            String[] split = out.split(" /by ");
+            String[] split = input.split(" /by ");
             if (split[0].length() <= 1) {
                 throw new DukeException("Please enter something that you want to do. \n");
             } else if (split.length != 2 || split[1].length() <= 1) {
@@ -66,11 +63,11 @@ public class Parser {
         }
     }
 
-    public String[] event(String out) throws DukeException {
-        if (out.length() <= 1) {
+    public String[] event(String input) throws DukeException {
+        if (input.length() <= 1) {
             throw new DukeException("Please enter something that you want to do. \n");
         } else {
-            String[] split1 = out.split(" /from ");
+            String[] split1 = input.split(" /from ");
             if (split1[0].length() <= 1) {
                 throw new DukeException("Please enter something that you want to do. \n");
             } else if (split1.length != 2) {

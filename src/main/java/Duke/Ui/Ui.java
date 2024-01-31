@@ -1,9 +1,7 @@
 package Duke.Ui;
 
-import Duke.Task.Task;
 import Duke.TaskList.TaskList;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {

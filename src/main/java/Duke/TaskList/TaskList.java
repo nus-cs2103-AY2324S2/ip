@@ -1,13 +1,11 @@
 package Duke.TaskList;
 
 import Duke.DukeException.DukeException;
-import Duke.Storage.Storage;
 import Duke.Task.Deadlines.Deadlines;
 import Duke.Task.Events.Events;
 import Duke.Task.Task;
 import Duke.Task.ToDos.ToDos;
 import Duke.Ui.Ui;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -38,8 +36,8 @@ public class TaskList {
         }
     }
 
-    public void toDo(String out) {
-        Task task = new ToDos(out);
+    public void toDo(String description) {
+        Task task = new ToDos(description);
         taskList.add(task);
         Ui.printAdd(task.toString(), taskList.size());
     }
