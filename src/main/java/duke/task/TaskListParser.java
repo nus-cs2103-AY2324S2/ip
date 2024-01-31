@@ -3,7 +3,6 @@ package duke.task;
 import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class TaskListParser {
@@ -49,15 +48,5 @@ public class TaskListParser {
 
     private static String serializeTask(Task task) {
         return task.serialize();
-    }
-
-    public static void writeToFile(TaskList list, File file) throws IOException {
-        if (!file.exists()) {
-            file.getParentFile().mkdirs();
-            file.createNewFile();
-        }
-        FileWriter writer = new FileWriter(file, false);
-        writer.write(serialize(list));
-        writer.close();
     }
 }
