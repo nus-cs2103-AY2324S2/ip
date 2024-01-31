@@ -1,13 +1,16 @@
 package capone.commands;
 
-import capone.*;
-import capone.exceptions.CaponeException;
-import capone.tasks.Event;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+
+import capone.Parser;
+import capone.Storage;
+import capone.TaskList;
+import capone.Ui;
+import capone.exceptions.CaponeException;
+import capone.tasks.Event;
 
 public class EventCommand extends Command {
     private final ArrayList<String> inputList;
@@ -20,8 +23,8 @@ public class EventCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
         // If the inputList has only one string, throw error (insufficient args).
         if (inputList.size() == 1) {
-            throw new CaponeException("Insufficient arguments!\n" +
-                    "Usage: event [description] /from [date] /to [date]");
+            throw new CaponeException("Insufficient arguments!\n"
+                    + "Usage: event [description] /from [date] /to [date]");
         }
 
         int fromNdx = inputList.indexOf("/from");
@@ -29,15 +32,15 @@ public class EventCommand extends Command {
 
         // If /to is specified before /from, throw error.
         if (toNdx < fromNdx) {
-            throw new CaponeException("Please input from date followed by to date!\n" +
-                    "Usage: event [description] /from [date] /to [date]");
+            throw new CaponeException("Please input from date followed by to date!\n"
+                    + "Usage: event [description] /from [date] /to [date]");
         }
 
         // Catch potential errors from date entry.
-        if (fromNdx == -1 || toNdx == -1 || toNdx - fromNdx == 1 || fromNdx - toNdx == 1 ||
-                fromNdx == inputList.size() - 1 || toNdx == inputList.size() - 1) {
-            throw new CaponeException("Please enter a start and end date!\n" +
-                    "Usage: event [description] /from [date] /to [date]");
+        if (fromNdx == -1 || toNdx == -1 || toNdx - fromNdx == 1 || fromNdx - toNdx == 1
+                || fromNdx == inputList.size() - 1 || toNdx == inputList.size() - 1) {
+            throw new CaponeException("Please enter a start and end date!\n"
+                    + "Usage: event [description] /from [date] /to [date]");
         }
 
         // Combine the task description into a single string.
@@ -51,8 +54,8 @@ public class EventCommand extends Command {
         }
 
         if (description.toString().equalsIgnoreCase("")) {
-            throw new CaponeException("Insufficient arguments!\n" +
-                    "Usage: event [description] /from [date] /to [date]");
+            throw new CaponeException("Insufficient arguments!\n"
+                    + "Usage: event [description] /from [date] /to [date]");
         }
 
         LocalDate fromDate = null;
@@ -108,10 +111,10 @@ public class EventCommand extends Command {
             taskList.addTask(new Event(description.toString(), false, fromDateTime, toDateTime));
         } else if (fromDateTime != null || toDateTime != null) {
             // If either fromDateTime or toDateTime is null but the other is not.
-            throw new CaponeException("Oops! It seems like there is a format mismatch between" +
-                    "your start and dates and end dates.\nMake sure you enter both of them in the accepted " +
-                    "date format!\nAlternatively, you can specify a string for both your start and end dates.\n" +
-                    "Use the 'help' command for more information.");
+            throw new CaponeException("Oops! It seems like there is a format mismatch between"
+                    + "your start and dates and end dates.\nMake sure you enter both of them in the accepted "
+                    + "date format!\nAlternatively, you can specify a string for both your start and end dates.\n"
+                    + "Use the 'help' command for more information.");
         } else {
             taskList.addTask(new Event(description.toString(), false,
                     fromDateString.toString(), toDateString.toString()));
@@ -119,8 +122,8 @@ public class EventCommand extends Command {
 
         storage.writeTasksToJsonFile(taskList);
 
-        ui.sendMessage(String.format("Got it. I've added this task:\n%s\n" +
-                "Now you have %d task(s) in the list.\n", taskList.getLastTask().toString(), taskList.getSize()));
+        ui.sendMessage(String.format("Got it. I've added this task:\n%s\n"
+                + "Now you have %d task(s) in the list.\n", taskList.getLastTask().toString(), taskList.getSize()));
 
     }
 

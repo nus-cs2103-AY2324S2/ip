@@ -1,10 +1,12 @@
 package capone.commands;
 
-import capone.*;
+import java.util.ArrayList;
+
+import capone.Storage;
+import capone.TaskList;
+import capone.Ui;
 import capone.exceptions.CaponeException;
 import capone.tasks.ToDo;
-
-import java.util.ArrayList;
 
 public class TodoCommand extends Command {
     private final ArrayList<String> inputList;
@@ -17,8 +19,8 @@ public class TodoCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
         // If the inputList has only one string, throw error (insufficient args).
         if (inputList.size() == 1) {
-            throw new CaponeException("Please enter a description for this capone.tasks.ToDo task!\n" +
-                    "Usage: todo [description]");
+            throw new CaponeException("Please enter a description for this capone.tasks.ToDo task!\n"
+                    + "Usage: todo [description]");
         }
 
         // Combine the remaining words into a single string
@@ -35,7 +37,7 @@ public class TodoCommand extends Command {
         taskList.addTask(newTodo);
         storage.writeTasksToJsonFile(taskList);
 
-        ui.sendMessage(String.format("Got it. I've added this task:\n%s\n" +
-                "Now you have %d task(s) in the list.\n", newTodo.toString(), taskList.getSize()));
+        ui.sendMessage(String.format("Got it. I've added this task:\n%s\n"
+                + "Now you have %d task(s) in the list.\n", newTodo.toString(), taskList.getSize()));
     }
 }

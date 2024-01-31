@@ -1,14 +1,18 @@
 package capone.commands;
 
-import capone.*;
-import capone.exceptions.CaponeException;
-import capone.exceptions.InsufficientArgumentException;
-import capone.tasks.Deadline;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+
+import capone.Parser;
+import capone.Storage;
+import capone.TaskList;
+import capone.Ui;
+import capone.exceptions.CaponeException;
+import capone.exceptions.InsufficientArgumentException;
+import capone.tasks.Deadline;
+
 
 public class DeadlineCommand extends Command {
     private final ArrayList<String> inputList;
@@ -21,8 +25,8 @@ public class DeadlineCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
         // If the inputList has only one string, throw error (insufficient args).
         if (inputList.size() == 1) {
-            throw new InsufficientArgumentException("Insufficient arguments!\n" +
-                    "Usage: deadline [description] /by [date]");
+            throw new InsufficientArgumentException("Insufficient arguments!\n"
+                    + "Usage: deadline [description] /by [date]");
         }
 
         // Find the index of the /by command.
@@ -30,8 +34,8 @@ public class DeadlineCommand extends Command {
 
         // Catch potential errors from date entry.
         if (byNdx == inputList.size() - 1 || byNdx == -1) {
-            throw new InsufficientArgumentException("Please enter a date for this deadline task!\n" +
-                    "Usage: deadline [description] /by [date]");
+            throw new InsufficientArgumentException("Please enter a date for this deadline task!\n"
+                    + "Usage: deadline [description] /by [date]");
         }
 
         // Combine description of task into one string.
@@ -45,8 +49,8 @@ public class DeadlineCommand extends Command {
         }
 
         if (description.toString().equalsIgnoreCase("")) {
-            throw new InsufficientArgumentException("Insufficient arguments!\n" +
-                    "Usage: deadline [description] /by [date]");
+            throw new InsufficientArgumentException("Insufficient arguments!\n"
+                    + "Usage: deadline [description] /by [date]");
         }
 
         LocalDate date = null;
@@ -82,8 +86,9 @@ public class DeadlineCommand extends Command {
 
         storage.writeTasksToJsonFile(taskList);
 
-        ui.sendMessage(String.format("Got it. I've added this task:\n%s\n" +
-                "Now you have %d task(s) in the list.\n", taskList.getLastTask().toString(), taskList.getSize()));
+        ui.sendMessage(String.format("Got it. I've added this task:\n%s\n"
+                + "Now you have %d task(s) in the list.\n",
+                taskList.getLastTask().toString(), taskList.getSize()));
     }
 
 }

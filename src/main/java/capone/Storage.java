@@ -1,39 +1,40 @@
 package capone;
 
-import capone.exceptions.TaskListCorruptedException;
-import capone.tasks.Deadline;
-import capone.tasks.Event;
-import capone.tasks.Task;
-import capone.tasks.ToDo;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import capone.exceptions.TaskListCorruptedException;
+import capone.tasks.Deadline;
+import capone.tasks.Event;
+import capone.tasks.Task;
+import capone.tasks.ToDo;
+
 public class Storage {
-    private final String JSON_FILENAME;
-    private final String JSON_FILEPATH;
+    private final String jsonFilename;
+    private final String jsonFilepath;
 
     public Storage(String path, String name) {
-        this.JSON_FILEPATH = path;
-        this.JSON_FILENAME = name;
+        this.jsonFilepath = path;
+        this.jsonFilename = name;
     }
 
     private String getFullPath() {
-        return this.JSON_FILEPATH + this.JSON_FILENAME;
+        return this.jsonFilepath + this.jsonFilename;
     }
 
     private String getFileName() {
-        return this.JSON_FILENAME;
+        return this.jsonFilename;
     }
 
     private String getFilePath() {
-        return this.JSON_FILEPATH;
+        return this.jsonFilepath;
     }
 
     public void writeTasksToJsonFile(TaskList taskList) {
@@ -77,27 +78,23 @@ public class Storage {
                 String description = jsonTask.getString("description");
                 boolean status = jsonTask.getBoolean("status");
 
-                switch (type) {
-                    case "todo":
-                        taskList.addTask(new ToDo(description, status));
-                        break;
-                    case "deadline":
-                        String deadline = jsonTask.getString("deadline");
-                        taskList.addTask(new Deadline(description, status, deadline));
-                        break;
-                    case "event":
-                        String fromDate = jsonTask.getString("fromDate");
-                        String toDate = jsonTask.getString("toDate");
-                        taskList.addTask(new Event(description, status, fromDate, toDate));
-                        break;
+                if (type.equals("todo")) {
+                    taskList.addTask(new ToDo(description, status));
+                } else if (type.equals("deadline")) {
+                    String deadline = jsonTask.getString("deadline");
+                    taskList.addTask(new Deadline(description, status, deadline));
+                } else if (type.equals("event")) {
+                    String fromDate = jsonTask.getString("fromDate");
+                    String toDate = jsonTask.getString("toDate");
+                    taskList.addTask(new Event(description, status, fromDate, toDate));
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             initFileIfNotExist();
-            throw new TaskListCorruptedException("capone.tasks.Task list file is corrupted." +
-                    " Creating new task list file.");
+            throw new TaskListCorruptedException("capone.tasks.Task list file is corrupted."
+                    + " Creating new task list file.");
         }
     }
 
