@@ -1,8 +1,11 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     private static final String INDENT = "  ";
 
     public static void parseCommand(String[] cmdArg) throws DukeException {
-        Duke.Command cmd = Duke.Command.valueOfCommandName(cmdArg[0]);
+        Yapper.Command cmd = Yapper.Command.valueOfCommandName(cmdArg[0]);
 
         // invalid command
         if (cmd == null) {
@@ -13,10 +16,10 @@ public class Parser {
         // Commands create a Command class in the future
         switch (cmd) {
         case BYE:
-            Duke.bye();
+            Yapper.bye();
             break;
         case LIST:
-            Duke.listTasks();
+            Yapper.listTasks();
             break;
         case MARK:
             // Fallthrough
@@ -28,7 +31,7 @@ public class Parser {
                     int i = Integer.parseInt(cmdArg[1]);
 
                     // incorrect index
-                    if (i > Duke.tasks.size()) {
+                    if (i > Yapper.tasks.size()) {
                         throw (new DukeException(INDENT + "You ain't got that many tasks bruh!"));
                     } else if (i < 1) { // incorrect index
                         throw (new DukeException(INDENT + "Start from task 1 lil bro!"));
@@ -36,11 +39,11 @@ public class Parser {
 
                     // Execute MARK/UNMARK/DELETE
                     if (cmdArg[0].equals("mark")) {
-                        Duke.markTask(i);
+                        Yapper.markTask(i);
                     } else if (cmdArg[0].equals("unmark")) {
-                        Duke.unmarkTask(i);
+                        Yapper.unmarkTask(i);
                     } else {
-                        Duke.deleteTask(i);
+                        Yapper.deleteTask(i);
                     }
                 } catch (java.lang.NumberFormatException e) { // non number typed
                     throw (new DukeException(INDENT
@@ -59,21 +62,21 @@ public class Parser {
                 throw (new DukeException(INDENT + "Ain't no way! You got caught lackin' the format!\n"
                         + INDENT + "e.g. todo <task>"));
             }
-            addTask(cmdArg[1], Task.ID.TODO);
+            parseTask(cmdArg[1], Task.ID.TODO);
             break;
         case DEADLINE:
             if (cmdArg.length != 2) { // no arguments
                 throw (new DukeException(INDENT + "Ain't no way! You got caught lackin' the format!\n"
                         + INDENT + "e.g. deadline <task> /by <date/time>"));
             }
-            addTask(cmdArg[1], Task.ID.DEADLINE);
+            parseTask(cmdArg[1], Task.ID.DEADLINE);
             break;
         case EVENT:
             if (cmdArg.length != 2) { // no arguments
                 throw (new DukeException(INDENT + "Ain't no way! You got caught lackin' the format!\n"
                         + INDENT + "e.g. event <task> /from <start date/time> /to <start date/time>"));
             }
-            addTask(cmdArg[1], Task.ID.EVENT);
+            parseTask(cmdArg[1], Task.ID.EVENT);
             break;
         default: // Shouldn't reach here, invalid commands should be null
             throw (new DukeException(INDENT + "What is blud yappin'? Here's the legit commands:"
@@ -82,46 +85,68 @@ public class Parser {
     }
 
     // add task according to what type they are
-    public static void addTask(String arg, Task.ID id) throws DukeException {
+    public static void parseTask(String arg, Task.ID id) throws DukeException {
         switch (id) {
         case TODO:
             Todo todo = new Todo(arg);
-            Duke.tasks.add(todo);
+            Yapper.tasks.add(todo);
             System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + todo);
-            System.out.println(INDENT + "Yo, we're " + Duke.tasks.size()
+            System.out.println(INDENT + "Yo, we're " + Yapper.tasks.size()
                     + " task(s) deep! Let's keep this SIGMA GRINDSET!");
             break;
         case DEADLINE: {
-            String[] descTime = arg.split(" /by "); // [description, by]
-            if (descTime.length == 2) {
-                Deadline deadline = new Deadline(descTime[0], descTime[1]);
-                Duke.tasks.add(deadline);
-                System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + deadline);
-                System.out.println(INDENT + "Yo, we're " + Duke.tasks.size()
-                        + " task(s) deep! Let's keep this SIGMA GRINDSET!");
-            } else { // incorrect formatting for /by
+            String[] descDate = arg.split(" /by ", 2); // [description, by]
+            if (descDate.length != 2) { // incorrect formatting for /by
                 throw (new DukeException(INDENT + "When you wanna do this task by lil bro?\n"
-                        + INDENT + "e.g. deadline <task> /by <date/time>"));
+                        + INDENT + "type deadline <task> /by <yyyy-mm-dd>\n"
+                        + INDENT + "e.g. deadline hit the griddy by 2024-12-31"));
+            }
+
+            try {
+                LocalDate deadlineBy = LocalDate.parse(descDate[1]);
+                Deadline deadline = new Deadline(descDate[0], deadlineBy);
+                Yapper.tasks.add(deadline);
+                System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + deadline);
+                System.out.println(INDENT + "Yo, we're " + Yapper.tasks.size()
+                        + " task(s) deep! Let's keep this SIGMA GRINDSET!");
+            } catch (DateTimeParseException e) { // incorrect formatting for date
+                throw (new DukeException(INDENT + "When you wanna do this task by lil bro?\n"
+                        + INDENT + "type deadline <task> /by <yyyy-mm-dd>\n"
+                        + INDENT + "e.g. deadline hit the griddy by 2024-12-31"));
             }
             break;
         }
         case EVENT: {
-            String[] descTime = arg.split(" /from "); // [description, fromTo]
-            if (descTime.length == 2) {
-                String[] fromTo = descTime[1].split(" /to "); // [from , to]
-                if (fromTo.length == 2) {
-                    Event event = new Event(descTime[0], fromTo[0], fromTo[1]);
-                    Duke.tasks.add(event);
-                    System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + event);
-                    System.out.print(INDENT + "Yo, we're " + Duke.tasks.size()
-                            + " task(s) deep! Let's keep this SIGMA GRINDSET!\n");
-                } else { // incorrect formatting for /to
-                    throw (new DukeException(INDENT + "When does this event end lil bro?\n"
-                            + INDENT + "e.g. event <task> /from <start date/time> /to <start date/time>"));
-                }
-            } else { // incorrect formatting for /from
+            String[] descDate = arg.split(" /from ", 2); // [description, fromTo]
+
+            // incorrect formatting for /from
+            if (descDate.length != 2) {
                 throw (new DukeException(INDENT + "When does this event start lil bro?\n"
-                        + INDENT + "e.g. event <task> /from <start date/time> /to <start date/time>"));
+                        + INDENT + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
+                        + INDENT + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
+            }
+
+            String[] fromTo = descDate[1].split(" /to ", 2); // [from , to]
+
+            // incorrect formatting for /to
+            if (fromTo.length != 2) {
+                throw (new DukeException(INDENT + "When does this event end lil bro?\n"
+                        + INDENT + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
+                        + INDENT + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
+            }
+
+            try {
+                LocalDate eventFrom = LocalDate.parse(fromTo[0]);
+                LocalDate eventTo = LocalDate.parse(fromTo[1]);
+                Event event = new Event(descDate[0], eventFrom, eventTo);
+                Yapper.tasks.add(event);
+                System.out.println(INDENT + "Ayo new task just dropped:\n  " + INDENT + event);
+                System.out.print(INDENT + "Yo, we're " + Yapper.tasks.size()
+                        + " task(s) deep! Let's keep this SIGMA GRINDSET!\n");
+            } catch (DateTimeParseException e) {
+                throw (new DukeException(INDENT + "When does this event start/end lil bro?\n"
+                        + INDENT + "type event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>\n"
+                        + INDENT + "e.g. event party rock /from <yyyy-mm-dd> /to <yyyy-mm-dd>"));
             }
             break;
         }
@@ -130,8 +155,9 @@ public class Parser {
         }
     }
 
-    public static void addTask(Task task) {
-        Duke.tasks.add(task);
+    // for Storage class later on
+    public static void parseTask(Task task) {
+        Yapper.tasks.add(task);
     }
 
     public static void parseData(String data) throws DukeException {
@@ -154,7 +180,7 @@ public class Parser {
                 throw new DukeException("Error in the save files 2");
             }
 
-            addTask(new Todo(isDone, taskData[2]));
+            parseTask(new Todo(isDone, taskData[2]));
             break;
         case "D":
             if (taskData.length != 4) {
@@ -169,11 +195,17 @@ public class Parser {
                 throw new DukeException("Error in the save files 4");
             }
 
-            addTask(new Deadline(isDone, taskData[2], taskData[3]));
+            try {
+                LocalDate by = LocalDate.parse(taskData[3]);
+                parseTask(new Deadline(isDone, taskData[2], by));
+            } catch (DateTimeParseException e) {
+                throw new DukeException("Error in the save files 5");
+            }
+
             break;
         case "E":
             if (taskData.length != 5) {
-                throw new DukeException("Error in the save files 5");
+                throw new DukeException("Error in the save files 6");
             }
 
             if (taskData[1].equals("0")) {
@@ -181,34 +213,47 @@ public class Parser {
             } else if (taskData[1].equals("1")) {
                 isDone = true;
             } else {
-                throw new DukeException("Error in the save files 6");
+                throw new DukeException("Error in the save files 7");
             }
-
-            addTask(new Event(isDone, taskData[2], taskData[3], taskData[4]));
+            try {
+                LocalDate from = LocalDate.parse(taskData[3]);
+                LocalDate to = LocalDate.parse(taskData[3]);
+                parseTask(new Event(isDone, taskData[2], from, to));
+            } catch (DateTimeParseException e) {
+                throw new DukeException("Error in the save files 8");
+            }
             break;
         default:
-            throw new DukeException("Error in the save files 7");
+            throw new DukeException("Error in the save files 9");
         }
     }
 
     public static String parseToData() {
         String data = "";
-        for (int i = 0; i < Duke.tasks.size(); i++) {
-            Task task = Duke.tasks.get(i);
+        for (int i = 0; i < Yapper.tasks.size(); i++) {
+            Task task = Yapper.tasks.get(i);
 
             if (task instanceof Todo) {
-                data += String.format("T / %d / %s", task.getIsDoneInt(), task.getDescription());
+                data += String.format("T / %d / %s",
+                        task.getIsDoneInt(),
+                        task.getDescription());
             } else if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
-                data += String.format("D / %d / %s / %s", task.getIsDoneInt(), task.getDescription(), deadline.getBy());
+                data += String.format("D / %d / %s / %s",
+                        task.getIsDoneInt(),
+                        task.getDescription(),
+                        deadline.getBy());
             } else { // instanceof Event
                 Event event = (Event) task;
-                data += String.format("E / %d / %s / %s / %s", task.getIsDoneInt(), task.getDescription(),
-                        event.getFrom(), event.getTo());
+                data += String.format("E / %d / %s / %s / %s",
+                        task.getIsDoneInt(),
+                        task.getDescription(),
+                        event.getFrom(),
+                        event.getTo());
             }
 
-            // add new line after each task except for the last task
-            if (i != Duke.tasks.size() - 1) {
+            // add new line after each task except for the last line
+            if (i != Yapper.tasks.size() - 1) {
                 data += System.lineSeparator();
             }
         }

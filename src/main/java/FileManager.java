@@ -25,7 +25,6 @@ public class FileManager {
             while(scanner.hasNext()) {
                 Parser.parseData(scanner.nextLine());
             }
-
         } catch (IOException e) {
             System.out.println("Error in the IO when creating taskData file");
         } catch (DukeException e) {
@@ -33,12 +32,12 @@ public class FileManager {
         }
     }
 
+    // can have a hasChanged check with the taskList to prevent rewriting data even if no changed occurred
     public static void saveTasks() throws DukeException {
         try (FileWriter fw = new FileWriter("data/taskData.txt")){
             fw.write(Parser.parseToData());
         } catch (IOException e) {
             throw (new DukeException("IO Exception when saving data"));
         }
-
     }
 }

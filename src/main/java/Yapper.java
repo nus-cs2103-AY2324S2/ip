@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Duke {
+public class Yapper {
     private static final String LINE = "    ____________________________________________________________\n";
     private static final String INDENT = "    ";
     protected static final ArrayList<Task> tasks = new ArrayList<Task>();
@@ -37,7 +37,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        Duke.hello();
+        Yapper.hello();
         Scanner in = new Scanner(System.in);
         FileManager.loadTasks();
         while (isRunning) {
