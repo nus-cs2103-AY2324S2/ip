@@ -1,17 +1,19 @@
-
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
     private static List<Task> tasks = new ArrayList<>();
     private static final String FILE_PATH = "./data/duke.txt";
-
 
     public static void main(String[] args) {
         // Greeting
@@ -233,22 +235,33 @@ public class Duke {
     }
 
     // Create a deadline task based on user input
-    private static Task createDeadlineTask(String input) throws DukeException{
-        String[] parts = input.split("/by", 2);
+    private static Task createDeadlineTask(String input) throws DukeException {
+        String[] parts = input.split("/by");
         if (parts.length < 2) {
-            throw new DukeException("Please provide a deadline in the format '/by <deadline>'");
+            throw new DukeException("Please provide a deadline in the format '/by <yyyy-mm-dd>'");
         }
-        return new Deadline(parts[0].trim(), parts[1].trim());
+        System.out.println(parts[1].trim()); // Directly print parts[1]
+
+        // Parse the deadline with the specified format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateTime = LocalDate.parse(parts[1].trim());
+
+        return new Deadline(parts[0].trim(), dateTime);
     }
 
     // Create an event task based on user input
     private static Task createEventTask(String input) throws DukeException {
         String[] parts = input.split("/from", 2);
         if (parts.length < 2) {
-            throw new DukeException("Please provide an event in the format '/from <start time> /to <end time>'");
+            throw new DukeException("Please provide an event in the format '/from <yyyy-mm-dd> /to <yyyy-mm-dd>'");
         }
-        String[] dateParts = parts[1].trim().split("/to", 2);
-        return new Event(parts[0].trim(), dateParts[0].trim(), dateParts[1].trim());
+
+        // Parse the start and end dates with the specified format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fromDateTime = LocalDate.parse(parts[1].trim().split("/to")[0].trim(), formatter);
+        LocalDate toDateTime = LocalDate.parse(parts[1].trim().split("/to")[1].trim(), formatter);
+
+        return new Event(parts[0].trim(), fromDateTime, toDateTime);
     }
 }
 
@@ -295,9 +308,9 @@ class Todo extends Task {
 }
 
 class Deadline extends Task {
-    protected String by;
+    protected LocalDate by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
@@ -306,21 +319,21 @@ class Deadline extends Task {
     public String getStatusIcon() {
         return "D"; // Deadline tasks have "D" as their status icon
     }
-    public String getBy() {
+    public LocalDate getBy() {
         return by;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + by + ")";
+        return super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ")";
     }
 }
 
 class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -331,17 +344,18 @@ class Event extends Task {
         return "E"; // Event tasks have "E" as their status icon
     }
 
-    public String getFrom() {
+    public LocalDate getFrom() {
         return from;
     }
 
-    public String getTo() {
+    public LocalDate getTo() {
         return to;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + from + " to: " + to + ")";
+        return super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) +
+                " to: " + to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ")";
     }
 }
 class TaskListEncoder {
@@ -358,10 +372,13 @@ class TaskListEncoder {
             return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
         } else if (task instanceof Deadline) {
             Deadline deadlineTask = (Deadline) task;
-            return "D | " + (task.isDone() ? "1" : "0") + " | " + deadlineTask.getDescription() + " | " + deadlineTask.getBy();
+            String by = deadlineTask.getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            return "D | " + (task.isDone() ? "1" : "0") + " | " + deadlineTask.getDescription() + " | " + "by " + by;
         } else if (task instanceof Event) {
             Event eventTask = (Event) task;
-            return "E | " + (task.isDone() ? "1" : "0") + " | " + eventTask.getDescription() + " | " + eventTask.getFrom() + " to " + eventTask.getTo();
+            String from = eventTask.getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            String to = eventTask.getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            return "E | " + (task.isDone() ? "1" : "0") + " | " + eventTask.getDescription() + " | " + from + " to " + to;
         } else {
             // Handle other task types if needed
             return "";
@@ -376,16 +393,16 @@ class TaskListDecoder {
             for (String line : lines) {
                 decodedTasks.add(decodeTask(line));
             }
-        } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
+        } catch ( IllegalArgumentException e) {
             throw new DukeDataCorruptedException("Data file is corrupted: " + e.getMessage());
         }
-        return decodedTasks;
-    }
+            return decodedTasks;
+        }
+
 
     private static Task decodeTask(String line) {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];
-        //boolean isDone = parts[1].equals("1");
         String description = parts[2];
 
         switch (taskType) {
@@ -393,11 +410,18 @@ class TaskListDecoder {
                 return new Todo(description);
             case "D":
                 String by = parts[3];
-                return new Deadline(description, by);
+                LocalDate byDateTime = LocalDate.parse(by.substring(3), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                return new Deadline(description, byDateTime);
             case "E":
-                String from = parts[3].split(" to ")[0];
-                String to = parts[3].split(" to ")[1];
-                return new Event(description, from, to);
+                String dateTimeString = parts[3];
+                String[] dateTimeParts = dateTimeString.split(" to ");
+                String from = dateTimeParts[0];
+                String to = dateTimeParts[1];
+
+                LocalDate fromDateTime = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate toDateTime = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                return new Event(description, fromDateTime, toDateTime);
             default:
                 // Handle other task types if needed
                 return null;
@@ -415,4 +439,6 @@ class DukeDataCorruptedException extends Exception {
         super(message);
     }
 }
+
+
 
