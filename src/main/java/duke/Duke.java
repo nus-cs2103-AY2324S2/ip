@@ -12,17 +12,43 @@ import java.nio.file.Paths;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents the main Duke class
+ */
 public class Duke {
 
+    /**
+     * Represents the type of command
+     */
     public enum CommandType {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
     }
+
+    /**
+     * Represents the storage of tasks
+     */
     private Storage storage;
+
+    /**
+     * Represents the list of tasks
+     */
     private TaskList tasks;
+
+    /**
+     * Represents the user interface
+     */
     private Ui ui;
 
+    /**
+     * Represents the parser
+     */
     private Parser parser;
 
+    /**
+     * Constructor for Duke
+     * @param filePath Path of the file
+     * @param botName Name of the bot
+     */
     public Duke(Path filePath, String botName) {
         ui = new Ui(botName);
         storage = new Storage(filePath);
@@ -34,6 +60,10 @@ public class Duke {
             tasks = new TaskList();
         }
     }
+
+    /**
+     * Runs the bot
+     */
     public void run() {
 
         ui.showWelcome();
@@ -77,30 +107,27 @@ public class Duke {
                     case DELETE:
                         Task deletedTask = tasks.deleteTask(Integer.parseInt(cmd.args[0]) - 1);
                         ui.showTaskDeleted(deletedTask, tasks.getSize());
-                        numList(tasks.getSize());
                         break;
                     default:
                         throw new DukeException("Unknown command");
                 }
                 storage.updateFile(tasks.getFileStrings());
             } catch (duke.DukeException e) {
-                lineBreak();
+                ui.lineBreak();
                 System.out.println(e.getMessage());
             }
-            lineBreak();
+            ui.lineBreak();
             input = ui.readCommand();
         }
         ui.showGoodbye();
     }
 
-    public static void lineBreak() {
-        System.out.println("____________________________________________________________\n");
-    }
-
-    public static void numList(int len) {
-        System.out.printf(" Now you have %d duke.tasks in the list.%n", len);
-    }
-
+    /**
+     * Creates a LocalDateTime object from a string
+     * @param input String to be parsed
+     * @return LocalDateTime object
+     * @throws DukeException If the string is not in a valid date-time format
+     */
     public static LocalDateTime createDateTime(String input) throws DukeException {
         //turn possiblePatterns into two arrays
         //one for date, one for time
@@ -153,11 +180,24 @@ public class Duke {
 
     }
 
+    /**
+     * Creates a To do task
+     * @param description Description of the To do
+     * @return To do task
+     * @throws DukeException If the description is empty
+     */
     public static Todo createTodo(String description) throws DukeException {
         Todo newTodo = new Todo(description);
         return newTodo;
     }
 
+    /**
+     * Creates a Deadline task
+     * @param description Description of the Deadline
+     * @param dueDate Due date of the Deadline
+     * @return Deadline task
+     * @throws DukeException If the due date is not in a valid date-time format
+     */
     public static Deadline createDeadline(String description, String dueDate) throws DukeException{
 
         LocalDateTime dueDateTime = createDateTime(dueDate);
@@ -168,6 +208,14 @@ public class Duke {
         return new Deadline(description, dueDateTime);
     }
 
+    /**
+     * Creates an Event task
+     * @param description Description of the Event
+     * @param startDate Start date of the Event
+     * @param endDate End date of the Event
+     * @return Event task
+     * @throws DukeException If the start date is after the end date
+     */
     public static Event createEvent(String description, String startDate, String endDate) throws DukeException {
 
         LocalDateTime startDateTime = createDateTime(startDate);
@@ -187,6 +235,10 @@ public class Duke {
         return new Event(description, startDateTime, endDateTime);
     }
 
+    /**
+     * Main method
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
         String botName = "KokBot";
         Path path = Paths.get("data", "duke.txt");

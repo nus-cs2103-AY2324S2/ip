@@ -15,14 +15,30 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents the file storage of tasks
+ */
 public class Storage {
 
+    /**
+     * Path of the file
+     */
     protected Path filePath;
 
+    /**
+     * Constructor for Storage
+     * @param newFilePath Path of the file
+     */
     public Storage(Path newFilePath) {
         this.filePath = newFilePath;
     }
 
+    /**
+     * Returns the file given its path
+     * @param path Path of the file
+     * @return File
+     * @throws DukeException If there is an error creating the file
+     */
     private static File getFile(Path path) throws DukeException {
         File file = path.toFile();
         if (!file.exists()) {
@@ -36,6 +52,11 @@ public class Storage {
         return file;
     }
 
+    /**
+     * Updates the file with the given list of task Strings
+     * @param tasks list of task Strings to be written to the file
+     * @throws DukeException If there is an error updating the file
+     */
     public void updateFile(String[] tasks) throws DukeException {
         File file;
 
@@ -51,6 +72,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the file and returns the list of parsed Task objects
+     * @return List of tasks
+     * @throws DukeException If there is an error loading the file
+     */
     public ArrayList<Task> load() throws DukeException {
         File file;
 

@@ -10,3 +10,4 @@ Week 3 duke.task:
     - Level 8
       - \+ extremely useful in coming up with suitable datetime patterns
       - \+ kind of insane how good it is at predicting what i am going to type.. almost a little creepy ngl lol
+    - Level 9 and all future increments

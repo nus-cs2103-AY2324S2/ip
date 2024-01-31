@@ -2,12 +2,24 @@ package duke;
 
 import java.util.Arrays;
 
+/**
+ * Represents a Parser
+ */
 public class Parser {
 
+    /**
+     * Constructor for Parser
+     */
     public Parser () {
 
     }
 
+    /**
+     * Parses the input string and returns the corresponding Command
+     * @param input Input string
+     * @return Corresponding Command
+     * @throws DukeException If the input string is not a valid command
+     */
     public Command parse(String input) throws DukeException{
         String[] parts = input.split(" ");
         switch (parts[0]) {
