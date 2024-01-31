@@ -8,6 +8,7 @@ import nollid.Parser;
 import nollid.Storage;
 import nollid.TaskList;
 import nollid.Ui;
+import nollid.exceptions.InvalidArgumentException;
 import nollid.exceptions.NollidException;
 import nollid.tasks.Event;
 
@@ -30,17 +31,17 @@ public class EventCommand extends Command {
         int toIndex = this.argsList.indexOf("/to");
 
         if (this.argsList.size() == 1 || fromIndex == 1 || toIndex == 1) {
-            throw new NollidException("Event description cannot be empty!\n"
+            throw new InvalidArgumentException("Event description cannot be empty!\n"
                     + USAGE_HINT);
         }
 
         if (fromIndex == -1 || fromIndex == this.argsList.size() - 1 || fromIndex == toIndex - 1) {
-            throw new NollidException("Please enter the start of your event!\n"
+            throw new InvalidArgumentException("Please enter the start of your event!\n"
                     + USAGE_HINT);
         }
 
         if (toIndex == -1 || toIndex == this.argsList.size() - 1 || toIndex == fromIndex - 1) {
-            throw new NollidException("Please enter the end of your event!\n"
+            throw new InvalidArgumentException("Please enter the end of your event!\n"
                     + USAGE_HINT);
         }
 
@@ -66,7 +67,7 @@ public class EventCommand extends Command {
             ui.sendMessage(message);
             storage.update(tasks);
         } catch (DateTimeParseException e) {
-            throw new NollidException("Unrecognized start/end format\n"
+            throw new InvalidArgumentException("Unrecognized start/end format\n"
                     + USAGE_HINT);
         }
     }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import nollid.Storage;
 import nollid.TaskList;
 import nollid.Ui;
+import nollid.exceptions.InvalidArgumentException;
 import nollid.exceptions.NollidException;
 import nollid.tasks.Todo;
 
@@ -21,7 +22,7 @@ public class TodoCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
         if (argsList.size() == 1) {
-            throw new NollidException("Todo description cannot be empty!\n"
+            throw new InvalidArgumentException("Todo description cannot be empty!\n"
                     + "Usage: todo [task description]");
         }
 

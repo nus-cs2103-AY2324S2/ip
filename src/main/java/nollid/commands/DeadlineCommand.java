@@ -8,6 +8,7 @@ import nollid.Parser;
 import nollid.Storage;
 import nollid.TaskList;
 import nollid.Ui;
+import nollid.exceptions.InvalidArgumentException;
 import nollid.exceptions.NollidException;
 import nollid.tasks.Deadline;
 
@@ -27,12 +28,12 @@ public class DeadlineCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
         int byIndex = this.argsList.indexOf("/by");
         if (this.argsList.size() == 1 || byIndex == 1) {
-            throw new NollidException("Deadline description cannot be empty!\n"
+            throw new InvalidArgumentException("Deadline description cannot be empty!\n"
                     + USAGE_HINT);
         }
 
         if (byIndex == this.argsList.size() - 1 || byIndex == -1) {
-            throw new NollidException("Please input a deadline!\n"
+            throw new InvalidArgumentException("Please input a deadline!\n"
                     + USAGE_HINT);
         }
 
@@ -64,7 +65,7 @@ public class DeadlineCommand extends Command {
             ui.sendMessage(message);
             storage.update(tasks);
         } catch (DateTimeParseException e) {
-            throw new NollidException("Unrecognized deadline format\n"
+            throw new InvalidArgumentException("Unrecognized deadline format\n"
                     + USAGE_HINT);
         }
     }

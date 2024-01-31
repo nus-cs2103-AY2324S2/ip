@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import nollid.Storage;
 import nollid.TaskList;
 import nollid.Ui;
+import nollid.exceptions.InvalidArgumentException;
 import nollid.exceptions.NollidException;
 
 /**
@@ -22,7 +23,7 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
         // This means that the user has not supplied any number with the command
         if (this.argsList.size() == 1) {
-            throw new NollidException("Please enter the task you wish to delete!\n"
+            throw new InvalidArgumentException("Please enter the task you wish to delete!\n"
                     + "Usage: delete [task number]");
         } else {
             try {
@@ -36,11 +37,11 @@ public class DeleteCommand extends Command {
                 ui.sendMessage(message);
                 storage.update(tasks);
             } catch (NumberFormatException e) {
-                throw new NollidException("Please enter a number for the delete command.\n"
+                throw new InvalidArgumentException("Please enter a number for the delete command.\n"
                         + "Usage: delete [task number]");
             } catch (IndexOutOfBoundsException e) {
-                throw new NollidException("Are you sure that's a valid task number? (Tip: use 'list' to check the "
-                        + "number of your task!)\n" + "Usage: delete [task number]");
+                throw new InvalidArgumentException("Are you sure that's a valid task number? (Tip: use 'list' to "
+                        + "check the number of your task!)\n" + "Usage: delete [task number]");
             }
         }
     }

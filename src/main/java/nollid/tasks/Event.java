@@ -3,6 +3,7 @@ package nollid.tasks;
 import java.time.LocalDateTime;
 
 import nollid.Parser;
+import nollid.exceptions.InvalidArgumentException;
 import nollid.exceptions.NollidException;
 
 /**
@@ -22,7 +23,7 @@ public class Event extends Task {
         super(description);
 
         if (from.isAfter(to)) {
-            throw new NollidException("Start time and date must be before end time and date.");
+            throw new InvalidArgumentException("Start time and date must be before end time and date.");
         }
         this.from = from;
         this.to = to;

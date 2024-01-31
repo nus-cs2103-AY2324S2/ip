@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import nollid.Storage;
 import nollid.TaskList;
 import nollid.Ui;
+import nollid.exceptions.InvalidArgumentException;
 import nollid.exceptions.NollidException;
 import nollid.tasks.Task;
 
@@ -23,13 +24,13 @@ public class FindCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
         // If no keyword provided, throw error
         if (argsList.size() == 1) {
-            throw new NollidException("Please enter a keyword to search for.\n"
+            throw new InvalidArgumentException("Please enter a keyword to search for.\n"
                     + FindCommand.USAGE_HINT);
         }
 
         // If more than 1 keyword, throw error
         if (argsList.size() > 2) {
-            throw new NollidException("Please enter only 1 keyword.\n"
+            throw new InvalidArgumentException("Please enter only 1 keyword.\n"
                     + FindCommand.USAGE_HINT);
         }
 
