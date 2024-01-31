@@ -3,6 +3,7 @@ package duke.common;
 import duke.exception.MalformedUserInputException;
 import duke.tasklist.Deadline;
 import duke.tasklist.Event;
+import duke.tasklist.Task;
 import duke.tasklist.Todo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,11 +11,11 @@ import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Random;
 
 import static javafx.beans.binding.Bindings.when;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DataStorageTest {
 
@@ -27,6 +28,8 @@ public class DataStorageTest {
 
     private final String[] activityNames = {"Running", "Swimming", "Cycling", "Hiking", "Skiing"};
     private final String[] datesRange = {"2024-01-01", "2025-01-01", "2024-03-21", "2024-12-31", "2023-01-01"};
+
+    private ArrayList<Task> tasks;
 
     private final int NUMBER_OF_EVENTS = 200;
 
@@ -70,8 +73,10 @@ public class DataStorageTest {
     }
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws MalformedUserInputException {
         // Create a temporary file
+        this.tasks = new ArrayList<>();
+
         try {
             // Referenced from: https://stackoverflow.com/questions/26860167/what-is-a-safe-way-to-create-a-temp-file-in-java
             mockFile = Files.createTempFile("test", ".txt").toFile();
@@ -81,9 +86,28 @@ public class DataStorageTest {
         mockFile.deleteOnExit();
 
         // Initialize DataStorage with the temporary file
-        dataStorage = new DataStorage(10, mockFile.getAbsolutePath());
+        dataStorage = new DataStorage(10000, mockFile.getAbsolutePath());
 
         System.out.println(mockFile.getAbsolutePath());
+
+        createTasks();
+    }
+
+
+    private void createTasks() throws MalformedUserInputException {
+        for (int i = 0; i < NUMBER_OF_EVENTS; i++) {
+            Task task;
+            if (i % 3 == 0) {
+                task = new Todo(getRandomEvent(), false);
+            } else if (i % 3 == 1) {
+                task = new Deadline(getRandomEvent(), getRandomDate(), false);
+            } else {
+                task = new Event(getRandomEvent(), getRandomDate(), getRandomDate(), false);
+            }
+
+            tasks.add(task);
+            dataStorage.addTask(task);
+        }
     }
 
     /**
@@ -128,6 +152,25 @@ public class DataStorageTest {
 
 
     @Test
+    public void dataStorage_event_correctlyMarked() throws MalformedUserInputException {
+        int currentLineCount = this.getLineCount();
+        int indexToDelete = getRandomNumberUsingNextInt(1, currentLineCount);
+        Task toDelete = tasks.get(indexToDelete);
+
+        String previousRecord = toDelete.toString();
+        dataStorage.setTaskStatus(indexToDelete, true);
+        assertNotEquals(previousRecord, dataStorage.getTask(indexToDelete).toString());
+    }
+
+    @Test
+    public void dataStorage_event_correctlyDeleted() throws MalformedUserInputException {
+        int currentLineCount = this.getLineCount();
+        int indexToDelete = getRandomNumberUsingNextInt(1, currentLineCount);
+        dataStorage.deleteTask(indexToDelete);
+        assertEquals(dataStorage.getTaskCount(), currentLineCount - 1);
+    }
+
+    @Test
     public void dataStorage_event_correctlyStored() throws MalformedUserInputException {
         String taskName = "Sample Task";
         String startTime = "2024-01-02";
@@ -144,19 +187,18 @@ public class DataStorageTest {
 
     // Taken from: https://www.baeldung.com/java-generating-random-numbers-in-range
 
-    public int getRandomNumberUsingNextInt(int max) {
-        int min = 0;
+    public int getRandomNumberUsingNextInt(int min, int max) {
         Random random = new Random();
         return random.nextInt(max - min) + min;
     }
 
     public String getRandomEvent() {
-        int index = getRandomNumberUsingNextInt(activityNames.length);
+        int index = getRandomNumberUsingNextInt(0, activityNames.length);
         return activityNames[index];
     }
 
     public String getRandomDate() {
-        int index = getRandomNumberUsingNextInt(datesRange.length);
+        int index = getRandomNumberUsingNextInt(0, datesRange.length);
         return datesRange[index];
     }
 
