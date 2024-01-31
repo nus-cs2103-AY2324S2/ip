@@ -41,4 +41,7 @@ public class TaskList implements Iterable<Task>{
         return this.taskList.iterator();
     }
 
+    public boolean isEmpty() {
+        return this.taskList.isEmpty();
+    }
 }

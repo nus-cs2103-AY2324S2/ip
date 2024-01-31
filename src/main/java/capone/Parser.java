@@ -46,6 +46,8 @@ public class Parser {
             return new EventCommand(inputList);
         } else if (firstWord.equalsIgnoreCase("delete")) {
             return new DeleteCommand(inputList);
+        } else if (firstWord.equalsIgnoreCase("find")) {
+            return new FindCommand(inputList);
         } else if (firstWord.equalsIgnoreCase("bye")) {
             return new ByeCommand(scanner);
         } else if (firstWord.equalsIgnoreCase("help")) {
