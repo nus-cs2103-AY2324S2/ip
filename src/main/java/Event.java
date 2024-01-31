@@ -10,6 +10,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String toFileFormat() {
+        return super.toFileFormat() + " | " + from + " | " + to;
+    }
+
+    @Override
     public String toString() {
         return type.getSymbol() + super.toString() + " (from: " + from + " to: " + to + ")";
     }

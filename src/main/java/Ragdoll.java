@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,6 +10,7 @@ public class Ragdoll{
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
         String logo = " /$$$$$$$                            /$$           /$$ /$$\n"
                 + "| $$__  $$                          | $$          | $$| $$\n"
                 + "| $$  \\ $$  /$$$$$$   /$$$$$$   /$$$$$$$  /$$$$$$ | $$| $$\n"
@@ -22,6 +24,8 @@ public class Ragdoll{
                 + "                     \\______/\n";
 
         System.out.println("Hello! I am your virtual assistant\n" + "\n" + logo);
+
+        loadTasks();
 
         System.out.println("How can I assist you today, " + USER + "?");
 
@@ -40,27 +44,27 @@ public class Ragdoll{
                 command = Commands.ADD;
             }
 
-            switch (command) {
-                case BYE:
-                    scanner.close();
-                    System.out.println("See ya, " + USER + "!");
-                    System.out.println(LINE);
-                    return;
-                case LIST:
-                    listTasks();
-                    break;
-                case MARK:
-                    markTask(input);
-                    break;
-                case UNMARK:
-                    unmarkTask(input);
-                    break;
-                case DELETE:
-                    deleteTask(input);
-                    break;
-                case ADD:
-                    addTask(input);
-                    break;
+            switch(command) {
+            case BYE:
+                scanner.close();
+                System.out.println("See ya, " + USER + "!");
+                System.out.println(LINE);
+                return;
+            case LIST:
+                listTasks();
+                break;
+            case MARK:
+                markTask(input);
+                break;
+            case UNMARK:
+                unmarkTask(input);
+                break;
+            case DELETE:
+                deleteTask(input);
+                break;
+            case ADD:
+                addTask(input);
+                break;
             }
 
             System.out.println(LINE);
@@ -70,8 +74,8 @@ public class Ragdoll{
     private static void addTask(String input) {
         String[] parts = input.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            System.out.println("Sorry, " + USER + ", please format your tasks as [task type] [task description]!\n" +
-                    "I am only able to handle 3 task types: todo, deadline, and event.");
+            System.out.println("Sorry, " + USER + ", please format your tasks as [task type] [task description]!\n"
+                    + "I am only able to handle 3 task types: todo, deadline, and event.");
             return;
         }
 
@@ -81,40 +85,43 @@ public class Ragdoll{
         try {
             taskType = TaskType.valueOf(parts[0].toUpperCase());
         } catch (IllegalArgumentException e) {
-            System.out.println("Sorry, " + USER + ", please format your tasks as [task type] [task description]!\n" +
-                    "I am only able to handle 3 task types: todo, deadline, and event.");
+            System.out.println("Sorry, " + USER + ", please format your tasks as [task type] [task description]!\n"
+                    + "I am only able to handle 3 task types: todo, deadline, and event.");
             return;
         }
 
         switch (taskType) {
-            case TODO:
-                task = new ToDo(parts[1]);
-                break;
-            case DEADLINE:
-                String[] info = parts[1].split(" /by ", 2);
-                if (info.length < 2) {
-                    System.out.println("Sorry, " + USER + ", please use 'deadline [task] /by [date]'.");
-                    return;
-                }
-                task = new Deadline(info[0], info[1]);
-                break;
-            case EVENT:
-                String[] eventParts = parts[1].split(" /from ", 2);
-                if (eventParts.length < 2) {
-                    System.out.println("Sorry, " + USER + ", please use 'event [task] /from [start time] /to [end time]'.");
-                    return;
-                }
-                String[] timeParts = eventParts[1].split(" /to ", 2);
-                if (timeParts.length < 2) {
-                    System.out.println("Sorry, " + USER + ", please use 'event [task] /from [start time] /to [end time]'.");
-                    return;
-                }
-                task = new Event(eventParts[0], timeParts[0], timeParts[1]);
-                break;
+        case TODO:
+            task = new ToDo(parts[1]);
+            break;
+        case DEADLINE:
+            String[] info = parts[1].split(" /by ", 2);
+            if (info.length < 2) {
+                System.out.println("Sorry, " + USER + ", please use 'deadline [task] /by [date]'.");
+                return;
+            }
+            task = new Deadline(info[0], info[1]);
+            break;
+        case EVENT:
+            String[] eventParts = parts[1].split(" /from ", 2);
+            if (eventParts.length < 2) {
+                System.out.println("Sorry, " + USER
+                        + ", please use 'event [task] /from [start time] /to [end time]'.");
+                return;
+            }
+            String[] timeParts = eventParts[1].split(" /to ", 2);
+            if (timeParts.length < 2) {
+                System.out.println("Sorry, " + USER
+                        + ", please use 'event [task] /from [start time] /to [end time]'.");
+                return;
+            }
+            task = new Event(eventParts[0], timeParts[0], timeParts[1]);
+            break;
         }
 
         if (task != null) {
             tasks.add(task);
+            saveTasks();
             System.out.println(USER + ", I've added this task:\n  " + task);
 
             int taskCount = tasks.size();
@@ -126,7 +133,7 @@ public class Ragdoll{
         }
     }
 
-    public static void deleteTask(String input) {
+    private static void deleteTask(String input) {
         try {
             int idx = Integer.parseInt(input.substring(7)) - 1;
             int taskCount = tasks.size();
@@ -136,8 +143,9 @@ public class Ragdoll{
             } else {
                 Task removed = tasks.remove(idx);
                 taskCount--;
-
+                saveTasks();
                 System.out.println(USER + ", I've removed this task:\n  " + removed);
+
                 if (taskCount <= 1) {
                     System.out.println("Now you have " + taskCount + " task in the list, " + USER + "!");
                 } else {
@@ -167,6 +175,7 @@ public class Ragdoll{
                 System.out.println("No task numbered " + (idx + 1) + ", " + USER + "!");
             } else {
                 tasks.get(idx).mark();
+                saveTasks();
                 System.out.println(USER + "! I've marked this task as done:\n" + tasks.get(idx));
             }
         } catch (NumberFormatException e) {
@@ -181,10 +190,64 @@ public class Ragdoll{
                 System.out.println("No task numbered " + (idx + 1) + ", " + USER + "!");
             } else {
                 tasks.get(idx).unmark();
+                saveTasks();
                 System.out.println("Ok, " + USER + "! I've undone this task:\n" + tasks.get(idx));
             }
         } catch (NumberFormatException e) {
             System.out.println(USER + ", please format it as mark [task index].");
+        }
+    }
+
+    private static void saveTasks() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("tasklist.txt"))) {
+            for (Task task : tasks) {
+                writer.write(task.toFileFormat());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println(USER + ", an error occurred while saving tasks!");
+            e.printStackTrace();
+        }
+    }
+
+    private static void loadTasks() {
+        File file = new File("tasklist.txt");
+        if (!file.exists()) {
+            return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                try {
+                    String[] parts = line.split(" \\| ");
+                    Task task = null;
+                    switch (parts[0]) {
+                    case "T":
+                        task = new ToDo(parts[2]);
+                        break;
+                    case "D":
+                        task = new Deadline(parts[2], parts[3]);
+                        break;
+                    case "E":
+                        task = new Event(parts[2], parts[3], parts[4]);
+                        break;
+                    }
+                    if (task != null) {
+                        if (parts[1].equals("1")) {
+                            task.mark();
+                        }
+                        tasks.add(task);
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(USER + ", I found a corrupted line in tasklist file! I'll skip it..!");
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(USER + ", I could not find the task file... We have an empty task list!");
+        } catch (IOException e) {
+            System.out.println(USER + ", I could not read the tasklist file..!");
+            e.printStackTrace();
         }
     }
 }
