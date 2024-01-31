@@ -14,8 +14,8 @@ public class Event extends Task {
      * Initializes Event.
      *
      * @param description   Description of the task.
-     * @param startDateTime Start date and start time of the tasks.
-     * @param endDateTime   End date and end time of the tasks.
+     * @param startDateTime Start date and start time of the task.
+     * @param endDateTime   End date and end time of the task.
      */
     public Event(String description, String startDateTime, String endTime) throws TinyException {
         super(description);
@@ -28,8 +28,8 @@ public class Event extends Task {
      *
      * @param description   Description of the task.
      * @param isDone        Status of the task.
-     * @param startDateTime Start date and start time of the tasks.
-     * @param endDateTime   End date and end time of the tasks.
+     * @param startDateTime Start date and start time of the task.
+     * @param endDateTime   End date and end time of the task.
      */
     public Event(String description, boolean isDone, String startDateTime, String endTime) throws TinyException {
         super(description, isDone);
@@ -154,6 +154,11 @@ public class Event extends Task {
         return endTime.format(formatter);
     }
 
+    /**
+     * Formats the task into the correct format to save.
+     *
+     * @return String of the task in the correct format to save.
+     */       
     @Override
     public String toSave() {
         return "E" + super.toSave() + " | " + startDatetimeSaveFormat() + " | " + endTimeSaveFormat();

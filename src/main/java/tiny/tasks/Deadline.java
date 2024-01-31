@@ -100,6 +100,11 @@ public class Deadline extends Task {
         return endDatetime.format(formatter);
     }
 
+    /**
+     * Formats the task into the correct format to save.
+     *
+     * @return String of the task in the correct format to save.
+     */       
     @Override
     public String toSave() {
         return "D" + super.toSave() + " | " + endDatetimeSaveFormat();

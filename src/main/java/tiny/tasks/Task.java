@@ -53,6 +53,11 @@ public class Task {
         return description.contains(keyword);
     }        
 
+    /**
+     * Formats the task into the correct format to save.
+     *
+     * @return String of the task in the correct format to save.
+     */    
     public String toSave() {
         return " | " + (this.isDone ? "1" : "0") + " | " + this.description;
     }

@@ -98,7 +98,7 @@ public class TaskList {
     }
 
     /**
-     * Function to format all the tasks into the correct format to save.
+     * Formats all the tasks into the correct format to save.
      *
      * @return ArrayList of tasks in the correct format to save.
      */

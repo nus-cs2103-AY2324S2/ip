@@ -21,6 +21,11 @@ public class Todo extends Task {
         super(description, isDone);
     }
 
+    /**
+     * Formats the task into the correct format to save.
+     *
+     * @return String of the task in the correct format to save.
+     */       
     @Override
     public String toSave() {
         return "T" + super.toSave();
