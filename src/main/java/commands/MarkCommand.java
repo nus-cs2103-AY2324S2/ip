@@ -1,8 +1,16 @@
+package commands;
+
+import data.exception.DukeException;
+import storage.Storage;
+import task.Task;
+import task.TaskList;
+import ui.Ui;
+
 public class MarkCommand extends Command {
 	private int updateIndex;
 	private boolean isComplete;
 
-	MarkCommand(int updateIndex, boolean isComplete) {
+	public MarkCommand(int updateIndex, boolean isComplete) {
 		this.updateIndex = updateIndex;
 		this.isComplete = isComplete;
 	}
