@@ -62,6 +62,13 @@ public class Duke {
         }
         return result;
     }
+
+    public static String getCmdDetails(String cmd, String details) throws DukeException {
+        if (details == null || details.trim().length() == 0) {
+            throw new DukeException("Please enter a description for the " + cmd + " command");
+        }
+        return details;
+    }
     public static void main(String[] args) {
         System.out.println(greetingMessage);
 
@@ -70,44 +77,92 @@ public class Duke {
         while(!user.getUserInput().equalsIgnoreCase("bye")) {
             user.inputMessage();
             String userMessage = user.getUserInput();
+
+            if (userMessage.equalsIgnoreCase("bye")) {
+                break;
+            }
+
             String[] userMessageArr = getCommand(userMessage);
             String userCmd = userMessageArr[0];
             String cmdDetails = userMessageArr[1];
+
+            // checks if command is valid
+            try {
+                AcceptedCmds testCommand = AcceptedCmds.valueOf(userCmd.toLowerCase());
+            } catch (IllegalArgumentException e) {
+                printWithLines("Please enter a valid command\nThe list of valid commands are as follows:\n" +
+                        java.util.Arrays.asList(AcceptedCmds.values()));
+                continue;
+            }
 
             if (userCmd.equalsIgnoreCase("list")) {
                 list();
             } else if (userCmd.equalsIgnoreCase("mark") ||
                     userCmd.equalsIgnoreCase("unmark")) {
-
                 int taskIndex = -1;
-                // check if valid integer is entered
+
                 try {
-                    taskIndex = Integer.valueOf(cmdDetails);
+                    String possInteger = getCmdDetails(userCmd, cmdDetails);
+                    taskIndex = Integer.valueOf(possInteger);
+                    // check if index provided is too high
+                    if (taskIndex > numInStorage || taskIndex < 1) {
+                        printWithLines("Please enter a number between 1 and " + numInStorage);
+                    } else {
+                        if (userCmd.equalsIgnoreCase("unmark")) {
+                            markNotDone(taskIndex - 1);
+                        } else {
+                            markDone(taskIndex - 1);
+                        }
+                    }
+                } catch (DukeException e) {
+                    printWithLines(e.getMessage());
                 } catch (NumberFormatException e) {
                     printWithLines("Invalid integer input!\nEnter a number between 1 and " + numInStorage);
                 }
-                // check if index provided is too high
-                if (taskIndex > numInStorage || taskIndex < 1) {
-                    printWithLines("index invalid");
-                } else {
-                    if (userCmd.equalsIgnoreCase("unmark")) {
-                        markNotDone(taskIndex - 1);
-                    } else {
-                        markDone(taskIndex - 1);
-                    }
-                }
             } else if (userCmd.equalsIgnoreCase("todo")) {
-                ToDo newToDo = new ToDo(cmdDetails);
-                addTask(newToDo);
+                try {
+                    String possToDo = getCmdDetails(userCmd, cmdDetails);
+                    ToDo newToDo = new ToDo(possToDo);
+                    addTask(newToDo);
+                } catch (DukeException e) {
+                    printWithLines(e.getMessage());
+                }
             } else if (userCmd.equalsIgnoreCase("deadline")) {
-                String[] splitDetails = cmdDetails.toLowerCase().split("/by ", 2);
-                Deadline newDL = new Deadline(splitDetails[0], splitDetails[1]);
-                addTask(newDL);
+                try {
+                    String possDLDetails = getCmdDetails(userCmd, cmdDetails);
+                    String[] splitDetails = possDLDetails.toLowerCase().split("/by ", 2);
+                    try {
+                        Deadline newDL = new Deadline(splitDetails[0], splitDetails[1]);
+                        addTask(newDL);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        printWithLines("After entering the deadline task name,\n" +
+                                "add '/by' followed by your desired deadline");
+                    }
+                } catch (DukeException e) {
+                    printWithLines(e.getMessage());
+                }
+
             } else if (userCmd.equalsIgnoreCase("event")){
-                String[] splitDetails = cmdDetails.split("/from ", 2);
-                String[] secondSplit = splitDetails[1].split("/to ", 2);
-                Event newEvent = new Event(splitDetails[0], secondSplit[0], secondSplit[1]);
-                addTask(newEvent);
+                try {
+                    String possEventDetails = getCmdDetails(userCmd, cmdDetails);
+                    String[] splitDetails = possEventDetails.split("/from ", 2);
+                    String[] secondSplitDetails = new String[2];
+                    try {
+                        secondSplitDetails = splitDetails[1].split("/to ", 2);
+                        try {
+                            Event newEvent = new Event(splitDetails[0], secondSplitDetails[0], secondSplitDetails[1]);
+                            addTask(newEvent);
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            printWithLines("After entering your desired start time,\n" +
+                                    "add '/to' followed by your desired end time");
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        printWithLines("After entering the event task name,\n" +
+                                "add '/from' followed by your desired start time");
+                    }
+                } catch (DukeException e) {
+                    printWithLines(e.getMessage());
+                }
             }
         }
         System.out.println(goodbyeMessage);
