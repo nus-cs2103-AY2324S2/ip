@@ -8,10 +8,11 @@ import java.util.Scanner;
 public class Duke {
     private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
     private static final String UNKNOWN_COMMAND_MESSAGE = "The command '%s' is unknown. Please try again!";
-    private static final TaskList taskList = new TaskList();
+    private static final TaskList taskList = new TaskList("/data/tasks.txt");
     private static boolean isOpen = true;
 
     public static void main(String[] args) {
+        System.out.println(System.getProperty("user.dir"));
         greet();
         runWaffles();
     }

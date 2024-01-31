@@ -18,10 +18,10 @@ public class TaskList {
     private final ArrayList<Task> taskList;
     private final Storage taskStorage;
 
-    public TaskList() {
+    public TaskList(String subPath) {
         this.taskList = new ArrayList<>();
         String root = System.getProperty("user.dir");
-        String path = Path.of(root, "ip/data/tasks.txt").toString();
+        String path = Path.of(root, subPath).toString();
         this.taskStorage = new Storage(path);
         updateList();
     }
@@ -65,6 +65,9 @@ public class TaskList {
     }
 
     public void markTask(String taskIndex) {
+        if (taskIndex.isBlank()) {
+            throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
+        }
         Task t = taskList.get(Integer.parseInt(taskIndex) - 1);
         t.markAsDone();
         updateStorage();
@@ -73,6 +76,9 @@ public class TaskList {
     }
 
     public void unmarkTask(String taskIndex) {
+        if (taskIndex.isBlank()) {
+            throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
+        }
         Task t = taskList.get(Integer.parseInt(taskIndex) - 1);
         t.markAsUndone();
         updateStorage();
