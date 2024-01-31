@@ -103,7 +103,7 @@ public class Parser {
     private int parseTaskNumber(String input) throws Exception {
         try {
             int taskNumber = Integer.parseInt(input);
-            if (taskNumber <= 0 || taskNumber > yodaUI.getTaskCount()) {
+            if (taskNumber <= 0 || taskNumber > yodaUI.getTaskListSize()) {
                 throw new Exception("Valid task number, provide you must.");
             }
             return taskNumber;

@@ -1,40 +1,43 @@
+import java.io.IOException;
 import java.util.Scanner;
 
-/**
- * Main class for the Yoda chatbot application.
- */
 public class Yoda {
+    private Storage storage;
+    private TaskList tasks;
+    private YodaUI yodaUI;
+
+    public Yoda(String filePath) {
+        this.storage = new Storage(filePath);
+        try {
+            // Load tasks from the storage
+            this.tasks = new TaskList(storage.loadTasks());
+        } catch (IOException e) {
+            // If there's an error loading tasks, start with an empty task list
+            System.out.println("Error loading tasks: " + e.getMessage());
+            this.tasks = new TaskList(null);
+        }
+        // Initialize YodaUI with the loaded tasks
+        this.yodaUI = new YodaUI("Yoda", tasks, storage);
+    }
+
     public static void main(String[] args) {
-        // Name of the chatbot is set to "Yoda".
-        String chatbotName = "Yoda";
+        // Initialize Yoda with the file path for storing tasks
+        Yoda yoda = new Yoda("data/yoda.txt");
 
-        // Create an instance of the YodaUI class with the specified chatbot name.
-        YodaUI yoda = new YodaUI(chatbotName);
-
-        // Scanner to read user input from the console.
         Scanner scanner = new Scanner(System.in);
+        Parser commandParser = new Parser(yoda.yodaUI);
 
-        Parser commandParser = new Parser(yoda);
+        // Display the greeting message
+        yoda.yodaUI.printGreeting();
 
-        // Display the initial greeting message from Yoda.
-        yoda.printGreeting();
-
-        // Main loop to keep processing user input until the chatbot stops chatting.
-        while (yoda.isChatting()) {
-            // Read the next line of input from the user.
+        while (yoda.yodaUI.isChatting()) {
             String input = scanner.nextLine();
-
             try {
-                // Use CommandParser to handle the user input
                 commandParser.parseAndExecute(input);
-            } catch (EmptyDescriptionException | UnknownCommandException | InvalidTaskException | TimeMissingException e) {
-                yoda.printMessage(e.getMessage());
             } catch (Exception e) {
-                // For any other exceptions, print an error message
-                yoda.printMessage("Error occurred: " + e.getMessage());
+                yoda.yodaUI.printMessage("Error occurred: " + e.getMessage());
             }
         }
-        // Close the scanner to prevent resource leaks.
         scanner.close();
     }
 }
