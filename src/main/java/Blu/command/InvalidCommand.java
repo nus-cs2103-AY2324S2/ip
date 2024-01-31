@@ -21,7 +21,7 @@ public class InvalidCommand extends Command {
     public InvalidCommand(String invalidCmd) {
         this.invalidCmd = invalidCmd;
     }
-    
+
     /**
      * Executes the invalid command.
      * This method throws an InvalidCommandException to indicate that the user input
@@ -32,7 +32,7 @@ public class InvalidCommand extends Command {
      * @param ui The UI, not used in this command but required by the method signature.
      * @throws BluException Throws an InvalidCommandException with the invalid command string.
      */
-    @Override 
+    @Override
     public void execute(TaskList taskList, Storage storage, UI ui) throws BluException {
         throw new InvalidCommandException(this.invalidCmd);
     }

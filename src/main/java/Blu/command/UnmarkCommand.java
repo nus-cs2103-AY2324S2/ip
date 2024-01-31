@@ -20,7 +20,7 @@ public class UnmarkCommand extends Command {
     public UnmarkCommand(int taskIdx) {
         this.taskIdx = taskIdx;
     }
-   
+
     /**
      * Executes the unmark command.
      * This method retrieves the task at the specified index, changes its status to 'not completed',

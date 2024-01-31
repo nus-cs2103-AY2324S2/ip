@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +14,10 @@ import blu.exception.StorageException;
 import blu.task.Task;
 import blu.task.TaskList;
 
+/**
+ * Handles the storage of tasks in a file. This class is responsible for saving tasks to a file
+ * and loading them from the file. Implements AutoCloseable to ensure resources are freed properly.
+ */
 public class Storage implements AutoCloseable {
     /** File object used to write and store tasks */
     private File file;
@@ -42,7 +45,7 @@ public class Storage implements AutoCloseable {
 
     /**
      * Saves all tasks from the given TaskList to the storage file.
-     * 
+     *
      * @param taskList The list of tasks to save.
      * @throws StorageException If tasks cannot be written to the storage file.
      */
@@ -104,5 +107,4 @@ public class Storage implements AutoCloseable {
             throw new StorageException("Could not close writer");
         }
     }
-    
 }

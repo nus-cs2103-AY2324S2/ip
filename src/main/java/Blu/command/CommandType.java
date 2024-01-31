@@ -22,7 +22,8 @@ public enum CommandType {
      * @return The CommandType corresponding to the given string, or INVALID if no match is found.
      */
     public static CommandType fromString(String cmdString) {
-        // Solution below adapted by https://stackoverflow.com/questions/4936819/java-check-if-enum-contains-a-given-string
+        // Solution below adapted by 
+        // https://stackoverflow.com/questions/4936819/java-check-if-enum-contains-a-given-string
         try {
             return CommandType.valueOf(cmdString.toUpperCase());
         } catch (IllegalArgumentException e) {

@@ -35,7 +35,7 @@ public class TaskDecoderTest {
         Task task = TaskDecoder.fromCsv(csv);
         assertEquals(task, new ToDo("Read book"));
     }
-    
+
     @Test
     public void fromCsv_validMarkedTask_success() throws BluException {
         String csv = "T,T,Read book";
@@ -60,7 +60,4 @@ public class TaskDecoderTest {
         Task task = TaskDecoder.fromCsv(csv);
         assertEquals(task, new Event("Attend Event", expectedFrom, expectedTo));
     }
-
-
-    
 }

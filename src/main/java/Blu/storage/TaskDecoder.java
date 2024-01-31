@@ -10,7 +10,7 @@ import blu.task.Task;
 import blu.task.ToDo;
 
 /**
- * Decodes CSV strings into their associated Task objects. 
+ * Decodes CSV strings into their associated Task objects.
  */
 public class TaskDecoder {
 
@@ -62,12 +62,12 @@ public class TaskDecoder {
 
     private static Event parseEvent(String[] tokens) throws BluException {
         try {
-        Event event = new Event(tokens[2], LocalDateTime.parse(tokens[3])
-                        , LocalDateTime.parse(tokens[4]));
-        if (tokens[1].equals("T")) {
-            event.setMarked();
-        }
-        return event;
+            Event event = new Event(tokens[2], LocalDateTime.parse(tokens[3]),
+                    LocalDateTime.parse(tokens[4]));
+            if (tokens[1].equals("T")) {
+                event.setMarked();
+            }
+            return event;
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             throw new BluException("Invalid event format in storage file");
         }

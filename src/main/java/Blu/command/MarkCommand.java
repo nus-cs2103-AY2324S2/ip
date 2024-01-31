@@ -43,5 +43,4 @@ public class MarkCommand extends Command {
         }
         storage.saveTasks(taskList);
     }
-    
 }

@@ -40,7 +40,7 @@ public class TaskList {
         return true;
     }
 
-     /**
+    /**
      * Retrieves the task at the specified 1-based task number.
      *
      * @param taskNumber The 1-based index of the task to retrieve.
@@ -50,7 +50,7 @@ public class TaskList {
     public Task getTask(int taskNumber) throws IllegalParameterException {
         int idx = taskNumber - 1;
         if (!isValidIndex(idx)) {
-            throw new IllegalParameterException("Could not retrieve task number " 
+            throw new IllegalParameterException("Could not retrieve task number "
                 + taskNumber + "\n"
                 + "Please use the list command to view valid task numbers.");
         }
@@ -93,7 +93,7 @@ public class TaskList {
     public void deleteTask(int taskNumber) throws IllegalParameterException {
         int idx = taskNumber - 1;
         if (!isValidIndex(idx)) {
-            throw new IllegalParameterException("Could not delete task number " 
+            throw new IllegalParameterException("Could not delete task number "
             + taskNumber + "\n"
             + "Please use the list command to view valid task numbers.");
         }
@@ -101,7 +101,7 @@ public class TaskList {
     }
 
     /**
-     * Returns a string representation of the TaskList. 
+     * Returns a string representation of the TaskList.
      * If the list is empty, returns the message "All tasks completed!".
      *
      * @return A string representation of the TaskList.
@@ -117,7 +117,7 @@ public class TaskList {
             String title = String.format("%d. %s", i + 1, task.toString());
             // do not add new line when for last task in list
             if (i == this.tasks.size() - 1) {
-                stringBuilder.append(title); 
+                stringBuilder.append(title);
             } else {
                 stringBuilder.append(title + "\n");
             }
