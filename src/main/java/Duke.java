@@ -1,17 +1,15 @@
 import java.util.Scanner;
 
-import DukeException.InvalidCommandException;
-import DukeException.ListOutofBoundsException;
-import DukeException.MissingArgumentsException;
+import dukeException.InvalidCommandException;
+import dukeException.ListOutofBoundsException;
+import dukeException.MissingArgumentsException;
 
-import Storage.Deadlines;
-import Storage.Events;
-import Storage.Todos;
-import Storage.Task;
+import dukeException.WrongTimeFormatException;
 
 import UI.UI;
 
-import Parser.Parser;
+import parser.Parser;
+import parser.Token;
 
 
 public class Duke {
@@ -24,56 +22,53 @@ public class Duke {
         while(flag) {
             String input = scanner.nextLine().trim();
             parser.feed(input);
-            String[] output;
+            Token output;
             try {
                 output = parser.parse();
             } catch (InvalidCommandException e) {
-                ui.error(e.getMessage());
+                UI.error(e.getMessage());
                 continue;
             } catch (MissingArgumentsException e) {
-                ui.error(e.getMessage());
+                UI.error(e.getMessage());
+                continue;
+            } catch (WrongTimeFormatException e) {
+                UI.error(e.getMessage());
                 continue;
             }
-            Task task;
-            switch (output[0]) {
-            case "bye":
+            switch (output.getCmd()) {
+            case BYE:
                 UI.goodbye();
                 flag = false;
                 break;
-            case "list":
+            case LIST:
                 ui.listItems();
                 break;
-            case "unmark":
+            case UNMARK:
                 try {
-                    ui.unMarkTask(Integer.parseInt(output[1]) - 1);
+                    ui.unMarkTask(output.getSelectedItem() - 1);
                 } catch (ListOutofBoundsException e){
-                    ui.error(e.getMessage());
+                    UI.error(e.getMessage());
                 }
                 break;
-            case "mark":
+            case MARK:
                 try {
-                    ui.markTaskUI(Integer.parseInt(output[1]) - 1);
+                    ui.markTaskUI(output.getSelectedItem() - 1);
                 } catch (ListOutofBoundsException e) {
-                    ui.error(e.getMessage());
+                    UI.error(e.getMessage());
                 }
                 break;
-            case "todo":
-                task = new Todos(output[1]);
-                ui.addItem(task);
+            case TODO:
+                // Fallthrough
+            case DEADLINE:
+                // Fallthrough
+            case EVENT:
+                ui.addItem(output.getTask());
                 break;
-            case "deadline":
-                task = new Deadlines(output[1], output[2]);
-                ui.addItem(task);
-                break;
-            case "event":
-                task = new Events(output[1], output[2], output[3]);
-                ui.addItem(task);
-                break;
-            case "delete":
+            case DELETE:
                 try {
-                    ui.removeTask(Integer.parseInt(output[1]) - 1);
+                    ui.removeTask(output.getSelectedItem() - 1);
                 } catch (ListOutofBoundsException e) {
-                    ui.error(e.getMessage());
+                    UI.error(e.getMessage());
                 }
                 break;
             default:

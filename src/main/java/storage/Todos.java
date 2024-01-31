@@ -1,4 +1,4 @@
-package Storage;
+package storage;
 
 public class Todos extends Task {
     public Todos(String description) {

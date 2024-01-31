@@ -1,4 +1,4 @@
-package DukeException;
+package dukeException;
 
 public class MissingArgumentsExceptionMarking extends MissingArgumentsException{
     public MissingArgumentsExceptionMarking(String string) {

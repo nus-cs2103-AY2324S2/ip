@@ -1,4 +1,4 @@
-package DukeException;
+package dukeException;
 
 public class InvalidCommandException extends Exception {
     public InvalidCommandException(String message) {

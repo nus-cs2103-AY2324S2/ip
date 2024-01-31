@@ -1,4 +1,4 @@
-package DukeException;
+package dukeException;
 
 public class MissingArgumentsExceptionTodo extends MissingArgumentsException {
     public MissingArgumentsExceptionTodo(String string) {
