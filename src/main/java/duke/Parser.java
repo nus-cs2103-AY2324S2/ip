@@ -3,12 +3,23 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * This class processes user input.
+ */
+
 public class Parser {
 
     public Parser() {
-
     }
 
+    /**
+     * Returns the first word used to control the program flow in Duke.
+     * <p>
+     * This method separates the first word from the full instruction given by the user.
+     *
+     * @param cmd the full command given by the user.
+     * @return the first word in the string.
+     */
     public String parseCmd(String cmd) {
         if (cmd.equals("bye") || cmd.equals("list")){
             return cmd;
@@ -18,6 +29,15 @@ public class Parser {
         return split[0];
     }
 
+    /**
+     * Returns an array of strings for the delete command usable by TaskList.
+     * <p>
+     * The method processes the delete command.
+     *
+     * @param cmd the full instruction
+     * @return an array of strings separated by function and index.
+     * @throws DukeException when given wrong number of parameters.
+     */
     public String[] parseDelete(String cmd) throws DukeException {
         String[] str = cmd.split(" ");
 
@@ -36,6 +56,15 @@ public class Parser {
         return str;
     }
 
+    /**
+     * Returns an array of strings for the mark/unmark command usable by TaskList.
+     * <p>
+     * This method will set the task to be complete or incomplete according to the user instruction.
+     *
+     * @param cmd the mark/unmark command
+     * @return an array of strings separated by function and index.
+     * @throws DukeException when given incorrect parameter type or incorrect number of parameters.
+     */
     public String[] parseMark(String cmd) throws DukeException {
         String[] str = cmd.split(" ");
 
@@ -52,6 +81,15 @@ public class Parser {
         return str;
     }
 
+    /**
+     * Returns an array of strings of the commands usable by Todo, deadline or event.
+     * <p>
+     * This method processes all Add commands (Todo, deadline, event).
+     *
+     * @param cmd add command
+     * @return an array of strings separated by function and parameters.
+     * @throws DukeException when given incorrect number of parameters.
+     */
     public String[] parseAdd(String cmd) throws DukeException {
         String[] str = cmd.split(" ", 2);
         String[] res = new String[0];
@@ -106,6 +144,15 @@ public class Parser {
         return res;
     }
 
+    /**
+     * Returns LocalDate object that can be used by deadline.
+     * <p>
+     * This method will validate that the input string is in the correct date format.
+     *
+     * @param str
+     * @return
+     * @throws DukeException
+     */
     public LocalDate validDate(String str) throws DukeException {
         LocalDate ld;
 

@@ -6,6 +6,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import duke.task.Task;
 
+/**
+ * UI class handles interactions with the user.
+ */
+
 public class UI {
     public BufferedReader br;
     public final String LINE = "-----------------------------";
