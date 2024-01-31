@@ -23,14 +23,19 @@ Missing something?
 ---------------------------------------------------------
 Did you make a mistake?
 ---------------------------------------------------------
-Done! I have added this to the list:[D][ ] a  (by:  7)
- There are now 3 items
+7
+java.time.format.DateTimeParseException: Text '7' could not be parsed at index 0
+The date you entered is invalid.
 ---------------------------------------------------------
 Is that a typo I see?
 ---------------------------------------------------------
 Did you miss something?
 ---------------------------------------------------------
 Did you miss something?
+---------------------------------------------------------
+2024-01-31
+Done! I have added this to the list:[D][ ] c  (by: 31 January 2024)
+ There are now 3 items
 ---------------------------------------------------------
 Done and dusted: [T][X] x
 ---------------------------------------------------------
@@ -55,5 +60,5 @@ Sure! Here is the list:
 
 1.[T][ ] x
 2.[E][X] y  (from:  1  to:  2)
-3.[D][ ] a  (by:  7)
+3.[D][ ] c  (by: 31 January 2024)
 ---------------------------------------------------------
