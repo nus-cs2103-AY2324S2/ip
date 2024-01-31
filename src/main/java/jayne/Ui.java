@@ -1,4 +1,7 @@
+package jayne;
+
 import java.util.Scanner;
+
 public class Ui {
     // Read user input
     public String readCommand() {

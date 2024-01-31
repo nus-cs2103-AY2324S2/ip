@@ -1,3 +1,5 @@
+package jayne;
+
 public class JayneException extends Exception {
     public JayneException(String message) {
         super(message);
