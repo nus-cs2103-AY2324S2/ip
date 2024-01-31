@@ -1,9 +1,12 @@
-import java.util.Scanner;
+package Echo.Ui;
+
+import Echo.Parser.Parser;
+import Echo.TaskManager;
 
 public class Ui {
     public static void greetUser() {
         System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Echo");
+        System.out.println("Hello! I'm Echo.Echo");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
     }

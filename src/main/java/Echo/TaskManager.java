@@ -1,11 +1,15 @@
+package Echo;
+
+import Echo.Task.Task;
+import Echo.Task.Todo;
+import Echo.Task.Deadline;
+import Echo.Task.Event;
+import Echo.Storage.Storage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -169,7 +173,7 @@ public class TaskManager {
 
             int taskNumber = Integer.parseInt(tokens[1]) - 1;  // Adjusting for 0-based index
             if (taskNumber < 0 || taskNumber >= tasks.size()) {
-                throw new IllegalArgumentException("NO! Task number does not exist. Enter a valid task number to delete.");
+                throw new IllegalArgumentException("NO! Echo.Task.Echo.Task number does not exist. Enter a valid task number to delete.");
             }
 
             Task removedTask = tasks.remove(taskNumber);
