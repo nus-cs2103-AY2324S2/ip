@@ -1,8 +1,66 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+
 public class Duke {
+    public static void readFile(ArrayList<Task> tasks) {
+        try {
+            File file = new File("./duke.txt");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                String[] task = line.split("," );
+                Task t = null;
+                switch (task[0]) {
+                    case "T":
+                        t = new Todo(task[2]);
+                        break;
+                    case "D":
+                        t = new Deadline(task[2], task[3]);
+                        break;
+                    case "E":
+                        t = new Event(task[2], task[3], task[4]);
+                        break;
+                }
+                if (task[1].equals("1")) {
+                    t.mark();
+                }
+                tasks.add(t);
+            }
+            fileScanner.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void updateFile(ArrayList<Task> tasks) {
+        try {
+            File file = new File("./duke.txt");
+            if (!file.exists()) {
+                file.createNewFile();
+                System.out.println("created file");
+            }
+            PrintWriter writer = new PrintWriter(file);
+            for (Task t: tasks) {
+                writer.println(t.toFileString());
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
     public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<Task>();
+
+        Duke.readFile(tasks);
 
         System.out.println(
                 "Hello! I'm Bob\n" +
@@ -19,6 +77,7 @@ public class Duke {
                     }
 
                 } else if (command.equals("bye")) {
+                    Duke.updateFile(tasks);
                     System.out.println("Bye. Hope to see you again soon!");
                     System.exit(0);
 
