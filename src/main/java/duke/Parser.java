@@ -11,6 +11,9 @@ public class Parser {
             case "list":
                 printLst(tl);
                 break;
+            case "find":
+                findTask(tl, commandArr);
+                break;
             case "mark":
                 markTask(tl, commandArr);
                 break;
@@ -112,6 +115,28 @@ public class Parser {
         toPrint += "   " + newEvent + "\n";
         toPrint += " Now you have " + tl.size() + " tasks in the list.";
         Ui.beautify(toPrint);
+    }
+
+    public static void findTask(TaskList tl, String[] commandArr) throws DukeException {
+        if (commandArr.length == 1) {
+            throw new DukeException(" Sorry, please input what you want me to find");
+        }
+        String keyword = commandArr[1];
+        StringBuilder toPrint = new StringBuilder();
+        toPrint.append(" Here are the matching tasks in your list:");
+        int count = 0;
+        for (int i = 0; i < tl.size(); i++) {
+            if (tl.get(i).toString().contains(keyword)) {
+                String taskPrintout = "\n   " + (count + 1) + "." + tl.get(i).toString();
+                toPrint.append(taskPrintout);
+                count++;
+            }
+        }
+        if (count == 0) {
+            toPrint = new StringBuilder();
+            toPrint.append("\n Whoops! No matching tasks found :(");
+        }
+        Ui.beautify(toPrint.toString());
     }
 
     public static void markTask(TaskList tl, String[] commandArr) throws DukeException {
