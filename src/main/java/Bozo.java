@@ -1,14 +1,22 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Bozo {
-    public static void main(String[] args) {
+    protected static ArrayList<Task> list = new ArrayList<>();
+    public static void main(String[] args) throws BozoException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
+
+        Bozo bozo = new Bozo();
+        Bozo.loadFile();
 
         printLine();
         System.out.println("Hello! I'm Bozo");
@@ -17,10 +25,10 @@ public class Bozo {
 
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
-        ArrayList<Task> list = new ArrayList<>();
 
         while (true) {
             if (input.equals("bye")) {
+                Bozo.saveList();
                 printLine();
                 System.out.println("Bye. Hope to see you again soon!");
                 printLine();
@@ -88,7 +96,7 @@ public class Bozo {
                 printLine();
                 if (input.startsWith("todo")) {
                     if (input.length() < 6) {
-                        System.out.println("I want that too but a todo can't be empty :((");
+                        throw new BozoException("I want that too but ur todo can't be empty :-((");
                     } else {
                         Todo td = new Todo(input.substring(input.indexOf(" ") + 1));
                         list.add(td);
@@ -98,7 +106,7 @@ public class Bozo {
                     }
                 } else if (input.startsWith("deadline")) {
                     if (input.length() < 10) {
-                        System.out.println("I want that too but a deadline can't be empty :((");
+                        throw new BozoException("I want that too but ur deadline can't be empty :-((");
                     } else {
                         int indexOfSlash = input.indexOf("/by");
                         Deadline d = new Deadline(input.substring(input.indexOf(" ")+ 1, indexOfSlash - 1),
@@ -110,7 +118,7 @@ public class Bozo {
                     }
                 } else if (input.startsWith("event")) {
                     if (input.length() < 7) {
-                        System.out.println("I want that too but an event can't be empty :((");
+                        throw new BozoException("I want that too but ur event can't be empty :-((");
                     } else {
                         int indexOfFrom = input.indexOf("/from");
                         int indexOfTo = input.indexOf("/to");
@@ -123,11 +131,74 @@ public class Bozo {
                         System.out.println("Now you have " + list.size() + " tasks in the list.");
                     }
                 } else {
-                    System.out.println("Oops! I don't know what you are saying :(");
+                    throw new BozoException("Oops! I don't know what you are saying :(");
+
                 }
                 printLine();
                 input = sc.nextLine();
             }
+        }
+    }
+
+    public static void loadFile() {
+        try {
+            File txtFile = new File("./data/bozo.txt");
+            Scanner scan = new Scanner(txtFile);
+            while (scan.hasNextLine()) {
+                String line = scan.nextLine();
+                String[] parts = line.split(" \\| ");
+                String type = parts[0];
+                int isDone = Integer.parseInt(parts[1]);
+                String taskName = parts[2];
+
+                switch (type) {
+                    case "T":
+                        Todo td = new Todo(taskName);
+                        if (isDone == 1) {
+                            td.isDone = true;
+                        } else {
+                            td.isDone = false;
+                        }
+                        list.add(td);
+                        break;
+                    case "D":
+                        Deadline d = new Deadline(taskName, parts[3]);
+                        if (isDone == 1) {
+                            d.isDone = true;
+                        } else {
+                            d.isDone = false;
+                        }
+                        list.add(d);
+                        break;
+                    case "E":
+                        Event e = new Event(taskName, parts[3], parts[4]);
+                        if (isDone == 1) {
+                            e.isDone = true;
+                        } else {
+                            e.isDone = false;
+                        }
+                        list.add(e);
+                        break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No tasks saved :-((");
+        }
+    }
+
+    public static void saveList() {
+        try {
+            File txtFile = new File("./data/bozo.txt");
+            txtFile.getParentFile().mkdirs();
+            FileWriter f = new FileWriter(txtFile);
+            for (Task task : list) {
+                f.write(task.save());
+                f.write(System.lineSeparator());
+            }
+            f.close();
+
+        } catch (IOException e) {
+            System.out.println("I can't save ur list :((");
         }
     }
 

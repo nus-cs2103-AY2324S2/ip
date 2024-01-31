@@ -22,4 +22,8 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    public String save() {
+        return String.format("| %d | %s", isDone ? 1 : 0, description);
+    }
 }
