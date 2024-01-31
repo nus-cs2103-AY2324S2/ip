@@ -1,6 +1,3 @@
-import java.util.*;
-import java.io.*;
-
 /**
  * Event is a subclass of Task. It stores information of a task including
  * the start and end date.
@@ -23,9 +20,16 @@ public class Event extends Task {
     }
 
     @Override
+    public String encode() {
+        String s = "E|" + (super.getStatus() ? 1 : 0) + "|" + super.getTask()
+                + "|" + from + "|" + to;
+        return s;
+    }
+
+    @Override
     public String toString() {
-        return "[E][" + (super.getStatus() ? "X" : " ") + "] " +
-                super.getTask() + "(from: " + from + "to: " + to + ")";
+        return "[E][" + (super.getStatus() ? "X" : " ") + "] " + super.getTask()
+                + "(from: " + from + "to: " + to + ")";
 
     }
 }
