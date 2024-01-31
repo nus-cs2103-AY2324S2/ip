@@ -41,12 +41,8 @@ public class Task {
     return isDone;
   }
 
-  public void markAsDone() {
-    isDone = true;
-  }
-
-  public void markAsUndone() {
-    isDone = false;
+  public void setDone(boolean isDone) {
+    this.isDone = isDone;
   }
 
   @Override

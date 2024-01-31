@@ -4,7 +4,10 @@ import java.util.List;
 
 import Dao.DeadlineDao;
 import Dao.EventDao;
+import Dao.TaskDao;
 import Dao.TodoDao;
+import Enums.Commands;
+import Enums.TaskType;
 import Models.Deadline;
 import Models.Event;
 import Models.Task;
@@ -83,9 +86,9 @@ public class TaskManager {
       } else if (command.equals(Commands.LIST.getCommand())) {
         print();
       } else if (command.equals(Commands.MARK.getCommand())) {
-        mark(input);
+        mark(input, true);
       } else if (command.equals(Commands.UNMARK.getCommand())) {
-        unmark(input);
+        mark(input, false);
       }  else if (command.equals(Commands.DELETE.getCommand())) {
         delete(input);
       } else if (command.equals(Commands.BYE.getCommand())) {
@@ -119,21 +122,30 @@ public class TaskManager {
     this.add(event);
   }
 
-  private void mark(String input) {
+  private void mark(String input, boolean isDone) {
     int taskIndex = Integer.parseInt(StringUtils.getValueOfCommand(input, Commands.MARK.getCommand(), null)) - 1;
     Task task = this.get(taskIndex);
     this.printSeparator();
-    task.markAsDone();
+    TaskType type = getTypeOfTask(task.toString());
+    task = TaskDao.mark(task.getId(), type.getCommand(), task, isDone);
     System.out.println("Nice! I've marked this task as done: \n" + task);
     this.printSeparator();
   }
 
-  private void unmark(String input) {
-    int taskIndex = Integer.parseInt(StringUtils.getValueOfCommand(input, Commands.UNMARK.getCommand(), null)) - 1;
-    Task task = this.get(taskIndex);
-    this.printSeparator();
-    task.markAsUndone();
-    System.out.println("Ok! I've marked this task as not yet done: \n" + task);
-    this.printSeparator();
+  /**
+   * Determines type of task (todo, event) based off the command line string
+   * Very simplistic, TODO: Validate against inputs with [T[ to avoid invalid clasification
+   * @param input the formatted line, e.g. [T][X} Wash dishes
+   * @return The type of task
+   */
+  private TaskType getTypeOfTask(String input) {
+    if (input.contains("[T]")) {
+      return TaskType.TODO;
+    } else if (input.contains("[D]")) {
+      return TaskType.DEADLINE;
+    } else if (input.contains("[E]")) {
+      return TaskType.EVENT;
+    }
+    throw new IllegalArgumentException("Could not find task type for input " + input);
   }
 }
