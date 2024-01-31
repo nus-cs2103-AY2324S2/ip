@@ -22,7 +22,7 @@ class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s", super.toString(), from.format(OUTPUT_FORMATTER), to.format(OUTPUT_FORMATTER));
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), from.format(OUTPUT_FORMATTER), to.format(OUTPUT_FORMATTER));
     }
 
     @Override
