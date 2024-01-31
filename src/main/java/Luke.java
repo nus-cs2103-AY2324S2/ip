@@ -70,68 +70,79 @@ public class Luke {
         }
     }
 
+    //Lists all tasks in history.
+    private static void listTasks() {
+        int num = 1;
+        if (history.size() == 0) {
+            System.out.println("Looks like you have way too much free time on your hands, huh.");
+            System.out.println("[No items in list]");
+        }
+        for (Task s : history) {
+            if (s.isDone()) {
+                System.out.println(num + "." + s.fullStatus());
+            } else {
+                System.out.println(num + "." + s.fullStatus());
+            }
+            num += 1;
+        }
+        System.out.println();
+    }
+
+    //Marks a particular task as done. Takes in a string command.
+    public static void markTask(String input) {
+        int idx;
+        try {
+            idx = Integer.parseInt(input.split(" ")[1]) - 1;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("I can't help you out if you don't tell me what to mark! ");
+            System.out.println("[Missing input parameter for mark]\n");
+            return;
+        }
+        try {
+            history.get(idx).complete();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Jeez, you really ought to give me a number I can work with... got that?");
+            System.out.println("[Item index exceeds history count]\n");
+            return;
+        }
+        System.out.println("Good work, I guess.");
+        System.out.println((idx + 1) + "." + history.get(idx).fullStatus());
+        System.out.println();
+    }
+
+    //Deletes a specified task. Takes in a string input.
+    public static void deleteTask(String input) {
+        String fullStatus;
+        try {
+            int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
+            fullStatus = history.get(index).fullStatus();
+            history.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("There's nothing there, dummy...");
+            System.out.println("[Tried to remove non-existent event]\n");
+            return;
+        }
+        System.out.println("Fine! If that's what you really want...");
+        System.out.println("[Removed " + fullStatus + "]\n");
+    }
+
     public static void main(String[] args) throws LukeException {
         greet();
         Scanner sc = new Scanner(System.in);
         while (true) {
             //task mode
             //first, determine the type of input.
-
             String input = sc.nextLine().trim(); //trim removes preceding and trailing whitespace.
-
             if (input.equals("bye")) {
                 bye();
                 sc.close();
                 break;
             } else if (input.equals("list")) {
-                int num = 1;
-                if (history.size() == 0) {
-                    System.out.println("Looks like you have way too much free time on your hands, huh.");
-                    System.out.println("[No items in list]");
-                }
-                for (Task s : history) {
-                    if (s.isDone()) {
-                        System.out.println(num + "." + s.fullStatus());
-                    } else {
-                        System.out.println(num + "." + s.fullStatus());
-                    }
-                    num += 1;
-                }
-                System.out.println();
+                listTasks();
             } else if (input.split(" ")[0].equals("mark")) {
-                int idx;
-                try {
-                    idx = Integer.parseInt(input.split(" ")[1]) - 1;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("I can't help you out if you don't tell me what to mark! ");
-                    System.out.println("[Missing input parameter for mark]\n");
-                    continue;
-                }
-
-                try {
-                    history.get(idx).complete();
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Jeez, you really ought to give me a number I can work with... got that?");
-                    System.out.println("[Item index exceeds history count]\n");
-                    continue;
-                }
-
-                System.out.println("Good work, I guess.");
-                System.out.println((idx + 1) + "." + history.get(idx).fullStatus());
-                System.out.println();
+                markTask(input);
             } else if (input.split(" ")[0].equals("delete")) {
-                String fullStatus;
-                try {
-                    int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
-                    fullStatus = history.get(index).fullStatus();
-                    history.remove(index);
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("There's nothing there, dummy...");
-                    System.out.println("[Tried to remove non-existent event]\n");
-                    continue;
-                }
-                System.out.println("Fine! If that's what you really want...");
-                System.out.println("[Removed " + fullStatus + "]\n");
+                deleteTask(input);
             } else {
                 //it is a task.
                 Task task = makeTask(input);
