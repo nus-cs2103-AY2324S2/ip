@@ -1,11 +1,19 @@
+package parser;
+
 import java.util.*;
+import exception.DukeException;
+import tasks.Deadlines;
+import tasks.Events;
+import tasks.Task;
+import tasks.ToDo;
+import storage.Storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
+
 
 public class Parser {
     private static ArrayList<Task> inventory;
@@ -14,7 +22,7 @@ public class Parser {
     public void parse() {
         inventory = new ArrayList<>();
         num = 0;
-        String path  = "../../../data/rah.txt";
+        
         //BOT NAME :RSH
         String logo = " _____   _____  _    _ \n"
                     + "|  __ \\ / ____|| |  | |\n"
@@ -117,7 +125,7 @@ public class Parser {
                         int counter = 1;
                         for (int i = 0; i < inventory.size() - 1; i++) {
                             Task t = inventory.get(i);
-                            if (t.getDeadline().equals(dateTime.toLocalDate())) {
+                            if (t.getDeadline().equals(dateTime.toLocalDate()) || !t.identifier().equals("[T]")) {
                                 similarities += counter + ": " + t.toString() + "\n";
                             }
                             counter++;
@@ -185,9 +193,10 @@ public class Parser {
             } catch (DukeException e) {
                 System.out.println(layer(e.getMessage()));
             }
-            
+    
             try {
-                writeToFile(path);
+                Storage storage = new Storage();
+                storage.writeToFile(inventory);
             }
             catch (IOException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
@@ -203,15 +212,7 @@ public class Parser {
         return line + "\n" + s + "\n" + line; 
     }
 
-    private static void writeToFile(String filePath) throws IOException {
-        File file = new File(filePath);
-        // Ensure the directory exists
-        file.getParentFile().mkdirs();
-
-        try (FileWriter fw = new FileWriter(file, false)) { // false to overwrite
-            for (Task task : inventory) {
-                fw.write(task.toString() + System.lineSeparator());
-            }
-        }
+    public List<Task> getInventory() {
+        return inventory;
     }
 }

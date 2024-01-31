@@ -1,6 +1,7 @@
+package tasks;
 import java.time.LocalDate;
 
-abstract class Task {
+abstract public class Task {
     private String description;
     private boolean marked;
     private int num;
@@ -32,8 +33,8 @@ abstract class Task {
         return this.description;
     }
 
-    abstract String identifier();
-    abstract LocalDate getDeadline();
+    abstract public String identifier();
+    abstract public LocalDate getDeadline();
     
 }
 

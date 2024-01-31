@@ -1,9 +1,9 @@
+package tasks;
 import java.time.LocalDate;
-
 
 public class ToDo extends Task {
     
-    ToDo(String description, int num) {
+    public ToDo(String description, int num) {
         super(description, num);
         
     }
@@ -24,7 +24,7 @@ public class ToDo extends Task {
 
     @Override
     public LocalDate getDeadline() {
-        return null;
+        return LocalDate.now();
     }
     
 }

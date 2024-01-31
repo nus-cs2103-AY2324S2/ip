@@ -1,16 +1,14 @@
+package tasks;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
-
-class Events extends Task {
+public class Events extends Task {
     private String start;
     private String end;
     private LocalDateTime actualStart;
     private LocalDateTime actualEnd;
 
-    Events(String description, String start, String end, LocalDateTime actualStart, LocalDateTime actualEnd, int num) {
+    public Events(String description, String start, String end, LocalDateTime actualStart, LocalDateTime actualEnd, int num) {
         super(description, num);
         this.start = start;
         this.end = end;

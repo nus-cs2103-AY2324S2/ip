@@ -1,13 +1,13 @@
+package tasks;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+
 
 public class Deadlines extends Task {
     private String deadline;
     private LocalDateTime actual_deadline;
     
-    Deadlines(String description, String deadline, LocalDateTime actual_deadline, int num) {
+    public Deadlines(String description, String deadline, LocalDateTime actual_deadline, int num) {
         super(description, num);
         this.deadline = deadline;
         this.actual_deadline = actual_deadline;
