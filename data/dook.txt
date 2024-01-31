@@ -1,0 +1,5 @@
+T | X | borrow book
+T |   | read book
+D |   | do homework | by: 2024-07-10 2334
+T |   | meow
+E |   | dance | from: 2023-02-03 1600 to: 2023-02-03 1800

@@ -1,0 +1,5 @@
+T |   | borrow book
+T |   | read book
+T |   | join sports club
+D | X | return book | by: June 6th
+E |   | project meeting | from: Mon 2pm to: 4pm
