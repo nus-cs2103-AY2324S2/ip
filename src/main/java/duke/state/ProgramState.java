@@ -1,5 +1,9 @@
 package duke.state;
 
+/**
+ * Represents the state of the program. There are three possible states: normal,
+ * exit, and error.
+ */
 public class ProgramState {
     public static enum State {
         NORMAL, EXIT, ERROR
@@ -7,6 +11,9 @@ public class ProgramState {
 
     private State state;
 
+    /**
+     * Constructs a new program state. The initial state is normal.
+     */
     public ProgramState() {
         this.state = State.NORMAL;
     }

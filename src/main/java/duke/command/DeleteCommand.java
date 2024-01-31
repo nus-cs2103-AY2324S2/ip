@@ -5,9 +5,18 @@ import duke.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * Represents a command to delete a task.
+ */
 public class DeleteCommand extends Command {
     private int index;
 
+    /**
+     * Creates a new delete command.
+     *
+     * @param body The body of the command.
+     * @throws DukeException If the body is invalid.
+     */
     public DeleteCommand(String body) throws DukeException {
         super(body);
         try {
@@ -22,6 +31,17 @@ public class DeleteCommand extends Command {
         }
     }
 
+    /**
+     * Executes the command. This command deletes a task from the task list. The
+     * program state is set to normal after the command is executed, even if the
+     * command fails to execute.
+     *
+     * @param list  The task list to be modified.
+     * @param state The program state to be modified.
+     * @return The response to be displayed to the user.
+     * @throws DukeException If the index provided falls outside the range of the
+     *                       task list, or if the command fails to execute.
+     */
     public String execute(TaskList list, ProgramState state) throws DukeException {
         if (index < 1 || index > list.size()) {
             throw new InvalidTaskIndexException(

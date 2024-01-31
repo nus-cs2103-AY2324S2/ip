@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Represents an exception thrown by the chatbot.
+ */
 public class DukeException extends Exception {
     private String botMessage;
 

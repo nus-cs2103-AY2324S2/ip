@@ -36,6 +36,12 @@ public class UI {
         showLine();
     }
 
+    /**
+     * Shows the response from the bot. If the response is null, nothing will be
+     * shown.
+     * 
+     * @param response The response from the bot.
+     */
     public void showResponse(String response) {
         if (response == null) {
             return;
@@ -45,6 +51,11 @@ public class UI {
         showLine();
     }
 
+    /**
+     * Reads a command from the user.
+     * 
+     * @return The command from the user.
+     */
     public String readCommand() {
         String input = "";
         try {

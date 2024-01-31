@@ -8,6 +8,9 @@ import duke.DukeException;
 import duke.task.TaskList;
 import duke.task.TaskListParser;
 
+/**
+ * Represents a storage for loading and saving the task list.
+ */
 public class Storage {
     private String filePath;
 
@@ -15,6 +18,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the task list from the file.
+     *
+     * @return The task list loaded from the file.
+     * @throws StorageLoadException If the task list fails to load.
+     */
     public TaskList load() throws StorageLoadException {
         try {
             File file = new File(filePath);
@@ -30,6 +39,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the task list to the file.
+     *
+     * @param list The task list to be saved.
+     * @throws StorageSaveException If the task list fails to save.
+     */
     public void save(TaskList list) throws StorageSaveException {
         try {
             File file = new File(filePath);

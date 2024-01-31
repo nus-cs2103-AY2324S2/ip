@@ -6,6 +6,9 @@ import duke.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * Represents a command to add a task with a deadline.
+ */
 public class DeadlineCommand extends Command {
     private String taskDescription;
     private String dueTime;
@@ -17,6 +20,18 @@ public class DeadlineCommand extends Command {
         this.dueTime = parts.length > 1 ? parts[1].trim() : "";
     }
 
+    /**
+     * Executes the command. This command adds a task with a deadline to the task
+     * list. The program state is set to normal after the command is executed, even
+     * if the command fails to execute.
+     *
+     * @param list  The task list to be modified.
+     * @param state The program state to be modified.
+     * @return The response to be displayed to the user.
+     * @throws DukeException If the user input is invalid, or if the command fails
+     *                       to execute.
+     */
+    @Override
     public String execute(TaskList list, ProgramState state) throws DukeException {
         if (taskDescription.isEmpty()) {
             throw new EmptyTaskDescriptionException("The description of a deadline cannot be empty.",

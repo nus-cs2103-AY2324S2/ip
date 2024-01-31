@@ -9,6 +9,9 @@ import duke.storage.StorageLoadException;
 import duke.storage.StorageSaveException;
 import duke.task.TaskList;
 
+/**
+ * Represents the main class of the bot.
+ */
 public class Duke {
     private static final String chatbotName = "Sylvia";
 
@@ -20,6 +23,11 @@ public class Duke {
     private ProgramState state;
     private CommandParser parser;
 
+    /**
+     * Constructs a new chatbot instance. The chatbot will load data from the
+     * default data file. If the data file does not exist, a new data file will be
+     * created.
+     */
     public Duke() {
         this.parser = new CommandParser();
         this.ui = new UI(chatbotName);
@@ -33,6 +41,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs a command and returns the response from the bot.
+     * 
+     * @param commandString The command to run.
+     * @return The response from the bot.
+     */
     private String runCommand(String commandString) {
         Command command;
         try {
@@ -45,6 +59,9 @@ public class Duke {
         return null; // should not be shown
     }
 
+    /**
+     * Runs the bot. When the bot exits, the data will be saved to the data file.
+     */
     public void run() {
         ui.showWelcomeMessage();
 
