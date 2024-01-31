@@ -1,14 +1,9 @@
-import java.io.File;
-import java.io.PrintWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.time.LocalDateTime;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+package atlas;
 
+import atlas.command.Command;
+import atlas.exception.AtlasException;
+
+import java.time.format.DateTimeParseException;
 
 public class Atlas {
     private final String DATA_PATH = "./data/Atlas.txt";

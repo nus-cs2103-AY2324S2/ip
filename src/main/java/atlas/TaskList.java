@@ -1,14 +1,13 @@
-import java.io.File;
-import java.io.PrintWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.time.LocalDateTime;
+package atlas;
+
+import atlas.exception.AtlasException;
+import atlas.task.Deadline;
+import atlas.task.Event;
+import atlas.task.Task;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+
 public class TaskList {
     private ArrayList<Task> tasks;
 

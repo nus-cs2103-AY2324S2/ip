@@ -1,13 +1,12 @@
-import java.io.File;
-import java.io.PrintWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
+package atlas.command;
+
+import atlas.Storage;
+import atlas.TaskList;
+import atlas.Ui;
+import atlas.task.Event;
+
 import java.time.LocalDateTime;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+
 public class AddEventCommand extends Command {
     private String description;
     private LocalDateTime start;

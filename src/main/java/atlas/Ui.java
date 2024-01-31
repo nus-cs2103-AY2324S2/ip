@@ -1,13 +1,11 @@
-import java.io.File;
-import java.io.PrintWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+package atlas;
+
+import atlas.task.Task;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDateTime;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+
 public class Ui {
     private Scanner scanner;
 

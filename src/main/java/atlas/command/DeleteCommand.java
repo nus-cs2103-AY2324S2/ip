@@ -1,3 +1,10 @@
+package atlas.command;
+
+import atlas.Storage;
+import atlas.TaskList;
+import atlas.Ui;
+import atlas.exception.AtlasException;
+
 public class DeleteCommand extends Command {
     private int taskIndex;
 

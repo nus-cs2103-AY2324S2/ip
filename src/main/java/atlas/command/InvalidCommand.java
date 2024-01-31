@@ -1,3 +1,9 @@
+package atlas.command;
+
+import atlas.Storage;
+import atlas.TaskList;
+import atlas.Ui;
+
 public class InvalidCommand extends Command {
     public InvalidCommand(TaskList tasks, Ui ui, Storage storage) {
         super(tasks, ui, storage);

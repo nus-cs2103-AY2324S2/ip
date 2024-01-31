@@ -1,3 +1,9 @@
+package atlas.command;
+
+import atlas.Storage;
+import atlas.TaskList;
+import atlas.Ui;
+import atlas.exception.AtlasException;
 public abstract class Command {
     protected TaskList tasks;
     protected Ui ui;
