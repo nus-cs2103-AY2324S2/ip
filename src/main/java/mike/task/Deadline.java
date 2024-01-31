@@ -1,5 +1,7 @@
 package mike.task;
 
+import mike.ListView;
+import mike.ListViewType;
 import mike.MikeException;
 
 import java.time.LocalDate;
@@ -15,8 +17,14 @@ public class Deadline extends Task {
         try {
             this.deadline = LocalDate.parse(deadline);
         } catch (DateTimeParseException e) {
-            throw new MikeException("Please enter a valid date " + e.getParsedString());
+            throw new MikeException("Please enter a valid date in YYYY-MM-DD format.");
         }
+        tags.add(ListViewType.DATE);
+    }
+
+    @Override
+    public boolean in(ListView listView) {
+        return super.in(listView) && listView.dateFilter(deadline);
     }
 
     private String getDeadline() {

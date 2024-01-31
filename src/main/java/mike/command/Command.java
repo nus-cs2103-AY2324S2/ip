@@ -14,9 +14,4 @@ public abstract class Command {
 
     public abstract boolean isExit();
 
-    @Override
-    public String toString() {
-        return "";
-    }
-
 }

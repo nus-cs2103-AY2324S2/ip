@@ -40,11 +40,11 @@ class CommandParser {
         case DELETE:
             return parseDelete();
         case EOC:
-            throw new MikeException("Say something.");
+            throw error("Say something.");
         default:
             String errorMessage = "'" + commandToken.getText() + "' is not recognized as a command.\n"
                     + "That is the weirdest thing you've ever said.";
-            throw new MikeException(errorMessage);
+            throw error(errorMessage);
         }
     }
 
@@ -54,8 +54,45 @@ class CommandParser {
     }
 
     private Command parseList() throws MikeException {
-        consume(TokenType.EOC, "Usage: list");
-        return new ListCommand();
+        String usage = "Usage: list";
+        if (match(TokenType.FORWARD_DASH) && match(TokenType.PARAM)) {
+            usage = usage + " /view [type] /attribute [attribute]";
+            Token paramToken = previousToken();
+            if (!paramToken.getText().equals("view")) {
+                throw error(usage);
+            }
+            consume(TokenType.LITERAL, usage);
+            String type = previousToken().getText().strip();
+
+            ListViewType listViewType;
+
+            switch (type) {
+            case "date":
+                listViewType = ListViewType.DATE;
+                break;
+            default:
+                throw error("Invalid type");
+            }
+
+            consume(TokenType.FORWARD_DASH, usage);
+            consume(TokenType.PARAM, usage);
+            paramToken = previousToken();
+            if (!paramToken.getText().equals("attribute")) {
+                throw error(usage);
+            }
+
+            consume(TokenType.LITERAL, usage);
+            String attribute = previousToken().getText();
+
+            consume(TokenType.EOC, usage);
+
+            ListView listView = new ListView(listViewType, attribute);
+            return new ListCommand(listView);
+        } else {
+            consume(TokenType.EOC, "Usage: list");
+            return new ListCommand(new ListView(ListViewType.NONE));
+        }
+
     }
 
     private Command parseMark() throws MikeException {
@@ -72,7 +109,7 @@ class CommandParser {
         } catch(NumberFormatException e) {
             String errorMessage = "One, two, three, four, get the kid back through the door!\n" +
                     "'" + argument + "' is not an integer Sulley...";
-            throw new MikeException(errorMessage);
+            throw error(errorMessage);
         }
     }
 
@@ -90,7 +127,7 @@ class CommandParser {
         } catch(NumberFormatException e) {
             String errorMessage = "One, two, three, four, get the kid back through the door!\n" +
                     "'" + argument + "' is not an integer Sulley...";
-            throw new MikeException(errorMessage);
+            throw error(errorMessage);
         }
     }
 
@@ -174,8 +211,19 @@ class CommandParser {
         } catch(NumberFormatException e) {
             String errorMessage = "One, two, three, four, get the kid back through the door!\n" +
                     "'" + argument + "' is not an integer Sulley...";
-            throw new MikeException(errorMessage);
+            throw error(errorMessage);
         }
+    }
+
+    private boolean match(TokenType...types) {
+        for (TokenType type : types) {
+            if (check(type)) {
+                advance();
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private MikeException error(String message) {
