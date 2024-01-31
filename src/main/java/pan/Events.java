@@ -3,7 +3,11 @@ package pan;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-class Events extends Task {
+/**
+ * Pan - Represents the Events Class for an Events instance
+ * @author Jerome Goh
+ */
+public class Events extends Task {
 
     private LocalDate from;
     private LocalDate to;
@@ -42,7 +46,7 @@ class Events extends Task {
 
     /**
      * Updates the From attribute of the event.
-     * 
+     *
      * @param newFrom Updated From attribute of the event.
      */
     public void setFrom(LocalDate newFrom) {
@@ -51,8 +55,8 @@ class Events extends Task {
 
     /**
      * Updates the To attribute of the event.
-     * 
-     * * @param newTo Updated To attribute of the event.
+     *
+     * @param newTo Updated To attribute of the event.
      */
     public void setTo(LocalDate newTo) {
         this.to = newTo;
@@ -60,12 +64,13 @@ class Events extends Task {
 
     /**
      * Converts the Event instance into its correpsonding string representation.
-     * 
+     *
      * @return String that represents whether the corresponding Event has been comopleted
      *      as well as its corresponding start and end date time.
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[E]" + super.toString() + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+            + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

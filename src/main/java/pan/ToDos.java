@@ -2,7 +2,11 @@ package pan;
 
 import pan.enums.TaskStatus;
 
-class ToDos extends Task{
+/**
+ * Pan - Represents the ToDos Class for a ToDos instance
+ * @author Jerome Goh
+ */
+class ToDos extends Task {
     /**
      * Constructs a ToDos instance.
      *
@@ -15,7 +19,7 @@ class ToDos extends Task{
 
     /**
      * Converts the ToDos instance into its correpsonding string representation.
-     * 
+     *
      * @return String that represents whether the corresponding ToDos has been comopleted.
      */
     @Override

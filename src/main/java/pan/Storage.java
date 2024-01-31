@@ -5,6 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Storage - Represents the Storage Class that handles read and write operations
+ * @author Jerome Goh
+ */
 public class Storage {
     public Storage() {}
 
@@ -12,7 +16,7 @@ public class Storage {
      * Persists the state of the tasks into a .txt file through overwriting the file at every function call.
      */
     public void save(List<Task> tasks) {
-        try{
+        try {
             String filePath = "./src/main/java/pan/output/pan.txt";
             File outputFile = new File(filePath);
             FileWriter writer = new FileWriter(outputFile, false);
@@ -24,6 +28,6 @@ public class Storage {
             writer.close();
         } catch (IOException exception) {
             exception.printStackTrace();
-        } 
+        }
     }
 }

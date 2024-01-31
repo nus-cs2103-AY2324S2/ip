@@ -2,6 +2,7 @@ package pan;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import pan.enums.TaskStatus;
 
 class Deadlines extends Task {
@@ -31,8 +32,8 @@ class Deadlines extends Task {
 
     /**
      * Updates the byDate attribute of the event.
-     * 
-     * * @param newByDate Updated byDate attribute of the event.
+     *
+     * @param newByDate Updated byDate attribute of the event.
      */
     public void setByDate(LocalDate newByDate) {
         this.byDate = newByDate;
@@ -40,12 +41,13 @@ class Deadlines extends Task {
 
     /**
      * Converts the Deadline instance into its correpsonding string representation.
-     * 
+     *
      * @return String that represents whether the corresponding Deadline has been comopleted
      *      as well as its corresponding date that it should have been completed by.
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.byDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: "
+            + this.byDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

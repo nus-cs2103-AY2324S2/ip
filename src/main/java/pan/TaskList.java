@@ -65,7 +65,7 @@ class TaskList {
      * @param index Numeric Index of the Task's position within a Task List.
      * @throws TaskIndexException Occurs whenever the Index provided is out of bounds or do not exist.
      */
-    public void unmark(int index) throws TaskIndexException{
+    public void unmark(int index) throws TaskIndexException {
         if (index > tasks.size()) {
             throw new TaskIndexException("You have entered an invalid index!");
         } else {
@@ -101,7 +101,7 @@ class TaskList {
     public void list() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("\t" + (i+1) + "." + tasks.get(i).toString());
+            System.out.println("\t" + (i + 1) + "." + tasks.get(i).toString());
         }
     }
 

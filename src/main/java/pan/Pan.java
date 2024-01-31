@@ -2,6 +2,10 @@ package pan;
 
 import java.util.Scanner;
 
+/**
+ * Pan - Represents the Main Class
+ * @author Jerome Goh
+ */
 public class Pan {
     /**
      * Main Entrypoint into the Pan application.

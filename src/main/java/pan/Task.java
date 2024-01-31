@@ -2,6 +2,10 @@ package pan;
 
 import pan.enums.TaskStatus;
 
+/**
+ * Task - Represents the Task class for a Task instance
+ * @author Jerome Goh
+ */
 public class Task {
     private String description;
     private TaskStatus isDone;
@@ -19,7 +23,7 @@ public class Task {
 
     /**
      * Converts the Event instance into its correpsonding string representation.
-     * 
+     *
      * @return String that represents whether the corresponding Task has been comopleted.
      */
     @Override
@@ -47,8 +51,8 @@ public class Task {
 
     /**
      * Updates the description attribute of the task.
-     * 
-     * * @param newDescription Updated description attribute of the task.
+     *
+     * @param newDescription Updated description attribute of the task.
      */
     public void setDescription(String newDescription) {
         this.description = newDescription;
@@ -56,8 +60,8 @@ public class Task {
 
     /**
      * Updates the isDone attribute of the task.
-     * 
-     * * @param newIsDone Updated isDone attribute of the task.
+     *
+     * @param newIsDone Updated isDone attribute of the task.
      */
     public void setIsDone(TaskStatus newIsDone) {
         this.isDone = newIsDone;

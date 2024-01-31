@@ -1,11 +1,16 @@
 package pan;
 
 import java.util.Scanner;
+
 import pan.enums.Commands;
 import pan.enums.TaskStatus;
 import pan.exceptions.InternalTestCases;
 
-class Parser { 
+/**
+ * Parser - Encapsulates logic with I/O operations in the CLI
+ * @author Jerome Goh
+ */
+public class Parser {
     private Ui ui;
     private Scanner scanner;
     private TaskList taskList;
@@ -65,7 +70,8 @@ class Parser {
                     String desc = postfix.split("/from")[0].trim();
                     String from = postfix.split("/from")[1].split("/to")[0].trim();
                     String to = postfix.split("/from")[1].split("/to")[1].trim();
-                    Events events = new Events(desc, TaskStatus.INCOMPLETE, taskList.convertDate(from), taskList.convertDate(to));
+                    Events events = new Events(desc, TaskStatus.INCOMPLETE,
+                        taskList.convertDate(from), taskList.convertDate(to));
                     taskList.add(events);
                     continue;
                 } else if (instruction.matches("(delete) \\d+")) {
