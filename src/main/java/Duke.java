@@ -10,12 +10,20 @@ public class Duke {
     private TaskList taskList;
     private Storage storage;
 
+    /**
+     * Duke class constructor.
+     * @param fileName Name of the file that the data is going to be saved into.
+     * @param directoryName Name of the directory that the file is going to be saved into.
+     */
     public Duke(String fileName, String directoryName) {
         this.ui = new Ui();
         this.storage = new Storage(fileName, directoryName);
         this.taskList = new TaskList(storage.load());
     }
 
+    /**
+     * Starts the TodoPal chatbot.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -31,6 +39,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Main function that is called when the program is initially booted up.
+     * @param args Command line user input.
+     */
     public static void main(String[] args) {
         new Duke("duke.txt", "./src/main/data").run();
     }
