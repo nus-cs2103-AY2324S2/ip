@@ -1,8 +1,8 @@
 package fishstock;
 
-import fishstock.FishStock.Keyword;
-
 import java.util.ArrayList;
+
+import fishstock.FishStock.Command;
 
 /**
  * Encapsulates a TaskList object.
@@ -33,18 +33,18 @@ class TaskList {
 
     /**
      * Marks whether Task is done.
-     * @param keyword The keyword command.
+     * @param command The command.
      * @param input The input from user.
      * @return The marked/unmarked Task.
      * @throws FishStockException The exceptions while changing the mark.
      */
-    protected Task changeMark(Keyword keyword, String input) throws FishStockException {
+    protected Task changeMark(Command command, String input) throws FishStockException {
         Integer idx = Parser.getTaskFromIndex(input);
         try {
             Task task = list.get(idx);
-            if (keyword == Keyword.MARK) {
+            if (command == Command.MARK) {
                 task.markAsDone();
-            } else if (keyword == Keyword.UNMARK) {
+            } else if (command == Command.UNMARK) {
                 task.markAsUndone();
             }
             return task;
@@ -74,14 +74,14 @@ class TaskList {
 
     /**
      * Adds Task into array.
-     * @param keyword The keyword command.
+     * @param command The command.
      * @param input The input from user.
      * @return The added Task.
      * @throws FishStockException The exceptions while adding the Task.
      */
-    protected Task addTask(Keyword keyword, String input) throws FishStockException {
+    protected Task addTask(Command command, String input) throws FishStockException {
         Task task = null;
-        switch (keyword) {
+        switch (command) {
         case TODO:
             task = Todo.of(input);
             break;
@@ -91,6 +91,8 @@ class TaskList {
         case EVENT:
             task = Event.of(input);
             break;
+        default:
+            throw new FishStockException("Attempted to add an invalid Task..");
         }
         list.add(task);
         return task;

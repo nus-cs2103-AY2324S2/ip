@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
  * This Task has a description and deadline date.
  */
 class Deadline extends Task {
-    protected final static String keyword = "deadline";
-    private final static String byKeyword = " /by ";
+    protected static final String COMMAND = "deadline";
+    private static final String byKeyword = " /by ";
     private LocalDateTime by;
 
     /**
@@ -29,20 +29,20 @@ class Deadline extends Task {
      * @throws FishStockException The exceptions while creating the Deadline object.
      */
     protected static Deadline of(String input) throws FishStockException {
-        if (!Parser.startsWith(keyword, input)) {
+        if (!Parser.startsWith(COMMAND, input)) {
             throw new FishStockException("OH NOSE! This input is not deadline..");
         }
         int byIdx = input.indexOf(byKeyword);
         if (byIdx == -1) {
             throw new FishStockException("OH NOSE! \"" + byKeyword + "\" not found..");
         }
-        if (keyword.length() + 1 > byIdx) {
+        if (COMMAND.length() + 1 > byIdx) {
             throw new FishStockException("OH NOSE! The description of deadline cannot be empty..");
         }
         if (byIdx + byKeyword.length() == input.length()) {
             throw new FishStockException("OH NOSE! The by-date cannot be empty..");
         }
-        String description = input.substring(keyword.length() + 1, byIdx);
+        String description = input.substring(COMMAND.length() + 1, byIdx);
         String byStr = input.substring(byIdx + byKeyword.length());
         LocalDateTime by = Parser.parseDate(byStr);
         return new Deadline(description, by);
@@ -50,7 +50,7 @@ class Deadline extends Task {
 
     @Override
     protected String toSaveString() {
-        return "D|" + getDescription() + "|" + Parser.inDate(by) + "|" + boolToInt(isDone) + System.lineSeparator();
+        return "D|" + getDescription() + "|" + Parser.inDate(by) + "|" + toSaveIsDone() + System.lineSeparator();
     }
 
     @Override

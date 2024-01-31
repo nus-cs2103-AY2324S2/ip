@@ -9,7 +9,7 @@ class FishStock {
     /**
      * List of keywords to run respective commands.
      */
-    protected enum Keyword {
+    protected enum Command {
         INVALID, BYE, LIST, MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT
     }
 

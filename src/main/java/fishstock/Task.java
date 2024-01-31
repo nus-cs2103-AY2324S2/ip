@@ -5,7 +5,7 @@ package fishstock;
  */
 abstract class Task {
     private String description;
-    protected boolean isDone;
+    private boolean isDone;
 
     protected Task(String description) {
         this.description = description;
@@ -35,11 +35,10 @@ abstract class Task {
     /**
      * Converts boolean to int.
      * Used for saving isDone of Task.
-     * @param bool The boolean to be converted.
      * @return The converted int.
      */
-    protected static int boolToInt(boolean bool) {
-        return bool ? 1 : 0;
+    protected int toSaveIsDone() {
+        return isDone ? 1 : 0;
     }
 
     protected String getDescription() {

@@ -5,7 +5,7 @@ package fishstock;
  * This Task only has a description.
  */
 class Todo extends Task {
-    protected final static String keyword = "todo";
+    protected static final String COMMAND = "todo";
 
     /**
      * Initialize Todo object manually.
@@ -23,18 +23,18 @@ class Todo extends Task {
      * @throws FishStockException The exceptions while creating the Todo object.
      */
     protected static Todo of(String input) throws FishStockException {
-        if (!Parser.startsWith(keyword, input)) {
+        if (!Parser.startsWith(COMMAND, input)) {
             throw new FishStockException("OH NOSE! This input is not todo..");
         }
-        if (keyword.length() + 1 >= input.length()) {
+        if (COMMAND.length() + 1 >= input.length()) {
             throw new FishStockException("OH NOSE! The description of todo cannot be empty..");
         }
-        return new Todo(input.substring(keyword.length() + 1));
+        return new Todo(input.substring(COMMAND.length() + 1));
     }
 
     @Override
     protected String toSaveString() {
-        return "T|" + getDescription() + "|" + boolToInt(isDone) + System.lineSeparator();
+        return "T|" + getDescription() + "|" + toSaveIsDone() + System.lineSeparator();
     }
 
     @Override

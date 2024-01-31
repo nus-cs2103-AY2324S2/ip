@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
  * This Task has a description, from date, and to date.
  */
 class Event extends Task {
-    protected final static String keyword = "event";
-    private final static String fromKeyword = " /from ";
-    private final static String toKeyword = " /to ";
+    protected static final String COMMAND = "event";
+    private static final String fromKeyword = " /from ";
+    private static final String toKeyword = " /to ";
     private LocalDateTime from;
     private LocalDateTime to;
 
@@ -37,14 +37,14 @@ class Event extends Task {
      * @throws FishStockException The exceptions while creating the Event object.
      */
     protected static Event of(String input) throws FishStockException {
-        if (!Parser.startsWith(keyword, input)) {
+        if (!Parser.startsWith(COMMAND, input)) {
             throw new FishStockException("OH NOSE! This input is not event..");
         }
         int fromIdx = input.indexOf(fromKeyword);
         if (fromIdx == -1) {
             throw new FishStockException("OH NOSE! \"" + fromKeyword + "\" not found..");
         }
-        if (keyword.length() + 1 > fromIdx) {
+        if (COMMAND.length() + 1 > fromIdx) {
             throw new FishStockException("OH NOSE! The description of event cannot be empty..");
         }
         int toIdx = input.indexOf(toKeyword);
@@ -61,7 +61,7 @@ class Event extends Task {
             throw new FishStockException("OH NOSE! The to-date cannot be empty..");
         }
 
-        String description = input.substring(keyword.length() + 1, fromIdx);
+        String description = input.substring(COMMAND.length() + 1, fromIdx);
         String fromStr = input.substring(fromIdx + fromKeyword.length(), toIdx);
         String toStr = input.substring(toIdx + toKeyword.length());
         LocalDateTime from = Parser.parseDate(fromStr);
@@ -71,8 +71,8 @@ class Event extends Task {
 
     @Override
     protected String toSaveString() {
-        return "E|" + getDescription() + "|" + Parser.inDate(from) + "|" + Parser.inDate(to) + "|" +
-                boolToInt(isDone) + System.lineSeparator();
+        return "E|" + getDescription() + "|" + Parser.inDate(from) + "|" + Parser.inDate(to) + "|"
+                + toSaveIsDone() + System.lineSeparator();
     }
 
     @Override

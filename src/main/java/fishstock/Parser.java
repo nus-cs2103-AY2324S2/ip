@@ -1,10 +1,10 @@
 package fishstock;
 
-import fishstock.FishStock.Keyword;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import fishstock.FishStock.Command;
 
 /**
  * Encapsulates parsing methods.
@@ -14,41 +14,41 @@ class Parser {
     protected static DateTimeFormatter outDateFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
 
     /**
-     * Check if given input starts with a keyword.
-     * @param keyword The starting keyword.
+     * Check if given input starts with a command.
+     * @param command The command.
      * @param input The input to compare.
      * @return The check result.
      */
-    protected static boolean startsWith(String keyword, String input) {
-        return input.length() >= keyword.length() && keyword.equals(input.substring(0, keyword.length()));
+    protected static boolean startsWith(String command, String input) {
+        return input.length() >= command.length() && command.equals(input.substring(0, command.length()));
     }
 
     /**
      * Parses input into their respective commands.
      * @param input The input that starts with the command.
-     * @return The keyword of the command.
+     * @return The command.
      */
-    protected static Keyword parse(String input) {
+    protected static Command parse(String input) {
         if ("bye".equals(input)) {
-            return Keyword.BYE;
+            return Command.BYE;
         } else if ("list".equals(input)) {
-            return Keyword.LIST;
+            return Command.LIST;
         } else if (startsWith("mark", input)) {
-            return Keyword.MARK;
+            return Command.MARK;
         } else if (startsWith("unmark", input)) {
-            return Keyword.UNMARK;
+            return Command.UNMARK;
         } else if (startsWith("delete", input)) {
-            return Keyword.DELETE;
+            return Command.DELETE;
         } else if (startsWith("find", input)) {
-            return Keyword.FIND;
-        } else if (startsWith(Todo.keyword, input)) {
-            return Keyword.TODO;
-        } else if (startsWith(Deadline.keyword, input)) {
-            return Keyword.DEADLINE;
-        } else if (startsWith(Event.keyword, input)) {
-            return Keyword.EVENT;
+            return Command.FIND;
+        } else if (startsWith(Todo.COMMAND, input)) {
+            return Command.TODO;
+        } else if (startsWith(Deadline.COMMAND, input)) {
+            return Command.DEADLINE;
+        } else if (startsWith(Event.COMMAND, input)) {
+            return Command.EVENT;
         }
-        return Keyword.INVALID;
+        return Command.INVALID;
     }
 
     /**

@@ -1,9 +1,9 @@
 package fishstock;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 public class StorageTest {
     @Test
@@ -41,7 +41,7 @@ public class StorageTest {
             assertEquals("File corrupted!... Starting new session...\n", e.getMessage());
         }
 
-        try{
+        try {
             // Dates swapped
             storage.loadTask("E|project meeting|1/1/1998 22:00|1/1/1998 13:00|1");
             fail();

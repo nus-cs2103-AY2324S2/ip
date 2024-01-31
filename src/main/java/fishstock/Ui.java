@@ -1,9 +1,9 @@
 package fishstock;
 
-import fishstock.FishStock.Keyword;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import fishstock.FishStock.Command;
 
 /**
  * Encapsulates a Ui.
@@ -37,10 +37,10 @@ class Ui {
             input = sc.nextLine();
             Ui.printMsg(line);
 
-            Keyword keyword = Parser.parse(input);
+            Command command = Parser.parse(input);
 
             try {
-                switch (keyword) {
+                switch (command) {
                 case BYE:
                     hasStopped = true;
                     break;
@@ -52,17 +52,17 @@ class Ui {
                     }
                     break;
                 case MARK:
-                    task = list.changeMark(keyword, input);
+                    task = list.changeMark(command, input);
                     Ui.printMsg("Did you actually finish this? \uD83E\uDD14:\n" + "  " + task);
                     break;
                 case UNMARK:
-                    task = list.changeMark(keyword, input);
+                    task = list.changeMark(command, input);
                     Ui.printMsg("I knew you didn't finish it! \uD83D\uDE0F:\n" + "  " + task);
                     break;
                 case DELETE:
                     task = list.deleteTask(input);
-                    Ui.printMsg("This task has been removed:\n  " + task + "\n" +
-                            "Now you have " + list.getSize() + " task(s) in total.");
+                    Ui.printMsg("This task has been removed:\n  " + task + "\n"
+                            + "Now you have " + list.getSize() + " task(s) in total.");
                     break;
                 case FIND:
                     result = list.findTask(input);
@@ -76,9 +76,9 @@ class Ui {
                 case DEADLINE:
                     // Fallthrough
                 case EVENT:
-                    task = list.addTask(keyword, input);
-                    Ui.printMsg("This task has been added:\n  " + task + "\n" +
-                            "Now you have " + list.getSize() + " task(s) in total.");
+                    task = list.addTask(command, input);
+                    Ui.printMsg("This task has been added:\n  " + task + "\n"
+                            + "Now you have " + list.getSize() + " task(s) in total.");
                     break;
                 default:
                     Ui.printMsg("OH NOSE! Wakaranai... :(");
