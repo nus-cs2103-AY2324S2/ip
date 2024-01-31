@@ -86,6 +86,5 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeException("Error when writing to file\n");
         }
-
     }
 }

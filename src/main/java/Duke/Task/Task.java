@@ -53,10 +53,20 @@ public class Task {
      * @return Text to be saved.
      */
     public String toFile() {
-        if(isDone){
+        if (isDone) {
             return "?|1|" + description;
         } else {
             return "?|0|" + description;
         }
+    }
+
+    /**
+     * Returns whether description contains input.
+     *
+     * @param input User's Input to find similar tasks.
+     * @return True if contains, False otherwise.
+     */
+    public Boolean contains(String input) {
+        return description.contains(input);
     }
 }

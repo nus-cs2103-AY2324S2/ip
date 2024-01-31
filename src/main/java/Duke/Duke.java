@@ -3,9 +3,11 @@ package Duke;
 import Duke.DukeException.DukeException;
 import Duke.Parser.Parser;
 import Duke.Storage.Storage;
+import Duke.Task.Task;
 import Duke.TaskList.TaskList;
 import Duke.Ui.Ui;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * This class is the main class that navigates aids in the navigation of the program.
@@ -48,7 +50,7 @@ public class Duke {
                 if (parse[0].equalsIgnoreCase("bye")) {
                     parser.bye();
                 } else if (parse[0].equalsIgnoreCase("list")) {
-                    Ui.printList(tasks);
+                    Ui.printList(tasks.getList());
                 } else if (parse[0].equalsIgnoreCase("mark")) {
                     int num = parser.stringToNum(parse[1]);
                     tasks.mark(num);
@@ -67,6 +69,9 @@ public class Duke {
                 } else if (parse[0].equalsIgnoreCase("delete")) {
                     int num = parser.stringToNum(parse[1]);
                     tasks.delete(num);
+                } else if (parse[0].equalsIgnoreCase("find")) {
+                    ArrayList<Task> contains = tasks.findContains(parse[1]);
+                    Ui.printList(contains);
                 } else {
                     throw new DukeException("Please do enter a new proper command.\n");
                 }

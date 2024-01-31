@@ -23,7 +23,7 @@ public class ToDos extends Task {
 
     @Override
     public String toFile() {
-        if(isDone){
+        if (isDone) {
             return "T|1|" + description;
         } else {
             return "T|0|" + description;

@@ -29,7 +29,7 @@ public class Deadlines extends Task {
 
     @Override
     public String toFile() {
-        if(isDone){
+        if (isDone) {
             return "D|1|" + description + "|" + by;
         } else {
             return "D|0|" + description + "|" + by;
