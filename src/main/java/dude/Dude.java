@@ -1,7 +1,10 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+package dude;
+
+import dude.task.Deadline;
+import dude.task.Event;
+import dude.task.Todo;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Dude {

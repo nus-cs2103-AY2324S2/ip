@@ -1,5 +1,8 @@
+package dude;
+
+import dude.task.Task;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class TaskList {
     Storage storage;

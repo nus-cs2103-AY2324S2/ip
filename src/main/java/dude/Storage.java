@@ -1,12 +1,16 @@
+package dude;
+
+import dude.task.Deadline;
+import dude.task.Event;
+import dude.task.Task;
+import dude.task.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
-import java.io.FileNotFoundException;
 
 public class Storage {
     private static final String directoryPath = "./data";
@@ -16,7 +20,7 @@ public class Storage {
         new File(Storage.directoryPath).mkdirs();
         File storageFile = new File(this.filePath);
         if (!storageFile.exists()) {
-            System.out.println("Storage file not found. Creating storage file...");
+            System.out.println("dude.Storage file not found. Creating storage file...");
             try {
                 storageFile.createNewFile();
             } catch (IOException e) {

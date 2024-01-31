@@ -1,6 +1,8 @@
+package dude;
+
 public class DudeNoStorageException extends RuntimeException {
     public DudeNoStorageException() {
-        super("Storage could not be created or found.");
+        super("dude.Storage could not be created or found.");
     }
 
 }
