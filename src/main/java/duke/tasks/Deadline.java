@@ -1,3 +1,7 @@
+package tasks;
+
+import Task;
+
 public class Deadline extends Task {
     protected DateTask by;
 

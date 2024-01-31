@@ -1,3 +1,7 @@
+package tasks;
+
+import Task;
+
 public class Event extends Task {
     protected DateTask from;
     protected DateTask to;
