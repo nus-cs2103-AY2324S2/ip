@@ -21,7 +21,7 @@ public class Duke {
      * Represents the type of command
      */
     public enum CommandType {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND
     }
 
     /**
@@ -107,6 +107,9 @@ public class Duke {
                     case DELETE:
                         Task deletedTask = tasks.deleteTask(Integer.parseInt(cmd.args[0]) - 1);
                         ui.showTaskDeleted(deletedTask, tasks.getSize());
+                        break;
+                    case FIND:
+                        ui.showMatchingTasks(tasks.getMatchingTasks(cmd.args[0]));
                         break;
                     default:
                         throw new DukeException("Unknown command");

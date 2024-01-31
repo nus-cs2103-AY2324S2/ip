@@ -102,4 +102,14 @@ public class TaskList {
         }
         return storageStrings;
     }
+
+    public ArrayList<String> getMatchingTasks(String keyword) {
+        ArrayList<String> matchingTasks = new ArrayList<String>();
+        for (Task task : this.tasks) {
+            if (task.matchesKeyword(keyword)) {
+                matchingTasks.add(task.toString());
+            }
+        }
+        return matchingTasks;
+    }
 }

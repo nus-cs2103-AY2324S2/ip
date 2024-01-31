@@ -2,6 +2,7 @@ package duke;
 
 import duke.task.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -49,7 +50,7 @@ public class Ui {
         System.out.printf("____________________________________________________________%n");
         System.out.printf(" Hello! I'm %s%n", botName);
         System.out.printf(" What can I do for you?%n");
-        System.out.printf("____________________________________________________________%n");
+        System.out.printf("____________________________________________________________%n%n");
 
     }
 
@@ -118,7 +119,14 @@ public class Ui {
         System.out.printf("____________________________________________________________%n");
         System.out.printf(" Bye. Hope to see you again soon!%n");
         System.out.printf("____________________________________________________________%n");
+    }
 
+    public void showMatchingTasks(ArrayList<String> matchingTasks) {
+        System.out.printf("____________________________________________________________%n");
+        System.out.printf(" Here are the matching tasks in your list:%n");
+        for (String task : matchingTasks) {
+            System.out.printf("   %s%n", task);
+        }
     }
 
     /**
