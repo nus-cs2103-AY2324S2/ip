@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class InvalidCommandException extends DukeException {
     private String command;
 

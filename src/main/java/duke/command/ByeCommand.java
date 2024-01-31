@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.exception.TasksFileException;
+import duke.Ui;
+
 import java.io.IOException;
 
 public class ByeCommand extends Command {

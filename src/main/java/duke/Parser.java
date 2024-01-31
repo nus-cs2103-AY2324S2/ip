@@ -1,3 +1,9 @@
+package duke;
+
+import duke.command.*;
+import duke.exception.InvalidArgumentException;
+import duke.exception.InvalidCommandException;
+
 public class Parser {
     private enum CommandType {
         BYE, LIST, DELETE, MARK, UNMARK, TODO, EVENT, DEADLINE

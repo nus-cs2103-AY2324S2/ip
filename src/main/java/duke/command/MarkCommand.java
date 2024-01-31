@@ -1,6 +1,16 @@
-public class DeleteCommand extends Command {
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.exception.InvalidArgumentException;
+import duke.exception.NoTaskFoundException;
+import duke.task.Task;
+
+public class MarkCommand extends Command {
     private String arguments;
-    public DeleteCommand(String arguments) {
+
+    public MarkCommand(String arguments) {
         this.arguments = arguments;
     }
 
@@ -10,11 +20,11 @@ public class DeleteCommand extends Command {
         try {
             int taskId = Integer.parseInt(this.arguments);
             Task task = taskList.get(taskId);
-            taskList.remove(taskId);
-            ui.deleteTask(task, taskList.getLength());
+            task.changeMark("MARK");
+            ui.markTask(task);
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InvalidArgumentException("DELETE");
+            throw new InvalidArgumentException("MARK");
 
         } catch (IndexOutOfBoundsException e) {
             throw new NoTaskFoundException(this.arguments);

@@ -1,3 +1,12 @@
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.exception.InvalidArgumentException;
+import duke.task.Task;
+import duke.task.Todo;
+
 public class AddTodoCommand extends Command {
 
     private String arguments;
