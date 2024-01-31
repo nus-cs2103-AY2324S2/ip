@@ -3,7 +3,6 @@ package capone;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-<<<<<<< HEAD
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -12,13 +11,11 @@ import org.junit.jupiter.api.Test;
 import capone.exceptions.InvalidDateException;
 import capone.exceptions.InvalidTimeException;
 
-=======
 /**
  * Test class for the Parser utility class.
  *
  * @author Tay Rui-Jie
  */
->>>>>>> branch-A-JavaDoc
 public class ParserTest {
 
     /**
@@ -26,11 +23,7 @@ public class ParserTest {
      * Expects an InvalidDateException to be thrown.
      */
     @Test
-<<<<<<< HEAD
-    public void parseDate_invalidDate1_exceptionThrown() {
-=======
     public void parseDate_invalidDate1_throwsInvalidDateException() {
->>>>>>> branch-A-JavaDoc
         assertThrows(InvalidDateException.class, () -> {
             Parser.parseDate("this is not a valid date");
         });
@@ -42,11 +35,7 @@ public class ParserTest {
      * Expects an InvalidDateException to be thrown.
      */
     @Test
-<<<<<<< HEAD
-    public void parseDate_invalidDate2_exceptionThrown() {
-=======
     public void parseDate_invalidDate2_throwsInvalidDateException() {
->>>>>>> branch-A-JavaDoc
         assertThrows(InvalidDateException.class, () -> {
             Parser.parseDate("2023-2-2");
         });
@@ -59,11 +48,7 @@ public class ParserTest {
      * @throws InvalidDateException if the date is invalid (which is not expected in this test).
      */
     @Test
-<<<<<<< HEAD
-    public void parseDate_validDatesuccess() throws InvalidDateException {
-=======
     public void parseDate_validDate_success() throws InvalidDateException {
->>>>>>> branch-A-JavaDoc
         LocalDate expectedDate = LocalDate.of(2001, 9, 26);
         LocalDate actualDate = Parser.parseDate("2001-09-26");
         assertEquals(expectedDate, actualDate);
@@ -74,11 +59,7 @@ public class ParserTest {
      * Expects an InvalidTimeException to be thrown.
      */
     @Test
-<<<<<<< HEAD
-    public void parseTime_invalidTime1_exceptionThrown() {
-=======
     public void parseTime_invalidTime1_throwsInvalidTimeException() {
->>>>>>> branch-A-JavaDoc
         assertThrows(InvalidTimeException.class, () -> {
             Parser.parseTime("this is not a valid time");
         });
@@ -90,11 +71,7 @@ public class ParserTest {
      * Expects an InvalidTimeException to be thrown.
      */
     @Test
-<<<<<<< HEAD
-    public void parseTime_invalidTime2_exceptionThrown() {
-=======
     public void parseTime_invalidTime2_throwsInvalidTimeException() {
->>>>>>> branch-A-JavaDoc
         assertThrows(InvalidTimeException.class, () -> {
             Parser.parseTime("2395");
         });

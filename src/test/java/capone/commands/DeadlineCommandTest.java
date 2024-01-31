@@ -66,16 +66,9 @@ public class DeadlineCommandTest {
             deadlineCommand.execute(this.taskList, this.ui, this.storage);
         });
 
-<<<<<<< HEAD
         String expectedMsg = "Please enter a date for this deadline task!\n"
                 + "Usage: deadline [description] /by [date]";
-
-        assertEquals(expectedMsg, e.getMessage());
-=======
-        String expectedMsg = "Please enter a date for this deadline task!\n" +
-                "Usage: deadline [description] /by [date]";
         assertEquals(expectedMsg, exception.getMessage());
->>>>>>> branch-A-JavaDoc
     }
 
     /**
@@ -88,14 +81,9 @@ public class DeadlineCommandTest {
 
         deadlineCommand.execute(this.taskList, this.ui, this.storage);
 
-<<<<<<< HEAD
         String expectedMsg = String.format("Got it. I've added this task:\n%s\n"
                 + "Now you have %d task(s) in the list.\n", taskList.getLastTask().toString(), taskList.getSize());
 
-=======
-        String expectedMsg = String.format("Got it. I've added this task:\n%s\n" +
-                "Now you have %d task(s) in the list.\n", taskList.getLastTask().toString(), taskList.getSize());
->>>>>>> branch-A-JavaDoc
         assertEquals(expectedMsg, stdoutMsg.toString());
 
     }
