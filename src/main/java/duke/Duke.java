@@ -24,7 +24,7 @@ public class Duke {
         ui.intro();
 
         storage = new Storage(FILE_PATH);
-        list = new TaskList(storage.load());// array to store tasks given
+        list = new TaskList(storage);// array to store tasks given
         parser = new Parser(list, storage);
 
 

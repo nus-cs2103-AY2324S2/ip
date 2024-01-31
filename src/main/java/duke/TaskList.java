@@ -4,17 +4,19 @@ import java.util.ArrayList;
 
 public class TaskList {
     private static ArrayList<Task> list;
+    private static Storage store;
 
-    public TaskList(ArrayList<Task> list){
-        this.list = list;
+    public TaskList(Storage store) throws DukeException{
+        this.store = store;
+        this.list = store.load();
     }
-    public static void addtask() {
+    public static void addtask() throws DukeException{
         System.out.println("Got it. I've added this task:\n");
 
         System.out.println(list.get(list.size()-1).ToString());
 
         System.out.println("Now you have " + list.size() + " tasks in the list.");
-
+        store.save();
     }
 
     public static void eventcase(String str) throws DukeException {
@@ -83,6 +85,7 @@ public class TaskList {
         list.get(no).markAsDone();
         System.out.println("Nice! I've marked this task as done:\n");
         System.out.println(list.get(no).ToString());
+        store.save();
     }
 
     public static void unmarkcase(String[] tokens) throws DukeException{
@@ -93,6 +96,7 @@ public class TaskList {
         list.get(no).unmarkAsDone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(list.get(no).ToString());
+        store.save();
     }
 
     public static ArrayList<Task> removecase(String[] tokens) throws DukeException{
@@ -107,6 +111,7 @@ public class TaskList {
 
 
         System.out.println("Now you have " + list.size() + " tasks in the list.");
+        store.save();
 
         return list;
 
