@@ -1,11 +1,11 @@
 package capone.commands;
 
-import capone.exceptions.CaponeException;
-import capone.TaskList;
-import capone.Storage;
-import capone.Ui;
-
 import java.util.Scanner;
+
+import capone.Storage;
+import capone.TaskList;
+import capone.Ui;
+import capone.exceptions.CaponeException;
 
 public class ByeCommand extends Command {
     private final Scanner scanner;

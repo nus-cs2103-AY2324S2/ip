@@ -1,11 +1,11 @@
 package capone;
 
-import capone.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class TaskList implements Iterable<Task>{
+import capone.tasks.Task;
+
+public class TaskList implements Iterable<Task> {
     private final ArrayList<Task> taskList;
 
     public TaskList() {
@@ -25,7 +25,7 @@ public class TaskList implements Iterable<Task>{
     }
 
     public Task getLastTask() {
-        return this.taskList.get(this.getSize()-1);
+        return this.taskList.get(this.getSize() - 1);
     }
 
     public Task removeTask(int ndx) {

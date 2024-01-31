@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
 
     protected String fromDateTimeString;
-    protected  String toDateTimeString;
+    protected String toDateTimeString;
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
 
@@ -40,7 +40,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.getFromDateTime() +
-                " to: " + this.getToDateTime() +")";
+        return "[E]" + super.toString() + " (from: " + this.getFromDateTime()
+                + " to: " + this.getToDateTime() + ")";
     }
 }

@@ -1,19 +1,20 @@
 package capone.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import capone.Parser;
 import capone.Storage;
 import capone.TaskList;
 import capone.Ui;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
-import org.junit.jupiter.api.Test;
-
-import java.io.PrintStream;
-import java.io.ByteArrayOutputStream;
-
-import org.junit.jupiter.api.BeforeEach;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DeadlineCommandTest {
     private TaskList taskList;
@@ -23,7 +24,7 @@ public class DeadlineCommandTest {
 
     @BeforeEach
     public void initializeComponents() {
-        this.storage = new Storage("./data/","test.json");
+        this.storage = new Storage("./data/", "test.json");
         this.taskList = new TaskList();
         this.ui = new Ui();
         System.setOut(new PrintStream(stdoutMsg));
@@ -50,8 +51,8 @@ public class DeadlineCommandTest {
             c.execute(this.taskList, this.ui, this.storage);
         });
 
-        String expectedMsg = "Please enter a date for this deadline task!\n" +
-                "Usage: deadline [description] /by [date]";
+        String expectedMsg = "Please enter a date for this deadline task!\n"
+                + "Usage: deadline [description] /by [date]";
 
         assertEquals(expectedMsg, e.getMessage());
     }
@@ -61,8 +62,8 @@ public class DeadlineCommandTest {
         Command c = new DeadlineCommand(Parser.splitInput("deadline clean room /by 2024-01-31 1800"));
         c.execute(this.taskList, this.ui, this.storage);
 
-        String expectedMsg = String.format("Got it. I've added this task:\n%s\n" +
-                "Now you have %d task(s) in the list.\n", taskList.getLastTask().toString(), taskList.getSize());
+        String expectedMsg = String.format("Got it. I've added this task:\n%s\n"
+                + "Now you have %d task(s) in the list.\n", taskList.getLastTask().toString(), taskList.getSize());
 
         assertEquals(expectedMsg, stdoutMsg.toString());
     }

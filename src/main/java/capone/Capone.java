@@ -37,6 +37,6 @@ public class Capone {
     }
     public static void main(String[] args) {
 
-        new Capone("./data/","tasks.json").run();
+        new Capone("./data/", "tasks.json").run();
     }
 }

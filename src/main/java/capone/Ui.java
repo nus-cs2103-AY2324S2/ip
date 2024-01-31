@@ -1,7 +1,5 @@
 package capone;
 
-import java.util.Scanner;
-
 public class Ui {
 
 

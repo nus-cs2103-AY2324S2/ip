@@ -15,7 +15,7 @@ public abstract class Task {
             return this.taskName;
         }
     }
-    protected  TaskType taskType;
+    protected TaskType taskType;
     protected String description;
     protected boolean isDone;
 
