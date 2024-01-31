@@ -1,3 +1,6 @@
+package duke.core;
+import duke.task.TaskList;
+import duke.ui.Ui;
 import java.util.Scanner;
 
 public class Chatbot {
