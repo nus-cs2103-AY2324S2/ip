@@ -2,7 +2,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
@@ -46,11 +45,11 @@ public class Storage {
                 currTask.setCompletion(isCompleted);
                 return currTask;
             case "D":
-                currTask = new Deadline(description, LocalDateTime.parse(logEntry[3], formatter));
+                currTask = new Deadline(description, logEntry[3]);
                 currTask.setCompletion(isCompleted);
                 return currTask;
             case "E":
-                currTask = new Event(description, LocalDateTime.parse(logEntry[3], formatter), LocalDateTime.parse(logEntry[4], formatter));
+                currTask = new Event(description, logEntry[3], logEntry[4]);
                 currTask.setCompletion(isCompleted);
                 return currTask;
             default:

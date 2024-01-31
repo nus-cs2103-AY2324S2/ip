@@ -8,10 +8,10 @@ public class Event extends Task {
     protected DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d 'of' MMMM yyyy, ha");
     protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
 
-    public Event(String description, LocalDateTime start, LocalDateTime end) {
+    public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDateTime.parse(start, formatter);
+        this.end = LocalDateTime.parse(end, formatter);
     }
     @Override
     public String parseToLogRepresentation() {

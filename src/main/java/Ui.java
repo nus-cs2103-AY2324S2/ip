@@ -24,4 +24,17 @@ public class Ui {
                 + "  ____________________________________________________________\n";
         System.out.println(response);
     }
+    public void showListAfterProgressChange(Task task) {
+        String status = task.isDone ? "done" : "not done";
+        String response = "  ____________________________________________________________\n"
+                + "     Got it! I've marked this task as " + status + ":\n"
+                + "     " + task + "\n"
+                + "  ____________________________________________________________\n";
+        System.out.println(response);
+    }
+    public void showError(String message) {
+        System.out.println("  ____________________________________________________________");
+        System.out.println("    " + message);
+        System.out.println("  ____________________________________________________________");
+    }
 }

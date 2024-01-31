@@ -7,9 +7,9 @@ public class Deadline extends Task {
     protected DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d 'of' MMMM yyyy, ha");
     protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
 
-    public Deadline(String description, LocalDateTime by) {
+    public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = LocalDateTime.parse(by, formatter);
     }
     @Override
     public String parseToLogRepresentation() {
