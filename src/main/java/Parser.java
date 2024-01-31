@@ -47,6 +47,9 @@ public class Parser {
                 if (toIndex == parts.size() - 1) {
                     throw new DukeException("Add something after your /to...");
                 }
+                if (fromIndex > toIndex) {
+                    throw new DukeException("Don't throw funny funny... Mamma-Mia!");
+                }
                 String start = String.join(" ", parts.subList(fromIndex + 1, toIndex));
                 String deadline = String.join(" ", parts.subList(toIndex + 1, parts.size()));
                 String description = String.join(" ", parts.subList(0, fromIndex));
