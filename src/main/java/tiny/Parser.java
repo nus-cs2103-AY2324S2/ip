@@ -16,7 +16,8 @@ public class Parser {
      * @param input    The string input from the user
      * @param taskList The instance of the taskList which contains all the tasks.
      * @return The message to be displayed to the user.
-     * @throws TinyException When input is invalid when parsing the respective commands.
+     * @throws TinyException When input is invalid when parsing the respective
+     *                       commands.
      */
     public String parse(String input, TaskList taskList) throws TinyException {
         this.input = input;
@@ -144,7 +145,8 @@ public class Parser {
             String[] st = input.split("/by ");
             String[] s = input.split(" ");
             if (!s[0].equals("deadline")) {
-                return "OOPS! You need to type \"deadline <description> /by <yyyy-mm-dd> <time>\" to create a new deadline!";
+                return "OOPS! You need to type \"deadline <description> /by <yyyy-mm-dd> <time>\" "
+                        + "to create a new deadline!";
             } else {
                 name = st[0].substring(9);
                 taskList.add(new Deadline(name.trim(), st[1]));
@@ -153,7 +155,8 @@ public class Parser {
                         + "\n   Now you have " + taskList.size() + " task(s) in the list.";
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            return "OOPS! You need to type \"deadline <description> /by <yyyy-mm-dd> <time>\" to create a new deadline!";
+            return "OOPS! You need to type \"deadline <description> /by <yyyy-mm-dd> <time>\" "
+                    + "to create a new deadline!";
         } catch (TinyException e) {
             throw e;
         }
@@ -171,7 +174,8 @@ public class Parser {
             String[] s = input.split(" ");
             if (!s[0].equals("event")) {
                 System.out.println("YES");
-                return "OOPS! You need to type \"event <description> /from <start date> /to <end date>\" to create a new deadline!";
+                return "OOPS! You need to type \"event <description> /from <start date> /to <end date>\" "
+                        + "to create a new deadline!";
             } else {
                 String[] from = input.split("/from ");
                 String[] fromTo = from[1].split("/to ");
@@ -181,7 +185,8 @@ public class Parser {
                         + "\n   Now you have " + taskList.size() + " task(s) in the list.";
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            return "OOPS! You need to type \"event <description> /from <start date> /to <end date>\" to create a new deadline!";
+            return "OOPS! You need to type \"event <description> /from <start date> /to <end date>\" "
+                    + "to create a new deadline!";
         } catch (Exception e) {
             throw new TinyException("Something went wrong...");
         }
@@ -236,7 +241,8 @@ public class Parser {
     /**
      * Checks if the user input contains a command.
      *
-     * @return True if the command from the user is the same as expected, otherwise False.
+     * @return True if the command from the user is the same as expected, otherwise
+     *         False.
      */
     private boolean checkCmd(String input, String name, int len) {
         return input.length() >= len && input.substring(0, len).equals(name);

@@ -22,10 +22,10 @@ public class TaskList {
      *
      * @param data The tasks to be added to the local tasks ArrayList.
      */
-    public TaskList(ArrayList<String> data) throws TinyException {
+    public TaskList(ArrayList<String> datas) throws TinyException {
         // Parse the data here.
-        for (int i = 0; i < data.size(); i++) {
-            String[] entry = data.get(i).split(" \\| ");
+        for (int i = 0; i < datas.size(); i++) {
+            String[] entry = datas.get(i).split(" \\| ");
             if (entry[0].equals("T")) {
                 Todo todo = new Todo(entry[2], !entry[1].equals("0"));
                 tasks.add(todo);

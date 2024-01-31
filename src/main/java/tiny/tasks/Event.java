@@ -52,7 +52,8 @@ public class Event extends Task {
         int day = 0;
         int hour = 0;
         int minute = 0;
-        String errorMsg = "Please ensure that you are using the format event <description> /from yyyy-MM-dd <time> /to <end date>. "
+        String errorMsg = "Please ensure that you are using the format event <description> "
+                + "/from yyyy-MM-dd <time> /to <end date>. "
                 + "eg. event meeting /from 2024-01-29 1835 /to 2035";
         // Date
         try {
@@ -95,7 +96,8 @@ public class Event extends Task {
      * @throws TinyException When input is invalid.
      */
     public LocalTime endTimeParser(String timeStr) throws TinyException {
-        String errorMsg = "Please ensure that you are using the format event <description> /from yyyy-MM-dd <time> /to <end date>. "
+        String errorMsg = "Please ensure that you are using the format event <description> "
+                + "/from yyyy-MM-dd <time> /to <end date>. "
                 + "eg. event meeting /from 2024-01-29 1835 /to 2035";
         int time = Integer.parseInt(timeStr);
         try {
