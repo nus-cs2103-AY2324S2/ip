@@ -21,8 +21,8 @@ public class UI {
     }
 
     public void showBotError(DukeException e) {
-        System.out.println(e.getBotMessage());
         showLine();
+        System.out.println(e.getBotMessage());
         showLine();
     }
 
@@ -47,8 +47,8 @@ public class UI {
         try {
             input = reader.readLine();
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
             showLine();
+            System.out.println("Something went wrong: " + e.getMessage());
             showLine();
         }
         return input;
