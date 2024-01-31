@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import banter.Todo;
 import banter.errors.Errors;
 import banter.errors.InvalidBanterUsageError;
 import banter.errors.InvalidTaskNumberUsageError;

@@ -1,7 +1,5 @@
 package banter.errors;
 
-import banter.InvalidBanterUsageError;
-import banter.Ui;
 import banter.ui.Ui;
 
 public class Errors {

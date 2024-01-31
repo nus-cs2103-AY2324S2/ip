@@ -1,4 +1,4 @@
-# Duke User Guide
+# Banter User Guide
 
 // Update the title above to match the actual product name
 
