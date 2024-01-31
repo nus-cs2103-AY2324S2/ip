@@ -13,6 +13,7 @@ public class Haro {
     private String openingMsg = "Heya! I'm Haro!\n" + "What can I do for you today?";
     private String closingMSg = "Bye. Hope to see you some time soon!";
     private List list;
+    private Storage haroStorage;
     public Haro() {
         this.list = new List();
     }
@@ -32,6 +33,8 @@ public class Haro {
 
     public void initialise() {
         greet();
+        haroStorage = new Storage("data/saveList.txt");
+        list = haroStorage.loadSave();
         Scanner inputScanner = new Scanner(System.in);
         String input = inputScanner.nextLine();
         Instruction instruction = Instruction.NONE;

@@ -7,6 +7,12 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public Event(String task, String start, String end, boolean done) {
+        super(task, done);
+        this.start = start;
+        this.end = end;
+    }
+
     @Override
     public String printTask() {
         return "[E]" + super.printTask() + " (from: " + this.start + " to: " + this.end + ")";
