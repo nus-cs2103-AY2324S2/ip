@@ -1,4 +1,7 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.io.File;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,6 +20,54 @@ public class Earl {
             System.out.println(PADDING + s);
         }
         printDivider();
+    }
+
+    private static void loadTasks() throws EarlException {
+        File file = new File("./data/earl.txt");
+        boolean isFolderMade = file.getParentFile().mkdirs();
+        Scanner sc;
+        try {
+            boolean isFileMade = file.createNewFile();
+            if (isFolderMade || isFileMade) {
+                throw new EarlException("Storage file missing... "
+                        + "creating new file.");
+            }
+            sc = new Scanner(file);
+            while (sc.hasNext()) {
+                String[] task = sc.nextLine().split(",");
+                switch (task[0]) {
+                case "T":
+                    tasks.add(new Todo(task[1]));
+                    break;
+                case "D":
+                    tasks.add(new Deadline(task[1], task[2]));
+                    break;
+                case "E":
+                    tasks.add(new Event(task[1], task[2], task[3]));
+                    break;
+                default:
+                    tasks.clear();
+                    throw new EarlException("Storage file is corrupted... "
+                            + "starting with empty list.");
+                }
+            }
+        } catch (EarlException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new EarlException("Unknown exception occurred "
+                    + "when attempting to create or access "
+                    + "storage file: " + e.getMessage());
+        }
+    }
+
+    private static void saveTasks() throws EarlException {
+        try (FileWriter fw = new FileWriter("./data/earl.txt")) {
+            for (Task task : tasks) {
+                fw.write(task.toStorageString());
+            }
+        } catch (IOException e) {
+            throw new EarlException("Fatal error while saving to storage.");
+        }
     }
 
     private static void handleCommand(String input) throws EarlException {
@@ -159,8 +210,12 @@ public class Earl {
     }
 
     public static void main(String[] args) {
+        try {
+            loadTasks();
+        } catch (EarlException e) {
+            makeResponse(e.getMessage());
+        }
         Scanner sc = new Scanner(System.in);
-
         makeResponse("Hello! I'm Earl", "What can I do for you?");
 
         // main loop
@@ -172,6 +227,12 @@ public class Earl {
                 makeResponse(e.getMessage());
             }
             input = sc.nextLine();
+        }
+
+        try {
+            saveTasks();
+        } catch (EarlException e) {
+            makeResponse(e.getMessage());
         }
 
         makeResponse("Goodbye! See you soon.");
