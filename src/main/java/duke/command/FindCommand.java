@@ -19,9 +19,15 @@ public class FindCommand extends Command {
      * @param list  the list of tasks
      * @param state the program state
      * @return the response
+     * @throws EmptyKeywordException if the keyword is empty
      */
-    public String execute(TaskList list, ProgramState state) {
+    @Override
+    public String execute(TaskList list, ProgramState state) throws EmptyKeywordException {
         String body = getBody();
+        if (body.equals("")) {
+            throw new EmptyKeywordException("Keyword cannot be empty.",
+                    "I'm sorry, but I cannot find anything if you don't tell me what to look for.");
+        }
         String response = "Here are the matching tasks in your list:\n";
         int count = 0;
         for (int i = 0; i < list.size(); i++) {
