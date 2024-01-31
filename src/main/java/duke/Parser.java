@@ -1,3 +1,11 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
+import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
@@ -161,5 +169,31 @@ public class Parser {
                     ui.setIndentedLine();
                 }
         }
+    }
+    public static Task parseCategoryFromFile(String taskCategory) throws IOException {
+        String[] argument = taskCategory.split(" \\| ");
+        String category = argument[0];
+        String status = argument[1];
+        String description = argument[2];
+        Task task;
+
+        switch (category) {
+            case "T":
+                task = new ToDo(status, description);
+                break;
+            case "D":
+                String by = argument[3];
+                task = new Deadline(status, description, by);
+                break;
+            case "E":
+                String[] duration = argument[3].split(" - ");
+                String start = duration[0];
+                String end = duration[1];
+                task = new Event(status, description, start, end);
+                break;
+            default:
+                throw new IOException("Error, unable to load task from file.");
+        }
+        return task;
     }
 }

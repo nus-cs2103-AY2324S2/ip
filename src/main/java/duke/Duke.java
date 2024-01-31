@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.IOException;
 public class Duke {
 
@@ -11,7 +13,7 @@ public class Duke {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            taskList = new TaskList((storage.loadTasksFile()));
+            taskList = new TaskList((storage.loadTasksFromFile()));
         } catch (DukeException e) {
             ui.loadErrorMessage();
             taskList = new TaskList();
@@ -27,7 +29,7 @@ public class Duke {
                     break;
                 }
                 Parser.parseCommand(input, taskList, ui);
-                storage.saveTasksFile(taskList.getTasks());
+                storage.saveTasksToFile(taskList.getTasks());
             } catch (IOException | DukeException e) {
                 System.out.println("Sorry, Error occurred! Shutting down...");
                 break;
