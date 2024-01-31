@@ -5,8 +5,6 @@ import johnny.storage.Storage;
 import johnny.tasks.TaskList;
 import johnny.ui.Ui;
 
-import java.util.jar.JarException;
-
 /**
  * Controls what happens user tries to find Tasks.
  */
