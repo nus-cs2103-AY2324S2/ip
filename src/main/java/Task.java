@@ -16,6 +16,14 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    public void setCompletion(boolean isCompleted) {
+        this.isDone = isCompleted;
+    }
+
+    public String parseToLogRepresentation() {
+        return this.toString();
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
