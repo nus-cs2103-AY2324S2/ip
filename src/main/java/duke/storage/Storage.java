@@ -25,6 +25,8 @@ public class Storage {
         if (new File(FILE_PATH).exists()) {
             return Storage.readFromStorage();
         } else {
+            File file = new File(FILE_PATH);
+            file.getParentFile().mkdirs();
             return new ArrayList<>();
         }
     }
