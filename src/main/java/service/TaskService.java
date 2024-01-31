@@ -32,6 +32,7 @@ public class TaskService {
         }
 
         for (String line : fileData) {
+            // TODO: Double check if the formatting for dateTime to string works for parsing
             this.parseTaskList(line);
         }
     }
@@ -47,6 +48,10 @@ public class TaskService {
     private void parseTaskList(String line) {
         String[] task = line.split(this.taskListSep);
         Task newTask = null;
+
+        if (task.length <= 1) {
+            return;
+        }
 
         Boolean isCompleted = task[1].equals("1");
 

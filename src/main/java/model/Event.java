@@ -1,15 +1,19 @@
 package model;
 
+import Utility.DateTimeUtility;
+
+import java.time.LocalDateTime;
+
 public class Event extends Task {
     public static String typeIcon = "E";
-    private String fromDateTime;
-    private String toDateTIme;
+    private LocalDateTime fromDateTime;
+    private LocalDateTime toDateTime;
 
     public Event(String name, String fromDateTime, String toDateTime) {
         super(name);
 
-        this.fromDateTime = fromDateTime;
-        this.toDateTIme = toDateTime;
+        this.fromDateTime = DateTimeUtility.parseStringToLocalDateTime(fromDateTime);
+        this.toDateTime = DateTimeUtility.parseStringToLocalDateTime(toDateTime);
     }
 
     public Event(String name, Boolean isCompleted, String fromDateTime, String toDateTime) {
@@ -19,15 +23,15 @@ public class Event extends Task {
             super.markTaskCompleted();
         }
 
-        this.fromDateTime = fromDateTime;
-        this.toDateTIme = toDateTime;
+        this.fromDateTime = DateTimeUtility.parseStringToLocalDateTime(fromDateTime);
+        this.toDateTime = DateTimeUtility.parseStringToLocalDateTime(toDateTime);
     }
 
     @Override
     public String toTaskListStringFormat() {
         return String.format("%s|%s|%s|%s",
                 Event.typeIcon, super.toTaskListStringFormat(),
-                this.fromDateTime, this.toDateTIme);
+                DateTimeUtility.parseLocalDateTimeToString(this.fromDateTime), DateTimeUtility.parseLocalDateTimeToString(this.toDateTime));
     }
 
     @Override
@@ -37,6 +41,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s (from: %s to: %s)", super.toString(), this.fromDateTime, this.toDateTIme);
+        return String.format("%s (from: %s to: %s)",
+                super.toString(), DateTimeUtility.parseLocalDateTimeToString(this.fromDateTime), DateTimeUtility.parseLocalDateTimeToString(this.toDateTime));
     }
 }

@@ -32,6 +32,7 @@ public class Task {
         return String.format("%s|%s", completedValue, this.name);
     }
 
+
     @Override
     public String toString() {
         return "[" + this.getTypeIcon() + "][" + this.getCompletedIcon() + "] " + this.name;
