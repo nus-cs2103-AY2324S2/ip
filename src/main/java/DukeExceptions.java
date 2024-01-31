@@ -11,6 +11,30 @@ public class DukeExceptions extends Exception {
         }
     }
 
+    public static void checkCorruptedFile(String line) throws DukeExceptions {
+        String[] splittedLine = line.split("\\|");
+        String action = splittedLine[0].trim();
+        switch (action) {
+            case "T":
+                if (splittedLine.length != 3) {
+                    throw new DukeExceptions("File is corrupted");
+                }
+                break;
+            case "D":
+                if (splittedLine.length != 4) {
+                    throw new DukeExceptions("File is corrupted");
+                }
+                break;
+            case "E":
+                if (splittedLine.length != 4) {
+                    throw new DukeExceptions("File is corrupted");
+                }
+                break;
+            default:
+                throw new DukeExceptions("File is corrupted");
+        }
+    }
+
     public static void validateInput(String action, String parameters) throws DukeExceptions{
         switch(action) {
             case "TODO":
