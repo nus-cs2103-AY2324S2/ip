@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Iterator;
 
 public class TaskList implements Iterable<Task>{
-    List<Task> taskList = new ArrayList<>();
+    private List<Task> taskList = new ArrayList<>();
 
     @Override
     public String toString() {

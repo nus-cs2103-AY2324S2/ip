@@ -1,3 +1,8 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 //converts the input string from user to a Command object
 public class Parser {
     public static Command parse(String input) {
@@ -80,15 +85,24 @@ public class Parser {
         }
 
         String task = parts[0].trim();
-        String deadline = parts[1].trim();
+        String deadlineString = parts[1].trim();
 
+        //check if fields have values
         if (task.isEmpty()) {
             throw new DukeException.MissingInfoException("You have to tell me the description too! Or I cant remember it!");
-        } else if (deadline.isEmpty()) {
+        } else if (deadlineString.isEmpty()) {
             throw new DukeException.MissingInfoException("You need a deadline! Or you will never get to it!");
         }
 
-        return new Command.DeadlineCommand(task, deadline);
+        //parse string
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+            LocalDate deadline = LocalDate.parse(deadlineString, formatter);
+            return new Command.DeadlineCommand(task, deadline);
+        } catch (DateTimeParseException e) {
+            throw new DukeException.InvalidCommandException("Invalid date/time format for the deadline!"
+                    + "Please use a dd MMM yyyy format (e.g. 21 Jan 2000).");
+        }
     }
 
     private static Command parseEventCommand(String tokens) throws DukeException{

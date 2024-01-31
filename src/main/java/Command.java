@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public abstract class Command {
     abstract void execute(TaskList list);
 
@@ -90,9 +93,9 @@ public abstract class Command {
     }
     public static class DeadlineCommand extends Command {
         private String description;
-        private String by;
+        private LocalDate by;
 
-        public DeadlineCommand(String description, String by) {
+        public DeadlineCommand(String description, LocalDate by) {
             this.description = description;
             this.by = by;
         }

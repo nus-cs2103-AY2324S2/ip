@@ -1,3 +1,8 @@
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import static java.lang.Boolean.parseBoolean;
 
 public abstract class Task {
@@ -8,9 +13,10 @@ public abstract class Task {
     /** Boolean Flag of whether the task is done */
     private boolean isDone;
 
-    /** Constructs task with specified description
+    /**
+     * Constructs task with specified description.
      *
-     * @param description Description of task
+     * @param description Description of task.
      */
     public Task(String description) {
         this.description = description;
@@ -20,12 +26,12 @@ public abstract class Task {
     /**
      * Constructs a task with done flag specified as a string. This method is used for storage activities.
      *
-     * @param description string
-     * @param isDone boolean value
+     * @param description Brief description of task.
+     * @param isDone String representing boolean value.
      */
-    public Task(String description, String isDone) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = parseBoolean(isDone);
+        this.isDone = isDone;
     }
 
     /** Sets this task as done */
@@ -58,7 +64,7 @@ public abstract class Task {
             super(name);
         }
 
-        public ToDos(String description, String isDone) {
+        public ToDos(String description, boolean isDone) {
             super(description, isDone);
         }
 
@@ -74,7 +80,7 @@ public abstract class Task {
          */
         @Override
         public String getTokens() {
-            return String.join(" ", "T", super.description, String.valueOf(super.isDone));
+            return String.join(",", "T", super.description, String.valueOf(super.isDone));
         }
     }
 
@@ -86,7 +92,7 @@ public abstract class Task {
             this.from = from;
             this.to = to;
         }
-        public Events(String name, String isDone, String from, String to) {
+        public Events(String name, boolean isDone, String from, String to) {
             super(name, isDone);
             this.from = from;
             this.to = to;
@@ -104,26 +110,35 @@ public abstract class Task {
          */
         @Override
         public String getTokens() {
-            return String.join(" ", "E", super.description,
+            return String.join(",", "E", super.description,
                     String.valueOf(super.isDone), this.from, this.to);
         }
     }
 
     public static class Deadlines extends Task {
-        private String by;
-        public Deadlines(String name, String by) {
-            super(name);
+        private LocalDate by;
+
+        /**
+         * Contructs new deadlibe object with a description and a due date.
+         *
+         * @param description Brief description of task.
+         * @param by LocalDateTine object
+         */
+        public Deadlines(String description, LocalDate by) {
+            super(description);
             this.by = by;
         }
 
-        public Deadlines(String name, String isDone, String by) {
+        public Deadlines(String name, boolean isDone, LocalDate by) {
             super(name, isDone);
             this.by = by;
         }
 
         @Override
         public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+            String formattedDate = this.by.format(formatter);
+            return "[D]" + super.toString() + " (by: " + formattedDate + ")";
         }
 
         /**
@@ -133,7 +148,10 @@ public abstract class Task {
          */
         @Override
         public String getTokens() {
-            return String.join(" ", "D", super.description, String.valueOf(super.isDone), this.by);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+            String formattedDate = this.by.format(formatter);
+            return String.join(",", "D", super.description,
+                    String.valueOf(super.isDone), formattedDate);
         }
     }
 }
