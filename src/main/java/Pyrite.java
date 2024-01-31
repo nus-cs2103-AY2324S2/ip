@@ -13,7 +13,6 @@ public class Pyrite {
         ui.greet(Pyrite.name);
         // Load list from file
         this.list = file.loadState(this.list);
-        String input;
         while (true) {
             String commandString = ui.readCommand();
             Command command = Parser.parse(commandString);
