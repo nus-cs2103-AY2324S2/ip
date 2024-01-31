@@ -25,7 +25,7 @@ class ListAdder {
     private ArrayList<Task> taskList = new ArrayList<>();
     private int taskIndex;
     private static final String line = "____________________________________________________________";
-    private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FILE_PATH = "./data/tasklist.txt";
 
     public ListAdder() {
         this.taskIndex = 1;
@@ -35,6 +35,7 @@ class ListAdder {
 
     /**
      * Starts the program
+     * 
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
      * @throws StringIndexOutOfBoundsException if input is not a number
@@ -59,14 +60,14 @@ class ListAdder {
                     int index = Integer.parseInt(input.substring(9).trim()) - 1;
                     markDone(index);
                 } catch (NumberFormatException e) {
-                    System.out.println("\t" + "Invalid input. Please enter a valid task index.");
+                    invalidTaskIndex();
                 }
             } else if (input.startsWith("mark undone")) { // mark as undone
                 try {
                     int index = Integer.parseInt(input.substring(11).trim()) - 1;
                     markUndone(index);
                 } catch (NumberFormatException e) {
-                    System.out.println("\t" + "Invalid input. Please enter a valid task index.");
+                    invalidTaskIndex();
                 }
             } else {
                 addTask(input);
@@ -83,59 +84,14 @@ class ListAdder {
         try {
             Path filePath = Paths.get(FILE_PATH);
 
-            if (Files.exists(filePath)) {
-                // Read all lines from the file
-                Files.lines(filePath)
-                        .forEach(this::parseAndAddTask);
-            }
-        } catch (IOException e) {
-            System.out.println("Error loading data from file: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Parses a line from the file and adds the corresponding task to the taskList
-     *
-     * @param line a line from the file
-     */
-    private void parseAndAddTask(String line) {
-        // TODO: Implement this method to parse the line and add the task to the taskList
-    }
-
-    /**
-     * Saves data to the file
-     */
-    private void saveData() {
-        try {
-            Path filePath = Paths.get(FILE_PATH);
-
-            // Create the file if it doesn't exist
-            if (!Files.exists(filePath)) {
+            if (Files.notExists(filePath)) { // Create the file if it doesn't exist
                 Files.createFile(filePath);
             }
-
-            // Write data to the file
-            Files.write(filePath, formatData().getBytes());
         } catch (IOException e) {
-            System.out.println("Error saving data to file: " + e.getMessage());
+            System.out.println("Error loading data from file: error in loadData()");
         }
     }
 
-    /**
-     * Formats data for writing to the file
-     *
-     * @return formatted data as a string
-     */
-    private String formatData() {
-        StringBuilder formattedData = new StringBuilder();
-
-        for (Task task : taskList) {
-            // Format each task and append to the string
-            formattedData.append(task.formatForFile()).append(System.lineSeparator());
-        }
-
-        return formattedData.toString();
-    }
 
     /**
      * Greets user and prints instructions
@@ -172,6 +128,13 @@ class ListAdder {
      */
     private void goodbye() {
         System.out.println("\t" + "Bye. Hope to see you again soon!");
+    }
+
+    /** 
+     * Invalid task index message
+     */
+    private void invalidTaskIndex() {
+        System.out.println("\t" + "Oops, that wasn't a valid task index :P");
     }
 
     /**
@@ -233,6 +196,7 @@ class ListAdder {
 
     /**
      * Adds todoTask to taskList
+     * 
      * @param task task to be added
      */
     private void addTodoTask(String task) {
@@ -251,6 +215,7 @@ class ListAdder {
 
     /** 
      * Adds deadline to taskList
+     * 
      * @param task task to be added
      */
     private void addDeadline(String task) {
@@ -271,6 +236,7 @@ class ListAdder {
 
     /** 
      * Adds eventTask to taskList
+     * 
      * @param task task to be added
      */
     private void addEvent(String task) {
@@ -298,20 +264,20 @@ class ListAdder {
 
     /** 
      * Deletes task from taskList
+     * 
      * @param index index of task to be deleted
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
      */
     private void deleteTask(int index) {
         try {
-            System.out.println("\t" + "Noted. I've removed this task:");
-            System.out.println("\t" + this.taskList.get(index));
+            System.out.println("\t" + "Noted. I've removed this task:" + "\n" + this.taskList.get(index));
             this.taskList.remove(index);
             System.out.println("\t" + "Now you have " + this.taskList.size() + " tasks in the list.");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\t" + "Oops! Your list isn't that long :P");
+            invalidTaskIndex();
         } catch (NumberFormatException e) {
-            System.out.println("\t" + "This number isn't valid!");
+            invalidTaskIndex();
         }
     }
 
@@ -334,6 +300,7 @@ class ListAdder {
      * If task is undone, marks as done
      * If task does not exist, prints error message
      * If input is not a number, prints error message
+     * 
      * @param index index of task to be marked as done
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
@@ -349,9 +316,9 @@ class ListAdder {
                 printList();
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\t" + "Oops! Your list isn't that long :P");
+            invalidTaskIndex();
         } catch (NumberFormatException e) {
-            System.out.println("\t" + "This number isn't valid!");
+            invalidTaskIndex();
         }
     }
 
@@ -361,6 +328,7 @@ class ListAdder {
      * If task is done, marks as undone
      * If task does not exist, prints error message
      * If input is not a number, prints error message
+     * 
      * @param index index of task to be marked as undone
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
@@ -376,9 +344,9 @@ class ListAdder {
                 printLine();
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\t" + "Oops! Your list isn't that long :P");
+            invalidTaskIndex();
         } catch (NumberFormatException e) {
-            System.out.println("\t" + "This number isn't valid!");
+            invalidTaskIndex();
         }
     }
 }
@@ -426,16 +394,6 @@ class Task {
         } else {
             return "[ ] " + this.task;
         }
-    }
-
-    /**
-     * Formats the task for writing to the file
-     *
-     * @return formatted string
-     */
-    public String formatForFile() {
-        // TODO: Implement this method to format the task for writing to the file
-        return "";
     }
 }
 
