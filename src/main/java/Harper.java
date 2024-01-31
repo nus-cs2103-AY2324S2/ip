@@ -9,6 +9,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,24 +28,22 @@ public class Harper {
     private ArrayList<Task> tasks = new ArrayList<>();
     private static final String PROJECT_DIR = System.getProperty("user.dir");
     private static final String FILE_PATH = PROJECT_DIR + File.separator + "data" + File.separator + "harper.txt";
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy H:mm");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER_2 = DateTimeFormatter.ofPattern("d MMM yyyy H:mm");
 
     /**
      * Greets the user.
      */
     public void greet() {
-        System.out.println(LINE + "\n"
-                + "Hello! I am Harper.\n"
-                + "What can I do for you?\n"
-                + LINE);
+        Harper.print("Hello! I am Harper.\n"
+                + "What can I do for you?");
     }
 
     /**
      * Exit the chat.
      */
     public void exit() {
-        System.out.println(LINE + "\n"
-                + "Hope to see you again soon! Peace out!\n"
-                + LINE);
+        Harper.print("Hope to see you again soon! Peace out!");
     }
 
     /**
@@ -71,11 +73,10 @@ public class Harper {
             Harper.appendToFile(Harper.FILE_PATH, newToDo);
             this.tasks.add(newToDo);
             int listSize = this.tasks.size();
-            System.out.println(LINE + "\n"
-                    + "Got it. I've added this task into your list:\n"
+            Harper.print("Got it. I've added this task into your list:\n"
                     + newToDo.toString() + "\n"
-                    + "Now you have " + listSize + (listSize > 1 ? " tasks " : " task ") + "in the list.\n"
-                    + LINE);
+                    + "Now you have " + listSize + (listSize > 1 ? " tasks " : " task ")
+                    + "in the list.");
         } catch (IOException e) {
             Harper.createFolderAndFile("data", "harper.txt");
             this.addToDo(description);
@@ -89,19 +90,19 @@ public class Harper {
      * @param description Description of the task.
      * @param by Deadline of the task.
      */
-    public void addDeadline(String description, String by) {
+    public void addDeadline(String description, LocalDateTime by) {
         try {
             Task newDeadline = new Deadline(description, false, by);
             Harper.appendToFile(Harper.FILE_PATH, newDeadline);
             this.tasks.add(newDeadline);
             int listSize = this.tasks.size();
-            System.out.println(LINE + "\n"
-                    + "Got it. I've added this task into your list:\n"
+            Harper.print("Got it. I've added this task into your list:\n"
                     + newDeadline.toString() + "\n"
-                    + "Now you have " + listSize + (listSize > 1 ? " tasks " : " task ") + "in the list.\n"
-                    + LINE);
+                    + "Now you have " + listSize + (listSize > 1 ? " tasks " : " task ")
+                    + "in the list.");
         } catch (IOException e) {
             Harper.createFolderAndFile("data", "harper.txt");
+            this.addDeadline(description, by);
         }
 
     }
@@ -113,19 +114,19 @@ public class Harper {
      * @param start Start time of the task.
      * @param end End time of the task.
      */
-    public void addEvent(String description, String start, String end) {
+    public void addEvent(String description, LocalDateTime start, LocalDateTime end) {
         try {
             Task newEvent = new Event(description, false, start, end);
             Harper.appendToFile(Harper.FILE_PATH, newEvent);
             this.tasks.add(newEvent);
             int listSize = this.tasks.size();
-            System.out.println(LINE + "\n"
-                    + "Got it. I've added this task into your list:\n"
+            Harper.print("Got it. I've added this task into your list:\n"
                     + newEvent.toString() + "\n"
-                    + "Now you have " + listSize + (listSize > 1 ? " tasks " : " task ") + "in the list.\n"
-                    + LINE);
+                    + "Now you have " + listSize + (listSize > 1 ? " tasks " : " task ")
+                    + "in the list.");
         } catch (IOException e) {
             Harper.createFolderAndFile("data", "harper.txt");
+            this.addEvent(description, start, end);
         }
     }
 
@@ -167,14 +168,14 @@ public class Harper {
      * Informs the user that the command entered is invalid.
      */
     public void handleInvalidInput() {
-        System.out.println(LINE + "\n" + "Please enter an valid input!\n" + LINE);
+        Harper.print("Please enter an valid input!");
     }
 
     /**
      * Informs the user that the index entered is invalid.
      */
     public void handleIndexOutOfBounds() {
-        System.out.println(LINE + "\n" + "Index is out of bounds. Please provide a valid task index!\n" + LINE);
+        Harper.print("Index is out of bounds. Please provide a valid task index!");
     }
 
     /**
@@ -203,7 +204,12 @@ public class Harper {
         if (description.isEmpty() || deadline.isEmpty()) {
             throw new HarperInvalidDeadlineException();
         }
-        this.addDeadline(description, deadline);
+        try {
+            LocalDateTime deadlineFormatted = LocalDateTime.parse(deadline, DATE_TIME_FORMATTER);
+            this.addDeadline(description, deadlineFormatted);
+        } catch (DateTimeParseException e) {
+            this.handleInvalidDateTime();
+        }
     }
 
     /**
@@ -227,7 +233,31 @@ public class Harper {
         if (start.isEmpty() || end.isEmpty()) {
             throw new HarperInvalidEventException();
         }
-        this.addEvent(description, start, end);
+        try {
+            LocalDateTime startFormatted = LocalDateTime.parse(start, DATE_TIME_FORMATTER);
+            LocalDateTime endFormatted = LocalDateTime.parse(end, DATE_TIME_FORMATTER);
+            this.addEvent(description, startFormatted, endFormatted);
+        } catch (DateTimeParseException e) {
+            this.handleInvalidDateTime();
+        }
+    }
+
+    /**
+     * Informs user the date time should follow the format.
+     */
+    public void handleInvalidDateTime() {
+        Harper.print("Date time should follow this format:\n"
+                + "d/M/yyyy HH:mm (e.g., 15/9/2024 16:25)");
+    }
+
+    /**
+     * Prints out text bounded by line.
+     * @param text Text to be printed
+     */
+    public static void print(String text) {
+        System.out.println(LINE + "\n"
+                + text + "\n"
+                + LINE);
     }
 
     /**
@@ -262,17 +292,14 @@ public class Harper {
         try {
             this.saveToHardDisk(Harper.FILE_PATH);
             int listSize = this.tasks.size();
-            System.out.println(LINE + "\n"
-                    + "Ok! I've removed this task for you:\n"
+            Harper.print("Ok! I've removed this task for you:\n"
                     + task.toString() + "\n"
-                    + "Now you have " + listSize + (listSize > 1 ? " tasks " : " task ") + "in the list.\n"
-                    + LINE);
+                    + "Now you have " + listSize + (listSize > 1 ? " tasks " : " task ")
+                    + "in the list.");
 
         } catch (IOException e) {
             this.tasks.add(taskIndex, task);
-            System.out.println(LINE + "\n"
-                    + "Some errors have caused your task cannot be deleted!\n"
-                    + LINE);
+            Harper.print("Some errors have caused your task cannot be deleted!");
         }
     }
 
@@ -285,9 +312,7 @@ public class Harper {
                     try {
                         file.createNewFile();
                     } catch (IOException e) {
-                        System.out.println(LINE + "\n"
-                                + "The file harper.txt cannot be created.\n"
-                                + LINE);
+                        Harper.print("The file harper.txt cannot be created.");
                     }
                 }
             }
@@ -326,12 +351,16 @@ public class Harper {
                     this.tasks.add(task);
                 } else if (taskString[0].equals("D")) {
                     boolean isDone = taskString[1].equals("1");
-                    Task task = new Deadline(taskString[2], isDone, taskString[3]);
+                    String by = taskString[3];
+                    LocalDateTime byFormatted = LocalDateTime.parse(by, DATE_TIME_FORMATTER_2);
+                    Task task = new Deadline(taskString[2], isDone, byFormatted);
                     this.tasks.add(task);
                 } else if (taskString[0].equals("E")) {
                     boolean isDone = taskString[1].equals("1");
                     String[] duration = taskString[3].split(" - ");
-                    Task task = new Event(taskString[2], isDone, duration[0], duration[1]);
+                    LocalDateTime start = LocalDateTime.parse(duration[0], DATE_TIME_FORMATTER_2);
+                    LocalDateTime end = LocalDateTime.parse(duration[1], DATE_TIME_FORMATTER_2);
+                    Task task = new Event(taskString[2], isDone, start, end);
                     this.tasks.add(task);
                 } else {
                     throw new HarperInvalidFileContentFormatException();
@@ -339,13 +368,15 @@ public class Harper {
             }
             return true;
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(LINE + "\n"
-                    + "Please make sure the content of the file harper.txt follows the expected format:\n"
+            Harper.print("Please make sure the content of the file harper.txt follows the expected format:\n"
                     + "ToDo: \"T | [0 or 1] | [description]\"\n"
                     + "Deadline: \"D | [0 or 1] | [description] | [by]\"\n"
-                    + "Event: \"E | [0 or 1] | [description] | [start] - [end]\"\n"
-                    + LINE);
+                    + "Event: \"E | [0 or 1] | [description] | [start] - [end]\"");
             this.tasks.clear();
+            return false;
+        } catch (DateTimeParseException e) {
+            Harper.print("Please make sure data in the file harper.txt follow this format:\n"
+                    + "d MMM yyyy HH:mm (e.g., 15 Oct 2024 16:25)");
             return false;
         } catch (HarperInvalidFileContentFormatException e) {
             System.out.println(e.getMessage());
