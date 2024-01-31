@@ -15,16 +15,14 @@ public class hirwan {
                 + "what can I do for you? \n"
                 + "_________________________________\n";
 
-        System.out.println("Hello! " + logo);
+        Ui.output("Hello! " + logo);
 
         List = Storage.read();
 
         try (BufferedWriter fileWrite = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
             while (true) {
-                Scanner scanner = new Scanner(System.in);
-                String text = scanner.nextLine();
+                String text = Ui.input();
 
-                //detects the command
                 boolean isList = text.equals("list");
                 boolean mark = text.startsWith("mark");
                 boolean unmark = text.startsWith("unmark");
@@ -38,17 +36,16 @@ public class hirwan {
                     break;
                 } else if (isList) {
                     for (String element : List) {
-                        System.out.println(List.indexOf(element) + 1 + element);
+                        Ui.output(List.indexOf(element) + 1 + element);
                     }
                 } else if (todo) {
                     try {
-                        System.out.println("Got it. I've added this task: \n  " + "[T][ ] " + text.substring(5));
+                        Ui.output("Got it. I've added this task: \n  " + "[T][ ] " + text.substring(5));
                         List.add(". " + "[T][ ] " + text.substring(5));
-                        System.out.println("Now you have " + List.size() + " tasks in the list.");
-//                        writeTask();
+                        Ui.output("Now you have " + List.size() + " tasks in the list.");
                         Storage.writeTask(List);
                     } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("Error: Please enter a description for your todo command");
+                        Ui.output("Error: Please enter a description for your todo command");
                     }
                 } else if (deadline) {
                     try {
@@ -61,12 +58,10 @@ public class hirwan {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d 'of' MMMM yyyy, ha");
 
                         List.add(". " + "[D][ ] " + item + " (by: " + dayDate.format(formatter) + ")");
-                        System.out.println("Got it. I've added this task:\n  " + "[D][ ] " + item + " (by: " + dayDate.format(formatter) + ")");
-                        System.out.println("Now you have " + List.size() + " tasks in the list.");
-//                        writeTask();
-
+                        Ui.output("Got it. I've added this task:\n  " + "[D][ ] " + item + " (by: " + dayDate.format(formatter) + ")");
+                        Ui.output("Now you have " + List.size() + " tasks in the list.");
                     } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("Error: Please enter a description or date for your deadline command");
+                        Ui.output("Error: Please enter a description or date for your deadline command");
                     }
                 } else if (event) {
                     try {
@@ -83,12 +78,11 @@ public class hirwan {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d 'of' MMMM yyyy, ha");
 
                         List.add(". " + "[E][ ] " + item + " (from: " + startDate.format(formatter) + " to: " +  endDate.format(formatter) + ")");
-                        System.out.println("Got it. I've added this task:\n  " + "[E][ ] " + item + " (from: " + startDate.format(formatter) + " to: " + endDate.format(formatter) + ")");
-                        System.out.println("Now you have " + List.size() + " tasks in the list.");
-//                        writeTask();
-                        Storage.writeTask(List);
+                        Ui.output("Got it. I've added this task:\n  " + "[E][ ] " + item + " (from: " + startDate.format(formatter) + " to: " + endDate.format(formatter) + ")");
+                        Ui.output("Now you have " + List.size() + " tasks in the list.");
+                       Storage.writeTask(List);
                     } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("Error: Please enter a description or date for your event to command");
+                        Ui.output("Error: Please enter a description or date for your event to command");
                     }
                 } else if (mark) {
                     try {
@@ -98,13 +92,12 @@ public class hirwan {
                         String type = List.get(numberint - 1).substring(2, 5);
 
                         List.set(numberint - 1, ". " + type + "[X] " + temp);
-                        System.out.println("Nice! I've marked this task as done: \n" + "[X] " + temp);
-//                        writeTask();
+                        Ui.output("Nice! I've marked this task as done: \n" + "[X] " + temp);
                         Storage.writeTask(List);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Error: Please enter a valid index for marking!");
+                        Ui.output("Error: Please enter a valid index for marking!");
                     } catch (NumberFormatException e) {
-                        System.out.println("Error: Please enter a numerical index to mark!");
+                        Ui.output("Error: Please enter a numerical index to mark!");
                     }
                 } else if (unmark) {
                     try {
@@ -114,48 +107,33 @@ public class hirwan {
                         String type = List.get(numberint - 1).substring(2, 5);
 
                         List.set(numberint - 1, ". " + type + "[ ] " + temp);
-                        System.out.println("OK, I've marked this task as not done yet: \n" + "[ ] " + temp);
-//                        writeTask();
+                        Ui.output("OK, I've marked this task as not done yet: \n" + "[ ] " + temp);
                         Storage.writeTask(List);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Error: Please enter a valid index for unmarking!");
+                        Ui.output("Error: Please enter a valid index for unmarking!");
                     } catch (NumberFormatException e) {
-                        System.out.println("Error: Please enter a numerical index to unmark!");
+                        Ui.output("Error: Please enter a numerical index to unmark!");
                     }
                 } else if (delete) {
                     try {
                         int numberint = Integer.parseInt(text.substring(7)) - 1;
-                        System.out.println("Noted. I've removed this task:\n"
+                        Ui.output("Noted. I've removed this task:\n"
                                 + "  " + List.get(numberint).substring(2) + "\n"
                                 + "Now you have " + (List.size() - 1) + " tasks in the list.");
                         List.remove(numberint);
-//                        writeTask();
                         Storage.writeTask(List);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Error: Please enter a valid index for deletion!");
+                        Ui.output("Error: Please enter a valid index for deletion!");
                     } catch (NumberFormatException e) {
-                        System.out.println("Error: Please enter a numerical index to delete!");
+                        Ui.output("Error: Please enter a numerical index to delete!");
                     }
                 } else {
-                    System.out.println("Error: I am sorry but I do not recognise this command");
+                    Ui.output("Error: I am sorry but I do not recognise this command");
                 }
             }
-            System.out.println("Bye. Hope to see you again soon!");
+            Ui.output("Bye. Hope to see you again soon!");
         } catch (IOException e) {
             System.out.print(e.getMessage());
-        }
-    }
-
-    public static void writeTask() {
-        try {
-            FileWriter file = new FileWriter(FILE_PATH);
-            for (String tasks : List) {
-                file.write(tasks + "\n");
-            }
-            file.close();
-        } catch (IOException e) {
-            System.out.println("Error: could not write to file");
-            e.printStackTrace();
         }
     }
 
@@ -167,9 +145,16 @@ public class hirwan {
     }
 }
 
-//class Ui {
-//
-//}
+class Ui {
+    public static String input() {
+        Scanner scanner = new Scanner(System.in);
+        String text = scanner.nextLine();
+        return text;
+    }
+    public static void output(String printText) {
+        System.out.println(printText);
+    }
+}
 
 class Storage {
     static List<String> List = new ArrayList<>();
@@ -182,7 +167,7 @@ class Storage {
                 List.add(scan.nextLine());
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Error: file to read data from cannot be found!");
+            Ui.output("Error: file to read data from cannot be found!");
         }
         return List;
     }
@@ -195,7 +180,7 @@ class Storage {
             }
             file.close();
         } catch (IOException e) {
-            System.out.println("Error: could not write to file");
+            Ui.output("Error: could not write to file");
             e.printStackTrace();
         }
     }
