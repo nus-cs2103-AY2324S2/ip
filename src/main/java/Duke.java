@@ -1,9 +1,17 @@
+
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
     private static List<Task> tasks = new ArrayList<>();
+    private static final String FILE_PATH = "./data/duke.txt";
+
 
     public static void main(String[] args) {
         // Greeting
@@ -18,6 +26,8 @@ public class Duke {
         // Main chat loop
         while (true) {
             try {
+                loadTasksFromFile();
+                ensureDataFileExists();
                 // Read user input
                 String userInput = scanner.nextLine();
 
@@ -65,10 +75,22 @@ public class Duke {
                     System.out.println(" Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
                     System.out.println("____________________________________________________________");
                 }
+                saveTasksToFile();
             } catch (DukeException e) {
                 // Handle custom Duke exceptions
                 System.out.println("____________________________________________________________");
                 System.out.println(" " + e.getMessage());
+                System.out.println("____________________________________________________________");
+            }  catch (DukeDataCorruptedException e) {
+                System.out.println("Error: The data file is corrupted. Please check the file format.");
+            } catch (FileNotFoundException e) {
+                System.out.println("Data file not found. Creating a new one.");
+                // Handle the case when the data file is not found, and create a new one
+                tasks = new ArrayList<>();
+            } catch (IOException e) {
+                // Handle IOException (e.g., file-related issues)
+                System.out.println("____________________________________________________________");
+                System.out.println("Error saving or loading tasks. Please check the file.");
                 System.out.println("____________________________________________________________");
             } catch (NumberFormatException e) {
                 // Handle NumberFormatException (e.g., when parsing integers)
@@ -81,6 +103,57 @@ public class Duke {
         // Close the scanner
         scanner.close();
     }
+
+    private static void saveTasksToFile() throws IOException {
+        Path filePath = Paths.get(FILE_PATH);
+
+        // Create the parent directory if it doesn't exist
+        if (!Files.exists(filePath.getParent())) {
+            Files.createDirectories(filePath.getParent());
+        }
+
+        // Write tasks to the file
+        Files.write(filePath, TaskListEncoder.encode(tasks));
+    }
+
+    private static void loadTasksFromFile() throws IOException, DukeDataCorruptedException {
+        Path filePath = Paths.get(FILE_PATH);
+
+        // Check if the file exists before attempting to load
+        if (Files.exists(filePath)) {
+            try {
+                // Read tasks from the file
+                List<String> lines = Files.readAllLines(filePath);
+                tasks = TaskListDecoder.decode(lines);
+            } catch (FileNotFoundException e) {
+                // If the file is not found, throw a more specific exception
+                throw new FileNotFoundException("Data file not found");
+            } catch (IOException e) {
+                throw new IOException("Error reading tasks from the file.", e);
+            } catch (DukeDataCorruptedException e) {
+                // Rethrow other exceptions, including DukeDataCorruptedException
+                throw e;
+            }
+        } else {
+            tasks = new ArrayList<>(); // Initialize with an empty list if the file doesn't exist yet
+        }
+    }
+
+    private static void ensureDataFileExists() throws IOException {
+        Path filePath = Paths.get(FILE_PATH);
+
+        // Check if the file exists or create it
+        if (!Files.exists(filePath)) {
+            // Check if the parent directory exists, create it if not
+            if (!Files.exists(filePath.getParent())) {
+                Files.createDirectories(filePath.getParent());
+            }
+
+            // Create the data file
+            Files.createFile(filePath);
+        }
+    }
+
     // Delete a task
     private static void deleteTask(int index) {
         if (index >= 0 && index < tasks.size()) {
@@ -194,6 +267,14 @@ class Task {
         isDone = done;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "]" + "[" + (isDone ? "X" : " ") + "] " + description;
@@ -227,6 +308,9 @@ class Deadline extends Task {
     public String getStatusIcon() {
         return "D"; // Deadline tasks have "D" as their status icon
     }
+    public String getBy() {
+        return by;
+    }
 
     @Override
     public String toString() {
@@ -249,9 +333,77 @@ class Event extends Task {
         return "E"; // Event tasks have "E" as their status icon
     }
 
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+}
+class TaskListEncoder {
+    public static List<String> encode(List<Task> tasks) {
+        List<String> encodedTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            encodedTasks.add(encodeTask(task));
+        }
+        return encodedTasks;
+    }
+
+    private static String encodeTask(Task task) {
+        if (task instanceof Todo) {
+            return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
+        } else if (task instanceof Deadline) {
+            Deadline deadlineTask = (Deadline) task;
+            return "D | " + (task.isDone() ? "1" : "0") + " | " + deadlineTask.getDescription() + " | " + deadlineTask.getBy();
+        } else if (task instanceof Event) {
+            Event eventTask = (Event) task;
+            return "E | " + (task.isDone() ? "1" : "0") + " | " + eventTask.getDescription() + " | " + eventTask.getFrom() + " to " + eventTask.getTo();
+        } else {
+            // Handle other task types if needed
+            return "";
+        }
+    }
+}
+
+class TaskListDecoder {
+    public static List<Task> decode(List<String> lines) throws DukeDataCorruptedException {
+        List<Task> decodedTasks = new ArrayList<>();
+        try {
+            for (String line : lines) {
+                decodedTasks.add(decodeTask(line));
+            }
+        } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
+            throw new DukeDataCorruptedException("Data file is corrupted: " + e.getMessage());
+        }
+        return decodedTasks;
+    }
+
+    private static Task decodeTask(String line) {
+        String[] parts = line.split(" \\| ");
+        String taskType = parts[0];
+        //boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        switch (taskType) {
+            case "T":
+                return new Todo(description);
+            case "D":
+                String by = parts[3];
+                return new Deadline(description, by);
+            case "E":
+                String from = parts[3].split(" to ")[0];
+                String to = parts[3].split(" to ")[1];
+                return new Event(description, from, to);
+            default:
+                // Handle other task types if needed
+                return null;
+        }
     }
 }
 // Custom DukeException class
@@ -260,5 +412,9 @@ class DukeException extends Exception {
         super(message);
     }
 }
-
+class DukeDataCorruptedException extends Exception {
+    public DukeDataCorruptedException(String message) {
+        super(message);
+    }
+}
 
