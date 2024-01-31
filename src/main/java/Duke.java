@@ -19,9 +19,8 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String input;
 
-
         event:
-        while (true) {
+        while (scanner.hasNextLine()) {
             input = scanner.nextLine();
             String[] inputs = input.split(" ", 2);
 
