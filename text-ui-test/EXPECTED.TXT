@@ -10,17 +10,17 @@ Hello! I'm Duchess.
 What can I do for you today?
 __________________________________________________
 __________________________________________________
- Understood. I've added this task:
+ Understood. I've added this TODO task:
 [T][ ] borrow book
 Now you have 1 tasks in the list.
 __________________________________________________
 __________________________________________________
- Understood. I've added this task:
+ Understood. I've added this DEADLINE task:
 [D][ ] return book (by: Sunday)
 Now you have 2 tasks in the list.
 __________________________________________________
 __________________________________________________
- Understood. I've added this task:
+ Understood. I've added this EVENT task:
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
 Now you have 3 tasks in the list.
 __________________________________________________

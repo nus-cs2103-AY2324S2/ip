@@ -3,13 +3,18 @@ import java.util.ArrayList;
 
 public class Duchess {
     private static final int MAX_TASKS = 100;
-    private static ArrayList<Task> tasks = new ArrayList<>();
-    private static int taskCount = 0;
+    private ArrayList<Task> tasks;
+    private int taskCount;
     // Declare the scanner as a static field in the class
     private static Scanner scanner = new Scanner(System.in);
     // Enum to represent task types
     private enum TaskType {
         TODO, DEADLINE, EVENT
+    }
+
+    public Duchess() {
+        tasks = new ArrayList<>();
+        taskCount = 0;
     }
 
     public static void main(String[] args) {
@@ -18,7 +23,8 @@ public class Duchess {
         printHorizontalLine();
 
         try {
-            printEcho();
+            Duchess duchess = new Duchess();
+            duchess.printEcho();
         } catch (DuchessException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -30,7 +36,7 @@ public class Duchess {
     }
 
     //Add a ToDo to the task list
-    private static void addToDo(String userInput) throws DuchessException {
+    private void addToDo(String userInput) throws DuchessException {
         String[] toDoTokens = userInput.split("todo"); //Split to find description
         if (toDoTokens.length > 1) {
             String description = toDoTokens[1].trim(); //Trim to only keep description
@@ -42,7 +48,7 @@ public class Duchess {
     }
 
     //Add a Deadline to the taskList
-    private static void addDeadline(String userInput) throws DuchessException {
+    private void addDeadline(String userInput) throws DuchessException {
         String[] deadlineTokens = userInput.split("deadline");
 
         if (deadlineTokens.length > 1) {
@@ -63,7 +69,7 @@ public class Duchess {
     }
 
     //Add an Event to the task list
-    private static void addEvent(String userInput) throws DuchessException {
+    private void addEvent(String userInput) throws DuchessException {
         String[] eventTokens = userInput.split("event");
 
         if (eventTokens.length > 1) {
@@ -85,7 +91,7 @@ public class Duchess {
         }
     }
 
-    private static void printTaskList() {
+    private void printTaskList() {
         printHorizontalLine();
         if (taskCount == 0) {
             System.out.println(" No tasks have been added yet.");
@@ -99,7 +105,7 @@ public class Duchess {
     }
 
     //Add a task to task list
-    private static void addTask(Task task, TaskType taskType) throws DuchessException {
+    private void addTask(Task task, TaskType taskType) throws DuchessException {
         if (taskCount < MAX_TASKS) {
             tasks.add(task);
             taskCount++;
@@ -114,7 +120,7 @@ public class Duchess {
         }
     }
 
-    private static void deleteTask(int taskIndex) throws DuchessException {
+    private void deleteTask(int taskIndex) throws DuchessException {
         if (isValidTaskIndex(taskIndex)) {
             Task deletedTask = tasks.remove(taskIndex);
             taskCount--;
@@ -130,7 +136,7 @@ public class Duchess {
     }
 
     // Mark a task as done
-    private static void markTaskAsDone(int taskIndex) throws DuchessException {
+    private void markTaskAsDone(int taskIndex) throws DuchessException {
         if (isValidTaskIndex(taskIndex)) {
             tasks.get(taskIndex).markAsDone();
             printHorizontalLine();
@@ -143,7 +149,7 @@ public class Duchess {
     }
 
     // Unmark a task as done
-    private static void unmarkTaskAsDone(int taskIndex) throws DuchessException {
+    private void unmarkTaskAsDone(int taskIndex) throws DuchessException {
         if (isValidTaskIndex(taskIndex)) {
             tasks.get(taskIndex).unmarkAsDone();
             printHorizontalLine();
@@ -156,14 +162,14 @@ public class Duchess {
     }
 
     // Check if the task index is valid
-    private static boolean isValidTaskIndex(int taskIndex) {
+    private boolean isValidTaskIndex(int taskIndex) {
         return taskIndex >= 0 && taskIndex < taskCount;
     }
 
 
 
     //Adds user input to list, exits if user inputs "bye"
-    private static void printEcho() throws DuchessException {
+    private void printEcho() throws DuchessException {
         // Loop to read user input
         while (true) {
             String userInput = scanner.nextLine();
