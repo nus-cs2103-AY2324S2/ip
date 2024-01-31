@@ -77,6 +77,7 @@ class ListAdder {
             input = sc.nextLine();
         }
         goodbye();
+        sc.close();
     }
 
     /**
@@ -307,9 +308,10 @@ class ListAdder {
      */
     private void deleteTask(int index) {
         try {
-            System.out.println("\t" + "Noted. I've removed this task:" + "\n" + "\t" + this.taskList.get(index));
+            System.out.println("\t" + "Noted. I've removed this task:" + "\n" + "\t" 
+                    + "[" + this.taskList.get(index) + "]");
             this.taskList.remove(index);
-            System.out.println("\t" + "Now you have " + this.taskList.size() + " tasks in the list.");
+            System.out.println("\t" + "There are " + this.taskList.size() + " tasks in your list.");
             saveTaskListToFile();
         } catch (IndexOutOfBoundsException e) {
             invalidTaskIndex();

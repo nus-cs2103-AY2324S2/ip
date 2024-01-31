@@ -1,7 +1,9 @@
 todo Buy groceries
-deadline Submit report /by 2022-12-31
-event Team meeting /from 2022-01-01 /to 2022-01-02
+deadline Submit report /by some-time-later
+event Team meeting /from abc /to xyz
+help
 mark done 1
 mark undone 2
+delete 3
 list
 bye
