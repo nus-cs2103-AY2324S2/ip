@@ -1,3 +1,5 @@
+package task;
+
 import java.time.format.DateTimeFormatter;
 
 public class Task {
@@ -9,12 +11,8 @@ public class Task {
         this.description = description;
     }
 
-    public void mark() {
-        this.isDone = true;
-    }
-
-    public void unmark() {
-        this.isDone = false;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
