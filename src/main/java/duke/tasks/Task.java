@@ -2,6 +2,9 @@ package duke.tasks;
 
 import java.time.LocalDateTime;
 
+/**
+ * This class represents a task.
+ */
 public abstract class Task {
 
     protected String description;
@@ -9,6 +12,11 @@ public abstract class Task {
 
     protected String icon;
 
+    /**
+     * Constructor for a task.
+     * @param description The description of the task.
+     * @param icon The icon (symbol) representing the task.
+     */
     public Task(String description, String icon) {
         this.description = description;
         this.isDone = false;
@@ -32,6 +40,11 @@ public abstract class Task {
         return this.description.contains(keyword);
     }
 
+    /**
+     * Returns a decomposed version of our date time.
+     * @param dt The date time object.
+     * @return A cleaned up string version of our datetime object in the format we need.
+     */
     public String decomposeDateTime(LocalDateTime dt) {
         String minute = ((Integer) dt.getMinute()).toString();
         if (minute.length() < 2) {

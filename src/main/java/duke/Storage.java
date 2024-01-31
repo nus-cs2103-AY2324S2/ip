@@ -17,10 +17,18 @@ import duke.tasks.Events;
 import duke.tasks.Task;
 import duke.tasks.ToDos;
 
+/**
+ * This class represents a storage manager to handle logging and restoration of task list.
+ */
 public class Storage {
 
     private String path;
 
+    /**
+     * Constructor for storage manager.
+     *
+     * @param path The location where the logs will be written to.
+     */
     public Storage(String path) {
         String wd = System.getProperty("user.dir");
         try {

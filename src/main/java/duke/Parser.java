@@ -9,6 +9,9 @@ import duke.exceptions.InvalidInputException;
 import duke.exceptions.InvalidParametersException;
 import duke.exceptions.InvalidTaskException;
 
+/**
+ * This class represents the parser used to receive and handle user inputs to the UI.
+ */
 public class Parser {
     /**
      * Parses command from array.

@@ -5,22 +5,32 @@ import java.util.ArrayList;
 import duke.exceptions.CorruptedLogException;
 import duke.tasks.Task;
 
+/**
+ * This class represents a list that holds the user's tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
 
     private Storage manager;
 
+    /**
+     * Constructor for task list meant for testing.
+     */
     public TaskList() {
         this.manager = null;
     }
 
+    /**
+     * Constructor for task list.
+     * @param manager The storage manager for this task list.
+     */
     public TaskList(Storage manager) {
         this.manager = manager;
         // Try to load on initialisation
         loadTaskList();
     }
 
-    public void loadTaskList() {
+    private void loadTaskList() {
         try {
             this.manager.loadHistory(this.tasks);
         } catch (CorruptedLogException e) {
