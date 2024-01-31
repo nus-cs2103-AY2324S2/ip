@@ -27,6 +27,7 @@ public class Duke {
             }
 
             String[] commandInfo = parser.getCommandInfo();
+            // commandInfo: commandType, name, arg1, arg2
             switch (commandInfo[0]) {
                 case "BYE":
                     say("Bye bro!");
