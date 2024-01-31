@@ -1,8 +1,12 @@
+import java.util.ArrayList;
+
 public class BotManager {
     private final String name;
+    private ArrayList<String> tasks;
 
     BotManager(String name) {
         this.name = name;
+        this.tasks = new ArrayList<>();
     }
 
     void greeting() {
@@ -15,6 +19,14 @@ public class BotManager {
     }
 
     void answer(String prompt) {
-        System.out.println("    " + prompt + '\n');
+        if (prompt.equals("list")) {
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println("    " + (i + 1) + ". " + tasks.get(i));
+            }
+            System.out.println();
+        } else {
+            tasks.add(prompt);
+            System.out.println("    added " + prompt + "\n");
+        }
     }
 }
