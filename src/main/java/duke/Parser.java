@@ -77,8 +77,8 @@ public class Parser {
                 if (deleteId < 0 || deleteId >= listSize) {
                     try {
                         ui.setIndentedLine();
-                        throw new DukeException("Sorry, p" +
-                                "lease select a valid task for me to delete!");
+                        throw new DukeException("Sorry, " +
+                                "please select a valid task for me to delete!");
                     } catch (DukeException e) {
                         System.out.println("  " + e.getMessage());
                         ui.setIndentedLine();
@@ -170,8 +170,9 @@ public class Parser {
                     ui.listSizeMessage(taskList);
                     break;
                 } catch (DateTimeParseException e) {
-                    System.out.println("  "
-                            + "Sorry! Format should be event " +
+                    System.out.println("  " +
+                            "Sorry! " +
+                            "Format should be event " +
                             "(description) /from (yyyy-MM-dd HHmm) /to (yyyy-MM-dd HHmm)!");
                     ui.setIndentedLine();
                     return;
@@ -190,7 +191,6 @@ public class Parser {
                 }
         }
     }
-
 
     /**
      * Parses the category from the file and creates new tasks and adds them to the tasklist.
