@@ -1,6 +1,7 @@
 package Dao;
 
 import Database.Database;
+import Enums.TaskType;
 import Models.Deadline;
 import Models.Event;
 import Utils.StringUtils;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeadlineDao {
-  public static final String NAME = "deadline";
+  public static final String NAME = TaskType.DEADLINE.getCommand();
   private static final String byString = "/by";
 
   public static Deadline getFrom(String input) {
@@ -49,6 +50,6 @@ public class DeadlineDao {
   public static void add(Deadline deadline) {
     File table = Database.getTable(NAME);
     String data = deadline.toDataString();
-    Database.create(table.toPath().toString(), data);
+    Database.create(table.toPath(), data);
   }
 }

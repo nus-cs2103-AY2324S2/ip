@@ -1,6 +1,7 @@
 package Dao;
 
 import Database.Database;
+import Enums.TaskType;
 import Models.Event;
 import Models.Todo;
 import Utils.StringUtils;
@@ -11,8 +12,8 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TodoDao {
-  public static final String NAME = "todo";
+public class TodoDao extends TaskDao {
+  public static final String NAME = TaskType.TODO.getCommand();
   public static Todo getFrom(String input) {
     String value = StringUtils.getValueOfCommand(input, TodoDao.NAME, null);
     return new Todo(value);
@@ -35,6 +36,6 @@ public class TodoDao {
   public static void add(Todo todo) {
     File table = Database.getTable(NAME);
     String data = todo.toDataString();
-    Database.create(table.toPath().toString(), data);
+    Database.create(table.toPath(), data);
   }
 }

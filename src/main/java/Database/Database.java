@@ -1,11 +1,9 @@
 package Database;
 
-import Models.Task;
+import Utils.FileUtils;
+import Utils.StringUtils;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -26,17 +24,41 @@ public class Database {
         return null;
     }
 
-    public static void create(String filePath, String line) {
+    public static void create(Path filePath, String line) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
-            long count = Files.lines(Path.of(filePath)).count();
+            long count = Files.lines(filePath).count();
             long id = count + 1;
-            writer.write(id + " | " + line);
-            writer.write("\n");
-            writer.close();
+            line = id + " | " + line;
+            FileUtils.insert(filePath, line);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.err.println("Error occurred when writing to " + filePath);
         }
+    }
+
+    public static String findById(String filePath, int id) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            String line = reader.readLine();
+            do {
+                int lineId = findId(line);
+                if (lineId == id) return line;
+                line = reader.readLine();
+            } while (line != null);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.err.println("Error occurred when writing to " + filePath);
+        } finally {
+            return null;
+        }
+    }
+
+    public static void updateById(Path filePath, int id, String newLine) {
+        newLine = id + " | " + newLine;
+        FileUtils.update(filePath, id, newLine);
+    }
+    private static int findId(String line) {
+        String[] segments = StringUtils.splitDataString(line);
+        return Integer.parseInt(segments[0]);
     }
 }

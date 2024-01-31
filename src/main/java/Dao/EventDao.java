@@ -1,6 +1,7 @@
 package Dao;
 
 import Database.Database;
+import Enums.TaskType;
 import Models.Event;
 import Utils.StringUtils;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventDao {
-  public static final String NAME = "event";
+  public static final String NAME = TaskType.EVENT.getCommand();
   private static final String FROM_STRING = "/from";
   private static final String TO_STRING = "/to";
   public static Event getFrom(String input) {
@@ -51,7 +52,7 @@ public class EventDao {
   public static void add(Event event) {
     File table = Database.getTable(NAME);
     String data = event.toDataString();
-    Database.create(table.toPath().toString(), data);
+    Database.create(table.toPath(), data);
   }
 
 }
