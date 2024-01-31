@@ -7,7 +7,7 @@ public class Duke {
     private static Task[] memory = new Task[100];  // to store tasks
     private static int index = 0;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
