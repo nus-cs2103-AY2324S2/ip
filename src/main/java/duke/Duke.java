@@ -31,7 +31,7 @@ public class Duke {
     private final Storage storage;
     private TaskList tasks;
 
-    public Duke(DukeConfig config) throws IOException {
+    Duke(DukeConfig config) throws IOException {
         ui = new TextUi();
         storage = new FileStorage(config.getFilePath());
         try {
@@ -42,7 +42,7 @@ public class Duke {
         }
     }
 
-    public void run() {
+    void run() {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
