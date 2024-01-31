@@ -152,4 +152,19 @@ public class TaskList implements Iterable<Task> {
     public Iterator<Task> iterator() {
         return taskList.iterator();
     }
+    
+    public String findTasks(String keyword) {
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:");
+        int count = 0;
+        for (Task task : taskList) {
+            if (task.contains(keyword)) {
+                sb.append("\n" + (count + 1) + ". " + task);
+                count++;
+            }
+        }
+        if (count == 0) {
+            return "No matching tasks found.";
+        }
+        return sb.toString();
+    }
 }

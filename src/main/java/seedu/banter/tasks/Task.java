@@ -43,4 +43,8 @@ public abstract class Task {  // default access modifier
     public boolean isDone() {
         return isDone;
     }
+    
+    public boolean contains(String keyword) {
+        return description.contains(keyword);
+    }
 }

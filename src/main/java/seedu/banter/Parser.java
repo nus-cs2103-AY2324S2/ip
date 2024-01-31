@@ -82,6 +82,9 @@ public class Parser {
                     case DELETE:
                         parseDelete(input);
                         break;
+                    case FIND:
+                        parseFind(input);
+                        break;
                     default:
                         throw Errors.InvalidCommandError;
                 }
@@ -215,6 +218,16 @@ public class Parser {
         Card taskDeletedMessage = new Card(taskList.deleteTask(taskNumber));
         storage.saveTaskList(taskList);
         taskDeletedMessage.print();
+    }
+    
+    private void parseFind(String input) throws InvalidBanterUsageError {
+        String[] tokens = getTokens(input);
+        if (tokens.length == 1) {
+            throw Errors.MissingKeywordError;
+        }
+        String keyword = joinTokens(tokens, 1, tokens.length - 1);
+        Card taskFoundMessage = new Card(taskList.findTasks(keyword));
+        taskFoundMessage.print();
     }
 
 
