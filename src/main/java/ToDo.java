@@ -3,8 +3,16 @@ public class ToDo extends Task {
         super(taskTitle);
     }
 
+    public ToDo(String taskTitle, boolean isDone) {
+        super(taskTitle, isDone);
+    }
     @Override
     public String toString() {
         return "[T] " + super.toString();
+    }
+
+    @Override
+    public String toFile() {
+        return "T " + super.toFile() + "\n";
     }
 }

@@ -7,6 +7,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String taskTitle, boolean isDone) {
+        this.taskTitle = taskTitle;
+        this.isDone = isDone;
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
@@ -22,5 +27,9 @@ public class Task {
     @Override
     public String toString() {
         return this.taskTitle + this.getStatusIcon();
+    }
+
+    public String toFile() {
+        return "| " + (this.isDone ? 1 : 0) + " | " + this.taskTitle;
     }
 }
