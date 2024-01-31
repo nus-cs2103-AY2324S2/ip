@@ -173,7 +173,7 @@ class Storage {
 
         if (!file.exists()) {
             throw new DukeException("File not found");
-        }
+        }//
 
         try (Scanner fileScanner = new Scanner(file)) {
             while (fileScanner.hasNext()) {
