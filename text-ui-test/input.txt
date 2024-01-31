@@ -8,5 +8,6 @@ mark 4
 unmark 3
 deadline return book /by 2002/08/24
 event project meeting /from Mon 2pm /to 4pm
+delete 6
 list
 bye
