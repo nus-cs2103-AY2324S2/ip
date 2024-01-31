@@ -5,7 +5,7 @@ package theadvisor;
  */
 public class Parser {
     public enum Prompts {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND
     }
 
     /**
@@ -20,7 +20,7 @@ public class Parser {
             return Prompts.valueOf(prompt.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new TheAdvisorException("Incorrect prompt use. Please try again with these prompts: " +
-                    "todo, list, mark, unmark, bye, event, deadline");
+                    "todo, list, mark, unmark, bye, event, deadline, find");
         }
     }
 }
