@@ -10,6 +10,12 @@ public class TaskList {
         this.store = store;
         this.list = store.load();
     }
+
+    public TaskList() throws DukeException{
+
+        this.list = new ArrayList<Task>(100);
+    }
+
     public static void addtask() throws DukeException{
         System.out.println("Got it. I've added this task:\n");
 
@@ -124,6 +130,14 @@ public class TaskList {
         for (int a = 0; a < list.size(); a++) {
             System.out.println(a + 1 + ". " + list.get(a).ToString());
         }
+    }
+
+    public int getSize(){
+        return list.size();
+    }
+
+    public Task getTask(int n){
+        return list.get(n);
     }
 
 
