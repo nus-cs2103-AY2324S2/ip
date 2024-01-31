@@ -26,4 +26,8 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
+
+    public String fileToString() {
+        return (this.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.description;
+    }
 }

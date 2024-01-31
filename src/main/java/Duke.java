@@ -1,6 +1,8 @@
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
+import java.nio.file.Path;
 import java.util.ArrayList;
 public class Duke {
     public static void main(String[] args) throws IOException {
@@ -9,12 +11,14 @@ public class Duke {
         System.out.println("Hello! I'm AcademicWeapon");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
-        //String action;
+        File file = FileManager.load();
+        FileManager.readFile(file);
         Action action = Action.TODO;
-        ArrayList<Task> lst = new ArrayList<>();
+        ArrayList<Task> lst = FileManager.getList(file);
         do {
         String input = br.readLine();
         String[] inputParts = input.split(" ", 2);
+
         try {
             action = Action.valueOf(inputParts[0].toUpperCase());
         } catch (IllegalArgumentException e) {
@@ -79,7 +83,7 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                     break;
                 case DEADLINE:
-                    String[] splitAgain = inputParts[1].split("/by");
+                    String[] splitAgain = inputParts[1].split(" /by ");
                     Task addDeadlineTask = new Deadline(splitAgain[0], splitAgain[1]);
                     lst.add(addDeadlineTask);
                     System.out.println("____________________________________________________________");
@@ -104,6 +108,7 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                     System.out.println("Bye. Hope to see you again soon!");
                     System.out.println("____________________________________________________________");
+                    FileManager.saveFile(file, lst);
                     break;
                 case DELETE:
                     try {
