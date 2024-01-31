@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.File;
+import java.time.LocalDate;
+
 public class Duke {
     
     private static final String FILE_PATH = System.getProperty("user.home") + File.separator
@@ -168,7 +170,8 @@ public class Duke {
                 }
                 int indexOfBy = inputFromUser.indexOf("/by");
                 String deadlineDescription = inputFromUser.substring(9, indexOfBy - 1);
-                String by = inputFromUser.substring(indexOfBy + 4);
+                String deadline = inputFromUser.substring(indexOfBy + 4);
+                LocalDate by = Task.formatDateForParsing(deadline);
                 Task deadlineTask = new Deadlines(deadlineDescription, by);
                 Duke.echo(deadlineTask, list);
                 try {
@@ -184,8 +187,10 @@ public class Duke {
                 int indexOfFrom = inputFromUser.indexOf("/from");
                 int indexOfTo = inputFromUser.indexOf("/to");
                 String eventDescription = inputFromUser.substring(6, indexOfFrom - 1);
-                String start = inputFromUser.substring(indexOfFrom + 6, indexOfTo - 1);
-                String end = inputFromUser.substring(indexOfTo + 4);
+                String startString = inputFromUser.substring(indexOfFrom + 6, indexOfTo - 1);
+                String endString = inputFromUser.substring(indexOfTo + 4);
+                LocalDate start = Task.formatDateForParsing(startString);
+                LocalDate end = Task.formatDateForParsing(endString);
                 Task eventTask = new Events(eventDescription, start, end);
                 Duke.echo(eventTask, list);
                 try {
