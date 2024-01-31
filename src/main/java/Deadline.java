@@ -1,19 +1,23 @@
-public class Deadline extends Task {
-    private String dueDate;
-    public Deadline(String task, String dueDate) {
-        super(task);
-        this.dueDate = dueDate;
-    }
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+public class Deadline extends Task {
+    private LocalDateTime dueDateTime;
+
+    public Deadline(String task, LocalDateTime dueDateTime) {
+        super(task);
+        this.dueDateTime = dueDateTime;
+    }
 
     @Override
     public String formatTask() {
         String status = getStatus() ? "1" : "0";
-        return String.format("T | %s | %s | %s", status, super.formatTask(), dueDate);
+        return String.format("D | %s | %s | %s", status, super.formatTask(), dueDateTime);
     }
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), dueDate);
+        return String.format("[D]%s (by: %s)", super.toString(),
+                dueDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")));
     }
 }
