@@ -1,3 +1,4 @@
+package Mona;
 public class Ui {
     public Ui() {
         this.greet();
