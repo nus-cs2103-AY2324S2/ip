@@ -10,8 +10,9 @@ import duke.Ui;
 public abstract class Command {
     /**
      * Execute a command.
-     * @param tasks The list of tasks.
-     * @param ui UI interface with the user.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      UI interface with the user.
      * @param storage Storage interface for persistence.
      * @return The reply to the user.
      */
@@ -19,6 +20,7 @@ public abstract class Command {
 
     /**
      * Whether this command signals to exit the Chatbot.
+     *
      * @return true if should exit, false if not.
      */
     public boolean isExit() {
@@ -27,6 +29,7 @@ public abstract class Command {
 
     /**
      * Object.equals, required for tests.
+     *
      * @param other the other object to check with.
      * @return true if equals false if not.
      */

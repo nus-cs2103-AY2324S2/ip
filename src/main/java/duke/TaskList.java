@@ -24,6 +24,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Return a task at a certain index in the list.
+     *
      * @param idx Zero-based index in task list.
      * @return The task at said index.
      */
@@ -37,6 +38,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Remove a task at a certain index.
+     *
      * @param idx Zero-based index of task to remove from the list.
      */
     public void remove(int idx) {
@@ -49,6 +51,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Add a task to the end of the list.
+     *
      * @param task the task to add.
      */
     public void add(Task task) {
@@ -95,7 +98,7 @@ public class TaskList implements Iterable<Task> {
         if (!(other instanceof TaskList)) {
             return false;
         }
-        return this.tasks.equals(((TaskList)other).tasks);
+        return this.tasks.equals(((TaskList) other).tasks);
     }
 
 }

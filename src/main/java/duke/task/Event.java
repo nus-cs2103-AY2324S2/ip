@@ -11,9 +11,10 @@ public class Event extends Task {
 
     /**
      * Constructor.
+     *
      * @param event The event itself.
-     * @param from When the event starts.
-     * @param to When the event ends.
+     * @param from  When the event starts.
+     * @param to    When the event ends.
      */
     public Event(String event, LocalDateTime from, LocalDateTime to) {
         super();

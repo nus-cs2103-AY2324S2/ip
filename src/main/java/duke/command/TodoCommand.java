@@ -9,12 +9,13 @@ import duke.task.ToDo;
 /**
  * Representation of a user's *todo* command.
  */
-public class TodoCommand extends Command{
+public class TodoCommand extends Command {
 
     private final String todo;
 
     /**
      * Constructor.
+     *
      * @param todo What the user needs to do.
      */
     public TodoCommand(String todo) {
@@ -23,8 +24,9 @@ public class TodoCommand extends Command{
 
     /**
      * Execute this todo.
-     * @param tasks The list of tasks.
-     * @param ui UI interface with the user.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      UI interface with the user.
      * @param storage Storage interface for persistence.
      * @return Information about the todo.
      */

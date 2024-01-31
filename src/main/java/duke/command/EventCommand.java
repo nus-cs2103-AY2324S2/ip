@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 /**
  * Add an event.
  */
-public class EventCommand extends Command{
+public class EventCommand extends Command {
 
     private final String event;
     private final LocalDateTime fromDate;
@@ -18,9 +18,10 @@ public class EventCommand extends Command{
 
     /**
      * Constructor.
-     * @param event The name of the event to add.
+     *
+     * @param event    The name of the event to add.
      * @param fromDate When the event starts.
-     * @param toDate When the event ends.
+     * @param toDate   When the event ends.
      */
     public EventCommand(String event, LocalDateTime fromDate, LocalDateTime toDate) {
         this.event = event;
@@ -30,8 +31,9 @@ public class EventCommand extends Command{
 
     /**
      * Adds the event to the task list.
-     * @param tasks The list of tasks.
-     * @param ui UI interface with the user.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      UI interface with the user.
      * @param storage Storage interface for persistence.
      * @return The updated task list as a string.
      */

@@ -29,10 +29,12 @@ public abstract class Task implements Serializable {
     public void unmark() {
         this.done = false;
     }
+
     public abstract String toString();
 
     /**
      * Formats a date in the format Month day Year.
+     *
      * @param date The date to format to.
      * @return String of the formatted date.
      */
@@ -43,6 +45,7 @@ public abstract class Task implements Serializable {
 
     /**
      * Checks if the task contains a keyword.
+     *
      * @param keyword The keyword to check for.
      * @return true if contains, false if it does not.
      */

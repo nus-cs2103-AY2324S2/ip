@@ -11,6 +11,7 @@ public class Deadline extends Task {
 
     /**
      * Constructor.
+     *
      * @param event The event itself.
      * @param dueBy When the event is due by.
      */

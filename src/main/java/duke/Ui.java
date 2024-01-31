@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Ui {
     private final Scanner sc;
+
     public Ui() {
         String msg =
                 "Hello! I'm Refinement\n"

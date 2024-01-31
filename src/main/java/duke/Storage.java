@@ -14,13 +14,14 @@ public class Storage {
 
     /**
      * Save tasks to file.
+     *
      * @param tasks ArrayList of tasks.
      * @throws ChatException if we cannot write to the file.
      */
     public static void save(ArrayList<Task> tasks) {
         try (FileOutputStream file = new FileOutputStream(fileName);
-            ObjectOutputStream objectOut = new ObjectOutputStream(file);) {
-            for (Object task: tasks) {
+             ObjectOutputStream objectOut = new ObjectOutputStream(file);) {
+            for (Object task : tasks) {
                 objectOut.writeObject(task);
             }
         } catch (IOException e) {
@@ -31,6 +32,7 @@ public class Storage {
 
     /**
      * Load tasks from a file.
+     *
      * @return ArrayList of tasks
      * @throws ChatException if file cannot be read or loaded from.
      */
@@ -39,8 +41,8 @@ public class Storage {
              ObjectInputStream objectIn = new ObjectInputStream(file);) {
             try {
                 ArrayList<Task> result = new ArrayList<>();
-                while(file.available() > 0) {
-                    result.add((Task)objectIn.readObject());
+                while (file.available() > 0) {
+                    result.add((Task) objectIn.readObject());
                 }
                 return result;
 

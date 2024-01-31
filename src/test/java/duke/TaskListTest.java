@@ -41,7 +41,7 @@ public class TaskListTest {
         list.add(task3);
         Task[] tasks = {task1, task2, task3};
         int idx = 0;
-        for (Task inList: list) {
+        for (Task inList : list) {
             assertEquals(inList, tasks[idx]);
             idx++;
         }

@@ -15,6 +15,7 @@ public class Parser {
     /**
      * Wrapper around Integer.parseInt to re-raise our
      * own exception.
+     *
      * @param val The value to parse to an int.
      * @return Parsed value.
      * @throws ChatException if the value is invalid.
@@ -31,7 +32,7 @@ public class Parser {
      * Simple validator to ensure the user doesn't pass in
      * bad content.
      *
-     * @param line User input.
+     * @param line      User input.
      * @param startFrom Which character to start checking from.
      * @return Processed string.
      */
@@ -46,6 +47,7 @@ public class Parser {
 
     /**
      * Parse a date in the format day/Month/Year HoursMinutes
+     *
      * @param date Raw input to pass.
      * @return A LocalDateTime object of the parse input.
      * @throws ChatException if the input is invalid
@@ -60,6 +62,7 @@ public class Parser {
 
     /**
      * Parse input from the user, returning the corresponding Command to execute.
+     *
      * @param line Raw input from user.
      * @return Command to execute.
      * @throws ChatException if the command isn't valid.
@@ -73,7 +76,7 @@ public class Parser {
             return new ListCommand();
         case "mark": {
             int idx = Parser.parseInt(line.split(" ")[1]);
-            return new MarkCommand(idx-1);
+            return new MarkCommand(idx - 1);
         }
         case "unmark": {
             int idx = Parser.parseInt(line.split(" ")[1]);

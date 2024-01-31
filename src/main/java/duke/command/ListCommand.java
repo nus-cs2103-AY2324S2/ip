@@ -11,8 +11,9 @@ import duke.task.Task;
 public class ListCommand extends Command {
     /**
      * List all tasks.
-     * @param tasks The list of tasks.
-     * @param ui UI interface with the user.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      UI interface with the user.
      * @param storage Storage interface for persistence.
      * @return The list of tasks (as a string).
      */

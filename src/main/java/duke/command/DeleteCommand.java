@@ -8,12 +8,13 @@ import duke.task.Task;
 /**
  * Delete an event.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
 
     private final int idx;
 
     /**
      * Constructor.
+     *
      * @param idx Zero-based index of task to delete.
      */
     public DeleteCommand(int idx) {
@@ -22,8 +23,9 @@ public class DeleteCommand extends Command{
 
     /**
      * Deletes an event from the Task list.
-     * @param tasks The list of tasks.
-     * @param ui UI interface with the user.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      UI interface with the user.
      * @param storage Storage interface for persistence.
      * @return Information about the task removed.
      */

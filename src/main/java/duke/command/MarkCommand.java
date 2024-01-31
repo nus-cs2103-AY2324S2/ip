@@ -8,7 +8,7 @@ import duke.task.Task;
 /**
  * Marks a task.
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
 
     private final int idx;
 
@@ -18,8 +18,9 @@ public class MarkCommand extends Command{
 
     /**
      * Mark a task.
-     * @param tasks The list of tasks.
-     * @param ui UI interface with the user.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      UI interface with the user.
      * @param storage Storage interface for persistence.
      * @return Which task was marked.
      */

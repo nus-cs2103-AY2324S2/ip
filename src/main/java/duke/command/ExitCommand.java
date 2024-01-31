@@ -11,8 +11,9 @@ public class ExitCommand extends Command {
 
     /**
      * Does nothing.
-     * @param tasks The list of tasks.
-     * @param ui UI interface with the user.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      UI interface with the user.
      * @param storage Storage interface for persistence.
      * @return Goodbye message.
      */

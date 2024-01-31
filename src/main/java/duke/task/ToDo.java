@@ -6,6 +6,7 @@ package duke.task;
 public class ToDo extends Task {
     /**
      * Todo task contains *what* to todo.
+     *
      * @param todo what it is the user needs to do.
      */
     public ToDo(String todo) {

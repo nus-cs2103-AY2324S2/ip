@@ -14,6 +14,7 @@ public class FindCommand extends Command {
 
     /**
      * Constructor.
+     *
      * @param keyword The keyword of the task to search for.
      */
     public FindCommand(String keyword) {
@@ -34,6 +35,6 @@ public class FindCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return (other instanceof FindCommand)
-                && (this.keyword.equals(((FindCommand)other).keyword));
+                && (this.keyword.equals(((FindCommand) other).keyword));
     }
 }
