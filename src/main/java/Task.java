@@ -2,12 +2,12 @@ public class Task {
     private String name;
     private Boolean status = false;
 
-    public Task(String name, int status) {
+    public Task(String name, Boolean status) {
         this.name = name;
         this.status = false;
     }
 
-    public Boolean isDone(Task task) {
+    public Boolean isDone() {
         return this.status;
     }
 
