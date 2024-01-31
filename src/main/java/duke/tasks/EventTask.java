@@ -1,6 +1,6 @@
-package tasks;
+package duke.tasks;
 
-import others.DateFormatter;
+import duke.others.DateFormatter;
 public class EventTask extends Task {
 
     private String start;

@@ -1,14 +1,15 @@
+package duke;
+
 import java.util.ArrayList;
-import java.io.IOException;
 
-import run.Parser;
-import run.Storage;
-import run.TaskList;
-import run.Ui;
+import duke.run.Parser;
+import duke.run.Storage;
+import duke.run.TaskList;
+import duke.run.Ui;
 
-import command.Command;
+import duke.command.Command;
 
-import others.BelleException;
+import duke.others.BelleException;
 
 
 

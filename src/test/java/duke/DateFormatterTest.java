@@ -1,5 +1,6 @@
-package others;
+package duke;
 
+import duke.others.DateFormatter;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

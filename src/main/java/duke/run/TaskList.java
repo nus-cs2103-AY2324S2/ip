@@ -1,6 +1,6 @@
-package run;
+package duke.run;
 
-import tasks.Task;
+import duke.tasks.Task;
 
 import java.util.ArrayList;
 

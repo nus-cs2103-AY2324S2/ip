@@ -1,4 +1,4 @@
-package others;
+package duke.others;
 
 import java.io.IOException;
 import java.time.DateTimeException;

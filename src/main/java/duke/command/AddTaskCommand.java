@@ -1,17 +1,15 @@
-package command;
+package duke.command;
 
-import java.io.IOException;
+import duke.tasks.Task;
+import duke.tasks.EventTask;
+import duke.tasks.DeadlineTask;
+import duke.tasks.TodoTask;
 
-import tasks.Task;
-import tasks.EventTask;
-import tasks.DeadlineTask;
-import tasks.TodoTask;
+import duke.run.Storage;
+import duke.run.TaskList;
+import duke.run.Ui;
 
-import run.Storage;
-import run.TaskList;
-import run.Ui;
-
-import others.BelleException;
+import duke.others.BelleException;
 
 public class AddTaskCommand extends Command {
     private String type;

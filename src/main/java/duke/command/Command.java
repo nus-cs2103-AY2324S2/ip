@@ -1,15 +1,15 @@
-package command;
+package duke.command;
 
-import run.Storage;
-import run.TaskList;
-import run.Ui;
+import duke.run.Storage;
+import duke.run.TaskList;
+import duke.run.Ui;
 
-import others.BelleException;
+import duke.others.BelleException;
 
 public abstract class Command {
 
     /**
-     * Runs the command to complete its
+     * Runs the belle.belle.command to complete its
      * specific function.
      *
      * @param s Storage containing data of
@@ -21,7 +21,7 @@ public abstract class Command {
 
     /**
      * Returns true if the program should exit
-     * after this command and false otherwise.
+     * after this belle.belle.command and false otherwise.
      *
      * @return Boolean value to exit program.
      */

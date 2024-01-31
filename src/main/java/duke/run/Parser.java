@@ -1,15 +1,15 @@
-package run;
+package duke.run;
 
-import command.AddTaskCommand;
-import command.ByeCommand;
-import command.DeleteCommand;
-import command.MarkCommand;
-import command.UnmarkCommand;
-import command.ListCommand;
-import command.Command;
-import command.FindCommand;
+import duke.command.AddTaskCommand;
+import duke.command.ByeCommand;
+import duke.command.DeleteCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+import duke.command.ListCommand;
+import duke.command.Command;
+import duke.command.FindCommand;
 
-import others.BelleException;
+import duke.others.BelleException;
 public class Parser {
 
     /**
@@ -19,12 +19,12 @@ public class Parser {
     }
 
     /**
-     * Returns correct command based on users
+     * Returns correct belle.belle.command based on users
      * input.
      *
      * @param input Users input.
-     * @return Correct command.
-     * @throws BelleException  If an invalid command is entered.
+     * @return Correct belle.belle.command.
+     * @throws BelleException  If an invalid belle.belle.command is entered.
      */
     public Command parse(String input) throws BelleException {
         String[] inputlist = input.split(" ");
@@ -50,7 +50,7 @@ public class Parser {
         } else if (inputlist[0].equals("find")) {
             return new FindCommand(inputlist[1]);
         } else {
-            throw new BelleException("Not a valid command");
+            throw new BelleException("Not a valid belle command");
         }
     }
 }

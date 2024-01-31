@@ -1,19 +1,17 @@
-package command;
+package duke.command;
 
-import java.io.IOException;
+import duke.tasks.Task;
 
-import tasks.Task;
+import duke.run.Storage;
+import duke.run.TaskList;
+import duke.run.Ui;
 
-import run.Storage;
-import run.TaskList;
-import run.Ui;
+import duke.others.BelleException;
 
-import others.BelleException;
-
-public class UnmarkCommand extends Command {
+public class MarkCommand extends Command {
     private String index;
 
-    public UnmarkCommand(String index) {
+    public MarkCommand(String index) {
         this.index = index;
     }
 
@@ -21,9 +19,9 @@ public class UnmarkCommand extends Command {
     public void execute(Storage s, TaskList t, Ui u) throws BelleException {
         try {
             Task doingtask = t.getTask(Integer.valueOf(index)-1);
-            doingtask.setTaskUndone();
+            doingtask.setTaskDone();
             System.out.println("--------------------------");
-            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("Nice! I have marked this task as done:");
             System.out.println(doingtask.toString());
             System.out.println("--------------------------");
             s.save(t.getList());

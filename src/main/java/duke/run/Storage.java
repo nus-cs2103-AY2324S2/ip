@@ -1,4 +1,4 @@
-package run;
+package duke.run;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -7,13 +7,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
-import tasks.Task;
-import tasks.EventTask;
-import tasks.DeadlineTask;
-import tasks.TodoTask;
+import duke.tasks.Task;
+import duke.tasks.EventTask;
+import duke.tasks.DeadlineTask;
+import duke.tasks.TodoTask;
 
 
-import others.BelleException;
+import duke.others.BelleException;
 
 public class Storage {
     private String filepath;

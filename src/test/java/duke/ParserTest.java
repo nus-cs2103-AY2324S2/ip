@@ -1,8 +1,10 @@
-package run;
+package duke;
 
+
+import duke.run.Parser;
 import org.junit.jupiter.api.Test;
-import others.BelleException;
-import command.*;
+import duke.others.BelleException;
+import duke.command.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

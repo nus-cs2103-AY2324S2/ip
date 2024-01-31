@@ -1,14 +1,12 @@
-package command;
+package duke.command;
 
-import java.io.IOException;
+import duke.tasks.Task;
 
-import tasks.Task;
+import duke.run.Storage;
+import duke.run.TaskList;
+import duke.run.Ui;
 
-import run.Storage;
-import run.TaskList;
-import run.Ui;
-
-import others.BelleException;
+import duke.others.BelleException;
 
 public class DeleteCommand extends Command {
     private String index;

@@ -1,6 +1,6 @@
-package tasks;
+package duke.tasks;
 
-import others.DateFormatter;
+import duke.others.DateFormatter;
 public class DeadlineTask extends Task {
     private String deadline;
 
