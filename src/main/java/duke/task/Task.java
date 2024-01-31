@@ -12,10 +12,10 @@ public abstract class Task {
     public abstract String getType();
 
     protected String getStatusIcon() {
-        return (this.getStatus() ? "X" : " ");
+        return (this.hasCompleted() ? "X" : " ");
     }
 
-    public boolean getStatus() {
+    public boolean hasCompleted() {
         return this.isDone;
     }
 
@@ -27,7 +27,9 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public String getDetails() { return this.name; }
+    public String getDetails() {
+        return this.name;
+    }
 
     @Override
     public String toString() {

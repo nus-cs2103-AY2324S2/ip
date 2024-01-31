@@ -21,32 +21,50 @@ public class Parser {
 		String[] details = taskLine[2].split(":::");
 		Task decodedTask = new ToDo(details[0]);
 
-		if (taskLine[0].equals("D")) decodedTask = new Deadline(details[0], parseStorageDate(details[1]));
-		else if (taskLine[0].equals("E")) decodedTask = new Event(details[0],
-				parseStorageDate(details[1]), parseStorageDate(details[2]));
+		if (taskLine[0].equals("D")) {
+			decodedTask = new Deadline(details[0], parseStorageDate(details[1]));
+		} else if (taskLine[0].equals("E")) {
+			decodedTask = new Event(details[0],
+					parseStorageDate(details[1]), parseStorageDate(details[2]));
+		}
 
-		if (taskLine[1].equals("1")) decodedTask.mark();
+		if (taskLine[1].equals("1")) {
+			decodedTask.mark();
+		}
 		return decodedTask;
 	}
 
 	public static Command parse(String fullCmd) throws DukeException {
 		String cmd = fullCmd.split(" ")[0];
-		if (cmd.equals("bye")) return new ExitCommand();
-		else if (cmd.equals("list")) return new ListCommand();
-		else if (cmd.equals("mark")) return parseMark(fullCmd, true);
-		else if (cmd.equals("unmark")) return parseMark(fullCmd, false);
-		else if (cmd.equals("todo")) return parseToDo(fullCmd);
-		else if (cmd.equals("deadline")) return parseDeadline(fullCmd);
-		else if (cmd.equals("event")) return parseEvent(fullCmd);
-		else if (cmd.equals("delete")) return parseDelete(fullCmd);
-		else throw new DukeException("\tSorry, what do you mean?\n");
+		switch (cmd) {
+		case "bye":
+			return new ExitCommand();
+		case "list":
+			return new ListCommand();
+		case "mark":
+			return parseMark(fullCmd, true);
+		case "unmark":
+			return parseMark(fullCmd, false);
+		case "todo":
+			return parseToDo(fullCmd);
+		case "deadline":
+			return parseDeadline(fullCmd);
+		case "event":
+			return parseEvent(fullCmd);
+		case "delete":
+			return parseDelete(fullCmd);
+		default:
+			throw new DukeException("\tSorry, what do you mean?\n");
+		}
 	}
 
 	private static MarkCommand parseMark(String fullCmd, boolean isComplete)
 			throws DukeException {
 		String markFormTxt = "\tSorry! To mark or unmark tasks, please do\n" +
 				"\t\t(un)mark (number)\n";
-		if (fullCmd.split(" ")[1].trim().isEmpty()) throw new DukeException(markFormTxt);
+		if (fullCmd.split(" ")[1].trim().isEmpty()) {
+			throw new DukeException(markFormTxt);
+		}
 		int updateIndex = Integer.parseInt(fullCmd.split(" ")[1]);
 		return new MarkCommand(updateIndex, isComplete);
 	}
@@ -58,14 +76,21 @@ public class Parser {
 
 		try {
 			String[] fullCmdArr = fullCmd.split("/", 2);
-			if (fullCmdArr.length != 2) throw new DukeException(deadlineFormTxt);
-			if (!fullCmdArr[1].substring(0, Math.min(3, fullCmdArr[1].length())).equals("by "))
+			if (fullCmdArr.length != 2) {
 				throw new DukeException(deadlineFormTxt);
+			}
+			if (!fullCmdArr[1].substring(0, Math.min(3, fullCmdArr[1].length())).equals("by ")) {
+				throw new DukeException(deadlineFormTxt);
+			}
 
 			String name = fullCmdArr[0].substring(9);
 			String dueDate = fullCmd.split("/", 2)[1].substring(3);
-			if (name.trim().isEmpty()) throw new DukeException("Description Blank");
-			if (dueDate.trim().isEmpty()) throw new DukeException(deadlineFormTxt);
+			if (name.trim().isEmpty()) {
+				throw new DukeException("Description Blank");
+			}
+			if (dueDate.trim().isEmpty()) {
+				throw new DukeException(deadlineFormTxt);
+			}
 
 			Task newTask = new Deadline(name, parseCmdDate(dueDate));
 			return new AddCommand(newTask);
@@ -81,13 +106,19 @@ public class Parser {
 
 		try {
 			String[] fullCmdArr = fullCmd.split("/from ");
-			if (fullCmdArr.length != 2) throw new DukeException(eventFormTxt);
+			if (fullCmdArr.length != 2) {
+				throw new DukeException(eventFormTxt);
+			}
 
 			String[] fromToArr = fullCmdArr[1].split(" /to ");
-			if (fromToArr.length != 2) throw new DukeException(eventFormTxt);
+			if (fromToArr.length != 2) {
+				throw new DukeException(eventFormTxt);
+			}
 
 			String name = fullCmdArr[0].substring(6);
-			if (name.trim().isEmpty()) throw new DukeException("Description Blank");
+			if (name.trim().isEmpty()) {
+				throw new DukeException("Description Blank");
+			}
 
 			Task newTask = new Event(name, parseCmdDate(fromToArr[0]),
 					parseCmdDate(fromToArr[1]));
@@ -98,9 +129,13 @@ public class Parser {
 	}
 
 	private static AddCommand parseToDo(String fullCmd) throws DukeException {
-		if (fullCmd.length() < 5) throw new DukeException("Description Blank");
+		if (fullCmd.length() < 5) {
+			throw new DukeException("Description Blank");
+		}
 		String name = fullCmd.substring(5);
-		if (name.trim().isEmpty()) throw new DukeException("Description Blank");
+		if (name.trim().isEmpty()) {
+			throw new DukeException("Description Blank");
+		}
 		Task newTask = new ToDo(name);
 		return new AddCommand(newTask);
 	}
@@ -109,7 +144,9 @@ public class Parser {
 		String deleteFormTxt = "\tDid you mean to delete the task? Please do this:\n" +
 				"\t\tdelete (number)\n";
 		try {
-			if (fullCmd.split(" ")[1].trim().isEmpty()) throw new DukeException(deleteFormTxt);
+			if (fullCmd.split(" ")[1].trim().isEmpty()) {
+				throw new DukeException(deleteFormTxt);
+			}
 			int deleteIndex = Integer.parseInt(fullCmd.split(" ")[1]);
 			return new DeleteCommand(deleteIndex);
 		} catch (Exception e) {
@@ -123,8 +160,7 @@ public class Parser {
 	}
 
 	private static LocalDateTime parseStorageDate(String date) {
-		String DATEPATTERN = "yyyy-MM-dd'T'HH:mm";
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATEPATTERN);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 		return LocalDateTime.parse(date, formatter);
 	}
 

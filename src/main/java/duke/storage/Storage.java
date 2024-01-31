@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class Storage {
 
-	private String filePath;
+	private final String filePath;
 
 	public Storage(String filePath) {
 		this.filePath = filePath;
@@ -45,7 +45,7 @@ public class Storage {
 		String toSave = "";
 		for (Task task : store.getTasks()) {
 			toSave = toSave + task.getType() + ";;;"
-					+ (task.getStatus() ? 1 : 0) + ";;;"
+					+ (task.hasCompleted() ? 1 : 0) + ";;;"
 					+ task.getDetails() + "\n";
 		}
 		fw.write(toSave);

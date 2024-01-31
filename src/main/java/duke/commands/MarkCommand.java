@@ -7,8 +7,8 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 public class MarkCommand extends Command {
-	private int updateIndex;
-	private boolean isComplete;
+	private final int updateIndex;
+	private final boolean isComplete;
 
 	public MarkCommand(int updateIndex, boolean isComplete) {
 		this.updateIndex = updateIndex;
