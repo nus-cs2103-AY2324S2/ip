@@ -1,5 +1,6 @@
 package Duke.TaskList;
 
+import Duke.DukeException.DukeException;
 import Duke.Storage.Storage;
 import Duke.Task.Deadlines.Deadlines;
 import Duke.Task.Events.Events;
@@ -17,49 +18,63 @@ public class TaskList {
         taskList = tasks;
     }
 
-    public static void mark(int num) throws IOException {
-        Task task = taskList.get(num);
-        task.markAsDone();
-        Storage.arrayToFile(taskList);
-        Ui.printingMark(task.toString());
+    public void mark(int num) throws DukeException {
+        try {
+            Task task = taskList.get(num);
+            task.markAsDone();
+            Ui.printMark(task.toString());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Please enter a number for the task that is on the list.\n");
+        }
     }
 
-    public static void unmark(int num) throws IOException {
-        Task task = taskList.get(num);
-        task.markAsUndone();
-        Storage.arrayToFile(taskList);
-        Ui.printingUnmark(task.toString());
+    public void unmark(int num) throws DukeException {
+        try {
+            Task task = taskList.get(num);
+            task.markAsUndone();
+            Ui.printUnmark(task.toString());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Please enter a number for the task that is on the list.\n");
+        }
     }
 
-    public static void toDo(String out) throws IOException {
+    public void toDo(String out) {
         Task task = new ToDos(out);
         taskList.add(task);
-        Storage.arrayToFile(taskList);
-        Ui.printingAdd(task.toString(), taskList.size());
+        Ui.printAdd(task.toString(), taskList.size());
     }
 
-    public static void deadline(String description, LocalDate date) throws IOException {
+    public void deadline(String description, LocalDate date) {
         Task task = new Deadlines(description, date);
         taskList.add(task);
-        Storage.arrayToFile(taskList);
-        Ui.printingAdd(task.toString(), taskList.size());
+        Ui.printAdd(task.toString(), taskList.size());
     }
 
-    public static void event(String description, String from, String to) throws IOException {
+    public void event(String description, String from, String to) {
         Task task = new Events(description, from, to);
         taskList.add(task);
-        Storage.arrayToFile(taskList);
-        Ui.printingAdd(task.toString(), taskList.size());
+        Ui.printAdd(task.toString(), taskList.size());
     }
 
-    public static void delete(int num) throws IOException {
-        Task task = taskList.get(num);
-        taskList.remove(num);
-        Storage.arrayToFile(taskList);
-        Ui.printingDelete(task.toString(), taskList.size());
+    public void delete(int num) throws DukeException {
+        try {
+            Task task = taskList.get(num);
+            taskList.remove(num);
+            Ui.printDelete(task.toString(), taskList.size());
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Please enter a number for the task that is on the list.\n");
+        }
     }
 
-    public static void list() {
-        Ui.printingList(taskList);
+    public Task getTask(int num) {
+        return taskList.get(num);
+    }
+
+    public int getSize() {
+        return taskList.size();
+    }
+
+    public ArrayList<Task> getList() {
+        return taskList;
     }
 }

@@ -1,5 +1,6 @@
 package Duke.Storage;
 
+import Duke.DukeException.DukeException;
 import Duke.Task.Deadlines.Deadlines;
 import Duke.Task.Events.Events;
 import Duke.Task.Task;
@@ -46,19 +47,24 @@ public class Storage {
         return taskList;
     }
 
-    private static void appendToFile(String str) throws IOException {
+    private void appendToFile(String str) throws IOException {
         FileWriter fw = new FileWriter(file, true);
         fw.write(str + "\n");
         fw.close();
     }
 
-    public static void arrayToFile(ArrayList<Task> taskList) throws IOException{
-        FileWriter fw = new FileWriter(file);
-        fw.write("");
-        fw.close();
+    public void arrayToFile(ArrayList<Task> taskList) throws DukeException {
+        try {
+            FileWriter fw = new FileWriter(file);
+            fw.write("");
+            fw.close();
 
-        for (Task task : taskList) {
-            appendToFile(task.toFile());
+            for (Task task : taskList) {
+                appendToFile(task.toFile());
+            }
+        } catch (IOException e) {
+            throw new DukeException("Error when writing to file\n");
         }
+
     }
 }

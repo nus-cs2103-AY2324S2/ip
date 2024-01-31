@@ -1,6 +1,8 @@
 package Duke.Ui;
 
 import Duke.Task.Task;
+import Duke.TaskList.TaskList;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,55 +16,54 @@ public class Ui {
     public static void showWelcome() {
         String start = "Hello! I'm Unknown \n"
                 + "What can I do for you? \n";
-        printingString(start);
+        printString(start);
     }
 
     public static void showEnd() {
         String end = "Bye. Hope to see you again soon!\n";
-        printingString(end);
+        printString(end);
     }
 
     public static void showLoadingError() {
         String error = "Error when loading file\n";
-        printingString(error);
+        printString(error);
     }
 
     public static void showError(String error) {
-        printingString(error);
+        printString(error);
     }
 
-    public String[] readCommand() {
-        return new String[]{in.next(),in.nextLine()};
+    public String readCommand() {
+        return in.nextLine();
     }
 
-    public static void printingString(String str) {
+    public static void printString(String str) {
         //Function to add the line in front and behind the text
         String lnBreak = "_______________________________________________________________\n";
         System.out.println(lnBreak + str + lnBreak);
     }
 
-    public static void printingList(ArrayList<Task> lst) {
+    public static void printList(TaskList taskList) {
         //Function to produce the string for the list to be printed
         String out = "Here are the tasks in your list:\n";
-        for(int i = 1; i < lst.size() + 1; i++) {
-            out += i + "." + lst.get(i - 1) + "\n";
+        for(int i = 1; i < taskList.getSize() + 1; i++) {
+            out += i + "." + taskList.getTask(i - 1) + "\n";
         }
-        printingString(out);
+        printString(out);
     }
 
-    public static void printingAdd(String task, int size) {
-        printingString("Got it. I've added this task: \n" + task + "\nNow you have " + size + " tasks in the list.\n");
+    public static void printAdd(String task, int size) {
+        printString("Got it. I've added this task: \n" + task + "\nNow you have " + size + " tasks in the list.\n");
     }
 
-    public static void printingMark(String task) {
-        printingString("Nice! I've marked this task as done\n" + "  " + task + "\n");
+    public static void printMark(String task) {
+        printString("Nice! I've marked this task as done\n" + "  " + task + "\n");
+    }
+    public static void printUnmark(String task) {
+        printString("OK, I've marked this task as not done yet\n" + "  " + task + "\n");
     }
 
-    public static void printingUnmark(String task) {
-        printingString("OK, I've marked this task as not done yet\n" + "  " + task + "\n");
-    }
-
-    public static void printingDelete(String task, int num) {
-        printingString("Noted. I've removed this task: \n" + task + "\nNow you have " + num + " tasks in the list.\n");
+    public static void printDelete(String task, int num) {
+        printString("Noted. I've removed this task: \n" + task + "\nNow you have " + num + " tasks in the list.\n");
     }
 }
