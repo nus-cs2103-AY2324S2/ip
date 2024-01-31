@@ -11,7 +11,7 @@ public class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
@@ -26,21 +26,21 @@ public class Task {
     }
 
     private String getStatusIcon() {
-        return (this.isDone ? "X" : " ");
+        return (isDone ? "X" : " ");
     }
 
     /**
      * Marks a task as done.
      */
     public void taskDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Unmarks a task as done.
      */
     public void taskUndone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
@@ -59,12 +59,12 @@ public class Task {
      * @return String of the task in the correct format to save.
      */    
     public String toSave() {
-        return " | " + (this.isDone ? "1" : "0") + " | " + this.description;
+        return " | " + (isDone ? "1" : "0") + " | " + description;
     }
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + this.description;
+        return "[" + getStatusIcon() + "] " + description;
     }
 
 }
