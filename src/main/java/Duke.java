@@ -71,6 +71,26 @@ public class Duke {
         }
     }
 
+    // Exceptions unique to Duke.
+    public class DukeException extends Exception {
+        public DukeException(String message) {
+            super(message);
+        }
+    }
+
+    public class EmptyDescriptionException extends DukeException {
+
+        public EmptyDescriptionException(String message) {
+            super(message);
+        }
+    }
+
+    public class UnknownCommandException extends DukeException {
+        public UnknownCommandException(String message) {
+            super(message);
+        }
+    }
+
     // The scanner the chatbot uses to scan users' inputs.
     Scanner sc = new Scanner(System.in);
 
@@ -158,14 +178,22 @@ public class Duke {
     }
 
     // Gets the description for a todo command.
-    private String getTodoDescription(String command) {
-        return getOtherThanFirstWord(command);
+    private String getTodoDescription(String command) throws EmptyDescriptionException {
+        try {
+            return getOtherThanFirstWord(command);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new EmptyDescriptionException("OOPS!!! The description of a todo cannot be empty.");
+        }
     }
 
     // Gets the description for a deadline command.
-    private String getDeadlineDescription(String command) {
-        String otherThanFirstWord = getOtherThanFirstWord(command);
-        return otherThanFirstWord.split(" /by ", 2)[0];
+    private String getDeadlineDescription(String command) throws EmptyDescriptionException {
+        try {
+            String otherThanFirstWord = getOtherThanFirstWord(command);
+            return otherThanFirstWord.split(" /by ", 2)[0];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new EmptyDescriptionException("OOPS!!! The description of a deadline cannot be empty.");
+        }
     }
 
     // Gets the deadline for a deadline command.
@@ -175,9 +203,13 @@ public class Duke {
     }
 
     // Gets the description for an event command.
-    private String getEventDescription(String command) {
-        String otherThanFirstWord = getOtherThanFirstWord(command);
-        return otherThanFirstWord.split(" /from ", 2)[0];
+    private String getEventDescription(String command) throws EmptyDescriptionException {
+        try {
+            String otherThanFirstWord = getOtherThanFirstWord(command);
+            return otherThanFirstWord.split(" /from ", 2)[0];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new EmptyDescriptionException("OOPS!!! The description of an event cannot be empty.");
+        }
     }
 
     // Gets the start for a deadline command.
@@ -279,14 +311,9 @@ public class Duke {
         printHorizontalLine();
     }
 
-    // Takes inputs from user until bye has been input.
-    private void takeInputsUntilBye() {
-        // Waits for command from user
-        String command = sc.nextLine();
-
-        // While user hasn't input bye, add task to task list
-        while (!isCommandBye(command)) {
-            // If list is input, print list, else add task to list
+    // Handles the command input by the user.
+    private void handleCommand(String command) throws UnknownCommandException {
+        try {
             if (isCommandMark(command)) {
                 markTaskAsDone(getMarkUnmarkIndex(command));
             } else if (isCommandUnmark(command)) {
@@ -299,9 +326,33 @@ public class Duke {
                 addDeadline(getDeadlineDescription(command), getDeadlineBy(command));
             } else if (isCommandEvent(command)) {
                 addEvent(getEventDescription(command), getEventFrom(command), getEventTo(command));
+            } else {
+                throw new UnknownCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
+        } catch (EmptyDescriptionException e) {
+            printHorizontalLine();
+            System.out.println("     " + e.getMessage());
+            printHorizontalLine();
+        }
+    }
 
-            command = sc.nextLine();
+    // Takes inputs from user until bye has been input.
+    private void takeInputsUntilBye() {
+        // Waits for command from user
+        String command = sc.nextLine();
+
+        // While user hasn't input bye, add task to task list
+        while (!isCommandBye(command)) {
+            // If list is input, print list, else add task to list
+            try {
+                handleCommand(command);
+            } catch (UnknownCommandException e) {
+                printHorizontalLine();
+                System.out.println("     " + e.getMessage());
+                printHorizontalLine();
+            } finally {
+                command = sc.nextLine();
+            }
         }
     }
 
