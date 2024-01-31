@@ -27,12 +27,14 @@ test {
     }
 }
 
+sourceSets.main.java.srcDirs = ['src']
+
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("jmsandiegoo.tyrone.Tyrone")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "tyrone"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
