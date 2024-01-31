@@ -10,11 +10,11 @@ import java.io.FileNotFoundException;
 
 public class Storage {
     private static final String directoryPath = "./data";
-    private static final String filePath = "./data/dude.txt";
+    private String filePath = "./data/dude.txt";
 
     private boolean createStorageIfNotExists() {
         new File(Storage.directoryPath).mkdirs();
-        File storageFile = new File(Storage.filePath);
+        File storageFile = new File(this.filePath);
         if (!storageFile.exists()) {
             System.out.println("Storage file not found. Creating storage file...");
             try {
@@ -35,9 +35,17 @@ public class Storage {
         }
     }
 
+    public Storage(String listName) {
+        this.filePath = String.format("./data/%s.txt", listName);
+        boolean success = createStorageIfNotExists();
+        if (!success) {
+            throw new DudeNoStorageException();
+        }
+    }
+
     public boolean createRow(Task task) {
         try {
-            FileWriter fw = new FileWriter(Storage.filePath, true);
+            FileWriter fw = new FileWriter(this.filePath, true);
             fw.write(task.getStorageString() + System.lineSeparator());
             fw.close();
         } catch (IOException e) {
@@ -64,7 +72,7 @@ public class Storage {
 
     public boolean clearStorage() {
         try {
-            FileWriter fw = new FileWriter(Storage.filePath);
+            FileWriter fw = new FileWriter(this.filePath);
             fw.write("");
             fw.close();
         } catch (IOException e) {
