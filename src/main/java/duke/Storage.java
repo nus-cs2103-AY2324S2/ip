@@ -8,12 +8,27 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+/**
+ * Storage class handles the loading and saving of tasks to a file.
+ */
 public class Storage {
     private String FILE_PATH;
+
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param file The file path to save and load tasks.
+     */
     public Storage(String file) {
         this.FILE_PATH = file;
     }
 
+    /**
+     * Saves a list of tasks to the file specified in the constructor.
+     *
+     * @param store The list of tasks to be saved.
+     */
     public void saveTasks(ArrayList<Task> store) {
         try {
             File file = new File(FILE_PATH);
@@ -32,6 +47,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file specified in the constructor using the Parser class.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws DukeException If an error occurs during the loading of tasks.
+     */
     public ArrayList<Task> load() throws DukeException {
         try {
             File file = new File(FILE_PATH);
