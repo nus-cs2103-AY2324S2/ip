@@ -4,12 +4,14 @@ import SlayBot.Storage;
 import SlayBot.TaskList;
 import entity.Deadline;
 import entity.Event;
+import entity.Task;
 import entity.ToDo;
 import exception.InvalidDeadlineException;
 import exception.InvalidEventException;
 import exception.InvalidTodoException;
 import exception.UnknownCommandException;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
@@ -134,6 +136,18 @@ public class Ui {
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println(DIVIDER + "\n Please input a valid index\n" + DIVIDER);
                         continue;
+                    }
+                case FIND:
+                    try {
+                        List<Task> matchingTasks = tasks.findTasks(splitWords[1]);
+                        System.out.println(DIVIDER);
+                        System.out.println("Here are the matching tasks in your list");
+                        for (int i = 0; i < matchingTasks.size(); i++) {
+                            System.out.println(i + 1 + ". " + matchingTasks.get(i).toString());
+                        }
+                        System.out.println(DIVIDER);
+                    } catch (NullPointerException e) {
+                        System.out.println(DIVIDER + "\n No Results Found \n" + DIVIDER);
                     }
             }
         }

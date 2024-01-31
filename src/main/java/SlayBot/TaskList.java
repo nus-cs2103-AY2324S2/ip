@@ -33,6 +33,18 @@ public class TaskList {
         }
     }
 
+    public List<Task> findTasks(String searchValue) {
+        List<Task> result = new ArrayList<>();
+
+        for (Task t : this.tasks) {
+            if (t.toString().contains(searchValue)) {
+                result.add(t);
+            }
+        }
+
+        return result;
+    }
+
     public void markTask(int index) {
         Task taskToMark = tasks.get(index);
         taskToMark.setMarked(true);

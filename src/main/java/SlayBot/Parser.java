@@ -22,6 +22,7 @@ public class Parser {
         MARK,
         UNMARK,
         DELETE,
+        FIND,
 
     }
     public Deadline parseDeadline(String[] arr) throws InvalidDeadlineException {
@@ -119,7 +120,8 @@ public class Parser {
 
             case "delete":
                 return Command.DELETE;
-
+            case "find":
+                return Command.FIND;
             default:
                 throw new UnknownCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
