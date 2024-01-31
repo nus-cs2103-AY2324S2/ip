@@ -1,17 +1,17 @@
 /**
- * This class represents a task list of up to 100 Tasks
+ * This class represents a list of Tasks of up to 100 Tasks
  *
  * @author Billy Ho Cheng En
  */
 
 import java.util.ArrayList;
 
-class TaskList {
+class TaskList implements Savable {
 
     private final ArrayList<Task> arr;
 
     /**
-     * Constructor for a task list.
+     * Constructs a new TaskList with initial capacity of 100
      */
     public TaskList() {
         arr = new ArrayList<Task>(100);
@@ -46,9 +46,24 @@ class TaskList {
         return arr.get(index).unmarkDone();
     }
 
+    /**
+     * Removes the Task at the given index from this list
+     *
+     * @param index The index of the Task to be removed
+     * @return The String representation of the removed Task
+     */
     public String delete(int index) {
         String ret = this.arr.get(index).toString();
         this.arr.remove(index);
+        return ret;
+    }
+
+    @Override
+    public String saveString() {
+        String ret = "";
+        for (Task t : this.arr) {
+            ret = ret + t.saveString() + "\n";
+        }
         return ret;
     }
 

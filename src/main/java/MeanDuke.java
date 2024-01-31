@@ -1,5 +1,13 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * This class represents a MEAN chatbot with task-tracking capabilities
+ */
 public class MeanDuke {
 
     //Text art to be used
@@ -17,11 +25,21 @@ public class MeanDuke {
     private static final String INTRO = LOGO + SPACER + "\n" + "What do you want this time?\n" + SPACER;
     private static final String OUTRO = SPACER + "\n" + "Finally you're finished, thought you would never stop yapping.\n" + SPACER;
 
-
-    //Creates an empty TaskList
+    //Creates an empty task list
     static TaskList tasklist = new TaskList();
 
     public static void main(String[] args) {
+
+        //Try to load Task List from hard disk. If missing or corrupted, create a new file
+        File savedTaskList = new File("./data/MeanDuke.txt");
+        try {
+            load(savedTaskList);
+            System.out.println("Successfully loaded save file.");
+        } catch (FileNotFoundException | NoSuchElementException e) {
+            System.out.println(e);
+            System.out.println("Missing or corrupted save file. Creating new tasklist");
+            tasklist = new TaskList();
+        }
 
         //Prints intro
         System.out.println(INTRO);
@@ -38,18 +56,22 @@ public class MeanDuke {
                 switch (command[0]) {
                 case "add":
                     output = MeanDuke.add(userInput);
+                    save(savedTaskList);
                     break;
                 case "list":
                     output = tasklist.toString();
                     break;
                 case "mark":
                     output = MeanDuke.mark(userInput);
+                    save(savedTaskList);
                     break;
                 case "unmark":
                     output = MeanDuke.unmark(userInput);
+                    save(savedTaskList);
                     break;
                 case "delete":
                     output = MeanDuke.delete(userInput);
+                    save(savedTaskList);
                     break;
                 default:
                     output = "What are you saying? Read the damn user manual, it was written for a reason";
@@ -91,7 +113,7 @@ public class MeanDuke {
                     throw new MeanDukeException("Usage: \"add deadline <description> /by <deadline>\"");
                 }
 
-            case "event": //add event john /from /to
+            case "event":
                 try {
                     String[] desc_fromTo = split[2].split("/from ", 2);
                     String[] from_to = desc_fromTo[1].split("/to", 2);
@@ -159,6 +181,66 @@ public class MeanDuke {
             throw new MeanDukeException("Usage: \"delete <task_number>\"");
         } catch (IndexOutOfBoundsException e) {
             throw new MeanDukeException("Dude... you don't even have a task " + indexString);
+        }
+    }
+
+    /**
+     * Loads a saved TaskList from the given File
+     *
+     * @param saveFile The File containing the save data
+     * @throws FileNotFoundException if the File is not found
+     * @throws NoSuchElementException if the save File is not in the expected format or is corrupted
+     */
+    private static void load(File saveFile) throws FileNotFoundException, NoSuchElementException {
+        Scanner s = new Scanner(saveFile);
+        while (s.hasNext()) {
+            switch (s.nextLine()) {
+            case "TODO":
+                tasklist.add(new ToDo(s.nextLine(), parseBoolean(s.nextLine())));
+                break;
+            case "DEADLINE":
+                tasklist.add(new Deadline(s.nextLine(), parseBoolean(s.nextLine()), s.nextLine()));
+                break;
+            case "EVENT":
+                tasklist.add(new Event(s.nextLine(), parseBoolean(s.nextLine()), s.nextLine(), s.nextLine()));
+                break;
+            default:
+                throw new NoSuchElementException(s.nextLine());
+            }
+        }
+    }
+
+    /**
+     * Parses the given string into a boolean value.
+     *
+     * @param str The string to be parsed
+     * @return true or false depending on the string
+     * @throws java.util.InputMismatchException if string is not a valid boolean value
+     */
+    private static boolean parseBoolean(String str) throws java.util.InputMismatchException {
+        if (str.equals("true")) {
+            return true;
+        } else if (str.equals("false")) {
+            return false;
+        } else {
+            throw new java.util.InputMismatchException();
+        }
+    }
+
+    /**
+     * Save the current TaskList into disk
+     *
+     * @param savedTaskList The File to save the data into
+     */
+    private static void save(File savedTaskList) {
+        try {
+            new File("./data").mkdir();
+            FileWriter fw = new FileWriter(savedTaskList);
+            fw.write(tasklist.saveString());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("An error has occurred during saving.");
+            System.out.println(e);
         }
     }
 }
