@@ -1,3 +1,5 @@
+package checkbot.task;
+
 public class Deadline extends Task {
     private final String to;
 

@@ -1,6 +1,6 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+package checkbot.task;
+
+import checkbot.exception.InvalidIndexException;
 
 public class TodoList {
     private final Task[] taskList = new Task[100];

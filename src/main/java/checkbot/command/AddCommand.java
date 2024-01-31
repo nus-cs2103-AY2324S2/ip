@@ -1,3 +1,9 @@
+package checkbot.command;
+
+import checkbot.*;
+import checkbot.exception.SaveFileException;
+import checkbot.task.*;
+
 public class AddCommand extends Command {
     Task task;
 

@@ -1,3 +1,9 @@
+package checkbot;
+
+import checkbot.command.Command;
+import checkbot.exception.CheckbotException;
+import checkbot.task.TodoList;
+
 import java.util.Scanner;
 
 public class Checkbot {

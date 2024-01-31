@@ -1,3 +1,8 @@
+package checkbot;
+
+import checkbot.command.*;
+import checkbot.exception.*;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

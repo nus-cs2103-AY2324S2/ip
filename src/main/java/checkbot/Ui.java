@@ -1,3 +1,5 @@
+package checkbot;
+
 public class Ui {
     public static final String INDENTATION = "  ";
     private static final String SEPARATOR = "____________________________________________________________";

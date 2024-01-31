@@ -1,3 +1,5 @@
+package checkbot.exception;
+
 public class InvalidIndexException extends CheckbotException {
     public InvalidIndexException(String index) {
         super("\"" + index + "\" is not a number.");

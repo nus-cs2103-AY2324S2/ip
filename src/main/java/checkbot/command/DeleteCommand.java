@@ -1,3 +1,10 @@
+package checkbot.command;
+
+import checkbot.*;
+import checkbot.exception.InvalidIndexException;
+import checkbot.task.Task;
+import checkbot.task.TodoList;
+
 public class DeleteCommand extends Command {
     private final int index;
 

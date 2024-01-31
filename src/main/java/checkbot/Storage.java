@@ -1,3 +1,8 @@
+package checkbot;
+
+import checkbot.exception.SaveFileException;
+import checkbot.task.*;
+
 import java.io.*;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -78,7 +83,7 @@ public class Storage {
     public void saveTasks(TodoList todoList) throws SaveFileException {
         try {
             Writer writer = new FileWriter(filePath);
-            writer.write(filePath);
+            writer.write(todoList.formatForFile());
             writer.close();
         } catch (IOException e) {
             throw new SaveFileException();
