@@ -16,27 +16,62 @@ import capone.tasks.Event;
 import capone.tasks.Task;
 import capone.tasks.ToDo;
 
+/**
+ * The Storage class is responsible for reading and writing tasks
+ * to a JSON file. It provides methods to initialize the file if
+ * it doesn't exist, read and writes tasks to the file.
+ * The file is stored in a specified folder with a given filename.
+ *
+ * @author Tay Rui-Jie
+ */
 public class Storage {
     private final String jsonFilename;
     private final String jsonFilepath;
 
+    /**
+     * Constructor for the Storage class.
+     *
+     * @param path The path where the JSON file is stored.
+     * @param name The name of the JSON file.
+     */
     public Storage(String path, String name) {
         this.jsonFilepath = path;
         this.jsonFilename = name;
     }
 
+    /**
+     * Gets the full path of the JSON file,
+     * including the folder path and filename.
+     *
+     * @return The full path of the JSON file.
+     */
     private String getFullPath() {
         return this.jsonFilepath + this.jsonFilename;
     }
 
+    /**
+     * Gets the filename of the JSON file.
+     *
+     * @return The filename of the JSON file.
+     */
     private String getFileName() {
         return this.jsonFilename;
     }
 
+    /**
+     * Gets the folder path where the JSON file is stored.
+     *
+     * @return The folder path where the JSON file is stored.
+     */
     private String getFilePath() {
         return this.jsonFilepath;
     }
 
+    /**
+     * Writes tasks from the task list to the JSON file.
+     *
+     * @param taskList The TaskList containing tasks to be written to the file.
+     */
     public void writeTasksToJsonFile(TaskList taskList) {
         JSONArray jsonArray = new JSONArray();
 
@@ -46,7 +81,7 @@ public class Storage {
             jsonTask.put("description", task.getDescription());
             jsonTask.put("status", task.getStatus());
 
-            // Add type-specific information for capone.tasks.Deadline and capone.tasks.Event tasks
+            // Add type-specific information for Deadline and Event tasks
             if (task instanceof Deadline) {
                 jsonTask.put("deadline", ((Deadline) task).getDeadline());
             } else if (task instanceof Event) {
@@ -64,6 +99,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads tasks from the JSON file and adds them to the task list.
+     *
+     * @param taskList The TaskList where tasks will be added.
+     * @throws TaskListCorruptedException If the JSON file is corrupted or has an invalid format.
+     */
     public void readTasksFromJsonFile(TaskList taskList) throws TaskListCorruptedException {
         try {
             this.initFileIfNotExist();
@@ -93,11 +134,14 @@ public class Storage {
             e.printStackTrace();
         } catch (JSONException e) {
             initFileIfNotExist();
-            throw new TaskListCorruptedException("Detected corrupted task list file." +
-                    " New file will be created when new tasks are created.");
+            throw new TaskListCorruptedException("Detected corrupted task list file."
+                    + " New file will be created when new tasks are created.");
         }
     }
 
+    /**
+     * Initializes the JSON file if it does not exist.
+     */
     public void initFileIfNotExist() {
         // Create the folder if it doesn't exist
         File folder = new File(this.getFilePath());

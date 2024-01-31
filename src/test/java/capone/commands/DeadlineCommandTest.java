@@ -16,12 +16,20 @@ import capone.Ui;
 import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 
+/**
+ * Test class for the DeadlineCommand.
+ *
+ * @author Tay Rui-Jie
+ */
 public class DeadlineCommandTest {
     private TaskList taskList;
     private Ui ui;
     private Storage storage;
     private final ByteArrayOutputStream stdoutMsg = new ByteArrayOutputStream();
 
+    /**
+     * Initializes the components needed for each test.
+     */
     @BeforeEach
     public void initializeComponents() {
         this.storage = new Storage("./data/", "test.json");
@@ -30,41 +38,65 @@ public class DeadlineCommandTest {
         System.setOut(new PrintStream(stdoutMsg));
     }
 
+    /**
+     * Tests the behavior of the DeadlineCommand when no description is provided.
+     * Expects an InsufficientArgumentException to be thrown with the correct error message.
+     */
     @Test
-    public void execute_noDescription_exceptionThrown() {
-        Command c = new DeadlineCommand(Parser.splitInput("deadline /by 2023-12-12 1800"));
+    public void execute_noDescription_throwsInsufficientArgumentException() {
+        Command deadlineCommand = new DeadlineCommand(Parser.splitInput("deadline /by 2023-12-12 1800"));
 
-        InsufficientArgumentException e = assertThrows(InsufficientArgumentException.class, () -> {
-            c.execute(this.taskList, this.ui, this.storage);
+        InsufficientArgumentException exception = assertThrows(InsufficientArgumentException.class, () -> {
+            deadlineCommand.execute(this.taskList, this.ui, this.storage);
         });
 
         String expectedMsg = "Insufficient arguments!\nUsage: deadline [description] /by [date]";
-
-        assertEquals(expectedMsg, e.getMessage());
+        assertEquals(expectedMsg, exception.getMessage());
     }
 
+    /**
+     * Tests the behavior of the DeadlineCommand when no date/time is provided.
+     * Expects an InsufficientArgumentException to be thrown with the correct error message.
+     */
     @Test
-    public void execute_noDateTime_exceptionThrown() {
-        Command c = new DeadlineCommand(Parser.splitInput("deadline do iP /by"));
+    public void execute_noDateTime_throwsInsufficientArgumentException() {
+        Command deadlineCommand = new DeadlineCommand(Parser.splitInput("deadline do iP /by"));
 
-        InsufficientArgumentException e = assertThrows(InsufficientArgumentException.class, () -> {
-            c.execute(this.taskList, this.ui, this.storage);
+        InsufficientArgumentException exception = assertThrows(InsufficientArgumentException.class, () -> {
+            deadlineCommand.execute(this.taskList, this.ui, this.storage);
         });
 
+<<<<<<< HEAD
         String expectedMsg = "Please enter a date for this deadline task!\n"
                 + "Usage: deadline [description] /by [date]";
 
         assertEquals(expectedMsg, e.getMessage());
+=======
+        String expectedMsg = "Please enter a date for this deadline task!\n" +
+                "Usage: deadline [description] /by [date]";
+        assertEquals(expectedMsg, exception.getMessage());
+>>>>>>> branch-A-JavaDoc
     }
 
+    /**
+     * Tests the behavior of the DeadlineCommand with valid input.
+     * Expects the command to execute successfully and the correct message to be printed.
+     */
     @Test
     public void execute_validInput_success() throws CaponeException {
-        Command c = new DeadlineCommand(Parser.splitInput("deadline clean room /by 2024-01-31 1800"));
-        c.execute(this.taskList, this.ui, this.storage);
+        Command deadlineCommand = new DeadlineCommand(Parser.splitInput("deadline clean room /by 2024-01-31 1800"));
 
+        deadlineCommand.execute(this.taskList, this.ui, this.storage);
+
+<<<<<<< HEAD
         String expectedMsg = String.format("Got it. I've added this task:\n%s\n"
                 + "Now you have %d task(s) in the list.\n", taskList.getLastTask().toString(), taskList.getSize());
 
+=======
+        String expectedMsg = String.format("Got it. I've added this task:\n%s\n" +
+                "Now you have %d task(s) in the list.\n", taskList.getLastTask().toString(), taskList.getSize());
+>>>>>>> branch-A-JavaDoc
         assertEquals(expectedMsg, stdoutMsg.toString());
+
     }
 }

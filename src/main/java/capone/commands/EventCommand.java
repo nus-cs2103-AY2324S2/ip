@@ -10,20 +10,43 @@ import capone.Storage;
 import capone.TaskList;
 import capone.Ui;
 import capone.exceptions.CaponeException;
+import capone.exceptions.InsufficientArgumentException;
+import capone.exceptions.InvalidCommandException;
 import capone.tasks.Event;
 
+/**
+ * Represents a command to add an event task to the TaskList.
+ * Extends the abstract class Command.
+ *
+ * @author Tay Rui-Jie
+ */
 public class EventCommand extends Command {
+
+    /** List containing input parameters for EventCommand. */
     private final ArrayList<String> inputList;
 
+    /**
+     * Constructs an EventCommand with the specified input list.
+     *
+     * @param inputList The list containing input parameters for the EventCommand.
+     */
     public EventCommand(ArrayList<String> inputList) {
         this.inputList = inputList;
     }
 
+    /**
+     * Executes the EventCommand, adding a new event task to the TaskList.
+     *
+     * @param taskList The TaskList to be updated.
+     * @param ui       The Ui to interact with the user.
+     * @param storage  The Storage for saving data.
+     * @throws CaponeException If any Capone-related exception occurs.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
         // If the inputList has only one string, throw error (insufficient args).
         if (inputList.size() == 1) {
-            throw new CaponeException("Insufficient arguments!\n"
+            throw new InsufficientArgumentException("Insufficient arguments!\n"
                     + "Usage: event [description] /from [date] /to [date]");
         }
 
@@ -32,14 +55,14 @@ public class EventCommand extends Command {
 
         // If /to is specified before /from, throw error.
         if (toNdx < fromNdx) {
-            throw new CaponeException("Please input from date followed by to date!\n"
+            throw new InvalidCommandException("Please input from date followed by to date!\n"
                     + "Usage: event [description] /from [date] /to [date]");
         }
 
         // Catch potential errors from date entry.
         if (fromNdx == -1 || toNdx == -1 || toNdx - fromNdx == 1 || fromNdx - toNdx == 1
                 || fromNdx == inputList.size() - 1 || toNdx == inputList.size() - 1) {
-            throw new CaponeException("Please enter a start and end date!\n"
+            throw new InsufficientArgumentException("Please enter a start and end date!\n"
                     + "Usage: event [description] /from [date] /to [date]");
         }
 
@@ -54,7 +77,7 @@ public class EventCommand extends Command {
         }
 
         if (description.toString().equalsIgnoreCase("")) {
-            throw new CaponeException("Insufficient arguments!\n"
+            throw new InsufficientArgumentException("Insufficient arguments!\n"
                     + "Usage: event [description] /from [date] /to [date]");
         }
 
@@ -111,7 +134,7 @@ public class EventCommand extends Command {
             taskList.addTask(new Event(description.toString(), false, fromDateTime, toDateTime));
         } else if (fromDateTime != null || toDateTime != null) {
             // If either fromDateTime or toDateTime is null but the other is not.
-            throw new CaponeException("Oops! It seems like there is a format mismatch between"
+            throw new InvalidCommandException("Oops! It seems like there is a format mismatch between"
                     + "your start and dates and end dates.\nMake sure you enter both of them in the accepted "
                     + "date format!\nAlternatively, you can specify a string for both your start and end dates.\n"
                     + "Use the 'help' command for more information.");
@@ -126,5 +149,4 @@ public class EventCommand extends Command {
                 + "Now you have %d task(s) in the list.\n", taskList.getLastTask().toString(), taskList.getSize()));
 
     }
-
 }

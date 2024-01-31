@@ -23,20 +23,42 @@ import capone.commands.UnmarkCommand;
 import capone.exceptions.InvalidDateException;
 import capone.exceptions.InvalidTimeException;
 
+/**
+ * This class is responsible for processing user inputs and generating
+ * corresponding command objects. It also provides methods for reading
+ * and splitting user inputs, and checking date and time formats.
+ *
+ * @author Tay Rui-Jie
+ */
 public class Parser {
     private static ArrayList<String> inputList;
     private static final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Splits the user input into a list of strings.
+     *
+     * @param input The user input to be split.
+     * @return ArrayList of tokens obtained by splitting the input.
+     */
     public static ArrayList<String> splitInput(String input) {
-        // Split inputs by space and store them in an arraylist for processing.
         return new ArrayList<>(Arrays.asList(input.split("\\s+")));
     }
 
+    /**
+     * Reads a line of user input from the console.
+     *
+     * @return The user input as a String.
+     */
     public static String readUserInput() {
         return Parser.scanner.nextLine();
     }
 
-    // We process the user inputs and accordingly generate the correct command types.
+    /**
+     * Processes user inputs and returns the appropriate
+     * Command instance based on the first word of the input.
+     *
+     * @return Command object corresponding to the user input.
+     */
     public static Command processInputs() {
         Parser.inputList = Parser.splitInput(Parser.readUserInput());
         String firstWord = inputList.get(0);
@@ -66,36 +88,36 @@ public class Parser {
         }
     }
 
-
     /**
-     * Checks if date was an input. The recognized format is:
-     * YYYY-MM-DD
+     * Checks if the given input string follows the date format 'YYYY-MM-DD'.
      *
-     * @param input the input string to be checked against.
-     * @return true if a valid date is recognised, false otherwise.
+     * @param input The input string to be checked.
+     * @return True if the input matches the date format, false otherwise.
      */
     public static boolean isDateFormat(String input) {
         String dateFormatRegex = "\\d{4}-\\d{2}-\\d{2}";
-
-        // Check if the input string matches the format
         return input.matches(dateFormatRegex);
     }
 
     /**
-     * Checks if time was an input. The recognized formats is:
-     * 1800 (24-hour format).
+     * Checks if the given input string follows the time
+     * format 'HHmm' (24-hour format).
      *
-     * @param input the input string to be checked against.
-     * @return true if a valid time is recognised, false otherwise.
+     * @param input The input string to be checked.
+     * @return True if the input matches the time format, false otherwise.
      */
     public static boolean isTimeFormat(String input) {
         String timeFormatRegex = "(\\d{4})";
-
-        // Check if the input string matches the format
         return input.matches(timeFormatRegex);
     }
 
-
+    /**
+     * Processes the date and time components and returns a LocalDateTime object.
+     *
+     * @param date The LocalDate object representing the date.
+     * @param time The LocalTime object representing the time.
+     * @return LocalDateTime object combining the date and time.
+     */
     public static LocalDateTime processDateTime(LocalDate date, LocalTime time) {
         if (date != null) {
             if (time != null) {
@@ -104,17 +126,21 @@ public class Parser {
                 return date.atStartOfDay();
             }
         } else {
-            // If only the time is specified, the deadline will be the time at the next day.
             if (time != null) {
                 return LocalDate.now().plusDays(1).atTime(time);
             } else {
-                // Else, if both date and time are null, return null input to use
-                // the string input of date/time by user.
                 return null;
             }
         }
     }
 
+    /**
+     * Parses the input string into a LocalDate object.
+     *
+     * @param date The input string representing the date.
+     * @return LocalDate object parsed from the input.
+     * @throws InvalidDateException If the input string is not a valid date.
+     */
     public static LocalDate parseDate(String date) throws InvalidDateException {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
@@ -124,6 +150,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input string into a LocalTime object.
+     *
+     * @param time The input string representing the time.
+     * @return LocalTime object parsed from the input.
+     * @throws InvalidTimeException If the input string is not a valid time.
+     */
     public static LocalTime parseTime(String time) throws InvalidTimeException {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
         try {
@@ -132,5 +165,4 @@ public class Parser {
             throw new InvalidTimeException("Oops! You have entered an invalid time. Please try again.");
         }
     }
-
 }

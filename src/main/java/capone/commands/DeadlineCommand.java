@@ -13,14 +13,35 @@ import capone.exceptions.CaponeException;
 import capone.exceptions.InsufficientArgumentException;
 import capone.tasks.Deadline;
 
-
+/**
+ * Represents a command to add a deadline task to TaskList.
+ * Extends the abstract class Command.
+ *
+ * @author Tay Rui-Jie
+ */
 public class DeadlineCommand extends Command {
+
+    /** List containing input parameters for DeadlineCommand. */
     private final ArrayList<String> inputList;
 
+    /**
+     * Constructs a DeadlineCommand with the specified input list.
+     *
+     * @param inputList The list containing input parameters for the DeadlineCommand.
+     */
     public DeadlineCommand(ArrayList<String> inputList) {
         this.inputList = inputList;
     }
 
+    /**
+     * Executes the DeadlineCommand, adding a new deadline task to the TaskList.
+     *
+     * @param taskList The TaskList to be updated.
+     * @param ui       The Ui to interact with the user.
+     * @param storage  The Storage for saving data.
+     * @throws CaponeException If any Capone-related exception occurs.
+     * @inheritDoc
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
         // If the inputList has only one string, throw error (insufficient args).
@@ -90,5 +111,4 @@ public class DeadlineCommand extends Command {
                 + "Now you have %d task(s) in the list.\n",
                 taskList.getLastTask().toString(), taskList.getSize()));
     }
-
 }
