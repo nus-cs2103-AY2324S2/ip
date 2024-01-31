@@ -12,7 +12,6 @@ public class Duke {
         greet();
         command();
     }
-
     static ArrayList<Task> listItems = new ArrayList<>();
     public enum Command{
         list, todo, deadline, event, mark, unmark, delete, bye
@@ -23,29 +22,29 @@ public class Duke {
         while (!input.equals(Command.bye.toString())) {
             String[] cmds = input.split(" ");
             switch(Command.valueOf(cmds[0])) {
-                case list:
-                    showList();
-                    break;
-                case mark:
-                    markList(Integer.parseInt(cmds[1]));
-                    break;
-                case unmark:
-                    unmarkList(Integer.parseInt(cmds[1]));
-                    break;
-                case todo:
-                    addTodo(input);
-                    break;
-                case deadline:
-                    addDeadline(input);
-                    break;
-                case event:
-                    addEvent(input);
-                    break;
-                case delete:
-                    deleteList(Integer.parseInt(cmds[1]));
-                    break;
-                default:
-                    erroMsg("I regret to inform you that I currently lack an understanding of the intended meaning behind that statement.");
+            case list:
+                showList();
+                break;
+            case mark:
+                markList(Integer.parseInt(cmds[1]));
+                break;
+            case unmark:
+                unmarkList(Integer.parseInt(cmds[1]));
+                break;
+            case todo:
+                addTodo(input);
+                break;
+            case deadline:
+                addDeadline(input);
+                break;
+            case event:
+                addEvent(input);
+                break;
+            case delete:
+                deleteList(Integer.parseInt(cmds[1]));
+                break;
+            default:
+                erroMsg("I regret to inform you that I currently lack an understanding of the intended meaning behind that statement.");
             }
             input = scanner.nextLine();
         }
