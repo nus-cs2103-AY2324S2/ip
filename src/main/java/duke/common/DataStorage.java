@@ -105,15 +105,21 @@ public class DataStorage {
         // TODO: Handle a dirty input.
         if (line.startsWith("T")) {
             // then it is a task
-            if (length != 3) throw new MalformedUserInputException("Your database is corrupted.");
+            if (length != 3) {
+                throw new MalformedUserInputException("Your database is corrupted.");
+            }
             return new Todo(splitTask[1], Boolean.valueOf(splitTask[2]));
         } else if (line.startsWith("D")) {
             // then it is a deadline
-            if (length != 4) throw new MalformedUserInputException("Your database is corrupted.");
+            if (length != 4) {
+                throw new MalformedUserInputException("Your database is corrupted.");
+            }
             return new Deadline(splitTask[1], splitTask[3], Boolean.valueOf(splitTask[2]));
         } else if (line.startsWith("E")) {
             // then it is an event
-            if (length != 5) throw new MalformedUserInputException("Your database is corrupted.");
+            if (length != 5) {
+                throw new MalformedUserInputException("Your database is corrupted.");
+            }
             return new Event(splitTask[1], splitTask[3], splitTask[4], Boolean.valueOf(splitTask[2]));
         } else {
             throw new MalformedUserInputException("Your database is potentially corrupted");
