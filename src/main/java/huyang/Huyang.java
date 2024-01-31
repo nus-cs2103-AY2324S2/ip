@@ -61,6 +61,11 @@ public class Huyang {
                     case DELETE:
                         isChanged = tasks.deleteTask(input, ui);
                         break;
+                    case FIND:
+                        String keyword = input.substring(5).trim().toLowerCase();
+                        ArrayList<Task> foundTasks = tasks.findTasks(keyword);
+                        ui.showFoundTasks(foundTasks);
+                        break;
                     case BYE:
                         isExit = true;
                         break;

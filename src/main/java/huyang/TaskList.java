@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * TaskList class representing a list of tasks and providing operations to manipulate the tasks.
@@ -74,7 +75,7 @@ public class TaskList {
         if (commandType == Parser.CommandType.MARK) {
             task.check();
             ui.printMarkedTask(task);
-        } else {
+        } else { // Unmark
             task.uncheck();
             ui.printUnmarkedTask(task);
         }
@@ -152,6 +153,12 @@ public class TaskList {
         } catch (DateTimeParseException e) {
             throw new TaskException("Invalid date format. Please use YYYY-MM-DD HHMM, e.g., 2020-12-02 1800.");
         }
+    }
+
+    public ArrayList<Task> findTasks(String keyword) {
+        return tasks.stream()
+                .filter(task -> task.getTaskName().toLowerCase().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     private void addTask(Task task) {

@@ -8,7 +8,7 @@ public class Parser {
      * Enumeration representing the possible command types.
      */
     public enum CommandType {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE, UNKNOWN;
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, BYE, UNKNOWN;
     }
 
     /**
@@ -33,6 +33,8 @@ public class Parser {
             return CommandType.EVENT;
         } else if (input.startsWith("delete ")) {
             return CommandType.DELETE;
+        } else if (input.startsWith("find ")) {
+            return CommandType.FIND;
         } else if (input.equals("bye")) {
             return CommandType.BYE;
         } else {
