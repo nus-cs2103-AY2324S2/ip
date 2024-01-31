@@ -31,7 +31,7 @@ public class Storage {
 
             Path directoryPath = filePath.getParent();
             // Check if directory exists
-            Files.createDirectory(directoryPath);
+            Files.createDirectories(directoryPath);
 
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
