@@ -4,11 +4,11 @@ import java.util.Arrays;
 
 public class Parser {
 
-    public Parser () {
+    public Parser() {
 
     }
 
-    public Command parse(String input) throws DukeException{
+    public Command parse(String input) throws DukeException {
         String[] parts = input.split(" ");
         switch (parts[0]) {
             case "list":

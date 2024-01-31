@@ -17,6 +17,7 @@ public class Duke {
     public enum CommandType {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
     }
+
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -34,6 +35,7 @@ public class Duke {
             tasks = new TaskList();
         }
     }
+
     public void run() {
 
         ui.showWelcome();
@@ -77,28 +79,23 @@ public class Duke {
                     case DELETE:
                         Task deletedTask = tasks.deleteTask(Integer.parseInt(cmd.args[0]) - 1);
                         ui.showTaskDeleted(deletedTask, tasks.getSize());
-                        numList(tasks.getSize());
                         break;
                     default:
                         throw new DukeException("Unknown command");
                 }
                 storage.updateFile(tasks.getFileStrings());
             } catch (duke.DukeException e) {
-                lineBreak();
+                printLineBreak();
                 System.out.println(e.getMessage());
             }
-            lineBreak();
+            printLineBreak();
             input = ui.readCommand();
         }
         ui.showGoodbye();
     }
 
-    public static void lineBreak() {
+    public static void printLineBreak() {
         System.out.println("____________________________________________________________\n");
-    }
-
-    public static void numList(int len) {
-        System.out.printf(" Now you have %d duke.tasks in the list.%n", len);
     }
 
     public static LocalDateTime createDateTime(String input) throws DukeException {
@@ -158,7 +155,7 @@ public class Duke {
         return newTodo;
     }
 
-    public static Deadline createDeadline(String description, String dueDate) throws DukeException{
+    public static Deadline createDeadline(String description, String dueDate) throws DukeException {
 
         LocalDateTime dueDateTime = createDateTime(dueDate);
         if (dueDateTime == null) {

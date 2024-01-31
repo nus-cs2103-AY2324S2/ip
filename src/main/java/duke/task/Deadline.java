@@ -2,6 +2,7 @@ package duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
     protected LocalDateTime dueDate;
@@ -16,12 +17,13 @@ public class Deadline extends Task {
         this.dueDate = LocalDateTime.parse(newDueDate);
     }
 
-    public String formattedDueDate() {
+    public String formatDueDate() {
         return this.dueDate.format(DateTimeFormatter.ofPattern(this.dateTimeFormat));
     }
+
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.formattedDueDate());
+        return String.format("[D]%s (by: %s)", super.toString(), this.formatDueDate());
     }
 
     @Override

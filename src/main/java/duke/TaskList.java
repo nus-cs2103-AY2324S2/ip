@@ -47,6 +47,7 @@ public class TaskList {
         }
         return taskStrings;
     }
+
     public String[] getFileStrings() {
         String[] storageStrings = new String[this.tasks.size()];
         for (int i = 0; i < this.tasks.size(); i++) {

@@ -10,6 +10,7 @@ public class Command {
         this.type = newType;
         this.args = new String[]{};
     }
+
     public Command(Duke.CommandType newType, String[] newArgs) {
         this.type = newType;
         this.args = newArgs;

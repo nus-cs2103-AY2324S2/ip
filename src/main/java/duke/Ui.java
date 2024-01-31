@@ -24,6 +24,7 @@ public class Ui {
         System.out.printf("____________________________________________________________%n");
 
     }
+
     public void showWelcome() {
         System.out.printf("____________________________________________________________%n");
         System.out.printf(" Hello! I'm %s%n", botName);
@@ -55,9 +56,10 @@ public class Ui {
         System.out.printf("   %s%n", task);
 
     }
+
     public void showTaskAdded(Task task, int len) {
         System.out.println("____________________________________________________________\n");
-        System.out.println( "Got it. I've added this task:");
+        System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + len + " tasks in the list.");
     }
@@ -70,6 +72,7 @@ public class Ui {
         System.out.printf("____________________________________________________________%n");
 
     }
+
     public void showGoodbye() {
         System.out.printf("____________________________________________________________%n");
         System.out.printf(" Bye. Hope to see you again soon!%n");
