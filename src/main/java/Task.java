@@ -13,9 +13,11 @@ public class Task {
 
     public void mark() {
         this.done = "[X]";
+        System.out.println("Nice! I've marked this task as done:");
     }
 
     public void unmark() {
         this.done = "[ ]";
+        System.out.println("OK, I've marked this task as not done yet:");
     }
 }
