@@ -3,6 +3,9 @@
  * and ends at a specific date/time.
  */
 public class Event extends Task {
+    // Task description consist of name, start and end of task.
+    protected String[] description = new String[3];
+
     /**
      * Constructor for an Event object.
      *
@@ -11,7 +14,10 @@ public class Event extends Task {
      * @param to end of event
      */
     public Event(String name, String from, String to) {
-        super(name + " (from: " + from + " to: " + to + ")");
+        super();
+        this.description[0] = name;
+        this.description[1] = from;
+        this.description[2] = to;
     }
 
     /**
@@ -21,15 +27,21 @@ public class Event extends Task {
      * @param b isDone
      */
     public Event(String description, boolean b) {
-        super(description, b);
+        super(b);
+        int fromIdx = description.indexOf("/from");
+        int toIdx = description.indexOf("/to");
+        this.description[0] = description.substring(6, fromIdx - 1);
+        this.description[1] = description.substring(fromIdx + 6, toIdx - 1);
+        this.description[2] = description.substring(toIdx + 4);
     }
 
     /**
      * toString method for printing task description.
-     * @return task type + task status + task name
+     * @return task status + task type + task name + duration
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString();
+        return super.toString() + "[E] " + this.description[0]
+                + "(from: " + this.description[1] + " to: " + this.description[2] + ")";
     }
 }

@@ -3,28 +3,20 @@
  * and whether the task is completed.
  */
 public class Task {
-    // Task name
-    protected String name = "";
     // Whether the task is completed.
     protected boolean isDone = false;
 
     /**
      * Constructor for a Task object.
-     *
-     * @param name task name
      */
-    public Task(String name) {
-        this.name = name;
-    }
+    public Task() { }
 
     /**
      * Constructor for loading from file.
      *
-     * @param name task name
      * @param b isDone
      */
-    public Task(String name, boolean b) {
-        this.name = name;
+    public Task(boolean b) {
         this.isDone = b;
     }
 
@@ -69,10 +61,11 @@ public class Task {
 
     /**
      * toString method for printing task description.
+     *
      * @return task status + task name
      */
     @Override
     public String toString() {
-        return isDone ? "[x] " + this.name : "[ ] " + this.name;
+        return isDone ? "[x]" : "[ ]";
     }
 }

@@ -4,6 +4,9 @@ import Exceptions.InvalidTaskNameException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,7 +30,7 @@ public class Duke {
                 + "What can I do for you today? :D\n"
                 + "~Type 'help' for more command info~\n";
         String help = "Oink! Here are the Command Words:\n'list' - displays the list of task\n"
-                + "'todo ...' - to add new task\n'deadline ... /by ...' - to add task with deadline\n"
+                + "'todo ...' - to add new task\n'deadline ... /by dd/MM/yyyy' - to add task with deadline\n"
                 + "'event ... /from ... /to ...' - to add an event\n"
                 + "'mark <task no.>' - to mark a task done\n'unmark <task no.>' - to unmark a task\n"
                 + "'delete <task no.>' - to delete a task\n'bye' - to exit the chatbot";
@@ -73,6 +76,7 @@ public class Duke {
                         }
                     }
                 } else if (userInput.startsWith(COMMANDS[5])) {
+                    // If input = "mark", mark the task done.
                     if (userInput.length() < 6) {
                         throw new InvalidTaskNameException("Ooink oink! Please follow the format >.<\n"
                                 + " >> mark <task no.>");
@@ -81,6 +85,7 @@ public class Duke {
                     taskList.get(num - 1).markDone();
 
                 } else if (userInput.startsWith(COMMANDS[6])) {
+                    // If input = "unmark", mark the task undone.
                     if (userInput.length() < 8) {
                         throw new InvalidTaskNameException("Ooink oink! Please follow the format >.<\n"
                                 + " >> unmark <task no.>");
@@ -89,13 +94,14 @@ public class Duke {
                     taskList.get(num - 1).markUndone();
 
                 } else if (userInput.startsWith(COMMANDS[7])) {
+                    // If input = "delete", remove task from list.
                     int num = userInput.charAt(7) - '0';
                     taskList.get(num - 1).printDeleteTask(taskList.size());
                     taskList.remove(num - 1);
 
                 } else if (isTodo || isDeadline || isEvent) {
                     if (isTodo) {
-                        // Adds a new todo task to the list.
+                        // Add a new todo task to the list.
                         if (len < 6) {
                             // If user did not input task name.
                             throw new InvalidTaskNameException("Ooink oink! What's the name of your task?\n"
@@ -106,22 +112,28 @@ public class Duke {
                         t.printAddTask(taskList.size());
                     } else if (isDeadline) {
                         // Add a new deadline task to the list.
-                        int idx = userInput.lastIndexOf("/by");
+                        int idx = userInput.indexOf("/by");
                         boolean isWrongInput = len < 10 || idx < 0 || len < idx + 4;
                         if (isWrongInput) {
                             // If user did not input task description.
                             throw new InvalidTaskNameException("Ooink oink! Please describe your deadline >.<\n"
-                                    + " >> deadline ... /by ...");
+                                    + " >> deadline ... /by dd/MM/yyyy");
                         }
                         String name = userInput.substring(9, idx - 1);
                         String date = userInput.substring(idx + 4);
-                        Deadline d = new Deadline(name, date);
-                        taskList.add(d);
-                        d.printAddTask(taskList.size());
+                        try {
+                            LocalDate deadline = LocalDate.parse(date, DateTimeFormatter.ofPattern("d/MM/yyyy"));
+                            Deadline d = new Deadline(name, deadline);
+                            taskList.add(d);
+                            d.printAddTask(taskList.size());
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Oink! Invalid date format! Please follow:\n"
+                                    + ">> dd/MM/yyyy");
+                        }
                     } else {
                         // Adds a new event to the list.
-                        int fromIdx = userInput.lastIndexOf("/from");
-                        int toIdx = userInput.lastIndexOf("/to");
+                        int fromIdx = userInput.indexOf("/from");
+                        int toIdx = userInput.indexOf("/to");
                         boolean isWrongInput = len < 7 || fromIdx < 0 || toIdx < 0
                                 || len < fromIdx + 6 || len < toIdx + 4;
                         if (isWrongInput) {
@@ -129,10 +141,9 @@ public class Duke {
                             throw new InvalidTaskNameException("Ooink oink! Please describe your event >.<\n"
                                     + " >> event ... /from ... /to ...");
                         }
-                        String name = userInput.substring(6, userInput.lastIndexOf("/from") - 1);
-                        String from = userInput.substring(userInput.lastIndexOf("/from") + 6,
-                                userInput.lastIndexOf("/to") - 1);
-                        String to = userInput.substring(userInput.lastIndexOf("/to") + 4);
+                        String name = userInput.substring(6, fromIdx - 1);
+                        String from = userInput.substring(fromIdx + 6, toIdx - 1);
+                        String to = userInput.substring(toIdx + 4);
                         Event e = new Event(name, from, to);
                         taskList.add(e);
                         e.printAddTask(taskList.size());
