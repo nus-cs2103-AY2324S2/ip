@@ -7,6 +7,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 public class MarkCommand extends Command {
+
 	/** Index to mark or unmark */
 	private final int updateIndex;
 	/** Denotes whether to mark or unmark task */

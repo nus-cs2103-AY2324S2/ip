@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
+
 	/** file path to store txt file */
 	private final String filePath;
 
@@ -56,7 +57,7 @@ public class Storage {
 		String toSave = "";
 		for (Task task : store.getTasks()) {
 			toSave = toSave + task.getType() + ";;;"
-					+ (task.getStatus() ? 1 : 0) + ";;;"
+					+ (task.hasCompleted() ? 1 : 0) + ";;;"
 					+ task.getDetails() + "\n";
 		}
 		fw.write(toSave);

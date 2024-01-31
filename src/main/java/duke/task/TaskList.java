@@ -5,15 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
+
 	/** List of tasks */
-	private final List<Task> store;
+	private final List<Task> tasks;
 
 	public TaskList() {
-		this.store = new ArrayList<>();
+		this.tasks = new ArrayList<>();
 	}
 
-	public TaskList(List<Task> store) {
-		this.store = store;
+	public TaskList(List<Task> tasks) {
+		this.tasks = tasks;
 	}
 
 	/**
@@ -22,7 +23,7 @@ public class TaskList {
 	 * @return List<Task> of tasks
 	 */
 	public List<Task> getTasks() {
-		return store;
+		return tasks;
 	}
 
 	/**
@@ -31,7 +32,7 @@ public class TaskList {
 	 * @return Number of tasks in the list
 	 */
 	public int getNumTasks() {
-		return store.size();
+		return tasks.size();
 	}
 
 	/**
@@ -40,7 +41,7 @@ public class TaskList {
 	 * @param newTask task to be added
 	 */
 	public void addTask(Task newTask) {
-		store.add(newTask);
+		tasks.add(newTask);
 	}
 
 	/**
@@ -51,10 +52,10 @@ public class TaskList {
 	 * @throws DukeException if number given is out of bounds
 	 */
 	public Task deleteTask(int deleteIndex) throws DukeException {
-		if (deleteIndex > store.size() || deleteIndex <= 0) {
+		if (deleteIndex > tasks.size() || deleteIndex <= 0) {
 			throw new DukeException("\tNumber out of bounds!\n");
 		}
-		return store.remove(deleteIndex - 1);
+		return tasks.remove(deleteIndex - 1);
 	}
 
 	/**
@@ -65,12 +66,19 @@ public class TaskList {
 	 * @return Task that was updated
 	 * @throws DukeException if number given is out of bounds
 	 */
-	public Task markTask(int updateIndex, boolean taskComplete) throws DukeException {
-		if (updateIndex > store.size() || updateIndex <= 0) throw new DukeException("Number Out of Bounds");
-		Task updateTask = store.get(updateIndex - 1);
+	public Task markTask(int updateIndex, boolean taskComplete)
+			throws DukeException {
+		if (updateIndex > tasks.size() || updateIndex <= 0) {
+			throw new DukeException("Number Out of Bounds");
+		}
+		Task updateTask = tasks.get(updateIndex - 1);
 
-		if (taskComplete) updateTask.mark();
-		else updateTask.unmark();
+		if (taskComplete) {
+			updateTask.mark();
+		}
+		else {
+			updateTask.unmark();
+		}
 		return updateTask;
 	}
 

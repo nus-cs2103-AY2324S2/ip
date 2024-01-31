@@ -24,7 +24,7 @@ public abstract class Task {
      * @return "X" if completed else " "
      */
     protected String getStatusIcon() {
-        return (this.getStatus() ? "X" : " ");
+        return (this.hasCompleted() ? "X" : " ");
     }
 
     /**
@@ -32,7 +32,7 @@ public abstract class Task {
      *
      * @return True if task is completed
      */
-    public boolean getStatus() {
+    public boolean hasCompleted() {
         return this.isDone;
     }
 
