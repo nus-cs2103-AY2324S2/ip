@@ -1,0 +1,26 @@
+Hello! I'm PeWPeWPeW
+What can I do for you?
+Got it. I've added this task:
+1. [T][ ] play
+Now you have 1 tasks in the list
+What else can I do for you? (try typing my name 3 times with no space in between)
+Got it. I've added this task:
+2. [D][ ] deadline do homework (by Sun)
+Now you have 2 tasks in the list
+What else can I do for you? (try typing my name 3 times with no space in between)
+Got it. I've added this task:
+3. [E][ ] event project meeting (from: Mon 2pm  to: 4pm)
+Now you have 3 tasks in the list
+What else can I do for you? (try typing my name 3 times with no space in between)
+1. [T][ ] play
+2. [D][ ] deadline do homework (by Sun)
+3. [E][ ] event project meeting (from: Mon 2pm  to: 4pm)
+What else can I do for you? (try typing my name 3 times with no space in between)
+Noted. I've removed this task:
+2. [D][X] deadline do homework (by Sun)
+Now you have 2 tasks in the list
+What else can I do for you? (try typing my name 3 times with no space in between)
+1. [T][ ] play
+3. [E][ ] event project meeting (from: Mon 2pm  to: 4pm)
+What else can I do for you? (try typing my name 3 times with no space in between)
+Bye. Hope to see you again soon!
