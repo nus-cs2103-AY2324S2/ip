@@ -98,6 +98,19 @@ public class Ui {
 	}
 
 	/**
+	 * Prints search results to user
+	 *
+	 * @param searchList containing list of task matched
+	 */
+	public void find(List<Task> searchList) {
+		StringBuilder findTxt = new StringBuilder("\tHere's what I found:\n");
+		for (int i = 0; i < searchList.size(); i++) {
+			findTxt.append("\t ").append(i + 1).append(".").append(searchList.get(i)).append("\n");
+		}
+		System.out.println(TXT_LINE + findTxt + TXT_LINE);
+	}
+
+	/**
 	 * Prints error line to the user
 	 *
 	 * @param errorMsg containing details of the issue

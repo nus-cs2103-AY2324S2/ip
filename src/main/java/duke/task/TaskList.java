@@ -3,6 +3,7 @@ package duke.task;
 import duke.data.exception.DukeException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList {
 
@@ -80,6 +81,18 @@ public class TaskList {
 			updateTask.unmark();
 		}
 		return updateTask;
+	}
+
+	/**
+	 * Returns list of tasks with given search string
+	 *
+	 * @param searchString keywords to search for
+	 * @return List<Task> of tasks with given keyword
+	 */
+	public List<Task> search(String searchString) {
+		return tasks.stream()
+				.filter(task -> task.getDetails().contains(searchString))
+				.collect(Collectors.toList());
 	}
 
 }
