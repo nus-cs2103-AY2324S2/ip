@@ -43,13 +43,16 @@ public class Duke {
                 "What can I do for you today?\n" +
                 "_______________________________________________________\n";
         System.out.println(greeting);
+        Scanner sc = new Scanner(System.in);
 
         while (true) {
             try {
-                Scanner sc = new Scanner(System.in);
 
                 String input = sc.next();
-                if (input.equals("bye")) break;
+                if (input.equals("bye")) {
+                    sc.close();
+                    break;
+                }
                 else if (input.equals("list")) {
                     list();
                 } else if (input.equals("mark")) {

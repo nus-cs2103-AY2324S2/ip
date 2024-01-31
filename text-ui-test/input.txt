@@ -1,0 +1,9 @@
+todo read book
+deadline wash clothes /by Sunday 6pm
+event do homework /from Saturday 2pm /to Saturday 6pm
+list
+mark 1
+mark 2
+delete 1
+list
+bye
