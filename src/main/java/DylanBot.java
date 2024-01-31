@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Duke {
+public class DylanBot {
     static ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) throws DylanBotException {
         String logo = " ____        _        \n"
@@ -17,41 +17,53 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
         String input;
-
         while (!"bye".equals((input = scanner.nextLine()))) {
-            if (input.equals("list")) {
-                for (int i = 0; i < tasks.size(); i++) {
-                    Task curr = tasks.get(i);
-                    System.out.println("\t" + (i + 1) + ". " + curr.toString());
+            try {
+                if (input.isEmpty()) {
+                    throw new DylanBotException("HEY no input BETTER SAY SOMETHING");
                 }
-            } else if (input.startsWith("mark")) {
-                int idx = Integer.parseInt(input.split(" ")[1]);
-                if (idx > tasks.size() || idx < 0) {
-                    throw new DylanBotException("HEY index requested is out of bounds");
+                if (input.equals("list")) {
+                    for (int i = 0; i < tasks.size(); i++) {
+                        Task curr = tasks.get(i);
+                        System.out.println("\t" + (i + 1) + ". " + curr.toString());
+                    }
+                } else if (input.startsWith("mark")) {
+                    if (input.split(" ").length < 2) {
+                        throw new DylanBotException("HEY no index specified for item to mark");
+                    }
+                    int idx = Integer.parseInt(input.split(" ")[1]);
+                    if (idx > tasks.size() || idx < 0) {
+                        throw new DylanBotException("HEY index requested is out of bounds");
+                    }
+                    tasks.get(idx - 1).completed = true;
+                    System.out.println("Aight marked this task as done:\n\t"
+                            + tasks.get(idx - 1).toString());
+                } else if (input.startsWith("unmark")) {
+                    if (input.split(" ").length < 2) {
+                        throw new DylanBotException("HEY no index specified for item to mark");
+                    }
+                    int idx = Integer.parseInt(input.split(" ")[1]);
+                    if (idx > tasks.size() || idx < 0) {
+                        throw new DylanBotException("HEY index requested is out of bounds");
+                    }
+                    tasks.get(idx - 1).completed = false;
+                    System.out.println("Sian marked this task as undone:\n\t"
+                            + tasks.get(idx - 1).toString());
+                } else if (input.startsWith("todo")) {
+                    createTodo(input);
+                } else if (input.startsWith("deadline")) {
+                    createDeadline(input);
+                } else if (input.startsWith("event")) {
+                    createEvent(input);
+                } else if (input.startsWith("delete")) {
+                    deleteTask(input);
+                } else {
+                    throw new DylanBotException("Hello INVALID INPUT pls make it make sense");
                 }
-                tasks.get(idx - 1).completed = true;
-                System.out.println("Aight marked this task as done:\n\t"
-                        + tasks.get(idx - 1).toString());
-            } else if (input.startsWith("unmark")) {
-                int idx = Integer.parseInt(input.split(" ")[1]);
-                if (idx > tasks.size() || idx < 0) {
-                    throw new DylanBotException("HEY index requested is out of bounds");
-                }
-                tasks.get(idx - 1).completed = false;
-                System.out.println("Sian marked this task as undone:\n\t"
-                        + tasks.get(idx - 1).toString());
-            } else if (input.startsWith("todo")) {
-                createTodo(input);
-            } else if (input.startsWith("deadline")) {
-                createDeadline(input);
-            } else if (input.startsWith("event")) {
-                createEvent(input);
-            } else if (input.startsWith("delete")) {
-                deleteTask(input);
-            } else {
-                throw new DylanBotException("Hello INVALID INPUT pls make it make sense");
+                System.out.println("Wow! Now you have " + tasks.size() + " tasks in your list");
+            } catch (DylanBotException e) {
+                System.out.println(e);
             }
-            System.out.println("Wow! Now you have " + tasks.size() + " tasks in your list");
         }
         System.out.println(exit);
     }
