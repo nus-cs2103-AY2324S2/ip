@@ -5,8 +5,8 @@ todo
 deadline /by a
 event project /from /to 4pm
 todo read book
-deadline read book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline read book /by 2020-12-10 12:30
+event project meeting /from 2020-10-10 12:39 /to 2020-10-11 12:49
 list
 unmark 2
 mark 2

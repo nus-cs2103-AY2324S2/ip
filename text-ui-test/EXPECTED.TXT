@@ -5,8 +5,8 @@ What can I do for you today?
 
 ---Start by entering a todo, deadline or event with the relevant details!
 Todo: todo + task ;
-Event: event + task + /from... + /to... ;
-Deadline: deadline + task + /by...;
+Event: event + task + /from yyyy-MM-dd HH:mm + /to yyyy-MM-dd HH:mm;
+Deadline: deadline + task + /by yyyy-MM-dd HH:mm;
 View the task list with List/list, or close the chat with Bye/bye!
 Mark/Unmark a task in the list with mark (number) or unmark (number)
 Delete a task in the list with delete (number)
@@ -14,12 +14,12 @@ Records will be remembered if you close me and reopen me!---
 
 Here are the tasks in your list:
 
-1.[D][ ] read book  (by: Sunday)
+1.[D][ ] read book  (by:Dec 10 2020 12:30)
 
 Error.Please enter a todo, deadline or event with the relevant details!
 Todo: todo + task ;
-Event: event + task + /from... + /to... ;
-Deadline: deadline + task + /by...;
+Event: event + task + /from yyyy-MM-dd HH:mm + /to yyyy-MM-dd HH:mm;
+Deadline: deadline + task + /by yyyy-MM-dd HH:mm;
 
 There are only: 1 task(s) in the list to delete.
 
@@ -34,19 +34,19 @@ Understood. I've added this task:
 Now you have 2 task(s) in the list.
 
 Understood. I've added this task:
- 3.[D][ ] read book  (by: Sunday)
+ 3.[D][ ] read book  (by:Dec 10 2020 12:30)
 Now you have 3 task(s) in the list.
 
 Understood. I've added this task:
- 4.[E][ ] project meeting (from: Mon 2pm  to: 4pm)
+ 4.[E][ ] project meeting (from:Oct 10 2020 12:39 to:Oct 11 2020 12:49)
 Now you have 4 task(s) in the list.
 
 Here are the tasks in your list:
 
-1.[D][ ] read book  (by: Sunday)
+1.[D][ ] read book  (by:Dec 10 2020 12:30)
 2.[T][ ] read book
-3.[D][ ] read book  (by: Sunday)
-4.[E][ ] project meeting (from: Mon 2pm  to: 4pm)
+3.[D][ ] read book  (by:Dec 10 2020 12:30)
+4.[E][ ] project meeting (from:Oct 10 2020 12:39 to:Oct 11 2020 12:49)
 
 This task is already unmarked.
 
@@ -63,16 +63,16 @@ Very well. I have removed this task.
 Now you have 3 task(s) in the list.
 
 Very well. I have removed this task.
-[E][ ] project meeting (from: Mon 2pm  to: 4pm)
+[E][ ] project meeting (from:Oct 10 2020 12:39 to:Oct 11 2020 12:49)
 Now you have 2 task(s) in the list.
 
 Very well. I have removed this task.
-[D][ ] read book  (by: Sunday)
+[D][ ] read book  (by:Dec 10 2020 12:30)
 Now you have 1 task(s) in the list.
 
 Here are the tasks in your list:
 
-1.[D][ ] read book  (by: Sunday)
+1.[D][ ] read book  (by:Dec 10 2020 12:30)
 
 This task is already unmarked.
 
@@ -82,6 +82,6 @@ Please mark a valid task!
 
 Here are the tasks in your list:
 
-1.[D][ ] read book  (by: Sunday)
+1.[D][ ] read book  (by:Dec 10 2020 12:30)
 
 Bye. Hope to see you again soon!

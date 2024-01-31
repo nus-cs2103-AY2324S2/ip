@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 /**
  * Represent a subclass that stores information and 2 timings/dates to be used with a Chatbot
  * CS2103T
@@ -16,6 +18,9 @@ public class Event extends Task{
      */
     protected String to;
 
+    protected LocalDateTime convertedFrom;
+    protected LocalDateTime convertedTo;
+
     /**
      * Constructor for a Event instance,
      * @param description to be used to identify a task
@@ -24,8 +29,12 @@ public class Event extends Task{
      */
     public Event(String description, String from, String to) {
         super(description);
-        this.from =from;
+        DateTimeFormatter accepted = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm ");
+        DateTimeFormatter accepted1 = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm");
+        this.from = from;
         this.to = to;
+        this.convertedFrom = LocalDateTime.parse(from, accepted);
+        this.convertedTo = LocalDateTime.parse(to, accepted1);
         Task.currentTaskNum++;
     }
 
@@ -35,7 +44,9 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from:" + this.from + " to:" + this.to + ")";
+        DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        return "[E]" + super.toString() + "(from:" + this.convertedFrom.format(output)
+                    + " to:" + this.convertedTo.format(output) + ")";
     }
 
     @Override

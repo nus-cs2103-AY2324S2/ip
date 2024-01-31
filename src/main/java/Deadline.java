@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represent a subclass that stores information and 1 timing/date to be used with a Chatbot
  * CS2103T
@@ -10,7 +13,7 @@ public class Deadline extends Task{
      * A Deadline instance contains a do by time/date
      */
     protected String by;
-
+    protected LocalDateTime converted;
     /**
      * Constructor for a Deadline instance,
      * @param description to be used to identify a task
@@ -18,7 +21,9 @@ public class Deadline extends Task{
      */
     public Deadline(String description, String by) {
         super(description);
+        DateTimeFormatter accepted = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm");
         this.by = by;
+        this.converted = LocalDateTime.parse(by, accepted);
         Task.currentTaskNum++;
     }
 
@@ -28,7 +33,8 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by:" + this.by + ")";
+        DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        return "[D]" + super.toString() + " (by:" + this.converted.format(output) + ")";
     }
 
     @Override

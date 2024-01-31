@@ -125,8 +125,8 @@ public class Duke {
         return "Hello! I'm Balom.\nWhat can I do for you today?\n\n" +
                 "---Start by entering a todo, deadline or event with the relevant details!\n" +
                 "Todo: todo + task ;\n" +
-                "Event: event + task + /from... + /to... ;\n" +
-                "Deadline: deadline + task + /by...;\n" +
+                "Event: event + task + /from yyyy-MM-dd HH:mm + /to yyyy-MM-dd HH:mm;\n" +
+                "Deadline: deadline + task + /by yyyy-MM-dd HH:mm;\n" +
                 "View the task list with List/list, or close the chat with Bye/bye!\n" +
                 "Mark/Unmark a task in the list with mark (number) or unmark (number)\n" +
                 "Delete a task in the list with delete (number)\n" +
@@ -220,8 +220,8 @@ public class Duke {
             } else {
                 throw new DukeException("Error.Please enter a todo, deadline or event with the relevant details!\n" +
                         "Todo: todo + task ;\n" +
-                        "Event: event + task + /from... + /to... ;\n" +
-                        "Deadline: deadline + task + /by...;\n");
+                        "Event: event + task + /from yyyy-MM-dd HH:mm + /to yyyy-MM-dd HH:mm;\n" +
+                        "Deadline: deadline + task + /by yyyy-MM-dd HH:mm;\n");
             }
 
             tasks.add(taskAdded);
@@ -235,8 +235,8 @@ public class Duke {
         } catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Enter a todo, deadline or event with the relevant details!\n" +
                     "Todo: todo + task ; \n" +
-                    "Event: event + task + /from... + /to... ; \n" +
-                    "Deadline: deadline + task + /by...;\n");
+                    "Event: event + task + /from yyyy-MM-dd HH:mm + /to yyyy-MM-dd HH:mm;\n" +
+                    "Deadline: deadline + task + /by yyyy-MM-dd HH:mm;\n");
         }
 
         return taskAdded;
