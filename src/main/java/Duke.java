@@ -93,13 +93,14 @@ class ListAdder {
             Path taskListPath = Paths.get(TASKLIST_PATH);
             Path folderPath = Paths.get(FOLDER_PATH);
 
-            if (Files.notExists(folderPath)) { // Create the folder and file if they don't exist
+            // Create the folder and file if they don't exist
+            if (Files.notExists(folderPath)) { 
                 Files.createDirectories(folderPath);
-                if (Files.notExists(taskListPath)) {
-                    Files.createFile(taskListPath);
-                }
             }
-
+            if (Files.notExists(taskListPath)) {
+                Files.createFile(taskListPath);
+            }
+            
             ArrayList<String> taskListFromFile = new ArrayList<>(Files.readAllLines(taskListPath));
             for (String task : taskListFromFile) {
                 String[] taskParts = task.split(" \\| ", 3);
