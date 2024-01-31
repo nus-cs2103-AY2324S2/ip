@@ -175,12 +175,12 @@ public class TaskManager {
 
     public void addTaskFromFileString(String fileLine) {
         try {
-            String[] tokens = fileLine.split(" \\| ");
+            String[] tokens = fileLine.split(" \\|");
             if (tokens.length <= 1) {
                 throw new IllegalArgumentException("Invalid task format in file!");
             }
 
-            String taskType = tokens[0].toLowerCase();
+            String taskType = tokens[0];
             if (tokens[2].isEmpty()) {
                 throw new IllegalArgumentException("The description of a task cannot be empty.");
             }
@@ -205,10 +205,9 @@ public class TaskManager {
                     tasks.add(new Event(taskDescription, eventTokens[1], eventTokens[2]));
                     break;
                 default:
-                    throw new IllegalArgumentException("Invalid task type in file.");
+                    throw new IllegalArgumentException("Invalid task type in file!");
             }
 
-            printTaskAddedMessage(tasks.size());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -261,7 +260,10 @@ public class TaskManager {
         }
     }
 
-
+    public void deleteAllTasks() {
+        tasks.removeAll(tasks);
+        resetFile();
+    }
 
     public void resetFile() {
         try {
