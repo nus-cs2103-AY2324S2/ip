@@ -92,10 +92,12 @@ public class Jerry {
                     } else {
                         String[] deadlineParts = parts[1].split(" /by ", 2);
                         Deadline deadline = new Deadline(deadlineParts[0], deadlineParts[1]);
-                        tasks.add(deadline);
-                        HardDiskOperations.saveTasks(tasks, "./data/jerry.txt");
-                        System.out.println("Got it. I've added this task:\n  " + deadline);
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        if (!deadline.byIsNull()) {
+                            tasks.add(deadline);
+                            HardDiskOperations.saveTasks(tasks, "./data/jerry.txt");
+                            System.out.println("Got it. I've added this task:\n  " + deadline);
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        }
                     }
                     break;
 
@@ -106,10 +108,12 @@ public class Jerry {
                         String[] eventParts = parts[1].split(" /from ", 2);
                         String[] fromTo = eventParts[1].split(" /to ", 2);
                         Event event = new Event(eventParts[0], fromTo[0], fromTo[1]);
-                        tasks.add(event);
-                        HardDiskOperations.saveTasks(tasks, "./data/jerry.txt");
-                        System.out.println("Got it. I've added this task:\n  " + event);
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        if (!event.dateTimeIsNull()) {
+                            tasks.add(event);
+                            HardDiskOperations.saveTasks(tasks, "./data/jerry.txt");
+                            System.out.println("Got it. I've added this task:\n  " + event);
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        }
                     }
                     break;
 
