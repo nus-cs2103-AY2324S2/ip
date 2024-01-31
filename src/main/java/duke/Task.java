@@ -5,44 +5,44 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Task {
-        protected String description;
-        protected boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-        }
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
 
-        public String getStatusIcon() {
-            return (isDone ? "X" : " "); // mark done task with X
-        }
+    public static LocalDate getInputDateFormat(String s) throws DateTimeParseException {
+        return LocalDate.parse(s, DateTimeFormatter.ofPattern("d-M-yyyy"));
+    }
 
-        public void markAsDone() {
-            this.isDone = true;
-        }
+    public static String getLocalDateOutputFormat(LocalDate date) throws DateTimeParseException {
+        return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    }
 
-        public void markAsUndone() {
-            this.isDone = false;
-        }
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
+    }
 
-        public String getDescription() {
-            return description;
-        }
+    public void markAsDone() {
+        this.isDone = true;
+    }
 
-        public String getTaskType() {
-            return " ";
-        }
+    public void markAsUndone() {
+        this.isDone = false;
+    }
 
-        @Override
-        public String toString() {
-            return "[" + this.getStatusIcon() + "] " + this.description;
-        }
+    public String getDescription() {
+        return description;
+    }
 
-        public static LocalDate getInputDateFormat(String s) throws DateTimeParseException {
-            return LocalDate.parse(s, DateTimeFormatter.ofPattern("d-M-yyyy"));
-        }
+    public String getTaskType() {
+        return " ";
+    }
 
-        public static String getLocalDateOutputFormat(LocalDate date) throws DateTimeParseException {
-            return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        }
+    @Override
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.description;
+    }
 }

@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     private String input;
     private String commandWord;
+
     public Parser(String input) {
         this.input = input;
     }
@@ -40,30 +41,32 @@ public class Parser {
         switch (taskType) {
         case "todo":
             if (input.split(" ", 2).length == 1) {
-                throw new DukeException("The description of a task cannot be empty. \n\t" +
-                    formatStringInfo);
+                throw new DukeException("The description of a task cannot be empty. \n\t"
+                    + formatStringInfo);
             }
             break;
         case "deadline":
-            if (input.split(" ", 2).length == 1 || input.split("/by ").length != 2 ) {
-                throw new DukeException("The deadline and description for a task cannot be empty. \n\t" +
-                    "Please use the following format: deadline <description> /by <dd-mm-yyyy>");
+            if (input.split(" ", 2).length == 1 || input.split("/by ").length != 2) {
+                throw new DukeException("The deadline and description for a task cannot be empty. \n\t"
+                    + "Please use the following format: deadline <description> /by <dd-mm-yyyy>");
             } else if (!input.contains("/by")) {
-                throw new DukeException("Invalid command for deadline. \n\t" +
-                    formatStringInfo + " /by <dd-mm-yyyy>");
+                throw new DukeException("Invalid command for deadline. \n\t"
+                    + formatStringInfo + " /by <dd-mm-yyyy>");
             }
             break;
         case "event":
             if (input.split(" ", 2).length == 1) {
-                throw new DukeException("The date and description for an event cannot be empty. \n\t" +
-                    formatStringInfo + " /from <dd-mm-yyyy> /to <dd-mm-yyyy>");
+                throw new DukeException("The date and description for an event cannot be empty. \n\t"
+                    + formatStringInfo + " /from <dd-mm-yyyy> /to <dd-mm-yyyy>");
             } else if (!input.contains("/from") || !input.contains("/to") || input.split("/from ").length > 2
                 || input.split("/to ").length > 2) {
-                throw new DukeException("Invalid command for event. \n\t" +
-                    formatStringInfo + " /from <dd-mm-yyyy> /to <dd-mm-yyyy>");
+                throw new DukeException("Invalid command for event. \n\t"
+                    + formatStringInfo + " /from <dd-mm-yyyy> /to <dd-mm-yyyy>");
             }
             break;
+        default:
         }
+
 
 
 

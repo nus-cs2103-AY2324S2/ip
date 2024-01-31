@@ -79,13 +79,14 @@ public class Storage {
             } else if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
                 fileWriter.write(
-                    deadline.getTaskType() + " | " + (deadline.isDone ? "1" : "0") + " | " + deadline.getDescription() +
-                        " | " + Task.getLocalDateOutputFormat(deadline.getBy()) + "\n");
+                    deadline.getTaskType() + " | " + (deadline.isDone ? "1" : "0") + " | "
+                        + deadline.getDescription() + " | " + Task.getLocalDateOutputFormat(deadline.getBy()) + "\n");
             } else if (task instanceof Event) {
                 Event event = (Event) task;
                 fileWriter.write(
-                    task.getTaskType() + " | " + (task.isDone ? "1" : "0") + " | " + task.getDescription() + " | " +
-                        Task.getLocalDateOutputFormat(event.getFrom()) + " | " + Task.getLocalDateOutputFormat(event.getTo()) + "\n");
+                    task.getTaskType() + " | " + (task.isDone ? "1" : "0") + " | "
+                        + task.getDescription() + " | " + Task.getLocalDateOutputFormat(event.getFrom()) + " | "
+                        + Task.getLocalDateOutputFormat(event.getTo()) + "\n");
             }
         }
         fileWriter.close();
