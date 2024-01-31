@@ -1,8 +1,10 @@
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Storage {
     private List<Task> taskList;
@@ -12,6 +14,7 @@ public class Storage {
     public Storage() {
         this.taskList = new ArrayList<>();
         File f = new File(FILEPATH);
+
         if (!f.exists()) {
             try {
                 f.getParentFile().mkdirs();
@@ -19,6 +22,45 @@ public class Storage {
             } catch (IOException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
             }
+        } else {
+            try {
+                loadTasks(f);
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found");
+            }
+        }
+    }
+
+    // Loads taskList from storage file
+    public void loadTasks(File f) throws FileNotFoundException {
+        // Format:
+        // T | 1 | read book
+        // D | 0 | homework | Jan
+        // E | 0 | meeting | 2pm | 4pm
+        // Currently does not handle if file is not in this format
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String curr = s.nextLine();
+            String[] parts = curr.split("\\|");
+            for (int i = 0; i < parts.length; ++i) {
+                parts[i] = parts[i].trim();
+            }
+
+            String taskType = parts[0];
+            String done = parts[1];
+            String name = parts[2];
+            Task newTask;
+            if (taskType.equals("T")) {
+                newTask = new Todo(name);
+            } else if (taskType.equals("D")) {
+                newTask = new Deadline(name, parts[3]);
+            } else {
+                newTask = new Event(name, parts[3], parts[4]);
+            }
+            if (done.equals("1")) {
+                newTask.mark();
+            }
+            taskList.add(newTask);
         }
     }
 
