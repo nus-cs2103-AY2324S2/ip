@@ -12,7 +12,7 @@ public class TaskList {
     protected ArrayList<Task> tasks = new ArrayList<>();
 
     /**
-     * Initializes TaskList when there is no tasks load.
+     * Initializes TaskList when there is no tasks to load.
      */
     public TaskList() {
     }
@@ -57,7 +57,7 @@ public class TaskList {
 
 
     /**
-     * Finds all macthing the tasks in the task list.
+     * Finds all macthing tasks in the task list.
      *
      * @param input Keyword to search for.
      * @return String of all of the tasks.
@@ -98,7 +98,7 @@ public class TaskList {
     }
 
     /**
-     * Function to format all the tasks into the correct format for saving.
+     * Function to format all the tasks into the correct format to save.
      *
      * @return ArrayList of tasks in the correct format to save.
      */

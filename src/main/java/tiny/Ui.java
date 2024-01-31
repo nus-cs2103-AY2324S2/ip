@@ -8,7 +8,7 @@ public class Ui {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     /**
-     * Displays the startup message.
+     * Displays the startup message to the user.
      */
     public void start() {
         System.out.println("   ____________________________________________________________\n");
@@ -27,14 +27,14 @@ public class Ui {
     }
 
     /**
-     * Displays the loading error message.
+     * Displays the loading error message to the user.
      */
     public void showLoadingError() {
         System.out.println("Error loading the data!");
     }
 
     /**
-     * Displays the error message.
+     * Displays the error message to the user.
      */
 
     public void showError(String message) {
