@@ -4,7 +4,20 @@ import commands.*;
 
 import java.util.Arrays;
 
+/**
+ * The Parser class is responsible for parsing user input and creating corresponding Command objects.
+ * It recognizes the command keyword and any accompanying message in the input and constructs the
+ * appropriate command object to execute the desired action.
+ *
+ */
 public abstract class Parser {
+    /**
+     * The parser takes in the user input and splits it into command and message.
+     * It uses a switch statement to determine the specific command type to create.
+     *
+     * @param userInput User input string.
+     * @return Returns the relevant Command based on the user input.
+     */
     public static Command parse(String userInput) {
         String[] inputs = userInput.split(" ");
         String command = inputs[0];

@@ -9,14 +9,28 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ *  The Storage class manages the reading and writing of tasks to a file.
+ */
 public class Storage {
 
     private final String path;
 
+    /**
+     * Creates a new Storage object with the specified filepath.
+     *
+     * @param filePath Relative file path to store data.
+     */
     public Storage(String filePath) {
         this.path = filePath;
     }
 
+    /**
+     * Encodes and appends a list of tasks to the file, each represented as a line in the file.
+     *
+     * @param tasks The TaskList containing tasks to be appended to the file.
+     * @throws IOException The TaskList containing tasks to be appended to the file.
+     */
     public void appendToFile(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(path);
         for (Task task : tasks) {
@@ -36,6 +50,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Decodes the file and populates the task list with the stored tasks.
+     *
+     * @return Task list stored on local hard drive.
+     * @throws FileNotFoundException If file does not exist on the local repository.
+     */
     public TaskList loadFile() throws FileNotFoundException {
         File f = new File(path);
         if (!f.isFile()) {
