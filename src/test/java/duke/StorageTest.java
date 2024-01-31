@@ -1,12 +1,14 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
 public class StorageTest {
-    String filePath = "data/duketest.txt";
+    private String filePath = "data/duketest.txt";
     private Storage testStorage = new Storage(filePath);
 
     @Test

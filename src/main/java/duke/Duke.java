@@ -4,16 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Duke is a simple task manager app
+ * The class does the initial setup for components for the main application
+ */
 public class Duke {
     public static final String DB_PATH = "../data/duke.txt"; // uncommment for runtest.sh
-//    public static final String DB_PATH = "data/duke.txt";
+    // public static final String DB_PATH = "data/duke.txt";
     private Storage storage;
     private TaskList myTasks;
     private Ui ui;
 
-    public Duke(String filePath) {
+    /**
+     * Initialises a Duke instance, and loads tasks and components before starting up the app
+     */
+    public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(DB_PATH);
         try {
             myTasks = new TaskList(storage.load());
         } catch (DukeException e) {
@@ -34,17 +41,20 @@ public class Duke {
         this.storage.writeLinesToFile(lines);
     }
 
+    /**
+     * Starts up the bot and sets up the Parser and UI
+     */
     public void run() {
-        String greeting = "____________________________________________________________\n" +
-                " Hello! I'm steve\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________";
+        String greeting = "____________________________________________________________\n"
+                + " Hello! I'm steve\n"
+                + " What can I do for you?\n"
+                + "____________________________________________________________";
 
-        String goodbye = " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________";
+        String goodbye = " Bye. Hope to see you again soon!\n"
+                + "____________________________________________________________";
         ui.greet();
 
-        Scanner scanner = new Scanner(System.in);  // Create a Scanner object
+        Scanner scanner = new Scanner(System.in); // Create a Scanner object
         String line = scanner.nextLine(); // Get first input
         Parser parser = new Parser(scanner, this.myTasks);
 
@@ -58,7 +68,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke(DB_PATH).run();
+        new Duke().run();
     }
 
 }

@@ -1,9 +1,11 @@
 package duke;
 
 import java.time.LocalDateTime;
-
 import java.util.Scanner;
 
+/**
+ * Takes in and processes user input according to the available bot commands
+ */
 public class Parser {
     private TaskList myTasks;
 

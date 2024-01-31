@@ -2,6 +2,9 @@ package duke;
 
 import java.time.LocalDateTime;
 
+/**
+ * Event class represents a task with a time range
+ */
 public class Event extends Task {
 
     protected String from;
