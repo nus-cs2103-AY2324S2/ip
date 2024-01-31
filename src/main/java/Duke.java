@@ -1,6 +1,12 @@
+
+import java.awt.*;
 import java.util.Scanner;
 import java.util.ArrayList;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 class DukeException extends Exception {
 //    public DukeException (String s)
 //    {
@@ -37,6 +43,32 @@ public class Duke {
         System.out.println(Greeting);
         Scanner sc = new Scanner(System.in);
         String userInput = "";
+        File dataFile = new File("data/victor.txt");
+        try {
+            Scanner s = new Scanner(dataFile);
+            while (s.hasNext()) {
+                String nextLine = s.nextLine();
+                String[] inputs = nextLine.split("\\|");
+                String fileDataType = inputs[0].trim();
+                switch (fileDataType) {
+                    case "T" -> {
+                        Task newTodo = new Todo(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()));
+                        todoList.add(newTodo);
+                    }
+                    case "D" -> {
+                        Task newDeadline = new Deadline(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()), inputs[3].trim());
+                        todoList.add(newDeadline);
+                    }
+                    case "E" -> {
+                        Task newEvent = new Event(inputs[2].trim(), Boolean.parseBoolean(inputs[1].trim()), inputs[3].trim(), inputs[4].trim());
+                        todoList.add(newEvent);
+                    }
+
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
         while (!userInput.equals("bye")) {
             userInput = sc.nextLine();
             String[] inputList = userInput.split(" ", 2);
@@ -90,7 +122,7 @@ public class Duke {
                 }
             } else if (inputList[0].equals("todo")) {
                 try {
-                    Task userTask = new Todo(inputList[1]);
+                    Task userTask = new Todo(inputList[1], false);
                     todoList.add(userTask);
                     System.out.println(barrier);
                     System.out.println(userTask.toString());
@@ -107,7 +139,7 @@ public class Duke {
                 try {
                     String[] differentParts = inputList[1].split("/");
                     String[] deadLine = differentParts[1].split(" ", 2);
-                    Task userTask = new Deadline(differentParts[0],deadLine[1]);
+                    Task userTask = new Deadline(differentParts[0], false, deadLine[1]);
                     todoList.add(userTask);
                     System.out.println(barrier);
                     System.out.println(userTask.toString());
@@ -125,7 +157,7 @@ public class Duke {
                     String[] differentParts = inputList[1].split("/");
                     String[] startDate = differentParts[1].split(" ", 2);
                     String[] endDate = differentParts[2].split(" ", 2);
-                    Task userTask = new Event(differentParts[0],startDate[1],endDate[1]);
+                    Task userTask = new Event(differentParts[0], false, startDate[1],endDate[1]);
                     todoList.add(userTask);
                     System.out.println(barrier);
                     System.out.println(userTask.toString());
