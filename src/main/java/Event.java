@@ -1,22 +1,34 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    String from;
-    String to;
+    LocalDate from;
+    LocalDate to;
     public Event(String name, String from, String to) {
         super(name);
-        this.from = from;
-        this.to = to;
+        try {
+            LocalDate fromDate = LocalDate.parse(from);
+            this.from = fromDate;
+            LocalDate toDate = LocalDate.parse(to);
+        } catch (DateTimeException e) {
+            System.out.println("Error in date formats D: It should follow yyyy-mm-dd");
+        }
     }
 
     @Override
     public String toString() {
-        return String.format("%s %s (from: %s to: %s)", "[E]", super.toString(), this.from, this.to);
+        String formattedFrom = this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String formattedTo = this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return String.format("%s %s (from: %s to: %s)", "[E]", super.toString(), formattedFrom, formattedTo);
     }
 
     @Override
     public String dataString() {
-        return String.format("%s|%s|%s|%s\n", "E", super.dataString(), this.from, this.to);
+        String formattedFrom = this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String formattedTo = this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return String.format("%s|%s|%s|%s\n", "E", super.dataString(), formattedFrom, formattedTo);
     }
 }

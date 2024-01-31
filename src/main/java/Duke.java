@@ -135,7 +135,7 @@ public class Duke {
         addList(newTask, list);
     }
 
-    private static void loadTasks(Scanner scanner, ArrayList<Task> list) {
+    private static void loadTasks(Scanner scanner, ArrayList<Task> list) throws InvalidCommandException{
         while (scanner.hasNext()) {
             String currentTask = scanner.nextLine();
             String[] taskDetails = currentTask.split("\\|");
@@ -201,7 +201,11 @@ public class Duke {
         } catch(FileNotFoundException e) {
             System.err.println("Storage data file does not exist: " + e.getMessage());
         }
-        loadTasks(fileSc, list);
+        try {
+            loadTasks(fileSc, list);
+        } catch (InvalidCommandException e) {
+            System.err.println("Error in stored data format: " + e.getMessage());
+        }
         fileSc.close();
         //greeting
         System.out.println("    ____________________________________________________________");
