@@ -40,6 +40,8 @@ public class TaskManager {
   protected void delete(String input) {
     int i = Integer.parseInt(StringUtils.getValueOfCommand(input, Commands.DELETE.getCommand(), null)) - 1;
     Task task = this.tasks.remove(i);
+    TaskType type = getTaskType(task.toString());
+    TaskDao.delete(type.getCommand(), task.getId());
     UIManager.delete(task, this.tasks.size());
   }
 
@@ -106,8 +108,8 @@ public class TaskManager {
   private void mark(String input, boolean isDone) {
     int taskIndex = Integer.parseInt(StringUtils.getValueOfCommand(input, Commands.MARK.getCommand(), null)) - 1;
     Task task = this.get(taskIndex);
-    TaskType type = getTypeOfTask(task.toString());
-    task = TaskDao.mark((int)task.getId(), type.getCommand(), task, isDone);
+    TaskType type = getTaskType(task.toString());
+    task = TaskDao.mark(task.getId(), type.getCommand(), task, isDone);
     UIManager.mark(task, isDone);
   }
 
@@ -117,7 +119,7 @@ public class TaskManager {
    * @param input the formatted line, e.g. [T][X} Wash dishes
    * @return The type of task
    */
-  private TaskType getTypeOfTask(String input) {
+  private TaskType getTaskType(String input) {
     if (input.contains("[T]")) {
       return TaskType.TODO;
     } else if (input.contains("[D]")) {

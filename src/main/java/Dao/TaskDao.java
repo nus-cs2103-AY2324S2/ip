@@ -2,7 +2,6 @@ package Dao;
 
 import Database.Database;
 import Models.Task;
-import Models.Todo;
 
 import java.io.File;
 
@@ -20,7 +19,7 @@ public class TaskDao {
      * @param done Whether it should be marked as done or not
      * @return
      */
-    public static Task mark(int id, String NAME, Task task, boolean done) {
+    public static Task mark(long id, String NAME, Task task, boolean done) {
         File table = Database.getTable(NAME);
         task.setDone(done);
         String data = task.toDataString();
@@ -28,11 +27,15 @@ public class TaskDao {
         return task;
     }
 
-
     public static void add(String NAME, Task task) {
         File table = Database.getTable(NAME);
         String data = task.toDataString();
         long id = Database.create(table.toPath(), data);
         task.setId(id);
+    }
+
+    public static void delete(String NAME, long id) {
+        File table = Database.getTable(NAME);
+        Database.delete(table.toPath(), id);
     }
 }
