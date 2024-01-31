@@ -21,15 +21,15 @@ public class UI {
     }
 
     public void showBotError(DukeException e) {
-        System.out.println(e.getBotMessage());
         showLine();
+        System.out.println(e.getBotMessage());
         showLine();
     }
 
     public void showWelcomeMessage() {
+        showLine();
         System.out.println("Hello! I'm " + botName);
         System.out.println("What can I do for you?");
-        showLine();
         showLine();
     }
 
@@ -37,8 +37,8 @@ public class UI {
         if (response == null) {
             return;
         }
-        System.out.println(response);
         showLine();
+        System.out.println(response);
         showLine();
     }
 
@@ -47,8 +47,8 @@ public class UI {
         try {
             input = reader.readLine();
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
             showLine();
+            System.out.println("Something went wrong: " + e.getMessage());
             showLine();
         }
         return input;
