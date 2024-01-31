@@ -60,11 +60,21 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return prepareDeleteCommand(arguments);
 
+        case FindCommand.COMMAND_WORD:
+            return prepareFindCommand(arguments);
+
         default:
             return new IncorrectCommand(Messages.MESSAGE_INCORRECT);
         }
     }
 
+    private Command prepareFindCommand(String arguments) {
+        if (arguments.isEmpty()) {
+            return new IncorrectCommand(FindCommand.MESSAGE_EMPTY_SEARCH_TERM);
+        } else {
+            return new FindCommand(arguments.trim());
+        }
+    }
 
     private Command prepareMarkCommand(String arguments) {
 
