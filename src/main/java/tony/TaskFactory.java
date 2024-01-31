@@ -8,7 +8,20 @@ import tony.tasks.TaskType;
 
 import java.time.LocalDateTime;
 
+/**
+ * The TaskFactory class creates task objects based on the provided task type and arguments.
+ * It supports creating Todo, Deadline, and Event tasks.
+ */
 public class TaskFactory {
+
+    /**
+     * Creates a task object based on the given task type and arguments.
+     *
+     * @param type The type of task to create (e.g., TaskType.TODO, TaskType.DEADLINE, TaskType.EVENT).
+     * @param args The arguments needed to create the task, which vary depending on the task type.
+     * @return A task object of the specified type.
+     * @throws IllegalArgumentException If an invalid task type is provided.
+     */
     public Task createTask(TaskType type, String... args) {
         String description = args[0];
         switch (type) {

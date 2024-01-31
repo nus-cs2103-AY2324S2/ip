@@ -6,10 +6,17 @@ import tony.tasks.TaskType;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a list of tasks in the Tony application.
+ */
 public class TodoList {
     List<Task> list = new ArrayList<>();
 
-
+    /**
+     * Adds a task to the task list.
+     *
+     * @param item The task to be added.
+     */
     public void add(Task item) {
         list.add(item);
         int numberOfTasks = list.size();
@@ -20,6 +27,11 @@ public class TodoList {
         line();
     }
 
+    /**
+     * Marks a task as done based on the provided input.
+     *
+     * @param input The input representing the task to mark as done.
+     */
     public void mark(String input) {
         try {
             int index = Integer.parseInt(input);
@@ -34,6 +46,11 @@ public class TodoList {
         }
     }
 
+    /**
+     * Unmarks a previously marked task as undone based on the provided input.
+     *
+     * @param input The input representing the task to unmark as done.
+     */
     public void unmark(String input) {
         try {
             int index = Integer.parseInt(input);
@@ -48,6 +65,11 @@ public class TodoList {
         }
     }
 
+    /**
+     * Deletes a task from the task list based on the provided input.
+     *
+     * @param input The input representing the task to delete.
+     */
     public void delete(String input) {
         try {
             int index = Integer.parseInt(input);
@@ -64,6 +86,9 @@ public class TodoList {
         }
     }
 
+    /**
+     * Prints the list of tasks.
+     */
     public void print() {
         line();
         System.out.println("Here are the tony.tasks in your list: \n");
@@ -73,6 +98,11 @@ public class TodoList {
         line();
     }
 
+    /**
+     * Returns a formatted string representation of all tasks in the list for storage.
+     *
+     * @return A formatted string representing all tasks in the list.
+     */
     public String printTasksToString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
@@ -81,12 +111,22 @@ public class TodoList {
         return sb.toString();
     }
 
+    /**
+     * Loads a task from a given line of text and adds it to the list.
+     *
+     * @param line The line of text representing a task.
+     */
     public void loadTask(String line) {
         Task task = createTaskFromLine(line);
         list.add(task);
     }
 
-    // Example of parsing task lines and creating Task objects
+    /**
+     * Function to create a Task from it's formatted String representation
+     *
+     * @param line The line of text representing a task.
+     * @return Task object
+     */
     private Task createTaskFromLine(String line) {
         String[] parts = line.split("\\|");
 
@@ -95,7 +135,6 @@ public class TodoList {
             int completionStatus = Integer.parseInt(parts[1]);
             String taskDetails = parts[2];
 
-            // Depending on the task type, you may need to parse additional details
             if (taskType.equals("T")) {
                 Task todo = new TaskFactory().createTask(TaskType.TODO, taskDetails);
                 if (completionStatus == 1) {
@@ -103,7 +142,6 @@ public class TodoList {
                 }
                 return todo;
             } else if (taskType.equals("D")) {
-                // Extract deadline date if available
                 String deadlineDate = parts[3];
                 Task deadline = new TaskFactory().createTask(TaskType.DEADLINE, taskDetails, "by: " + deadlineDate);
                 if (completionStatus == 1) {
@@ -111,7 +149,6 @@ public class TodoList {
                 }
                 return deadline;
             } else if (taskType.equals("E")) {
-                // Extract event time if available
                 Task event = new TaskFactory().createTask(TaskType.EVENT, taskDetails, "from: " + parts[3], "to:" + parts[4]);
                 if (completionStatus == 1) {
                     event.markAsDone();
@@ -119,8 +156,7 @@ public class TodoList {
                 return event;
             }
         }
-
-        return null; // Handle invalid lines if needed
+        return null;
     }
 
     private static void line() {
