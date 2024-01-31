@@ -13,6 +13,7 @@ public class Ui {
     private static final String MARKED = "Nice! I've marked this task as done:";
 
     private static final String UNMARKED = "OK, I've marked this task as not done yet:";
+    private static final String RECOMMENDER = "RECCOMENDATION";
 
     private Scanner sc;
 
@@ -37,6 +38,10 @@ public class Ui {
 
     public String dividerWrapper(String text) {
         return divider() + text + "\n" + divider();
+    }
+
+    public String recommenderWrapper(String text) {
+        return RECOMMENDER + "\n" + text + "\n" + RECOMMENDER;
     }
 
     public String greetingBox() {

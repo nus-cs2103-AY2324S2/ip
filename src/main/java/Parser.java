@@ -1,4 +1,7 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 class Parser {
     private TaskList taskList;
@@ -65,7 +68,8 @@ class Parser {
 
         String description = tokens[1].trim();
 
-        String times[] = userInput.split("/");
+        String times[] = userInput.split("//");
+
 
         String desc = times[0];
         int firstSpaceIndex = desc.indexOf(' ');
@@ -78,42 +82,56 @@ class Parser {
                         + "\nNow you have " + taskList.size() + " tasks in the list."));
                 break;
             case "deadline":
-
-                if (times.length != 2) {
-                    System.out.println(chatbotUi.dividerWrapper("Wrong syntax! Must be `deadline <task> /by <deadline>`"));
+                if (times.length < 2) {
+                    System.out.println(chatbotUi.dividerWrapper("Wrong syntax! Must be `deadline <task> //by <deadline>`"));
                     return;
                 }
                 String deadline = times[1].trim();
 
-                if (!deadline.startsWith("by")) {
-                    System.out.println(chatbotUi.dividerWrapper("You must start the statement with the word `/by`."));
+                if (!deadline.startsWith("by ")) {
+                    System.out.println(chatbotUi.dividerWrapper("You must start the statement with the word `//by`."));
                     return;
                 }
-                taskList.addDeadlineTask(substringAfterSpace, deadline);
+
+                try {
+                    //System.out.println(deadline + " test");
+                    LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline.substring(3), DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
+                    String formattedDeadline = deadlineDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, ha"));
+                    taskList.addDeadlineTask(substringAfterSpace, formattedDeadline);
+                } catch (DateTimeParseException e) {
+                    System.out.println(chatbotUi.recommenderWrapper("Added the task, but recommend using the date/time format `M/d/yyyy HHmm` for better experience."));
+                    taskList.addDeadlineTask(substringAfterSpace, deadline);
+                }
+
                 System.out.println(chatbotUi.dividerWrapper("Got it. I've added this task:\n" + taskList.getTaskAtIndex(taskList.size() - 1)
                         + "\nNow you have " + taskList.size() + " tasks in the list."));
                 break;
+
             case "event":
 
-                if (times.length != 3) {
-                    System.out.println(chatbotUi.dividerWrapper("Wrong syntax! Must be `event <task> /from <start date> /to <end date>`"));
+                if (times.length < 3) {
+                    System.out.println(chatbotUi.dividerWrapper("Wrong syntax! Must be `event <task> //from <start date> //to <end date>`"));
                     return;
                 }
                 String start = times[1].trim();
                 String end = times[2].trim();
 
-
-                if (!start.startsWith("from")) {
-                    System.out.println(chatbotUi.dividerWrapper("You must start the statement with the word `/from`."));
+                if (!start.startsWith("from ") || !end.startsWith("to ")) {
+                    System.out.println(chatbotUi.dividerWrapper("You must start the statements with the words `//from` and `//to`."));
                     return;
                 }
 
-                if (!end.startsWith("to")) {
-                    System.out.println(chatbotUi.dividerWrapper("You must end the statement with the word `/to`."));
-                    return;
+                try {
+                    LocalDateTime startDateTime = LocalDateTime.parse(start.substring(5), DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                    LocalDateTime endDateTime = LocalDateTime.parse(end.substring(3), DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+                    String formattedStart = startDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, ha"));
+                    String formattedEnd = endDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy, ha"));
+                    taskList.addEventTask(substringAfterSpace, formattedStart, formattedEnd);
+                } catch (DateTimeParseException e) {
+                    System.out.println(chatbotUi.recommenderWrapper("Added the task, but recommend using the date/time format `M/d/yyyy HHmm` on both start and end dates for better experience."));
+                    taskList.addEventTask(substringAfterSpace, start, end.substring(3)); //substring(3) to remove "to "
                 }
 
-                taskList.addEventTask(substringAfterSpace, start, end);
                 System.out.println(chatbotUi.dividerWrapper("Got it. I've added this task:\n" + taskList.getTaskAtIndex(taskList.size() - 1)
                         + "\nNow you have " + taskList.size() + " tasks in the list."));
                 break;
