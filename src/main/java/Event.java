@@ -1,5 +1,5 @@
 /**
- * Event class
+ * Event class.
  * This class contains informations about the event.
  */
 public class Event extends Task {
