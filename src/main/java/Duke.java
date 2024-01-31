@@ -1,6 +1,10 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Objects;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
     public static void main(String[] args) {
@@ -8,6 +12,42 @@ public class Duke {
 
         ArrayList<Task> task_arr = new ArrayList<>();
         int index = 0;
+
+        try {
+            File file = new File("data/duke.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String[] line = scanner.nextLine().split("\\|");
+                String type = line[0];
+                boolean isDone = line[1].equals("1");
+                String description = line[2];
+                if (Objects.equals(type, "T")) {
+                    task_arr.add(new ToDo(index, description));
+                    if (isDone) {
+                        task_arr.get(index).mark();
+                    }
+                    index++;
+                } else if (Objects.equals(type, "D")) {
+                    String deadline = line[3];
+                    task_arr.add(new Deadline(index, description, deadline));
+                    if (isDone) {
+                        task_arr.get(index).mark();
+                    }
+                    index++;
+                } else if (Objects.equals(type, "E")) {
+                    String start = line[3];
+                    String end = line[4];
+                    task_arr.add(new Event(index, description, start, end));
+                    if (isDone) {
+                        task_arr.get(index).mark();
+                    }
+                    index++;
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e);
+        }
 
         Scanner scanner = new Scanner(System.in);
 
@@ -72,7 +112,6 @@ public class Duke {
                     } catch (DukeException d) {
                         System.out.println("ERROR: " + d);
                     }
-
                 } else if (userInput.toLowerCase().contains("deadline")) {
                     String[] str = userInput.split("/");
                     String deadline = str[1];
@@ -90,6 +129,15 @@ public class Duke {
                     System.out.println(task_arr.get(index).getTask());
                     System.out.println("Now you have " + task_arr.size() + " tasks in the list");
                     index++;
+                }
+                try {
+                    FileWriter writer = new FileWriter("data/duke.txt");
+                    for (Task task : task_arr) {
+                        writer.write(task.save() + "\n");
+                    }
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             } catch (DukeException d) {
                 System.out.println("ERROR: " + d);
