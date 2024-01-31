@@ -1,4 +1,8 @@
 package tasks;
+
+/**
+ * The Task class represents a task in the TaskList.
+ */
 public class Task {
 
     private String desc;
@@ -6,6 +10,9 @@ public class Task {
     private TaskType type;
     private String start, end;
 
+    /**
+     * The TaskType enum represents the type of task.
+     */
     public enum TaskType {
         TODO('T'), DEADLINE('D'), EVENT('E');
 
@@ -20,6 +27,7 @@ public class Task {
         }
     }
 
+    // Constructor for Todo task
     public Task(String desc, boolean isDone) {
         this.desc = desc;
         this.isDone = isDone;
@@ -43,6 +51,9 @@ public class Task {
         this.end = end;
     }
 
+    /*
+     * mark() and unmark() methods are used to mark and unmark a task as done respectively.
+     */
     public void mark() {
         this.isDone = true;
     }
@@ -51,6 +62,10 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns a String representation of the task.
+     * @return a String representation of the task
+     */
     @Override
     public String toString() {
         StringBuilder taskString = new StringBuilder();

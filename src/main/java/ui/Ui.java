@@ -18,6 +18,9 @@ public class Ui {
 
     private Scanner sc;
 
+    /**
+     * Constructs a Ui object.
+     */
     public Ui() {
         this.sc = new Scanner(System.in);
     }
@@ -37,14 +40,31 @@ public class Ui {
         return BYE;
     }
 
+    /**
+     * Returns a string containing the given text wrapped in a divider.
+     *
+     * @param text the text to be wrapped in a divider
+     * @return a string containing the given text wrapped in a divider
+     */
     public String dividerWrapper(String text) {
         return divider() + text + "\n" + divider();
     }
 
+    /**
+     * Returns a string containing the given text wrapped in a recommender.
+     *
+     * @param text the text to be wrapped in a recommender
+     * @return a string containing the given text wrapped in a recommender
+     */
     public String recommenderWrapper(String text) {
         return RECOMMENDER + "\n" + text + "\n" + RECOMMENDER;
     }
 
+    /**
+     * Returns a string containing the greeting and question wrapped in a divider.
+     *
+     * @return a string containing the greeting and question wrapped in a divider
+     */
     public String greetingBox() {
         return dividerWrapper(greeting() + question());
     }

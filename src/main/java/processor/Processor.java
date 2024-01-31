@@ -9,6 +9,10 @@ import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;
 
+/**
+ * The Processor class is responsible for processing user input and performing operations on the TaskList.
+ * It interacts with the TaskList, Ui, and Storage classes to handle user commands and manage tasks.
+ */
 public class Processor {
     private TaskList taskList;
     private Ui chatbotUi;
@@ -20,6 +24,13 @@ public class Processor {
         //this.file = new File("src/data/tasks.txt");
         this.storage = new Storage("src/data/tasks.txt", taskList);
     }
+
+    /**
+     * Processes the given user command by delegating it to the appropriate method in the Processor class.
+     *Specifically, this method processes the user command to mark or unmark a task in the TaskList.
+     * @param userInput the user command to be processed
+     * @throws IOException if an I/O error occurs while processing the command
+     */
     public void userInputProcessMarkUnmark(String userInput) throws IOException{
         String[] array = userInput.split(" ");
         String command = array[0];
@@ -42,6 +53,13 @@ public class Processor {
         }
     }
 
+
+    /**
+     * Processes the given user command by delegating it to the appropriate method in the Processor class.
+     * Specifically, this method processes the user command to add a task to the TaskList.
+     * @param userInput the user command to be processed
+     * @throws IOException if an I/O error occurs while processing the command
+     */
     public void userInputAddTask(String userInput) throws IOException {
         String[] tokens = userInput.split(" ", 2);
 
@@ -140,6 +158,12 @@ public class Processor {
     }
 
 
+    /**
+     * Processes the given user command by delegating it to the appropriate method in the Processor class.
+     * Specifically, this method processes the user command to list all tasks in the TaskList.
+     * @param userInput the user command to be processed
+     * @throws IOException if an I/O error occurs while processing the command
+     */
     public void userInputListTasks() throws IOException {
         // if array empty
         if (taskList.size() == 0) {
@@ -150,6 +174,12 @@ public class Processor {
         }
     }
 
+    /**
+     * Processes the given user command by delegating it to the appropriate method in the Processor class.
+     * Specifically, this method processes the user command to delete a task from the TaskList.
+     * @param userInput the user command to be processed
+     * @throws IOException if an I/O error occurs while processing the command
+     */
     public void userInputDeleteTask(String userInput) {
         String[] array = userInput.split(" ");
         try {
