@@ -2,22 +2,22 @@ list
 blah 
 todo study
 deadline worksheet /by Friday
-event hiking /from 2pm /to 5pm
+event hiking /from 2000-03-21 /to 2004-01-12
 list
-deadline /from Sunday
-event party /FROM 7pm /to 9pm
-event conference /from 9am /to 11am
+deadline /from 2000-03-21
+event party /FROM 2010-03-21 /to 2010-03-21
+event conference /from 2011-03-21 /to 2011-05-12
 todo 
 mark 1
 list
 deadline now /BYE
 deadline /by Saturday
 todo reading
-event /from 1pm /to 4pm
+event /from 2000-03-21 /to notadate
 event
 list
 delete 2
-event something /from 5pm /TOO 4pm
+event something 2000-03-21 5pm /TOO 2000-03-21
 mark 1
 list
 mark 2
