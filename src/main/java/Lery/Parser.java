@@ -61,6 +61,10 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 throw new LeryException("Erm... Please enter a task number.");
             }
+        } else if (command.startsWith("find")) {
+            String d = command.substring(5);
+            return this.parseFindTaskCommand(d);
+
         } else {
             return this.parseAddTaskCommand(command);
 
@@ -125,4 +129,21 @@ public class Parser {
                 + Integer.toString(this.storage.getSize()) + " tasks in the list.\n";
         return msg;
     }
+
+    public String parseFindTaskCommand(String d) {
+        TaskList t = this.storage.getTaskList();
+        TaskList findList = new TaskList();
+        for (int i = 0; i < t.getSize(); i++) {
+            Task curr = t.getTask(i);
+            String description = curr.getDescription();
+            if (description.contains(d)) {
+                findList.add(curr);
+            }
+        }
+        if (findList.getSize() == 0) {
+            return "Sorry there are no tasks that fits your keyword.";
+        }
+        return findList.printList();
+    }
+
 }
