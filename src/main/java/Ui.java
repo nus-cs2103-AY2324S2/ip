@@ -16,4 +16,8 @@ public class Ui {
     public void bye() {
         System.out.println("See you again bro!");
     }
+
+    public void showLoadingError() {
+        System.err.println("Error reading tasks from file!\nWill recreate file!");
+    }
 }

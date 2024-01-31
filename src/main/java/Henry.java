@@ -1,76 +1,39 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Henry {
     private Storage storage;
+    private TaskList tasks;
     private Ui ui;
     private enum CommandType {
         LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, BYE, UNKNOWN
     }
-    private ArrayList<Task> items = new ArrayList<Task>();
-    public void addTask(Task task) {
-        items.add(task);
-        System.out.println("Added this task");
-        System.out.println(items.get(items.size() - 1));
-        System.out.printf("Now you have %d tasks in the list :(\n", items.size());
-        System.out.println();
-    }
-    public void markTask(int index) throws HenryException {
-        if (index < 0 || index >= items.size()) {
-            throw new HenryException("The index is out of bounds!");
-        }
-        items.get(index).markAsDone();
-        System.out.println("This task is marked as done XD");
-        System.out.println(items.get(index));
-        System.out.println();
-    }
-    public void unmarkTask(int index) throws HenryException {
-        if (index < 0 || index >= items.size()) {
-            throw new HenryException("The index is out of bounds!");
-        }
-        items.get(index).unmarkAsDone();
-        System.out.println("This task is marked as undone :(");
-        System.out.println(items.get(index));
-        System.out.println();
-    }
-    public void deleteTask(int index) throws HenryException {
-        if (index < 0 || index >= items.size()) {
-            throw new HenryException("The index is out of bounds!");
-        }
-        System.out.println("This task is deleted :)");
-        System.out.println(items.get(index));
-        System.out.println();
-        items.remove(index);
-    }
     private void handleCommand(CommandType commandType, String params) throws HenryException {
         switch (commandType) {
         case LIST:
-            System.out.println("Here is a list of tasks:");
-            for (int i = 0; i < items.size(); i = i + 1) {
-                System.out.printf("%d. %s\n", i + 1, items.get(i));
-            }
-            System.out.println();
+            tasks.printList();
             break;
         case MARK:
             if (params.isBlank()) {
                 throw new HenryException("No index provided");
             }
-            markTask(Integer.parseInt(params) - 1);
-            storage.save(items);
+            tasks.markTask(Integer.parseInt(params) - 1);
+            storage.save(tasks);
             break;
         case UNMARK:
             if (params.isBlank()) {
                 throw new HenryException("No index provided");
             }
-            unmarkTask(Integer.parseInt(params) - 1);
-            storage.save(items);
+            tasks.unmarkTask(Integer.parseInt(params) - 1);
+            storage.save(tasks);
             break;
         case TODO:
             if (params.isBlank()) {
                 throw new HenryException("No description provided");
             }
-            addTask(new Todo(params));
-            storage.save(items);
+            tasks.addTask(new Todo(params));
+            storage.save(tasks);
             break;
         case DEADLINE:
             if (params.isBlank()) {
@@ -80,8 +43,8 @@ public class Henry {
                 throw new HenryException("When this has to be done by?");
             }
             String[] deadlineParams = params.split(" /by ");
-            addTask(new Deadline(deadlineParams[0], deadlineParams[1]));
-            storage.save(items);
+            tasks.addTask(new Deadline(deadlineParams[0], deadlineParams[1]));
+            storage.save(tasks);
             break;
         case EVENT:
             if (params.isBlank()) {
@@ -91,15 +54,15 @@ public class Henry {
                 throw new HenryException("Please provide /from and /to");
             }
             String[] eventParams = params.split(" /from | /to ");
-            addTask(new Event(eventParams[0], eventParams[1], eventParams[2]));
-            storage.save(items);
+            tasks.addTask(new Event(eventParams[0], eventParams[1], eventParams[2]));
+            storage.save(tasks);
             break;
         case DELETE:
             if (params.isBlank()) {
                 throw new HenryException("No index provided");
             }
-            deleteTask(Integer.parseInt(params) - 1);
-            storage.save(items);
+            tasks.deleteTask(Integer.parseInt(params) - 1);
+            storage.save(tasks);
             break;
         default:
             try {
@@ -113,7 +76,12 @@ public class Henry {
     public Henry(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        this.items = new ArrayList<>(storage.load());
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (IOException | HenryException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
     }
     public void run() {
         ui.greet();
@@ -127,7 +95,7 @@ public class Henry {
             try {
                 commandType = CommandType.valueOf(command[0].toUpperCase());
                 if (commandType.equals(CommandType.BYE)) {
-                    storage.save(items);
+                    storage.save(tasks);
                     ui.bye();
                     break;
                 }
