@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
@@ -105,13 +108,19 @@ public class Duke {
                         break;
                     }
                     String byDate = splitCommand[1].trim();
-                    Deadline dl = new Deadline(taskDescription, byDate);
+
+                    LocalDate parsedDate = LocalDate.parse(byDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                    Deadline dl = new Deadline(taskDescription, parsedDate);
                     taskList.addTask(dl, false);
                 } catch (IndexOutOfBoundsException ie) {
                     System.out.println("OH NOES!! Do enter the deadline correctly with: /by [DEADLINE]. ");
                     break;
                 } catch (IllegalArgumentException e) {
                     System.out.println("Uh oh. Something went wrong with your input!");
+                    break;
+                } catch (DateTimeParseException dt) {
+                    System.out.println("WOOPS! Enter the correct date format: YYYY-MM-DD");
                     break;
                 }
 
@@ -135,13 +144,20 @@ public class Duke {
                     }
                     String from = splitCommand[1].trim();
                     String to = splitCommand[2].trim();
-                    Event event = new Event(taskDescription, from, to);
+
+                    LocalDate fromParsedDate = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    LocalDate toParsedDate = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                    Event event = new Event(taskDescription, fromParsedDate, toParsedDate);
                     taskList.addTask(event, false);
                 } catch(IndexOutOfBoundsException ie) {
                     System.out.println("OH NOES!! Do enter the event dates correctly with: /from [start] /to [end]. ");
                     break;
                 } catch (IllegalArgumentException e) {
                     System.out.println("Uh oh. Something went wrong with your input!");
+                    break;
+                } catch (DateTimeParseException dt) {
+                    System.out.println("WOOPS! Enter the correct date format: YYYY-MM-DD");
                     break;
                 }
 

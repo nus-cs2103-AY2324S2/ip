@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Encapsulates DEADLINE task. Inherits from Task.
  *
@@ -5,7 +8,7 @@
  */
 public class Deadline extends Task {
     /** The deadline associated with the task. */
-    private String by;
+    private LocalDate by;
 
     /**
      * Constructor for deadline object.
@@ -13,16 +16,16 @@ public class Deadline extends Task {
      * @param description The description of the deadline task.
      * @param by          The deadline associated with the task.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
 
-    public String getBy() {
+    public LocalDate getBy() {
         return by;
     }
 
-    public void setBy(String by) {
+    public void setBy(LocalDate by) {
         this.by = by;
     }
 
@@ -43,6 +46,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        String formattedBy = by.format(formatter);
+        return "[D]" + super.toString() + " (by: " + formattedBy + ")";
     }
 }

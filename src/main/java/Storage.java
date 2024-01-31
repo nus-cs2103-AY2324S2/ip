@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.io.File;
 import java.nio.file.Paths;
 import java.nio.file.Files;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
@@ -96,13 +98,20 @@ public class Storage {
                 }
                 case "deadline": {
                     String by = taskArr[3];
-                    newTask = new Deadline(description, by);
+
+                    LocalDate byParsedDate = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                    newTask = new Deadline(description, byParsedDate);
                     break;
                 }
                 case "event": {
                     String from = taskArr[3];
                     String to = taskArr[4];
-                    newTask = new Event(description, from, to);
+
+                    LocalDate fromDate = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    LocalDate toDate = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                    newTask = new Event(description, fromDate, toDate);
                     break;
                 }
                 }
