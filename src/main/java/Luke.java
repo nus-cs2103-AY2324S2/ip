@@ -23,6 +23,53 @@ public class Luke {
                 "It's... it's not like I want to see you again or anything!\n");
     }
 
+    //Makes a task from string input. Returns null if invalid string.
+    private static Task makeTask(String input) {
+        Task task;
+        String taskType = input.split(" ")[0];
+
+        if (taskType.equals("todo")) {
+            task = new Todo(input.substring(4).trim()); //TODO: better not hardcode 5 lol
+            if (input.split(" ").length < 2) {
+                System.out.println("You have eyes for a reason, don't you?");
+                System.out.println("[Missing todo description]\n");
+                return null;
+            }
+        } else if (taskType.equals("deadline")) {
+            try {
+                task = new Deadline(input.split("/")[0].substring(8).trim(),
+                        input.split("/")[1].substring(2).trim());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Hey! You forgot something! Be glad I'm here to remind you.");
+                System.out.println("[Missing deadline parameter(s)]\n");
+                return null;
+            }
+        } else if (taskType.equals("event")) {
+            try {
+                task = new Event(input.split("/")[0].substring(5).trim(),
+                        input.split("/")[1].substring(4).trim(),
+                        input.split("/")[2].substring(2).trim());
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("/// I don't know when you are free... ///");
+                System.out.println("[Missing event parameter(s)]\n");
+                return null;
+            }
+        } else {
+            System.out.println("/// What on earth are you saying! ///");
+            System.out.println("[Command not found]\n");
+            return null;
+        }
+        return task;
+    }
+
+    //Adds task to history.
+    private static void addTaskToHistory(Task task) {
+        if (task != null) {
+            history.add(task);
+            System.out.println("I helped you add task '" + task.fullStatus() + "'. But do it yourself next time! Hmmph!"  + "\n");
+        }
+    }
+
     public static void main(String[] args) throws LukeException {
         greet();
         Scanner sc = new Scanner(System.in);
@@ -87,52 +134,8 @@ public class Luke {
                 System.out.println("[Removed " + fullStatus + "]\n");
             } else {
                 //it is a task.
-                Task task;
-                String taskType = input.split(" ")[0];
-                if (taskType.equals("todo")) {
-                    task = new Todo(input.substring(4).trim()); //TODO: better not hardcode 5 lol
-                    try {
-                        if (input.split(" ").length < 2) {
-                            throw new LukeException();
-                        }
-                    } catch (LukeException e) {
-                        System.out.println("You have eyes for a reason, don't you?");
-                        System.out.println("[Missing todo description]\n");
-                        continue; //restart the loop
-                    }
-                } else if (taskType.equals("deadline")) {
-                    try {
-                        task = new Deadline(input.split("/")[0].substring(8).trim(),
-                                input.split("/")[1].substring(2).trim());
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Hey! You forgot something! Be glad I'm here to remind you.");
-                        System.out.println("[Missing deadline parameter(s)]\n");
-                        continue;
-                    }
-
-                } else if (taskType.equals("event")) {
-                    try {
-                        task = new Event(input.split("/")[0].substring(5).trim(),
-                                input.split("/")[1].substring(4).trim(),
-                                input.split("/")[2].substring(2).trim());
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("/// I don't know when you are free... ///");
-                        System.out.println("[Missing event parameter(s)]\n");
-                        continue;
-                    }
-
-                } else {
-                    try {
-                        throw new LukeException();
-                    } catch (LukeException e) {
-                        System.out.println("/// What on earth are you saying! ///");
-                        System.out.println("[Command not found]\n");
-                        continue;
-                    }
-                }
-
-                history.add(task);
-                System.out.println("I helped you add task '" + task.fullStatus() + "'. But do it yourself next time! Hmmph!"  + "\n");
+                Task task = makeTask(input);
+                addTaskToHistory(task);
             }
         }
     }
