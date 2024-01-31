@@ -1,12 +1,21 @@
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
 
 public class Duke {
     // print list of stored tasks
     //Chatbot stores user commands in a fixed array
     public static ArrayList<Task> listStore = new ArrayList<>();
     public static int listCount = 0;
-    public static String FILE_PATH = "data/duke.txt";
+    public static String DIRECTORY = "data";
+    public static String FILE_NAME = "duke.txt";
+    public static File listFile = new File(Paths.get(DIRECTORY, FILE_NAME).toString());
+
     public static void printTasks(ArrayList<Task> listStore, int listCount) {
         for (int i = 0; i < listCount; i++) {
             int taskNum = i + 1;
@@ -38,9 +47,83 @@ public class Duke {
         System.out.println("Now you have " + listCount + " tasks in the list.\n");
     }
 
+    public static void loadTasks() throws IOException {
+        try {
+            if (listFile.exists() && listFile.length() > 0) {
+                Scanner sc = new Scanner(listFile);
+                while (sc.hasNextLine()) {
+                    String input = sc.nextLine();
+                    String[] inputArr = input.split(" \\| ");
+                    String taskType = inputArr[0];
+                    String taskStatus = inputArr[1];
+                    String taskDescription = inputArr[2];
+                    Task newTask = null;
+                    if (taskType.equals("T")) {
+                        newTask = new ToDo(taskDescription);
+                    } else if (taskType.equals("D")) {
+                        String by = inputArr[3];
+                        newTask = new Deadline(taskDescription, by);
+                    } else if (taskType.equals("E")) {
+                        String from = inputArr[3];
+                        String to = inputArr[4];
+                        newTask = new Event(taskDescription, from, to);
+                    }
+                    if (taskStatus.equals("1")) {
+                        newTask.markAsDone();
+                    }
+                    listStore.add(newTask);
+                    listCount++;
+                }
+                sc.close();
+            }
+        } catch (IOException e) {
+            System.out.println("ChatterOOHNOO! Chatteroo can't create a new file!");
+        }
+    }
+
+    public static void saveTasks() throws IOException{
+        FileWriter fw = new FileWriter(Paths.get(DIRECTORY, FILE_NAME).toString());
+        for (int i = 0; i < listCount; i++) {
+            Task currTask = listStore.get(i);
+            String taskType = currTask.getTaskType();
+            String taskStatus = "";
+            String taskDescription = currTask.getDescription();
+            String taskTime = "";
+            if (currTask.isDone) {
+                taskStatus = "1";
+            } else {
+                taskStatus = "0";
+            }
+            if (currTask instanceof ToDo) {
+                fw.write("T | " + taskStatus + " | " + taskDescription + "\n");
+            } else if (currTask instanceof Deadline) {
+                taskType = "D";
+                taskTime = ((Deadline) currTask).getBy();
+                fw.write(taskType + " | " + taskStatus + " | " + taskDescription + " | " + taskTime + "\n");
+            } else if (currTask instanceof Event) {
+                taskType = "E";
+                taskTime = ((Event) currTask).getFrom() + "-" + ((Event) currTask).getTo();
+                fw.write(taskType + " | " + taskStatus + " | " + taskDescription + " | " + taskTime + "\n");
+            }
+        }
+        fw.close();
+    }
+
     public static void main(String[] args) throws Exception {
         System.out.println("Hello! I'm Chatteroo\n" + "What can I do for you?\n");
-
+        Path directoryPath = Paths.get(DIRECTORY);
+        if (!Files.exists(directoryPath)) {
+            Files.createDirectory(directoryPath);
+        }
+        if (!listFile.exists()) {
+            listFile.createNewFile();
+        }
+        try {
+            loadTasks();
+        } catch (IOException e) {
+            System.out.println("ChatterOOHNOO! Tasks can't be loaded from the file!");
+            return;
+        }
         //Chatbot echos user commands
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
@@ -70,16 +153,16 @@ public class Duke {
                         }
                         input = input.substring(5);
                         newTask = new ToDo(input);
-                    } else if (input.startsWith("deadline")) {
-                        if (input.length() < 9) {
+                    } else if (input.startsWith("deadline ")) {
+                        if (input.length() < 10) {
                             throw new Exception("ChatterOOHNOO! A deadline's description cannot be empty!");
                         }
                         String[] inputArr = input.substring(9).split("/by");
                         input = inputArr[0];
                         String by = inputArr[1];
                         newTask = new Deadline(input, by);
-                    } else if (input.startsWith("event")) {
-                        if (input.length() < 6) {
+                    } else if (input.startsWith("event ")) {
+                        if (input.length() < 7) {
                             throw new Exception("ChatterOOHNOO! An event's description cannot be empty!");
                         }
                         input = input.substring(6);
@@ -102,13 +185,13 @@ public class Duke {
                             System.out.println("Now you have " + listCount + " tasks in the list.\n");
                     }
                 }
-//            System.out.println("added: " + input + "\n");
                 input = sc.nextLine();
             } catch (IllegalArgumentException e) {
-                throw new Exception("ChatterOOHNOO! Chatteroo doesn't understand what yoo mean!");
+                throw new IllegalArgumentException("ChatterOOHNOO! Chatteroo doesn't understand what yoo mean!");
             }
 
         }
+        saveTasks();
         //Chatbot exits
         System.out.println("Bye. Hope to see you again soon!\n");
     }

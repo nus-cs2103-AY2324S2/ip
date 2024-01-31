@@ -1,4 +1,5 @@
 public class ToDo extends Task {
+    protected String taskType = "T";
     public ToDo (String description) {
         super(description);
     }
@@ -7,4 +8,5 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
 }
