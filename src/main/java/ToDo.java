@@ -10,7 +10,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String getDetails() {
-        return "todo | " + (this.isDone ? "1 " : "0 |") + this.description;
+    public String getSaveFormat() {
+        return "todo | " + (this.isDone ? "1 " : "0 | ") + this.description;
     }
 }

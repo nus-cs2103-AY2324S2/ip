@@ -3,14 +3,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class Store {
+public class TaskList {
     private final ArrayList<Task> storage;
     private int count;
     private final HashSet<String> taskTypes;
 
-    public Store(String[] types) {
-        this.storage = new ArrayList<>();
-        this.count = 0;
+    public TaskList(String[] types, ArrayList<Task> storage) {
+        this.storage = storage;
+        this.count = storage.size();
         this.taskTypes = new HashSet<>();
         this.taskTypes.addAll(List.of(types));
 
@@ -38,7 +38,7 @@ public class Store {
             break;
         case "deadline":
             try {
-                String by = tokens[1];
+                String by = tokens[1].split(" ")[1].trim();
                 task = new Deadline(description, by);
             } catch (IndexOutOfBoundsException e) {
                 throw new DiboException("Oh no sir! Please state the deadline of the task :D");
@@ -49,8 +49,8 @@ public class Store {
             break;
         default:
             try {
-                String from = tokens[1];
-                String to = tokens[2];
+                String from = tokens[1].split(" ")[1].trim();
+                String to = tokens[2].split(" ")[1].trim();
                 task = new Event(description, from, to);
             } catch (IndexOutOfBoundsException e) {
                 throw new DiboException("Oh no sir! Please state the start and end of the task :D");
@@ -59,12 +59,8 @@ public class Store {
                         + "in this format: yyyy-mm-dd");
             }
         }
-
         this.addTask(task);
-
-        return "Got it. I've added this task:\n" + task.toString() + "\n"
-                + "Now you have " + this.count + (count > 1 ? " tasks " : " task ")
-                + "in the list.\n";
+        return task.toString();
     }
 
     public void addTask(Task t) {
@@ -72,39 +68,50 @@ public class Store {
         this.count++;
     }
 
-    public void displayStore() {
-        System.out.println("Here are the tasks in your list:");
+    public String getDisplayFormat() {
+        StringBuilder list = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < count; ++i) {
-            System.out.println((i + 1) + "." + storage.get(i).toString());
-        }
-    }
-
-    public String getFullList() {
-        StringBuilder list = new StringBuilder();
-        for (int i = 0; i < count; ++i) {
-            Task task = storage.get(i);
-            list.append(task.getDetails());
+            list.append((i + 1));
+            list.append(".");
+            list.append(storage.get(i).toString());
             list.append("\n");
         }
         return list.toString();
     }
 
-    public void markTask(int i) {
+    public String getSaveFormat() {
+        StringBuilder list = new StringBuilder();
+        for (int i = 0; i < count; ++i) {
+            Task task = storage.get(i);
+            list.append(task.getSaveFormat());
+            list.append("\n");
+        }
+        return list.toString();
+    }
+
+    public String markTask(int i) {
         Task task = storage.get(i - 1);
         task.markAsDone();
+        return task.toString();
     }
 
-    public void unmarkTask(int i) {
+    public String unmarkTask(int i) {
         Task task = storage.get(i - 1);
         task.markAsNotDone();
+        return task.toString();
     }
 
-    public void deleteTask(int i) {
-        System.out.println("Noted. I'm removing this task: \n" + storage.get(i - 1).toString()
-                + "Now you have " + --count + (count > 1 ? " tasks " : " task ")
-                + "in the list.");
+    public String deleteTask(int i) {
+        Task task = storage.get(i - 1);
         storage.remove(i - 1);
+        this.count--;
+        return task.toString();
     }
+
+    public int getSize() {
+        return this.count;
+    }
+
 
 
 

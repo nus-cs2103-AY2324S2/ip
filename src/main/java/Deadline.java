@@ -7,10 +7,10 @@ public class Deadline extends Task{
 
     public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
-        String date = by.split(" ")[1];
+        String date = by;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(date, formatter);
-        this.by = localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.by = localDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
     @Override
@@ -19,8 +19,8 @@ public class Deadline extends Task{
     }
 
     @Override
-    public String getDetails() {
-        return "deadline | " + (this.isDone ? "1 " : "0 |") + this.description
+    public String getSaveFormat() {
+        return "deadline | " + (this.isDone ? "1 " : "0 | ") + this.description
                 + " | " + this.by;
     }
 }

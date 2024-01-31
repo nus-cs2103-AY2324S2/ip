@@ -8,8 +8,8 @@ public class Event extends Task {
 
     public Event(String description, String start, String end) throws DateTimeParseException {
         super(description);
-        String date1 = start.split(" ")[1];
-        String date2 = end.split(" ")[1];
+        String date1 = start;
+        String date2 = end;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate1 = LocalDate.parse(date1, formatter);
         LocalDate localDate2 = LocalDate.parse(date2, formatter);
@@ -24,7 +24,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String getDetails() {
+    public String getSaveFormat() {
         return "event | " + (this.isDone ? "1 " : "0 | ") + this.description
                 + " | " + this.start + " | " + this.end;
     }
