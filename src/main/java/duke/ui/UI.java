@@ -6,9 +6,12 @@ import java.io.InputStreamReader;
 
 import duke.DukeException;
 
+/**
+ * Represents the user interface of the bot.
+ */
 public class UI {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private String botName = "Duke";
+    private String botName = "Sylvia";
     private final BufferedReader reader;
 
     public UI(String name) {
