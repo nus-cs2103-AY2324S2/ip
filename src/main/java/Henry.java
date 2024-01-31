@@ -9,27 +9,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Henry {
+    private Ui ui;
     private enum CommandType {
         LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, BYE, UNKNOWN
     }
     private static ArrayList<Task> items = new ArrayList<Task>();
-    public static void greet() {
-        String logo = "  _    _                       \n" +
-                " | |  | |                      \n" +
-                " | |__| | ___ _ __  _ __ _   _ \n" +
-                " |  __  |/ _ \\ '_ \\| '__| | | |\n" +
-                " | |  | |  __/ | | | |  | |_| |\n" +
-                " |_|  |_|\\___|_| |_|_|   \\__, |\n" +
-                "                          __/ |\n" +
-                "                         |___/ \n";
-        String greetMessage = "Hello! I'm Henry\nWhat can I do for you?";
-        System.out.println(logo);
-        System.out.println(greetMessage);
-        System.out.println();
-    }
-    public static void bye() {
-        System.out.println("See you again bro!");
-    }
     public static void loadTaskFromFile() {
         Path path = Paths.get("data", "henry.txt");
         File file = path.toFile();
@@ -180,9 +164,12 @@ public class Henry {
             break;
         }
     }
-    public static void main(String[] args) {
+    public Henry() {
+        ui = new Ui();
+    }
+    public void run() {
         loadTaskFromFile();
-        greet();
+        ui.greet();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String currentLine = scanner.nextLine();
@@ -194,7 +181,7 @@ public class Henry {
                 commandType = CommandType.valueOf(command[0].toUpperCase());
                 if (commandType.equals(CommandType.BYE)) {
                     saveTasksToFile();
-                    bye();
+                    ui.bye();
                     break;
                 }
             } catch (IllegalArgumentException e) {
@@ -207,5 +194,8 @@ public class Henry {
                 System.err.println(e);
             }
         }
+    }
+    public static void main(String[] args) {
+        new Henry().run();
     }
 }
