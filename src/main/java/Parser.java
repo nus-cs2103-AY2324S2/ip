@@ -1,4 +1,7 @@
 import java.util.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Parser {
     private static ArrayList<Task> inventory;
@@ -7,6 +10,7 @@ public class Parser {
     public void parse() {
         inventory = new ArrayList<>();
         num = 0;
+        String path  = "../../../data/rah.txt";
         //BOT NAME :RSH
         String logo = " _____   _____  _    _ \n"
                     + "|  __ \\ / ____|| |  | |\n"
@@ -136,6 +140,14 @@ public class Parser {
             } catch (DukeException e) {
                 System.out.println(layer(e.getMessage()));
             }
+            
+            try {
+                writeToFile(path);
+            }
+            catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+            
         }
 
         scanner.close(); 
@@ -144,5 +156,17 @@ public class Parser {
     public static String layer(String s) {
         String line = "____________________________________________________________";
         return line + "\n" + s + "\n" + line; 
+    }
+
+    private static void writeToFile(String filePath) throws IOException {
+        File file = new File(filePath);
+        // Ensure the directory exists
+        file.getParentFile().mkdirs();
+
+        try (FileWriter fw = new FileWriter(file, false)) { // false to overwrite
+            for (Task task : inventory) {
+                fw.write(task.toString() + System.lineSeparator());
+            }
+        }
     }
 }
