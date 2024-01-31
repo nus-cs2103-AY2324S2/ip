@@ -74,17 +74,15 @@ public class FileIO {
                 l.add(deadline);
             } else if (array_split[0].equals("E")) {
                 //Event event = new Event(array_split[1], array_split[2], array_split[3]);
-                if (array_split[1].equals("1")) {
-                    String description = array_split[2];
-                    String[] dates = array_split[3].split(" to ");
-                    LocalDate startTime = LocalDate.parse(dates[0], formatter);
-                    LocalDate endTime = LocalDate.parse(dates[1], formatter);
-                    Event event = new Event(description, startTime, endTime);
-                    if (isDone) {
-                        event.markDone();
-                    }
-                    l.add(event);
+                String description = array_split[2];
+                String[] dates = array_split[3].split(" to ");
+                LocalDate startTime = LocalDate.parse(dates[0], formatter);
+                LocalDate endTime = LocalDate.parse(dates[1], formatter);
+                Event event = new Event(description, startTime, endTime);
+                if (isDone) {
+                    event.markDone();
                 }
+                l.add(event);
             }
         }
         return l;
