@@ -36,6 +36,7 @@ public class TodoDao extends TaskDao {
   public static void add(Todo todo) {
     File table = Database.getTable(NAME);
     String data = todo.toDataString();
-    Database.create(table.toPath(), data);
+    long id = Database.create(table.toPath(), data);
+    todo.setId(id);
   }
 }

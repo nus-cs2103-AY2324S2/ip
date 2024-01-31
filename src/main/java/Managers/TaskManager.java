@@ -127,7 +127,7 @@ public class TaskManager {
     Task task = this.get(taskIndex);
     this.printSeparator();
     TaskType type = getTypeOfTask(task.toString());
-    task = TaskDao.mark(task.getId(), type.getCommand(), task, isDone);
+    task = TaskDao.mark((int)task.getId(), type.getCommand(), task, isDone);
     System.out.println("Nice! I've marked this task as done: \n" + task);
     this.printSeparator();
   }

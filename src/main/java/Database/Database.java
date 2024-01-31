@@ -24,16 +24,18 @@ public class Database {
         return null;
     }
 
-    public static void create(Path filePath, String line) {
+    public static long create(Path filePath, String line) {
         try {
             long count = Files.lines(filePath).count();
-            long id = count + 1;
+            long id = count;
             line = id + " | " + line;
             FileUtils.insert(filePath, line);
+            return id;
         } catch (IOException ex) {
             ex.printStackTrace();
             System.err.println("Error occurred when writing to " + filePath);
         }
+        return -1; // -1 indicates error
     }
 
     public static String findById(String filePath, int id) {

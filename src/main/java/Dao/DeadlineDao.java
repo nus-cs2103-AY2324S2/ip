@@ -50,6 +50,7 @@ public class DeadlineDao {
   public static void add(Deadline deadline) {
     File table = Database.getTable(NAME);
     String data = deadline.toDataString();
-    Database.create(table.toPath(), data);
+    long id = Database.create(table.toPath(), data);
+    deadline.setId(id);
   }
 }

@@ -52,7 +52,8 @@ public class EventDao {
   public static void add(Event event) {
     File table = Database.getTable(NAME);
     String data = event.toDataString();
-    Database.create(table.toPath(), data);
+    long id = Database.create(table.toPath(), data);
+    event.setId(id);
   }
 
 }

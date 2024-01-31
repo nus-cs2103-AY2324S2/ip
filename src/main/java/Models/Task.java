@@ -6,7 +6,7 @@ import java.io.File;
 
 public class Task {
 
-  private int id;
+  private long id;
   private String name;
   private boolean isDone;
 
@@ -26,11 +26,11 @@ public class Task {
     this.isDone = isDone;
   }
 
-  public int getId() {
+  public long getId() {
     return this.id;
   }
 
-  public void setId(int id) {
+  public void setId(long id) {
     this.id = id;
   }
   public String getName() {
