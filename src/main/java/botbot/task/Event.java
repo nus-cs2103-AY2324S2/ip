@@ -1,4 +1,7 @@
-import java.time.LocalDate;
+package botbot.task;
+
+import botbot.exception.InvalidDateException;
+
 import java.time.LocalDateTime;
 
 public class Event extends Task {
@@ -6,7 +9,7 @@ public class Event extends Task {
     String to;
     LocalDateTime fromTime;
     LocalDateTime toTime;
-    public Event(String task, String from, String to) throws InvalidDateException{
+    public Event(String task, String from, String to) throws InvalidDateException {
         super(task);
         this.from = from;
         this.to = to;

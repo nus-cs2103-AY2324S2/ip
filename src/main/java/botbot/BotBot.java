@@ -1,3 +1,8 @@
+package botbot;
+
+import botbot.exception.BotBotException;
+import botbot.task.TaskList;
+
 import java.io.IOException;
 
 public class BotBot {

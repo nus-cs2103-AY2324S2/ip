@@ -1,3 +1,9 @@
+package botbot.task;
+
+import botbot.exception.BotBotException;
+import botbot.exception.CommandException;
+import botbot.exception.DescriptionException;
+
 import java.util.ArrayList;
 
 public class TaskList {
