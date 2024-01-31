@@ -5,6 +5,10 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
+/**
+ * TheAdvisor class represents the main application that manages tasks.
+ * It interacts with the user interface, task list, and storage to handle user commands.
+ */
 public class TheAdvisor implements Serializable {
     private static final String FILE_PATH = "list.bin";
 
@@ -14,12 +18,18 @@ public class TheAdvisor implements Serializable {
 
     private TaskList taskList;
 
+    /**
+     * Constructs a new TheAdvisor instance with default settings.
+     */
     public TheAdvisor() {
         this.ui = new Ui();
         this.storage = new Storage(FILE_PATH);
         this.taskList = new TaskList();
     }
 
+    /**
+     * Runs the main loop of the application, handling user commands and interacting with the task list.
+     */
     public void run() {
         try {
             taskList = storage.loadList();
@@ -136,6 +146,11 @@ public class TheAdvisor implements Serializable {
 
     }
 
+    /**
+     * The main method to start the application.
+     *
+     * @param args The command-line arguments.
+     */
     public static void main(String[] args) {
         TheAdvisor advisor = new TheAdvisor();
         advisor.run();
