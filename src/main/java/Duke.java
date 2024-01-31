@@ -67,7 +67,7 @@ public class Duke {
 
         @Override
         public String toString() {
-            return "[D]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+            return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
         }
     }
 
@@ -171,8 +171,14 @@ public class Duke {
         return Objects.equals(firstWord, "event");
     }
 
-    // Gets the index input by the user for a mark/unmark command.
-    private int getMarkUnmarkIndex(String command) {
+    // Checks if the last input is delete.
+    private boolean isCommandDelete(String command) {
+        String firstWord = getFirstWord(command);
+        return Objects.equals(firstWord, "delete");
+    }
+
+    // Gets the index input by the user for a mark/unmark/delete command.
+    private int getMarkUnmarkDeleteIndex(String command) {
         String otherThanFirstWord = getOtherThanFirstWord(command);
         return Integer.parseInt(otherThanFirstWord);
     }
@@ -311,13 +317,24 @@ public class Duke {
         printHorizontalLine();
     }
 
+    // Deletes the i-th task in the task list, where i is the index.
+    private void deleteTask(int index) {
+        Task deletedTask = taskList.remove(index - 1);
+        int numTasks = numTasks();
+        printHorizontalLine();
+        printWithIndent(" Noted. I've removed this task:");
+        printWithIndent("   " + deletedTask);
+        printWithIndent(" Now you have " + numTasks + " tasks in the list.");
+        printHorizontalLine();
+    }
+
     // Handles the command input by the user.
     private void handleCommand(String command) throws UnknownCommandException {
         try {
             if (isCommandMark(command)) {
-                markTaskAsDone(getMarkUnmarkIndex(command));
+                markTaskAsDone(getMarkUnmarkDeleteIndex(command));
             } else if (isCommandUnmark(command)) {
-                markTaskAsNotDone(getMarkUnmarkIndex(command));
+                markTaskAsNotDone(getMarkUnmarkDeleteIndex(command));
             } else if (isCommandList(command)) {
                 printTaskList();
             } else if (isCommandTodo(command)) {
@@ -326,6 +343,8 @@ public class Duke {
                 addDeadline(getDeadlineDescription(command), getDeadlineBy(command));
             } else if (isCommandEvent(command)) {
                 addEvent(getEventDescription(command), getEventFrom(command), getEventTo(command));
+            } else if (isCommandDelete(command)) {
+                deleteTask(getMarkUnmarkDeleteIndex(command));
             } else {
                 throw new UnknownCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
