@@ -10,7 +10,9 @@ public class Parser {
         String[] splitInput = input.split(" ");
         String command = splitInput[0];
         switch (command) {
-        case "bye", "list", "getcommands":
+        case "bye":
+        case "list":
+        case "getcommands":
             parsedResult.add(command);
             return parsedResult;
         case "mark":

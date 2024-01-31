@@ -28,11 +28,11 @@ test {
 }
 
 application {
-    mainClass.set("Main.Ypxmm")
+    mainClass.set("Ypxmm")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Ypxmm"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
