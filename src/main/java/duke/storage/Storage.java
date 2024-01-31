@@ -14,7 +14,7 @@ import tasks.ToDo;
 
 public class Storage {
 
-    private final static String FILE_PATH = "src/main/java/resources/data.txt";
+    private final static String FILE_PATH = "src/main/java/duke/resources/data.txt";
     private final static String DELIMITER = "~";
 
     public Storage() {
@@ -25,6 +25,8 @@ public class Storage {
         if (new File(FILE_PATH).exists()) {
             return Storage.readFromStorage();
         } else {
+            File file = new File(FILE_PATH);
+            file.getParentFile().mkdirs();
             return new ArrayList<>();
         }
     }
