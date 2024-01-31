@@ -13,9 +13,11 @@ public class Duke {
     private Ui ui;
     private Storage storage;
 
+
     /**
      * Enumeration representing possible commands in Duke.
      */
+
     public enum Command {
         BYE, LIST, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN
     }
