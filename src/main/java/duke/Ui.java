@@ -10,6 +10,7 @@ public class Ui {
     }
 
     public String readCommand() {
+        System.out.println("User:");
         return scanner.nextLine();
     }
 
@@ -30,6 +31,9 @@ public class Ui {
     }
 
     public void showTaskList(TaskList tasks) throws DukeException {
+        if (tasks.getSize() == 0) {
+            throw new DukeException("No tasks found.");
+        }
         botHeader();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.getSize(); i++) {

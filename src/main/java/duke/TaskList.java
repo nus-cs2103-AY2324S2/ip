@@ -1,10 +1,10 @@
 package duke;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class TaskList {
-    private List<Task> tasks;
-    public TaskList(List<Task> tasks) {
+    private ArrayList<Task> tasks;
+    public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
@@ -40,5 +40,15 @@ public class TaskList {
         Task task = tasks.get(index);
         task.markAsUndone();
         return task;
+    }
+
+    public TaskList findTasks(String description) {
+        ArrayList<Task> filteredTasks = new ArrayList<Task>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(description)) {
+                filteredTasks.add(task);
+            }
+        }
+        return new TaskList(filteredTasks);
     }
 }
