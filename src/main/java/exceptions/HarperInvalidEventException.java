@@ -1,3 +1,5 @@
+package exceptions;
+
 public class HarperInvalidEventException extends HarperException {
     public HarperInvalidEventException() {
         super("_________________________________________________________\n"

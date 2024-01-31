@@ -9,9 +9,9 @@ public class Task {
      * Create a task with description and the task is marked as not done initially.
      * @param description The description of the task.
      */
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     /**
@@ -35,7 +35,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String statusSymbol = this.isDone ? "[X]" : "[ ]";
-        return statusSymbol + " " + this.description;
+        String statusSymbol = this.isDone ? "1" : "0";
+        return " | " + statusSymbol + " | " + this.description;
     }
 }
