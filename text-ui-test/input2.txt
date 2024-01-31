@@ -1,6 +1,6 @@
 todo Go school
-deadline Task 4 /by Friday
-event project meeting /from Thursday 4pm /to 6pm
+deadline Task 4 /by 2024-01-31
+event project meeting /from 2024-01-31 /to 2024-02-01
 delete 1
 delete 2
 list

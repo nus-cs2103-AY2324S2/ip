@@ -6,24 +6,18 @@
 	____________________________________________________________
 	Got it. I've added this task:
 	[T][ ] Go school
+	Now you have 5 tasks in the list.
+	____________________________________________________________
+
+	____________________________________________________________
+	Got it. I've added this task:
+	[D][ ] Task 4 (by: Jan 31 2024)
 	Now you have 6 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Got it. I've added this task:
-	[D][ ] Task 4 (by: Friday)
-	Now you have 7 tasks in the list.
-	____________________________________________________________
-
-	____________________________________________________________
-	Got it. I've added this task:
-	[E][ ] project meeting (from: Thursday 4pm to: 6pm)
-	Now you have 8 tasks in the list.
-	____________________________________________________________
-
-	____________________________________________________________
-	Noted. I've removed this task:
-	[T][ ] hi
+	[E][ ] project meeting (from: Jan 31 2024 to: Feb 01 2024)
 	Now you have 7 tasks in the list.
 	____________________________________________________________
 
@@ -34,13 +28,18 @@
 	____________________________________________________________
 
 	____________________________________________________________
+	Noted. I've removed this task:
+	[D][ ] Task 4 (by: Jan 31 2024)
+	Now you have 5 tasks in the list.
+	____________________________________________________________
+
+	____________________________________________________________
 	Here are the tasks in your list:
-	1. [T][X] x
-	2. [D][ ] Task 4 (by: Friday)
-	3. [E][ ] project meeting (from: Thursday 4pm to: 6pm)
-	4. [T][ ] Go school
-	5. [D][ ] Task 4 (by: Friday)
-	6. [E][ ] project meeting (from: Thursday 4pm to: 6pm)
+	1. [T][X] Go school
+	2. [E][ ] project meeting (from: Jan 31 2024 to: Feb 01 2024)
+	3. [T][ ] Go school
+	4. [D][ ] Task 4 (by: Jan 31 2024)
+	5. [E][ ] project meeting (from: Jan 31 2024 to: Feb 01 2024)
 	____________________________________________________________
 
 	____________________________________________________________

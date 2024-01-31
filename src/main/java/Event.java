@@ -1,9 +1,22 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
     private String startToEnd;
+    private LocalDate start;
+    private LocalDate end;
 
-    Event(String description, String startToEnd, String input) {
+    Event(String description, String startToEnd, String input, LocalDate start, LocalDate end) {
         super(description, input);
-        this.startToEnd = startToEnd;
+        this.start = start;
+        this.end = end;
+        this.startToEnd = formatStartToEnd();
+    }
+
+    private String formatStartToEnd() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
+        return this.start.format(formatter) + " to: " + this.end.format(formatter);
     }
 
     @Override

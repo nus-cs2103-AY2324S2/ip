@@ -1,10 +1,10 @@
 todo 
 todo Go school
 deadline Task 4 /by 
-deadline Task 4 /by Friday
+deadline Task 4 /by 2024-01-31
 event project meeting /from Thursday 4pm /to 
 event  /from Thursday 4pm /to 6pm
-event project meeting /from Thursday 4pm /to 6pm
+event project meeting /from 2024-01-31 /to 2024-02-01
 mark 1
 mark 2
 unmark 1
