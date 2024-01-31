@@ -1,6 +1,10 @@
+package toothless;
+
+import toothless.commands.*;
+
 public class Parser {
 
-    public static Command parseCommand(String input) throws ToothlessException{
+    public static Command parseCommand(String input) throws ToothlessException {
         String[] split = input.split(" ", 2);
         switch (split[0].toUpperCase()) {
         case "BYE":

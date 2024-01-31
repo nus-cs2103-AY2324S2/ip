@@ -1,5 +1,6 @@
+package toothless.tasks;
+
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 
 public abstract class Task {
@@ -25,6 +26,10 @@ public abstract class Task {
 
     public String toWrite(){
         return (isDone ? 1 : 0) + " | " + this.description;
+    }
+
+    public boolean isDone(){
+        return isDone;
     }
 
     public String dateTimeFormat(LocalDateTime dateTime){

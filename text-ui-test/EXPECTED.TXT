@@ -1,6 +1,6 @@
 ____________________________________________________________
-Hi! Toothless is Toothless!
-What can Toothless do for human?
+Hi! toothless.Toothless is toothless.Toothless!
+What can toothless.Toothless do for human?
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:

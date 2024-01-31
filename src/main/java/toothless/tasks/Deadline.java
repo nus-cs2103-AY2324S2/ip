@@ -1,6 +1,8 @@
+package toothless.tasks;
+
 import java.time.LocalDateTime;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     private LocalDateTime date;
 
     public Deadline(String description, String date){

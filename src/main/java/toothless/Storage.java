@@ -1,3 +1,5 @@
+package toothless;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -5,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import toothless.tasks.*;
 
 public class Storage {
 
@@ -15,7 +18,7 @@ public class Storage {
         this.filepath = filepath;
     }
 
-    public List<Task> load() throws ToothlessException{
+    public List<Task> load() throws ToothlessException {
         try {
             List<Task> list = new ArrayList<>();
             this.file = new File(this.filepath);

@@ -1,5 +1,8 @@
+package toothless;
+
 import java.util.ArrayList;
 import java.util.List;
+import toothless.tasks.Task;
 
 public class TaskList {
 
