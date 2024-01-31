@@ -1,3 +1,9 @@
+package duke.parser;
+
+import duke.command.*;
+import duke.utils.DukeException;
+import duke.utils.Util;
+
 public class Parser {
     public static Command parse(String input) throws DukeException {
         String[] split = input.split(" ", 2);
@@ -40,7 +46,7 @@ public class Parser {
                     throw new DukeException("The deadline of a deadline cannot be empty.");
                 }
                 System.out.println(split1[1].strip());
-                return new DeadlineCommand(split1[0], Utils.parseDate(split1[1].strip()));
+                return new DeadlineCommand(split1[0], Util.parseDate(split1[1].strip()));
             }
 
             case "event": {
@@ -56,7 +62,7 @@ public class Parser {
                 if (split2.length == 1) {
                     throw new DukeException("The to of a event cannot be empty.");
                 }
-                return new EventCommand(split1[0], Utils.parseDate(split2[0]), Utils.parseDate(split2[1]));
+                return new EventCommand(split1[0], Util.parseDate(split2[0]), Util.parseDate(split2[1]));
 
             }
 

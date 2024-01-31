@@ -1,3 +1,9 @@
+package duke.storage;
+
+import duke.task.*;
+import duke.utils.DukeException;
+import duke.utils.Util;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-class FileStorage implements Storage {
+public class FileStorage implements Storage {
     private final File file;
 
     public FileStorage(String filepath) throws IOException {
@@ -49,11 +55,11 @@ class FileStorage implements Storage {
                         break;
                     }
                     case "D": {
-                        tasks.add(new Deadline(split[2], Utils.parseDate(split[3]), state));
+                        tasks.add(new Deadline(split[2], Util.parseDate(split[3]), state));
                         break;
                     }
                     case "E": {
-                        tasks.add(new Event(split[2], Utils.parseDate(split[3]), Utils.parseDate(split[4]), state));
+                        tasks.add(new Event(split[2], Util.parseDate(split[3]), Util.parseDate(split[4]), state));
                         break;
                     }
                 }
@@ -65,10 +71,4 @@ class FileStorage implements Storage {
         }
         return tasks;
     }
-}
-
-public interface Storage {
-    void save(TaskList taskList) throws DukeException;
-
-    List<Task> load() throws DukeException, IOException;
 }
