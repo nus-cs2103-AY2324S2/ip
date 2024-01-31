@@ -45,7 +45,7 @@ public final class TaskParser {
      * @return the task
      * @throws InvalidTaskStringException If the regex doesn't match the pattern
      */
-    public static Task parseTask(String readableString) throws InvalidTaskStringException {
+    private static Task parseTask(String readableString) throws InvalidTaskStringException {
         // note that the order of the tasks matters,
         // and should be from most specific to least specific.
         if (Event.matchesEvent(readableString)) {

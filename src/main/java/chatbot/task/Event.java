@@ -58,8 +58,8 @@ public final class Event extends Task {
      */
     public Event(Matcher matcher) throws InvalidTaskStringException {
         super(matcher);
-        this.startDateTime = new DateStringValue(matcher.group("from"));
-        this.endDateTime = new DateStringValue(matcher.group("to"));
+        this.startDateTime = DateStringValue.of(matcher.group("from"));
+        this.endDateTime = DateStringValue.of(matcher.group("to"));
     }
 
     /**

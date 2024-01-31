@@ -4,7 +4,6 @@ import chatbot.action.Action;
 import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 
-import java.util.Scanner;
 import java.lang.StringBuilder;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,19 +15,13 @@ import java.util.List;
  */
 public final class InputParser {
     /**
-     * Stores the scanner instance used to get the console input stream.
-     */
-    private static final Scanner SCANNER = new Scanner(System.in);
-
-    /**
      * Parse the input string into it's command and arguments.
      *
+     * @param input the input string
      * @return an action containing the command and it's arguments
      * @throws ActionException If invalid input is provided that results in an invalid command or arguments.
      */
-    public static Action getParsedInput() throws ActionException {
-        String input = SCANNER.nextLine();
-
+    public static Action getParsedInput(String input) throws ActionException {
         // command is always the first word in the input
         String command = input.trim().split(" ")[0];
 

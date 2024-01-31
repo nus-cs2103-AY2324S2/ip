@@ -46,7 +46,7 @@ public final class DateStringValue extends StringValue {
      *
      * @param value the value as a {@link String}
      */
-    public DateStringValue(String value) {
+    private DateStringValue(String value) {
         super(value);
 
         LocalDate date = null;
@@ -66,6 +66,15 @@ public final class DateStringValue extends StringValue {
      */
     public static DateStringValue of(StringValue value) {
         return new DateStringValue(value.toString());
+    }
+
+    /**
+     * Factory method for taking in a {@link StringValue}, but trying to convert it to a date.
+     *
+     * @param value the value as a {@link String}
+     */
+    public static DateStringValue of(String value) {
+        return new DateStringValue(value);
     }
 
     /**
