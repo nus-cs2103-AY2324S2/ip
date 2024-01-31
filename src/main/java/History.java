@@ -1,6 +1,7 @@
+import java.io.*;
 import java.util.ArrayList;
 
-public class History {
+public class History implements Serializable {
 
     private ArrayList<Task> history;
 
@@ -70,4 +71,16 @@ public class History {
         System.out.println("[Removed " + fullStatus + "]\n");
     }
 
+    //Attempts to save history (reference: https://www.baeldung.com/java-serialization)
+    //For now we will only do this once when exiting the program normally. (i.e., by using "bye" command).
+    public void saveHistory(File file) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
+            outputStream.writeObject(this);
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            System.out.println("oops!!!");
+        }
+    }
 }

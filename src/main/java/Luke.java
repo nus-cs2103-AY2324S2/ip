@@ -4,7 +4,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Luke {
 
@@ -17,7 +16,7 @@ public class Luke {
             + " |________|'.__.'_/[__|  \\_]'.__.' ";
 
     public static void main(String[] args) throws LukeException {
-        History history = new History();
+        History history;
         greet();
 
         String wd = System.getProperty("user.dir");
@@ -41,22 +40,19 @@ public class Luke {
             return;
         }
 
-        //load the file
+        //load the file if there is save data (reference: https://www.baeldung.com/java-serialization)
+        //otherwise, create a new History object.
         File historyFile = new File(String.valueOf(historyPath));
-//        try {
-//            BufferedReader b = new BufferedReader(new FileReader(historyFile));
-//            while (true) {
-//                String input = b.readLine();
-//                if (input == null) {
-//                    break;
-//                }
-//                history.add(makeTask(input));
-//            }
-//        } catch (FileNotFoundException e) {
-//            return;
-//        } catch (IOException e) {
-//            return;
-//        }
+        try {
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(historyFile));
+            history = (History) inputStream.readObject();
+        } catch (IOException e) {
+            //System.out.println("No save data found, creating new save.");
+            history = new History();
+        } catch (ClassNotFoundException e) {
+            System.out.println("Class not found");
+            return;
+        }
 
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -64,6 +60,7 @@ public class Luke {
             //first, determine the type of input.
             String input = sc.nextLine().trim(); //trim removes preceding and trailing whitespace.
             if (input.equals("bye")) {
+                history.saveHistory(historyFile);
                 bye();
                 sc.close();
                 break;
