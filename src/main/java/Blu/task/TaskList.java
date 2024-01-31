@@ -2,6 +2,7 @@ package blu.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import blu.exception.IllegalParameterException;
 
@@ -98,6 +99,18 @@ public class TaskList {
             + "Please use the list command to view valid task numbers.");
         }
         this.tasks.remove(idx);
+    }
+
+    /**
+     * Searches through task list and returns a list of tasks that contain a specific substring.
+     *
+     * @param searchString The substring to search for within each task of the task list.
+     * @return A list of task that contain the specified substring.
+     */
+    public List<Task> searhForTasksContaining(String searchString) {
+        return tasks.stream()
+                .filter(t -> t.getTitle().contains(searchString))
+                .collect(Collectors.toList());
     }
 
     /**
