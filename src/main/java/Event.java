@@ -4,8 +4,8 @@ public class Event extends Task {
 
     public Event(String name, String from, String to) {
         super(name);
-        this.from = from;
-        this.to = to;
+        this.from = tryParseDate(from);
+        this.to = tryParseDate(to);
     }
 
     @Override

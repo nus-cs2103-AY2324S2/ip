@@ -10,6 +10,14 @@ public class Checkbot {
 
     public static final String TASK_FILE_DIR = "./tasks.txt";
 
+
+    /**
+     * Creates a Task object and returns it based on the given String input.
+     *
+     * @param input The task in String format.
+     * @return A concrete implementation of the Task object.
+     * @throws CheckbotException If input is not formatted correctly.
+     */
     private static Task createTask(String input) throws CheckbotException {
         Task task;
         String[] splitString = input.split("todo|deadline|event|\\/(by|from|to)");
@@ -66,6 +74,13 @@ public class Checkbot {
         return task;
     }
 
+    /**
+     * Reads the txt file from the directory and returns it as a TodoList.
+     * Invalid entries are ignored and not added to the list, and returns
+     * an empty TodoList if the txt file does not exist.
+     *
+     * @return A TodoList based on the txt file in the directory.
+     */
     private static TodoList loadTasks() {
         final String TASK_CODE = "T";
         final String DEADLINE_CODE = "D";

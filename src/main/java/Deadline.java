@@ -3,7 +3,7 @@ public class Deadline extends Task {
 
     public Deadline(String name, String to) {
         super(name);
-        this.to = to;
+        this.to = tryParseDate(to);
     }
 
     @Override

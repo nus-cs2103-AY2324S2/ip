@@ -20,7 +20,7 @@
 
   ____________________________________________________________
   I have added this task to the list:
-    [D] [ ] return book (by: Sunday)
+    [D] [ ] return book (by: 01 Feb 2024)
   You have now 2 tasks in the list.
   ____________________________________________________________
 
@@ -94,12 +94,12 @@
 
   ____________________________________________________________
   Here is your todo list:
-  1. [D] [ ] return book (by: Sunday)
+  1. [D] [ ] return book (by: 01 Feb 2024)
   ____________________________________________________________
 
   ____________________________________________________________
   Alright, I deleted this task:
-    [D] [ ] return book (by: Sunday)
+    [D] [ ] return book (by: 01 Feb 2024)
   You have now 0 task in the list.
   ____________________________________________________________
 

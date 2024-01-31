@@ -1,7 +1,7 @@
 delete 1
 todo borrow book
 list
-deadline return book /by Sunday
+deadline return book /by 01/02/2024
 event project meeting /from Mon 2pm /to 4pm
 unknown
 todo
