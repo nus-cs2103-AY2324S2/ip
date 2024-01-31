@@ -1,5 +1,4 @@
-package Duke;
-import java.util.Scanner;
+package duke;
 
 
 public class CommandHandler {

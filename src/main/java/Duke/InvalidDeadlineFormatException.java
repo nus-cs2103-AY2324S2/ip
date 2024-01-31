@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 public class InvalidDeadlineFormatException extends DukeException {
     public InvalidDeadlineFormatException() {

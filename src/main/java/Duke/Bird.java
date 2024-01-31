@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 public class Bird {
     private Ui ui;
