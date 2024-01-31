@@ -1,13 +1,17 @@
+package duke;
+
 import java.util.Scanner;
-
 public class Ui {
-
     private TaskList taskList;
-    public Ui() {
+
+    private Ui() {
         taskList = new TaskList();
         Storage.read(taskList);
         greet();
         listen();
+    }
+    public static void startup() {
+        Ui greg = new Ui();
     }
     public void greet() {
         fillerLine();

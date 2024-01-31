@@ -1,5 +1,6 @@
-public class Parser {
+package duke;
 
+public class Parser {
     public static void commands(TaskList taskList, String request, boolean reading, boolean isDone) {
         String[] words = request.split(" ", 0);
         int length = words.length;

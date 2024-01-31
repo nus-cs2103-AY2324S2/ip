@@ -1,6 +1,7 @@
+package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+
 public class Deadline extends Task {
     LocalDateTime deadline;
     public Deadline(String name, LocalDateTime deadline, boolean isDone) {

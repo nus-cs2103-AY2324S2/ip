@@ -1,3 +1,8 @@
+package duke;
+
+import duke.Event;
+import duke.Task;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
