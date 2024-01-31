@@ -29,7 +29,7 @@ public class Task {
     }
     @Override
     public String toString() {
-        String completion = isComplete ? "[X]" : "[ ]";
+        String completion = isComplete ? "[X]" : "[]";
         return completion + " " + description;
     }
 
