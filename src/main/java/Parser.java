@@ -1,3 +1,8 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 //converts the input string from user to a Command object
 public class Parser {
     public static Command parse(String input) {
@@ -80,15 +85,23 @@ public class Parser {
         }
 
         String task = parts[0].trim();
-        String deadline = parts[1].trim();
+        String deadlineString = parts[1].trim();
 
+        //check if fields have values
         if (task.isEmpty()) {
             throw new DukeException.MissingInfoException("You have to tell me the description too! Or I cant remember it!");
-        } else if (deadline.isEmpty()) {
+        } else if (deadlineString.isEmpty()) {
             throw new DukeException.MissingInfoException("You need a deadline! Or you will never get to it!");
         }
 
-        return new Command.DeadlineCommand(task, deadline);
+        //parse string
+        try {
+            LocalDate deadline = LocalDate.parse(deadlineString, Task.getDateFormat());
+            return new Command.DeadlineCommand(task, deadline);
+        } catch (DateTimeParseException e) {
+            throw new DukeException.InvalidCommandException("Invalid date/time format for the deadline!"
+                    + "Please use a dd MMM yyyy format (e.g. 21 Jan 2000).");
+        }
     }
 
     private static Command parseEventCommand(String tokens) throws DukeException{
@@ -99,22 +112,33 @@ public class Parser {
         }
 
         String task = parts[0].trim();
-        String startTime = parts[1].trim();
-        String endTime = parts[2].trim();
+        String startString = parts[1].trim();
+        String endString = parts[2].trim();
 
         if (tokens.indexOf("/from") > tokens.indexOf("/to")) {
-            String temp = startTime;
-            startTime = endTime;
-            endTime = temp;
+            String temp = startString;
+            startString = endString;
+            endString = temp;
         }
 
         if (task.isEmpty()) {
             throw new DukeException.MissingInfoException("Tasks needs a name! Or I cant remember it!");
-        } else if (startTime.isEmpty()) {
+        } else if (startString.isEmpty()) {
             throw new DukeException.MissingInfoException("Please tell me when it starts!");
-        } else if (endTime.isEmpty()) {
+        } else if (endString.isEmpty()) {
             throw new DukeException.MissingInfoException("Please tell me when it ends!");
         }
-        return new Command.EventCommand(task, startTime, endTime);
+
+        //parse string
+        try {
+            LocalDate startDate = LocalDate.parse(startString, Task.getDateFormat());
+            LocalDate endDate = LocalDate.parse(endString, Task.getDateFormat());
+
+            return new Command.EventCommand(task, startDate, endDate);
+        } catch (DateTimeParseException e) {
+            throw new DukeException.InvalidCommandException("Invalid date/time format for the deadline!"
+                    + "Please use a dd MMM yyyy format (e.g. 21 Jan 2000).");
+        }
+
     }
 }

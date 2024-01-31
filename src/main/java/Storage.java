@@ -1,8 +1,11 @@
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.time.LocalDate;
+
 import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.time.format.DateTimeParseException;
 
 /** Helper class to manage all storage related methods of duke. */
 public class Storage {
@@ -74,6 +77,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (DukeException.CorruptedDataException e) {
+            System.out.println(e.getMessage() + "Please check the datafile and delete if not recoverable.");
             throw new RuntimeException(e);
         }
 
@@ -81,16 +85,23 @@ public class Storage {
     }
 
     private Task parseLineFromStorage(String tokens) throws DukeException.CorruptedDataException {
-        String[] data = tokens.split("\\s");
-        switch (data[0]) {
-        case "T":
-            return new Task.ToDos(data[1], data[2]);
-        case "E":
-            return new Task.Events(data[1], data[2], data[3], data[4]);
-        case "D":
-            return new Task.Deadlines(data[1], data[2], data[3]);
-        default:
-            throw new DukeException.CorruptedDataException("Data file is corrupted.");
+        try {
+            String[] data = tokens.split(",");
+            switch (data[0]) {
+                case "T":
+                    return new Task.ToDos(data[1], Boolean.parseBoolean(data[2]));
+                case "E":
+                    return new Task.Events(data[1], Boolean.parseBoolean(data[2]),
+                            LocalDate.parse(data[3], Task.getDateFormat()),
+                            LocalDate.parse(data[4], Task.getDateFormat()));
+                case "D":
+
+                    return new Task.Deadlines(data[1], Boolean.parseBoolean(data[2]), LocalDate.parse(data[3], Task.getDateFormat()));
+                default:
+                    throw new DukeException.CorruptedDataException("Data file is corrupted, task type does not exist");
+            }
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
+            throw new DukeException.CorruptedDataException("Data file is corrupted, error parsing data: " + e.getMessage());
         }
     }
 }

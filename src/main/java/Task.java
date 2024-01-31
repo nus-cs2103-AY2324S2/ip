@@ -1,4 +1,7 @@
-import static java.lang.Boolean.parseBoolean;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public abstract class Task {
 
@@ -8,9 +11,12 @@ public abstract class Task {
     /** Boolean Flag of whether the task is done */
     private boolean isDone;
 
-    /** Constructs task with specified description
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
+
+    /**
+     * Constructs task with specified description.
      *
-     * @param description Description of task
+     * @param description Description of task.
      */
     public Task(String description) {
         this.description = description;
@@ -20,12 +26,12 @@ public abstract class Task {
     /**
      * Constructs a task with done flag specified as a string. This method is used for storage activities.
      *
-     * @param description string
-     * @param isDone boolean value
+     * @param description Brief description of task.
+     * @param isDone String representing boolean value.
      */
-    public Task(String description, String isDone) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = parseBoolean(isDone);
+        this.isDone = isDone;
     }
 
     /** Sets this task as done */
@@ -46,6 +52,10 @@ public abstract class Task {
         return mark + this.description;
     }
 
+    public static DateTimeFormatter getDateFormat() {
+        return Task.DATE_FORMATTER;
+    }
+
     /**
      * Returns a string containing information of task in a clean machine-readable format
      *
@@ -58,7 +68,7 @@ public abstract class Task {
             super(name);
         }
 
-        public ToDos(String description, String isDone) {
+        public ToDos(String description, boolean isDone) {
             super(description, isDone);
         }
 
@@ -74,19 +84,19 @@ public abstract class Task {
          */
         @Override
         public String getTokens() {
-            return String.join(" ", "T", super.description, String.valueOf(super.isDone));
+            return String.join(",", "T", super.description, String.valueOf(super.isDone));
         }
     }
 
     public static class Events extends Task {
-        private String from;
-        private String to;
-        public Events(String name, String from, String to) {
+        private LocalDate from;
+        private LocalDate to;
+        public Events(String name, LocalDate from, LocalDate to) {
             super(name);
             this.from = from;
             this.to = to;
         }
-        public Events(String name, String isDone, String from, String to) {
+        public Events(String name, boolean isDone, LocalDate from, LocalDate to) {
             super(name, isDone);
             this.from = from;
             this.to = to;
@@ -94,7 +104,8 @@ public abstract class Task {
 
         @Override
         public String toString() {
-            return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+            return "[E]" + super.toString() + " (from: " + this.from.format(Task.getDateFormat())
+                    + " to: " + this.to.format(Task.getDateFormat()) + ")";
         }
 
         /**
@@ -104,26 +115,36 @@ public abstract class Task {
          */
         @Override
         public String getTokens() {
-            return String.join(" ", "E", super.description,
-                    String.valueOf(super.isDone), this.from, this.to);
+            return String.join(",", "E",
+                    super.description,
+                    String.valueOf(super.isDone),
+                    this.from.format(Task.getDateFormat()),
+                    this.to.format(Task.getDateFormat()));
         }
     }
 
     public static class Deadlines extends Task {
-        private String by;
-        public Deadlines(String name, String by) {
-            super(name);
+        private LocalDate by;
+
+        /**
+         * Contructs new deadlibe object with a description and a due date.
+         *
+         * @param description Brief description of task.
+         * @param by LocalDateTine object
+         */
+        public Deadlines(String description, LocalDate by) {
+            super(description);
             this.by = by;
         }
 
-        public Deadlines(String name, String isDone, String by) {
+        public Deadlines(String name, boolean isDone, LocalDate by) {
             super(name, isDone);
             this.by = by;
         }
 
         @Override
         public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+            return "[D]" + super.toString() + " (by: " + this.by.format(Task.getDateFormat()) + ")";
         }
 
         /**
@@ -133,7 +154,8 @@ public abstract class Task {
          */
         @Override
         public String getTokens() {
-            return String.join(" ", "D", super.description, String.valueOf(super.isDone), this.by);
+            return String.join(",", "D", super.description,
+                    String.valueOf(super.isDone), this.by.format(Task.getDateFormat()));
         }
     }
 }
