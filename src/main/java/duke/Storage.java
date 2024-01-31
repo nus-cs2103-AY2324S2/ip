@@ -23,18 +23,18 @@ public class Storage {
         while (s.hasNext()) {
             String[] taskArr = s.nextLine().split(" \\| ");
             switch (taskArr[0]) {
-                case "T":
-                    Task newTodo = Todo.fromSaveFormat(taskArr);
-                    loadedLst.add(newTodo);
-                    break;
-                case "D":
-                    Task newDeadline = Deadline.fromSaveFormat(taskArr);
-                    loadedLst.add(newDeadline);
-                    break;
-                case "E":
-                    Task newEvent = Event.fromSaveFormat(taskArr);
-                    loadedLst.add(newEvent);
-                    break;
+            case "T":
+                Task newTodo = Todo.fromSaveFormat(taskArr);
+                loadedLst.add(newTodo);
+                break;
+            case "D":
+                Task newDeadline = Deadline.fromSaveFormat(taskArr);
+                loadedLst.add(newDeadline);
+                break;
+            case "E":
+                Task newEvent = Event.fromSaveFormat(taskArr);
+                loadedLst.add(newEvent);
+                break;
             }
         }
         return loadedLst;
