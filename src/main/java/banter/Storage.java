@@ -1,4 +1,10 @@
-import tasks.*;
+package banter;
+
+import banter.tasks.Deadline;
+import banter.tasks.Event;
+import banter.tasks.Task;
+import banter.tasks.TaskList;
+import banter.tasks.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

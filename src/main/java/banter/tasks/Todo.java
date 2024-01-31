@@ -1,4 +1,4 @@
-package tasks;
+package banter.tasks;
 
 public class Todo extends Task {
     public static final String TODO_ICON = "T";

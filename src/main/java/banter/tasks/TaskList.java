@@ -1,13 +1,14 @@
-package tasks;
+package banter.tasks;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import errors.Errors;
-import errors.InvalidBanterUsageError;
-import errors.InvalidTaskNumberUsageError;
-import ui.Ui;
+import banter.Todo;
+import banter.errors.Errors;
+import banter.errors.InvalidBanterUsageError;
+import banter.errors.InvalidTaskNumberUsageError;
+import banter.ui.Ui;
 
 public class TaskList implements Iterable<Task> {
     private ArrayList<Task> taskList;
@@ -17,50 +18,50 @@ public class TaskList implements Iterable<Task> {
     }
 
     public String addTodo(String description) {
-        Todo todo = new Todo(description);
+        banter.tasks.Todo todo = new Todo(description);
         taskList.add(todo);
         return "Got it. I've added this task:\n" + todo +
-                "\nNow you have " + taskList.size() + " tasks in the list.";
+                "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
     
     public String addTodo(String description, boolean isDone) {
-        Todo todo = new Todo(description, isDone);
+        banter.tasks.Todo todo = new banter.tasks.Todo(description, isDone);
         taskList.add(todo);
         return "Got it. I've added this task:\n" + todo +
-                "\nNow you have " + taskList.size() + " tasks in the list.";
+                "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
 
     public String addDeadline(String description, LocalDateTime dueDate) {
         Deadline deadline = new Deadline(description, dueDate);
         taskList.add(deadline);
         return "Got it. I've added this task:\n" + deadline +
-                "\nNow you have " + taskList.size() + " tasks in the list.";
+                "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
     
     public String addDeadline(String description, boolean isDone, LocalDateTime dueDate) {
         Deadline deadline = new Deadline(description, isDone, dueDate);
         taskList.add(deadline);
         return "Got it. I've added this task:\n" + deadline +
-                "\nNow you have " + taskList.size() + " tasks in the list.";
+                "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
 
     public String addEvent(String eventDescription, LocalDateTime start, LocalDateTime end) {
         Event event = new Event(eventDescription, start, end);
         taskList.add(event);
         return "Got it. I've added this task:\n" + event +
-                "\nNow you have " + taskList.size() + " tasks in the list.";
+                "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
     
     public String addEvent(String eventDescription, boolean isDone, LocalDateTime start, LocalDateTime end) {
         Event event = new Event(eventDescription, isDone, start, end);
         taskList.add(event);
         return "Got it. I've added this task:\n" + event +
-                "\nNow you have " + taskList.size() + " tasks in the list.";
+                "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Here are the tasks in your list:");
+        StringBuilder sb = new StringBuilder("Here are the banter.tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             sb.append("\n" + (i + 1) + ". " + taskList.get(i));
         }
@@ -87,7 +88,7 @@ public class TaskList implements Iterable<Task> {
         try {
             Task deleted = taskList.remove(taskNumber - 1);
             return "Noted. I've removed this task:\n" + deleted +
-                    "\nNow you have " + taskList.size() + " tasks in the list.";
+                    "\nNow you have " + taskList.size() + " banter.tasks in the list.";
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Ui.DELETE_USAGE, this);
         }

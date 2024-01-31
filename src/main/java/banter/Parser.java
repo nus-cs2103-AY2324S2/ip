@@ -1,13 +1,15 @@
-import commands.CommandType;
-import errors.InvalidBanterUsageError;
-import ui.Card;
-import tasks.TaskList;
+package banter;
+
+import banter.enums.CommandType;
+import banter.errors.InvalidBanterUsageError;
+import banter.ui.Card;
+import banter.tasks.TaskList;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
-import errors.Errors;
-import ui.Ui;
-import utilities.DateTime;
+import banter.errors.Errors;
+import banter.ui.Ui;
+import banter.utilities.DateTime;
 
 public class Parser {
     private final TaskList taskList;

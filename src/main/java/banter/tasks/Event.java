@@ -1,9 +1,9 @@
-package tasks;
+package banter.tasks;
 
 import java.time.LocalDateTime;
-import utilities.DateTime;
+import banter.utilities.DateTime;
 
-public class Event extends Task {
+public class Event extends banter.tasks.Task {
     public static final String EVENT_ICON = "E";
     private LocalDateTime from;
     private LocalDateTime to;

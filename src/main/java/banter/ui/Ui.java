@@ -1,6 +1,6 @@
-package ui;
+package banter.ui;
 
-import commands.CommandType;
+import banter.enums.CommandType;
 
 public class Ui {
     public static final String BANTER_LOGO = ".______        ___      .__   __. .___________. _______ .______\n" +
@@ -16,7 +16,7 @@ public class Ui {
     public static final String MARK_USAGE = "mark <task number>";
     public static final String UNMARK_USAGE = "unmark <task number>";
     public static final String DELETE_USAGE = "delete <task number>";
-    public static final String COMMAND_USAGE = "This is what Banter can do:\n" +
+    public static final String COMMAND_USAGE = "This is what banter.Banter can do:\n" +
             CommandType.BYE + "\n" +
             CommandType.LIST + "\n" +
             MARK_USAGE + "\n" +
@@ -25,7 +25,7 @@ public class Ui {
             DEADLINE_USAGE + "\n" +
             EVENT_USAGE + "\n" +
             DELETE_USAGE;
-    public static final String GREET_MESSAGE_BODY = "Hello! I'm Banter\n" +
+    public static final String GREET_MESSAGE_BODY = "Hello! I'm banter.Banter\n" +
             "What can I do for you?\n\n" +
             COMMAND_USAGE;
 

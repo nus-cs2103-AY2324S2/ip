@@ -5,10 +5,10 @@
 |  |_)  |  /  _____  \  |  |\   |     |  |     |  |____ |  |\  \----.
 |______/  /__/     \__\ |__| \__|     |__|     |_______||__| `._____|
     ____________________________________________________________
-     Hello! I'm Banter
+     Hello! I'm banter.Banter
      What can I do for you?
      
-     This is what Banter can do:
+     This is what banter.Banter can do:
      bye
      list
      mark <task number>
@@ -20,7 +20,7 @@
     ____________________________________________________________
     ____________________________________________________________
      ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
-     Usage: This is what Banter can do:
+     Usage: This is what banter.Banter can do:
      bye
      list
      mark <task number>
@@ -33,35 +33,35 @@
     ____________________________________________________________
      Got it. I've added this task:
      [T][ ]  borrow book
-     Now you have 1 tasks in the list.
+     Now you have 1 banter.tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
      [T][ ]  read book
-     Now you have 2 tasks in the list.
+     Now you have 2 banter.tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
      [D][ ]  return book (by:  Sunday)
-     Now you have 3 tasks in the list.
+     Now you have 3 banter.tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
      [D][ ]  submit project (by:  Sunday)
-     Now you have 4 tasks in the list.
+     Now you have 4 banter.tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
      [E][ ]  project meeting (from:  Mon 2pm to:  4pm)
-     Now you have 5 tasks in the list.
+     Now you have 5 banter.tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
      [E][ ]  lecture (from:  Mon 4pm to:  6pm)
-     Now you have 6 tasks in the list.
+     Now you have 6 banter.tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-     Here are the tasks in your list:
+     Here are the banter.tasks in your list:
      1. [T][ ]  borrow book
      2. [T][ ]  read book
      3. [D][ ]  return book (by:  Sunday)
@@ -94,7 +94,7 @@
        [E][X]  lecture (from:  Mon 4pm to:  6pm)
     ____________________________________________________________
     ____________________________________________________________
-     Here are the tasks in your list:
+     Here are the banter.tasks in your list:
      1. [T][X]  borrow book
      2. [T][X]  read book
      3. [D][X]  return book (by:  Sunday)
@@ -115,7 +115,7 @@
        [E][ ]  lecture (from:  Mon 4pm to:  6pm)
     ____________________________________________________________
     ____________________________________________________________
-     Here are the tasks in your list:
+     Here are the banter.tasks in your list:
      1. [T][X]  borrow book
      2. [T][ ]  read book
      3. [D][X]  return book (by:  Sunday)
@@ -126,10 +126,10 @@
     ____________________________________________________________
      Noted. I've removed this task:
      [T][X]  borrow book
-     Now you have 5 tasks in the list.
+     Now you have 5 banter.tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-     Here are the tasks in your list:
+     Here are the banter.tasks in your list:
      1. [T][ ]  read book
      2. [D][X]  return book (by:  Sunday)
      3. [D][ ]  submit project (by:  Sunday)
@@ -139,10 +139,10 @@
     ____________________________________________________________
      Noted. I've removed this task:
      [E][ ]  lecture (from:  Mon 4pm to:  6pm)
-     Now you have 4 tasks in the list.
+     Now you have 4 banter.tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-     Here are the tasks in your list:
+     Here are the banter.tasks in your list:
      1. [T][ ]  read book
      2. [D][X]  return book (by:  Sunday)
      3. [D][ ]  submit project (by:  Sunday)
@@ -151,10 +151,10 @@
     ____________________________________________________________
      Noted. I've removed this task:
      [D][X]  return book (by:  Sunday)
-     Now you have 3 tasks in the list.
+     Now you have 3 banter.tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-     Here are the tasks in your list:
+     Here are the banter.tasks in your list:
      1. [T][ ]  read book
      2. [D][ ]  submit project (by:  Sunday)
      3. [E][X]  project meeting (from:  Mon 2pm to:  4pm)
@@ -162,7 +162,7 @@
     ____________________________________________________________
      ☹ OOPS!!! The task number is invalid.
      Usage: mark <task number>
-     Here are the tasks in your list:
+     Here are the banter.tasks in your list:
      1. [T][ ]  read book
      2. [D][ ]  submit project (by:  Sunday)
      3. [E][X]  project meeting (from:  Mon 2pm to:  4pm)
@@ -170,7 +170,7 @@
     ____________________________________________________________
      ☹ OOPS!!! The task number is invalid.
      Usage: delete <task number>
-     Here are the tasks in your list:
+     Here are the banter.tasks in your list:
      1. [T][ ]  read book
      2. [D][ ]  submit project (by:  Sunday)
      3. [E][X]  project meeting (from:  Mon 2pm to:  4pm)
@@ -178,7 +178,7 @@
     ____________________________________________________________
      ☹ OOPS!!! The task number is invalid.
      Usage: unmark <task number>
-     Here are the tasks in your list:
+     Here are the banter.tasks in your list:
      1. [T][ ]  read book
      2. [D][ ]  submit project (by:  Sunday)
      3. [E][X]  project meeting (from:  Mon 2pm to:  4pm)

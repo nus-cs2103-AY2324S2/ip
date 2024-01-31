@@ -1,4 +1,4 @@
-package errors;
+package banter.errors;
 
 public class InvalidBanterUsageError extends Exception{
     public InvalidBanterUsageError(String error, String usage) {

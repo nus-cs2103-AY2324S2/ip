@@ -1,4 +1,4 @@
-package tasks;
+package banter.tasks;
 
 public abstract class Task {  // default access modifier
     private final String description;
