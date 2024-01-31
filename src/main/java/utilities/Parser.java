@@ -14,6 +14,12 @@ import task.Event;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
+    /**
+     * A method that helps to interpret what the user has keyed in the command line, and responds accordingly.
+     * @param userInput The input that is entered by the user in the command line.
+     * @return A command based on what the user has entered.
+     * @throws DukeException The exception thrown when the user enters an invalid input.
+     */
     public static Command parse(String userInput) throws DukeException {
         if (userInput.equals("bye")) {
             return new ExitCommand();
