@@ -1,14 +1,16 @@
-import exception.InvalidInputException;
-import exception.EmptyTimeException;
-import exception.EmptyInputException;
-import exception.InvalidFormatException;
-
+import exception.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
+
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Duke {
     ArrayList<Task> list;
@@ -88,6 +90,8 @@ public class Duke {
                 System.out.println(e.getMessage());
             } catch (InvalidFormatException e) {
                 System.out.println(e.getMessage());
+            } catch (InvalidDateTimeException e) {
+                System.out.println(e.getMessage());
             } catch (InvalidInputException e) {
                 System.out.println("    OOPS!!! ");
             } catch (Exception e) {
@@ -155,7 +159,9 @@ public class Duke {
                     String[] result = temp.split("\\(by: ");
                     String description  = result[0];
                     String by = result[1].substring(0, result[1].length() - 1);
-                    Deadline t = new Deadline(description, by);
+                    LocalDate date = LocalDate.parse(by.split(" ")[0].trim());
+                    LocalTime time = LocalTime.parse(by.split(" ")[1].trim());
+                    Deadline t = new Deadline(description, date, time);
                     if (mark.equals("X")) {
                         t.markAsDone();
                     }
@@ -164,11 +170,17 @@ public class Duke {
                     String temp = line.substring(7);
                     String[] result = temp.split("\\(from: ");
                     String description  = result[0];
-                    result = result[1].split("\\to: ");
+                    result = result[1].split(" | to: ");
                     String from = result[0];
                     String to = result[1];
                     to = to.substring(0, to.length() - 1);
-                    Event t = new Event(description, from, to);
+                    LocalDate startDate = LocalDate.parse(from.split(" ")[0].trim());
+                    LocalTime startTime = LocalTime.parse(from.split(" ")[1].trim());
+                    LocalDate endDate = LocalDate.parse(to.split(" ")[0].trim());
+                    LocalTime endTime = LocalTime.parse(to.split(" ")[1].trim());
+                    Event t = new Event(description, startDate, startTime, endDate, endTime);
+
+
                     if (mark.equals("X")) {
                         t.markAsDone();
                     }
@@ -248,8 +260,8 @@ public class Duke {
     private static void todo(String input, ArrayList<Task> list) throws EmptyInputException {
         System.out.println(INDENT_SEPERATOR);
         if (input.split(" ").length > 1) {
-            String des = input.substring(4).trim();
-            Todo t = new Todo(des);
+            String description = input.substring(4).trim();
+            Todo t = new Todo(description);
             list.add(t);
             System.out.println(INDENT + "Got it. I've added this task:");
             System.out.println(INDENT + "  " + t.toString());
@@ -261,7 +273,7 @@ public class Duke {
     }
 
     private static void deadline(String input, ArrayList<Task> list)
-            throws EmptyInputException, EmptyTimeException, InvalidFormatException {
+            throws EmptyInputException, EmptyTimeException, InvalidFormatException, InvalidDateTimeException {
         System.out.println(INDENT_SEPERATOR);
         if (input.split(" ").length == 1) {
             throw new EmptyInputException("deadline");
@@ -273,19 +285,25 @@ public class Duke {
             if (arrOfStr.length < 2) {
                 throw new EmptyTimeException("deadline", "end");
             } else {
-                String des = arrOfStr[0].trim();
-                String by = arrOfStr[1].trim();
-                Deadline t = new Deadline(des, by);
-                list.add(t);
-                System.out.println(INDENT + "Got it. I've added this task:");
-                System.out.println(INDENT + "  " + t.toString());
-                System.out.println(INDENT + "Now you have " + list.size() + " tasks in the list.");
-                System.out.println(INDENT_SEPERATOR);
+                try {
+                    String description = arrOfStr[0].trim();
+                    String by = arrOfStr[1].trim();
+                    LocalDate date = LocalDate.parse(by.split(" ")[0].trim());
+                    LocalTime time = LocalTime.parse(by.split(" ")[1].trim());
+                    Deadline t = new Deadline(description, date, time);
+                    list.add(t);
+                    System.out.println(INDENT + "Got it. I've added this task:");
+                    System.out.println(INDENT + "  " + t.toString());
+                    System.out.println(INDENT + "Now you have " + list.size() + " tasks in the list.");
+                    System.out.println(INDENT_SEPERATOR);
+                } catch (DateTimeParseException e) {
+                    throw new InvalidDateTimeException("deadline");
+                }
             }
         }
     }
     private static void event(String input, ArrayList<Task> list)
-            throws EmptyInputException, EmptyTimeException, InvalidFormatException {
+            throws EmptyInputException, EmptyTimeException, InvalidFormatException, InvalidDateTimeException {
         System.out.println(INDENT_SEPERATOR);
         if (input.split(" ").length == 1) {
             throw new EmptyInputException("event");
@@ -301,18 +319,27 @@ public class Duke {
             } else if (arrOfStr.length < 3) {
                 throw new EmptyTimeException("event", "end");
             } else {
-                String des = arrOfStr[0].trim();
-                String start = arrOfStr[1].substring(4).trim();
-                String end = arrOfStr[2].substring(2).trim();
-                Event t = new Event(des, start, end);
-                list.add(t);
-                System.out.println(INDENT + "Got it. I've added this task:");
-                System.out.println(INDENT + "  " + t.toString());
-                System.out.println(INDENT + "Now you have " + list.size() + " tasks in the list.");
-                System.out.println(INDENT_SEPERATOR);
+                try {
+                    String description = arrOfStr[0].trim();
+                    String start = arrOfStr[1].substring(4).trim();
+                    LocalDate startDate = LocalDate.parse(start.split(" ")[0].trim());
+                    LocalTime startTime = LocalTime.parse(start.split(" ")[1].trim());
+                    String end = arrOfStr[2].substring(2).trim();
+                    LocalDate endDate = LocalDate.parse(end.split(" ")[0].trim());
+                    LocalTime endTime = LocalTime.parse(end.split(" ")[1].trim());
+                    Event t = new Event(description, startDate, startTime, endDate, endTime);
+                    list.add(t);
+                    System.out.println(INDENT + "Got it. I've added this task:");
+                    System.out.println(INDENT + "  " + t.toString());
+                    System.out.println(INDENT + "Now you have " + list.size() + " tasks in the list.");
+                    System.out.println(INDENT_SEPERATOR);
+                } catch (DateTimeParseException e) {
+                    throw new InvalidDateTimeException("deadline");
+                }
             }
         }
     }
+
     private static void delete(String input, ArrayList<Task> list) {
         String indexStr = input.split(" ")[1];
         int position = Integer.parseInt(indexStr) -1;
