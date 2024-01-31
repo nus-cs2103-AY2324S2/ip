@@ -1,19 +1,25 @@
 import java.io.*;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class DylanBot {
-    static ArrayList<Task> tasks = new ArrayList<>();
-    public static void main(String[] args) throws DylanBotException {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
 
+    static ArrayList<Task> tasks = new ArrayList<>();
+    static String fileName = "./data/DylanBotData.txt";
+    public static void main(String[] args) {
         String greeting = "Hello I am DylanBot! \nWhat can I do for you?";
         String exit = "Bye! Hope to see you again soon";
-
         System.out.println(greeting);
+
+        try {
+            System.out.println("Loading data from file...");
+            LoadDataFromFile();
+            System.out.println("Loading completed.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Data file does not exist, created new file.");
+        } catch (IOException e) {
+            System.out.println("Done reading from file, no more lines");
+        }
 
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -23,6 +29,9 @@ public class DylanBot {
                     throw new DylanBotException("HEY no input BETTER SAY SOMETHING");
                 }
                 if (input.equals("list")) {
+                    if (tasks.isEmpty()) {
+                        throw new DylanBotException("No tasks to list right now! Add something first la");
+                    }
                     for (int i = 0; i < tasks.size(); i++) {
                         Task curr = tasks.get(i);
                         System.out.println("\t" + (i + 1) + ". " + curr.toString());
@@ -60,12 +69,62 @@ public class DylanBot {
                 } else {
                     throw new DylanBotException("Hello INVALID INPUT pls make it make sense");
                 }
-                System.out.println("Wow! Now you have " + tasks.size() + " tasks in your list");
+                if (tasks.isEmpty()) {
+                    System.out.println("Wowza your list is empty!");
+                } else {
+                    System.out.println("Wow! Now you have " + tasks.size() + " tasks in your list");
+                }
             } catch (DylanBotException e) {
                 System.out.println(e);
             }
         }
+        try {
+            System.out.println("Saving data to file...");
+            WriteDataToFile();
+            System.out.println("Saving completed.");
+        } catch (IOException e) {
+            System.out.println(e);
+        }
         System.out.println(exit);
+    }
+
+
+    public static void LoadDataFromFile() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        String nextLine;
+        while ((nextLine = reader.readLine()) != null) {
+            String[] tokens = nextLine.split(Pattern.quote(" | "));
+            Task curr;
+            if (tokens[0].equals("T")) {
+                curr = new TodoTask("T", tokens[2]);
+            } else if (tokens[0].equals("D")) {
+                curr = new DeadlineTask("D", tokens[2], tokens[3]);
+            } else {
+                curr = new EventTask("E", tokens[2], tokens[3], tokens[4]);
+            }
+            curr.completed = tokens[1].equals("true");
+            tasks.add(curr);
+        }
+    }
+
+    public static void WriteDataToFile() throws IOException {
+        File newFile = new File(fileName);
+        newFile.getParentFile().mkdirs();
+        newFile.createNewFile();
+
+        FileWriter writer = new FileWriter(fileName);
+        for (Task t : tasks) {
+            String data = "";
+            data += t.type + " | " + t.completed + " | " + t.desc;
+            if (t.type.equals("D")) {
+                data += " | " + ((DeadlineTask) t).deadline;
+            } else if (t.type.equals("E")) {
+                data += " | " + ((EventTask) t).from + " | " + ((EventTask) t).to;
+            }
+            writer.write(data);
+            writer.write("\n");
+        }
+        writer.close();
     }
 
     public static void createTodo(String input) throws DylanBotException {
