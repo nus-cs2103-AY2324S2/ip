@@ -38,7 +38,7 @@ public class TaskList {
             }
         }
     }
-
+    
     public void add(Task task) {
         tasks.add(task);
     }
@@ -55,6 +55,31 @@ public class TaskList {
         return tasks.size();
     }
 
+
+    /**
+     * Finds all macthing the tasks in the task list.
+     *
+     * @param input Keyword to search for.
+     * @return String of all of the tasks.
+     */    
+    public String find(String keyword) {
+        int index = 1;  
+        String output = "Here are the matching tasks in your list:";
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).descriptionSearch(keyword)) {
+                output += "\n     ";
+                output += index + ". " + tasks.get(i);
+                index++;                
+            }
+        }
+
+        if (output.equals("Here are the matching tasks in your list:")) {
+            return "No matching results.";
+        }
+
+        return output;
+    }    
+
     /**
      * Lists out all the tasks in the task list.
      *
@@ -66,7 +91,7 @@ public class TaskList {
         }
         String output = "";
         for (int i = 0; i < tasks.size(); i++) {
-            output += (i + 1) + "." + tasks.get(i);
+            output += (i + 1) + ". " + tasks.get(i);
             output += "\n   ";
         }
         return output;

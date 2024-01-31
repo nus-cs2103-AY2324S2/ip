@@ -38,6 +38,8 @@ public class Parser {
                 return event();
             } else if (checkCmd(input, "delete", 6)) {
                 return delete();
+            } else if (checkCmd(input, "find", 4)) {
+                    return find();
             } else if (input.equals("bye")) {
                 isExit = true;
                 return bye();
@@ -219,6 +221,24 @@ public class Parser {
             throw new TinyException("Something went wrong...");
         }
     }
+
+    /**
+     * Handles the “find” command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */    
+    private String find() throws TinyException {
+        try {
+            String[] s = input.split(" ");
+            if (s.length != 2 || !s[0].equals("find")) {
+                return "OOPS! You need to type \"find <keyword>\" to find the task(s)!";
+            }            
+            return taskList.find(s[1]);
+        } catch (Exception e) {
+            throw new TinyException("Something went wrong...");
+        }
+    }    
 
     /**
      * Handles the “bye” command.

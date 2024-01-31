@@ -5,7 +5,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Initialize Task.
+     * Initializes Task.
      *
      * @param description Description of the task.
      */
@@ -15,7 +15,7 @@ public class Task {
     }
 
     /**
-     * Initialize Task.
+     * Initializes Task.
      *
      * @param description Description of the task.
      * @param isDone      Status of the task.
@@ -42,6 +42,16 @@ public class Task {
     public void taskUndone() {
         this.isDone = false;
     }
+
+    /**
+     * Search the description of the task using the keyword.
+     *
+     * @param keyword Keyword to search for.
+     * @return True if the description contains the keyword, otherwise False.
+     */
+    public boolean descriptionSearch(String keyword) {
+        return description.contains(keyword);
+    }        
 
     public String toSave() {
         return " | " + (this.isDone ? "1" : "0") + " | " + this.description;
