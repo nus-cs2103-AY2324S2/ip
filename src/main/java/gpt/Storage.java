@@ -1,3 +1,5 @@
+package gpt;
+
 import java.util.ArrayList;
 
 import java.io.File;
@@ -74,6 +76,7 @@ public class Storage {
     public void saveTasks(TaskList taskList) {
         try (FileWriter fw = new FileWriter(this.filePath)) {
             for (Task task : taskList.getTasks()) {
+                System.out.println(task);
                 fw.write(task.getTaskType().name() + " | " +  task.getName()  + " | " + (task.isDone() ? 1 : 0) + " | " + task.getStartDateString() + " | " + task.getEndDateString() + "\n");
             }
         } catch (IOException e) {
