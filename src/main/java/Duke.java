@@ -1,4 +1,7 @@
 import java.lang.reflect.Array;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,7 +12,7 @@ import java.io.IOException;
 
 public class Duke {
     private static List<String> validCommands = new ArrayList<>(List.of("todo", "deadline", "event"));
-
+    private static String storePath = "./data/storage.txt";
     public static void echoText(String text) {
         System.out.println("    ____________________________________________________________");
         System.out.printf("      %s\n", text);
@@ -129,11 +132,6 @@ public class Duke {
             String to = toSplit[1].trim();
             newTask = new Event(eventName, from, to);
         }
-        try {
-            newTask.writeToData("./data/storage.txt");
-        } catch (IOException e) {
-            System.out.println("Error writing file to storage: " + e.getMessage());
-        }
         addList(newTask, list);
     }
 
@@ -164,6 +162,22 @@ public class Duke {
         }
     }
 
+    private static void resetSave() {
+        try {
+            Files.delete(Paths.get(storePath));
+        } catch (IOException e) {
+            System.err.println("Error deleting last saved file: " + e.getMessage());
+        }
+    }
+    private static void storeData(ArrayList<Task> list) {
+        for (Task task : list) {
+            try {
+                task.writeToData(storePath);
+            } catch (IOException e) {
+                System.err.println("Error writing file to storage: " + e.getMessage());
+            }
+        }
+    }
     public static void main(String[] args) {
         String name = "Yippee";
         ArrayList<Task> list = new ArrayList<>();
@@ -173,22 +187,22 @@ public class Duke {
         if (!directory.exists()) {
             directory.mkdir();
         }
-        File file = new File("./data/storage.txt");
+        File file = new File(storePath);
         Scanner fileSc = null;
         if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                System.out.println("Error trying to create new data storage: " + e.getMessage());
+                System.err.println("Error trying to create new data storage: " + e.getMessage());
             }
         }
         try {
             fileSc = new Scanner(file);
         } catch(FileNotFoundException e) {
-            System.out.println("Storage data file does not exist :(");
+            System.err.println("Storage data file does not exist: " + e.getMessage());
         }
         loadTasks(fileSc, list);
-
+        fileSc.close();
         //greeting
         System.out.println("    ____________________________________________________________");
         System.out.printf("      Hello! I'm %s\n", name);
@@ -240,9 +254,13 @@ public class Duke {
             }
             command = sc.nextLine();
         }
+        sc.close();
         //exit
         System.out.println("    ____________________________________________________________");
         System.out.println("      Bye! Hope to see you again soon wooo!");
         System.out.println("    ____________________________________________________________");
+
+        resetSave();
+        storeData(list);
     }
 }
