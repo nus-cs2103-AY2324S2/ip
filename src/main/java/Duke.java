@@ -19,7 +19,6 @@ public class Duke {
         System.out.println(" Hello! I'm Duck");
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
-
         // Scanner for user input
         Scanner scanner = new Scanner(System.in);
         // Main chat loop
