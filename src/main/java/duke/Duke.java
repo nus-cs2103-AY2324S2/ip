@@ -10,10 +10,18 @@ import duke.utils.Parser;
 
 import java.io.IOException;
 
+/**
+ * Main chatbot class.
+ */
 public class Duke {
     private TaskList tasks;
     private Storage storage;
     private UI ui;
+
+    /**
+     * Initializes by loading the stored file.
+     * @param filePath Path of stored file.
+     */
     public Duke(String filePath) {
         this.ui = new UI();
         this.storage = new Storage(filePath);
@@ -25,6 +33,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run(){
         ui.onEnter();
         while (true) {

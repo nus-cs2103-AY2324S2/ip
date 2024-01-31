@@ -9,21 +9,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class represent a file and contains functions processing a file.
+ */
 public class Storage {
     private String filePath = "./data/duke.txt";
     private File file;
 
-    public Storage() {
-        this.file = new File(filePath);
-    }
-
+    /**
+     * Creates new file object and stores it.
+     * @param filePath path to load file from.
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
         this.filePath = filePath;
     }
 
     /**
-     * reads tasks in a text file from the given filePath recursively.
+     * Reads tasks in a text file from the given filePath recursively.
      * If the file or folder does not exist, create new folders and files based on the given filePath.
      * @return task list read from the file.
      * @throws IOException
@@ -37,7 +40,7 @@ public class Storage {
     }
 
     /**
-     * reads content of the file into task list.
+     * Reads content of the file into task list.
      * @return task list read from file
      * @throws FileNotFoundException if the file is not found
      */
@@ -53,7 +56,7 @@ public class Storage {
     }
 
     /**
-     * writes all the duke tasks in the task list to the file stored.
+     * Writes all the duke tasks in the task list to the file stored.
      * @param taskList taskList to be stored.
      * @throws IOException
      */
@@ -91,8 +94,4 @@ public class Storage {
         }
         return task;
     }
-
-
-
-
 }

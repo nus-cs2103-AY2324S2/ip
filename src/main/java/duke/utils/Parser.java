@@ -2,8 +2,12 @@ package duke.utils;
 
 import duke.exceptions.EmptyBodyException;
 import duke.exceptions.InvalidKeyException;
+import duke.exceptions.InvalidNumberException;
 import duke.exceptions.WrongFormatException;
 
+/**
+ * Parser to read and understand user inputs. Stores the parsed information inside the object.
+ */
 public class Parser {
     private KeyEnum currentKey = KeyEnum.INVALID;
     private String inputDetail;
@@ -11,7 +15,15 @@ public class Parser {
     private String from;
     private Integer index;
 
-    public void parse(String userInput) throws InvalidKeyException, EmptyBodyException, WrongFormatException {
+    /**
+     * Parses user input and store the information.
+     * @param userInput String user input.
+     * @throws InvalidKeyException If the command keyword is unknown.
+     * @throws EmptyBodyException If the command body is empty.
+     * @throws WrongFormatException If the format of command is wrong.
+     * @throws InvalidNumberException If the number in the command is not a number.
+     */
+    public void parse(String userInput) throws InvalidKeyException, EmptyBodyException, WrongFormatException, InvalidNumberException {
         String[] userInputSplit = userInput.split(" ");
         this.determineCurrentKey(userInputSplit[0]);
         switch (this.currentKey) {
@@ -50,12 +62,16 @@ public class Parser {
                 try {
                     this.index = new Integer(userInputSplit[1]) - 1;
                 } catch (Exception e) {
-                    throw new InvalidKeyException("Please use a valid integer as key");
+                    throw new InvalidNumberException();
                 }
 
         }
     }
 
+    /**
+     * Maps userInputKey to keys defined in the KeyEnum class.
+     * @param userInputKey String user input key.
+     */
     public void determineCurrentKey(String userInputKey) {
         switch (userInputKey) {
             case "bye":
