@@ -49,10 +49,10 @@ public class Storage {
     }
   }
 
-  public void save(List<Task> tasks) {
+  public void save(TaskList tasks) {
     try {
       FileWriter writer = new FileWriter(this.path);
-      for (Task task : tasks) {
+      for (Task task : tasks.getTasks()) {
         writer.write(task.serialize() + "\n");
       }
       writer.close();
