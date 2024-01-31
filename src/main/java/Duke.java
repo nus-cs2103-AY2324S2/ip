@@ -20,18 +20,24 @@ public class Duke {
             String str = scanner.nextLine();
             String[] arr = str.split(" ", 2);
             String action = arr[0];
-            if (arr.length <= 1) {
-                throw new DukeException("Description cannot be empty.");
-            }
+
             if (action.equalsIgnoreCase("bye")) {
                 System.out.println(bye);
+                continue;
 
-            } else if (action.equalsIgnoreCase("list")){
+            } else if (action.equalsIgnoreCase("list")) {
                 for (int i = 0; i < list.size(); i++) {
                     int n = i + 1;
                     System.out.println(indent + n + ". " + list.get(i));
                 }
-            } else if (action.equalsIgnoreCase("mark")) {
+                continue;
+            }
+
+            if (arr.length <= 1) {
+                throw new DukeException("Description cannot be empty.");
+            }
+
+            if (action.equalsIgnoreCase("mark")) {
                 int index = Integer.valueOf(arr[1]);
                 Task target = list.get(index - 1);
                 target.mark();
@@ -44,6 +50,14 @@ public class Duke {
                 target.unmark();
                 System.out.println(indent + "Task have been unmarked.");
                 System.out.println(indent + target);
+            } else if (action.equalsIgnoreCase("delete")) {
+                int index = Integer.valueOf(arr[1]);
+                Task target = list.get(index - 1);
+                list.remove(index - 1);
+                System.out.println("Task have been removed.");
+                System.out.println(target);
+                int n = list.size();
+                System.out.println("You now have " + n + " tasks.");
 
             } else {
                 Task task;
