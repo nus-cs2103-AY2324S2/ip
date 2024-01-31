@@ -1,8 +1,13 @@
+package Command;
+
 import Task.TaskList;
+import Dook.Ui;
+import Dook.Storage;
+import Dook.DookException;
 
 public class ByeCommand extends Command {
 
-    ByeCommand() {
+    public ByeCommand() {
         this.isExit = true;
     }
     @Override

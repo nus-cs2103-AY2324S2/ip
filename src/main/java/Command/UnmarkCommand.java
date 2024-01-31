@@ -1,10 +1,15 @@
+package Command;
+
 import Task.Task;
 import Task.TaskList;
+import Dook.Ui;
+import Dook.Storage;
+import Dook.DookException;
 
 public class UnmarkCommand extends Command {
     private final int positionToUnmark;
 
-    UnmarkCommand(int positionToUnmark) {
+    public UnmarkCommand(int positionToUnmark) {
         this.positionToUnmark = positionToUnmark;
     }
 

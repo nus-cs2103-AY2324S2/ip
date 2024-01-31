@@ -1,4 +1,9 @@
+package Command;
+
 import Task.TaskList;
+import Dook.Ui;
+import Dook.Storage;
+import Dook.DookException;
 
 public abstract class Command {
     protected boolean isExit = false;

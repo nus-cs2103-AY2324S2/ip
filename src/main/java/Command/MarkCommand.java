@@ -1,11 +1,16 @@
+package Command;
+
 import Task.Task;
 import Task.TaskList;
+import Dook.Ui;
+import Dook.Storage;
+import Dook.DookException;
 
 public class MarkCommand extends Command {
 
     private final int positionToMark;
 
-    MarkCommand(int positionToMark) {
+    public MarkCommand(int positionToMark) {
         this.positionToMark = positionToMark;
     }
     @Override

@@ -1,10 +1,15 @@
+package Command;
+
 import Task.Task;
 import Task.TaskList;
+import Dook.Ui;
+import Dook.Storage;
+import Dook.DookException;
 
 public class DeleteCommand extends Command {
     private final int positionToDelete;
 
-    DeleteCommand(int positionToDelete) {
+    public DeleteCommand(int positionToDelete) {
         this.positionToDelete = positionToDelete;
     }
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {

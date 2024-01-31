@@ -1,13 +1,19 @@
+package Command;
+
 import Task.Task;
 import Task.TaskList;
+import Dook.Ui;
+import Dook.Storage;
+import Dook.DookException;
 
 public class AddCommand extends Command {
 
     private final Task task;
 
-    AddCommand(Task task) {
+    public AddCommand(Task task) {
         this.task = task;
     }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
         tasks.addTask(task);

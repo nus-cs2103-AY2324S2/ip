@@ -1,10 +1,12 @@
+package Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;
     private static int count = 0;
 
-    TaskList() {
+    public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
