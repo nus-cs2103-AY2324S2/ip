@@ -1,15 +1,41 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskLoader {
+public class Storage {
 
-  public static List<Task> load() {
+  /**
+   * The path of the file to be saved to.
+   */
+  private String path;
+
+  /**
+   * Constructs a Storage object with the given path.
+   *
+   * @param path The path of the file to be saved to.
+   */
+  public Storage(String path) {
+    this.path = path;
+  }
+
+  /**
+   * Loads the list of tasks from the file.
+   *
+   * @return The list of tasks.
+   */
+  public List<Task> load() {
     try {
-      FileReader reader = new FileReader("tasks.txt");
+      File file = new File(this.path);
+      boolean fileExists = file.exists();
+      if (!fileExists) {
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+      }
+      FileReader reader = new FileReader(this.path);
       BufferedReader bufferedReader = new BufferedReader(reader);
       String line;
       List<Task> tasks = new ArrayList<Task>();
@@ -36,10 +62,15 @@ public class TaskLoader {
     }
   }
 
-  public static void save(List<Task> tasks) {
+  /**
+   * Saves the given list of tasks to the file.
+   *
+   * @param tasks The list of tasks to be saved.
+   */
+  public void save(TaskList tasks) {
     try {
-      FileWriter writer = new FileWriter("tasks.txt");
-      for (Task task : tasks) {
+      FileWriter writer = new FileWriter(this.path);
+      for (Task task : tasks.getTasks()) {
         writer.write(task.serialize() + "\n");
       }
       writer.close();
