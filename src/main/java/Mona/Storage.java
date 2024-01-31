@@ -24,9 +24,8 @@ public class Storage {
         try {
             Path dataDirectory = Paths.get(workingDirectory + "/data");
             Files.createDirectories(dataDirectory);
-            File logFile = new File(workingDirectory + this.filePath);
+            File logFile = new File(workingDirectory + "/" + this.filePath);
             logFile.createNewFile();
-            System.out.println(logFile.getAbsolutePath());
         } catch (IOException e) {
             System.out.println("Error occurred setting up log" + e.getMessage());
         }

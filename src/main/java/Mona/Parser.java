@@ -28,6 +28,8 @@ public class Parser {
             return Mona.Command.UNMARK;
         case "delete":
             return Mona.Command.DELETE;
+        case "find":
+            return Mona.Command.FIND;
         default:
             throw new MonaException("Mona does not recognise this command!");
         }

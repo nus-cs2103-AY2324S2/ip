@@ -18,7 +18,8 @@ public class Mona {
         DEADLINE,
         MARK,
         UNMARK,
-        DELETE
+        DELETE,
+        FIND
     }
 
     /**
@@ -84,6 +85,11 @@ public class Mona {
             case DELETE:
                 Task removedTask = tasks.deleteTask(Integer.parseInt(inputArray[1]) - 1);
                 ui.showListAfterQuantityChange(removedTask, tasks.getNumberOfTasks(), false);
+                break;
+            case FIND:
+                tasks.showRelevantTasks(inputArray[1]);
+                break;
+            default:
                 break;
             }
         }
