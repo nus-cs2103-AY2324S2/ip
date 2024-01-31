@@ -2,8 +2,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import java.time.LocalDate;
 
 public class Duke {
     public static void main(String[] args) {
@@ -104,7 +106,9 @@ public class Duke {
                         throw new DukeException("UH OH! Description and deadline cannot be empty!");
                     }
 
-                    Task t = new Deadline(taskDesc, deadline);
+                    LocalDate by = LocalDate.parse(deadline);
+
+                    Task t = new Deadline(taskDesc, by);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(t.toString());
 
@@ -134,7 +138,21 @@ public class Duke {
                         throw new DukeException("UH OH! Description/start time/end time cannot be empty!");
                     }
 
-                    Task t = new Event(taskDesc, from, to);
+                    String[] fromParts = from.split(" ", 2);
+                    String fDate = fromParts[0].trim();
+                    LocalDate fromDate = LocalDate.parse(fDate);
+                    String fromTime = fromParts[1].trim();
+
+                    String[] toParts = to.split(" ", 2);
+                    String tDate = toParts[0].trim();
+                    LocalDate toDate = LocalDate.parse(tDate);
+                    String toTime = toParts[1].trim();
+
+                    if (toDate.isBefore(fromDate)) {
+                        throw new DukeException("UH OH! The to date has to be later than the from date!!");
+                    }
+
+                    Task t = new Event(taskDesc, fromDate, fromTime, toDate, toTime);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(t.toString());
 
@@ -195,20 +213,25 @@ public class Duke {
                 }
                 return todo;
             case "D":
-                String by = parts[3];
+                String byString = parts[3];
+                LocalDate by = LocalDate.parse(byString);
                 Deadline deadline = new Deadline(description, by);
                 if (isDone) {
                     deadline.markAsDone();
                 }
+                return deadline;
             case "E":
                 String fromTo = parts[3];
                 String[] fromToParts = fromTo.split(" ");
-                String from = fromToParts[0];
-                String to = fromToParts[1];
-                Event event = new Event(description, from, to);
+                LocalDate fromDate = LocalDate.parse(fromToParts[0]);
+                String fromTime = fromToParts[1];
+                LocalDate toDate = LocalDate.parse(fromToParts[2]);
+                String toTime = fromToParts[3];
+                Event event = new Event(description, fromDate, fromTime, toDate, toTime);
                 if (isDone) {
                     event.markAsDone();
                 }
+                return event;
             default:
                 return null; // Unknown type
         }
