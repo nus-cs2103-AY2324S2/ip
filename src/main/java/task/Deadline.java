@@ -1,5 +1,7 @@
 package task;
 
+import utilities.DateTime;
+
 public class Deadline extends Task {
     private String by;
     private DateTime deadline;
