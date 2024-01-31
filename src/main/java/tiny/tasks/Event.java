@@ -8,21 +8,44 @@ import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
     protected LocalDateTime startDateTime;
-    protected LocalTime endDateTime;
+    protected LocalTime endTime;
 
-    public Event(String description, String startDateTime, String endDateTime) throws TinyException {
+    /**
+     * Initializes Event.
+     *
+     * @param description   Description of the task.
+     * @param startDateTime Start date and start time of the tasks.
+     * @param endDateTime   End date and end time of the tasks.
+     */
+    public Event(String description, String startDateTime, String endTime) throws TinyException {
         super(description);
         this.startDateTime = startDatetimeParser(startDateTime);
-        this.endDateTime = endDatetimeParser(endDateTime);
+        this.endTime = endTimeParser(endTime);
     }
 
-    public Event(String description, boolean isDone, String startDateTime, String endDateTime) throws TinyException {
+    /**
+     * Initializes Event.
+     *
+     * @param description   Description of the task.
+     * @param isDone        Status of the task.
+     * @param startDateTime Start date and start time of the tasks.
+     * @param endDateTime   End date and end time of the tasks.
+     */
+    public Event(String description, boolean isDone, String startDateTime, String endTime) throws TinyException {
         super(description, isDone);
         this.startDateTime = startDatetimeParser(startDateTime);
-        this.endDateTime = endDatetimeParser(endDateTime);
+        this.endTime = endTimeParser(endTime);
     }
 
-        public LocalDateTime startDatetimeParser(String dateTime) throws TinyException {
+    /**
+     * Parses the user input into the LocalDateTime format.
+     *
+     * @param dateTime User input date and time string to be parsed.
+     * @return LocalDateTime format the start date and start time from the user
+     *         input.
+     * @throws TinyException When input is invalid.
+     */
+    public LocalDateTime startDatetimeParser(String dateTime) throws TinyException {
         String[] dateTimeSplit = dateTime.split(" ");
         int year = 0;
         int month = 0;
@@ -57,7 +80,6 @@ public class Event extends Task {
             }
         }
 
-        // Combine
         try {
             return LocalDateTime.of(year, month, day, hour, minute);
         } catch (Exception e) {
@@ -65,51 +87,77 @@ public class Event extends Task {
         }
     }
 
-
-    public LocalTime endDatetimeParser(String timeStr) throws TinyException { 
+    /**
+     * Parses the user input into the LocalTime format.
+     *
+     * @param timeStr User input date and time string to be parsed.
+     * @return LocalTime format of end time from the user input.
+     * @throws TinyException When input is invalid.
+     */
+    public LocalTime endTimeParser(String timeStr) throws TinyException {
         String errorMsg = "Please ensure that you are using the format event <description> /from yyyy-MM-dd <time> /to <end date>. "
-        + "eg. event meeting /from 2024-01-29 1835 /to 2035";
-            int time = Integer.parseInt(timeStr);
-            try {
-                if (time >= 2400 || time < 0) {
-                    throw new TinyException("Please choose your end time from 0000 to 2359!");
-                }
-                String[] hourMinuteSplit = timeStr.split("");
-                int hour = Integer.parseInt(hourMinuteSplit[0] + hourMinuteSplit[1]);
-                int minute = Integer.parseInt(hourMinuteSplit[2] + hourMinuteSplit[3]);
-                return LocalTime.of(hour, minute);
-
-            } catch (Exception e) {
-                throw new TinyException(errorMsg);
+                + "eg. event meeting /from 2024-01-29 1835 /to 2035";
+        int time = Integer.parseInt(timeStr);
+        try {
+            if (time >= 2400 || time < 0) {
+                throw new TinyException("Please choose your end time from 0000 to 2359!");
             }
+            String[] hourMinuteSplit = timeStr.split("");
+            int hour = Integer.parseInt(hourMinuteSplit[0] + hourMinuteSplit[1]);
+            int minute = Integer.parseInt(hourMinuteSplit[2] + hourMinuteSplit[3]);
+            return LocalTime.of(hour, minute);
+
+        } catch (Exception e) {
+            throw new TinyException(errorMsg);
+        }
     }
-    
+
+    /**
+     * Formats the start LocalDateTime instance into String to be displayed.
+     *
+     * @return String of the date and time to be displayed.
+     */
     public String startDatetimeFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
         return startDateTime.format(formatter);
     }
 
-    public String endDatetimeFormat() {
+    /**
+     * Formats the end LocalTime instance into String to be displayed.
+     *
+     * @return String of the time to be displayed.
+     */
+    public String endTimeFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        return endDateTime.format(formatter);
-    }    
+        return endTime.format(formatter);
+    }
 
+    /**
+     * Formats the start LocalDateTime instance into String to be saved.
+     *
+     * @return String of the date and time to be saved.
+     */
     public String startDatetimeSaveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return startDateTime.format(formatter);
-    }        
+    }
 
-    public String endDatetimeSaveFormat() {
+    /**
+     * Formats the LocalTime instance into String to be saved.
+     *
+     * @return String of the time to be saved.
+     */
+    public String endTimeSaveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
-        return endDateTime.format(formatter);
-    }    
+        return endTime.format(formatter);
+    }
 
     @Override
     public String toSave() {
-        return "E" + super.toSave() + " | " + startDatetimeSaveFormat() + " | " + endDatetimeSaveFormat();
+        return "E" + super.toSave() + " | " + startDatetimeSaveFormat() + " | " + endTimeSaveFormat();
     }
 
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startDatetimeFormat() + " to: " + endDatetimeFormat() + ")";
+        return "[E]" + super.toString() + " (from: " + startDatetimeFormat() + " to: " + endTimeFormat() + ")";
     }
 }

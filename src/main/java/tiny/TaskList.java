@@ -8,12 +8,20 @@ import tiny.tasks.Todo;
 
 import java.util.ArrayList;
 
-
 public class TaskList {
     protected ArrayList<Task> tasks = new ArrayList<>();
 
-    public TaskList() {}
+    /**
+     * Initializes TaskList when there is no tasks load.
+     */
+    public TaskList() {
+    }
 
+    /**
+     * Initializes TaskList with data to load.
+     *
+     * @param data The tasks to be added to the local tasks ArrayList.
+     */
     public TaskList(ArrayList<String> data) throws TinyException {
         // Parse the data here.
         for (int i = 0; i < data.size(); i++) {
@@ -30,14 +38,14 @@ public class TaskList {
             }
         }
     }
-    
+
     public void add(Task task) {
         tasks.add(task);
     }
 
     public void delete(Integer ind) {
         tasks.remove(tasks.get(ind));
-    }    
+    }
 
     public Task get(Integer ind) {
         return tasks.get(ind);
@@ -47,6 +55,11 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Lists out all the tasks in the task list.
+     *
+     * @return String of all of the tasks.
+     */
     public String list() {
         if (tasks.size() == 0) {
             return "You don't have any tasks!";
@@ -59,18 +72,11 @@ public class TaskList {
         return output;
     }
 
-    public String find(String input) {
-        /* 
-        int index = 1;  
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).descriptionSearch(input)) {
-            }
-        }
-        */
-        return "";
-    }
-
-
+    /**
+     * Function to format all the tasks into the correct format for saving.
+     *
+     * @return ArrayList of tasks in the correct format to save.
+     */
     public ArrayList<String> toSave() {
         ArrayList<String> tasksToSave = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {

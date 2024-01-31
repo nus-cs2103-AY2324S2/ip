@@ -8,16 +8,36 @@ import tiny.exceptions.TinyException;
 public class Deadline extends Task {
     protected LocalDateTime endDatetime;
 
+    /**
+     * Initializes Deadline.
+     *
+     * @param description Description of the task.
+     * @param endDateTime End date and end time of the tasks.
+     */
     public Deadline(String description, String endDatetime) throws TinyException {
         super(description);
         this.endDatetime = datetimeParser(endDatetime);
     }
 
+    /**
+     * Initializes Deadline.
+     *
+     * @param description Description of the task.
+     * @param isDone      Status of the task.
+     * @param endDateTime End date and end time of the tasks.
+     */
     public Deadline(String description, boolean isDone, String endDatetime) throws TinyException {
         super(description, isDone);
-         this.endDatetime = datetimeParser(endDatetime);
+        this.endDatetime = datetimeParser(endDatetime);
     }
 
+    /**
+     * Parses the user input into the LocalDateTime format.
+     *
+     * @param dateTime User input date and time string to be parsed.
+     * @return LocalDateTime format the date and time from the user input.
+     * @throws TinyException When input is invalid.
+     */
     public LocalDateTime datetimeParser(String dateTime) throws TinyException {
         String[] dateTimeSplit = dateTime.split(" ");
         int year = 0;
@@ -26,20 +46,20 @@ public class Deadline extends Task {
         int hour = 0;
         int minute = 0;
         String errorMsg = "Please ensure that you are using the format deadline <description> /by yyyy-MM-dd <time>. eg. deadline assignment /by 2024-01-29 1835";
-        //Date
+        // Date
         try {
             String[] dateSplit = dateTimeSplit[0].split("-");
             year = Integer.parseInt(dateSplit[0]);
             month = Integer.parseInt(dateSplit[1]);
             day = Integer.parseInt(dateSplit[2]);
-            
+
         } catch (Exception e) {
-                throw new TinyException(errorMsg);
+            throw new TinyException(errorMsg);
         }
 
-        //Time
+        // Time
         if (dateTimeSplit[1].length() == 4) {
-            try {  
+            try {
                 int time = Integer.parseInt(dateTimeSplit[1]);
                 if (time >= 2400 || time < 0) {
                     throw new TinyException("Please choose a time from 0000 to 2359!");
@@ -52,7 +72,6 @@ public class Deadline extends Task {
             }
         }
 
-        //Combine
         try {
             return LocalDateTime.of(year, month, day, hour, minute);
         } catch (Exception e) {
@@ -60,15 +79,25 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Formats the DateTimeLocal instance into String to be displayed.
+     *
+     * @return String of the date and time to be displayed.
+     */
     public String endDatetimeFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
         return endDatetime.format(formatter);
     }
 
+    /**
+     * Formats the DateTimeLocal instance into String to be saved.
+     *
+     * @return String of the date and time to be saved.
+     */
     public String endDatetimeSaveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return endDatetime.format(formatter);
-    }    
+    }
 
     @Override
     public String toSave() {

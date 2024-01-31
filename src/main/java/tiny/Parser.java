@@ -10,6 +10,14 @@ public class Parser {
     protected String input;
     protected TaskList taskList;
 
+    /**
+     * Parses the user input into commands and return the appropriate response.
+     *
+     * @param input    The string input from the user
+     * @param taskList The instance of the taskList which contains all the tasks.
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid when parsing the respective commands.
+     */
     public String parse(String input, TaskList taskList) throws TinyException {
         this.input = input;
         this.taskList = taskList;
@@ -28,7 +36,7 @@ public class Parser {
             } else if (checkCmd(input, "event", 5)) {
                 return event();
             } else if (checkCmd(input, "delete", 6)) {
-                return delete();                
+                return delete();
             } else if (input.equals("bye")) {
                 isExit = true;
                 return bye();
@@ -44,6 +52,12 @@ public class Parser {
         return isExit;
     }
 
+    /**
+     * Handles the "mark" command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String mark() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -62,6 +76,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the “unmark" command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String unmark() throws TinyException {
         try {
             String[] s = input.split(" ");
@@ -80,6 +100,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the “todo” command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String todo() throws TinyException {
         try {
             String name = "";
@@ -106,6 +132,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the deadline command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String deadline() throws TinyException {
         try {
             String name = "";
@@ -127,6 +159,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the “event” command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String event() throws TinyException {
         try {
             String name = "";
@@ -149,38 +187,58 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the “delete” command.
+     *
+     * @return The message to be displayed to the user.
+     * @throws TinyException When input is invalid.
+     */
     private String delete() throws TinyException {
         try {
             String[] s = input.split(" ");
             if (s.length != 2 || !s[0].equals("delete")) {
                 return "OOPS! You need to type \"delete <number>\" to delete the task!";
             }
-            int ind = Integer.parseInt(s[1]);  
-            String output = "Noted. I've removed this task:" + 
-            "\n      " + taskList.get(ind - 1).toString() + 
-            "\n   Now you have " + (taskList.size() - 1) + " task(s) in the list.";
+            int ind = Integer.parseInt(s[1]);
+            String output = "Noted. I've removed this task:" +
+                    "\n      " + taskList.get(ind - 1).toString() +
+                    "\n   Now you have " + (taskList.size() - 1) + " task(s) in the list.";
             taskList.delete(ind - 1);
             return output;
 
         } catch (NumberFormatException e) {
             return "OOPS! You need to type \"delete <number>\" to delete the task!";
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            return 
-                    "OOPS! Please type a valid number! Type \"list\" to check the lists of tasks.";
+            return "OOPS! Please type a valid number! Type \"list\" to check the lists of tasks.";
         } catch (Exception e) {
             throw new TinyException("Something went wrong...");
-        }               
+        }
     }
 
+    /**
+     * Handles the “bye” command.
+     *
+     * @return The message to be displayed to the user.
+     */
     private String bye() {
         return "Bye. Hope to see you again soon!";
     }
 
+    /**
+     * Handles the case where no command is recognised.
+     *
+     * @return The message to be displayed to the user.
+     */
     private String cmdUnknown() {
         return "I'm sorry, but I don't know what that means :-(";
     }
 
-    private static boolean checkCmd(String input, String name, int len) {
+    /**
+     * Checks if the user input contains a command.
+     *
+     * @return True if the command from the user is the same as expected, otherwise False.
+     */
+    private boolean checkCmd(String input, String name, int len) {
         return input.length() >= len && input.substring(0, len).equals(name);
     }
 }

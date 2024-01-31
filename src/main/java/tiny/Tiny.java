@@ -11,6 +11,11 @@ public class Tiny {
     private Ui ui;
     private Parser parser = new Parser();
 
+    /**
+     * Initializes Tiny.
+     *
+     * @param filePath The file path to the file where the data is saved.
+     */
     public Tiny(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -22,6 +27,11 @@ public class Tiny {
         }
     }
 
+    /**
+     * Runs Tiny to receive user input and prints the appropriate output.
+     * 
+     * @throws IOException If there are exception reading.
+     */
     public void run() throws IOException {
         ui.start();
         boolean isExit = false;
@@ -37,6 +47,11 @@ public class Tiny {
         }
     }
 
+    /**
+     * Starts the program.
+     *
+     * @param args Arguments that the user pass in.
+     */
     public static void main(String[] args) throws IOException {
         new Tiny("../../../data/tasks.txt").run();
     }

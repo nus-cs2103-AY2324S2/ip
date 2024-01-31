@@ -13,15 +13,25 @@ import java.io.IOException;
 public class Storage {
     protected String filePath;
 
+    /**
+     * Initializes Storage.
+     *
+     * @param filePath The file path to the file where the data is saved.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-    
+
+    /**
+     * Reads (load) tasks data from a specified file path.
+     *
+     * @return An ArrayList that contains the details of the tasks in each entry.
+     */
     public ArrayList<String> load() throws TinyException {
         try {
-            //Creating the folder if it does not exists
+            // Creating the folder if it does not exists
             if (!new File("../../../data").exists()) {
-                new File("../../../data").mkdirs();    
+                new File("../../../data").mkdirs();
             }
             File file = new File(filePath);
             Scanner sc = new Scanner(file);
@@ -37,6 +47,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes (save) tasks data to a specified file path.
+     *
+     * @param tasksToSave The list of data to be saved.
+     */
     public void save(ArrayList<String> tasksToSave) {
         try {
             new FileWriter(filePath).close();
@@ -48,6 +63,6 @@ public class Storage {
             myWriter.close();
         } catch (IOException e) {
             System.out.println("An error occurred when saving.");
-        } 
+        }
     }
 }
