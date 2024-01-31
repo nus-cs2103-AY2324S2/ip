@@ -12,7 +12,11 @@ public class DeleteCommand extends Command {
         if (args.isBlank()) {
             throw new HenryException("No index provided");
         }
-        this.index = Integer.parseInt(args) - 1;
+        try {
+            this.index = Integer.parseInt(args) - 1;
+        } catch (NumberFormatException e) {
+            throw new HenryException("Index provided is not a number");
+        }
     }
 
     @Override
