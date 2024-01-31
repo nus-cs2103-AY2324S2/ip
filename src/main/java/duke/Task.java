@@ -1,3 +1,5 @@
+package duke;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 public class Task {
@@ -45,6 +47,6 @@ public class Task {
             }
             return task;
         }
-        return null; // Invalid format
+        return null;
     }
 }

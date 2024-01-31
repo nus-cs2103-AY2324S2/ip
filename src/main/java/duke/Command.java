@@ -1,3 +1,5 @@
+package duke;
+
 public class Command {
     public enum CommandType {
         BYE, LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, INVALID

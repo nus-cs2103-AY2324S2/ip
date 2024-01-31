@@ -1,10 +1,12 @@
+package duke;
+
 import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
 
 public class Storage {
     private String filePath;
-    private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FILE_PATH = ".data/text/duke.txt";
 
     public Storage(String filePath) {
         this.filePath = filePath;
