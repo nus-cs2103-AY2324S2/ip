@@ -29,5 +29,16 @@ public class Event extends Task {
     public String toString() {
         return String.format("[%s]%s (From: %s To: %s)", TASK_TYPE, super.toString(), displayDate(this.from), displayDate(this.to));
     }
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Event)) {
+            return false;
+        }
+        Event other = (Event) obj;
+        return this.from.equals(other.from) && this.to.equals(other.to) && super.equals(other);
+    }
 }
