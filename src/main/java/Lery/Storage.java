@@ -9,23 +9,40 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * Represents a storage.
+ * The Storage class handles the loading and saving of tasks from/to a text file for the Lery chatbot application.
+ * It interacts with the {@link TaskList} class to manage the task list.
+ *
+ * The class reads tasks from a text file in a specific format and adds them to the task list.
+ * It also saves new tasks to the text file when added.
+ */
 public class Storage {
     private File tasksFile;
-    private String FILENAME = "./data/duke.txt";
+    private String FILENAME = "./data/lery.txt";
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private TaskList taskList;
 
+    /**
+     * Constructs a Storage object with an empty task list.
+     */
     public Storage() {
         this.taskList = new TaskList();
 
     }
 
-    public TaskList loadTasks() throws DukeException {
+    /**
+     * Loads tasks from the text file into the task list.
+     *
+     * @return the TaskList containing loaded tasks.
+     * @throws LeryException if an error occurs during the loading process.
+     */
+    public TaskList loadTasks() throws LeryException {
         try {
             File file = new File(FILENAME);
             if (!file.exists()) {
-                throw new DukeException("hey");
+                throw new LeryException("Erm... Text file storage does not exist");
             } else {
                 Scanner s = new Scanner(file);
                 while (s.hasNext()) {
@@ -35,7 +52,7 @@ public class Storage {
                     String type = splitLine[0];
                     Task newTask;
                     if (splitLine.length < 3 || splitLine.length > 4) {
-                        throw new DukeException("Erm... Textfile not in correct format!" + splitLine.length);
+                        throw new LeryException("Erm... Textfile not in correct format!" + splitLine.length);
                     }
                     if (type.equalsIgnoreCase("T")) {
                         newTask = new Todo(event);
@@ -48,7 +65,7 @@ public class Storage {
                         String extraInfo = splitLine[3];
                         newTask = new Event(event, extraInfo);
                     } else {
-                        throw new DukeException("Erm... Invalid type!" + type);
+                        throw new LeryException("Erm... Invalid type!" + type);
                     }
                     this.taskList.add(newTask);
 
@@ -56,12 +73,18 @@ public class Storage {
                 s.close();
             }
             return this.taskList;
-        } catch (IOException e) {
-            throw new DukeException("Erm... Error loading tasks from file");
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
+            throw new LeryException("Erm... Error loading tasks from file");
         }
     }
 
-    public void saveTasks(Task newTask) throws DukeException {
+    /**
+     * Saves a new task to the text file and adds it to the task list.
+     *
+     * @param newTask the task to be saved.
+     * @throws LeryException if an error occurs during the saving process.
+     */
+    public void saveTasks(Task newTask) throws LeryException {
         String msg = " | 0 | ";
         msg = "\n" + newTask.getType() + msg + newTask.getDescription();
         if (newTask instanceof Event || newTask instanceof Deadline) {
@@ -74,28 +97,49 @@ public class Storage {
             this.taskList.add(newTask);
 
         } catch (IOException e) {
-            throw new DukeException("Erm... Error saving tasks to file");
+            throw new LeryException("Erm... Error saving tasks to file");
         }
     }
 
-
-    public void checkDateFormat(String date) throws DukeException {
+    /**
+     * Checks if the given date in the command string is in the correct format (yyyy-MM-dd).
+     *
+     * @param date the date string to be checked.
+     * @throws LeryException if the date is not in the correct format.
+     */
+    public void checkDateFormat(String date) throws LeryException {
         try {
             LocalDate d = LocalDate.parse(date, this.formatter);
 
         } catch (Exception ex) {
 
-            throw new DukeException("Erm... Date not keyed in correct format! Correct format is yyyy-MM-dd"+ex);
+            throw new LeryException("Erm... Date not keyed in correct format! Correct format is yyyy-MM-dd"+ex);
         }
     }
 
+    /**
+     * Retrieves the current task list.
+     *
+     * @return the TaskList containing tasks.
+     */
     public TaskList getTaskList() {
         return this.taskList;
     }
 
+    /**
+     * Gets the number of tasks in the task list.
+     *
+     * @return the size of the task list.
+     */
     public int getSize() {
         return this.taskList.getSize();
     }
+
+    /**
+     * Deletes a specified task from the task list.
+     *
+     * @param t the task to be deleted.
+     */
     public void delete(Task t) {
         this.taskList.delete(t);
     }

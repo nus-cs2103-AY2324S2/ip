@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * Duke is a chatbot program that is used to save tasks
+ * Lery is a chatbot program that is used to save tasks
  *
  * @author  Lin Shuang Shuang
  * @version 1.0
- * @since   2023-01-25
+ * @since   2024-01-25
  */
 
 public class Lery {
@@ -24,18 +24,20 @@ public class Lery {
 
 
 
+    /**
+     * Runs the chatbot and parses the users comments.
+     * @return Nothing.
+     */
 
-
-
-
-
-
-
-    public void run() throws DukeException {
+    public void run() {
 
         ui.greet();
         Scanner scanner = new Scanner(System.in);
-        this.storage.loadTasks();
+        try {
+            this.storage.loadTasks();
+        } catch (LeryException e) {
+            ui.printMessageWithLine(e.getMessage());
+        }
         while(scanner.hasNext()) {
             Parser p = new Parser(this.storage);
 
@@ -46,7 +48,7 @@ public class Lery {
             }
             try {
                 ui.printMessageWithLine(p.parseCommand(command));
-            } catch (DukeException e) {
+            } catch (LeryException e) {
                 ui.printMessageWithLine(e.getMessage());
             }
         }
@@ -56,10 +58,8 @@ public class Lery {
      * This is the main method which starts the chatbot.
      * @param args Unused.
      * @return Nothing.
-     * @exception IOException On input error.
-     * @see IOException
      */
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) {
         Lery Lery = new Lery();
         Lery.run();
 
