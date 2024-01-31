@@ -123,8 +123,8 @@ public class Bozo {
                         int indexOfFrom = input.indexOf("/from");
                         int indexOfTo = input.indexOf("/to");
                         Event e = new Event(input.substring(input.indexOf(" ")+ 1, indexOfFrom - 1),
-                                "from: " + input.substring(indexOfFrom + 6, indexOfTo - 1) + " ",
-                                "to: " + input.substring(indexOfTo + 4));
+                                input.substring(indexOfFrom + 6, indexOfTo - 1),
+                                 input.substring(indexOfTo + 4));
                         list.add(e);
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + e);
