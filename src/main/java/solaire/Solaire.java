@@ -15,7 +15,7 @@ public class Solaire {
     private Ui ui;
 
     enum UserCommands {
-        GREET, BYE, MARK, UNMARK, LIST, TODO, EVENT, DEADLINE, DELETE
+        GREET, BYE, MARK, UNMARK, LIST, TODO, EVENT, DEADLINE, DELETE, FIND
     }
 
     /**
@@ -79,6 +79,9 @@ public class Solaire {
                 break;
             case DELETE:
                 taskList.processRemoveFromList(input);
+                break;
+            case FIND:
+                taskList.findTask(inputCommand[1]);
                 break;
             default:
                 System.out.print("Unsupported command pattern\n");
