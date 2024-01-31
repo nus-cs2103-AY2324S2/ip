@@ -3,7 +3,18 @@ package osiris.commands;
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
 
-public class UnsupportedCommand extends Command{
+/**
+ * Command class representing an unsupported command.
+ */
+public class UnsupportedCommand extends Command {
+
+    /**
+     * Executes the unsupported command by displaying a message through the user interface.
+     *
+     * @param taskManager   The TaskManager instance.
+     * @param userInterface The Ui instance.
+     * @return Always returns true.
+     */
     @Override
     public boolean execute(TaskManager taskManager, Ui userInterface) {
         userInterface.unsupportedCommandsOutput();

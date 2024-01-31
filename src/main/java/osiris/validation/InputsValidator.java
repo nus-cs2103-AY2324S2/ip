@@ -5,12 +5,20 @@ import osiris.commands.addEventTaskCommand;
 import osiris.commands.addToDoTaskCommand;
 import osiris.formatters.DateTimeFormatters;
 
+/**
+ * The InputsValidator class provides methods to validate user inputs for various commands.
+ */
 public class InputsValidator {
 
     private static InputsValidator instance;
 
     private InputsValidator() {}
 
+    /**
+     * Retrieves the singleton instance of InputsValidator.
+     *
+     * @return The singleton instance of InputsValidator.
+     */
     public static InputsValidator getInstance() {
         if (instance == null) {
             instance = new InputsValidator();
@@ -18,6 +26,12 @@ public class InputsValidator {
         return instance;
     }
 
+    /**
+     * Validates user input for marking a task as completed.
+     *
+     * @param userInput The user input string.
+     * @return True if the input is valid; otherwise, false.
+     */
     public boolean validateMarkTaskCompletedInput(String userInput) {
         String[] inputtedWords = userInput.split(" ");
         if (inputtedWords.length == 2) {
@@ -33,6 +47,12 @@ public class InputsValidator {
         return false;
     }
 
+    /**
+     * Validates user input for marking a task as incomplete.
+     *
+     * @param userInput The user input string.
+     * @return True if the input is valid; otherwise, false.
+     */
     public boolean validateMarkTaskIncompleteInput(String userInput) {
         String[] inputtedWords = userInput.split(" ");
         if (inputtedWords.length == 2) {
@@ -48,6 +68,12 @@ public class InputsValidator {
         return false;
     }
 
+    /**
+     * Validates user input for removing a task.
+     *
+     * @param userInput The user input string.
+     * @return True if the input is valid; otherwise, false.
+     */
     public boolean validateRemoveTaskInput(String userInput) {
         String[] inputtedWords = userInput.split(" ");
         if (inputtedWords.length == 2) {
@@ -63,6 +89,12 @@ public class InputsValidator {
         return false;
     }
 
+    /**
+     * Validates user input for adding a to-do task.
+     *
+     * @param userInput The user input string.
+     * @return True if the input is valid; otherwise, false.
+     */
     public boolean validateAddToDoTaskInput(String userInput) {
         String taskName = userInput.substring(addToDoTaskCommand.COMMAND.length()).trim();
         if (!taskName.isEmpty()) {
@@ -73,6 +105,12 @@ public class InputsValidator {
         return false;
     }
 
+    /**
+     * Validates user input for adding a deadline task.
+     *
+     * @param userInput The user input string.
+     * @return True if the input is valid; otherwise, false.
+     */
     public boolean validateAddDeadlineTaskInput(String userInput) {
         int byIndex = userInput.indexOf("/by");
 
@@ -104,6 +142,12 @@ public class InputsValidator {
         return false;
     }
 
+    /**
+     * Validates user input for adding an event task.
+     *
+     * @param userInput The user input string.
+     * @return True if the input is valid; otherwise, false.
+     */
     public boolean validateAddEventTaskInput(String userInput) {
         int fromIndex = userInput.indexOf("/from");
         int toIndex = userInput.indexOf("/to");
@@ -133,6 +177,7 @@ public class InputsValidator {
         return false;
     }
 
+    // Private helper methods for validation ===========================================================================
     private boolean isValidDay(String dayStr) {
         try {
             int day = Integer.parseInt(dayStr);

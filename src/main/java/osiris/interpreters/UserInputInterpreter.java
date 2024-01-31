@@ -16,12 +16,21 @@ import osiris.commands.removeTaskCommand;
 import osiris.commands.terminateChatCommand;
 import osiris.formatters.DateTimeFormatters;
 import osiris.validation.InputsValidator;
+
+/**
+ * Interprets user input and returns the appropriate command.
+ */
 public class UserInputInterpreter {
 
     private static UserInputInterpreter instance;
 
     private UserInputInterpreter() {}
 
+    /**
+     * Returns the singleton instance of the UserInputInterpreter.
+     *
+     * @return The UserInputInterpreter instance.
+     */
     public static UserInputInterpreter getInstance() {
         if (instance == null) {
             instance = new UserInputInterpreter();
@@ -29,6 +38,12 @@ public class UserInputInterpreter {
         return instance;
     }
 
+    /**
+     * Interprets the user input and returns the corresponding command.
+     *
+     * @param userInput The user input string.
+     * @return The appropriate Command object based on the user input.
+     */
     public Command interpretUserInput(String userInput) {
         String[] inputtedWords = userInput.split(" ");
         String taskName;
