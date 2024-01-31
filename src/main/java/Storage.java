@@ -5,21 +5,15 @@ import java.util.Scanner;
 import java.io.FileWriter;
 
 public class Storage {
-
-    private static String DATAFILEPATH = "./data";
-    private static String STORAGEFILEPATH = "./data/duke.txt";
-
-    private File directory;
     private File storageFile;
 
     public boolean isOccupied;
 
-    public Storage() throws DukeException,IOException {
-        directory = new File(DATAFILEPATH);
-        if (!directory.exists()) {
-            directory.mkdir();
+    public Storage(String FilePath) throws DukeException,IOException {
+        storageFile = new File(FilePath);
+        if (!storageFile.getParentFile().exists()) {
+            storageFile.getParentFile().mkdirs();
         }
-        storageFile = new File(STORAGEFILEPATH);
         if(!storageFile.exists()) {
             storageFile.createNewFile();
         }
@@ -35,14 +29,14 @@ public class Storage {
         ArrayList<Task> loadedList = new ArrayList<>();
         while (s.hasNextLine()) {
             String storedInput = s.nextLine();
-            Task currTask = Duke.parseFileLine(storedInput);
+            Task currTask = Parser.parseFileLine(storedInput);
             loadedList.add(currTask);
         }
         return loadedList;
     }
 
     protected void saveStorage(ArrayList<Task> taskList) throws IOException {
-        FileWriter fw = new FileWriter(STORAGEFILEPATH, false);
+        FileWriter fw = new FileWriter(storageFile, false);
         for (Task t : taskList) {
             fw.append(t.toString() + "\n");
         }
