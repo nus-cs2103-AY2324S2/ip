@@ -19,13 +19,13 @@ public class Ui {
 
 
 
-    public void showWelcome() {
-        System.out.println( "Hi babyyy! It's your EUEU!!");
-        System.out.println("What are you doing today??");
+    public String showWelcome() {
+        return "Hi babyyy! It's your EUEU!! \n"
+                + "What are you doing today??";
     }
 
-    public void exit() {
-        System.out.println("byeee love uu ttyl ok!");
+    public String exit() {
+        return "byeee love uu ttyl ok!";
     }
 
     public void readCommand() {
@@ -35,7 +35,6 @@ public class Ui {
             parse.parsing(task.getTask());
             task = new Task(user.nextLine());
         }
-        exit();
     }
 
 

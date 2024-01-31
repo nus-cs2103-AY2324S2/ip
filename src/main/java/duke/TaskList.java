@@ -102,7 +102,7 @@ public class TaskList {
             tasklist.remove(number);
             System.out.println("Noted. I've removed this task: ");
             System.out.println(task.delete());
-            System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
+            System.out.println("Now you have " + tasklist.size() + " tasks in the current list.");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No such task to delete.");
         }

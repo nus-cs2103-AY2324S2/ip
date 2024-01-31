@@ -12,9 +12,10 @@ public class Duke {
         TaskList tasklist = new TaskList(storage);
 
         Ui ui = new Ui(user, tasklist);
-        ui.showWelcome();
+        System.out.println(ui.showWelcome());
         ui.readCommand();
         tasklist.write();
+        System.out.println(ui.exit());
 
     }
 }
