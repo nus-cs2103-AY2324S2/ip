@@ -6,15 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
-import johnny.commands.AddDeadlineCommand;
-import johnny.commands.AddEventCommand;
-import johnny.commands.AddTodoCommand;
-import johnny.commands.Command;
-import johnny.commands.DeleteCommand;
-import johnny.commands.ExitCommand;
-import johnny.commands.ListCommand;
-import johnny.commands.MarkCommand;
-import johnny.commands.UnmarkCommand;
+import johnny.commands.*;
 import johnny.exceptions.JohnnyException;
 
 public class Parser {
@@ -108,6 +100,12 @@ public class Parser {
                 LocalDateTime fromDate = LocalDateTime.parse(from, INPUT_DATE_FORMAT);
                 LocalDateTime toDate = LocalDateTime.parse(to, INPUT_DATE_FORMAT);
                 return new AddEventCommand(name, fromDate, toDate);
+            case "find":
+                if (parsedCommand.size() < 2) {
+                    throw new JohnnyException("What task do you want to find bro?");
+                }
+                String keyword = String.join(" ", parsedCommand.subList(1, parsedCommand.size()));
+                return new FindCommand(keyword);
             default:
                 throw new JohnnyException("Your command does not make sense bro.");
             }
