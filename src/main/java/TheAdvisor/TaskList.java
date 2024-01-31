@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 /**
  * The TaskList class represents a list of tasks and provides methods for managing tasks.
- * It includes functionality to add, delete, mark, and unmark tasks in the list.
+ * It includes functionality to add, delete, mark, unmark and find tasks in the list.
  */
 public class TaskList implements Serializable {
     private ArrayList<Task> taskList;
@@ -120,7 +120,7 @@ public class TaskList implements Serializable {
      * @param task The task to be checked.
      * @throws TheAdvisorException If the task is already marked.
      */
-    private void checkMarked(Task task) throws TheAdvisorException {
+    public void checkMarked(Task task) throws TheAdvisorException {
         if (task.isDone) {
             throw new TheAdvisorException("The task is already marked! Carry on.");
         }
@@ -132,7 +132,7 @@ public class TaskList implements Serializable {
      * @param task The task to be checked.
      * @throws TheAdvisorException If the task is already unmarked.
      */
-    private void checkUnmarked(Task task) throws TheAdvisorException {
+    public void checkUnmarked(Task task) throws TheAdvisorException {
         if (!task.isDone) {
             throw new TheAdvisorException("The task is already unmarked! Carry on.");
         }
@@ -144,7 +144,7 @@ public class TaskList implements Serializable {
      * @param index The index to be checked.
      * @throws TheAdvisorException If the index is out of bounds or the list is empty.
      */
-    private void checkIndex(int index) throws TheAdvisorException {
+    public void checkIndex(int index) throws TheAdvisorException {
         int size = this.taskList.size();
         if (index < 0) {
             throw new TheAdvisorException("We use 1-indexing for marking. Please try again.");
@@ -152,6 +152,32 @@ public class TaskList implements Serializable {
             throw new TheAdvisorException("Out of bounds. We use 1-indexing for marking. Please try again.");
         } else if (size == 0) {
             throw new TheAdvisorException("The list is empty! Start adding in things :)");
+        }
+    }
+
+    /**
+     * Comb through the TaskList to see if there are any tasks in the list that matches the keyword.
+     * Print out the matching task(s) if any. Else inform the user that there is no tasks with such keyword.
+     *
+     * @param keyword The keyword the user is looking for from the list.
+     */
+    public void findItem(String keyword) throws TheAdvisorException {
+        ArrayList<Integer> indexes = new ArrayList<>();
+
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getDescription().contains(keyword)) {
+                indexes.add(i);
+            }
+        }
+
+        if (indexes.size() == 0) {
+            throw new TheAdvisorException("Sorry! There is no such item that fits your description (,,>  <,,)");
+        } else {
+            System.out.println("     Here are the matching tasks in your list:");
+            for (int j = 0; j < indexes.size(); j++) {
+                Task task = taskList.get(indexes.get(j));
+                System.out.println("     " + (j + 1) + ". " + task.toString());
+            }
         }
     }
 }
