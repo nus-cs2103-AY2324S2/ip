@@ -5,16 +5,16 @@ public class Duke {
     public static void main(String[] args) throws DukeException {
         Scanner sc = new Scanner(System.in);
 
-        String logo = " ____ \n"
-                    + "|  _ \\   ___   ___ \n"
+        String logo = " ____\n"
+                    + "|  _ \\   ___   ___\n"
                     + "| |_| | / _ \\ / _ \\\n"
                     + "| |_| | | __/ | __/\n"
                     + "|____/  \\___| \\___|\n";
 
-        String msg = "------------------------------------------------ \n"
-                + "Hello! I'm Bee! \n"
-                + "What can I do for you? \n"
-                + "------------------------------------------------";
+        String msg = "------------------------------------------------\n"
+                + "Hello! I'm Bee!\n"
+                + "What can I do for you?\n"
+                + "------------------------------------------------\n";
 
         System.out.println(logo + "\n" + msg);
 
@@ -25,7 +25,6 @@ public class Duke {
         ArrayList<Task> list = new ArrayList<>();
 
         while (output) {
-            System.out.println(" ");
             input = sc.next();
 
                 // end the program
