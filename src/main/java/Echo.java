@@ -13,7 +13,7 @@ public class Echo {
         Echo echo = new Echo();
         echo.greetUser();
         echo.startConversation();
-        endConversation();
+        echo.endConversation();
     }
 
     public static void greetUser() {
@@ -35,10 +35,11 @@ public class Echo {
         } while (!userCommand.equalsIgnoreCase("bye"));
     }
 
-    public static void endConversation() {
+    public void endConversation() {
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
+        taskManager.resetFile();
     }
 
     public void echoCommand(String command) {

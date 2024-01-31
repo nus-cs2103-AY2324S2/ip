@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 
@@ -27,4 +27,10 @@ public class Task {
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + description;
     }
+
+
+    public abstract String getTaskType();
+
+    public abstract String toFileString();
+
 }
