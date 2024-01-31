@@ -1,3 +1,5 @@
+package Command;
+
 public abstract class Command {
     protected boolean isExit = false;
 

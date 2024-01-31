@@ -1,3 +1,5 @@
+package Command;
+
 public class UnmarkCommand extends Command {
     private final int positionToUnmark;
 

@@ -1,3 +1,5 @@
+package Command;
+
 public class MarkCommand extends Command {
 
     private final int positionToMark;

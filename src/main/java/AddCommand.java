@@ -1,18 +1,16 @@
+package main.java.Command;
 public class AddCommand extends Command {
 
-    private final Parser.TaskType tasktype;
-    private final String description;
+    private final Task task;
 
-    AddCommand(Parser.TaskType tasktype, String description) {
-        this.tasktype = tasktype;
-        this.description = description;
+    AddCommand(Task task) {
+        this.task = task;
     }
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
-        Task toAdd = Parser.getTask(tasktype, description);
-        tasks.addTask(toAdd);
+        tasks.addTask(task);
         ui.println("Oki! I've added this task:");
-        ui.println(toAdd.toString());
+        ui.println(task.toString());
         tasks.printStatus();
         storage.write(tasks);
     }
