@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.nio.file.Path;
 import duke.storage.Storage;
 
+/**
+ * The TaskList class represents a list of tasks in the Duke chatbot application.
+ */
 public class TaskList {
     private static final String MARK_DONE_MESSAGE = "Nice! I've marked this task as done:%n%s";
     private static final String MARK_UNDONE_MESSAGE = "OK, I've marked this task as not done yet:%n%s";
@@ -18,6 +21,11 @@ public class TaskList {
     private final ArrayList<Task> taskList;
     private final Storage taskStorage;
 
+    /**
+     * Constructs a TaskList object with the specified subpath for file storage.
+     *
+     * @param subPath The subpath for file storage.
+     */
     public TaskList(String subPath) {
         this.taskList = new ArrayList<>();
         String root = System.getProperty("user.dir");
@@ -26,6 +34,11 @@ public class TaskList {
         updateList();
     }
 
+    /**
+     * Adds a ToDo task to TaskList.
+     * @param toDoDescription The description of the ToDo task.
+     * @throws DukeIllegalArgumentException If the description is black.
+     */
     public void addToDoTask(String toDoDescription) {
         if (toDoDescription.isBlank()) {
             throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
@@ -37,6 +50,11 @@ public class TaskList {
         System.out.println(output);
     }
 
+    /**
+     * Adds a Deadline task to TaskList.
+     * @param deadlineDescription The description of the Deadline task.
+     * @throws DukeIllegalArgumentException If the description is blank.
+     */
     public void addDeadlineTask(String deadlineDescription) {
         if (deadlineDescription.isBlank()) {
             throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
@@ -49,6 +67,11 @@ public class TaskList {
         System.out.println(output);
     }
 
+    /**
+     * Adds a Event task to TaskList.
+     * @param eventDescription The description of the Event task.
+     * @throws DukeIllegalArgumentException If the description is blank.
+     */
     public void addEventTask(String eventDescription) {
         if (eventDescription.isBlank()) {
             throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
@@ -64,6 +87,11 @@ public class TaskList {
         System.out.println(output);
     }
 
+    /**
+     * Marks a task in TaskList as completed.
+     * @param taskIndex The index of the task in TaskList.
+     * @throws DukeIllegalArgumentException If the taskIndex is missing.
+     */
     public void markTask(String taskIndex) {
         if (taskIndex.isBlank()) {
             throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
@@ -75,6 +103,11 @@ public class TaskList {
         System.out.println(output);
     }
 
+    /**
+     * Unmarks a task in TaskList as not completed.
+     * @param taskIndex The index of the task in TaskList.
+     * @throws DukeIllegalArgumentException If the taskIndex is missing.
+     */
     public void unmarkTask(String taskIndex) {
         if (taskIndex.isBlank()) {
             throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
@@ -86,6 +119,11 @@ public class TaskList {
         System.out.println(output);
     }
 
+    /**
+     * Deletes a task in TaskList.
+     * @param taskIndex The index of the task to be deleted in TaskList.
+     * @throws DukeIllegalArgumentException If the taskIndex is missing.
+     */
     public void deleteTask(String taskIndex) {
         if (taskIndex.isBlank()) {
             throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
@@ -97,6 +135,10 @@ public class TaskList {
         System.out.println(output);
     }
 
+    /**
+     * Returns the string representation of the TaskList.
+     * @return The string representation of the TaskList.
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
