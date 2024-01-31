@@ -1,9 +1,5 @@
 package entity;
 
-/**
- * The Task class is an abstract class and provides common attributes and methods that are shared by various task types
- * such as ToDo, Deadline, and Event.
- */
 public abstract class Task {
     protected String title;
     protected boolean marked;
@@ -17,12 +13,7 @@ public abstract class Task {
         return this.title;
     }
 
-    /**
-     * Retrieves the completion status of a Task.
-     *
-     * @return true if the task is completed, false otherwise.
-     */
-    public boolean getMarked() {
+    public boolean isMarked() {
         return this.marked;
     }
 

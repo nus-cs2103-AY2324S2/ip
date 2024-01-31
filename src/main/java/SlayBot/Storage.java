@@ -1,7 +1,6 @@
 package SlayBot;
 
 import entity.Task;
-import entity.ToDo;
 
 import java.io.FileWriter;
 import java.io.IOException;
