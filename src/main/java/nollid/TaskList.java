@@ -9,43 +9,89 @@ import nollid.tasks.Task;
  * TaskList class represents a list of tasks.
  */
 public class TaskList implements Iterable<Task> {
+    /**
+     * The internal ArrayList to store tasks.
+     */
     private final ArrayList<Task> taskList;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList with the specified ArrayList of tasks.
+     *
+     * @param taskList The ArrayList of tasks to initialize the TaskList.
+     */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
 
+    /**
+     * Checks if the TaskList is empty.
+     *
+     * @return true if the TaskList is empty, false otherwise.
+     */
     public boolean isEmpty() {
         return taskList.isEmpty();
     }
 
+    /**
+     * Adds a task to the TaskList.
+     *
+     * @param taskToAdd The task to be added.
+     */
     public void add(Task taskToAdd) {
         this.taskList.add(taskToAdd);
     }
 
+    /**
+     * Gets the number of tasks in the TaskList.
+     *
+     * @return The number of tasks in the TaskList.
+     */
     public int size() {
         return this.taskList.size();
     }
 
+    /**
+     * Gets the task at the specified index in the TaskList.
+     *
+     * @param index The index of the task to retrieve.
+     * @return The task at the specified index.
+     */
     public Task get(int index) {
         return this.taskList.get(index);
     }
 
+    /**
+     * Removes and returns the task at the specified index in the TaskList.
+     *
+     * @param index The index of the task to remove.
+     * @return The task removed from the TaskList.
+     */
     public Task remove(int index) {
         return this.taskList.remove(index);
     }
 
     /**
-     * Marks the task with the given index as done.
+     * Marks the task with the given index as done or not done.
+     *
+     * @param taskIndex The index of the task to mark.
+     * @param isDone    true if the task is done, false if not done.
      */
     public void setDone(int taskIndex, boolean isDone) {
         this.taskList.get(taskIndex - 1).setDone(isDone);
     }
 
+    /**
+     * Provides an iterator for the TaskList.
+     *
+     * @return An iterator for the TaskList.
+     */
     @Override
     public Iterator<Task> iterator() {
         return taskList.iterator();

@@ -9,6 +9,14 @@ import nollid.Ui;
  * It extends the Command class and implements the execute method to perform the command logic.
  */
 public class ListCommand extends Command {
+    /**
+     * Overrides the execute method from the Command class.
+     * Executes the command to display the tasks in the to-do list.
+     *
+     * @param tasks   The TaskList containing tasks.
+     * @param ui      The Ui for user interface interactions.
+     * @param storage The Storage for data storage operations.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         // List items in to-do list

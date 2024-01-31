@@ -14,6 +14,9 @@ import org.junit.jupiter.api.Test;
 import nollid.commands.ByeCommand;
 import nollid.exceptions.InvalidCommandException;
 
+/**
+ * A set of tests for the Parser class.
+ */
 public class ParserTest {
     /**
      * Tests for a DateTimeParseException thrown when attempting to parse an invalid string.

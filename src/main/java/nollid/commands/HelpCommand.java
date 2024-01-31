@@ -9,6 +9,14 @@ import nollid.Ui;
  * It extends the Command class and implements the execute method to perform the command logic.
  */
 public class HelpCommand extends Command {
+    /**
+     * Overrides the execute method from the Command class.
+     * Executes the command to display information about available commands.
+     *
+     * @param tasks   The TaskList containing tasks.
+     * @param ui      The Ui for user interface interactions.
+     * @param storage The Storage for data storage operations.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         String message = "Available commands:\n"

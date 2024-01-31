@@ -6,7 +6,9 @@ import java.util.Scanner;
  * Ui class handles user interface-related functionality, such as sending messages and reading user input.
  */
 public class Ui {
-    // Default length of line to be printed
+    /**
+     * Default length of the line to be printed.
+     */
     public static final int LINE_LENGTH = 30;
 
     /**
@@ -52,6 +54,9 @@ public class Ui {
 
     /**
      * Returns a String of the user's input.
+     *
+     * @param scanner The Scanner object used for reading user input.
+     * @return The user's input as a string.
      */
     public String readCommand(Scanner scanner) {
         return scanner.nextLine().strip();

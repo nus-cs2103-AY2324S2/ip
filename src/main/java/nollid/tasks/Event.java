@@ -11,13 +11,22 @@ import nollid.exceptions.NollidException;
  * It extends the Task class and includes additional functionality for handling events.
  */
 public class Event extends Task {
+    /**
+     * The start time of the event represented as LocalDateTime.
+     */
     protected LocalDateTime from;
+    /**
+     * The end time of the event represented as LocalDateTime.
+     */
     protected LocalDateTime to;
 
     /**
-     * Creates new Event with specified description, start, and end time.
+     * Creates a new Event with a specified description, start, and end time.
      *
-     * @throws NollidException if end time is before start time.
+     * @param description The description of the event.
+     * @param from        The start time of the event represented as LocalDateTime.
+     * @param to          The end time of the event represented as LocalDateTime.
+     * @throws NollidException if the end time is before the start time.
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) throws NollidException {
         super(description);
@@ -29,22 +38,47 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Gets the start time of the event.
+     *
+     * @return The start time as a LocalDateTime object.
+     */
     public LocalDateTime getFrom() {
         return this.from;
     }
 
+    /**
+     * Gets the end time of the event.
+     *
+     * @return The end time as a LocalDateTime object.
+     */
     public LocalDateTime getTo() {
         return this.to;
     }
 
+    /**
+     * Gets the formatted string representation of the start time.
+     *
+     * @return The start time formatted as a string using DATE_OUTPUT_FORMAT and TIME_FORMAT from Parser.
+     */
     public String getFromString() {
         return this.from.format(Parser.DATE_OUTPUT_FORMAT) + " " + this.from.format(Parser.TIME_FORMAT);
     }
 
+    /**
+     * Gets the formatted string representation of the end time.
+     *
+     * @return The end time formatted as a string using DATE_OUTPUT_FORMAT and TIME_FORMAT from Parser.
+     */
     public String getToString() {
         return this.to.format(Parser.DATE_OUTPUT_FORMAT) + " " + this.to.format(Parser.TIME_FORMAT);
     }
 
+    /**
+     * Overrides the toString method to provide a string representation of the Event object.
+     *
+     * @return A formatted string representing the Event object.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.getFromString() + " to: " + this.getToString() + ")";

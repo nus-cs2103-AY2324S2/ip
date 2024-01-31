@@ -13,15 +13,35 @@ import nollid.Parser;
 import nollid.Storage;
 import nollid.TaskList;
 import nollid.Ui;
-import nollid.exceptions.InvalidCommandException;
 import nollid.exceptions.NollidException;
 
+/**
+ * A set of tests for the FindCommand class.
+ */
 public class FindCommandTest {
+    /**
+     * The TaskList object used for testing.
+     */
     private TaskList tasks;
+
+    /**
+     * The Storage object used for testing.
+     */
     private Storage storage;
+
+    /**
+     * The Ui object used for testing.
+     */
     private Ui ui;
+
+    /**
+     * The ByteArrayOutputStream for capturing system output during tests.
+     */
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
+    /**
+     * Initializes the components before each test.
+     */
     @BeforeEach
     public void initializeComponents() {
         this.storage = new Storage(Storage.TEST_FILEPATH);
@@ -30,6 +50,9 @@ public class FindCommandTest {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
+    /**
+     * Tests the execute method of FindCommand when no keyword is provided.
+     */
     @Test
     public void execute_noKeyword_exceptionThrown() {
         NollidException e = assertThrows(NollidException.class, () -> {
@@ -42,6 +65,9 @@ public class FindCommandTest {
         assertEquals(expectedMessage, e.getMessage());
     }
 
+    /**
+     * Tests the execute method of FindCommand when too many keywords are provided.
+     */
     @Test
     public void execute_tooManyKeywords_exceptionThrown() {
         NollidException e = assertThrows(NollidException.class, () -> {
@@ -54,8 +80,11 @@ public class FindCommandTest {
         assertEquals(expectedMessage, e.getMessage());
     }
 
+    /**
+     * Tests the execute method of FindCommand when finding a task that exists.
+     */
     @Test
-    public void execute_findTaskThatExists_success() throws InvalidCommandException, NollidException {
+    public void execute_findTaskThatExists_success() throws NollidException {
         Command c = Parser.parse("find deadline");
         c.execute(this.tasks, this.ui, this.storage);
 

@@ -1,11 +1,17 @@
 package nollid.exceptions;
 
 /**
- * InvalidCommandException class represents an exception for invalid commands.
- * It extends the Exception class and includes a constructor to set the error message.
+ * InvalidCommandException class represents an exception specific to invalid commands.
+ * It extends the NollidException class.
  */
 public class InvalidCommandException extends NollidException {
+    /**
+     * Constructor for InvalidCommandException.
+     *
+     * @param errorMessage String containing the error message.
+     */
     public InvalidCommandException(String errorMessage) {
         super(errorMessage);
     }
 }
+

@@ -9,6 +9,9 @@ import nollid.Parser;
  * It extends the Task class and includes additional functionality for handling deadlines.
  */
 public class Deadline extends Task {
+    /**
+     * The deadline of the task represented as LocalDateTime.
+     */
     protected LocalDateTime deadline;
 
     /**
@@ -22,14 +25,29 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * Gets the deadline of the task.
+     *
+     * @return The deadline as a LocalDateTime object.
+     */
     public LocalDateTime getDeadline() {
         return this.deadline;
     }
 
+    /**
+     * Gets the formatted deadline string.
+     *
+     * @return The deadline formatted as a string using DATE_OUTPUT_FORMAT and TIME_FORMAT from Parser.
+     */
     public String getDeadlineString() {
         return this.deadline.format(Parser.DATE_OUTPUT_FORMAT) + " " + this.deadline.format(Parser.TIME_FORMAT);
     }
 
+    /**
+     * Overrides the toString method to provide a string representation of the Deadline object.
+     *
+     * @return A formatted string representing the Deadline object.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.getDeadlineString() + ")";

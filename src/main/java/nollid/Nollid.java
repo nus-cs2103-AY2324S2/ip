@@ -12,8 +12,19 @@ import nollid.exceptions.NollidException;
  * It initializes the UI, Storage, and TaskList, and runs the main loop to process user commands.
  */
 public class Nollid {
+    /**
+     * The list of tasks in the application.
+     */
     private final TaskList tasks;
+
+    /**
+     * The storage object for managing data storage.
+     */
     private final Storage storage;
+
+    /**
+     * The user interface object for interacting with the user.
+     */
     private final Ui ui;
 
     /**

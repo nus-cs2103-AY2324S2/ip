@@ -13,13 +13,34 @@ import nollid.tasks.Task;
  * FindCommand class represents a command to search for tasks containing a specific keyword.
  */
 public class FindCommand extends Command {
+    /**
+     * Constant string providing usage hint for the FindCommand.
+     */
     public static final String USAGE_HINT = "Usage: find [keyword]";
+
+    /**
+     * ArrayList containing command arguments.
+     */
     private final ArrayList<String> argsList;
 
+    /**
+     * Constructor for FindCommand.
+     *
+     * @param argsList ArrayList containing command arguments.
+     */
     public FindCommand(ArrayList<String> argsList) {
         this.argsList = argsList;
     }
 
+    /**
+     * Overrides the execute method from the Command class.
+     * Executes the command to search for tasks containing a specific keyword.
+     *
+     * @param tasks   The TaskList containing tasks.
+     * @param ui      The Ui for user interface interactions.
+     * @param storage The Storage for data storage operations.
+     * @throws NollidException Thrown if an exception specific to command execution occurs.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
         // If no keyword provided, throw error

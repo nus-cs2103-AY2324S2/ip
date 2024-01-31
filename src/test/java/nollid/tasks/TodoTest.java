@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * A set of tests for the Todo class.
+ */
 public class TodoTest {
     /**
      * Tests the creation of a Todo instance with a provided description.
@@ -31,3 +34,4 @@ public class TodoTest {
         assertEquals("[T][X] Read a book", todo.toString());
     }
 }
+

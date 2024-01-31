@@ -13,12 +13,29 @@ import nollid.tasks.Todo;
  * TodoCommand class represents a command to add a new ToDo task.
  */
 public class TodoCommand extends Command {
+    /**
+     * ArrayList containing command arguments.
+     */
     private final ArrayList<String> argsList;
 
+    /**
+     * Constructor for TodoCommand.
+     *
+     * @param argsList ArrayList containing command arguments.
+     */
     public TodoCommand(ArrayList<String> argsList) {
         this.argsList = argsList;
     }
 
+    /**
+     * Overrides the execute method from the Command class.
+     * Executes the command to add a todo task.
+     *
+     * @param tasks   The TaskList containing tasks.
+     * @param ui      The Ui for user interface interactions.
+     * @param storage The Storage for data storage operations.
+     * @throws NollidException Thrown if an exception specific to command execution occurs.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
         if (argsList.size() == 1) {

@@ -13,8 +13,16 @@ import nollid.exceptions.NollidException;
  * It extends the Command class and implements the execute method to perform the command logic.
  */
 public class MarkCommand extends Command {
+    /**
+     * ArrayList containing command arguments.
+     */
     private final ArrayList<String> argsList;
 
+    /**
+     * Constructor for MarkCommand.
+     *
+     * @param argsList ArrayList containing command arguments.
+     */
     public MarkCommand(ArrayList<String> argsList) {
         this.argsList = argsList;
     }
