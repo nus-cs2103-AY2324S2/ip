@@ -12,7 +12,7 @@ public class Storage {
         try {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
-                System.out.println(s.nextLine());
+                System.out.println("    " + s.nextLine());
             }
         } catch (FileNotFoundException e) {
             System.out.println("file not found! try again xx");

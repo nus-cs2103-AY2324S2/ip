@@ -4,7 +4,6 @@ import java.io.File;
 
 public class Ui {
 
-    private Command c;
     private Scanner user;
     private Task task;
     private TaskList tasklist;
@@ -23,7 +22,7 @@ public class Ui {
     }
 
     public void exit() {
-        System.out.println("    byeee love uu ttyl ok!");
+        System.out.println("byeee love uu ttyl ok!");
     }
 
     public void readCommand() {

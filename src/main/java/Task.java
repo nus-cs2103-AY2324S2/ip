@@ -11,13 +11,12 @@ public class Task {
         isDone = true;
     }
     public String mark(int number) {
-        return "        " + this.getCat() + this.marked() + " "
+        return "    " + this.getCat() + this.marked() + " "
                 + this.getTask();
     }
 
     public String delete() {
-        return "    Noted. I've removed this task: \n"
-                + "        " + this.getCat() + this.marked() + " "
+        return "     " + this.getCat() + this.marked() + " "
                 + this.getTask();
     }
 
@@ -26,7 +25,7 @@ public class Task {
     }
 
     public String unmark(int number) {
-        return "        " + this.getCat() + marked() + " "
+        return "    " + this.getCat() + marked() + " "
                         + this.getTask();
     }
 
