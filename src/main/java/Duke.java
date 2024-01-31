@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Duke {
     private String name;
     private ArrayList<Task> list;
 
-    private enum Command{
+    private enum Command {
         todo,
         delete,
         bye,
@@ -13,6 +14,7 @@ public class Duke {
         deadline,
         event
     }
+
     public Duke(String name) {
         this.name = name;
         this.list = new ArrayList<Task>();
@@ -22,7 +24,7 @@ public class Duke {
         System.out.println("Hello! I'm " + this.name + "\nWhat can I do for you?\n");
     }
 
-    public void exit(){
+    public void exit() {
         System.out.println("Bye. Hope to see you again soon!\n");
     }
 
@@ -43,7 +45,7 @@ public class Duke {
 
     public void displayList() {
         int index = 1;
-        for (Task task : this.list){
+        for (Task task : this.list) {
             System.out.println(String.format("%d. [%s] [%s] %s", index, task.getTypeIcon(), task.getStatusIcon(), task.getDescription()));
             index++;
         }
@@ -66,8 +68,7 @@ public class Duke {
     public void markTask(int index) {
         try {
             this.list.get(index - 1).markAsDone();
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("No task at that index! you fool");
         }
     }
@@ -75,8 +76,7 @@ public class Duke {
     public void unmarkTask(int index) {
         try {
             this.list.get(index - 1).maskAsUndone();
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("No task at that index! you fool");
         }
     }
@@ -85,20 +85,19 @@ public class Duke {
         try {
             Task t = this.list.remove(index - 1);
             System.out.println("Noted. The following task is removed, you careless human being!");
-            System.out.println(String.format("[%s] [%s] %s\n", t.getTypeIcon(), t.getStatusIcon(), t.getDescription() ));
+            System.out.println(String.format("[%s] [%s] %s\n", t.getTypeIcon(), t.getStatusIcon(), t.getDescription()));
             System.out.println(String.format("Now you only have %d tasks left. %s", this.getListSize(), this.getListUpdate()));
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("No task at that index! you fool");
         }
     }
 
-    public void readCommand(String command){
+    public void readCommand(String command) {
 
         String[] split_command = command.split(" ", 2);
         String method = split_command[0];
         try {
-            switch(method) {
+            switch (method) {
                 case "list":
                     this.displayList();
                     break;
@@ -157,7 +156,7 @@ public class Duke {
                     String[] info_split2 = split_command[1].split("/from ", 2);
                     if (info_split2.length <= 1) {
                         throw new DukeException("Please include a time period by using from and to keyword such as" +
-                                    "'/from today /to tomorrow");
+                                "'/from today /to tomorrow");
                     }
                     String[] info_split3 = info_split2[1].split("/to ", 2);
                     if (info_split3.length <= 1) {
@@ -183,8 +182,7 @@ public class Duke {
                 default:
                     throw new DukeException("Unknown command");
             }
-        }
-        catch (DukeException e){
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
 
