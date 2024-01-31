@@ -372,6 +372,14 @@ class Todo extends Task {
     }
 
     @Override
+<<<<<<< Updated upstream
+=======
+    protected String taskType() {
+        return "T";
+    }
+    // temp line
+    @Override
+>>>>>>> Stashed changes
     public String toString() {
         return "[T]" + super.toString();
     }
