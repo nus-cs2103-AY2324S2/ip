@@ -1,16 +1,16 @@
-package parser;
+package duke.parser;
 
-import commands.Command;
-import commands.AddCommand;
-import commands.DeleteCommand;
-import commands.ExitCommand;
-import commands.ListCommand;
-import commands.MarkCommand;
-import data.exception.DukeException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
+import duke.commands.Command;
+import duke.commands.AddCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.ExitCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+import duke.data.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

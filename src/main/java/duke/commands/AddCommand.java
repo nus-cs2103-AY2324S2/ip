@@ -1,10 +1,10 @@
-package commands;
+package duke.commands;
 
-import data.exception.DukeException;
-import storage.Storage;
-import task.Task;
-import task.TaskList;
-import ui.Ui;
+import duke.data.exception.DukeException;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 public class AddCommand extends Command {
 
