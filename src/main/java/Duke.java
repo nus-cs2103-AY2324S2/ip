@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -130,6 +134,9 @@ public class Duke {
                 } else if(userInput.startsWith("delete")) {
                     int num = parseTaskNumber(userInput, "delete");
                     deleteTask(num);
+                } else if (userInput.startsWith("on")) {
+                    String dateInput = userInput.replace("on", "").trim();
+                    tasksOn(dateInput);
                 } else {
                     throw new DukeException("\nError! I don't know what that means. Types of tasks are limited to ToDos, Deadlines and Events.\n");
                 }
@@ -178,6 +185,15 @@ public class Duke {
         return taskNumber;
     }
 
+    private LocalDateTime parseDateTimeInput(String input) throws DukeException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            return LocalDateTime.parse(input, formatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("\nError! Please provide a valid date and time format (yyyy-MM-dd HHmm).\n");
+        }
+    }
+
     /**
      * Parses and validates the user input for deadline tasks.
      * Throws a DukeException for invalid input or wrong formatting.
@@ -195,12 +211,11 @@ public class Duke {
         }
 
         String description = deadlineInput[0].trim();
-        String by = deadlineInput[1].trim();
+        LocalDateTime by = parseDateTimeInput(deadlineInput[1].trim());
 
         processEmptyDescription(description, "deadline");
-        processEmptyDescription(by, "deadline");
 
-        return new String[]{description, by};
+        return new String[]{description, by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))};
     }
 
     /**
@@ -226,15 +241,42 @@ public class Duke {
             throw new DukeException("\nError! Please provide a valid start time and end time after '/from' and '/to'.\n");
         }
 
-        String startTime = timeInput[0].trim();
-        String endTime = timeInput[1].trim();
+        LocalDateTime startTime = parseDateTimeInput(timeInput[0].trim());
+        LocalDateTime endTime = parseDateTimeInput(timeInput[1].trim());
 
         processEmptyDescription(description, "event");
-        processEmptyDescription(startTime, "event");
-        processEmptyDescription(endTime, "event");
 
-        return new String[]{description, startTime, endTime};
+        return new String[]{description, startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")), endTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))};
     }
+
+    private void tasksOn(String input) {
+        try {
+            LocalDate targetDate = LocalDate.parse(input, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+
+            System.out.println("\nTasks on " + targetDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+
+            for (Task task : list) {
+                if (task instanceof Deadline) {
+                    Deadline deadline = (Deadline) task;
+                    if (deadline.getBy().toLocalDate().equals(targetDate)) {
+                        System.out.println(deadline);
+                    }
+                } else if (task instanceof Event) {
+                    Event event = (Event) task;
+                    if (event.getStartTime().toLocalDate().equals(targetDate) ||
+                            event.getEndTime().toLocalDate().equals(targetDate) ||
+                            (targetDate.isAfter(event.getStartTime().toLocalDate()) &&
+                                    targetDate.isBefore(event.getEndTime().toLocalDate()))) {
+                        System.out.println(event);
+                    }
+                }
+            }
+            System.out.println();
+        } catch (DateTimeParseException e) {
+            System.out.println("\nError! Please provide a valid date format (MMM dd yyyy).\n");
+        }
+    }
+
 
     /**
      * Displays a starting message to greet the user.
