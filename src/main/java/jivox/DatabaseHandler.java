@@ -16,13 +16,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
+/**
+ * DatabaseHandler handles saving and loading tasks from a file database.
+ */
 public class DatabaseHandler {
     private File DB = null;
 
-    public DatabaseHandler(String FILE_PATH){
-        this.DB = new File(FILE_PATH);
+    /**
+     * Creates the handler for the given file path.
+     *
+     * @param filePath The path to the database file.
+     */
+    public DatabaseHandler(String filePath){
+        this.DB = new File(filePath);
     }
 
+    /**
+     * Creates the database file if it doesn't exist.
+     *
+     * @throws DataHandlerException If there is an error creating the file.
+     */
     public void create() throws DataHandlerException {
         Path path = Paths.get(DB.getPath());
         try {
@@ -37,6 +51,12 @@ public class DatabaseHandler {
         }
     }
 
+    /**
+     * Saves the given task list to the database.
+     *
+     * @param tasks The task list to save.
+     * @throws DataHandlerException If there is an error writing to the file.
+     */
     public void save(TaskList tasks) throws DataHandlerException {
         try{
             if(!DB.exists()){
@@ -67,6 +87,11 @@ public class DatabaseHandler {
         }
     }
 
+    /**
+     * Loads the tasks from the database file.
+     *
+     * @return The list of tasks loaded from the file.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> list = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
