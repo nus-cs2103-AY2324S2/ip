@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
@@ -158,7 +160,7 @@ class Storage {
     this.folderpath = folderpath;
   }
 
-  File load() throws DukeException {
+  private File getFileHandle() throws DukeException {
     try {
       Path baseFolder = Paths.get(System.getProperty("user.dir"));
       Path dataFolder = baseFolder.resolve(folderpath);
@@ -171,44 +173,13 @@ class Storage {
       }
       return taskFile.toFile();
     } catch (IOException e) {
-      throw new DukeException("Storage.load: %s" + e);
-    }
-  }
-}
-
-class TaskList {
-
-  private ArrayList<Task> storedTasks;
-  private File storageFile;
-
-  TaskList(File storageFile) throws DukeException {
-    this.storageFile = storageFile;
-    this.storedTasks = loadTasks();
-  }
-
-  TaskList(File storageFile, ArrayList<Task> storedTasks) {
-    this.storageFile = storageFile;
-    this.storedTasks = storedTasks;
-  }
-
-  private void saveTasks() throws DukeException {
-    try {
-      String serialised = storedTasks
-        .stream()
-        .<String>map(t -> t.serialise())
-        .collect(Collectors.joining("<2>"));
-
-      FileWriter f = new FileWriter(storageFile);
-      f.write(serialised);
-      f.close();
-    } catch (IOException e) {
-      throw new DukeException("DukeContext.saveTasks: " + e.getMessage());
+      throw new DukeException("Storage.getFileHandle: %s" + e);
     }
   }
 
-  private ArrayList<Task> loadTasks() throws DukeException {
+  ArrayList<Task> load() throws DukeException {
     try {
-      FileInputStream f = new FileInputStream(storageFile);
+      FileInputStream f = new FileInputStream(getFileHandle());
       String serialised = new String(f.readAllBytes());
       f.close();
       String[] tasksString = serialised.split("<2>");
@@ -234,8 +205,40 @@ class TaskList {
         })
         .collect(Collectors.toCollection(ArrayList::new));
     } catch (IOException e) {
-      throw new DukeException("DukeContext.loadTasks: " + e.getMessage());
+      throw new DukeException("Storage.load: " + e.getMessage());
     }
+  }
+
+  void save(ArrayList<Task> storedTasks) throws DukeException {
+    try {
+      String serialised = storedTasks
+        .stream()
+        .<String>map(t -> t.serialise())
+        .collect(Collectors.joining("<2>"));
+
+      FileWriter f = new FileWriter(getFileHandle());
+      f.write(serialised);
+      f.close();
+    } catch (IOException e) {
+      throw new DukeException("Storage.save: " + e.getMessage());
+    }
+  }
+}
+
+class TaskList {
+
+  private ArrayList<Task> storedTasks;
+
+  TaskList(ArrayList<Task> storedTasks) throws DukeException {
+    this.storedTasks = storedTasks;
+  }
+
+  TaskList() {
+    this.storedTasks = new ArrayList<>();
+  }
+
+  public ArrayList<Task> getStoredTasks() {
+    return this.storedTasks;
   }
 
   public boolean checkTaskIdx(int idx) {
@@ -248,18 +251,15 @@ class TaskList {
 
   public void addTask(Task t) throws DukeException {
     storedTasks.add(t);
-    saveTasks();
   }
 
   public void setDone(int idx, boolean done) throws DukeException {
     storedTasks.get(idx).setDone(done);
-    saveTasks();
   }
 
   public Task popTask(int idx) throws DukeException {
     Task t = storedTasks.get(idx);
     storedTasks.remove(idx);
-    saveTasks();
     return t;
   }
 
@@ -523,17 +523,16 @@ public class Duke {
 
   private TaskList tasks;
   private Ui ui;
+  private Storage storage;
 
-  public Duke(String folderPath, String fileName) throws DukeException {
+  public Duke(String folderPath, String fileName) {
     ui = new Ui();
-    Storage storage = new Storage(folderPath, fileName);
-    File storageFile = storage.load();
-
+    storage = new Storage(folderPath, fileName);
     try {
-      tasks = new TaskList(storageFile);
+      tasks = new TaskList(storage.load());
     } catch (DukeException e) {
       Ui.error(e.getMessage());
-      tasks = new TaskList(storageFile, new ArrayList<>());
+      tasks = new TaskList();
     }
   }
 
@@ -547,17 +546,10 @@ public class Duke {
         String command = cmd[0];
         String[] arguments = Parser.range(cmd, 1, cmd.length);
         b = ui.handleCommand(tasks, command, arguments);
+        storage.save(tasks.getStoredTasks());
       } catch (DukeException e) {
         Ui.inputPrompt();
       }
     } while (b);
-  }
-
-  public static void main(String[] args) {
-    try {
-      new Duke("data", "tasks.txt").run();
-    } catch (DukeException e) {
-      Ui.error(e.getMessage());
-    }
   }
 }
