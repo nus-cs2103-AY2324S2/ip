@@ -1,8 +1,10 @@
-import tasks.Task;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Todo;
-import tasks.TaskType;
+package tony;
+
+import tony.tasks.Task;
+import tony.tasks.Deadline;
+import tony.tasks.Event;
+import tony.tasks.Todo;
+import tony.tasks.TaskType;
 
 import java.time.LocalDateTime;
 

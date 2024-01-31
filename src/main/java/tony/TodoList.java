@@ -1,10 +1,10 @@
-import tasks.Task;
-import tasks.TaskType;
+package tony;
 
-import java.time.LocalDateTime;
+import tony.tasks.Task;
+import tony.tasks.TaskType;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;
 
 public class TodoList {
     List<Task> list = new ArrayList<>();
@@ -16,7 +16,7 @@ public class TodoList {
         line();
         System.out.println("Got it dawg. I've added this task: \n");
         System.out.println(item.toString() + "\n");
-        System.out.println("Now you got "+ numberOfTasks + " tasks fam \n");
+        System.out.println("Now you got "+ numberOfTasks + " tony.tasks fam \n");
         line();
     }
 
@@ -55,7 +55,7 @@ public class TodoList {
             list.remove(index - 1);
             line();
             System.out.println("Deleted item: \n" + task + "\n");
-            System.out.println("Now you have " + list.size() + " tasks left in the list.");
+            System.out.println("Now you have " + list.size() + " tony.tasks left in the list.");
             line();
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             line();
@@ -66,7 +66,7 @@ public class TodoList {
 
     public void print() {
         line();
-        System.out.println("Here are the tasks in your list: \n");
+        System.out.println("Here are the tony.tasks in your list: \n");
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i).toString() + "\n");
         }

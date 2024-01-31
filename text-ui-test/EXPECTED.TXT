@@ -1,5 +1,5 @@
 _______________________
-what is up dawg! I'm Tony!
+what is up dawg! I'm tony.Tony!
 What can I do for you mate?
 _________________________
 
@@ -9,7 +9,7 @@ Got it dawg. I've added this task:
 
 [T][ ] borrow book
 
-Now you got 1 tasks fam
+Now you got 1 tony.tasks fam
 
 _______________________
 
@@ -19,7 +19,7 @@ Got it dawg. I've added this task:
 
 [D][ ] return book  (by Sunday)
 
-Now you got 2 tasks fam
+Now you got 2 tony.tasks fam
 
 _______________________
 
@@ -29,7 +29,7 @@ Got it dawg. I've added this task:
 
 [E][ ] project meeting  (from Mon 2pm  to 4pm)
 
-Now you got 3 tasks fam
+Now you got 3 tony.tasks fam
 
 _______________________
 
@@ -41,7 +41,7 @@ _______________________
 Error: Invalid command: blah
 _______________________
 
-Here are the tasks in your list:
+Here are the tony.tasks in your list:
 
 [T][ ] borrow book
 

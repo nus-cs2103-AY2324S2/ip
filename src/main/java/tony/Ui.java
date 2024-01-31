@@ -1,14 +1,10 @@
-import tasks.Task;
-import tasks.TaskType;
-
-import java.util.Arrays;
-import java.util.Scanner;
+package tony;
 
 public class Ui {
 
     public static void greeting() {
         String greeting = "_______________________\n"
-                + "what is up dawg! I'm Tony!\n"
+                + "what is up dawg! I'm tony.Tony!\n"
                 + "What can I do for you mate?\n"
                 + "_________________________\n";
         System.out.println(greeting);

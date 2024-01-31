@@ -1,7 +1,8 @@
-import tasks.Task;
-import tasks.TaskType;
+package tony;
+
+import tony.tasks.Task;
+import tony.tasks.TaskType;
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Tony {
     private Ui ui;
