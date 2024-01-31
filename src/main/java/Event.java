@@ -1,7 +1,10 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Event extends Task{
-    protected String startTime;
-    protected String endTime;
-    public Event(String description, String startTime, String endTime) {
+    protected LocalDate startTime;
+    protected LocalDate endTime;
+    public Event(String description, LocalDate startTime, LocalDate endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
@@ -9,6 +12,13 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "E |" + super.toString().substring(1) + "| " + this.startTime + "-" + this.endTime;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        String formattedStartTime = startTime.format(formatter);
+        String formattedEndTime = endTime.format(formatter);
+        return "E |" + super.toString().substring(1) + "| " + formattedStartTime + " to " + formattedEndTime;
+        //return "E |" + super.toString().substring(1) + "| " + getExactTime();
     }
+
+
+
 }
