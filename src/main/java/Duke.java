@@ -1,5 +1,8 @@
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Scanner;
+import java.util.ArrayList;
+import  java.util.EnumSet;
 
 enum Command {
     TODO("todo", "todo <task_name>"),
@@ -23,13 +26,14 @@ public class Duke {
     private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
+        ArrayList<Task> list = Storage.retrieveList();
+        Storage.createFile();
         System.out.println("================================ \n" +
                 "Hello I'm Axolotl! \n" +
                 "What can I do for you? \n" +
                 "================================ \n");
 
         String input = sc.nextLine();
-        ArrayList<Task> list = new ArrayList<>();
 
         while (!input.equals(Command.TERMINATE.commandName)) {
             int cmdSplit = input.indexOf(" ");
@@ -93,7 +97,7 @@ public class Duke {
                     Task t = null;
                     boolean success = true;
                     if (command.equals(Command.TODO.commandName)) {
-                        t = new ToDo(task);
+                        t = new ToDo(task, false);
                     }
                     else if (command.equals(Command.DEADLINE.commandName)) {
                         if (task == null || !task.contains(" /by ")) {
@@ -103,7 +107,7 @@ public class Duke {
                                     "-------------------------------- \n");
                         } else {
                             String[] deadline = task.split(" /by ");
-                            t = new Deadline(deadline[0], deadline[1]);
+                            t = new Deadline(deadline[0], false, deadline[1]);
                         }
                     }
                     else {
@@ -116,7 +120,7 @@ public class Duke {
                             String event = task.substring(0, task.indexOf(" /from "));
                             String from = task.substring(task.indexOf("/from ") + 6, task.indexOf(" /to "));
                             String to = task.substring((task.indexOf("/to ") + 4));
-                            t = new Event(event, from, to);
+                            t = new Event(event, false, from, to);
                         }
                     }
                     if (success) {
@@ -126,6 +130,7 @@ public class Duke {
                                 t.toString() + "\n" +
                                 "Now you have " + list.size() + " task(s) in the list. \n" +
                                 "-------------------------------- \n");
+                        Storage.updateFile(list);
                     }
                 } else {
                     System.out.println( "-------------------------------- \n" +
@@ -161,4 +166,5 @@ public class Duke {
         }
         System.out.println( "-------------------------------- \n");
     }
+
 }
