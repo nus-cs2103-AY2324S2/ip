@@ -36,4 +36,14 @@ public class StringUtils {
     if (value.isEmpty()) throw new IllegalArgumentException("No valid value found after " + command);
     return value;
   }
+
+  /**
+   * This function simply abstracts out the splitting logic of the data string
+   * @param data
+   * @return
+   */
+  public static String[] splitDataString(String data) {
+    String[] segments = data.split("\\s*\\|\\s*");
+    return segments;
+  }
 }
