@@ -154,6 +154,24 @@ public class TaskList {
 
 
     }
+
+    public static void findCase(String str) throws DukeException{
+        if(str.equals("find")) {
+            throw new DukeException("please give this instruction in the following format: find [keyword]");
+        }
+        String keyword = str.replace("find", "");
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < list.size(); i++) {
+            int n = 0;
+            Task task = list.get(i);
+            if (task.description.contains(keyword)) {
+                n++;
+                System.out.println( n + "." + task.ToString());
+
+            }
+        }
+
+    }
     /**
      * prints the task list.
      */
@@ -163,6 +181,8 @@ public class TaskList {
             System.out.println(a + 1 + ". " + list.get(a).ToString());
         }
     }
+
+
     /**
      * gets the size of the task list.
      */

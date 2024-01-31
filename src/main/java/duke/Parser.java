@@ -53,7 +53,9 @@ public class Parser {
         } else if (identifier.equals("delete")) {
             list.removeCase(tokens);
 
-        } else {
+        } else if(identifier.equals("find")) {
+            list.findCase(str);
+        }else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
         }
     }
