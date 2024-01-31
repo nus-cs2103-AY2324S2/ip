@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Duke {
     private Ui ui;
     private Storage storage;
+
     public enum Command {
         BYE, LIST, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN
     }
