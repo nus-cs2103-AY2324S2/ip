@@ -5,9 +5,9 @@ import java.time.format.DateTimeFormatter;
 
 public class EventTask extends Task {
 
-    private LocalDateTime startDateTime;
+    private final LocalDateTime startDateTime;
 
-    private LocalDateTime endDateTime;
+    private final LocalDateTime endDateTime;
 
 
     public EventTask(String taskName, LocalDateTime startDateTime, LocalDateTime endDateTime) {
@@ -32,12 +32,14 @@ public class EventTask extends Task {
 
     @Override
     public String getStringStorageRepresentation() {
-        return String.format("E | %s | %s | %s", super.getStringStorageRepresentation(), this.getStartDateTimeStr(), this.getEndDateTimeStr());
+        return String.format("E | %s | %s | %s", super.getStringStorageRepresentation(),
+                this.getStartDateTimeStr(), this.getEndDateTimeStr());
     }
 
 
     @Override
     public String toString() {
-        return String.format("[E] %s (from: %s to: %s)", super.toString(), this.getStartDateTimeStr(), this.getEndDateTimeStr());
+        return String.format("[E] %s (from: %s to: %s)", super.toString(),
+                this.getStartDateTimeStr(), this.getEndDateTimeStr());
     }
 }

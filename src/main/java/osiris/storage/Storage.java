@@ -3,7 +3,7 @@ import java.io.File;
 
 public class Storage {
 
-    private String filepath;
+    private final String filepath;
 
     public Storage(String filepath) {
         this.filepath = filepath;

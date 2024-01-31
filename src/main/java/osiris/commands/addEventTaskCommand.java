@@ -1,19 +1,19 @@
 package osiris.commands;
 
+import java.time.LocalDateTime;
+
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
 
-import java.time.LocalDateTime;
-
-public class addEventTaskCommand extends Command{
+public class addEventTaskCommand extends Command {
 
     public static final String COMMAND = "event";
 
-    private String taskName;
+    private final String taskName;
 
-    private LocalDateTime startDateTime;
+    private final LocalDateTime startDateTime;
 
-    private LocalDateTime endDateTime;
+    private final LocalDateTime endDateTime;
 
     public addEventTaskCommand(String taskName, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         this.taskName = taskName;

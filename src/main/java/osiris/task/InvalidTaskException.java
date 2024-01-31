@@ -1,6 +1,6 @@
 package osiris.task;
 
-public class InvalidTaskException extends Exception{
+public class InvalidTaskException extends Exception {
 
     @Override
     public String toString() {

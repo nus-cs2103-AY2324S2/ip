@@ -3,11 +3,11 @@ package osiris.commands;
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
 
-public class addToDoTaskCommand extends Command{
+public class addToDoTaskCommand extends Command {
 
     public static final String COMMAND = "todo";
 
-    private String taskName;
+    private final String taskName;
 
     public addToDoTaskCommand(String taskName){
         this.taskName = taskName;

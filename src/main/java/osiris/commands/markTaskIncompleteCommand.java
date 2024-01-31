@@ -3,13 +3,13 @@ package osiris.commands;
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
 
-public class markTaskIncompleteCommand extends Command{
+public class markTaskIncompleteCommand extends Command {
 
     public static final String COMMAND = "unmark";
 
-    private int taskIndex;
+    private final int taskIndex;
 
-    public markTaskIncompleteCommand(int taskIndex){
+    public markTaskIncompleteCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 

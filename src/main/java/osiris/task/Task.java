@@ -2,11 +2,11 @@ package osiris.task;
 
 public abstract class Task {
 
-    private String taskName;
+    private final String taskName;
 
     private boolean isCompleted = false;
 
-    public Task(String taskName){
+    public Task(String taskName) {
         this.taskName = taskName;
     }
 

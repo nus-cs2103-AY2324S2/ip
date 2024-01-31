@@ -1,17 +1,17 @@
 package osiris.commands;
 
+import java.time.LocalDate;
+
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
 
-import java.time.LocalDate;
-
-public class addDeadlineTaskCommand extends Command{
+public class addDeadlineTaskCommand extends Command {
 
     public static final String COMMAND = "deadline";
 
-    private String taskName;
+    private final String taskName;
 
-    private LocalDate deadline;
+    private final LocalDate deadline;
 
     public addDeadlineTaskCommand(String taskName, LocalDate deadline) {
         this.taskName = taskName;

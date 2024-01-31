@@ -1,18 +1,18 @@
 package osiris;
 
+import java.util.Scanner;
+
 import osiris.commands.Command;
 import osiris.interpreters.UserInputInterpreter;
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
-
-import java.util.Scanner;
 
 public class Osiris {
 
     private final TaskManager taskManager = new TaskManager();
     private final Ui userInterface = new Ui();
 
-    public void startChat(){
+    public void startChat() {
         Scanner scanner = new Scanner(System.in);
         this.taskManager.initialise();
 
@@ -20,8 +20,7 @@ public class Osiris {
 
         boolean terminateChat = false;
 
-        while (!terminateChat){
-
+        while (!terminateChat) {
             this.userInterface.messageOsirisPrompt();
             String userInput = scanner.nextLine();
 

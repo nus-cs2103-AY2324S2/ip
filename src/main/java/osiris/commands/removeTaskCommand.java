@@ -4,13 +4,13 @@ import osiris.task.Task;
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
 
-public class removeTaskCommand extends Command{
+public class removeTaskCommand extends Command {
 
     public static final String COMMAND = "delete";
 
     private int taskIndex;
 
-    public removeTaskCommand(int taskIndex){
+    public removeTaskCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 

@@ -3,7 +3,7 @@ package osiris.commands;
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
 
-public class terminateChatCommand extends Command{
+public class terminateChatCommand extends Command {
 
     public static final String COMMAND = "bye";
 
