@@ -25,11 +25,12 @@ class ListAdder {
     private ArrayList<Task> taskList = new ArrayList<>();
     private int taskIndex;
     private static final String line = "____________________________________________________________";
-    private static final String FILE_PATH = "./data/tasklist.txt";
+    private static final String FOLDER_PATH = "./tasklist";
+    private static final String FILE_PATH = FOLDER_PATH + "/tasklist.txt";
 
     public ListAdder() {
         this.taskIndex = 1;
-        loadData();
+        loadTasklist();
     }
 
 
@@ -80,15 +81,17 @@ class ListAdder {
     /**
      * Loads data from the file into taskList
      */
-    private void loadData() {
+    private void loadTasklist() {
         try {
             Path filePath = Paths.get(FILE_PATH);
+            Path folderPath = Paths.get(FOLDER_PATH);
 
-            if (Files.notExists(filePath)) { // Create the file if it doesn't exist
+            if (Files.notExists(folderPath)) { // Create the folder and file if they don't exist
+                Files.createDirectories(folderPath);
                 Files.createFile(filePath);
             }
         } catch (IOException e) {
-            System.out.println("Error loading data from file: error in loadData()");
+            System.out.println("Error loading data from file: error in loadTasklist()");
         }
     }
 
