@@ -1,10 +1,10 @@
-package banter.tasks;
+package seedu.banter.tasks;
 
-import banter.utilities.DateTime;
+import seedu.banter.utilities.DateTime;
 
 import java.time.LocalDateTime;
 
-public class Deadline extends banter.tasks.Task {
+public class Deadline extends Task {
     public static final String DEADLINE_ICON = "D";
     private LocalDateTime by;
 

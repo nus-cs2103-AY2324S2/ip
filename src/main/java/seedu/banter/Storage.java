@@ -1,10 +1,10 @@
-package banter;
+package seedu.banter;
 
-import banter.tasks.Deadline;
-import banter.tasks.Event;
-import banter.tasks.Task;
-import banter.tasks.TaskList;
-import banter.tasks.Todo;
+import seedu.banter.tasks.Deadline;
+import seedu.banter.tasks.Event;
+import seedu.banter.tasks.Task;
+import seedu.banter.tasks.TaskList;
+import seedu.banter.tasks.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

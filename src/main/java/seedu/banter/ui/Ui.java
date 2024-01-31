@@ -1,6 +1,6 @@
-package banter.ui;
+package seedu.banter.ui;
 
-import banter.enums.CommandType;
+import seedu.banter.enums.CommandType;
 
 public class Ui {
     public static final String BANTER_LOGO = ".______        ___      .__   __. .___________. _______ .______\n" +

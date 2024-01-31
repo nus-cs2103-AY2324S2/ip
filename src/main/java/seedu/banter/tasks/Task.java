@@ -1,4 +1,4 @@
-package banter.tasks;
+package seedu.banter.tasks;
 
 public abstract class Task {  // default access modifier
     private final String description;
@@ -38,5 +38,9 @@ public abstract class Task {  // default access modifier
 
     public String getDescription() {
         return description;
+    }
+    
+    public boolean isDone() {
+        return isDone;
     }
 }

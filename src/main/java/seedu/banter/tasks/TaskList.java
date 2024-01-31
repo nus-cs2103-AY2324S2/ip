@@ -1,13 +1,13 @@
-package banter.tasks;
+package seedu.banter.tasks;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import banter.errors.Errors;
-import banter.errors.InvalidBanterUsageError;
-import banter.errors.InvalidTaskNumberUsageError;
-import banter.ui.Ui;
+import seedu.banter.errors.Errors;
+import seedu.banter.errors.InvalidBanterUsageError;
+import seedu.banter.errors.InvalidTaskNumberUsageError;
+import seedu.banter.ui.Ui;
 
 public class TaskList implements Iterable<Task> {
     private ArrayList<Task> taskList;
@@ -17,14 +17,14 @@ public class TaskList implements Iterable<Task> {
     }
 
     public String addTodo(String description) {
-        banter.tasks.Todo todo = new Todo(description);
+        Todo todo = new Todo(description);
         taskList.add(todo);
         return "Got it. I've added this task:\n" + todo +
                 "\nNow you have " + taskList.size() + " banter.tasks in the list.";
     }
     
     public String addTodo(String description, boolean isDone) {
-        banter.tasks.Todo todo = new banter.tasks.Todo(description, isDone);
+        Todo todo = new Todo(description, isDone);
         taskList.add(todo);
         return "Got it. I've added this task:\n" + todo +
                 "\nNow you have " + taskList.size() + " banter.tasks in the list.";

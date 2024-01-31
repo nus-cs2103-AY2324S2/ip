@@ -1,4 +1,4 @@
-package banter.utilities;
+package seedu.banter.utilities;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

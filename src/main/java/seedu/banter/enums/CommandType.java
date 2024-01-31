@@ -1,4 +1,4 @@
-package banter.enums;
+package seedu.banter.enums;
 
 public enum CommandType {
     BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE;

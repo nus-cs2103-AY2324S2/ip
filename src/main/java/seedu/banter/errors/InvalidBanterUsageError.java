@@ -1,4 +1,4 @@
-package banter.errors;
+package seedu.banter.errors;
 
 public class InvalidBanterUsageError extends Exception{
     public InvalidBanterUsageError(String error, String usage) {

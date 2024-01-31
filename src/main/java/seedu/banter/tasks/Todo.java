@@ -1,13 +1,13 @@
-package banter.tasks;
+package seedu.banter.tasks;
 
 public class Todo extends Task {
     public static final String TODO_ICON = "T";
 
-    Todo(String description) {  // default access modifier
+    public Todo(String description) {  // default access modifier
         super(description);
     }
     
-    Todo(String description, boolean isDone) {  // default access modifier
+    public Todo(String description, boolean isDone) {  // default access modifier
         super(description, isDone);
     }
 

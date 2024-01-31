@@ -1,4 +1,4 @@
-package banter.ui;
+package seedu.banter.ui;
 
 public class Card {
     private String message;

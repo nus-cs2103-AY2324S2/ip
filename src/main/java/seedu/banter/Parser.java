@@ -1,15 +1,15 @@
-package banter;
+package seedu.banter;
 
-import banter.enums.CommandType;
-import banter.errors.InvalidBanterUsageError;
-import banter.ui.Card;
-import banter.tasks.TaskList;
+import seedu.banter.enums.CommandType;
+import seedu.banter.errors.InvalidBanterUsageError;
+import seedu.banter.ui.Card;
+import seedu.banter.tasks.TaskList;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
-import banter.errors.Errors;
-import banter.ui.Ui;
-import banter.utilities.DateTime;
+import seedu.banter.errors.Errors;
+import seedu.banter.ui.Ui;
+import seedu.banter.utilities.DateTime;
 
 public class Parser {
     private final TaskList taskList;

@@ -1,4 +1,4 @@
-package banter;
+package seedu.banter;
 
 public class Banter {
     private Storage storage = new Storage();

@@ -1,9 +1,9 @@
-package banter.tasks;
+package seedu.banter.tasks;
 
 import java.time.LocalDateTime;
-import banter.utilities.DateTime;
+import seedu.banter.utilities.DateTime;
 
-public class Event extends banter.tasks.Task {
+public class Event extends Task {
     public static final String EVENT_ICON = "E";
     private LocalDateTime from;
     private LocalDateTime to;
