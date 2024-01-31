@@ -12,10 +12,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public void writeToData(String filePath) throws IOException {
-        FileWriter fileWriter = new FileWriter(filePath, true);
-        String writeData = String.format("%s|%s\n", "T", super.dataString());
-        fileWriter.write(writeData);
-        fileWriter.close();
+    public String dataString() {
+        return String.format("%s|%s\n", "T", super.dataString());
     }
 }

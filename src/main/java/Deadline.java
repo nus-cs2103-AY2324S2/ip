@@ -15,10 +15,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void writeToData(String filePath) throws IOException {
-        FileWriter fileWriter = new FileWriter(filePath, true);
-        String writeData = String.format("%s|%s|%s\n", "D", super.dataString(), this.deadline);
-        fileWriter.write(writeData);
-        fileWriter.close();
+    public String dataString() {
+        return String.format("%s|%s|%s\n", "D", super.dataString(), this.deadline);
     }
 }

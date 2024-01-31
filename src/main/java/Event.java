@@ -16,10 +16,7 @@ public class Event extends Task {
     }
 
     @Override
-    public void writeToData(String filePath) throws IOException {
-        FileWriter fileWriter = new FileWriter(filePath, true);
-        String writeData = String.format("%s|%s|%s|%s\n", "E", super.dataString(), this.from, this.to);
-        fileWriter.write(writeData);
-        fileWriter.close();
+    public String dataString() {
+        return String.format("%s|%s|%s|%s\n", "E", super.dataString(), this.from, this.to);
     }
 }
