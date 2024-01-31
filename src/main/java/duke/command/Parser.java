@@ -6,10 +6,19 @@ import duke.task.*;
 import duke.ui.Ui;
 
 import java.io.IOException;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+<<<<<<< Updated upstream
+=======
+/**
+ * The Parser class handles the parsing of user commands and executes corresponding actions.
+ * It interacts with the TaskList, Storage, and Ui classes to perform operations like adding tasks,
+ * marking tasks as done, deleting tasks, and displaying the task list.
+ */
+>>>>>>> Stashed changes
 public class Parser {
 
         private String command;
@@ -74,6 +83,7 @@ public class Parser {
                                 Ui.showError("You have not created a task " + words[1] + " yet!");
                             }
                         }
+<<<<<<< Updated upstream
                         break;
 
                     case "delete":
@@ -90,10 +100,40 @@ public class Parser {
                             ui.showError("You gotta enter some task TO DO!");
                         } else {
                             tasks.addToDoTask(new ToDo(command.substring(5).trim()));
+=======
+                    }
+                    break;
+                case "delete":
+                    if (words.length > 1) {
+                        tasks.deleteTask(Integer.parseInt(words[1]) - 1);
+                        Ui.printNumberOfTasks(tasks);
+                        storage.saveTasks(tasks);
+                        hasChanged = true;
+                    }
+                    break;
+                case "todo":
+                    if (command.length() <= 5) {
+                        ui.showError("You gotta enter some task TO DO!");
+                    } else {
+                        tasks.addToDoTask(new ToDo(command.substring(5).trim()));
+                        storage.saveTasks(tasks);
+                        ui.printNumberOfTasks(tasks);
+                        hasChanged = true;
+                    }
+                    break;
+                case "deadline":
+                    try {
+                        int byIndex = command.indexOf("/by");
+                        if (byIndex != -1 && byIndex < command.length() - 3) { // Check if "/by" is present
+                            String description = command.substring(9, byIndex).trim();
+                            String by = command.substring(byIndex + 3).trim();
+                            tasks.addDeadlineTask(new Deadline(description, by));
+>>>>>>> Stashed changes
                             storage.saveTasks(tasks);
                             ui.printNumberOfTasks(tasks);
                             hasChanged = true;
                         }
+<<<<<<< Updated upstream
                         break;
 
                     case "deadline":
@@ -145,6 +185,35 @@ public class Parser {
                 ui.showError(e.getMessage());
             } finally {
                 ui.printDashes();
+=======
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case "event":
+                    Matcher fromMatcher = Pattern.compile("/from\\s+(\\S+[^/]+)").matcher(command);
+                    Matcher toMatcher = Pattern.compile("/to\\s+(\\S.+)").matcher(command);
+                    String eventDescription = "";
+                    Matcher descriptionMatcher = Pattern.compile("event\\s+(.+?)\\s*/from").matcher(command);
+                    if (words.length > 1) {
+                        if (descriptionMatcher.find()) {
+                            eventDescription = descriptionMatcher.group(1).trim();
+                        }
+                    } else {
+                        Ui.showError("You didn't enter the details or duration!");
+                        break;
+                    }
+                    String from = fromMatcher.find() ? fromMatcher.group(1).trim() : "";
+                    String to = toMatcher.find() ? toMatcher.group(1).trim() : "";
+                    tasks.addEventTask(new Event(eventDescription, from, to));
+                    storage.saveTasks(tasks);
+                    Ui.printNumberOfTasks(tasks);
+                    hasChanged = true;
+                    break;
+                default:
+                    ui.showError("I don't know what you are saying :(");
+                    break;
+>>>>>>> Stashed changes
             }
         }
 }

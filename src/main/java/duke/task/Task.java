@@ -1,7 +1,14 @@
 package duke.task;
 
+<<<<<<< Updated upstream
 import duke.task.TaskType;
 
+=======
+/**
+ * The Task class represents a generic task with a description and completion status.
+ * It serves as the base class for more specific task types.
+ */
+>>>>>>> Stashed changes
 public class Task {
         protected String description;
         protected TaskType type;
