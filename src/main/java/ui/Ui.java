@@ -24,8 +24,9 @@ public class Ui {
         this.out = out;
     }
 
-    public void showList (TaskList tasks) {
+    public void showList (String message, TaskList tasks) {
         out.println("\t" + LINE);
+        out.println("\t" + message);
         for (int i = 0; i < tasks.numTasks(); i++){
             out.println("\t " + (i+1) + ". " + tasks.get(i));
         }

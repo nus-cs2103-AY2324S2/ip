@@ -26,6 +26,8 @@ public abstract class Parser {
             return new EventCommand(message);
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommand(message);
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand(message);
         default:
             return new ExitCommand();
         }
