@@ -39,6 +39,20 @@ public class EventCommandTest {
         }
     }
 
+    @Test
+    public void addCommand_successful() {
+        final String[] validDates = {"1992-01-01", "2013-01-09", "2023-01-09", "2024-01-09", "2024-01-03"};
+        final String[] activityNames = {"drill through the wall", "cook laksa", "write test case", "swim", "dance in the pool"};
+
+        for (String startDate : validDates) {
+            for (String endDate : validDates) {
+                for (String activity : activityNames) {
+                    assertConstructingValidEvent(activity, startDate, endDate);
+                }
+            }
+        }
+    }
+
 
     private void assertConstructingInvalidEventCmdThrowsException(String name, String startTime, String endTime) {
         try {
@@ -54,13 +68,10 @@ public class EventCommandTest {
         fail(error);
     }
 
-    /**
-     * Asserts that attempting to construct an add command with the supplied
-     * invalid data throws an IllegalValueException
-     */
-    private void assertConstructingInvalidEventCmdDoesNotThrowsException(String name, String startTime, String endTime) {
+    private void assertConstructingValidEvent(String name, String startTime, String endTime) {
         try {
             new EventCommand(name, startTime, endTime);
+            return;
         } catch (MalformedUserInputException e) {
             String error = String.format(
                     "An event command was successfully constructed with invalid input: %s %s %s",
@@ -69,5 +80,7 @@ public class EventCommandTest {
             fail(error);
         }
 
+
     }
+
 }
