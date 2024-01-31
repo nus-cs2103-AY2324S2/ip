@@ -1,44 +1,29 @@
+import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Echo {
     private TaskManager taskManager;
+    private Storage storage;
+    private Ui ui;
+    private final String FILE_PATH = "." + File.separator + "data" + File.separator + "echo.txt";
 
     public Echo() {
-        this.taskManager = new TaskManager();
+        ui = new Ui();
+        storage = new Storage(FILE_PATH);
+        this.taskManager = new TaskManager(storage);
     }
 
     public static void main(String[] args) {
         Echo echo = new Echo();
-        echo.greetUser();
-        echo.startConversation();
-        echo.endConversation();
+        Ui.greetUser();
+        echo.start();
+        Ui.endConversation();
     }
 
-    public static void greetUser() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Echo");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
-    }
-
-    public void startConversation() {
-        Scanner scanner = new Scanner(System.in);
-        String userCommand;
-
-        do {
-            System.out.print("\n");
-            userCommand = scanner.nextLine();
-            taskManager.executeCommand(userCommand);
-            //echoCommand(userCommand);
-        } while (!userCommand.equalsIgnoreCase("bye"));
-    }
-
-    public void endConversation() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+    public void start() {
+        Ui.startConversation(this.taskManager);
     }
 
     public void echoCommand(String command) {

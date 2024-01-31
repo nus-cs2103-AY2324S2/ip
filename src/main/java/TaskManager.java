@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
@@ -11,10 +12,20 @@ import java.io.IOException;
 public class TaskManager {
     private List<Task> tasks;
     private final String FILE_PATH = "." + File.separator + "data" + File.separator + "echo.txt";
+    private Storage storage;
 
-    public TaskManager() {
+
+    public TaskManager(Storage storage) {
         this.tasks = new ArrayList<>();
+        this.storage = storage;
         loadTasksFromFile();
+    }
+    private void saveTasksToFile() {
+        storage.save(tasks);
+    }
+
+    private void loadTasksFromFile() {
+        tasks = storage.load();
     }
 
     public void executeCommand(String command) {
@@ -162,9 +173,11 @@ public class TaskManager {
             }
 
             Task removedTask = tasks.remove(taskNumber);
+            System.out.println("____________________________________________________________");
             System.out.println("Noted. I've removed this task:");
             System.out.println("  " + removedTask);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("____________________________________________________________");
         } catch (NumberFormatException e) {
             System.out.println("NO! Invalid task number. Enter a valid task number to delete.");
         } catch (IllegalArgumentException e) {
@@ -173,92 +186,7 @@ public class TaskManager {
         saveTasksToFile();
     }
 
-    public void addTaskFromFileString(String fileLine) {
-        try {
-            String[] tokens = fileLine.split(" \\|");
-            if (tokens.length <= 1) {
-                throw new IllegalArgumentException("Invalid task format in file!");
-            }
 
-            String taskType = tokens[0];
-            if (tokens[2].isEmpty()) {
-                throw new IllegalArgumentException("The description of a task cannot be empty.");
-            }
-            String taskDescription = tokens[2].trim();
-
-            switch (taskType) {
-                case "T":
-                    tasks.add(new Todo(taskDescription));
-                    break;
-                case "D":
-                    String[] deadlineTokens = tokens[3].split(" ", 2);
-                    if (deadlineTokens.length != 2) {
-                        throw new IllegalArgumentException("Invalid deadline format in file.");
-                    }
-                    tasks.add(new Deadline(taskDescription, deadlineTokens[1]));
-                    break;
-                case "E":
-                    String[] eventTokens = tokens[3].split(" ", 3);
-                    if (eventTokens.length != 3) {
-                        throw new IllegalArgumentException("Invalid event format in file.");
-                    }
-                    tasks.add(new Event(taskDescription, eventTokens[1], eventTokens[2]));
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid task type in file!");
-            }
-
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-
-    // Method to save tasks to a file
-    private void saveTasksToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
-            for (Task task : tasks) {
-                writer.write(task.toFileString() + System.lineSeparator());
-            }
-        } catch (IOException e) {
-            System.out.println("Error saving tasks to file: " + e.getMessage());
-        }
-    }
-
-    // Method to load tasks from a file
-    private void loadTasksFromFile() {
-        try {
-            File file = new File(FILE_PATH);
-
-            if (!file.exists()) {
-                file.getParentFile().mkdirs(); // Create parent directories if they don't exist
-                file.createNewFile(); // Create the file if it doesn't exist
-
-                System.out.println("No tasks file found. Created a new tasks file.");
-            } else {
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                String line;
-
-                while ((line = reader.readLine()) != null) {
-                    try {
-                        addTaskFromFileString(line);
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Error loading a task. Skipping invalid task line: " + line);
-                    }
-                }
-
-                reader.close();
-            }
-        } catch (IOException e) {
-            System.out.println("Error loading tasks from file: " + e.getMessage());
-
-            // Handle the situation where the file is corrupted
-            System.out.println("Deleting the corrupted file and creating a new tasks file.");
-            File corruptedFile = new File(FILE_PATH);
-            corruptedFile.delete(); // Delete the corrupted file
-            loadTasksFromFile(); // Recursively call the method to create a new file
-        }
-    }
 
     public void deleteAllTasks() {
         tasks.removeAll(tasks);
