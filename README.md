@@ -22,3 +22,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+
+
+## Building files with Gradle
+1. The generated JAR is stored here: `/Users/chuajerome/IdeaProjects/ip-30Jan/build/libs/ip-30Jan.jar`
