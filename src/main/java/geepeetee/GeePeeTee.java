@@ -1,6 +1,14 @@
+package geepeetee;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+
+import exception.DukeException;
+import parser.Parser;
+import storage.Storage;
+import tasklist.TaskList;
+import ui.Ui;
 
 public class GeePeeTee {
 

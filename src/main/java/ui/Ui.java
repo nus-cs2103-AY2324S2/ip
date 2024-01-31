@@ -1,3 +1,7 @@
+package ui;
+
+import task.Task;
+
 public class Ui {
   public void showWelcomeMessage() {
     String botName = "GeePeeTee";

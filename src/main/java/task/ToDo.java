@@ -1,3 +1,7 @@
+package task;
+
+import exception.DukeException;
+
 public class ToDo extends Task {
 
   public static ToDo createFromInput(String input) throws DukeException {
