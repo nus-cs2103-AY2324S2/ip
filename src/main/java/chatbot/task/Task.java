@@ -79,6 +79,16 @@ public abstract class Task {
     }
 
     /**
+     * Checks if this task's name contains the pattern.
+     *
+     * @param pattern the string to find in this task's name
+     */
+    public boolean isContainingPattern(String pattern) {
+        Matcher matcher = Pattern.compile(pattern).matcher(name);
+        return matcher.find();
+    }
+
+    /**
      * Gets the {@link #COMPLETED_ICON} of the text that depends on the task completion status.
      *
      * @return the icon
