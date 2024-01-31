@@ -1,6 +1,10 @@
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.*;
 
 public class Duke {
 
@@ -13,9 +17,13 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
+
         System.out.println("Hello! I'm Dune, your task manager.");
         System.out.println("What can I do for you?");
         List<Task> tasks = new ArrayList<>();
+        // method to load data from txt file
+        String filePath = "";
+        loadTasks(tasks);
         System.out.println("");
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -35,6 +43,7 @@ public class Duke {
 
             if (text.startsWith("delete")) {
                 remove(text.substring(6), tasks);
+                saveTasks(tasks);
                 continue;
             }
 
@@ -50,6 +59,7 @@ public class Duke {
                     int index = Integer.parseInt(remaining);
                     // Index... exception
                     tasks.get(index - 1).complete();
+                    saveTasks(tasks);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(tasks.get(index - 1));
 
@@ -66,7 +76,7 @@ public class Duke {
 
 
             boolean addedTask = false;
-            String check = "";
+            String check;
             for (int i = 0; i < taskTypes.length; i++) {
                 check = taskTypes[i];
                 if (text.startsWith(check)) {
@@ -137,6 +147,7 @@ public class Duke {
         System.out.println("Got it. I've added this task:");
         System.out.println(x);
         System.out.println("Now you have " + tasks.size() + " tasks in your list.");
+        saveTasks(tasks);
     }
 
     public static void remove(String indexStr, List<Task> tasks)  {
@@ -157,6 +168,88 @@ public class Duke {
             System.out.println("Give a valid index to remove");
         } catch (DukeException d) {
             System.out.println(d);
+        }
+
+    }
+
+    public static void loadTasks(List<Task> tasks) {
+        // the root directory of the project
+        Path dir = Paths.get("").toAbsolutePath();
+        System.out.println("**" + dir);
+        // java.nio.file.Path filePath = java.nio.file.Paths.get(dir, "data", "dune.txt");
+        boolean fileExists = Files.exists(dir);
+        System.out.println("**" + fileExists);
+        if (fileExists) {
+            try {
+                // 1 line -> 1 item in the list
+                List<String> lines = Files.readAllLines(dir);
+                for (String line : lines) {
+                    tasks.add(convertLineToTask(line));
+                }
+            } catch (IOException i) {
+                System.out.println("Error reading from file");
+            }
+        } else {
+            // create said directory
+            return;
+        }
+    }
+
+    public static Task convertLineToTask(String s) {
+        String[] components = s.split("|");
+        String eventType = components[0];
+        boolean isDone = (components[1].equals("1")) ? true: false;
+        if (eventType.equals("T")) {
+            return new ToDo(components[2], isDone);
+        } else if (eventType.equals("D")) {
+            String deadline = components[3];
+            return new Deadline(components[1], deadline, isDone);
+        } else if (eventType.equals("E")) {
+            String[] startAndEnd = components[3].split("-");
+            return new Event(components[1], startAndEnd[0], startAndEnd[1], isDone);
+        } else {
+            // kinda sus
+            return null;
+        }
+    }
+
+    public static String convertTaskToLine(Task t) {
+        String ans = "";
+        if (t instanceof ToDo) {
+            ans = "T|" + (t.getIsDone() ? "1" : "0") + "|" + t.getDescription();
+        } else if (t instanceof Deadline) {
+            Deadline d = (Deadline) t;
+            ans = "D|" + (t.getIsDone() ? "1" : "0") + "|" + t.getDescription() + "|"
+                    + d.getDeadline();
+        } else if (t instanceof Event) {
+            Event e = (Event) t;
+            ans = "E|" + (t.getIsDone() ? "1" : "0") + "|" + t.getDescription() + "|"
+                    + e.getStart() + "-" + e.getEnd();
+        } else {
+            // kinda sus
+            return null;
+        }
+        // System.out.println(ans);
+        return ans;
+    }
+
+    public static void saveTasks(List<Task> tasks) {
+        Path dir = Paths.get("").toAbsolutePath();
+        System.out.println("*****" + dir);
+        // java.nio.file.Path filePath = java.nio.file.Paths.get(dir, "data", "dune.txt");
+        boolean fileExists = Files.exists(dir);
+        System.out.println("*****" + fileExists);
+        if (fileExists) {
+            try {
+                BufferedWriter writer = Files.newBufferedWriter(dir);
+                for (Task t : tasks) {
+                    writer.write(convertTaskToLine(t));
+                    writer.newLine();
+                }
+                writer.close();
+            } catch (IOException i) {
+                // System.out.println("Error writing to file");
+            }
         }
 
     }

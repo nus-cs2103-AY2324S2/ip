@@ -1,23 +1,36 @@
 public abstract class Task {
 
     private String description;
-    private boolean done;
+    private boolean isDone;
     public Task(String description) {
         this.description = description;
-        this.done = false;
+        this.isDone = false;
+    }
+
+    public Task(String description, boolean done) {
+        this.description = description;
+        this.isDone = done;
     }
 
     public void complete() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void incomplete() {
-        this.done = false;
+        this.isDone = false;
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     @Override
     public String toString() {
-        String done = this.done ? "[X]": "[ ]";
+        String done = this.isDone ? "[X]": "[ ]";
         return done + " " + this.description;
     }
 }
