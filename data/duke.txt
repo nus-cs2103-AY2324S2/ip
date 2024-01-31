@@ -1,5 +1,6 @@
 T|1|read book
-D|0|return book|June 6th
-E|0|project meeting|Aug 6th 2pm|Aug 6th 4pm
+D|0|return book|6/6/2012 1400
+E|0|project meeting|8 of October 2013, 8AM|10/8/2013 1300
 T|1|join sports club
 T|0|test this function
+D|0|test this other function|2/2/2014 0222

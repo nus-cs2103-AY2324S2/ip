@@ -2,12 +2,15 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Mona {
     protected static List<Task> tasks = new ArrayList<>();
+    protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
     public static void main(String[] args) throws MonaException{
         File log = new File("data/duke.txt");
         if (!log.exists()) {
@@ -65,7 +68,7 @@ public class Mona {
                 }
                 String details = input.substring(9);
                 String[] parts = details.split(" /by ");
-                Deadline newTask = new Deadline(parts[0], parts[1]);
+                Deadline newTask = new Deadline(parts[0], LocalDateTime.parse(parts[1], formatter));
                 tasks.add(newTask);
                 String response = "  ____________________________________________________________\n"
                         + "     Got it. I've added this task:\n"
@@ -84,7 +87,7 @@ public class Mona {
                 }
                 String[] details = input.substring(6).split(" /from ");
                 String[] startAndEnd = details[1].split(" /to ");
-                Event newTask = new Event(details[0], startAndEnd[0], startAndEnd[1]);
+                Event newTask = new Event(details[0], LocalDateTime.parse(startAndEnd[0], formatter), LocalDateTime.parse(startAndEnd[1], formatter));
                 tasks.add(newTask);
                 String response = "  ____________________________________________________________\n"
                         + "     Got it. I've added this task:\n"
@@ -167,11 +170,11 @@ public class Mona {
                 currTask.setCompletion(isCompleted);
                 return currTask;
             case "D":
-                currTask = new Deadline(description, logEntry[3]);
+                currTask = new Deadline(description, LocalDateTime.parse(logEntry[3], formatter));
                 currTask.setCompletion(isCompleted);
                 return currTask;
             case "E":
-                currTask = new Event(description, logEntry[3], logEntry[4]);
+                currTask = new Event(description, LocalDateTime.parse(logEntry[3], formatter), LocalDateTime.parse(logEntry[4], formatter));
                 currTask.setCompletion(isCompleted);
                 return currTask;
             default:
