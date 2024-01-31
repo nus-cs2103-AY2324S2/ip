@@ -12,6 +12,7 @@ public class TaskList {
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
+
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
@@ -80,6 +81,7 @@ public class TaskList {
         System.out.print("Couldn't find task associated with given id\n");
     }
 
+
     public void unmarkDone(int id) {
         for (Task item : taskList) {
             if (item.getId() == id) {
@@ -90,6 +92,22 @@ public class TaskList {
         }
 
         System.out.print("Couldn't find task associated with given id\n");
+    }
+
+    public void findTask(String prompt) {
+        prompt = prompt.trim();
+        if (prompt.equals("")) {
+            System.out.println("Please insert a non-blank prompt to filter with.\n" + "-------------------\n");
+            return;
+        }
+        System.out.print("Here are the matching tasks in your list:\n " + "-------------------\n");
+        int filteredIndex = 1;
+        for (Task task : taskList) {
+            if (task.getDescription().contains(prompt)) {
+                System.out.println(filteredIndex + ". " + task.toString());
+                filteredIndex++;
+            }
+        }
     }
 
 }
