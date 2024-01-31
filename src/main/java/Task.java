@@ -22,14 +22,9 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    /**
-     * Get the task description
-     *
-     * @return The task description.
-     */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return " | " + this.getStatusIcon() + " | " + this.description;
     }
 
     /**
