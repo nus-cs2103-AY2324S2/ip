@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A file based storage implementation.
+ */
 public class FileStorage implements Storage {
     private final File file;
 
@@ -25,11 +28,16 @@ public class FileStorage implements Storage {
         this.file.createNewFile();
     }
 
+    /**
+     * Saves the tasklist to the file.
+     *
+     * @param taskList The tasklist to save to the file.
+     * @throws DukeException Throws an exception if there is an error saving the file.
+     */
     @Override
     public void save(TaskList taskList) throws DukeException {
         file.delete();
         try {
-
             Writer fileWriter = new FileWriter(file);
             for (Task task : taskList.getTasks()) {
                 fileWriter.write(task.toFileString() + "\n");
@@ -41,6 +49,16 @@ public class FileStorage implements Storage {
         }
     }
 
+    /**
+     * Loads the TaskList from the file. The state is quite handwritten but it's a simple format.
+     * Optimally, the file storage should implement how the TaskList is saved and loaded.
+     * Currently, the saving format is done by the task itself.
+     *
+     * @return The list of tasks loaded from the file.
+     * @throws IOException   In the event of an error reading the file.
+     * @throws DukeException If the file is corrupted. This is a recoverable error where the file is overwritten on the
+     * next save.
+     */
     @Override
     public List<Task> load() throws IOException, DukeException {
         Scanner fileScanner = new Scanner(this.file);
