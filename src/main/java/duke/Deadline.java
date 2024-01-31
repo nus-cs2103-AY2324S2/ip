@@ -3,15 +3,18 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
 
     protected LocalDate by;
 
     /**
-     * Initializes a Deadline task with the description and date.
+     * Initializes a Deadline object with the given description and deadline.
      *
-     * @param description the description of the task
-     * @param by the date of the task in LocalDate object
+     * @param description Description of the task.
+     * @param by Deadline of the task in LocalDate format.
      */
     public Deadline(String description, LocalDate by) {
         super(description);
@@ -44,6 +47,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" +  super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ")";
     }
 }

@@ -31,6 +31,14 @@ public class Duke {
         }
     }
 
+    /**
+     * Instantiates a Duke chatbot and runs it.
+     *
+     * @param args the arguments passed in
+     */
+    public static void main(String[] args) {
+        new Duke("data/tasks.txt").run();
+    }
 
     /**
      * Runs the Duke chatbot.
@@ -40,55 +48,55 @@ public class Duke {
         boolean isExit = false;
         while (!isExit) {
             try {
-            Parser parser = new Parser(ui.readCommand());
+                Parser parser = new Parser(ui.readCommand());
 
-            String commandWord = parser.getCommandWord();
-            switch (commandWord) {
-            case "bye":
-                isExit = true;
-                ui.showBye();
-                break;
-            case "list":
-                ui.showTaskList(tasks);
-                break;
-            case "mark":
-                Task markTask = tasks.markDone(parser.getIndex());
-                ui.showDone(markTask);
-                break;
-            case "unmark":
-                Task unmarkTask = tasks.unmarkDone(parser.getIndex());
-                ui.showUnmark(unmarkTask);
-                break;
-            case "delete":
-                Task deleteTask = tasks.deleteTask(parser.getIndex());
-                ui.showDelete(deleteTask, tasks.getSize());
-                break;
-            case "find":
-                TaskList filteredTasks = tasks.findTasks(parser.getDescription());
-                ui.showTaskList(filteredTasks);
-                break;
-            case "todo":
-                Task task = new Todo(parser.getDescription());
-                tasks.addTask(task);
-                ui.showAddTask(task, tasks.getSize());
-                break;
-            case "deadline":
-                Task deadlineTask = new Deadline(parser.getDescription(), parser.getBy());
-                tasks.addTask(deadlineTask);
-                ui.showAddTask(deadlineTask, tasks.getSize());
-                break;
-            case "event":
-                Task eventTask = new Event(parser.getDescription(), parser.getFromTo()[0], parser.getFromTo()[1]);
-                tasks.addTask(eventTask);
-                ui.showAddTask(eventTask, tasks.getSize());
-                break;
-            default:
-                ui.commandNotUnderstood();
-            }
+                String commandWord = parser.getCommandWord();
+                switch (commandWord) {
+                case "bye":
+                    isExit = true;
+                    ui.showBye();
+                    break;
+                case "list":
+                    ui.showTaskList(tasks);
+                    break;
+                case "mark":
+                    Task markTask = tasks.markDone(parser.getIndex());
+                    ui.showDone(markTask);
+                    break;
+                case "unmark":
+                    Task unmarkTask = tasks.unmarkDone(parser.getIndex());
+                    ui.showUnmark(unmarkTask);
+                    break;
+                case "delete":
+                    Task deleteTask = tasks.deleteTask(parser.getIndex());
+                    ui.showDelete(deleteTask, tasks.getSize());
+                    break;
+                case "find":
+                    TaskList filteredTasks = tasks.findTasks(parser.getDescription());
+                    ui.showTaskList(filteredTasks);
+                    break;
+                case "todo":
+                    Task task = new Todo(parser.getDescription());
+                    tasks.addTask(task);
+                    ui.showAddTask(task, tasks.getSize());
+                    break;
+                case "deadline":
+                    Task deadlineTask = new Deadline(parser.getDescription(), parser.getBy());
+                    tasks.addTask(deadlineTask);
+                    ui.showAddTask(deadlineTask, tasks.getSize());
+                    break;
+                case "event":
+                    Task eventTask = new Event(parser.getDescription(), parser.getFromTo()[0], parser.getFromTo()[1]);
+                    tasks.addTask(eventTask);
+                    ui.showAddTask(eventTask, tasks.getSize());
+                    break;
+                default:
+                    ui.commandNotUnderstood();
+                }
 
             } catch (IndexOutOfBoundsException e) {
-                ui.showError("The index of a task cannot be empty. \n\t" +
-                    "Please use the following format: mark <index>");
+                ui.showError("The index of a task cannot be empty. \n\t"
+                    + "Please use the following format: mark <index>");
             } catch (NumberFormatException e) {
                 ui.showError("Please enter a valid number to modify task");
             } catch (DateTimeParseException e) {
@@ -105,15 +113,6 @@ public class Duke {
         } catch (DukeException e) {
             ui.showError(e.getMessage());
         }
-    }
-
-    /**
-     * Instantiates a Duke chatbot and runs it.
-     *
-     * @param args the arguments passed in
-     */
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
     }
 
 }

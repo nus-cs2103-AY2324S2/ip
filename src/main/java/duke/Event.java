@@ -3,11 +3,21 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents event task that handles start and end date of the event.
+ */
 public class Event extends Task {
 
     protected LocalDate from;
     protected LocalDate to;
 
+    /**
+     * Initializes an Event with the description, start and end date of the event.
+     *
+     * @param description the description of the event
+     * @param from the start date of the event in LocalDate format
+     * @param to the end date of the event in LocalDate format
+     */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
@@ -26,7 +36,8 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        return "[E]" +  super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + " to: "
+        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
+            + " to: "
             + to.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ")";
     }
 }

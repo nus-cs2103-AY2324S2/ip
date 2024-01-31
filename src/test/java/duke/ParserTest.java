@@ -1,6 +1,8 @@
 package duke;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 class ParserTest {
@@ -29,8 +31,8 @@ class ParserTest {
     void getDescription_emptyInput() {
         Parser parser = new Parser("todo");
         assertThrows(DukeException.class, () -> parser.getDescription(),
-            "The description of a task cannot be empty. \n\t" +
-            "Please use the following format: description <description>");
+            "The description of a task cannot be empty. \n\t"
+                + "Please use the following format: description <description>");
     }
 
     @Test
@@ -43,8 +45,8 @@ class ParserTest {
     void getBy_wrongByFormat() {
         Parser parser = new Parser("deadline test by 23-12-2032");
         assertThrows(DukeException.class, () -> parser.getBy(),
-            "Invalid command for deadline. \n\t" +
-            "Please use the following format: deadline <description> /by <dd-mm-yyyy>");
+            "Invalid command for deadline. \n\t"
+                + "Please use the following format: deadline <description> /by <dd-mm-yyyy>");
     }
 
     @Test
@@ -58,16 +60,16 @@ class ParserTest {
     void getBy_emptyInput() {
         Parser parser = new Parser("deadline test /by");
         assertThrows(DukeException.class, () -> parser.getBy(),
-            "The deadline and description for a task cannot be empty. \n\t" +
-            "Please use the following format: deadline <description> /by <dd-mm-yyyy>");
+            "The deadline and description for a task cannot be empty. \n\t"
+                + "Please use the following format: deadline <description> /by <dd-mm-yyyy>");
     }
 
     @Test
     void getBy_multipleBy() {
         Parser parser = new Parser("deadline test /by 23-12-2032 /by 2-2-2022");
         assertThrows(DukeException.class, () -> parser.getBy(),
-            "Invalid command for deadline. \n\t" +
-            "Please use the following format: deadline <description> /by <dd-mm-yyyy>");
+            "Invalid command for deadline. \n\t"
+                + "Please use the following format: deadline <description> /by <dd-mm-yyyy>");
     }
 
     @Test
@@ -75,8 +77,6 @@ class ParserTest {
         Parser parser = new Parser("deadline test /by 23-12-2032");
         assertEquals(parser.getBy(), Task.getInputDateFormat("23-12-2032"));
     }
-
-
 
 
 }

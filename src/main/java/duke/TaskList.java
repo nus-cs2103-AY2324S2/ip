@@ -6,11 +6,12 @@ import java.util.ArrayList;
  * TaskList class to handle operations on the list of tasks.
  */
 public class TaskList {
-    
+
+    private ArrayList<Task> tasks;
+
     /**
      * Initializes a TaskList object with a list of tasks.
      */
-    private ArrayList<Task> tasks;
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -78,6 +79,12 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Finds tasks with the description that contains the keyword given by user.
+     *
+     * @param description the keyword to be searched for
+     * @return a list of tasks that contain the description
+     */
     public TaskList findTasks(String description) {
         ArrayList<Task> filteredTasks = new ArrayList<Task>();
         for (Task task : tasks) {

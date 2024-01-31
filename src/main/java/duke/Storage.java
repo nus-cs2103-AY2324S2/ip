@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -29,7 +28,7 @@ public class Storage {
      * @throws IOException if there is an error reading the file.
      * @throws DukeException if the file could not be created.
      */
-    public List<Task> loadTaskslist() throws IOException, DukeException {
+    public ArrayList<Task> loadTaskslist() throws IOException, DukeException {
         ArrayList<Task> tasksList = new ArrayList<Task>();
 
         File file = new File(filePath);
@@ -101,13 +100,14 @@ public class Storage {
             } else if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
                 fileWriter.write(
-                    deadline.getTaskType() + " | " + (deadline.isDone ? "1" : "0") + " | " + deadline.getDescription() +
-                        " | " + Task.getLocalDateOutputFormat(deadline.getBy()) + "\n");
+                    deadline.getTaskType() + " | " + (deadline.isDone ? "1" : "0") + " | "
+                        + deadline.getDescription() + " | " + Task.getLocalDateOutputFormat(deadline.getBy()) + "\n");
             } else if (task instanceof Event) {
                 Event event = (Event) task;
                 fileWriter.write(
-                    task.getTaskType() + " | " + (task.isDone ? "1" : "0") + " | " + task.getDescription() + " | " +
-                        Task.getLocalDateOutputFormat(event.getFrom()) + " | " + Task.getLocalDateOutputFormat(event.getTo()) + "\n");
+                    task.getTaskType() + " | " + (task.isDone ? "1" : "0") + " | "
+                        + task.getDescription() + " | " + Task.getLocalDateOutputFormat(event.getFrom()) + " | "
+                        + Task.getLocalDateOutputFormat(event.getTo()) + "\n");
             }
         }
         fileWriter.close();
