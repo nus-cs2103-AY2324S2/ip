@@ -1,3 +1,11 @@
+package henry.command;
+
+import henry.Storage;
+import henry.TaskList;
+import henry.Ui;
+import henry.HenryException;
+import henry.task.Event;
+
 public class EventCommand extends Command {
     private final String description;
     private final String from;

@@ -1,4 +1,8 @@
-class Todo extends Task {
+package henry.task;
+
+import henry.HenryException;
+
+public class Todo extends Task {
     public Todo(String description) throws HenryException {
         super(description);
     }
