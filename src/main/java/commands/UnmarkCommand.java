@@ -3,9 +3,6 @@ package commands;
 import task.Task;
 import ui.Ui;
 
-/**
- * Encapsulates the unmark command that sets a task to be uncompleted.
- */
 public class UnmarkCommand extends Command {
     public static final String COMMAND = "unmark";
     private final int index;

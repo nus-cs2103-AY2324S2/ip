@@ -5,9 +5,6 @@ import exceptions.DukeException;
 import task.Event;
 import ui.Ui;
 
-/**
- * Encapsulates an event command.
- */
 public class EventCommand extends Command {
 
     public static final String COMMAND = "event";
@@ -15,12 +12,6 @@ public class EventCommand extends Command {
     private String from;
     private String to;
 
-    /**
-     * Constructor for EventCommand
-     * @param name Name of event
-     * @param from Start of event
-     * @param to End of event
-     */
     public EventCommand(String name, String from, String to) {
         this.name = name;
         this.from = from;

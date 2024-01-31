@@ -3,18 +3,11 @@ package commands;
 import task.Task;
 import ui.Ui;
 
-/**
- * Encapsulates a command that sets a task to complete status.
- */
 public class MarkCommand extends Command {
 
     public static final String COMMAND = "mark";
     private final int index;
 
-    /**
-     * Mark constructor
-     * @param i Item to be set to complete.
-     */
     public MarkCommand(int i) {
         this.index = i;
     }

@@ -35,7 +35,6 @@ public class Deadline extends Task {
         String s = "D|" + (super.getStatus() ? 1 : 0) + "|" + super.getTask() + "|" + by;
         return s;
     }
-
     @Override
     public String toString() {
         return "[D][" + (super.getStatus() ? "X" : " ") + "] " +

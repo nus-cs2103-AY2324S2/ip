@@ -4,18 +4,11 @@ import exceptions.DukeException;
 import task.Task;
 import ui.Ui;
 
-/**
- * Encapsulates the todo command.
- */
 public class TodoCommand extends Command {
 
     public static final String COMMAND = "todo";
     private final String name;
 
-    /**
-     * Constructor for todo.
-     * @param s
-     */
     public TodoCommand(String s) {
         this.name = s;
     }

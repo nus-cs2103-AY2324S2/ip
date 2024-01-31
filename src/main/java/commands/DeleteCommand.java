@@ -10,10 +10,6 @@ public class DeleteCommand extends Command {
     public static final String COMMAND = "delete";
     private int i;
 
-    /**
-     * Constructor for DeleteCommand
-     * @param i Index of the item to be deleted
-     */
     public DeleteCommand (int i) {
         this.i = i;
     }

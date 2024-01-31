@@ -2,16 +2,8 @@ package parser;
 
 import commands.*;
 
-/**
- * Parse user-typed input into commands.
- */
 public class Parser {
 
-    /**
-     * Parses user input.
-     * @param input Array of user-typed input
-     * @return a Command
-     */
     public Command parseCommand(String[] input) {
         StringBuilder name;
         StringBuilder current;
