@@ -10,20 +10,20 @@ public class Event extends Task {
     protected LocalDateTime startDateTime;
     protected LocalTime endDateTime;
 
-    public Event(String name, String startDateTime, String endDateTime) throws TinyException {
-        super(name);
+    public Event(String description, String startDateTime, String endDateTime) throws TinyException {
+        super(description);
         this.startDateTime = startDatetimeParser(startDateTime);
         this.endDateTime = endDatetimeParser(endDateTime);
     }
 
-    public Event(String name, boolean isDone, String startDateTime, String endDateTime) throws TinyException {
-        super(name, isDone);
+    public Event(String description, boolean isDone, String startDateTime, String endDateTime) throws TinyException {
+        super(description, isDone);
         this.startDateTime = startDatetimeParser(startDateTime);
         this.endDateTime = endDatetimeParser(endDateTime);
     }
 
-    public LocalDateTime startDatetimeParser(String date) throws TinyException {
-        String[] dateTimeSplit = date.split(" ");
+        public LocalDateTime startDatetimeParser(String dateTime) throws TinyException {
+        String[] dateTimeSplit = dateTime.split(" ");
         int year = 0;
         int month = 0;
         int day = 0;

@@ -1,31 +1,22 @@
 package tiny.tasks;
 
 public class Task {
-    protected String name;
+    protected String description;
     protected boolean isDone;
-    protected String type = " ";
 
     //add
-    public Task(String name) {
-        this.name = name;
+    public Task(String description) {
+        this.description = description;
         this.isDone = false;
     }
 
-    public Task(String name, boolean isDone) {
-        this.name = name;
+    public Task(String description, boolean isDone) {
+        this.description = description;
         this.isDone = isDone;
-    }    
+    }      
 
-    public String getName() {
-        return this.name;
-    }
-
-    public String getTypeIcon() {
-        return this.type;
-    }       
-
-    public String getStatusIcon() {
-        return (this.isDone ? "X" : " "); // mark done task with X
+    private String getStatusIcon() {
+        return (this.isDone ? "X" : " "); 
     }   
     
     public void taskDone() {
@@ -34,15 +25,19 @@ public class Task {
 
     public void taskUndone() {
         this.isDone = false;
+    }
+
+    public boolean descriptionSearch(String search) {
+        return description.contains(search);
     }    
 
     public String toSave() {
-        return  " | " + (isDone ? "1" : "0") + " | " + name;
+        return  " | " + (this.isDone ? "1" : "0") + " | " + this.description;
     }
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + getName();
+        return "[" + getStatusIcon() + "] " + this.description;
     }
 
 }

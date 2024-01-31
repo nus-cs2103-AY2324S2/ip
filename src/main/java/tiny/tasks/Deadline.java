@@ -8,18 +8,18 @@ import tiny.exceptions.TinyException;
 public class Deadline extends Task {
     protected LocalDateTime endDatetime;
 
-    public Deadline(String name, String endDatetime) throws TinyException {
-        super(name);
+    public Deadline(String description, String endDatetime) throws TinyException {
+        super(description);
         this.endDatetime = datetimeParser(endDatetime);
     }
 
-    public Deadline(String name, boolean isDone, String endDatetime) throws TinyException {
-        super(name, isDone);
+    public Deadline(String description, boolean isDone, String endDatetime) throws TinyException {
+        super(description, isDone);
          this.endDatetime = datetimeParser(endDatetime);
     }
 
-    public LocalDateTime datetimeParser(String date) throws TinyException {
-        String[] dateTimeSplit = date.split(" ");
+    public LocalDateTime datetimeParser(String dateTime) throws TinyException {
+        String[] dateTimeSplit = dateTime.split(" ");
         int year = 0;
         int month = 0;
         int day = 0;

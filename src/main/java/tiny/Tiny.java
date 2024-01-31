@@ -2,9 +2,7 @@ package tiny;
 
 import tiny.exceptions.TinyException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class Tiny {
 
@@ -20,16 +18,16 @@ public class Tiny {
             tasks = new TaskList(storage.load());
         } catch (TinyException e) {
             ui.showLoadingError();
+            tasks = new TaskList();
         }
     }
 
     public void run() throws IOException {
         ui.start();
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         boolean isExit = false;
         while (!isExit) {
             try {
-                String input = br.readLine();
+                String input = ui.readCommand();
                 printContent(parser.parse(input, tasks));
                 storage.save(tasks.toSave());
                 isExit = parser.isExit();

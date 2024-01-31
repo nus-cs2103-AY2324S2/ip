@@ -6,7 +6,7 @@ import tiny.tasks.Event;
 import tiny.tasks.Todo;
 
 public class Parser {
-    protected boolean terminate = false;
+    protected boolean isExit = false;
     protected String input;
     protected TaskList taskList;
 
@@ -30,7 +30,7 @@ public class Parser {
             } else if (checkCmd(input, "delete", 6)) {
                 return delete();                
             } else if (input.equals("bye")) {
-                terminate = true;
+                isExit = true;
                 return bye();
             } else {
                 return cmdUnknown();
@@ -41,7 +41,7 @@ public class Parser {
     }
 
     public boolean isExit() {
-        return terminate;
+        return isExit;
     }
 
     public String mark() throws TinyException {
@@ -55,7 +55,6 @@ public class Parser {
             return "Nice! I've marked this task as done:\n      " + taskList.get(ind - 1);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return "OOPS! You need to type \"mark <number>\" to change the status to done!";
-
         } catch (NullPointerException e) {
             return "OOPS! Please type a valid number! Type \"list\" to check the lists of tasks.";
         } catch (Exception e) {

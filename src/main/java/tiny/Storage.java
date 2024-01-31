@@ -1,9 +1,10 @@
 package tiny;
 
-import tiny.exceptions.TinyException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import tiny.exceptions.TinyException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,8 +16,7 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-
-    // Returns a string of message to be parsed.
+    
     public ArrayList<String> load() throws TinyException {
         try {
             //Creating the folder if it does not exists
@@ -33,9 +33,7 @@ public class Storage {
             sc.close();
             return dataFromFile;
         } catch (FileNotFoundException e) {
-            return new ArrayList<>();
-        } catch (Exception e) {
-            throw new TinyException("");
+            throw new TinyException("File not found");
         }
     }
 
@@ -50,6 +48,6 @@ public class Storage {
             myWriter.close();
         } catch (IOException e) {
             System.out.println("An error occurred when saving.");
-        }
+        } 
     }
 }

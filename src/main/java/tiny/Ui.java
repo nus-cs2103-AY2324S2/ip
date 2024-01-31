@@ -1,13 +1,21 @@
 package tiny;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class Ui {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     public void start() {
         System.out.println("   ____________________________________________________________\n");
         System.out.println("   Hello! I'm Tiny!\n" +
                 "   What can I do for you?\n");
         System.out.println("   ____________________________________________________________\n");
+    }
 
+    public String readCommand() throws IOException {
+        return br.readLine();
     }
 
     public void showLoadingError() {

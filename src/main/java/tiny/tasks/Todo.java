@@ -1,12 +1,12 @@
 package tiny.tasks;
 
 public class Todo extends Task {
-    public Todo(String name) {
-        super(name);
+    public Todo(String description) {
+        super(description);
     }
 
-    public Todo(String name, boolean isDone) {
-        super(name, isDone);
+    public Todo(String description, boolean isDone) {
+        super(description, isDone);
     }    
 
     @Override
