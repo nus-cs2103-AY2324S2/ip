@@ -1,7 +1,14 @@
-public class UnmarkCommand extends Command {
+package henry.command;
+
+import henry.Storage;
+import henry.TaskList;
+import henry.Ui;
+import henry.HenryException;
+
+public class MarkCommand extends Command {
     private final int index;
 
-    public UnmarkCommand(String args) throws HenryException {
+    public MarkCommand(String args) throws HenryException {
         if (args.isBlank()) {
             throw new HenryException("No index provided");
         }
@@ -10,7 +17,7 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws HenryException {
-        tasks.unmarkTask(index);
+        tasks.markTask(index);
         storage.save(tasks);
     }
 }

@@ -1,3 +1,9 @@
+package henry;
+
+import henry.task.Task;
+import henry.task.Deadline;
+import henry.task.Event;
+import henry.task.Todo;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;

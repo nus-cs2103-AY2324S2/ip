@@ -1,3 +1,10 @@
+package henry.command;
+
+import henry.Storage;
+import henry.TaskList;
+import henry.Ui;
+import henry.HenryException;
+
 public class UnknownCommand extends Command {
     public UnknownCommand() {}
 

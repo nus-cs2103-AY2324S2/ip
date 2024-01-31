@@ -1,5 +1,6 @@
+package henry;
 public class HenryException extends Exception {
-    HenryException(String message) {
+    public HenryException(String message) {
         super(message);
     }
 

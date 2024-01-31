@@ -1,4 +1,8 @@
+package henry;
+
+import henry.command.Command;
 import java.io.IOException;
+
 public class Henry {
     private Storage storage;
     private TaskList tasks;

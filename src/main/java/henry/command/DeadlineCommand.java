@@ -1,3 +1,11 @@
+package henry.command;
+
+import henry.HenryException;
+import henry.Storage;
+import henry.TaskList;
+import henry.Ui;
+import henry.task.Deadline;
+
 public class DeadlineCommand extends Command {
     private String description;
     private String by;

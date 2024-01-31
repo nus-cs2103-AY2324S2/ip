@@ -1,3 +1,7 @@
+package henry.task;
+
+import henry.HenryException;
+
 public class Task {
     protected String description;
     protected boolean isDone;
