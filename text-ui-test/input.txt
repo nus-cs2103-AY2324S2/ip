@@ -17,5 +17,3 @@ delete 1
 list
 delete 0
 bye
-
-
