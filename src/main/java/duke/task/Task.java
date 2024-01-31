@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.io.File;
 public class Task {
     private String task;

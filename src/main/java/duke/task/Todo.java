@@ -1,7 +1,9 @@
-import java.io.FileNotFoundException;
+package duke.task;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
+import duke.task.Task;
 
 public class Todo extends Task {
     public Todo(String task) {

@@ -1,6 +1,11 @@
-import java.io.FileNotFoundException;
+package duke;
+
 import java.util.ArrayList;
-import java.util.Scanner;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 public class TaskList {
     private ArrayList<Task> tasklist = new ArrayList<Task>();
@@ -29,7 +34,33 @@ public class TaskList {
         }
     }
 
-    public void addTask(Task task) {
+    public void addTask(Todo task) {
+        try {
+            tasklist.add(task);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(task.add());
+            System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
+
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("ENTER INSTRUCTION");
+        }
+
+    }
+
+    public void addTask(Deadline task) {
+        try {
+            tasklist.add(task);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(task.add());
+            System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
+
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("ENTER INSTRUCTION");
+        }
+
+    }
+
+    public void addTask(Event task) {
         try {
             tasklist.add(task);
             System.out.println("Got it. I've added this task:");
