@@ -17,15 +17,7 @@ public class hirwan {
 
         System.out.println("Hello! " + logo);
 
-        try {
-            File filePath = new File(FILE_PATH);
-            Scanner scan = new Scanner(filePath);
-            while (scan.hasNext()) {
-                List.add(scan.nextLine());
-            }
-        } catch(FileNotFoundException e) {
-            System.out.println("Error: file to read data from cannot be found!");
-        }
+        List = Storage.read();
 
         try (BufferedWriter fileWrite = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
             while (true) {
@@ -53,7 +45,8 @@ public class hirwan {
                         System.out.println("Got it. I've added this task: \n  " + "[T][ ] " + text.substring(5));
                         List.add(". " + "[T][ ] " + text.substring(5));
                         System.out.println("Now you have " + List.size() + " tasks in the list.");
-                        writeTask();
+//                        writeTask();
+                        Storage.writeTask(List);
                     } catch (StringIndexOutOfBoundsException e) {
                         System.out.println("Error: Please enter a description for your todo command");
                     }
@@ -70,7 +63,8 @@ public class hirwan {
                         List.add(". " + "[D][ ] " + item + " (by: " + dayDate.format(formatter) + ")");
                         System.out.println("Got it. I've added this task:\n  " + "[D][ ] " + item + " (by: " + dayDate.format(formatter) + ")");
                         System.out.println("Now you have " + List.size() + " tasks in the list.");
-                        writeTask();
+//                        writeTask();
+
                     } catch (StringIndexOutOfBoundsException e) {
                         System.out.println("Error: Please enter a description or date for your deadline command");
                     }
@@ -91,7 +85,8 @@ public class hirwan {
                         List.add(". " + "[E][ ] " + item + " (from: " + startDate.format(formatter) + " to: " +  endDate.format(formatter) + ")");
                         System.out.println("Got it. I've added this task:\n  " + "[E][ ] " + item + " (from: " + startDate.format(formatter) + " to: " + endDate.format(formatter) + ")");
                         System.out.println("Now you have " + List.size() + " tasks in the list.");
-                        writeTask();
+//                        writeTask();
+                        Storage.writeTask(List);
                     } catch (StringIndexOutOfBoundsException e) {
                         System.out.println("Error: Please enter a description or date for your event to command");
                     }
@@ -104,7 +99,8 @@ public class hirwan {
 
                         List.set(numberint - 1, ". " + type + "[X] " + temp);
                         System.out.println("Nice! I've marked this task as done: \n" + "[X] " + temp);
-                        writeTask();
+//                        writeTask();
+                        Storage.writeTask(List);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Error: Please enter a valid index for marking!");
                     } catch (NumberFormatException e) {
@@ -119,7 +115,8 @@ public class hirwan {
 
                         List.set(numberint - 1, ". " + type + "[ ] " + temp);
                         System.out.println("OK, I've marked this task as not done yet: \n" + "[ ] " + temp);
-                        writeTask();
+//                        writeTask();
+                        Storage.writeTask(List);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Error: Please enter a valid index for unmarking!");
                     } catch (NumberFormatException e) {
@@ -132,7 +129,8 @@ public class hirwan {
                                 + "  " + List.get(numberint).substring(2) + "\n"
                                 + "Now you have " + (List.size() - 1) + " tasks in the list.");
                         List.remove(numberint);
-                        writeTask();
+//                        writeTask();
+                        Storage.writeTask(List);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Error: Please enter a valid index for deletion!");
                     } catch (NumberFormatException e) {
@@ -162,19 +160,51 @@ public class hirwan {
     }
 
     public static LocalDateTime translateDate(String date) {
-//        int delimiter1 = date.indexOf("/");
-//        int delimiter2 = date.indexOf("/", delimiter1);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
-//        int year = Integer.parseInt(date.substring(0, delimiter1));
-//        int month = Integer.parseInt(date.substring(delimiter1 + 1, delimiter2));
-//        int day = Integer.parseInt(date.substring(delimiter2 + 1, delimiter2 + 5));
-//        int hour = Integer.parseInt(date.substring(delimiter2 + 6, delimiter2 + 8));
-//        int minute = Integer.parseInt(date.substring(delimiter2 + 8));
-
-//        LocalDateTime dateStored = LocalDateTime.of(year, month, day, hour, minute);
-//        String formattedDateTime = date.format(formatter);
         LocalDateTime dateStored = LocalDateTime.parse(date, formatter);
         return dateStored;
     }
 }
+
+//class Ui {
+//
+//}
+
+class Storage {
+    static List<String> List = new ArrayList<>();
+    static String FILE_PATH = "C:\\Users\\eugen\\Documents\\National University of Singapore\\Y2S2\\CS2103T\\IP\\src\\main\\java\\data\\hirwan.txt";
+    static public List<String> read() {
+        try {
+            File filePath = new File(FILE_PATH);
+            Scanner scan = new Scanner(filePath);
+            while (scan.hasNext()) {
+                List.add(scan.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: file to read data from cannot be found!");
+        }
+        return List;
+    }
+
+    static public void writeTask(List<String> List) {
+        try {
+            FileWriter file = new FileWriter(FILE_PATH);
+            for (String tasks : List) {
+                file.write(tasks + "\n");
+            }
+            file.close();
+        } catch (IOException e) {
+            System.out.println("Error: could not write to file");
+            e.printStackTrace();
+        }
+    }
+
+}
+//class Parser {
+//
+//}
+
+//class Tasklist {
+//
+//}
