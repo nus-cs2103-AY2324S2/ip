@@ -2,7 +2,7 @@ package duke;
 
 public class Ui{
 
-    private static final String lineBreak = "_______________________________________________________________________________";
+    private static final String LINEBREAK = "_______________________________________________________________________________";
 
     public void greet() {
         String snowBoyAscii =
@@ -22,9 +22,9 @@ public class Ui{
     }
 
     public static void beautify(String toPrint) {
-        System.out.println(lineBreak);
+        System.out.println(LINEBREAK);
         System.out.println(toPrint);
-        System.out.println(lineBreak);
+        System.out.println(LINEBREAK);
     }
 
     public void showLoadingError() {

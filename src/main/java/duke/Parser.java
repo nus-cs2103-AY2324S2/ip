@@ -2,38 +2,39 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 public class Parser {
 
     public static void checkCmd(TaskList tl, String cmd) throws DukeException {
         String[] commandArr = cmd.split(" ");
         switch (commandArr[0]) {
-            case "list":
-                printLst(tl);
-                break;
-            case "find":
-                findTask(tl, commandArr);
-                break;
-            case "mark":
-                markTask(tl, commandArr);
-                break;
-            case "unmark":
-                unmarkTask(tl, commandArr);
-                break;
-            case "todo":
-                addTodo(tl, commandArr, cmd);
-                break;
-            case "deadline":
-                addDeadline(tl, commandArr, cmd);
-                break;
-            case "event":
-                addEvent(tl, commandArr, cmd);
-                break;
-            case "delete":
-                deleteTask(tl, commandArr);
-                break;
-            default:
-                throw new DukeException(String.format(" Sorry, %s is not a valid command :(", cmd));
+        case "list":
+            printLst(tl);
+            break;
+        case "find":
+            findTask(tl, commandArr);
+            break;
+        case "mark":
+            markTask(tl, commandArr);
+            break;
+        case "unmark":
+            unmarkTask(tl, commandArr);
+            break;
+        case "todo":
+            addTodo(tl, commandArr, cmd);
+            break;
+        case "deadline":
+            addDeadline(tl, commandArr, cmd);
+            break;
+        case "event":
+            addEvent(tl, commandArr, cmd);
+            break;
+        case "delete":
+            deleteTask(tl, commandArr);
+            break;
+        default:
+            throw new DukeException(String.format(" Sorry, %s is not a valid command :(", cmd));
         }
     }
 
@@ -122,15 +123,14 @@ public class Parser {
             throw new DukeException(" Sorry, please input what you want me to find");
         }
         String keyword = commandArr[1];
+        ArrayList<Task> foundTasks = tl.find(keyword);
         StringBuilder toPrint = new StringBuilder();
         toPrint.append(" Here are the matching tasks in your list:");
         int count = 0;
-        for (int i = 0; i < tl.size(); i++) {
-            if (tl.get(i).toString().contains(keyword)) {
-                String taskPrintout = "\n   " + (count + 1) + "." + tl.get(i).toString();
-                toPrint.append(taskPrintout);
-                count++;
-            }
+        for (Task t : foundTasks) {
+            String taskPrintout = "\n   " + (count + 1) + "." + t.toString();
+            toPrint.append(taskPrintout);
+            count++;
         }
         if (count == 0) {
             toPrint = new StringBuilder();

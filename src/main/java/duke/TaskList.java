@@ -32,4 +32,14 @@ public class TaskList {
     public int size() {
         return this.lst.size();
     }
+
+    public ArrayList<Task> find(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task t : this.lst) {
+            if (t.toString().contains(keyword)) {
+                foundTasks.add(t);
+            }
+        }
+        return foundTasks;
+    }
 }
