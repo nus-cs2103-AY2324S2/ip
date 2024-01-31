@@ -16,13 +16,22 @@ import blu.command.ListCommand;
 import blu.command.MarkCommand;
 import blu.command.ToDoCommand;
 import blu.command.UnmarkCommand;
-import blu.exception.BluException;
 import blu.exception.IllegalCommandException;
 
+/**
+ * Parses user input into corresponding Command objects.
+ */
 public class InputParser {
     private static final DateTimeFormatter INPUT_DATETIMEFORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
-    public Command parseInput(String userInput) throws BluException {
+    /**
+     * Parses the given user input into a specific Command object.
+     *
+     * @param userInput The user input to be parsed.
+     * @return The command corresponding to the user input.
+     * @throws IllegalCommandException If the input cannot be parsed into a valid command.
+     */
+    public Command parseInput(String userInput) throws IllegalCommandException {
         String[] tokens = userInput.trim().split(" ");
         String cmdString = tokens[0];
         CommandType cmd = CommandType.fromString(cmdString);
@@ -91,7 +100,7 @@ public class InputParser {
         }
     }
 
-    private Command prepareUnmarkCommand(String[] tokens) throws BluException {
+    private Command prepareUnmarkCommand(String[] tokens) throws IllegalCommandException {
         if (!isNumberOfParamCorrect(tokens, 2)) {
             throw new IllegalCommandException("Please specify a task number to unmark\n"
                                                     + "Usage: unmark <task_number>");
