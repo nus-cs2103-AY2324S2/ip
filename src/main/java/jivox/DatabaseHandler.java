@@ -1,8 +1,5 @@
 package jivox;
 
-import jivox.exception.DataHandlerException;
-import jivox.task.*;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -13,23 +10,27 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
-
+import jivox.exception.DataHandlerException;
+import jivox.task.Deadline;
+import jivox.task.Event;
+import jivox.task.Task;
+import jivox.task.TaskList;
+import jivox.task.Todo;
 
 /**
  * DatabaseHandler handles saving and loading tasks from a file database.
  */
 public class DatabaseHandler {
-    private File DB = null;
+    private File db = null;
 
     /**
      * Creates the handler for the given file path.
      *
      * @param filePath The path to the database file.
      */
-    public DatabaseHandler(String filePath){
-        this.DB = new File(filePath);
+    public DatabaseHandler(String filePath) {
+        this.db = new File(filePath);
     }
 
     /**
@@ -38,7 +39,7 @@ public class DatabaseHandler {
      * @throws DataHandlerException If there is an error creating the file.
      */
     public void create() throws DataHandlerException {
-        Path path = Paths.get(DB.getPath());
+        Path path = Paths.get(db.getPath());
         try {
             if (Files.notExists(path.getParent())) {
                 Files.createDirectories(path.getParent());
@@ -58,31 +59,33 @@ public class DatabaseHandler {
      * @throws DataHandlerException If there is an error writing to the file.
      */
     public void save(TaskList tasks) throws DataHandlerException {
-        try{
-            if(!DB.exists()){
+        try {
+            if (!db.exists()) {
                 create();
             }
-            FileWriter fw = new FileWriter(DB);
+            FileWriter fw = new FileWriter(db);
             for (int i = 0; i < tasks.getLength(); i++) {
-                Task task =  tasks.getTask(i);
+                Task task = tasks.getTask(i);
                 switch (tasks.getTask(i).getType()) {
-                    case "D":
-                        Deadline d = (Deadline) task;
-                        fw.write(d.saveFormat());
-                        break;
-                    case "E":
-                        Event e = (Event) task;
-                        fw.write(e.saveFormat());
-                        break;
-                    case "T":
-                        Todo t = (Todo) task;
-                        fw.write(t.saveFormat());
-                        break;
+                case "D":
+                    Deadline d = (Deadline) task;
+                    fw.write(d.saveFormat());
+                    break;
+                case "E":
+                    Event e = (Event) task;
+                    fw.write(e.saveFormat());
+                    break;
+                case "T":
+                    Todo t = (Todo) task;
+                    fw.write(t.saveFormat());
+                    break;
+                default:
+                    break;
                 }
                 fw.write("\n");
             }
             fw.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new DataHandlerException(e.getMessage());
         }
     }
@@ -97,43 +100,46 @@ public class DatabaseHandler {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         try {
-            if (!DB.exists()) {
+            if (!db.exists()) {
                 return list;
             }
-            FileReader fr = new FileReader(DB);
+            FileReader fr = new FileReader(db);
             Scanner sc = new Scanner(fr);
-            while(sc.hasNext()) {
+            while (sc.hasNext()) {
                 String line = sc.nextLine();
                 String[] split = line.split("\\|");
                 switch (split[0].trim()) {
-                    case "D":
-                        Deadline d = new Deadline(split[2].trim(),
-                                LocalDateTime.parse(split[3].replaceFirst(" ",""),formatter));
-                        if (split[1].trim().equals("1")) {
-                            d.mark();
-                        }
-                        list.add(d);
-                        break;
-                    case "E":
-                        String[] start_end = split[3].split(" to ");
-                        Event e = new Event(split[2].trim(),LocalDateTime.parse(start_end[0].replaceFirst(" ",""),formatter),
-                                LocalDateTime.parse(start_end[1],formatter));
-                        if (split[1].trim().equals("1")) {
-                            e.mark();
-                        }
-                        list.add(e);
-                        break;
-                    case "T":
-                        Todo t = new Todo(split[2].trim());
-                        if (split[1].trim().equals("1")) {
-                            t.mark();
-                        }
-                        list.add(t);
-                        break;
+                case "D":
+                    Deadline d = new Deadline(split[2].trim(),
+                                LocalDateTime.parse(split[3].replaceFirst(" ", ""), formatter));
+                    if (split[1].trim().equals("1")) {
+                        d.mark();
+                    }
+                    list.add(d);
+                    break;
+                case "E":
+                    String[] startend = split[3].split(" to ");
+                    Event e = new Event(split[2].trim(),
+                            LocalDateTime.parse(startend[0].replaceFirst(" ", ""), formatter),
+                            LocalDateTime.parse(startend[1], formatter));
+                    if (split[1].trim().equals("1")) {
+                        e.mark();
+                    }
+                    list.add(e);
+                    break;
+                case "T":
+                    Todo t = new Todo(split[2].trim());
+                    if (split[1].trim().equals("1")) {
+                        t.mark();
+                    }
+                    list.add(t);
+                    break;
+                default:
+                    System.out.println("Invalid Entry");
                 }
             }
-        } catch (IOException e){
-
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
         return list;
 

@@ -28,12 +28,12 @@ public class Deadline extends Task{
      *
      * @return The type identifier.
      */
-    public String getType(){
+    public String getType() {
         return "D";
     }
 
     @Override
-    public LocalDateTime getDeadline(){
+    public LocalDateTime getDeadline() {
         return this.deadline;
     }
 
@@ -42,13 +42,16 @@ public class Deadline extends Task{
      *
      * @return The save string.
      */
-    public String saveFormat(){
-        return this.getType() + " | " + (this.getStatus() ? "1" : "0") + " | " + this.getDescription() +
+    public String saveFormat() {
+        return this.getType() + " | " + (this.getStatus() ? "1" : "0") 
+            + " | " + this.getDescription() +
                 " | " + this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + this.deadline.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))
+                + ")";
     }
 }

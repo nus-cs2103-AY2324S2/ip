@@ -4,7 +4,7 @@ package jivox.task;
  * Todo represents a simple todo task.
  * It extends Task.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Creates a new Todo task with the given description.
@@ -20,7 +20,7 @@ public class Todo extends Task{
      *
      * @return The identifier "T".
      */
-    public String getType(){
+    public String getType() {
         return "T";
     }
 
@@ -34,7 +34,8 @@ public class Todo extends Task{
      *
      * @return Save format string.
      */
-    public String saveFormat(){
-        return this.getType() + " | " + (this.getStatus() ? "1" : "0") + " | " + this.getDescription();
+    public String saveFormat() {
+        return this.getType() + " | " +
+         (this.getStatus() ? "1" : "0") + " | " + this.getDescription();
     }
 }

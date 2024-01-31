@@ -1,5 +1,4 @@
 package jivox.task;
-
 import java.time.LocalDateTime;
 
 /**
@@ -15,7 +14,7 @@ public abstract class Task {
      *
      * @param content The task description.
      */
-    public Task(String content){
+    public Task(String content) {
         this.content = content;
         this.isDone = false;
     }
@@ -23,7 +22,7 @@ public abstract class Task {
     /**
      * Marks this task as completed.
      */
-    public void mark(){
+    public void mark() {
         this.isDone = true;
     }
 
@@ -33,14 +32,14 @@ public abstract class Task {
      *
      * @return The deadline, or null if none.
      */
-    public LocalDateTime getDeadline(){
+    public LocalDateTime getDeadline() {
         return null;
     }
 
     /**
      * Unmarks this task as completed.
      */
-    public void unmark(){
+    public void unmark() {
         this.isDone = false;
     }
 
@@ -49,7 +48,7 @@ public abstract class Task {
      *
      * @return The description.
      */
-    public String getDescription(){
+    public String getDescription() {
         return this.content;
     }
 
@@ -75,7 +74,7 @@ public abstract class Task {
      * @return The string representation.
      */
     @Override
-    public String toString(){
+    public String toString() {
         String mark = isDone ? "X" : " ";
         return "[" + mark + "] " + this.content;
     }

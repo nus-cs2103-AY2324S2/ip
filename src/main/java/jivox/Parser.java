@@ -19,7 +19,7 @@ public class Parser {
         String[] input = rawInput.split(" ",2);
         try{
             return COMMANDS.valueOf(input[0].toUpperCase());
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             throw new JivoxException("Opps! I can't understand your Input, Please try again");
         }
     }
@@ -30,7 +30,7 @@ public class Parser {
      * @param rawInput The raw input from the user.
      * @return The input split into parts.
      */
-    public String[] parseInput(String rawInput){
+    public String[] parseInput(String rawInput) {
         return rawInput.split(" ",2);
     }
 
@@ -41,7 +41,7 @@ public class Parser {
      * @param reg The regex to split on.
      * @return The split input parts.
      */
-    public String[] split(String input, String reg){
+    public String[] split(String input, String reg) {
         return input.split(reg);
     }
     /**
@@ -52,7 +52,7 @@ public class Parser {
      * @param limit The max number of splits.
      * @return The split input parts.
      */
-    public String[] split(String input, String reg,int limit){
+    public String[] split(String input, String reg,int limit) {
         return input.split(reg,limit);
     }
 
