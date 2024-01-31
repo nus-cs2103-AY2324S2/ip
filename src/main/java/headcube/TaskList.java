@@ -73,4 +73,18 @@ public class TaskList {
         System.out.println("Noted. I've removed this task:\n  " + removedTask);
         System.out.println("Now you have " + this.tasks.size() + " tasks in the list.\n");
     }
+
+    public TaskList find(String input) {
+        TaskList found = new TaskList();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(input)) {
+                found.add(task);
+            }
+        }
+        return found;
+    }
+
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
 }

@@ -43,6 +43,10 @@ public class Task {
         return (isDone ? "1" : "0") + " | " + description;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     /**
      * Returns a string representation of the task, including its status and description.
      *

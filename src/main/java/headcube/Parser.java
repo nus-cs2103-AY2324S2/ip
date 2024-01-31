@@ -1,4 +1,7 @@
 package headcube;
+
+import java.util.List;
+
 /**
  * The Parser class handles the parsing of user input and executing corresponding actions
  * in the HeadCube application.
@@ -35,6 +38,10 @@ public class Parser {
             } else if (split[0].equals("mark")){
                 taskList.mark(Integer.parseInt(split[1]));
 
+            } else if (split[0].equals("find")) {
+                String keyword = split[1];
+                TaskList foundTasks = taskList.find(keyword);
+                ui.showFoundTasks(foundTasks);
             } else if (split[0].equals("delete")) {
                 taskList.delete(Integer.parseInt(split[1]));
             } else if (input.equals("save")) {
