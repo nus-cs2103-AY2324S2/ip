@@ -9,12 +9,25 @@ import duke.tasklist.Todo;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Stores and manages tasks in a data storage file.
+ *
+ * Persist to long-term storage when a new task is added or current task is modified.
+ * For retrieval, it makes use of the one that is cached in RAM.
+ */
 public class DataStorage {
     private ArrayList<Task> tasksList;
     private int taskCount;
     private int maxTask;
     private File file;
 
+    /**
+     * Constructs a new DataStorage object with maximum number of tasks and file name.
+     * Exits the program if there are problem accessing device IO.
+     *
+     * @param maxTask the maximum number of tasks to store.
+     * @param fileName the name of the file to use for storage.
+     */
     public DataStorage(int maxTask, String fileName) {
         this.maxTask = maxTask;
         this.tasksList = new ArrayList<>();
@@ -42,6 +55,14 @@ public class DataStorage {
 
     }
 
+    /**
+     * Retrieves the task at the requested index.
+     *
+     * @param index the index of the task to be retrieved.
+     * @return the task at the specified index.
+     * @throws IndexOutOfBoundsException if the index is lesser than zero or greater than the task count.
+     *
+     */
     public Task getTask(int index) {
         if (index < 0 || index > this.taskCount) {
             throw new IndexOutOfBoundsException();
@@ -50,6 +71,10 @@ public class DataStorage {
         }
     }
 
+    /**
+     * Adds a task to the task list and updates the storage file on HDD.
+     * @param task the task to be added.
+     */
     public void addTask(Task task) {
             this.tasksList.add(task);
             addTaskToFile(task.toStorageString(), true);
@@ -57,6 +82,12 @@ public class DataStorage {
     }
 
 
+    /**
+     * Adds a task to the storage file on HDD.
+     *
+     * @param line the entry to be added to the file.
+     * @param isAppend flag to select append the line to the end of the file or overwrite the file (completely).
+     */
     public void addTaskToFile(String line, boolean isAppend) {
         try {
             // Solution below adapted from: https://www.w3schools.com/java/java_files_create.asp
@@ -69,6 +100,13 @@ public class DataStorage {
         }
     }
 
+    /**
+     * Reads tasks from the database if it has already been created.
+     * Returns an ArrayList of Task objects.
+     * An error will be displayed if the file is corruped.
+     *
+     * @return ArrayList of Task objects read from the database.
+     */
     public ArrayList<Task> readFromDatabaseIfAlreadyCreated() {
         ArrayList<Task> tasksList = new ArrayList<>();
 
@@ -128,6 +166,14 @@ public class DataStorage {
     }
 
 
+    /**
+     * Set the completion status of a task at the specified index, and updates the HDD file.
+     *
+     * @param taskIndex the index of the task.
+     * @param status the status of the task (true indicates completed, while false indicates incomplete).
+     * @throws MalformedUserInputException if the task index is out of bounds or the task has not been created yet.
+     * @throws IndexOutOfBoundsException if the task index is out of bounds.
+     */
     public void setTaskStatus(int taskIndex, boolean status) throws MalformedUserInputException {
         if (taskIndex < 0 || taskIndex > this.maxTask) {
             throw new IndexOutOfBoundsException();
@@ -142,6 +188,10 @@ public class DataStorage {
     }
 
 
+    /**
+     * Retrieves the number of tasks stored in the data storage.
+     * @return the number of tasks.
+     */
     public int getTaskCount() {
         return this.taskCount;
     }
@@ -155,6 +205,13 @@ public class DataStorage {
     }
 
 
+    /**
+     * Deletes a task from the task list at the specified index.
+     *
+     * @param indexToDelete the index of the task to be deleted.
+     * @throws MalformedUserInputException if the task index is out of bounds or the task has not been created yet.
+     * @throws IndexOutOfBoundsException if the task index is out of bounds.
+     */
     public void deleteTask(int indexToDelete) throws MalformedUserInputException {
         if (indexToDelete < 0 || indexToDelete > this.maxTask) {
             throw new IndexOutOfBoundsException();
