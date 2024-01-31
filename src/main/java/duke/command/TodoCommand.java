@@ -13,6 +13,7 @@ import duke.exception.SaveStorageException;
  * The class representing the creation of deadline task command.
  * */
 public class TodoCommand extends Command {
+    /* The separated list of constituent words in the user-entered command. */
     String[] commandList;
 
     public TodoCommand(String[] commandList) {

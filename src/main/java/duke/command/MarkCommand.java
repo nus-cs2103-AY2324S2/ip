@@ -16,7 +16,10 @@ import java.util.Objects;
  * The abstract class representing a mark or unmark command.
  * */
 public class MarkCommand extends Command {
+    /* The separated list of constituent words in the user-entered command. */
     String[] commandList;
+
+    /* Specifies the command type (mark or unmark). */
     String type;
 
     public MarkCommand(String[] commandList, String type) {

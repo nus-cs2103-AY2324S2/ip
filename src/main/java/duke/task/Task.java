@@ -4,13 +4,18 @@ package duke.task;
  * The class representing a generic task.
  * */
 public class Task {
+    /* Description of the current task. */
     String description;
-    boolean done;
+
+    /* Completion status of the current task. */
+    boolean isDone;
+
+    /* Mark reflecting completion status for the current task. */
     String display;
 
     public Task(String description) {
         this.description = description;
-        this.done = false;
+        this.isDone = false;
         this.display = "[ ]";
     }
 
@@ -18,8 +23,8 @@ public class Task {
      * Changes the display (completion status) from 'done' to 'undone' and vice-versa.
      * */
     public void changeDone() {
-        this.done = !this.done;
-        if (this.done) {
+        this.isDone = !this.isDone;
+        if (this.isDone) {
             this.display = "[X]";
         } else {
             this.display = "[ ]";
@@ -27,11 +32,20 @@ public class Task {
     }
 
     /**
+     * Getter method for task description.
+     *
+     * @return The task description.
+     * */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Converts the task into the form to be stored in db.txt.
      *
      * @return The formatted string.
      * */
-    public String toDBString() {
+    public String toDbString() {
         return "";
     }
 }

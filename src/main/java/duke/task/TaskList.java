@@ -6,6 +6,8 @@ import java.util.ArrayList;
  * The class representing a list of tasks.
  * */
 public class TaskList {
+
+    /* ArrayList containing all the current tasks. */
     ArrayList<Task> taskList;
 
     public TaskList(ArrayList<Task> taskList) {
