@@ -1,6 +1,4 @@
-T | 1 | read book
-D | 0 | return book | June 6th
-E | 0 | project meeting | Aug 6th 2pm | 4pm
-T | 1 | join sports club
 T | 0 | This
-T | 0 | that
+D | 0 | return book | 2023-12-01T00:00:00
+D | 0 | return that | 2023-12-01T18:00:00
+D | 0 | return lvl 8 | 2023-12-13T05:00:00

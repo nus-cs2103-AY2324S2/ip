@@ -7,6 +7,7 @@ import Tasks.Event;
 import Tasks.Task;
 import Tasks.ToDo;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -62,7 +63,7 @@ public class Irwyn {
             }
         } else {
             System.out.println(linebreak
-                    + "Data file not found. A new file will be created."
+                    + "Data file not found. A new file will be created.\n"
                     + linebreak);
         }
 
@@ -112,12 +113,18 @@ public class Irwyn {
                     String[] parts = userInput.split(" /by ");
                     String taskDescription = parts[0].substring(9);
                     String by = parts[1];
-                    list.add(new Deadline(taskDescription, by));
-                    System.out.println(linebreak
-                            + "Got it. I've added this task:\n"
-                            + "  " + list.get(list.size() - 1) + "\n"
-                            + "Now you have " + list.size() + " tasks in the list.\n"
-                            + linebreak);
+                    try {
+                        list.add(new Deadline(taskDescription, by));
+                        System.out.println(linebreak
+                                + "Got it. I've added this task:\n"
+                                + "  " + list.get(list.size() - 1) + "\n"
+                                + "Now you have " + list.size() + " tasks in the list.\n"
+                                + linebreak);
+                    } catch (DateTimeParseException e) {
+                        System.out.println(linebreak
+                                + "Invalid date format. Please use YYYY-MM-DD or YYYY-MM-DD HH:MM:SS format.\n"
+                                + linebreak);
+                    }
                 } else if (userInput.startsWith("event")) {
                     if (!userInput.contains(" /from ") || !userInput.contains(" /to ")) {
                         throw new CommandException();
