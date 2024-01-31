@@ -8,6 +8,9 @@ import java.util.regex.Pattern;
 import duke.common.Messages;
 import duke.exception.MalformedUserInputException;
 
+/**
+ * Represents a Parser class that parses user input and converts it into executable commands.
+ */
 public class Parser {
 
     /**
@@ -16,6 +19,13 @@ public class Parser {
      */
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param userInput the user input string
+     * @return Command object based on user input
+     *
+     */
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
@@ -54,6 +64,7 @@ public class Parser {
                 return new IncorrectCommand(Messages.MESSAGE_INCORRECT);
         }
     }
+
 
     private Command prepareMarkCommand(String arguments) {
 

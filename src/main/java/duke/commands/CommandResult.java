@@ -10,6 +10,11 @@ public class CommandResult {
     // TODO: Code referenced from: https://github.com/se-edu/addressbook-level2
     public final String feedbackToUser;
 
+    /**
+     * Represents the result of a command execution.
+     *
+     * @param feedbackToUser message to be displayed to user.
+     */
     public CommandResult(String feedbackToUser) {
         this.feedbackToUser = feedbackToUser;
     }

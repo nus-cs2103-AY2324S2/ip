@@ -7,6 +7,9 @@ import duke.common.DataStorage;
  */
 public class Command {
 
+    /**
+     * Represents a data storage object that handles reading from and writing to a file.
+     */
     protected DataStorage dataStorage;
 
     /**
@@ -17,6 +20,11 @@ public class Command {
         throw new UnsupportedOperationException("This method is to be implemented by child classes");
     };
 
+    /**
+     * Configures the data storage object used by the command.
+     *
+     * @param dataStorage the data storage object to be set
+     */
     public void setData(DataStorage dataStorage) {
         this.dataStorage = dataStorage;
     }
