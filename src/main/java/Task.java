@@ -6,14 +6,16 @@ public abstract class Task {
         this.task = task;
     }
 
-    public String changeMark(String command) {
-        if (command.equals("MARK")) {
-            isDone = true;
-            return "Nice! I've marked this task as done:\n";
-        } else { // UNMARK command
-            isDone = false;
-            return "OK, I've marked this task as not done yet:\n";
-        }
+    public void changeMark(String command) {
+        isDone = command.equals("MARK");
+    }
+
+    public boolean getStatus() {
+        return isDone;
+    }
+
+    public String formatTask() {
+        return task;
     }
 
     @Override

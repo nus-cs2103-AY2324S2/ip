@@ -1,10 +1,90 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    enum CommandType {
+    private enum CommandType {
         BYE, LIST, DELETE, MARK, UNMARK, TODO, EVENT, DEADLINE
     }
+
+    private static final String FILE_PATH = "./data/duke.txt";
+
+    private static Task readTask(String taskEntry) {
+        String[] fields = taskEntry.split(" \\| ", 4);
+
+        Task task = null;
+
+        switch (fields[0]) {
+        case "T":
+            task = new Todo(fields[2]);
+
+            if (fields[1].equals("1")) {
+                task.changeMark("MARK");
+            }
+            break;
+
+        case "D":
+            task = new Deadline(fields[2], fields[3]);
+
+            if (fields[1].equals("1")) {
+                task.changeMark("MARK");
+            }
+            break;
+
+        case "E":
+            task = new Event(fields[2], fields[3], fields[4]);
+
+            if (fields[1].equals("1")) {
+                task.changeMark("MARK");
+            }
+            break;
+        }
+        return task;
+    }
+
+    private static ArrayList<Task> readTasksFile() throws TasksFileException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        File f = new File(Duke.FILE_PATH);
+
+        try {
+            Scanner sc = new Scanner(f);
+            while (sc.hasNextLine()) {
+                Task task = readTask(sc.nextLine());
+                tasks.add(task);
+            }
+        } catch (FileNotFoundException e) {
+            createTaskFile();
+        }
+        return tasks;
+    }
+
+    private static void saveTasksFile(ArrayList<Task> tasks) throws TasksFileException {
+        try {
+            FileWriter fw = new FileWriter(Duke.FILE_PATH);
+            for (Task task : tasks) {
+                String formattedTask = task.formatTask();
+                fw.write(formattedTask + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new TasksFileException();
+        }
+    }
+
+    private static void createTaskFile() throws TasksFileException {
+        File tasksFile = new File(Duke.FILE_PATH);
+        File dataDirectory = tasksFile.getParentFile();
+        dataDirectory.mkdirs();
+        try {
+            tasksFile.createNewFile();
+        } catch (IOException e) {
+            throw new TasksFileException();
+        }
+    }
+
     public static void main(String[] args) {
         String horizontalLine = "__________________________________________________________________\n";
 
@@ -13,7 +93,15 @@ public class Duke {
 
         String goodbye = horizontalLine + "Bye. Hope to see you again soon!\n" + horizontalLine;
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = null;
+
+        try {
+            tasks = readTasksFile();
+
+        } catch (TasksFileException e) {
+            System.out.println(horizontalLine + e + horizontalLine);
+            return;
+        }
 
         Scanner sc = new Scanner(System.in);
 
@@ -42,6 +130,12 @@ public class Duke {
                 case BYE:
                     System.out.println(goodbye);
                     shouldBreak = true;
+
+                    try {
+                        saveTasksFile(tasks);
+                    } catch (TasksFileException e) {
+                        System.out.println(horizontalLine + e + horizontalLine);
+                    }
                     break;
 
                 case LIST:
@@ -74,12 +168,28 @@ public class Duke {
                     break;
 
                 case MARK:
+                    try {
+                        int taskId = Integer.parseInt(parts[1]) - 1;
+                        Task task = tasks.get(taskId);
+                        task.changeMark(command);
+                        System.out.println(horizontalLine + "Nice! I've marked this task as done:\n" +
+                                task + "\n" + horizontalLine);
+
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        throw new MissingArgumentException(command);
+
+                    } catch (IndexOutOfBoundsException e) {
+                        throw new NoTaskFoundException(parts[1]);
+                    }
+                    break;
+
                 case UNMARK:
                     try {
                         int taskId = Integer.parseInt(parts[1]) - 1;
                         Task task = tasks.get(taskId);
-                        String statement = task.changeMark(command);
-                        System.out.println(horizontalLine + statement + task + "\n" + horizontalLine);
+                        task.changeMark(command);
+                        System.out.println(horizontalLine + "OK, I've marked this task as not done yet:\n" +
+                                task + "\n" + horizontalLine);
 
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new MissingArgumentException(command);
@@ -153,6 +263,7 @@ public class Duke {
 
             } catch (InvalidCommandException e) { // Handle invalid input error
                 System.out.println(horizontalLine + e + horizontalLine);
+
             }
         }
         sc.close();
