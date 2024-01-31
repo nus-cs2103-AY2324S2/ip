@@ -1,3 +1,8 @@
+package duke;
+
+import duke.command.*;
+import duke.exception.CommandInvalidException;
+
 public class Parser {
     public static boolean valid(String n){ //check if the given command is valid //throw something
         String[] inputs = n.split(" ");

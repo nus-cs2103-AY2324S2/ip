@@ -1,3 +1,5 @@
+package duke.task;
+
 public class ToDos extends Task{
 
     private static final String symbol = "T";
@@ -18,12 +20,12 @@ public class ToDos extends Task{
     }
 
     @Override
-    public String toString() { //method to get the string representation of ToDos
+    public String toString() { //method to get the string representation of Duke.ToDos
         String s = "[" + this.getSymbol() + "][" + this.getStatusIcon() + "] " + this.description;
         return s;
     }
 
-    public String toWrite() { //method to get the string representation of ToDos
+    public String toWrite() { //method to get the string representation of Duke.ToDos
         String s = this.getSymbol() + "/" + this.isDone + "/" + this.description;
         return s;
     }
