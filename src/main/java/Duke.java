@@ -6,8 +6,8 @@ import java.util.StringTokenizer;
 
 public class Duke {
     private static String gap = "____________________________________________________________\n";
-    private static HashSet<String> validCommands = new HashSet<>();
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static HashSet<String> validCommands;
+    private static ArrayList<Task> tasks;
 
     public static void main(String[] args) {
         initialSetup();
@@ -20,7 +20,6 @@ public class Duke {
         System.out.println(gap + "Greetings! I am Aegis.\n"
                          + "How can I assist you?\n" + gap);
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
         while (true) {
             try {
                 String input = sc.nextLine();
@@ -39,6 +38,8 @@ public class Duke {
     }
 
     private static void initialSetup() {
+        tasks = new ArrayList<Task>();
+        validCommands = new HashSet<String>();
         validCommands.addAll(Arrays.asList("bye",
                 "list",
                 "mark",
@@ -53,8 +54,7 @@ public class Duke {
         StringTokenizer st = new StringTokenizer(command);
         String identifier = st.nextToken().toLowerCase();
         if (identifier.equals("bye")) {
-            System.out.println(gap + "Goodbye! Have a pleasant day!\n" + gap);
-            System.exit(0);
+            exitProgram();
         }
         if (identifier.equals("list")) {
             if (st.hasMoreTokens()) {
@@ -170,5 +170,10 @@ public class Duke {
                     + toDelete.toString());
             System.out.println("\nTasks remaining: " + tasks.size() + ".\n" + gap);
         }
+    }
+
+    private static void exitProgram() {
+        System.out.println(gap + "Goodbye! Have a pleasant day!\n" + gap);
+        System.exit(0);
     }
 }
