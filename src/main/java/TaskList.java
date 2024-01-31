@@ -13,6 +13,9 @@ public class TaskList implements Serializable {
         String output = "";
         for (Task t : this.list) {
             output += (this.list.indexOf(t) + 1) + ". " + t.toString();
+            if (this.list.indexOf(t) == this.list.size() - 1) {
+                break;
+            }
             output += "\n";
         }
         return output;
