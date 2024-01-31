@@ -1,7 +1,5 @@
 package task;
 
-import exception.TodoFormatException;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

@@ -1,7 +1,5 @@
 package ui;
 
-import ui.Ui;
-
 public class UiStub extends Ui {
     public boolean showToUserCalled;
     private boolean showErrorMessageCalled;
