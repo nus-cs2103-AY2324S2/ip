@@ -6,13 +6,14 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList< Task > tasks;
+    private Ui ui;
 
     public TaskList(ArrayList < Task > tasks) {
         this.tasks = tasks;
     }
 
     public TaskList() {
-
+        this.tasks = new ArrayList<>();
     }
     public void addTask(Task task) {
         tasks.add(task);
@@ -45,7 +46,7 @@ public class TaskList {
             throw new DukeException("You have not created task " + (index + 1) + " for me to delete!");
         }
         Task removedTask = tasks.remove(index);
-        Ui.printDeletedTaskMessage(removedTask);
+        ui.printDeletedTaskMessage(removedTask);
     }
 
     public void markStatus(Task job) throws DukeException {
@@ -53,7 +54,7 @@ public class TaskList {
             throw new DukeException("This task is already marked as done.");
         }
         job.isDone = true;
-        Ui.markTask(job);
+        ui.markTask(job);
     }
 
     public void unmarkStatus(Task job) throws DukeException {
@@ -61,7 +62,7 @@ public class TaskList {
             throw new DukeException("This task is already marked as not done.");
         }
         job.isDone = false;
-        Ui.unmarkTask(job);
+        ui.unmarkTask(job);
     }
 
     public static void getList(TaskList taskList) throws DukeException { //need to put in UI class?

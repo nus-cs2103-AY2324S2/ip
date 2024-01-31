@@ -67,4 +67,5 @@ public class Ui {
         public static void unmarkTask(Task task) {
             System.out.println("OK, I've marked this task as not done yet: \n " + "[" + task.getType() + "][" + task.getStatusIcon() + "] " + task.getDescription());
         }
+
 }
