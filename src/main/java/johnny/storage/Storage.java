@@ -16,16 +16,32 @@ import johnny.tasks.Task;
 import johnny.tasks.TaskList;
 import johnny.tasks.ToDo;
 
+/**
+ * Controls data read and written to a text file.
+ */
 public class Storage {
 
+    /** Format of DateTime in Tasks for storing in Storage. */
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
+    /** Where the data is read from and written to. */
     private String filePath;
 
-
+    /**
+     * Constructor for Storage.
+     *
+     * @param filePath Where the data is read from and written to.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads Tasks from given file path and stores them into TaskList.
+     * If directory or file does not exist, create them and return empty TaskList.
+     *
+     * @return Populated or empty TaskList.
+     * @throws JohnnyException If directory or file cannot be created.
+     */
     public List<Task> load() throws JohnnyException {
         try {
             File file = new File(filePath);
@@ -72,6 +88,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes all Tasks in TaskList into the file.
+     *
+     * @param tasks TaskList to be stored.
+     * @throws JohnnyException If file cannot be written to.
+     */
     public void rewriteFile(TaskList tasks) throws JohnnyException {
         try (FileWriter fw = new FileWriter(filePath)) {
             for (int i = 0; i < tasks.size(); i++) {
@@ -82,6 +104,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds a new Task at the bottom the file.
+     *
+     * @param task Task to be added to file.
+     * @throws JohnnyException If file cannot be written to.
+     */
     public void appendToFile(Task task) throws JohnnyException {
         try (FileWriter fw = new FileWriter(filePath, true)) {
             fw.write(task.addToFile());
