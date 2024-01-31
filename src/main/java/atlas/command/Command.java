@@ -5,10 +5,12 @@ import atlas.TaskList;
 import atlas.Ui;
 import atlas.exception.AtlasException;
 
+
 /**
  * The abstract Command class represents an executable command within the Atlas application.
  * It serves as the base for all specific command types.
  */
+
 public abstract class Command {
     protected TaskList tasks;
     protected Ui ui;
