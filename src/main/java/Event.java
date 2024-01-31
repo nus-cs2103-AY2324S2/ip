@@ -4,14 +4,10 @@
  */
 public class Event extends Task {
 
-    /**
-     * The starting date and time of the event.
-     */
+    /** The starting date and time of the event. */
     private String from;
 
-    /**
-     * The ending date and time of the event.
-     */
+    /** The ending date and time of the event. */
     private String to;
 
     /**
@@ -25,6 +21,32 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    /**
+     * Gets the type of the task.
+     *
+     * @return The string "event" representing the type of the task.
+     */
+    @Override
+    public String getType() {
+        return "event";
     }
 
     /**

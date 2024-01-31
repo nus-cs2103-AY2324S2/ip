@@ -4,14 +4,10 @@
  *  @author Tan Qin Yong
  */
 public class Task {
-    /**
-     * The description of the task.
-     */
+    /** The description of the task. */
     private String description;
 
-    /**
-     * Flag indicating whether the task is done or not.
-     */
+    /** Flag indicating whether the task is done or not. */
     private boolean isDone;
 
     /**
@@ -22,6 +18,9 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public Task() {
     }
 
     /**
@@ -47,6 +46,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     /**
      * Sets a new description for the task.
      *
@@ -63,6 +66,15 @@ public class Task {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Gets the type of the task.
+     *
+     * @return The string "Task" representing the type of the task.
+     */
+    public String getType() {
+        return "Task";
     }
 
     /**

@@ -15,6 +15,16 @@ public class ToDo extends Task {
     }
 
     /**
+     * Gets the type of the task.
+     *
+     * @return The string "todo" representing the type of the task.
+     */
+    @Override
+    public String getType() {
+        return "todo";
+    }
+
+    /**
      * Returns a string representation of the ToDo object.
      * Overrides the toString method in the Task class.
      *
