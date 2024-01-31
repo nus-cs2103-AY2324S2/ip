@@ -28,6 +28,21 @@ public class Ui {
         System.out.format("%d. ["+ task.getTaskIcon()+"]["+ task.getStatusIcon() + "] " + task + "\n", index + 1);
     }
 
+    public void showLoadingTasks() {
+        System.out.println("Loading previous recorded tasks...\n" + splitLine);
+    }
+
+    public void showIncompleteTask(TaskList tasks) {
+        System.out.println("You have these unmarked tasks:");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = tasks.getTask(i);
+            if (!t.isDone) {
+                this.showTask(t);
+            }
+        }
+        this.showLine();
+    }
+
     public String readCommand(){
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();

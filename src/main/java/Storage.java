@@ -20,7 +20,6 @@ public class Storage {
             List<Task> list = new ArrayList<>();
             this.file = new File(this.filepath);
             Scanner sc = new Scanner(file);
-            System.out.println("You have these undone tasks:");
             while (sc.hasNext()) {
                 Task task;
                 String[] storedTask = sc.nextLine().split(" \\| ");

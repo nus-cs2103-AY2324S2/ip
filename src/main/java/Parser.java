@@ -1,40 +1,44 @@
 public class Parser {
 
-    public static Command parseCommand(String input) {
-        if(input.startsWith("unmark")){
-            return Command.Unmark;
-        }
-        else if(input.startsWith("mark")){
-            return Command.Mark;
-        }
-        else if(input.startsWith("delete")){
-            return Command.Delete;
-        }
-        else if (input.startsWith("todo")){
-            return Command.Todo;
-        }
-        else if (input.startsWith("deadline")){
-            return Command.Deadline;
-        }
-        else if (input.startsWith("event")){
-            return Command.Event;
-        }
-        else if (input.startsWith("list")){
-            return Command.List;
-        }
-        else if(input.startsWith("bye")){
-            return Command.Bye;
-        } else{
-            return Command.Invalid;
-        }
-    }
-
-    public static String parseDetail(String input){
-        int detailIndex = input.indexOf(" ");
-        if (detailIndex == -1){
-            return "";
-        } else {
-            return input.substring(detailIndex + 1);
+    public static Command parseCommand(String input) throws ToothlessException{
+        String[] split = input.split(" ", 2);
+        switch (split[0].toUpperCase()) {
+        case "BYE":
+            return new ByeCommand();
+        case "LIST":
+            return new ListCommand();
+        case "MARK":
+            if (split.length < 2){
+                throw new ToothlessException("Input number pls");
+            }
+            return new MarkCommand(split[1]);
+        case "UNMARK":
+            if (split.length < 2){
+                throw new ToothlessException("Input number pls");
+            }
+            return new UnmarkCommand(split[1]);
+        case "DELETE":
+            if (split.length < 2){
+                throw new ToothlessException("Input number pls");
+            }
+            return new DeleteCommand(split[1]);
+        case "TODO":
+            if (split.length < 2){
+                throw new ToothlessException("Input description @_@");
+            }
+            return new TodoCommand(split[1]);
+        case "EVENT":
+            if (split.length < 2){
+                throw new ToothlessException("Input description @_@");
+            }
+            return new EventCommand(split[1]);
+        case "DEADLINE":
+            if (split.length < 2){
+                throw new ToothlessException("Input description @_@");
+            }
+            return new DeadlineCommand(split[1]);
+        default:
+            throw new ToothlessException("Me dragon, no understand this action :P");
         }
     }
 }

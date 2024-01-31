@@ -1,5 +1,3 @@
-import java.io.FileNotFoundException;
-
 public class Toothless {
 
     private Storage storage;
@@ -10,7 +8,9 @@ public class Toothless {
         ui = new Ui();
         storage = new Storage(filepath);
         try {
+            ui.showLoadingTasks();
             tasks = new TaskList(storage.load());
+            ui.showIncompleteTask(tasks);
         } catch (ToothlessException e) {
             System.out.println(e.getMessage());
             tasks = new TaskList();
@@ -21,11 +21,16 @@ public class Toothless {
         boolean isExit = false;
         ui.showWelcome();
         while(!isExit){
-            String input = ui.readCommand();
-            ui.showLine();
-            Command command = Parser.parseCommand(input);
-            String detail = Parser.parseDetail(input);
-            isExit = Command.handleCommand(command, detail, ui, tasks, storage);
+            try {
+                String input = ui.readCommand();
+                ui.showLine();
+                Command command = Parser.parseCommand(input);
+                isExit = command.handle(ui, tasks, storage);
+            } catch (ToothlessException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
         }
     }
 
