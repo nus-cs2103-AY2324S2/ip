@@ -1,10 +1,17 @@
+package App;
+
+import Command.Command;
+import UiRelated.Parser;
+import UiRelated.Storage;
+import UiRelated.Ui;
+import TaskList.TaskList;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
 public class HASSTNT{
 
-    private final Storage  storage;
+    private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
@@ -23,7 +30,6 @@ public class HASSTNT{
     public void run() {
         // Display welcome message
         ui.displayWelcomeMessage();
-
         // Continuously listen for user input
         while (true) {
             String userInput = ui.getUserInput();
@@ -56,6 +62,7 @@ public class HASSTNT{
 
 
     public static void main(String[] args) {
+
         new HASSTNT("./src/list_log").run();
     }
 }

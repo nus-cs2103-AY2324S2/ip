@@ -1,3 +1,6 @@
+package Command;
+import TaskList.TaskList;
+import UiRelated.Ui;
 public class removeCommand extends Command {
     int index;
     public removeCommand(int i){

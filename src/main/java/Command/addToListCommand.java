@@ -1,4 +1,7 @@
-
+package Command;
+import TaskList.TaskList;
+import UiRelated.Ui;
+import Tasks.Task;
 public class addToListCommand extends Command {
     Task task;
     public addToListCommand(Task t){

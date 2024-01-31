@@ -1,3 +1,6 @@
+package Command;
+import TaskList.TaskList;
+import UiRelated.Ui;
 public class MarkCommand extends Command {
     private final int index;
     public MarkCommand(int i){

@@ -1,3 +1,10 @@
+package UiRelated;
+
+
+import Tasks.DeadLineTask;
+import Tasks.EventTask;
+import Tasks.ToDoTask;
+import Command.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -6,7 +13,7 @@ public class Parser {
     public static Command parseInput(String input) {
         input = input.trim();
         if (input.isEmpty()) {
-            throw new IllegalArgumentException("Task cannot be empty. Please enter a valid task.");
+            throw new IllegalArgumentException("Tasks.Task cannot be empty. Please enter a valid task.");
         }
         String[] parts = input.trim().split("\\s+", 2);
         String command = parts[0];
