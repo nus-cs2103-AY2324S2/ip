@@ -1,4 +1,4 @@
-package TheAdvisor;
+package theadvisor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -51,7 +51,7 @@ public class Events extends Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start.format(Task.outputFormat) + "hrs to: " +
-                end.format(Task.outputFormat) + "hrs)";
+        return "[E]" + super.toString() + " (from: " + start.format(Task.OUTPUT_FORMAT) + "hrs to: " +
+                end.format(Task.OUTPUT_FORMAT) + "hrs)";
     }
 }

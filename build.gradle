@@ -26,6 +26,6 @@ tasks.test {
 }
 
 shadowJar {
-    archiveBaseName = "TheAdvisor"
+    archiveBaseName = "theadvisor"
     archiveClassifier = null
 }

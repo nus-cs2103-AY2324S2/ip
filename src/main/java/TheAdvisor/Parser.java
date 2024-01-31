@@ -1,4 +1,4 @@
-package TheAdvisor;
+package theadvisor;
 
 /**
  * A parser class to help in parsing user inputs.

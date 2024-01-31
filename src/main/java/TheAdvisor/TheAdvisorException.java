@@ -1,4 +1,4 @@
-package TheAdvisor;
+package theadvisor;
 
 public class TheAdvisorException extends Exception {
     public TheAdvisorException (String message) {

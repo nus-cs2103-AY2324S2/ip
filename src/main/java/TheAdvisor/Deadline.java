@@ -1,4 +1,4 @@
-package TheAdvisor;
+package theadvisor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -50,6 +50,6 @@ public class Deadline extends Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(Task.outputFormat) + "hrs)";
+        return "[D]" + super.toString() + " (by: " + by.format(Task.OUTPUT_FORMAT) + "hrs)";
     }
 }

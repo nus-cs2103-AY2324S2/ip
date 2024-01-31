@@ -1,4 +1,4 @@
-package TheAdvisor;
+package theadvisor;
 
 import java.util.ArrayList;
 import java.io.Serializable;

@@ -1,4 +1,4 @@
-package TheAdvisor;
+package theadvisor;
 
 import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
@@ -11,8 +11,8 @@ public class Task implements Serializable {
     protected String description;
     protected boolean isDone;
 
-    protected static final DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    protected static final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+    protected static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    protected static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
 
     /**
      * Constructs a new Task with the given description.
