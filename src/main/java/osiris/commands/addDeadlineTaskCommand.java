@@ -1,9 +1,9 @@
 package osiris.commands;
 
+import java.time.LocalDate;
+
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
-
-import java.time.LocalDate;
 
 /**
  * Command class representing the addition of a deadline task.

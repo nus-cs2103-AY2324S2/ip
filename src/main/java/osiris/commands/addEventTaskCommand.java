@@ -1,9 +1,9 @@
 package osiris.commands;
 
+import java.time.LocalDateTime;
+
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
-
-import java.time.LocalDateTime;
 
 /**
  * Command class representing the addition of an event task.
@@ -12,11 +12,11 @@ public class addEventTaskCommand extends Command {
 
     public static final String COMMAND = "event";
 
-    private String taskName;
+    private final String taskName;
 
-    private LocalDateTime startDateTime;
+    private final LocalDateTime startDateTime;
 
-    private LocalDateTime endDateTime;
+    private final LocalDateTime endDateTime;
 
     /**
      * Constructs an AddEventTaskCommand object with the specified task name, start date and end date.

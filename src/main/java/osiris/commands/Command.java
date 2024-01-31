@@ -16,7 +16,7 @@ public abstract class Command {
      * @return true if the command is to terminate the chat, false otherwise.
      */
     public boolean isTerminateChat() {
-       return isTerminateChat;
+        return isTerminateChat;
     }
 
     /**

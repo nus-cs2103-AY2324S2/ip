@@ -6,7 +6,7 @@ import osiris.ui.Ui;
 /**
  * Command class representing the "bye" command to terminate the chat.
  */
-public class terminateChatCommand extends Command{
+public class terminateChatCommand extends Command {
 
     public static final String COMMAND = "bye";
 

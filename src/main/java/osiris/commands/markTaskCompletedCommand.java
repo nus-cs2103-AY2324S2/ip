@@ -6,19 +6,19 @@ import osiris.ui.Ui;
 /**
  * Command class to mark a task as completed.
  */
-
 public class markTaskCompletedCommand extends Command {
 
     public static final String COMMAND = "mark";
 
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * Constructs a MarkTaskCompletedCommand object with the specified task index.
      *
      * @param taskIndex The index of the task to be marked as completed.
      */
-    public markTaskCompletedCommand(int taskIndex){
+    public markTaskCompletedCommand(int taskIndex) {
+
         this.taskIndex = taskIndex;
     }
 

@@ -85,24 +85,26 @@ public class Ui {
         this.printSeparator();
     }
 
+
     /**
      * Displays a success notification for marking a task as completed.
      *
      * @param taskDetails The details of the completed task.
      */
-    public void markTaskCompletedSuccessNotification(String taskDetails){
+    public void markTaskCompletedSuccessNotification(String taskDetails) {
         this.printSeparator();
         System.out.println("     Nice! I've marked this task as done:");
         System.out.println("        " + taskDetails);
         this.printSeparator();
     }
 
+
     /**
      * Displays a success notification for marking a task as incomplete.
      *
      * @param taskDetails The details of the incomplete task.
      */
-    public void markTaskIncompleteSuccessNotification(String taskDetails){
+    public void markTaskIncompleteSuccessNotification(String taskDetails) {
         this.printSeparator();
         System.out.println("     OK, I've marked this task as not done yet:");
         System.out.println("        " + taskDetails);
@@ -123,12 +125,13 @@ public class Ui {
         this.printSeparator();
     }
 
+
     /**
      * Prints the list of user tasks.
      *
      * @param taskDetailsList The list containing details of user tasks.
      */
-    public void printUserTasks(ArrayList<String> taskDetailsList){
+    public void printUserTasks(ArrayList<String> taskDetailsList) {
         this.printSeparator();
         System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < taskDetailsList.size(); i++) {

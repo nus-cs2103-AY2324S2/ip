@@ -10,7 +10,7 @@ public class addToDoTaskCommand extends Command {
 
     public static final String COMMAND = "todo";
 
-    private String taskName;
+    private final String taskName;
 
     /**
      * Constructs an AddToDoTaskCommand object with the specified task name.

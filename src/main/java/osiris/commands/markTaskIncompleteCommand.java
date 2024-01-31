@@ -3,6 +3,7 @@ package osiris.commands;
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
 
+
 /**
  * Command class to mark a task as incomplete.
  */
@@ -10,7 +11,8 @@ public class markTaskIncompleteCommand extends Command {
 
     public static final String COMMAND = "unmark";
 
-    private int taskIndex;
+    private final int taskIndex;
+
 
     /**
      * Constructs a MarkTaskIncompleteCommand object with the specified task index.

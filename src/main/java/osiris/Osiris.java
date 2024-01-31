@@ -20,7 +20,7 @@ public class Osiris {
      * Initiates the chat session with the user.
      * Manages user input, interprets commands, and handles task management.
      */
-    public void startChat(){
+    public void startChat() {
         Scanner scanner = new Scanner(System.in);
         this.taskManager.initialise();
 
@@ -28,8 +28,7 @@ public class Osiris {
 
         boolean terminateChat = false;
 
-        while (!terminateChat){
-
+        while (!terminateChat) {
             this.userInterface.messageOsirisPrompt();
             String userInput = scanner.nextLine();
 

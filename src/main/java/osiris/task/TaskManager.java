@@ -1,11 +1,11 @@
 package osiris.task;
 
-import osiris.formatters.DateTimeFormatters;
-import osiris.storage.TxtFileStorage;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import osiris.formatters.DateTimeFormatters;
+import osiris.storage.TxtFileStorage;
 
 /**
  * The TaskManager class manages user tasks.
@@ -54,7 +54,8 @@ public class TaskManager {
      * @param isCompleted   The completion status of the task.
      * @return True if the task is added successfully, false otherwise.
      */
-    public boolean addEventTask(String taskName, LocalDateTime startDateTime, LocalDateTime endDateTime, boolean isCompleted) {
+    public boolean addEventTask(String taskName, LocalDateTime startDateTime,
+                                LocalDateTime endDateTime, boolean isCompleted) {
         EventTask newTask = new EventTask(taskName, isCompleted, startDateTime, endDateTime);
         this.userTasks.add(newTask);
         return true;
@@ -75,7 +76,7 @@ public class TaskManager {
      *
      * @return The list of user tasks.
      */
-    public ArrayList<Task> getUserTasks(){
+    public ArrayList<Task> getUserTasks() {
         return userTasks;
     }
 
@@ -101,7 +102,7 @@ public class TaskManager {
      *
      * @return The total number of tasks.
      */
-    public int getTotalTaskCount(){
+    public int getTotalTaskCount() {
         return this.userTasks.size();
     }
 
@@ -146,10 +147,11 @@ public class TaskManager {
         }
     }
 
+
     /**
      * Loads user tasks from file storage.
      */
-    private void loadUserTaskFromFileStorage(){
+    private void loadUserTaskFromFileStorage() {
         ArrayList<String> readContents = this.taskStorage.readTxtFileStorage();
         for (String readContentString : readContents) {
             String[] readContentWord = readContentString.split("\\|");
@@ -157,29 +159,33 @@ public class TaskManager {
             if (readContentWord[0].trim().equals("T")) {
                 this.addToDoTask(readContentWord[2].trim(), readContentWord[1].trim().equals("Y"));
             } else if (readContentWord[0].trim().equals("D")) {
-                LocalDate deadline = DateTimeFormatters.getInstance().storedDataDateFormatter(readContentWord[3].trim());
+                LocalDate deadline = DateTimeFormatters.getInstance()
+                        .storedDataDateFormatter(readContentWord[3].trim());
                 this.addDeadlineTask(readContentWord[2].trim(), deadline, readContentWord[1].trim().equals("Y"));
             } else if (readContentWord[0].trim().equals("E")) {
-                LocalDateTime[] dateTimeRange = DateTimeFormatters.getInstance().storedDataDateTimeRangeFormatter(readContentWord[3].trim(), readContentWord[4].trim());
-                this.addEventTask(readContentWord[2].trim(), dateTimeRange[0], dateTimeRange[1], readContentWord[1].trim().equals("Y"));
+                LocalDateTime[] dateTimeRange = DateTimeFormatters.getInstance()
+                        .storedDataDateTimeRangeFormatter(readContentWord[3].trim(), readContentWord[4].trim());
+                this.addEventTask(readContentWord[2].trim(), dateTimeRange[0],
+                        dateTimeRange[1], readContentWord[1].trim().equals("Y"));
             }
         }
     }
 
+
     /**
      * Initializes the task manager by loading tasks from file storage.
      */
-    public void initialise(){
+    public void initialise() {
         this.taskStorage.initialiseTxtFileStorage();
         this.loadUserTaskFromFileStorage();
     }
 
+
     /**
      * Terminates the task manager by clearing file storage and storing tasks.
      */
-    public void termintate(){
+    public void termintate() {
         this.taskStorage.clearTxtFileStorage();
         this.storeUserTaskToFileStorage();
     }
-
 }
