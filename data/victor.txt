@@ -2,3 +2,5 @@ T | true | read book
 D | false | return book | June 6th
 E | false | project meeting | Aug 6th 2pm | 4pm
 T | true | join sports club
+T | true | add book
+D | true | study for exam  | 19th April

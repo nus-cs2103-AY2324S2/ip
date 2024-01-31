@@ -25,5 +25,9 @@ public class Task {
         public String toString() {
             return "[" + getStatusIcon() + "] " + description;
         }
+
+    public String saveInput() {
+        return "T | " + isDone + " | " + description;
+    }
 }
 
