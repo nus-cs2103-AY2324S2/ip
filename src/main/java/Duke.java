@@ -1,8 +1,8 @@
 import javax.swing.plaf.TableHeaderUI;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Duke {
     //Initialise variables for the programs
@@ -21,6 +21,9 @@ public class Duke {
     //String and variables for task
     private static final String addTask = "Got it. I've added this task:";
     private static final String removeTask = "Noted. I've removed this task";
+
+    //Variables for file writing stuff
+    private static final String FILE_PATH = "data/duke.txt";
 
 
     private static String manHandleUser(String msg) {
@@ -48,7 +51,7 @@ public class Duke {
     }
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         TaskManager manager = new TaskManager();
         //Greet first
         String indent = "   ";
@@ -58,11 +61,56 @@ public class Duke {
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
         boolean exit = false;
 
+        //Try to load the task
+        //And get the items
+
+        File directory = new File("data");
+        if (!directory.exists()) {
+            directory.mkdir();
+        } else {
+            //Load from file
+            File storage = new File(FILE_PATH);
+            if (!storage.createNewFile()) {
+                //Load data if the file is not created
+                manager.loadTasksFromFile(new File(FILE_PATH));
+            }
+
+        }
+
+        //Update on a new update the process in the process
+        Timer save = new Timer();
+        TimerTask savingTask = new TimerTask() {
+            @Override
+            public void run() {
+
+                if (manager.getUpdate()) {
+                    try (FileWriter fw = new FileWriter(FILE_PATH)) {
+                        fw.write(manager.getTasksSave());
+                        manager.setUpdate(false);
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                }
+            }
+
+        };
+
+        save.scheduleAtFixedRate(savingTask, 0, 1000);
+
         while (true) {
 
             String next = input.readLine();
             if (next.equals("bye")) {
+                //Save the application again and exit
                 //Goodbye
+                try (FileWriter fw = new FileWriter(FILE_PATH)) {
+                    fw.write(manager.getTasksSave());
+                    manager.setUpdate(false);//reset the change here
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
                 for (String l : bye) {
                     System.out.println(indent + l);
                 }
@@ -111,6 +159,9 @@ public class Duke {
                         output.add(removeTask);
                         output.add(indent + item);
                         output.add(manager.numOfTask());
+                    } else if (next.contains("update")) {
+                        //for debugging purposes
+                        System.out.println(manager.getUpdate());
                     } else {
                         //At this point this doest not really makes sense but will still be here
                         //For error handling here

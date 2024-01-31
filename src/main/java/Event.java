@@ -9,6 +9,11 @@ public class Event extends Task {
         this.by = by;
     }
     @Override
+    public String saveFile() {
+        return "E" + "|" + super.description + "|" + by + "|" + from;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to " + by + ")";
     }

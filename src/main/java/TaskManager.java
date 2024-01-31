@@ -1,9 +1,15 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class TaskManager {
     private ArrayList<Task> items;
+    private boolean hasChanged = false;
 
     private static final String listingResponse = "Here are the tasks in your list:";
+
 
     TaskManager() {
         this.items = new ArrayList<>();
@@ -22,8 +28,7 @@ public class TaskManager {
                     throw new DukeException("description");
                 }
                 item = new Todo(name);
-                items.add(item);
-                return item;
+                break;
             case DEADLINE:
                 //add the deadline task
                 if (!instructions.contains("/") || !instructions.contains("by")) {
@@ -38,8 +43,7 @@ public class TaskManager {
                 }
 
                 item = new Deadline(name, by);
-                items.add(item);
-                return item;
+                break;
             case EVENT:
                 if (!instructions.contains("/") || !(instructions.contains("by") && instructions.contains("from"))) {
                     throw new DukeException("dateError");
@@ -55,12 +59,14 @@ public class TaskManager {
                     throw new DukeException("description");
                 }
                 item = new Event(name, from, by);
-                items.add(item);
-                return item;
+                break;
             default:
                 //old code
                 throw new DukeException("Invalid");
         }
+        hasChanged = true;
+        items.add(item);
+        return item;
 
     }
 
@@ -80,28 +86,37 @@ public class TaskManager {
         switch (act) {
             case UNMARK:
                 item.unmark();
-                return item;
             case MARK:
                 item.markAsDone();
-                return item;
             case DELETE:
                 items.remove(id);
-                return item;
             default:
                 //This does nothing
-                return item;
+                //Should throw and error here if it is stupid
         }
+        hasChanged = true;
+        return item;
     }
 
     public String numOfTask() {
         return "Now you have " + items.size() + " tasks in the list.";
     }
 
+
+    public String getTasksSave() {
+        StringBuilder returnBuilder = new StringBuilder();
+        for (Task item : items) {
+            returnBuilder.append(item.saveFile()); //build the save here
+            returnBuilder.append("\n");
+        }
+        return returnBuilder.toString();
+    }
+
     public ArrayList<String> ListItems() {
 
         int i = 1;
         ArrayList<String> ret = new ArrayList<>();
-        if(items.isEmpty()) {
+        if (items.isEmpty()) {
             ret.add("Your list is empty!!!!Add something! ");
             return ret;
         }
@@ -111,6 +126,62 @@ public class TaskManager {
             i++;
         }
         return ret;
+    }
+
+    public void setUpdate(boolean hasChanged) {
+        this.hasChanged = hasChanged;
+    }
+
+    public boolean getUpdate() {
+        return hasChanged;
+    }
+
+    private Task determineTask(String task) {
+        String[] data = task.split("|");
+        String type = data[0];
+        Task item;
+        String name;
+        String by;
+        String from;
+        switch (type) {
+            case "D":
+                name = data[1];
+                by = data[2];
+                item = new Deadline(name, by);
+                break;
+            case "E":
+                name = data[1];
+                by = data[2];
+                from = data[3];
+                item = new Event(name, by, from);
+                break;
+            case "T":
+                name = data[1];
+                item = new Todo(name);
+                break;
+            default:
+                item = new Task(data[1]);
+                break;
+        }
+        return item;
+
+    }
+
+    public void loadTasksFromFile(File file) {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String next;
+            while ((next = br.readLine()) != null) {
+                if (!next.isBlank()) {
+                    //Read task file
+                    Task item = determineTask(next);
+                    System.out.println("Task name:" + item.toString());
+                    items.add(item);
+                }
+
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 

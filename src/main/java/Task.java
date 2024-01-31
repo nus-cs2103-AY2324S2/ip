@@ -20,6 +20,10 @@ public class Task {
         isDone = false;
     }
 
+    public String saveFile() {
+        return "U" + "|" + this.description;
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
