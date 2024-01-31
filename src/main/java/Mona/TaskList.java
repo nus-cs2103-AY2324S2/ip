@@ -22,6 +22,9 @@ public class TaskList {
         this.tasks.add(task);
         storage.writeToFile(tasks);
     }
+    public void addTaskTest(Task task) {
+        this.tasks.add(task);
+    }
     public Task unmarkTask(int taskIndex) {
         Task currTask = this.tasks.get(taskIndex);
         currTask.setCompletion(false);
@@ -37,6 +40,10 @@ public class TaskList {
     public Task deleteTask(int taskIndex) {
         Task removedTask = this.tasks.remove(taskIndex);
         storage.writeToFile(tasks);
+        return removedTask;
+    }
+    public Task deleteTaskTest(int taskIndex) {
+        Task removedTask = this.tasks.remove(taskIndex);
         return removedTask;
     }
     public int getNumberOfTasks() {
