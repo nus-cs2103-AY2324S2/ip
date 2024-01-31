@@ -24,7 +24,7 @@ public class Duke {
                     } else {
                         Task t = new Todo(description);
                         TodoList.add(t);
-                        listOverview(t, TodoList);
+                        listOverviewAfterAdding(t, TodoList);
                     }
                     break;
                 }
@@ -37,7 +37,7 @@ public class Duke {
                         String ddl_time = parts.length > 1 ? parts[1].trim() : "";
                         Task t = new Deadline(ddl_description, ddl_time);
                         TodoList.add(t);
-                        listOverview(t, TodoList);
+                        listOverviewAfterAdding(t, TodoList);
                     }
                     break;
                 }
@@ -57,7 +57,7 @@ public class Duke {
                         String event_to = parts.length > 2 ? parts[2].trim() : "";
                         Task t = new Event(event_description, event_from, event_to);
                         TodoList.add(t);
-                        listOverview(t, TodoList);
+                        listOverviewAfterAdding(t, TodoList);
                     }
                     break;
                 }
@@ -79,7 +79,7 @@ public class Duke {
         }
     }
 
-    static void listOverview(Task t, ArrayList<Task> TodoList) {
+    static void listOverviewAfterAdding(Task t, ArrayList<Task> TodoList) {
         System.out.println("Got it. I've added this task:");
         System.out.println(t);
         int length = TodoList.size();
@@ -116,6 +116,35 @@ public class Duke {
         }
     }
 
+    static boolean isDeleteTask(String userInput) {
+        String[] words = userInput.split("\\s+");
+        if (words.length == 2) {
+            if (words[0].equals("delete")) {
+                try {
+                    int number = Integer.parseInt(words[1]);
+                    return true;
+                } catch (NumberFormatException e) {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
+    static void deleteTask(String userInput, ArrayList<Task> TodoList) {
+        String[] words = userInput.split("\\s+");
+        int number = Integer.parseInt(words[1]);
+        Task t = TodoList.remove(number - 1);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(t);
+        int length = TodoList.size();
+        if (length == 1) {
+            System.out.println("Now you have " + length + " task in the list.");
+        } else {
+            System.out.println("Now you have " + length + " tasks in the list.");
+        }
+    }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -139,6 +168,8 @@ public class Duke {
                 printList(TodoList);
             } else if (isMarkTask(userInput)) {
                 changeMarkingOfTask(userInput, TodoList);
+            } else if (isDeleteTask(userInput)) {
+                deleteTask(userInput, TodoList);
             } else {
                 echo(userInput, TodoList);
             }
