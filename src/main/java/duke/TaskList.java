@@ -107,5 +107,28 @@ public class TaskList {
             System.out.println("No such task to delete.");
         }
     }
+
+    public void find(String str) {
+        try {
+            int j = 1;
+            for (int i = 0; i < tasklist.size(); i++) {
+                if (tasklist.get(i).check(str)) {
+                    if (j == 1) {
+                        System.out.println("Here are the matching tasks in your list:");
+                    }
+                    System.out.println("    " + j + ". " + tasklist.get(i).getCat()
+                                        + tasklist.get(i).marked() + " "
+                                        + tasklist.get(i).getTask()
+                                        + tasklist.get(i).getDetails());
+                    j++;
+                }
+            }
+            if (j == 1) {
+                System.out.println("No matching tasks!");
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("ENTER INSTRUCTION");
+        }
+    }
 }
 

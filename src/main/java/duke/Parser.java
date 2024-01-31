@@ -44,6 +44,13 @@ private TaskList tasklist;
             } catch (NumberFormatException e) {
                 System.out.println("Enter task to delete: e.g. delete 1");
             }
+        } else if(command.startsWith("find")) {
+            try {
+                String str = command.substring(5);
+                tasklist.find(str);
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("What are you finding babe?");
+            }
         } else {
             try {
                 if (command.startsWith("todo")) {
