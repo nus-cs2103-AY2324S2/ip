@@ -14,7 +14,7 @@ public class Awex {
 
     public static void main(String[] args) {
         System.out.println("Hello! I'm AWEX!\nWhat can I do for you?");
-        ArrayList<Task> list = new ArrayList<>();
+        LinkedList<Task> list = new LinkedList<>();
         Scanner sc = new Scanner(System.in);
         String next = sc.nextLine();
         String[] arr = next.split(" ");
@@ -61,8 +61,23 @@ public class Awex {
                         System.out.println("  " + t.showAll());
                     }
                 }
+            } else if (arr[0].equals("delete")) {
+                String[] array = next.split(" ");
+                if (array.length != 2) {
+                    System.out.println("Format should be 'delete <task number>'");
+                } else {
+                    int i = Integer.parseInt(array[1]);
+                    int len = list.size();
+                    if (i > len) {
+                        System.out.println("List has only " + len + " tasks.");
+                    } else {
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println("  " + list.remove(i - 1).showAll());
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    }
+                }
             } else {
-                Task t =  null;
+                Task t;
                 if (arr[0].equals("todo")) {
                     if (arr.length > 1) {
                         t = new TodoTask(arr[1]);
