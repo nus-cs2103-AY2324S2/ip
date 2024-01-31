@@ -6,13 +6,13 @@ package duke.task;
 public class Todo implements Task {
 
     protected String desc;
-    protected boolean checked;
+    protected boolean isMarked;
     protected String type;
 
     public Todo(String params){
         this.desc = params;
-        this.checked = false;
-        this.type = "T";
+        isMarked = false;
+        type = "T";
     }
 
     public String getDesc() {
@@ -20,19 +20,19 @@ public class Todo implements Task {
     }
 
     public String getCheck() {
-        return checked ? "X" : " ";
+        return isMarked ? "X" : " ";
     }
 
     public void setCheck(boolean x) {
-        this.checked = x;
+        isMarked = x;
     }
 
     public String getType() {
-        return this.type;
+        return type;
     }
 
     public String toSave() {
-        String temp = checked ? "1" : "0";
+        String temp = isMarked ? "1" : "0";
         return type + " | " + temp + " | " + getDesc() + "\n";
     }
 

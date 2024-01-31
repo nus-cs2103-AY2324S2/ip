@@ -8,15 +8,15 @@ public class Event implements Task {
     protected String desc;
     protected String start;
     protected String end;
-    protected boolean checked;
+    protected boolean isMarked;
     protected String type;
 
     public Event(String desc, String start, String end) {
         this.desc = desc;
         this.start = start;
         this.end = end;
-        this.checked = false;
-        this.type = "E";
+        isMarked = false;
+        type = "E";
     }
 
     public String getDesc() {
@@ -32,19 +32,19 @@ public class Event implements Task {
     }
 
     public String getCheck() {
-        return checked ? "X" : " ";
+        return isMarked ? "X" : " ";
     }
 
     public void setCheck(boolean x) {
-        this.checked = x;
+        isMarked = x;
     }
     public String getType() {
-        return this.type;
+        return type;
     }
 
     public String toSave() {
-        String temp = checked ? "1" : "0";
-        return type + " | " + temp + " | " + getDesc() + " | " + this.start + "-" + this.end + "\n";
+        String temp = isMarked ? "1" : "0";
+        return type + " | " + temp + " | " + getDesc() + " | " + start + "-" + end + "\n";
     }
 
     @Override
