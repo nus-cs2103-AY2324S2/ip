@@ -14,17 +14,7 @@ public class Deadline extends Task{
             return LocalDate.parse(dateString);
         } catch (DateTimeParseException e) {
             System.out.println("Unable to parse the date: " + dateString);
-            return null; // Or handle it another way
-        }
-    }
-
-    private LocalDate parseDateTime(String dateTimeString) {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            return LocalDate.parse(dateTimeString, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Unable to parse the date and time: " + dateTimeString);
-            return null; // Or handle it another way
+            return null;
         }
     }
 
@@ -46,16 +36,5 @@ public class Deadline extends Task{
         return "D | " + super.toFileFormat() + " | " + (by != null ? by.format(formatter) : "");
     }
 
-    public static Task fromFileFormat(String line) throws JayneException {
-        String[] parts = line.split(" \\| ");
-        if (parts.length < 4 || !"D".equals(parts[0])) {
-            throw new JayneException("Invalid line format for Deadline");
-        }
-        Deadline task = new Deadline(parts[2], parts[3]);
-        if ("1".equals(parts[1])) {
-            task.markAsDone();
-        }
-        return task;
-    }
 
 }
