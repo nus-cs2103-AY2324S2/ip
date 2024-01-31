@@ -58,20 +58,20 @@ public class Storage {
         String description = logEntry[2];
         boolean isCompleted = logEntry[1].equals("1");
         switch (logEntry[0]) {
-            case "T":
-                Task currTask = new Todo(description);
-                currTask.setCompletion(isCompleted);
-                return currTask;
-            case "D":
-                currTask = new Deadline(description, logEntry[3]);
-                currTask.setCompletion(isCompleted);
-                return currTask;
-            case "E":
-                currTask = new Event(description, logEntry[3], logEntry[4]);
-                currTask.setCompletion(isCompleted);
-                return currTask;
-            default:
-                return null;
+        case "T":
+            Task currTask = new Todo(description);
+            currTask.setCompletion(isCompleted);
+            return currTask;
+        case "D":
+            currTask = new Deadline(description, logEntry[3]);
+            currTask.setCompletion(isCompleted);
+            return currTask;
+        case "E":
+            currTask = new Event(description, logEntry[3], logEntry[4]);
+            currTask.setCompletion(isCompleted);
+            return currTask;
+        default:
+            return null;
         }
     }
 
