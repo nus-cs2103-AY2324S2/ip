@@ -27,16 +27,17 @@ public class DataStorage {
         try {
 
             if (this.file.createNewFile()) {
-//                System.out.println("\t The database has not been created. A new database has been created at the following location: " + this.file.getAbsolutePath());
             } else {
                 // This means that the file already exists here.
-//                System.out.println("\t Using the existing database located at: " + this.file.getAbsolutePath());
+                // System.out.println("\t Using the existing database located at: " + this.file.getAbsolutePath());
                 this.tasksList = readFromDatabaseIfAlreadyCreated();
             }
 
 
         } catch (IOException e) {
-            System.err.println("An error occurred while opening the file. \n" + "An error occurred on your device; please check that there is at least 100 MB of free disk space.");
+            System.err.println("An error occurred while opening the file. \n" +
+                    "An error occurred on your device; " +
+                    "please check that there is at least 100 MB of free disk space.");
             System.exit(1); // Exit the program. Non-zero indicates abnormal termination.
         }
 
