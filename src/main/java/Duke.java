@@ -54,11 +54,13 @@ public class Duke {
 
                     if (inputArr[0].equals("mark")) {
                         taskList.get(taskNumber).isCompleted();
+                        rewriteOutput(taskList);
                         System.out.println(String.format("%s\nGood job! Dave will mark this task as done:\n  %s\n%s",
                         horizontalLine, taskList.get(taskNumber).toString(), horizontalLine));    
                     }
                     if (inputArr[0].equals("unmark")) {
                         taskList.get(taskNumber).isNotCompleted();
+                        rewriteOutput(taskList);
                         System.out.println(String.format("%s\nAlright, Dave believes you'll get this done eventually:\n  %s\n%s",
                         horizontalLine, taskList.get(taskNumber).toString(), horizontalLine));
                     }
@@ -66,7 +68,7 @@ public class Duke {
                         Task toDelete = taskList.get(taskNumber);
                         taskList.remove(taskNumber);
                         // delete the task in output file
-                        deleteInSaved(taskList);
+                        rewriteOutput(taskList);
                         System.out.println(String.format("%s\nDave has removed the task:\n  %s", horizontalLine, toDelete.toString()));
                         System.out.println(String.format("\nYou now have %d task(s).\n%s", taskList.size(), horizontalLine));
                     }
@@ -80,6 +82,7 @@ public class Duke {
                         int idxDeadline = input.indexOf("/by");
                         String taskName = input.substring(9, idxDeadline - 1);
                         String deadline = input.substring(idxDeadline + "/by ".length());
+                        System.out.println(deadline);
                         newTask = new Deadline(taskName, deadline);
                     }
                     if (inputArr[0].equals("event")) {
@@ -127,7 +130,8 @@ public class Duke {
                     taskList.add(new Todo(taskDescription[2]));
                 }
                 if (taskType.equals("DEADLINE")) {
-                    String deadline = taskDescription[3].substring("BY ".length());
+                    int deadlineIdx = line.indexOf("BY");
+                    String deadline = line.substring(deadlineIdx + "BY ".length());
                     taskList.add(new Deadline(taskDescription[2], deadline));
                 }
                 if (taskType.equals("EVENT")) {
@@ -166,7 +170,7 @@ public class Duke {
 
     // delete a task in output (if exists)
     // using a loop on saveTask method
-    public static void deleteInSaved(ArrayList<Task> taskList) {
+    public static void rewriteOutput(ArrayList<Task> taskList) {
         File fileToDelete = new File("data/dave.txt");
         try {
             fileToDelete.delete();
@@ -174,7 +178,7 @@ public class Duke {
                 saveTask(taskList.get(i), i++);
             }
         } catch (IOException exc) {
-            System.out.println(String.format("Dave cannot find any tasks to delete."));
+            System.out.println(String.format("Dave had a problem updating the output file."));
         }
     }
 }
