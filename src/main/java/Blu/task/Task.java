@@ -34,4 +34,16 @@ public abstract class Task {
         }
         return "[ ] " + this.title;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Task)) {
+            return false;
+        }
+        Task other = (Task) obj;
+        return this.title.equals(other.title) && this.isMarked == other.isMarked;
+    }
 }
