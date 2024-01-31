@@ -1,3 +1,8 @@
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -10,6 +15,53 @@ public class Luke {
             + "   | |   _[  | | |  | '' < / /__\\\\ \n"
             + "  _| |__/ || \\_/ |, | |`\\ \\| \\__., \n"
             + " |________|'.__.'_/[__|  \\_]'.__.' ";
+
+    public static void main(String[] args) throws LukeException {
+        greet();
+
+        String wd = System.getProperty("user.dir");
+        Path directoryPath = Paths.get(wd,  "data");
+        Path historyPath = Paths.get(wd, "data", "history.txt");
+        //create directory (if it does not already exist)
+        try {
+            Files.createDirectory(directoryPath);
+        } catch (FileAlreadyExistsException e) {
+            //directory already exists.
+        } catch (IOException e) {
+            System.out.println("Failed to create directory");
+        }
+        //create file (if it does not already exist)
+        try {
+            Files.createFile(historyPath);
+        } catch (FileAlreadyExistsException e) {
+            //file already exists.
+        } catch (IOException e) {
+            System.out.println("Failed to create file");
+            return;
+        }
+
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            //task mode
+            //first, determine the type of input.
+            String input = sc.nextLine().trim(); //trim removes preceding and trailing whitespace.
+            if (input.equals("bye")) {
+                bye();
+                sc.close();
+                break;
+            } else if (input.equals("list")) {
+                listTasks();
+            } else if (input.split(" ")[0].equals("mark")) {
+                markTask(input);
+            } else if (input.split(" ")[0].equals("delete")) {
+                deleteTask(input);
+            } else {
+                //it is a task.
+                Task task = makeTask(input);
+                addTaskToHistory(task);
+            }
+        }
+    }
 
     private static ArrayList<Task> history = new ArrayList<>();
 
@@ -126,30 +178,6 @@ public class Luke {
         System.out.println("[Removed " + fullStatus + "]\n");
     }
 
-    public static void main(String[] args) throws LukeException {
-        greet();
-        Scanner sc = new Scanner(System.in);
-        while (true) {
-            //task mode
-            //first, determine the type of input.
-            String input = sc.nextLine().trim(); //trim removes preceding and trailing whitespace.
-            if (input.equals("bye")) {
-                bye();
-                sc.close();
-                break;
-            } else if (input.equals("list")) {
-                listTasks();
-            } else if (input.split(" ")[0].equals("mark")) {
-                markTask(input);
-            } else if (input.split(" ")[0].equals("delete")) {
-                deleteTask(input);
-            } else {
-                //it is a task.
-                Task task = makeTask(input);
-                addTaskToHistory(task);
-            }
-        }
-    }
 }
 
 
