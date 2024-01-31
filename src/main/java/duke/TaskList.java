@@ -1,22 +1,33 @@
 package duke;
 
 import java.util.ArrayList;
-
+/**
+ * Represents a task list.
+ */
 public class TaskList {
     private static ArrayList<Task> list;
     private static Storage store;
 
+    /**
+     * Creates a task list based on the stored array.
+     * @param store The storage used.
+     */
     public TaskList(Storage store) throws DukeException{
         this.store = store;
         this.list = store.load();
     }
 
+    /**
+     * Creates an empty task list.
+     */
     public TaskList() throws DukeException{
 
         this.list = new ArrayList<Task>(100);
     }
-
-    public static void addtask() throws DukeException{
+    /**
+     * Creates the message when task is added to tasklist.
+     */
+    public static void addTask() throws DukeException{
         System.out.println("Got it. I've added this task:\n");
 
         System.out.println(list.get(list.size()-1).ToString());
@@ -25,7 +36,11 @@ public class TaskList {
         store.save();
     }
 
-    public static void eventcase(String str) throws DukeException {
+    /**
+     * Creates an event in the tasklist.
+     * @param str The string representation of the event.
+     */
+    public static void eventCase(String str) throws DukeException {
         str = str.replace("event", "");
         //str = str.replace("from", "");
         //str = str.replace("to", "");
@@ -34,12 +49,10 @@ public class TaskList {
         if(eventtokens.length < 1) {
             throw new DukeException("OOPS!!! The description of a event cannot be empty." +
                     "Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]");
-        }
-        else if(eventtokens.length < 2) {
+        } else if(eventtokens.length < 2) {
             throw new DukeException("OOPS!!! The beginning date of a event cannot be empty." +
                     "Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]");
-        }
-        else if(eventtokens.length < 3) {
+        } else if(eventtokens.length < 3) {
             throw new DukeException("OOPS!!! The ending date of a event cannot be empty." +
                     "Please give this instruction in the following format: event [description] / [event starting date] / [event ending date]");
         }
@@ -52,8 +65,11 @@ public class TaskList {
 
 
     }
-
-    public static void deadlinecase(String str) throws DukeException {
+    /**
+     * Creates an deadline in the tasklist.
+     * @param str The string representation of the deadline.
+     */
+    public static void deadlineCase(String str) throws DukeException {
         str = str.replace("deadline", "");
         //str = str.replace("by", "");
         String[] deadlinetokens = str.split("/by");
@@ -70,8 +86,11 @@ public class TaskList {
         list.add(new Deadline(subject, deadline));
 
     }
-
-    public static void todocase(String str) throws DukeException {
+    /**
+     * Creates an todo task in the tasklist.
+     * @param str The string representation of the task.
+     */
+    public static void todoCase(String str) throws DukeException {
         str = str.replace("todo", "");
         int strcount = str.split("\\s").length;
 
@@ -82,8 +101,11 @@ public class TaskList {
         list.add(new Task(str));
 
     }
-
-    public static void markcase(String[] tokens) throws DukeException{
+    /**
+     * marks a task as done.
+     * @param  tokens The command to mark task as done.
+     */
+    public static void markCase(String[] tokens) throws DukeException{
         if(tokens.length != 2) {
             throw new DukeException("please give this instruction in the following format: mark [task number]");
         }
@@ -94,7 +116,11 @@ public class TaskList {
         store.save();
     }
 
-    public static void unmarkcase(String[] tokens) throws DukeException{
+    /**
+     * marks a task as undone.
+     * @param  tokens The command to mark task as undone.
+     */
+    public static void unmarkCase(String[] tokens) throws DukeException{
         if(tokens.length != 2) {
             throw new DukeException("please give this instruction in the following format: unmark [task number]");
         }
@@ -105,7 +131,11 @@ public class TaskList {
         store.save();
     }
 
-    public static ArrayList<Task> removecase(String[] tokens) throws DukeException{
+    /**
+     * removes a task.
+     * @param  tokens The command to remove a task.
+     */
+    public static ArrayList<Task> removeCase(String[] tokens) throws DukeException{
         if(tokens.length != 2) {
             throw new DukeException("please give this instruction in the following format: delete [task number]");
         }
@@ -124,18 +154,25 @@ public class TaskList {
 
 
     }
-
-    public static void printlist(){
+    /**
+     * prints the task list.
+     */
+    public static void printList(){
         System.out.println("Here are the tasks in your list:\n");
         for (int a = 0; a < list.size(); a++) {
             System.out.println(a + 1 + ". " + list.get(a).ToString());
         }
     }
-
+    /**
+     * gets the size of the task list.
+     */
     public int getSize(){
         return list.size();
     }
-
+    /**
+     * gets a specific task in the task list.
+     * @param  n The number of the specified task in the task list.
+     */
     public Task getTask(int n){
         return list.get(n);
     }

@@ -8,10 +8,19 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+
+/**
+ * Represents the disk storage for the task list.
+ */
 public class Storage {
     private File file;
-    private ArrayList<Task> list = new ArrayList<>(100);
-
+    private ArrayList<Task> tasks = new ArrayList<>(100);
+    /**
+     * Creates a new Storage object.
+     *
+     * @param filePath The path to the file that stores the task list.
+     * @throws DukeException If the file does not exist and cannot be created.
+     */
     public Storage(String filePath) throws DukeException {
         this.file = new File(filePath);
         if (!this.file.exists()) {
@@ -23,12 +32,17 @@ public class Storage {
             }
         }
     }
-
+    /**
+     * Saves the task list to the file.
+     * Assumption: load should be called before save.
+     *
+     * @throws DukeException If there is an error writing to file.
+     */
     public void save() throws DukeException {
         try{
         FileWriter writer = new FileWriter(file);
-        for(int a = 0; a < list.size(); a++ ) {
-            Task task = list.get(a);
+        for(int a = 0; a < tasks.size(); a++ ) {
+            Task task = tasks.get(a);
             String taskString = task.toStore();
             writer.write(taskString + "\n");
         }
@@ -38,6 +52,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the task list from the file.
+     *
+     * @return The task list.
+     * @throws DukeException If there is an error reading from file.
+     */
     public ArrayList<Task> load() throws DukeException {
         try{
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
@@ -69,7 +89,7 @@ public class Storage {
                 if(status.equals("1")) {
                     task.markAsDone();
                 }
-                list.add(task);
+                tasks.add(task);
                 str = bufferedReader.readLine();
 
             }
@@ -81,7 +101,7 @@ public class Storage {
             catch (IOException e) {
                 throw new DukeException("Error saving file");
             }
-        return list;
+        return tasks;
 
     }
 }
