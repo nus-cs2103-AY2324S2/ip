@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Duke {
     static void greeting(String botName) {
@@ -22,7 +24,33 @@ public class Duke {
         int length = TodoList.size();
         for (int i = 0; i < length; i++) {
             String pos = String.valueOf(i + 1);
-            System.out.println(pos + "." + TodoList.get(i).printTask());
+            System.out.println(pos + "." + TodoList.get(i));
+        }
+    }
+
+    static boolean isMarkTask(String userInput) {
+        String[] words = userInput.split("\\s+");
+        if (words.length == 2) {
+            if (words[0].equals("mark") || words[0].equals("unmark")) {
+                try {
+                    int number = Integer.parseInt(words[1]);
+                    return true;
+                } catch (NumberFormatException e) {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
+    static void changeMarkingOfTask(String userInput, ArrayList<Task> TodoList) {
+        String[] words = userInput.split("\\s+");
+        int number = Integer.parseInt(words[1]);
+        Task t = TodoList.get(number - 1);
+        if (words[0].equals("mark")) {
+            t.markAsDone();
+        } else {
+            t.unmark();
         }
     }
 
@@ -47,6 +75,8 @@ public class Duke {
                 isExit = true;
             } else if (userInput.equals("list")) {
                 printList(TodoList);
+            } else if (isMarkTask(userInput)) {
+                changeMarkingOfTask(userInput, TodoList);
             } else {
                 echo(userInput, TodoList);
             }
