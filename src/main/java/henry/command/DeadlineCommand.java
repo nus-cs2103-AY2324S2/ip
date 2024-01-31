@@ -16,7 +16,7 @@ public class DeadlineCommand extends Command {
         }
         String[] deadlineParams = args.split(" /by ");
         if (deadlineParams[0].isBlank()) {
-            throw new HenryException("No description and /by provided");
+            throw new HenryException("No description provided");
         }
         if (deadlineParams[1].isBlank()) {
             throw new HenryException("When this has to be done by?");

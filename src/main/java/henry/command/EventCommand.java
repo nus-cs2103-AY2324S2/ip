@@ -10,17 +10,40 @@ public class EventCommand extends Command {
     private final String description;
     private final String from;
     private final String to;
+
     public EventCommand(String args) throws HenryException {
         if (!args.contains("/from") || !args.contains("/to")) {
-            throw new HenryException("Missing /from and /to");
+            throw new HenryException("Missing /from or /to");
         }
-        String[] eventParams = args.split(" /from | /to ");
-        if (eventParams[0].isBlank() || eventParams[1].isBlank() || eventParams[2].isBlank()) {
-            throw new HenryException("Please provide desription, /from, and /to");
+        String description, from = "", to = "";
+        String[] parts = args.split(" /from | /to ");
+
+        if (parts.length < 3) {
+            throw new HenryException("Incorrect command format");
         }
-        this.description = eventParams[0];
-        this.from = eventParams[1];
-        this.to = eventParams[2];
+
+        description = parts[0];
+        if (args.indexOf("/from") < args.indexOf("/to")) {
+            from = parts[1];
+            to = parts[2];
+        } else {
+            from = parts[2];
+            to = parts[1];
+        }
+
+        if (description.isBlank()) {
+            throw new HenryException("Please provide description");
+        }
+        if (from.isBlank()) {
+            throw new HenryException("Missing /from");
+        }
+        if (to.isBlank()) {
+            throw new HenryException("Missing /to");
+        }
+
+        this.description = description;
+        this.from = from;
+        this.to = to;
     }
 
     @Override
