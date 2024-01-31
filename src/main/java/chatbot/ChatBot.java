@@ -8,6 +8,8 @@ import chatbot.ui.Printer;
 import chatbot.storage.LocalStorage;
 import chatbot.task.TaskList;
 
+import java.util.Scanner;
+
 /**
  * This encapsulates the behaviour of a Chatbot,
  * which is the handling of the message content and executing commands.
@@ -15,6 +17,11 @@ import chatbot.task.TaskList;
  * @author Titus Chew
  */
 public class ChatBot {
+    /**
+     * Stores the scanner instance used to get the console input stream.
+     */
+    private static final Scanner SCANNER = new Scanner(System.in);
+
     /**
      * Stores the name of this chatbot.
      */
@@ -59,7 +66,7 @@ public class ChatBot {
         Action userAction = null;
         do {
             try {
-                userAction = InputParser.getParsedInput();
+                userAction = InputParser.getParsedInput( SCANNER.nextLine());
                 userAction.execute(userList);
             } catch (ActionException e) {
                 Printer.printMessages(e.getMessage());

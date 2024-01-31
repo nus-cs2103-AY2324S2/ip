@@ -26,15 +26,6 @@ public final class TaskList {
     }
 
     /**
-     * Constructor for this.
-     *
-     * @param tasks takes in a task list
-     */
-    public TaskList(List<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    /**
      * Checks if the index is a valid index in this list.
      *
      * @param index the index of in the task list

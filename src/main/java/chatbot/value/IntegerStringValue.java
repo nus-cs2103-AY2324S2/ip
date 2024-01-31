@@ -21,7 +21,7 @@ public final class IntegerStringValue extends StringValue {
      * @param value the value as a {@link String}
      * @throws InvalidValueTypeException If the value cannot be converted.
      */
-    public IntegerStringValue(String value) throws InvalidValueTypeException {
+    private IntegerStringValue(String value) throws InvalidValueTypeException {
         super(value);
 
         Integer i = null;
