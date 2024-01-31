@@ -6,6 +6,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public Boolean getDone() {
         return this.isDone;
     }

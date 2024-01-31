@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
@@ -20,10 +21,10 @@ public class Duke {
             Scanner sc = new Scanner(f);
             while (sc.hasNextLine()) {
                 String task = sc.nextLine();
-                String[] split = task.split("]");
-                String taskType = split[0].substring(1);
-                Boolean isDone = split[1].equals("[ ")? false: true;
-                String desc = split[2].trim();
+                String[] split = task.split(",");
+                String taskType = split[0];
+                Boolean isDone = split[1].equals("X");
+                String desc = split[2];
                 if (taskType.equals("T")) {
                     ToDo todo = new ToDo(desc);
                     todo_list.add(todo);
@@ -31,22 +32,17 @@ public class Duke {
                         todo.mark();
                     }
                 } else if (taskType.equals("D")) {
-                    String[] split1 = desc.split("\\(by:");
-                    String name = split1[0].trim();
-                    String by = split1[1].trim();
+                    String by = split[3];
 
-                    Deadline deadline = new Deadline(name, by.substring(0, by.length() - 1));
+                    Deadline deadline = new Deadline(desc, by);
                     todo_list.add(deadline);
                     if (isDone) {
                         deadline.mark();
                     }
                 } else {
-                    String[] split1 = desc.split("\\(from:");
-                    String[] split2 = split1[1].split("to:");
-                    String name = split1[0].trim();
-                    String from = split2[0].trim();
-                    String to = split2[1].trim();
-                    Event event = new Event(name, from, to.substring(0, to.length() - 1));
+                    String from = split[3];
+                    String to = split[4];
+                    Event event = new Event(desc, from, to);
                     todo_list.add(event);
                     if (isDone) {
                         event.mark();
@@ -62,7 +58,23 @@ public class Duke {
         FileWriter fw = new FileWriter(filePath);
         String text = "";
         for (Task task: todo_list) {
-            text += task.toString() + "\n";
+            if (task instanceof Event) {
+                text += "E,";
+                text += task.isDone()? "X,":" ,";
+                text += task.getName() + ",";
+                text += ((Event) task).getFrom() + ",";
+                text += ((Event) task).getTo() + "\n";
+            } else if (task instanceof Deadline) {
+                text += "D,";
+                text += task.isDone()? "X,":" ,";
+                text += task.getName() + ",";
+                text += ((Deadline) task).getBy() + "\n";
+            } else {
+                text += "T,";
+                text += task.isDone()? "X,":" ,";
+                text += task.getName();
+                text += "\n";
+            }
         }
         fw.write(text);
         fw.close();
@@ -124,20 +136,15 @@ public class Duke {
                 "What can I do for you today?\n" +
                 line;
         System.out.println(greeting);
-<<<<<<< HEAD
         Scanner sc = new Scanner(System.in);
         try {
             initializeTaskList();
         } catch(FileNotFoundException e) {
 
         }
-=======
->>>>>>> parent of 20724fb (Add automated testing for chatbot)
 
         while (true) {
             try {
-                Scanner sc = new Scanner(System.in);
-
                 String input = sc.next();
                 if (input.equals("bye")) break;
                 else if (input.equals("list")) {
