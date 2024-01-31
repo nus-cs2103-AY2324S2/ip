@@ -1,8 +1,8 @@
 package model;
 
 public class Task {
-    private Boolean isCompleted = false; // Default value = false
-    private String name;
+    public Boolean isCompleted = false; // Default value = false
+    public String name;
 
     public Task(String name) {
         this.name = name;
@@ -26,6 +26,11 @@ public class Task {
     public String getTypeIcon() {
         return null;
     };
+
+    public String toTaskListStringFormat() {
+        String completedValue = this.isCompleted ? "1" : "0";
+        return String.format("%s|%s", completedValue, this.name);
+    }
 
     @Override
     public String toString() {

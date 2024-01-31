@@ -5,13 +5,14 @@ import exceptions.InvalidInputException;
 import model.Feedback;
 import type.CommandEnum;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class FeedbackService {
     private TaskService taskService = new TaskService();
 
-    public Feedback run(String userInput) throws InvalidCommandException, InvalidInputException {
+    public Feedback run(String userInput) throws InvalidCommandException, InvalidInputException, IOException {
         String[] cur = userInput.split(" ");
         CommandEnum curCommand = CommandEnum.getCommandEnum(cur[0]);
         Feedback feedback = null;
