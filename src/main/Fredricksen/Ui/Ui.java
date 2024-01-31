@@ -1,3 +1,5 @@
+package Ui;
+
 import java.util.Scanner;
 
 public class Ui {
