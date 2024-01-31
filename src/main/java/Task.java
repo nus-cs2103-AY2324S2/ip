@@ -1,10 +1,10 @@
-public class Task {
+abstract class Task {
     protected String description;
     protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
     }
 
     public String getStatusIcon() {
@@ -29,10 +29,9 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format(
-                "[%s] %s",
-                this.getStatusIcon(),
-                this.description
-        );
+        return String.format("[%s] %s",
+                this.getStatusIcon(), description);
     }
+
+    public abstract String toStorageString();
 }
