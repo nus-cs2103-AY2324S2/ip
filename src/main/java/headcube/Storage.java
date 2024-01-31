@@ -6,13 +6,26 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
-
+/**
+ * Handles storage operations for the HeadCube application, including saving and loading tasks.
+ */
 public class Storage {
     private Ui ui;
+
+    /**
+     * Constructor a Storage object with a reference to the UI for displaying messages.
+     *
+     * @param ui The UI to display messages.
+     */
     public Storage(Ui ui) {
         this.ui = ui;
     }
 
+    /**
+     * Saves the current list of tasks to a file.
+     *
+     * @param taskList The list of tasks to be saved.
+     */
     public void save(TaskList taskList) {
         try {
             String directoryPath = "./data";
@@ -34,7 +47,12 @@ public class Storage {
         }
     }
 
-    public void load(TaskList tasklist) {
+    /**
+     * Loads tasks from the storage file into the provided task list.
+     *
+     * @param taskList The task list to which loaded tasks will be added.
+     */
+    public void load(TaskList taskList) {
         File file = new File("./data/HeadCube.txt");
         if (!file.exists()) {
             return;
@@ -45,7 +63,7 @@ public class Storage {
                 String line = scanner.nextLine();
                 Task task = parse(line);
                 if (task != null) {
-                    tasklist.add(task);
+                    taskList.add(task);
 
                 }
             }
@@ -54,6 +72,13 @@ public class Storage {
             ui.error("No tasks to load" + e.getMessage());
         }
     }
+
+    /**
+     * Parses a line from the storage file into a Task object.
+     *
+     * @param input The line to be parsed.
+     * @return The parsed Task object, or null if the line is invalid.
+     */
     private static Task parse(String input) {
         String[] parts = input.split(" \\| ");
         if (parts.length < 3) {

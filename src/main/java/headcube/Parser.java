@@ -1,14 +1,31 @@
 package headcube;
+/**
+ * The Parser class handles the parsing of user input and executing corresponding actions
+ * in the HeadCube application.
+ */
 public class Parser {
     private Ui ui;
     private TaskList taskList;
-
     private Storage storage;
+
+    /**
+     * Constructor of a Parser object with references to the UI, TaskList, and Storage.
+     *
+     * @param ui The UI for displaying messages to the user.
+     * @param taskList The list of tasks to manage.
+     * @param storage The storage to save and load tasks.
+     */
     public Parser(Ui ui, TaskList taskList, Storage storage){
         this.ui = ui;
         this.taskList = taskList;
         this.storage = storage;
     }
+
+    /**
+     * Parses the given input string and performs the corresponding action.
+     *
+     * @param input The user input to parse.
+     */
     public void parse(String input) {
         try {
             String[] split = input.split(" ",2);
