@@ -9,7 +9,9 @@ import utilities.TaskList;
 import utilities.Ui;
 
 /**
- * The William class is the main class for this chatbot
+ * The William class is the main class for this chatbot (the other classes have
+ * been organised into suitable java packages: commands, exceptions, tasks and
+ * utilities)
  */
 public class William {
 
