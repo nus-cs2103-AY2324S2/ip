@@ -73,9 +73,11 @@ public class Parser {
     }
 
     /**
-     * Returns a LocalDateTime object from a date (and time) string.
+     * Parses the provided deadline string and returns a LocalDateTime object.
      *
-     * @throws DateTimeParseException if unable to retrieve a date (and time) from the string.
+     * @param deadlineString The string representation of the deadline.
+     * @return LocalDateTime object parsed from the deadline string.
+     * @throws DateTimeParseException If the deadline string is not in the expected format.
      */
     public static LocalDateTime getLocalDateTimeFromString(String deadlineString) throws DateTimeParseException {
         ArrayList<String> deadlineList = new ArrayList<>(Arrays.asList(deadlineString.split(" ")));
