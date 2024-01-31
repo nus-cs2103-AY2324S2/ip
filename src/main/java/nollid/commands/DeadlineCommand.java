@@ -17,13 +17,30 @@ import nollid.tasks.Deadline;
  * It extends the Command class and implements the execute method to perform the command logic.
  */
 public class DeadlineCommand extends Command {
+    /**
+     * Constant string providing usage hint for the DeadlineCommand.
+     */
     public static final String USAGE_HINT = "Usage: deadline [task description] /by [d/m/yyyy] {hh:mm 24hr format}";
+    /**
+     * ArrayList containing command arguments.
+     */
     private final ArrayList<String> argsList;
-
+    /**
+     * Constructor for DeadlineCommand.
+     * @param argsList ArrayList containing command arguments.
+     */
     public DeadlineCommand(ArrayList<String> argsList) {
         this.argsList = argsList;
     }
 
+    /**
+     * Overrides the execute method from the Command class.
+     * Executes the command to add a deadline task.
+     * @param tasks The TaskList containing tasks.
+     * @param ui The Ui for user interface interactions.
+     * @param storage The Storage for data storage operations.
+     * @throws NollidException Thrown if an exception specific to command execution occurs.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
         int byIndex = this.argsList.indexOf("/by");
