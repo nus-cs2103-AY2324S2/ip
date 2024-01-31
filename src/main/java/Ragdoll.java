@@ -1,6 +1,19 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Ragdoll{
@@ -41,7 +54,18 @@ public class Ragdoll{
             try {
                 command = Commands.valueOf(parts[0].toUpperCase());
             } catch (IllegalArgumentException e) {
-                command = Commands.ADD;
+                System.out.println("Sorry, " + USER + ", I didn't understand the command...\n\n"
+                        + "My commands include:\n"
+                        + "LIST: Display all tasks in your list.\n"
+                        + "MARK [task number]: Mark a task as completed.\n"
+                        + "UNMARK [task number]: Mark a task as not completed.\n"
+                        + "DELETE [task number]: Remove a task from your list.\n"
+                        + "[task type] [task description]: Add a new task. Task types include TODO, DEADLINE, EVENT.\n"
+                        + "LIST_ON [yyyy-mm-dd]: List all tasks on a specific date in format yyyy-MM-dd.\n"
+                        + "DATE / TIME: Show the current date and time."
+                        + "BYE: Exit the chatbot.");
+                System.out.println(LINE);
+                continue;
             }
 
             switch(command) {
@@ -53,6 +77,14 @@ public class Ragdoll{
             case LIST:
                 listTasks();
                 break;
+            case LIST_ON:
+                listTasksOnDate(input);
+                break;
+            case DATE:
+                // Fallthrough
+            case TIME:
+                showCurrentDateTime();
+                break;
             case MARK:
                 markTask(input);
                 break;
@@ -62,7 +94,11 @@ public class Ragdoll{
             case DELETE:
                 deleteTask(input);
                 break;
-            case ADD:
+            case TODO:
+                // Fallthrough
+            case DEADLINE:
+                // Fallthrough
+            case EVENT:
                 addTask(input);
                 break;
             }
@@ -94,28 +130,44 @@ public class Ragdoll{
         case TODO:
             task = new ToDo(parts[1]);
             break;
+
         case DEADLINE:
             String[] info = parts[1].split(" /by ", 2);
             if (info.length < 2) {
-                System.out.println("Sorry, " + USER + ", please use 'deadline [task] /by [date]'.");
+                System.out.println("Sorry, " + USER + ", please use 'deadline [task] /by [yyyy-mm-dd]'.");
                 return;
             }
-            task = new Deadline(info[0], info[1]);
+            try {
+                LocalDate byDate = LocalDate.parse(info[1], DateTimeFormatter.ISO_LOCAL_DATE);
+                task = new Deadline(info[0], byDate);
+            } catch (DateTimeParseException e) {
+                System.out.println("Sorry, " + USER + ", please use 'deadline [task] /by [yyyy-mm-dd]'.");
+                return;
+            }
             break;
+
         case EVENT:
             String[] eventParts = parts[1].split(" /from ", 2);
             if (eventParts.length < 2) {
                 System.out.println("Sorry, " + USER
-                        + ", please use 'event [task] /from [start time] /to [end time]'.");
+                        + ", please use 'event [task] /from [yyyy-mm-dd] /to [yyyy-mm-dd]'.");
                 return;
             }
             String[] timeParts = eventParts[1].split(" /to ", 2);
             if (timeParts.length < 2) {
                 System.out.println("Sorry, " + USER
-                        + ", please use 'event [task] /from [start time] /to [end time]'.");
+                        + ", please use 'event [task] /from [yyyy-mm-dd] /to [yyyy-mm-dd]'.");
                 return;
             }
-            task = new Event(eventParts[0], timeParts[0], timeParts[1]);
+            try {
+                LocalDate from = LocalDate.parse(timeParts[0], DateTimeFormatter.ISO_LOCAL_DATE);
+                LocalDate to = LocalDate.parse(timeParts[1], DateTimeFormatter.ISO_LOCAL_DATE);
+                task = new Event(eventParts[0], from, to);
+            } catch (DateTimeParseException e) {
+                System.out.println("Sorry, " + USER
+                        + ", please use 'event [task] /from [yyyy-mm-dd] /to [yyyy-mm-dd]'.");
+                return;
+            }
             break;
         }
 
@@ -166,6 +218,39 @@ public class Ragdoll{
                 System.out.println((i + 1) + "." + tasks.get(i));
             }
         }
+    }
+
+    private static void listTasksOnDate(String input) {
+        String[] parts = input.split(" ", 2);
+        if (parts.length < 2) {
+            System.out.println(USER + ", please use list_on [yyyy-mm-dd] to list tasks on a specific date.");
+            return;
+        }
+
+        LocalDate date;
+        try {
+             date = LocalDate.parse(parts[1]);
+        } catch (DateTimeParseException e) {
+            System.out.println(USER + ", please use list_on [yyyy-mm-dd] to list tasks on a specific date.");
+            return;
+        }
+
+        System.out.println(USER + ", on "
+                + date.format(DateTimeFormatter.ofPattern("MMM d yyyy").withLocale(Locale.US))
+                + ", you have the following tasks:");
+        for (Task task : tasks) {
+            if (task instanceof Deadline && ((Deadline) task).getBy().isEqual(date)) {
+                System.out.println(task);
+            } else if (task instanceof Event && ((Event) task).getFrom().isEqual(date)) {
+                System.out.println(task);
+            }
+        }
+    }
+
+    private static void showCurrentDateTime() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm:ss").withLocale(Locale.US);
+        System.out.println(USER + ", the current date and time is: " + now.format(formatter) + "!");
     }
 
     private static void markTask(String input) {
@@ -227,10 +312,10 @@ public class Ragdoll{
                         task = new ToDo(parts[2]);
                         break;
                     case "D":
-                        task = new Deadline(parts[2], parts[3]);
+                        task = new Deadline(parts[2], LocalDate.parse(parts[3]));
                         break;
                     case "E":
-                        task = new Event(parts[2], parts[3], parts[4]);
+                        task = new Event(parts[2], LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
                         break;
                     }
                     if (task != null) {
@@ -239,7 +324,7 @@ public class Ragdoll{
                         }
                         tasks.add(task);
                     }
-                } catch (ArrayIndexOutOfBoundsException e) {
+                } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
                     System.out.println(USER + ", I found a corrupted line in tasklist file! I'll skip it..!");
                 }
             }

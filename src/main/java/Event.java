@@ -1,12 +1,18 @@
-public class Event extends Task {
-    private String from;
-    private String to;
+import java.time.LocalDate;
 
-    public Event(String description, String from, String to) {
+public class Event extends Task {
+    private LocalDate from;
+    private LocalDate to;
+
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
         this.type = TaskType.EVENT;
+    }
+
+    public LocalDate getFrom() {
+        return from;
     }
 
     @Override
@@ -16,6 +22,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return type.getSymbol() + super.toString() + " (from: " + from + " to: " + to + ")";
+        return type.getSymbol() + super.toString() + " (from: " + from.format(formatter)
+                + " to: " + to.format(formatter) + ")";
     }
 }
