@@ -8,17 +8,28 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-
+/**
+ * The Storage class handles loading from and saving to the task data file.
+ */
 public class Storage {
     private String filePath;
 
     private TaskList tasks;
 
+    /**
+     * Constructs a new Storage object.
+     *
+     * @param tasks    The TaskList to be loaded from or saved to the file.
+     * @param filePath The file path of the data file.
+     */
     public Storage(TaskList tasks, String filePath) {
         this.tasks = tasks;
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the data file into the TaskList.
+     */
     public void load() {
         File file = new File(filePath);
         ensureFileExists();
@@ -35,10 +46,13 @@ public class Storage {
         }
 
 
-
-
     }
 
+    /**
+     * Saves tasks from the TaskList to the data file.
+     *
+     * @param tasks The TaskList containing tasks to be saved.
+     */
     public void save(TaskList tasks) {
         try (PrintWriter writer = new PrintWriter(filePath)) {
             for (Task task : tasks.getTasks()) {
@@ -49,6 +63,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Ensures that the data file and its parent directories exist.
+     * If they do not exist, it attempts to create them.
+     */
     private void ensureFileExists() {
         File file = new File(filePath);
         if (!file.exists()) {

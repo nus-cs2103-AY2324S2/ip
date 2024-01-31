@@ -14,8 +14,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-
+/**
+ * The Parser class is responsible for parsing user input and converting it into executable commands.
+ */
 public class Parser {
+    /**
+     * Parses a user input string and returns an executable Command.
+     *
+     * @param input   The user input string to parse.
+     * @param tasks   The TaskList object used for task operations.
+     * @param ui      The Ui object used for user interaction.
+     * @param storage The Storage object used for file operations.
+     * @return Command The command that can be executed based on user input.
+     * @throws AtlasException If the input string does not correspond to a valid command format.
+     */
     public static Command parse(String input, TaskList tasks, Ui ui, Storage storage) throws AtlasException {
         String[] parts = input.split(" ", 2);
         String command = parts[0];
@@ -74,6 +86,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts a string from file format back into a Task object.
+     *
+     * @param line The line from the file to be parsed into a Task.
+     * @return Task The task created from a single file line.
+     */
     public static Task parseLineToTask(String line) {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
