@@ -1,9 +1,20 @@
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Mona {
+    protected static List<Task> tasks = new ArrayList<>();
     public static void main(String[] args) throws MonaException{
+        File log = new File("data/duke.txt");
+        if (!log.exists()) {
+            createLog();
+        } else {
+            readLog(log);
+        }
         String introduction = "  ____________________________________________________________\n"
                 + "   Hello! I'm Mona\n"
                 + "   What can I do for you?\n"
@@ -12,7 +23,6 @@ public class Mona {
                 + "   Bye. Hope to see you again soon!\n"
                 + "  ____________________________________________________________";
         Scanner sc = new Scanner(System.in);
-        List<Task> tasks = new ArrayList<>();
         System.out.println(introduction);
         while (true) {
             String input = sc.nextLine();
@@ -44,6 +54,7 @@ public class Mona {
                         + "     Now you have " + tasks.size() + " tasks in the list.\n"
                         + "  ____________________________________________________________\n";
                 System.out.println(response);
+                writeToFile(log);
             } else if (input.startsWith("deadline")) {
                 if (input.length() < 10) {
                     String response = "  ____________________________________________________________\n"
@@ -62,6 +73,7 @@ public class Mona {
                         + "     Now you have " + tasks.size() + " tasks in the list.\n"
                         + "  ____________________________________________________________\n";
                 System.out.println(response);
+                writeToFile(log);
             } else if (input.startsWith("event")) {
                 if (input.length() < 7) {
                     String response = "  ____________________________________________________________\n"
@@ -80,6 +92,7 @@ public class Mona {
                         + "     Now you have " + tasks.size() + " tasks in the list.\n"
                         + "  ____________________________________________________________\n";
                 System.out.println(response);
+                writeToFile(log);
             } else if (input.startsWith("mark")) {
                 int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                 Task currTask = tasks.get(taskIndex);
@@ -89,6 +102,7 @@ public class Mona {
                         + "     " + currTask + "\n"
                         + "  ____________________________________________________________\n";
                 System.out.println(response);
+                writeToFile(log);
             } else if (input.startsWith("unmark")) {
                 int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                 Task currTask = tasks.get(taskIndex);
@@ -98,6 +112,7 @@ public class Mona {
                         + "     " + currTask + "\n"
                         + "  ____________________________________________________________\n";
                 System.out.println(response);
+                writeToFile(log);
             } else if (input.startsWith("delete")) {
                 int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                 Task removedTask = tasks.remove(taskIndex);
@@ -107,6 +122,7 @@ public class Mona {
                         + "     Now you have " + tasks.size() + " tasks in the list.\n"
                         + "  ____________________________________________________________\n";
                 System.out.println(response);
+                writeToFile(log);
             } else {
                 String response = "  ____________________________________________________________\n"
                         + "     OOPS!!! I'm sorry, but I don't know what that means :< \n"
@@ -116,5 +132,64 @@ public class Mona {
             }
         }
 
+
+        }
+    public static void createLog() {
+        String workingDirectory = System.getProperty("user.dir");
+        try {
+            Path dataDirectory = Paths.get(workingDirectory + "/data");
+            Files.createDirectories(dataDirectory);
+            File logFile = new File(workingDirectory + "/data/duke.txt");
+            logFile.createNewFile();
+            System.out.println(logFile.getAbsolutePath());
+        } catch (IOException e) {
+            System.out.println("Error occurred setting up log" + e.getMessage());
+        }
+    }
+
+    public static void readLog(File f) {
+        try {
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String[] task = s.nextLine().split("\\|");
+                tasks.add(parseLogEntry(task));
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found:" + e.getMessage());
+        }
+    }
+    public static Task parseLogEntry(String[] logEntry) {
+        String description = logEntry[2];
+        boolean isCompleted = logEntry[1].equals("1");
+        switch (logEntry[0]) {
+            case "T":
+                Task currTask = new Todo(description);
+                currTask.setCompletion(isCompleted);
+                return currTask;
+            case "D":
+                currTask = new Deadline(description, logEntry[3]);
+                currTask.setCompletion(isCompleted);
+                return currTask;
+            case "E":
+                currTask = new Event(description, logEntry[3], logEntry[4]);
+                currTask.setCompletion(isCompleted);
+                return currTask;
+            default:
+                return null;
+        }
+    }
+    public static void writeToFile(File f) {
+        StringBuilder sb = new StringBuilder();
+        for (Task task : tasks) {
+            sb.append(task.parseToLogRepresentation() + "\n");
+        }
+        try {
+            FileWriter fw = new FileWriter(f.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(sb.toString());
+            bw.close();
+        } catch (IOException e) {
+            System.out.println("Problem writing to log: " + e.getMessage());
+        }
     }
 }
