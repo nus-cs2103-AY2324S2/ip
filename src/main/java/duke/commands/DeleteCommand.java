@@ -8,7 +8,8 @@ import duke.ui.Ui;
 
 public class DeleteCommand extends Command {
 
-	private int deleteIndex;
+	/** Index to perform delete on */
+	private final int deleteIndex;
 
 	public DeleteCommand(int deleteIndex) {
 		this.deleteIndex = deleteIndex;

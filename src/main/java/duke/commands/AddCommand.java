@@ -8,6 +8,7 @@ import duke.ui.Ui;
 
 public class AddCommand extends Command {
 
+	/** Task to add */
 	private Task newTask;
 
 	public AddCommand(Task newTask) {
