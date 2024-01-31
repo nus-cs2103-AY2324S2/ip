@@ -5,13 +5,7 @@ public class Duke {
 
     private static ArrayList<Task> list = new ArrayList<>();
 
-    public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
+    public static void main(String[] args) throws DukeException {
 
         String hello = "Hello!\n" + "What can I do for you?\n";
         System.out.println(hello);
@@ -20,12 +14,15 @@ public class Duke {
 
         String indent = "    ";
 
-
         Scanner scanner = new Scanner(System.in);
+
         while (scanner.hasNextLine()) {
             String str = scanner.nextLine();
             String[] arr = str.split(" ", 2);
             String action = arr[0];
+            if (arr.length <= 1) {
+                throw new DukeException("Description cannot be empty.");
+            }
             if (action.equalsIgnoreCase("bye")) {
                 System.out.println(bye);
 
@@ -51,9 +48,13 @@ public class Duke {
             } else {
                 Task task;
                 if (action.equalsIgnoreCase("todo")) {
+
                   task = new Todo(arr[1]);
                 } else if (action.equalsIgnoreCase("deadline")) {
                     String[] dlarr = arr[1].split("/", 2);
+                    if (dlarr.length <= 1) {
+                        throw new DukeException("Please use the format: deadline /by <deadline>.");
+                    }
                     String name = dlarr[0];
                     String by = dlarr[1];
                     task = new Deadline(name, by);
@@ -62,11 +63,16 @@ public class Duke {
                 } else if (action.equalsIgnoreCase("event")) {
                     String event = arr[1];
                     String[] evarr = arr[1].split("/", 3);
+                    if (evarr.length <= 1) {
+                        throw new DukeException("Please use the format: event /from <date/time> /to <date/time>");
+                    }
                     String name = evarr[0];
                     String from = evarr[1];
                     String to = evarr[2];
                     task = new Event(name, from, to);
-                } else {continue;}
+                } else {
+                    throw new DukeException("I don't know what that means");
+                }
 
                 list.add(task);
                 int n = list.size();
