@@ -1,9 +1,9 @@
 package utilities;
 
+import java.util.Scanner;
+
 import task.TaskList;
 import task.Task;
-
-import java.util.Scanner;
 
 public class Ui {
     /**

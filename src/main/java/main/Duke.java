@@ -1,13 +1,27 @@
-import task.TaskList;
-import utilities.Ui;
-import command.Command;
+package main;
+
 import exceptions.DukeException;
+
+import task.TaskList;
+
+import command.Command;
+
+import utilities.Ui;
 import utilities.Storage;
 import utilities.Parser;
 
 public class Duke {
+    /**
+     * Ui responsible for user interaction.
+     */
     private Ui ui;
+    /**
+     * The user's task list.
+     */
     private TaskList taskList;
+    /**
+     * The storage used to access the save file if it exists.
+     */
     private Storage storage;
 
     /**

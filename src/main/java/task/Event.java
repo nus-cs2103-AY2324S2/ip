@@ -53,7 +53,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.start.formatDate() + "hrs to: " + this.end.formatDate() + "hrs)";
+        return "[E]" + super.toString()
+                + " (from: " + this.start.formatDate() + "hrs to: "
+                + this.end.formatDate() + "hrs)";
     }
 
     /**
