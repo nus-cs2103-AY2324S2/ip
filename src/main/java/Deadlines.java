@@ -9,6 +9,11 @@ class Deadlines extends Task {
         this.deadline = by;
     }
 
+    Deadlines(String str, String by, boolean marked) {
+        super(str, marked);
+        this.deadline = by;
+    }
+
     String getStatusIcon() {
         return (this.is_marked ? "[D][X]" : "[D][ ]");
     }

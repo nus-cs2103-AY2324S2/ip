@@ -9,6 +9,11 @@ class Task {
         this.is_marked = false;
     }
 
+    Task(String str, boolean marked) {
+        this.taskname = str;
+        this.is_marked = marked;
+    }
+
     void marked() {
         this.is_marked = true;
     }
