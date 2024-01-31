@@ -12,7 +12,9 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.util.List;
 
-
+/**
+ * Encapsulates the storage of Howie where data are retrieved and stored into user's local file.
+ */
 public class Storage {
 
     public static class InvalidFilePathException extends DukeException {
@@ -31,6 +33,10 @@ public class Storage {
 
     public final Path path;
 
+    /**
+     * Constructor for storage.
+     * @throws InvalidFilePathException
+     */
     public Storage() throws InvalidFilePathException {
         this.path = Paths.get(FILEPATH);
         if (!path.toString().endsWith(".txt")) {
@@ -50,6 +56,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Read and populate list of tasks from user's data.
+     * @return TaskList
+     * @throws DukeException Throws exception when input format is wrong, or file is corrupted.
+     */
     public TaskList readFile() throws DukeException {
         if (!Files.exists(path)) {
             return new TaskList();
@@ -90,6 +101,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves files into users local hard disk.
+     * @param taskLs TaskList that stores list of tasks.
+     * @throws DukeException Throws Exception when
+     * @throws IOException Throws IOException when file is not found.
+     */
     public void saveFile(TaskList taskLs) throws DukeException, IOException {
         List<Task> tasks = taskLs.getList();
         try {

@@ -52,6 +52,10 @@ public class Task {
         return this;
     }
 
+    /**
+     * Encode the task to be stored in user's local hard disk.
+     * @return String encoding of task
+     */
     public String encode() {
         String s = "T|" + (isDone ? 1 : 0) + "|" + task;
         return s;

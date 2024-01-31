@@ -20,15 +20,23 @@ public class Ui {
         System.out.println("------------------------------------");
     }
 
+    /**
+     * Constructor for Ui.
+     */
     public Ui() {
         intro();
         this.br = new BufferedReader(new InputStreamReader(System.in));
     }
 
+    /**
+     * Reads user-typed input.
+     * @return An array of strings.
+     * @throws IOException Throws IOException when I/O error occurs.
+     */
     public String[] getUserCommand() throws IOException {
         return br.readLine().split(" ");
     }
-
+    
     private void intro() {
         printVLine();
         System.out.println("Hello! I'm Howie! My hobby is to keep track of TASKS. Let me help you!");
