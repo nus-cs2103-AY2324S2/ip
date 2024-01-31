@@ -133,7 +133,12 @@ public class Bit {
                     if (compo[0].trim().isEmpty() || compo[1].trim().isEmpty()) {
                         throw new DukeException("Did you miss something?");
                     }
-                    list.add(new Deadline(compo[0], compo[1]));
+                    Deadline d = new Deadline(compo[0], compo[1]);
+                    if (!d.getValid()) {
+                        System.out.println("The date you entered is invalid.");
+                        return;
+                    }
+                    list.add(d);
                     int i = list.size();
                     System.out.println("Done! I have added this to the list:" + list.get(i - 1).toString()
                      + "\n There are now " + (i) + " items");
