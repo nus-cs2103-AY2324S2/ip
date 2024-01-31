@@ -60,6 +60,12 @@ public class ui {
                     System.out.printf("Now you have %d tasks in the list.", newTodoList.getNumberOfTasks());
                 }
 
+            } else if (userInputArray[0].equalsIgnoreCase("delete")) {
+                String taskString = newTodoList.removeTask(Integer.parseInt(userInputArray[1]) - 1);
+
+                System.out.println("Roger. I have removed this task.");
+                System.out.println(taskString);
+                System.out.printf("Now you have %d tasks in the list.", newTodoList.getNumberOfTasks());
             } else {
                 // Unknown keyword error
                 try {

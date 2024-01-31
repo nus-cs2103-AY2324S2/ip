@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+
 public class Storage {
-    private final Task[] todoList = new Task[100];
-    private int index;
+//    private final Task[] todoList = new Task[100];
+    ArrayList<Task> todoList = new ArrayList<>();
+//    private int index;
 
     public Storage() {
-        this.index = 0;
+//        this.index = 0;
     }
 
     public String addTask(String userInput) {
@@ -23,7 +26,8 @@ public class Storage {
 
                 if (userInputArray[0].equalsIgnoreCase("todo")) {
                     String description = userInput.substring(4).trim();
-                    todoList[index] = new Todo(description);
+//                    todoList[index] = new Todo(description);
+                    todoList.add(new Todo(description));
 
                 } else if (userInputArray[0].equalsIgnoreCase("deadline")) {
 
@@ -33,8 +37,9 @@ public class Storage {
                         String description = userInput.substring(8, keywordIndex).trim();
                         String deadline = userInput.substring(keywordIndex + 3).trim();
 
-                        Deadline deadlineObj = new Deadline(description, deadline);
-                        todoList[index] = deadlineObj;
+//                        Deadline deadlineObj = new Deadline(description, deadline);
+//                        todoList[index] = deadlineObj;
+                        todoList.add(new Deadline(description, deadline));
                     } else {
                         // Missing keyword error
                         throw new HALException("Missing keyword /by!");
@@ -49,17 +54,20 @@ public class Storage {
                         String deadlineFrom = userInput.substring(keywordIndex + 5, keyword2Index).trim();
                         String deadlineTo = userInput.substring(keyword2Index + 3).trim();
 
-                        todoList[index] = new Event(description, deadlineFrom, deadlineTo);
+                        todoList.add(new Event(description, deadlineFrom, deadlineTo));
+//                        todoList[index] = new Event(description, deadlineFrom, deadlineTo);
                     } else {
                         // Missing keyword error
                         throw new HALException("Missing keyword /from and /to!");
 
                     }
                 }
-                index ++;
+//                index ++;
 
                 // [index - 1] so that we increment index, but still return string from previously added task
-                returnOutput = todoList[index - 1].toString();
+//                returnOutput = todoList[index - 1].toString();
+                Task taskObject = todoList.get(todoList.size() - 1);
+                return taskObject.toString();
             }
 
         } catch (HALException e) {
@@ -70,15 +78,24 @@ public class Storage {
         return returnOutput;
     }
 
+    public String removeTask(int taskIndex) {
+        Task taskObject = todoList.get(taskIndex);
+        todoList.remove(taskIndex);
+
+        return taskObject.toString();
+    }
+
     public String markAsDone(int taskIndex) {
-        Task t = todoList[taskIndex];
+//        Task t = todoList[taskIndex];
+        Task t = todoList.get(taskIndex);
         t.markAsDone();
 //        String taskString = String.format("[%s] %s\n", t.getStatusIcon(), t.getDescription());
         return t.toString();
     }
 
     public String markAsUndone(int taskIndex) {
-        Task t = todoList[taskIndex];
+//        Task t = todoList[taskIndex];
+        Task t = todoList.get(taskIndex);
         t.markAsUndone();
 //        String taskString = String.format("[%s] %s\n", t.getStatusIcon(), t.getDescription());
         return t.toString();
@@ -87,14 +104,14 @@ public class Storage {
     public void listTasks() {
         System.out.println("Tasks:");
 
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < todoList.size(); i++) {
 
-            Task t = todoList[i];
+            Task t = todoList.get(i);
             System.out.printf("%d. %s\n", i + 1, t.toString());
         }
     }
 
     public int getNumberOfTasks() {
-        return index;
+        return todoList.size();
     }
 }
