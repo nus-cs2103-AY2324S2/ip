@@ -79,7 +79,7 @@ public final class InputParser {
      */
     private static Argument parseArgument(String argumentName, String argumentValue) {
         argumentValue = argumentValue.trim();
-        argumentValue = argumentValue.equals("") ? null : argumentValue;
+        argumentValue = (argumentValue.equals("")) ? null : argumentValue;
         return new Argument(argumentName, argumentValue);
     }
 }

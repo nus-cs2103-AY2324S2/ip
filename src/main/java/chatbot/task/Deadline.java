@@ -71,7 +71,7 @@ public final class Deadline extends Task {
      * @param matchingString the string
      * @return true if it matches, otherwise false.
      */
-    public static boolean matchesDeadline(String matchingString) {
+    public static boolean isMatchingDeadline(String matchingString) {
         return REGEX_PATTERN.matcher(matchingString).find();
     }
 
