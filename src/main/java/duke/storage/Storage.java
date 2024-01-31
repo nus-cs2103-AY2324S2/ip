@@ -1,6 +1,7 @@
 package duke.storage;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import duke.DukeException;
@@ -36,7 +37,9 @@ public class Storage {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
-            TaskListParser.writeToFile(list, file);
+            FileWriter writer = new FileWriter(file, false);
+            writer.write(TaskListParser.serialize(list));
+            writer.close();
         } catch (IOException e) {
             throw new StorageSaveException("Failed to save data to file: " + filePath,
                     "Cannot save data to file: " + filePath);

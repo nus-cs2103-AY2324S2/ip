@@ -50,14 +50,4 @@ public class TaskListParser {
     private static String serializeTask(Task task) {
         return task.serialize();
     }
-
-    public static void writeToFile(TaskList list, File file) throws IOException {
-        if (!file.exists()) {
-            file.getParentFile().mkdirs();
-            file.createNewFile();
-        }
-        FileWriter writer = new FileWriter(file, false);
-        writer.write(serialize(list));
-        writer.close();
-    }
 }
