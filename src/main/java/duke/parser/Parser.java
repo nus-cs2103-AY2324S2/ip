@@ -1,3 +1,5 @@
+import duke.utils.DukeException;
+
 public class Parser {
     public static Command parse(String input) throws DukeException {
         String[] split = input.split(" ", 2);

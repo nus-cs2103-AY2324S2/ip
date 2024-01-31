@@ -1,3 +1,6 @@
+import duke.task.TaskList;
+import duke.utils.DukeException;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
