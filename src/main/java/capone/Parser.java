@@ -11,6 +11,8 @@ import java.util.Scanner;
 
 import capone.commands.*;
 import capone.exceptions.CaponeException;
+import capone.exceptions.InvalidDateException;
+import capone.exceptions.InvalidTimeException;
 
 public class Parser {
     private static ArrayList<String> inputList;
@@ -102,21 +104,21 @@ public class Parser {
         }
     }
 
-    public static LocalDate parseDate(String date) throws CaponeException {
+    public static LocalDate parseDate(String date) throws InvalidDateException {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             return LocalDate.parse(date, dateFormatter);
         } catch (DateTimeException e) {
-            throw new CaponeException("Oops! You have entered an invalid date. Please try again.");
+            throw new InvalidDateException("Oops! You have entered an invalid date. Please try again.");
         }
     }
 
-    public static LocalTime parseTime(String time) throws CaponeException {
+    public static LocalTime parseTime(String time) throws InvalidTimeException {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
         try {
             return LocalTime.parse(time, timeFormatter);
         } catch (DateTimeException e) {
-            throw new CaponeException("Oops! You have entered an invalid time. Please try again.");
+            throw new InvalidTimeException("Oops! You have entered an invalid time. Please try again.");
         }
     }
 

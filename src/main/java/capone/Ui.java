@@ -13,6 +13,6 @@ public class Ui {
     }
 
     public void sendMessage(String string) {
-        System.out.println(string);
+        System.out.printf(string);
     }
 }

@@ -2,9 +2,11 @@ package capone.commands;
 
 import capone.*;
 import capone.exceptions.CaponeException;
+import capone.exceptions.InsufficientArgumentException;
 import capone.tasks.Deadline;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -19,7 +21,7 @@ public class DeadlineCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
         // If the inputList has only one string, throw error (insufficient args).
         if (inputList.size() == 1) {
-            throw new CaponeException("Insufficient arguments!\n" +
+            throw new InsufficientArgumentException("Insufficient arguments!\n" +
                     "Usage: deadline [description] /by [date]");
         }
 
@@ -28,7 +30,7 @@ public class DeadlineCommand extends Command {
 
         // Catch potential errors from date entry.
         if (byNdx == inputList.size() - 1 || byNdx == -1) {
-            throw new CaponeException("Please enter a date for this deadline task!\n" +
+            throw new InsufficientArgumentException("Please enter a date for this deadline task!\n" +
                     "Usage: deadline [description] /by [date]");
         }
 
@@ -43,7 +45,7 @@ public class DeadlineCommand extends Command {
         }
 
         if (description.toString().equalsIgnoreCase("")) {
-            throw new CaponeException("Insufficient arguments!\n" +
+            throw new InsufficientArgumentException("Insufficient arguments!\n" +
                     "Usage: deadline [description] /by [date]");
         }
 
@@ -70,21 +72,12 @@ public class DeadlineCommand extends Command {
             }
         }
 
+        LocalDateTime deadlineDateTime = Parser.processDateTime(date, time);
 
-        if (date != null) {
-            if (time != null) {
-                taskList.addTask(new Deadline(description.toString(), false, date.atTime(time)));
-            } else {
-                taskList.addTask(new Deadline(description.toString(), false, date.atStartOfDay()));
-            }
+        if (deadlineDateTime != null) {
+            taskList.addTask(new Deadline(description.toString(), false, deadlineDateTime));
         } else {
-            // If only the time is specified, the deadline will be the time at the next day.
-            if (time != null) {
-                taskList.addTask(new Deadline(description.toString(), false,
-                        LocalDate.now().plusDays(1).atTime(time)));
-            } else {
-                taskList.addTask(new Deadline(description.toString(), false, byDate.toString()));
-            }
+            taskList.addTask(new Deadline(description.toString(), false, byDate.toString()));
         }
 
         storage.writeTasksToJsonFile(taskList);
