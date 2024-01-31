@@ -1,7 +1,6 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) throws DukeException {
         Scanner scanner = new Scanner(System.in);
@@ -11,11 +10,10 @@ public class Duke {
 
         //Greetings
         String name = "Tommy";
-        String divider = "____________________________";
-        System.out.println(divider);
+        printDivider();
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");
-        System.out.println(divider);
+        printDivider();
 
         while (scanner.hasNextLine()) {
             try {
@@ -23,7 +21,6 @@ public class Duke {
 
                 if (userInput.contains("unmark")) {
                     // Unmark the tasks
-
                     int indexToUnmark = Integer.parseInt(userInput.substring(7));
                     validateIndex(indexToUnmark, tasks.size());
 
@@ -33,7 +30,7 @@ public class Duke {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + taskToUnmark.toString());
 
-                    System.out.println(divider);
+                    printDivider();
 
                 }
                 else if (userInput.contains("mark")) {
@@ -47,7 +44,7 @@ public class Duke {
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  " + taskToMark.toString());
 
-                    System.out.println(divider);
+                    printDivider();
 
                 }
                 else if (userInput.equals("list")) {
@@ -60,7 +57,7 @@ public class Duke {
                         System.out.println( i + 1 + "." + task.toString());
                     }
 
-                    System.out.println(divider);
+                    printDivider();
 
                 }
                 else if (userInput.contains("todo")) {
@@ -76,7 +73,7 @@ public class Duke {
                     System.out.println("  " + todo.toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
-                    System.out.println(divider);
+                    printDivider();
 
                 }
                 else if (userInput.contains("deadline")) {
@@ -106,7 +103,8 @@ public class Duke {
                     System.out.println("  " + deadline.toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
-                    System.out.println(divider);
+                    printDivider();
+
                 }
                 else if (userInput.contains("event")) {
                     // Event
@@ -144,7 +142,8 @@ public class Duke {
                     System.out.println("  " + event.toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
-                    System.out.println(divider);
+                    printDivider();
+
                 }
                 else if (userInput.contains("delete")) {
 
@@ -161,7 +160,8 @@ public class Duke {
 
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
-                    System.out.println(divider);
+                    printDivider();
+
 
                 }
                 else if (userInput.equals("bye")) {
@@ -172,39 +172,43 @@ public class Duke {
 
             } catch (DukeException e) {
                 System.out.println("Oops: " + e.getMessage());
-                System.out.println(divider);
+                printDivider();
+
             }
         }
 
         //Farewell
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(divider);
+        printDivider();
 
         scanner.close();
     }
 
-
-    public static void validateDesc(String desc) throws DukeException {
+    private static void validateDesc(String desc) throws DukeException {
         if (desc.isBlank()) {
             throw new DukeException("The description cannot be empty :(");
         }
     }
 
-    public static void validateDate(int date, int length) throws DukeException {
+    private static void validateDate(int date, int length) throws DukeException {
         if (date > length - 1) {
             throw new DukeException("The date cannot be empty :(");
         }
     }
 
-    public static void validateFormat(int index) throws DukeException {
+    private static void validateFormat(int index) throws DukeException {
         if (index == -1) {
             throw new DukeException("Something is wrong with the format!");
         }
     }
-    public static void validateIndex(int index, int length) throws DukeException {
+    private static void validateIndex(int index, int length) throws DukeException {
         if (index > length || index <= 0) {
             throw new DukeException("Invalid index");
         }
+    }
+
+    private static void printDivider() {
+        System.out.println("____________________________");
     }
 }
 

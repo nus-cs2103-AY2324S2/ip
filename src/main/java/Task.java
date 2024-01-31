@@ -4,6 +4,10 @@ abstract public class Task {
     protected int index;
     protected static int counter = 0;
 
+    public enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
+
     public Task(String description) {
         counter++;
         this.description = description;
@@ -13,6 +17,6 @@ abstract public class Task {
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
-    abstract String getType();
+    public abstract TaskType getTaskType();
 }
 

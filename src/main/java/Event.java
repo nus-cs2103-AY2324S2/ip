@@ -7,14 +7,15 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
     }
-    @Override
-    public String getType() {
-        return ("[E]");
-    }
 
     @Override
     public String toString() {
         return "[E]" + this.getStatusIcon() + this.description;
+    }
+
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.EVENT;
     }
 }
 
