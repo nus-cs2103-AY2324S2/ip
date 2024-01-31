@@ -3,6 +3,9 @@ package duke;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Contains a list of Task objects, and handles operations like getting, updating and deleting them
+ */
 public class TaskList {
     public ArrayList<Task> taskList;
 
@@ -19,7 +22,9 @@ public class TaskList {
         this.taskList = new ArrayList<>();
     }
 
-    // initialise the duke.TaskList with a List<String>
+    /**
+     * Initialises the TaskList, given a list of strings of tasks in their database representations
+     */
     public TaskList(List<String> stringTasksList) throws DukeException.UnknownCommandException {
         this.taskList = new ArrayList<>();
         for (String s : stringTasksList) {
@@ -56,7 +61,7 @@ public class TaskList {
     /**
      * Gets a task from the current taskList
      *
-     * @param task to be added
+     * @param index of task to get
      */
     public Task getTask(int index) throws DukeException.TaskNotFoundException {
         // Check if the index is within the valid range
@@ -85,11 +90,11 @@ public class TaskList {
      *
      * @param index of task to mark
      */
-    public void markTask(int index) throws DukeException.TaskNotFoundException  {
+    public void markTask(int index) throws DukeException.TaskNotFoundException {
         if (index < 1 || index > taskList.size()) {
             throw new DukeException.TaskNotFoundException();
         } else {
-            Task t =  this.getTask(index);
+            Task t = this.getTask(index);
             t.markAsDone();
         }
     }
@@ -99,11 +104,11 @@ public class TaskList {
      *
      * @param index of the task to unmark
      */
-    public void unmarkTask(int index) throws DukeException.TaskNotFoundException  {
+    public void unmarkTask(int index) throws DukeException.TaskNotFoundException {
         if (index < 1 || index > taskList.size()) {
             throw new DukeException.TaskNotFoundException();
         } else {
-            Task t =  this.getTask(index);
+            Task t = this.getTask(index);
             t.unmarkAsDone();
         }
     }
@@ -135,18 +140,18 @@ public class TaskList {
         String[] params = dbTask.split(" \\| ");
         String type = params[0];
         switch (type) {
-            case "T": //  To do
-                Todo todoTask = Todo.db2Todo(dbTask);
-                return todoTask;
-            case "D": // duke.Deadline
-                Deadline deadlineTask = Deadline.db2Deadline(dbTask);
-                return deadlineTask;
-            case "E": // duke.Event
-                Event eventTask = Event.db2Event(dbTask);
-                return eventTask;
-            default:
-                System.out.println("Failed to convert string to task!");
-                throw new DukeException.UnknownCommandException();
+        case "T": //  To do
+            Todo todoTask = Todo.db2Todo(dbTask);
+            return todoTask;
+        case "D": // duke.Deadline
+            Deadline deadlineTask = Deadline.db2Deadline(dbTask);
+            return deadlineTask;
+        case "E": // duke.Event
+            Event eventTask = Event.db2Event(dbTask);
+            return eventTask;
+        default:
+            System.out.println("Failed to convert string to task!");
+            throw new DukeException.UnknownCommandException();
         }
     }
 

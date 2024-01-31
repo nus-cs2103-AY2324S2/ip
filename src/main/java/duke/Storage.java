@@ -3,21 +3,23 @@ package duke;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * Used by the duke.TaskList class, and handles reading, writing and deleting from lines in the file
+ * Used by the TaskList class, and handles reading, writing and deleting from lines in the file
  */
 public class Storage {
 
     private String filepath;
 
+    /**
+     * Carries out operations like reading and writing to a specified database file
+     * @param filepath
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
         try {
@@ -30,9 +32,9 @@ public class Storage {
     }
 
     /**
-     * Reads all lines of the file into a List<String>
+     * Reads all lines of the file into a List of strings
      *
-     * @return List<String> that contains all lines of the file
+     * @return List/<String/> that contains all lines of the file
      */
     public List<String> readLinesFromFile() {
         try {
@@ -65,8 +67,8 @@ public class Storage {
     }
 
     /**
-     * Returns a List<String> of tasks in db representation
-     * @return List<String> of tasks in db representation
+     * Returns a List of strings of tasks in db representation
+     * @return List/<String/> of tasks in db representation
      */
     public List<String> load() {
         List<String> stringTasksList = this.readLinesFromFile();
@@ -104,7 +106,9 @@ public class Storage {
 
         List<String> output = fileHandler.readLinesFromFile();
 
-        for (String s : output) System.out.println(s);
+        for (String s : output) {
+            System.out.println(s);
+        }
         System.out.println(Objects.equals(input, output));
 
     }

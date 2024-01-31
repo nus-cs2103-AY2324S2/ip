@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Task class contains a description, and a boolean marking its status of completion
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

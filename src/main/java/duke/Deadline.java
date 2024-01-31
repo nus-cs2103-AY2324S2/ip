@@ -2,6 +2,9 @@ package duke;
 
 import java.time.LocalDateTime;
 
+/**
+ * Deadline is a type of task with a by field that denotes by when it has to be completed
+ */
 public class Deadline extends Task {
 
     protected String by;

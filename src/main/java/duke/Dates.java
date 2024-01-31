@@ -12,16 +12,16 @@ import java.util.regex.Pattern;
  */
 public class Dates {
     // Looks for pattern "dd/MM/yyyy HHmm", used for input purposes
-    static final Pattern DATE_INPUT_PATTERN = Pattern.compile("^(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[0-2])/" +
-            "(\\d{4}) (\\d{4}$)");
+    static final Pattern DATE_INPUT_PATTERN = Pattern.compile("^(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[0-2])/"
+            + "(\\d{4}) (\\d{4}$)");
 
     // Looks for pattern "dd Month yyyy HH:mm", used for storing in db and output purposes
     static final Pattern DATE_DB_PATTERN = Pattern.compile("\\d{1,2} "
-            + "(January|February|March|April|May|June|July|August|September|October|November|December)" +
-            " \\d{4} \\d{2}:\\d{2}");
+            + "(January|February|March|April|May|June|July|August|September|October|November|December)"
+            + " \\d{4} \\d{2}:\\d{2}");
 
     // Used for parsing datetime string in input format, to a datetime object
-    static final DateTimeFormatter DATE_INPUT_FORMATTER= DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    static final DateTimeFormatter DATE_INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     // Used for parsing a datetime string in db format, to a datetime object
     static final DateTimeFormatter DATE_DB_FORMATTER = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
