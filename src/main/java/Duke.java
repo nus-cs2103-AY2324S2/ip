@@ -12,7 +12,7 @@ public class Duke {
                 break;
             }
             try {
-                Command c = Parser.parse(line);
+                Command c = Parser.parse(line, state);
                 c.execute(state);
             } catch (DukeException e) {
                 System.out.println("Uh Oh! " + e.getMessage());
