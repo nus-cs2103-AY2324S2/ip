@@ -62,7 +62,6 @@ public class Yapchit {
 
         Yapchit bot = new Yapchit("./src/main/data/dataStore.txt");
         bot.run();
-
     }
 
 }
