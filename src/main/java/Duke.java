@@ -28,6 +28,7 @@ public class Duke {
                     + "| |_| | | __/ | __/\n"
                     + "|____/  \\___| \\___|\n";
 
+
         String msg = SEPERATOR
                 + "\nHello! I'm Bee!\n"
                 + "What can I do for you?\n"
