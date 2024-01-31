@@ -1,3 +1,5 @@
+package commands;
+
 /**
  * The Commands class contains the list of commands to be used in the switch
  * case for William.java

@@ -1,84 +1,49 @@
-import java.util.Scanner;
-import java.util.List;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
+import exceptions.WilliamException;
+import tasks.Task;
+import utilities.Parser;
+import utilities.Storage;
+import utilities.TaskList;
+import utilities.Ui;
+
+/**
+ * The William class is the main class for this chatbot
+ */
 public class William {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        List<Task> tasks = new ArrayList<Task>();
-        String filePath = "data/tasks.txt";
 
-        Methods.openingTitle();
+    private static String filePath = "data/tasks.txt";
+    private TaskList taskList = new TaskList();
+    private Storage storage;
+    private Ui ui;
+
+    /**
+     * Constructor to intialise the tasklist, storage and UI
+     * 
+     * @param filePath The file path
+     */
+    public William(String filePath) {
+        ui = new Ui();
         try {
-            tasks = FileSaving.loadFromFile(filePath);
+            storage = new Storage(filePath);
+            List<Task> tasks = storage.loadFromFile();
+            this.taskList = new TaskList(tasks);
         } catch (FileNotFoundException | WilliamException e) {
             System.out.println(e.getMessage() + "\n");
         }
+    }
 
-        while (true) {
-            String input = sc.nextLine();
-            Commands command = null;
-            String[] texts = Methods.retrieveTexts(input);
-            try {
-                command = Methods.retrieveCommand(texts[0]);
-            } catch (WilliamException e) {
-                System.out.println(e.getMessage() + "\n");
-                continue;
-            }
+    /**
+     * Run the chatbot
+     */
+    public void run() {
+        ui.openingTitle();
+        Parser parser = new Parser(taskList, storage);
+        ui.interactWithUser(parser);
+    }
 
-            switch (command) {
-                case todo:
-                    try {
-                        Methods.checkAdditionalDetailEmpty(texts[1]);
-                        Methods.addTask(new Todo(texts[1]), tasks);
-                    } catch (WilliamException e) {
-                        System.out.println(e.getMessage() + "\n");
-                    }
-                    break;
-                case deadline:
-                    try {
-                        String[] deadlineDetails = Methods.splitBy(texts[1]);
-                        Methods.addTask(new Deadline(deadlineDetails[0], Methods.convertStringToDate(deadlineDetails[1])), tasks);
-                    } catch (WilliamException e) {
-                        System.out.println(e.getMessage() + "\n");
-                    }
-                    break;
-                case event:
-                    try {
-                        String[] eventDetails = Methods.splitToAndFrom(texts[1]);
-                        Methods.addTask(new Event(eventDetails[0], Methods.convertStringToDate(eventDetails[1]), Methods.convertStringToDate(eventDetails[2])), tasks);
-                    } catch (WilliamException e) {
-                        System.out.println(e.getMessage() + "\n");
-                    }
-                    break;
-                case list:
-                    Methods.printList(tasks);
-                    break;
-                case delete:
-                    Methods.deleteFromList(texts[1], tasks);
-                    break;
-                case mark:
-                    System.out.println("Nice! I've marked this task as done:");
-                    Methods.markAndUnmark(texts[1], tasks);
-                    break;
-                case unmark:
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    Methods.markAndUnmark(texts[1], tasks);
-                    break;
-                case bye:
-                    System.out.println("Bye. Hope to see you again soon!");
-                    try {
-                        FileSaving.writeToFile(filePath, tasks);
-                    } catch (IOException e) {
-                        System.out.println(e.getMessage() + "\n");
-                    }
-                    sc.close();
-                    return;
-                default:
-                    break;
-            }
-        }
+    public static void main(String[] args) {
+        new William(filePath).run();
     }
 }
