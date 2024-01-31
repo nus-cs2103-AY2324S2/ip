@@ -1,4 +1,4 @@
-Hello! I'm Ellie, your CS2103T chat bot! I help by tracking your tasks!
+Hello! I'm ellie.Ellie, your CS2103T chat bot! I help by tracking your tasks!
  _______   ___       ___       ___  _______          
 |\  ___ \ |\  \     |\  \     |\  \|\  ___ \         
 \ \   __/|\ \  \    \ \  \    \ \  \ \   __/|        

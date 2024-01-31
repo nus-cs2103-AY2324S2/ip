@@ -1,20 +1,21 @@
+package ellie;
+import ellie.task.Task;
 import java.util.ArrayList;
 
-public class Tracker {
+public class TaskList {
 
-    private final ArrayList<Task> taskList;
+    private final ArrayList<Task> taskArrayList;
     private final Storage storage;
 
-    public Tracker(Storage storage) {
-        taskList = new ArrayList<>();
+    public TaskList(Storage storage) {
+        taskArrayList = new ArrayList<>();
         this.storage = storage;
-        storage.load(taskList);
-
+        storage.load(taskArrayList);
 
     }
 
     public void addTask(Task element) {
-        taskList.add(element);
+        taskArrayList.add(element);
         saveTasks();
 
         System.out.println("Got it. I've added this task:");
@@ -23,14 +24,14 @@ public class Tracker {
     }
 
     public void listTasks() {
-        if (taskList.isEmpty()) {
+        if (taskArrayList.isEmpty()) {
             System.out.println("No items in list!\n");
             return;
         }
 
         int index = 0;
         System.out.println("Here are your tasks!");
-        for (Task element : taskList) {
+        for (Task element : taskArrayList) {
             index++;
             System.out.println("    " + index + "." + element.listTaskString());
         }
@@ -38,16 +39,16 @@ public class Tracker {
     }
 
     public int taskQuantity() {
-        return taskList.size();
+        return taskArrayList.size();
     }
 
     public void markTaskIndex(int index) {
-        if (index > taskList.size()) {
+        if (index > taskArrayList.size()) {
             System.out.println("Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!\n");
             return;
         }
 
-        Task task = taskList.get(index - 1);
+        Task task = taskArrayList.get(index - 1);
         task.markTask();
         saveTasks();
 
@@ -57,12 +58,12 @@ public class Tracker {
     }
 
     public void unmarkTaskIndex(int index) {
-        if (index > taskList.size()) {
+        if (index > taskArrayList.size()) {
             System.out.println("Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!\n");
             return;
         }
 
-        Task task = taskList.get(index - 1);
+        Task task = taskArrayList.get(index - 1);
         task.unmarkTask();
         saveTasks();
 
@@ -72,12 +73,12 @@ public class Tracker {
     }
 
     public void deleteTaskIndex(int index) {
-        if (index > taskList.size()) {
+        if (index > taskArrayList.size()) {
             System.out.println("Sorry! There doesn't seem to be enough tasks for there to be a task " + index + "!\n");
             return;
         }
 
-        Task removedTask = taskList.remove(index - 1);
+        Task removedTask = taskArrayList.remove(index - 1);
         saveTasks();
         System.out.println("Got it! I've removed this task from your list:");
         System.out.println("  " + removedTask.listTaskString() + "\n");
@@ -86,7 +87,7 @@ public class Tracker {
     }
 
     private void saveTasks() {
-        storage.save(taskList);
+        storage.save(taskArrayList);
     }
 
 

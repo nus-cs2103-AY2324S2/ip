@@ -1,8 +1,10 @@
+package ellie.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-//Deadline: tasks that need to be done before a specific date/time
+//ellie.task.Deadline: tasks that need to be done before a specific date/time
 //e.g., submit report /by 11/10/2019 5pm
 public class Deadline extends Task {
     
