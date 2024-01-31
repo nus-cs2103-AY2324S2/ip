@@ -10,11 +10,11 @@ public class OutputMessage {
         System.out.println("\t____________________________________________________________\n" );
     }
     public void greet(){
-        String message = "\tGreetings! I am " + name + "." +"\n\tHow may I be of service to you today?";
+        String message = "Greetings! I am " + name + "." +"\n\tHow may I be of service to you today?";
         printMessageWithLines(message);
     }
     public static void leave() {
-        String message = "\tFarewell. Wishing for the opportunity to meet you again soon.";
+        String message = "Farewell. Wishing for the opportunity to meet you again soon.";
         printMessageWithLines(message);
     }
     public static void informInvalidCommand(){
@@ -32,6 +32,21 @@ public class OutputMessage {
     }
     public static void informBadEventInput(){
         String message = "It is imperative that the description and from-to information of an event is not left empty.";
+        printMessageWithLines(message);
+    }
+    public static void informListMarked(Task task){
+        String message = "It is my pleasure to inform you that I have officially marked this particular task as"
+                +" 'completed':" + "\n\t   " + task;
+        printMessageWithLines(message);
+    }
+    public static void informListUnmarked(Task task){
+        String message = "I wish to communicate that I have marked this particular task as 'incomplete' at this "
+                +"juncture:"+ "\n\t   " + task;
+        printMessageWithLines(message);
+    }
+    public static void informItemAdded(Task task, TaskList taskList){
+        String message = "I am pleased to convey that the following task has been added to the outlined list:\n" +
+                "\t   "+task + "\n " + taskList;
         printMessageWithLines(message);
     }
     public static void displayFullList(TaskList taskList){

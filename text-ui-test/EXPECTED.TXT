@@ -6,31 +6,31 @@
 	____________________________________________________________
 	I am pleased to convey that the following task has been added to the outlined list:
 	   [T][ ] read book
-	Currently, the list comprises  1 tasks.
+ 	Currently, the list comprises  1 tasks.
 	____________________________________________________________
 
 	____________________________________________________________
 	I am pleased to convey that the following task has been added to the outlined list:
 	   [D][ ] return book (by: June 6th)
-	Currently, the list comprises  2 tasks.
+ 	Currently, the list comprises  2 tasks.
 	____________________________________________________________
 
 	____________________________________________________________
 	I am pleased to convey that the following task has been added to the outlined list:
 	   [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-	Currently, the list comprises  3 tasks.
+ 	Currently, the list comprises  3 tasks.
 	____________________________________________________________
 
 	____________________________________________________________
 	I am pleased to convey that the following task has been added to the outlined list:
 	   [T][ ] join sports club
-	Currently, the list comprises  4 tasks.
+ 	Currently, the list comprises  4 tasks.
 	____________________________________________________________
 
 	____________________________________________________________
 	I am pleased to convey that the following task has been added to the outlined list:
 	   [T][ ] borrow book
-	Currently, the list comprises  5 tasks.
+ 	Currently, the list comprises  5 tasks.
 	____________________________________________________________
 
 	____________________________________________________________
@@ -55,19 +55,19 @@
 	____________________________________________________________
 	I am pleased to convey that the following task has been added to the outlined list:
 	   [D][ ] return book (by: Sunday)
-	Currently, the list comprises  6 tasks.
+ 	Currently, the list comprises  6 tasks.
 	____________________________________________________________
 
 	____________________________________________________________
 	I am pleased to convey that the following task has been added to the outlined list:
 	   [E][ ] project meeting (from: Mon 2pm to: 4pm)
-	Currently, the list comprises  7 tasks.
+ 	Currently, the list comprises  7 tasks.
 	____________________________________________________________
 
 	____________________________________________________________
 	I am pleased to convey that the following task has been added to the outlined list:
 	   [D][ ] do homework (by: no idea :-p)
-	Currently, the list comprises  8 tasks.
+ 	Currently, the list comprises  8 tasks.
 	____________________________________________________________
 
 	____________________________________________________________
@@ -102,6 +102,18 @@
 	6. [D][ ] return book (by: Sunday)
 	7. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 	8. [D][ ] do homework (by: no idea :-p)
+	____________________________________________________________
+
+	____________________________________________________________
+	I acknowledge your update. The specified task has been duly removed:
+	   [T][X] read book
+	Currently, the list comprises  7 tasks.
+	____________________________________________________________
+
+	____________________________________________________________
+	I acknowledge your update. The specified task has been duly removed:
+	   [D][ ] return book (by: June 6th)
+	Currently, the list comprises  6 tasks.
 	____________________________________________________________
 
 	____________________________________________________________

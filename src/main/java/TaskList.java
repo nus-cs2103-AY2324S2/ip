@@ -3,6 +3,7 @@ public class TaskList {
     private ArrayList<Task> listItems = new ArrayList<>();
     private void addTask(Task task){
         this.listItems.add(task);
+        OutputMessage.informItemAdded(task, this);
     }
     @Override
     public String toString(){
@@ -48,6 +49,24 @@ public class TaskList {
         }catch(ArrayIndexOutOfBoundsException e) {
             OutputMessage.informBadEventInput();
         }
+    }
+    public void markList(int index){
+        this.listItems.get(index-1).mark();
+        OutputMessage.informListMarked(listItems.get(index-1));
+    }
+
+    public void unmarkList(int index){
+        this.listItems.get(index-1).unmark();
+        OutputMessage.informListUnmarked(listItems.get(index-1));
+    }
+
+    public void deleteList(int index){
+        Task task = listItems.remove(index-1);
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\tI acknowledge your update. The specified task has been duly removed:");
+        System.out.println("\t   "+task);
+        System.out.println("\tCurrently, the list comprises  " + listItems.size() + " tasks.");
+        System.out.println("\t____________________________________________________________\n");
     }
 
 }
