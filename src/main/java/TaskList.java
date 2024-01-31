@@ -1,13 +1,21 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class TaskList {
 
     private ArrayList<Task> taskStore;
 
     public TaskList() {
-        taskStore = new ArrayList<Task>();
+        this.taskStore = new ArrayList<Task>();
+    }
+
+    public TaskList(ArrayList<Task> loadedTaskStore) {
+        this.taskStore = loadedTaskStore;
     }
 
     protected void markTask(int index) {
@@ -46,10 +54,23 @@ public class TaskList {
         System.out.println("―――――――――――――――――――――――――――――――――――");
     }
 
+    protected ArrayList<Task> getTaskStore() {
+        return taskStore;
+    }
+
     protected int listSize() {
         return taskStore.size();
     }
 
+    protected static LocalDateTime dateChecker(String dateString) throws DukeException {
+        try {
+            DateTimeFormatter dTFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime date = LocalDateTime.parse(dateString, dTFormatter);
+            return date;
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Pengu thinks that you need to put the date in this format: yyyy-mm-dd");
+        }
+    }
     protected void addTask(String description, boolean isLoaded) throws DukeException {
         Task newTask;
         validTaskCommand(description);
@@ -83,7 +104,7 @@ public class TaskList {
                     byBuilder.append(descriptionArr[k] + " ");
                 }
             }
-            newTask = new Deadline(descBuilder.toString(), byBuilder.toString());
+            newTask = new Deadline(descBuilder.toString(), dateChecker(byBuilder.toString()));
         } else {
             String[] descriptionArr = description.split(" ");
             int fromIndex = Arrays.asList(descriptionArr).indexOf("/from");
@@ -112,7 +133,7 @@ public class TaskList {
                     toBuilder.append(descriptionArr[k] + " ");
                 }
             }
-            newTask = new Event(descBuilder.toString(), fromBuilder.toString(), toBuilder.toString());
+            newTask = new Event(descBuilder.toString(), dateChecker(fromBuilder.toString()), dateChecker(toBuilder.toString()));
         }
         this.taskStore.add(newTask);
         if (!isLoaded) {
@@ -121,6 +142,7 @@ public class TaskList {
                     + "―――――――――――――――――――――――――――――――――――", taskStore.size()));
         }
     }
+
 
     private boolean validTaskCommand(String str) throws DukeException {
         List<String> strArr = Arrays.asList(str.split(" "));
