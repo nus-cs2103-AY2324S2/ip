@@ -27,7 +27,7 @@ abstract class Task implements Savable {
      *
      * @param description textual description of the task
      * @param task_symbol textual symbol that represents the type of Task
-     * @param isDone boolean value that determines if the initialised Task is completed or not
+     * @param isDone      boolean value that determines if the initialised Task is completed or not
      */
     public Task(String description, String task_symbol, Boolean isDone) {
         this.description = description;

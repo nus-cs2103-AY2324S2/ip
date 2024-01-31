@@ -18,7 +18,7 @@ public class ToDo extends Task {
      * Constructs a basic ToDo task.
      *
      * @param description Description of the ToDo Task
-     * @param isDone boolean value that determines if the initialised ToDo Task is completed or not
+     * @param isDone      boolean value that determines if the initialised ToDo Task is completed or not
      */
     public ToDo(String description, Boolean isDone) {
         super(description, TYPE_SYMBOL, isDone);
