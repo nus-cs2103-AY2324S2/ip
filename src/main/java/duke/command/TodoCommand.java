@@ -9,6 +9,9 @@ import duke.util.Storage;
 import duke.exception.MissingTodoException;
 import duke.exception.SaveStorageException;
 
+/**
+ * The class representing the creation of deadline task command.
+ * */
 public class TodoCommand extends Command {
     String[] commandList;
 

@@ -9,6 +9,9 @@ import duke.util.Storage;
 import duke.exception.MissingDeadlineException;
 import duke.exception.SaveStorageException;
 
+/**
+ * The class representing the creation of deadline task command.
+ * */
 public class DeadlineCommand extends Command {
     String[] commandList;
 

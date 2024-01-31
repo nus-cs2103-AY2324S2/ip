@@ -6,6 +6,9 @@ import duke.task.Task;
 import duke.util.Ui;
 import duke.util.Storage;
 
+/**
+ * The class representing a list command.
+ * */
 public class ListCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         System.out.println("Here are the tasks in your list:");

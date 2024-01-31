@@ -16,11 +16,21 @@ import duke.command.MarkCommand;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The class representing the user command parser.
+ * Note that this class should not be instantiated.
+ * */
 public class Parser {
     enum Commands {
         bye, list, mark, unmark, todo, deadline, event, delete
     }
 
+    /**
+     * Separates the user command into its respective components.
+     *
+     * @param command The user-entered command.
+     * @return Array of constituent strings.
+     * */
     public static String[] splitCommand(String command) {
         String words[] = command.split("\\s+");
         String currentString = "";
@@ -43,6 +53,13 @@ public class Parser {
         return result.toArray(new String[0]);
     }
 
+    /**
+     * Parses the user command.
+     *
+     * @param command The user-entered command.
+     * @return The corresponding command with the parameters gathered from the original command.
+     * @throws DukeException If command is invalid or incomplete.
+     * */
     public static Command parseCommand(String command) throws DukeException {
         Command cmd = new DefaultCommand();
         try {

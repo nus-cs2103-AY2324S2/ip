@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
+/**
+ * The class representing an Event task.
+ * */
 public class Event extends Task {
     String type = "[E]";
     LocalDate start;

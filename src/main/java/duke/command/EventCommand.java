@@ -9,6 +9,9 @@ import duke.util.Storage;
 import duke.exception.MissingEventException;
 import duke.exception.SaveStorageException;
 
+/**
+ * The class representing the creation of deadline task command.
+ * */
 public class EventCommand extends Command {
     String[] commandList;
 
