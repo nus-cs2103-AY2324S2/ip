@@ -7,6 +7,12 @@ public class Deadline extends Task{
     }
 
     @Override
+    public String toFileString() {
+        return String.format("T | %s | %s | %s",this.getStatusIcon(), this.getDescription(), this.deadline);
+    }
+
+
+    @Override
     public String toString() {
         return String.format("[D]%s (by: %s)",super.toString(),this.deadline);
     }
