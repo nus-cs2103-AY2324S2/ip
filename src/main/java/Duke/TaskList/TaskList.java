@@ -3,9 +3,10 @@ package Duke.TaskList;
 import Duke.DukeException.DukeException;
 import Duke.Task.Deadlines.Deadlines;
 import Duke.Task.Events.Events;
-import Duke.Task.Task;
 import Duke.Task.ToDos.ToDos;
+import Duke.Task.Task;
 import Duke.Ui.Ui;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -58,14 +59,11 @@ public class TaskList {
         }
     }
 
-<<<<<<< HEAD
     /**
      * Adds todos to the list.
      *
      * @param description Todos' Description.
      */
-=======
->>>>>>> branch-A-CodingStandard
     public void toDo(String description) {
         Task task = new ToDos(description);
         taskList.add(task);

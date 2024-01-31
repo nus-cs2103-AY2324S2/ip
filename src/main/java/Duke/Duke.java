@@ -3,9 +3,10 @@ package Duke;
 import Duke.DukeException.DukeException;
 import Duke.Parser.Parser;
 import Duke.Storage.Storage;
-import Duke.Task.Task;
 import Duke.TaskList.TaskList;
+import Duke.Task.Task;
 import Duke.Ui.Ui;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
