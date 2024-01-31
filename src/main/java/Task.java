@@ -3,8 +3,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static java.lang.Boolean.parseBoolean;
-
 public abstract class Task {
 
     /** Description of task as a string */
@@ -12,6 +10,8 @@ public abstract class Task {
 
     /** Boolean Flag of whether the task is done */
     private boolean isDone;
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     /**
      * Constructs task with specified description.
@@ -52,6 +52,10 @@ public abstract class Task {
         return mark + this.description;
     }
 
+    public static DateTimeFormatter getDateFormat() {
+        return Task.DATE_FORMATTER;
+    }
+
     /**
      * Returns a string containing information of task in a clean machine-readable format
      *
@@ -85,14 +89,14 @@ public abstract class Task {
     }
 
     public static class Events extends Task {
-        private String from;
-        private String to;
-        public Events(String name, String from, String to) {
+        private LocalDate from;
+        private LocalDate to;
+        public Events(String name, LocalDate from, LocalDate to) {
             super(name);
             this.from = from;
             this.to = to;
         }
-        public Events(String name, boolean isDone, String from, String to) {
+        public Events(String name, boolean isDone, LocalDate from, LocalDate to) {
             super(name, isDone);
             this.from = from;
             this.to = to;
@@ -100,7 +104,8 @@ public abstract class Task {
 
         @Override
         public String toString() {
-            return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+            return "[E]" + super.toString() + " (from: " + this.from.format(Task.getDateFormat())
+                    + " to: " + this.to.format(Task.getDateFormat()) + ")";
         }
 
         /**
@@ -110,8 +115,11 @@ public abstract class Task {
          */
         @Override
         public String getTokens() {
-            return String.join(",", "E", super.description,
-                    String.valueOf(super.isDone), this.from, this.to);
+            return String.join(",", "E",
+                    super.description,
+                    String.valueOf(super.isDone),
+                    this.from.format(Task.getDateFormat()),
+                    this.to.format(Task.getDateFormat()));
         }
     }
 
@@ -136,9 +144,7 @@ public abstract class Task {
 
         @Override
         public String toString() {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-            String formattedDate = this.by.format(formatter);
-            return "[D]" + super.toString() + " (by: " + formattedDate + ")";
+            return "[D]" + super.toString() + " (by: " + this.by.format(Task.getDateFormat()) + ")";
         }
 
         /**
@@ -148,10 +154,8 @@ public abstract class Task {
          */
         @Override
         public String getTokens() {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-            String formattedDate = this.by.format(formatter);
             return String.join(",", "D", super.description,
-                    String.valueOf(super.isDone), formattedDate);
+                    String.valueOf(super.isDone), this.by.format(Task.getDateFormat()));
         }
     }
 }

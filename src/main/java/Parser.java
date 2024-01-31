@@ -96,8 +96,7 @@ public class Parser {
 
         //parse string
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-            LocalDate deadline = LocalDate.parse(deadlineString, formatter);
+            LocalDate deadline = LocalDate.parse(deadlineString, Task.getDateFormat());
             return new Command.DeadlineCommand(task, deadline);
         } catch (DateTimeParseException e) {
             throw new DukeException.InvalidCommandException("Invalid date/time format for the deadline!"
@@ -113,22 +112,33 @@ public class Parser {
         }
 
         String task = parts[0].trim();
-        String startTime = parts[1].trim();
-        String endTime = parts[2].trim();
+        String startString = parts[1].trim();
+        String endString = parts[2].trim();
 
         if (tokens.indexOf("/from") > tokens.indexOf("/to")) {
-            String temp = startTime;
-            startTime = endTime;
-            endTime = temp;
+            String temp = startString;
+            startString = endString;
+            endString = temp;
         }
 
         if (task.isEmpty()) {
             throw new DukeException.MissingInfoException("Tasks needs a name! Or I cant remember it!");
-        } else if (startTime.isEmpty()) {
+        } else if (startString.isEmpty()) {
             throw new DukeException.MissingInfoException("Please tell me when it starts!");
-        } else if (endTime.isEmpty()) {
+        } else if (endString.isEmpty()) {
             throw new DukeException.MissingInfoException("Please tell me when it ends!");
         }
-        return new Command.EventCommand(task, startTime, endTime);
+
+        //parse string
+        try {
+            LocalDate startDate = LocalDate.parse(startString, Task.getDateFormat());
+            LocalDate endDate = LocalDate.parse(endString, Task.getDateFormat());
+
+            return new Command.EventCommand(task, startDate, endDate);
+        } catch (DateTimeParseException e) {
+            throw new DukeException.InvalidCommandException("Invalid date/time format for the deadline!"
+                    + "Please use a dd MMM yyyy format (e.g. 21 Jan 2000).");
+        }
+
     }
 }

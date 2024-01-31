@@ -109,10 +109,10 @@ public abstract class Command {
 
     public static class EventCommand extends Command {
         private String task;
-        private String start;
-        private String end;
+        private LocalDate start;
+        private LocalDate end;
 
-        public EventCommand(String task, String start, String end) {
+        public EventCommand(String task, LocalDate start, LocalDate end) {
             this.task = task;
             this.start = start;
             this.end = end;

@@ -1,14 +1,11 @@
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.io.FileWriter;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
 
-import static java.lang.Boolean.parseBoolean;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.time.format.DateTimeParseException;
 
 /** Helper class to manage all storage related methods of duke. */
 public class Storage {
@@ -92,12 +89,14 @@ public class Storage {
             String[] data = tokens.split(",");
             switch (data[0]) {
                 case "T":
-                    return new Task.ToDos(data[1], parseBoolean(data[2]));
+                    return new Task.ToDos(data[1], Boolean.parseBoolean(data[2]));
                 case "E":
-                    return new Task.Events(data[1], parseBoolean(data[2]), data[3], data[4]);
+                    return new Task.Events(data[1], Boolean.parseBoolean(data[2]),
+                            LocalDate.parse(data[3], Task.getDateFormat()),
+                            LocalDate.parse(data[4], Task.getDateFormat()));
                 case "D":
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-                    return new Task.Deadlines(data[1], parseBoolean(data[2]), LocalDate.parse(data[3], formatter));
+
+                    return new Task.Deadlines(data[1], Boolean.parseBoolean(data[2]), LocalDate.parse(data[3], Task.getDateFormat()));
                 default:
                     throw new DukeException.CorruptedDataException("Data file is corrupted, task type does not exist");
             }
