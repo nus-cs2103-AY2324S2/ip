@@ -1,9 +1,8 @@
-package Storage;
+package storage;
 
 import java.util.ArrayList;
 
 import java.io.FileWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import UI.UI;

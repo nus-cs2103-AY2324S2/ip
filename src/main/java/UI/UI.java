@@ -1,9 +1,9 @@
 package UI;
 
-import Storage.Storage;
-import Storage.Task;
+import storage.Storage;
+import storage.Task;
 
-import DukeException.*;
+import dukeException.*;
 
 public class UI {
     private static final String lines = "    ____________________________________________________________";

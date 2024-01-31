@@ -1,4 +1,4 @@
-package DukeException;
+package dukeException;
 
 public class ListOutofBoundsException extends Exception{
     public ListOutofBoundsException(String string) {
