@@ -1,6 +1,5 @@
 import java.io.Serializable;
-
-public class Task implements Serializable {
+public class Task implements Serializable{
     enum Status {
         DONE,
         NOT_DONE
@@ -25,9 +24,8 @@ public class Task implements Serializable {
     public String toString() {
         return "[" + getStatusIcon() + "] " + getDescription();
     }
-
-    public void setDone(boolean done) {
-        this.status = (done ? Status.DONE : Status.NOT_DONE);
+    public void setStatus(Task.Status status) {
+        this.status = status;
     }
 
 }

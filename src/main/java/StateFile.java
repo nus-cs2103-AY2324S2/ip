@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class StateFile {
     private static String FILE_PATH = "saves/state.txt";
     //  Solution below (use of ObjectOutputStream and FileOutputStream) inspired by ChatGPT
-    public void saveObject(ArrayList<Task> object) throws IOException {
+    private void saveObject(TaskList object) throws IOException {
         // Create directory if it does not exist
         File file = new File(FILE_PATH);
         File parentDir = file.getParentFile();
@@ -22,16 +22,35 @@ public class StateFile {
         objectStream.close();
         fileStream.close();
     }
-    public ArrayList<Task> loadObject() throws IOException, ClassNotFoundException {
+    private TaskList loadObject() throws IOException, ClassNotFoundException {
         FileInputStream fileStream = new FileInputStream(FILE_PATH);
         ObjectInputStream objectStream = new ObjectInputStream(fileStream);
-        ArrayList<Task> list;
+        TaskList list;
         try {
-            list = (ArrayList<Task>) objectStream.readObject();
+            list = (TaskList) objectStream.readObject();
         } finally {
             objectStream.close();
             fileStream.close();
         }
         return list;
+    }
+    public TaskList loadState(TaskList tasks) {
+        try {
+            TaskList loadedTasks = this.loadObject();
+            return loadedTasks;
+        } catch (IOException | ClassNotFoundException e){
+            // File issue, try to save blank state
+            System.out.println("Unable to read saved state, creating new file...");
+            this.saveState(tasks);
+        }
+        return tasks;
+    }
+    public String saveState(TaskList tasks) {
+        try {
+            this.saveObject(tasks);
+        } catch (IOException e){
+            return "Unable to save state: " + e.toString();
+        }
+        return "";
     }
 }
