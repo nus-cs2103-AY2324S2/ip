@@ -1,3 +1,6 @@
+/**
+ * class that represents a task instantiated in the tasklist of aaronbot
+ */
 public class Task {
     private boolean isDone;
     private String taskString;
@@ -7,21 +10,29 @@ public class Task {
         this.taskString = taskString;
     }
 
-    public void markDone() {
+    /**
+     * function that marks the task as done
+     * @return boolean value representing whether the task was newly marked
+     */
+    public boolean markDone() {
         if (isDone) {
-            System.out.println("Task is already done!");
+            return false;
         } else {
-            System.out.println("OK, this task has been marked :)");
             isDone = true;
+            return true;
         }
     }
 
-    public void unmarkDone() {
+    /**
+     * function that unmarks the task as done
+     * @return boolean value representing whether the task was newly unmarked
+     */
+    public boolean unmarkDone() {
         if (!isDone) {
-            System.out.println("Task is already incomplete!");
+            return false;
         } else {
-            System.out.println("OK, task has been unmarked :)");
             isDone = false;
+            return true;
         }
     }
 

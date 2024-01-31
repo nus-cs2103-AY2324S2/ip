@@ -1,9 +1,13 @@
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ * Represents the main AaronBot class, executes the user-bot interaction task adding/deleting/marking
+ */
 public class AaronBot {
     private static ArrayList<Task> taskList = new ArrayList<>();
     public static void main(String[] args) {
-        boolean notBye = true;
+        boolean isBye = true;
         Scanner inputScanner = new Scanner(System.in);
         System.out.println("Hello, I am AaronBot, please talk to me I love my students very much :)");
         System.out.println("To add a task to the list, type 'add ' followed by your task.");
@@ -13,9 +17,9 @@ public class AaronBot {
         System.out.println("To show the list, type 'show list'.");
         System.out.println("To mark a task done: mark [index of task]");
         System.out.println("To unmark a task done: unmark [index of task]");
-        while (notBye) {
+        while (isBye) {
             try {
-                notBye = chat(inputScanner.nextLine());
+                isBye = chat(inputScanner.nextLine());
             } catch (NonsenseCommandException e) {
                 System.out.println("What are you saying dear student?\n" + e.toString());
             }
@@ -23,6 +27,12 @@ public class AaronBot {
         inputScanner.close();
     }
 
+    /**
+     * Main function that accepts an input from the user and executes a command based on it.
+     * @param userInput String input entered by user
+     * @return boolean value representing whether the chat should still be continued
+     * @throws NonsenseCommandException if command given by user is not recognized by Aaronbot
+     */
     private static boolean chat(String userInput) throws NonsenseCommandException{
         String[] tokenizedUserInput = userInput.split(" ", 2);    
         String userCommand = tokenizedUserInput[0];
@@ -68,7 +78,14 @@ public class AaronBot {
                 System.out.println(e);
                 return true;
             }
-            return markDone(Integer.parseInt(taskIndexMark));
+            if (markDone(Integer.parseInt(taskIndexMark))) {
+                System.out.println("Task has been marked successfully student \n" 
+                        + taskList.get(Integer.parseInt(taskIndexMark) - 1));
+            } else {
+                System.out.println("Task is already marked student! \n"
+                        + taskList.get(Integer.parseInt(taskIndexMark) - 1));
+            }
+            return true;
         case "unmark":
             String taskIndexUnmark = tokenizedUserInput[1];
             try {
@@ -79,7 +96,14 @@ public class AaronBot {
                 System.out.println(e);
                 return true;
             }
-            return unmarkDone(Integer.parseInt(taskIndexUnmark));
+            if (unmarkDone(Integer.parseInt(taskIndexUnmark))) {
+                System.out.println("Task has been unmarked successfully student \n" 
+                        + taskList.get(Integer.parseInt(taskIndexUnmark) - 1));
+            } else {
+                System.out.println("Task is already unmarked student! \n"
+                        + taskList.get(Integer.parseInt(taskIndexUnmark) - 1));
+            }
+            return true;
         case "show":
             if (tokenizedUserInput.length > 1 && tokenizedUserInput[1].equals("list")) {
                 for (int i = 0; i < taskList.size(); i++) {
@@ -99,8 +123,8 @@ public class AaronBot {
                 System.out.println(e);
                 return true;
         }
-        return deleteTask(Integer.parseInt(taskIndexDelete));
-
+        deleteTask(Integer.parseInt(taskIndexDelete));
+        return true;
         case "bye":
             System.out.println("Ok Student, HAND.");
             return false;
@@ -128,6 +152,13 @@ public class AaronBot {
     }
     */
 
+    /**
+     * function that adds a task to the tasklist
+     * @param taskType String representing type of task being added
+     * @param newTask Name/description of the task being added
+     * @return boolean value representing whether task has already been added to the list before
+     * @throws InvalidTaskTypeException if the task type is invalid
+     */
     private static boolean addToList(String taskType, String newTask) throws InvalidTaskTypeException {
         Task task;
         switch(taskType) {
@@ -153,45 +184,71 @@ public class AaronBot {
             return false;
         }
     } 
+
+    /**
+     * function that marks a task on the tasklist as done
+     * @param listIndex index of the tasklist to be marked
+     * @return boolean value indicating whether the task was newly marked
+     */
     private static boolean markDone(Integer listIndex) {
         Task taskFromList = taskList.get(listIndex - 1);
-        taskFromList.markDone();
-        return true;
+        return taskFromList.markDone();
     }
 
+    /**
+     * function that unmarks a task on the tasklist as done
+     * @param listIndex index of the tasklist to be marked
+     * @return boolean value indicating whether the task was newly unmarked
+     */
     private static boolean unmarkDone(Integer listIndex) {
         Task taskFromList = taskList.get(listIndex - 1);
-        taskFromList.unmarkDone();
-        return true;
+        return taskFromList.unmarkDone();
     }
 
-    private static boolean deleteTask(int listIndex) {
+    /**
+     * function that deletes a task on the tasklist
+     * @param listIndex index of the tasklist to be deleted
+     */
+    private static void deleteTask(int listIndex) {
         Task deletedTask = taskList.get(listIndex - 1); 
         taskList.remove(listIndex - 1);
         System.out.println("Task deleted :\n" + deletedTask);
-        return true;
     }
 
+    /**
+     * function that checks whether an input by the user has a task after the task type keyword
+     * @param userInputString String user input
+     * @throws TaskNoNameException if user input does not have a task description/name after the task type keyword
+     */
     private static void taskPresenceCheck(String userInputString) throws TaskNoNameException {
         if (userInputString.split("\\s+").length <= 1) {
             throw new TaskNoNameException(userInputString);
         }
     }
 
+    /**
+     * function that checks if the user input is >1 words (unless a 'bye' command is given)
+     * @param userInputString User input
+     * @throws InvalidCommandFormatException if user input is <=1 words unless the input is 'bye'
+     */
     private static void commandLengthCheck(String userInputString) throws InvalidCommandFormatException {
         if (!(userInputString.equals("bye")) && userInputString.split("\\s+").length <= 1) {
             throw new InvalidCommandFormatException(userInputString);
         }
     }
 
-    private static void indexCheck(String userString) throws IndexErrorException{
+    /**
+     * funcion that checks that the index provided by the user for a mark/unmark/delete command is valid
+     * @param userTaskIndex task index given by the user
+     * @throws IndexErrorException
+     */
+    private static void indexCheck(String userTaskIndex) throws IndexErrorException{
         Integer index;
         try {
-            index = Integer.parseInt(userString);
+            index = Integer.parseInt(userTaskIndex);
         } catch (NumberFormatException e) {
-            throw new MarkNonNumberException(userString);
+            throw new MarkNonNumberException(userTaskIndex);
         }
-
         if (index > taskList.size()) {
             throw new TaskListOutOfBoundsException(index.toString());
         }

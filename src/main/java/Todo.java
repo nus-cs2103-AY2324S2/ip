@@ -1,3 +1,6 @@
+/**
+ * class that represents a todo type of task in aaronbot
+ */
 public class Todo extends Task{
     
     public Todo(String taskString) {

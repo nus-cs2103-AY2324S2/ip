@@ -1,3 +1,6 @@
+/**
+ * class that represents a deadline type of task instantiated in an Aaronbot tasklist
+ */
 public class Deadline extends Task{
     private String deadline;
     public Deadline(String taskString, String deadline) {
