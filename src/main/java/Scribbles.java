@@ -2,6 +2,11 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -166,7 +171,11 @@ public class Scribbles {
         } else {
             try {
                 String taskDescription = description.split(" /by")[0];
-                String taskDeadline = description.split(" /by ")[1];
+                String taskDeadlineString = description.split(" /by ")[1].trim();
+
+                DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                LocalDateTime taskDeadline = LocalDateTime.parse(taskDeadlineString, dateTimeFormat);
+
                 taskList.add(new Deadline(taskDescription, false, taskDeadline));
 
                 try {
@@ -178,10 +187,15 @@ public class Scribbles {
                 System.out.println("I've added this deadline to your list:");
                 System.out.println(taskList.get(taskList.size() - 1).toString());
                 System.out.println("Now you have " + taskList.size() + " task(s) in the list.\n");
+
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Uh oh! there's missing information in your instructions!");
                 System.out.println("You can try the command \"deadline [task description] /by [date/time]\" " +
                         "instead.\n");
+
+            } catch (DateTimeParseException e) {
+                System.out.println("Uh oh! Looks like your date/time format is wrong!: ");
+                System.out.println("Try formatting your date/time as dd/MM/yyyy HHmm.\n");
             }
 
         }
@@ -201,9 +215,14 @@ public class Scribbles {
         } else {
             try {
                 String taskDescription = description.split(" /from ")[0];
-                String taskStart = description.split(" /from ")[1].split("/to ")[0];
-                String taskEnd = description.split(" /to ")[1];
-                if (!taskDescription.isEmpty() && !taskStart.isEmpty() && !taskEnd.isEmpty()) {
+                String taskStartString = description.split(" /from ")[1].split("/to ")[0].trim();
+                String taskEndString = description.split(" /to ")[1];
+
+                if (!taskDescription.isEmpty() && !taskStartString.isEmpty() && !taskEndString.isEmpty()) {
+                    DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                    LocalDateTime taskStart = LocalDateTime.parse(taskStartString, dateTimeFormat);
+                    LocalDateTime taskEnd = LocalDateTime.parse(taskEndString, dateTimeFormat);
+
                     taskList.add(new Event(taskDescription, false, taskStart, taskEnd));
 
                     try {
@@ -215,6 +234,7 @@ public class Scribbles {
                     System.out.println("I've added this deadline to your list:");
                     System.out.println(taskList.get(taskList.size() - 1).toString());
                     System.out.println("Now you have " + taskList.size() + " task(s) in the list.\n");
+
                 } else {
                     System.out.println("Uh oh! there's missing information in your instructions!");
                     System.out.println("You can try the command \"event [task description] /from [date/time] " +
@@ -224,10 +244,19 @@ public class Scribbles {
                 System.out.println("Uh oh! there's missing information in your instructions!");
                 System.out.println("You can try the command \"event [task description] /from [date/time] " +
                         "/to [date/time]\" instead.\n");
+
+            } catch (DateTimeParseException dateTimeException) {
+                System.out.println("Uh oh! Looks like your date/time format is wrong!: ");
+                System.out.println("Try formatting your date/time as dd/MM/yyyy HHmm.\n");
             }
         }
     }
 
+    /**
+     * Deletes task at index from taskList.
+     *
+     * @param index Index of task to delete
+     */
     public static void deleteTask(int index) {
         int numOfTasks = taskList.size(); // finds the number of tasks in list currently
         if (index <= numOfTasks) {
@@ -274,13 +303,28 @@ public class Scribbles {
                         taskList.add(new Todo(description, isCompleted));
                         break;
                     case "D":
-                        String deadline = tokens[3].trim();
-                        taskList.add(new Deadline(description, isCompleted, deadline));
+                        String deadlineString = tokens[3].trim();
+                        try {
+                            DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                            LocalDateTime deadline = LocalDateTime.parse(deadlineString, dateTimeFormat);
+                            taskList.add(new Deadline(description, isCompleted, deadline));
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Your deadline, \"" + description + "\" stored in file has incorrect " +
+                                    "date/time format and cannot be loaded into task list. ");
+                        }
                         break;
                     case "E":
-                        String start = tokens[3].trim();
-                        String end = tokens[4].trim();
-                        taskList.add(new Event(description, isCompleted, start, end));
+                        String startString = tokens[3].trim();
+                        String endString = tokens[4].trim();
+                        try {
+                            DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                            LocalDateTime start = LocalDateTime.parse(startString,dateTimeFormat);
+                            LocalDateTime end = LocalDateTime.parse(endString, dateTimeFormat);
+                            taskList.add(new Event(description, isCompleted, start, end));
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Your event, \"" + description + "\" stored in file has incorrect " +
+                                    "date/time format and cannot be loaded into task list. ");
+                        }
                         break;
                     default:
                         System.out.println("Invalid task type \"" + typeOfTask + "\" was found in file.");
@@ -315,11 +359,11 @@ public class Scribbles {
                 }
                 if (task instanceof Deadline) {
                     writer.write("D | " + (task.isCompleted() ? "1" : "0") + " | " + task.getDescription() +
-                            " | " + ((Deadline) task).getBy());
+                            " | " + ((Deadline) task).getByString());
                 }
                 if (task instanceof Event) {
                     writer.write("E | " + (task.isCompleted() ? "1" : "0") + " | " + task.getDescription() +
-                            " | " + ((Event) task).getStart() + " | " + ((Event) task).getEnd());
+                            " | " + ((Event) task).getStartString() + " | " + ((Event) task).getEndString());
                 }
                 writer.newLine();
             }
