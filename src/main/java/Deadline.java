@@ -1,12 +1,9 @@
-import java.util.*;
-import java.io.*;
-
 /**
  * Deadline is a subclass of Task that stores a task with a completion date.
  * @author Koo Zhuo Hui
  */
 public class Deadline extends Task {
-
+    
     private String by;
 
     /**
@@ -19,6 +16,11 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    @Override
+    public String encode() {
+        String s = "D|" + (super.getStatus() ? 1 : 0) + "|" + super.getTask() + "|" + by;
+        return s;
+    }
     @Override
     public String toString() {
         return "[D][" + (super.getStatus() ? "X" : " ") + "] " +

@@ -1,6 +1,3 @@
-import java.util.*;
-import java.io.*;
-
 /**
  * The Task class encapsulates a task to be tracked by Howie.
  * It stores information of the task and its status.
@@ -51,6 +48,11 @@ public class Task {
     public Task setUndone() {
         isDone = false;
         return this;
+    }
+
+    public String encode() {
+        String s = "T|" + (isDone ? 1 : 0) + "|" + task;
+        return s;
     }
 
     /**

@@ -5,7 +5,7 @@ import java.io.*;
  * Custom exception that handles edge cases such as invalid command etc.
  * @author Koo Zhuo Hui
  */
-public class DukeException extends RuntimeException {
+public class DukeException extends Exception {
 
     /**
      * Constructs the exception
