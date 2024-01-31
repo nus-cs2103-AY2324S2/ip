@@ -1,4 +1,4 @@
-package commands;
+package duke.commands;
 
 public class CommandException extends Exception {
     public CommandException(String message) {

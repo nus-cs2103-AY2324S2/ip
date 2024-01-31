@@ -1,8 +1,8 @@
-package ui;
+package duke.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import tasks.Task;
+import duke.tasks.Task;
 
 public class Ui {
     public final static String indentation = " ".repeat(3);

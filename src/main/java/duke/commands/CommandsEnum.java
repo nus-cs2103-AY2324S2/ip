@@ -1,4 +1,4 @@
-package commands;
+package duke.commands;
 
 public enum CommandsEnum {
     INSERT_TODO, VIEW_LIST, INSERT_DEADLINE, INSERT_EVENT, SET_MARK, SET_UNMARK, EXIT, DELETE_TASK, WHAT;

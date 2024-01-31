@@ -1,10 +1,10 @@
-package commands;
+package duke.commands;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import common.Utils;
-import tasks.Task;
-import ui.Ui;
+import duke.common.Utils;
+import duke.tasks.Task;
+import duke.ui.Ui;
 
 public class MarkCommand extends Command {
 

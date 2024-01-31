@@ -1,9 +1,9 @@
-package commands;
+package duke.commands;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import tasks.Task;
-import ui.Ui;
+import duke.tasks.Task;
+import duke.ui.Ui;
 
 public class ExitCommand extends Command {
     public void execute(ArrayList<Task> tasks, String[] input)

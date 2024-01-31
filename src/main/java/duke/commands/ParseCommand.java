@@ -1,8 +1,8 @@
-package commands;
+package duke.commands;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import tasks.Task;
+import duke.tasks.Task;
 
 public class ParseCommand {
 
