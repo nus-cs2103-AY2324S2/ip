@@ -1,7 +1,10 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 public class Event extends Task{
-    String startDate;
-    String endDate;
-    public Event(String name, String startDate, String endDate, boolean isDone) {
+    LocalDateTime startDate;
+    LocalDateTime endDate;
+    public Event(String name, LocalDateTime startDate, LocalDateTime endDate, boolean isDone) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -11,7 +14,9 @@ public class Event extends Task{
     @Override
     public String toString() {
         String str = "";
-        str = String.format("[E]%s (from: %s to: %s)", super.toString(), startDate, endDate);
+        str = String.format("[E]%s (from: %s to: %s)", super.toString(),
+                startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),
+                endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
         return str;
     }
 

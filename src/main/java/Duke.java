@@ -4,6 +4,8 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
+
 public class Duke {
     private ArrayList<Task> tasks;
     public static void main(String[] args) {
@@ -105,7 +107,6 @@ public class Duke {
                 break;
         }
     }
-
     public String list() {
         StringBuilder str = new StringBuilder();
         if (tasks.size() == 0) {
@@ -173,7 +174,7 @@ public class Duke {
                 }
                 String deadline = deadlineBuilder.substring(1);
                 successful = true;
-                Task task = new Deadline(name, deadline, isDone);
+                Task task = new Deadline(name, LocalDateTime.parse(deadline), isDone);
                 tasks.add(task);
 
                 if(announce) {
@@ -229,7 +230,8 @@ public class Duke {
                     }
                     String endDate = endDateBuilder.substring(1);
                     successful = true;
-                    Task task = new Event(name, startDate, endDate, isDone);
+
+                    Task task = new Event(name, LocalDateTime.parse(startDate), LocalDateTime.parse(endDate), isDone);
                     tasks.add(task);
 
                     if(announce) {

@@ -1,6 +1,9 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 public class Deadline extends Task {
-    String deadline;
-    public Deadline(String name, String deadline, boolean isDone) {
+    LocalDateTime deadline;
+    public Deadline(String name, LocalDateTime deadline, boolean isDone) {
         this.name = name;
         this.deadline = deadline;
         this.isDone = isDone;
@@ -9,7 +12,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String str = "";
-        str = String.format("[D]%s (by: %s)", super.toString(), deadline);
+        str = String.format("[D]%s (by: %s)", super.toString(), deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
         return str;
     }
 
