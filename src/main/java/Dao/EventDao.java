@@ -11,7 +11,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventDao {
+public class EventDao extends TaskDao {
   public static final String NAME = TaskType.EVENT.getCommand();
   private static final String FROM_STRING = "/from";
   private static final String TO_STRING = "/to";
@@ -48,12 +48,4 @@ public class EventDao {
   private static String getEventFrom(String input) {
     return StringUtils.getValueOfCommand(input, EventDao.FROM_STRING, EventDao.TO_STRING);
   }
-
-  public static void add(Event event) {
-    File table = Database.getTable(NAME);
-    String data = event.toDataString();
-    long id = Database.create(table.toPath(), data);
-    event.setId(id);
-  }
-
 }

@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeadlineDao {
+public class DeadlineDao extends TaskDao {
   public static final String NAME = TaskType.DEADLINE.getCommand();
   private static final String byString = "/by";
 
@@ -47,10 +47,4 @@ public class DeadlineDao {
     return deadlines;
   }
 
-  public static void add(Deadline deadline) {
-    File table = Database.getTable(NAME);
-    String data = deadline.toDataString();
-    long id = Database.create(table.toPath(), data);
-    deadline.setId(id);
-  }
 }

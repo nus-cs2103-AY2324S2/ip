@@ -32,11 +32,4 @@ public class TodoDao extends TaskDao {
     }
     return todos;
   }
-
-  public static void add(Todo todo) {
-    File table = Database.getTable(NAME);
-    String data = todo.toDataString();
-    long id = Database.create(table.toPath(), data);
-    todo.setId(id);
-  }
 }

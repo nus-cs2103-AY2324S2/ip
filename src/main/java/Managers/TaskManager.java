@@ -106,19 +106,19 @@ public class TaskManager {
 
   private void addTodo(String input) {
     Todo todo = TodoDao.getFrom(input);
-    TodoDao.add(todo);
+    TaskDao.add(TodoDao.NAME, todo);
     this.add(todo);
   }
 
   private void addDeadline(String input) {
     Deadline deadline = DeadlineDao.getFrom(input);
-    DeadlineDao.add(deadline);
+    DeadlineDao.add(DeadlineDao.NAME, deadline);
     this.add(deadline);
   }
 
   private void addEvent(String input) {
     Event event = EventDao.getFrom(input);
-    EventDao.add(event);
+    EventDao.add(EventDao.NAME, event);
     this.add(event);
   }
 

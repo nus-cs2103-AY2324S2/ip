@@ -13,7 +13,7 @@ public class TaskDao {
 
     /**
      *
-     * @param id the id of the task. 1-indexed
+     * @param id the id of the task
      * @param NAME the file name of the object to update. e.g. if marking a todo, then it should be value of
      *             TodoDao NAME
      * @param task The task to modify and update
@@ -26,5 +26,13 @@ public class TaskDao {
         String data = task.toDataString();
         Database.updateById(table.toPath(), id, data);
         return task;
+    }
+
+
+    public static void add(String NAME, Task task) {
+        File table = Database.getTable(NAME);
+        String data = task.toDataString();
+        long id = Database.create(table.toPath(), data);
+        task.setId(id);
     }
 }
