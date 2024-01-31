@@ -14,68 +14,6 @@ public class Duke {
     }
 
     static ArrayList<Task> listItems = new ArrayList<>();
-    public static class Task {
-        protected String description;
-        protected boolean isDone;
-
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-        }
-        public String getStatusIcon() {
-            return (isDone ? "X" : " "); // mark done task with X
-        }
-        public void mark(){
-            this.isDone = true;
-        }
-        public void unmark(){
-            this.isDone = false;
-        }
-        @Override
-        public String toString(){
-            String output = "[" + this.getStatusIcon() + "] " + this.description;
-            return output;
-        }
-    }
-    public static class ToDo extends Task {
-        public ToDo(String description) {
-            super(description);
-        }
-        @Override
-        public String toString() {
-            return "[T]" + super.toString();
-        }
-    }
-    public static class Deadline extends Task {
-
-        protected String by;
-
-        public Deadline(String description, String by) {
-            super(description);
-            this.by = by;
-        }
-
-        @Override
-        public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
-        }
-    }
-    public static class Event extends Task {
-
-        protected String from;
-        protected String to;
-
-        public Event(String description, String from, String to) {
-            super(description);
-            this.from = from;
-            this.to = to;
-        }
-
-        @Override
-        public String toString() {
-            return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to +")";
-        }
-    }
     public enum Command{
         list, todo, deadline, event, mark, unmark, delete, bye
     }
@@ -135,7 +73,7 @@ public class Duke {
     public static void addTodo(String cmd){
         String[] statement = cmd.split(" ", 2);
         try {
-            ToDo todo = new ToDo(statement[1]);
+            Todo todo = new Todo(statement[1]);
             addList(todo);
         }catch(ArrayIndexOutOfBoundsException e) {
             erroMsg("It is imperative that the description of a to-do is not left empty.");
