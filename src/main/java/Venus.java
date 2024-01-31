@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Venus {
     public static void main(String[] args) {
@@ -13,10 +14,24 @@ public class Venus {
         String indented_lines = "    ____________________________________________________________\n";
         System.out.println(start);
 
+        ArrayList<String> data = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         String words = sc.nextLine();
         while (!words.equals("bye")) {
-            System.out.println(indented_lines + "    " + words + "\n" + indented_lines);
+            if (!words.equals("list")) {
+                data.add(words);
+                System.out.println(indented_lines
+                        + "     added: "
+                        + words +
+                        "\n" + indented_lines);
+            }
+            else {
+                int i = 1;
+                for (String s : data) {
+                    System.out.println("     " + i + ". " + s);
+                    i++;
+                }
+            }
             words = sc.nextLine();
         }
         sc.close();
