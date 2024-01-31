@@ -1,63 +1,47 @@
 package storage;
 
-import java.util.ArrayList;
+import dukeException.ListOutofBoundsException;
+import parser.Parser;
+import parser.Command;
+import parser.Token;
 
+import ui.UI;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import UI.UI;
-
 public class Storage {
-    private static final String lines = "    ____________________________________________________________";
-    private final ArrayList<Task> storage;
 
-    public Storage() {
-        this.storage = new ArrayList<>();
-    }
-    public void add(Task task) {
-        this.storage.add(task);
-        saveToFile();
-    }
-
-    public void markTask(int number) {
-        this.storage.get(number).mark();
-        System.out.println("      " + this.storage.get(number).toString());
-        saveToFile();
-    }
-    public void unMarkTask(int number) {
-        this.storage.get(number).unMark();
-        System.out.println("      " + this.storage.get(number).toString());
-        saveToFile();
-    }
-
-    public void remove(int number) {
-        System.out.println("      " + this.storage.get(number).toString());
-        this.storage.remove(number);
-        saveToFile();
-    }
-    public int taskLength() {
-        return this.storage.size();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append(lines).append("\n");
-        for(int i=1;i<=storage.size();i++) {
-           result.append(String.format("    %d.",i)).append(this.storage.get(i-1).toString()).append("\n");
-        }
-        result.append(lines);
-        return result.toString();
-    }
-
-    private void saveToFile() {
+    public static void start(TaskList taskList) {
         try {
-            FileWriter fileWriter = new FileWriter("./src/main/java/Storage/data.txt");
-            fileWriter.write(toString());
-            fileWriter.close();
-        } catch (IOException e) {
-            UI.error(e.getMessage());
+            File file = new File("./src/main/java/Storage/savefile.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                Parser parser = new Parser();
+                parser.feed(scanner.nextLine());
+                Token output = null;
+                try {
+                    output = parser.parse();
+                    taskList.loadFromSave(output.getTask());
+                } catch (Exception e) {
+                    UI.error(e.getMessage());
+                }
+            }
+        } catch (FileNotFoundException e) {
+            UI.error("No save file");
         }
     }
 
+    public static void save(String input) {
+        try {
+            FileWriter fw = new FileWriter("./src/main/java/Storage/savefile.txt");
+            fw.write(input);
+            fw.close();
+        } catch (IOException e) {
+            UI.error("Missing save file");
+        }
+    }
 }

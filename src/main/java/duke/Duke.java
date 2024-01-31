@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.Scanner;
 
 import dukeException.InvalidCommandException;
@@ -6,11 +8,10 @@ import dukeException.MissingArgumentsException;
 
 import dukeException.WrongTimeFormatException;
 
-import UI.UI;
+import ui.UI;
 
 import parser.Parser;
 import parser.Token;
-
 
 public class Duke {
     public static void main(String[] args) {
@@ -18,8 +19,8 @@ public class Duke {
         UI.greeting();
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser();
-        boolean flag = true;
-        while(flag) {
+        boolean isTrue = true;
+        while(isTrue) {
             String input = scanner.nextLine().trim();
             parser.feed(input);
             Token output;
@@ -38,7 +39,7 @@ public class Duke {
             switch (output.getCmd()) {
             case BYE:
                 UI.goodbye();
-                flag = false;
+                isTrue = false;
                 break;
             case LIST:
                 ui.listItems();

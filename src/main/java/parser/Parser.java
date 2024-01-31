@@ -90,7 +90,7 @@ public class Parser {
                 throw new MissingArgumentsExceptionTodo("todo");
             } else {
                 int space = this.input.indexOf(" ");
-                task = new Todos(this.input.substring(space + 1));
+                task = new Todos(this.input, this.input.substring(space + 1));
                 token = new Token(Command.TODO, task);
             }
             break;
@@ -153,7 +153,7 @@ public class Parser {
                 } catch (WrongTimeFormatException exception) {
                     throw exception;
                 }
-                task = new Events(this.input.substring(space + 1, from).trim(), fromDateTime, toDateTime);
+                task = new Events(this.input, this.input.substring(space + 1, from).trim(), fromDateTime, toDateTime);
                 token = new Token(Command.EVENT, task);
             }
             break;
@@ -187,9 +187,18 @@ public class Parser {
                 } catch (WrongTimeFormatException exception) {
                     throw exception;
                 }
-                task = new Deadlines(this.input.substring(space + 1, by).trim(), byDateTime);
+                task = new Deadlines(this.input, this.input.substring(space + 1, by).trim(), byDateTime);
                 token = new Token(Command.DEADLINE, task);
             }
+            break;
+        case "save":
+            boolean marked = split[1].equals("1") ? true : false;
+            this.input = String.join(" ", Arrays.copyOfRange(split, 2, split.length));
+            token = this.parse();
+            if (marked) {
+                token.getTask().mark();
+            }
+            token.setAsSaved();
             break;
         default:
             throw new InvalidCommandException("InvalidCommandException");

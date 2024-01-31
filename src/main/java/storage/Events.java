@@ -13,8 +13,8 @@ public class Events extends Task{
     protected LocalDate to;
     protected LocalTime toTime;
 
-    public Events(String description, String dateTimeFrom, String dateTimeTo) {
-        super(description);
+    public Events(String originalCommand, String description, String dateTimeFrom, String dateTimeTo) {
+        super(originalCommand, description);
         String[] splitFrom = dateTimeFrom.split("-");
         String[] splitTo = dateTimeTo.split("-");
         int lenFrom = splitFrom.length;

@@ -5,7 +5,6 @@ import storage.Task;
 public class Token {
     private Command cmd;
     private Task task;
-
     private int selectedItem;
 
     public Token(Command cmd) {
@@ -33,4 +32,9 @@ public class Token {
     public Task getTask() {
         return this.task;
     }
+
+    public void setAsSaved() {
+        this.cmd = Command.SAVED;
+    }
+
 }

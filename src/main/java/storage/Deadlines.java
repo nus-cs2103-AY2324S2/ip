@@ -8,10 +8,11 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class Deadlines extends Task {
+
     protected LocalDate by;
     protected LocalTime byTime;
-    public Deadlines(String description, String dateTimeBy) {
-        super(description);
+    public Deadlines(String originalCommand, String description, String dateTimeBy) {
+        super(originalCommand, description);
         String[] splitBy = dateTimeBy.split("-");
         int lenBy = splitBy.length;
 
