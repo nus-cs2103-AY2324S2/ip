@@ -1,10 +1,17 @@
+import java.io.IOException;
 import java.util.*;
 
 public class Duke {
+    private static final ArrayList<String> FILE_PATH = new ArrayList<>(List.of("data", "taskList.txt"));
     private static final String BOT_NAME = "Felix";
+    private final Storage storage;
     private TaskList tasks;
 
-    Duke() {this.tasks = new TaskList();}
+
+    Duke() throws IOException {
+        this.tasks = new TaskList();
+        this.storage = new Storage(FILE_PATH);
+    }
 
     private CommandType getCommand(String[] words) {
         switch (words[0]) {
@@ -55,7 +62,6 @@ public class Duke {
             System.out.println("Nice! I have marked this task as done:");
             System.out.println(task);
         } catch (IndexOutOfBoundsException err) {
-            int index = Integer.parseInt(words[1]) - 1;
             throw new DukeException(String.format("You have %d tasks, provide a valid index in the range [1,%d]", this.tasks.getCount(), this.tasks.getCount()));
         } catch (NumberFormatException err) {
             throw new DukeException("Enter a number after \"mark\"");
@@ -69,7 +75,6 @@ public class Duke {
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(task);
         } catch (IndexOutOfBoundsException err) {
-            int index = Integer.parseInt(words[1]) - 1;
             throw new DukeException(String.format("You have %d tasks, provide a valid index in the range [1,%d]", this.tasks.getCount(), this.tasks.getCount()));
         } catch (NumberFormatException err) {
             throw new DukeException("Enter a number after \"unmark\"");
@@ -123,14 +128,15 @@ public class Duke {
             System.out.println(task);
             System.out.printf("Now you have %d tasks in the list.\n", this.tasks.getCount());
         } catch (IndexOutOfBoundsException err) {
-            int index = Integer.parseInt(words[1]) - 1;
             throw new DukeException(String.format("You have %d tasks, provide a valid index in the range [1,%d]", this.tasks.getCount(), this.tasks.getCount()));
         } catch (NumberFormatException err) {
             throw new DukeException("Enter a number after \"delete\"");
         }
     }
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException, DukeException {
         Duke duke = new Duke();
+        duke.tasks = duke.storage.getTasksFromFile();
         Scanner scanner = new Scanner(System.in);
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -171,5 +177,6 @@ public class Duke {
             }
             duke.printHorizontalLine(60);
         }
+        duke.storage.writeToFile(duke.tasks);
     }
 }
