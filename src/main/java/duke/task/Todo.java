@@ -6,6 +6,7 @@ import java.util.Objects;
  * The class representing an Event task.
  * */
 public class Todo extends Task {
+    /* Type indicator for Todo task. */
     String type = "[T]";
 
     public Todo(String description) {
@@ -18,7 +19,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public String toDBString() {
+    public String toDbString() {
         String display;
         if (Objects.equals(this.display, "[ ]")) {
             display = "0";

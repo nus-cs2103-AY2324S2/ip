@@ -12,8 +12,13 @@ import duke.command.Command;
  * The main class for the chatbot application.
  * */
 public class Duke {
+    /* The storage object used to load and save to disk. */
     Storage storage;
+
+    /* The taskList containing all current user-entered tasks. */
     TaskList taskList;
+
+    /* The user interaction object. */
     Ui ui;
 
     public Duke(String relativeFilePath) {

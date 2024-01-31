@@ -22,6 +22,7 @@ import java.util.Objects;
  * The class representing a storage component that loads and saves the tasklist into the disk.
  * */
 public class Storage {
+    /* The relative path for db.txt. */
     String relativeFilePath;
 
     public Storage(String relativeFilePath) {
@@ -89,7 +90,7 @@ public class Storage {
     public void save(TaskList taskList) throws SaveStorageException {
         List<String> linesToWrite = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
-            linesToWrite.add(taskList.get(i).toDBString());
+            linesToWrite.add(taskList.get(i).toDbString());
         }
 
         try {

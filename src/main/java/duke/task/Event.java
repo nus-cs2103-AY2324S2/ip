@@ -8,8 +8,13 @@ import java.util.Objects;
  * The class representing an Event task.
  * */
 public class Event extends Task {
+    /* Type indicator for Event task. */
     String type = "[E]";
+
+    /* Start date of the event. */
     LocalDate start;
+
+    /* End date of the event. */
     LocalDate end;
 
     public Event(String description, String start, String end) {
@@ -20,11 +25,19 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return this.type + this.display + " " + this.description + "(from: " + this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "to: " + this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return this.type
+            + this.display
+            + " "
+            + this.description
+            + "(from: "
+            + this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+            + "to: "
+            + this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+            + ")";
     }
 
     @Override
-    public String toDBString() {
+    public String toDbString() {
         String display;
         if (Objects.equals(this.display, "[ ]")) {
             display = "0";

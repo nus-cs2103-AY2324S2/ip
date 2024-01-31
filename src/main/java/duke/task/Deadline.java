@@ -8,7 +8,10 @@ import java.util.Objects;
  * The class representing a deadline task.
  * */
 public class Deadline extends Task {
+    /* Type indicator for Deadline task. */
     String type = "[D]";
+
+    /* Deadline of the current task. */
     LocalDate deadline;
 
     public Deadline(String description, String deadline) {
@@ -18,11 +21,17 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return this.type + this.display + " " + this.description + "(by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return this.type
+            + this.display
+            + " "
+            + this.description
+            + "(by: "
+            + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+            + ")";
     }
 
     @Override
-    public String toDBString() {
+    public String toDbString() {
         String display;
         if (Objects.equals(this.display, "[ ]")) {
             display = "0";

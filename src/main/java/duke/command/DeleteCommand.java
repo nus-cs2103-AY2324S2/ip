@@ -13,6 +13,7 @@ import duke.exception.SaveStorageException;
  * The class representing a delete task command.
  * */
 public class DeleteCommand extends Command {
+    /* The separated list of constituent words in the user-entered command. */
     String[] commandList;
 
     public DeleteCommand(String[] commandList) {
