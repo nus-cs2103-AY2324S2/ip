@@ -1,12 +1,20 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class TaskManager {
     private List<Task> tasks;
+    private final String FILE_PATH = "." + File.separator + "data" + File.separator + "echo.txt";
 
     public TaskManager() {
         this.tasks = new ArrayList<>();
+        loadTasksFromFile();
     }
 
     public void executeCommand(String command) {
@@ -60,6 +68,7 @@ public class TaskManager {
         } else {
             System.out.println("Invalid command. Usage: mark <index>");
         }
+        saveTasksToFile();
     }
 
     private void unmarkTask(String[] tokens) {
@@ -77,9 +86,10 @@ public class TaskManager {
         } else {
             System.out.println("Invalid command. Usage: unmark <index>");
         }
+        saveTasksToFile();
     }
 
-    private void addTask(String[] tokens) {
+    public void addTask(String[] tokens) {
         try {
             if (tokens.length != 2) {
                 throw new IllegalArgumentException("NO! I don't know what is this! Invalid command. Supported taskss: todo, deadline, event");
@@ -125,6 +135,7 @@ public class TaskManager {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+        saveTasksToFile();
     }
 
     private boolean isValidIndex(int index) {
@@ -158,6 +169,115 @@ public class TaskManager {
             System.out.println("NO! Invalid task number. Enter a valid task number to delete.");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+        }
+        saveTasksToFile();
+    }
+
+    public void addTaskFromFileString(String fileLine) {
+        try {
+            String[] tokens = fileLine.split(" \\| ");
+            if (tokens.length <= 1) {
+                throw new IllegalArgumentException("Invalid task format in file!");
+            }
+
+            String taskType = tokens[0].toLowerCase();
+            if (tokens[2].isEmpty()) {
+                throw new IllegalArgumentException("The description of a task cannot be empty.");
+            }
+            String taskDescription = tokens[2].trim();
+
+            switch (taskType) {
+                case "T":
+                    tasks.add(new Todo(taskDescription));
+                    break;
+                case "D":
+                    String[] deadlineTokens = tokens[3].split(" ", 2);
+                    if (deadlineTokens.length != 2) {
+                        throw new IllegalArgumentException("Invalid deadline format in file.");
+                    }
+                    tasks.add(new Deadline(taskDescription, deadlineTokens[1]));
+                    break;
+                case "E":
+                    String[] eventTokens = tokens[3].split(" ", 3);
+                    if (eventTokens.length != 3) {
+                        throw new IllegalArgumentException("Invalid event format in file.");
+                    }
+                    tasks.add(new Event(taskDescription, eventTokens[1], eventTokens[2]));
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid task type in file.");
+            }
+
+            printTaskAddedMessage(tasks.size());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    // Method to save tasks to a file
+    private void saveTasksToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            for (Task task : tasks) {
+                writer.write(task.toFileString() + System.lineSeparator());
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    // Method to load tasks from a file
+    private void loadTasksFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); // Create parent directories if they don't exist
+                file.createNewFile(); // Create the file if it doesn't exist
+
+                System.out.println("No tasks file found. Created a new tasks file.");
+            } else {
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    try {
+                        addTaskFromFileString(line);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Error loading a task. Skipping invalid task line: " + line);
+                    }
+                }
+
+                reader.close();
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+
+            // Handle the situation where the file is corrupted
+            System.out.println("Deleting the corrupted file and creating a new tasks file.");
+            File corruptedFile = new File(FILE_PATH);
+            corruptedFile.delete(); // Delete the corrupted file
+            loadTasksFromFile(); // Recursively call the method to create a new file
+        }
+    }
+
+
+
+    public void resetFile() {
+        try {
+            File file = new File(FILE_PATH);
+
+            // Create a new file writer with append mode set to false (clears existing content)
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
+                // Clear the tasks list
+                tasks.clear();
+                System.out.println("Tasks list cleared.");
+
+                System.out.println("File content cleared successfully.");
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error resetting file: " + e.getMessage());
         }
     }
 }
