@@ -107,6 +107,12 @@ public class Parser {
                 } catch (IndexOutOfBoundsException | NumberFormatException e) {
                     throw new DukeException("Unknown usage - task number given is not a valid number");
                 }
+            case "find":
+                if (parts.length == 1) {
+                    throw new DukeException("Unknown usage - keyword should be included in \"find\" command");
+                }
+                String keyword = input.substring(5);
+                return new Command(Duke.CommandType.FIND, new String[]{keyword});
             default:
                 throw new DukeException("Unknown command");
         }

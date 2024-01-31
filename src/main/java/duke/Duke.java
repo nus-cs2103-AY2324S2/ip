@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class Duke {
 
     public enum CommandType {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND
     }
     private Storage storage;
     private TaskList tasks;
@@ -78,6 +78,9 @@ public class Duke {
                         Task deletedTask = tasks.deleteTask(Integer.parseInt(cmd.args[0]) - 1);
                         ui.showTaskDeleted(deletedTask, tasks.getSize());
                         numList(tasks.getSize());
+                        break;
+                    case FIND:
+                        ui.showMatchingTasks(tasks.getMatchingTasks(cmd.args[0]));
                         break;
                     default:
                         throw new DukeException("Unknown command");

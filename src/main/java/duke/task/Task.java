@@ -29,4 +29,8 @@ abstract public class Task {
     public void markAsUndone() {
         this.isDone = false;
     }
+
+    public boolean matchesKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
 }
