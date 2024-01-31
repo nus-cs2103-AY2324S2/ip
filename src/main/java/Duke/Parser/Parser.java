@@ -20,6 +20,7 @@ public class Parser {
         isFinished = false;
     }
 
+<<<<<<< HEAD
     /**
      * Returns Array of string split into command and description.
      * If the input is bye or list, return spilt.
@@ -29,6 +30,8 @@ public class Parser {
      * @throws DukeException If command lacks description.
      */
 
+=======
+>>>>>>> branch-A-CodingStandard
     public String[] parse(String input) throws DukeException {
         String[] split = input.split(" ", 2);
         if(split[0].equalsIgnoreCase("bye") || split[0].equalsIgnoreCase("list")) {
@@ -72,6 +75,7 @@ public class Parser {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Returns task's description
      *
@@ -79,6 +83,8 @@ public class Parser {
      * @return Task's description.
      * @throws DukeException If user's input is too short.
      */
+=======
+>>>>>>> branch-A-CodingStandard
     public String toDo(String input) throws DukeException {
         if (input.length() <= 1) {
             throw new DukeException("Please enter something that you want to do. \n");
@@ -87,6 +93,7 @@ public class Parser {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Returns string array of description and deadline.
      *
@@ -94,6 +101,8 @@ public class Parser {
      * @return Task's description and deadline.
      * @throws DukeException If description is too short and no deadline inputted.
      */
+=======
+>>>>>>> branch-A-CodingStandard
     public String[] deadline(String input) throws DukeException {
         if (input.length() <= 1) {
             throw new DukeException("Please enter something that you want to do. \n");
@@ -109,6 +118,7 @@ public class Parser {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Returns string array of description and duration.
      *
@@ -116,6 +126,8 @@ public class Parser {
      * @return Task's description and duration.
      * @throws DukeException If description is too short and no duration inputted.
      */
+=======
+>>>>>>> branch-A-CodingStandard
     public String[] event(String input) throws DukeException {
         if (input.length() <= 1) {
             throw new DukeException("Please enter something that you want to do. \n");

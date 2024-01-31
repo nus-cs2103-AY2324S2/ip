@@ -58,11 +58,14 @@ public class TaskList {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Adds todos to the list.
      *
      * @param description Todos' Description.
      */
+=======
+>>>>>>> branch-A-CodingStandard
     public void toDo(String description) {
         Task task = new ToDos(description);
         taskList.add(task);
