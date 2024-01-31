@@ -294,7 +294,7 @@ class ListAdder {
      */
     private void deleteTask(int index) {
         try {
-            System.out.println("\t" + "Noted. I've removed this task:" + "\n" + this.taskList.get(index));
+            System.out.println("\t" + "Noted. I've removed this task:" + "\n" + "\t" + this.taskList.get(index));
             this.taskList.remove(index);
             System.out.println("\t" + "Now you have " + this.taskList.size() + " tasks in the list.");
             saveTaskListToFile();
@@ -472,11 +472,14 @@ class Task {
         return "";
     }
 
+    public String taskStatus() {
+        return this.isDone ? "X" : " ";
+    }
+
+
     @Override
     public String toString() {
-        return this.isDone 
-            ? taskType() + " | X | " + this.task
-            : taskType() + " |   | " + this.task;
+        return taskType() + " | " + taskStatus() + " | " + this.task;
     }
 }
 
