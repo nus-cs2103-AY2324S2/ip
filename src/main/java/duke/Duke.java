@@ -9,6 +9,11 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a <code>Duke</code> to start the program.
+     *
+     * @param filePath File path for persistent task storage.
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -20,6 +25,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs an instance of <code>Duke</code>.
+     */
     public void run() {
         this.ui.greet();
         boolean isExit = false;

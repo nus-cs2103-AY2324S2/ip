@@ -14,14 +14,25 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    protected String filePath = "./data/duke.txt";
+    private String filePath = "./data/duke.txt";
     private FileWriter data;
 
-    public Storage(String filePath) {
+    /**
+     * Constructs a new <code>Storage</code> that stores tasks from specified file.
+     *
+     * @param filePath File to be written.
+     */
+    protected Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> load() throws IOException {
+    /**
+     * Loads, parses and returns data from specified file.
+     *
+     * @return an <code>ArrayList</code> of tasks.
+     * @throws IOException When <code>Scanner</code> does not find the file.
+     */
+    protected ArrayList<Task> load() throws IOException {
         ArrayList<Task> arr = new ArrayList<>();
         File f = new File(this.filePath);
         if (!f.exists()) {
@@ -44,7 +55,12 @@ public class Storage {
         return arr;
     }
 
-    public void save(ArrayList<Task> tl) {
+    /**
+     * Saves current tasks in instance to specified file.
+     *
+     * @param tl <code>ArrayList</code> of tasks to store.
+     */
+    protected void save(ArrayList<Task> tl) {
         try {
             this.data = new FileWriter(this.filePath);
             tl.forEach(t -> {

@@ -14,19 +14,36 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks;
 
-    public TaskList() {
+    /**
+     * Constructs a <code>TaskList</code> with no tasks.
+     */
+    protected TaskList() {
         this.tasks = new ArrayList<>();
     }
 
-    public TaskList(ArrayList<Task> tasks) {
+    /**
+     * Constructs a <code>TaskList</code> with specified task list.
+     *
+     * @param tasks <code>ArrayList</code> of tasks.
+     */
+    protected TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
-    protected void addTask(Ui ui, Storage st, String cmd, String[] args) throws InvalidTaskException {
+    /**
+     * Adds relevant task to <code>TaskList</code> and updates file from <code>Storage</code>.
+     *
+     * @param ui Display ui elements.
+     * @param st Stores task after update.
+     * @param task Task type.
+     * @param args Arguments for the task.
+     * @throws InvalidTaskException
+     */
+    protected void addTask(Ui ui, Storage st, String task, String[] args) throws InvalidTaskException {
         Task t = null;
-        if (cmd.equals("todo")) {
+        if (task.equals("todo")) {
             t = new Todo(args[0]);
-        } else if (cmd.equals("deadline")) {
+        } else if (task.equals("deadline")) {
             DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
             try {
                 LocalDate d = LocalDate.parse(args[1], formatter);
@@ -34,10 +51,10 @@ public class TaskList {
             } catch (DateTimeParseException de) {
                 throw new InvalidTaskException("Date not in format: yyyy-MM-dd, please try again.");
             }
-        } else if (cmd.equals("event")) {
+        } else if (task.equals("event")) {
             t = new Event(args[0], args[1], args[2]);
         } else {
-            throw new InvalidTaskException("Invalid task syntax for " + cmd + ".");
+            throw new InvalidTaskException("Invalid task syntax for " + task + ".");
         }
 
         if (t != null) {
@@ -49,6 +66,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes tasks from <code>TaskList</code> and updates file from <code>Storage</code>.
+     *
+     * @param ui Display ui elements.
+     * @param st <code>Storage</code> instance to update.
+     * @param args Contains index for specifying task.
+     */
     protected void deleteTask(Ui ui, Storage st, String[] args) {
         Task t = tasks.get(Integer.parseInt(args[0]) - 1);
         tasks.remove(t);
@@ -58,6 +82,11 @@ public class TaskList {
                 + "Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    /**
+     * Lists down all saved tasks in <code>TaskList</code>.
+     *
+     * @param ui Display ui elements.
+     */
     protected void list(Ui ui) {
         int count = 0;
         System.out.println("Here are the tasks in your list:");
@@ -68,6 +97,13 @@ public class TaskList {
         ui.showLine();
     }
 
+    /**
+     * Marks specified task as done.
+     *
+     * @param ui Display ui elements.
+     * @param st <code>Storage</code> for file update.
+     * @param args Index for specified task.
+     */
     protected void mark(Ui ui, Storage st, String[] args) {
         try {
             Task t = tasks.get(Integer.parseInt(args[0]) - 1);
@@ -80,6 +116,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks specified task as undone.
+     *
+     * @param ui Display ui elements.
+     * @param st <code>Storage</code> for file update.
+     * @param args Index for specified task.
+     */
     protected void unmark(Ui ui, Storage st, String[] args) {
         try {
             Task t = tasks.get(Integer.parseInt(args[0]) - 1);

@@ -12,31 +12,53 @@ public class Ui {
     private String greetMsg = "Hello! I'm Hatsune Miku!\n"
             + " What can I do for you?";
 
-    public Ui() {
+    /**
+     * Constructs a <code>Ui</code> for ui elements.
+     */
+    protected Ui() {
         this.sc = new Scanner(System.in);
     }
 
-    public void greet() {
+    /**
+     * Shows a greeting message.
+     */
+    protected void greet() {
         System.out.println(logo);
         System.out.println(hLine);
         System.out.println(greetMsg);
         System.out.println(hLine);
     }
 
+    /**
+     * Reads command string from input.
+     *
+     * @return Command string.
+     */
     protected String readCommand() {
         return sc.nextLine();
     }
 
+    /**
+     * Shows a message for file load error.
+     */
     protected void showLoadingError() {
         System.out.println(hLine);
         System.out.println("Error in loading file from specified folder! Creating one.");
         System.out.println(hLine);
     }
 
+    /**
+     * Displays a horizontal line.
+     */
     protected void showLine() {
         System.out.println(hLine);
     }
 
+    /**
+     * Echoes the inputted message.
+     *
+     * @param msg Message to be echoed.
+     */
     protected void echo(String msg) {
         System.out.println(msg);
         System.out.println(hLine);
