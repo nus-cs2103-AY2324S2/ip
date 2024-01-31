@@ -7,7 +7,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public String printStatus() {
+    private String printStatus() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
@@ -21,7 +21,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return this.description;
+        return "[" + printStatus() + "] " + this.description;
     }
 
 }
