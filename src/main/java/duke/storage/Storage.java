@@ -22,6 +22,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * reads tasks in a text file from the given filePath recursively.
+     * If the file or folder does not exist, create new folders and files based on the given filePath.
+     * @return task list read from the file.
+     * @throws IOException
+     */
     public ArrayList<Task> load() throws IOException {
         if (!this.file.getParentFile().exists())
             this.file.getParentFile().mkdirs();
@@ -31,7 +37,7 @@ public class Storage {
     }
 
     /**
-     * read content of the file into task list.
+     * reads content of the file into task list.
      * @return task list read from file
      * @throws FileNotFoundException if the file is not found
      */
@@ -47,8 +53,8 @@ public class Storage {
     }
 
     /**
-     * write all the duke.tasks in the task list to the file stored
-     * @param taskList
+     * writes all the duke tasks in the task list to the file stored.
+     * @param taskList taskList to be stored.
      * @throws IOException
      */
     public void writeTasksToFile(TaskList taskList) throws IOException {
@@ -60,7 +66,7 @@ public class Storage {
     }
 
     /**
-     * Change task from string format to task object
+     * Changes task from string format to task object
      * @param str String format of the task
      * @return The respective task object
      */
