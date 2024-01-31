@@ -1,21 +1,28 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected String fromString;
+    protected String toString;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.fromString = from;
+        this.toString = to;
+        this.from = super.parseDateTime(from);
+        this.to = super.parseDateTime(to);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
     }
 
     public String fileSavingString() {
-        return "E | " + Integer.toString(super.isDone ? 1 : 0) + " | " + super.description + " | " + this.from + " | " + this.to;
+        return "E | " + Integer.toString(super.isDone ? 1 : 0) + " | " + super.description + " | " + this.fromString + " | " + this.toString;
     }
 }
 

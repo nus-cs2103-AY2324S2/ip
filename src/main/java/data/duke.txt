@@ -1,9 +1,14 @@
-D | 1 | return book | June 6th
+D | 1 | return book | 2019-12-03 0000
 T | 1 | read book
 T | 0 | read book
-E | 0 | project meeting | Aug 6th 2pm | 4pm
+E | 0 | project meeting | 2024-08-06 1400 | 2024-08-06 1800
 T | 1 | join sports club
 T | 0 | read book
 T | 1 | AddedNew
 T | 0 | evenNewer
-D | 0 | yestheory | yesterday
+D | 0 | yestheory | 2019-12-03 0000
+T | 0 | test
+T | 0 | test
+T | 0 | test2
+D | 0 | something | 2024-12-03 1800
+E | 0 | uat kick off | 2024-01-31 | 2024-02-01
