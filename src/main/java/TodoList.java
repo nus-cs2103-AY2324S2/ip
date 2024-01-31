@@ -50,8 +50,7 @@ public class TodoList {
     public String toString() {
         StringBuilder txt = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            txt.append(i > 0 ? Checkbot.INDENTATION : "")
-                    .append(i + 1)
+            txt.append(i + 1)
                     .append(". ")
                     .append(taskList[i])
                     .append(i < length - 1 ? "\n" : "");
