@@ -6,40 +6,44 @@
 	____________________________________________________________
 	Got it. I've added this task:
 	[T][ ] Go school
-	Now you have 5 tasks in the list.
+	Now you have 9 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Got it. I've added this task:
 	[D][ ] Task 4 (by: Jan 31 2024)
-	Now you have 6 tasks in the list.
+	Now you have 10 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Got it. I've added this task:
 	[E][ ] project meeting (from: Jan 31 2024 to: Feb 01 2024)
-	Now you have 7 tasks in the list.
+	Now you have 11 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Noted. I've removed this task:
 	[T][ ] Go school
-	Now you have 6 tasks in the list.
+	Now you have 10 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Noted. I've removed this task:
-	[D][ ] Task 4 (by: Jan 31 2024)
-	Now you have 5 tasks in the list.
+	[T][ ] Go school
+	Now you have 9 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Here are the tasks in your list:
-	1. [T][X] Go school
-	2. [E][ ] project meeting (from: Jan 31 2024 to: Feb 01 2024)
-	3. [T][ ] Go school
-	4. [D][ ] Task 4 (by: Jan 31 2024)
-	5. [E][ ] project meeting (from: Jan 31 2024 to: Feb 01 2024)
+	1. [E][X] project meeting (from: Jan 31 2024 to: Feb 01 2024)
+	2. [D][ ] Task 4 (by: Jan 31 2024)
+	3. [E][ ] project meeting (from: Jan 31 2024 to: Feb 01 2024)
+	4. [T][ ] Go school
+	5. [D][ ] Task 4 (by: Jan 31 2024)
+	6. [E][ ] project meeting (from: Jan 31 2024 to: Feb 01 2024)
+	7. [T][ ] Go school
+	8. [D][ ] Task 4 (by: Jan 31 2024)
+	9. [E][ ] project meeting (from: Jan 31 2024 to: Feb 01 2024)
 	____________________________________________________________
 
 	____________________________________________________________

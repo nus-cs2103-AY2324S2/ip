@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -28,8 +29,8 @@ public class Chatbot {
 
     private String goodbye = "\tBye. Hope to see you again soon!\n"
             + Chatbot.LINE;
-    private static final String DATA_DIRECTORY = "..\\src\\main\\java\\data";
-    private static final String DATA_FILE = DATA_DIRECTORY + "/tasks.txt";
+    private static final String DATA_DIRECTORY = Paths.get(".", "src", "main", "java", "data").toString();
+    private static final String DATA_FILE = Paths.get(DATA_DIRECTORY, "tasks.txt").toString();
 
     private String name;
     private ArrayList<Task> tasks;
