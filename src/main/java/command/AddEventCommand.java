@@ -27,7 +27,7 @@ public class AddEventCommand extends Command {
 
         String[] eventSplit = input.split("/");
         if (eventSplit.length < 3) {
-            throw new DukeException("Invalid format for new task.Event!");
+            throw new DukeException("Invalid format for new Event!");
         }
 
         String name = eventSplit[0].substring(6).trim();

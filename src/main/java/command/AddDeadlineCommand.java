@@ -28,7 +28,7 @@ public class AddDeadlineCommand extends Command {
         String[] deadlineSplit = input.split("/");
 
         if (deadlineSplit.length < 2) {
-            throw new DukeException("Invalid format for new task.Deadline!");
+            throw new DukeException("Invalid format for new Deadline!");
         }
 
         String name = deadlineSplit[0].substring(9).trim();
