@@ -4,10 +4,7 @@
  * @author Tan Qin Yong
  */
 public class Deadline extends Task {
-
-    /**
-     * The deadline associated with the task.
-     */
+    /** The deadline associated with the task. */
     private String by;
 
     /**
@@ -19,6 +16,24 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
+    }
+
+    public String getBy() {
+        return by;
+    }
+
+    public void setBy(String by) {
+        this.by = by;
+    }
+
+    /**
+     * Gets the type of the task.
+     *
+     * @return The string "deadline" representing the type of the task.
+     */
+    @Override
+    public String getType() {
+        return "deadline";
     }
 
     /**

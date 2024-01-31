@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * Encapsulates a taskList. An array full of Tasks object.
@@ -6,14 +6,10 @@ import java.util.*;
  *  @author Tan Qin Yong
  */
 public class TaskList {
-    /**
-     * The list containing tasks.
-     */
+    /** The list containing tasks. */
     private ArrayList<Task> taskList;
 
-    /**
-     * The count of tasks in the list.
-     */
+    /** The count of tasks in the list. */
     private int count;
 
     /**
@@ -38,15 +34,18 @@ public class TaskList {
      * Adds a new task to the end of the list.
      *
      * @param newTask The new task provided by the user.
+     * @param loadTask Indicates whether task is being loaded by IO.
      */
-    public void addTask(Task newTask) {
+    public void addTask(Task newTask, boolean loadTask) {
         this.taskList.add(newTask);
         count++;
 
-        System.out.println("Cool! Adding new task: ");
-        System.out.println(newTask.toString());
-        System.out.println("Now you have " + this.count +
-                            " tasks in your list.");
+        if (!loadTask) {
+            System.out.println("Cool! Adding new task: ");
+            System.out.println(newTask.toString());
+            System.out.println("Now you have " + this.count +
+                    " tasks in your list.");
+        }
     }
 
     /**
@@ -84,6 +83,11 @@ public class TaskList {
      */
     public void setTask(Task task, int ind) {
         this.taskList.set(ind-1, task);
+    }
+
+
+    public int getSize() {
+        return this.count;
     }
 
     /**
