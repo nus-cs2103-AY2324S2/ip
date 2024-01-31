@@ -1,6 +1,0 @@
-T |   | borrow book
-T |   | read book
-T |   | join sports club
-D | X | return book | by: June 6th
-T |   | something
-E |   | something | from: tomorrow to: end of the century
