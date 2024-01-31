@@ -6,6 +6,10 @@ import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.Event;
 
+/**
+ *  Keeps a list of tasks and handles addition or deletion of items in the list.
+ */
+
 
 public class TaskList {
 
@@ -23,8 +27,14 @@ public class TaskList {
         this.list = new ArrayList<>();
     }
 
+    /**
+     * Adds task of type todo, deadline or event to the TaskList.
+     *
+     * @param cmd array of strings containing the task type and the parameters.
+     * @throws DukeException when deadline parameter is not a valid date.
+     */
     public void addItem(String[] cmd) throws DukeException {
-        duke.task.Task t;
+        Task t;
 
         if (cmd[0].equals("todo")) {
             t = new Todo(cmd[1]);
@@ -40,6 +50,12 @@ public class TaskList {
         ui.showAddMsg(t, list.size());
     }
 
+    /**
+     * Removes an item from the TaskList if it exists.
+     *
+     * @param str array of strings containing the delete command and the index to be deleted.
+     * @throws DukeException when index does is out of bounds.
+     */
     public void deleteItem(String[] str) throws DukeException {
         int index = Integer.parseInt(str[1]) - 1;
 
@@ -54,6 +70,12 @@ public class TaskList {
         list.remove(index);
     }
 
+    /**
+     * Marks/unmarks tasks as complete/incomplete
+     *
+     * @param cmd an array of strings containing mark/unmark command and the index to be marked.
+     * @throws DukeException when index is out of bounds.
+     */
     public void marked(String[] cmd) throws DukeException {
         int index = Integer.parseInt(cmd[1]);
 

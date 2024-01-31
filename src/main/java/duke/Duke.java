@@ -2,6 +2,10 @@ package duke;
 
 import java.io.IOException;
 
+/**
+ * This Duke program is a chatbot that takes handles a list for the user.
+ */
+
 public class Duke {
 
     private UI ui;

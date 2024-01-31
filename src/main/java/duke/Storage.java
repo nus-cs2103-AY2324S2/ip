@@ -16,8 +16,22 @@ import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.Event;
 
+/**
+ * The class handles reading and writing to save the file.
+ */
+
 public class Storage {
     protected File path;
+
+    /**
+     * Returns a list of tasks from data/data.txt.
+     * <p>
+     * The method will attempt to load the data in the file if the folder exists, and will create the folder
+     * if it does not.
+     *
+     * @return an ArrayList of type Task.
+     * @throws IOException when the file fails to be created.
+     */
     public ArrayList<Task> loadTasks() throws IOException {
         path = new File(Paths.get(".").toAbsolutePath().normalize().toString() + "/data");
 
@@ -56,6 +70,14 @@ public class Storage {
 
         return tasks;
     }
+
+    /**
+     * This method iterates through all tasks in TaskList and appends the data into a StringBuilder.
+     * When the TaskList has been iterated through, this method will write the data to the file data/data.txt.
+     *
+     * @param tasks The list of Tasks.
+     * @throws IOException when the File cannot be written to.
+     */
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
         StringBuilder s = new StringBuilder();
 
