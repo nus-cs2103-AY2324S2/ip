@@ -18,7 +18,7 @@ public class hirwan {
 
         Ui.output("Hello! " + logo);
 
-        List = Storage.read();
+        Tasklist List = new Tasklist(Storage.read());
 
         try (BufferedWriter fileWrite = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
             while (true) {
@@ -28,15 +28,13 @@ public class hirwan {
                 if (input == 8) {
                     break;
                 } else if (input == 1) {
-                    for (String element : List) {
-                        Ui.output(List.indexOf(element) + 1 + element);
-                    }
+                    List.printList();
                 } else if (input == 2) {
                     try {
                         Ui.output("Got it. I've added this task: \n  " + "[T][ ] " + text.substring(5));
                         List.add(". " + "[T][ ] " + text.substring(5));
                         Ui.output("Now you have " + List.size() + " tasks in the list.");
-                        Storage.writeTask(List);
+                        Storage.writeTask(List.getList());
                     } catch (StringIndexOutOfBoundsException e) {
                         Ui.output("Error: Please enter a description for your todo command");
                     }
@@ -73,7 +71,7 @@ public class hirwan {
                         List.add(". " + "[E][ ] " + item + " (from: " + startDate.format(formatter) + " to: " + endDate.format(formatter) + ")");
                         Ui.output("Got it. I've added this task:\n  " + "[E][ ] " + item + " (from: " + startDate.format(formatter) + " to: " + endDate.format(formatter) + ")");
                         Ui.output("Now you have " + List.size() + " tasks in the list.");
-                        Storage.writeTask(List);
+                        Storage.writeTask(List.getList());
                     } catch (StringIndexOutOfBoundsException e) {
                         Ui.output("Error: Please enter a description or date for your event to command");
                     }
@@ -86,7 +84,7 @@ public class hirwan {
 
                         List.set(numberint - 1, ". " + type + "[X] " + temp);
                         Ui.output("Nice! I've marked this task as done: \n" + "[X] " + temp);
-                        Storage.writeTask(List);
+                        Storage.writeTask(List.getList());
                     } catch (IndexOutOfBoundsException e) {
                         Ui.output("Error: Please enter a valid index for marking!");
                     } catch (NumberFormatException e) {
@@ -101,7 +99,7 @@ public class hirwan {
 
                         List.set(numberint - 1, ". " + type + "[ ] " + temp);
                         Ui.output("OK, I've marked this task as not done yet: \n" + "[ ] " + temp);
-                        Storage.writeTask(List);
+                        Storage.writeTask(List.getList());
                     } catch (IndexOutOfBoundsException e) {
                         Ui.output("Error: Please enter a valid index for unmarking!");
                     } catch (NumberFormatException e) {
@@ -113,8 +111,8 @@ public class hirwan {
                         Ui.output("Noted. I've removed this task:\n"
                                 + "  " + List.get(numberint).substring(2) + "\n"
                                 + "Now you have " + (List.size() - 1) + " tasks in the list.");
-                        List.remove(numberint);
-                        Storage.writeTask(List);
+                        List.delete(numberint);
+                        Storage.writeTask(List.getList());
                     } catch (IndexOutOfBoundsException e) {
                         Ui.output("Error: Please enter a valid index for deletion!");
                     } catch (NumberFormatException e) {
@@ -154,7 +152,7 @@ class Storage {
     static List<String> List = new ArrayList<>();
     static String FILE_PATH = "C:\\Users\\eugen\\Documents\\National University of Singapore\\Y2S2\\CS2103T\\IP\\src\\main\\java\\data\\hirwan.txt";
 
-    static public List<String> read() {
+    public static List<String> read() {
         try {
             File filePath = new File(FILE_PATH);
             Scanner scan = new Scanner(filePath);
@@ -167,7 +165,7 @@ class Storage {
         return List;
     }
 
-    static public void writeTask(List<String> List) {
+    public static void writeTask(List<String> List) {
         try {
             FileWriter file = new FileWriter(FILE_PATH);
             for (String tasks : List) {
@@ -207,6 +205,38 @@ class Parser {
     }
 }
 
-//class Tasklist {
-//
-//}
+class Tasklist {
+    static List<String> List = new ArrayList<>();
+    public Tasklist(List<String> List) {
+        this.List = List;
+    }
+    public String get(int index) {
+        return List.get(index);
+    }
+
+    public void add(String input) {
+        List.add(input);
+    }
+
+    public void printList() {
+        for (String element : List) {
+            Ui.output(List.indexOf(element) + 1 + element);
+        }
+    }
+
+    public void delete(int index) {
+        List.remove(index);
+    }
+
+    public int size() {
+        return List.size();
+    }
+
+    public List<String> getList() {
+        return List;
+    }
+
+    public void set(int Index, String input) {
+        List.set(Index, input);
+    }
+}
