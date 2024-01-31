@@ -34,13 +34,13 @@ public class InputParser {
         case UNMARK:
             return prepareUnmarkCommand(tokens);
         case TODO:
-            return prepareToDoCommand(userInput, cmd, tokens);
+            return prepareToDoCommand(tokens);
         case DEADLINE:
             return prepareDeadlineCommand(tokens);
         case EVENT:
             return prepareEventCommand(tokens);
         case DELETE:
-            prepareDeleteCommand(tokens);
+            return prepareDeleteCommand(tokens);
         case BYE:
             return new ByeCommand();
         default:
@@ -105,12 +105,13 @@ public class InputParser {
         }
     }
 
-    private Command prepareToDoCommand(String userInput, CommandType cmd, String[] tokens) throws IllegalCommandException {
+    private Command prepareToDoCommand(String[] tokens) throws IllegalCommandException {
+        int baseIdx = 0;
         if (tokens.length < 2) {
             throw new IllegalCommandException("Description of a todo cannot be empty.\n"
                                                     + "Usage: todo <task_title>");
         }
-        String todoTitle = userInput.substring(cmd.toString().length() + 1);
+        String todoTitle = getParamValue(tokens, baseIdx, tokens.length);
         return new ToDoCommand(todoTitle);
     }
 

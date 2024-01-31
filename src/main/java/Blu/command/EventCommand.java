@@ -1,6 +1,5 @@
 package blu.command;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
 import blu.exception.StorageException;
@@ -25,11 +24,7 @@ public class EventCommand extends Command {
         Event event = new Event(description, fromDateTime, toDateTime);
         taskList.addTask(event);
         ui.showTaskAdded(event, taskList);
-        try {
-            storage.saveTasks(taskList);
-        } catch (IOException e) {
-            throw new StorageException("Failed to write to storage file");
-        }
+        storage.saveTasks(taskList);
     }
     
 }

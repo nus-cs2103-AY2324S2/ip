@@ -1,7 +1,5 @@
 package blu.command;
 
-import java.io.IOException;
-
 import blu.exception.StorageException;
 import blu.storage.Storage;
 import blu.task.TaskList;
@@ -20,10 +18,6 @@ public class ToDoCommand extends Command {
         ToDo toDo = new ToDo(description);
         taskList.addTask(toDo);
         ui.showTaskAdded(toDo, taskList);
-        try {
-            storage.saveTasks(taskList);
-        } catch (IOException e) {
-            throw new StorageException("Failed to write to storage file");
-        }
+        storage.saveTasks(taskList);
     }
 }

@@ -67,27 +67,26 @@ public class UI {
     }
 
     public void showTaskMarked(Task task, int taskIdx) {
-        if (task.getIsMarked()) {
-            showToUser("Task number " + taskIdx + " is already marked as done");
-        } else {
-            task.setMarked();
-            String[] messages = {"Marked task as done:", task.toString()};
-            showToUser(messages);
-        }
+        String[] messages = {"Marked task as done:", task.toString()};
+        showToUser(messages);
     }
 
-    public void showTaskUnmarked(Task task, int taskIdx) {
-        if (!task.getIsMarked()) {
-            showToUser("Task number " + taskIdx + " is already unmarked as not done");
-        } else {
-            task.setMarked();
-            String[] messages = {"Unmarked task as not done:", task.toString()};
-            showToUser(messages);
-        }
+    public void showTaskAlreadyMarked(int taskIdx) {
+        showToUser("Task number " + taskIdx + " is already marked as done");
+    }
+
+    public void showTaskAlreadyUnmarked(int taskIdx) {
+        showToUser("Task number " + taskIdx + " is already unmarked as not done");
+    }
+
+    public void showTaskUnmarked(Task task) {
+        String[] messages = {"Unmarked task as not done:", task.toString()};
+        showToUser(messages);
     }
 
     public void showErrorMessage(String errorMsg) {
         out.println(ANSI_RED + errorMsg + ANSI_RESET);
+        out.flush();
     }
 
     public void showExitMessage() {

@@ -1,7 +1,5 @@
 package blu;
 
-import java.io.IOException;
-
 import blu.command.ByeCommand;
 import blu.command.Command;
 import blu.exception.BluException;
@@ -32,7 +30,7 @@ public class Blu {
             this.storage = new Storage(STORAGE_PATH);
             this.taskList = storage.loadTasks();
             ui.showWelcomeMessage(STORAGE_PATH);
-        } catch (IOException | BluException e) {
+        } catch (BluException e) {
             ui.showErrorMessage(e.getMessage());
             System.exit(1);
         }

@@ -9,7 +9,7 @@ public class ToDo extends Task {
 
     @Override
     public String toCsv() {
-        return String.format("%s,%s,\"%s\"", TASK_TYPE, this.getIsMarked() ? "T" : "F", this.getTitle());
+        return String.format("%s,%s,%s", TASK_TYPE, this.getIsMarked() ? "T" : "F", this.getTitle());
     }
 
     @Override

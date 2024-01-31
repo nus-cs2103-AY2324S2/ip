@@ -1,10 +1,6 @@
 package blu.command;
 
-import java.io.IOException;
-
 import blu.exception.BluException;
-import blu.exception.IllegalParameterException;
-import blu.exception.StorageException;
 import blu.storage.Storage;
 import blu.task.Task;
 import blu.task.TaskList;
@@ -19,16 +15,15 @@ public class MarkCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Storage storage, UI ui) throws BluException {
-        try {
-            Task task = taskList.getTask(taskIdx);
+        Task task = taskList.getTask(taskIdx);
+        boolean isMarked = task.getIsMarked();
+        if (isMarked) {
+            ui.showTaskAlreadyMarked(taskIdx);
+        } else {
+            task.setMarked();
             ui.showTaskMarked(task, taskIdx);
-            storage.saveTasks(taskList);
-        } catch (IndexOutOfBoundsException e) {
-            throw new IllegalParameterException("Failed to mark task. Task number " + taskIdx + " does not exist!\n" 
-                                                + "Please use the list command to view task numbers.");
-        } catch (IOException e) {
-            throw new StorageException("Failed to write to storage file");
         }
+        storage.saveTasks(taskList);
     }
     
 }
