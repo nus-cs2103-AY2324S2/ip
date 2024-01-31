@@ -3,6 +3,7 @@ package jivox;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import jivox.task.Task;
@@ -109,10 +110,38 @@ public class Ui {
         }
     }
 
+    public void showFind(TaskList list,String input){
+        addDivider();
+        if(list.getLength() == 0){
+            System.out.println("You have No Task in your list");
+        }
+        else {
+            TaskList matchedTask = new TaskList(new ArrayList<>());
+            for (int i = 0; i < list.getLength(); i++) {
+                Task t = list.getTask(i);
+                if (t.contains(input)) {
+                    matchedTask.add(t);
+                }
+            }
+
+            if (matchedTask.getLength() == 0) {
+                System.out.println("No Matching tasks found in the list!");
+            }
+            else{
+                System.out.println("Following are Matching tasks in your list:-");
+                for(int i = 0; i < matchedTask.getLength(); i++){
+                    System.out.println(matchedTask.getTask(i));
+                }
+            }
+        }
+        addDivider();
+
+    }
+
     /**
-     * Prints a divider line.
+     * Shows a divider.
      */
-    public void addDivider() {
+    public void addDivider(){
         System.out.println("============================================================");
     }
 
