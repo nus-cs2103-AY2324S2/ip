@@ -1,18 +1,28 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    String from;
-    String to;
-    public Event(String name, String from, String to) {
+    LocalDate from;
+    LocalDate to;
+    public Event(String name, String from, String to) throws InvalidCommandException {
         super(name);
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = LocalDate.parse(from);
+            this.to = LocalDate.parse(to);
+        } catch (DateTimeException e) {
+            throw new InvalidCommandException(
+                    "Invalid input format for date :( Please use the format yyyy-mm-dd instead!");
+        }
     }
 
     @Override
     public String toString() {
-        return String.format("%s %s (from: %s to: %s)", "[E]", super.toString(), this.from, this.to);
+        String formattedFrom = this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String formattedTo = this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return String.format("%s %s (from: %s to: %s)", "[E]", super.toString(), formattedFrom, formattedTo);
     }
 
     @Override
