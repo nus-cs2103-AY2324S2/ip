@@ -1,1 +1,4 @@
-T|0|read book
+T|1|showering
+D|0|to homework |later
+T|0|beoiwf
+T|0|ofiwef

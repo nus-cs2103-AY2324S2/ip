@@ -24,7 +24,6 @@ public class Deadline extends Task {
             date = LocalDate.parse(by, formatter);
             this.by = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid format");
             this.by = by;
         }
     }

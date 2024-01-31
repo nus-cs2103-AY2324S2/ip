@@ -43,12 +43,13 @@ public class Storage {
         }
     }
 
-    public List<Task> readFile(List<Task> tasks) throws DukeException {
+    public TaskList readFile() throws DukeException {
         if (!Files.exists(path)) {
-            return new ArrayList<Task>();
+            return new TaskList();
         }
         try {
             List<String> lines = Files.readAllLines(path);
+            TaskList tasks = new TaskList();
             for (int i=0; i < lines.size(); i++) {
                 String line = lines.get(i);
                 String[] input = line.split("\\|");
@@ -82,7 +83,8 @@ public class Storage {
         }
     }
 
-    public void saveFile(List<Task> tasks) throws DukeException, IOException {
+    public void saveFile(TaskList taskLs) throws DukeException, IOException {
+        List<Task> tasks = taskLs.getList();
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(path.toString()));
             for (Task t : tasks) {
@@ -93,7 +95,7 @@ public class Storage {
             bw.close();
         } catch (FileNotFoundException e) {
            Files.createDirectories(Paths.get("data"));
-           saveFile(tasks);
+           saveFile(taskLs);
         } catch (IOException e) {
             throw new DukeException("I/O Exception Detected");
         }
