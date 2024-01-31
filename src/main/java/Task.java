@@ -37,13 +37,12 @@ public abstract class Task {
     /** Sets this task as done */
     public void setDone() {
         this.isDone = true;
-        System.out.println("Thats sick! Great work, marked as done!\n" + this.toString());
     }
 
     /** Sets this task as not done */
     public void setNotDone() {
         this.isDone = false;
-        System.out.println("Awh why uncheck me :( Its ok, it is what it is!\n" + this.toString());
+
     }
 
     @Override

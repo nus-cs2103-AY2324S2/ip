@@ -7,7 +7,7 @@ public class TaskList implements Iterable<Task>{
 
     @Override
     public String toString() {
-        String out = "";
+        String out = "Here is the list of things I remember!\n";
         int count = 1;
 
         for (Task currentItem : this.taskList) {
@@ -24,8 +24,6 @@ public class TaskList implements Iterable<Task>{
 
     public void add(Task taskName) {
         this.taskList.add(taskName);
-        System.out.println("added: " + taskName);
-        System.out.println("Looks like you have " + taskList.size() + " things left to do!");
     }
 
     public Task getTask(int index) throws DukeException.IllegalParamException {
@@ -40,9 +38,17 @@ public class TaskList implements Iterable<Task>{
     public void deleteTask(int index) throws DukeException.IllegalParamException {
         try {
             this.taskList.remove(index - 1);
-            System.out.println("Looks like you have " + taskList.size() + " things left to do!");
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException.IllegalParamException("I cant delete that task! It does not exist!");
         }
+    }
+
+    /**
+     * Returns count of number of tasks in list
+     *
+     * @return int value
+     */
+    public int countTasks() {
+        return taskList.size();
     }
 }

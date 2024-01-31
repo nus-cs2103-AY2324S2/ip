@@ -15,14 +15,14 @@ public abstract class DukeException extends Exception {
         }
     }
 
-    public static class InvalidCommandException extends DukeException {
-        public InvalidCommandException(String message) {
+    public static class ParserException extends DukeException {
+        public ParserException(String message) {
             super(message);
         }
     }
 
-    public static class CorruptedDataException extends DukeException {
-        public CorruptedDataException(String message) {
+    public static class StorageException extends DukeException {
+        public StorageException(String message) {
             super(message);
         }
     }

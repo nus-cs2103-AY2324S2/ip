@@ -1,31 +1,30 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Commands are a family of classes that represent commands with a defining execute method.
+ */
 public abstract class Command {
-    abstract void execute(TaskList list);
+    /**
+     * Executes actions to complete the command.
+     *
+     * @param list a TaskList object containing current tasks.
+     * @param ui a Ui object. Receives instructions on how to update the user interface.
+     * @param storage Storage object. For saving changes to memory.
+     */
+    public abstract void execute(TaskList list, Ui ui, Storage storage) throws DukeException.IllegalParamException;
 
     public static class ByeCommand extends Command{
         @Override
-        public void execute(TaskList list) {
-            System.out.println("Bye! Have a good time!");
-        }
-    }
-
-    public static class InvalidCommand extends Command {
-        private String message;
-        public InvalidCommand(String message) {
-            this.message = message;
-        }
-        @Override
-        public void execute(TaskList list) {
-            System.out.println(this.message);
+        public void execute(TaskList list, Ui ui, Storage storage) {
+            ui.showBye();
         }
     }
 
     public static class ListCommand extends Command{
         @Override
-        public void execute(TaskList list) {
-            System.out.print(list);
+        public void execute(TaskList list, Ui ui, Storage storage) {
+            ui.showList(list);
         }
     }
 
@@ -35,12 +34,13 @@ public abstract class Command {
             this.id = id;
         }
         @Override
-        public void execute(TaskList list) {
+        public void execute(TaskList list, Ui ui, Storage storage) throws DukeException.IllegalParamException{
             try {
                 Task done = list.getTask(id);
                 done.setDone();
+                ui.showMessage("Thats sick! Great work, marked as done!\n" + done);
             } catch (DukeException.IllegalParamException e) {
-                System.out.println(e.getMessage());
+                throw new DukeException.IllegalParamException(e.getMessage() + " Unable to mark task!");
             }
         }
     }
@@ -52,12 +52,13 @@ public abstract class Command {
             this.id = id;
         }
 
-        public void execute(TaskList list) {
+        public void execute(TaskList list, Ui ui, Storage storage) throws DukeException.IllegalParamException {
             try {
                 Task notDone = list.getTask(this.id);
                 notDone.setNotDone();
+                ui.showMessage("Awh why uncheck me :( Its ok, it is what it is!\n" + notDone);
             } catch (DukeException.IllegalParamException e) {
-                System.out.println(e.getMessage());
+                throw new DukeException.IllegalParamException(e.getMessage() + " Unable to unmark task!");
             }
         }
     }
@@ -69,12 +70,9 @@ public abstract class Command {
         }
 
         @Override
-        public void execute(TaskList list) {
-            try {
-                list.deleteTask(this.id);
-            } catch (DukeException.IllegalParamException e) {
-                System.out.println(e.getMessage());
-            }
+        public void execute(TaskList list, Ui ui, Storage storage) throws DukeException.IllegalParamException {
+            list.deleteTask(this.id);
+            ui.showMessage("Looks like you have " + list.countTasks() + " things left to do!");
 
         }
     }
@@ -86,9 +84,11 @@ public abstract class Command {
             this.description = name;
         }
 
-        public void execute(TaskList list) {
+        public void execute(TaskList list, Ui ui, Storage storage) {
             Task.ToDos newTask = new Task.ToDos(this.description);
             list.add(newTask);
+            ui.showMessage("added new ToDo: " + newTask);
+            ui.showMessage("Looks like you have " + list.countTasks() + " things left to do!");
         }
     }
     public static class DeadlineCommand extends Command {
@@ -101,9 +101,11 @@ public abstract class Command {
         }
 
         @Override
-        public void execute(TaskList list) {
+        public void execute(TaskList list, Ui ui, Storage storage) {
             Task.Deadlines newDeadline = new Task.Deadlines(description, by);
             list.add(newDeadline);
+            ui.showMessage("added new deadline: " + newDeadline);
+            ui.showMessage("Looks like you have " + list.countTasks() + " things left to do!");
         }
     }
 
@@ -119,9 +121,11 @@ public abstract class Command {
         }
 
         @Override
-        public void execute(TaskList list) {
+        public void execute(TaskList list, Ui ui, Storage storage) {
             Task newEvent = new Task.Events(task, start, end);
             list.add(newEvent);
+            ui.showMessage("added new event: " + newEvent);
+            ui.showMessage("Looks like you have " + list.countTasks() + " things left to do!");
         }
     }
 }
