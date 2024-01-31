@@ -14,7 +14,7 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, TaskStorage storage) throws CaponeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
         // If the inputList has only one string, throw error (insufficient args).
         if (inputList.size() == 1) {
             throw new CaponeException("Please enter a description for this capone.tasks.ToDo task!\n" +

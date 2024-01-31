@@ -2,12 +2,12 @@ package capone.commands;
 
 import capone.exceptions.CaponeException;
 import capone.TaskList;
-import capone.TaskStorage;
+import capone.Storage;
 import capone.Ui;
 
 public class HelpCommand extends Command {
     @Override
-    public void execute(TaskList taskList, Ui ui, TaskStorage storage) throws CaponeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
         ui.sendMessage("Commands I understand:\n" +
                 "1. list - Lists the tasks entered.\n" +
                 "2. todo [description] - Creates a new capone.tasks.ToDo task. Remember to enter the description!\n" +

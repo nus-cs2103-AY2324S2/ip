@@ -7,11 +7,11 @@ import capone.exceptions.TaskListCorruptedException;
 public class Capone {
 
     private final TaskList tasks;
-    private final TaskStorage storage;
+    private final Storage storage;
     private final Ui ui;
 
     public Capone(String taskListPath, String taskListName) {
-        this.storage = new TaskStorage(taskListPath, taskListName);
+        this.storage = new Storage(taskListPath, taskListName);
         this.tasks = new TaskList();
         this.ui = new Ui();
     }

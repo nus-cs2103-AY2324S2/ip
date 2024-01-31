@@ -15,11 +15,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class TaskStorage {
+public class Storage {
     private final String JSON_FILENAME;
     private final String JSON_FILEPATH;
 
-    public TaskStorage(String path, String name) {
+    public Storage(String path, String name) {
         this.JSON_FILEPATH = path;
         this.JSON_FILENAME = name;
     }

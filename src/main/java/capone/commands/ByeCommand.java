@@ -2,7 +2,7 @@ package capone.commands;
 
 import capone.exceptions.CaponeException;
 import capone.TaskList;
-import capone.TaskStorage;
+import capone.Storage;
 import capone.Ui;
 
 import java.util.Scanner;
@@ -15,7 +15,7 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, TaskStorage storage) throws CaponeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws CaponeException {
         ui.sendMessage("Bye. Hope to see you again soon!");
         scanner.close();
         System.exit(0);
