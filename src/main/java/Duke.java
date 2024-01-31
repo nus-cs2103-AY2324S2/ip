@@ -4,12 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 
-
 public class Duke{
+    
     public enum Command {
         TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, LIST, BYE, UNKNOWN;
 
@@ -133,7 +132,7 @@ public class Duke{
             }
             break;
         case EVENT:
-            if (arr.length == 1) {
+            if (arr.length == 4) {
                 throw new DukeException(" Nuh uh! The description of an event cannot be empty.\nMake sure to add a from and to date after the description with /from and /to too!");
             }
             System.out.println("____________________________________________________________");
