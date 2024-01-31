@@ -1,6 +1,4 @@
-package tasks;
-
-import Task;
+package duke.tasks;
 
 public class Deadline extends Task {
     protected DateTask by;

@@ -1,6 +1,4 @@
-package tasks;
-
-import Task;
+package duke.tasks;
 
 public class Event extends Task {
     protected DateTask from;
