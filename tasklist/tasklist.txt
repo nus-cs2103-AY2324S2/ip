@@ -1,0 +1,2 @@
+T | done | new thing
+E | not done | akdjf (from: akjsd, to: aksjd)

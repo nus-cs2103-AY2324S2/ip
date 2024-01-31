@@ -101,20 +101,29 @@ class ListAdder {
 
             ArrayList<String> taskListFromFile = new ArrayList<>(Files.readAllLines(taskListPath));
             for (String task : taskListFromFile) {
-                String[] taskParts = task.split("|", 3);
+                String[] taskParts = task.split(" \\| ", 3);
                 String taskType = taskParts[0];
                 String taskStatus = taskParts[1];
                 String taskDescription = taskParts[2];
                 
                 switch (taskType) {
                 case "T":
-                    this.taskList.add(new Todo (taskDescription));
+                    Todo newTodo = new Todo (taskDescription);
+                    if (taskStatus.equals("done")) {
+                        newTodo.markDone();
+                    }
+                    this.taskList.add(newTodo);
                     break;
                 case "D":
                     String[] deadlineParts = taskDescription.split(" \\(by: ", 2);
                     String deadlineDescription = deadlineParts[0];
                     String deadlineBy = deadlineParts[1].substring(0, deadlineParts[1].length() - 1);
-                    this.taskList.add(new Deadline (deadlineDescription, deadlineBy));
+
+                    Deadline newDeadline = new Deadline (deadlineDescription, deadlineBy);
+                    if (taskStatus.equals("done")) {
+                        newDeadline.markDone();
+                    }
+                    this.taskList.add(newDeadline);
                     break;
                 case "E":
                     String[] eventParts = taskDescription.split(" \\(from: ", 2);
@@ -125,7 +134,12 @@ class ListAdder {
 
                     String eventFrom = eventAtParts[0];
                     String eventTo = eventAtParts[1];
-                    this.taskList.add(new Events (eventDescription, eventFrom, eventTo));
+
+                    Events newEvent = new Events (eventDescription, eventFrom, eventTo);
+                    if (taskStatus.equals("done")) {
+                        newEvent.markDone();
+                    }
+                    this.taskList.add(newEvent);
                     break;
                 default:
                     System.out.println(taskListFromFile); // debug line
@@ -267,7 +281,6 @@ class ListAdder {
         if (eventParts.length == 2) {
             String[] durationParts = eventParts[1].trim().split("/to");
             if (durationParts.length == 2) {
-                // addEvent(eventParts[0].trim(), durationParts[0].trim(), durationParts[1].trim());
                 String desc = eventParts[0].trim();
                 String from = durationParts[0].trim();
                 String to = durationParts[1].trim();
@@ -473,7 +486,7 @@ class Task {
     }
 
     public String taskStatus() {
-        return this.isDone ? "X" : " ";
+        return this.isDone ? "done" : "not done";
     }
 
 
@@ -522,7 +535,7 @@ class Deadline extends Task {
 
     @Override
     public String toString() {
-        return taskType() + super.toString() + " (by: " + by + ")";
+        return super.toString() + " (by: " + by + ")";
     }
 }
 
@@ -545,6 +558,6 @@ class Events extends Task {
 
     @Override
     public String toString() {
-        return taskType() + super.toString() + " (from: " + at + ")";
+        return super.toString() + " (from: " + at + ")";
     }
 }
