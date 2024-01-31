@@ -1,3 +1,14 @@
+package duke.command;
+
+import duke.task.TaskList;
+import duke.task.Deadline;
+
+import duke.util.Ui;
+import duke.util.Storage;
+
+import duke.exception.MissingDeadlineException;
+import duke.exception.SaveStorageException;
+
 public class DeadlineCommand extends Command {
     String[] commandList;
 

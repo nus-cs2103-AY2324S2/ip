@@ -1,3 +1,14 @@
+package duke.command;
+
+import duke.task.TaskList;
+import duke.task.Event;
+
+import duke.util.Ui;
+import duke.util.Storage;
+
+import duke.exception.MissingEventException;
+import duke.exception.SaveStorageException;
+
 public class EventCommand extends Command {
     String[] commandList;
 

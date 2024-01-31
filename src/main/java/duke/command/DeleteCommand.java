@@ -1,3 +1,14 @@
+package duke.command;
+
+import duke.task.TaskList;
+import duke.task.Task;
+
+import duke.util.Ui;
+import duke.util.Storage;
+
+import duke.exception.DeleteInvalidException;
+import duke.exception.SaveStorageException;
+
 public class DeleteCommand extends Command {
     String[] commandList;
 
