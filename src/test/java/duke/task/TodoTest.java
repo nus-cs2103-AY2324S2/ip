@@ -6,14 +6,14 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class TodoTest{
     @Test
-    public void testtodoInitialization() {
+    public void testInitialization() {
         Todo todo = new Todo("Buy groceries");
         assertEquals("[T][ ] Buy groceries", todo.toString());
     }
 
 
     @Test
-    public void testtodoToFileString() {
+    public void testToFileString() {
         Todo todo = new Todo("Complete assignment");
         assertEquals("T | 0 | Complete assignment", todo.toFileString());
     }
