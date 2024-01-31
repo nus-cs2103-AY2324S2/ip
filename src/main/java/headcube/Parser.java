@@ -47,7 +47,8 @@ public class Parser {
                 } else {
                     throw new HeadCubeException("I do not understand what that means!!");
                 }
-                System.out.println("Got it. I've added this task:\n  " + taskList.get(taskList.size() - 1));
+                System.out.println("Got it. I've added this task:\n  "
+                        + taskList.get(taskList.size() - 1));
                 System.out.println("Now you have " + taskList.size() + " tasks in the list.\n");
             }
         } catch (HeadCubeException e) {

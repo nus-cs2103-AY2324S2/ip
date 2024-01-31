@@ -29,7 +29,8 @@ public class Deadlines extends Task {
 
     @Override
     public String toFileFormat() {
-        return "D | " + super.toFileFormat() + " | " + "(by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "D | " + super.toFileFormat() + " | " +
+                "(by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }
 

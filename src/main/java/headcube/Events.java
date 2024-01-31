@@ -34,7 +34,8 @@ public class Events extends Task{
 
     @Override
     public String toFileFormat() {
-        return "E | " + super.toFileFormat() + " | " + "(from: " + start.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
-                + " to: " + end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+        return "E | " + super.toFileFormat() + " | " +
+                "(from: " + start.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) +
+                " to: " + end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 }
