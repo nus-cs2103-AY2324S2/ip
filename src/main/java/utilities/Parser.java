@@ -1,11 +1,6 @@
 package utilities;
 
-import command.Command;
-import command.AddCommand;
-import command.DeleteCommand;
-import command.ExitCommand;
-import command.ListCommand;
-import command.MarkCommand;
+import command.*;
 import exceptions.DukeException;
 import task.Todo;
 import task.Deadline;
@@ -31,6 +26,16 @@ public class Parser {
             return new MarkCommand(userInput, false);
         } else if (userInput.startsWith("delete")) {
             return new DeleteCommand(userInput);
+        } else if (userInput.startsWith("find")) {
+            try {
+                String keyword = userInput.split(" ", 2)[1];
+                if (keyword.isEmpty()) {
+                    throw new DukeException("Keyword cannot be empty. Please follow the given find format 'find <keyword>'.");
+                }
+                return new FindCommand(keyword);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException("OOPS!!! Please follow the given find format 'find <keyword>'.");
+            }
         } else {
             // Sort out type of task
             if (userInput.startsWith("todo")) {

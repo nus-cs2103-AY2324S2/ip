@@ -1,2 +1,3 @@
 T|0|1
 T|0|test
+T|0|tests

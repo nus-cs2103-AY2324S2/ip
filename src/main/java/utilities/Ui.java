@@ -72,4 +72,19 @@ public class Ui {
     public void showError(String message) {
         System.out.println(message);
     }
+
+    /**
+     * Displays all tasks in the task list with the matching keywords.
+     * @param foundTasks The task list containing all the matching tasks.
+     */
+    public void showFoundTasks(TaskList foundTasks) {
+        if (foundTasks.isEmpty()) {
+            System.out.println("You have no matching tasks.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for(int i = 0; i < foundTasks.length(); i++) {
+                System.out.println((i + 1) + "." + foundTasks.getTask(i).toString());
+            }
+        }
+    }
 }
