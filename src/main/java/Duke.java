@@ -1,3 +1,4 @@
+import java.nio.file.FileSystems;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -8,9 +9,13 @@ import java.io.*;
 
 public class Duke {
 
-    private static String space = "    ";
-
+    private static final String SPACE = "    ";
     private static String[] taskTypes = new String[] {"todo", "deadline", "event"};
+
+
+
+    // get the path of THIS jar file
+    private static final File f = new File(Duke.class.getProtectionDomain().getCodeSource().getLocation().getPath());
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -173,16 +178,17 @@ public class Duke {
     }
 
     public static void loadTasks(List<Task> tasks) {
-        // the root directory of the project
-        Path dir = Paths.get("").toAbsolutePath();
-        System.out.println("**" + dir);
-        // java.nio.file.Path filePath = java.nio.file.Paths.get(dir, "data", "dune.txt");
-        boolean fileExists = Files.exists(dir);
-        System.out.println("**" + fileExists);
+        String dir = System.getProperty("user.dir");
+        Path filePath = Paths.get(dir, "data", "dune.txt");
+        boolean fileExists = java.nio.file.Files.exists(filePath);
+        // System.out.println(filePath);
+        // System.out.println("*****" + fileExists);
+
+
         if (fileExists) {
             try {
                 // 1 line -> 1 item in the list
-                List<String> lines = Files.readAllLines(dir);
+                List<String> lines = Files.readAllLines(filePath);
                 for (String line : lines) {
                     tasks.add(convertLineToTask(line));
                 }
@@ -196,17 +202,18 @@ public class Duke {
     }
 
     public static Task convertLineToTask(String s) {
-        String[] components = s.split("|");
+        String[] components = s.split("\\|");
+        // System.out.println(components.length);
         String eventType = components[0];
         boolean isDone = (components[1].equals("1")) ? true: false;
         if (eventType.equals("T")) {
             return new ToDo(components[2], isDone);
         } else if (eventType.equals("D")) {
             String deadline = components[3];
-            return new Deadline(components[1], deadline, isDone);
+            return new Deadline(components[2], deadline, isDone);
         } else if (eventType.equals("E")) {
             String[] startAndEnd = components[3].split("-");
-            return new Event(components[1], startAndEnd[0], startAndEnd[1], isDone);
+            return new Event(components[2], startAndEnd[0], startAndEnd[1], isDone);
         } else {
             // kinda sus
             return null;
@@ -234,23 +241,31 @@ public class Duke {
     }
 
     public static void saveTasks(List<Task> tasks) {
-        Path dir = Paths.get("").toAbsolutePath();
-        System.out.println("*****" + dir);
-        // java.nio.file.Path filePath = java.nio.file.Paths.get(dir, "data", "dune.txt");
-        boolean fileExists = Files.exists(dir);
-        System.out.println("*****" + fileExists);
+        String dir = System.getProperty("user.dir");
+        Path filePath = Paths.get(dir, "data", "dune.txt");
+        boolean fileExists = java.nio.file.Files.exists(filePath);
+        // System.out.println(filePath);
+        // System.out.println("*****" + fileExists);
+
+
         if (fileExists) {
             try {
-                BufferedWriter writer = Files.newBufferedWriter(dir);
+                BufferedWriter writer = Files.newBufferedWriter(filePath);
                 for (Task t : tasks) {
                     writer.write(convertTaskToLine(t));
                     writer.newLine();
                 }
                 writer.close();
             } catch (IOException i) {
-                // System.out.println("Error writing to file");
+                System.out.println("Error writing to file");
             }
         }
 
+    }
+
+    public static void print(String[] arr) {
+        for (String s : arr) {
+            System.out.println(s);
+        }
     }
 }
