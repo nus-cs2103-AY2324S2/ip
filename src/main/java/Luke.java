@@ -29,24 +29,100 @@ public class Luke {
                 System.out.println("________________________________________________________________________");
 
             } else if (input.contains("mark")) {
-                String[] instruction = input.split(" ");
-                String markOrUnmark = instruction[0];
-                int index = Integer.parseInt(instruction[1]) - 1;  // array is 0-indexed
+                try {
+                    if (input.equals("mark") || input.equals("unmark")) {
+                        throw new LukeException("Hold up!! There must be a task to " + input + "!\n"
+                                + "Please enter an index after " + input + ".");
+                    }
 
-                if (markOrUnmark.equals("mark")) {
-                    list.get(index).markAsDone();
-                    System.out.println("________________________________________________________________________");
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(list.get(index));
-                    System.out.println("________________________________________________________________________");
+                    try {
+                        String[] instruction = input.split(" ");
+                        String markOrUnmark = instruction[0];
 
-                } else if (markOrUnmark.equals("unmark")) {
-                    list.get(index).markAsUndone();
-                    System.out.println("________________________________________________________________________");
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(list.get(index));
-                    System.out.println("________________________________________________________________________");
+                        if (!markOrUnmark.equals("mark") && !markOrUnmark.equals("unmark")) {
+                            System.out.println("test");
+                            throw new LukeException("Hold up!! I am sorry, but I don't know what you mean by that :'(");
+                        }
 
+                        int index = Integer.parseInt(instruction[1]) - 1;  // array is 0-indexed
+
+                        if (index >= list.size()) {
+                            throw new LukeException("Hold up!! There is no such task in the list.\n"
+                                    + "Please enter a valid index after " + input.split(" ")[0] + ".");
+                        }
+
+                        if (markOrUnmark.equals("mark")) {
+                            list.get(index).markAsDone();
+                            System.out.println("________________________________________________________________________");
+                            System.out.println("Nice! I've marked this task as done:");
+                            System.out.println(list.get(index));
+                            System.out.println("________________________________________________________________________");
+
+                        } else if (markOrUnmark.equals("unmark")) {
+                            list.get(index).markAsUndone();
+                            System.out.println("________________________________________________________________________");
+                            System.out.println("OK, I've marked this task as not done yet:");
+                            System.out.println(list.get(index));
+                            System.out.println("________________________________________________________________________");
+
+                        } else {
+                            throw new LukeException("Hold up!! I am sorry, but I don't know what you mean by that :'(");
+                        }
+
+                    } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                        throw new LukeException("Hold up!! Please enter a valid index after "
+                                + input.split(" ")[0] + ".");
+                    }
+
+
+                } catch (LukeException e) {
+                    System.out.println("________________________________________________________________________");
+                    System.out.println(e.getMessage());
+                    System.out.println("________________________________________________________________________");
+                }
+
+            } else if (input.contains("delete")) {
+                try {
+                    if (input.equals("delete")) {
+                        throw new LukeException("Hold up!! There must be a task to delete!\n"
+                                + "Please enter an index after " + input + ".");
+                    }
+
+                    try {
+                        String[] instruction = input.split(" ");
+                        String delete = instruction[0];
+
+                        if (!delete.equals("delete")) {
+                            throw new LukeException("Hold up!! I am sorry, but I don't know what you mean by that :'(");
+                        }
+
+                        int index = Integer.parseInt(instruction[1]) - 1;  // array is 0-indexed
+
+                        if (index >= list.size()) {
+                            throw new LukeException("Hold up!! There is no such task in the list.\n"
+                                    + "Please enter a valid index after delete.");
+                        }
+
+                        Task removedTask = list.get(index);
+                        list.remove(index);
+                        System.out.println("________________________________________________________________________");
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(removedTask);
+
+                        if (list.size() <= 1) {
+                            System.out.println("Now you have " + list.size() + " task in the list.");
+                        } else {
+                            System.out.println("Now you have " + list.size() + " tasks in the list.");
+                        }
+                        System.out.println("________________________________________________________________________");
+                    } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                        throw new LukeException("Hold up!! Please enter a valid index after delete.");
+                    }
+
+                } catch (LukeException e) {
+                    System.out.println("________________________________________________________________________");
+                    System.out.println(e.getMessage());
+                    System.out.println("________________________________________________________________________");
                 }
 
             } else {
@@ -102,9 +178,9 @@ public class Luke {
                     }
 
                     System.out.println("________________________________________________________________________");
-                    System.out.println("Got it. I've added this task: ");
+                    System.out.println("Got it. I've added this task:");
                     System.out.println("  " + list.get(list.size() - 1));
-                    if (list.size() == 1) {
+                    if (list.size() <= 1) {
                         System.out.println("Now you have " + list.size() + " task in the list.");
                     } else {
                         System.out.println("Now you have " + list.size() + " tasks in the list.");

@@ -3,6 +3,21 @@ Hello! I'm Luke
 What can I do for you?
 ________________________________________________________________________
 ________________________________________________________________________
+Hold up!! I am sorry, but I don't know what you mean by that :'(
+________________________________________________________________________
+________________________________________________________________________
+Hold up!! There must be a task to unmark!
+Please enter an index after unmark.
+________________________________________________________________________
+________________________________________________________________________
+Hold up!! There must be a task to mark!
+Please enter an index after mark.
+________________________________________________________________________
+________________________________________________________________________
+Hold up!! There must be a task to delete!
+Please enter an index after delete.
+________________________________________________________________________
+________________________________________________________________________
 Hold up!! The description of a todo cannot be empty.
 Please enter a description after your todo.
 ________________________________________________________________________
@@ -13,9 +28,6 @@ ________________________________________________________________________
 ________________________________________________________________________
 Hold up!! The description of a event cannot be empty.
 Please enter a description after your event.
-________________________________________________________________________
-________________________________________________________________________
-Hold up!! I am sorry, but I don't know what you mean by that :'(
 ________________________________________________________________________
 ________________________________________________________________________
 Got it. I've added this task:
@@ -42,7 +54,7 @@ Please follow this format: event <description> /from <date/day/time> /to <date/d
 ________________________________________________________________________
 ________________________________________________________________________
 Got it. I've added this task:
-  [E][ ] project meeting (from: Monday to: Wednesday)
+  [E][ ] project meeting (from: Sunday to: Tuesday)
 Now you have 4 tasks in the list.
 ________________________________________________________________________
 ________________________________________________________________________
@@ -50,7 +62,7 @@ Here are the tasks in your list:
 1.[T][ ] read book
 2.[T][ ] go for a run
 3.[D][ ] homework (by: Sunday)
-4.[E][ ] project meeting (from: Monday to: Wednesday)
+4.[E][ ] project meeting (from: Sunday to: Tuesday)
 ________________________________________________________________________
 ________________________________________________________________________
 Nice! I've marked this task as done:
@@ -61,29 +73,50 @@ Here are the tasks in your list:
 1.[T][ ] read book
 2.[T][X] go for a run
 3.[D][ ] homework (by: Sunday)
-4.[E][ ] project meeting (from: Monday to: Wednesday)
+4.[E][ ] project meeting (from: Sunday to: Tuesday)
 ________________________________________________________________________
 ________________________________________________________________________
-Nice! I've marked this task as done:
-[E][X] project meeting (from: Monday to: Wednesday)
+Noted. I've removed this task:
+[D][ ] homework (by: Sunday)
+Now you have 3 tasks in the list.
 ________________________________________________________________________
 ________________________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] read book
 2.[T][X] go for a run
-3.[D][ ] homework (by: Sunday)
-4.[E][X] project meeting (from: Monday to: Wednesday)
+3.[E][ ] project meeting (from: Sunday to: Tuesday)
 ________________________________________________________________________
 ________________________________________________________________________
-OK, I've marked this task as not done yet:
-[T][ ] go for a run
+Hold up!! There is no such task in the list.
+Please enter a valid index after delete.
+________________________________________________________________________
+________________________________________________________________________
+Noted. I've removed this task:
+[T][X] go for a run
+Now you have 2 tasks in the list.
 ________________________________________________________________________
 ________________________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] read book
-2.[T][ ] go for a run
-3.[D][ ] homework (by: Sunday)
-4.[E][X] project meeting (from: Monday to: Wednesday)
+2.[E][ ] project meeting (from: Sunday to: Tuesday)
+________________________________________________________________________
+________________________________________________________________________
+Nice! I've marked this task as done:
+[E][X] project meeting (from: Sunday to: Tuesday)
+________________________________________________________________________
+________________________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] read book
+2.[E][X] project meeting (from: Sunday to: Tuesday)
+________________________________________________________________________
+________________________________________________________________________
+OK, I've marked this task as not done yet:
+[E][ ] project meeting (from: Sunday to: Tuesday)
+________________________________________________________________________
+________________________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] read book
+2.[E][ ] project meeting (from: Sunday to: Tuesday)
 ________________________________________________________________________
 ________________________________________________________________________
 Bye! Hope to see you again soon!

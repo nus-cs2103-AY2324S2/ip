@@ -1,17 +1,25 @@
+blah
+unmark
+mark
+delete
 todo
 deadline
 event
-blah
 todo read book
 todo go for a run
 deadline homework
 deadline homework /by Sunday
 event project meeting
-event project meeting /from Monday /to Wednesday
+event project meeting /from Sunday /to Tuesday
 list
 mark 2
 list
-mark 4
+delete 3
+list
+delete 4
+delete 2
+list
+mark 2
 list
 unmark 2
 list
