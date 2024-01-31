@@ -6,27 +6,26 @@ Added [T][ ] eat lunch to your list
 --------------------------------------------------
 Added [E][ ] movie( from: 2pm to: 4pm) to your list
 --------------------------------------------------
-Added [D][ ] assignment 1 ( by: 31st feb 2020) to your list
---------------------------------------------------
+Deadline must be in the format: yyyy-mm-dd
 Your list is as follows:
  -------------------
 1. [T][ ] eat lunch
 2. [E][ ] movie( from: 2pm to: 4pm)
-3. [D][ ] assignment 1 ( by: 31st feb 2020)
---------------------------------------------------
 Marked item number: 1
 Your list is as follows:
  -------------------
 1. [T][X] eat lunch
 2. [E][ ] movie( from: 2pm to: 4pm)
-3. [D][ ] assignment 1 ( by: 31st feb 2020)
---------------------------------------------------
 Unmarked  item number: 1
 Your list is as follows:
  -------------------
 1. [T][ ] eat lunch
 2. [E][ ] movie( from: 2pm to: 4pm)
-3. [D][ ] assignment 1 ( by: 31st feb 2020)
---------------------------------------------------
+Here are the matching tasks in your list:
+ -------------------
+1. [E][ ] movie( from: 2pm to: 4pm)
+Task number 3 does not exist
+Removed[E][ ] movie( from: 2pm to: 4pm) from your list
+Removed[T][ ] eat lunch from your list
 Farewell!
 --------------------------------------------------
