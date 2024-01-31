@@ -1,3 +1,8 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Event is a subclass of Task. It stores information of a task including
  * the start and end date.
@@ -6,7 +11,8 @@
 public class Event extends Task {
     private String from;
     private String to;
-
+    LocalDateTime start;
+    LocalDateTime end;
     /**
      * Constructor for Event with a task name, start and end date.
      * @param s Name of the event.
@@ -15,8 +21,16 @@ public class Event extends Task {
      */
     public Event(String s, String from, String to) {
         super(s);
-        this.from = from;
-        this.to = to;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            start = LocalDateTime.parse(from, formatter);
+            end = LocalDateTime.parse(to, formatter);
+            this.from = start.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+            this.to = end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+        } catch (DateTimeParseException e) {
+            this.from = from;
+            this.to = to;
+        }
     }
 
     @Override
@@ -29,7 +43,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E][" + (super.getStatus() ? "X" : " ") + "] " + super.getTask()
-                + "(from: " + from + "to: " + to + ")";
+                + "(From: " + from + " To: " + to + ")";
 
     }
 }

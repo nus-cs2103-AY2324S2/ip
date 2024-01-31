@@ -214,7 +214,7 @@ public class Howie {
                 } else if (from.length() == 0 || to.length() == 0) {
                     invalidFormat();
                 } else {
-                    Event eventTask = new Event(name.toString(), from.toString(), to.toString().trim());
+                    Event eventTask = new Event(name.toString(), from.toString().trim(), to.toString().trim());
                     addToList(eventTask);
                 }
                 break;

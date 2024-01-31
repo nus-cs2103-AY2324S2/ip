@@ -1,3 +1,9 @@
+import javax.swing.text.DateFormatter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Deadline is a subclass of Task that stores a task with a completion date.
  * @author Koo Zhuo Hui
@@ -5,7 +11,7 @@
 public class Deadline extends Task {
     
     private String by;
-
+    private LocalDate date;
     /**
      *
      * @param s The name of the deadline.
@@ -13,7 +19,14 @@ public class Deadline extends Task {
      */
     public Deadline(String s, String by) {
         super(s);
-        this.by = by;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            date = LocalDate.parse(by, formatter);
+            this.by = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid format");
+            this.by = by;
+        }
     }
 
     @Override
