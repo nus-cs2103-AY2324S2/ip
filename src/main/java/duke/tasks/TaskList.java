@@ -117,4 +117,22 @@ public class TaskList {
         this.tasks.remove(taskToDelete);
         return taskToDelete;
     }
+
+    /**
+     * Finds matched tasks based on the word.
+     * @param word Keyword to find a match.
+     * @return Matched task list.
+     */
+    public TaskList findTasks(String word) {
+        ArrayList<Task> matchedTasksArr = new ArrayList<>();
+        // iterate through the task list
+        System.out.println(word);
+        for (Task task: tasks) {
+            if (task.getDetail().contains(word)) {
+                matchedTasksArr.add(task);
+            }
+        }
+        TaskList matchedTasks = new TaskList(matchedTasksArr);
+        return matchedTasks;
+    }
 }

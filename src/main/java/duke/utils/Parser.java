@@ -39,6 +39,7 @@ public class Parser {
                 }
                 break;
             case TODO:
+            case FIND:
                 if (userInput.length() <= 5) {
                     throw new EmptyBodyException();
                 }
@@ -67,10 +68,10 @@ public class Parser {
 		}
 	}
 
-    /**
-     * Maps userInputKey to keys defined in the KeyEnum class.
-     * @param userInputKey String user input key.
-     */
+	/**
+	 * Maps userInputKey to keys defined in the KeyEnum class.
+	 * @param userInputKey String user input key.
+	 */
     public void determineCurrentKey(String userInputKey) {
         switch (userInputKey) {
             case "bye":
@@ -97,6 +98,8 @@ public class Parser {
             case "delete":
                 currentKey = KeyEnum.DELETE;
                 break;
+            case "find":
+                currentKey = KeyEnum.FIND;
         }
         if (this.currentKey.equals(KeyEnum.INVALID)) {
             // raise InvalidKeyException

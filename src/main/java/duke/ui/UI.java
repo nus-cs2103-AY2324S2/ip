@@ -27,6 +27,15 @@ public class UI {
     }
 
     /**
+     * Displays matching task list.
+     * @param taskList List to be displayed.
+     */
+    public void showMatchedList(TaskList taskList) {
+        System.out.println("Here are the matching tasks in your list: ");
+        taskList.listTask();
+    }
+
+    /**
      * Displays success message after add task to the list.
      * @param task Task added.
      * @param count Number of tasks in the list after the addition.
