@@ -7,12 +7,17 @@ import dude.task.Todo;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Dude - a Duke variant.
+ */
 public class Dude {
 
+    /**
+     * Runs the Dude program.
+     */
     public static void main(String[] args) {
         Ui.greeting();
 
-        Dude dude = new Dude();
         TaskList taskList = new TaskList();
 
         Scanner scanner = new Scanner(System.in);

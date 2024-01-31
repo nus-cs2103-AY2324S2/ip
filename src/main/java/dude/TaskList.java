@@ -7,12 +7,19 @@ import java.util.ArrayList;
 public class TaskList {
     Storage storage;
 
+    /**
+     * Class constructor.
+     */
     public TaskList() {
         this.storage = new Storage();
     }
 
-    public TaskList(String path) {
-        this.storage = new Storage(path);
+    /**
+     * Class constructor specifying the name of the task list.
+     * @param listName List name which will be used as the path for the storage file.
+     */
+    public TaskList(String listName) {
+        this.storage = new Storage(listName);
     }
     public void add(Task task) {
         storage.createRow(task);
@@ -20,6 +27,9 @@ public class TaskList {
         Ui.print("Got it. I've added this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.\n");
     }
 
+    /**
+     * Lists the current tasks.
+     */
     public void list() {
         ArrayList<Task> tasks = storage.listRows();
         String listString = "";
@@ -30,6 +40,10 @@ public class TaskList {
         Ui.print(listString);
     }
 
+    /**
+     * Marks task at index as done.
+     * @param index Task index to be marked as done.
+     */
     public void mark(int index) {
         ArrayList<Task> tasks = storage.listRows();
         if (index >= tasks.size() || index < 0) {
@@ -42,6 +56,10 @@ public class TaskList {
         Ui.print("Nice! I've marked this task as done:\n" + task + "\n");
     }
 
+    /**
+     * Marks task at index as undone.
+     * @param index Task index to be marked as undone.
+     */
     public void unmark(int index) {
         ArrayList<Task> tasks = storage.listRows();
         if (index >= tasks.size() || index < 0) {
@@ -55,6 +73,10 @@ public class TaskList {
 
     }
 
+    /**
+     * Deletes task at index.
+     * @param index Index at which task is removed.
+     */
     public void delete(int index) {
         ArrayList<Task> tasks = storage.listRows();
         if (index >= tasks.size() || index < 0) {

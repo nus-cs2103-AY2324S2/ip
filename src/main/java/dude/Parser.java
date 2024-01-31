@@ -6,12 +6,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Parser {
+    /** Enum of parameter types that can be accepted as input. */
     public enum ParameterTypes {
         INTEGER,
         STRING,
         DATE
     }
 
+    /**
+     * Checks if the string input is numeric.
+     * @param str String input of a number.
+     * @return Whether input is numeric.
+     */
     public static boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);
@@ -21,6 +27,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the string input is in the yyyy-mm-dd format.
+     * @param str String input of a date.
+     * @return Whether input is in the correct date format.
+     */
     public static boolean isDate(String str) {
         String dateString = str.stripTrailing();
         try {
@@ -50,7 +61,7 @@ public class Parser {
         return checkParameterExists(output, command, parameterName, arg);
     }
 
-    public static boolean getParameters(ArrayList<String> output, String command, String[] parameterNames, String args) {
+    private static boolean getParameters(ArrayList<String> output, String command, String[] parameterNames, String args) {
         String[] argsSplit = args.split("/");
         if (argsSplit.length != parameterNames.length) {
             Ui.print("Invalid number of parameters for " + command + ", need to have: "
@@ -65,7 +76,7 @@ public class Parser {
         return true;
     }
 
-    public static boolean formatParameters(ArrayList<Object> formattedParameters, ArrayList<String> parameters, ParameterTypes[] formats) {
+    private static boolean formatParameters(ArrayList<Object> formattedParameters, ArrayList<String> parameters, ParameterTypes[] formats) {
         for (int i = 0; i < formats.length; i++) {
             if (formats[i] == ParameterTypes.INTEGER) {
                 if (isNumeric(parameters.get(i))) {
@@ -88,6 +99,15 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Parses the command arguments and adds them to the formattedParameter ArrayList.
+     * @param formattedParameters Empty ArrayList to be populated with the formatted parameters.
+     * @param command The command given.
+     * @param args The arguments following the command.
+     * @param parameterNames Array of parameter names.
+     * @param formats Array of ParameterTypes corresponding to the parameter names.
+     * @return Whether command and arguments could be successfully parsed.
+     */
     public static boolean parse(
             ArrayList<Object> formattedParameters,
             String command,

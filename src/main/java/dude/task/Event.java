@@ -7,12 +7,25 @@ public class Event extends Task{
     protected LocalDate from;
     protected LocalDate to;
 
+    /**
+     * Creates event object.
+     * @param description Event description.
+     * @param from Event start date.
+     * @param to Event end date.
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);
     }
 
+    /**
+     * Creates event object.
+     * @param description Event description.
+     * @param done Whether event is done.
+     * @param from Event start date.
+     * @param to Event end date.
+     */
     public Event(String description, boolean done, String from, String to) {
         super(description, done);
         this.from = LocalDate.parse(from);

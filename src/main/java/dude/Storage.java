@@ -32,6 +32,9 @@ public class Storage {
         return true;
     }
 
+    /**
+     * Class constructor.
+     */
     public Storage() {
         boolean success = createStorageIfNotExists();
         if (!success) {
@@ -39,6 +42,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Class constructor specifying the list name.
+     * @param listName List name which will be used as the path for the storage file.
+     */
     public Storage(String listName) {
         this.filePath = String.format("./data/%s.txt", listName);
         boolean success = createStorageIfNotExists();
@@ -47,6 +54,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates row in storage file.
+     * @param task The task to create a row of.
+     * @return Whether creation was successful.
+     */
     public boolean createRow(Task task) {
         try {
             FileWriter fw = new FileWriter(this.filePath, true);
@@ -59,6 +71,11 @@ public class Storage {
         return true;
     }
 
+    /**
+     * Creates multiple rows in storage file (clears out whatever data was previously there).
+     * @param tasks The ArrayList of tasks to create rows of.
+     * @return Whether creation was successful.
+     */
     public boolean createRows(ArrayList<Task> tasks) {
         boolean success = this.clearStorage();
         if (!success) {
@@ -74,6 +91,10 @@ public class Storage {
         return true;
     }
 
+    /**
+     * Clears the storage file.
+     * @return Whether clearing was successful.
+     */
     public boolean clearStorage() {
         try {
             FileWriter fw = new FileWriter(this.filePath);
@@ -86,6 +107,10 @@ public class Storage {
         return true;
     }
 
+    /**
+     * Lists the current rows in the storage file.
+     * @return The ArrayList of Tasks found in the storage file.
+     */
     public ArrayList<Task> listRows() {
         ArrayList<Task> output = new ArrayList<>();
         try {
