@@ -71,7 +71,7 @@ public class Handler {
         }
     }
 
-    private void handleEvent(String input, boolean newTask, TaskList tasks, Ui ui) throws InvalidDetailException {
+    public void handleEvent(String input, boolean newTask, TaskList tasks, Ui ui) throws InvalidDetailException {
         int fromStart = input.indexOf("/from");
         int toStart = input.indexOf("/to");
 
@@ -106,7 +106,7 @@ public class Handler {
         }
     }
 
-    private void handleDeadline(String input, boolean newTask, TaskList tasks, Ui ui, Parser parser) throws InvalidDetailException{
+    public void handleDeadline(String input, boolean newTask, TaskList tasks, Ui ui, Parser parser) throws InvalidDetailException{
 
         int byStart = input.indexOf("/by");
 
@@ -140,7 +140,7 @@ public class Handler {
         }
     }
 
-    private void handleTodo(String input, boolean newTask, TaskList tasks, Ui ui) throws  InvalidDetailException{
+    public void handleTodo(String input, boolean newTask, TaskList tasks, Ui ui) throws  InvalidDetailException{
 
         char done = '0';
 
@@ -168,7 +168,7 @@ public class Handler {
         }
     }
 
-    private void handleList(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
+    public void handleList(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
         if(parts.length != 1){
             throw new InvalidDetailException("Invalid detail after keyword. Please retry");
         } else {
@@ -176,7 +176,7 @@ public class Handler {
         }
     }
 
-    private void handleDelete(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
+    public void handleDelete(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
         if(parts.length != 2){
             throw new InvalidDetailException("Invalid detail after delete. Please retry");
         } else {
@@ -191,7 +191,7 @@ public class Handler {
         }
     }
 
-    private void handleMark(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
+    public void handleMark(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
         if(parts.length != 2){
             throw new InvalidDetailException("Invalid detail after mark. Please retry");
         } else {
@@ -205,7 +205,7 @@ public class Handler {
         }
     }
 
-    private void handleUnmark(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
+    public void handleUnmark(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
         if(parts.length != 2){
             throw new InvalidDetailException("Invalid detail after unmark. Please retry");
         } else {
