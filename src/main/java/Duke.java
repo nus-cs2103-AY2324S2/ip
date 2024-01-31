@@ -1,6 +1,12 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.File;
 public class Duke {
+    
+    private static final String FILE_PATH = System.getProperty("user.home") + File.separator
+            + "Downloads" + File.separator + "duke.txt";
     public enum Instruction {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE, ANYTHING_ELSE
     }
@@ -34,9 +40,50 @@ public class Duke {
         System.out.println(echo);
         list.add(task);
     }
+    
+    private static void addTaskToFile(Task task) throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH, true);
+        fw.write(task.toString() + System.lineSeparator());
+        fw.close();
+    }
+    
+    private static void writeToFile(String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        fw.write(textToAdd);
+        fw.close();
+    }
+    
+    private static void changeFileContent(ArrayList<Task> list) throws IOException {
+        StringBuilder contentBuilder = new StringBuilder();
+        for (Task t: list) {
+            contentBuilder.append(t.toString()).append(System.lineSeparator());
+        }
+        writeToFile(contentBuilder.toString());
+    }
+    
+    private static void loadFile(ArrayList<Task> list) throws IOException{
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        }
+        Scanner sc = new Scanner(file);
+        while (sc.hasNext()) {
+            String taskContent = sc.nextLine();
+            Task t = Task.parseStringToTask(taskContent);
+            list.add(t);
+        }
+    }
+    
     public static void main(String[] args) throws DukeException {
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
+        boolean isRunning = true;
+        try {
+            loadFile(list);
+        } catch (IOException e) {
+            System.out.println("File not found");
+        }
         String greeting = "___________________________________\n"
             + "Hello! I'm Jinni\n"
             + "What can I do for you?\n"
@@ -44,7 +91,8 @@ public class Duke {
         
         System.out.println(greeting);
         
-        while(true) {
+        
+        while(isRunning) {
             String inputFromUser = sc.nextLine();
             
             Instruction instruction = Duke.getInstr(inputFromUser);
@@ -76,6 +124,11 @@ public class Duke {
                 System.out.println("Nice! I have marked this task as done\n");
                 System.out.println(taskToBeMarked.toString());
                 System.out.println("___________________________________");
+                try {
+                    changeFileContent(list);
+                } catch (IOException e) {
+                    System.out.println("File not found");
+                }
                 break;
             case UNMARK:
                 if (Integer.parseInt(inputFromUser.substring(7)) > list.size()) {
@@ -90,6 +143,11 @@ public class Duke {
                 System.out.println("Ok, I've marked this task as not done yet\n");
                 System.out.println(taskToBeUnmarked.toString());
                 System.out.println("___________________________________");
+                try {
+                    changeFileContent(list);
+                } catch (IOException e) {
+                    System.out.println("File not found");
+                }
                 break;
             case TODO:
                 if (!(inputFromUser.substring(4).matches(".*\\S.*"))) {
@@ -98,6 +156,11 @@ public class Duke {
                 String todoDescription = inputFromUser.substring(5);
                 Task todoTask = new ToDos(todoDescription);
                 Duke.echo(todoTask, list);
+                try {
+                    addTaskToFile((todoTask));
+                } catch (IOException e) {
+                    System.out.println("File not found");
+                }
                 break;
             case DEADLINE:
                 if (!(inputFromUser.substring(8).matches(".*\\S.*"))) {
@@ -108,6 +171,11 @@ public class Duke {
                 String by = inputFromUser.substring(indexOfBy + 4);
                 Task deadlineTask = new Deadlines(deadlineDescription, by);
                 Duke.echo(deadlineTask, list);
+                try {
+                    addTaskToFile((deadlineTask));
+                } catch (IOException e) {
+                    System.out.println("File not found");
+                }
                 break;
             case EVENT:
                 if (!(inputFromUser.substring(5).matches(".*\\S.*"))) {
@@ -120,6 +188,11 @@ public class Duke {
                 String end = inputFromUser.substring(indexOfTo + 4);
                 Task eventTask = new Events(eventDescription, start, end);
                 Duke.echo(eventTask, list);
+                try {
+                    addTaskToFile((eventTask));
+                } catch (IOException e) {
+                    System.out.println("File not found");
+                }
                 break;
             case DELETE:
                 int indexOfTaskToDelete = Integer.parseInt(inputFromUser.substring(7));
@@ -135,16 +208,23 @@ public class Duke {
                     + "\n___________________________________" ;
                 System.out.println(toPrint);
                 list.remove(taskToDelete);
+                try {
+                    changeFileContent(list);
+                } catch (IOException e) {
+                    System.out.println("File not found");
+                }
                 break;
             case BYE:
                 String bye = "___________________________________\n"
                     + "Bye. Hope to see you again soon!\n"
                     + "___________________________________";
                 System.out.println(bye);
-                return;
+                isRunning = false;
+                break;
             default:
                 throw new DukeException("Can't understand your instruction");
             }
         }
+        sc.close();
     }
 }
