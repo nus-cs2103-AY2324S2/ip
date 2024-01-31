@@ -1,9 +1,9 @@
 public class Task {
     private String name;
     private boolean mark;
-    public Task(String name, boolean mark){
+    public Task(String name){
         this.name = name;
-        this.mark = mark;
+        this.mark = false;
     }
 
     public String getName() {

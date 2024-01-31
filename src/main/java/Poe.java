@@ -15,7 +15,7 @@ public class Poe {
     }
 
     public void addList(String str){
-        Task task = new Task(str,false);
+        Task task = new Task(str);
         list.add(task);
         System.out.println(line+"\nadded : "+str+"\n"+line);
     }
@@ -28,32 +28,57 @@ public class Poe {
 
     }
 
-    public void update(String str){
-        String[] splitStr =str.split("\\s+");
-        int index = Integer.parseInt(splitStr[1])-1;
-        boolean bool = !splitStr[0].equals("unmark");
+    public void mark(int index){
         Task curr = list.get(index);
-        if(bool){
-            curr.markMark();
-            System.out.println(line+"\nCongrats on completing the task!\n" + curr.toString()+"\n"+line);
-        }else{
-            curr.unmarkMark();
-            System.out.println(line + "\nUnmarked the task, :(\n" + curr.toString()+"\n"+line);
-        }
+        curr.markMark();
+        System.out.println(line+"\nCongrats on completing the task!\n" + curr.toString()+"\n"+line);
     }
-    public void input(){
+
+    public void unmark(int index){
+        Task curr = list.get(index);
+        curr.unmarkMark();
+        System.out.println(line + "\nUnmarked the task, :(\n" + curr.toString()+"\n"+line);
+    }
+
+    public void input() {
         Scanner sc = new Scanner(System.in);
-        while(true) {
+        while (true) {
             String str = sc.nextLine();
-            if (str.toLowerCase().equals("bye")) {
-                bye();
-                break;
-            }else if(str.toLowerCase().equals("list")){
-                printList();
-            }else if(str.toLowerCase().contains("mark")){
-                update(str);
-            }else{
-                addList(str);
+            String[] splitStr = str.split("\\s+",2);
+
+            switch (splitStr[0].toLowerCase()) {
+                case "bye":
+                    bye();
+                    return;
+                case "list":
+                    printList();
+                    break;
+                case "mark":
+                    mark(Integer.parseInt(splitStr[1])-1);
+                    break;
+                case "unmark":
+                    unmark(Integer.parseInt(splitStr[1])-1);
+                    break;
+                case "todo":
+                    Task todo1 = new Todo(splitStr[1]);
+                    list.add(todo1);
+                    System.out.println(line+"\nyippie added new task\n"+todo1.toString()+"\n"+line);
+                    break;
+                case "deadline":
+                    String[] splitStrDeadline = splitStr[1].split("/",2);
+                    Task deadline1 = new Deadline(splitStrDeadline[0],splitStrDeadline[1]);
+                    list.add(deadline1);
+                    System.out.println(line+"\nyessir added new deadline\n"+deadline1.toString()+"\n"+line);
+                    break;
+                case "event":
+                    String[] splitStrEvent = splitStr[1].split("/");
+                    Task event1 = new Event(splitStrEvent[0],splitStrEvent[1],splitStrEvent[2]);
+                    list.add(event1);
+                    System.out.println(line+"\nalrighty added new event\n"+event1.toString()+"\n"+line);
+                    break;
+                default:
+                    System.out.println("huh? what did you say?");
+                    break;
             }
         }
     }
