@@ -8,7 +8,11 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (completed ? "X" : " "); // mark X if task is completed
+        return (this.completed ? "X" : " "); // mark X if task is completed
+    }
+
+    public String getTaskName() {
+        return this.desc;
     }
 
     public void isCompleted() {
@@ -22,5 +26,9 @@ public class Task {
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.desc);
+    }
+
+    public String fileString() {
+        return String.format("%s | %s", this.getStatusIcon().equals("X") ? "COMPLETED" : "INCOMPLETE", this.desc);
     }
 }
