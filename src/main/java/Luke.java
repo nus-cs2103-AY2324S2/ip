@@ -17,6 +17,7 @@ public class Luke {
             + " |________|'.__.'_/[__|  \\_]'.__.' ";
 
     public static void main(String[] args) throws LukeException {
+        History history = new History();
         greet();
 
         String wd = System.getProperty("user.dir");
@@ -42,20 +43,20 @@ public class Luke {
 
         //load the file
         File historyFile = new File(String.valueOf(historyPath));
-        try {
-            BufferedReader b = new BufferedReader(new FileReader(historyFile));
-            while (true) {
-                String input = b.readLine();
-                if (input == null) {
-                    break;
-                }
-                history.add(makeTask(input));
-            }
-        } catch (FileNotFoundException e) {
-            return;
-        } catch (IOException e) {
-            return;
-        }
+//        try {
+//            BufferedReader b = new BufferedReader(new FileReader(historyFile));
+//            while (true) {
+//                String input = b.readLine();
+//                if (input == null) {
+//                    break;
+//                }
+//                history.add(makeTask(input));
+//            }
+//        } catch (FileNotFoundException e) {
+//            return;
+//        } catch (IOException e) {
+//            return;
+//        }
 
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -67,21 +68,18 @@ public class Luke {
                 sc.close();
                 break;
             } else if (input.equals("list")) {
-                listTasks();
+                history.listHistory();
             } else if (input.split(" ")[0].equals("mark")) {
-                markTask(input);
+                history.markTask(input);
             } else if (input.split(" ")[0].equals("delete")) {
-                deleteTask(input);
+                history.deleteTask(input);
             } else {
                 //it is a task.
                 Task task = makeTask(input);
-                addTaskToHistory(task);
+                history.addTask(task);
             }
         }
     }
-
-
-    private static ArrayList<Task> history = new ArrayList<>();
 
     private static void greet() {
         System.out.println("I'm\n" + logo + "\n");
@@ -97,7 +95,6 @@ public class Luke {
     private static Task makeTask(String input) {
         Task task;
         String taskType = input.split(" ")[0];
-
         if (taskType.equals("todo")) {
             task = new Todo(input.substring(4).trim()); //TODO: better not hardcode 5 lol
             if (input.split(" ").length < 2) {
@@ -130,70 +127,6 @@ public class Luke {
             return null;
         }
         return task;
-    }
-
-    //Adds task to history.
-    private static void addTaskToHistory(Task task) {
-        if (task != null) {
-            history.add(task);
-            System.out.println("I helped you add task '" + task.fullStatus() + "'. But do it yourself next time! Hmmph!"  + "\n");
-        }
-    }
-
-    //Lists all tasks in history.
-    private static void listTasks() {
-        int num = 1;
-        if (history.size() == 0) {
-            System.out.println("Looks like you have way too much free time on your hands, huh.");
-            System.out.println("[No items in list]");
-        }
-        for (Task s : history) {
-            if (s.isDone()) {
-                System.out.println(num + "." + s.fullStatus());
-            } else {
-                System.out.println(num + "." + s.fullStatus());
-            }
-            num += 1;
-        }
-        System.out.println();
-    }
-
-    //Marks a particular task as done. Takes in a string command.
-    public static void markTask(String input) {
-        int idx;
-        try {
-            idx = Integer.parseInt(input.split(" ")[1]) - 1;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("I can't help you out if you don't tell me what to mark! ");
-            System.out.println("[Missing input parameter for mark]\n");
-            return;
-        }
-        try {
-            history.get(idx).complete();
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Jeez, you really ought to give me a number I can work with... got that?");
-            System.out.println("[Item index exceeds history count]\n");
-            return;
-        }
-        System.out.println("Good work, I guess.");
-        System.out.println((idx + 1) + "." + history.get(idx).fullStatus());
-        System.out.println();
-    }
-
-    //Deletes a specified task. Takes in a string input.
-    public static void deleteTask(String input) {
-        String fullStatus;
-        int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
-        try {
-            fullStatus = history.get(index).fullStatus();
-            history.remove(index);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("There's nothing there, dummy...");
-            System.out.println("[Tried to remove non-existent event]\n");
-            return;
-        }
-        System.out.println("Fine! If that's what you really want...");
-        System.out.println("[Removed " + fullStatus + "]\n");
     }
 
 }
