@@ -1,8 +1,3 @@
 T|1|eat
-<<<<<<< HEAD
-=======
-D|0|eat |2002-11-29
->>>>>>> branch-Level-9
-E|1|eat |11|b
-T|1|a
+T|0|abc
 T|0|abc

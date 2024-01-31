@@ -95,7 +95,7 @@ public class TaskList {
         System.out.println(id);
         System.out.println(this.getNumOfTasks());
         // Test if the id is out of bound
-        if (id >= this.getNumOfTasks() || id == 0) {
+        if (id >= this.getNumOfTasks() || id < 0) {
             throw new OutOfBoundException();
         }
         this.tasks.get(id).setStatus(status);
@@ -110,7 +110,7 @@ public class TaskList {
      */
     public Task deleteTaskById(Integer id) throws OutOfBoundException, IndexOutOfBoundsException {
         // Test if the id is out of bound
-        if (id >= this.getNumOfTasks() || id == 0) {
+        if (id >= this.getNumOfTasks() || id < 0) {
             throw new OutOfBoundException();
         }
         Task taskToDelete = this.tasks.get(id);
