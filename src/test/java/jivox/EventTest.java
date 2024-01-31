@@ -1,15 +1,22 @@
 package jivox;
 
-import jivox.task.Event;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.time.LocalDateTime;
-import static org.junit.jupiter.api.Assertions.*;
+
+import jivox.task.Event;
+
+
+
 
 public class EventTest {
 
     private Event event;
-    private LocalDateTime start, end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
     @BeforeEach
     public void setUp() {

@@ -1,11 +1,11 @@
 package jivox.task;
 
-public class Todo extends Task{
+public class Todo extends Task {
     public Todo(String content) {
         super(content);
     }
 
-    public String getType(){
+    public String getType() {
         return "T";
     }
 
@@ -14,7 +14,7 @@ public class Todo extends Task{
         return "[T]" + super.toString();
     }
 
-    public String saveFormat(){
+    public String saveFormat() {
         return this.getType() + " | " + (this.getStatus() ? "1" : "0") + " | " + this.getDescription();
     }
 }

@@ -1,16 +1,23 @@
 package jivox;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import jivox.task.Task;
 import jivox.task.TaskList;
 import jivox.task.Todo;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.*;
+
 
 public class TaskListTest {
 
     private TaskList taskList;
-    private Task task1, task2;
+    private Task task1;
+    private Task task2;
 
     @BeforeEach
     public void setUp() {
