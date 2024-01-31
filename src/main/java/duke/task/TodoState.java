@@ -1,2 +1,5 @@
-package duke.task;public class TodoState {
+package duke.task;
+
+public enum TodoState {
+    UNDONE, DONE
 }
