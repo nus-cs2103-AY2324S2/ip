@@ -1,0 +1,7 @@
+read book
+todo read book
+deadline clean the room \by tmr
+event celebration \from Monday \to Tuesday
+mark 1
+list
+bye

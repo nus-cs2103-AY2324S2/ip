@@ -13,40 +13,52 @@ public class Duke {
 
     static void echo(String userInput, ArrayList<Task> TodoList) {
         String[] words = userInput.split("\\s+");
-        if (words.length > 1) {
+        if (words.length > 0) {
             String firstWord = words[0];
             int firstSpaceIndex = userInput.indexOf(' ');
             String description = userInput.substring(firstSpaceIndex + 1);
             switch (firstWord) {
                 case "todo": {
-                    Task t = new Todo(description);
-                    TodoList.add(t);
-                    listOverview(t, TodoList);
+                    if (words.length == 1) {
+                        System.out.println("The description of a todo cannot be empty!");
+                    } else {
+                        Task t = new Todo(description);
+                        TodoList.add(t);
+                        listOverview(t, TodoList);
+                    }
                     break;
                 }
                 case "deadline": {
-                    String[] parts = description.split("\\\\by");
-                    String ddl_description = parts.length > 0 ? parts[0].trim() : "";
-                    String ddl_time = parts.length > 1 ? parts[1].trim() : "";
-                    Task t = new Deadline(ddl_description, ddl_time);
-                    TodoList.add(t);
-                    listOverview(t, TodoList);
+                    if (words.length == 1) {
+                        System.out.println("The description of a deadline cannot be empty!");
+                    } else {
+                        String[] parts = description.split("\\\\by");
+                        String ddl_description = parts.length > 0 ? parts[0].trim() : "";
+                        String ddl_time = parts.length > 1 ? parts[1].trim() : "";
+                        Task t = new Deadline(ddl_description, ddl_time);
+                        TodoList.add(t);
+                        listOverview(t, TodoList);
+                    }
                     break;
                 }
                 case "event": {
-                    String[] parts = userInput.split("\\\\from|\\\\to");
+                    if (words.length == 1) {
+                        System.out.println("The description of a todo cannot be empty!");
+                    } else {
+                        String[] parts = userInput.split("\\\\from|\\\\to");
 
-                    // Collect words before "\from" into one string
-                    String event_description = parts.length > 0 ? parts[0].trim() : "";
+                        // Collect words before "\from" into one string
+                        String event_description = parts.length > 0 ? parts[0].trim() : "";
 
-                    // Collect words between "\from" and "\to" into one string
-                    String event_from = parts.length > 1 ? parts[1].trim() : "";
+                        // Collect words between "\from" and "\to" into one string
+                        String event_from = parts.length > 1 ? parts[1].trim() : "";
 
-                    // Collect words after "\to" into one string
-                    String event_to = parts.length > 2 ? parts[2].trim() : "";
-                    Task t = new Event(event_description, event_from, event_to);
-                    TodoList.add(t);
-                    listOverview(t, TodoList);
+                        // Collect words after "\to" into one string
+                        String event_to = parts.length > 2 ? parts[2].trim() : "";
+                        Task t = new Event(event_description, event_from, event_to);
+                        TodoList.add(t);
+                        listOverview(t, TodoList);
+                    }
                     break;
                 }
                 default:

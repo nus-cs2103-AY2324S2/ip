@@ -5,3 +5,22 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+Hello! I'm Zizhen
+What can I do for you?
+Sorry, I don't understand your command.
+Got it. I've added this task:
+[T][ ] read book
+Now you have 1 task in the list.
+Got it. I've added this task:
+[D][ ] clean the room (by: tmr)
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+[E][ ] event celebration (from: Monday to: Tuesday)
+Now you have 3 tasks in the list.
+Nice! I've marked this task as done:
+[T][X] read book
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] clean the room (by: tmr)
+3.[E][ ] event celebration (from: Monday to: Tuesday)
+Bye. Hope to see you again soon!
