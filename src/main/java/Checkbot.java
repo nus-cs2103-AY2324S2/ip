@@ -10,6 +10,14 @@ public class Checkbot {
 
     public static final String TASK_FILE_DIR = "./tasks.txt";
 
+    private final TodoList todoList;
+    private final Storage storage;
+
+    public Checkbot(String filePath) {
+        this.storage = new Storage(filePath);
+        this.todoList = this.storage.loadTasks();
+    }
+
 
     /**
      * Creates a Task object and returns it based on the given String input.
@@ -74,74 +82,11 @@ public class Checkbot {
         return task;
     }
 
-    /**
-     * Reads the txt file from the directory and returns it as a TodoList.
-     * Invalid entries are ignored and not added to the list, and returns
-     * an empty TodoList if the txt file does not exist.
-     *
-     * @return A TodoList based on the txt file in the directory.
-     */
-    private static TodoList loadTasks() {
-        final String TASK_CODE = "T";
-        final String DEADLINE_CODE = "D";
-        final String EVENT_CODE = "E";
-
-        File file = new File(TASK_FILE_DIR);
-        TodoList todoList = new TodoList();
-
-        try {
-            Scanner scanner = new Scanner(file);
-            Pattern pattern = Pattern.compile("([TDE]) \\| ([01]) \\| (.*)");
-
-            while (scanner.hasNextLine()) {
-                String text = scanner.nextLine();
-                Matcher matcher = pattern.matcher(text);
-
-                if (!matcher.find()) {
-                    continue;
-                }
-
-                String type = matcher.group(1);
-                boolean done = matcher.group(2).equals("1");
-                String taskDetails = matcher.group(3);
-                Task t;
-
-                if (type.equals(TASK_CODE)) {
-                    t = new Todo(taskDetails);
-                } else if (type.equals(DEADLINE_CODE)) {
-                    Matcher deadlineMatcher = Pattern.compile("(.*) \\| (.*)").matcher(taskDetails);
-                    if (!deadlineMatcher.find()) {
-                        continue;
-                    }
-                    String name = deadlineMatcher.group(1);
-                    String byWhen = deadlineMatcher.group(2);
-                    t = new Deadline(name, byWhen);
-                } else {
-                    Matcher eventMatcher = Pattern.compile("(.*) \\| (.*) \\| (.*)").matcher(taskDetails);
-                    if (!eventMatcher.find()) {
-                        continue;
-                    }
-                    String name = eventMatcher.group(1);
-                    String from = eventMatcher.group(2);
-                    String to = eventMatcher.group(3);
-                    t = new Event(name, from, to);
-                }
-
-                if (done) {
-                    t.mark();
-                }
-
-                todoList.addTask(t);
-            }
-        } catch (FileNotFoundException e) {
-            return todoList;
-        }
-        return todoList;
+    public static void main(String[] args) {
+        new Checkbot(TASK_FILE_DIR).run();
     }
 
-    public static void main(String[] args) {
-        TodoList todoList = loadTasks();
-
+    public void run() {
         String txt = SEPARATOR
                 + INDENTATION + "Hello, I'm Checkbot, your personal assistant.\n"
                 + INDENTATION + "What tasks do you have to do?\n"
@@ -164,7 +109,7 @@ public class Checkbot {
                         todoList.markTask(i);
                         toPrint = "Good job! I have marked this task as completed:\n"
                                 + INDENTATION + todoList.getTask(i);
-                        todoList.saveTo(TASK_FILE_DIR);
+                        storage.saveTasks(todoList);
                     } catch (NumberFormatException e) {
                         throw new InvalidIndexException(input.split("mark ")[1]);
                     }
@@ -174,7 +119,7 @@ public class Checkbot {
                         todoList.unmarkTask(i);
                         toPrint = "Alright, I have marked this task as incomplete:\n"
                                 + INDENTATION + todoList.getTask(i);
-                        todoList.saveTo(TASK_FILE_DIR);
+                        storage.saveTasks(todoList);
                     } catch (NumberFormatException e) {
                         throw new InvalidIndexException(input.split("unmark ")[1]);
                     }
@@ -186,7 +131,7 @@ public class Checkbot {
                                 + INDENTATION + INDENTATION + deletedTask + "\n"
                                 + INDENTATION + "You have now " + todoList.getLength() + " task"
                                 + (todoList.getLength() > 1 ? "s" : "") + " in the list.";
-                        todoList.saveTo(TASK_FILE_DIR);
+                        storage.saveTasks(todoList);
                     } catch (NumberFormatException e) {
                         throw new InvalidIndexException(input.split("mark ")[1]);
                     }
@@ -198,7 +143,7 @@ public class Checkbot {
                     toPrint = "I have added this task to the list:\n"
                             + INDENTATION + INDENTATION + task + "\n"
                             + INDENTATION + "You have now " + todoList.getLength() + " task" + (todoList.getLength() > 1 ? "s" : "") + " in the list.";
-                    todoList.saveTo(TASK_FILE_DIR);
+                    storage.saveTasks(todoList);
                 } else {
                     throw new InvalidCommandException(input);
                 }

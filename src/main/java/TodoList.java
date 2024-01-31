@@ -59,7 +59,7 @@ public class TodoList {
         return txt.toString();
     }
 
-    public void saveTo(String dir) throws SaveFileException {
+    public String formatForFile() {
         StringBuilder txt = new StringBuilder();
         for (int i = 0; i < this.length; i++) {
             txt.append(taskList[i].formatForFile());
@@ -67,12 +67,6 @@ public class TodoList {
                 txt.append("\n");
             }
         }
-        try {
-            Writer writer = new FileWriter(dir);
-            writer.write(txt.toString());
-            writer.close();
-        } catch (IOException e) {
-            throw new SaveFileException();
-        }
+        return txt.toString();
     }
 }
