@@ -37,31 +37,53 @@ public class Duke {
                 System.out.println(outro);
                 break;
             } else if (message.equals("list")) {
-                for( int i = 0; i < counter; i++ ){
-                    System.out.println("____________________________________________________________\n" +
-                            (i + 1) + ". " + "[" + Tasks[i].getStatusIcon() + "]" + Tasks[i].getTask() + "\n" +
-                            "____________________________________________________________\n");
-                }
+                System.out.println("Here are the tasks in your list: " + "\n" +
+                        "____________________________________________________________\n");
+                for( int i = 0; i < counter; i++ ) {
+                        System.out.println((i + 1) + ". " + Tasks[i].toString() + "\n");
+                    }
+                System.out.println("____________________________________________________________\n");
+
             } else if(message.startsWith("mark")) {
                 String[] parts = message.split(" ");
                 int num = Integer.parseInt(parts[1]);
                 Tasks[num - 1].markAsDone();
                 System.out.println("____________________________________________________________\n" +
-                        "Nice! I've marked this task as done:" + "\n" + "[" + Tasks[num - 1].getStatusIcon() + "]" + Tasks[num - 1].getTask() + "\n" +
+                        "Nice! I've marked this task as done:" + "\n" + Tasks[num - 1].toString() + "\n" +
                         "____________________________________________________________\n");
             } else if(message.startsWith("unmark")) {
                 String[] parts = message.split(" ");
                 int num = Integer.parseInt(parts[1]);
                 Tasks[num - 1].unmark();
                 System.out.println("____________________________________________________________\n" +
-                        "Nice! I've marked this task as done:" + "\n" + "[" + Tasks[num - 1].getStatusIcon() + "]" + Tasks[num - 1].getTask() + "\n" +
+                        "OK, I've marked this task as not done yet:" + "\n" + Tasks[num - 1].toString() + "\n" +
                         "____________________________________________________________\n");
-            }
-            else {
-                Tasks[counter] = new Task(message);
+            } else if(message.startsWith("todo")){
+                String subString = message.substring(5);
+                Tasks[counter] = new Todo(subString);
                 counter++;
                 System.out.println("____________________________________________________________\n" +
-                        "added: " + message + "\n" +
+                        "Got it.I've added this task:" + "\n" + Tasks[counter - 1].toString() + "\n" +
+                        "Now you have " + counter + " tasks in the list." + "\n" +
+                        "____________________________________________________________\n");
+            } else if(message.startsWith("deadline")) {
+                String subString = message.substring(9);
+                String[] parts = subString.split("/by");
+                Tasks[counter] = new Deadline(parts[0], parts[1]);
+                counter++;
+                System.out.println("____________________________________________________________\n" +
+                        "Got it.I've added this task:" + "\n" + Tasks[counter - 1].toString() + "\n" +
+                        "Now you have " + counter + " tasks in the list." + "\n" +
+                        "____________________________________________________________\n");
+            }else {
+                String subString = message.substring(6);
+                String[] parts = subString.split("/from");
+                String[] dateParts = parts[1].split("/to");
+                Tasks[counter] = new Event(parts[0], dateParts[0], dateParts[1]);
+                counter++;
+                System.out.println("____________________________________________________________\n" +
+                        "Got it.I've added this task:" + "\n" + Tasks[counter - 1].toString() + "\n" +
+                        "Now you have " + counter + " tasks in the list." + "\n" +
                         "____________________________________________________________\n");
             }
 

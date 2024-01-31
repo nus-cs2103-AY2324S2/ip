@@ -22,8 +22,12 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getTask() {
-        return this.name;
+//    public String getTask() {
+//        return this.name;
+//    }
+
+    public String toString() {
+        return "[" + this.getStatusIcon() + "]" + this.name ;
     }
 
 }
