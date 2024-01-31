@@ -17,7 +17,10 @@ public class Parser {
                 command = new MarkCommand(Integer.parseInt(parts.get(1)));
             }
             case "todo" -> {
-                command = new AddTodoCommand(String.join("",parts));
+                if (parts.size() <= 1) {
+                    throw new DukeException("Mamma-Mia where's ur description!");
+                }
+                command = new AddTodoCommand(String.join(" ", parts.subList(1,parts.size())));
             }
             case "deadline" -> {
                 int byIndex = parts.indexOf("/by");
