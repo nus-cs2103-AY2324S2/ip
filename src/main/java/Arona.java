@@ -60,6 +60,10 @@ public class Arona {
         String[] info = splitInput[1].split("/");
         String description = info[0];
 
+        for (String string : info) {
+            System.out.println(string);
+        }
+
         switch(type) {
             case "todo":
                 tasks.add(new Todo(description));
@@ -150,12 +154,12 @@ public class Arona {
             int counter = 1;
 
             PrintStream originalOut = System.out;
-            System.setOut(new PrintStream(new OutputStream() {
-                @Override
-                public void write(int b) {
-                    // Do nothing
-                }
-            }));
+//            System.setOut(new PrintStream(new OutputStream() {
+//                @Override
+//                public void write(int b) {
+//                    // Do nothing
+//                }
+//            }));
 
             while (line != null) {
                 String[] splitString = line.split("\\|", 0);
@@ -167,7 +171,8 @@ public class Arona {
                         .replaceAll("D", "deadline")
                         .replaceAll("E", "event")
                         .replaceAll("  ", " ");
-
+                System.out.println("TEST");
+                System.out.println(taskInput);
                 addTask(taskInput);
                 boolean isTaskDone = taskStatus.trim().equals("1") ? true : false;
                 changeTaskStatus(counter, isTaskDone);
