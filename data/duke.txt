@@ -2,7 +2,7 @@ D/1/ return book / 2019-10-15
 D/0/ return book / 2019-10-15
 D/1/ return book / 2019-10-15
 D/0/ return book / 2019-10-15
-E/0/ fight/ 2000-01-20/ 2000-11-20
+E/0/ fight/2000-01-20/2000-11-20
 D/0/ fight / 2001-11-11
 T/1/ me
-E/0/ this is a test/ 2019-10-15/ 2019-10-16
+E/0/ this is a test/2019-10-15/2019-10-16

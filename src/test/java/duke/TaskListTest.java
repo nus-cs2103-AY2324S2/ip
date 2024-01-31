@@ -11,9 +11,9 @@ public class TaskListTest {
     private TaskList setupThreeTasks() throws DukeException {
 
             TaskList taskList = new TaskList();
-            taskList.todocase("todo A");
-            taskList.todocase("todo B");
-            taskList.todocase("todo C");
+            taskList.todoCase("todo A");
+            taskList.todoCase("todo B");
+            taskList.todoCase("todo C");
             return taskList;
 
     }

@@ -5,10 +5,18 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a deadline task.
+ */
 public class Deadline extends Task {
 
     protected LocalDate by;
-
+    /**
+     * Creates an deadline task.
+     *
+     * @param description Description of the task.
+     * @param by due date of the task.
+     */
     public Deadline(String description, String by) {
         super(description);
 
@@ -22,7 +30,8 @@ public class Deadline extends Task {
     }
     @Override
     public String ToString() {
-        return super.ToString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return super.ToString() + " (by: "
+                + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override
