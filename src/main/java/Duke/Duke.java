@@ -7,12 +7,22 @@ import Duke.TaskList.TaskList;
 import Duke.Ui.Ui;
 import java.io.IOException;
 
+/**
+ * This class is the main class that navigates aids in the navigation of the program.
+ * @author Tang Hao Liang
+ */
+
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructor creates new Ui, Storage, Parser and loads the storage into the list.
+     *
+     * @param filePath Path to file.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,6 +34,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the code to get users input and path the input to its respective functions.
+     */
     public void run() {
         Ui.showWelcome();
         boolean finished = false;
@@ -66,6 +79,11 @@ public class Duke {
         Ui.showEnd();
     }
 
+    /**
+     * Runs when the code starts.
+     *
+     * @param args Null.
+     */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }
