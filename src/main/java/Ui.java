@@ -27,8 +27,8 @@ public class Ui {
         System.out.println();
     }
 
-    public void bye() {
-        System.out.println("See you again bro!");
+    public void showError(String err) {
+        System.err.println(err);
     }
 
     public void showLoadingError() {
