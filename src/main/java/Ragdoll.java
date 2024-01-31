@@ -40,27 +40,27 @@ public class Ragdoll{
                 command = Commands.ADD;
             }
 
-            switch (command) {
-                case BYE:
-                    scanner.close();
-                    System.out.println("See ya, " + USER + "!");
-                    System.out.println(LINE);
-                    return;
-                case LIST:
-                    listTasks();
-                    break;
-                case MARK:
-                    markTask(input);
-                    break;
-                case UNMARK:
-                    unmarkTask(input);
-                    break;
-                case DELETE:
-                    deleteTask(input);
-                    break;
-                case ADD:
-                    addTask(input);
-                    break;
+            switch(command) {
+            case BYE:
+                scanner.close();
+                System.out.println("See ya, " + USER + "!");
+                System.out.println(LINE);
+                return;
+            case LIST:
+                listTasks();
+                break;
+            case MARK:
+                markTask(input);
+                break;
+            case UNMARK:
+                unmarkTask(input);
+                break;
+            case DELETE:
+                deleteTask(input);
+                break;
+            case ADD:
+                addTask(input);
+                break;
             }
 
             System.out.println(LINE);
@@ -70,8 +70,8 @@ public class Ragdoll{
     private static void addTask(String input) {
         String[] parts = input.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            System.out.println("Sorry, " + USER + ", please format your tasks as [task type] [task description]!\n" +
-                    "I am only able to handle 3 task types: todo, deadline, and event.");
+            System.out.println("Sorry, " + USER + ", please format your tasks as [task type] [task description]!\n"
+                    + "I am only able to handle 3 task types: todo, deadline, and event.");
             return;
         }
 
@@ -81,36 +81,38 @@ public class Ragdoll{
         try {
             taskType = TaskType.valueOf(parts[0].toUpperCase());
         } catch (IllegalArgumentException e) {
-            System.out.println("Sorry, " + USER + ", please format your tasks as [task type] [task description]!\n" +
-                    "I am only able to handle 3 task types: todo, deadline, and event.");
+            System.out.println("Sorry, " + USER + ", please format your tasks as [task type] [task description]!\n"
+                    + "I am only able to handle 3 task types: todo, deadline, and event.");
             return;
         }
 
         switch (taskType) {
-            case TODO:
-                task = new ToDo(parts[1]);
-                break;
-            case DEADLINE:
-                String[] info = parts[1].split(" /by ", 2);
-                if (info.length < 2) {
-                    System.out.println("Sorry, " + USER + ", please use 'deadline [task] /by [date]'.");
-                    return;
-                }
-                task = new Deadline(info[0], info[1]);
-                break;
-            case EVENT:
-                String[] eventParts = parts[1].split(" /from ", 2);
-                if (eventParts.length < 2) {
-                    System.out.println("Sorry, " + USER + ", please use 'event [task] /from [start time] /to [end time]'.");
-                    return;
-                }
-                String[] timeParts = eventParts[1].split(" /to ", 2);
-                if (timeParts.length < 2) {
-                    System.out.println("Sorry, " + USER + ", please use 'event [task] /from [start time] /to [end time]'.");
-                    return;
-                }
-                task = new Event(eventParts[0], timeParts[0], timeParts[1]);
-                break;
+        case TODO:
+            task = new ToDo(parts[1]);
+            break;
+        case DEADLINE:
+            String[] info = parts[1].split(" /by ", 2);
+            if (info.length < 2) {
+                System.out.println("Sorry, " + USER + ", please use 'deadline [task] /by [date]'.");
+                return;
+            }
+            task = new Deadline(info[0], info[1]);
+            break;
+        case EVENT:
+            String[] eventParts = parts[1].split(" /from ", 2);
+            if (eventParts.length < 2) {
+                System.out.println("Sorry, " + USER
+                        + ", please use 'event [task] /from [start time] /to [end time]'.");
+                return;
+            }
+            String[] timeParts = eventParts[1].split(" /to ", 2);
+            if (timeParts.length < 2) {
+                System.out.println("Sorry, " + USER
+                        + ", please use 'event [task] /from [start time] /to [end time]'.");
+                return;
+            }
+            task = new Event(eventParts[0], timeParts[0], timeParts[1]);
+            break;
         }
 
         if (task != null) {
