@@ -1,5 +1,7 @@
+package toothless;
+
 public class ToothlessException extends Exception{
-    ToothlessException(String message){
+    public ToothlessException(String message){
         super(message);
     }
 }

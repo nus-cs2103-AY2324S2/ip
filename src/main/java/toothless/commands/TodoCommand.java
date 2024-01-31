@@ -1,3 +1,12 @@
+package toothless.commands;
+
+import toothless.Storage;
+import toothless.TaskList;
+import toothless.ToothlessException;
+import toothless.Ui;
+import toothless.tasks.Todo;
+import toothless.tasks.Task;
+
 public class TodoCommand extends Command{
     private String detail;
 

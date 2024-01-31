@@ -1,3 +1,11 @@
+package toothless.commands;
+
+import toothless.Storage;
+import toothless.TaskList;
+import toothless.ToothlessException;
+import toothless.Ui;
+import toothless.tasks.Task;
+
 public class DeleteCommand extends Command{
     private String detail;
 

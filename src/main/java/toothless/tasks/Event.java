@@ -1,10 +1,13 @@
-import java.time.LocalDateTime;
+package toothless.tasks;
 
-public class Event extends Task{
+import java.time.LocalDateTime;
+import toothless.ToothlessException;
+
+public class Event extends Task {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    public Event(String description, String startDate, String endDate) throws ToothlessException{
+    public Event(String description, String startDate, String endDate) throws ToothlessException {
         super.description = description;
         LocalDateTime start = LocalDateTime.parse(startDate);
         LocalDateTime end = LocalDateTime.parse(endDate);

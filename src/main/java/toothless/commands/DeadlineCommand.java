@@ -1,3 +1,12 @@
+package toothless.commands;
+
+import toothless.Storage;
+import toothless.TaskList;
+import toothless.ToothlessException;
+import toothless.Ui;
+import toothless.tasks.Task;
+import toothless.tasks.Deadline;
+
 public class DeadlineCommand extends Command{
     private String detail;
 

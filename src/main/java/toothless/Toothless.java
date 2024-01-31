@@ -1,3 +1,7 @@
+package toothless;
+
+import toothless.commands.*;
+
 public class Toothless {
 
     private Storage storage;

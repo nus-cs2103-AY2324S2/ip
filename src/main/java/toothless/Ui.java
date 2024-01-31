@@ -1,4 +1,7 @@
+package toothless;
+
 import java.util.Scanner;
+import toothless.tasks.*;
 
 public class Ui {
 
@@ -36,7 +39,7 @@ public class Ui {
         System.out.println("You have these unmarked tasks:");
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.getTask(i);
-            if (!t.isDone) {
+            if (!t.isDone()) {
                 this.showTask(t);
             }
         }
