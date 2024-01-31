@@ -130,12 +130,6 @@ public class TheAdvisor implements Serializable {
                                 "Please input YYYY-MM-DD HHmm");
                     }
                     break;
-                case FIND:
-                    String keyword = str.substring(5);
-                    checkEmptyDescription(keyword, "Please key in the keyword of what you wish " +
-                            "to find please!");
-                    taskList.findItem(keyword);
-                    break;
                 default:
                     throw new TheAdvisorException("Incorrect input, please try again with the correct input of either: "
                             + "todo, event, mark...etc");
