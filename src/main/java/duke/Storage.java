@@ -14,8 +14,8 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public List<Task> loadTaskslist() throws IOException, DukeException {
-        List<Task> tasksList = new ArrayList<Task>();
+    public ArrayList<Task> loadTaskslist() throws IOException, DukeException {
+        ArrayList<Task> tasksList = new ArrayList<Task>();
 
         File file = new File(filePath);
         if (!file.exists()) {
