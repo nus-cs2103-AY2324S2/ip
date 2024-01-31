@@ -22,7 +22,6 @@ public class Duke {
 
         // Scanner for user input
         Scanner scanner = new Scanner(System.in);
-
         // Main chat loop
         while (true) {
             try {
