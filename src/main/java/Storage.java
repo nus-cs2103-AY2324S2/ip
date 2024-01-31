@@ -9,39 +9,65 @@ public class Storage {
     public String addTask(String userInput) {
         String[] userInputArray = userInput.split(" ");
         String taskType = userInputArray[0];
+        // return String can be "error" or added task
+        String returnOutput = "";
 
-        if (userInputArray[0].equalsIgnoreCase("todo")) {
-            String description = userInput.substring(4).trim();
-            todoList[index] = new Todo(description);
+        try {
+            // Checks if task description is empty,
+            if (userInputArray.length == 1) {
+                // Missing description error
+                throw new HALException("Missing description!");
 
-        } else if (userInputArray[0].equalsIgnoreCase("deadline")) {
+            // If task description is not empty, proceed as per normal
+            } else {
 
-            int keywordIndex = userInput.indexOf("/by");
+                if (userInputArray[0].equalsIgnoreCase("todo")) {
+                    String description = userInput.substring(4).trim();
+                    todoList[index] = new Todo(description);
 
-            if (keywordIndex != -1) {
-                String description = userInput.substring(8, keywordIndex).trim();
-                String deadline = userInput.substring(keywordIndex + 3).trim();
+                } else if (userInputArray[0].equalsIgnoreCase("deadline")) {
 
-                Deadline deadlineObj = new Deadline(description, deadline);
-                todoList[index] = deadlineObj;
+                    int keywordIndex = userInput.indexOf("/by");
+
+                    if (keywordIndex != -1) {
+                        String description = userInput.substring(8, keywordIndex).trim();
+                        String deadline = userInput.substring(keywordIndex + 3).trim();
+
+                        Deadline deadlineObj = new Deadline(description, deadline);
+                        todoList[index] = deadlineObj;
+                    } else {
+                        // Missing keyword error
+                        throw new HALException("Missing keyword /by!");
+
+                    }
+                } else if (userInputArray[0].equalsIgnoreCase("event")) {
+                    int keywordIndex = userInput.indexOf("/from");
+                    int keyword2Index = userInput.indexOf("/to");
+
+                    if (keywordIndex != -1 && keyword2Index != -1) {
+                        String description = userInput.substring(5, keywordIndex).trim();
+                        String deadlineFrom = userInput.substring(keywordIndex + 5, keyword2Index).trim();
+                        String deadlineTo = userInput.substring(keyword2Index + 3).trim();
+
+                        todoList[index] = new Event(description, deadlineFrom, deadlineTo);
+                    } else {
+                        // Missing keyword error
+                        throw new HALException("Missing keyword /from and /to!");
+
+                    }
+                }
+                index ++;
+
+                // [index - 1] so that we increment index, but still return string from previously added task
+                returnOutput = todoList[index - 1].toString();
             }
-        } else if (userInputArray[0].equalsIgnoreCase("event")) {
-            int keywordIndex = userInput.indexOf("/from");
-            int keyword2Index = userInput.indexOf("/to");
 
-            if (keywordIndex != -1 && keyword2Index != -1) {
-                String description = userInput.substring(5, keywordIndex).trim();
-                String deadlineFrom = userInput.substring(keywordIndex + 5, keyword2Index).trim();
-                String deadlineTo = userInput.substring(keyword2Index + 3).trim();
-
-                todoList[index] = new Event(description, deadlineFrom, deadlineTo);
-            }
+        } catch (HALException e) {
+            System.out.println(e.getMessage());
+            returnOutput = "error";
         }
 
-        index ++;
-
-        // [index - 1] so that we increment index, but still return string from previously added task
-        return todoList[index - 1].toString();
+        return returnOutput;
     }
 
     public String markAsDone(int taskIndex) {

@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 
@@ -49,14 +50,23 @@ public class ui {
             } else if (userInputArray[0].equalsIgnoreCase("todo") ||
                        userInputArray[0].equalsIgnoreCase("deadline") ||
                        userInputArray[0].equalsIgnoreCase("event")) {
+
                 String taskString = newTodoList.addTask(userInput);
-                System.out.println("Roger. I have added this task.");
-                System.out.println(taskString);
-                System.out.printf("Now you have %d tasks in the list.", newTodoList.getNumberOfTasks());
+
+                // If there is no error, display the messages that task has been added
+                if (!Objects.equals(taskString, "error")) {
+                    System.out.println("Roger. I have added this task.");
+                    System.out.println(taskString);
+                    System.out.printf("Now you have %d tasks in the list.", newTodoList.getNumberOfTasks());
+                }
 
             } else {
-                System.out.println("Invalid command");
-
+                // Unknown keyword error
+                try {
+                    throw new HALException("Unknown Keyword!");
+                } catch (HALException e) {
+                    System.out.println(e.getMessage());
+                }
             }
             System.out.println("\n" + divider);
 
