@@ -3,6 +3,7 @@ package Lery.task;
 public class Todo extends Task {
 
     private final String TYPE = "T";
+
     public Todo(String description) {
         super(description);
     }
@@ -10,6 +11,7 @@ public class Todo extends Task {
     public String getType() {
         return this.TYPE;
     }
+
     public String getExtraInfoShortened() {
         return "";
     }

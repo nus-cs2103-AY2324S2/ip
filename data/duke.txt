@@ -12,3 +12,4 @@ D | 0 | read | 2020-12-22
 T | 0 | eat
 D | 0 | shower | 2020-12-22
 T | 0 | run
+T | 0 | run

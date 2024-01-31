@@ -65,7 +65,7 @@ public class Storage {
         String msg = " | 0 | ";
         msg = "\n" + newTask.getType() + msg + newTask.getDescription();
         if (newTask instanceof Event || newTask instanceof Deadline) {
-            msg += "| " + newTask.getExtraInfoShortened();
+            msg += ("| " + newTask.getExtraInfoShortened());
         }
         try {
             FileWriter fw = new FileWriter(FILENAME, true);
@@ -82,9 +82,7 @@ public class Storage {
     public void checkDateFormat(String date) throws DukeException {
         try {
             LocalDate d = LocalDate.parse(date, this.formatter);
-
         } catch (Exception ex) {
-
             throw new DukeException("Erm... Date not keyed in correct format! Correct format is yyyy-MM-dd"+ex);
         }
     }

@@ -31,9 +31,11 @@ public class TaskList {
 
     public String printList() {
         String list = "Here are the tasks in your list:\n";
-        for (int i = 0; i<this.getSize(); i++) {
+        for (int i = 0; i < this.getSize(); i++) {
             Task task = this.getTask(i);
-            String message = Integer.toString(i+1) + "." +"[" +task.getType()+"]"+"[" + task.getStatusIcon() +"] " + task.getDescription() + task.getExtraInfo()+"\n";
+            String message = Integer.toString(i + 1) + "." + "[" + task.getType()
+                    + "]" + "[" + task.getStatusIcon() + "] " + task.getDescription()
+                    + task.getExtraInfo() + "\n";
             list += message;
 
         }

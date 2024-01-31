@@ -16,29 +16,18 @@ public class Lery {
 
     private Storage storage;
     private Ui ui;
+
     public Lery() {
         this.ui = new Ui();
         this.storage = new Storage();
-
     }
 
-
-
-
-
-
-
-
-
-
     public void run() throws DukeException {
-
         ui.greet();
         Scanner scanner = new Scanner(System.in);
         this.storage.loadTasks();
         while(scanner.hasNext()) {
             Parser p = new Parser(this.storage);
-
             String command = scanner.nextLine();
             if (command.equalsIgnoreCase("bye")) {
                 ui.exit();
@@ -62,8 +51,6 @@ public class Lery {
     public static void main(String[] args) throws DukeException {
         Lery Lery = new Lery();
         Lery.run();
-
     }
-
 
 }

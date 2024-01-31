@@ -11,10 +11,11 @@ public class Ui {
                     "                |___/ \n";
 
     public void printMessageWithLine(String m) {
-        System.out.println(this.LINE + m + "\n"+ this.LINE);
+        System.out.println(this.LINE + m + "\n" + this.LINE);
     }
     public void greet() {
-        System.out.println(this.LINE + logo + "Hello! I'm Lery.Lery"  + "\n" + "What can I do for you?\n" +this.LINE);
+        System.out.println(this.LINE + logo + "Hello! I'm Lery.Lery"
+                + "\n" + "What can I do for you?\n" + this.LINE);
 
     }
     public void exit() {
