@@ -77,7 +77,7 @@ public class Duke {
 
         }
 
-        //Update on a new update the process in the process
+        //Update periodically for saving
         Timer save = new Timer();
         TimerTask savingTask = new TimerTask() {
             @Override
@@ -99,11 +99,9 @@ public class Duke {
         save.scheduleAtFixedRate(savingTask, 0, 1000);
 
         while (true) {
-
             String next = input.readLine();
             if (next.equals("bye")) {
                 //Save the application again and exit
-                //Goodbye
                 try (FileWriter fw = new FileWriter(FILE_PATH)) {
                     fw.write(manager.getTasksSave());
                     manager.setUpdate(false);//reset the change here

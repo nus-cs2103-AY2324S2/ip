@@ -6,7 +6,7 @@ public class Todo extends Task {
 
     @Override
     public String saveFile() {
-        return "T" + "|" + super.description;
+        return "T" + "|" + super.done() + "|" + super.description;
     }
 
     @Override

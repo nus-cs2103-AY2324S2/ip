@@ -71,7 +71,7 @@ public class TaskManager {
     }
 
     public Task mangeTask(Actions act, String instructions) throws DukeException {
-        String[] getNumber = instructions.split(" ");
+        String[] getNumber = instructions.split(" "); 
         if (items.isEmpty()) {
             throw new DukeException("empty");
         }
@@ -86,13 +86,17 @@ public class TaskManager {
         switch (act) {
             case UNMARK:
                 item.unmark();
+                break;
             case MARK:
                 item.markAsDone();
+                break;
             case DELETE:
                 items.remove(id);
+                break;
             default:
                 //This does nothing
                 //Should throw and error here if it is stupid
+                break;
         }
         hasChanged = true;
         return item;
@@ -137,7 +141,7 @@ public class TaskManager {
     }
 
     private Task determineTask(String task) {
-        String[] data = task.split("|");
+        String[] data = task.split("\\|");
         String type = data[0];
         Task item;
         String name;
@@ -145,23 +149,27 @@ public class TaskManager {
         String from;
         switch (type) {
             case "D":
-                name = data[1];
-                by = data[2];
+                name = data[2];
+                by = data[3];
                 item = new Deadline(name, by);
                 break;
             case "E":
-                name = data[1];
-                by = data[2];
-                from = data[3];
+                name = data[2];
+                by = data[3];
+                from = data[4];
                 item = new Event(name, by, from);
                 break;
             case "T":
-                name = data[1];
+                name = data[2];
                 item = new Todo(name);
                 break;
             default:
-                item = new Task(data[1]);
+                item = new Task(data[2]);
                 break;
+        }
+        String isDone = data[1];
+        if(isDone.equals("x")) {
+            item.markAsDone();
         }
         return item;
 
@@ -174,7 +182,6 @@ public class TaskManager {
                 if (!next.isBlank()) {
                     //Read task file
                     Task item = determineTask(next);
-                    System.out.println("Task name:" + item.toString());
                     items.add(item);
                 }
 
