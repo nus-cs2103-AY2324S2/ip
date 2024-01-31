@@ -36,7 +36,7 @@ public class TaskList {
     }
 
     public String fileRepresentation() {
-        ArrayList<String> a = new ArrayList<String>();
+        ArrayList<String> a = new ArrayList<>();
         for (Task t : this.tasks) {
             a.add(t.fileRepresentation());
         }
@@ -45,7 +45,7 @@ public class TaskList {
 
     @Override
     public String toString() {
-        ArrayList<String> a = new ArrayList<String>();
+        ArrayList<String> a = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
             a.add(String.format("%d. %s",
                     i + 1,

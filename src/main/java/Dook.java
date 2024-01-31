@@ -1,9 +1,11 @@
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Dook {
 
-    private static final String FILE_PATH = "src/main/dook.txt";
+    private static final ArrayList<String> FILE_PATH = new ArrayList<>(List.of("data", "dook.txt"));
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
@@ -14,10 +16,15 @@ public class Dook {
         this.ui = new Ui();
         this.parser = new Parser();
         this.storage = new Storage(FILE_PATH);
-
     }
 
     public void run() {
+        try {
+            this.storage.checkFile();
+        } catch (Exception e) {
+            System.out.println("meow :( an error happened when opening your files, please restart to prevent data loss");
+            return;
+        }
         this.ui.introduce();
         try {
             this.tasks = this.storage.loadTaskListFromFile();
