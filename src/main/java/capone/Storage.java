@@ -96,8 +96,8 @@ public class Storage {
             e.printStackTrace();
         } catch (JSONException e) {
             initFileIfNotExist();
-            throw new TaskListCorruptedException("capone.tasks.Task list file is corrupted." +
-                    " Creating new task list file.");
+            throw new TaskListCorruptedException("Detected corrupted task list file." +
+                    " New file will be created when new tasks are created.");
         }
     }
 
