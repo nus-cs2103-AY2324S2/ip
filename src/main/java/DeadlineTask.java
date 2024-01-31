@@ -1,15 +1,24 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class DeadlineTask extends Task {
-    public String deadline;
-    public DeadlineTask(String type, String desc, String deadline) {
+    public LocalDateTime deadline;
+    DateTimeFormatter printFormat  = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm:ss");
+    public DeadlineTask(String type, String desc, LocalDateTime deadline) {
         super(type, desc);
         this.deadline = deadline;
     }
 
     @Override
     public String toString() {
-        return "[" + type + "] "
-                + (completed ? "[X]" : "[ ]")
-                + " " + desc
-                + (type.equals("D") ? " (by: " + deadline + ")": "");
+        String res = "";
+        try {
+            res = "[" + type + "] "
+                    + (completed ? "[X]" : "[ ]")
+                    + " " + desc
+                    + " (by: " + deadline.format(printFormat) + ")";
+        } catch (NullPointerException e) {
+        }
+        return res;
     }
 }

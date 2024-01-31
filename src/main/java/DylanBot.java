@@ -1,4 +1,10 @@
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.io.*;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -98,9 +104,10 @@ public class DylanBot {
             if (tokens[0].equals("T")) {
                 curr = new TodoTask("T", tokens[2]);
             } else if (tokens[0].equals("D")) {
-                curr = new DeadlineTask("D", tokens[2], tokens[3]);
+                curr = new DeadlineTask("D", tokens[2], ConvertStringToDateTime(tokens[3]));
             } else {
-                curr = new EventTask("E", tokens[2], tokens[3], tokens[4]);
+                curr = new EventTask("E", tokens[2], ConvertStringToDateTime(tokens[3]),
+                        ConvertStringToDateTime(tokens[4]));
             }
             curr.completed = tokens[1].equals("true");
             tasks.add(curr);
@@ -137,38 +144,58 @@ public class DylanBot {
         System.out.println("Roger doger, added this task: \n\t" + curr.toString());
     }
 
-    public static void createDeadline(String input) throws DylanBotException {
+    public static LocalDateTime ConvertStringToDateTime(String input) throws DateTimeParseException{
+        LocalDateTime deadline = null;
+        DateTimeFormatter dFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter dtFormat  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        if (input.length() < 11) {
+            deadline = LocalDate.parse(input).atStartOfDay();
+        } else {
+            deadline = LocalDateTime.parse(input);
+        }
+        return deadline;
+    }
+
+    public static void createDeadline(String input) throws DylanBotException, DateTimeParseException {
         String[] inputArr = input.split("/by");
         String desc = inputArr[0].substring(9).trim();
-        String deadline = inputArr[1].trim();
+        String deadlineStr = inputArr[1].trim();
         if (desc.isEmpty()) {
             throw new DylanBotException("HEY deadline description cannot be empty!");
         }
-        if (deadline.isEmpty()) {
+        if (deadlineStr.isEmpty()) {
             throw new DylanBotException("HEY deadline tasks need deadlines!");
         }
-        DeadlineTask curr = new DeadlineTask("D", desc, deadline);
-        tasks.add(curr);
-        System.out.println("Roger doger, added this task: \n\t" + curr.toString());
+        try {
+            DeadlineTask curr = new DeadlineTask("D", desc, ConvertStringToDateTime(deadlineStr));
+            tasks.add(curr);
+            System.out.println("Roger doger, added this task: \n\t" + curr.toString());
+        } catch (DateTimeParseException e) {
+            System.out.println("Improper date format, TRY AGAIN!!!");
+        }
     }
 
     public static void createEvent(String input) throws DylanBotException {
         String[] inputArr = input.split("/from|/to");
         String desc = inputArr[0].substring(6).trim();
-        String from = inputArr[1].trim();
-        String to = inputArr[2].trim();
+        String fromString = inputArr[1].trim();
+        String toString = inputArr[2].trim();
         if (desc.isEmpty()) {
             throw new DylanBotException("HEY event description cannot be empty!");
         }
-        if (from.isEmpty()) {
+        if (fromString.isEmpty()) {
             throw new DylanBotException("HEY event tasks need starting dates!");
         }
-        if (to.isEmpty()) {
+        if (toString.isEmpty()) {
             throw new DylanBotException("HEY event tasks need ending dates!");
         }
-        EventTask curr = new EventTask("E", desc, from, to);
-        tasks.add(curr);
-        System.out.println("Roger doger, added this task: \n\t" + curr.toString());
+        try {
+            EventTask curr = new EventTask("E", desc, ConvertStringToDateTime(fromString),
+                    ConvertStringToDateTime(toString));            tasks.add(curr);
+            System.out.println("Roger doger, added this task: \n\t" + curr.toString());
+        } catch (DateTimeParseException e) {
+            System.out.println("Improper date format, TRY AGAIN!!!");
+        }
     }
 
     public static void deleteTask(String input) throws DylanBotException {

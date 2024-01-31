@@ -1,0 +1,5 @@
+T | true | read
+T | true | return
+D | true | borrow | Sunday
+E | false | meeting | 2am | 4am
+T | false | write
