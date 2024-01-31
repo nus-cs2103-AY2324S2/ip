@@ -14,7 +14,7 @@ import tasks.ToDo;
 
 public class Storage {
 
-    private final static String FILE_PATH = "src/main/java/resources/data.txt";
+    private final static String FILE_PATH = "src/main/java/duke/resources/data.txt";
     private final static String DELIMITER = "~";
 
     public Storage() {
