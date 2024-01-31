@@ -1,4 +1,17 @@
+import java.util.Scanner;
+
 public class Ui {
+    Scanner scanner;
+
+    public Ui() {
+        scanner = new Scanner(System.in);
+    }
+
+    public String readCommand() {
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
     public void greet() {
         String logo = "  _    _                       \n" +
                 " | |  | |                      \n" +
@@ -13,6 +26,7 @@ public class Ui {
         System.out.println(greetMessage);
         System.out.println();
     }
+
     public void bye() {
         System.out.println("See you again bro!");
     }

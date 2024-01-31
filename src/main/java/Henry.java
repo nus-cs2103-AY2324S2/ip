@@ -85,9 +85,8 @@ public class Henry {
     }
     public void run() {
         ui.greet();
-        Scanner scanner = new Scanner(System.in);
         while (true) {
-            String currentLine = scanner.nextLine();
+            String currentLine = ui.readCommand();
             String[] command = currentLine.split(" ", 2);
             CommandType commandType;
             String params = command.length < 2 ? "" : command[1];
