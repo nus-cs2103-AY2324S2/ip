@@ -1,5 +1,6 @@
 package duke.storage;
 
+import duke.data.exception.DukeException;
 import duke.parser.Parser;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -12,13 +13,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-
-	private String filePath;
+	/** file path to store txt file */
+	private final String filePath;
 
 	public Storage(String filePath) {
 		this.filePath = filePath;
 	}
 
+	/**
+	 * Loads list of tasks from existing txt file
+	 * else creates a new blank txt file
+	 * @return ArrayList<Task> list of existing tasks (if any)
+	 */
 	public ArrayList<Task> load() {
 		ArrayList<Task> store = new ArrayList<Task>();
 		try {
@@ -40,6 +46,11 @@ public class Storage {
 		return store;
 	}
 
+	/**
+	 * Saves list of tasks into txt file
+	 *
+	 * @param store TaskList to be stored into txt file
+	 */
 	public void saveTasks(TaskList store) throws IOException {
 		FileWriter fw = new FileWriter(filePath);
 		String toSave = "";

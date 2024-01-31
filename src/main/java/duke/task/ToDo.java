@@ -2,6 +2,7 @@ package duke.task;
 
 public class ToDo extends Task {
 
+    /** Type icon for ToDo task */
     private static final String TYPE = "T";
 
     public ToDo(String name) {

@@ -16,6 +16,12 @@ import java.time.format.DateTimeFormatter;
 
 public class Parser {
 
+	/**
+	 * Returns task stored in given line entry.
+	 *
+	 * @param taskStored String line entry of task stored in txt file
+	 * @return ToDo, Event or Deadline Task stored in given line.
+	 */
 	public static Task parseFromStorage(String taskStored) {
 		String[] taskLine = taskStored.split(";;;");
 		String[] details = taskLine[2].split(":::");
@@ -29,6 +35,13 @@ public class Parser {
 		return decodedTask;
 	}
 
+	/**
+	 * Returns command of specified instruction.
+	 *
+	 * @param fullCmd String full command input by user.
+	 * @return Command object.
+	 * @throws DukeException  If unknown command was given.
+	 */
 	public static Command parse(String fullCmd) throws DukeException {
 		String cmd = fullCmd.split(" ")[0];
 		if (cmd.equals("bye")) return new ExitCommand();

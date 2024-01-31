@@ -5,8 +5,9 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
+    /** Type icon for Deadline task */
     private static final String TYPE = "D";
-
+    /** Deadline or due date of this task */
     protected LocalDateTime dueDate;
 
     public Deadline(String name, LocalDateTime dueDate) {

@@ -6,9 +6,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-
+    /** Type icon for Event task */
     private static final String TYPE = "E";
+    /** Start date/time of this task */
     protected LocalDateTime start;
+    /** End date/time of this task */
     protected LocalDateTime end;
 
     public Event(String name, LocalDateTime start, LocalDateTime end) {
