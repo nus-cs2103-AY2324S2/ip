@@ -1,5 +1,6 @@
 package solaire.storage;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,16 +26,23 @@ public class Storage {
         taskList.clear();
 
         // Read from target file
-        String filePath = "src/main/java/solaire/resources/Solaire.txt";
-
+        Path filePath = Paths.get("src", "main", "java", "solaire", "resources", "Solaire.txt");
         try {
-            List<String> lines = Files.readAllLines(Paths.get(filePath));
+
+            Path directoryPath = filePath.getParent();
+            // Check if directory exists
+            Files.createDirectory(directoryPath);
+
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
+            }
+            List<String> lines = Files.readAllLines(filePath);
 
             for (String line : lines) {
                 parseTasks(line);
             }
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println("Something went wrong in reading local data: " + e.getMessage());
         } catch (SolaireException e) {
             throw new RuntimeException(e);
         }
@@ -43,11 +51,16 @@ public class Storage {
     }
 
     public static void write(ArrayList<Task> taskList) {
-        String filePath = "src/main/java/solaire/resources/Solaire.txt";
+        Path filePath = Paths.get("src", "main", "java", "solaire", "resources", "Solaire.txt");
 
         try {
+            Files.createDirectory(filePath.getParent());
+            if (!Files.exists(filePath)) {
+                throw new IOException("File not found: " + filePath);
+                // or handle it differently based on your requirements
+            }
             Storage.taskList = taskList;
-            BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
+            BufferedWriter bw = Files.newBufferedWriter(filePath);
 
             for (Task task : taskList) {
                 String content = "";
@@ -70,7 +83,7 @@ public class Storage {
             bw.close();
 
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Something went wrong on attempting to write to local disk: " + e.getMessage());
         }
     }
 

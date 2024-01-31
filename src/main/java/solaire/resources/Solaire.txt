@@ -1,6 +1,4 @@
 T | 0 | read book
 D | 1 | return book | 2010-10-01
 T | 1 | join sports club
-T | 0 | eat more
-T | 0 | eat even more
 T | 0 | eat dinner
