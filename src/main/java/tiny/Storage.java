@@ -29,7 +29,6 @@ public class Storage {
      */
     public ArrayList<String> load() throws TinyException {
         try {
-            // Creating the folder if it does not exists
             if (!new File("../../../data").exists()) {
                 new File("../../../data").mkdirs();
             }
