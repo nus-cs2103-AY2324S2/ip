@@ -63,7 +63,7 @@ public class Parser {
                 throw new DukeException("Missing params for todo!");
             }
             desc = str[1].replaceAll("\\s", "");
-            res = new String[] {str[0], desc};
+            res = new String[] { str[0], desc };
         } else if (str[0].equals("deadline")) {
             if (str.length != 2) {
                 throw new DukeException("Missing params for deadline!");
@@ -77,7 +77,7 @@ public class Parser {
 
             desc = temp[0].replaceAll("\\s", "");
             by = validDate(temp[1].replaceAll("\\s", ""));
-            res = new String[] {str[0], desc, by.toString()};
+            res = new String[] { str[0], desc, by.toString() };
         } else {
             if (str.length != 2) {
                 throw new DukeException("Missing params for event!");
@@ -100,7 +100,7 @@ public class Parser {
             from = temp2[0].replaceAll("\\s", "");
             to = temp2[1].replaceAll("\\s", "");
 
-            res = new String[]{str[0], desc, from, to};
+            res = new String[] { str[0], desc, from, to };
         }
 
         return res;

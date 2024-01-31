@@ -10,14 +10,14 @@ public class Deadline implements Task {
 
     protected String desc;
     protected LocalDate date;
-    protected boolean checked;
+    protected boolean isMarked;
     protected String type;
 
     public Deadline(String desc, LocalDate date){
         this.desc = desc;
         this.date = date;
-        this.checked = false;
-        this.type = "D";
+        isMarked = false;
+        type = "D";
     }
 
     public String getDesc() {
@@ -29,18 +29,18 @@ public class Deadline implements Task {
     }
 
     public String getCheck() {
-        return checked ? "X" : " ";
+        return isMarked ? "X" : " ";
     }
 
     public void setCheck(boolean x) {
-        this.checked = x;
+        isMarked = x;
     }
     public String getType() {
-        return this.type;
+        return type;
     }
 
     public String toSave() {
-        String temp = checked ? "1" : "0";
+        String temp = isMarked ? "1" : "0";
         return type + " | " + temp + " | " + getDesc() + " | " + date.toString() + "\n";
     }
 

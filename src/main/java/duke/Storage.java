@@ -29,8 +29,8 @@ public class Storage {
         return parseText();
     }
 
-    private ArrayList<duke.task.Task> parseText() throws IOException {
-        ArrayList<duke.task.Task> tasks = new ArrayList<Task>();
+    private ArrayList<Task> parseText() throws IOException {
+        ArrayList<Task> tasks = new ArrayList<Task>();
         BufferedReader  br = Files.newBufferedReader(Paths.get(path.toString() + "/data.txt"));
 
         while(br.ready()) {
