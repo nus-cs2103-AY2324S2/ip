@@ -16,9 +16,7 @@ import chatbot.value.DateStringValue;
  * @author Titus Chew
  */
 public final class AddDeadlineAction extends Action {
-    /**
-     * The command for adding a {@link Deadline}.
-     */
+    /** The {@link Command} for adding a {@link Deadline}. */
     private static final Command COMMAND = new Command(
             new ExpectedArgument("deadline", "name"),
             new ExpectedArgument("by", "by_date")
@@ -27,17 +25,17 @@ public final class AddDeadlineAction extends Action {
     /**
      * Constructor for this add deadline action.
      *
-     * @param arguments the arguments supplied with the command
-     * @throws ActionException If the action fails has unrecognizable or missing arguments.
+     * @param arguments the {@link Argument}(s) supplied with the command
+     * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
     public AddDeadlineAction(Argument[] arguments) throws ActionException {
         super(COMMAND, arguments);
     }
 
     /**
-     * Add a deadline task to the user's list.
+     * Add a {@link Deadline} to the user's list.
      *
-     * @param taskList the taskList to modify
+     * @param taskList the {@link TaskList} to modify
      */
     @Override
     public void execute(TaskList taskList) {
@@ -53,9 +51,6 @@ public final class AddDeadlineAction extends Action {
         );
     }
 
-    /**
-     * Gets the name of the {@link Command}.
-     */
     public static String getName() {
         return COMMAND.getName();
     }

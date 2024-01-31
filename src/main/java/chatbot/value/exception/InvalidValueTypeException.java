@@ -8,14 +8,10 @@ import chatbot.exception.ChatBotException;
  * @author Titus Chew
  */
 public final class InvalidValueTypeException extends ChatBotException {
-    /**
-     * Stores the name of the type.
-     */
+    /** Stores the name of the expected type. */
     private final String expectedType;
 
-    /**
-     * Stores the value that is of the invalid type.
-     */
+    /** Stores the value that is of the invalid type. */
     private final String invalidTypeValue;
 
     /**
@@ -29,9 +25,6 @@ public final class InvalidValueTypeException extends ChatBotException {
         this.invalidTypeValue = invalidTypeValue;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getMessage() {
         return String.format("`%s` is not an %s.", invalidTypeValue, expectedType);

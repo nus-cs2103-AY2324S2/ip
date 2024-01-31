@@ -7,29 +7,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Deadlines: tasks that need to be done before a specific date/time.
+ * This encapsulates tasks that need to be done before a specific date/time.
  *
  * @author Titus Chew
  */
 public final class Deadline extends Task {
-    /**
-     * Stores the deadline of this.
-     */
+    /** Stores the deadline time of this. */
     private final DateStringValue deadline;
 
-    /**
-     * The icon for the task type.
-     */
+    /** The icon for the task type. */
     private static final String TASK_TYPE_ICON = "D";
 
-    /**
-     * The format that a {@link Deadline} takes.
-     */
+    /** The format that a {@link Deadline} takes. */
     private static final String FORMAT = String.format("[%s]%s (by: %s)", TASK_TYPE_ICON, "%s", "%s");
 
-    /**
-     * The regex pattern that a {@link Deadline} takes.
-     */
+    /** The regex pattern that a {@link Deadline} takes. */
     private static final Pattern REGEX_PATTERN = Pattern.compile(
             String.format("\\[%s\\](?<task>.*)\\(by:(?<by>.*)\\)", TASK_TYPE_ICON));
 
@@ -56,7 +48,7 @@ public final class Deadline extends Task {
     }
 
     /**
-     * Parse a deadline from a human-readable string.
+     * Parses a deadline from a human-readable string.
      *
      * @param readableString the deadline as a human-readable string
      * @return the deadline
@@ -83,9 +75,6 @@ public final class Deadline extends Task {
         return REGEX_PATTERN.matcher(matchingString).find();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return String.format(FORMAT, super.toString(), deadline);

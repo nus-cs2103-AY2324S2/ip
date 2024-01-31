@@ -1,7 +1,9 @@
 package chatbot.exception;
 
+import chatbot.ChatBot;
+
 /**
- * This represents exceptions thrown by a {@link chatbot.ChatBot}.
+ * This represents exceptions thrown by a {@link ChatBot}.
  *
  * @author Titus Chew
  */

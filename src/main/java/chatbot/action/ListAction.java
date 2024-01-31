@@ -1,21 +1,21 @@
 package chatbot.action;
 
+import chatbot.ChatBot;
 import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
+import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.ui.Printer;
 
 /**
- * ListAction encapsulates the behaviour when listing the tasks.
+ * This encapsulates the behaviour when listing the {@link Task}.
  *
  * @author Titus Chew
  */
 public final class ListAction extends Action{
-    /**
-     * The command for listing stored tasks.
-     */
+    /** The {@link Command} for listing stored {@link Task}(s). */
     private static final Command COMMAND = new Command(
             new ExpectedArgument("list")
     );
@@ -23,8 +23,8 @@ public final class ListAction extends Action{
     /**
      * Constructor for this list action.
      *
-     * @param arguments the arguments supplied with the command
-     * @throws ActionException If the action fails has unrecognizable or missing arguments.
+     * @param arguments the {@link Argument}(s) supplied with the {@link Command}
+     * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
     public ListAction(Argument[] arguments) throws ActionException {
         super(COMMAND, arguments);
@@ -33,7 +33,7 @@ public final class ListAction extends Action{
     /**
      * Prints the user's list.
      *
-     * @param taskList the taskList that is used with the chatbot
+     * @param taskList the {@link TaskList} that is used with the {@link ChatBot}
      */
     @Override
     public void execute(TaskList taskList) {
@@ -49,9 +49,6 @@ public final class ListAction extends Action{
         }
     }
 
-    /**
-     * Gets the name of the {@link Command}.
-     */
     public static String getName() {
         return COMMAND.getName();
     }

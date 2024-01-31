@@ -3,7 +3,7 @@ package chatbot.action.util;
 import chatbot.value.StringValue;
 
 /**
- * Argument stores a {@link Command} argument's name, and it's associated value.
+ * This stores a {@link Command} argument's name, and it's associated value.
  * <ul>
  * <li>The argument must have a name.
  * <li>If the name matches the command, it is defined to be the default argument.
@@ -11,7 +11,10 @@ import chatbot.value.StringValue;
  * @author Titus Chew
  */
 public class Argument {
+    /** Stores the name of this */
     private final String name;
+
+    /** Stores the value of this */
     private final StringValue value;
 
     /**
@@ -36,20 +39,10 @@ public class Argument {
         this.value = (value == null) ? null :new StringValue(value);
     }
 
-    /**
-     * Gets this argument name.
-     *
-     * @return the name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Gets the value of this argument.
-     *
-     * @return the value
-     */
     public StringValue getValue() {
         return value;
     }

@@ -1,31 +1,31 @@
 package chatbot.action.exception;
 
+import chatbot.action.Action;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 
 /**
- * MissingArgumentValueException represents exceptions due to a missing argument value for an argument in an action.
+ * This represents exceptions due to a missing argument value
+ * for an {@link Argument} in an {@link Action}.
  *
  * @author Titus Chew
  */
 public final class MissingArgumentValueException extends ActionException {
+    /** Stores the associated command. */
     private final Command command;
     private final Argument missingArg;
 
     /**
-     * Constructor for this ActionException with a missing argument value.
+     * Constructor for this {@link ActionException} with a missing {@link Argument} value.
      *
-     * @param command the command
-     * @param missingArg the missing argument
+     * @param command the associated {@link Command}
+     * @param missingArg the missing {@link Argument}
      */
     public MissingArgumentValueException(Command command, Argument missingArg) {
         this.command = command;
         this.missingArg = missingArg;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getMessage() {
         return "OOPS!!! The argument value <" + missingArg.getValue() + "> of `" + command.getName() + "` must be present!\n"

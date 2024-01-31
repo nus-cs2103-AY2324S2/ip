@@ -11,25 +11,19 @@ import chatbot.task.TaskList;
 import java.util.Scanner;
 
 /**
- * This encapsulates the behaviour of a Chatbot,
+ * This encapsulates the behaviour of a chat-bot,
  * which is the handling of the message content and executing commands.
  *
  * @author Titus Chew
  */
 public class ChatBot {
-    /**
-     * Stores the scanner instance used to get the console input stream.
-     */
+    /** Stores the scanner instance used to get the console input stream. */
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    /**
-     * Stores the name of this chatbot.
-     */
+    /** Stores the name of this. */
     private final String chatBotName;
 
-    /**
-     * Stores the user's tasks
-     */
+    /** Stores the user's tasks. */
     private final TaskList userList;
 
     public static void main(String[] args) {
@@ -48,7 +42,7 @@ public class ChatBot {
     }
 
     /**
-     * Greets the user when entering a session with this chatbot.
+     * Greets the user when entering a session with this {@link ChatBot}.
      */
     private void greet() {
         Printer.printMessages(
@@ -58,7 +52,7 @@ public class ChatBot {
     }
 
     /**
-     * Reads and parses user input for commands.
+     * Runs the chat bot main loop.
      */
     public void run() {
         greet();

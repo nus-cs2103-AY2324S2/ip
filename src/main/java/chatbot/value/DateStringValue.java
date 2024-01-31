@@ -17,25 +17,17 @@ import java.util.Locale;
  * @author Titus Chew
  */
 public final class DateStringValue extends StringValue {
-    /**
-     * The {@link LocalDate} value stored.
-     */
+    /** The {@link LocalDate} value stored. */
     private final LocalDate dateValue;
 
-    /**
-     * The {@link String} pattern for displaying dates.
-     */
+    /** The {@link String} pattern for displaying dates. */
     private static final String DISPLAY_PATTERN = "MMM d yyyy";
 
-    /**
-     * The {@link DateTimeFormatter} for displaying dates.
-     */
+    /** The {@link DateTimeFormatter} for displaying dates. */
     private static final DateTimeFormatter DISPLAY_DATE_TIME_FORMATTER =
             DateTimeFormatter.ofPattern(DISPLAY_PATTERN, Locale.ENGLISH);
 
-    /**
-     * The {@link DateTimeFormatter} for a string value.
-     */
+    /** The {@link DateTimeFormatter} for a string value. */
     private static final DateTimeFormatter DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
             .appendOptional(DISPLAY_DATE_TIME_FORMATTER)
             .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH))
@@ -60,26 +52,25 @@ public final class DateStringValue extends StringValue {
     }
 
     /**
-     * Factory method for taking in a {@link StringValue}, but trying to convert it to a date.
+     * Factory method for taking in a {@link StringValue}, but tries to convert it to a {@link LocalDate}.
      *
      * @param value the value as a {@link String}
+     * @see DateStringValue#of(String)
      */
     public static DateStringValue of(StringValue value) {
         return new DateStringValue(value.toString());
     }
 
     /**
-     * Factory method for taking in a {@link StringValue}, but trying to convert it to a date.
+     * Factory method for taking in a {@link StringValue}, but tries to convert it to a {@link LocalDate}.
      *
      * @param value the value as a {@link String}
+     * @see DateStringValue#of(StringValue)
      */
     public static DateStringValue of(String value) {
         return new DateStringValue(value);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         if (dateValue != null) {

@@ -1,31 +1,32 @@
 package chatbot.action.exception;
 
+import chatbot.action.Action;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 
 /**
- * UnrecognizedArgumentException represents exceptions due to an unrecognized argument name in the action.
+ * This represents exceptions due to an unrecognized argument name in the {@link Action}.
  *
  * @author Titus Chew
  */
 public final class UnrecognizedArgumentException extends ActionException {
+    /** Stores the associated {@link Argument}. */
     private final Argument argument;
+
+    /** Stores the associated {@link Command}. */
     private final Command command;
 
     /**
-     * Constructor for this ActionException for unrecognized argument names.
+     * Constructor for this {@link ActionException} for unrecognized {@link Argument} names.
      *
-     * @param command the command
-     * @param argument the name of the argument
+     * @param command the {@link Command}
+     * @param argument the name of the {@link Argument}
      */
     public UnrecognizedArgumentException(Command command, Argument argument) {
         this.argument = argument;
         this.command = command;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getMessage() {
         return "OOPS!!! I'm sorry, but I don't know what `/" + argument.getName() + "` means :-(\n"

@@ -32,14 +32,10 @@ import java.nio.file.Paths;
  * @author Titus Chew
  */
 public final class LocalStorage {
-    /**
-     * The relative path from the project root where the save file is stored.
-     */
+    /** The relative path from the project root where the save file is stored. */
     public static String RELATIVE_PATH = "data/";
 
-    /**
-     * The name and format of the save file stored.
-     */
+    /** The name and format of the save file stored. */
     public static String SAVE_FILE_NAME = "save.txt";
 
     /**

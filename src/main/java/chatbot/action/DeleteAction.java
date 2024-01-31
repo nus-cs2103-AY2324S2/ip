@@ -16,9 +16,7 @@ import chatbot.value.exception.InvalidValueTypeException;
  * This encapsulates behaviour of deleting a {@link Task} from the {@link TaskList}.
  */
 public final class DeleteAction extends Action {
-    /**
-     * The command for deleting a {@link Task}.
-     */
+    /** The {@link Command} for deleting a {@link Task}. */
     private static final Command COMMAND = new Command(
             new ExpectedArgument("delete", "index")
     );
@@ -26,17 +24,17 @@ public final class DeleteAction extends Action {
     /**
      * Constructor for this delete action.
      *
-     * @param arguments the arguments supplied with the command
-     * @throws ActionException If the action fails has unrecognizable or missing arguments.
+     * @param arguments the {@link Argument}(s) supplied with the {@link Command}
+     * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
     public DeleteAction(Argument[] arguments) throws ActionException {
         super(COMMAND, arguments);
     }
 
     /**
-     * Deletes the task from the task list.
+     * Deletes the {@link Task} from the {@link TaskList}.
      *
-     * @param taskList the taskList that is used with the chatbot
+     * @param taskList the {@link TaskList} that is used with the {@link chatbot.ChatBot}
      * @throws InvalidArgumentValueException If the action fails certain validation checks due to invalid input.
      */
     @Override
@@ -73,9 +71,6 @@ public final class DeleteAction extends Action {
         );
     }
 
-    /**
-     * Gets the name of the {@link Command}.
-     */
     public static String getName() {
         return COMMAND.getName();
     }

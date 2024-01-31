@@ -1,21 +1,23 @@
 package chatbot.action.exception;
 
+import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 
 /**
- * InvalidArgumentValueException represents exceptions due to an invalid argument value in an argument.
+ * This represents exceptions due to an invalid argument value in an {@link Argument}.
  *
  * @author Titus Chew
  */
 public final class InvalidArgumentValueException extends ActionException {
+    /** Stores the associated command. */
     private final Command command;
     private final String invalidArg, reason;
 
     /**
-     * Constructor for this ActionException with an invalid argument value.
+     * Constructor for this {@link ActionException} with an invalid {@link Argument} value.
      *
-     * @param command the command
-     * @param invalidArg the invalid argument
+     * @param command the associated {@link Command}
+     * @param invalidArg the invalid {@link Argument}
      */
     public InvalidArgumentValueException(Command command, String invalidArg, String reason) {
         this.command = command;
@@ -23,9 +25,6 @@ public final class InvalidArgumentValueException extends ActionException {
         this.reason = reason;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getMessage() {
         return "OOPS!!! The argument value <" + invalidArg + "> of `" + command.getName() + "` is invalid!\n"

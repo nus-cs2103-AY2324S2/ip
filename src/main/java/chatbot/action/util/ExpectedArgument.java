@@ -5,16 +5,16 @@ import chatbot.action.exception.MissingArgumentValueException;
 import chatbot.action.exception.UnexpectedArgumentValueException;
 
 /**
- * ExpectedArgument encapsulates the behaviour of arguments that a command can expect.
+ * This encapsulates the behaviour of an {@link Argument} that a {@link Command} can expect.
  * <ul>
- * <li>An ExpectedArgument list generates the usage hint for a command.
+ * <li>An ExpectedArgument list generates the usage hint for a {@link Command}.
  *
  * @author Titus Chew
  */
 public final class ExpectedArgument extends Argument {
 
     /**
-     * Constructor for this argument without a value.
+     * Constructor for this {@link Argument} without a value.
      *
      * @param name the name of this argument, which should not be null
      */
@@ -23,7 +23,7 @@ public final class ExpectedArgument extends Argument {
     }
 
     /**
-     * Constructor for this argument with a value and name.
+     * Constructor for this {@link Argument} with a value and name.
      *
      * @param name  the name of this argument, which should not be null
      * @param valueUsageName the value of this argument, as a descriptive name of its purpose
@@ -33,13 +33,13 @@ public final class ExpectedArgument extends Argument {
     }
 
     /**
-     * Validates the supplied argument using this expected argument for the presence or lack of a value.
+     * Validates the supplied {@link Argument} using this expected argument for the presence or lack of a value.
      * <p>
      * If this value is null, then no value is expected.
      *
-     * @param command the command with that supplied argument
-     * @param suppliedArgument the other argument to compare with
-     * @throws ActionException If the argument has a missing or unexpected value.
+     * @param command the {@link Command} with that supplied {@link Argument}
+     * @param suppliedArgument the other {@link Argument} to compare with
+     * @throws ActionException If the {@link Argument} has a missing or unexpected value.
      */
     public void validateArgument(Command command, Argument suppliedArgument) throws ActionException {
         if (hasSameArgumentName(suppliedArgument)) {

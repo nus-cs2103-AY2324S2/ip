@@ -1,5 +1,6 @@
 package chatbot.action;
 
+import chatbot.ChatBot;
 import chatbot.action.exception.ActionException;
 import chatbot.action.exception.InvalidArgumentValueException;
 import chatbot.action.util.Argument;
@@ -18,9 +19,7 @@ import chatbot.value.exception.InvalidValueTypeException;
  * @author Titus Chew
  */
 public final class UnmarkAction extends Action {
-    /**
-     * The command for marking a {@link Task} as not done.
-     */
+    /** The {@link Command} for marking a {@link Task} as not done. */
     private static final Command COMMAND = new Command(
             new ExpectedArgument("unmark", "index")
     );
@@ -28,17 +27,17 @@ public final class UnmarkAction extends Action {
     /**
      * Constructor for this unmark action.
      *
-     * @param arguments the arguments supplied with the command
-     * @throws ActionException If the action fails has unrecognizable or missing arguments.
+     * @param arguments the {@link Argument}(s) supplied with the {@link Command}
+     * @throws ActionException If the action fails has unrecognizable or missing {@link Argument}(s).
      */
     public UnmarkAction(Argument[] arguments) throws ActionException {
         super(COMMAND, arguments);
     }
 
     /**
-     * Unmarks and prints the task.
+     * Unmarks and prints the {@link Task}.
      *
-     * @param taskList the taskList that is used with the chatbot
+     * @param taskList the {@link TaskList} that is used with the {@link ChatBot}
      * @throws InvalidArgumentValueException If the action fails certain validation checks due to invalid input.
      */
     @Override
@@ -75,9 +74,6 @@ public final class UnmarkAction extends Action {
         );
     }
 
-    /**
-     * Gets the name of the {@link Command}.
-     */
     public static String getName() {
         return COMMAND.getName();
     }

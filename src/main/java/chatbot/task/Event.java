@@ -7,33 +7,23 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Events: tasks that start at a specific date/time and ends at a specific data/time.
+ * This encapsulates tasks that start at a specific date/time and ends at a specific data/time.
  *
  * @author Titus Chew
  */
 public final class Event extends Task {
-    /**
-     * Stores the start time of this.
-     */
+    /** Stores the start time of this. */
     private final DateStringValue startDateTime;
-    /**
-     * Stores the end time of this.
-     */
+    /** Stores the end time of this. */
     private final DateStringValue endDateTime;
 
-    /**
-     * The icon for the task type.
-     */
+    /** The icon for the task type. */
     private static final String TASK_TYPE_ICON = "E";
 
-    /**
-     * The format/pattern that an {@link Event} takes.
-     */
+    /** The format/pattern that an {@link Event} takes. */
     private static final String FORMAT = String.format("[%s]%s (from: %s to: %s)", TASK_TYPE_ICON, "%s", "%s", "%s");
 
-    /**
-     * The regex pattern that a {@link Deadline} takes.
-     */
+    /** The regex pattern that a {@link Event} takes. */
     private static final Pattern REGEX_PATTERN = Pattern.compile(
             String.format("\\[%s\\](?<task>.*)\\(from:(?<from>.*)to:(?<to>.*)\\)", TASK_TYPE_ICON));
 
@@ -63,7 +53,7 @@ public final class Event extends Task {
     }
 
     /**
-     * Parse an event from a human-readable string.
+     * Parses an event from a human-readable string.
      *
      * @param readableString the event as a human-readable string
      * @return the event
@@ -89,9 +79,6 @@ public final class Event extends Task {
         return REGEX_PATTERN.matcher(matchingString).find();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return String.format(FORMAT, super.toString(), startDateTime, endDateTime);
