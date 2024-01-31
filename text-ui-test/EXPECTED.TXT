@@ -7,45 +7,49 @@ Nothing is in your list!
 _________________________________________________________
 _________________________________________________________
 Got it. I've added this task into your list:
-[T][ ] read book
+T | 0 | read book
 Now you have 1 task in the list.
 _________________________________________________________
 _________________________________________________________
 Got it. I've added this task into your list:
-[D][ ] return book (by: Sunday)
+D | 0 | return book | Sunday
 Now you have 2 tasks in the list.
 _________________________________________________________
 _________________________________________________________
 Got it. I've added this task into your list:
-[E][ ] math class (from: Mon 2pm to: 4pm)
+E | 0 | math class | Mon 2pm - 4pm
 Now you have 3 tasks in the list.
 _________________________________________________________
 _________________________________________________________
 Here are the tasks in your list:
-1. [T][ ] read book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] math class (from: Mon 2pm to: 4pm)
+1. T | 0 | read book
+2. D | 0 | return book | Sunday
+3. E | 0 | math class | Mon 2pm - 4pm
 _________________________________________________________
 _________________________________________________________
 Nice! I've marked this task as done:
-[T][X] read book
+T | 1 | read book
 _________________________________________________________
 _________________________________________________________
 Nice! I've marked this task as done:
-[E][X] math class (from: Mon 2pm to: 4pm)
+E | 1 | math class | Mon 2pm - 4pm
 _________________________________________________________
 _________________________________________________________
 OK, I've marked this task as not done yet:
-[T][ ] read book
+T | 0 | read book
+_________________________________________________________
+_________________________________________________________
+Ok! I've removed this task for you:
+D | 0 | return book | Sunday
+Now you have 2 tasks in the list.
 _________________________________________________________
 _________________________________________________________
 Here are the tasks in your list:
-1. [T][ ] read book
-2. [D][ ] return book (by: Sunday)
-3. [E][X] math class (from: Mon 2pm to: 4pm)
+1. T | 0 | read book
+2. E | 1 | math class | Mon 2pm - 4pm
 _________________________________________________________
 _________________________________________________________
-Index is out of bounds. Please provide a valid index!
+Index is out of bounds. Please provide a valid task index!
 _________________________________________________________
 _________________________________________________________
 What do you mean? :-(

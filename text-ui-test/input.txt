@@ -6,6 +6,7 @@ list
 mark 1
 mark 3
 unmark 1
+delete 2
 list
 mark 5
 todo
@@ -14,5 +15,5 @@ event
 deadline math assignment
 event /from a /to b
 mark1
-lalala
+lala
 bye

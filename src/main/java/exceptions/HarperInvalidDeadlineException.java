@@ -1,3 +1,5 @@
+package exceptions;
+
 public class HarperInvalidDeadlineException extends HarperException {
     public HarperInvalidDeadlineException() {
         super("_________________________________________________________\n"
