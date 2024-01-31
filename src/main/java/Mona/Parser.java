@@ -1,3 +1,4 @@
+package Mona;
 public class Parser {
     public Mona.Command getCurrentCommand(String[] input) throws MonaException{
         switch (input[0]) {
@@ -36,9 +37,9 @@ public class Parser {
             case EVENT:
                 String[] subDetails = input.substring(6).split(" /from ");
                 String[] startAndEnd = subDetails[1].split(" /to ");
-                details[0] = startAndEnd[0];
-                details[1] = startAndEnd[1];
-                details[2] = startAndEnd[2];
+                details[0] = subDetails[0];
+                details[1] = startAndEnd[0];
+                details[2] = startAndEnd[1];
                 break;
             default:
                 break;

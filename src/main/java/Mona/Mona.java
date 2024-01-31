@@ -1,3 +1,4 @@
+package Mona;
 import java.util.Scanner;
 
 public class Mona {
