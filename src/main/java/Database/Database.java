@@ -6,6 +6,7 @@ import Utils.StringUtils;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 public class Database {
     private static final String FILE_PATH = "database.db";
@@ -29,7 +30,11 @@ public class Database {
             long count = Files.lines(filePath).count();
             long id = count;
             line = id + " | " + line;
-            FileUtils.insert(filePath, line);
+
+            List<String> lines = FileUtils.read(filePath);
+            lines.add(line);
+            FileUtils.write(filePath, lines);
+
             return id;
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -55,10 +60,35 @@ public class Database {
         }
     }
 
-    public static void updateById(Path filePath, int id, String newLine) {
+    public static void updateById(Path filePath, long id, String newLine) {
         newLine = id + " | " + newLine;
-        FileUtils.update(filePath, id, newLine);
+        List<String> lines = FileUtils.read(filePath);
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+            long taskId = findId(line);
+            if (taskId == id) {
+                lines.set(i, newLine);
+            }
+        }
+        FileUtils.write(filePath, lines);
     }
+
+    public static void delete(Path filePath, long id) {
+        List<String> lines = FileUtils.read(filePath);
+        int idToDelete = -1;
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+            long taskId = findId(line);
+            if (taskId == id) {
+                // Avoid concurrent moficiation
+                idToDelete = i;
+                break; // Breaking because we assume that ID is unique
+            }
+        }
+        lines.remove(idToDelete);
+        FileUtils.write(filePath, lines);
+    }
+
     private static int findId(String line) {
         String[] segments = StringUtils.splitDataString(line);
         return Integer.parseInt(segments[0]);
