@@ -134,4 +134,22 @@ public class TaskList {
             throw new IllegalArgumentException("Index number cannot be out of bounds.");
         }
     }
+
+    /**
+     * Allows one to find tasks in tasklist with specified keyword.
+     *
+     * @param ui Displays ui elements.
+     * @param key keyword to filter <code>TaskList</code>.
+     */
+    protected void find(Ui ui, String key) {
+        int count = 1;
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task t : tasks) {
+            if (t.getTaskName().contains(key)) {
+                System.out.println(count + ". " + t);
+                count++;
+            }
+        }
+        ui.showLine();
+    }
 }
