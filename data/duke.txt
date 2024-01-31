@@ -1,7 +1,9 @@
 T | 1 | read book
-D | 0 | return book | June 6th
-E | 0 | project meeting | Aug 6th 2-4pm
+D | 0 | return book | Jan 01 2001 17:00
+E | 0 | project meeting | Jan 01 2001 17:00-Jan 01 2001 17:00
 T | 1 | join sports club
-T | 0 | read book
-E | 0 | play | 3pm-5pm
-D | 0 | buy books | 3pm
+T | 1 | read book
+E | 0 | play | Jan 02 2001 00:00-Jan 01 2001 17:00
+D | 0 | buy books | Jan 01 2001 17:00
+E | 0 | 2 | Mar 08 2001 17:00-Mar 08 2001 17:00
+D | 0 | 3 | May 03 2001 17:00

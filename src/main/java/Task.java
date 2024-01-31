@@ -49,7 +49,7 @@ public class Task {
                 tD.setDone(isDone);
                 return tD;
             case "E":
-                String[] time = parts[3].split("-");
+                String[] time = parts[3].split("(?<=\\d{2}:\\d{2})-(?=\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2})");
                 Task tE = new Event(description, time[0], time[1]);
                 tE.setDone(isDone);
                 return tE;
