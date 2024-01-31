@@ -3,7 +3,18 @@ package duke;
 import java.util.Scanner;
 import java.io.File;
 
+/**
+ * Main class of the program.
+ *
+ * @author Tania Tan Shu Qi
+ */
 public class Duke {
+
+    /**
+     * Calls to Ui ui to start and end the program.
+     * Calls to TaskList tasklist to write current tasks to File f.
+     * @param args Command-line arguments passed to the program
+     */
     public static void main(String[] args) {
 
         File f = new File("data/EUEU.txt");

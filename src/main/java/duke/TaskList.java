@@ -7,6 +7,12 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+/**
+ * Represents the tasklist and executes the tasks given
+ * (i.e. list, write, addTask, mark, unmark, delete).
+ * Contains an ArrayList<Task> tasklist and Storage s.
+ */
+
 public class TaskList {
     private ArrayList<Task> tasklist = new ArrayList<Task>();
     private Storage s;
@@ -15,12 +21,19 @@ public class TaskList {
         this.s = s;
     }
 
+    /**
+    * Writes current task to the file which is stored in Storage s.
+    */
     public void write() {
         for (int i = 0; i < tasklist.size(); i++) {
             tasklist.get(i).writeToFile(s.getFile());
         }
     }
 
+    /**
+     * Lists all tasks from previous iterations of Duke.run() which are stored in
+     * Storage s as well as current tasks in current iterations of Duke.run().
+     */
     public void list() {
         System.out.println("All tasks:");
         s.getFileContent();
@@ -34,6 +47,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds Todo task to tasklist.
+     * @param task Todo task to be added to tasklist.
+     * @throws StringIndexOutOfBoundsException When user does not specify task and leaves blank (e.g. todo).
+     */
     public void addTask(Todo task) {
         try {
             tasklist.add(task);
@@ -47,6 +65,11 @@ public class TaskList {
 
     }
 
+    /**
+     * Adds Deadline task to tasklist.
+     * @param task Deadline task to be added to tasklist.
+     * @throws StringIndexOutOfBoundsException When user does not specify task and leaves blank (e.g. deadline).
+     */
     public void addTask(Deadline task) {
         try {
             tasklist.add(task);
@@ -59,6 +82,12 @@ public class TaskList {
         }
 
     }
+
+    /**
+     * Adds Event task to tasklist.
+     * @param task Event task to be added to tasklist.
+     * @throws StringIndexOutOfBoundsException When user does not specify task and leaves blank (e.g. event).
+     */
 
     public void addTask(Event task) {
         try {
@@ -73,6 +102,11 @@ public class TaskList {
 
     }
 
+    /**
+     * Marks task in tasklist as done.
+     * @param number Task number in current list to be marked.
+     * @throws IndexOutOfBoundsException When user inputs task number that does not exist in the list.
+     */
     public void mark(int number) {
         try {
             Task task = tasklist.get(number);
@@ -84,6 +118,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks task in tasklist.
+     * @param number Task number in current list to be unmarked.
+     * @throws IndexOutOfBoundsException When user inputs task number that does not exist in the list.
+     */
     public void unmark(int number) {
         try {
             Task task = tasklist.get(number);
@@ -96,6 +135,11 @@ public class TaskList {
 
     }
 
+    /**
+     * Deletes task in tasklist.
+     * @param number Task number in current list to be deleted.
+     * @throws IndexOutOfBoundsException When user inputs task number that does not exist in the list.
+     */
     public void delete(int number) {
         try {
             Task task = tasklist.get(number);

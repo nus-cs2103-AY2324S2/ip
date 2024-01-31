@@ -7,6 +7,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a Deadline task that inherits from Task
+ */
+
 public class Deadline extends Task{
 
     private String deadline;
@@ -16,6 +20,12 @@ public class Deadline extends Task{
         this.deadline = deadline;
     }
 
+    /**
+     * Returns the deadline specified by user.
+     *
+     * @return Deadline of Deadline task.
+     * @throws DateTimeParseException When user does not specify date of deadline in "MMM d yyyy" format.
+     */
     public String getDeadline() {
         try {
             LocalDate ddl = LocalDate.parse(deadline);
@@ -25,10 +35,20 @@ public class Deadline extends Task{
         }
     }
 
+    /**
+     * Returns the String that specifies the Deadline task
+     * @return Deadline category.
+     */
     public String isDeadline() {
         return "[D]";
     }
 
+    /**
+     * Overrides Task.add() to specify the Deadline task to be added.
+     *
+     * @return String representation of Deadline task to be added.
+     */
+    @Override
     public String add() {
             return "    " + this.isDeadline() + this.marked() + " "
                     + this.getTask()
@@ -36,6 +56,12 @@ public class Deadline extends Task{
 
     }
 
+    /**
+     * Overrides Task.writeToFile() to specify the Deadline task to be added to the File.
+     *
+     * @param filePath Filepath to the file to be written to.
+     * @throws IOException When file does not exist.
+     */
     @Override
     public void writeToFile(File filePath) {
         try {

@@ -5,12 +5,27 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+/**
+ * Represents a parser that parses user's String input
+ * to a command for TaskList to execute.
+ */
+
 public class Parser {
 private TaskList tasklist;
 
     public Parser(TaskList tasklist) {
         this.tasklist = tasklist;
     }
+
+    /**
+     * Parses user's String input to commands that TaskList executes
+     * (i.e. mark, unmark, delete, todo, deadline, event)
+     *
+     * @param command String input from user
+     * @throws StringIndexOutOfBoundsException When user does not specify the task to do after a command (e.g. todo)
+     * @throws NumberFormatException When user does not leave a space between command and number (e.g. mark1)
+     * @throws ArrayIndexOutOfBoundsException When user does not specify dates of deadline/event
+     */
     public void parsing(String command) {
         if (command.equals("list")) {
             tasklist.list();
@@ -21,7 +36,8 @@ private TaskList tasklist;
                 tasklist.mark(number);
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("Enter task to mark done: e.g. mark 1");
-            } catch (NumberFormatException e) {
+            }
+            catch (NumberFormatException e) {
                 System.out.println("Enter task to mark done: e.g. mark 1");
             }
         } else if (command.startsWith("unmark")) {
