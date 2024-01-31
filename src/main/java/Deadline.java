@@ -1,22 +1,40 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+
+        try {
+            // Try parsing with the first format
+            this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } catch (DateTimeParseException e1) {
+            try {
+                // Try parsing with another format
+                this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            } catch (DateTimeParseException e2) {
+                // Handle the exception or throw it again
+                throw new IllegalArgumentException("Invalid date/time format: " + by);
+            }
+        }
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
     }
 
     @Override
     public String getTaskType() {
         return "D";
     }
+
     @Override
     public String toFileString() {
-        return String.format("%s | %d | %s | %s", getTaskType(), isDone() ? 1 : 0, getDescription(), by);
+        return String.format("%s | %d | %s | %s", getTaskType(), isDone() ? 1 : 0, getDescription(), by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
     }
 }
