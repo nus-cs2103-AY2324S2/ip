@@ -1,23 +1,28 @@
 package Models;
+
+import Utils.DateUtils;
+
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
 
-  private String deadline;
-  public Deadline(String name, String deadline) {
+  private LocalDateTime deadline;
+  public Deadline(String name, LocalDateTime deadline) {
     super(name);
     this.deadline = deadline;
   }
 
-  public Deadline(int id, String name, boolean done, String deadline) {
+  public Deadline(int id, String name, boolean done, LocalDateTime deadline) {
     super(id, name, done);
     this.deadline = deadline;
   }
   @Override
   public String toString() {
-    return "[D]" + super.toString() + " (by: " + deadline + ")";
+    return "[D]" + super.toString() + " (by: " + DateUtils.formatDate(deadline) + ")";
   }
 
   public String toDataString() {
-    return super.toDataString() + " | "  + this.deadline;
+    return super.toDataString() + " | "  + this.deadline.format(DateUtils.INPUT_FORMATTER);
   }
 
   public static Deadline fromDataString(String data) {
@@ -26,7 +31,7 @@ public class Deadline extends Task {
     boolean done = Long.parseLong(segments[1]) == 1;
     // Strong assumption that there is no | in the data
     String name = segments[2];
-    String deadline = segments[3];
+    LocalDateTime deadline = DateUtils.parseDate(segments[3]);
     return new Deadline(id, name, done, deadline);
   }
 }
