@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 
 public class CommandHandler {
+    private Ui ui;
     public enum Command {
         BYE,
         LIST,
@@ -13,7 +14,11 @@ public class CommandHandler {
         EVENT
     }
 
-    public static boolean executeCommand(String userInput) throws DukeException {
+    public CommandHandler(Ui uiArg) {
+        ui = uiArg;
+    }
+
+    public boolean executeCommand(String userInput) throws DukeException {
         String[] words = userInput.split("\\s+");
         Command command = null;
         try {
@@ -25,7 +30,7 @@ public class CommandHandler {
 
         switch (command) {
             case BYE:
-                Bird.goodbye();
+                ui.goodbye();
                 return true;
             case LIST:
                 TaskList.list();

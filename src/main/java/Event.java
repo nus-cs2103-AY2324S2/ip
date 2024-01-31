@@ -14,7 +14,6 @@ public class Event extends Task {
             this.from = LocalDate.parse(from.trim());
             this.to = LocalDate.parse(to.trim());
         } catch (DateTimeParseException e) {
-            System.out.println(e.getMessage());
             throw new InvalidDateFormat();
         }
     }
