@@ -53,11 +53,17 @@ public class Duke {
     private static void executeCommand(String command) throws DukeException {
         StringTokenizer st = new StringTokenizer(command);
         String identifier = st.nextToken().toLowerCase();
+        String arguments = "";
+        while(st.hasMoreTokens()) {
+            arguments += st.nextToken() + " ";
+        }
+        arguments = arguments.trim();
         if (identifier.equals("bye")) {
             exitProgram();
         }
         if (identifier.equals("list")) {
-            if (st.hasMoreTokens()) {
+
+            if (!arguments.isEmpty()) {
                 throw new DukeException("list command does not accept arguments.\n"
                         + "Enter 'list' to view the current list of tasks");
             }
@@ -68,8 +74,7 @@ public class Duke {
             }
             System.out.println(gap + "Here are your tasks:\n" + taskList + gap);
         } else if (identifier.contains("mark")) {
-            identifier = identifier.toLowerCase();
-            int taskNum = Integer.parseInt(st.nextToken()) - 1;
+            int taskNum = Integer.parseInt(arguments) - 1;
             Task selectedTask = tasks.get(taskNum);
             if (identifier.equals("mark")) {
                 selectedTask.markDone();
@@ -84,12 +89,8 @@ public class Duke {
                 || identifier.equals("event")) {
             switch (identifier) {
             case "todo":
-                if (st.hasMoreTokens()) {
-                    String todoDesc = "";
-                    while(st.hasMoreTokens()) {
-                        todoDesc += st.nextToken() + " ";
-                    }
-                    ToDo newToDo = new ToDo(todoDesc.trim());
+                if (!arguments.isEmpty()) {
+                    ToDo newToDo = new ToDo(arguments);
                     tasks.add(newToDo);
                     System.out.println(gap + "Confirmed. New task added:\n"
                             + newToDo.toString() + "\n");
@@ -100,21 +101,22 @@ public class Duke {
                 }
                 break;
             case "deadline":
-                if (st.hasMoreTokens()) {
-                    String[] deadlineInfo = command.split("/");
+                if (!arguments.isEmpty()) {
+                    String[] deadlineInfo = arguments.split("/");
                     st = new StringTokenizer(deadlineInfo[0].trim());
-                    st.nextToken();
                     String deadlineDesc = "";
                     while(st.hasMoreTokens()) {
                         deadlineDesc += st.nextToken() + " ";
                     }
+                    deadlineDesc = deadlineDesc.trim();
                     st = new StringTokenizer(deadlineInfo[1].trim());
                     st.nextToken();
                     String by = "";
                     while(st.hasMoreTokens()) {
                         by += st.nextToken() + " ";
                     }
-                    Deadline newDeadline = new Deadline(deadlineDesc.trim(), by.trim());
+                    by = by.trim();
+                    Deadline newDeadline = new Deadline(deadlineDesc, by);
                     tasks.add(newDeadline);
                     System.out.println(gap + "Confirmed. New task added:\n"
                             + newDeadline.toString() + "\n");
@@ -126,27 +128,29 @@ public class Duke {
                 }
                 break;
             case "event":
-                if (st.hasMoreTokens()) {
+                if (!arguments.isEmpty()) {
                     String[] eventInfo = command.split("/");
                     st = new StringTokenizer(eventInfo[0].trim());
-                    st.nextToken();
                     String eventDesc = "";
                     while(st.hasMoreTokens()) {
                         eventDesc += st.nextToken() + " ";
                     }
+                    eventDesc = eventDesc.trim();
                     st = new StringTokenizer(eventInfo[1].trim());
                     st.nextToken();
                     String from = "";
                     while (st.hasMoreTokens()) {
                         from += st.nextToken() + " ";
                     }
+                    from = from.trim();
                     st = new StringTokenizer(eventInfo[2].trim());
                     st.nextToken();
                     String end = "";
                     while (st.hasMoreTokens()) {
                         end += st.nextToken() + " ";
                     }
-                    Event newEvent = new Event(eventDesc.trim(), from.trim(), end.trim());
+                    end = end.trim();
+                    Event newEvent = new Event(eventDesc, from, end);
                     tasks.add(newEvent);
                     System.out.println(gap + "Confirmed. New task added:\n"
                             + newEvent.toString() + "\n");
@@ -164,7 +168,7 @@ public class Duke {
             }
             System.out.println("Total task count: " + tasks.size() + ".\n" + gap);
         } else if (identifier.equals("delete")) {
-            int delIndex = Integer.parseInt(st.nextToken()) - 1;
+            int delIndex = Integer.parseInt(arguments) - 1;
             Task toDelete = tasks.remove(delIndex);
             System.out.println(gap + "Acknowledged. The following task has been removed:\n"
                     + toDelete.toString());
