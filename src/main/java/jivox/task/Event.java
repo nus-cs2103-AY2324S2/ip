@@ -2,11 +2,23 @@ package jivox.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Event represents a task with a start and end time.
+ * It extends Task.
+ */
 public class Event extends Task {
 
     private LocalDateTime from;
 
     private LocalDateTime to;
+
+    /**
+     * Creates a new Event with the given description, start and end time.
+     *
+     * @param content The task description.
+     * @param from The start time.
+     * @param to The end time.
+     */
     public Event(String content, LocalDateTime from, LocalDateTime to) {
         super(content);
         this.from = from;
@@ -18,6 +30,11 @@ public class Event extends Task {
         return "E";
     }
 
+    /**
+     * Gets the start time for this event.
+     *
+     * @return The start time.
+     */
     public String getStart() {
         return this.from.toString();
     }
@@ -26,6 +43,11 @@ public class Event extends Task {
         return this.to;
     }
 
+    /**
+     * Gets the save format string for this Event.
+     *
+     * @return The save format string.
+     */
     public String saveFormat() {
         return this.getType() + " | " + (this.getStatus() ? "1" : "0")
                 + " | " + this.getDescription() + " | "

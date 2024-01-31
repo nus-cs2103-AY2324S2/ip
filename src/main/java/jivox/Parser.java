@@ -15,10 +15,10 @@ public class Parser {
      * @return The command parsed from the input.
      * @throws JivoxException If command is invalid.
      */
-    public COMMANDS parseCommand(String rawInput) throws JivoxException {
-        String[] input = rawInput.split(" ",2);
-        try{
-            return COMMANDS.valueOf(input[0].toUpperCase());
+    public Commands parseCommand(String rawInput) throws JivoxException {
+        String[] input = rawInput.split(" ", 2);
+        try {
+            return Commands.valueOf(input[0].toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new JivoxException("Opps! I can't understand your Input, Please try again");
         }
@@ -31,7 +31,7 @@ public class Parser {
      * @return The input split into parts.
      */
     public String[] parseInput(String rawInput) {
-        return rawInput.split(" ",2);
+        return rawInput.split(" ", 2);
     }
 
     /**
@@ -52,8 +52,8 @@ public class Parser {
      * @param limit The max number of splits.
      * @return The split input parts.
      */
-    public String[] split(String input, String reg,int limit) {
-        return input.split(reg,limit);
+    public String[] split(String input, String reg, int limit) {
+        return input.split(reg, limit);
     }
 
 }

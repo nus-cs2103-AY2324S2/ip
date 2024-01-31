@@ -87,7 +87,7 @@ public class Ui {
     public void showAdd(Task t, int numOfTasks) {
         addDivider();
         System.out.println("Got it. I've added this task:\n" + t);
-        System.out.println("Now you have " + numOfTasks +" tasks in the list.");
+        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
         addDivider();
     }
 
@@ -96,7 +96,7 @@ public class Ui {
      *
      * @param list The task list.
      */
-    public void showList(TaskList list) {
+    public void showTasks(TaskList list) {
         if (list.getLength() == 0) {
             System.out.println("You've No task in the List!");
         } else {
@@ -132,9 +132,9 @@ public class Ui {
      * @param time The date to check for due tasks.
      */
     public void showDeadline(TaskList list, LocalDate time) {
-        System.out.println("You have following Task due on " 
-        + time.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ":-");
-        for(int i = 0; i < list.getLength(); i++) {
+        System.out.println("You have following Task due on "
+              + time.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ":-");
+        for (int i = 0; i < list.getLength(); i++) {
             LocalDateTime deadline = list.getTask(i).getDeadline();
             if (deadline != null) {
                 if (deadline.getMonth() == time.getMonth() && deadline.getYear() == time.getYear()

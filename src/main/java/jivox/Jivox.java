@@ -32,7 +32,7 @@ public class Jivox {
      */
     public Jivox(String filePath) {
         this.dbHandler = new DatabaseHandler(filePath);
-        this.list = new TaskList(dbHandler.load());
+        this.tasks = new TaskList(dbHandler.load());
         this.ui = new Ui();
         this.parser = new Parser();
     }
@@ -152,10 +152,9 @@ public class Jivox {
      * @param input The date to show tasks for.
      */
     public void show(String input) {
-        String[] split = this.parser.split(input,"/on ");
-               // input.split("/on ");
-        LocalDate time = LocalDate.parse(split[1].replaceFirst(" ",""), DateTimeFormatter.ofPattern("d/MM/yyyy"));
-        this.ui.showDeadline(this.list,time);
+        String[] split = this.parser.split(input, "/on ");
+        LocalDate time = LocalDate.parse(split[1].replaceFirst(" ", ""), DateTimeFormatter.ofPattern("d/MM/yyyy"));
+        this.ui.showDeadline(this.tasks, time);
     }
 
     /**

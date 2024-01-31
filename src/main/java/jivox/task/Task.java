@@ -57,7 +57,7 @@ public abstract class Task {
      *
      * @return The type identifier.
      */
-    abstract public String getType();
+    public abstract String getType();
 
     /**
      * Checks if this task is marked as completed.

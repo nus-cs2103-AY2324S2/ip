@@ -35,7 +35,7 @@ public class Todo extends Task {
      * @return Save format string.
      */
     public String saveFormat() {
-        return this.getType() + " | " +
-         (this.getStatus() ? "1" : "0") + " | " + this.getDescription();
+        return this.getType() + " | "
+                + (this.getStatus() ? "1" : "0") + " | " + this.getDescription();
     }
 }

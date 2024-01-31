@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Deadline represents a task with a deadline.
  * It extends Task.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     private LocalDateTime deadline;
 
@@ -17,7 +17,7 @@ public class Deadline extends Task{
      * @param content The task description.
      * @param deadline The deadline for the task.
      */
-    public Deadline(String content,LocalDateTime deadline) {
+    public Deadline(String content, LocalDateTime deadline) {
         super(content);
         this.deadline = deadline;
     }
@@ -43,9 +43,9 @@ public class Deadline extends Task{
      * @return The save string.
      */
     public String saveFormat() {
-        return this.getType() + " | " + (this.getStatus() ? "1" : "0") 
-            + " | " + this.getDescription() +
-                " | " + this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        return this.getType() + " | " + (this.getStatus() ? "1" : "0")
+            + " | " + this.getDescription()
+                + " | " + this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     @Override
