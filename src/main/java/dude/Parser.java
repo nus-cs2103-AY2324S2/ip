@@ -12,7 +12,7 @@ public class Parser {
         DATE
     }
 
-    private static boolean isNumeric(String str) {
+    public static boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);
             return true;
@@ -21,7 +21,7 @@ public class Parser {
         }
     }
 
-    private static boolean isDate(String str) {
+    public static boolean isDate(String str) {
         String dateString = str.stripTrailing();
         try {
             LocalDate.parse(dateString);
