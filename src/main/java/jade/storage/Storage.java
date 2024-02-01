@@ -53,6 +53,7 @@ public class Storage {
                         break;
                 }
             }
+            sc.close();
             return savedTaskList;
         } catch (IOException e) {
             throw new JadeException("IO Exception");

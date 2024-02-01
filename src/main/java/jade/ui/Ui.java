@@ -3,15 +3,17 @@ package jade.ui;
 import java.util.Scanner;
 
 public class Ui {
-    private String line = "\t——————————————————————————————————————————\n";
-    private String logo = "\t  ____   ___    ____     ______\n"
+    private static final String line = "\t——————————————————————————————————————————\n";
+    private static final String logo = "\t  ____   ___    ____     ______\n"
             + "\t  |  |  / _ \\  |  ___ \\ / |____/\n"
             + "\t  |  | | | | | | |  | | | |____\n"
             + "\t  |  | | |_| | | |  | | | |____|\n"
             + "\t|\\|  | | ___ | | |__| | | |____\n"
             + "\t \\___| |_| |_| |_____/  \\_|____\\\n";
+    private Scanner sc;
 
     public Ui() {
+        sc = new Scanner(System.in);
     }
 
     public void showError(String errorMsg) { printMessage(errorMsg); }
@@ -23,7 +25,6 @@ public class Ui {
     }
 
     public String readCommand() {
-        Scanner sc = new Scanner(System.in);
         return sc.nextLine();
     }
 
