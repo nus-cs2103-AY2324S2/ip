@@ -20,37 +20,43 @@ Hey! You forgot something! Be glad I'm here to remind you.
 Looks like you have way too much free time on your hands, huh.
 [No items in list]
 
+/// What on earth are you saying! ///
+[Command not found]
+
 I helped you add task '[T][ ] borrow book'. But do it yourself next time! Hmmph!
 
-I helped you add task '[D][ ] return book (by: Sunday)'. But do it yourself next time! Hmmph!
+I helped you add task '[D][ ] return book (by: 2001-08-27)'. But do it yourself next time! Hmmph!
 
-I helped you add task '[E][ ] project meeting (from: Mon 2pm to: 4pm)'. But do it yourself next time! Hmmph!
+I helped you add task '[E][ ] project meeting (from: 2001-08-27 to: 2001-08-28)'. But do it yourself next time! Hmmph!
+
+Hey! What are you even talking about?!
+[Input date in format dd-mm-yyyy]
 
 1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][ ] return book (by: 2001-08-27)
+3.[E][ ] project meeting (from: 2001-08-27 to: 2001-08-28)
 
 Good work, I guess.
 1.[T][X] borrow book
 
 Good work, I guess.
-2.[D][X] return book (by: Sunday)
+2.[D][X] return book (by: 2001-08-27)
 
 Good work, I guess.
-3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+3.[E][X] project meeting (from: 2001-08-27 to: 2001-08-28)
 
 1.[T][X] borrow book
-2.[D][X] return book (by: Sunday)
-3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+2.[D][X] return book (by: 2001-08-27)
+3.[E][X] project meeting (from: 2001-08-27 to: 2001-08-28)
 
 Jeez, you really ought to give me a number I can work with... got that?
 [Item index exceeds history count]
 
 Fine! If that's what you really want...
-[Removed [E][X] project meeting (from: Mon 2pm to: 4pm)]
+[Removed [E][X] project meeting (from: 2001-08-27 to: 2001-08-28)]
 
 Fine! If that's what you really want...
-[Removed [D][X] return book (by: Sunday)]
+[Removed [D][X] return book (by: 2001-08-27)]
 
 Fine! If that's what you really want...
 [Removed [T][X] borrow book]
