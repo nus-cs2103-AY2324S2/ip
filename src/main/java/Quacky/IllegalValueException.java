@@ -1,3 +1,5 @@
+package Quacky;
+
 /**
  * Signals that some given data does not fulfill some constraints.
  */

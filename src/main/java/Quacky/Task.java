@@ -1,3 +1,5 @@
+package Quacky;
+
 public abstract class Task {
     protected final String description;
     protected boolean isDone;

@@ -1,3 +1,5 @@
+package Quacky;
+
 import java.util.Scanner;
 public class UI {
     public boolean isRunning;
@@ -25,7 +27,7 @@ public class UI {
     }
 
     public void showGreeting() {
-        this.say("Quack! how u doing, Im Quacky. How can I help you?");
+        this.say("Quack! how u doing, Im Quacky How can I help you?");
     }
     public void showFarewell() {
         this.isRunning = false;

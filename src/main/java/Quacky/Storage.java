@@ -1,3 +1,5 @@
+package Quacky;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,7 +10,7 @@ import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+
 /**
  * Represents the file used to store task data
  * adapted from:https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/storage/StorageFile.java
@@ -32,7 +34,7 @@ public class Storage {
     public Storage(String filePath) throws InvalidStorageFilePathException {
         path = Paths.get(filePath);
         if (!isValidPath(path)) {
-            throw new InvalidStorageFilePathException("Storage file should end with '.txt'");
+            throw new InvalidStorageFilePathException("Quacky.Quacky.Storage file should end with '.txt'");
         }
         this.file = new File(filePath);
     }
@@ -54,8 +56,8 @@ public class Storage {
     }
 
     /**
-     * Loads the {@code TaskList} data from this storage file, and then returns it.
-     * Returns an empty {@code TaskList} if the file does not exist, or is not a regular file.
+     * Loads the {@code Quacky.Quacky.TaskList} data from this storage file, and then returns it.
+     * Returns an empty {@code Quacky.Quacky.TaskList} if the file does not exist, or is not a regular file.
      *
      * @throws StorageOperationException if there were errors reading and/or converting data from file.
      */
