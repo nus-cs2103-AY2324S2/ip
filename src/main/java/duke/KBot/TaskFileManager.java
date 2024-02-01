@@ -19,13 +19,19 @@ import java.time.format.DateTimeParseException;
 /**
  * TaskFileManager class that encapsulates the saving of data onto the local
  * hard drive.
+ *
+ * @author: CHEN WENLONG
+ * @version: CS2103T AY23/24 Semester 2
  */
 public class TaskFileManager {
 
     /** Filepath of where to save to local disk for TASKS */
     private static final String FILEPATH = "src/main/java/duke/memory/output.txt";
 
+    /** Storage format for date. */
     private static final DateTimeFormatter STORAGEFORMAT = DateTimeFormatter.ofPattern("d-M-yy");
+
+    /** Printing format for date. */
     private static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern("d-M-yy");
 
     /**
@@ -38,6 +44,7 @@ public class TaskFileManager {
      * Implementation to save tasks to file
      * 
      * @param tasks Tasks to be saved to the local drive.
+     * @throws IOException Thrown when saving to file and file is not found.
      */
     public static void saveTasksToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(FILEPATH);
@@ -51,6 +58,8 @@ public class TaskFileManager {
     /**
      * Implementation to load tasks from local drive.
      * 
+     * @throws FileNotFoundException Thrown when file cannot be found.
+     * @throws IOException           Thrown when there is issue loading the file.
      * @return Tasks which are saved in the local drive as an ArrayList<Task>.
      */
     public static ArrayList<Task> loadTasksFromFile() throws FileNotFoundException, IOException {

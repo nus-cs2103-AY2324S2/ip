@@ -7,9 +7,21 @@ import duke.kbot.TaskFileManager;
 import duke.kbot.TaskManager;
 import duke.tasks.Task;
 
+/**
+ * A delete command that deletes a Task from the task list,
+ * 
+ * @author: CHEN WENLONG
+ * @version: CS2103T AY23/24 Semester 2
+ */
 public class DeleteTask extends Command {
+    /** Index where Task is removed. */
     private int index;
 
+    /**
+     * Constructor for deleting the task.
+     * 
+     * @param index Index where Task is removed.
+     */
     public DeleteTask(int index) {
         this.index = index;
     }
@@ -35,9 +47,4 @@ public class DeleteTask extends Command {
             return (e.getMessage());
         }
     }
-
-    public String toString() {
-        return "Command: Delete at index " + index;
-    }
-
 }

@@ -7,9 +7,21 @@ import duke.kbot.TaskFileManager;
 import duke.kbot.TaskManager;
 import duke.tasks.Task;
 
+/**
+ * A mark command that marks a Task as completed.
+ * 
+ * @author: CHEN WENLONG
+ * @version: CS2103T AY23/24 Semester 2
+ */
 public class MarkTask extends Command {
+    /** Index where Task is marked as completed. */
     private int index;
 
+    /**
+     * Constructor for MarkTask.
+     * 
+     * @param index Index where Task is marked.
+     */
     public MarkTask(int index) {
         this.index = index;
     }
@@ -34,9 +46,5 @@ public class MarkTask extends Command {
         } catch (IOException e) {
             return (e.getMessage());
         }
-    }
-
-    public String toString() {
-        return "Command: MarkTask at index " + index;
     }
 }
