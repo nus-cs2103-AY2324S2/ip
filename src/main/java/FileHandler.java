@@ -73,18 +73,18 @@ public class FileHandler {
             File dir = new File("./data/");
             if (!dir.exists()) {
                 if (dir.mkdirs()) {
-                    System.out.println("Directory created: " + dir.getAbsolutePath());
+//                    System.out.println("Initializaing....");
                 } else {
-                    System.out.println("Failed to create the directory.");
-                    return; // Exit the program or handle the error accordingly
+//                    System.out.println("Failed to create the directory.");
+                    return;
                 }
             }
             File file = new File(listFilePath);
                 if (!file.exists()) {
                     if (file.createNewFile()) {
-                        System.out.println("File created: " + file.getAbsolutePath());
+                        //System.out.println("File created: " + file.getAbsolutePath());
                     } else {
-                        System.out.println("Failed to create the file.");
+                        //System.out.println("Failed to create the file.");
                     }
                 }
         }catch(IOException e){

@@ -9,7 +9,11 @@ public class Command {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         while (!input.equals(cmd.bye.toString())) {
-            run(input, taskList);
+            try {
+                run(input, taskList);
+            }catch(IllegalArgumentException e){
+                OutputMessage.informInvalidCommand();
+            }
             input = scanner.nextLine();
         }
     }
@@ -38,7 +42,7 @@ public class Command {
                 taskList.deleteList(Integer.parseInt(cmds[1]));
                 break;
             default:
-                OutputMessage.informInvalidCommand();
+                break;
         }
     }
     public static void initialize(String input, ArrayList<Task> taskList){
@@ -58,7 +62,7 @@ public class Command {
                 System.out.println("PROBLEM encountered with the saved data while loading");
                 break;
         }
-        if(data[1] == "1") {
+        if(data[1].equals("1")) {
             task.mark();
         }
         taskList.add(task);
