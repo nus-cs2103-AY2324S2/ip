@@ -7,6 +7,10 @@ abstract public class Task {
         this.done = false;
     }
 
+    boolean isDone() {
+        return done;
+    }
+
     void mark() {
         this.done = true;
     }
