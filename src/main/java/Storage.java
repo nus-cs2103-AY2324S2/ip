@@ -58,7 +58,7 @@ public class Storage {
         Files.write(f, lines);
     }
 
-    public void save(TaskList tl) throws IOException, IOException {
+    public void save(TaskList tl) throws IOException {
         // Check if the directory exists
         if (!Files.exists(PATH_DIR)) {
             Files.createDirectories(PATH_DIR);
@@ -70,6 +70,6 @@ public class Storage {
         Files.createFile(PATH_FILE);
         // Writing to the file
         writeToFile(PATH_FILE, tl);
-        System.out.println("Your list has been saved to /data/duke.txt");
+        System.out.println("Your list has been saved to " + PATH_FILE);
     }
 }

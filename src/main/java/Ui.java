@@ -19,7 +19,7 @@ public class Ui {
     public void greet() {
         System.out.println(Ui.logo);
         printLine();
-        System.out.println("Hello! I'm Ui!\nWhat can I do for you?");
+        System.out.println("Hello! I'm Skibidi!\nWhat can I do for you?");
         printLine();
     }
 
