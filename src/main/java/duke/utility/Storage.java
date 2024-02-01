@@ -1,3 +1,7 @@
+package duke.utility;
+
+import duke.task.Task;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +28,7 @@ public class Storage {
         }
     }
 
-    protected ArrayList<Task> loadStorage() throws DukeException,IOException {
+    public ArrayList<Task> loadStorage() throws DukeException,IOException {
         Scanner s = new Scanner(storageFile);
         ArrayList<Task> loadedList = new ArrayList<>();
         while (s.hasNextLine()) {
@@ -35,7 +39,7 @@ public class Storage {
         return loadedList;
     }
 
-    protected void saveStorage(ArrayList<Task> taskList) throws IOException {
+    public void saveStorage(ArrayList<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(storageFile, false);
         for (Task t : taskList) {
             fw.append(t.toString() + "\n");

@@ -1,11 +1,8 @@
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+package duke.utility;
 
+import java.util.ArrayList;
+
+import duke.task.Task;
 public class TaskList {
 
     private ArrayList<Task> taskStore;
@@ -24,24 +21,24 @@ public class TaskList {
         return currTask;
     }
 
-    protected Task unmarkTask(int index) {
+    public Task unmarkTask(int index) {
         Task currTask = taskStore.get(index);
         currTask.updateTask(false);
         return currTask;
     }
 
-    protected Task deleteTask(int index) {
+    public Task deleteTask(int index) {
         Task deletedTask = taskStore.remove(index);
         return deletedTask;
     }
-    protected void addTask(Task taskToBeAdded) {
+    public void addTask(Task taskToBeAdded) {
         taskStore.add(taskToBeAdded);
     }
-    protected ArrayList<Task> getTaskStore() {
+    public ArrayList<Task> getTaskStore() {
         return taskStore;
     }
 
-    protected int listSize() {
+    public int listSize() {
         return taskStore.size();
     }
 }

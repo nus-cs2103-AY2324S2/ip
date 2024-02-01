@@ -1,3 +1,5 @@
+package duke.task;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -16,7 +18,7 @@ public abstract class Task {
         return this.getStatusIcon() + " " + this.description;
     }
 
-    protected void updateTask(boolean status) {
+    public void updateTask(boolean status) {
         if (status == true){
             isDone = true;
         } else {

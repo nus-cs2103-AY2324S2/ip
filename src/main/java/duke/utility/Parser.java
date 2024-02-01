@@ -1,3 +1,17 @@
+package duke.utility;
+
+import duke.command.Command;
+import duke.command.AddTaskCommand;
+import duke.command.DeleteTaskCommand;
+import duke.command.ExitCommand;
+import duke.command.ListTasksCommand;
+import duke.command.MarkTaskCommand;
+import duke.command.UnmarkTaskCommand;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -73,7 +87,7 @@ public class Parser {
         }
         return new AddTaskCommand(newTask);
     }
-    protected static Command commandParser(String userInput) throws DukeException, IOException {
+    public static Command commandParser(String userInput) throws DukeException, IOException {
         if (userInput.toLowerCase().equals("bye")) {
             return new ExitCommand();
         } else if (userInput.toLowerCase().equals("list")) {
@@ -200,7 +214,7 @@ public class Parser {
         if (!(keyword.equals("todo") || keyword.equals("deadline") || keyword.equals("event"))){
             throw new DukeException("*HONK* Pengu has never seen such a command before, some commands Pengu can do are: list, todo, deadline");
         } else if (keyword.equals("todo") && !(strArr.size() > 1)) {
-            throw new DukeException("*HONK* Pengu needs a To Do Task description to record this down");
+            throw new DukeException("*HONK* Pengu needs a To Do duke.task.Task description to record this down");
         } else if (keyword.equals("deadline") && !(strArr.contains("/by"))) {
             throw new DukeException("*HONK* Pengu needs a /by followed by a end date for your task");
         } else if (keyword.equals("event") && !(strArr.contains("/from") && (strArr.contains("/to")))) {
@@ -213,7 +227,7 @@ public class Parser {
             return true;
         }
     }
-    public static LocalDateTime dateChecker(String dateString) throws DukeException {
+    private static LocalDateTime dateChecker(String dateString) throws DukeException {
         try {
             DateTimeFormatter dTFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             LocalDateTime date = LocalDateTime.parse(dateString, dTFormatter);

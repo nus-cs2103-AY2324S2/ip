@@ -1,16 +1,26 @@
+package duke;
+
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
+
+import duke.utility.DukeException;
+import duke.utility.Parser;
+import duke.utility.Storage;
+import duke.utility.TaskList;
+import duke.utility.Ui;
+
+import duke.command.Command;
+
+import duke.task.Task;
 public class Duke {
 
     private TaskList taskList;
     private Ui userInterface;
     private Storage fileStorage;
 
-    public Duke(String FilePath) throws  DukeException,IOException{
+    public Duke(String FilePath) throws DukeException,IOException{
         this.userInterface = new Ui();
         this.fileStorage = new Storage(FilePath);
     }
