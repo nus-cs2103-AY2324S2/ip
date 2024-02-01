@@ -1,0 +1,12 @@
+[T][X] create file
+[T][X] read
+[D][X] submit (by: Feb 01 2024 0800)
+[D][ ] presentation (by: Feb 03 2024 1000)
+[E][X] running (from: Feb 02 2024 0600 to: Feb 02 2024 0700)
+[E][ ] meeting (from: Feb 03 2024 1700 to: Feb 02 2024 1900)
+[E][ ] lesson (from: Jan 19 2024 0800 to: May 01 2024 1900)
+[T][X] assignment
+[T][X] sleep
+[D][ ] wake up (by: Feb 03 2024 0700)
+[T][X] jump
+[D][X] submit (by: Feb 03 2024 2359)
