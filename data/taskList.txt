@@ -1,6 +1,4 @@
-T | X | read book
-D |   | return book | 5 Jan 2024 1700
-E |   | project meeting | 10 Jan 2024 1400 | 10 Jan 2024 1700
-T | X | join sports club
-T |   | borrow book
-D |   | return book | 2 Feb 2024 0000
+D | X | return book | 2024-01-05 1700
+E | X | project meeting | 2024-01-10 1400 | 2024-01-10 1700
+T |   | join sports club
+T | X | borrow book
