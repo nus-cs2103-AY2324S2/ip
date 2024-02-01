@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
@@ -27,6 +28,11 @@ public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Storage store = new Storage();
+        try {
+            store.loadFile();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
         Duke.intro();
         String userInput = scanner.nextLine();
 

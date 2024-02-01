@@ -5,6 +5,6 @@ public class Todos extends Task{
 
     @Override
     public String getTag() {
-        return "[T]";
+        return "T";
     }
 }
