@@ -1,33 +1,20 @@
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Save {
-    File file;
-    FileReader fr;
-    FileWriter fw;
+    File file = new File("data/data.txt");
 
-    public Save() throws IOException, FileNotFoundException {
-        file = new File("data/data.txt");
-
+    public Save() {}
+    
+    // Move to error handling class?
+    private void handleFileAccessErrors() throws IOException {
         try {
-            fr = new FileReader(file);
-            fw = new FileWriter(file);
-        } catch (FileNotFoundException f) {
-            try {
-                file.createNewFile();
-            } catch(IOException e) {
-                new File("./data").mkdirs();
-            } finally {
-                file.createNewFile();
-            }
+            file.createNewFile();
+        } catch (IOException e) {
+            new File("./data").mkdirs();
         } finally {
-            fr = new FileReader(file);
-            fw = new FileWriter(file);
+            file.createNewFile();
         }
-    }
-
-    public void getFilePath() {
-        System.out.println("full path: " + file.getAbsolutePath());
-        System.out.println("file exists?: " + file.exists());
-        System.out.println("is Directory?: " + file.isDirectory());
     }
 }
