@@ -1,79 +1,54 @@
-import java.util.Scanner;
+import command.Command;
+import data.exception.CoDriverException;
+import parser.Parser;
+import storage.Storage;
+import data.Deadline;
+import data.Event;
+import data.TaskList;
+import data.Todo;
+import ui.Ui;
 
 public class CoDriver {
-    public static void main(String[] args) {
-        greeting();
-        Scanner scanner = new Scanner(System.in);
-        TaskList tl = TaskList.openTaskList("./data/codriver.txt");
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public CoDriver(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        try {
+            this.tasks = new TaskList(storage.load());
+        } catch (Exception e) {
+            ui.showFileLoadingError();
+            this.tasks = new TaskList();
+        }
+    }
+
+    public void run() {
+        ui.showGreeting();
         while (true) {
-            String commandLine = scanner.nextLine();
-            String[] arguments = commandLine.split(" ");
-            Command c = Parser.parseCommand(arguments[0]);
+            String commandLine = ui.readCommand();
+            ui.showLine();
             try {
-                if (c == Command.BYE) {
+                Command c = Parser.parse(commandLine);
+                c.execute(tasks, ui, storage);
+                if (c.isExit()) {
                     break;
-                } else if (c == Command.LIST) {
-                    tl.listTasks();
-                } else if (c == Command.MARK) {
-                    if (arguments.length > 2) {
-                        throw new CoDriverException("Error! You should only provide 1 argument for mark!");
-                    } else if (arguments.length < 2) {
-                        throw new CoDriverException("Error! You should provide an integer argument for mark!");
-                    }
-                    int index = Integer.parseInt(arguments[1]);
-                    tl.markTask(index);
-                } else if (c == Command.UNMARK) {
-                    if (arguments.length > 2) {
-                        throw new CoDriverException("Error! You should only provide 1 argument for unmark!");
-                    } else if (arguments.length < 2) {
-                        throw new CoDriverException("Error! You should provide an integer argument for unmark!");
-                    }
-                    int index = Integer.parseInt(arguments[1]);
-                    tl.unmarkTask(index);
-                } else if (c == Command.TODO) {
-                    ToDo task = ToDo.createToDo(commandLine);
-                    tl.addTask(task);
-                } else if (c == Command.DEADLINE) {
-                    Deadline task = Deadline.createDeadline(commandLine);
-                    tl.addTask(task);
-                } else if (c == Command.EVENT) {
-                    Event task = Event.createEvent(commandLine);
-                    tl.addTask(task);
-                } else if (c == Command.DELETE) {
-                    if (arguments.length > 2) {
-                        throw new CoDriverException("Error! You should only provide 1 argument for delete!");
-                    } else if (arguments.length < 2) {
-                        throw new CoDriverException("Error! You should provide an integer argument for delete!");
-                    }
-                    int index = Integer.parseInt(arguments[1]);
-                    tl.deleteTask(index);
-                } else if (c == Command.UNKNOWN) {
-                    throw new CoDriverException("I'm sorry, I don't understand this command: " + arguments[0]);
                 }
             } catch (CoDriverException e) {
-                Format.printSepLine();
-                System.out.println(e);
-                Format.printSepLine();
+                ui.showError(e);
             } catch (NumberFormatException e) {
-                Format.printSepLine();
-                System.out.println("Error! Argument provided must be a number!");
-                Format.printSepLine();
+                ui.showNumberFormatError();
+            } finally {
+                ui.showLine();
             }
         }
-        goodbye();
-        tl.saveTaskList("./data/codriver.txt");
+        ui.close();
+        storage.save(this.tasks.toSaveString());
     }
 
-    private static void greeting() {
-        Format.printSepLine();
-        System.out.println("Hello! I'm CoDriver, your everyday AI companion!");
-        System.out.println("What can I do for you?");
-        Format.printSepLine();
-    }
-
-    private static void goodbye() {
-        Format.printSepLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        Format.printSepLine();
+    public static void main(String[] args) {
+        new CoDriver("./data/codriver.txt").run();
     }
 }
