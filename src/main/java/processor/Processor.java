@@ -209,6 +209,10 @@ public class Processor {
     public void userInputFindTask(String userInput) {
         String[] array = userInput.split(" ");
         String keyword = array[1];
+        if (taskList.findTask(keyword).equals("")) {
+            System.out.println(chatbotUi.dividerWrapper("No matching tasks in your list."));
+            return;
+        }
         System.out.println(chatbotUi.dividerWrapper("Here are the matching tasks in your list: \n" + taskList.findTask(keyword)));
     }
 
