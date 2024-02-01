@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -84,9 +86,9 @@ public class Duke {
                 LINE, LINE);
     }
 
-    public static void loadFile() throws FileNotFoundException {
+    public static void loadFile() throws IOException, FileNotFoundException {
         try {
-            File f = new File("ip/src/main/data/tasks.txt");
+            File f = new File("./src/main/data/tasks.txt");
             Scanner sc = new Scanner(f);
             while (sc.hasNext()) {
                 String[] taskDescriptions = sc.nextLine().split(" ");
@@ -107,11 +109,15 @@ public class Duke {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("No saved tasks!");
+            Files.createDirectories(Paths.get("./src/main/data"));
+            System.out.printf(
+                    "     You don't have any tasks yet!\n%s\n",
+                    LINE
+            );
         }
     }
     public static void writeFile() throws IOException {
-        File f = new File("ip/src/main/data/tasks.txt");
+        File f = new File("./src/main/data/tasks.txt");
         FileWriter writer = new FileWriter(f);
         String text = "";
         for (Task t : taskList) {
