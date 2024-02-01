@@ -4,18 +4,29 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
+/**
+ * The Parser class is responsible for parsing user input commands and executing corresponding actions.
+ * It interacts with the TaskList, Ui, and Storage classes to manage tasks and data.
+ */
+
 public class Parser {
     private Scanner scanner;
     private TaskList tasklist;
     private Ui ui;
     private Storage storage;
-    public Parser(Scanner s, TaskList t, Storage st){
+
+    public Parser(Scanner s, TaskList t, Storage st) {
         scanner = s;
         tasklist = t;
         ui = new Ui();
         storage = st;
     }
 
+    /**
+     * Reads user input commands, processes them, and executes corresponding actions.
+     * Continuously loops until the user exits the program.
+     */
     public void read() {
         while (scanner.hasNext()) {
 
@@ -48,6 +59,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the user input command for adding an event task.
+     * Parses the input string, creates an event task, and adds it to the task list.
+     *
+     * @param s The user input command string for adding an event task.
+     * @param t The task list to which the event task will be added.
+     */
     public void handleEvent(String s, TaskList t) {
         String eventname = "";
         String[] temp = s.split(" ");
@@ -72,7 +90,7 @@ public class Parser {
             }
             Task ne = new Event(eventname, DateConvert(start), DateConvert(end));
             t.add(ne);
-            System.out.println("Duke.Task added! You now have " + t.length() +" tasks to attend to.");
+            System.out.println("Duke.Task added! You now have " + t.length() + " tasks to attend to.");
             return;
 
         } catch (ArrayIndexOutOfBoundsException b) {
@@ -83,6 +101,7 @@ public class Parser {
     public boolean canBeHandled(String s) {
         return (DateConvert(s) != null);
     }
+
 
     public LocalDate DateConvert(String s) {
         String[] patterns = {"MM/dd/yyyy", "M/dd/yyyy", "MM/d/yyyy",
@@ -98,6 +117,13 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Handles the user input command for adding a deadline task.
+     * Parses the input string, creates a deadline task, and adds it to the task list.
+     *
+     * @param s The user input command string for adding a deadline task.
+     * @param t The task list to which the deadline task will be added.
+     */
     public void handleDeadline(String s, TaskList t) {
         String deadlinename = "";
         String[] temp = s.split(" ");
@@ -123,12 +149,20 @@ public class Parser {
             }
             Task nd = new Deadline(deadlinename, DateConvert(deadline));
             t.add(nd);
-            System.out.println("Duke.Task added! You now have " + t.length() +" tasks to attend to.");
+            System.out.println("Duke.Task added! You now have " + t.length() + " tasks to attend to.");
             return;
         } catch (ArrayIndexOutOfBoundsException b) {
             System.out.println("Please enter a deadline with the format deadline deadlinename /by dd/mm/yyyy!");
         }
     }
+
+    /**
+     * Handles the user input command for adding a todo task.
+     * Parses the input string, creates a todo task, and adds it to the task list.
+     *
+     * @param s The user input command string for adding a todo task.
+     * @param t The task list to which the todo task will be added.
+     */
     public void handleTodo(String s, TaskList t) {
         String todoname = "";
         String[] temp = s.split(" ");
@@ -142,41 +176,99 @@ public class Parser {
         }
         Task nt = new ToDo(todoname);
         t.add(nt);
-        System.out.println("Duke.Task added! You now have " + t.length() +" tasks to attend to.");
+        System.out.println("Duke.Task added! You now have " + t.length() + " tasks to attend to.");
     }
+
+    /**
+     * Checks if the input string represents a todo task command.
+     *
+     * @param s The input string to be checked.
+     * @return True if the input string starts with "todo ", otherwise false.
+     */
     public boolean checkIfTodo(String s) {
         return s.startsWith("todo ");
     }
 
+    /**
+     * Checks if the input string represents an event task command.
+     *
+     * @param s The input string to be checked.
+     * @return True if the input string starts with "event ", otherwise false.
+     */
     public boolean checkIfEvent(String s) {
         return s.startsWith("event ");
     }
 
+    /**
+     * Checks if the input string represents a deadline task command.
+     *
+     * @param s The input string to be checked.
+     * @return True if the input string starts with "deadline ", otherwise false.
+     */
     public boolean checkIfDeadline(String s) {
         return s.startsWith("deadline ");
     }
 
+    /**
+     * Handles the user input command for listing tasks.
+     * Prints the list of tasks if available, or a message indicating no tasks.
+     *
+     * @param t The task list to be listed.
+     */
     public void handleList(TaskList t) {
         if (t.length() == 0) {
-            System.out.println("You're a lazy duck get back on the grind");
+            System.out.println("You're a lazy duck, get back on the grind!");
         } else {
             t.iterateout();
         }
     }
+
+    /**
+     * Checks if the input string represents a "list" command.
+     *
+     * @param f The input string to be checked.
+     * @return True if the input string is "list", otherwise false.
+     */
     public boolean checkIfList(String f) {
-        return (f.equals("list"));
-    }
-    public boolean checkFeeding(String f) {
-        return (f.equals("feed bread to bearducky"));
+        return f.equals("list");
     }
 
-    public boolean checkIfLeave(String f) {
-        return (f.equals("bye"));
+    /**
+     * Checks if the input string represents a "feed bread to bearducky" command.
+     *
+     * @param f The input string to be checked.
+     * @return True if the input string is "feed bread to bearducky", otherwise false.
+     */
+    public boolean checkFeeding(String f) {
+        return f.equals("feed bread to bearducky");
     }
+
+    /**
+     * Checks if the input string represents a "bye" command.
+     *
+     * @param f The input string to be checked.
+     * @return True if the input string is "bye", otherwise false.
+     */
+    public boolean checkIfLeave(String f) {
+        return f.equals("bye");
+    }
+
+    /**
+     * Checks if the input string represents a base command for marking, unmarking, or deleting tasks.
+     *
+     * @param f The input string to be checked.
+     * @return True if the input string starts with "mark ", "unmark ", or "delete ", otherwise false.
+     */
     public boolean checkIfBaseCommand(String f) {
         return (f.startsWith("mark ") || f.startsWith("unmark ") || f.startsWith("delete "));
     }
 
+    /**
+     * Handles the base commands for marking, unmarking, or deleting tasks.
+     * Parses the input command, performs the corresponding task operation, and handles exceptions.
+     *
+     * @param commandsplit An array containing the command split into parts.
+     */
     public void handleBaseCommand(String[] commandsplit) {
         String firstword = commandsplit[0].toLowerCase();
         int num = Integer.parseInt(commandsplit[1]);
@@ -195,5 +287,4 @@ public class Parser {
                     " only, please.");
         }
     }
-
 }

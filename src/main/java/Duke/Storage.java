@@ -11,27 +11,37 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Handles loading and saving tasks to a file.
+ */
 public class Storage {
-    private File infostored;
-    private String filepath;
+    private File infostored; // File where tasks are stored
+    private String filepath; // Path to the file
 
+    /**
+     * Writes the tasks from the task list to the file, else print a statement.
+     *
+     * @param tasklist The list of tasks to be written to the file.
+     */
     public void writeToFile(TaskList tasklist) {
         String filePath = filepath; // Specify the file path
 
-        // Your new content to replace the existing content
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            // Iterate through the list of items
+            // Iterate through the list of tasks
             for (int i = 0; i < tasklist.length(); i++) {
-                // Write the content of each item to the file
                 Task task = tasklist.getTask(i);
-                writer.write(task.typeid()+"~"+task.markstatus()+"~"+task.getDescription()+task.timeprint());
-                writer.newLine(); // Add a newline character after each item
+                // Write the task's information to the file
+                writer.write(task.typeid() + "~" + task.markstatus() + "~" + task.getDescription() + task.timeprint());
+                writer.newLine(); // Add a newline character after each task
             }
         } catch (IOException e) {
             System.out.println("Error implementing changes!");
         }
     }
 
+    /**
+     * Creates a new directory if it doesn't exist.
+     */
     public void makeNewDirectory() {
         File location = new File("./data");
         if (location.mkdirs()) {
@@ -41,6 +51,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a new file if it doesn't exist.
+     *
+     * @param filepath The path to the file.
+     */
     public void makeNewFile(String filepath) {
         File file = new File(filepath);
         if (!file.exists()) {
@@ -50,13 +65,19 @@ public class Storage {
                     System.out.println("File successfully created.");
                 }
             } catch (IOException e) {
-                file = new File("./data/tasks.txt"); //hardcode option
+                // Use a default filepath if the provided one is invalid
+                file = new File("./data/tasks.txt");
                 System.out.println("Filepath invalid. Data has been stored to the filepath ./data/tasks.txt");
             }
         }
         infostored = file;
     }
 
+    /**
+     * Loads tasks from the file and returns them as a list.
+     *
+     * @return A list of tasks loaded from the file.
+     */
     public List<Task> load() {
         List<Task> tasks = new ArrayList<>();
         if (infostored.length() == 0) {
@@ -76,41 +97,51 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Converts a string representation of a task into a Task object depending on its label.
+     *
+     * @param input The string representation of the task.
+     * @return The Task object.
+     */
     public Task convert(String input) {
         String[] inputs = input.split("~");
         String type = inputs[0];
         boolean marked = inputs[1].equals("marked");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         switch (type) {
-        case "T":
-            Task task = new ToDo(inputs[2]);
-            if (marked) {
-                task.mark();
-            }
-            return task;
-        case "E":
-            LocalDate start = LocalDate.parse(inputs[3], dateFormatter);
-            LocalDate end = LocalDate.parse(inputs[4], dateFormatter);
-            Task task2 = new Event(inputs[2], start, end);
-            if (marked) {
-                task2.mark();
-            }
-            return task2;
-        case "D":
-            LocalDate due = LocalDate.parse(inputs[3], dateFormatter);
-            Task task3 = new Deadline(inputs[2], due);
-            if (marked) {
-                task3.mark();
-            }
-            return task3;
+            case "T":
+                Task task = new ToDo(inputs[2]);
+                if (marked) {
+                    task.mark();
+                }
+                return task;
+            case "E":
+                LocalDate start = LocalDate.parse(inputs[3], dateFormatter);
+                LocalDate end = LocalDate.parse(inputs[4], dateFormatter);
+                Task task2 = new Event(inputs[2], start, end);
+                if (marked) {
+                    task2.mark();
+                }
+                return task2;
+            case "D":
+                LocalDate due = LocalDate.parse(inputs[3], dateFormatter);
+                Task task3 = new Deadline(inputs[2], due);
+                if (marked) {
+                    task3.mark();
+                }
+                return task3;
         }
         return new Task("Error");
     }
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file.
+     */
     public Storage(String filePath) {
         filepath = filePath;
-        makeNewDirectory(); //creates a new data file in the same folder if not already existing
-        makeNewFile(filePath); //creates a new file in filepath if not already existing
+        makeNewDirectory(); // Creates a new data file in the same folder if not already existing
+        makeNewFile(filePath); // Creates a new file in filepath if not already existing
     }
-
 }
