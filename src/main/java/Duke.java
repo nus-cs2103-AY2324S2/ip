@@ -1,46 +1,23 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static final int max_tasks = 100;
-    private static final ArrayList<Task> tasks = new ArrayList<>(max_tasks);
-    private static int taskCount = 0;
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
     private static final String FILE_PATH = "./duke.txt";
 
-    private enum Command {
-        BYE,
-        LIST,
-        MARK,
-        UNMARK,
-        EVENT,
-        DEADLINE,
-        TODO,
-        DELETE,
-        UNKNOWN
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(FILE_PATH);
+        storage.load();
     }
 
-    public static void main(String[] args) {
-        String name = "BotChat";
-
-        //Introduction message
-        System.out.println("____________________________________________________________\n" +
-                " Hello! I'm " + name + "\n What can I do for you?\n" +
-                "____________________________________________________________\n");
-
-        loadTasksFromHardDisk();
-
+    public void run() {
+        ui.showWelcomeMessage();
         userInput();
     }
 
-    private static void userInput() {
+    private void userInput() {
         //Scanner to scan what the user is inputting
         Scanner scanner = new Scanner(System.in);
         try {
@@ -49,11 +26,9 @@ public class Duke {
                 try {
                     handleInput(input);
                 } catch (DukeException e) {
-                    System.out.println("____________________________________________________________\n" +
-                            e.getMessage() + "\n" +
-                            "____________________________________________________________\n");
+                    ui.showErrorMessage(e.getMessage());
                 }
-                saveTaskToHardDisk();
+                Storage.saveTaskToHardDisk(tasks.getTasks());
             }
         } finally {
             scanner.close();
@@ -61,299 +36,40 @@ public class Duke {
     }
 
     //Method to handle inputs
-    private static void handleInput(String input) throws DukeException {
-        Command command = getCommand(input.split(" ")[0]);
+    private void handleInput(String input) throws DukeException {
+        Command command = Parser.getCommand(input.split(" ")[0]);
         switch (command) {
-            //Bye input + close scanner + exit program
             case BYE:
-                System.out.println("____________________________________________________________\n" +
-                        " Bye. Hope to see you again soon!\n" +
-                        "____________________________________________________________\n");
+                ui.showGoodbyeMessage();
                 System.exit(0);
                 break;
             case LIST:
-                //List tasks
-                listTasks();
+                tasks.listTasks();
                 break;
             case MARK:
-                //mark tasks as complete
-                markTask(input);
+                tasks.markTask(input);
                 break;
             case UNMARK:
-                //unmark tasks
-                unmarkTask(input);
+                tasks.unmarkTask(input);
                 break;
             case EVENT:
-                //Add event task to list
-                addEventTask(input);
+                tasks.addEventTask(input);
                 break;
             case DEADLINE:
-                //Add deadline task to list
-                addDeadlineTask(input);
+                tasks.addDeadlineTask(input);
                 break;
             case TODO:
-                //Add tod0 task to list
-                addTodoTask(input);
+                tasks.addTodoTask(input);
                 break;
             case DELETE:
-                //Delete tasks from list
-                deleteTask(input);
+                tasks.deleteTask(input);
                 break;
             case UNKNOWN:
                 throw new DukeException("Sorry, I do not understand that command. Please try again.");
         }
     }
 
-    private static Command getCommand(String input) {
-        try {
-            return Command.valueOf(input.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            return Command.UNKNOWN;
-        }
-    }
-
-    //Method to list tasks
-    private static void listTasks() {
-        System.out.println("____________________________________________________________\n" +
-                " Here are your tasks:\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
-        }
-        System.out.println("____________________________________________________________\n");
-    }
-
-    //Method to add tasks to list
-    private static void addTask(Task task) throws DukeException {
-        //Check that taskCount does not exceed maxtask
-        if (taskCount < max_tasks) {
-            tasks.add(task);
-            System.out.println("____________________________________________________________\n" +
-                    " Okay! Added to your list: \n"
-                    + "   " + task
-                    + "\n Now you have " + tasks.size() + " tasks in your list.\n" +
-                    "____________________________________________________________\n");
-        } else {
-            throw new DukeException(" Ohno :( Your task list is full. Complete some tasks first.");
-        }
-    }
-
-    //Method to mark tasks
-    private static void markTask(String input) throws DukeException {
-        try {
-            int taskIndex = Integer.parseInt(input.substring(5)) - 1;
-            if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                tasks.get(taskIndex).mark();
-                System.out.println("____________________________________________________________\n" +
-                        " Nice! This task has been marked as done:\n" +
-                        "   " + tasks.get(taskIndex) + "\n" +
-                        "____________________________________________________________\n");
-            } else {
-                throw new DukeException(" Invalid task index inputted. Please try again.");
-            }
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException(" Please indicate the task number you want to mark complete.");
-        }
-    }
-
-    //Method to unmark tasks
-    private static void unmarkTask(String input) throws DukeException {
-        try {
-            int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-            if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                tasks.get(taskIndex).unmark();
-                System.out.println("____________________________________________________________\n" +
-                        " Okay. This task has been unmarked. \n" +
-                        "   " + tasks.get(taskIndex) + "\n" +
-                        "____________________________________________________________\n");
-            } else {
-                throw new DukeException(" Invalid task index inputted. Please try again.");
-            }
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException(" Please indicate the task number you want to unmark.");
-        }
-    }
-
-    //Method to add event task
-    private static void addEventTask(String input) throws DukeException {
-        String[] parts = input.split("/", 3);
-        if (parts.length == 3) {
-            String description = parts[0].substring(5);
-            String from = parts[1].substring(5).trim();
-            String to = parts[2].substring(3);
-
-            if (!description.isEmpty()) {
-                Event eventTask = createEventTask(description, from, to);
-                addTask(eventTask);
-            } else {
-                throw new DukeException(" Please provide a valid description of the task.");
-            }
-        } else {
-            throw new DukeException(" Invalid format of Event task. Please try again with the correct format.\n" +
-                    " event (event name) /from (start) /to (end)");
-        }
-    }
-
-    private static Event createEventTask(String description, String from, String to) throws DukeException {
-        try {
-            return new Event(description, from, to);
-        } catch (Exception e) {
-            throw new DukeException("Invalid date format. Please use yyyy-MM-dd or yyyy-MM-dd HHmm format for the event.");
-        }
-    }
-
-    //Method to add deadline task
-    private static void addDeadlineTask(String input) throws DukeException {
-        String[] parts = input.split("/", 2);
-        if (parts.length == 2) {
-            String description = parts[0].substring(8);
-            String by = parts[1].substring(3);
-
-            if (!description.isEmpty()) {
-                Deadline deadlineTask = createDeadlineTask(description, by);
-                addTask(deadlineTask);
-            } else {
-                throw new DukeException("Please provide a valid description of the task.");
-            }
-        } else {
-            throw new DukeException("Invalid format of Deadline task. Please try again with the correct format.\n" +
-                    "deadline (event name) /by (deadline)");
-        }
-    }
-
-    private static Deadline createDeadlineTask(String description, String by) throws DukeException {
-        if (isValidDateFormat(by)) {
-            return new Deadline(description, by);
-        } else {
-            throw new DukeException("Invalid date format. Please use yyyy-mm-dd or yyyy-mm-dd HHmm format for the deadline.");
-        }
-    }
-
-    private static boolean isValidDateFormat(String by) {
-        try {
-            LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            return true;
-        } catch (DateTimeParseException e) {
-            try {
-                LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                return true;
-            } catch (DateTimeParseException ex) {
-                return false;
-            }
-        }
-    }
-
-    //Method to add tod0 task
-    private static void addTodoTask(String input) throws DukeException {
-        if (!input.substring(4).isEmpty()) {
-            Task task = new Todo(input.substring(4));
-            addTask(task);
-        } else {
-            throw new DukeException(" Please provide a valid description of the task.");
-        }
-    }
-
-    //Method to delete task
-    private static void deleteTask(String input) throws DukeException {
-        try {
-            int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-            if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                Task removedTask = tasks.get(taskIndex);
-                tasks.remove(taskIndex);
-                System.out.println("____________________________________________________________\n" +
-                        " Okay. This task has been removed: \n" +
-                        "   " + removedTask + "\n" +
-                        " Now you have " + tasks.size() + " tasks in your list.\n" +
-                        "____________________________________________________________\n");
-            } else {
-                throw new DukeException(" Invalid task index inputted. Please try again.");
-            }
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException(" Please indicate the task number you want to delete.");
-        }
-    }
-
-    //Load data from hard disk when BotChat starts up
-    private static void loadTasksFromHardDisk() {
-        try {
-            File file = new File(FILE_PATH);
-            if (file.exists()) {
-                Scanner scanner = new Scanner(file);
-                while (scanner.hasNext()) {
-                    String line = scanner.nextLine();
-                    Task task = convertTask(line);
-                    tasks.add(task);
-                    taskCount++;
-                }
-                scanner.close();
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        }
-    }
-
-    //Save the changes to the hard disk
-    private static void saveTaskToHardDisk() {
-        try {
-            File file = new File(FILE_PATH);
-            FileWriter fileWriter = new FileWriter(file);
-            for (Task task : tasks) {
-                fileWriter.write(task.toString() + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-    }
-
-    //Convert text in file to Task format
-    private static Task convertTask(String line) {
-        String taskType = line.substring(1, 2);
-        boolean isDone = line.substring(5, 6).equals("X");
-        String description;
-
-        if (taskType.equals("T")) {
-            description = line.substring(8);
-        } else if (taskType.equals("D")) {
-            int byIndex = line.indexOf("(by: ");
-            int endIndex = line.indexOf(")");
-            description = line.substring(8, byIndex - 1) + line.substring(endIndex + 1);
-        } else if (taskType.equals("E")) {
-            int fromIndex = line.indexOf("(from: ");
-            int toIndex = line.indexOf(" to: ");
-            int endIndex = line.indexOf(")");
-            description = line.substring(8, fromIndex - 1) + line.substring(endIndex + 1);
-        } else {
-            return null;
-        }
-
-        Task task;
-
-        switch (taskType) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                int byIndex = line.indexOf("(by: ");
-                int endIndex = line.indexOf(")");
-                String by = line.substring(byIndex + 5, endIndex);
-                task = new Deadline(description, by);
-                break;
-            case "E":
-                int fromIndex = line.indexOf("(from: ");
-                int toIndex = line.indexOf(" to: ");
-                int end = line.indexOf(")");
-                String from = line.substring(fromIndex + 7, toIndex);
-                String to = line.substring(toIndex + 5, end);
-                task = new Event(description, from, to);
-                break;
-            default:
-                return null;
-        }
-
-        if (isDone) {
-            task.mark();
-        }
-
-        return task;
+    public static void main(String[] args) {
+        new Duke(FILE_PATH).run();
     }
 }
