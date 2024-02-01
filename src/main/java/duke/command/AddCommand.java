@@ -88,4 +88,8 @@ public class AddCommand extends Command {
             ui.showMessage("Save failed");
         }
     }
+
+    public String getCom(){
+        return com;
+    }
 }

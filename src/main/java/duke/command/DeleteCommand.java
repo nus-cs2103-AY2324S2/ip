@@ -37,5 +37,9 @@ public class DeleteCommand extends Command{
             ui.showMessage("Save failed");
         }
     }
+
+    public String getCom(){
+        return com;
+    }
 }
 

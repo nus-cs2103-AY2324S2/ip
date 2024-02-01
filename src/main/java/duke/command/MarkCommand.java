@@ -37,4 +37,8 @@ public class MarkCommand extends Command{
             ui.showMessage("Save failed");
         }
     }
+
+    public String getCom(){
+        return com;
+    }
 }
