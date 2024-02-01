@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Represents the Task specified by users.
@@ -17,7 +18,7 @@ public class Task {
     /**
      * Marks current task as done by changing the status of isDone to true.
      */
-    public void mark() {
+    public void setDone() {
         isDone = true;
     }
 
@@ -45,7 +46,7 @@ public class Task {
     /**
      * Unmarks current task by changing the status of isDone to false.
      */
-    public void unmark() {
+    public void setNotDone() {
         isDone = false;
     }
 
@@ -117,7 +118,7 @@ public class Task {
      *
      * @param filePath Filepath to File to be written to.
      */
-    public void writeToFile(File filePath) {
+    public void writeToFile(File filePath) throws IOException {
         if (this instanceof Todo) {
             ((Todo) this).writeToFile(filePath);
         } else if (this instanceof Deadline) {
@@ -143,7 +144,7 @@ public class Task {
         return "";
     }
 
-        public boolean check(String str) {
+        public boolean isFound(String str) {
             return task.contains(str);
         }
 

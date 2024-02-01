@@ -3,6 +3,7 @@ package duke.task;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -34,7 +35,7 @@ public class Event extends Task {
      * @return Time/Date Event task is happening.
      * @throws DateTimeParseException When user does not specify date of event in "MMM d yyyy" format.
      */
-    public String getEvent() {
+    public String getEvent() throws DateTimeParseException {
          try {
              LocalDate startDate = LocalDate.parse(start);
              LocalDate endDate = LocalDate.parse(end);
@@ -64,7 +65,7 @@ public class Event extends Task {
      * @throws IOException When file does not exist.
      */
     @Override
-    public void writeToFile(File filePath) {
+    public void writeToFile(File filePath) throws IOException {
         try {
             FileWriter fw = new FileWriter(filePath.getPath(), true);
             fw.write (this.isEvent() + this.marked() + " "

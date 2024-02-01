@@ -1,9 +1,10 @@
 package duke;
 
-
-import duke.task.Task;
+import java.io.FileNotFoundException;
 
 import java.util.Scanner;
+
+import duke.task.Task;
 
 /**
  * Represents the User Interaction that deals with interactions with the user.
@@ -44,8 +45,9 @@ public class Ui {
 
     /**
      * Reads command of user's next line and passes String command to Parser.
+     * @throws FileNotFoundException When File f does not exist.
      */
-    public void readCommand() {
+    public void readCommand() throws FileNotFoundException {
         Parser parse = new Parser(tasklist);
         Task task = new Task(user.nextLine());
         while (!task.getTask().equals("bye")) {

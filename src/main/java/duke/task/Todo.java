@@ -38,7 +38,7 @@ public class Todo extends Task {
      * @throws IOException When file does not exist.
      */
     @Override
-    public void writeToFile(File filePath) {
+    public void writeToFile(File filePath) throws IOException {
       try {
           FileWriter fw = new FileWriter(filePath.getPath(), true);
           fw.write(this.isTodo() + this.marked() + " " + this.getTask() + "\n");

@@ -5,6 +5,8 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.FileNotFoundException;
+
 /**
  * Represents a parser that parses user's String input
  * to a command for TaskList to execute.
@@ -25,9 +27,11 @@ private TaskList tasklist;
      * @throws StringIndexOutOfBoundsException When user does not specify the task to do after a command (e.g. todo)
      * @throws NumberFormatException When user does not leave a space between command and number (e.g. mark1)
      * @throws ArrayIndexOutOfBoundsException When user does not specify dates of deadline/event
+     * @throws FileNotFoundException When File f does not exist.
      */
 
-    public void parsing(String command) {
+    public void parsing(String command) throws StringIndexOutOfBoundsException, NumberFormatException,
+            ArrayIndexOutOfBoundsException, FileNotFoundException {
         if (command.equals("list")) {
             tasklist.list();
         } else if (command.startsWith("mark")) {
@@ -95,7 +99,8 @@ private TaskList tasklist;
                         Event event = new Event(start, end, c);
                         tasklist.addTask(event);
                     } catch(ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Let me know when this event is bb: e.g. event <event> /from <when>/to <when>");
+                        System.out.println("Let me know when this event is bb: " +
+                                "e.g. event <event> /from <when>/to <when>");
                     }
                 } else {
                     System.out.println("Baby, what are you saying? Tell me what your TODOs, DEADLINEs and EVENTs are!");

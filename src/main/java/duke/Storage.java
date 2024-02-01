@@ -1,9 +1,9 @@
 package duke;
 
 import java.io.File;
-import java.util.Scanner;
-import java.util.ArrayList;
 import java.io.FileNotFoundException;
+
+import java.util.Scanner;
 
 /**
  * Represents a Storage system which saves and loads tasks in a File f.
@@ -20,7 +20,7 @@ public class Storage {
      *
      * @throws FileNotFoundException When data file doesn't exist.
      */
-    public void getFileContent() {
+    public void getFileContent() throws FileNotFoundException {
         try {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {

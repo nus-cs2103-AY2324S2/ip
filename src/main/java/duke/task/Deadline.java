@@ -3,6 +3,7 @@ package duke.task;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -26,7 +27,7 @@ public class Deadline extends Task{
      * @return Deadline of Deadline task.
      * @throws DateTimeParseException When user does not specify date of deadline in "MMM d yyyy" format.
      */
-    public String getDeadline() {
+    public String getDeadline() throws DateTimeParseException {
         try {
             LocalDate ddl = LocalDate.parse(deadline);
             return "(by: " + ddl.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
@@ -63,7 +64,7 @@ public class Deadline extends Task{
      * @throws IOException When file does not exist.
      */
     @Override
-    public void writeToFile(File filePath) {
+    public void writeToFile(File filePath) throws IOException {
         try {
             FileWriter fw = new FileWriter(filePath.getPath(), true);
             fw.write(this.isDeadline() + this.marked() + " "

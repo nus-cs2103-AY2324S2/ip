@@ -1,7 +1,11 @@
 package duke;
 
-import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.File;
+
+import java.util.Scanner;
+
 
 /**
  * Main class of the program.
@@ -13,9 +17,11 @@ public class Duke {
     /**
      * Calls to Ui ui to start and end the program.
      * Calls to TaskList tasklist to write current tasks to File f.
-     * @param args Command-line arguments passed to the program
+     * @param args Command-line arguments passed to the program.
+     * @throws FileNotFoundException When File f does not exist.
+     * @throws IOException When File f cannot be found.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
 
         File f = new File("data/EUEU.txt");
         Scanner user = new Scanner(System.in);
