@@ -88,9 +88,10 @@ public class TaskList {
      * Deletes a task.
      *
      * @param input index of the task to be deleted.
+     * @return length of storage after deleted the task.
      * @throws DukeException If input task number is not in storage range.
      */
-    public void deleteTask(String input) throws DukeException {
+    public int deleteTask(String input) throws DukeException {
         try {
             int index = Integer.parseInt(input);
             if (index > storage.size() || index <= 0) {
@@ -104,6 +105,7 @@ public class TaskList {
             String temp = storage.size() > 1 ? " tasks" : " task";
             ui.displayToScreen("Noted. I've removed this task:\n" + curr + "\nNow you have "
                     + storage.size() + temp + " in the list.");
+            return this.storage.size();
         } catch (NumberFormatException e) {
             throw new DukeException("Please insert valid integer for task number. Write command using format: " +
                     CommandType.DELETE.getCommand());
