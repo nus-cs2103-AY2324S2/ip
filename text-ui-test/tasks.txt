@@ -1,0 +1,8 @@
+D|1|pear|5jan
+E|1|orange|10jan|20jan
+T|0|apple
+D|0|pear|5jan
+E|0|orange|10jan|20jan
+T|0|apple
+D|0|pear|5jan
+E|0|orange|10jan|20jan
