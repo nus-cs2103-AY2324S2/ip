@@ -13,7 +13,16 @@ import duke.ui.UI;
 import duke.parser.Parser;
 import duke.parser.Token;
 
+/**
+ * The Duke program is a simple task manager that allows users to manage their tasks through a command-line interface.
+ */
 public class Duke {
+
+    /**
+     * Runs the Duke program. Allowing users to manage their tasks.
+     *
+     * @param args The command-line arguments (unused in this program).
+     */
     public static void main(String[] args) {
         UI ui = new UI();
         UI.greeting();

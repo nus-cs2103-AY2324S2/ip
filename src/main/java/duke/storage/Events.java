@@ -6,6 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Optional;
 
+
+/**
+ * The Events class represents an event task in the Duke task manager, which is a subtype of the Task class.
+ * It inherits properties and methods from the Task class and provides a specific implementation for event tasks with date and time details.
+ */
 public class Events extends Task{
 
     protected LocalDate from;
@@ -13,6 +18,14 @@ public class Events extends Task{
     protected LocalDate to;
     protected LocalTime toTime;
 
+    /**
+     * Constructs an Events object with the specified original command, description, and date-time details.
+     *
+     * @param originalCommand The original command used to create the event task.
+     * @param description The description of the event task.
+     * @param dateTimeFrom The starting date and time of the event in string format.
+     * @param dateTimeTo The ending date and time of the event in string format.
+     */
     public Events(String originalCommand, String description, String dateTimeFrom, String dateTimeTo) {
         super(originalCommand, description);
         String[] splitFrom = dateTimeFrom.split("-");
@@ -53,6 +66,12 @@ public class Events extends Task{
         }
     }
 
+
+    /**
+     * Returns a string representation of the event task, including its specific type identifier, the result of the superclass's toString method, and date-time details.
+     *
+     * @return A string representation of the event task.
+     */
     @Override
     public String toString() {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(" h:mm a");

@@ -15,20 +15,47 @@ import duke.storage.Events;
 import duke.storage.Deadlines;
 import duke.storage.Todos;
 
+/**
+ * The Parser class is responsible for parsing user input and converting it into meaningful commands and tasks.
+ * It handles various command types such as listing tasks, adding, deleting, marking, and parsing time information.
+ * The class also checks the validity of user input and throws exceptions for invalid or missing information.
+ */
 public class Parser {
     private String input;
 
+    /**
+     * Constructs a Parser object with an empty input.
+     */
     public Parser() {
         this.input = "";
     }
+
+    /**
+     * Constructs a Parser object with the specified input.
+     *
+     * @param input The input string to be parsed.
+     */
     public Parser(String input) {
         this.input = input;
     }
 
+    /**
+     * Sets the input string for the parser.
+     *
+     * @param input The input string to be parsed.
+     */
     public void feed(String input) {
         this.input = input;
     }
 
+    /**
+     * Parses the input string and returns a Token object representing the command and associated data.
+     *
+     * @return The Token object representing the parsed command and associated data.
+     * @throws InvalidCommandException If the command is invalid.
+     * @throws MissingArgumentsException If required arguments are missing.
+     * @throws WrongTimeFormatException If there is an issue with the time format in the input.
+     */
     public Token parse() throws InvalidCommandException, MissingArgumentsException ,WrongTimeFormatException {
         String[] split = this.input.split(" ");
         Token token;
@@ -207,6 +234,12 @@ public class Parser {
         return token;
     }
 
+    /**
+     * Checks the format of the provided time string and throws an exception if the format is incorrect.
+     *
+     * @param string The time string to be checked.
+     * @throws WrongTimeFormatException If the time format is incorrect or missing.
+     */
     private void checkTimeFormat(String string) throws WrongTimeFormatException {
         String[] splitString = string.split("[\\s/\\-]+");
         if (splitString.length < 3) {
@@ -234,6 +267,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the provided year, month, and day form a valid date and throws an exception if not.
+     *
+     * @param year  The year.
+     * @param month The month.
+     * @param day   The day.
+     * @throws WrongTimeFormatException If the date is invalid.
+     */
     private void checkRealDate(int year , int month, int day) throws WrongTimeFormatException {
         try {
             LocalDate dateToBeChecked = LocalDate.of(year, month, day);
@@ -247,6 +288,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the provided time and twelve-hour format (AM/PM) form a valid time and throws an exception if not.
+     *
+     * @param time            The time string.
+     * @param twelveHourFormat The twelve-hour format (AM/PM).
+     * @throws WrongTimeFormatException If the time is invalid.
+     */
     private void checkRealTime(String time, String twelveHourFormat) throws WrongTimeFormatException {
         if (twelveHourFormat.equals("")) {
             if (time.length() < 5 && time.indexOf(":") != -1) {
