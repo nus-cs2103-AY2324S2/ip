@@ -13,6 +13,9 @@ public class Task {
         this.isDone = true;
     }
 
+    public boolean isCompleted() {
+        return this.isDone;
+    }
     public void markAsNotDone() {
         this.isDone = false;
     }

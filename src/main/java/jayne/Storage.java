@@ -83,4 +83,17 @@ public class Storage {
             System.out.println("An error occurred while loading tasks from file: " + e.getMessage());
         }
     }
+
+    public void deleteFile() {
+        Path path = Paths.get(filepath);
+        try {
+            if (Files.deleteIfExists(path)) {
+                System.out.println(filepath + " has been deleted.");
+            } else {
+                System.out.println(filepath + " does not exist, no need to delete.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while deleting the file: " + e.getMessage());
+        }
+    }
 }

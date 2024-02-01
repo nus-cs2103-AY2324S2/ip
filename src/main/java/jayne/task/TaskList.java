@@ -11,8 +11,6 @@ import jayne.JayneException;
  */
 public class TaskList {
     private final List<Task> taskArray;
-
-    private static  final String FILE_PATH = "./data/jayne.txt";
     private int taskCount;
 
     private Storage storage;
@@ -27,9 +25,12 @@ public class TaskList {
         storage.loadTasks(taskArray);
     }
 
-
     public int getTaskCount() {
         return taskCount;
+    }
+
+    public Storage getStorage() {
+        return storage;
     }
     /**
      * Delete tasks
