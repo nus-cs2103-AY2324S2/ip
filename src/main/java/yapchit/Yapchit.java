@@ -44,7 +44,7 @@ public class Yapchit {
 
         while (!handler.checkIsBye(input)) {
             try{
-                Operations k = parser.parseInputOperation(input);
+                Yapchit.Operations k = parser.parseInputOperation(input);
                 handler.handleOperation(input, k, tasks, ui, parser);
             } catch (YapchitException e) {
                 Ui.print(e.getMessage());

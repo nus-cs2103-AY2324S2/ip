@@ -4,6 +4,7 @@ import yapchit.tasks.Deadline;
 import yapchit.tasks.Event;
 import yapchit.tasks.Task;
 import yapchit.tasks.ToDo;
+import yapchit.Yapchit.Operations;
 import yapchit.yapchitexceptions.InvalidDetailException;
 import yapchit.yapchitexceptions.InvalidKeywordException;
 import yapchit.yapchitexceptions.YapchitException;
