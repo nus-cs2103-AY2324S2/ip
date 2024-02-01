@@ -9,4 +9,4 @@
 # java class files
 *.class
 # task list
-/data/jadeList.txt
+data/
