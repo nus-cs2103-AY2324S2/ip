@@ -91,6 +91,13 @@ public class Event extends Task {
         return s.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm"));
     }
 
+    public String datetoSaveString(LocalDateTime s) {
+        if (s == null) {
+            return "Invalid date time format. Please use the format dd-MM-yyyy HHmm";
+        }
+        return s.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+    }
+
     public LocalDateTime getFrom() {
         return this.from;
     }
@@ -101,7 +108,7 @@ public class Event extends Task {
 
     @Override
     public String toFileFormat() {
-        return "E | " + super.toFileFormat() + " | from " + this.datetoString(this.getFrom()) + " to " + this.datetoString(this.getTo());
+        return "E | " + super.toFileFormat() + " | from " + this.datetoSaveString(this.getFrom()) + " to " + this.datetoSaveString(this.getTo());
     }
 
     @Override
