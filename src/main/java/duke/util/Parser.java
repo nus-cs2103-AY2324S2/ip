@@ -1,3 +1,7 @@
+package duke.util;
+
+import duke.task.*;
+
 import java.util.Arrays;
 
 public class Parser {

@@ -1,3 +1,6 @@
+package duke.task;
+
+import duke.util.TimeManager;
 
 public class Deadline extends Task {
 

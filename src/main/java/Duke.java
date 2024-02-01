@@ -1,7 +1,12 @@
+import duke.task.TaskList;
+import duke.util.FileManager;
+import duke.util.Parser;
+import duke.util.Ui;
+
 import java.util.*;
 public class Duke {
     private String filePath = "./data/saveData.txt";
-    private FileManager storage;  // This is the storage class just named FileManager
+    private FileManager storage;  // This is the storage class just named duke.util.FileManager
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
