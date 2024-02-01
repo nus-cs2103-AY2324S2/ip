@@ -1,5 +1,4 @@
-T | 1 | run
-T | 0 | game
-D | 1 | return book | Feb 12 2019 1800
-T | 0 | write
-T | 0 | gameboy
+T | 0 | run 2.4km
+D | 1 | return book | Jun 24 2024 1800
+E | 0 | career fair | Jun 24 2024 1300 | Jun 24 2024 1800
+D | 0 | birthday | Jan 07 2924 0000

@@ -23,11 +23,20 @@ public class TaskList {
     }
 
     public Task rmvTask(int idx) {
-        return this.taskList.remove(idx);
+        try {
+            return this.taskList.remove(idx);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("there isn't an available task to delete.");
+        }
+
     }
 
     public Task getTask(int idx) {
-        return this.taskList.get(idx);
+        try {
+            return this.taskList.get(idx);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("this task is not available/ does not exist.");
+        }
     }
 
     public ArrayList<Task> getTasks() {
