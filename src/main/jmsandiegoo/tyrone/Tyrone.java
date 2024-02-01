@@ -26,7 +26,6 @@ public class Tyrone {
     public void run() {
         start();
         runUntilExit();
-        this.UI.outputByeMessage();
         System.exit(0);
     }
 
