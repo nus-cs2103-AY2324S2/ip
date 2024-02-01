@@ -12,7 +12,7 @@ import java.time.format.DateTimeParseException;
 import java.util.stream.Stream;
 
 public class Storage {
-    Path filepath;
+    private final Path filepath;
 
     public Storage(Path filepath) {
         this.filepath = filepath;

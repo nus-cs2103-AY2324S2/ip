@@ -15,6 +15,7 @@ public class Parser {
     public static boolean parseArguments(String input, TaskList taskList, Storage storage) throws NumeratorException {
         if (input.equals("bye")) {
             return true;
+
         } else if (input.startsWith("mark")) {
             try {
                 Pattern p = Pattern.compile("mark (\\d+)");
@@ -49,6 +50,7 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 throw new TaskIndexOutOfBoundsException("Task does not exist");
             }
+
         } else if (input.startsWith("delete")) {
             try {
                 Pattern p = Pattern.compile("delete (\\d+)");
@@ -66,6 +68,7 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 throw new TaskIndexOutOfBoundsException("Task does not exist");
             }
+
         } else if (input.startsWith("todo")) {
             Pattern p = Pattern.compile("todo (\\S+.*)");
             Matcher m = p.matcher(input);
@@ -108,8 +111,10 @@ public class Parser {
                 taskList.printAddTask(t);
                 storage.save(taskList);
             }
+
         } else if (input.equals("list")) {
             Ui.printMessage(taskList.toString());
+
         } else {
             throw new InputNotRecognisedException("Input not recognised");
         }
