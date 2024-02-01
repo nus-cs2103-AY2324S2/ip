@@ -3,12 +3,19 @@ package mike.command;
 import mike.MikeException;
 import mike.TaskList;
 import mike.Ui;
-import mike.command.Command;
 import mike.task.Task;
 
+/**
+ * Marks task as done.
+ * @author ningc
+ */
 public class MarkCommand extends Command {
     private final int taskNumber;
 
+    /**
+     * Constructor.
+     * @param taskNumber The number that refers to the task.
+     */
     public MarkCommand(int taskNumber) {
         this.taskNumber = taskNumber;
     }

@@ -33,6 +33,10 @@ class CommandScanner {
     private int start;
     private int current;
 
+    /**
+     * Constructor.
+     * @param source The raw command input.
+     */
     CommandScanner(String source) {
         this.source = source;
         this.tokens = new ArrayList<Token>();

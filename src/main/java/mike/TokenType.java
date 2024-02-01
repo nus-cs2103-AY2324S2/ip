@@ -2,6 +2,7 @@ package mike;
 
 /**
  * Types of tokens in the command input.
+ * @author ningc
  */
 enum TokenType {
     // primary command tokens

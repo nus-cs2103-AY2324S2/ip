@@ -22,7 +22,7 @@ public class Event extends Task {
      * @param description The event description.
      * @param startDate When the event starts.
      * @param endDate When the event ends.
-     * @throws MikeException todo
+     * @throws MikeException If the start date or end date cannot be parsed as a {@link LocalDate} object.
      */
     public Event(String description, String startDate, String endDate) throws MikeException {
         super(description, TYPE);

@@ -17,6 +17,11 @@ public abstract class Task {
     protected final String description;
     protected final ArrayList<ListViewType> tags;
 
+    /**
+     * Constructor.
+     * @param description What the task does.
+     * @param type The type of the task.
+     */
     public Task(String description, String type) {
         this.description = description;
         this.isDone = false;
@@ -75,7 +80,7 @@ public abstract class Task {
 
     /**
      * Getter.
-     * @return file encoding of Task.
+     * @return The encoding of Task that is written to file.
      */
     public String getFileEncoding() {
         return getType() + "," + getDescription() + "," + getIsDone();

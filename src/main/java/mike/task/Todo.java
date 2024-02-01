@@ -1,7 +1,5 @@
 package mike.task;
 
-import mike.ListViewType;
-
 /**
  * A Todo task.
  * @author ningc

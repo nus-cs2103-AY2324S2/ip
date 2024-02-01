@@ -5,9 +5,17 @@ import mike.MikeException;
 import mike.TaskList;
 import mike.Ui;
 
+/**
+ * Lists the tasks.
+ * @author ningc
+ */
 public class ListCommand extends Command {
     private final ListView listView;
 
+    /**
+     * Constructor.
+     * @param listView The view of the list subject to a filter.
+     */
     public ListCommand(ListView listView) {
         this.listView = listView;
     }

@@ -1,9 +1,18 @@
 package mike;
 
+/**
+ * Representation of source text and context.
+ * @author ningc
+ */
 class Token {
     public final TokenType type;
     public final String text;
 
+    /**
+     * Constructor.
+     * @param type The token type.
+     * @param text The source text contained in the token.
+     */
     Token(TokenType type, String text) {
         this.type = type;
         this.text = text;

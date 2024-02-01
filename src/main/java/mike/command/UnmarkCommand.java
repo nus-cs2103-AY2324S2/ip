@@ -8,6 +8,7 @@ import mike.task.Task;
 
 /**
  * Command to unmark a task.
+ * @author ningc
  */
 public class UnmarkCommand extends Command {
     private final int taskNumber;
@@ -20,11 +21,6 @@ public class UnmarkCommand extends Command {
         this.taskNumber = taskNumber;
     }
 
-    /**
-     * Unmark a task.
-     * @param taskList The list of tasks.
-     * @throws MikeException If the task number is not present.
-     */
     @Override
     public void execute(TaskList taskList) throws MikeException {
         int taskIndex = taskNumber - 1;

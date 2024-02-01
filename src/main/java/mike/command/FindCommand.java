@@ -5,9 +5,17 @@ import mike.ListViewType;
 import mike.MikeException;
 import mike.TaskList;
 
+/**
+ * Lists the tasks containing a keyword.
+ * @author ningc
+ */
 public class FindCommand extends Command {
     private final String keyword;
 
+    /**
+     * Constructor.
+     * @param keyword Keyword to be found.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }

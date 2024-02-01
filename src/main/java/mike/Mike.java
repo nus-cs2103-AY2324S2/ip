@@ -4,12 +4,18 @@ import mike.command.Command;
 
 import java.util.List;
 
+/**
+ * Mike class.
+ */
 public class Mike {
     private static final String FILE_PATH = "./data/mike.txt";
     private final TaskList taskList;
     private final Ui ui;
     private final Storage storage;
 
+    /**
+     * Constructor.
+     */
     Mike() {
         this.ui = new Ui();
         this.storage = new Storage(FILE_PATH);

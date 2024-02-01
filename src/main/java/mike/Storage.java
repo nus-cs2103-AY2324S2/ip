@@ -19,6 +19,10 @@ class Storage {
     private final String filePath;
     private File file;
 
+    /**
+     * Constructor.
+     * @param filePath The relative path to the storage file.
+     */
     Storage(String filePath) {
         this.fileDirectory = filePath.split("/")[1];
         this.filePath = filePath;
@@ -68,7 +72,7 @@ class Storage {
 
     /**
      * Writes taskList data into file.
-     * @param taskList
+     * @param taskList The list of tasks.
      */
     public void writeToFile(TaskList taskList) {
         try (PrintWriter out = new PrintWriter(filePath)) {

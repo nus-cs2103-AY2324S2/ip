@@ -20,7 +20,7 @@ public class Deadline extends Task {
      * Constructor.
      * @param description The deadline task.
      * @param deadline When the task is due.
-     * @throws MikeException todo
+     * @throws MikeException If deadline String cannot be parsed as a {@link LocalDate} object.
      */
     public Deadline(String description, String deadline) throws MikeException {
         super(description, TYPE);

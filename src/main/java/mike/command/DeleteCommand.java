@@ -6,9 +6,17 @@ import mike.Ui;
 import mike.command.Command;
 import mike.task.Task;
 
+/**
+ * Deletes a task.
+ * @author ningc
+ */
 public class DeleteCommand extends Command {
     private final int taskNumber;
 
+    /**
+     * Constructor.
+     * @param taskNumber The number referring to the task.
+     */
     public DeleteCommand(int taskNumber) {
         this.taskNumber = taskNumber;
     }
