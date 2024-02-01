@@ -1,10 +1,12 @@
 package commands;
 
-import commands.Command;
 import exceptions.DukeException;
 import task.Task;
 import ui.Ui;
 
+/**
+ * Encapsulates a delete command.
+ */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND = "delete";
@@ -14,6 +16,11 @@ public class DeleteCommand extends Command {
         this.i = i;
     }
 
+    /**
+     * Deletes the particular task from TaskList based on the given index.
+     *
+     * @throws DukeException Throws an exception when index is out of range.
+     */
     @Override
     public void execute() throws DukeException {
         if (i > tasks.getList().size() || i <= 0) {

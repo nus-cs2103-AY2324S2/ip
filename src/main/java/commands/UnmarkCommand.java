@@ -3,6 +3,9 @@ package commands;
 import task.Task;
 import ui.Ui;
 
+/**
+ * Encapsulates an unmark command.
+ */
 public class UnmarkCommand extends Command {
     public static final String COMMAND = "unmark";
     private final int index;
@@ -11,10 +14,13 @@ public class UnmarkCommand extends Command {
         this.index = i;
     }
 
+    /**
+     * Sets the task to incomplete status.
+     */
     @Override
     public void execute() {
         try {
-            Task toMark = tasks.get(index-1);
+            Task toMark = tasks.get(index - 1);
             Ui.printVLine();
             System.out.println("Acknowledged!\n" + toMark.setUndone());
             Ui.printVLine();

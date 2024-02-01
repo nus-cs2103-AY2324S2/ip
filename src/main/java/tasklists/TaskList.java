@@ -1,8 +1,8 @@
 package tasklists;
 
 import task.Task;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
 
@@ -27,6 +27,5 @@ public class TaskList {
     public Task get(int i) {
         return tasks.get(i);
     }
-
 
 }

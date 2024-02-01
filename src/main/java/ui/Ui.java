@@ -20,11 +20,19 @@ public class Ui {
         System.out.println("------------------------------------");
     }
 
+    /**
+     * Constructor for Ui.
+     */
     public Ui() {
         intro();
         this.br = new BufferedReader(new InputStreamReader(System.in));
     }
 
+    /**
+     * Reads user input.
+     * @return An array of strings split by spaces.
+     * @throws IOException Throws an error when I/O error is detected.
+     */
     public String[] getUserCommand() throws IOException {
         return br.readLine().split(" ");
     }
@@ -48,7 +56,7 @@ public class Ui {
             return;
         }
         System.out.println("You have " + tasks.size() + " left. There are:");
-        for (int i=1; i<=tasks.size(); i++) {
+        for (int i = 1; i <= tasks.size(); i++) {
             Task t = tasks.get(i-1);
             System.out.println(i +"." + t);
         }

@@ -1,7 +1,5 @@
 package task;
 
-import task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,8 +12,8 @@ import java.time.format.DateTimeParseException;
 public class Event extends Task {
     private String from;
     private String to;
-    LocalDateTime start;
-    LocalDateTime end;
+    private LocalDateTime end;
+
     /**
      * Constructor for Event with a task name, start and end date.
      * @param s Name of the event.
@@ -26,7 +24,7 @@ public class Event extends Task {
         super(s);
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            start = LocalDateTime.parse(from, formatter);
+            LocalDateTime start = LocalDateTime.parse(from, formatter);
             end = LocalDateTime.parse(to, formatter);
             this.from = start.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
             this.to = end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
@@ -36,6 +34,9 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String encode() {
         String s = "E|" + (super.getStatus() ? 1 : 0) + "|" + super.getTask()

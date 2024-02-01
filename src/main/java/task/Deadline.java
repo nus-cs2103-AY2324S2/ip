@@ -14,8 +14,9 @@ public class Deadline extends Task {
     
     private String by;
     private LocalDate date;
+
     /**
-     *
+     * Encapsulates a deadline task.
      * @param s The name of the deadline.
      * @param by The time at which the deadline should be completed.
      */
@@ -30,11 +31,15 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String encode() {
         String s = "D|" + (super.getStatus() ? 1 : 0) + "|" + super.getTask() + "|" + by;
         return s;
     }
+
     @Override
     public String toString() {
         return "[D][" + (super.getStatus() ? "X" : " ") + "] " +

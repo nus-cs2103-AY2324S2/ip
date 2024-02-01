@@ -38,7 +38,6 @@ public class Howie {
         taskLs = storage.readFile();
         while (true) {
             String[] input = ui.getUserCommand();
-
             Command command = new Parser().parseCommand(input);
             try {
                 command.setData(taskLs);
