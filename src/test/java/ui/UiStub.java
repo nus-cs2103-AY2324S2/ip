@@ -1,7 +1,10 @@
 package ui;
 
+/**
+ * Stub implementation of the Ui class for testing purposes.
+ */
 public class UiStub extends Ui {
-    public boolean showToUserCalled;
+    private boolean showToUserCalled;
     private boolean showErrorMessageCalled;
 
     @Override
@@ -14,5 +17,9 @@ public class UiStub extends Ui {
     public void showErrorMessage(String errorMessage) {
         showErrorMessageCalled = true;
         // For simplicity, do nothing in the stub implementation
+    }
+
+    public boolean wasShowToUserCalled() {
+        return this.showToUserCalled;
     }
 }

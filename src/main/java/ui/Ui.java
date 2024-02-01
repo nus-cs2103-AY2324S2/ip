@@ -1,10 +1,10 @@
 package ui;
 
-import task.TaskList;
-
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+
+import task.TaskList;
 
 /**
  * The Ui class is responsible for managing user interface interactions, including
@@ -41,11 +41,11 @@ public class Ui {
      * Displays a list of tasks in the task list.
      * @param tasks The TaskList representing the collection of tasks.
      */
-    public void showList (String message, TaskList tasks) {
+    public void showList(String message, TaskList tasks) {
         out.println("\t" + LINE);
         out.println("\t" + message);
-        for (int i = 0; i < tasks.numTasks(); i++){
-            out.println("\t " + (i+1) + ". " + tasks.get(i));
+        for (int i = 0; i < tasks.numTasks(); i++) {
+            out.println("\t " + (i + 1) + ". " + tasks.get(i));
         }
         out.println("\t" + LINE);
     }

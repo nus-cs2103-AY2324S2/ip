@@ -1,14 +1,13 @@
 package commands;
 
-import exception.EventFormatException;
+import java.io.IOException;
+
 import exception.TodoFormatException;
 import storage.Storage;
 import task.Task;
 import task.TaskList;
 import task.Todo;
 import ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents the command used to add a todo to the task list.

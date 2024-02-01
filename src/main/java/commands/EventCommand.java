@@ -1,15 +1,15 @@
 package commands;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import exception.EventFormatException;
 import storage.Storage;
 import task.Event;
 import task.Task;
 import task.TaskList;
 import ui.Ui;
-
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents the command used to add an event to the task list.
@@ -32,9 +32,12 @@ public class EventCommand extends Command {
 
     /**
      * Executes the EventCommand, adding an event task to the task list based on the provided input message.
-     * The input message is expected to contain a description and the start and end date, separated by "/from" and "/to".
-     * The description represents the task's details, and the start date is the date the task begins and end date is the date the task ends.
-     * If the input does not follow the correct format or if the start and/or end dates are invalid, an EventFormatException is thrown.
+     * The input message is expected to contain a description and the start and end date,
+     * separated by "/from" and "/to".
+     * The description represents the task's details, and the start date is the date the task begins,
+     * and the end date is the date the task ends.
+     * If the input does not follow the correct format
+     * or if the start and/or end dates are invalid, an EventFormatException is thrown.
      *
      * @param tasks   The TaskList representing the collection of tasks.
      * @param storage The Storage object handling storage operations.
