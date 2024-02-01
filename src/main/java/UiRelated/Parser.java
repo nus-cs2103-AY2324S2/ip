@@ -7,6 +7,7 @@ import Commands.UnMarkCommand;
 import Commands.ShowListCommand;
 import Commands.RemoveCommand;
 import Commands.AddToListCommand;
+import Commands.FindCommand;
 import Tasks.DeadLineTask;
 import Tasks.EventTask;
 import Tasks.ToDoTask;
@@ -33,12 +34,12 @@ public class Parser {
             throw new IllegalArgumentException("Task cannot be empty. Please enter a valid task.");
         }
         String[] parts = input.trim().split("\\s+", 2);
-        String command = parts[0];
+        String command = parts[0].toLowerCase();
         int l = parts.length;
         if (l == 1) {
             return CommandWithNoIndex(command);
         }
-        String possibleIndexOrTask = parts[1];
+        String possibleIndexOrTask = parts[1].toLowerCase();
         boolean followedByInteger = isFollowedByInteger(possibleIndexOrTask);
         if (followedByInteger && !command.equals("todo")) {
             int index = Integer.parseInt(possibleIndexOrTask);
@@ -94,6 +95,8 @@ public class Parser {
 
     private static Command addCommand(String command, String possibleTask) throws IllegalArgumentException, DateTimeParseException {
         switch (command) {
+            case "find":
+                return new FindCommand(possibleTask);
             case "todo":
                 return new AddToListCommand(new ToDoTask(possibleTask));
             case "deadline":
