@@ -114,7 +114,7 @@ public class Storage {
                 task = new ToDo("ERROR");
                 System.out.println("Error: Decoding Error, task does not match any of the known types");           
         } 
-        TaskList.addTaskSlient(task);
+        TaskList.addTaskSilent(task);
         if (marked) {
             TaskList.markTaskSilent(TaskList.listSize());
         }
