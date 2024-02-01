@@ -25,13 +25,17 @@ public class Storage {
     public static void start(TaskList taskList) {
         try {
             File file = new File("./src/main/java/duke/storage/savefile.txt");
+
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 Parser parser = new Parser();
                 parser.feed(scanner.nextLine());
+
                 Token output = null;
+
                 try {
                     output = parser.parse();
+
                     taskList.loadFromSave(output.getTask());
                 } catch (Exception e) {
                     UI.error(e.getMessage());

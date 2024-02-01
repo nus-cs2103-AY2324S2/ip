@@ -11,7 +11,6 @@ public class InvalidCommandException extends Exception {
      *
      * @param message The detail message indicating that an invalid command was entered.
      */
-
     public InvalidCommandException(String message) {
         super(message);
     }

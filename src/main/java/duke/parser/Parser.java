@@ -1,9 +1,14 @@
 package duke.parser;
 
-import duke.dukeException.*;
+import duke.dukeException.InvalidCommandException;
+import duke.dukeException.MissingArgumentsException;
+import duke.dukeException.WrongTimeFormatException;
+import duke.dukeException.MissingArgumentsExceptionMarking;
+import duke.dukeException.MissingArgumentsExceptionDeadlines;
+import duke.dukeException.MissingArgumentsExceptionTodo;
+import duke.dukeException.MissingArgumentsExceptionEvents;
 
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.Arrays;
 
 import java.time.LocalDate;
@@ -56,7 +61,7 @@ public class Parser {
      * @throws MissingArgumentsException If required arguments are missing.
      * @throws WrongTimeFormatException If there is an issue with the time format in the input.
      */
-    public Token parse() throws InvalidCommandException, MissingArgumentsException ,WrongTimeFormatException {
+    public Token parse() throws InvalidCommandException, MissingArgumentsException , WrongTimeFormatException {
         String[] split = this.input.split(" ");
         Token token;
         Task task = null;
@@ -138,16 +143,21 @@ public class Parser {
                 // Processes From DateTime
                 try {
                     checkTimeFormat(this.input.substring(from + 5, to).trim());
+
                     String[] temporaryArray = this.input.substring(from + 5, to).trim().split("[\\s/\\-]+");
+
                     int lenTemp = temporaryArray.length;
+
                     for (int i=0; i<temporaryArray.length/2; i++) {
                         String temp = temporaryArray[i];
                         temporaryArray[i] = temporaryArray[lenTemp - 1 - i];
                         temporaryArray[lenTemp - 1 - i] = temp;
                     }
+
                     if (temporaryArray[lenTemp - 2].length() == 1) {
                         temporaryArray[lenTemp - 2] = "0" + temporaryArray[lenTemp - 2];
                     }
+
                     if (temporaryArray[lenTemp - 1].length() == 1) {
                         temporaryArray[lenTemp - 1] = "0" + temporaryArray[lenTemp - 1];
                     }
@@ -160,18 +170,22 @@ public class Parser {
                 // Processes To DateTime
                 try {
                     checkTimeFormat(this.input.substring(to + 3).trim());
+
                     String[] temporaryArray = this.input.substring(to + 3)
                             .trim().split("[\\s/\\-]+");
 
                     int lenTemp = temporaryArray.length;
+
                     for (int i=0; i<temporaryArray.length/2; i++) {
                         String temp = temporaryArray[i];
                         temporaryArray[i] = temporaryArray[lenTemp - 1 - i];
                         temporaryArray[lenTemp - 1 - i] = temp;
                     }
+
                     if (temporaryArray[lenTemp - 1].length() == 1) {
                         temporaryArray[lenTemp - 1] = "0" + temporaryArray[lenTemp - 1];
                     }
+
                     if (temporaryArray[lenTemp - 2].length() == 1) {
                         temporaryArray[lenTemp - 2] = "0" + temporaryArray[lenTemp - 2];
                     }
@@ -181,51 +195,64 @@ public class Parser {
                 } catch (WrongTimeFormatException exception) {
                     throw exception;
                 }
+
                 task = new Events(this.input, this.input.substring(space + 1, from).trim(), fromDateTime, toDateTime);
                 token = new Token(Command.EVENT, task);
             }
             break;
         case "deadline":
             flag = Arrays.asList(split).indexOf("/by");
+
             if (split.length < 4) {
                 throw new MissingArgumentsExceptionDeadlines("deadline");
             } else if (flag < 2 || flag == split.length -1) {
                 throw new MissingArgumentsExceptionDeadlines("deadline");
-            }else {
+            } else {
                 int space = this.input.indexOf(" ");
                 int by = this.input.indexOf("/by");
                 String byDateTime;
+
                 try {
                     checkTimeFormat(this.input.substring(by + 3).trim());
+
                     String[] temporaryArray = this.input.substring(by + 3)
                             .trim().split("[\\s/\\-]+");
                     int lenTemp = temporaryArray.length;
+
                     for (int i = 0; i < temporaryArray.length / 2; i++) {
                         String temp = temporaryArray[i];
                         temporaryArray[i] = temporaryArray[lenTemp - 1 - i];
                         temporaryArray[lenTemp - 1 - i] = temp;
                     }
+
                     if (temporaryArray[lenTemp - 1].length() == 1) {
                         temporaryArray[lenTemp - 1] = "0" + temporaryArray[lenTemp - 1];
                     }
+
                     if (temporaryArray[lenTemp - 2].length() == 1) {
                         temporaryArray[lenTemp - 2] = "0" + temporaryArray[lenTemp - 2];
                     }
+
                     byDateTime = String.join("-", temporaryArray);
                 } catch (WrongTimeFormatException exception) {
                     throw exception;
                 }
+
                 task = new Deadlines(this.input, this.input.substring(space + 1, by).trim(), byDateTime);
                 token = new Token(Command.DEADLINE, task);
             }
             break;
         case "save":
             boolean marked = split[1].equals("1") ? true : false;
+
             this.input = String.join(" ", Arrays.copyOfRange(split, 2, split.length));
+
             token = this.parse();
+
             if (marked) {
                 token.getTask().mark();
             }
+
             token.setAsSaved();
             break;
         default:
@@ -242,6 +269,7 @@ public class Parser {
      */
     private void checkTimeFormat(String string) throws WrongTimeFormatException {
         String[] splitString = string.split("[\\s/\\-]+");
+
         if (splitString.length < 3) {
             throw new WrongTimeFormatException("wrong time buddy");
         } if (splitString.length > 5) {
@@ -251,17 +279,21 @@ public class Parser {
                int year = Integer.parseInt(splitString[2]);
                int month = Integer.parseInt(splitString[1]);
                int day = Integer.parseInt(splitString[0]);
+
                checkRealDate(year, month, day);
             } catch (NumberFormatException e) {
                 throw new WrongTimeFormatException("Use numerals for date");
             } catch (WrongTimeFormatException exception) {
                 throw exception;
             }
+
             if (splitString.length > 3) {
                 String twelveHourFormat = "";
+
                 if (splitString.length > 4) {
                    twelveHourFormat = splitString[4];
                 }
+
                 checkRealTime(splitString[3], twelveHourFormat);
             }
         }
@@ -278,6 +310,7 @@ public class Parser {
     private void checkRealDate(int year , int month, int day) throws WrongTimeFormatException {
         try {
             LocalDate dateToBeChecked = LocalDate.of(year, month, day);
+
             if (dateToBeChecked.isBefore(LocalDate.now())) {
                 throw new WrongTimeFormatException("Can't go back in time buddy");
             }
@@ -300,6 +333,7 @@ public class Parser {
             if (time.length() < 5 && time.indexOf(":") != -1) {
                 time = "0" + time;
             }
+
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[HH:mm]" + "[HHmm]" + "[Hmm]");
                 LocalTime.parse(time, formatter);

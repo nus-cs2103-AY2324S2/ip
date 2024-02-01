@@ -1,6 +1,6 @@
 package duke.dukeException;
 
-public class MissingArgumentsExceptionEvents extends MissingArgumentsExceptionTodo{
+public class MissingArgumentsExceptionEvents extends MissingArgumentsExceptionTodo {
 
     /**
      * Constructs a MissingArgumentsExceptionMarking with the specified detail message.

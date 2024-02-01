@@ -1,11 +1,10 @@
 package duke.dukeException;
 
-
 /**
  * Exception class representing a generic error related to missing arguments in a command.
  * This exception is thrown when a command is missing the required parameters or arguments.
  */
-public class MissingArgumentsException extends Exception{
+public class MissingArgumentsException extends Exception {
 
     /**
      * Constructs a MissingArgumentsException with the specified detail message.

@@ -1,11 +1,10 @@
 package duke.dukeException;
 
-
 /**
  * Exception class representing an error when trying to access an element at an invalid index in a list.
  * This exception is thrown when attempting to access an element at an index that is out of bounds.
  */
-public class ListOutofBoundsException extends Exception{
+public class ListOutofBoundsException extends Exception {
 
     /**
      * Constructs a ListOutofBoundsException with the specified detail message.
