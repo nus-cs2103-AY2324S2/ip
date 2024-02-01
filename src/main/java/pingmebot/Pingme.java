@@ -4,12 +4,21 @@ import pingmebot.task.Deadline;
 import pingmebot.task.Events;
 import pingmebot.task.ToDos;
 
+/**
+ * A simple, interactive task management application.
+ * It allows user to interact with it via command line interface.
+ */
 public class Pingme {
     private fileStorage storage;
     private TaskList tasks;
     private UI ui;
     private Parser parser;
 
+    /**
+     * Creates a Pingme object with a specified file path.
+     *
+     * @param filePath The filePath to the storage of data locally.
+     */
     public Pingme(String filePath) {
         this.ui = new UI();
         try {
@@ -21,6 +30,9 @@ public class Pingme {
         }
     }
 
+    /**
+     * Help to start the main logic of the application.
+     */
     public void run() {
         ui.showWelcome();
         while (true) {

@@ -14,9 +14,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Helps to load tasks from and updating tasks to local file.
+ * It provides methods to boot tasks, if any, from and write any new tasks into the local file.
+ */
 public class fileStorage {
     protected File myFile;
     protected String filePath;
+
+    /**
+     * Creates a filestorage object with a specified file path.
+     *
+     * @param filePath The file path to the local file.
+     * @throws myBotException If the path to the file does not exist.
+     */
     public fileStorage(String filePath) throws myBotException {
         this.myFile = new File(filePath);
         this.filePath = filePath;
@@ -33,6 +44,12 @@ public class fileStorage {
         }
     }
 
+    /**
+     * Loads tasks into list of tasks which is then used to create the tasklist.
+     *
+     * @return List of tasks, if any, from the local file.
+     * @throws myBotException If the path to the file is not found or when syntax of tasks stored in the localfile is not understood.
+     */
     public ArrayList<Task> bootingUp() throws myBotException {
         ArrayList<Task> tasks = new ArrayList<>();
         if (this.myFile.length() == 0) {
@@ -88,6 +105,12 @@ public class fileStorage {
         return tasks;
     }
 
+    /**
+     * Updates and writes all the tasks in the tasklist into the local file.
+     *
+     * @param tasks The list of all tasks.
+     * @throws myBotException If the path to the file is not found.
+     */
     public void updateFile(ArrayList<Task> tasks) throws myBotException {
         try {
             FileWriter fw = new FileWriter(this.filePath);
@@ -106,7 +129,7 @@ public class fileStorage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new myBotException("There is not file to be updated!");
+            throw new myBotException("There is no file to be updated!");
         }
 
     }

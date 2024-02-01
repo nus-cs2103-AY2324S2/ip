@@ -10,18 +10,29 @@ import java.util.Arrays;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Helps to parse and make sense of user's inputs.
+ */
 public class Parser {
     protected String userInput;
     protected ArrayList<String> words;
 
+    /**
+     * Creates a parser class with user's inputs.
+     * It also helps to break down user's commands into an array for better processing afterwards.
+     *
+     * @param userInput User's inputs.
+     */
     public Parser (String userInput) {
         this.userInput = userInput;
         this.words = new ArrayList<>(Arrays.asList(userInput.split(" ")));
     }
 
-    /*
-     * Returns a todo object with the task description
-     * Handles errors where user fails to include task description
+    /**
+     * Creates a ToDos object with a specified task description after parsing user's command with the ToDo command.
+     *
+     * @return A ToDos object with a specified task description.
+     * @throws myBotException If the user did not specify any task description or when the user command is not understood.
      */
     public ToDos todoParser() throws myBotException {
         try {
@@ -40,10 +51,11 @@ public class Parser {
     }
 
 
-    /*
-     * Return a deadline object with task description and date/time to complete the task
-     * Handles error where user forgets to include task description, a deadline,
-     * or when there is an incorrect syntax (e.g. never include /by)
+    /**
+     * Creates a Deadline object with a specified task description and a datetime to do the task by after parsing user's command with the Deadline command.
+     *
+     * @return A Deadline object with a specified task description and a datetime to compelte the task.
+     * @throws myBotException If the user did not specify any task description or datetime to finish the task, or when the user command is not understood.
      */
     public Deadline deadlineParser() throws myBotException {
         StringBuilder description = new StringBuilder();
@@ -82,10 +94,11 @@ public class Parser {
 
     }
 
-    /*
-     * Returns an event object with task description, a from and to date/time
-     * Handles errors where users forget to include task description, a from or to date/time or
-     * incorrect syntax (e.g. never include /from, /to)
+    /**
+     * Creates an Events object with a specified task description, start and end date or time of the event after parsing user's command with the Events command.
+     *
+     * @return An Events object with a specified task description, start and end date or time of the event.
+     * @throws myBotException If the user did not specify any task description, start and end date or time of the event or when the user command is not understood.
      */
     public Events eventsParser() throws myBotException {
         StringBuilder description = new StringBuilder();
@@ -118,10 +131,12 @@ public class Parser {
         }
     }
 
-    /*
-     * Returns an integer to know which task the user wishes to mark
-     * Deals with error when the user accidentally tries to mark a task which does not belong in the list of task
-     * or when the user fails to include which task they want to mark as completed
+    /**
+     * Returns a 0-based index of the task to be marked after parsing the user's comnmand with the mark command.
+     *
+     * @param currentNumOfTask The total number of task currently in the tasklist.
+     * @return A 0-based index of the task to be marked.
+     * @throws myBotException If the index of the task in the tasklist is not specified or when it is higher or lower than the actual total number of tasks currently.
      */
     public int markParser(int currentNumOfTask) throws myBotException {
         try {
@@ -139,10 +154,12 @@ public class Parser {
         }
     }
 
-    /*
-     * Returns an integer to know which task the user wishes to un-mark
-     * Deals with error when the user accidentally tries to un-mark a task which does not belong in the list of task
-     * or when the user fails to include which task they want to un-mark
+    /**
+     * Returns a 0-based index of the task to be un-marked after parsing the user's comnmand with the unmark command.
+     *
+     * @param currentNumOfTask The total number of task currently in the tasklist.
+     * @return A 0-based index of the task to be un-marked.
+     * @throws myBotException If the index of the task in the tasklist is not specified or when it is higher or lower than the actual total number of tasks currently.
      */
     public int unmarkParser(int currentNumOfTask) throws myBotException {
         try {
@@ -160,10 +177,12 @@ public class Parser {
         }
     }
 
-    /*
-     * Returns an integer to know which task the user wishes to delete
-     * Deals with error when the user accidentally tries to delete a task which does not belong in the list of task
-     * or when the user fails to include which task they want to delete
+    /**
+     * Returns a 0-based index of the task to be deleted after parsing the user's comnmand with the delete command.
+     *
+     * @param currentNumOfTask The total number of task currently in the tasklist.
+     * @return A 0-based index of the task to be marked.
+     * @throws myBotException If the index of the task in the tasklist is not specified or when it is higher or lower than the actual total number of tasks currently.
      */
     public int deleteParser(int currentNumOfTask) throws myBotException {
         try {
