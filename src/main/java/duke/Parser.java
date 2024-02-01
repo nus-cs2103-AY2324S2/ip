@@ -2,13 +2,27 @@ package duke;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parser Class is responsible for interpreting the commands entered by the user. Upon invalid commands, exceptions
+ * will be thrown and handled.
+ */
 public class Parser {
     String command = "";
     String secondaryInput = "";
 
+    /**
+     * Constructor for the Parser Class.
+     */
     public Parser() {
 
     }
+
+    /**
+     * Method is responsible for interpreting commands send by the user and handling invalid commands.
+     * @param commandInput
+     * @param duke
+     * @param taskList
+     */
     public void input(String commandInput, Duke duke, TaskList taskList) {
         boolean isCommandValid = false;
         this.command ="";

@@ -5,13 +5,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Storage Class is responsible for the loading and saving of the data.txt file upon exiting the program.
+ */
 public class Storage {
     private String path;
 
+    /**
+     * Constructor for the Storage Class
+     * @param path
+     */
     public Storage(String path) {
         this.path = path;
     }
 
+    /**
+     * Method is responsible for loading the contents in the txt for the Duke program to use.
+     * Returns the TaskList for commands to interact with the tasks inside.
+     * @return TaskList
+     * @throws IOException
+     */
     public TaskList loadFile() throws IOException {
         TaskList taskListInput = new TaskList();
         File file = new File(this.path);
@@ -46,6 +59,11 @@ public class Storage {
         return taskListInput;
     }
 
+    /**
+     * Method is responsible for saving the updated TaskList after the user has finished inputting commands.
+     * The data.txt will be updated upon the termination of Duke program.
+     * @param tasklist
+     */
     public void saveFile(TaskList tasklist) {
         try {
             FileWriter writer = new FileWriter(this.path);
