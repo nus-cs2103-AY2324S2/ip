@@ -1,0 +1,36 @@
+/**
+ * UpdateTaskMarkCommand handles the executing of updating tasks to marked/unmarked.
+ */
+public class UpdateTaskMarkCommand extends TaskCommand { 
+    /** Whether the task is going to be marked or unmarked. */
+    private boolean isMarking;
+
+    /**
+     * Constructs a new UpdateTaskMarkCommand.
+     *
+     * @param isMarking whether the task is marked or unmarked.
+     * @param param the parameter of the command.
+     * 
+     * @return a new UpdateTaskMarkCommand.
+     */
+    public UpdateTaskMarkCommand(Boolean isMarking, String param) {
+        this.isMarking = isMarking;
+        this.param = param;
+    }
+
+    @Override
+    public void Execute() throws InvalidParamException {
+        if (Integer.parseInt(param) >= 1) {
+            if (StorageManager.getInstance().updateTask(Integer.parseInt(param) - 1, isMarking)) {
+                if (isMarking) {
+                    UiManager.getInstance().printMarkingTask();
+                } else {
+                    UiManager.getInstance().printUnmarkingTask();
+                }
+                return;
+            }
+        }
+
+        throw new InvalidParamException("Cannot mark/unmark task", null);
+    }
+}

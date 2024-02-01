@@ -8,6 +8,16 @@ import java.io.PrintWriter;
 * FileManager handles loading and storing of data in local files.
 */
 public class FileManager {
+    // Singleton pattern but lazy loaded from wiki https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom
+    // Wanted a singleton pattern and this seemed the best.
+    private FileManager() {}
+    private static class LazyHolder {
+        static final FileManager INSTANCE = new FileManager();
+    }
+    public static FileManager getInstance() {
+        return LazyHolder.INSTANCE;
+    }
+
     /** Name of text file for the storage data. */
     public String storageFileName = "StorageData.txt";
     

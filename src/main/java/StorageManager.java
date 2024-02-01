@@ -5,6 +5,16 @@ import java.util.ArrayList;
 * StorageManager manages and stores tasks into a storage.
 */
 public class StorageManager {
+    // Singleton pattern but lazy loaded from wiki https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom
+    // Wanted a singleton pattern and this seemed the best.
+    private StorageManager() {}
+    private static class LazyHolder {
+        static final StorageManager INSTANCE = new StorageManager();
+    }
+    public static StorageManager getInstance() {
+        return LazyHolder.INSTANCE;
+    }
+
     /** All types of tasks that is handled by Storage. */
     public enum StorageType {
         TODO,
