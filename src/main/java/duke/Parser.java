@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Represent the class that deals with making sense of the user command
  * CS2103T

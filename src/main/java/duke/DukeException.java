@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Represent the exceptions thrown by the chatbot
  * CS2103T
