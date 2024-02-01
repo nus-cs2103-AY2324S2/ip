@@ -8,189 +8,110 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 public class Duke {
-    static List<Task> todo_list = new ArrayList<>();
+    protected static Storage storage;
+    static TaskList taskList = new TaskList();
     static String filePath = "./data/duke.txt";
 
     static String line = "_______________________________________________________\n";
 
-    private static void initializeTaskList() throws FileNotFoundException{
-        File f = new File(filePath);
-        if (!f.exists()) {
-             System.out.println(line + "There is no record of a previous task list. I shall create one for you\n" + line);
-        } else {
-            Scanner sc = new Scanner(f);
-            while (sc.hasNextLine()) {
-                String task = sc.nextLine();
-                String[] split = task.split(",");
-                String taskType = split[0];
-                Boolean isDone = split[1].equals("X");
-                String desc = split[2];
-                if (taskType.equals("T")) {
-                    ToDo todo = new ToDo(desc);
-                    todo_list.add(todo);
-                    if (isDone) {
-                        todo.mark();
-                    }
-                } else if (taskType.equals("D")) {
-                    String by = split[3];
+    static Ui ui;
 
-                    Deadline deadline = new Deadline(desc, by);
-                    todo_list.add(deadline);
-                    if (isDone) {
-                        deadline.mark();
-                    }
-                } else {
-                    String from = split[3];
-                    String to = split[4];
-                    Event event = new Event(desc, from, to);
-                    todo_list.add(event);
-                    if (isDone) {
-                        event.mark();
-                    }
-                }
-
-            }
-            sc.close();
-        }
-    }
-
-    private static void saveTaskList() throws IOException{
-        FileWriter fw = new FileWriter(filePath);
-        String text = "";
-        for (Task task: todo_list) {
-            if (task instanceof Event) {
-                text += "E,";
-                text += task.isDone()? "X,":" ,";
-                text += task.getName() + ",";
-                text += ((Event) task).getFrom() + ",";
-                text += ((Event) task).getTo() + "\n";
-            } else if (task instanceof Deadline) {
-                text += "D,";
-                text += task.isDone()? "X,":" ,";
-                text += task.getName() + ",";
-                text += ((Deadline) task).getBy() + "\n";
-            } else {
-                text += "T,";
-                text += task.isDone()? "X,":" ,";
-                text += task.getName();
-                text += "\n";
-            }
-        }
-        fw.write(text);
-        fw.close();
-    }
     private static void list() {
-        System.out.println(line);
-
-        for (int i = 0; i < todo_list.size(); i++) {
-            System.out.println(i + 1 + "." + todo_list.get(i));
-        }
-
-        System.out.println(line);
+        ui.showList(taskList);
     }
     private static ToDo addTodo(String name) {
         ToDo todo = new ToDo(name);
-        todo_list.add(todo);
+        taskList.add(todo);
         try {
-            saveTaskList();
+            storage.save(taskList);
         } catch (IOException e) {
 
         }
-        System.out.println(line + " added: " + todo + "\n Now you have " + todo_list.size() + " tasks in the list\n" +
-                line);
+        ui.addTask(todo, taskList.size());
         return todo;
     }
 
     private static Deadline addDeadline(String name, String by) {
         Deadline deadline = new Deadline(name, by);
-        todo_list.add(deadline);
+        taskList.add(deadline);
         try {
-            saveTaskList();
+            storage.save(taskList);
         } catch (IOException e) {
 
         }
-        System.out.println(line + " added: " +
-                deadline + "\n Now you have " + todo_list.size() + " tasks in the list\n" +
-                line);
+        ui.addTask(deadline, taskList.size());
 
         return deadline;
     }
 
     private static Event addEvent(String name, String from, String to) {
         Event event = new Event(name, from, to);
-        todo_list.add(event);
+        taskList.add(event);
         try {
-            saveTaskList();
+            storage.save(taskList);
         } catch (IOException e) {
 
         }
-        System.out.println(line + " added: " +
-                event + "\n Now you have " + todo_list.size() + " tasks in the list\n" +
-                line);
+        ui.addTask(event, taskList.size());
         return event;
     }
 
-    public static void main(String[] args) {
-        String greeting = line +
-                "Hello! I'm Thames and I'll be your assistant chatbot.\n" +
-                "What can I do for you today?\n" +
-                line;
-        System.out.println(greeting);
-        Scanner sc = new Scanner(System.in);
-        try {
-            initializeTaskList();
-        } catch(FileNotFoundException e) {
+    public static void main(String[] args) throws IOException {
+        ui = new Ui();
+        ui.greet();
+        storage = new Storage(filePath)
 
+        try {
+            taskList = new TaskList(storage.load());
+        } catch(FileNotFoundException e) {
+            taskList = new TaskList();
         }
 
         while (true) {
             try {
-                String input = sc.next();
+                String input = ui.next();
                 if (input.equals("bye")) break;
                 else if (input.equals("list")) {
                     list();
                 } else if (input.equals("mark")) {
-                    int index = sc.nextInt();
-                    if (index > todo_list.size() || index <= 0) throw new Exception("Index has to be within list size!");
-                    Task task = todo_list.get(index - 1);
+                    int index = ui.nextInt();
+                    if (index > taskList.size() || index <= 0) throw new Exception("Index has to be within list size!");
+                    Task task = taskList.get(index - 1);
                     task.mark();
                     try {
-                        saveTaskList();
+                        storage.save(taskList);
                     } catch (IOException e) {
 
                     }
-                    System.out.println(line + "Nice! I've marked this task as done:\n " + task + "\n" + line);
+                    ui.mark(task);
                 } else if (input.toLowerCase().equals("unmark")) {
-                    int index = sc.nextInt();
-                    if (index > todo_list.size() || index <= 0) throw new Exception("Index has to be within list size!");
-                    Task task = todo_list.get(index - 1);
+                    int index = ui.nextInt();
+                    if (index > taskList.size() || index <= 0) throw new Exception("Index has to be within list size!");
+                    Task task = taskList.get(index - 1);
                     task.unmark();
 
                     try {
-                        saveTaskList();
+                        storage.save(taskList);
                     } catch (IOException e) {
 
                     }
-                    System.out.println(line + "Ok, I've marked this task as not done yet:\n " + task + "\n" + line);
+                    ui.unmark(task);
                 } else if (input.toLowerCase().equals("delete")) {
-                    int index = sc.nextInt();
-                    if (index > todo_list.size() || index <= 0) throw new Exception("Index has to be within list size!");
-                    Task task = todo_list.remove(index - 1);
+                    int index = ui.nextInt();
+                    if (index > taskList.size() || index <= 0) throw new Exception("Index has to be within list size!");
+                    Task task = taskList.remove(index - 1);
                     try {
-                        saveTaskList();
+                        storage.save(taskList);
                     } catch (IOException e) {
 
                     }
-                    System.out.println(line +
-                            "Noted. I've removed this task from the list:\n " + task +
-                            "\nNow you have " + todo_list.size() + " tasks in the list.\n" +
-                            line);
+                    ui.delete(task, taskList.size());
                 } else if (input.toLowerCase().equals("todo")) {
-                    String str = sc.nextLine().trim();
+                    String str = ui.nextLine().trim();
                     if (str.length() == 0) throw new Exception("Todo task cannot be empty!\n");
                     addTodo(str);
                 } else if (input.toLowerCase().equals("deadline")) {
-                    String s = sc.nextLine();
+                    String s = ui.nextLine();
                     if (s.split("/by").length != 2) {
                         throw new Exception("Please provide your deadline task in the following format:\n" +
                                 "Deadline <description> /by <description>\n");
@@ -203,7 +124,7 @@ public class Duke {
 
                     addDeadline(name, by);
                 } else if (input.toLowerCase().equals("event")) {
-                    String s = sc.nextLine();
+                    String s = ui.nextLine();
                     String[] split1 = s.split("/from");
                     if (split1.length != 2) {
                         throw new Exception("Please provide your event task in the following format:\n" +
@@ -232,9 +153,6 @@ public class Duke {
             }
         }
 
-        String exit = line +
-                "Bye. Hope to see you soon!\n" +
-                line;
-        System.out.println(exit);
+        ui.bye();
     }
 }
