@@ -3,6 +3,8 @@
  * <p>
  * This exception should be thrown when we are unable to recognise our user's input, such as an unknown command etc.
  */
+package exception;
+
 public class DukeExceptionInvalidCommand extends DukeException {
     
     /**

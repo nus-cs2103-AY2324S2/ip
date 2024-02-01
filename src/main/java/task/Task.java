@@ -4,9 +4,18 @@
  * This class acts as a base for all specific Task types (e.g., Event, Todo, Deadline).
  * It can be extended to create the corresponding Task.
  */
-public class Task {
-    private String command;
+package task;
+
+public abstract class Task {
+    String command;
     private boolean completed;
+    /**
+     * Returns a string representation of this Task for storage in DataWriter.
+     * This includes the formating required for the reader to split and read it.
+     * 
+     * @return a formatted string representation of this object. 
+     */
+    public abstract String formatDataLine();
 
     /**
      * Creates a Task object with the task name.

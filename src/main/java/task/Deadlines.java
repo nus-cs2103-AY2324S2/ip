@@ -1,11 +1,11 @@
-import java.io.EOFException;
-
 /**
  * Represents a Deadlines Task.
  * <p>
  * This class is the representation of a Deadlines task.
  * It extends from its parent class the Task class.
  */
+package task;
+
 public class Deadlines extends Task {
     private String end;
 
@@ -19,6 +19,17 @@ public class Deadlines extends Task {
     public Deadlines(String c, String end) {
         super(c);
         this.end = end.split("by ")[1];
+    }
+
+    /**
+     * Returns a string representation of this Deadlines object for storage in DataWriter.
+     * This includes the formating required for the reader to split and read it.
+     * 
+     * @return a formatted string representation of this object. 
+     */
+    @Override
+    public String formatDataLine() {
+        return "Deadlines|" + super.command + "|" + this.end;
     }
 
     /**

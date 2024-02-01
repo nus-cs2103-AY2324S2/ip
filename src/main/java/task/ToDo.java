@@ -4,6 +4,8 @@
  * This class is the representation of a Todo task.
  * It extends from its parent class the Task class.
  */
+package task;
+
 public class ToDo extends Task {
 
     /**
@@ -14,6 +16,17 @@ public class ToDo extends Task {
      */
     public ToDo(String c) {
         super(c);
+    }
+
+    /**
+     * Returns a string representation of this Todo object for storage in DataWriter.
+     * This includes the formating required for the reader to split and read it.
+     * 
+     * @return a formatted string representation of this object. 
+     */
+    @Override
+    public String formatDataLine() {
+        return "ToDo|" + super.command;
     }
 
     /**

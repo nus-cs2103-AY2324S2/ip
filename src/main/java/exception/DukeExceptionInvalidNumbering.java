@@ -4,6 +4,8 @@
  * This exception should be thrown specifically for the commands: mark, unmark and delete.
  * It occurs when the number provided does not exist in storage, or if the storage is empty.
  */
+package exception;
+
 public class DukeExceptionInvalidNumbering extends DukeException {
     private int id;
     

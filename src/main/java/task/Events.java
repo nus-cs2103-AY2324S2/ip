@@ -4,6 +4,8 @@
  * This class is the representation of a Events task.
  * It extends from its parent class the Task class.
  */
+package task;
+
 public class Events extends Task {
     private String from;
     private String to;
@@ -20,6 +22,17 @@ public class Events extends Task {
         super(c);
         this.from = from.split("from ")[1];
         this.to = to.split("to ")[1];
+    }
+
+    /**
+     * Returns a string representation of this Events object for storage in DataWriter.
+     * This includes the formating required for the reader to split and read it.
+     * 
+     * @return a formatted string representation of this object. 
+     */
+    @Override
+    public String formatDataLine() {
+        return "Events|" + super.command + "|" + this.from + "|" + this.to;
     }
 
     /**
