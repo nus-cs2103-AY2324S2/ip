@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class Deadline extends Task {
@@ -30,5 +31,15 @@ public class Deadline extends Task {
 
     public void setByDate(String byDate) {
         this.byDate = Optional.of(byDate);
+    }
+
+    public String getByDate() {
+        return this.byDate.orElse("");
+    }
+
+    protected ArrayList<String> exportDataAsArray() {
+        ArrayList<String> data = super.exportDataAsArray();
+        data.add(this.getByDate());
+        return data;
     }
 }

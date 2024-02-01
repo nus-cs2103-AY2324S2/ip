@@ -45,4 +45,19 @@ public class Event extends Task {
     public void setToDate(String toDate) {
         this.toDate = Optional.of(toDate);
     }
+
+    public String getFromDate() {
+        return this.fromDate.orElse("");
+    }
+
+    public String getToDate() {
+        return this.toDate.orElse("");
+    }
+
+    protected ArrayList<String> exportDataAsArray() {
+        ArrayList<String> data = super.exportDataAsArray();
+        data.add(this.getFromDate());
+        data.add(this.getToDate());
+        return data;
+    }
 }
