@@ -100,8 +100,27 @@ public class Duke {
                     printBreak();
                 }
                 word = sc.nextLine();
-            }
-            else {
+            } else if (word.startsWith("delete")) {
+                String[] split = word.split(" ");
+                try {
+                    if (split.length < 2) {
+                        throw new DukeException("Which task do you want to delete?");
+                    }
+                    int number = Integer.parseInt(split[1]);
+                    Task task = list.get(number -  1);
+                    printBreak();
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(" " + task);
+                    list.remove(number - 1);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    printBreak();
+                } catch (DukeException d) {
+                    printBreak();
+                    System.out.println(d.getMessage());
+                    printBreak();
+                }
+                word = sc.nextLine();
+            } else {
                 try {
                     throw new DukeException("I don't understand bro");
                 } catch (DukeException d) {
