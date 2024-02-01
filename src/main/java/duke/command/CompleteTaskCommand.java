@@ -1,3 +1,9 @@
+package duke.command;
+
+import duke.TaskList;
+import duke.Storage;
+import duke.Ui;
+
 import java.io.IOException;
 public class CompleteTaskCommand extends Command {
     private final int taskIndex;

@@ -1,11 +1,14 @@
+package duke;
+
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import duke.task.Task;
 
 public class Ui {
 
     public void showWelcome() {
-        System.out.println("Hello! I'm Duke\nWhat can I do for you?");
+        System.out.println("Hello! I'm duke.Duke\nWhat can I do for you?");
     }
 
     public void showError(String errorMessage) {

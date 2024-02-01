@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.*;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,25 +18,32 @@ public class Storage {
 
 
     public ArrayList<Task> load() throws FileNotFoundException, JamieException {
+        File file = new File(this.file);
         ArrayList<Task> loadedTasks = new ArrayList<>();
 
-        Scanner scanner = new Scanner(this.file);
+        if (!file.exists()) {
+            return loadedTasks; // Return an empty list if the file doesn't exist
+        }
+
+        Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
             String taskString = scanner.nextLine();
-            String[] splits = taskString.split(" ", 3);
+            String[] splits = taskString.split(" \\| "); // Splitting each part of the task
             switch (splits[0]) {
                 case "T": {
-                    Task toAdd = new ToDo(splits[2], (splits[1].equals("1")));
+                    Task toAdd = new ToDo(splits[2], splits[1].equals("1"));
                     loadedTasks.add(toAdd);
                     break;
                 }
                 case "E": {
-                    Task toAdd = new Event(splits[2], scanner.nextLine(), scanner.nextLine(), splits[1].equals("1"));
+                    // Assuming splits[2] is the description, splits[3] is the fromDateTime, and splits[4] is the toDateTime
+                    Task toAdd = new Event(splits[2], splits[3], splits[4], splits[1].equals("1"));
                     loadedTasks.add(toAdd);
                     break;
                 }
                 case "D": {
-                    Task toAdd = new Deadline(splits[2], scanner.nextLine(), splits[1].equals("1"));
+                    // Assuming splits[2] is the description and splits[3] is the byDateTime
+                    Task toAdd = new Deadline(splits[2], splits[3], splits[1].equals("1"));
                     loadedTasks.add(toAdd);
                     break;
                 }
@@ -58,11 +69,7 @@ public class Storage {
         StringBuilder textToAdd = new StringBuilder();
         for (Task curr : taskList) {
             if (curr instanceof ToDo) {
-                textToAdd.append(caseTodo((ToDo) curr));
-            } else if (curr instanceof Deadline) {
-                textToAdd.append(caseDeadline((Deadline) curr));
-            } else if (curr instanceof Event) {
-                textToAdd.append(caseEvent((Event) curr));
+                textToAdd.append(curr.toFileString()).append("\n");
             }
         }
         return textToAdd.toString();

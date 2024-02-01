@@ -1,3 +1,8 @@
+package duke;
+
+import duke.command.*;
+import duke.task.*;
+
 public class Parser {
 
     private String userInput;
