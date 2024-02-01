@@ -152,8 +152,12 @@ public class Duke {
                     fromDate = fragments[1];
                     toDate = fragments[2];
 
+                    // format the dates
+                    String formattedFromDate = formatDate(fromDate);
+                    String formattedToDate = formatDate(toDate);
+
                     // instantiate event
-                    desc = eventDetails + " (from: " + fromDate + " to: " + toDate + ")";
+                    desc = eventDetails + " (from: " + formattedFromDate + " to: " + formattedToDate + ")";
                     Event event = new Event(desc);
                     tasks.add(event);
 
