@@ -12,7 +12,8 @@ public class CommandHandler {
         DELETE,
         TODO,
         DEADLINE,
-        EVENT
+        EVENT,
+        FIND
     }
 
     public CommandHandler(Ui uiArg) {
@@ -63,8 +64,11 @@ public class CommandHandler {
                     case EVENT:
                         TaskList.addTask(processEvent(arguments));
                         break;
+                    case FIND:
+                        TaskList.findTask(arguments);
+                        break;
                     default:
-                        System.out.println("Error: CommandSet Hashtable contains a command that is not implemented in the switch statement!");
+                        System.out.println("Error: Fell into default case in executeCommand method!");
                         break;
                 }
                 // To store the updated Task List

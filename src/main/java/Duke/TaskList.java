@@ -67,4 +67,24 @@ public class TaskList {
     public static Task getTask(int idx) {
         return taskList.get(idx-1);
     }
+
+    public static void findTask(String search) {
+        boolean isThereMatch = false;
+        int number = 1;
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            String taskName = task.toString2();
+            if (taskName.toLowerCase().contains(search.toLowerCase())) {
+                if (!isThereMatch) {
+                    System.out.println("Here are the matching tasks in your list: ");
+                    isThereMatch = true;
+                }
+                System.out.println(number + ". " + task);
+                number++;
+            }
+        }
+        if (!isThereMatch) {
+            System.out.println("No matching tasks found!");
+        }
+    }
 }
