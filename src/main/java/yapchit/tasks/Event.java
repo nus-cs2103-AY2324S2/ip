@@ -1,26 +1,26 @@
-package Yapchit.Tasks;
+package yapchit.tasks;
 
-public class Event extends Task{
+public class Event extends Task {
 
     private String from;
     private String to;
-    public Event(String name, String from, String to){
+    public Event(String name, String from, String to) {
         super(name);
         this.from = from;
         this.to = to;
     }
 
     @Override
-    public String toString(){
-        String tag = super.getTag() ? "[X]" : "[ ]";
+    public String toString() {
+        String tag = super.getDone() ? "[X]" : "[ ]";
         return "[E]" + tag + " " + super.getName().strip() + " (from: " + this.from + " to: " + this.to + ")";
     }
 
-    public String getFrom(){
+    public String getFrom() {
         return this.from;
     }
 
-    public String getTo(){
+    public String getTo() {
         return this.to;
     }
 }

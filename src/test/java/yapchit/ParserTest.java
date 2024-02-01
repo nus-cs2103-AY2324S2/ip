@@ -1,9 +1,7 @@
-package Yapchit;
+package yapchit;
 
-import Yapchit.Tasks.Deadline;
-import Yapchit.YapchitExceptions.InvalidDetailException;
-import Yapchit.YapchitExceptions.InvalidKeywordException;
-import Yapchit.YapchitExceptions.YapchitException;
+import yapchit.yapchitexceptions.InvalidKeywordException;
+import yapchit.yapchitexceptions.YapchitException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

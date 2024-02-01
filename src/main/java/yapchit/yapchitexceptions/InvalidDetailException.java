@@ -1,4 +1,4 @@
-package Yapchit.YapchitExceptions;
+package yapchit.yapchitexceptions;
 
 public class InvalidDetailException extends YapchitException{
 

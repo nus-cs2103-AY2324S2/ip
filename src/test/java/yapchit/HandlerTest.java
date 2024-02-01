@@ -1,8 +1,8 @@
-package Yapchit;
+package yapchit;
 
-import Yapchit.Tasks.Deadline;
-import Yapchit.YapchitExceptions.InvalidDetailException;
-import Yapchit.YapchitExceptions.YapchitException;
+import yapchit.tasks.Deadline;
+import yapchit.yapchitexceptions.InvalidDetailException;
+import yapchit.yapchitexceptions.YapchitException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
