@@ -1,0 +1,7 @@
+todo | [X] | borrow book  
+deadline | [X] | return book  | Sunday  
+event | [ ] | project meeting  | Mon 2pm  | 4pm  
+deadline | [ ] | return book  | June 6th 
+event | [ ] | project meeting  | Aug 6th 2pm  | 4pm 
+todo | [ ] | join sport club 
+todo | [ ] | borrow book 
