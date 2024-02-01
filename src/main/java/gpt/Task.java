@@ -3,10 +3,15 @@ package gpt;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+enum TaskType {
+    T, D, E
+}
+
 public class Task {
+
     private boolean done;
-    private String taskName;
-    private TaskType taskType;
+    private final String taskName;
+    private final TaskType taskType;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 

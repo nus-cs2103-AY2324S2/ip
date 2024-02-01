@@ -19,12 +19,12 @@ public class Parser {
         else if (command.startsWith("unmark")) {
             String[] splitInput = command.split("\\s+");
             if (splitInput[0].equals("unmark") && Integer.valueOf(splitInput[1]) <= tl.size()) {
-                tl.get(Integer.valueOf(splitInput[1]) - 1).unmark();
+                tl.unmarkTask(Integer.valueOf(splitInput[1]) - 1);
             }
         } else if (command.startsWith("mark")) {
             String[] splitInput = command.split("\\s+");
             if (splitInput[0].equals("mark") && Integer.valueOf(splitInput[1]) <= tl.size()) {
-                tl.get(Integer.valueOf(splitInput[1]) - 1).mark();
+                tl.markTask(Integer.valueOf(splitInput[1]) - 1);
             }
         } else if (command.equals("save")) {
             storage.saveTasks(tl);

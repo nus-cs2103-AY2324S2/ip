@@ -18,7 +18,7 @@ public class Storage {
 
     }
 
-    private static void createFolderAndFile(String filePath) {
+    static void createFolderAndFile(String filePath) {
         try {
             File dataFolder = new File("./data/");
             if (!dataFolder.exists()) {
@@ -33,8 +33,9 @@ public class Storage {
         }
     }
 
-    public  ArrayList<Task> loadTasks() {
-        ArrayList<Task> loadedTasks = new ArrayList<>();
+    public  TaskList loadTasks() {
+        TaskList loadedTL = new TaskList(new ArrayList<>());
+
 
         try (BufferedReader br = new BufferedReader(new FileReader(this.filePath))) {
             String line;
@@ -44,20 +45,20 @@ public class Storage {
                     TaskType type = TaskType.valueOf(taskData[0]);
                     String name = taskData[1];
                     Boolean done = Integer.parseInt(taskData[2]) == 1;
-                    String startTime = taskData.length > 3 ? taskData[3] : "";
+                    String startTime =  taskData[3];
                     String endTime = taskData.length > 4 ? taskData[4] : "";
 
                     switch(type) {
 
                         case T:
-                            loadedTasks.add(new Task(name, type, done));
+                            loadedTL.addTask(new Task(name, type, done));
                             break;
                         case D:
-                            loadedTasks.add(new Task(name, type, done, startTime));
+                            loadedTL.addTask(new Task(name, type, done, startTime));
                             break;
 
                         case E:
-                            loadedTasks.add(new Task(name, type, done, startTime, endTime));
+                            loadedTL.addTask(new Task(name, type, done, startTime, endTime));
                             break;
 
                     }
@@ -70,7 +71,7 @@ public class Storage {
             System.out.println("Error loading tasks from file: " + e.getMessage());
         }
 
-        return loadedTasks;
+        return loadedTL;
     }
 
     public void saveTasks(TaskList taskList) {

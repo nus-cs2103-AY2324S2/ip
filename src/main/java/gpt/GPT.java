@@ -4,9 +4,7 @@ import java.util.Scanner;
 
 import java.io.IOException;
 
-enum TaskType {
-    T, D, E
-}
+
 
 public class GPT {
     private static final String FILE_PATH = "./gpt/data/GPT.txt"; //for packages, need to change this path to root????
@@ -15,7 +13,7 @@ public class GPT {
     public static void main(String[] args) {
         Ui ui = new Ui();
         Storage storage = new Storage(FILE_PATH);
-        TaskList tl = new TaskList(storage.loadTasks());
+        TaskList tl = storage.loadTasks();
 
         ui.printWelcomeMsg();
 
