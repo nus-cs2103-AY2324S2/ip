@@ -50,7 +50,10 @@ public class Parser {
         } else if (splitInput[0].equalsIgnoreCase(Action.DATE.toString())) {
             return new SearchCommand(userInput);
 
-        } else if (splitInput[0].equalsIgnoreCase(Action.BYE.toString())) {
+        } else if (splitInput[0].equalsIgnoreCase(Action.FIND.toString())) {
+            return new FindCommand(userInput);
+
+        }else if (splitInput[0].equalsIgnoreCase(Action.BYE.toString())) {
             return new ExitCommand();
 
         } else {

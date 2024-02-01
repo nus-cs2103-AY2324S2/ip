@@ -12,5 +12,6 @@ public enum Action {
     UNMARK,
     DELETE,
     DATE,
+    FIND,
     BYE
 }
