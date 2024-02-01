@@ -3,6 +3,16 @@ package gpt;
 import java.util.ArrayList;
 
 public class Parser {
+
+    /**
+     * Parses the user input and executes the corresponding command.
+     *
+     * @param command The user input.
+     * @param tl The TaskList to be modified.
+     * @param ui The Ui to be used.
+     * @param storage The Storage to be used.
+     * @throws GPTException If the user input is invalid.
+     */
     public static void parseCommand(String command, TaskList tl, Ui ui, Storage storage) throws GPTException {
         if (command.equals("list")) {
             for (int i = 1; i <= tl.size(); i++) {

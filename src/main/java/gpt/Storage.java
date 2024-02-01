@@ -12,12 +12,22 @@ import java.io.IOException;
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructor for Storage.
+     *
+     * @param filePath The file path of the data file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         createFolderAndFile(filePath);
 
     }
 
+    /**
+     * Creates the data folder and file if they do not exist.
+     *
+     * @param filePath The file path of the data file.
+     */
     static void createFolderAndFile(String filePath) {
         try {
             File dataFolder = new File("./data/");
@@ -33,6 +43,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the data file.
+     *
+     * @return The TaskList containing the loaded tasks.
+     */
     public  TaskList loadTasks() {
         TaskList loadedTL = new TaskList(new ArrayList<>());
 
@@ -74,6 +89,11 @@ public class Storage {
         return loadedTL;
     }
 
+    /**
+     * Saves tasks to the data file.
+     *
+     * @param taskList The TaskList containing the tasks to be saved.
+     */
     public void saveTasks(TaskList taskList) {
         try (FileWriter fw = new FileWriter(this.filePath)) {
             for (Task task : taskList.getTasks()) {
