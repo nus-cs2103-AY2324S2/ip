@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("scribbles.Scribbles")
 }
 
 shadowJar {
@@ -37,6 +37,6 @@ shadowJar {
     dependsOn("distZip", "distTar")
 }
 
-run{
+run {
     standardInput = System.in
 }
