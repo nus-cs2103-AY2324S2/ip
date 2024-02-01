@@ -1,16 +1,9 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -87,75 +80,12 @@ public class Duke {
         return subStr;
     }
 
-    /**
-     * Return the list of task that were saved previously.
-     * @param fileName Name of the file.
-     * @return A list of tasks.
-     */
-    public static List<Task> getInputFromFile(String fileName) {
-        List<Task> lst = new ArrayList<>();
-        try {
-            File file = new File(fileName);
-            Scanner sc = new Scanner(file);
-            while (sc.hasNextLine()) {
-                String str = sc.nextLine();
-                String[] subStr = str.split("\\| ");
-                if (subStr[0].trim().equalsIgnoreCase("T")) {
-                    Todo todo = new Todo(subStr[2]);
-                    if (subStr[1].trim().equalsIgnoreCase("1")) {
-                        todo.isCompleted();;
-                    } else {
-                        todo.isNotCompleted();
-                    }
-                    lst.add(todo);
-                } else if (subStr[0].trim().equalsIgnoreCase("D")) {
-                    Deadline deadline = new Deadline(subStr[2], subStr[3]);
-                    if (subStr[1].trim().equalsIgnoreCase("1")) {
-                        deadline.isCompleted();;
-                    } else {
-                        deadline.isNotCompleted();
-                    }
-                    lst.add(deadline);
-                } else if (subStr[0].trim().equalsIgnoreCase("E")) {
-                    Event event = new Event(subStr[2], subStr[3], subStr[4]);
-                    if (subStr[1].trim().equalsIgnoreCase("1")) {
-                        event.isCompleted();;
-                    } else {
-                        event.isNotCompleted();
-                    }
-                    lst.add(event);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Chat history are not present!");
-        }
-        return lst;
-    }
-
-    /**
-     * Write/Update/Delete task in the file.
-     * @param lst A list of tasks.
-     * @param fileName Name of the file.
-     * @throws IOException throw exception if there is an issue updating the file.
-     */
-    public static void writeDataToFile(List<Task> lst, String fileName) throws IOException {
-        try {
-            File file = new File(fileName);
-            FileWriter fw = new FileWriter(file);
-            for (Task task : lst) {
-                fw.write(task.toFile() + "\n");
-            }
-            fw.close();
-        } catch (IOException e) {
-            Files.createDirectories(Paths.get("./data"));
-        }
-    }
-
     public static void main(String[] args) {
         System.out.println("Hello! I'm GHBot");
         System.out.println("What can I do for you?");
         String fileName = "./data/history.txt";
-        List<Task> lst = getInputFromFile(fileName);
+        Storage storage = new Storage(fileName);
+        List<Task> lst = storage.getInputFromFile();
         Scanner sc = new Scanner(System.in);
         DateTimeFormatter inTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         DateTimeFormatter outTimeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hhmma");
@@ -229,7 +159,7 @@ public class Duke {
                     lst.remove(lstNo - 1);
                     System.out.println("Now you have " + lst.size() + " tasks in the list.");
                 }
-                writeDataToFile(lst, fileName);
+                storage.writeDataToFile(lst);
             } catch (DukeException | IOException | DateTimeParseException e) {
                 System.out.println(e.getMessage());
             }
