@@ -4,24 +4,82 @@ Dave: Nice to meet you, I'm the ever-helpful Dave!
 How may I be of service today?
 ____________________________________________________________
 
+Dave did not find any existing tasks to load.
+____________________________________________________________
+
+____________________________________________________________
+
+Dave cannot record a TODO task without a name.
+Please help Dave by entering your TODO name as follows:
+
+todo <name>
+____________________________________________________________
+
+____________________________________________________________
+
+Dave cannot record a DEADLINE task without a name/deadline.
+Please help Dave by entering your DEADLINE task as follows:
+
+deadline <name> /by dd-mm-yyyy hhmm
+____________________________________________________________
+
+____________________________________________________________
+
+Dave cannot record an EVENT task without a name/duration.
+Please help Dave by entering your EVENT task as follows:
+
+event <name> /from dd-mm-yyy hhmm /to dd-mm-yyyy hhmm
+____________________________________________________________
+
+____________________________________________________________
+
+Dave does not know what to do.
+Please help Dave by only entering the available commands.
+
+Commands available:
+todo <task>,
+deadline <task> /by <dd-mm-yyyy hhmm>,
+event <task> /from <dd-mm-yyyy hhmm> /to <dd-mm-yyyy hhmm>,
+mark <task number>,
+delete <task number>,
+list
+____________________________________________________________
+
 ____________________________________________________________
 
 Dave added the task:
-  [To-do][ ] borrow book
+  [To-do][ ] read book
 You now have 1 task(s).
 ____________________________________________________________
 
 ____________________________________________________________
 
 Dave added the task:
-  [Deadline][ ] return book (by: Sunday)
+  [Deadline][ ] return book (by: Feb 02 2012 6PM)
 You now have 2 task(s).
 ____________________________________________________________
 
 ____________________________________________________________
 
+Good job! Dave will mark this task as done:
+  [Deadline][X] return book (by: Feb 02 2012 6PM)
+____________________________________________________________
+
+____________________________________________________________
+
 Dave added the task:
-  [Event][ ] project meeting (from: Mon 2pm to: 4pm)
+  [Event][ ] proj meeting (from: Feb 02 2012 7PM to: Feb 02 2012 8PM)
 You now have 3 task(s).
+____________________________________________________________
+
+____________________________________________________________
+
+Dave could not find the specified task.
+Note that there are 3 task(s) currently.
+____________________________________________________________
+
+____________________________________________________________
+
+Dave: Thank you for your patronage, goodbye and have a nice day!
 ____________________________________________________________
 
