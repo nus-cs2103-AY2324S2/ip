@@ -1,4 +1,6 @@
-// Generic Task
+package duke.task;
+
+// Generic duke.task.Task
 public class Task {
     protected String name;
     protected boolean isDone;
