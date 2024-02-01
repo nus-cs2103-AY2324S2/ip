@@ -12,16 +12,29 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 
+/**
+ * TaskList class to represent the collection of tasks being maintained.
+ */
 public class TaskList {
     private List<Task> list;
 
     private Storage storage;
 
+    /**
+     * Creates an empty instance of a TaskList from scratch
+     * @param storage Storage object to help store the list.
+     */
     public TaskList(Storage storage) {
         this.list = new ArrayList<>();
         this.storage = storage;
     }
 
+    /**
+     * Creates a TaskList based on data file
+     * @param storage Storage object to help store the list
+     * @param f File to load TaskList from
+     * @throws FileNotFoundException If file is not found.
+     */
     public TaskList(Storage storage, File f) throws FileNotFoundException {
         this.list = new ArrayList<>();
         this.storage = storage;
@@ -52,18 +65,31 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds the specified task to the list.
+     * @param task Task to be added.
+     */
     public void add(Task task) {
         list.add(task);
         save();
     }
 
+    /**
+     * Deletes the specified task from the list.
+     * @param index Index to delete from.
+     * @return Returns the task deleted.
+     */
     public Task delete(int index) {
         Task removed = list.remove(index - 1);
         save();
         return removed;
     }
 
-    // Have yet to handle index out of range error
+    /**
+     * Marks the specified task as either done / not done
+     * @param index Index of task to be marked
+     * @param mark If set to true, task is marked. If set to false, task is unmarked.
+     */
     public void mark(int index, boolean mark) {
         if (mark) {
             list.get(index - 1).mark();
@@ -73,14 +99,26 @@ public class TaskList {
         save();
     }
 
+    /**
+     * Returns the size of the task list.
+     * @return Size of task list.
+     */
     public int getSize() {
         return list.size();
     }
 
+    /**
+     * Returns the task at the specified index (input is 1-indexed)
+     * @param index
+     * @return The specified task at index
+     */
     public Task getTaskByIndex(int index) {
         return list.get(index - 1);
     }
 
+    /**
+     * Saves the current state of task list to Storage object.
+     */
     private void save() {
         String text = "";
         for (Task t : list) {

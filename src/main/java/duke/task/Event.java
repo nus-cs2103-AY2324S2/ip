@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class representing Events
+ */
 public class Event extends Task {
     protected String from;
     protected String to;
@@ -11,6 +14,12 @@ public class Event extends Task {
     protected LocalDate fromDate;
     protected LocalDate toDate;
 
+    /**
+     * Creates an instance of Event
+     * @param name name of the event
+     * @param from Start date/time of the event
+     * @param to End date/time of the event
+     */
     public Event(String name, String from, String to) {
         super(name);
         this.from = from;
