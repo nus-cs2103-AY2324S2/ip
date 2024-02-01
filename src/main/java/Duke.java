@@ -1,9 +1,18 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Date;
+import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
+
 
 public class Duke {
     public enum CommandType {
@@ -11,8 +20,8 @@ public class Duke {
     }
 
     private static final String DATA_FILE_PATH = "./data/duke.txt";
-    private static final Path directoryPath = Paths.get("./data");
-    private static final Path filePath = Paths.get(DATA_FILE_PATH);
+    private static final Path DIRECTORY_PATH = Paths.get("./data");
+    private static final Path FILE_PATH = Paths.get(DATA_FILE_PATH);
 
     public static void main(String[] args) throws DukeException, IOException {
         Scanner scanner = new Scanner(System.in);
@@ -115,8 +124,11 @@ public class Duke {
                     deadlineDetails = fragments[0];
                     byDate = fragments[1];
 
+                    // format the date
+                    String formattedByDate = formatDate(byDate);
+
                     // instantiate deadline
-                    desc = deadlineDetails + " (by: " + byDate + ")";
+                    desc = deadlineDetails + " (by: " + formattedByDate + ")";
                     Deadline deadline = new Deadline(desc);
                     tasks.add(deadline);
 
@@ -140,8 +152,12 @@ public class Duke {
                     fromDate = fragments[1];
                     toDate = fragments[2];
 
+                    // format the dates
+                    String formattedFromDate = formatDate(fromDate);
+                    String formattedToDate = formatDate(toDate);
+
                     // instantiate event
-                    desc = eventDetails + " (from: " + fromDate + " to: " + toDate + ")";
+                    desc = eventDetails + " (from: " + formattedFromDate + " to: " + formattedToDate + ")";
                     Event event = new Event(desc);
                     tasks.add(event);
 
@@ -246,11 +262,10 @@ public class Duke {
     private static ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
 
-        if (!Files.exists(filePath)) {
-            if (!Files.exists(directoryPath));
-                Files.createDirectories(directoryPath);
-            System.out.println("dont have");
-            Files.createFile(filePath);
+        if (!Files.exists(FILE_PATH)) {
+            if (!Files.exists(DIRECTORY_PATH));
+                Files.createDirectories(DIRECTORY_PATH);
+            Files.createFile(FILE_PATH);
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE_PATH))) {
@@ -268,6 +283,27 @@ public class Duke {
         }
 
         return tasks;
+    }
+    private static String formatDate(String byDate) {
+        List<DateTimeFormatter> formatters = new ArrayList<>();
+        formatters.add(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        formatters.add(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        formatters.add(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        LocalDate parsedDateTime = null;
+
+        System.out.println("Input date: " + byDate);
+
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                parsedDateTime = LocalDate.parse(byDate, formatter);
+                break;
+            } catch (DateTimeParseException e) {
+            }
+        }
+        if (parsedDateTime == null) {
+            return byDate;
+        }
+        return parsedDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 }
 
