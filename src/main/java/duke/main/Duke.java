@@ -4,7 +4,7 @@ import duke.exception.DukeException;
 /**
  * This class represents a chat application.
  */
-public class Duke {
+public class Duke { 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
