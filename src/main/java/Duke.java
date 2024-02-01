@@ -4,8 +4,8 @@ public class Duke {
     public static void main(String[] args) {
         System.out.println("Hello! I'm Linus!\nWhat can I do for you?\n\n");
 
-        Scanner sc = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
 
         // while loop to repeat printing of multiple Scanner inputs
         // adapted with help of AI
@@ -61,9 +61,8 @@ public class Duke {
                     String[] substrings = input.split(" /by ");
 
                     if (substrings[0].length() <= 9) {
-                        throw new DukeException("Please specify the description of the todo task, " +
-                                "starting from one whitespace away from the keyword 'todo'" +
-                                " (e.g. todo borrow book)");
+                        throw new DukeException("Please specify the description of the deadline task " +
+                                "(e.g. deadline return book /by Sunday)");
                     }
 
                     String description = substrings[0].substring(9);
@@ -104,9 +103,23 @@ public class Duke {
                     tasks.add(event);
                     System.out.println("Got it. I've added this task: \n" + event);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                } else if (input.startsWith("delete")) {
+                    if (input.length() <= 7) {
+                        throw new DukeException("Please state the index of the task you want to delete with correct spacing" +
+                                " (e.g. delete 3)");
+                    }
+
+                    Integer indexOfTask = Integer.parseInt(input.substring(7).trim()) - 1;
+
+                    if (indexOfTask < 0 || indexOfTask >= tasks.size()) {
+                        throw new DukeException("The task index is out of range.");
+                    }
+
+                    tasks.remove(indexOfTask);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } else {
                     throw new DukeException("Please give commands that start with any of the following:" +
-                            " [todo, deadline, event, mark, unmark, list, bye]");
+                            " [todo, deadline, event, mark, unmark, list, bye, delete]");
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
