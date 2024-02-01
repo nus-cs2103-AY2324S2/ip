@@ -9,7 +9,6 @@ public class ListCommand extends Command {
     private final ListView listView;
 
     public ListCommand(ListView listView) {
-        super("" );
         this.listView = listView;
     }
 
@@ -21,7 +20,7 @@ public class ListCommand extends Command {
         Ui.display("You and I are a team.\nHere is the task list:");
         taskList
                 .stream()
-                .filter(task -> task.in(listView))
+                .filter(task -> task.inListView(listView))
                 .forEach(task -> {
                     int index = taskList.indexOf(task) + 1;
                     Ui.display(index + "." + task);}

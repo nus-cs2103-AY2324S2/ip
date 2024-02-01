@@ -4,10 +4,17 @@ import mike.TaskList;
 import mike.Ui;
 import mike.task.Task;
 
+/**
+ * Base class for all commands to add tasks.
+ */
 abstract class AddCommand extends Command {
     protected final String description;
+
+    /**
+     * Constructor.
+     * @param description The add command description.
+     */
     public AddCommand(String description) {
-        super("");
         this.description = description;
     }
 

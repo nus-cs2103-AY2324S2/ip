@@ -5,9 +5,18 @@ import mike.TaskList;
 import mike.task.Deadline;
 import mike.task.Task;
 
+/**
+ * Adds deadline to the task list.
+ * @author ningc
+ */
 public class AddDeadlineCommand extends AddCommand {
     private final String deadline;
 
+    /**
+     * Constructor.
+     * @param description What the task is.
+     * @param deadline When the task is due.
+     */
     public AddDeadlineCommand(String description, String deadline) {
         super(description);
         this.deadline = deadline;

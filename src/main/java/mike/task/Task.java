@@ -2,10 +2,14 @@ package mike.task;
 
 import mike.ListView;
 import mike.ListViewType;
-import mike.MikeException;
 
 import java.util.ArrayList;
 
+/**
+ * Base class for all tasks.
+ * Represents common attributes shared among different types of tasks.
+ * @author ningc
+ */
 public abstract class Task {
     protected final String description;
     protected boolean isDone;
@@ -20,34 +24,57 @@ public abstract class Task {
         tags.add(ListViewType.NONE);
     }
 
-    public boolean in(ListView listView) {
+    /**
+     * Check if the event should be in the list view.
+     * @param listView View of the list visible to user.
+     * @return True if event should be in list view, otherwise false.
+     */
+    public boolean inListView(ListView listView) {
         return tags.contains(listView.getType());
     };
 
+    /**
+     * Mark a task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Mark a task as not done.
+     */
     public void markAsNotDone() {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    private String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
-    public String getDescription() {
+    private String getDescription() {
         return description;
     }
 
+    /**
+     * Getter.
+     * @return string representation of Task status.
+     */
     public String getIsDone() {
         return isDone ? "true" : "false";
     }
 
+    /**
+     * Getter.
+     * @return string representation of Task type.
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Getter.
+     * @return file encoding of Task.
+     */
     public String getFileEncoding() {
         return getType() + "," + getDescription() + "," + getIsDone();
     }

@@ -10,7 +10,6 @@ public class DeleteCommand extends Command {
     private final int taskNumber;
 
     public DeleteCommand(int taskNumber) {
-        super("");
         this.taskNumber = taskNumber;
     }
 

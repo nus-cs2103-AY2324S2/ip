@@ -10,7 +10,6 @@ public class MarkCommand extends Command {
     private final int taskNumber;
 
     public MarkCommand(int taskNumber) {
-        super("");
         this.taskNumber = taskNumber;
     }
 
