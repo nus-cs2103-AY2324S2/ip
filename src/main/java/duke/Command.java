@@ -9,6 +9,6 @@ public abstract class Command {
         this.ui = ui;
     }
 
-    public void execute(String description){}
+    public void execute(String description) {}
     
 }

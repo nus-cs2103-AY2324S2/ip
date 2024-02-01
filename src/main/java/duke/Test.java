@@ -4,10 +4,11 @@ package duke;
 
 public class Test {
     enum Size {
-        SMALL, MEDIUM, LARGE, EXTRALARGE}
+        SMALL, MEDIUM, LARGE, EXTRALARGE
+    }
     public static void main(String[] args) {
-        // Size abc = Size.valueOf("small".toUpperCase());
-        System.out.println(Size.valueOf("small".toUpperCase()));
-        System.out.println();
+        String abc ="medium";
+        //Size abc = Size.valueOf("smalll".toUpperCase());
+        System.out.println(Size.valueOf(abc.toUpperCase()));
     }
 }

@@ -82,17 +82,23 @@ public class Parser {
                     command.execute(description);
                     break;
                 case TODO: 
-                case DEADLINE: 
+                    command = new CommandToDo(taskList, ui);
+                    command.execute(description);
+                    break;
+                case DEADLINE:
+                    command = new CommandDeadline(taskList, ui);
+                    command.execute(description);
+                    break;
                 case EVENT:
-                    this.taskList.addTask(userCommand, description, ui);
+                    command = new CommandEvent(taskList, ui);
+                    command.execute(description);
+                    //this.taskList.addTask(userCommand, description, ui);
                     break;
                 default:
                     throw new DukeCeption("Sorry I don't recognize that command :/");
             }
         } catch (Exception e) {
             ui.add(e.getMessage());
-        } finally {
-            ui.print();
         }
     }
 

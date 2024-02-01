@@ -12,12 +12,12 @@ public class CommandDelete extends Command {
     public void execute(String taskNumber) {
         try {
             Task task = taskList.delete(taskNumber);
-            task.markAsNotDone();
-            ui.add("Alright! this task is now unmarked:");
+            ui.add("Okay! this task is now removed:");
             ui.add(task.toString());
-            ui.print();
         } catch (DukeCeption e) {
-            ui.print(e.getMessage());
+            ui.add(e.getMessage());
+        } finally {
+            ui.print();
         }
     }
 }

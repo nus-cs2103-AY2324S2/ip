@@ -21,10 +21,18 @@ public class TaskList {
         return list;
     }
 
+    public int getSize() {
+        return list.size();
+    }
+
     public void uiAddNewTask(Task task, Ui ui) {
         ui.add(String.format("Okay! added this task:"));
         ui.add(task.toString());
         ui.add(String.format("Now you have %d tasks in the list.", this.list.size()));
+    }
+
+    public void addNewTask(Task task) {
+        list.add(task);
     }
 
     public Task getTask(String number) throws DukeCeption {
