@@ -11,7 +11,6 @@ public class Event extends Task {
     private final LocalDateTime endTime;
     private final DateTimeFormatter returnFormatter = DateTimeFormatter.ofPattern("EEE HHmm dd/MM/yyyy");
 
-
     public Event(String description, String startTime, String endTime) {
         super(description);
         DateTimeFormatter acceptFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
@@ -27,5 +26,4 @@ public class Event extends Task {
     public String toString() {
         return String.format(EVENT_MESSAGE, super.toString(), startTime.format(returnFormatter), endTime.format(returnFormatter));
     }
-
 }

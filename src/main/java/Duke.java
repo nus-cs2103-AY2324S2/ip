@@ -28,32 +28,32 @@ public class Duke {
 
             try {
                 switch (command) {
-                case bye:
+                case BYE:
                     sayGoodbye();
                     isOpen = false;
                     break;
-                case list:
+                case LIST:
                     taskList.toString();
                     break;
-                case todo:
+                case TODO:
                     taskList.addToDoTask(arguments);
                     break;
-                case mark:
+                case MARK:
                     taskList.markTask(arguments);
                     break;
-                case unmark:
+                case UNMARK:
                     taskList.unmarkTask(arguments);
                     break;
-                case deadline:
+                case DEADLINE:
                     taskList.addDeadlineTask(arguments);
                     break;
-                case event:
+                case EVENT:
                     taskList.addEventTask(arguments);
                     break;
-                case delete:
+                case DELETE:
                     taskList.deleteTask(arguments);
                     break;
-                case invalid:
+                case INVALID:
                     throw new DukeUnknownCommandException(String.format(UNKNOWN_COMMAND_MESSAGE, p.getUnknownCommand()));
                 default:
                     break;

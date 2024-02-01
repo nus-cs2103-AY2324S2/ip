@@ -24,5 +24,4 @@ public class Deadline extends Task {
     public String toString() {
         return String.format(DEADLINE_MESSAGE, super.toString(), deadline.format(returnFormatter));
     }
-
 }

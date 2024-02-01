@@ -3,15 +3,15 @@ package duke.parser;
 public class Parser {
 
     public enum Command {
-        bye,
-        list,
-        todo,
-        mark,
-        unmark,
-        deadline,
-        event,
-        delete,
-        invalid
+        BYE,
+        LIST,
+        TODO,
+        MARK,
+        UNMARK,
+        DEADLINE,
+        EVENT,
+        DELETE,
+        INVALID
     }
 
     private final Command command;
@@ -25,7 +25,7 @@ public class Parser {
         try {
             c = Command.valueOf(splitInputs[0].toLowerCase());
         } catch (IllegalArgumentException e) {
-            c = Command.invalid;
+            c = Command.INVALID;
             this.unknownCommand = splitInputs[0];
         }
 

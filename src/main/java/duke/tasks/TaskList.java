@@ -2,7 +2,6 @@ package duke.tasks;
 
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeIllegalArgumentException;
-
 import java.util.ArrayList;
 import java.nio.file.Path;
 import duke.storage.Storage;
@@ -178,5 +177,4 @@ public class TaskList {
             System.out.println(e.getMessage());
         }
     }
-
 }
