@@ -78,31 +78,7 @@ public class Duke {
                 createToDoTask(arguments);
                 break;
             case "deadline":
-                if (!arguments.isEmpty()) {
-                    String[] deadlineInfo = arguments.split("/");
-                    st = new StringTokenizer(deadlineInfo[0].trim());
-                    String deadlineDesc = "";
-                    while(st.hasMoreTokens()) {
-                        deadlineDesc += st.nextToken() + " ";
-                    }
-                    deadlineDesc = deadlineDesc.trim();
-                    st = new StringTokenizer(deadlineInfo[1].trim());
-                    st.nextToken();
-                    String by = "";
-                    while(st.hasMoreTokens()) {
-                        by += st.nextToken() + " ";
-                    }
-                    by = by.trim();
-                    Deadline newDeadline = new Deadline(deadlineDesc, by);
-                    tasks.add(newDeadline);
-                    System.out.println(gap + "Confirmed. New task added:\n"
-                            + newDeadline.toString() + "\n");
-                } else {
-                    throw new DukeException("deadline command requires a description for the task"
-                            + " and a deadline. \n\nPlease leave a space after 'deadline'"
-                            + " and enter the task description, \nfollowed by a space and a"
-                            + " forward slash then the deadline of the task.");
-                }
+                createDeadlineTask(arguments);
                 break;
             case "event":
                 if (!arguments.isEmpty()) {
@@ -197,6 +173,34 @@ public class Duke {
             throw new DukeException("todo command requires a description for the task."
                     + "\n\nPlease leave a space after 'todo' and enter"
                     + " the task description.");
+        }
+    }
+
+    private static void createDeadlineTask(String arguments) throws DukeException {
+        if (!arguments.isEmpty()) {
+            String[] deadlineInfo = arguments.split("/");
+            StringTokenizer st = new StringTokenizer(deadlineInfo[0].trim());
+            String deadlineDesc = "";
+            while(st.hasMoreTokens()) {
+                deadlineDesc += st.nextToken() + " ";
+            }
+            deadlineDesc = deadlineDesc.trim();
+            st = new StringTokenizer(deadlineInfo[1].trim());
+            st.nextToken();
+            String by = "";
+            while(st.hasMoreTokens()) {
+                by += st.nextToken() + " ";
+            }
+            by = by.trim();
+            Deadline newDeadline = new Deadline(deadlineDesc, by);
+            tasks.add(newDeadline);
+            System.out.println(gap + "Confirmed. New task added:\n"
+                    + newDeadline.toString() + "\n");
+        } else {
+            throw new DukeException("deadline command requires a description for the task"
+                    + " and a deadline. \n\nPlease leave a space after 'deadline'"
+                    + " and enter the task description, \nfollowed by a space and a"
+                    + " forward slash then the deadline of the task.");
         }
     }
 }
