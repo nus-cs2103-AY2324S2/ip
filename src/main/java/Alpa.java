@@ -1,3 +1,9 @@
+import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,6 +13,7 @@ public class Alpa {
   private static final List<Task> tasks = new ArrayList<>();
 
   public static void main(String[] args) {
+    loadTasks();
     Scanner scanner = new Scanner(System.in);
     String logo = 
               "     _    _             \n"
@@ -59,40 +66,41 @@ public class Alpa {
       try {
         String input = scanner.nextLine();
         String[] parts = input.split(" ");
-        String command = parts[0];
+        CommandType command = CommandType.fromString(parts[0]);
 
-        switch (command.toLowerCase()) {
+        switch (command) {
         
-          case "bye":
+          case BYE:
             handleBye();
             exit = true;
             break;
         
-          case "list":
+          case LIST:
             handleList();
             break;
         
-          case "mark":
-          case "unmark":
+          case MARK:
+          case UNMARK:
             handleMarkUnmark(parts, command);
             break;
         
-          case "todo":
+          case TODO:
             addTask(handleToDo(parts));
             break;
         
-          case "deadline":
+          case DEADLINE:
             addTask(handleDeadline(parts));
             break;
         
-          case "event":
+          case EVENT:
             addTask(handleEvent(parts));
             break;
 
-          case "delete":
+          case DELETE:
             deleteTask(parts);
             break;
 
+          case INVALID:
           default:
             throw new AlpaException("\nOh no, human! I'm sorry but that is not a valid task.");
         }
@@ -105,7 +113,79 @@ public class Alpa {
 
   private static void addTask(Task task) {
     tasks.add(task);
-    printDecoratedMessage("\nYou added a task human!\n" + task);
+    saveTasks();
+    StringBuilder message = new StringBuilder();
+    message.append("\nYou added a task human!\n" + "  " + task).append("\n")
+           .append("Now you have ").append(tasks.size()).append(" tasks in your list!");
+    printDecoratedMessage(message.toString());
+  }
+
+  private static void loadTasks() {
+    File file = new File("./data/tasks.txt");
+    if (file.exists()) {
+      try (Scanner scanner = new Scanner(file)) {
+        while (scanner.hasNext()) {
+          String line = scanner.nextLine();
+          String[] parts = line.split(" \\| ");
+          if (parts.length < 3) {
+            continue; // Invalid line format, skipped
+          }
+          TaskType taskType = TaskType.fromShortName(parts[0]);
+          if (taskType == null) {
+            continue; // Skip if task type is unknown
+          }
+          Task task;
+          switch (taskType) {
+          case TODO:
+            task = new ToDo(parts[2]);
+            break;
+          case DEADLINE:
+            if (parts.length < 4) {
+              continue; // Additional check for Deadline and Event
+            }
+            task = new Deadline(parts[2], parts[3]);
+            break;
+          case EVENT:
+            if (parts.length < 4) {
+              continue;
+            }
+            String[] times = parts[3].split(" - ");
+            if (times.length < 2) {
+              continue;
+            }
+            task = new Event(parts[2].trim(), times[0].trim(), times[1].trim());
+            break;
+          default:
+            continue;
+          }
+          if ("1".equals(parts[1])) {
+            task.markAsDone();
+          }
+          tasks.add(task);
+        }
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+        printDecoratedMessage("File not found human..." + e.getMessage());
+      } catch (Exception e) {
+        e.printStackTrace();
+        printDecoratedMessage("Error reading from file..." + e.getMessage());
+      }
+    } else {
+      new File("./data").mkdirs();
+    }
+  }
+
+  private static void saveTasks() {
+    try (FileWriter fw = new FileWriter("./data/tasks.txt");
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter out = new PrintWriter(bw)) {
+      for (Task task : tasks) {
+        out.println(task.toFileFormat());
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+      printDecoratedMessage("\nError! Could not save tasks!" + e.getMessage());
+    }
   }
 
   private static void handleBye() {
@@ -125,18 +205,22 @@ public class Alpa {
     printDecoratedMessage(listOutput.toString());
   }
 
-  private static void handleMarkUnmark(String[] parts, String command) throws AlpaException {
+  private static void handleMarkUnmark(String[] parts, CommandType command) throws AlpaException {
     try {
       int index = Integer.parseInt(parts[1]) - 1;
       if (index >= 0 && index < tasks.size()) {
         Task task = tasks.get(index);
         String response;
-        if (command.equals("mark")) {
+        if (command == CommandType.MARK) {
           task.markAsDone();
+          saveTasks();
           response = "\nMarked as done, human!\n" + task;
-        } else {
+        } else if (command == CommandType.UNMARK){
           task.markAsNotDone();
+          saveTasks();
           response = "\nNot done with this yet, human?\n" + task;
+        } else {
+          throw new AlpaException("\nI don't know what you are referring to human!!");
         }
         printDecoratedMessage(response);
       } else {
@@ -161,6 +245,7 @@ public class Alpa {
     }
     String deadlineDescription = String.join(" ", Arrays.copyOfRange(parts, 1, byIndex));
     String deadline = String.join(" ", Arrays.copyOfRange(parts, byIndex + 1, parts.length));
+    saveTasks();
     return new Deadline(deadlineDescription, deadline);
   }
 
@@ -170,9 +255,10 @@ public class Alpa {
     if (fromIndex == -1 || toIndex == -1|| fromIndex >= parts.length - 1 || toIndex <= fromIndex) {
       throw new AlpaException("\nInvalid event format, human! Please use '/from' and '/to' to specify the event time.");
     }
-    String eventDescription = String.join(" ", Arrays.copyOfRange(parts, 1, fromIndex));
-    String from = String.join(" ", Arrays.copyOfRange(parts, fromIndex + 1, toIndex));
-    String to = String.join(" ", Arrays.copyOfRange(parts, toIndex + 1, parts.length));
+    String eventDescription = String.join(" ", Arrays.copyOfRange(parts, 1, fromIndex)).trim();
+    String from = String.join(" ", Arrays.copyOfRange(parts, fromIndex + 1, toIndex)).trim();
+    String to = String.join(" ", Arrays.copyOfRange(parts, toIndex + 1, parts.length)).trim();
+    saveTasks();
     return new Event(eventDescription, from, to);
   }
 
@@ -181,6 +267,7 @@ public class Alpa {
       int index = Integer.parseInt(parts[1]) - 1;
       if (index >= 0 && index < tasks.size()) {
         Task removedTask = tasks.remove(index);
+        saveTasks();
         printDecoratedMessage("\nRemoved this task for you, human.\n" + removedTask + "\nNow you have " + tasks.size() + " tasks left human!");
       } else {
         throw new AlpaException("Invalid task number, human!!"); 
