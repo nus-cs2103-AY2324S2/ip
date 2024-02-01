@@ -1,4 +1,4 @@
-package jade;
+package jade.data;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +27,7 @@ public class Task {
         this.isDone = true;
     }
 
-    protected void unMark() {
+    protected void unmark() {
         this.isDone = false;
     }
 

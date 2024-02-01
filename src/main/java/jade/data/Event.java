@@ -1,9 +1,9 @@
-package jade;
+package jade.data;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task{
+public class Event extends Task {
     protected LocalDate startDate;
     protected LocalDate endDate;
 

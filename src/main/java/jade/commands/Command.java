@@ -1,8 +1,11 @@
 package jade.commands;
 
-import jade.TaskList;
+import jade.data.TaskList;
+import jade.ui.Ui;
+import jade.storage.Storage;
+import jade.exception.JadeException;
 
 public abstract class Command {
-    public abstract void execute(TaskList tasks, jade.ui.Ui ui, jade.storage.Storage storage);
+    public abstract void execute (TaskList tasks, Ui ui,Storage storage) throws JadeException;
     public abstract boolean isExit();
 }
