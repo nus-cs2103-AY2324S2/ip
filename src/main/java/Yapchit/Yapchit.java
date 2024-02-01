@@ -12,7 +12,8 @@ public class Yapchit {
         DEADLINE,
         EVENT,
         TODO,
-        DELETE;
+        DELETE,
+        FIND;
     }
 
     private Ui ui;

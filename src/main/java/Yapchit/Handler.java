@@ -39,6 +39,10 @@ public class Handler {
                 handleDelete(parts, tasks, ui);
                 break;
 
+            case FIND:
+                handleFind(parts, tasks, ui);
+                break;
+
             case DEADLINE:
                 handleDeadline(input, true, tasks, ui, parser);
                 break;
@@ -168,12 +172,20 @@ public class Handler {
         }
     }
 
-    public void handleList(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
-        if(parts.length != 1){
+    public void handleFind(String[] parts, TaskList tasks, Ui ui) throws  InvalidDetailException {
+        if(parts.length != 2){
             throw new InvalidDetailException("Invalid detail after keyword. Please retry");
         } else {
-            ui.printList(tasks);
+            ui.printList(tasks.findSublist(parts[1]), "Here are the matching tasks in your list:");
         }
+    }
+
+    public void handleList(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
+            if(parts.length != 1){
+                throw new InvalidDetailException("Invalid detail after keyword. Please retry");
+            } else {
+                ui.printList(tasks, "Here are the tasks in your list:");
+            }
     }
 
     public void handleDelete(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{

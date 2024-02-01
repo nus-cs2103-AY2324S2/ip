@@ -25,6 +25,17 @@ public class TaskList {
         }
     }
 
+    public TaskList findSublist(String term){
+        TaskList sublist = new TaskList();
+
+        for(Task task : list){
+            if(task.getName().contains(term)){
+                sublist.addTask(task);
+            }
+        }
+        return sublist;
+    }
+
     public void addTask(Task t){
         list.add(t);
     }
