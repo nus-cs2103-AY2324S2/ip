@@ -1,5 +1,7 @@
+package ghbot;
+
 /**
- * Event class.
+ * ghbot.Event class.
  * This class contains informations about the event.
  */
 public class Event extends Task {
@@ -7,7 +9,7 @@ public class Event extends Task {
     private String toTime;
 
     /**
-     * Event Constructor
+     * ghbot.Event Constructor
      * @param description Description of the event.
      * @param fromTime Start time of the event.
      * @param toTime End time of the event.

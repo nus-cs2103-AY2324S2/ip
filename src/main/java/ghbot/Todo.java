@@ -1,11 +1,13 @@
+package ghbot;
+
 /**
- * Todo class.
+ * ghbot.Todo class.
  * This class contains informations about the todo.
  */
 public class Todo extends Task {
 
     /**
-     * Todo Constructor.
+     * ghbot.Todo Constructor.
      * @param description Description of the todo task.
      */
     public Todo(String description) {
