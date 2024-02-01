@@ -58,4 +58,20 @@ public class Ui {
                 + "\nGet back to work! you have %s tasks in the list\n"
                 + "―――――――――――――――――――――――――――――――――――", taskStoreSize));
     }
+
+    public void showFilteredTask(ArrayList<Task> filteredList, String keyword) {
+        if (filteredList.size() == 0) {
+            System.out.println(String.format("*Honk! no tasks with %s keyword found! "
+                    + "Maybe try looking at the list command", keyword));
+        } else {
+            System.out.println(String.format("*Honk! Pengu has found the following tasks containing "
+                    + "the %s keyword:", keyword));
+            for (int k = 0; k < filteredList.size(); k++) {
+                int curr = k + 1;
+                Task currTask = filteredList.get(k);
+                System.out.println(curr + ". " + currTask.toString());
+            }
+            this.showLine();
+        }
+    }
 }

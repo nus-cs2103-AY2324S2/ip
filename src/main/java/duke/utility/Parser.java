@@ -1,12 +1,6 @@
 package duke.utility;
 
-import duke.command.Command;
-import duke.command.AddTaskCommand;
-import duke.command.DeleteTaskCommand;
-import duke.command.ExitCommand;
-import duke.command.ListTasksCommand;
-import duke.command.MarkTaskCommand;
-import duke.command.UnmarkTaskCommand;
+import duke.command.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -119,6 +113,12 @@ public class Parser {
                 throw new DukeException("*HONK* Pengu thinks you need a valid task number to delete, "
                         + "consider checking the list command");
             }
+        } else if (userInput.toLowerCase().startsWith("find")) {
+            String[] inputArr = userInput.split(" ");
+            if (inputArr.length > 2) {
+                throw new DukeException("Pengu can only look up one-word long keywords");
+            }
+            return new FindTaskCommand(inputArr[1]);
         }
         String keyword = userInput.split(" ")[0].toLowerCase();
         if (!(keyword.equals("todo") || keyword.equals("deadline") || keyword.equals("event"))){

@@ -25,4 +25,8 @@ public abstract class Task {
             isDone = false;
         }
     }
+
+    public String getDescription() {
+        return this.description;
+    }
 }
