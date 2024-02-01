@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
-
 public class Storage {
 
     // Data structure to store text entered by user
@@ -83,7 +81,7 @@ public class Storage {
 
                 String[] tasks = data.split("\n");
                 for (String task: tasks) {
-                    String[] splited = task.split("-");
+                    String[] splited = task.split("`");
                     switch (splited[0]) {
                         case "Deadline": {
                             this.add(new Deadline(splited[1], splited[2].equals("Y"), splited[3]));
@@ -99,7 +97,7 @@ public class Storage {
                     }
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             Ui.print("Error accessing / creating the file: " + e.getMessage());
             return 1;
         }
@@ -120,17 +118,17 @@ public class Storage {
         for (Task t: items) {
             switch (t.getClass().getName()) {
                 case "Deadline": {
-                    textToAdd.append(t.getClass().getName() + "-" + t.getFields()[0] + "-" + t.getFields()[1]
-                            + "-" + t.getFields()[2] + "\n");
+                    textToAdd.append(t.getClass().getName() + "`" + t.getFields()[0] + "`" + t.getFields()[1]
+                            + "`" + t.getFields()[2] + "\n");
                     break;
                 }
                 case "Event": {
-                    textToAdd.append(t.getClass().getName() + "-" + t.getFields()[0] + "-" + t.getFields()[1]
-                            + "-" + t.getFields()[2] + "-" + t.getFields()[3] + "\n");
+                    textToAdd.append(t.getClass().getName() + "`" + t.getFields()[0] + "`" + t.getFields()[1]
+                            + "`" + t.getFields()[2] + "`" + t.getFields()[3] + "\n");
                     break;
                 }
                 default: {
-                    textToAdd.append(t.getClass().getName() + "-" + t.getFields()[0] + "-" + t.getFields()[1] + "\n");
+                    textToAdd.append(t.getClass().getName() + "`" + t.getFields()[0] + "`" + t.getFields()[1] + "\n");
                 }
             }
         }
