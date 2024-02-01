@@ -1,17 +1,21 @@
 import java.io.FileNotFoundException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
-
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeFormatter;
 public class Steven {
 
     public static void main(String[] args) {
         String corrputed = "Oh dear, looks like the file used to handle the data I'm supposed to store is corrupted...\nSteven's Advice: You may need to re-create the file!";
+        String formatError = "My, it would appear as though you didn't format your instruction properly!\n";
         String line = "========\n";
         String bootMsg = ("This is Steven!\nHow can I advise?\n");
-        String blankFieldMsg = "Just to let you know, I can't accept a task with missing details.\nSteven's advice: Make sure you're leaving no blanks in your instructions!";
+        String dateErr = "Ah, this one might be slightly complicated - I need your date in the format of \"yyyy-mm-dd\", and I'm quite strict with this, unfortunately.\nSteven's advice: Follow the format, append your days/months with zero as necessary! For example, \"03\" is accepted for the month of March, but not \"3\"!";
         System.out.print(line + bootMsg + line);
         System.out.println("Steven's advice: Don't know what commands I understand? Use \"help\"!");
         System.out.print(line);
@@ -29,10 +33,10 @@ public class Steven {
 
         boolean exit = false;
         while (!exit) {
-            Scanner userInput = new Scanner(System.in);
-            while (userInput.hasNextLine()) {
-                String command = userInput.nextLine();
-                switch (command.split(" ")[0]) {
+            Scanner Input = new Scanner(System.in);
+            while (Input.hasNextLine()) {
+                UserInput command = new UserInput(Input.nextLine());
+                switch (command.getInputName()) {
                     case "list":
                         System.out.println("This is your list so far:");
                         int counter = 1;
@@ -42,29 +46,53 @@ public class Steven {
                         }
                         break;
                     case "unmark":
-                    case "mark":
-                        String commandType = command.split(" ")[0];
                         try {
-                            int index = Integer.parseInt(command.split(" ", 2)[1]);
-                            if (commandType.equals("unmark")) {
-                                if (!taskList.get(index - 1).getCompletionStatus()) {
-                                    System.out.println("Ah, hold on. Seems like this one's still incomplete. If you meant to mark this as complete instead, use \"mark\".\nDo note that this is the current status of the task:");
-                                } else {
-                                    taskList.get(index - 1).toggleCompletion();
-                                    System.out.println("Sure, I'll mark this as incomplete for the time being.");
-                                }
+                            if (command.arg1Empty()) {
+                                throw new InsufficientArgException();
+                            }
+                            if (!command.arg2Empty() || !command.arg3Empty()) {
+                                throw new ExcessiveArgException();
+                            }
+                            int index = Integer.parseInt(command.getArg1());
+                            if (!taskList.get(index - 1).getCompletionStatus()) {
+                                System.out.println("Ah, hold on. Seems like this one's still incomplete. If you meant to mark this as complete instead, use \"mark\".\nDo note that this is the current status of the task:");
                             } else {
-                                if (taskList.get(index - 1).getCompletionStatus()) {
-                                    System.out.println("Oh, this one's already cleared! Remember that you can use \"unmark\" to mark this as incomplete if that was your intention.\nRegardless, here is the current status of that task:");
-                                } else {
-                                    taskList.get(index - 1).toggleCompletion();
-                                    System.out.println("As you wish, this will me marked as complete then!");
-                                }
+                                taskList.get(index - 1).toggleCompletion();
+                                System.out.println("Sure, I'll mark this as incomplete for the time being.");
                             }
                             System.out.println(taskList.get(index - 1).toString());
                             refreshFile(taskList);
+                        } catch (InsufficientArgException|ExcessiveArgException error) {
+                            System.out.println(formatError + "Steven's advice: The format of \"mark\" is as follows:\nmark (x) - x is an number corresponding with the index of an item in the list.");
                         } catch (NumberFormatException error) {
-                            System.out.println("Hmm... Seems like you want me to mark, or unmark something, but you didn't provide a valid number for me to work off.\nSteven's Advice: Use a number instead.");
+                            System.out.println("Hmm... Seems like you want me to mark, something, but you didn't provide a valid number for me to work off.\nSteven's Advice: Use a number instead.");
+                        } catch (IndexOutOfBoundsException error) {
+                            System.out.println("Ah, a pity... Seems like you don't have that many tasks.\nSteven's advice: Use a number which corresponds to a task number. If you need to know what number corresponds to what task, use \"list\".");
+                        } catch (IOException e) {
+                            System.out.println(corrputed);
+                        }
+                        break;
+                    case "mark":
+                        try {
+                            if (command.arg1Empty()) {
+                                throw new InsufficientArgException();
+                            }
+                            if (!command.arg2Empty() || !command.arg3Empty()) {
+                                throw new ExcessiveArgException();
+                            }
+                            int index = Integer.parseInt(command.getArg1());
+                            if (taskList.get(index - 1).getCompletionStatus()) {
+                                System.out.println("Oh, this one's already cleared! Remember that you can use \"unmark\" to mark this as incomplete if that was your intention.\nRegardless, here is the current status of that task:");
+                            } else {
+                                taskList.get(index - 1).toggleCompletion();
+                                System.out.println("As you wish, this will me marked as complete then!");
+                            }
+                            System.out.println(taskList.get(index - 1).toString());
+                            refreshFile(taskList);
+                        } catch (InsufficientArgException|ExcessiveArgException error) {
+                            System.out.println(formatError + "Steven's advice: The format of \"unmark\" is as follows:\nunmark (x) - x is an number corresponding with the index of an item in the list.");
+                        } catch (NumberFormatException error) {
+                            System.out.println("Hmm... Seems like you want me to unmark something, but you didn't provide a valid number for me to work off.\nSteven's Advice: Use a number instead.");
                         } catch (IndexOutOfBoundsException error) {
                             System.out.println("Ah, a pity... Seems like you don't have that many tasks.\nSteven's advice: Use a number which corresponds to a task number. If you need to know what number corresponds to what task, use \"list\".");
                         } catch (IOException e) {
@@ -73,64 +101,83 @@ public class Steven {
                         break;
                     case "todo":
                         try {
-                            String name = command.split(" ", 2)[1];
-                            if (name.isEmpty()) {
-                                throw new EmptyFieldException();
+                            if (command.arg1Empty()) {
+                                throw new InsufficientArgException();
                             }
+                            if (!command.arg2Empty() || !command.arg3Empty()) {
+                                throw new ExcessiveArgException();
+                            }
+                            String name = command.getArg1();
                             taskList.add(new Todo(name));
                             refreshFile(taskList);
                             System.out.print(line);
                             System.out.println("I see. I shall add the following to the list of tasks:");
                             System.out.println(taskList.get(taskList.size() - 1));
                             System.out.printf("Do bear in mind that you now have %d tasks in the list.%n", taskList.size());
-                        } catch (EmptyFieldException | ArrayIndexOutOfBoundsException error) {
-                            System.out.println(blankFieldMsg);
+                        } catch (InsufficientArgException | ExcessiveArgException error) {
+                            System.out.println(formatError + "Steven's advice: The format of \"Todo\" is as follows:\nTodo (item) - item is the name of an item that you want to add to the list as a todo.");
                         } catch (IOException e) {
                             System.out.println(corrputed);
                         }
                         break;
                     case "deadline":
                         try {
-                            String due = command.split("/by ")[1];
-                            String name = command.split(" ", 2)[1].split("/by")[0];
-                            if (name.isEmpty() || due.isEmpty()) {
-                                throw new EmptyFieldException();
+                            if (command.arg1Empty() || command.arg2Empty()) {
+                                throw new InsufficientArgException();
                             }
-                            taskList.add(new Deadline(name, due));
+                            if (!command.arg3Empty()) {
+                                throw new ExcessiveArgException();
+                            }
+                            LocalDate due = LocalDate.parse(command.getArg2());
+                            taskList.add(new Deadline(command.getArg1(), due));
                             refreshFile(taskList);
                             System.out.print(line);
                             System.out.println("I see. I shall add the following to the list of tasks:");
                             System.out.println(taskList.get(taskList.size() - 1));
                             System.out.printf("Do bear in mind that you now have %d tasks in the list.%n", taskList.size());
-                        } catch (EmptyFieldException | ArrayIndexOutOfBoundsException error) {
-                            System.out.println(blankFieldMsg);
+                        } catch (InsufficientArgException | ExcessiveArgException error) {
+                            System.out.println(formatError + "Steven's advice: The format of \"Deadline\" is as follows:\nDeadline (item) /by (date) - item is the name of an item that you want to add to the list as a deadline. date must be a date.");
                         } catch (IOException e) {
                             System.out.println(corrputed);
+                        } catch (DateTimeParseException error) {
+                            System.out.println(dateErr);
                         }
                         break;
                     case "event":
                         try {
-                            String start = command.split("/from ")[1].split("/to ")[0];
-                            String end = command.split("/to ")[1];
-                            String name = command.split(" ", 2)[1].split("/from")[0];
-                            if (name.isEmpty() || start.isEmpty() || end.isEmpty()) {
-                                throw new EmptyFieldException();
+                            if (command.arg1Empty() || command.arg2Empty() || command.arg3Empty()) {
+                                throw new InsufficientArgException();
                             }
-                            taskList.add(new Event(name, start, end));
+                            LocalDate start = LocalDate.parse((command.getArg2()));
+                            LocalDate end = LocalDate.parse(command.getArg3());
+                            if (end.isBefore(start)) {
+                                throw new IllogicalDateException();
+                            }
+                            taskList.add(new Event(command.getArg1(), start, end));
                             refreshFile(taskList);
                             System.out.print(line);
                             System.out.println("I see. I shall add the following to the list of tasks:");
                             System.out.println(taskList.get(taskList.size() - 1));
                             System.out.printf("Do bear in mind that you now have %d tasks in the list.%n", taskList.size());
-                        } catch (EmptyFieldException | ArrayIndexOutOfBoundsException error) {
-                            System.out.println(blankFieldMsg);
+                        } catch (InsufficientArgException error) {
+                            System.out.println(formatError + "Steven's advice: The format of \"Event\" is as follows:\nDeadline (item) /from (date1) /to (date2) - item is the name of an item that you want to add to the list as a deadline. date1 amd date2 must be a dates.");
                         } catch (IOException e) {
                             System.out.println(corrputed);
+                        } catch (DateTimeParseException error) {
+                            System.out.println(dateErr);
+                        } catch (IllogicalDateException error) {
+                            System.out.println("Now hold on, this doesn't make sense! How can you have an event start earlier than it ends?\nSteven's advice: Make sure your first date is before the second!");
                         }
                         break;
                     case "delete":
                         try {
-                            int index = Integer.parseInt(command.split(" ", 2)[1]);
+                            if (command.arg1Empty()) {
+                                throw new InsufficientArgException();
+                            }
+                            if (!command.arg2Empty() || !command.arg3Empty()) {
+                                throw new ExcessiveArgException();
+                            }
+                            int index = Integer.parseInt(command.getArg1());
                             index -= 1;
                             Task removedItem = taskList.get(index);
                             taskList.remove(index);
@@ -142,6 +189,8 @@ public class Steven {
                                 System.out.printf("%d. %s%n", counter1, t.toString());
                                 counter1++;
                             }
+                        } catch (InsufficientArgException|ExcessiveArgException error) {
+                            System.out.println(formatError + "Steven's advice: The format of \"Delete\" is as follows:\ndelete (x) - x is an number corresponding with the index of an item in the list.");
                         } catch (NumberFormatException error) {
                             System.out.println("Oh, I can't  delete that - I need a number of an item in the list to delete it.\nSteven's Advice: Use a number instead.");
                         } catch (IndexOutOfBoundsException error) {
@@ -191,10 +240,10 @@ public class Steven {
                     t = new Todo(description);
                     break;
                 case "D":
-                    t = new Deadline(description.split(" \\| ")[0], description.split(" \\| ")[1]);
+                    t = new Deadline(description.split(" \\| ")[0], LocalDate.parse(description.split(" \\| ")[1]));
                     break;
                 case "E":
-                    t = new Event(description.split(" \\| ")[0], description.split(" \\| ")[1], description.split(" \\| ")[2]);
+                    t = new Event(description.split(" \\| ")[0], LocalDate.parse(description.split(" \\| ")[1]), LocalDate.parse(description.split(" \\| ")[2]));
                     break;
                 default:
                     t = new Task("errortemp");

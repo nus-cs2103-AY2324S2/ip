@@ -1,8 +1,11 @@
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeFormatter;
 public class Deadline extends Task{
 
-    protected String due;
+    protected LocalDate due;
 
-    Deadline(String name, String due) {
+    Deadline(String name, LocalDate due) {
         super(name);
         this.due = due;
     }
@@ -12,11 +15,11 @@ public class Deadline extends Task{
     }
     @Override
     public String toString() {
-        return String.format("%s%s %s (by: %s)", this.taskTypeDisplay(), this.completionDisplay(), this.name, this.due);
+        return String.format("%s%s %s (by: %s)", this.taskTypeDisplay(), this.completionDisplay(), this.name, this.due.format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
     }
     @Override
     public String storeFormat() {
         String completeFormat = complete ? "1" : "0";
-        return String.format("%s | %s | %s | %s", "D", completeFormat, name, due);
+        return String.format("%s | %s | %s | %s", "D", completeFormat, name, due.format(DateTimeFormatter.ISO_DATE));
     }
 }
