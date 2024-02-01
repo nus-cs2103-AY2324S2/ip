@@ -1,3 +1,5 @@
+package Duke;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +14,8 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    /*public TaskList(List<String> taskData) throws DukeDataCorruptedException {
-        tasks = TaskListDecoder.decode(taskData);
+    /*public Commands.TaskList(List<String> taskData) throws DukeDataCorruptedException {
+        tasks = Commands.TaskListDecoder.decode(taskData);
     } */
 
     public void addTask(Task task) {

@@ -1,9 +1,11 @@
+package Duke;
+
 import java.io.IOException;
 
-public class DeleteCommand implements Command{
+public class UnmarkCommand implements Command {
     private int taskIndex;
 
-    public DeleteCommand(int taskIndex) {
+    public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 
@@ -11,10 +13,10 @@ public class DeleteCommand implements Command{
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             if (taskIndex >= 0 && taskIndex < (tasks.getTasks()).size()) {
-                Task taskBeforeDeletion = tasks.getTask(taskIndex);
-                tasks.deleteTask(taskIndex);
+                Task markedTask = tasks.getTask(taskIndex);
+                tasks.markTaskAsNotDone(taskIndex);
                 storage.saveTasksToFile(tasks);
-                ui.showDeleteMessage(tasks.getTasks(), taskBeforeDeletion);
+                ui.showUnmarkTaskAsDone(markedTask);
             } else {
                 ui.invalidTaskIndex();
             }
@@ -23,4 +25,3 @@ public class DeleteCommand implements Command{
         }
     }
 }
-

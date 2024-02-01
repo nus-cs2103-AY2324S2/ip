@@ -1,4 +1,6 @@
-// ListCommand class
+package Duke;
+
+// Commands.ListCommand class
 public class ListCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

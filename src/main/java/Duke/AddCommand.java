@@ -1,3 +1,5 @@
+package Duke;
+
 import java.io.IOException;
 
 public class AddCommand implements Command {

@@ -1,3 +1,5 @@
+package Duke;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -39,7 +41,7 @@ class Todo extends Task {
 
     @Override
     public String getStatusIcon() {
-        return "T"; // Todo tasks have "T" as their status icon
+        return "T"; // Commands.Todo tasks have "T" as their status icon
     }
 }
 
@@ -53,7 +55,7 @@ class Deadline extends Task {
 
     @Override
     public String getStatusIcon() {
-        return "D"; // Deadline tasks have "D" as their status icon
+        return "D"; // Commands.Deadline tasks have "D" as their status icon
     }
     public LocalDate getBy() {
         return by;
@@ -77,7 +79,7 @@ class Event extends Task {
 
     @Override
     public String getStatusIcon() {
-        return "E"; // Event tasks have "E" as their status icon
+        return "E"; // Commands.Event tasks have "E" as their status icon
     }
 
     public LocalDate getFrom() {
