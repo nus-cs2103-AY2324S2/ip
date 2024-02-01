@@ -1,7 +1,5 @@
-D|X|return book|Sunday
 T|O|eat cake
-E|O|project meeting|Mon 2pm|4pm
 T|O|drink coffee
 T|O|bake cookies
-T|O|drink matcha
-E|O|cca meeting|Tues 5pm|8pm
+D|O|return book|2012-08-08
+E|O|eat chocolate|2023-09-10|2023-09-11

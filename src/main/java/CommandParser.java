@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class CommandParser {
 public static Action parseCommand(String command, TaskList taskList) throws EmptyDescriptionException, NoIndexException, UnknownCommandException {
         try {
@@ -59,7 +61,7 @@ public static Action parseCommand(String command, TaskList taskList) throws Empt
                         if (description.isEmpty()) {
                             throw new EmptyDescriptionException();
                         }
-                        String by = parts[1].trim();
+                        LocalDate by = LocalDate.parse(parts[1].trim());
                         Deadline deadline = new Deadline(description, by);
                         taskList.addTask(deadline);
                         return new Echo("Got it. I've added this task:\n  " + deadline + "\nNow you have " + taskList.size() + " tasks in the list.");
@@ -75,9 +77,9 @@ public static Action parseCommand(String command, TaskList taskList) throws Empt
                         }
                         String[] eventDetails = parts[1].split("/to", 2);
                         // extract out from
-                        String from = eventDetails[0].trim();
+                        LocalDate from = LocalDate.parse(eventDetails[0].trim());
                         // extract out to
-                        String to = eventDetails[1].trim();
+                        LocalDate to = LocalDate.parse(eventDetails[1].trim());
                         Event event = new Event(description, from, to);
                         taskList.addTask(event);
                         return new Echo("Got it. I've added this task:\n  " + event + "\nNow you have " + taskList.size() + " tasks in the list.");

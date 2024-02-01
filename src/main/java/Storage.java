@@ -3,10 +3,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
 
+import java.time.LocalDate;
+
 import java.util.Scanner;
 
 class Storage {
     File taskFile;
+    //private static final DateTimeFormatter CUSTOM_DATE_FORMATTER = DateTimeFormatter.ofPattern(
+            //"d/M/yyyy");
 
     public Storage(String filePath) {
         this.taskFile = new File(filePath);
@@ -32,7 +36,8 @@ class Storage {
                         tasks.addTask(todoTask);
                         break;
                     case "D":
-                        Deadline deadlineTask = new Deadline(description, token[3]);
+                        Deadline deadlineTask = new Deadline(description,
+                                LocalDate.parse(token[3]));
                         if (status.equals("X")) {
                             deadlineTask.mark();
                         }
@@ -40,7 +45,8 @@ class Storage {
                         break;
 
                     case "E":
-                        Event eventTask = new Event(description, token[3], token[4]);
+                        Event eventTask = new Event(description, LocalDate.parse(token[3]),
+                                LocalDate.parse(token[4]));
                         if (status.equals("X")) {
                             eventTask.mark();
                         }
