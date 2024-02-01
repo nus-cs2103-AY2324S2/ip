@@ -1,28 +1,59 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
 
+import java.util.ArrayList;
+
+/**
+ * Main class for Chaterpillar chatbot.
+ */
 public class Chaterpillar {
-    public static boolean exited = false;
-    public static ArrayList<Task> listoftasks = new ArrayList<Task>();
+    public static boolean hasExited = false;
+    public static ArrayList<Task> listOfTasks = new ArrayList<Task>();
+
+    /**
+     * Prints the greeting message by the Chaterpillar chatbot.
+     * It also prints the horizontal lines as dividers before and after the message.
+     */
     public static void greet() {
         print_horizontal_line();
         System.out.println("Hello! I'm Chaterpillar");
         System.out.println("What can I do for you?");
         print_horizontal_line();
     }
+
+    /**
+     * Exits the program.
+     * It sets the exited flag to true, and prints the exit message.
+     */
     public static void exit() {
         System.out.println("Bye. Hope to see you again soon!");
     }
+
+    /**
+     * Prints out the message given in the String argument.
+     * @param s the message to be printed
+     */
     public static void echo(String s) {
         System.out.println(s);
     }
+
+    /**
+     * Prints out a horizontal line, typically used to segment
+     * the start and end of a message by the chatbot.
+     */
     public static void print_horizontal_line() {
         String line = "-".repeat(50);
         System.out.println(line);
     }
+
+    /**
+     * Parses the input from the user, then calls the respective
+     * methods to deal with the various actions of the chatbot.
+     * @param reader used to read from System.in
+     * @throws IOException if there are any input/output errors
+     * @see IOException
+     */
     public static void parse_input(BufferedReader reader) throws IOException {
         String input = reader.readLine();
         String[] input_sp = input.split(" ");
@@ -36,27 +67,27 @@ public class Chaterpillar {
             case "list":
                 echo("Here are the tasks in your list: ");
                 int i = 1;
-                for (Task each_task : listoftasks) {
+                for (Task each_task : listOfTasks) {
                     echo(i++ + ". " + each_task);
                 }
                 break;
             case "mark":
                 echo("Nice! I've marked this task as done:");
                 num = Integer.parseInt(input_sp[1]);
-                curr_task = listoftasks.get(num-1);
+                curr_task = listOfTasks.get(num-1);
                 curr_task.mark();
                 echo(curr_task.toString());
                 break;
             case "unmark":
                 echo("Ok, I've marked this task as not done yet:");
                 num = Integer.parseInt(input_sp[1]);
-                curr_task = listoftasks.get(num-1);
+                curr_task = listOfTasks.get(num-1);
                 curr_task.unmark();
                 echo(curr_task.toString());
                 break;
             case "bye":
                 // exits the program
-                exited = true;
+                hasExited = true;
                 exit();
                 break;
             case "todo":
@@ -127,25 +158,36 @@ public class Chaterpillar {
         }
         print_horizontal_line();
     }
+
+    /**
+     * Adds the specified task (in the argument) to the
+     * static ArrayList to be tracked by the chatbot.
+     * @param task object containing the specified task
+     */
     public static void add_task(Task task) {
-        listoftasks.add(task);
+        listOfTasks.add(task);
         echo("Got it. I've added this task:");
         echo(task.toString());
-        echo("Now you have " + listoftasks.size() + " tasks in the list.");
+        echo("Now you have " + listOfTasks.size() + " tasks in the list.");
     }
+
+    /**
+     * Deletes the task at the specified index,
+     * then shifts all the tasks in the index behind it up by 1.
+     * @param index integer specifying the number of the task to be deleted
+     */
     public static void delete_task(int index) {
-        Task task = listoftasks.remove(index);
+        Task task = listOfTasks.remove(index);
         echo("Got it. I've removed this task:");
         echo(task.toString());
-        echo("Now you have " + listoftasks.size() + " tasks in the list.");
-
+        echo("Now you have " + listOfTasks.size() + " tasks in the list.");
     }
     public static void main(String[] args) {
         greet();
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader((System.in)));
 
-        while (!exited) {
+        while (!hasExited) {
             try {
                 parse_input(reader);
             } catch (IOException e) {

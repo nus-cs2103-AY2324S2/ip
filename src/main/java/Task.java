@@ -1,23 +1,39 @@
+/**
+ * Represents a task. A <code>Task</code> object contains its
+ * description or name, represented by a String, and a boolean
+ * indicating whether the task is marked.
+ */
 public class Task {
-    public String taskname;
-    public boolean marked;
+    public String taskName;
+    public boolean isMarked;
 
-    // Basic Constructor
-    public Task(String taskname) {
-        this.taskname = taskname;
-        this.marked = false;
+    /**
+     * Basic constructor
+     * @param taskName name of task to be tracked
+     */
+    public Task(String taskName) {
+        this.taskName = taskName;
+        this.isMarked = false;
     }
 
+    /**
+     * Sets this task as marked, by setting the
+     * boolean flag to be true.
+     */
     public void mark() {
-        this.marked = true;
+        this.isMarked = true;
     }
 
+    /**
+     * Sets this task as unmarked, by setting the
+     * boolean flag to be false.
+     */
     public void unmark() {
-        this.marked = false;
+        this.isMarked = false;
     }
 
     @Override
     public String toString() {
-        return (this.marked ? "[X] " : "[ ] ") + this.taskname;
+        return (this.isMarked ? "[X] " : "[ ] ") + this.taskName;
     }
 }
