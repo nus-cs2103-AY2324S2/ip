@@ -14,7 +14,6 @@ public class Event extends Task {
     private String end;
 
     private LocalDate formattedFromDate;
-
     private LocalDate formattedToDate;
 
     public Event(String rawDescription, String description, String start, String end) {

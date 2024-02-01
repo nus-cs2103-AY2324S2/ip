@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 public class Storage {
     private File hardDiskFile;
+
     public Storage(String filePath) {
         try {;
             hardDiskFile = new File(filePath);
