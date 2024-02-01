@@ -28,8 +28,8 @@ public class Storage {
         }
     }
 
-    public List loadSave() {
-        List resultList = new List();
+    public TaskList loadSave() {
+        TaskList resultTaskList = new TaskList();
         try {
             Scanner storageScanner = new Scanner(this.file);
 
@@ -65,11 +65,11 @@ public class Storage {
                         int markedInt = Integer.valueOf(storageArr[1].trim());
                         boolean marked = markedInt == 0 ? false : true;
                         ToDo newTodo = new ToDo(storageArr[2].trim(), marked);
-                        resultList.discreteAddTask(newTodo);
+                        resultTaskList.discreteAddTask(newTodo);
                         continue;
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
-                        resultList = new List();
+                        resultTaskList = new TaskList();
                         break;
                     }
                 } else if (actionType == "deadline") {
@@ -83,12 +83,12 @@ public class Storage {
                         String task = storageArr[2].trim();
                         String deadline = storageArr[3].trim();
                         Deadline newDeadline = new Deadline(task, deadline, marked);
-                        resultList.discreteAddTask(newDeadline);
+                        resultTaskList.discreteAddTask(newDeadline);
                         continue;
 
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
-                        resultList = new List();
+                        resultTaskList = new TaskList();
                         break;
                     }
                 } else if (actionType == "event") {
@@ -103,12 +103,12 @@ public class Storage {
                         String start = storageArr[3].trim();
                         String end = storageArr[4].trim();
                         Event newEvent = new Event(task, start, end, marked);
-                        resultList.discreteAddTask(newEvent);
+                        resultTaskList.discreteAddTask(newEvent);
                         continue;
 
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
-                        resultList = new List();
+                        resultTaskList = new TaskList();
                         break;
                     }
                 }
@@ -117,12 +117,12 @@ public class Storage {
         } catch (NoSuchElementException e) {
         } catch (Exception e) {
         } finally {
-            return resultList;
+            return resultTaskList;
         }
     }
 
-    public void saveToDisk(List sourceList) {
-        ArrayList<Task> saveList = sourceList.getArrayList();
+    public void saveToDisk(TaskList sourceTaskList) {
+        ArrayList<Task> saveList = sourceTaskList.getArrayList();
         String content = "";
         for (int i = 0; i < saveList.size(); i++) {
             Task curr = saveList.get(i);
