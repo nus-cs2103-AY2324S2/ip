@@ -1,5 +1,13 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 
 public class Duke {
     static void greeting(String botName) {
@@ -88,6 +96,7 @@ public class Duke {
         } else {
             System.out.println("Now you have " + length + " tasks in the list.");
         }
+        autoUpdate(TodoList);
     }
 
     static boolean isMarkTask(String userInput) {
@@ -114,6 +123,7 @@ public class Duke {
         } else {
             t.unmark();
         }
+        autoUpdate(TodoList);
     }
 
     static boolean isDeleteTask(String userInput) {
@@ -143,6 +153,84 @@ public class Duke {
         } else {
             System.out.println("Now you have " + length + " tasks in the list.");
         }
+        autoUpdate(TodoList);
+    }
+
+    static void autoUpdate(ArrayList<Task> TodoList) {
+        File file = new File("./data/duke.txt");
+        file.getParentFile().mkdirs();
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            for (Task t : TodoList) {
+                if (t instanceof Todo) {
+                    writer.write("T | " + t.isDone + " | " + t.description);
+                } else if (t instanceof Deadline) {
+                    Deadline d = (Deadline) t;
+                    writer.write("D | " + d.isDone + " | " + d.description + " | " + d.getBy());
+                } else if (t instanceof Event) {
+                    Event e = (Event) t;
+                    writer.write("E | " + e.isDone + " | " + e.description + " | " + e.getFrom() + " | " + e.getTo());
+                }
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<Task> getHistory() {
+        String fileName = "./data/duke.txt";
+        ArrayList<Task> historyList = new ArrayList<>();
+        File file = new File(fileName);
+        if (!file.exists()) {
+            return new ArrayList<Task>();
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task t = createTaskFromLine(line);
+                if (t != null) {
+                    historyList.add(t);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return historyList;
+    }
+
+    private static Task createTaskFromLine(String line) {
+        String[] parts = line.split(" \\| ");
+        if (parts.length >= 3) {
+            boolean isDone = Boolean.parseBoolean(parts[1]);
+            String description = parts[2];
+
+            switch (parts[0]) {
+                case "T":
+                    return new Todo(description, isDone);
+                case "D":
+                    if (parts.length >= 4) {
+                        String by = parts[3];
+                        return new Deadline(description, by, isDone);
+                    }
+                    break;
+                case "E":
+                    if (parts.length >= 5) {
+                        String from = parts[3];
+                        String to = parts[4];
+                        return new Event(description, from, to, isDone);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        return null;
     }
 
     public static void main(String[] args) {
@@ -157,6 +245,7 @@ public class Duke {
         greeting(botName);
 
         ArrayList<Task> TodoList = new ArrayList<>();
+        TodoList = getHistory();
 
         boolean isExit = false;
         Scanner scanner = new Scanner(System.in);
@@ -174,6 +263,7 @@ public class Duke {
                 echo(userInput, TodoList);
             }
         }
+        scanner.close();
 
         exit();
     }

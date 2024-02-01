@@ -1,0 +1,2 @@
+T | true | run code
+E | false | event finish level 7 | 11 | 2
