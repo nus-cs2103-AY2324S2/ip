@@ -3,6 +3,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,7 +18,7 @@ public class Duke {
         System.out.println("\tHello! I'm Emis!\n \tWhat can I do for you?");
         System.out.println("\tEmis is happy to help with printing a list of tasks with the command 'list'.");
         System.out.println("\tEmis is happy to add todos with the command 'todo (insert task here)'.");
-        System.out.println("\tEmis is happy to add deadlines with the command 'deadline /by (insert deadline here)'.");
+        System.out.println("\tEmis is happy to add deadlines with the command 'deadline (insert deadline name) /by (insert deadline here in the format yyyy-mm-dd hhmm)'.");
         System.out.println("\tEmis is happy to add events with the command 'event (insert event name) /from (insert start time) /to (insert end time)'.");
         System.out.println("\tEmis can mark tasks as done with the command 'mark (task no)'.");
         System.out.println("\tEmis can mark tasks as undone with the command 'unmark (task no)'.");
@@ -250,15 +253,18 @@ public class Duke {
     // Deadline class
     public static class Deadline extends Task {
         protected String by;
+        protected LocalDateTime doByDateTime;
     
         public Deadline(String description, String by) {
             super(description);
-            this.by = by;
+            this.by = by.trim();
+            this.doByDateTime = LocalDateTime.parse(this.by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         }
 
         public Deadline(boolean isDone, String description, String by) {
             super(isDone, description);
             this.by = by;
+            this.doByDateTime = LocalDateTime.parse(this.by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         }
 
         @Override
@@ -268,7 +274,8 @@ public class Duke {
     
         @Override
         public String toString() {
-            return"[D]" + super.toString() + " (by: " + this.by + ")";
+            return"[D]" + super.toString() + " (by: " + this.doByDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+            //this.doByDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
         }
     }
 
