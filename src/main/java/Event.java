@@ -7,6 +7,11 @@ public class Event extends Task{
         this.by = by;
     }
 
+    public Event(String description, String from, String by, boolean isDone) {
+        super(description, isDone);
+        this.from = from;
+        this.by = by;
+    }
     @Override
     public String show() {
         super.status = isDone? "X": " ";
