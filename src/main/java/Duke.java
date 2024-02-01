@@ -1,4 +1,7 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringTokenizer;
@@ -24,6 +27,7 @@ public class Duke {
         EVENT,
         DELETE
     }
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
     public Duke() {
         taskList = new TaskList();
     }
@@ -172,14 +176,20 @@ public class Duke {
                     + "Please use the following format: deadline [task title] /by [datetime]");
         } else {
             String taskName = String.join(" ", inputArr.subList(0, inputArr.indexOf("/by")));
-            String dateTime = String.join(" ", inputArr.subList(inputArr.indexOf("/by") + 1, inputArr.size()));
-            Deadline newTask = new Deadline(taskName, dateTime);
-            taskList.addTask(newTask);
-            System.out.println("The following task has been added:");
-            System.out.println("→ " + newTask);
-            System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
+            String dateTimeStr = String.join(" ", inputArr.subList(inputArr.indexOf("/by") + 1, inputArr.size()));
+            try {
+                LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, DATE_TIME_FORMATTER);
+                Deadline newTask = new Deadline(taskName, dateTime);
+                taskList.addTask(newTask);
+                System.out.println("The following task has been added:");
+                System.out.println("→ " + newTask);
+                System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
 
-            appendToFile(newTask);
+                appendToFile(newTask);
+            } catch (DateTimeParseException e) {
+                throw new DukeException("The format of the date time is incorrect.\n"
+                        + "Please use the following format: yyyy/MM/dd HHmm");
+            }
         }
     }
 
@@ -210,17 +220,24 @@ public class Duke {
                     + "Please use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
         } else {
             String taskName = String.join(" ", inputArr.subList(0, inputArr.indexOf("/from")));
-            String startDateTime = String.join(" ",
+            String startDateTimeStr = String.join(" ",
                     inputArr.subList(inputArr.indexOf("/from") + 1, inputArr.indexOf("/to")));
-            String endDateTime = String.join(" ",
+            String endDateTimeStr = String.join(" ",
                     inputArr.subList(inputArr.indexOf("/to") + 1, inputArr.size()));
-            Event newTask = new Event(taskName, startDateTime, endDateTime);
-            taskList.addTask(newTask);
-            System.out.println("The following task has been added:");
-            System.out.println("→ " + newTask);
-            System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
+            try {
+                LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeStr, DATE_TIME_FORMATTER);
+                LocalDateTime endDateTime = LocalDateTime.parse(endDateTimeStr, DATE_TIME_FORMATTER);
+                Event newTask = new Event(taskName, startDateTime, endDateTime);
+                taskList.addTask(newTask);
+                System.out.println("The following task has been added:");
+                System.out.println("→ " + newTask);
+                System.out.println("You have a total of " + taskList.getTaskCount() + " tasks in the list.");
 
-            appendToFile(newTask);
+                appendToFile(newTask);
+            } catch (DateTimeParseException e) {
+                throw new DukeException("The format of the date time is incorrect.\n"
+                        + "Please use the following format: yyyy/MM/dd HHmm");
+            }
         }
     }
 
@@ -267,20 +284,20 @@ public class Duke {
                     String taskType = st.nextToken().trim();
                     boolean isDone = "1".equals(st.nextToken().trim());
                     String taskTitle = st.nextToken().trim();
-                    Task task = null;
+                    Task task;
 
                     switch (taskType) {
                     case "T":
                         task = new ToDo(taskTitle, isDone);
                         break;
                     case "D":
-                        String dateTime = st.nextToken().trim();
+                        LocalDateTime dateTime = LocalDateTime.parse(st.nextToken().trim(), DATE_TIME_FORMATTER);
                         task = new Deadline(taskTitle, dateTime, isDone);
                         break;
                     case "E":
                         String[] dateTimeArr = st.nextToken().split("-");
-                        String startDateTime = dateTimeArr[0].trim();
-                        String endDateTime = dateTimeArr[1].trim();
+                        LocalDateTime startDateTime = LocalDateTime.parse(dateTimeArr[0].trim(), DATE_TIME_FORMATTER);
+                        LocalDateTime endDateTime = LocalDateTime.parse(dateTimeArr[1].trim(), DATE_TIME_FORMATTER);
                         task = new Event(taskTitle, startDateTime, endDateTime, isDone);
                         break;
                     default:
@@ -310,8 +327,8 @@ public class Duke {
 
     private void appendToFile(Task task) {
         try {
-            FileWriter fw = new FileWriter("./data/duke.txt");
-            fw.write(task.toFile());
+            FileWriter fw = new FileWriter("./data/duke.txt", true);
+            fw.append(task.toFile());
             fw.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
