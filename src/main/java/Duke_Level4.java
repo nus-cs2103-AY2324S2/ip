@@ -3,6 +3,13 @@ import java.util.List;
 import java.util.Scanner;
 public class Duke_Level4 {
     public static void main(String[] args) {
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);
+        System.out.println("What can I do for you?");
         List<String> list = new ArrayList<>();
         String[] task = new String[100];
         for (int i = 0; i < task.length; i++) {
@@ -14,7 +21,7 @@ public class Duke_Level4 {
         }
         Scanner s = new Scanner(System.in);
         String str = s.nextLine();
-        while(true){
+        while(! str.equals("bye")){
             if(str.substring(0, 4).equals("mark")){
                 int temp = Integer.parseInt(str.substring(5));
                 done[temp] = "[X] ";
@@ -23,19 +30,25 @@ public class Duke_Level4 {
             }
             else if(str.equals("list")){
                 System.out.println("Here are the tasks in your list:");
-                for(int i = 1; i <= list.size(); i++){
-                    System.out.println(i + ". " + task[i] + done[i] + list.get(i - 1));
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println((i + 1) + ". " + task[i] + done[i] + list.get(i));
                 }
             }
-            else if(str.substring(0, 4).equals("todo")){
+            else if (str.startsWith("todo")) {
                 list.add(str.substring(5));
-                System.out.println("Got it. I've added this task:");
-                task[list.size()] = "[T]";
-                done[list.size()] = "[] ";
-                System.out.println(task[list.size() - 1] + done[list.size() - 1] + list.get(list.size() - 1));
+                int lastIndex = list.size() - 1;
+                if (lastIndex >= 0) {
+                    task[lastIndex] = "[T]";
+                    done[lastIndex] = "[] ";
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(task[lastIndex] + done[lastIndex] + list.get(lastIndex));
+                } else {
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("[T][] " + list.get(0));
+                }
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
             }
-            else if (str.substring(0, 5).equals("event")) {
+            else if(str.startsWith("event")) {
                 String[] splits = str.split("/from");
                 task[list.size()] = "[E]";
                 done[list.size()] = "[] ";
@@ -49,13 +62,13 @@ public class Duke_Level4 {
                 System.out.println(task[list.size() - 1] + done[list.size() - 1] + list.get(list.size() - 1));
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
             }
-            else if(str.substring(0, 6).equals("unmark")) {
+            else if(str.startsWith("unmark")) {
                 int temp = Integer.parseInt(str.substring(7));
                 done[temp] = "[] ";
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(task[temp] + done[temp] + list.get(temp - 1));
             }
-            else if(str.substring(0, 8).equals("deadline")){
+            else if(str.startsWith("deadline")){
                 task[list.size()] = "[D]";
                 done[list.size()] = "[] ";
                 String temp = " (by: " + str.split("/by")[1].trim() + ")";
@@ -66,5 +79,7 @@ public class Duke_Level4 {
             }
             str = s.nextLine();
         }
+        System.out.println("Bye. Hope to see you again soon!");
     }
 }
+
