@@ -55,22 +55,26 @@ public class Parser {
     public static void validateInput(Command command, String input, TaskList taskList) throws InvalidInputException {
         if (command == Command.TODO) {
             if (input.length() <= 4) {
-                throw new InvalidInputException("Please enter a valid todo! Tip: todo <description> \nMissing description");
+                throw new InvalidInputException("Please enter a valid todo! " 
+                                                + "Tip: todo <description> \nMissing description");
             }
         } else if (command == Command.DEADLINE) {
             if (input.length() > 8) {
                 String[] arr = input.substring(9).split("/by");
                 if (arr.length != 2) {
-                    throw new InvalidInputException("Please enter a valid deadline! Tip: deadline <description> /by <deadline> \nMissing /by");
+                    throw new InvalidInputException("Please enter a valid deadline! " 
+                                                    + "Tip: deadline <description> /by <deadline> \nMissing /by");
                 } else {
                     try {
                         LocalDateTime.parse(formatDateTimeString(arr[1]));
                     } catch (Exception e) {
-                        throw new InvalidInputException("Please enter a valid deadline! Tip: deadline <description> /by <deadline> \nInvalid deadline");
+                        throw new InvalidInputException("Please enter a valid deadline! " 
+                                                        + "Tip: deadline <description> /by <deadline> \nInvalid deadline");
                     }
                 }
             } else {
-                throw new InvalidInputException("Please enter a valid deadline! Tip: deadline <description> /by <deadline> \nMissing description");
+                throw new InvalidInputException("Please enter a valid deadline! " 
+                                                + "Tip: deadline <description> /by <deadline> \nMissing description");
             }
         } else if (command == Command.EVENT) {
             if (input.length() > 5) {
@@ -78,20 +82,24 @@ public class Parser {
                 if (arr.length == 2) {
                     String[] arr2 = arr[1].split("/to");
                     if (arr2.length != 2) {
-                        throw new InvalidInputException("Please enter a valid event! Tip: event <description> /from <start> /to <end> \nMissing /to");
+                        throw new InvalidInputException("Please enter a valid event! " 
+                                                        + "Tip: event <description> /from <start> /to <end> \nMissing /to");
                     } else {
                         try {
                             LocalDateTime.parse(formatDateTimeString(arr2[0].trim()));
                             LocalDateTime.parse(formatDateTimeString(arr2[1].trim()));
                         } catch (Exception e) {
-                            throw new InvalidInputException("Please enter a valid event! Tip: event <description> /from <start> /to <end> \nInvalid start or end time");
+                            throw new InvalidInputException("Please enter a valid event! "
+                                                            + "Tip: event <description> /from <start> /to <end> \nInvalid start or end time");
                         }
                     } 
                 } else {
-                    throw new InvalidInputException("Please enter a valid event! Tip: event <description> /from <start> /to <end> \nMissing /from");
+                    throw new InvalidInputException("Please enter a valid event! "
+                                                    + "Tip: event <description> /from <start> /to <end> \nMissing /from");
                 }
             } else {
-                throw new InvalidInputException("Please enter a valid event! Tip: event <description> /from <start> /to <end> \nMissing description");
+                throw new InvalidInputException("Please enter a valid event! "
+                                                + "Tip: event <description> /from <start> /to <end> \nMissing description");
             }
         } else if (command == Command.MARK) {
             if (input.length() > 4) {
@@ -99,13 +107,16 @@ public class Parser {
                 if (isNumeric(suffix)) {
                     int index = Integer.parseInt(suffix) - 1;
                     if (taskList.getNumTasks() <= index) {
-                        throw new InvalidInputException("Please enter a valid number! Tip: mark <number> \nNumber out of range");
+                        throw new InvalidInputException("Please enter a valid number! " 
+                                                        + "Tip: mark <number> \nNumber out of range");
                     }
                 } else {
-                    throw new InvalidInputException("Please enter a valid number! Tip: mark <number> \nMissing number");
+                    throw new InvalidInputException("Please enter a valid number! " 
+                                                    + "Tip: mark <number> \nMissing number");
                 }
             } else {
-                throw new InvalidInputException("Please enter a valid number! Tip: mark <number> \nMissing number");
+                throw new InvalidInputException("Please enter a valid number! "
+                                                + "Tip: mark <number> \nMissing number");
             }
         } else if (command == Command.UNMARK) {
             if (input.length() > 6) {
@@ -113,13 +124,16 @@ public class Parser {
                 if (isNumeric(suffix)) {
                     int index = Integer.parseInt(suffix) - 1;
                     if (taskList.getNumTasks() <= index) {
-                        throw new InvalidInputException("Please enter a valid number! Tip: unmark <number> \nNumber out of range");
+                        throw new InvalidInputException("Please enter a valid number! "
+                                                        + "Tip: unmark <number> \nNumber out of range");
                     }
                 } else {
-                    throw new InvalidInputException("Please enter a valid number! Tip: unmark <number> \nMissing number");
+                    throw new InvalidInputException("Please enter a valid number! "
+                                                    + "Tip: unmark <number> \nMissing number");
                 }
             } else {
-                throw new InvalidInputException("Please enter a valid number! Tip: unmark <number> \nMissing number");
+                throw new InvalidInputException("Please enter a valid number! "
+                                                + "Tip: unmark <number> \nMissing number");
             }
         } else if (command == Command.DELETE) {
             if (input.length() > 6) {
@@ -127,13 +141,16 @@ public class Parser {
                 if (isNumeric(suffix)) {
                     int index = Integer.parseInt(suffix) - 1;
                     if (taskList.getNumTasks() <= index) {
-                        throw new InvalidInputException("Please enter a valid number! Tip: delete <number> \nNumber out of range");
+                        throw new InvalidInputException("Please enter a valid number! " 
+                                                        + "Tip: delete <number> \nNumber out of range");
                     }
                 } else {
-                    throw new InvalidInputException("Please enter a valid number! Tip: delete <number> \nMissing number");
+                    throw new InvalidInputException("Please enter a valid number! " 
+                                                    + "Tip: delete <number> \nMissing number");
                 }
             } else {
-                throw new InvalidInputException("Please enter a valid number! Tip: delete <number> \nMissing number");
+                throw new InvalidInputException("Please enter a valid number! " 
+                                                + "Tip: delete <number> \nMissing number");
             }
         }
     }

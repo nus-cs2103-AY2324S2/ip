@@ -18,7 +18,6 @@ public class Cortana {
 
     private String name = "Cortana";
     private TaskList taskList;
-    // get current file dir
     private final String BASE_DIR;
     private final String SAVE_DIR_PATH;
     private final static String DATA_FOLDER = "data";
