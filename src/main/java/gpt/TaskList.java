@@ -25,7 +25,19 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    public void markTask(int index) {
+        tasks.get(index).mark();
+    }
+
+    public void unmarkTask(int index) {
+        tasks.get(index).unmark();
+    }
+
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    public Boolean containsTask(Task task) {
+        return tasks.contains(task);
     }
 }
