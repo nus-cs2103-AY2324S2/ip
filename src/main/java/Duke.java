@@ -177,9 +177,6 @@ public class Duke {
                             "    ＼二二)⠀⠀\n";
         }
 
-
-
-
         public static String signoffString(){
             String msg = "";
             msg += "okay then, bye\n";
