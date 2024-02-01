@@ -3,9 +3,9 @@ package jmsandiegoo.tyrone.parser;
 import jmsandiegoo.tyrone.commands.*;
 import jmsandiegoo.tyrone.common.DateTime;
 import jmsandiegoo.tyrone.common.Messages;
-import jmsandiegoo.tyrone.data.Deadline;
-import jmsandiegoo.tyrone.data.Event;
-import jmsandiegoo.tyrone.data.ToDo;
+import jmsandiegoo.tyrone.task.Deadline;
+import jmsandiegoo.tyrone.task.Event;
+import jmsandiegoo.tyrone.task.ToDo;
 import jmsandiegoo.tyrone.exceptions.IncorrectCommandException;
 
 import java.time.format.DateTimeParseException;

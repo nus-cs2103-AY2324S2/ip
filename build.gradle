@@ -11,6 +11,8 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    testImplementation 'org.mockito:mockito-core:3.+'
+    testImplementation 'org.mockito:mockito-junit-jupiter:3.+'
 }
 
 test {
@@ -27,7 +29,8 @@ test {
     }
 }
 
-sourceSets.main.java.srcDirs = ['src']
+sourceSets.main.java.srcDirs = ['src/main']
+sourceSets.test.java.srcDirs = ['src/test']
 
 application {
     mainClass.set("jmsandiegoo.tyrone.Tyrone")

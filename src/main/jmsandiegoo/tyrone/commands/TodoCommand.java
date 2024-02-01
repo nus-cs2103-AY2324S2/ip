@@ -1,7 +1,7 @@
 package jmsandiegoo.tyrone.commands;
 
 import jmsandiegoo.tyrone.common.Messages;
-import jmsandiegoo.tyrone.data.ToDo;
+import jmsandiegoo.tyrone.task.ToDo;
 
 public class TodoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
