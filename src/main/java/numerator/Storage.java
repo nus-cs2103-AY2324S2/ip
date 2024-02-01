@@ -2,6 +2,7 @@ package numerator;
 
 import numerator.exceptions.storage.LoadingException;
 import numerator.exceptions.storage.SavingException;
+import numerator.task.TaskList;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
