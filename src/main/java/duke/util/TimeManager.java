@@ -9,7 +9,7 @@ import java.util.List;
 public class TimeManager {
     public static String parseTime(String input) {
         List<DateTimeFormatter> formatters = Arrays.asList(
-                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
                 DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"),
                 DateTimeFormatter.ofPattern("M/d/yyyy hh:mm a"),
