@@ -138,11 +138,13 @@ public class Felix {
         Felix felix = new Felix();
         felix.tasks = felix.storage.getTasksFromFile();
         Scanner scanner = new Scanner(System.in);
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = "___________    .__  .__        \n"
+                + "\\_   _____/___ |  | |__|__  ___\n"
+                + " |    __)/ __ \\|  | |  \\  \\/  / \n"
+                + " |     \\\\  ___/|  |_|  |>    <  \n"
+                + " \\___  / \\___  >____/__/__/\\_ \\ \n"
+                + "     \\/      \\/              \\/ \n";
+
         System.out.println("Hello from\n" + logo);
         boolean loop = true;
         felix.printIntroduction();
