@@ -3,13 +3,20 @@ public final class PrintHandler {
     private static final String DIVIDER = "------------------------------------";
     private PrintHandler() {}
 
+    public void print(String msg) {
+        System.out.println(msg);
+    }
     public void printWithDivider(String msg) {
         System.out.println(msg);
         System.out.println(DIVIDER);
     }
-
-    public void print(String msg) {
-        System.out.println(msg);
+    public void printNumberedDivider(String[] msgs) {
+        for (int i = 0; i < msgs.length; i++) {
+            int index = i + 1;
+            System.out.println(Integer.toString(index) + ". " + msgs[i]);
+        }
+        System.out.println(DIVIDER);
     }
+
 
 }

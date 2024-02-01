@@ -18,21 +18,27 @@ public final class Nihao {
 
     private final String GREETINGS = "Hello! I'm Nihao.\nI'm lazy and I don't want to do anything for you.";
     private final String GOODBYE = "Hope to never see you again. Goodbye!";
-    private final PrintHandler printer = PrintHandler.instance;
+    private final PrintHandler printHandler = PrintHandler.instance;
+    private final DataHandler dataHandler = DataHandler.instance;
     private Nihao() {}
 
     public void run() {
-        printer.printWithDivider(LOGO);
-        printer.printWithDivider(GREETINGS);
+        printHandler.printWithDivider(LOGO);
+        printHandler.printWithDivider(GREETINGS);
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
             if (input.equals("bye")) {
-                printer.printWithDivider(GOODBYE);
+                printHandler.printWithDivider(GOODBYE);
                 break;
             }
-            printer.printWithDivider(input);
+            if (input.equals("list")) {
+                printHandler.printNumberedDivider(dataHandler.getData());
+            } else {
+                dataHandler.handleData(input);
+                printHandler.printWithDivider("added: " + input);
+            }
         }
 
     }
