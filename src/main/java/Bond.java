@@ -29,7 +29,7 @@ public final class Bond {
         return COMMANDS.contains(input.toLowerCase());
     }
 
-    private static Boolean isNumber(String input) {
+    public static Boolean isNumber(String input) {
         char[] digits = input.toCharArray();
         Boolean isNumber = true;
 
@@ -41,6 +41,58 @@ public final class Bond {
         }
 
         return isNumber;
+    }
+
+    private static String changeDateFormat(String month, String day, String year) {
+        String newMonth = "";
+        String newDay = "";
+
+        switch (month) {
+            case "Jan":
+                newMonth = "01";
+                break;
+            case "Feb":
+                newMonth = "02";
+                break;
+            case "Mar":
+                newMonth = "03";
+                break;
+            case "Apr":
+                newMonth = "04";
+                break;
+            case "May":
+                newMonth = "05";
+                break;
+            case "Jun":
+                newMonth = "06";
+                break;
+            case "Jul":
+                newMonth = "07";
+                break;
+            case "Aug":
+                newMonth = "08";
+                break;
+            case "Sep":
+                newMonth = "09";
+                break;
+            case "Oct":
+                newMonth = "10";
+                break;
+            case "Nov":
+                newMonth = "11";
+                break;
+            case "Dec":
+                newMonth = "12";
+                break;
+        }
+
+        if (day.length() == 1) {
+            newDay = "0" + day;
+        } else {
+            newDay = day;
+        }
+
+        return year + "-" + newMonth + "-" + newDay;
     }
 
     private static void addTask(String taskName, ArrayList<Task> taskList, Boolean marked, Boolean tellUser,
@@ -100,6 +152,8 @@ public final class Bond {
             int spaceIndex = remainder.indexOf(" ");
             int closeIndex = remainder.indexOf(")");
             String deadline = remainder.substring(spaceIndex + 1, closeIndex);
+            String[] components = deadline.split(" ");
+            deadline = changeDateFormat(components[0], components[1], components[2]) + " " + components[3];
 
             addTask("deadline " + taskName + " /by " + deadline, taskList, isMarked, false, filePath, false);
         } else if (task.startsWith("[E]")) {
@@ -123,6 +177,12 @@ public final class Bond {
                     end = components[i + 1];
                 }
             }
+
+            String[] startComponents = start.split(" ");
+            start = changeDateFormat(startComponents[0], startComponents[1], startComponents[2]) + " "
+                    + startComponents[3];
+            String[] endComponents = end.split(" ");
+            end = changeDateFormat(endComponents[0], endComponents[1], endComponents[2]) + " " + endComponents[3];
 
             addTask("event " + taskName + " /from " + start + " /to " + end, taskList, isMarked, false, filePath,
                     false);
