@@ -422,7 +422,7 @@ class TodoTask extends Task {
 
     @Override
     public String getAdditionalDetails() {
-        return ""; // Todo tasks don't have additional details
+        return ""; 
     }
 
     @Override
