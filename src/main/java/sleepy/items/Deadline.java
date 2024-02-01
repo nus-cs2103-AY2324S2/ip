@@ -1,5 +1,9 @@
 package sleepy.items;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * This class is a type of item.
  *
@@ -7,9 +11,16 @@ package sleepy.items;
  */
 public class Deadline extends Item {
     private String givenDeadline;
+
+    private LocalDate formattedDate;
     public Deadline(String rawDescription, String description, String givenDeadline) {
         super(rawDescription, description);
         this.givenDeadline = givenDeadline;
+        try {
+            formattedDate = LocalDate.parse(givenDeadline);
+        } catch (DateTimeParseException d) {
+            formattedDate = null;
+        }
     }
 
     /**
@@ -19,6 +30,8 @@ public class Deadline extends Item {
      */
     @Override
     public String getDescription() {
-        return "[D]" + super.getDescription() + " (by: " + givenDeadline + ")";
+        String deadlineDate = formattedDate == null ?
+                givenDeadline : formattedDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+        return "[D]" + super.getDescription() + " (by: " + deadlineDate + ")";
     }
 }
