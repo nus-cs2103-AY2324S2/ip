@@ -1,3 +1,5 @@
+package seiki.data.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -29,6 +31,6 @@ public class Event extends Task {
     public String toFile() {
         return "E " + super.toFile() + " | "
                 + this.startDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")) + "-"
-                + this.endDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")) + "\n";
+                + this.endDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
     }
 }

@@ -1,3 +1,5 @@
+package seiki.data.task;
+
 public class ToDo extends Task {
     public ToDo(String taskTitle) {
         super(taskTitle);
@@ -6,6 +8,8 @@ public class ToDo extends Task {
     public ToDo(String taskTitle, boolean isDone) {
         super(taskTitle, isDone);
     }
+
+
     @Override
     public String toString() {
         return "[T] " + super.toString();
@@ -13,6 +17,6 @@ public class ToDo extends Task {
 
     @Override
     public String toFile() {
-        return "T " + super.toFile() + "\n";
+        return "T " + super.toFile();
     }
 }

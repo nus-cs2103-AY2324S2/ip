@@ -1,3 +1,5 @@
+package seiki.data.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -24,6 +26,6 @@ public class Deadline extends Task {
     @Override
     public String toFile() {
         return "D " + super.toFile() + " | "
-                + this.dateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")) + "\n";
+                + this.dateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
     }
 }
