@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Main class representing the RochinOOP application.
+ */
 public class RochinOOP {
 
     private static final String FILE_PATH = "./data/rochin.txt";
@@ -18,6 +21,9 @@ public class RochinOOP {
         tasks = new TaskList();
     }
 
+    /**
+     * Method to start the RochinOOP application.
+     */
     public void run() {
         ui.showWelcomeMessage();
         loadTasks();
@@ -26,10 +32,18 @@ public class RochinOOP {
         ui.showGoodbyeMessage();
     }
 
+    /**
+     * Main method to launch the RochinOOP application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new RochinOOP().run();
     }
 
+    /**
+     * Method to process user commands.
+     */
     public void processCommands() {
         Scanner scanner = new Scanner(System.in);
 
@@ -48,6 +62,9 @@ public class RochinOOP {
         scanner.close();
     }
 
+    /**
+     * Method to load tasks from the storage.
+     */
     public void loadTasks() {
         try {
             tasks.load(storage.load());
@@ -56,6 +73,9 @@ public class RochinOOP {
         }
     }
 
+    /**
+     * Method to save tasks to the storage.
+     */
     public void saveTasks() {
         try {
             storage.save(tasks.convertTasksToStrings());
@@ -64,7 +84,14 @@ public class RochinOOP {
         }
     }
 
+    /**
+     * Inner class representing the user interactions.
+     */
     public class Ui {
+
+        /**
+         * Displays the welcome message.
+         */
         public void showWelcomeMessage() {
             System.out.println("____________________________________________________________");
             System.out.println("Hello! I'm Rochin.");
@@ -72,36 +99,64 @@ public class RochinOOP {
             System.out.println("____________________________________________________________");
         }
 
+        /**
+         * Displays the goodbye message.
+         */
         public void showGoodbyeMessage() {
             System.out.println("____________________________________________________________");
             System.out.println("Bye. Hope to see you again soon!");
             System.out.println("____________________________________________________________");
         }
 
+        /**
+         * Displays the command prompt.
+         */
         public void showCommandPrompt() {
             System.out.print("Enter a command: ");
         }
 
+        /**
+         * Displays an error message for loading tasks.
+         */
         public void showLoadingError() {
             System.out.println("Failed to load tasks. Creating a new task list.");
         }
 
+        /**
+         * Displays an error message for saving tasks.
+         */
         public void showSavingError() {
             System.out.println("Failed to save tasks.");
         }
 
+        /**
+         * Displays a generic error message with the provided errorMessage.
+         *
+         * @param errorMessage The error message to be displayed.
+         */
         public void showError(String errorMessage) {
             System.out.println("Error: " + errorMessage);
         }
 
+        /**
+         * Displays an unknown command error message.
+         */
         public void showUnknownCommandError() {
             System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
+        /**
+         * Displays an invalid command error message.
+         */
         public void showInvalidCommandError() {
             System.out.println("Invalid command. Please enter a valid command.");
         }
 
+        /**
+         * Displays the list of tasks.
+         *
+         * @param tasks The list of tasks to be displayed.
+         */
         public void showTaskList(List<Task> tasks) {
             System.out.println("____________________________________________________________");
             System.out.println("Here are the tasks in your list:");
@@ -111,6 +166,11 @@ public class RochinOOP {
             System.out.println("____________________________________________________________");
         }
 
+        /**
+         * Displays a message confirming the addition of a task.
+         *
+         * @param tasks The updated list of tasks.
+         */
         public void showTaskAddedMessage(List<Task> tasks) {
             System.out.println("____________________________________________________________");
             System.out.println("Got it. I've added this task:");
@@ -119,6 +179,11 @@ public class RochinOOP {
             System.out.println("____________________________________________________________");
         }
 
+        /**
+         * Displays a message confirming the deletion of a task.
+         *
+         * @param tasks The updated list of tasks.
+         */
         public void showTaskDeletedMessage(List<Task> tasks) {
             System.out.println("____________________________________________________________");
             System.out.println("Noted. I've removed this task:");
@@ -127,6 +192,11 @@ public class RochinOOP {
             System.out.println("____________________________________________________________");
         }
 
+        /**
+         * Displays a message confirming the marking of a task as done.
+         *
+         * @param tasks The updated list of tasks.
+         */
         public void showTaskMarkedAsDoneMessage(List<Task> tasks) {
             System.out.println("____________________________________________________________");
             System.out.println("Nice! I've marked this task as done:");
@@ -134,6 +204,11 @@ public class RochinOOP {
             System.out.println("____________________________________________________________");
         }
 
+        /**
+         * Displays a message confirming the marking of a task as not done.
+         *
+         * @param tasks The updated list of tasks.
+         */
         public void showTaskUnmarkedAsDoneMessage(List<Task> tasks) {
             System.out.println("____________________________________________________________");
             System.out.println("OK, I've marked this task as not done yet:");
@@ -142,13 +217,27 @@ public class RochinOOP {
         }
     }
 
+    /**
+     * The Storage class handles loading and saving tasks to a file.
+     */
     public class Storage {
         private final String filePath;
 
+        /**
+         * Constructor for the Storage class.
+         *
+         * @param filePath The path to the file where tasks are stored.
+         */
         public Storage(String filePath) {
             this.filePath = filePath;
         }
 
+        /**
+         * Loads tasks from the specified file.
+         *
+         * @return A list of strings representing the loaded tasks.
+         * @throws RochinException If an error occurs while loading tasks from the file.
+         */
         public List<String> load() throws RochinException {
             List<String> lines = new ArrayList<>();
             try {
@@ -166,6 +255,12 @@ public class RochinOOP {
             return lines;
         }
 
+        /**
+         * Saves tasks to the specified file.
+         *
+         * @param lines The list of strings representing tasks to be saved.
+         * @throws RochinException If an error occurs while saving tasks to the file.
+         */
         public void save(List<String> lines) throws RochinException {
             try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
                 for (String line : lines) {
@@ -177,10 +272,15 @@ public class RochinOOP {
         }
     }
 
-    
+    /**
+     * Represents a list of tasks.
+     */
     public class TaskList {
         private final List<Task> tasks;
 
+        /**
+         * Constructs an empty TaskList.
+         */
         public TaskList() {
             this.tasks = new ArrayList<>();
         }
@@ -189,28 +289,53 @@ public class RochinOOP {
             this.tasks = tasks;
         }
 
+        /**
+         * Adds a new task to the TaskList.
+         *
+         * @param newTask The task to be added.
+         */
         public void addTask(Task newTask) {
             tasks.add(newTask);
         }
 
+        /**
+         * Deletes a task from the TaskList based on its index.
+         *
+         * @param taskIndex The index of the task to be deleted.
+         */
         public void deleteTask(int taskIndex) {
             if (isValidTaskIndex(taskIndex)) {
                 tasks.remove(taskIndex - 1);
             }
         }
 
+        /**
+         * Marks a task as done based on its index.
+         *
+         * @param taskIndex The index of the task to be marked as done.
+         */
         public void markTaskAsDone(int taskIndex) {
             if (isValidTaskIndex(taskIndex)) {
                 tasks.get(taskIndex - 1).markAsDone();
             }
         }
 
+        /**
+         * Unmarks a task as done based on its index.
+         *
+         * @param taskIndex The index of the task to be marked as not done.
+         */
         public void unmarkTaskAsDone(int taskIndex) {
             if (isValidTaskIndex(taskIndex)) {
                 tasks.get(taskIndex - 1).markAsNotDone();
             }
         }
 
+        /**
+         * Retrieves a copy of all tasks in the TaskList.
+         *
+         * @return A list containing all tasks.
+         */
         public List<Task> getAllTasks() {
             return new ArrayList<>(tasks);
         }
@@ -219,6 +344,12 @@ public class RochinOOP {
             return taskIndex >= 1 && taskIndex <= tasks.size();
         }
 
+        /**
+         * Loads tasks from a list of strings.
+         *
+         * @param lines The list of strings representing tasks.
+         * @throws RochinException if there's an error during loading.
+         */
         public void load(List<String> lines) throws RochinException {
             for (String line : lines) {
                 Task task = new Task(line);
@@ -229,6 +360,11 @@ public class RochinOOP {
             }
         }
 
+        /**
+         * Converts all tasks to a list of strings.
+         *
+         * @return A list of strings representing tasks.
+         */
         public List<String> convertTasksToStrings() {
             List<String> taskStrings = new ArrayList<>();
             for (Task task : tasks) {
@@ -238,14 +374,28 @@ public class RochinOOP {
         }
     }
 
+    /**
+     * Represents a command processor for handling user commands related to tasks.
+     */
     public class CommandProcessor {
         private final String command;
         private boolean isExitCommand;
 
+        /**
+         * Constructs a CommandProcessor with the given command.
+         *
+         * @param command The command to be processed.
+         */
         public CommandProcessor(String command) {
             this.command = command;
         }
 
+        /**
+         * Processes the command based on its operation.
+         *
+         * @param tasks The TaskList to be modified.
+         * @param ui    The user interface for displaying messages.
+         */
         public void process(TaskList tasks, Ui ui) {
             if (!isExitCommand) {
                 String[] splitCommand = command.split("\\s+");
@@ -279,6 +429,12 @@ public class RochinOOP {
             }
         }
 
+        /**
+         * Processes a "todo" command and adds a new todo task to the TaskList.
+         *
+         * @param tasks The TaskList to be modified.
+         * @param ui    The user interface for displaying messages.
+         */
         public void processTodoCommand(TaskList tasks, Ui ui) {
             try {
                 String description = command.substring("todo".length()).trim();
@@ -292,6 +448,12 @@ public class RochinOOP {
             }
         }
 
+        /**
+         * Processes a "deadline" command and adds a new deadline task to the TaskList.
+         *
+         * @param tasks The TaskList to be modified.
+         * @param ui    The user interface for displaying messages.
+         */
         public void processDeadlineCommand(TaskList tasks, Ui ui) {
             try {
                 String descriptionWithDate = command.substring("deadline".length()).trim();
@@ -303,6 +465,12 @@ public class RochinOOP {
             }
         }
 
+        /**
+         * Processes an "event" command and adds a new event task to the TaskList.
+         *
+         * @param tasks The TaskList to be modified.
+         * @param ui    The user interface for displaying messages.
+         */
         public void processEventCommand(TaskList tasks, Ui ui) {
             try {
                 String descriptionWithDate = command.substring("event".length()).trim();
@@ -314,24 +482,47 @@ public class RochinOOP {
             }
         }
 
+        /**
+         * Processes a "delete" command and deletes a task from the TaskList.
+         *
+         * @param tasks The TaskList to be modified.
+         * @param ui    The user interface for displaying messages.
+         */
         public void processDeleteCommand(TaskList tasks, Ui ui) {
             int taskIndex = getTaskIndex();
             tasks.deleteTask(taskIndex);
             ui.showTaskDeletedMessage(tasks.getAllTasks());
         }
 
+        /**
+         * Processes a "mark" command and marks a task as done in the TaskList.
+         *
+         * @param tasks The TaskList to be modified.
+         * @param ui    The user interface for displaying messages.
+         */
         public void processMarkCommand(TaskList tasks, Ui ui) {
             int taskIndex = getTaskIndex();
             tasks.markTaskAsDone(taskIndex);
             ui.showTaskMarkedAsDoneMessage(tasks.getAllTasks());
         }
 
+        /**
+         * Processes an "unmark" command and unmarks a task as done in the TaskList.
+         *
+         * @param tasks The TaskList to be modified.
+         * @param ui    The user interface for displaying messages.
+         */
         public void processUnmarkCommand(TaskList tasks, Ui ui) {
             int taskIndex = getTaskIndex();
             tasks.unmarkTaskAsDone(taskIndex);
             ui.showTaskUnmarkedAsDoneMessage(tasks.getAllTasks());
         }
 
+        /**
+         * Extracts the task index from the command.
+         *
+         * @return The index of the task.
+         */
         public int getTaskIndex() {
             try {
                 String[] splitCommand = command.split("\\s+");
@@ -342,6 +533,11 @@ public class RochinOOP {
             }
         }
 
+        /**
+         * Checks if the command is an exit command.
+         *
+         * @return True if the command is an exit command, false otherwise.
+         */
         public boolean isExitCommand() {
             isExitCommand = command.equalsIgnoreCase("bye");
             return isExitCommand;
