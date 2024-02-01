@@ -39,14 +39,14 @@ public class Task {
     }
 
     /** 
-     * Get task type
+     * Returns task type
      */
     protected String taskType() {
         return "";
     }
 
     /**
-     * Get task status
+     * Returns task status
      * 
      * @return String task status
      */

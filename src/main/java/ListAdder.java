@@ -3,10 +3,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,12 +12,24 @@ import java.util.Scanner;
  * Contains methods to add tasks to a list
  */
 class ListAdder {
+    /** List of tasks to be completed */
     private ArrayList<Task> taskList = new ArrayList<>();
+
+    /** Index of each task */
     private int taskIndex;
+
+    /** Line for dividing sections */
     private static final String line = "____________________________________________________________";
+
+    /** Path to tasklist folder */
     private static final String FOLDER_PATH = "./tasklist";
+
+    /** Path to tasklist file */
     private static final String TASKLIST_PATH = FOLDER_PATH + "/tasklist.txt";
 
+    /**
+     * ListAdder constructor
+     */
     public ListAdder() {
         this.taskIndex = 1;
         loadTasklist();
@@ -36,8 +45,8 @@ class ListAdder {
      */
     public void start() {
         greeting();
-        Scanner sc = new Scanner(System.in);
 
+        Scanner sc = new Scanner(System.in);
         System.out.println("Enter a task:");
         String input = sc.nextLine();
         
@@ -426,9 +435,9 @@ class ListAdder {
         }
     }
 
-  /**
-   * Prints goodbye message
-   */
+    /**
+     * Prints goodbye message
+     */
     private void goodbye() {
         System.out.println("\t" + "Bye. Hope to see you again soon!");
     }
