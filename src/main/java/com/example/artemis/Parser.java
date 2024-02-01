@@ -1,5 +1,7 @@
 package com.example.artemis;
 
+import java.time.format.DateTimeParseException;
+
 /**
  * Parses user input and performs corresponding actions in the Artemis application.
  */
@@ -120,7 +122,7 @@ public class Parser {
         try {
             String[] tokens = input.split("/by");
             if (tokens.length < 2) {
-                throw new ArtemisException("OOPS!!! Invalid deadline format. " +
+                throw new ArtemisException("Invalid deadline format. " +
                         "Please use: deadline [description] /by [dd-mm-yyyy hhmm]");
             }
 
@@ -128,7 +130,7 @@ public class Parser {
             String by = tokens[1].trim();
             tasks.addTask(new Deadline(description, by));
             ui.showTaskAdded(tasks.getTasks().size(), tasks.getTasks().get(tasks.getTasks().size() - 1));
-        } catch (ArtemisException e) {
+        } catch (ArtemisException | DateTimeParseException e) {
             ui.showError(e.getMessage());
         }
     }
@@ -144,14 +146,14 @@ public class Parser {
         try {
             String[] tokens = input.split("/from");
             if (tokens.length < 2) {
-                throw new ArtemisException("OOPS!!! Invalid event format. " +
+                throw new ArtemisException("Invalid event format. " +
                         "Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
             }
 
             String description = tokens[0].replace("event ", "").trim();
             String[] fromTo = tokens[1].split("/to");
             if (fromTo.length < 2) {
-                throw new ArtemisException("OOPS!!! Invalid event format. " +
+                throw new ArtemisException("Invalid event format. " +
                         "Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
             }
 
@@ -159,7 +161,7 @@ public class Parser {
             String to = fromTo[1].trim();
             tasks.addTask(new Event(description, from, to));
             ui.showTaskAdded(tasks.getTasks().size(), tasks.getTasks().get(tasks.getTasks().size() - 1));
-        } catch (ArtemisException e) {
+        } catch (ArtemisException | DateTimeParseException e) {
             ui.showError(e.getMessage());
         }
     }
