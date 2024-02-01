@@ -14,10 +14,6 @@ public class Task {
      */
     protected boolean isDone;
 
-    /**
-     * The Task class keeps track of the current no. of tasks currently made
-     */
-    protected static int currentTaskNum = 0;
 
     /**
      * Constructor for a Task instance,

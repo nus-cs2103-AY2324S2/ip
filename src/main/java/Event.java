@@ -35,7 +35,6 @@ public class Event extends Task{
         this.to = to;
         this.convertedFrom = LocalDateTime.parse(from, accepted);
         this.convertedTo = LocalDateTime.parse(to, accepted1);
-        Task.currentTaskNum++;
     }
 
     /**
