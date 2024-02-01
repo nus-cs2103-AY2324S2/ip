@@ -12,7 +12,7 @@ public class Ui {
     }
 
     public static void shortSay(String message) {
-        pw.write("  << Duke Leto>> : " + message + "\n");
+        pw.write("  << Duke Leto >> : " + message + "\n");
         pw.flush();
     }
 

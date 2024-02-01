@@ -31,25 +31,21 @@ public class TaskList {
             String typeOfTask = inputs.split(" ")[0];
             switch (typeOfTask.toLowerCase()) {
                 case "event":
-                    t = Event.EventFactory(inputs);
+                    t = Event.EventFromCMD(inputs);
                     break;
                 case "deadline":
-                    t = Deadline.DeadlineFactory(inputs);
+                    t = Deadline.DeadlineFromCMD(inputs);
                     break;
                 case "todo":
-                    t = new Todo(inputs);
+                    t = Todo.TodoFromCMD(inputs);
                     break;
             } // end switch for type of task
             if (t == null) {
                 throw new InvalidTaskException("This task does not fit known tasks (event, deadline, todo)");
             }
             TaskList.list.add(t);
-//            TaskListCommands.list[TaskListCommands.taskNextIndex] = t;
-//            TaskListCommands.taskNextIndex++;
             letoSpeak("Task added, [" + t.toString() +
                     "]\n  > You have " + TaskList.list.size() + " tasks.");
-//            System.out.println("  << Duke Leto >>\n  > Task added, [" + t.toString() +
-//                    "]\n  > You have " + TaskListCommands.list.size() + " tasks.");
         } catch (InvalidTaskException e) {
             e.printException();
         }
@@ -88,11 +84,10 @@ public class TaskList {
                 throw new InvalidTaskException("WARNING Task is null, try creating a task first!");
             }
             if (!temp.isCompleted()) {
-                throw new IndexOutOfBoundsException("Task is already not completed (╬▔皿▔)╯");
+                letoSpeak("Task is already not completed (╬▔皿▔)╯");
             } else {
                 temp.markUncompleted();
-                letoSpeak("Task marked as uncompleted! Things happen, dont worry we account for it");
-//                System.out.println("  << Duke Leto >>\n  > Task marked as uncompleted! Things happen, dont worry we account for it");
+                letoSpeak("Task marked as uncompleted! Things happen, don't worry we account for it");
             }
         } catch (InvalidTaskException e) {
             e.printException();
@@ -106,8 +101,6 @@ public class TaskList {
             TaskList.list.remove(index);
             letoSpeak("Task deleted, [" + t.toString() +
                     "]\n  > You have " + TaskList.list.size() + " tasks.");
-//            System.out.println("  << Duke Leto >>\n  > Task deleted, [" + t.toString() +
-//                    "]\n  > You have " + TaskListCommands.list.size() + " tasks.");
         } catch (InvalidTaskException e) {
             e.printException();
         }
@@ -133,12 +126,13 @@ public class TaskList {
     }
 
     public static void printList() {
-        System.out.println("  << Duke Leto >> ");
-        System.out.println("  ┌ < Task list >");
+        StringBuilder toPrint = new StringBuilder(" < Task List >\n");
         for (int i = 0; i < TaskList.list.size(); i++) {
-            System.out.println("  ├ " + (i+1) + ": " + TaskList.list.get(i).toString());
+            toPrint.append(" ").append(i + 1).append(": ")
+                    .append(TaskList.list.get(i).toString()).append("\n");
         }
-        System.out.println("  └─ end of list");
+        toPrint.append("\n < End of Task List >");
+        letoSpeak(toPrint.toString());
     }
 
     public static List<Task> getTasks() {

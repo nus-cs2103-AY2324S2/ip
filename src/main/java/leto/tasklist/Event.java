@@ -1,6 +1,7 @@
 package leto.tasklist;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,10 +16,21 @@ public class Event extends Task {
         this.to = to;
     }
 
+    private String eventDaysMessage() {
+        long daysToStart = ChronoUnit.DAYS.between(LocalDate.now(), this.from);
+        long daysToEnd = ChronoUnit.DAYS.between(LocalDate.now(), this.to);
+        if (daysToStart > 0) {
+            return Math.abs(daysToStart) + " days to the event";
+        } else if (daysToEnd < 0) {
+            return "ended " + Math.abs(daysToEnd) + " days ago";
+        } else {
+            return daysToEnd + " days remaining";
+        }
+    }
 
-    public static Event EventFactory(String message) throws InvalidTaskException {
-        String regex = "event ([^,]+) /from (\\d{4}-\\d{2}-\\d{2}) /to (\\d{4}-\\d{2}-\\d{2})";
-        Matcher matcher = Pattern.compile(regex).matcher(message);
+    public static Event EventFromCMD(String input) throws InvalidTaskException {
+        String regex = "(?i)event ([^,]+) /from (\\d{4}-\\d{2}-\\d{2}) /to (\\d{4}-\\d{2}-\\d{2})";
+        Matcher matcher = Pattern.compile(regex).matcher(input);
         if (!matcher.matches()) {
             throw new EventInvalidCmdException();
         }
@@ -48,7 +60,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to +")";
+        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to +")"
+                + " " + this.eventDaysMessage();
     }
 
     /**

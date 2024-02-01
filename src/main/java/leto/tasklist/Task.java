@@ -4,13 +4,6 @@ public class Task {
     private boolean completed;
     private String message;
 
-    public Task() {}
-
-    public Task(String message) {
-        this.completed = false;
-        this.message = message;
-    }
-
     public Task(Boolean completed, String message) {
         this.completed = completed;
         this.message = message;

@@ -1,11 +1,10 @@
 package leto.tasklist;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static leto.ui.Ui.letoSpeak;
-import static leto.ui.Ui.shortSay;
 
 public class Deadline extends Task {
     private LocalDate deadline;
@@ -16,20 +15,26 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
-    public static Deadline DeadlineFactory(String message) throws InvalidTaskException {
-        String regex = "deadline ([^,]+) /by (\\d{4}-\\d{2}-\\d{2})";
-        Matcher matcher = Pattern.compile(regex).matcher(message);
+    public static Deadline DeadlineFromCMD(String input) throws InvalidTaskException {
+        String regex = "(?i)deadline ([^,]+) /by (\\d{4}-\\d{2}-\\d{2})";
+        Matcher matcher = Pattern.compile(regex).matcher(input);
         if (!matcher.matches()) {
             throw new InvalidTaskException("deadline <description> /by <date>,"
                     + " <date> should be in the format YYYY-MM-DD.");
         }
-//        message = message.replaceFirst("deadline ", "");
-//        String[] messageParts = message.split(" /by ");
-//        if (messageParts.length < 2) {
-//            throw new InvalidTaskException("Task need to follow\n   `deadline _task_ /by _time_` format");
-//        }
         LocalDate deadline = LocalDate.parse(matcher.group(2).trim());
         return new Deadline(false, matcher.group(1).trim(), deadline);
+    }
+
+    private String remainingDaysMessage() {
+        long remainingDays = ChronoUnit.DAYS.between(LocalDate.now(), this.deadline);
+        if (remainingDays == 0) {
+            return "due today";
+        } else if (remainingDays < 0) {
+            return Math.abs(remainingDays) + " days past deadline";
+        } else {
+            return remainingDays + " days remaining";
+        }
     }
 
     /**
@@ -38,8 +43,6 @@ public class Deadline extends Task {
      * @return a Deadline task
      */
     public static Deadline DeadlineFromCSV(String entry) throws InvalidTaskException {
-//        entry = "D,N,1,2023-04-15,,";
-//        letoSpeak("Testing overriden entry");
         String regex = "([DTE]),([YN]),([^,]*),([^,]*),([^,]*),([^,]*)(\\n?)";
         Matcher matcher = Pattern.compile(regex).matcher(entry);
         if (!matcher.matches()) {
@@ -48,16 +51,13 @@ public class Deadline extends Task {
         Boolean completed = matcher.group(2).equals("Y");
         String message = matcher.group(3);
         LocalDate deadline = LocalDate.parse(matcher.group(4));
-//        String[] parts = entry.split(",");
-//        Boolean completed = parts[1].equals("Y");
-//        String message = parts[2];
-//        String deadlineString = parts[3];
         return new Deadline(completed, message, deadline);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline.toString() + ")";
+        return "[D]" + super.toString() + " (by: " + this.deadline.toString() + ")"
+                + " " + this.remainingDaysMessage();
     }
 
     /**
