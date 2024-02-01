@@ -9,29 +9,42 @@ import java.util.ArrayList;
  * Duke is the main class for the application that runs according to the commands given to it by the user.
  */
 public class Duke {
-    private final Scanner scanner = new Scanner(System.in);
-    private ArrayList<Task> taskList;
+    /**
+     * Ui for the application.
+     */
+    private Ui ui;
+
+    /**
+     * TaskList for the application.
+     */
+    private TaskList taskList;
+
+    /**
+     * Storage for the application.
+     */
     private Storage storage;
 
     /**
      * Constructor for the Duke class
      */
     private Duke() {
-        this.storage = new Storage("./data/duke.txt"); // Update the file path as needed
+        this.ui = new Ui();
+        this.storage = new Storage("./data/duke.txt");
         try {
-            this.taskList = storage.loadTasks();
+            ArrayList<Task> taskList = storage.loadTasks();
+            this.taskList = new TaskList(taskList);
         } catch (IOException exception) {
             System.out.println("Error loading tasks from file: " + exception.getMessage());
-            this.taskList = new ArrayList<>();
+            ArrayList<Task> emptyTaskList = new ArrayList<>();
+            this.taskList = new TaskList(emptyTaskList);
         } catch (DukeException exception) {
             String exceptionMessage = exception.getExceptionMessage();
-            printALine();
+            this.ui.printALine();
             System.out.println(exceptionMessage);
-            printALine();
-            this.taskList = new ArrayList<>();
+            this.ui.printALine();
+            ArrayList<Task> emptyTaskList = new ArrayList<>();
+            this.taskList = new TaskList(emptyTaskList);
         }
-        //this.taskList  = new ArrayList<>();
-
     }
     public static void main(String[] args) {
         Duke aurora1 = new Duke();
@@ -42,338 +55,51 @@ public class Duke {
      * Method for the execution of the application.
      */
     public void exeAurora() {
-        printOpeningMessage();
+        this.ui.printOpeningMessage();
         boolean exit = false;
         while(!exit) {
-            String command = scanner.nextLine();
-            String[] splitCommands = command.split(" ");
+            String command = this.ui.nextCommand();
+            String[] splitCommands = Parser.splitAtAllBlanks(command);
             String mainC = splitCommands[0];
             try {
                 if (mainC.equalsIgnoreCase("bye")) {
-                    exit = true;
+                    ByeCommand byeCommand = new ByeCommand(this.taskList, this.ui, this.storage);
+                    exit = byeCommand.isBye();
+                    byeCommand.handle();
                 } else if (mainC.equalsIgnoreCase("list")) {
-                    printTaskList();
+                    ListCommand listCommand = new ListCommand(this.taskList, this.ui, this.storage);
+                    listCommand.handle();
                 } else if (mainC.equalsIgnoreCase("mark")) {
-                    handleMark(splitCommands);
+                    MarkCommand markCommand = new MarkCommand(this.taskList, this.ui, this.storage, splitCommands);
+                    markCommand.handle();
                 } else if (mainC.equalsIgnoreCase("unmark")) {
-                    handleUnmark(splitCommands);
+                    UnmarkCommand unmarkCommand = new UnmarkCommand(this.taskList, this.ui, this.storage,
+                            splitCommands);
+                    unmarkCommand.handle();
                 } else if (mainC.equalsIgnoreCase("todo")) {
-                    handleToDo(command);
+                    TodoCommand todoCommand = new TodoCommand(this.taskList, this.ui, this.storage, command);
+                    todoCommand.handle();
                 } else if (mainC.equalsIgnoreCase("deadline")) {
-                    handleDeadline(command);
+                    DeadlineCommand deadlineCommand = new DeadlineCommand(this.taskList, this.ui, this.storage,
+                            command);
+                    deadlineCommand.handle();
                 } else if (mainC.equalsIgnoreCase("event")) {
-                    handleEvent(command);
+                    EventCommand eventCommand = new EventCommand(this.taskList, this.ui, this.storage, command);
+                    eventCommand.handle();
                 } else if (mainC.equalsIgnoreCase("delete")) {
-                    handleDelete(splitCommands);
+                    DeleteCommand deleteCommand = new DeleteCommand(this.taskList, this.ui, this.storage,
+                            splitCommands);
+                    deleteCommand.handle();
                 } else {
-                    handleInvalidCommand();
+                    InvalidCommand invalidCommand = new InvalidCommand();
+                    invalidCommand.handle();
                 }
             } catch (DukeException exception) {
                 String exceptionMessage = exception.getExceptionMessage();
-                printALine();
+                this.ui.printALine();
                 System.out.println(exceptionMessage);
-                printALine();
+                this.ui.printALine();
             }
         }
-            printExitMessage();
     }
-
-    /**
-     * Method to print the greeting message.
-     */
-    public void printOpeningMessage() {
-        printALine();
-        String openingMessage = "How are you feeling? I'm Aurora, your personal schedule assistant. \n"
-                + "What can I do for you?";
-        System.out.println(openingMessage);
-        printALine();
-    }
-
-    /**
-     * Method to print the exit message.
-     */
-    public void printExitMessage() {
-        printALine();
-        String exitMessage = "Thank you for consulting with me, have a good day.";
-        System.out.println(exitMessage);
-        printALine();
-    }
-
-    /**
-     * Method to print the task list.
-     */
-    public void printTaskList() {
-        printALine();
-        System.out.println("These are the tasks in your list:");
-        for(int i = 0; i < this.taskList.size(); i++) {
-            String taskString = (i+1) + ". " + this.taskList.get(i).toString();
-            System.out.println(taskString);
-        }
-        printALine();
-    }
-
-    /**
-     * Method to echo an add command.
-     */
-    public void echoAddTask(Task task, int taskNumber) {
-        printALine();
-        String echo = "Added this task: \n" + task.toString() + "\nNumber of tasks in list: " + taskNumber;
-        System.out.println(echo);
-        printALine();
-    }
-
-    /**
-     * Method to print a line for separation.
-     */
-    public void printALine() {
-        for (int i = 0; i < 100; i++) {
-            System.out.print("_");
-        }
-        System.out.println();
-    }
-
-    /**
-     * Method to add a ToDo to the taskList.
-     */
-    public void addTodo(String description) {
-        ToDo newTask = new ToDo(description);
-        taskList.add(newTask);
-        echoAddTask(newTask, taskList.size());
-    }
-
-    /**
-     * Method to add a Deadline to the taskList.
-     */
-    public void addDeadline(String description, LocalDateTime date) {
-        Deadline newTask = new Deadline(description, date);
-        taskList.add(newTask);
-        echoAddTask(newTask, taskList.size());
-    }
-
-    /**
-     * Method to add an Event to the tasklist.
-     */
-    public void addEvent(String description, LocalDateTime start, LocalDateTime end) {
-        Event newTask = new Event(description, start, end);
-        taskList.add(newTask);
-        echoAddTask(newTask, taskList.size());
-    }
-
-
-    /**
-     * Method to mark a task in the taskList as done.
-     */
-    public void markTask(int taskIndex) {
-        this.taskList.get(taskIndex).setDone();
-        printALine();
-        System.out.println("I've marked this task as done: \n" +
-                this.taskList.get(taskIndex).toString());
-        printALine();
-    }
-
-    /**
-     * Method to unmark a task in the taskList.
-     */
-    public void unmarkTask(int taskIndex) {
-        this.taskList.get(taskIndex).setNotDone();
-        printALine();
-        System.out.println("I've marked this task as not done yet: \n" +
-                this.taskList.get(taskIndex).toString());
-        printALine();
-    }
-
-    /**
-     * Method to delete a task in the taskList.
-     */
-    public void deleteTask(int taskIndex) {
-        String taskString = this.taskList.get(taskIndex).toString();
-        this.taskList.remove(taskIndex);
-        printALine();
-        System.out.println("I've removed this task as you instructed: \n" +
-                taskString + "\nNumber of tasks in the list: " + taskList.size());
-        printALine();
-    }
-
-    /**
-     * Method to handle a mark command
-     */
-    public void handleMark(String[] splitCommands) throws DukeException {
-        if (splitCommands.length != 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
-                    "Make sure to enter mark, then the number of the task you want to mark as done.");
-        // Solution adapted from https://www.baeldung.com/java-check-string-number
-        } else if (!splitCommands[1].matches("-?\\d+(\\.\\d+)?")) {
-            throw new DukeException("Please enter an integer as the second input.");
-        } else if (Integer.parseInt(splitCommands[1]) <= 0) {
-            throw new DukeException("Please enter an integer greater than 0 as the second input.");
-        } else if (Integer.parseInt(splitCommands[1]) > taskList.size()) {
-            throw new DukeException("Please enter an integer representing a task within the list.");
-        } else if (taskList.get(Integer.parseInt(splitCommands[1]) - 1).getStatus()) {
-            throw new DukeException("Task already marked as done.");
-        } else {
-            int taskIndex = Integer.parseInt(splitCommands[1]);
-            markTask(taskIndex - 1);
-        }
-        try {
-            storage.saveTasks(taskList);
-        } catch (IOException exception) {
-            System.out.println("Unable to save edits: " + exception.getMessage());
-        }
-    }
-
-    /**
-     * Method to handle an unmark command
-     */
-    public void handleUnmark(String[] splitCommands) throws DukeException {
-        if (splitCommands.length != 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
-                    "Make sure to enter unmark, then the number of the task you want to unmark.");
-            // Solution adapted from https://www.baeldung.com/java-check-string-number
-        } else if (!splitCommands[1].matches("-?\\d+(\\.\\d+)?")) {
-            throw new DukeException("Please enter an integer as the second input.");
-        } else if (Integer.parseInt(splitCommands[1]) <= 0) {
-            throw new DukeException("Please enter an integer greater than 0 as the second input.");
-        } else if (Integer.parseInt(splitCommands[1]) > taskList.size()) {
-            throw new DukeException("Please enter an integer representing a task within the list.");
-        } else if (!taskList.get(Integer.parseInt(splitCommands[1]) - 1).getStatus()) {
-            throw new DukeException("Task already unmarked.");
-        } else {
-            int taskIndex = Integer.parseInt(splitCommands[1]);
-            unmarkTask(taskIndex - 1);
-        }
-        try {
-            storage.saveTasks(taskList);
-        } catch (IOException exception) {
-            System.out.println("Unable to save edits: " + exception.getMessage());
-        }
-    }
-
-    /**
-     * Method to handle a delete command
-     */
-    public void handleDelete(String[] splitCommands) throws DukeException {
-        if (splitCommands.length != 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
-                    "Make sure to enter unmark, then the number of the task you want to delete.");
-            // Solution adapted from https://www.baeldung.com/java-check-string-number
-        } else if (!splitCommands[1].matches("-?\\d+(\\.\\d+)?")) {
-            throw new DukeException("Please enter an integer as the second input.");
-        } else if (Integer.parseInt(splitCommands[1]) <= 0) {
-            throw new DukeException("Please enter an integer greater than 0 as the second input.");
-        } else if (Integer.parseInt(splitCommands[1]) > taskList.size()) {
-            throw new DukeException("Please enter an integer representing a task within the list.");
-        } else {
-            int taskIndex = Integer.parseInt(splitCommands[1]);
-            deleteTask(taskIndex - 1);
-        }
-        try {
-            storage.saveTasks(taskList);
-        } catch (IOException exception) {
-            System.out.println("Unable to save edits: " + exception.getMessage());
-        }
-    }
-
-    /**
-     * Method to handle a todo command
-     */
-    public void handleToDo(String command) throws DukeException {
-        String[] descriptionSplit = command.split(" ", 2);
-        if (descriptionSplit.length < 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
-                    "Make sure to enter todo, then specify the task.");
-        } else {
-            addTodo(descriptionSplit[1]);
-        }
-        try {
-            storage.saveTasks(taskList);
-        } catch (IOException exception) {
-            System.out.println("Unable to save todo to file: " + exception.getMessage());
-        }
-    }
-
-    /**
-     * Method to handle a deadline command
-     */
-    public void handleDeadline(String command) throws DukeException {
-        String[] descriptionAndDateSplit = command.split(" ", 2);
-        if (descriptionAndDateSplit.length < 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
-                    "Make sure to enter deadline, then specify the description of the task followed by the deadline.\n" +
-                    "These two fields should be separated with /by.");
-        }
-        String descriptionAndDate = descriptionAndDateSplit[1];
-        String[] splitVariables = descriptionAndDate.split(" /by ", 2);
-        if (splitVariables.length < 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
-                    "Make sure to enter deadline, then specify the description of the task followed by the deadline.\n" +
-                    "These two fields should be separated with /by.");
-        } else {
-            String description = splitVariables[0];
-            String dateString = splitVariables[1];
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-                LocalDateTime date = LocalDateTime.parse(dateString, formatter);
-                addDeadline(description, date);
-            } catch (DateTimeParseException e) {
-                throw new DukeException("Invalid date format. Please use dd/MM/yyyy HHmm format for deadlines.");
-            }
-        }
-        try {
-            storage.saveTasks(taskList);
-        } catch (IOException exception) {
-            System.out.println("Unable to save deadline to file: " + exception.getMessage());
-        }
-    }
-
-    /**
-     * Method to handle an event command
-     */
-    public void handleEvent(String command) throws DukeException {
-        String[] descriptionAndDateSplit = command.split(" ", 2);
-        if (descriptionAndDateSplit.length < 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
-                    "Make sure to enter event, then specify the description of the task followed by the start and end " +
-                    "dates.\n" +
-                    "The start date should be preceded with /from, while the end date should be preceded with /to.");
-        }
-        String descriptionAndDate = descriptionAndDateSplit[1];
-        String[] descriptionSplit = descriptionAndDate.split(" /from ");
-        if (descriptionSplit.length != 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
-                    "Make sure to enter event, then specify the description of the task followed by the start and end " +
-                    "dates.\n" +
-                    "The start date should be preceded with /from, while the end date should be preceded with /to.");
-        }
-        String description = descriptionSplit[0];
-        String startEnd = descriptionSplit[1];
-        String[] startEndSplit = startEnd.split(" /to ");
-        if (startEndSplit.length != 2) {
-            throw new DukeException("Invalid number of arguments!\n" +
-                    "Make sure to enter event, then specify the description of the task followed by the start and end " +
-                    "dates.\n" +
-                    "The start date should be preceded with /from, while the end date should be preceded with /to.");
-        } else {
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-                LocalDateTime start = LocalDateTime.parse(startEndSplit[0].trim(), formatter);
-                LocalDateTime end = LocalDateTime.parse(startEndSplit[1].trim(), formatter);
-                addEvent(description, start, end);
-            } catch (DateTimeParseException e) {
-                throw new DukeException("Invalid date format. Please use dd/MM/yyyy HHmm format for events.");
-            }
-        }
-        try {
-            storage.saveTasks(taskList);
-        } catch (IOException exception) {
-            System.out.println("Unable to save event to file: " + exception.getMessage());
-        }
-    }
-
-    /**
-     * Method to handle invalid commands
-     */
-    public void handleInvalidCommand() throws DukeException {
-        throw new DukeException("I am unable to understand this command, please kindly try again.");
-    }
-
 }

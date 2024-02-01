@@ -89,12 +89,11 @@ public class Storage {
         String type = components[0];
         boolean isDone = components[1].trim().equals("1");
         String description = components[2].trim();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
 
         try {
             switch (type) {
             case "T":
-                ToDo todo = new ToDo(description);
+                Todo todo = new Todo(description);
                 if (isDone) {
                     todo.setDone();
                 }
@@ -103,8 +102,8 @@ public class Storage {
                 if (components.length < 4) {
                     throw new DukeException("Invalid format for a deadline.");
                 }
-                LocalDateTime date = LocalDateTime.parse(components[3].trim(), formatter);
-                Deadline deadline = new Deadline(description, date);
+                LocalDateTime dateLdt = Parser.parseDateFromStorage(components[3].trim());
+                Deadline deadline = new Deadline(description, dateLdt);
                 if (isDone) {
                     deadline.setDone();
                 }
@@ -113,9 +112,9 @@ public class Storage {
                 if (components.length < 5) {
                     throw new DukeException("Invalid format for an event.");
                 }
-                LocalDateTime startDate = LocalDateTime.parse(components[3].trim(), formatter);
-                LocalDateTime endDate = LocalDateTime.parse(components[4].trim(), formatter);
-                Event event = new Event(description, startDate, endDate);
+                LocalDateTime startLdt = Parser.parseDateFromStorage(components[3].trim());
+                LocalDateTime endLdt = Parser.parseDateFromStorage(components[4].trim());
+                Event event = new Event(description, startLdt, endLdt);
                 if (isDone) {
                     event.setDone();
                 }
@@ -135,8 +134,8 @@ public class Storage {
      * @return fileLine in String format
      */
     private String taskToFileLine(Task task) {
-        if (task instanceof ToDo) {
-            ToDo currTask = (ToDo) task;
+        if (task instanceof Todo) {
+            Todo currTask = (Todo) task;
             return currTask.toFileString();
         } else if (task instanceof Deadline) {
             Deadline currTask = (Deadline) task;

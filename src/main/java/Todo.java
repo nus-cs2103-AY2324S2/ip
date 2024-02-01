@@ -1,11 +1,11 @@
-public class ToDo extends Task {
+public class Todo extends Task {
 
     /**
      * Constructor for the ToDo class
      *
      * @param description: Description of the ToDo task.
      */
-    public ToDo(String description) {
+    public Todo(String description) {
         super(description);
     }
 
