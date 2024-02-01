@@ -2,6 +2,7 @@ public class Task {
     
     private String description;
     private boolean completed;
+    public final static String DATETIME_FORMAT_OUTPUT = "MMM dd yyyy HH:mm";
 
     public Task(String description) {
         this.description = description;

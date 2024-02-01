@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.LocalDateTime;
+
 
 public class Cortana {
 
@@ -113,7 +115,7 @@ public class Cortana {
 
     public static void drawLine() {
         indent();
-        System.out.println("____________________________________________________________");
+        System.out.println("____________________________________________________________________________");
     }
 
     public static void output(String sentences) {
@@ -164,6 +166,12 @@ public class Cortana {
                 String[] arr = input.substring(9).split("/by");
                 if (arr.length != 2) {
                     throw new InvalidInputException("Please enter a valid deadline! Tip: deadline <description> /by <deadline> \nMissing /by");
+                } else {
+                    try {
+                        LocalDateTime.parse(convertTimeString(arr[1]));
+                    } catch (Exception e) {
+                        throw new InvalidInputException("Please enter a valid deadline! Tip: deadline <description> /by <deadline> \nInvalid deadline");
+                    }
                 }
             } else {
                 throw new InvalidInputException("Please enter a valid deadline! Tip: deadline <description> /by <deadline> \nMissing description");
@@ -175,7 +183,14 @@ public class Cortana {
                     String[] arr2 = arr[1].split("/to");
                     if (arr2.length != 2) {
                         throw new InvalidInputException("Please enter a valid event! Tip: event <description> /from <start> /to <end> \nMissing /to");
-                    }   
+                    } else {
+                        try {
+                            LocalDateTime.parse(convertTimeString(arr2[0].trim()));
+                            LocalDateTime.parse(convertTimeString(arr2[1].trim()));
+                        } catch (Exception e) {
+                            throw new InvalidInputException("Please enter a valid event! Tip: event <description> /from <start> /to <end> \nInvalid start or end time");
+                        }
+                    } 
                 } else {
                     throw new InvalidInputException("Please enter a valid event! Tip: event <description> /from <start> /to <end> \nMissing /from");
                 }
@@ -227,6 +242,16 @@ public class Cortana {
         }
     }
 
+    private static String convertTimeString(String timeString) {
+        timeString = timeString.trim();
+        timeString = timeString.replace("/", "-");
+        String[] arr = timeString.split(" ");
+        String time = arr[1].trim();
+        String hour = time.substring(0, 2);
+        String minute = time.substring(2, 4); 
+        return arr[0] + "T" + hour + ":" + minute + ":" + "00";
+    }
+
     public void echo() {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
@@ -247,7 +272,8 @@ public class Cortana {
                     break;
                 case DEADLINE:
                     String[] arr = input.substring(9).split("/by");
-                    curr_task = new DeadlineTask(arr[0].trim(), arr[1].trim());
+                    LocalDateTime dateTime = LocalDateTime.parse(convertTimeString(arr[1]));
+                    curr_task = new DeadlineTask(arr[0].trim(), dateTime);
                     this.memory.add(curr_task);
                     response = Response.addTaskSuccess(curr_task, this.memory.getNumTasks());
                     this.saveTaskList();
@@ -255,7 +281,9 @@ public class Cortana {
                 case EVENT:
                     String[] arr2 = input.substring(6).split("/from");
                     String[] arr3 = arr2[1].split("/to");
-                    curr_task = new EventTask(arr2[0].trim(), arr3[0].trim(), arr3[1].trim());
+                    LocalDateTime startDateTime = LocalDateTime.parse(convertTimeString(arr3[0].trim()));
+                    LocalDateTime endDateTime = LocalDateTime.parse(convertTimeString(arr3[1].trim()));
+                    curr_task = new EventTask(arr2[0].trim(), startDateTime, endDateTime);
                     this.memory.add(curr_task);
                     response = Response.addTaskSuccess(curr_task, this.memory.getNumTasks());
                     this.saveTaskList();
@@ -328,7 +356,7 @@ public class Cortana {
         // Load a csv
         File file = new File(Cortana.SAVE_DIR_PATH, Cortana.SAVE_FILENAME);
         if (!file.exists()) {
-            throw new IOException("File not found");
+            return ;
         }
         Scanner sc = new Scanner(file);
         try {
@@ -343,11 +371,14 @@ public class Cortana {
                     task = new TodoTask(description, isDone);
                 } else if (type.equals("D")) {
                     String by = arr[3];
-                    task = new DeadlineTask(description, by, isDone);
+                    LocalDateTime byDateTime = LocalDateTime.parse(by);
+                    task = new DeadlineTask(description, byDateTime, isDone);
                 } else {
                     String from = arr[3];
                     String to = arr[4];
-                    task = new EventTask(description, from, to, isDone);
+                    LocalDateTime fromDateTime = LocalDateTime.parse(from);
+                    LocalDateTime toDateTime = LocalDateTime.parse(to);
+                    task = new EventTask(description, fromDateTime, toDateTime, isDone);
                 }
                 this.memory.add(task);
             }
