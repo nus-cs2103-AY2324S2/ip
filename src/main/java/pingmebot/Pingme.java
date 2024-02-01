@@ -4,13 +4,13 @@ import pingmebot.task.Deadline;
 import pingmebot.task.Events;
 import pingmebot.task.ToDos;
 
-public class Duke {
+public class Pingme {
     private fileStorage storage;
     private TaskList tasks;
     private UI ui;
     private Parser parser;
 
-    public Duke(String filePath) {
+    public Pingme(String filePath) {
         this.ui = new UI();
         try {
             this.storage = new fileStorage(filePath);
@@ -92,6 +92,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("./data/dukeData.txt").run();
+        new Pingme("./data/dukeData.txt").run();
     }
 }
