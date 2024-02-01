@@ -1,22 +1,28 @@
 package leto.tasklist;
 
-import leto.storage.Handler;
+import leto.storage.Storage;
 
 import static leto.ui.Ui.letoSpeak;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class TaskListCommands {
+public class TaskList {
     private static final ArrayList<Task> list = new ArrayList<>(100);
 //    private static int taskNextIndex = 0;
 
-    public TaskListCommands() {}
+    public TaskList() {}
 
     public static void initFromFile() {
-        Handler.ReadFile(list);
+        Storage.ReadFile();
     }
 
     public static void saveTasks() {
-        Handler.WriteFile(list);
+        Storage.WriteFile(list);
+    }
+
+    public static void addTaskToList(Task t) {
+        list.add(t);
     }
 
     public static void addToList(String inputs) {
@@ -37,11 +43,11 @@ public class TaskListCommands {
             if (t == null) {
                 throw new InvalidTaskException("This task does not fit known tasks (event, deadline, todo)");
             }
-            TaskListCommands.list.add(t);
+            TaskList.list.add(t);
 //            TaskListCommands.list[TaskListCommands.taskNextIndex] = t;
 //            TaskListCommands.taskNextIndex++;
             letoSpeak("Task added, [" + t.toString() +
-                    "]\n  > You have " + TaskListCommands.list.size() + " tasks.");
+                    "]\n  > You have " + TaskList.list.size() + " tasks.");
 //            System.out.println("  << Duke Leto >>\n  > Task added, [" + t.toString() +
 //                    "]\n  > You have " + TaskListCommands.list.size() + " tasks.");
         } catch (InvalidTaskException e) {
@@ -54,7 +60,7 @@ public class TaskListCommands {
         try {
             int index = getIndexFromInput(inputs);
 //            temp = TaskListCommands.list[index];
-            temp = TaskListCommands.list.get(index);
+            temp = TaskList.list.get(index);
             if (temp == null) {
                 // should never happen
                 throw new InvalidTaskException("WARNING Task is null, try creating a task first!");
@@ -76,7 +82,7 @@ public class TaskListCommands {
         try {
             int index = getIndexFromInput(inputs);
 //            temp = TaskListCommands.list[index];
-            temp = TaskListCommands.list.get(index);
+            temp = TaskList.list.get(index);
             if (temp == null) {
                 // should not happen btw
                 throw new InvalidTaskException("WARNING Task is null, try creating a task first!");
@@ -96,10 +102,10 @@ public class TaskListCommands {
     public static void deleteTask(String inputs) {
         try {
             int index = getIndexFromInput(inputs);
-            Task t = TaskListCommands.list.get(index);
-            TaskListCommands.list.remove(index);
+            Task t = TaskList.list.get(index);
+            TaskList.list.remove(index);
             letoSpeak("Task deleted, [" + t.toString() +
-                    "]\n  > You have " + TaskListCommands.list.size() + " tasks.");
+                    "]\n  > You have " + TaskList.list.size() + " tasks.");
 //            System.out.println("  << Duke Leto >>\n  > Task deleted, [" + t.toString() +
 //                    "]\n  > You have " + TaskListCommands.list.size() + " tasks.");
         } catch (InvalidTaskException e) {
@@ -114,11 +120,11 @@ public class TaskListCommands {
                 throw new InvalidTaskException("You need to enter a task index number");
             }
             int i = Integer.parseInt(inputs[1]) - 1;
-            if (TaskListCommands.list.isEmpty()) {
+            if (TaskList.list.isEmpty()) {
                 throw new InvalidTaskException("Good news at least, you have no task!");
             }
-            if (i >= TaskListCommands.list.size() || i < 0) {
-                throw new BadTaskIndexException(TaskListCommands.list.size());
+            if (i >= TaskList.list.size() || i < 0) {
+                throw new BadTaskIndexException(TaskList.list.size());
             }
             return i;
         } catch (NumberFormatException e) {
@@ -129,9 +135,13 @@ public class TaskListCommands {
     public static void printList() {
         System.out.println("  << Duke Leto >> ");
         System.out.println("  ┌ < Task list >");
-        for (int i = 0; i < TaskListCommands.list.size(); i++) {
-            System.out.println("  ├ " + (i+1) + ": " + TaskListCommands.list.get(i).toString());
+        for (int i = 0; i < TaskList.list.size(); i++) {
+            System.out.println("  ├ " + (i+1) + ": " + TaskList.list.get(i).toString());
         }
         System.out.println("  └─ end of list");
+    }
+
+    public static List<Task> getTasks() {
+        return Collections.unmodifiableList(list);
     }
 }
