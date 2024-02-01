@@ -48,6 +48,10 @@ public class Parser {
             } else if (commandType.equals("delete")) {
                 int id = parseID(parameters);
                 return new DeleteCommand(id);
+            } else if (commandType.equals("find")) {
+                String keyword = String.join(" ",
+                        Arrays.copyOfRange(parameters, 1, parameters.length));
+                return new FilteredListCommand(keyword);
             } else if (commandType.equals("todo") | commandType.equals("deadline") | commandType.equals("event")) {
                 int byID = findCommand(parameters, "/by");
                 int fromID = findCommand(parameters, "/from");
