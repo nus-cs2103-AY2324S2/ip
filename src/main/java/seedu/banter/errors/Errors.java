@@ -15,15 +15,15 @@ public class Errors {
 
 
     // Errors
-    public static final InvalidBanterUsageError InvalidCommandError = new InvalidBanterUsageError(INVALID_COMMAND, Ui.COMMAND_USAGE);
-    public static final InvalidBanterUsageError InvalidMarkTaskNumberError = new InvalidBanterUsageError(INVALID_TASK_NUMBER, Ui.MARK_USAGE);
-    public static final InvalidBanterUsageError InvalidUnmarkTaskNumberError = new InvalidBanterUsageError(INVALID_TASK_NUMBER, Ui.UNMARK_USAGE);
-    public static final InvalidBanterUsageError InvalidDeleteTaskNumberError = new InvalidBanterUsageError(INVALID_TASK_NUMBER, Ui.DELETE_USAGE);
-    public static final InvalidBanterUsageError MissingTodoDescriptionError = new InvalidBanterUsageError(MISSING_TASK_DESCRIPTION, Ui.TODO_USAGE);
-    public static final InvalidBanterUsageError MissingDeadlineDescriptionError = new InvalidBanterUsageError(MISSING_TASK_DESCRIPTION, Ui.DEADLINE_USAGE);
-    public static final InvalidBanterUsageError MissingDeadlineDueDateError = new InvalidBanterUsageError(MISSING_DEADLINE_DUE_DATE, Ui.DEADLINE_USAGE);
-    public static final InvalidBanterUsageError MissingEventDescriptionError = new InvalidBanterUsageError(MISSING_TASK_DESCRIPTION, Ui.EVENT_USAGE);
-    public static final InvalidBanterUsageError MissingEventStartError = new InvalidBanterUsageError(MISSING_EVENT_START, Ui.EVENT_USAGE);
-    public static final InvalidBanterUsageError MissingEventEndError = new InvalidBanterUsageError(MISSING_EVENT_END, Ui.EVENT_USAGE);
-    public static final InvalidBanterUsageError MissingKeywordError = new InvalidBanterUsageError(MISSING_KEYWORD, Ui.FIND_USAGE);
+    public static final InvalidBanterUsageError INVALID_COMMAND_ERROR = new InvalidBanterUsageError(INVALID_COMMAND, Ui.COMMAND_USAGE);
+    public static final InvalidBanterUsageError INVALID_MARK_TASK_NUMBER_ERROR = new InvalidBanterUsageError(INVALID_TASK_NUMBER, Ui.MARK_USAGE);
+    public static final InvalidBanterUsageError INVALID_UNMARK_TASK_NUMBER_ERROR = new InvalidBanterUsageError(INVALID_TASK_NUMBER, Ui.UNMARK_USAGE);
+    public static final InvalidBanterUsageError INVALID_DELETE_TASK_NUMBER_ERROR = new InvalidBanterUsageError(INVALID_TASK_NUMBER, Ui.DELETE_USAGE);
+    public static final InvalidBanterUsageError MISSING_TODO_DESCRIPTION_ERROR = new InvalidBanterUsageError(MISSING_TASK_DESCRIPTION, Ui.TODO_USAGE);
+    public static final InvalidBanterUsageError MISSING_DEADLINE_DESCRIPTION_ERROR = new InvalidBanterUsageError(MISSING_TASK_DESCRIPTION, Ui.DEADLINE_USAGE);
+    public static final InvalidBanterUsageError MISSING_DEADLINE_DUE_DATE_ERROR = new InvalidBanterUsageError(MISSING_DEADLINE_DUE_DATE, Ui.DEADLINE_USAGE);
+    public static final InvalidBanterUsageError MISSING_EVENT_DESCRIPTION_ERROR = new InvalidBanterUsageError(MISSING_TASK_DESCRIPTION, Ui.EVENT_USAGE);
+    public static final InvalidBanterUsageError MISSING_EVENT_START_ERROR = new InvalidBanterUsageError(MISSING_EVENT_START, Ui.EVENT_USAGE);
+    public static final InvalidBanterUsageError MISSING_EVENT_END_ERROR = new InvalidBanterUsageError(MISSING_EVENT_END, Ui.EVENT_USAGE);
+    public static final InvalidBanterUsageError MISSING_KEYWORD_ERROR = new InvalidBanterUsageError(MISSING_KEYWORD, Ui.FIND_USAGE);
 }
