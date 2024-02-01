@@ -18,11 +18,20 @@ public class Event extends Task {
         this.to = super.parseDateTime(to);
     }
 
+    /**
+     * {inheritDoc}
+     *
+     * @return String representation of the event.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
     }
 
+    /**
+     * Used to obtain the string in the format that the event would be saved in.
+     * @return String representation of the event that is savable.
+     */
     public String fileSavingString() {
         return "E | " + Integer.toString(super.isDone ? 1 : 0) + " | " + super.description + " | " + this.fromString + " | " + this.toString;
     }

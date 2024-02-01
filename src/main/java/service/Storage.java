@@ -116,10 +116,20 @@ public class Storage {
         }
     }
 
+    /**
+     * Preload the current already-stored list of tasks from data.txt.
+     * @param taskList tasklist object where the tasks would be added to.
+     * @throws Exception
+     */
     public void loadInfo(TaskList taskList) throws Exception {
         openStoredFile(taskList);
     }
 
+    /**
+     * Update the database (duke.txt) on the most recent version of the tasklist.
+     * @param taskList most updated version of the tasklist.
+     * @throws RuntimeException
+     */
     public void updateRecords(TaskList taskList) throws RuntimeException { //TODO: to continue, need to add delete task fn, mark, unmark, list
         File file = new File(this.filePath);
         try (FileWriter writer = new FileWriter(file)) { // true for append mode
