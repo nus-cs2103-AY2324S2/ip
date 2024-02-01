@@ -10,7 +10,7 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return String.format("T | %s | %s | %s | %s",this.getStatusIcon(), this.getDescription(), this.start, this.end);
+        return String.format("E | %s | %s | %s | %s",this.getStatusIcon(), this.getDescription(), this.start, this.end);
     }
 
     @Override

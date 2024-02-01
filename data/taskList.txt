@@ -1,4 +1,7 @@
+T | X | read book
+D |   | return book | June 6th
+E |   | project meeting | Aug 6th 2pm | 4pm
 T | X | join sports club
 T |   | borrow book
-T |   | return book | Sunday
-T |   | project meeting | Mon 2pm | 4pm
+D |   | return book | Sunday
+E |   | project meeting | Mon 2pm | 4pm
