@@ -41,14 +41,12 @@ public class MarkCommand extends Command {
         } else if (splitInput.length < 2) {
             throw new DukeException("Please select the task.");
         }
-
         int choiceMark;
         try {
             choiceMark = Integer.parseInt(splitInput[1]);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid integer value.");
         }
-
         if (choiceMark <= tasks.getTasks().size() && choiceMark > 0) {
             tasks.markTask(choiceMark - 1);
             storage.writeArrayListToFile(tasks.getTasks(), true);

@@ -45,11 +45,8 @@ public class SearchCommand extends Command {
         if (splitInput.length <= 1) {
             throw new DukeException("Missing the date!");
         }
-
         LocalDateTime dateInput = DateTimeManager.convertStringToLocalDateTime(splitInput[1].trim() +"T00:00");
-
         ui.printAnyStatement("Here are the tasks on " + input +":");
-
         int index = 1;
         for (Task i : tasks.getTasks()) {
             if (i instanceof Deadline) {
@@ -62,7 +59,6 @@ public class SearchCommand extends Command {
                 }
             }
         }
-
         if (index == 1) {
             ui.printAnyStatement("There are no task on this date");
         }

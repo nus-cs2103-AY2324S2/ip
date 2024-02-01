@@ -42,14 +42,12 @@ public class UnmarkCommand extends Command {
         } else if (splitInput.length < 2) {
             throw new DukeException("Please select the task.");
         }
-
         int choiceUnmark;
         try {
             choiceUnmark = Integer.parseInt(splitInput[1]);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid integer value.");
         }
-
         if (choiceUnmark <= tasks.getTasks().size() && choiceUnmark > 0) {
             tasks.unmarkTask(choiceUnmark - 1);
             storage.writeArrayListToFile(tasks.getTasks(), true);

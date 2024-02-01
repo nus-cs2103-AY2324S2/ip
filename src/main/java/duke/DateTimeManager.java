@@ -23,7 +23,6 @@ public class DateTimeManager {
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
         );
-
         for (DateTimeFormatter formatter : formatters) {
             try {
                 return LocalDateTime.parse(timeString, formatter);

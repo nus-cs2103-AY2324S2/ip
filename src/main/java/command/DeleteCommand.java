@@ -41,14 +41,12 @@ public class DeleteCommand extends Command {
         } else if (splitInput.length < 2) {
             throw new DukeException("Please select the task.");
         }
-
         int choiceDelete;
         try {
             choiceDelete = Integer.parseInt(splitInput[1]);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a valid integer value.");
         }
-
         if (choiceDelete <= tasks.getTasks().size() && choiceDelete > 0) {
             Task deletedTask = tasks.getIndividualTask(choiceDelete - 1);
             tasks.removeTask(choiceDelete - 1);
