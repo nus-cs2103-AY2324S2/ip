@@ -60,9 +60,9 @@ public class Ui {
         Ui.printLine();
     }
 
-    public void printList(TaskList tasks){
+    public void printList(TaskList tasks, String message){
         Ui.printLine();
-        Ui.print("\t" + "Here are the tasks in your list:");
+        Ui.print("\t" + message);
         for (int i = 0; i < tasks.getListSize(); i++) {
             int idx = i + 1;
             Task item = tasks.getItem(i);
