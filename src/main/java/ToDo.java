@@ -3,6 +3,11 @@ public class ToDo extends Task {
         super(description);
     }
 
+    public ToDo (String description, boolean done) {
+        super(description);
+        super.updateIsDone(done);
+    }
+
     @Override
     public String toString() {
         return "[T][" + this.getStatusIcon() + "] " + this.description;

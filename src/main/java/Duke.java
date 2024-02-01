@@ -12,6 +12,8 @@ public class Duke {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         ArrayList<Task> tasks = new ArrayList<>();
+        Save save = new Save();
+        save.loadTasks(tasks);
 
         System.out.println(line);
         System.out.println(logo);
