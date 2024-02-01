@@ -82,4 +82,14 @@ public class TaskList {
         return dataToText;
     }
 
+    @Override
+    public String toString() {
+        String finalString = "";
+        for (Task task : list) {
+            finalString += task.toString() + "\n";
+        }
+        return finalString;
+
+    }
+
 }
