@@ -1,3 +1,10 @@
+package duke;
+
+import duke.exceptions.DukeException;
+
+import duke.exceptions.StorageException;
+import duke.task.*;
+
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileWriter;
@@ -13,7 +20,7 @@ public class Storage {
     private String filePath;
 
     /**
-     * Constructs a Storage object with the data file
+     * Constructs a duke.Storage object with the data file
      *
      * Verifies if this file exists, and will create a new file/directory if needed
      */
@@ -45,7 +52,7 @@ public class Storage {
     /**
      * Saves contents of taskList to memory
      *
-     * @param taskList TaskList instance to save
+     * @param taskList duke.command.task.TaskList instance to save
      * @see TaskList
      */
     public void save(TaskList taskList) {
@@ -61,13 +68,13 @@ public class Storage {
     }
 
     /**
-     * Loads taskList from datafile and returns a TaskList object
+     * Loads taskList from datafile and returns a duke.command.task.TaskList object
      *
-     * @return TaskList object
-     * @throws DukeException.StorageException
+     * @return duke.command.task.TaskList object
+     * @throws StorageException
      * @see TaskList
      */
-    public TaskList load() throws DukeException.StorageException{
+    public TaskList load() throws StorageException{
         TaskList taskList = new TaskList();
 
         try {
@@ -77,30 +84,34 @@ public class Storage {
                 taskList.add(next_task);
             }
         } catch (FileNotFoundException e) {
-            throw new DukeException.StorageException("File / Directory does not exist.");
+            throw new StorageException("File / Directory does not exist.");
         }
 
         return taskList;
     }
 
-    private Task parseLineFromStorage(String tokens) throws DukeException.StorageException {
+    private Task parseLineFromStorage(String tokens) throws StorageException {
         try {
             String[] data = tokens.split(",");
             switch (data[0]) {
-                case "T":
-                    return new Task.ToDos(data[1], Boolean.parseBoolean(data[2]));
-                case "E":
-                    return new Task.Events(data[1], Boolean.parseBoolean(data[2]),
-                            LocalDate.parse(data[3], Task.getDateFormat()),
-                            LocalDate.parse(data[4], Task.getDateFormat()));
-                case "D":
-
-                    return new Task.Deadlines(data[1], Boolean.parseBoolean(data[2]), LocalDate.parse(data[3], Task.getDateFormat()));
-                default:
-                    throw new DukeException.StorageException("Data file is corrupted, task type does not exist");
+            case "TODO":
+                return Task.createTask(TaskType.TODO, data[1], Boolean.parseBoolean(data[2]));
+            case "EVENT":
+                return Task.createTask(TaskType.EVENT, data[1], Boolean.parseBoolean(data[2]),
+                        LocalDate.parse(data[3], Task.getDateFormat()),
+                        LocalDate.parse(data[4], Task.getDateFormat()));
+//                    return new Event(data[1], Boolean.parseBoolean(data[2]),
+//                            LocalDate.parse(data[3], Task.getDateFormat()),
+//                            LocalDate.parse(data[4], Task.getDateFormat()));
+            case "DEADLINE":
+                return Task.createTask(TaskType.DEADLINE, data[1], Boolean.parseBoolean(data[2]),
+                        LocalDate.parse(data[3], Task.getDateFormat()));
+//                    return new Deadline(data[1], Boolean.parseBoolean(data[2]), LocalDate.parse(data[3], Task.getDateFormat()));
+            default:
+                throw new StorageException("Data file is corrupted, task type does not exist");
             }
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
-            throw new DukeException.StorageException("Data file is corrupted, error parsing data: " + e.getMessage());
+            throw new StorageException("Data file is corrupted, error parsing data: " + e.getMessage());
         }
     }
 }
