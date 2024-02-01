@@ -1,7 +1,10 @@
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class TaskList {
+public class TaskList implements Serializable {
+
     public static final String INDENT = "     ";
+
     public static final String LINE =  "____________________________________________________________";
 
     private ArrayList<Task> tasks;
@@ -60,5 +63,4 @@ public class TaskList {
 
         System.out.println(INDENT + LINE + "\n");
     }
-
 }
