@@ -373,6 +373,12 @@ public class RochinOOP {
             return taskStrings;
         }
 
+        /**
+         * Searches for tasks containing the specified keyword.
+         *
+         * @param keyword The keyword to search for in task descriptions.
+         * @return A list of tasks that match the given keyword.
+         */
         public List<Task> findTasks(String keyword) {
             List<Task> matchingTasks = new ArrayList<>();
             for (Task task : tasks) {
@@ -546,6 +552,12 @@ public class RochinOOP {
             }
         }
 
+        /**
+         * Processes the "find" command, searching for tasks containing the specified keyword.
+         *
+         * @param tasks The TaskList containing all tasks.
+         * @param ui    The Ui for displaying user interface messages.
+         */
         public void processFindCommand(TaskList tasks, Ui ui) {
             try {
                 String keyword = command.substring("find".length()).trim();
