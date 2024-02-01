@@ -51,14 +51,25 @@ public class TaskList {
     }
 
 
-    protected void writeToFile(String filePath) throws IOException {
+    protected String printSimplified() {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < tasks.size(); i++) {
             sb.append(tasks.get(i).toFileString()).append("\n");
         }
 
+        String simplifiedString = sb.toString();
+        return simplifiedString;
+
+    }
+    protected void writeToFile(String filePath) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(tasks.get(i).toFileString()).append("\n");
+        }
+
         String textToAdd = sb.toString();
-        FileWriter fw = new FileWriter(filePath);
+        System.out.println(this.printSimplified());
+        FileWriter fw = new FileWriter(filePath, false);
         fw.write(textToAdd);
         fw.close();
     }
@@ -102,4 +113,6 @@ public class TaskList {
             System.out.println("An error has occurred");
         }
     }
+
+
 }
