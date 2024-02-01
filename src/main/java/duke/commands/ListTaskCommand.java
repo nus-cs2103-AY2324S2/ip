@@ -10,14 +10,14 @@ import duke.utils.Ui;
 public class ListTaskCommand extends Command {
 
     /**
-     * Basic constructor, sets isExit to false.
+     * Creates a ListTaskCommand, sets isExit to false.
      */
     public ListTaskCommand() {
         super(false);
     }
     
     /** 
-     * Method for executing list task command, uses ui to print out tasks in tasklist.
+     * Executes list task command, uses ui to print out tasks in provided TaskList.
      * 
      * @param tasks the current list of tasks.
      * @param ui Ui object used by bot for printing information.

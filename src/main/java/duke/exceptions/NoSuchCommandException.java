@@ -8,7 +8,7 @@ package duke.exceptions;
 public class NoSuchCommandException extends Exception {
 
     /**
-     * Basic constructor.
+     * Creates a NoSuchCommandException, used when user inputs an invalid command.
      * 
      * @param command The invaild command.
      */

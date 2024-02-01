@@ -24,7 +24,7 @@ public class Storage {
     private File f;
     
     /**
-     * Constructor for a storage object, takes in a filepath for the file in which data
+     * Creates a Storage object, takes in a filepath for the file in which data
      * should be saved.
      * 
      * @param filePath File to save data to and load data from.
@@ -36,7 +36,7 @@ public class Storage {
     }
 
     /**
-     * Method for checking and creating file based on filepath.
+     * Checks and creates file based on filepath.
      * 
      * @throws IOException
      */
@@ -56,7 +56,7 @@ public class Storage {
     }
 
     /**
-     * Method for reading save data from save file.
+     * Reads save data from save file.
      * 
      * @param ui Used for printing information.
      * @return TaskList read from save data.
@@ -83,7 +83,7 @@ public class Storage {
     }
 
     /**
-     * Method for saving data from bot back to save file.
+     * Saves data from bot back to save file.
      * 
      * @param data The data from the bot.
      * @param ui Used for printing information.
@@ -107,7 +107,7 @@ public class Storage {
     }
 
     /**
-     * Method for individually parsing each line from save file into Tasks.
+     * Parses individual line from save file into Tasks.
      * 
      * @param task Each line read from save file.
      * @return A Task object generated with information parsed from input.

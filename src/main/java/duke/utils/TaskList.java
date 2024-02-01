@@ -13,7 +13,7 @@ public class TaskList {
     private ArrayList<Task> toDoList;
 
     /**
-     * Basic constructor for a TaskList that contains an ArrayList.
+     * Creates a TaskList that contains an ArrayList.
      */
     public TaskList() {
         this.toDoList = new ArrayList<>();
@@ -33,7 +33,7 @@ public class TaskList {
     }
 
     /**
-     * Method for adding task to list.
+     * Adds task to list.
      * 
      * @param t Task that is to be added to list.
      */
@@ -42,7 +42,7 @@ public class TaskList {
     }
 
     /**
-     * Method to be removed from list.
+     * Removes task from list based on task input.
      * 
      * @param t Task that is to be removed from list.
      */
@@ -51,7 +51,7 @@ public class TaskList {
     }
 
     /**
-     * Overloaded method to remove Task from list based on index.
+     * Removes Task from list based on index.
      * 
      * @param i Index of task to be removed from list.
      */
@@ -60,7 +60,7 @@ public class TaskList {
     }
 
     /**
-     * Method for retrieving items from TaskList using index.
+     * Gets items from TaskList using index.
      * 
      * @param i Index of item to be retrieved.
      * @return Task retrieved from TaskList.
@@ -70,7 +70,7 @@ public class TaskList {
     }
 
     /**
-     * Method for getting current size of TaskList.
+     * Gets current size of TaskList.
      * 
      * @return Size of TaskList as integer.
      */

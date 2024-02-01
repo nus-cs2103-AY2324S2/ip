@@ -14,7 +14,7 @@ import duke.utils.Ui;
 public class ExitCommand extends Command {
 
     /**
-     * Basic constructor, sets isExit to true.
+     * Creates an exit command, sets isExit to true.
      */
     public ExitCommand() {
         super(true);
@@ -23,7 +23,7 @@ public class ExitCommand extends Command {
     
     
     /** 
-     * Method for executing exit command, saves data into save file using storage object.
+     * Executes exit command, saves data into save file using storage object.
      * 
      * @param tasks the current list of tasks.
      * @param ui Ui object used by bot for printing information.

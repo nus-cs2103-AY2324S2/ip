@@ -13,14 +13,14 @@ public class Ui {
     private Scanner s;
 
     /**
-     * Basic constructor for a Ui objecy that includes a Scanner to take in user input.
+     * Creates a Ui object that includes a Scanner to take in user input.
      */
     public Ui() {
         this.s = new Scanner(System.in);
     }
 
     /**
-     * Method for retrieving user input.
+     * Retrieves user input.
      * 
      * @return User input as string.
      */
@@ -29,14 +29,14 @@ public class Ui {
     }
 
     /**
-     * Method for closing Ui by closing the user input scanner.
+     * Closes Ui by closing the user input scanner.
      */
     public void closeUi() {
         this.s.close();
     }
 
     /**
-     * Method for displaying startup message to user.
+     * Displays startup message to user.
      */
     public void startupMessage() {
         String name = "CBBW";
@@ -45,14 +45,14 @@ public class Ui {
     }
 
     /**
-     * Method for displaying goodbye message to user.
+     * Displays goodbye message to user.
      */
     public void goodbyeMessage() {
         botPrint("See you again soon!");
     }
 
     /**
-     * Method for displaying message to user with indent and seperating lines.
+     * Displays message to user with indent and seperating lines.
      * 
      * @param s String to be displayed to user
      */

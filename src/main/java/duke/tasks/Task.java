@@ -10,7 +10,7 @@ public class Task {
     private boolean isDone;
 
     /**
-     * Basic constructor for Task.
+     * Creates Task object.
      * 
      * @param isDone Marks if task is completed.
      * @param description Description of the task.
@@ -21,21 +21,21 @@ public class Task {
     }
 
     /**
-     * Method for marking task as done.
+     * Marks task as done by setting isDone to true.
      */
     public void doTask() {
         this.isDone = true;
     }
     
     /**
-     * Method for marking task as undone.
+     * Marks task as undone by setting isDone to false
      */
     public void undoTask() {
         this.isDone = false;
     }
 
     /**
-     * Method used for printing task marker.
+     * Prints task marker, private method used by toString.
      * 
      * @return marker depending on whether this task is completed.
      */
@@ -44,7 +44,7 @@ public class Task {
     }
     
     /**
-     * Getter for description.
+     * Gets description value.
      * 
      * @return description
      */
@@ -53,7 +53,7 @@ public class Task {
     }
 
     /**
-     * Method for displaying Task as a viewable String
+     * Returns Task as a viewable String
      * 
      * @return String
      */
@@ -63,7 +63,7 @@ public class Task {
     } 
 
     /** 
-     * Method for converting Task into a String for saving in save file.
+     * Converts Task into a String for saving in save file.
      * 
      * @return String
      */

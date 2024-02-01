@@ -8,7 +8,7 @@ package duke.exceptions;
 public class TaskCreationException extends Exception {
 
     /**
-     * Basic constructor.
+     * Creates a TaskCreationException, thrown when a user task is unable to be created.
      * 
      * @param errorMsg Reason for task creation failure.
      */

@@ -25,7 +25,7 @@ public class GenerateTaskCommand extends Command {
     private String input;
 
     /**
-     * Basic constructor for GenerateTaskCommand. 
+     * Creates GenerateTaskCommand, basic constructor that takes in the type of task and the user input. 
      * 
      * @param taskType The type of task to be generated based on the enum TaskType.
      * @param input user input to be parsed.
@@ -37,7 +37,7 @@ public class GenerateTaskCommand extends Command {
     }
 
     /** 
-     * Method for executing task generation command. Generates task based on user input and taskType.
+     * Executes task generation command, generates task based on user input and taskType.
      * 
      * @param tasks the current list of tasks.
      * @param ui Ui object used by bot for printing information.

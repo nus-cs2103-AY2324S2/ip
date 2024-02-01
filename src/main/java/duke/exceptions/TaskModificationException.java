@@ -8,7 +8,7 @@ package duke.exceptions;
 public class TaskModificationException extends Exception {
     
     /**
-     * Basic constructor.
+     * Creates a TaskModificationException, thrown when user tries to modify a task but fails to.
      * 
      * @param errorMsg Reason for task modification failure.
      */

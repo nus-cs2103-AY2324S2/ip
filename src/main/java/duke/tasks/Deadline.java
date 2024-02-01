@@ -16,7 +16,7 @@ public class Deadline extends Task {
     private LocalDateTime deadline;
 
     /**
-     * Basic constructor for Deadline.
+     * Creates Deadline object.
      * 
      * @param isDone Marks if task is completed.
      * @param description Description of the task.
@@ -28,7 +28,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Factory method that takes in user input and parses it to return a Deadline task.
+     * Returns a Deadline object by taking in user input and parsing it.
      * 
      * @param isDone Marks if task is completed.
      * @param input User input to be parsed.
@@ -64,7 +64,7 @@ public class Deadline extends Task {
 
     
     /** 
-     * Method for printing Deadline as a viewable String.
+     * Returns Deadline as a viewable String.
      * 
      * @return String
      */
@@ -75,7 +75,7 @@ public class Deadline extends Task {
 
     
     /** 
-     * Method for converting Deadline into a String for saving in save file.
+     * Coverts Deadline into a String for saving in save file.
      * 
      * @return String
      */

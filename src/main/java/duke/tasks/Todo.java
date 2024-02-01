@@ -10,7 +10,7 @@ import duke.exceptions.TaskCreationException;
 public class Todo extends Task {
 
     /**
-     * Basic constructor for Todo.
+     * Creates Todo object.
      * 
      * @param isDone Marks if task is completed.
      * @param description Description of the task.
@@ -20,7 +20,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Factory method that takes in user input and parses it to return a Todo task.
+     * Returns a Todo object by taking in user input and parsing it.
      * 
      * @param isDone Marks if task is completed.
      * @param input User input to be parsed.
@@ -38,7 +38,7 @@ public class Todo extends Task {
     }
 
     /** 
-     * Method for printing Todo as a viewable String.
+     * Returns Todo as a viewable String.
      * 
      * @return String
      */

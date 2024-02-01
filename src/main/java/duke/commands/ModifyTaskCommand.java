@@ -18,7 +18,7 @@ public class ModifyTaskCommand extends Command {
     private String indexInput;
 
     /**
-     * Basic constructor, takes in type of modificaiton and the user input for index to be modified.
+     * Creates ModifyTaskCommand, takes in type of modificaiton and the user input for index to be modified.
      * 
      * @param modType Modification type based on enum ModificationTypes.
      * @param indexInput user input to be parsed into index.
@@ -30,7 +30,7 @@ public class ModifyTaskCommand extends Command {
     }
 
     /** 
-     * Method for executing modify task command, modifies tasks in list based on index and type.
+     * Executes modify task command, modifies tasks in list based on index and type.
      * 
      * @param tasks the current list of tasks.
      * @param ui Ui object used by bot for printing information.

@@ -17,7 +17,7 @@ public class Event extends Task {
     private LocalDateTime end;
 
     /**
-     * Basic constructor for Event.
+     * Creates Event object
      * 
      * @param isDone Marks if task is completed.
      * @param description Description of the task.
@@ -31,7 +31,7 @@ public class Event extends Task {
     }
 
     /**
-     * Factory method that takes in user input and parses it to return an Event task.
+     * Returns a deadline object by taking in user input and parsing it.
      * 
      * @param isDone Marks if task is completed.
      * @param input User input to be parsed.
@@ -89,7 +89,7 @@ public class Event extends Task {
     }
 
     /** 
-     * Method for printing Event as a viewable String.
+     * Returns Event as a viewable String.
      * 
      * @return String
      */
@@ -100,7 +100,7 @@ public class Event extends Task {
     }
 
     /** 
-     * Method for converting Event into a String for saving in save file.
+     * Converts Event into a String for saving in save file.
      * 
      * @return String
      */

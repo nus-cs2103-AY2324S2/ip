@@ -28,7 +28,7 @@ public class Duke {
 
 
     /**
-     * Constructor for Duke with filepath to data file.
+     * Creates Duke object with filepath to data file.
      * 
      * @param filePath Filepath to save file.
      */
@@ -49,7 +49,7 @@ public class Duke {
     }
 
     /**
-     * Method for starting up Duke chatbot.
+     * Starts up Duke chatbot.
      */
     public void run() {
         ui.startupMessage();

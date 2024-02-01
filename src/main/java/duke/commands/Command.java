@@ -20,7 +20,7 @@ public abstract class Command {
     public boolean isExit;
 
     /**
-     * Basic constructor for command.
+     * Creates a command object.
      * 
      * @param isExit for determining if the command leads to an exit.
      */
@@ -29,7 +29,7 @@ public abstract class Command {
     }
 
     /**
-     * Abstract execute method left for inheriting commands to implement.
+     * Executes command, left as abstract for inheriting classes to implement.
      * 
      * @param tasks the current list of tasks 
      * @param ui Ui object used by bot for printing information

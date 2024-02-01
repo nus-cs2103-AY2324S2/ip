@@ -26,8 +26,7 @@ public class Parser {
     
     
     /** 
-     * Static method that takes in user input and parses into the appropriate commands for 
-     * the bot to execute.
+     * Parses user input and  into the appropriate commands for the bot to execute.
      * 
      * @param input
      * @return Command
