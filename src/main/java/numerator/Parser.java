@@ -110,6 +110,15 @@ public class Parser {
             }
         } else if (input.equals("list")) {
             Ui.printMessage(taskList.toString());
+        } else if (input.startsWith("find")) {
+            Pattern p = Pattern.compile("find (\\S+.*)");
+            Matcher m = p.matcher(input);
+            if (!m.find()) {
+                throw new InputFormatException("Please use the format: find <keyword>");
+            } else {
+                String keyword = m.group(1);
+                Ui.printMessage(taskList.findTasks(keyword));
+            }
         } else {
             throw new InputNotRecognisedException("Input not recognised");
         }

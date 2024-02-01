@@ -29,6 +29,10 @@ public abstract class Task {
         return ldt.format(formatter);
     }
 
+    public boolean containsKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
+
 
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
