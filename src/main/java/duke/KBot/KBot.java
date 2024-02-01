@@ -1,11 +1,11 @@
-package duke.KBot;
+package duke.kbot;
 
 import java.util.Scanner;
 
 import duke.actions.Command;
 import duke.exceptions.InvalidCommandException;
 import duke.exceptions.InvalidInputException;
-import duke.ui_design.Messages;
+import duke.ui_design.Ui;
 
 import java.io.IOException;
 
@@ -23,9 +23,10 @@ public class KBot {
      */
     public static void simulate() {
         Scanner sc = new Scanner(System.in); // read inputs from user
+        Ui ui = new Ui();
         while (true) {
             String userInput = sc.nextLine();
-            System.out.println(Messages.getLine());
+            System.out.println(ui.getLine());
             if (userInput.equals("bye")) { // stops the program
                 break;
             } else {
@@ -42,7 +43,7 @@ public class KBot {
                     System.out.println("Error: " + e.getMessage());
                 }
             }
-            System.out.print(Messages.getLine());
+            System.out.print(ui.getLine());
         }
         sc.close();
     }

@@ -2,7 +2,7 @@ package duke.actions;
 
 import java.util.ArrayList;
 
-import duke.KBot.TaskManager;
+import duke.kbot.TaskManager;
 import duke.tasks.Task;
 
 public class FindTask extends Command {

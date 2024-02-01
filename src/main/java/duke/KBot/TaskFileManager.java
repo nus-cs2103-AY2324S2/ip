@@ -1,4 +1,4 @@
-package duke.KBot;
+package duke.kbot;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -23,7 +23,7 @@ import java.time.format.DateTimeParseException;
 public class TaskFileManager {
 
     /** Filepath of where to save to local disk for TASKS */
-    private static final String FILEPATH = "src/main/java/duke/temp/output.txt";
+    private static final String FILEPATH = "src/main/java/duke/memory/output.txt";
 
     private static final DateTimeFormatter STORAGEFORMAT = DateTimeFormatter.ofPattern("d-M-yy");
     private static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern("d-M-yy");
