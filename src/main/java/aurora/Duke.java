@@ -1,8 +1,10 @@
 package aurora;
+
 import aurora.command.ByeCommand;
 import aurora.command.DeadlineCommand;
 import aurora.command.DeleteCommand;
 import aurora.command.EventCommand;
+import aurora.command.FindCommand;
 import aurora.command.InvalidCommand;
 import aurora.command.ListCommand;
 import aurora.command.MarkCommand;
@@ -109,6 +111,9 @@ public class Duke {
                     DeleteCommand deleteCommand = new DeleteCommand(this.taskList, this.ui, this.storage,
                             splitCommands);
                     deleteCommand.handle();
+                } else if (mainC.equalsIgnoreCase("find")) {
+                    FindCommand findCommand = new FindCommand(this.taskList, this.ui, this.storage, splitCommands);
+                    findCommand.handle();
                 } else {
                     InvalidCommand invalidCommand = new InvalidCommand();
                     invalidCommand.handle();
