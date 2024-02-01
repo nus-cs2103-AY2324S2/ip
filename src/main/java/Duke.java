@@ -47,6 +47,8 @@ public class Duke {
                         }
 
                         tasks.get(m - 1).updateIsDone(true);
+                        save.updateTask(tasks.get(m - 1), m, tasks.size());
+
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println(" " + tasks.get(m - 1).toString());
 
@@ -68,6 +70,8 @@ public class Duke {
                         }
 
                         tasks.get(u - 1).updateIsDone(false);
+                        save.updateTask(tasks.get(u - 1), u, tasks.size());
+
                         System.out.println("OK, I've marked this task as not done yet:");
                         System.out.println(" " + tasks.get(u - 1).toString());
                     } catch (DukeException de) {

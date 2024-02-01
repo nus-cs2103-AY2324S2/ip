@@ -83,6 +83,40 @@ public class Save {
         oldFile.delete();
         temp.renameTo(new File("./data/duke.txt"));
     }
+
+    public void updateTask(Task task, int num, int size) throws IOException {
+        if (!file.exists()) {
+            handleFileAccessErrors();
+        }
+
+        String updated = task.getSaveTask();
+        File oldFile = file;
+        File temp = new File("./data/temp.txt");
+
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(temp, true));
+
+        for (int i = 0; i < size; ++i) {
+            String currentLine = br.readLine();
+
+            if (i == (num - 1)) {
+                bw.write(updated);
+            } else {
+                bw.write(currentLine);
+            }
+
+            if (!(i == (size - 1))) {
+                bw.write(System.lineSeparator());
+            }
+        }
+
+        bw.close();
+        br.close();
+
+        oldFile.delete();
+        temp.renameTo(new File("./data/duke.txt"));
+    }
+
     // Move to error handling class?
     private void handleFileAccessErrors() throws IOException {
         try {
