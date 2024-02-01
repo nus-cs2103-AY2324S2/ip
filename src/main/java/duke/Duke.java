@@ -1,3 +1,4 @@
+package duke;
 import java.io.IOException;
 
 import parser.Parser;
@@ -25,7 +26,7 @@ public class Duke {
     }
 
     /**
-     * Runs the chatbot.
+     * Executes the chatbot.
      * @throws IOException if an I/O error occurs while running the chatbot
      */
     public void run() throws IOException {
