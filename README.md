@@ -1,6 +1,7 @@
 # Gluti project
 
 Welcome to the Gluti chatbot!
+![Chatbot Mascot](https://github.com/garywongkai/ip/blob/branch-A-CodingStandard/src/main/data/Gluti.png)
 
 ## UML diagrams
 
