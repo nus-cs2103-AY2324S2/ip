@@ -1,4 +1,3 @@
-/* (C)2024 */
 package taskList;
 
 import java.io.EOFException;
