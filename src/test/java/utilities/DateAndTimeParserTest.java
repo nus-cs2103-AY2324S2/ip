@@ -44,7 +44,8 @@ public class DateAndTimeParserTest {
      */
     @Test
     public void checkWhetherToAndFromValid_correctToAndFrom_noException() {
-        assertDoesNotThrow(() -> DateAndTimeParser.checkWhetherToAndFromValid("11/12/2023 1800", "12/12/2023 1800"));
+        assertDoesNotThrow(() -> DateAndTimeParser.checkWhetherToAndFromValid("11/12/2023 1800",
+                "12/12/2023 1800"));
     }
 
     /**
@@ -57,7 +58,8 @@ public class DateAndTimeParserTest {
             DateAndTimeParser.checkWhetherToAndFromValid("13/12/2023 1800", "12/12/2023 1800");
             fail();
         } catch (WilliamException e) {
-            assertEquals("The '/from' date and time should be before '/to' date and time. Please try again!",
+            assertEquals(
+                    "The '/from' date and time should be before '/to' date and time. Please try again!",
                     e.getMessage());
         }
     }

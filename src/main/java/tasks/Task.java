@@ -8,8 +8,10 @@ public class Task {
     private boolean isDone;
     private String type;
     private String[] times;
-    private static DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("d/M/yyyy EEEE, ha");
-    private static DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMAT =
+            DateTimeFormatter.ofPattern("d/M/yyyy EEEE, ha");
+    private static final DateTimeFormatter INPUT_FORMAT =
+            DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     public Task(String name) {
         this.name = name;
@@ -46,11 +48,11 @@ public class Task {
     }
 
     public String outputDateAsString(LocalDateTime dateTime) {
-        return dateTime.format(outputFormat);
+        return dateTime.format(OUTPUT_FORMAT);
     }
 
     public String changeDateToString(LocalDateTime dateTime) {
-        return dateTime.format(inputFormat);
+        return dateTime.format(INPUT_FORMAT);
     }
 
     @Override

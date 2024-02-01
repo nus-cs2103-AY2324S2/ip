@@ -10,8 +10,8 @@ public class AdditionalInfoParser {
      * Returns the split input after getting the user input
      * 
      * @param input Input from the user
-     * @return string[] String[] consisting of two variables: [0] == command, [1] ==
-     *         additional information
+     * @return string[] String[] consisting of two variables: [0] == command, [1] == additional
+     *         information
      */
     public static String[] retrieveTexts(String input) {
         String[] resultOfSplit = new String[2];
@@ -69,7 +69,7 @@ public class AdditionalInfoParser {
         DateAndTimeParser.acceptDateAndTime(secondSplit[0]);
         DateAndTimeParser.acceptDateAndTime(secondSplit[1]);
         DateAndTimeParser.checkWhetherToAndFromValid(secondSplit[0], secondSplit[1]);
-        String[] threeParts = { firstSplit[0], secondSplit[0], secondSplit[1] };
+        String[] threeParts = {firstSplit[0], secondSplit[0], secondSplit[1]};
         return threeParts;
     }
 
@@ -81,7 +81,8 @@ public class AdditionalInfoParser {
      */
     public static void checkAdditionalDetailEmpty(String input) throws WilliamException {
         if (input == null || input.trim().isEmpty()) {
-            throw new WilliamException("The description of a task should not be empty. Please try again!");
+            throw new WilliamException(
+                    "The description of a task should not be empty. Please try again!");
         }
     }
 }

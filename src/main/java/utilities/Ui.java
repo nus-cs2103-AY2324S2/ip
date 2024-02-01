@@ -31,7 +31,8 @@ public class Ui {
         try {
             return Commands.valueOf(input);
         } catch (IllegalArgumentException e) {
-            throw new WilliamException("This command " + input + " does not exist, please try again!");
+            throw new WilliamException(
+                    "This command " + input + " does not exist, please try again!");
         }
     }
 

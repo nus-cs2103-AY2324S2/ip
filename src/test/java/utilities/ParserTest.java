@@ -101,8 +101,10 @@ public class ParserTest {
         parser.parseCommands(Commands.event, "CS2103 Assignment 2");
         parser.parseCommands(Commands.event, "CS2103 Assignment 2 /from 12/12/2023 1800 ");
         parser.parseCommands(Commands.event, "CS2103 Assignment 2 /from 12/12/2023 1800 /to ");
-        parser.parseCommands(Commands.event, "CS2103 Assignment 2 /from 12/12/2023 1800 /to 11/12/2023 1900");
-        parser.parseCommands(Commands.event, "CS2103 Assignment 2 /from 12/12/2023 6pm /to 12/12/2023 7pm");
+        parser.parseCommands(Commands.event,
+                "CS2103 Assignment 2 /from 12/12/2023 1800 /to 11/12/2023 1900");
+        parser.parseCommands(Commands.event,
+                "CS2103 Assignment 2 /from 12/12/2023 6pm /to 12/12/2023 7pm");
         assertTrue(taskListStub.getTasks().isEmpty());
     }
 

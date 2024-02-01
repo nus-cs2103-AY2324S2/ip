@@ -59,7 +59,8 @@ public class TaskList {
      */
     public void deleteFromList(String input) {
         if (this.tasks.isEmpty()) {
-            System.out.println("There are no task to be deleted. Please add some task to the list first!\n");
+            System.out.println(
+                    "There are no task to be deleted. Please add some task to the list first!\n");
         } else {
             int idOfItem = Integer.parseInt(input);
             int actualId = idOfItem - 1;
