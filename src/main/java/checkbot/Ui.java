@@ -1,5 +1,7 @@
 package checkbot;
 
+import checkbot.task.TodoList;
+
 public class Ui {
     public static final String INDENTATION = "  ";
     private static final String SEPARATOR = "____________________________________________________________";
@@ -13,6 +15,17 @@ public class Ui {
 
     public void showGoodbye() {
         print("Goodbye!");
+    }
+
+    public void showSubList(TodoList subList) {
+        if (subList.getLength() == 0) {
+            print("You have no tasks in your list matching your query!");
+            return;
+        }
+        print(
+                "Here are the matching tasks in your list:\n" +
+                        subList
+        );
     }
 
     public void print(String str) {

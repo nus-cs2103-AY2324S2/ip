@@ -3,8 +3,17 @@ package checkbot.task;
 import checkbot.exception.InvalidIndexException;
 
 public class TodoList {
-    private final Task[] taskList = new Task[100];
+    private final Task[] taskList;
     private int length = 0;
+
+    public TodoList() {
+        this.taskList = new Task[100];
+    }
+
+    private TodoList(Task[] taskList, int length) {
+        this.taskList = taskList;
+        this.length = length;
+    }
 
     public void addTask(Task task) {
         taskList[length] = task;
@@ -67,5 +76,17 @@ public class TodoList {
             }
         }
         return txt.toString();
+    }
+
+    public TodoList find(String substr) {
+        Task[] subList = new Task[100];
+        int newLength = 0;
+        for (int i = 0; i < length; i++) {
+            if (taskList[i].nameContains(substr)) {
+                subList[newLength] = taskList[i];
+                newLength++;
+            }
+        }
+        return new TodoList(subList, newLength);
     }
 }

@@ -93,10 +93,10 @@ public class Parser {
                 throw new MissingFromException();
             }
         }
+        if (Pattern.compile("find (.*)").matcher(input).find()) {
+            String searchText = input.split("find ")[1];
+            return new FindCommand(searchText);
+        }
         throw new InvalidCommandException(input);
-    }
-
-    public boolean isGoodbye(String input) {
-        return input.equals("bye");
     }
 }

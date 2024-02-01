@@ -54,4 +54,8 @@ public abstract class Task {
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.name;
     }
+
+    public boolean nameContains(String substr) {
+        return this.name.toLowerCase().contains(substr.toLowerCase());
+    }
 }
