@@ -13,12 +13,26 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A Storage class that acts as a File Manager to handle all file's read and write method.
+ */
 public class Storage {
+
+    /** A fixed directory for text files. */
     static final Path DIRECTORY_PATH = Paths.get("./data");
+
+    /** The name of the file. */
     private String fileName;
+
+    /** The path for the file. */
     private Path filePath;
 
 
+    /**
+     * A constructor to create new Storage Object.
+     *
+     * @param fileName The file name to be loaded or stored.
+     */
     public Storage(String fileName) {
         this.fileName = fileName;
         filePath = DIRECTORY_PATH.resolve(fileName + ".txt");
@@ -69,12 +83,14 @@ public class Storage {
      */
     public ArrayList<Task> loadTasksFromFile() throws DukeException {
         ArrayList<Task> result = new ArrayList<>();
+
         try {
             List<String> fileContentLines = Files.readAllLines(filePath);
             result = convertStringListToTasks(fileContentLines);
         } catch (IOException io) {
             throw new DukeException("There is an error when reading the file.");
         }
+
         return result;
     }
 
@@ -86,9 +102,8 @@ public class Storage {
      */
     private String convertTasksToString(ArrayList<Task> tasks) {
         StringBuilder result = new StringBuilder();
+
         for (Task task: tasks) {
-//            result.append(task.toString());
-//            result.append(System.getProperty("line.separator"));
             if (task instanceof ToDo) {
                 result.append("T | ");
                 result.append(task.getStatusIcon().equals("X") ? "1 | " : "0 | ");
@@ -110,6 +125,7 @@ public class Storage {
             }
 
         }
+
         return result.toString();
     }
 
@@ -121,6 +137,7 @@ public class Storage {
      */
     private ArrayList<Task> convertStringListToTasks(List<String> content) throws DukeException {
         ArrayList<Task> fileTasks = new ArrayList<>();
+
         for (String i : content) {
             String[] stringAttributes = i.split("\\|");
             if (stringAttributes[0].trim().equals("T")) {
@@ -131,6 +148,7 @@ public class Storage {
                 fileTasks.add(new Event(stringAttributes[2].trim(), stringAttributes[1].trim().equals("1") ? true : false, DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim()), DateTimeManager.convertStringToLocalDateTime(stringAttributes[4].trim())));
             }
         }
+
         return fileTasks;
     }
 
@@ -143,6 +161,7 @@ public class Storage {
     private ArrayList<Task> convertStringToTasks(String content) throws DukeException {
         String[] individualStringTask = content.trim().split(System.lineSeparator());
         ArrayList<Task> fileTasks = new ArrayList<>();
+
         for (String i : individualStringTask) {
             String[] stringAttributes = i.split("|");
             if (stringAttributes[0].equals("T")) {
@@ -155,6 +174,7 @@ public class Storage {
         }
         return fileTasks;
     }
+
 
 
 }

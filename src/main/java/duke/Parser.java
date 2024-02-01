@@ -2,8 +2,17 @@ package duke;
 
 import command.*;
 
+/**
+ * A Parser class to decide the instruction made by the user.
+ */
 public class Parser {
 
+    /**
+     * Parses the instruction to the correct command.
+     *
+     * @param userInput The information made by the user.
+     * @return The actual command class to execute the user instruction.
+     */
     public static Command parse(String userInput) {
         String[] splitInput = userInput.split(" ");
 
@@ -14,7 +23,7 @@ public class Parser {
             return new MarkCommand(userInput);
 
         } else if (splitInput[0].equalsIgnoreCase(Action.UNMARK.toString())) {
-            return new unMarkCommand(userInput);
+            return new UnmarkCommand(userInput);
 
         } else if (splitInput[0].equalsIgnoreCase(Action.TODO.toString())) {
             return new AddToDoCommand(userInput);

@@ -6,6 +6,9 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A DateTimeManager to convert between String and LocalDateTime.
+ */
 public class DateTimeManager {
 
     /**
@@ -20,7 +23,6 @@ public class DateTimeManager {
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
         );
-
         for (DateTimeFormatter formatter : formatters) {
             try {
                 return LocalDateTime.parse(timeString, formatter);
@@ -53,6 +55,7 @@ public class DateTimeManager {
                 // Continue next format
             }
         }
+
         throw new DukeException("There is an error of converting LocalDateTime to String.");
     }
 }

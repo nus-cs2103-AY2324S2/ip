@@ -5,16 +5,36 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
+/**
+ * A MarkCommand to mark the task as completion.
+ * A subclass of Command class.
+ */
 public class MarkCommand extends Command {
 
+    /** The information from the user to mark a Task. */
     private String input;
 
+    /**
+     * Creates a constructor with userInput as argument.
+     *
+     * @param userInput The information to mark a task.
+     */
     public MarkCommand(String userInput) {
         this.input = userInput;
     }
 
+
+    /**
+     * Marks a task as completion.
+     * If no task is selected, no task at the moment, or invalid index, an error message is returned.
+     *
+     * @param tasks The TaskList Object that contains a List of Task.
+     * @param ui The Ui Object that interact with the user.
+     * @param storage Storage Manager to writing to the file.
+     * @throws DukeException If no task is selected, no task at the moment, or invalid index.
+     */
     @Override
-    public void excuteCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         String splitInput[] = input.split(" ");
         if (tasks.getTasks().size() == 0) {
             throw new DukeException("No task at the moment.");
