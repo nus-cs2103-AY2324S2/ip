@@ -30,11 +30,11 @@ public class Storage {
                         storage.add(new Task(description, isDone));
                     } else if (taskType.equals("D")) {
                         String dueDate = split[3];
-                        storage.add(new Deadline(description, dueDate));
+                        storage.add(new Deadline(description, dueDate, isDone));
                     } else if (taskType.equals("E")) {
                         String fromDate = split[3];
                         String toDate = split[4];
-                        storage.add(new Event(description, fromDate, toDate));
+                        storage.add(new Event(description, fromDate, toDate, isDone));
                     }
                 }
             } else {
@@ -44,23 +44,46 @@ public class Storage {
                 Files.createDirectories(path.getParent());
                 //Create tasks.txt
                 Files.createFile(path);
-                System.out.println("dir created: " + path.getParent());
-                System.out.println("file created: " + path);
             }
 
         } catch (IOException e) {
             System.out.println("Error occurred in storage->load() method: " + e.getMessage());
         }
     }
-
-    public void save(Task task) {
+    public void addTask(Task task) {
         //[T][X] read book = T | X | read book
         //[D][ ] return book (by: June 6th) = D |  | return book | June 6th
         //[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
         // = E |  | project meeting | Aug 6th 2pm | 4pm
-
+        storage.add(task);
+        Path path = Paths.get(filePath);
+        saveTask(task, path);
+    }
+    public void saveChanges() {
         try {
             Path path = Paths.get(filePath);
+            Files.write(path, "".getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
+            for (Task task : storage) {
+                saveTask(task, path);
+            }
+        } catch (IOException e) {
+            System.out.println("Error occurred in storage-> saveChanges method: " + e.getMessage());
+        }
+
+    }
+
+    public int getSize() {
+        return storage.size();
+    }
+    public Task getTask(int index) {
+        return storage.get(index);
+    }
+    public void removeTask(int index) {
+        storage.remove(index);
+    }
+
+    public void saveTask(Task task, Path path) {
+        try {
             String taskString = task.show();
             String typeOfTask = taskString.substring(1, 2); //T
             String taskStatus = taskString.substring(4, 5); //X
@@ -69,7 +92,6 @@ public class Storage {
             if (typeOfTask.equals("T")) {
                 taskDescription = taskString.substring(7);
                 saveEntry = typeOfTask + " | " + taskStatus + " | " + taskDescription;
-
             } else if (typeOfTask.equals("D")) {
                 int startIndex = taskString.indexOf("(by: ");
                 int endIndex = taskString.indexOf(")");
@@ -77,7 +99,6 @@ public class Storage {
                 String deadline = taskString.substring(startIndex + 5, endIndex);
                 saveEntry = typeOfTask + " | " + taskStatus + " | " + taskDescription
                         + " | " + deadline;
-
             } else if (typeOfTask.equals("E")) {
                 int startIndex = taskString.indexOf("(from: ");
                 taskDescription = taskString.substring(7, startIndex - 1);
@@ -89,21 +110,8 @@ public class Storage {
                         + " | " + fromDate + " | " + toDate;
             }
             Files.write(path, (saveEntry + System.lineSeparator()).getBytes(), StandardOpenOption.APPEND);
-            storage.add(task);
         } catch (IOException e) {
-            System.out.println("Error occurred in storage->save() method: " + e.getMessage());
+            System.out.println("Error occurred in storage-> saveTask method: " + e.getMessage());
         }
     }
-
-    public int getSize() {
-        return storage.size();
-    }
-
-    public Task getTask(int index) {
-        return storage.get(index);
-    }
-    public void removeTask(int index) {
-        storage.remove(index);
-    }
-
 }

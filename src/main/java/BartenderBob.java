@@ -1,6 +1,5 @@
 public class BartenderBob {
     private static final String NAME = "BartenderBob";
-//    private final ArrayList<Task> STORAGE = new ArrayList<>();
     private final Storage STORAGE;
     public BartenderBob() {
         STORAGE = new Storage("./data/duke.txt");
@@ -12,12 +11,8 @@ public class BartenderBob {
         System.out.println("Bye! Another round next time!");
     }
 
-    public void echo(String userInput) {
-        System.out.println(userInput);
-    }
-
     public void store(Task task) {
-        STORAGE.save(task);
+        STORAGE.addTask(task);
         int totalTasks = STORAGE.getSize();
         System.out.println("Got it. I've added this task:");
         System.out.println(task.show());
@@ -36,6 +31,7 @@ public class BartenderBob {
             int integerIndex = Integer.parseInt(index);
             Task task = STORAGE.getTask(integerIndex - 1);
             task.mark();
+            STORAGE.saveChanges();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(task.show());
         } catch (IndexOutOfBoundsException e) {
@@ -48,6 +44,7 @@ public class BartenderBob {
             int integerIndex = Integer.parseInt(index);
             Task task = STORAGE.getTask(integerIndex - 1);
             task.unmark();
+            STORAGE.saveChanges();
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(task.show());
         } catch (IndexOutOfBoundsException e) {
@@ -60,6 +57,7 @@ public class BartenderBob {
             int integerIndex = Integer.parseInt(index);
             String display = STORAGE.getTask(integerIndex - 1).show();
             STORAGE.removeTask(integerIndex - 1);
+            STORAGE.saveChanges();
             int totalTasks = STORAGE.getSize();
             System.out.println("Noted. I've removed this task:");
             System.out.println(display);
