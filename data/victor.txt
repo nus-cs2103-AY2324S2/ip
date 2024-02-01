@@ -1,6 +1,7 @@
 T | true | read book
-D | false | return book | June 6th
+D | false | return book | 2014-06-06
 E | false | project meeting | Aug 6th 2pm | 4pm
 T | true | join sports club
 T | true | add book
-D | true | study for exam  | 19th April
+D | true | study for exam | 2020-04-19
+D | false | return book  | 2019-12-02

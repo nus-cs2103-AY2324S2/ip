@@ -1,9 +1,13 @@
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 class DukeException extends Exception {
 //    public DukeException (String s)
 //    {
@@ -156,8 +160,9 @@ public class Duke {
                 }
             } else if (inputList[0].equals("deadline")) {
                 try {
-                    String[] differentParts = inputList[1].split("/");
+                    String[] differentParts = inputList[1].split("/",2);
                     String[] deadLine = differentParts[1].split(" ", 2);
+                    LocalDate deadDate = LocalDate.parse(deadLine[1]);
                     Deadline userTask = new Deadline(differentParts[0], false, deadLine[1]);
                     todoList.add(userTask);
                     System.out.println(barrier);
@@ -170,7 +175,12 @@ public class Duke {
                     System.out.println("Please redo the command and remember to add the necessary information.");
                     System.out.println("The format to schedule a deadline is: " + taskType.deadline + " (Description) /by (Deadline Date + time)");
                     System.out.println(barrier);
-                }
+                } catch (DateTimeParseException e) {
+                    System.out.println(barrier);
+                System.out.println("Incorrect Date format. Please insert format using yyyy-mm-dd.");
+                System.out.println("E.g. 2019-02-15 is 15 February 2019");
+                    System.out.println(barrier);
+            }
             } else if (inputList[0].equals("event")) {
                 try {
                     String[] differentParts = inputList[1].split("/");
