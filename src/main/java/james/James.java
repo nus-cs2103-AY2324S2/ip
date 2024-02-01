@@ -1,3 +1,12 @@
+package james;
+
+import james.commands.Command;
+import james.exception.DukeException;
+import james.parser.Parser;
+import james.storage.Storage;
+import james.tasklist.TaskList;
+import james.ui.Ui;
+
 import java.io.IOException;
 import java.util.ArrayList;
 

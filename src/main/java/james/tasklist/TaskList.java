@@ -1,3 +1,8 @@
+package james.tasklist;
+
+import james.exception.DukeException;
+import james.tasks.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
