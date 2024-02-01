@@ -8,7 +8,7 @@ public class CoDriver {
         while (true) {
             String commandLine = scanner.nextLine();
             String[] arguments = commandLine.split(" ");
-            Command c = Parser.parse(arguments[0]);
+            Command c = Parser.parseCommand(arguments[0]);
             try {
                 if (c == Command.BYE) {
                     break;

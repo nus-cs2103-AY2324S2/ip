@@ -1,8 +1,10 @@
-public class Event extends Task {
-    private final String from;
-    private final String to;
+import java.time.LocalDate;
 
-    public Event(String description, String from, String to) {
+public class Event extends Task {
+    private final LocalDate from;
+    private final LocalDate to;
+
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -31,32 +33,46 @@ public class Event extends Task {
             throw new CoDriverException("Error! You must provide a /from date/time for an event!");
         }
 
-        StringBuilder fromBuilder = new StringBuilder();
+//        StringBuilder fromBuilder = new StringBuilder();
+        LocalDate fromDate = null;
         i++;
         for (; i < arguments.length; i++) {
             if (arguments[i].equals("/to")) {
                 break;
             }
-            fromBuilder.append(arguments[i]).append(" ");
+            // check if in yyyy-mm-dd format
+            fromDate = Parser.parseDate(arguments[i]);
+            if (fromDate == null) {
+                throw new CoDriverException("Error! The date provided must be in yyyy-mm-dd format!");
+            }
+//            fromBuilder.append(arguments[i]).append(" ");
         }
-        if (fromBuilder.length() == 0) { // if the /from field is empty
+        if (fromDate == null) { // if the /from field is empty
             throw new CoDriverException("Error! The /from field is empty!");
         }
-        fromBuilder.deleteCharAt(fromBuilder.length() - 1);
+//        fromBuilder.deleteCharAt(fromBuilder.length() - 1);
 
         if (i >= arguments.length - 1) { // if the last word is /to or there is no /to
             throw new CoDriverException("Error! You must provide a /to date/time for an event!");
         }
 
-        StringBuilder toBuilder = new StringBuilder();
+//        StringBuilder toBuilder = new StringBuilder();
+        LocalDate toDate = null;
         i++;
         for (; i < arguments.length; i++) {
-            toBuilder.append(arguments[i]).append(" ");
+            // check if in yyyy-mm-dd format
+            toDate = Parser.parseDate(arguments[i]);
+            if (toDate == null) {
+                throw new CoDriverException("Error! The date provided must be in yyyy-mm-dd format!");
+            }
+//            toBuilder.append(arguments[i]).append(" ");
         }
-        toBuilder.deleteCharAt(toBuilder.length() - 1);
+        if (toDate == null) { // if the /to field is empty
+            throw new CoDriverException("Error! The /to field is empty!");
+        }
+//        toBuilder.deleteCharAt(toBuilder.length() - 1);
 
-        return new Event(descriptionBuilder.toString(), fromBuilder.toString(),
-                toBuilder.toString());
+        return new Event(descriptionBuilder.toString(), fromDate, toDate);
     }
 
     @Override
@@ -67,6 +83,6 @@ public class Event extends Task {
 
     @Override
     public String toSaveString() {
-        return "E | " + super.toSaveString() + " | " + this.from + " - " + this.to;
+        return "E|" + super.toSaveString() + "|" + this.from + "~" + this.to;
     }
 }

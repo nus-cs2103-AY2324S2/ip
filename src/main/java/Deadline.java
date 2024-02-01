@@ -1,7 +1,11 @@
-public class Deadline extends Task {
-    private final String date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Deadline(String description, String date) {
+public class Deadline extends Task {
+    private final LocalDate date;
+
+    public Deadline(String description, LocalDate date) {
         super(description);
         this.date = date;
     }
@@ -26,26 +30,34 @@ public class Deadline extends Task {
         descriptionBuilder.deleteCharAt(descriptionBuilder.length() - 1); // remove the last space
 
         if (i >= arguments.length - 1) { // if the last word is /by or there is no /by
-            throw new CoDriverException("Error! You must provide a /by date/time for a deadline!");
+            throw new CoDriverException("Error! You must provide a /by date for a deadline!");
         }
 
-        StringBuilder dateBuilder = new StringBuilder();
+//        StringBuilder dateBuilder = new StringBuilder();
         i++;
+        LocalDate date = null;
         for (; i < arguments.length; i++) {
-            dateBuilder.append(arguments[i]).append(" ");
+            // check if in yyyy-mm-dd format
+            date = Parser.parseDate(arguments[i]);
+            if (date == null) {
+                throw new CoDriverException("Error! The date provided must be in yyyy-mm-dd format!");
+            }
+//            dateBuilder.append(arguments[i]).append(" ");
         }
-        dateBuilder.deleteCharAt(dateBuilder.length() - 1);
-
-        return new Deadline(descriptionBuilder.toString(), dateBuilder.toString());
+        if (date == null) {
+            throw new CoDriverException("Error! You must provide a /by date for a deadline!");
+        }
+        return new Deadline(descriptionBuilder.toString(), date);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.date + ")";
+        return "[D]" + super.toString() + " (by: " + this.date.format(
+                DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override
     public String toSaveString() {
-        return "D | " + super.toSaveString() + " | " + this.date;
+        return "D|" + super.toSaveString() + "|" + this.date;
     }
 }

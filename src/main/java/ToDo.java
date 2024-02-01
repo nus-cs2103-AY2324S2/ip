@@ -18,6 +18,6 @@ public class ToDo extends Task {
 
     @Override
     public String toSaveString() {
-        return "T | " + super.toSaveString();
+        return "T|" + super.toSaveString();
     }
 }

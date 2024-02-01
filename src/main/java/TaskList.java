@@ -1,4 +1,5 @@
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -83,14 +84,16 @@ public class TaskList {
         } catch (IOException e) {
             // do nothing
         }
+
         try {
             // if the file exists, delete the old file
             Path path = Paths.get(filePath);
-            Files.deleteIfExists(path);
-            // create the file
-            Files.createFile(path);
+            if (Files.exists(path)) {
+                Files.delete(path);
+                Files.createFile(path);
+            }
         } catch (IOException e) {
-            System.out.println("Error! Unable to delete file!");
+            System.out.println("Error! Something went wrong when deleting/creating the file!");
         }
         try {
             FileWriter fw = new FileWriter(filePath, true);
@@ -120,39 +123,42 @@ public class TaskList {
         }
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            String[] arguments = line.split(" ");
+            String[] arguments = line.split("\\|");
             String type = arguments[0];
             boolean isDone = arguments[1].equals("1");
             switch (type) {
             case "T": // ToDo
-                String description = line.substring(6);
+                String description = arguments[2];
                 ToDo t = new ToDo(description);
                 if (isDone) {
                     t.markDone();
                 }
-                tl.addTask(t);
+                tl.tasks.add(t);
                 break;
             case "D": // Deadline
-                String deadlineDescription = line.substring(6, line.indexOf("|") - 1);
-                String deadlineDate = line.substring(line.indexOf("|") + 2);
+                String deadlineDescription = arguments[2];
+//                String deadlineDate = line.substring(line.indexOf("|") + 2);
+                LocalDate deadlineDate = Parser.parseDate(arguments[3]);
                 Deadline d = new Deadline(deadlineDescription, deadlineDate);
                 if (isDone) {
                     d.markDone();
                 }
-                tl.addTask(d);
+                tl.tasks.add(d);
                 break;
             case "E": // Event
-                String eventDescription = line.substring(6, line.indexOf("|") - 1);
-                String eventFrom = line.substring(line.indexOf("|") + 2, line.indexOf("-") - 1);
-                String eventTo = line.substring(line.indexOf("-") + 2);
+                String eventDescription = arguments[2];
+                String[] dates = arguments[3].split("~");
+                LocalDate eventFrom = Parser.parseDate(dates[0]);
+                LocalDate eventTo = Parser.parseDate(dates[1]);
                 Event e = new Event(eventDescription, eventFrom, eventTo);
                 if (isDone) {
                     e.markDone();
                 }
-                tl.addTask(e);
+                tl.tasks.add(e);
                 break;
             }
         }
+        scanner.close();
         return tl;
     }
 }

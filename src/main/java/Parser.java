@@ -1,5 +1,8 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
-    public static Command parse(String commandStart) {
+    public static Command parseCommand(String commandStart) {
         Command c;
         switch (commandStart) {
         case "bye":
@@ -31,5 +34,16 @@ public class Parser {
             break;
         }
         return c;
+    }
+
+    public static LocalDate parseDate(String dateString) {
+        LocalDate date = null;
+        // check if in yyyy-mm-dd format
+        try {
+            date = LocalDate.parse(dateString);
+        } catch (Exception e) {
+            // do nothing
+        }
+        return date;
     }
 }
