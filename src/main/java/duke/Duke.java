@@ -2,12 +2,13 @@ package duke;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import duke.commands.ParseCommand;
+
 import duke.commands.Command;
 import duke.commands.CommandException;
+import duke.commands.ParseCommand;
 import duke.storage.Storage;
-import duke.ui.Ui;
 import duke.tasks.Task;
+import duke.ui.Ui;
 
 public class Duke {
     /**

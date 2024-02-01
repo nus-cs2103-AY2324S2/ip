@@ -44,8 +44,9 @@ public class Task {
     public String toString() {
         String checkBox = "[ ]";
 
-        if (status)
+        if (status) {
             checkBox = "[X]";
+        }
 
         return checkBox + " " + description;
     }

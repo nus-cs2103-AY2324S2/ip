@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
  * The Utils class provides various utility methods for working with date, time, and integer values.
  */
 public class Utils {
-    final static private String FORMAT = "d/M/yyyy HHmm";
+    private static final String FORMAT = "d/M/yyyy HHmm";
 
     /**
      * Checks if a given string represents a valid date and time in a specific format.

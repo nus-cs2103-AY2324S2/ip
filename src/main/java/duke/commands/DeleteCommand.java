@@ -2,6 +2,7 @@ package duke.commands;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.ui.Ui;
@@ -26,11 +27,9 @@ public class DeleteCommand extends Command {
             throw new CommandException(
                     "Please specify which task to delete. (format: delete <task no.>)");
         }
-
         if (Integer.parseInt(input[1]) > tasks.size()) {
             throw new CommandException("The tasks you indicated does not exist");
         }
-        
         Ui.printOutput("Noted. I've removed this task: ",
                 tasks.get(Integer.parseInt(input[1]) - 1).toString(),
                 "Now you have " + tasks.size() + " tasks in the list.");
