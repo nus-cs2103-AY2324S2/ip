@@ -13,16 +13,13 @@ public class Quacky {
             ui = new UI();
             storage = new Storage(filePath);
             // Use the filePath parameter instead of hardcoding
-            tasks.loadFromFile(filePath);
+            tasks = storage.load();
         } catch (Storage.InvalidStorageFilePathException e) {
             System.out.println(e.getMessage());
         }
-        /*
         catch (Storage.StorageOperationException e) {
             System.out.println(e.getMessage());
         }
-
-         */
     }
     public void run() {
         ui.showGreeting();
@@ -35,8 +32,8 @@ public class Quacky {
             }
         }
         try {
-            tasks.writeToFile("./data/data.txt");
-        } catch (IOException e) {
+            storage.save(tasks);
+        } catch (Storage.StorageOperationException e) {
             ui.showErrorMessage(e);
         }
     }
