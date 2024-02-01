@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.util.DukeException;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -16,7 +18,7 @@ public class TaskList {
 
     public void addTask(Task task) {
         listOfTasks.add(task);
-        System.out.println("Got it. I've added this duke.task:\n"
+        System.out.println("Got it. I've added this task:\n"
                 + task + "\n"
                 + "Now you have " + getSize()
                 + " tasks in the list.");
@@ -36,7 +38,7 @@ public class TaskList {
 
     public void deleteTask(int index) {
         Task removed = getTask(index - 1);
-        System.out.println("Noted. I've removed this duke.task:\n" + removed);
+        System.out.println("Noted. I've removed this task:\n" + removed);
         listOfTasks.remove(index - 1);
         System.out.println("Now you have " + getSize() + " tasks in the list");
     }
@@ -44,16 +46,16 @@ public class TaskList {
     public void markTask(int index) {
         Task modTask = listOfTasks.get(index - 1);
         modTask.setIsDone(true);
-        System.out.println("Nice! I've marked this duke.task as done:\n" + modTask);
+        System.out.println("Nice! I've marked this task as done:\n" + modTask);
     }
 
     public void unmarkTask(int index) {
         Task modTask = listOfTasks.get(index - 1);
         modTask.setIsDone(false);
-        System.out.println("OK, I've marked this duke.task as not done yet:\n" + modTask);
+        System.out.println("OK, I've marked this task as not done yet:\n" + modTask);
     }
 
     public Task getTask(int index) {
-        return listOfTasks.get(index);
+            return listOfTasks.get(index);
     }
 }

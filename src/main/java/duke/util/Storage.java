@@ -97,6 +97,8 @@ public class Storage {
             fw.close();
         } catch (IOException e) {
             System.out.println("Error detected: " + e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
