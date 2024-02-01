@@ -16,7 +16,6 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JadeException {
         tasks.add(task);
-        storage.saveChange(tasks);
         ui.printMessage(String.format("\tGot it. I've added this task:\n\t %s\n\tNow you have %d task(s) in the list.", task, tasks.size()));
     }
 

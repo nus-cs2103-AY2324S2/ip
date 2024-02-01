@@ -20,7 +20,6 @@ public class DeleteCommand extends Command{
         }
         Task deletedTask = taskList.get(index-1);
         taskList.remove(index-1);
-        storage.saveChange(taskList);
         ui.printMessage(String.format("\tOK, I've deleted this task:\n\t  %s\n\tNow you have %d task(s) in the list.", deletedTask, taskList.size()));
     }
 

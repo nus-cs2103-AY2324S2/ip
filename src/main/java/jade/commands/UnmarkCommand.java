@@ -19,7 +19,6 @@ public class UnmarkCommand extends Command {
             throw new JadeException("\tPlease input a valid number to unmark done.");
         }
         taskList.unmark(index-1);
-        storage.saveChange(taskList);
         ui.printMessage(String.format("\tNice, I've marked this task as not done yet:\n\t  %s",  taskList.get(index-1)));
     }
 

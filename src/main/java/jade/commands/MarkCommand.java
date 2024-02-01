@@ -19,7 +19,6 @@ public class MarkCommand extends Command {
             throw new JadeException("\tPlease input a valid number to mark done.");
         }
         taskList.mark(index-1);
-        storage.saveChange(taskList);
         ui.printMessage(String.format("\tNice, I've marked this task as done:\n\t  %s",  taskList.get(index-1)));
     }
 
