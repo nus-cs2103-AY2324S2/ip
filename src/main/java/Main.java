@@ -1,9 +1,9 @@
 import java.util.Scanner;
-import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Zoe zoe = new Zoe();
         zoe.saysHi();
+        zoe.readExisting();
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
 
@@ -13,6 +13,7 @@ public class Main {
             command = scanner.nextLine();
         }
 
+        zoe.saveTasks();
         System.out.println("Bye. Hope to see you again soon!");
         scanner.close();
     }

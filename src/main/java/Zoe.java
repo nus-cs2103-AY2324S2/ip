@@ -1,4 +1,9 @@
-import java.util.*;
+import java.io.BufferedWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 public class Zoe {
     protected ArrayList<Task> tasks;
     protected ArrayList<String> functions = new ArrayList<String>();
@@ -89,5 +94,16 @@ public class Zoe {
             System.out.println("You have keyed in an invalid command, " +
                     "Zoe can only perform todo, event, deadline, mark, unmark and delete");
         }
+    }
+
+    public void saveTasks() {
+        //save tasks from this current iteration
+        Saver s = new Saver(tasks);
+        s.saveTo("./data/");
+    }
+
+    public void readExisting() {
+        Loader r = new Loader("./data/", "SavedTasks.txt");
+        this.tasks = r.loadTasks();
     }
 }
