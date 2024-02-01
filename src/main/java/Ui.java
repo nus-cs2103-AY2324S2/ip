@@ -24,4 +24,9 @@ public class Ui {
         System.out.println("Sorry! I can't carry this out. I can only perform these currently: " + functions);
     }
 
+    public void invalidIndex() {
+        System.out.println("This task does not exist! " +
+                "Input a positive number among tasks in list starting from 1");
+    }
+
 }

@@ -49,8 +49,6 @@ public class TaskList {
 
     public boolean isValid(int i) {
         if (i > tasks.size() || i < 1) {
-            System.out.println("This task does not exist! " +
-                    "Input a positive number among tasks in list starting from 1");
             return false;
         }
 

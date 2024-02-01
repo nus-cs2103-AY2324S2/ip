@@ -55,6 +55,8 @@ public class Parser {
                 tl.delete(i);
             }
 
+        } else if (!tl.isValid(Integer.parseInt(commandDescription))){
+            ui.invalidIndex();
         } else {
             ui.invalidCommand();
         }

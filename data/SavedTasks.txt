@@ -1,6 +1,3 @@
-<<<<<<< HEAD
 deadline_read book /by 2023-10-14_0
-=======
-deadline_return book /by 2024-10-13_0
->>>>>>> branch-Level-8
+deadline_return book /by 2024-10-13_1
 EOF
