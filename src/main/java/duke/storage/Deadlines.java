@@ -34,14 +34,17 @@ public class Deadlines extends Task {
         } else if (lenBy == 4) {
             this.by = LocalDate.parse(String.join("-", Arrays.copyOfRange(splitBy,
                     1, lenBy)));
+
             if (splitBy[0].length() < 5 && splitBy[0].indexOf(":") != -1) {
                 splitBy[0] = "0" + splitBy[0];
             }
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[HH:mm]" + "[HHmm]" + "[Hmm]");
             this.byTime = LocalTime.parse(splitBy[0], formatter);
         } else if (lenBy == 5) {
             this.by = LocalDate.parse(String.join("-", Arrays.copyOfRange(splitBy,
                     2, lenBy)));
+
             this.byTime = LocalTime.parse(splitBy[1] + " " + splitBy[0], DateTimeFormatter.ofPattern("h:mm a"));
         }
     }
@@ -55,6 +58,7 @@ public class Deadlines extends Task {
     public String toString() {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(" h:mm a");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
         return "[D]" + super.toString() + " (by: " + dateFormatter.format(this.by) +
                 Optional.ofNullable(byTime).map(timeFormatter::format).orElse("") + ")";
     }

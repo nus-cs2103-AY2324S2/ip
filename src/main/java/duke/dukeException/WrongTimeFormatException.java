@@ -5,7 +5,7 @@ package duke.dukeException;
  * Exception class representing an error related to incorrect time format in Duke application.
  * This exception is thrown when there is an issue with the provided date and time format.
  */
-public class WrongTimeFormatException extends Exception{
+public class WrongTimeFormatException extends Exception {
 
     /**
      * Constructs a WrongTimeFormatException with the specified detail message.

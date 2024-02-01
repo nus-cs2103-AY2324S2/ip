@@ -4,7 +4,7 @@ package duke.dukeException;
  * Exception class representing an error related to missing arguments in marking commands (mark, unmark, delete).
  * This exception is thrown when a marking command is missing the required index of the item in the list.
  */
-public class MissingArgumentsExceptionMarking extends MissingArgumentsException{
+public class MissingArgumentsExceptionMarking extends MissingArgumentsException {
 
 
     /**

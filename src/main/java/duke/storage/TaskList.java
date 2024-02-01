@@ -88,7 +88,8 @@ public class TaskList {
     public String toString() {
         StringBuilder result = new StringBuilder();
         result.append(lines).append("\n");
-        for (int i=1;i<=tasks.size();i++) {
+
+        for (int i = 1; i <= tasks.size(); i++) {
            result.append(String.format("    %d.",i)).append(this.tasks.get(i-1).toString()).append("\n");
         }
         result.append(lines);
@@ -102,6 +103,7 @@ public class TaskList {
      */
     private void saveToFile() {
         StringBuilder temporary = new StringBuilder();
+
         for (Task task : tasks) {
            temporary.append("save ").append(task.isDone?"1 ":"0 ").append(task.getOriginalCommand() + "\n");
         }

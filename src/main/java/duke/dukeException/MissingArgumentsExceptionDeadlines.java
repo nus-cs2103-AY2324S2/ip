@@ -4,7 +4,7 @@ package duke.dukeException;
  * Exception class representing an error related to missing arguments in a deadlines command.
  * This exception is thrown when a deadlines command is missing the required parameter, which is the deadline time.
  */
-public class MissingArgumentsExceptionDeadlines extends MissingArgumentsExceptionTodo{
+public class MissingArgumentsExceptionDeadlines extends MissingArgumentsExceptionTodo {
 
     /**
      * Constructs a MissingArgumentsExceptionDeadlines with the specified detail message.
