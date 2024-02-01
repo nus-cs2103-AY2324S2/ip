@@ -46,6 +46,17 @@ public class Ui {
         }
         return sb.toString();
     }
+
+    public static String listFindTasks(ArrayList<Task> tasks, int numTasks) {
+        StringBuilder sb = new StringBuilder();
+        String task = numTasks == 1 ? "task" : "tasks";
+        String article = numTasks == 1 ? "is" : "are";
+        sb.append("There " + article + " " + numTasks + " matching " + task + " in your list:\n");
+        for (int i = 0; i < numTasks; i++) {
+            sb.append((i + 1) + ". " + tasks.get(i).toString() + "\n");
+        }
+        return sb.toString();
+    }
     
     public static String deleteTask(Task task, int numTasks) {
         StringBuilder sb = new StringBuilder();
