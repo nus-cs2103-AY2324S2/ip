@@ -12,4 +12,8 @@ public class Deadline extends Task {
         String[] arr = by.split(" ", 2);
         return "[D]" + super.toString() + " (by: " + arr[1] + ")";
     }
+    @Override
+    public String getType(){
+        return "D";
+    }
 }

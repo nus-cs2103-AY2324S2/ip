@@ -1,13 +1,59 @@
+import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.util.Scanner;
+import java.io.*;
 
 
 public class Duke {
+    private static final String FILE_PATH = System.getProperty("user.dir") + "/src/main/java/data/duke.txt";
+
+    //to save the tasks to the file
+    private static void saveToFile(int size, Task[] tasks){
+        try (PrintWriter writer = new PrintWriter(FILE_PATH)) {
+            for (int i =0; i < size; i++){
+                Task task = tasks[i];
+                writer.println(task.toFileString());
+            }
+        } catch (IOException e){
+            System.out.println("Could not save tasks to file" + e.getMessage());
+        }
+    }
+
+    private static Task[] loadFromFile(){
+        Task[] tasks = new Task[100];
+        int index = 0;
+        try(BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))){
+
+            String line;
+            while((line = reader.readLine()) != null){
+                //adding the task from the file to be read
+                tasks[index] = Task.fromFileString(line);
+                index++;
+            }
+            //size = index;
+        } catch (FileNotFoundException e){
+            System.out.println("File not found! Creating new Data File...");
+            saveToFile(index, tasks);
+        } catch (IOException e){
+            System.out.println("Error loading file" + e.getMessage());
+        }
+        return tasks;
+
+    }
 
     public static void main(String[] args) {
+
         String line = "------------------------------";
         Scanner obj = new Scanner(System.in);
-        Task[] lst = new Task[100];
+        //Task[] lst = new Task[100];
+
+
+        Task[] lst = loadFromFile();
         int i = 0;
+        while(lst[i] != null){
+            i++;
+        }
+        //loadFromFile(lst);
         System.out.println("\n Hello! I'm Leo\n" +
                 " What can I do for you?");
         System.out.println(line);
@@ -68,6 +114,7 @@ public class Duke {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(item.toString());
                     i++;
+                    saveToFile(i, lst);
                     System.out.println("Now you have " + i + " task(s) in your list!");
                     System.out.println(line);
                     break;
@@ -78,6 +125,7 @@ public class Duke {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(dline.toString());
                     i++;
+                    saveToFile(i, lst);
                     System.out.println("Now you have " + i + " task(s) in your list!");
                     System.out.println(line);
                     break;
@@ -88,6 +136,7 @@ public class Duke {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(e.toString());
                     i++;
+                    saveToFile(i, lst);
                     System.out.println("Now you have " + i + " task(s) in your list!");
                     System.out.println(line);
                     break;
