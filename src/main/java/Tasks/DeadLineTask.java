@@ -30,8 +30,7 @@ public class DeadLineTask extends Task {
 
     @Override
     public String toString() {
-
-        return "[D]" + super.toString() + " (by: " + formattedDeadline + ")";
+        return"[D]" + super.toString() + " (by " + formattedDeadline + ")";
     }
 
     @Override
