@@ -236,7 +236,6 @@ public class Friday {
             while (fileScanner.hasNextLine()) {
                 String taskData = fileScanner.nextLine();
                 taskList.add(Task.parseTask(taskData));
-                System.out.println("loaded");
             }
         }
         if (taskList.isEmpty()) {

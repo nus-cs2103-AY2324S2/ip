@@ -1,5 +1,5 @@
-import java.util.Arrays;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -23,6 +23,7 @@ public class Task {
 
     public static Task parseTask(String taskString) {
         String cat = taskString.substring(1, 2);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         switch (cat) {
             case "T":
                 Todo t = new Todo(taskString.substring(7).trim());
@@ -33,7 +34,8 @@ public class Task {
                 }
                 return t;
             case "D":
-                String by = taskString.split(":")[1].split("\\)")[0].trim();
+                String byString = taskString.split(":")[1].split("\\)")[0].trim();
+                LocalDateTime by = LocalDateTime.parse(byString, formatter);
                 String description = taskString.split("\\(")[0].substring(7).trim();
                 Deadline d = new Deadline(description, by);
                 if (taskString.substring(4, 5).equals("X")) {
@@ -43,8 +45,12 @@ public class Task {
                 }
                 return d;
             case "E":
-                String from = taskString.split(":")[1].trim();
-                String to = taskString.split(":")[2].split("\\)")[0].trim();
+                int fromIndex = taskString.indexOf("from: ");
+                int toIndex = taskString.indexOf("to: ");
+                String fromString = taskString.substring(fromIndex + 5, toIndex).trim();
+                LocalDateTime from = LocalDateTime.parse(fromString, formatter);
+                String toTimeString = taskString.substring(toIndex + 3).split("\\)")[0].trim();
+                LocalDateTime to = LocalDateTime.parse(toTimeString, formatter);
                 String des = taskString.split("\\(")[0].substring(7).trim();
                 Event e = new Event(des, from, to);
                 if (taskString.substring(4, 5).equals("X")) {
