@@ -1,5 +1,6 @@
-package command;
-import objects.DukeException;
+package aurora.command;
+
+import aurora.objects.DukeException;
 
 /**
  * Class that handles an invalid command.

@@ -1,4 +1,4 @@
-package storage;
+package aurora.storage;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,15 +11,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import objects.Deadline;
-import objects.DukeException;
-import objects.Event;
-import objects.Task;
-import objects.Todo;
-import parser.Parser;
-import storage.Storage;
-import tasklist.TaskList;
-import ui.Ui;
+import aurora.objects.Deadline;
+import aurora.objects.DukeException;
+import aurora.objects.Event;
+import aurora.objects.Task;
+import aurora.objects.Todo;
+import aurora.parser.Parser;
+import aurora.storage.Storage;
+import aurora.tasklist.TaskList;
+import aurora.ui.Ui;
 
 /**
  * Storage is a class that handles file storage and retrieval.

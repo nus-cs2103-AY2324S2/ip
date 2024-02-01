@@ -1,15 +1,13 @@
-package command;
+package aurora.command;
 
-import java.util.ArrayList;
-import objects.Task;
-import storage.Storage;
-import tasklist.TaskList;
-import ui.Ui;
+import aurora.storage.Storage;
+import aurora.tasklist.TaskList;
+import aurora.ui.Ui;
 
 /**
- * The ListCommand class handles the "list" command.
+ * The ByeCommand class handles the "bye" command.
  */
-public class ListCommand extends Command {
+public class ByeCommand extends Command {
 
     /** TaskList to interact with. */
     private TaskList taskList;
@@ -27,7 +25,7 @@ public class ListCommand extends Command {
      * @param ui Ui to interact with.
      * @param storage Storage to interact with.
      */
-    public ListCommand(TaskList taskList, Ui ui, Storage storage) {
+    public ByeCommand(TaskList taskList, Ui ui, Storage storage) {
         this.taskList = taskList;
         this.ui = ui;
         this.storage = storage;
@@ -35,13 +33,12 @@ public class ListCommand extends Command {
 
     @Override
     public void handle() {
-        ArrayList<Task> arrayFormList = this.taskList.getTaskList();
-        this.ui.printTaskList(arrayFormList);
+        this.ui.printExitMessage();
     }
 
     @Override
     public boolean isBye() {
-        return false;
+        return true;
     }
 
 }

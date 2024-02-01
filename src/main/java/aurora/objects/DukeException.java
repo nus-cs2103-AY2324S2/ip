@@ -1,4 +1,4 @@
-package objects;
+package aurora.objects;
 
 /**
  * The DukeException class represents exceptions specific to this application.

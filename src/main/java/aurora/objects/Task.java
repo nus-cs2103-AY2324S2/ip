@@ -1,4 +1,4 @@
-package objects;
+package aurora.objects;
 
 /**
  * The Task class represents the various different tasks in the task list of the application.

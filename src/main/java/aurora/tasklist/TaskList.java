@@ -1,12 +1,12 @@
-package tasklist;
+package aurora.tasklist;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import objects.Deadline;
-import objects.DukeException;
-import objects.Event;
-import objects.Task;
-import objects.Todo;
+import aurora.objects.Deadline;
+import aurora.objects.DukeException;
+import aurora.objects.Event;
+import aurora.objects.Task;
+import aurora.objects.Todo;
 
 /**
  * The TaskList class is used to represent the list of tasks used in the application.

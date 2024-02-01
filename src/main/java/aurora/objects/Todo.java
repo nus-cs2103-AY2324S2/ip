@@ -1,4 +1,4 @@
-package objects;
+package aurora.objects;
 
 /**
  * The Todo class represents the Todo task.
