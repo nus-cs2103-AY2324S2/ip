@@ -6,9 +6,16 @@
  */
 package task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Events extends Task {
     private String from;
     private String to;
+    private LocalDateTime fromDateTime;
+    private LocalDateTime toDateTime;
+    final static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
 
     /**
      * Creates a Events object.
@@ -22,6 +29,8 @@ public class Events extends Task {
         super(c);
         this.from = from.split("from ")[1];
         this.to = to.split("to ")[1];
+        this.fromDateTime = LocalDateTime.parse(from.split("from ")[1].trim(), DATE_FORMAT);
+        this.toDateTime = LocalDateTime.parse(to.split("to ")[1].trim(), DATE_FORMAT);
     }
 
     /**
@@ -32,7 +41,7 @@ public class Events extends Task {
      */
     @Override
     public String formatDataLine() {
-        return "Events|" + super.command + "|" + this.from + "|" + this.to;
+        return "Events|" + super.command + "|from " + this.from + "|to " + this.to;
     }
 
     /**
@@ -43,7 +52,7 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        String s = "[E]" + super.toString() + "(from: " + this.from + "to: " + this.to + ")";
+        String s = "[E]" + super.toString() + "(from: " + this.fromDateTime.format(DATE_FORMAT) + " to: " + this.toDateTime.format(DATE_FORMAT) + ")";
         return s;
     }
 }

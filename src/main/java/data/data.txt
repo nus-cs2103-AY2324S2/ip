@@ -1,2 +1,4 @@
 ToDo|work
 ToDo|help
+Deadlines|help me |by 2025-05-20 1200
+Events|help please |from 2025-02-01 0000 |to 2025-02-03 0000
