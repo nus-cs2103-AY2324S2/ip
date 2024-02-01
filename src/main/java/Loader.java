@@ -26,8 +26,10 @@ public class Loader {
                         loadedTasks.add(td);
                     } else if (readTask[0].equals("event")) {
                         Event e = new Event(readTask[1], readTask[2]);
+                        loadedTasks.add(e);
                     } else {
                         Deadline dl = new Deadline(readTask[1], readTask[2]);
+                        loadedTasks.add(dl);
                     }
                 }
                 return loadedTasks;
