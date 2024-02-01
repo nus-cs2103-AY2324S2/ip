@@ -98,9 +98,10 @@ public class Duke {
                     System.out.println("event <description> /from <start time> /to <end time>\n");
                 }
             } else {
-                tasks[count] = new Task(message);
-                count++;
-                System.out.println("added: " + message + "\n");
+                System.out.println("Sorry :(");
+                System.out.println("You need to use 'todo', 'deadline' or 'event' command to add a task.");
+                System.out.println("You can use 'list' to see all of your tasks.");
+                System.out.println("Use 'mark' or 'unmark' for any of your tasks.\n");
             }
             message = sc.nextLine();
         }
