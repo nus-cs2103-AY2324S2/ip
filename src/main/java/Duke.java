@@ -1,4 +1,5 @@
 import java.nio.file.FileSystems;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -7,14 +8,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.*;
 
+
+
 public class Duke {
 
     private static final String SPACE = "    ";
     private static String[] taskTypes = new String[] {"todo", "deadline", "event"};
 
 
-
-    // get the path of THIS jar file
     private static final File f = new File(Duke.class.getProtectionDomain().getCodeSource().getLocation().getPath());
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -121,7 +122,16 @@ public class Duke {
                 } else if (parts.length > 2) {
                     throw new DukeException("There can only be 1 instance of /by. String cannot be parsed...");
                 }
-                x = new Deadline(parts[0].trim(), parts[1].trim());
+                try {
+                    x = new Deadline(parts[0].trim(), parts[1].trim());
+                } catch (DateTimeParseException d) {
+                    if (d.getMessage().equals("Start date cannot be after end date")) {
+                        System.out.println(d.getMessage());
+                    } else {
+                        System.out.println("Enter date in the format yyyy-mm-ddTHH:MM");
+                    }
+                    return;
+                }
             } catch (DukeException d) {
                 System.out.println(d);
                 return;
@@ -141,7 +151,12 @@ public class Duke {
                 } else if (dates.length < 2) {
                     throw new DukeException("Events need a /from and a /to in this order");
                 }
-                x = new Event(parts[0].trim(), dates[0].trim(), dates[1].trim());
+                try {
+                    x = new Event(parts[0].trim(), dates[0].trim(), dates[1].trim());
+                } catch (DateTimeParseException d) {
+                    System.out.println(d.getMessage());
+                    return;
+                }
             } catch (DukeException d) {
                 System.out.println(d);
                 return;
@@ -205,7 +220,10 @@ public class Duke {
         }
     }
 
+    // Dates are in the format yyyy-mm-ddTHH:MM, unlike what's printed
     public static Task convertLineToTask(String s) {
+        // components = [type, T/F, task] for todo
+        // [type, T/F, task, deadline] for deadline, [type, T/F, task, start, end] for event
         String[] components = s.split("\\|");
         // System.out.println(components.length);
         String eventType = components[0];
@@ -213,17 +231,16 @@ public class Duke {
         if (eventType.equals("T")) {
             return new ToDo(components[2], isDone);
         } else if (eventType.equals("D")) {
-            String deadline = components[3];
-            return new Deadline(components[2], deadline, isDone);
+            return new Deadline(components[2], components[3], isDone);
         } else if (eventType.equals("E")) {
-            String[] startAndEnd = components[3].split("-");
-            return new Event(components[2], startAndEnd[0], startAndEnd[1], isDone);
+            return new Event(components[2], components[3], components[4], isDone);
         } else {
             // kinda sus
             return null;
         }
     }
 
+    // Dates are in the format yyyy-mm-ddTHH:MM, unlike what's printed
     public static String convertTaskToLine(Task t) {
         String ans = "";
         if (t instanceof ToDo) {
@@ -235,7 +252,7 @@ public class Duke {
         } else if (t instanceof Event) {
             Event e = (Event) t;
             ans = "E|" + (t.getIsDone() ? "1" : "0") + "|" + t.getDescription() + "|"
-                    + e.getStart() + "-" + e.getEnd();
+                    + e.getStart() + "|" + e.getEnd();
         } else {
             // kinda sus
             return null;
