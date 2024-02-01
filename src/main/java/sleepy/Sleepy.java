@@ -3,8 +3,6 @@ package sleepy;
 import sleepy.taskstorage.TaskList;
 import sleepy.tools.Ui;
 
-import java.util.Scanner;
-
 /**
  * This class is the main class for the Sleepy AI Chatbot.
  *
