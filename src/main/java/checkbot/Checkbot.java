@@ -6,6 +6,9 @@ import checkbot.task.TodoList;
 
 import java.util.Scanner;
 
+/**
+ * Represents the main class of the Checkbot program.
+ */
 public class Checkbot {
     public static final String TASK_FILE_DIR = "./tasks.txt";
 
@@ -14,6 +17,11 @@ public class Checkbot {
     private final Parser parser;
     private final Ui ui;
 
+    /**
+     * Constructor for Checkbot.
+     * 
+     * @param filePath The file path to the file where the tasks are stored.
+     */
     public Checkbot(String filePath) {
         this.storage = new Storage(filePath);
         this.todoList = this.storage.loadTasks();
@@ -21,10 +29,18 @@ public class Checkbot {
         this.ui = new Ui();
     }
 
+    /**
+     * Main method to run the Checkbot program.
+     * 
+     * @param args Command line arguments, not used.
+     */
     public static void main(String[] args) {
         new Checkbot(TASK_FILE_DIR).run();
     }
 
+    /**
+     * Runs the Checkbot program.
+     */
     public void run() {
         ui.showWelcome();
 
@@ -38,8 +54,10 @@ public class Checkbot {
                     break;
                 }
             } catch (CheckbotException e) {
-                ui.print(e.getMessage());
+                ui.showError(e);
             }
         }
+
+        scanner.close();
     }
 }

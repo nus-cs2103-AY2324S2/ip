@@ -1,5 +1,9 @@
 package checkbot.task;
 
+/**
+ * Represents an event task in the task list.
+ * An event task is a task that contains a "from" and "to" date.
+ */
 public class Event extends Task {
     private final String from;
     private final String to;

@@ -8,9 +8,17 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Handles the loading and saving of tasks to a txt file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructor for Storage.
+     * 
+     * @param filePath The file path to the file where the tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -29,9 +37,10 @@ public class Storage {
 
         File file = new File(filePath);
         TodoList todoList = new TodoList();
+        Scanner scanner = null;
 
         try {
-            Scanner scanner = new Scanner(file);
+            scanner = new Scanner(file);
             Pattern pattern = Pattern.compile("([TDE]) \\| ([01]) \\| (.*)");
 
             while (scanner.hasNextLine()) {
@@ -76,10 +85,20 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             return todoList;
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
         }
         return todoList;
     }
 
+    /**
+     * Saves the tasks of the given TodoList to the txt file specified by filePath.
+     * 
+     * @param todoList The TodoList to save to the txt file.
+     * @throws SaveFileException If there is an error saving the file.
+     */
     public void saveTasks(TodoList todoList) throws SaveFileException {
         try {
             Writer writer = new FileWriter(filePath);

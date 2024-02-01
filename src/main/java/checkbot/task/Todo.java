@@ -1,5 +1,9 @@
 package checkbot.task;
 
+/**
+ * Represents a todo task in the task list.
+ * A todo task is a task without any date/time attached to it.
+ */
 public class Todo extends Task {
     public Todo(String name) {
         super(name);

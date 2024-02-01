@@ -4,19 +4,33 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task in the task list.
+ */
 public abstract class Task {
     private final String name;
     private boolean isDone;
 
+    /**
+     * Constructor for Task.
+     * 
+     * @param name The name of the task.
+     */
     public Task(String name) {
         this.name = name;
         this.isDone = false;
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void mark() {
         this.isDone = true;
     }
 
+    /**
+     * Marks the task as incomplete.
+     */
     public void unmark() {
         this.isDone = false;
     }
@@ -46,6 +60,11 @@ public abstract class Task {
         return dateString;
     }
 
+    /**
+     * Formats the task for saving to a file.
+     * 
+     * @return The formatted string.
+     */
     public String formatForFile() {
         return String.format("%d | %s", this.isDone ? 1 : 0, this.name);
     }

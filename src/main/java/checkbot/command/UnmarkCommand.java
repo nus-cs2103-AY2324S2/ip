@@ -1,10 +1,15 @@
 package checkbot.command;
 
 import checkbot.exception.InvalidIndexException;
+import checkbot.exception.SaveFileException;
 import checkbot.Storage;
+import checkbot.task.Task;
 import checkbot.task.TodoList;
 import checkbot.Ui;
 
+/**
+ * Represents a command to mark a task as incomplete given an index.
+ */
 public class UnmarkCommand extends Command {
     private final int index;
 
@@ -13,9 +18,9 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TodoList todoList, Storage storage, Ui ui) throws InvalidIndexException {
-        todoList.unmarkTask(index);
-        ui.print("Alright, I have marked this task as incomplete:\n"
-                + todoList.getTask(index));
+    public void execute(TodoList todoList, Storage storage, Ui ui) throws InvalidIndexException, SaveFileException {
+        Task task = todoList.unmarkTask(index);
+        storage.saveTasks(todoList);
+        ui.showUnmarkedTaskMessage(task);
     }
 }

@@ -23,9 +23,6 @@ public class AddCommand extends Command {
     public void execute(TodoList todoList, Storage storage, Ui ui) throws SaveFileException {
         todoList.addTask(task);
         storage.saveTasks(todoList);
-        ui.print("I have added this task to the list:\n"
-                + Ui.INDENTATION + task + "\n"
-                + "You have now " + todoList.getLength() + " task"
-                + (todoList.getLength() > 1 ? "s" : "") + " in the list.");
+        ui.showAddedTaskMessage(task, todoList.getLength());
     }
 }

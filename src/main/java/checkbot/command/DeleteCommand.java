@@ -2,9 +2,13 @@ package checkbot.command;
 
 import checkbot.*;
 import checkbot.exception.InvalidIndexException;
+import checkbot.exception.SaveFileException;
 import checkbot.task.Task;
 import checkbot.task.TodoList;
 
+/**
+ * Represents a command to delete a task from the list given an index.
+ */
 public class DeleteCommand extends Command {
     private final int index;
 
@@ -13,12 +17,9 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TodoList todoList, Storage storage, Ui ui) throws InvalidIndexException {
+    public void execute(TodoList todoList, Storage storage, Ui ui) throws InvalidIndexException, SaveFileException {
         Task deletedTask = todoList.deleteTask(index);
-        ui.print("Alright, I deleted this task:\n"
-                + Ui.INDENTATION + deletedTask + "\n"
-                + "You have now " + todoList.getLength() + " task"
-                + (todoList.getLength() > 1 ? "s" : "")
-                + " in the list.");
+        storage.saveTasks(todoList);
+        ui.showDeletedTaskMessage(deletedTask, todoList.getLength());
     }
 }

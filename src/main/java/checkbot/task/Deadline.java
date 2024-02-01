@@ -1,5 +1,9 @@
 package checkbot.task;
 
+/**
+ * Represents a deadline task in the task list.
+ * A deadline task is a task that contains a "due date".
+ */
 public class Deadline extends Task {
     private final String to;
 

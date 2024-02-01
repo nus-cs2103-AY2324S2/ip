@@ -6,7 +6,17 @@ import checkbot.exception.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Handles the parsing of user input.
+ */
 public class Parser {
+    /**
+     * Parses the user input and returns the corresponding Command.
+     * 
+     * @param input The user input.
+     * @return The corresponding Command.
+     * @throws CheckbotException If the user input is invalid.
+     */
     public Command parse(String input) throws CheckbotException {
         if (input.equals("bye")) {
             return new ByeCommand();
@@ -94,9 +104,5 @@ public class Parser {
             }
         }
         throw new InvalidCommandException(input);
-    }
-
-    public boolean isGoodbye(String input) {
-        return input.equals("bye");
     }
 }
