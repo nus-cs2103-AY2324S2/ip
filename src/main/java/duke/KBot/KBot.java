@@ -1,4 +1,4 @@
-package duke.KBot;
+package duke.kbot;
 
 import java.util.Scanner;
 

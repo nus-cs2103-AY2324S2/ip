@@ -1,4 +1,4 @@
-package duke.KBot;
+package duke.kbot;
 import duke.ui_design.Messages;
 
 public class Main {
