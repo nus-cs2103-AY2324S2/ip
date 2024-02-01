@@ -127,6 +127,12 @@ public class Ui {
         System.out.println(DIVIDER + e + DIVIDER);
     }
 
+
+    /**
+     * Shows the message when finding a task.
+     *
+     * @param filteredList Filtered list of tasks.
+     */
     public void findTask(TaskList filteredList) {
         if (filteredList.isEmpty()) {
             System.out.println(DIVIDER + "There are no matching tasks in your list.\n" + DIVIDER);

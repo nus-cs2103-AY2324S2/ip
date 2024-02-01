@@ -73,6 +73,13 @@ public class TaskList {
         return this.taskList.get(taskId - 1);
     }
 
+
+    /**
+     * Filters the list of tasks by the keyword.
+     *
+     * @param keyword Keyword that is searched.
+     * @return Filtered list of tasks.
+     */
     public TaskList filter(String keyword) {
         List<Task> filteredTasks = this.taskList.stream()
                 .filter(t -> t.getDescription().contains(keyword))

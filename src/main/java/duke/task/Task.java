@@ -60,6 +60,12 @@ public abstract class Task {
         return String.format("[%s] %s", mark, task);
     }
 
+
+    /**
+     * Getter to retrieve the task's description.
+     *
+     * @return Description of task.
+     */
     public String getDescription() {
         return this.task;
     }
