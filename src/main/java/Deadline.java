@@ -9,4 +9,8 @@ public class Deadline extends Task {
     public String getDisplayedString() {
         return "[D]" + getStatusIcon() + " " + getDescription() + " (by: " + by + ")";
     }
+    @Override
+    public String serializeTask() {
+        return "[D] | " + getStatusIcon() + " | " + getDescription() + " | by " + by;
+    }
 }

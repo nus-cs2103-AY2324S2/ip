@@ -15,6 +15,10 @@ public class Task {
         return isDone;
     }
 
+    public void changeStatus() {
+        isDone = !isDone;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
@@ -32,5 +36,9 @@ public class Task {
         this.isDone = false;
         System.out.println("Mission pending:\n");
         System.out.println(" " + this.getStatusIcon() + " " + this.getDescription());
+    }
+
+    public String serializeTask() {
+        return null;
     }
 }

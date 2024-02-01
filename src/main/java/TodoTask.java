@@ -12,4 +12,9 @@ public class TodoTask extends Task {
     public String getDisplayedString() {
         return "[T]" + getStatusIcon() + " " + getDescription();
     }
+
+    @Override
+    public String serializeTask() {
+        return "[T] | " + getStatusIcon() + " | " + getDescription();
+    }
 }

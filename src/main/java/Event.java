@@ -14,4 +14,9 @@ public class Event extends Task {
         return "[E]" + getStatusIcon() + " " + getDescription() + " (from: " + from + " to: " + to + ")";
     }
 
+    @Override
+    public String serializeTask() {
+        return "[E] | " + getStatusIcon() + " | " + getDescription() + " | from " + from + " to " + to;
+    }
+
 }
