@@ -6,8 +6,13 @@
  */
 package task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadlines extends Task {
     private String end;
+    private LocalDateTime endDateTime;
+    final static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Creates a Deadlines object.
@@ -18,7 +23,8 @@ public class Deadlines extends Task {
      */
     public Deadlines(String c, String end) {
         super(c);
-        this.end = end.split("by ")[1];
+        this.end = end;
+        this.endDateTime = LocalDateTime.parse(end.split("by ")[1], DATE_FORMAT);
     }
 
     /**
@@ -40,7 +46,8 @@ public class Deadlines extends Task {
      */
     @Override
     public String toString() {
-        String s = "[D]" + super.toString() +"(by: "+this.end+")";
+
+        String s = "[D]" + super.toString() + "(by: " + this.endDateTime.format(DATE_FORMAT) + ")";
         return s;
     }
 }

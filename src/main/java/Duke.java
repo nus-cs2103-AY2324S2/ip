@@ -4,6 +4,9 @@
  * This class is a front to manage user input, displaying the corresponding output, 
  * and managed the conditional statements for the prompting.
  */
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import exception.DukeException;
@@ -96,6 +99,7 @@ public class Duke {
                     else if (commandType.equals("deadline")) {
                         String[] newCommandSplit = command.split("/");
                         String[] taskName = newCommandSplit[0].split("deadline ");
+
                         try {
                             if (newCommandSplit.length != 2 || (newCommandSplit[1].split("by ").length != 2)) {
                                 throw new DukeExceptionInvalidParameters(command);
@@ -107,7 +111,11 @@ public class Duke {
                             System.out.println("You now have " + ts.size() + " tasks in the list.");
                             System.out.println("______________________________________");
                         } catch (ArrayIndexOutOfBoundsException e) {
-                        } catch (Exception e) {
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Please put your deadline's date in this format: yyyy-mm-dd hhmm");
+                            System.out.println("______________________________________");
+                        }
+                        catch (Exception e) {
                             System.out.println(e);
                         }
                     }
@@ -127,6 +135,9 @@ public class Duke {
                             System.out.println("You now have " + ts.size() + " tasks in the list.");
                             System.out.println("______________________________________");
                         } catch (ArrayIndexOutOfBoundsException e) {
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Please put your event's date in this format: yyyy-mm-dd hhmm");
+                            System.out.println("______________________________________");
                         } catch (Exception e) {
                             System.out.println(e);
                         }
