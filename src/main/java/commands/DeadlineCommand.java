@@ -5,6 +5,9 @@ import exceptions.DukeException;
 import task.Deadline;
 import ui.Ui;
 
+/**
+ * Encapsulates a deadline command.
+ */
 public class DeadlineCommand extends Command {
 
     public static final String COMMAND = "deadline";
@@ -16,6 +19,11 @@ public class DeadlineCommand extends Command {
         this.by = by;
     }
 
+    /**
+     * Creates a Deadline and adds into TaskList.
+     *
+     * @throws DukeException Throws an exception if given an invalid input.
+     */
     @Override
     public void execute() throws DukeException {
         if (name.isEmpty()) {

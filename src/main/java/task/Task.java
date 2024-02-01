@@ -3,6 +3,7 @@ package task;
 /**
  * The task.Task class encapsulates a task to be tracked by Howie.
  * It stores information of the task and its status.
+ *
  * @author Koo Zhuo Hui
  */
 public class Task {
@@ -11,6 +12,7 @@ public class Task {
 
     /**
      * Constructor for task.Task.
+     *
      * @param s The name of the task.
      */
     public Task(String s) {
@@ -20,6 +22,7 @@ public class Task {
 
     /**
      * Retrieves the name of the task.
+     *
      * @return Name of task.
      */
     public String getTask() {
@@ -28,6 +31,7 @@ public class Task {
 
     /**
      * Retrieves the status of a task.
+     *
      * @return Whether task.Task is completed, or not.
      */
     public boolean getStatus() {
@@ -35,7 +39,8 @@ public class Task {
     }
 
     /**
-     * Set task.Task to complete status.
+     * Sets task to complete status.
+     *
      * @return Returns itself.
      */
     public Task setDone() {
@@ -44,7 +49,8 @@ public class Task {
     }
 
     /**
-     * Set task.Task to undone status.
+     * Set task to undone status.
+     *
      * @return Returns itself.
      */
     public Task setUndone() {
@@ -52,6 +58,10 @@ public class Task {
         return this;
     }
 
+    /**
+     * Returns a string representation for saving into file.
+     *
+     */
     public String encode() {
         String s = "T|" + (isDone ? 1 : 0) + "|" + task;
         return s;
