@@ -92,6 +92,7 @@ public class Storage {
             if (isDone) {
                 todo.setDone();
             }
+            return todo;
         case "D":
             if (components.length < 4) {
                 throw new DukeException("Invalid format for a deadline.");
