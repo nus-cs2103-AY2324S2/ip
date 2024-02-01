@@ -6,6 +6,7 @@ import duke.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -58,7 +59,14 @@ public class Storage {
         }
     }
 
-    public void writeTasks(TaskList tasks){
+    public void writeTasks(TaskList tasks) {
+        try {
+            FileWriter reset = new FileWriter(this.path);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
         tasks.getTasks().forEach((task) -> task.writeTask(this.path));
+
     }
 }
