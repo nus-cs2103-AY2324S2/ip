@@ -1,0 +1,7 @@
+todo read a book
+deadline return book /by Tuesday
+event club meeting /from Wed 6pm /to 8pm
+mark 2
+unmark 2
+list
+bye
