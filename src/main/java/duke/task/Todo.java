@@ -1,8 +1,9 @@
+package duke.task;
 /**
  * The to-do class represents a task without a date/time attached to it.
  */
 public class Todo extends Task {
-    Todo(String description) {
+    public Todo(String description) {
         super(description);
     }
 

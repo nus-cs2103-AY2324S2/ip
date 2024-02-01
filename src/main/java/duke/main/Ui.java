@@ -1,3 +1,8 @@
+package duke.main;
+import duke.task.Event;
+import duke.task.Deadline;
+import duke.task.Task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -5,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Ui {
     private Scanner sc;
-    Ui() {
+    public Ui() {
         sc = new Scanner(System.in);
     }
 
@@ -19,7 +24,7 @@ public class Ui {
     /**
      *  Displays an exit message.
      */
-     void sayBye() {
+    public void sayBye() {
         System.out.println("\nBye. Hope to see you again soon!");
     }
 
@@ -27,7 +32,7 @@ public class Ui {
      * Displays the current list of items with their respective indices.
      * Skips null or uninitialized elements in the list.
      */
-     void displayList(ArrayList<Task> tasks) {
+    public void displayList(ArrayList<Task> tasks) {
         System.out.println();
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) != null) {
@@ -41,7 +46,7 @@ public class Ui {
      * Prints out the response, specific to the type of task, after adding the task to the list
      * @param task the task that is added to the list.
      */
-     void taskResponse(Task task, TaskList tasks) {
+    public void taskResponse(Task task, TaskList tasks) {
          int numTasks = tasks.getSize();
          System.out.println();
          System.out.println("Got it. I've added this task:");
@@ -60,7 +65,7 @@ public class Ui {
      *
      * @param task The task that has been deleted.
      */
-     void deleteResponse(Task task, TaskList tasks) {
+    public void deleteResponse(Task task, TaskList tasks) {
         int numTasks = tasks.getSize();
         System.out.println();
         System.out.println("Noted. I've removed this task:");
@@ -75,7 +80,7 @@ public class Ui {
     }
 
 
-    void displayTasksOn(LocalDate targetDate, ArrayList<Task> tasks) {
+    public void displayTasksOn(LocalDate targetDate, ArrayList<Task> tasks) {
         try {
             System.out.println("\nTasks on " + targetDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
             for (Task task : tasks) {

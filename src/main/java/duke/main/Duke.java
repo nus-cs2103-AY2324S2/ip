@@ -1,4 +1,6 @@
-
+package duke.main;
+import duke.command.Command;
+import duke.exception.DukeException;
 /**
  * This class represents a chat application.
  */

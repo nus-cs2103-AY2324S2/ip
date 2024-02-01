@@ -1,3 +1,6 @@
+package duke.main;
+import duke.exception.DukeException;
+import duke.task.Task;
 
 import java.util.ArrayList;
 public class TaskList {
@@ -9,19 +12,19 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    ArrayList<Task> getTasks() {
+    public ArrayList<Task> getTasks() {
         return tasks;
     }
 
-    Task get(int zeroItem) {
+    public Task get(int zeroItem) {
         return tasks.get(zeroItem);
     }
 
-    int getSize() {
+    public int getSize() {
         return tasks.size();
     }
 
-    void add(Task task) {
+    public void add(Task task) {
         tasks.add(task);
     }
 
@@ -30,7 +33,7 @@ public class TaskList {
      *
      * @param num The task number to mark as done.
      */
-    void markAsDone(int num) {
+    public void markAsDone(int num) {
         tasks.get(num).markAsDone();
     }
 
@@ -39,16 +42,16 @@ public class TaskList {
      *
      * @param num The task number to mark as not done.
      */
-     void unMarkAsDone(int num) {
+     public void unMarkAsDone(int num) {
         tasks.get(num).unMarkAsDone();
     }
 
-     void deleteTask(int item) throws DukeException {
+     public void deleteTask(int item) throws DukeException {
         if (item >= 0 && item < tasks.size() && tasks.get(item) != null) {
             tasks.remove(item);
         } else {
             int oneItem = item + 1;
-            throw new DukeException("\nError! Task number '" + oneItem + "' does not exist.\n");
+            throw new DukeException("\nError! duke.task.Task number '" + oneItem + "' does not exist.\n");
         }
     }
 

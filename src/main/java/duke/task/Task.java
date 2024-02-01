@@ -1,12 +1,13 @@
+package duke.task;
 /**
- * The Task class represents a task with a description and completion status.
+ * The duke.task.Task class represents a task with a description and completion status.
  */
 public class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Constructor for a Task object with the given description and default completion status to be not done.
+     * Constructor for a duke.task.Task object with the given description and default completion status to be not done.
      *
      * @param description The description of the task.
      */
@@ -52,7 +53,7 @@ public class Task {
      * @return The formatted string for writing to a file.
      */
     public String toFileString() {
-        return String.format("Task | %d | %s", isDone ? 1 : 0, description);
+        return String.format("duke.task.Task | %d | %s", isDone ? 1 : 0, description);
     }
 
 }

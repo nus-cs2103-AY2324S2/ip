@@ -1,18 +1,20 @@
+package duke.task;
+
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 /**
- * The Deadline class represents a task with a specific deadline.
+ * The duke.task.Deadline class represents a task with a specific deadline.
  */
 public class Deadline extends Task {
 
     protected LocalDateTime by;
 
     /**
-     * Constructs a Deadline object with the given description and deadline.
+     * Constructs a duke.task.Deadline object with the given description and deadline.
      *
      * @param description Description of the task.
-     * @param by           Deadline of the task.
+     * @param by           duke.task.Deadline of the task.
      */
     public Deadline(String description, String by) {
         super(description);

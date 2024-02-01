@@ -1,3 +1,17 @@
+package duke.main;
+
+import duke.command.DeadlineCommand;
+import duke.command.EventCommand;
+import duke.command.ToDoCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.MarkCommand;
+import duke.command.UnMarkCommand;
+import duke.command.OnCommand;
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
+import duke.exception.DukeException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,7 +52,7 @@ public class Parser {
 
     /**
      * Parses the task number from the user input and validates it.
-     * Throws a DukeException for empty task number or invalid task number that is outside the indexes of the list.
+     * Throws a duke.exception.DukeException for empty task number or invalid task number that is outside the indexes of the list.
      *
      * @param input   The user input containing the task number.
      * @param command The type of task.
@@ -56,7 +70,7 @@ public class Parser {
 
     /**
      * Processes and validates that the description is not empty.
-     * Throws a DukeException if the description is empty.
+     * Throws a duke.exception.DukeException if the description is empty.
      *
      * @param description The description to be checked.
      * @param task        The type of task.
@@ -79,7 +93,7 @@ public class Parser {
 
     /**
      * Parses and validates the user input for deadline tasks.
-     * Throws a DukeException for invalid input or wrong formatting.
+     * Throws a duke.exception.DukeException for invalid input or wrong formatting.
      *
      * @param input   The user input containing the description and deadline.
      * @param command The type of task.
@@ -103,7 +117,7 @@ public class Parser {
 
     /**
      * Parses and validates the user input for event tasks.
-     * Throws a DukeException for invalid input or wrong formatting.
+     * Throws a duke.exception.DukeException for invalid input or wrong formatting.
      *
      * @param input   The user input for event tasks.
      * @param command The type of task.

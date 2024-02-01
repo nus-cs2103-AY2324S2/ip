@@ -1,21 +1,22 @@
+package duke.task;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
 /**
- * The Event class represents a task that occurs within a specified time range.
+ * The duke.task.Event class represents a task that occurs within a specified time range.
  */
 public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
     /**
-     * Constructs an Event object with the given description, start time, and end time.
+     * Constructs an duke.task.Event object with the given description, start time, and end time.
      *
      * @param description The description of the event task.
      * @param startTime   The start time of the event.
      * @param endTime     The end time of the event.
      */
-    Event(String description, String startTime, String endTime) {
+    public Event(String description, String startTime, String endTime) {
         super(description);
         this.startTime = parseDateTime(startTime);
         this.endTime = parseDateTime(endTime);
