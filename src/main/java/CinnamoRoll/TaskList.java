@@ -16,7 +16,8 @@ class TaskList {
         DELETE,
         TODO,
         DEADLINE,
-        EVENT
+        EVENT,
+        FIND
     }
 
     TaskList() {
@@ -91,6 +92,25 @@ class TaskList {
     }
 
     /**
+     * Searches for tasks containing a specified string and generates a formatted string listing the matching tasks.
+     *
+     * @param str The string to search for within task descriptions.
+     * @return A formatted string listing the tasks that contain the specified string.
+     */
+    private String findTask(String str) {
+        String output = "Here are the matching tasks in your list:\n";
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).containString(str)) {
+                output += String.valueOf(i + 1) + "." + this.tasks.get(i).toString();
+                if (i < this.tasks.size() - 1) {
+                    output += "\n";
+                }
+            }
+        }
+        return output;
+    }
+
+    /**
      * Deletes a task from the task list based on the provided index and updates the file accordingly.
      *
      * @param str An array containing the command and task index for deletion.
@@ -119,7 +139,7 @@ class TaskList {
      * @throws CinnamoIndexException If the provided index is out of bounds.
      * @throws Exception If there is an error parsing the index or writing to the file.
      */
-    String markTask(String[] str) throws Exception, CinnamoIndexException {
+    private String markTask(String[] str) throws Exception, CinnamoIndexException {
         try {
             int index = Integer.parseInt(str[1]) - 1;
             this.tasks.get(index).markTask();
@@ -140,7 +160,7 @@ class TaskList {
      * @throws CinnamoIndexException If the provided index is out of bounds.
      * @throws Exception If there is an error parsing the index or writing to the file.
      */
-    String unmarkTask(String[] str) throws Exception, CinnamoIndexException {
+    private String unmarkTask(String[] str) throws Exception, CinnamoIndexException {
         try {
             int index = Integer.parseInt(str[1]) - 1;
             this.tasks.get(index).unmarkTask();
@@ -162,8 +182,10 @@ class TaskList {
      */
     void respondUser(String str) throws Exception, CinnamoException {
         try {
+
             Parser parser = new Parser();
             String[] arr = parser.parseInput(str);
+
             switch (TaskList.Users.valueOf(arr[0])) {
                 case MARK:
                     System.out.println(this.markTask(arr));
@@ -191,6 +213,10 @@ class TaskList {
 
                 case EVENT:
                     System.out.println(this.executeTask(arr));
+                    break;
+
+                case FIND:
+                    System.out.println(this.findTask(arr[1]));
                     break;
 
                 default:
