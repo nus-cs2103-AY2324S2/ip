@@ -54,13 +54,16 @@ public class Ui {
         System.out.println(task);
         System.out.println("You have " + n + " tasks remaining!");
     }
+
     public void showList() {
         System.out.println("Here you go buddy!:");
     }
+
     public void showMark(Task task) {
         System.out.println("I've updated the following task:");
         System.out.println(task);
     }
+
     public void showError(String errorMsg) {
         System.out.println(errorMsg);
     }

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-
     private String filePath;
     private ArrayList<Task> taskList = new ArrayList<>();
 

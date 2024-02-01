@@ -6,7 +6,6 @@ import task.TaskList;
 import ui.Ui;
 
 public class Buddy {
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -21,7 +20,6 @@ public class Buddy {
             tasks = new TaskList();
         }
     }
-
 
     private void run() {
         ui.showWelcome();
