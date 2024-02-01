@@ -75,16 +75,7 @@ public class Duke {
                 || identifier.equals("event")) {
             switch (identifier) {
             case "todo":
-                if (!arguments.isEmpty()) {
-                    ToDo newToDo = new ToDo(arguments);
-                    tasks.add(newToDo);
-                    System.out.println(gap + "Confirmed. New task added:\n"
-                            + newToDo.toString() + "\n");
-                } else {
-                    throw new DukeException("todo command requires a description for the task."
-                            + "\n\nPlease leave a space after 'todo' and enter"
-                            + " the task description.");
-                }
+                createToDoTask(arguments);
                 break;
             case "deadline":
                 if (!arguments.isEmpty()) {
@@ -194,5 +185,18 @@ public class Duke {
         selectedTask.markNotDone();
         System.out.println(gap + "Understood, task marked as uncompleted.\n"
                 + selectedTask.toString() + "\n" + gap);
+    }
+
+    private static void createToDoTask(String arguments) throws DukeException {
+        if (!arguments.isEmpty()) {
+            ToDo newToDo = new ToDo(arguments);
+            tasks.add(newToDo);
+            System.out.println(gap + "Confirmed. New task added:\n"
+                    + newToDo.toString() + "\n");
+        } else {
+            throw new DukeException("todo command requires a description for the task."
+                    + "\n\nPlease leave a space after 'todo' and enter"
+                    + " the task description.");
+        }
     }
 }
