@@ -1,6 +1,9 @@
 package duke;
 
-
+/**
+ * This class handles user commands.
+ * It provides methods to execute commands.
+ */
 public class CommandHandler {
     private Ui ui;
 
@@ -15,15 +18,27 @@ public class CommandHandler {
         EVENT
     }
 
+    /**
+     * Constructs a new CommandHandler with the specified user interface.
+     *
+     * @param uiArg the user interface to use
+     */
     public CommandHandler(Ui uiArg) {
         ui = uiArg;
     }
 
+    /**
+     * Executes the specified command.
+     *
+     * @param userInput the command to execute
+     * @return true if the command is to exit, false otherwise
+     * @throws DukeException if the command is not recognized or if an error occurs while executing the command
+     */
     public boolean executeCommand(String userInput) throws DukeException {
         String[] words = userInput.split("\\s+");
         Command command = null;
         try {
-            command = Command.valueOf(words[0].toUpperCase());   
+            command = Command.valueOf(words[0].toUpperCase());
         } catch (IllegalArgumentException e) {
             String commandStr = words[0];
             throw new CommandNotFoundException(commandStr);
@@ -72,7 +87,14 @@ public class CommandHandler {
         }
         return false;
     }
-    
+
+    /**
+     * Processes the argument of a command that operates on a task by index.
+     *
+     * @param arguments the argument to process
+     * @return the index of the task
+     * @throws IndexOutOfRange if the index is out of range
+     */
     private static int processTaskIdx(String arguments) throws IndexOutOfRange{
         int idx = Integer.parseInt(arguments);
         int size = TaskList.listSize();
@@ -82,10 +104,24 @@ public class CommandHandler {
         return idx;
     }
 
+    /**
+     * Processes the argument of a ToDo command.
+     *
+     * @param arguments the argument to process
+     * @return a new ToDo task with the specified name
+     */
     private static ToDo processToDo(String arguments) {
         return new ToDo(arguments);
     }
 
+    /**
+     * Processes the argument of a Deadline command.
+     *
+     * @param arguments the argument to process
+     * @return a new Deadline task with the specified name and due date
+     * @throws InvalidDeadlineFormatException if the argument format is invalid
+     * @throws InvalidDateFormat if the date format is invalid
+     */
     private static Deadline processDeadline(String arguments) throws InvalidDeadlineFormatException, InvalidDateFormat {
         try {
             String[] parts = arguments.split("/by ");
@@ -95,6 +131,14 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Processes the argument of an Event command.
+     *
+     * @param arguments the argument to process
+     * @return a new Event task with the specified name and date range
+     * @throws InvalidEventFormatException if the argument format is invalid
+     * @throws InvalidDateFormat if the date format is invalid
+     */
     private static Event processEvent(String arguments) throws InvalidEventFormatException, InvalidDateFormat {
         try {
             String[] parts = arguments.split("/from ");
@@ -105,4 +149,3 @@ public class CommandHandler {
         }
     }
 }
-
