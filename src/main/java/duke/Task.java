@@ -1,3 +1,4 @@
+package duke;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -32,6 +33,10 @@ public abstract class Task {
     public void mark() {
         this.setComplete();
         System.out.println("\tNice! I've marked this task as done:\n\t" + this.getDetails());
+    }
+
+    public void markWithoutPrint() {
+        this.setComplete();
     }
 
     public void unmark() {

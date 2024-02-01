@@ -1,3 +1,4 @@
+package duke;
 public class Todo extends Task {
 	Todo(String description, String input) {
 		super(description, input);

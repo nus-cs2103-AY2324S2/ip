@@ -1,3 +1,4 @@
+package duke;
 public class ErrorHandler {
 
     public static void handleFileNotFoundException(String filePath) {

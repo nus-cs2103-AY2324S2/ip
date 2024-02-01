@@ -6,36 +6,39 @@
 	____________________________________________________________
 	Got it. I've added this task:
 	[T][ ] Go school
-	Now you have 1 tasks in the list.
+	Now you have 4 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Got it. I've added this task:
-	[D][ ] Task 4 (by: Friday)
-	Now you have 2 tasks in the list.
+	[D][ ] Task 4 (by: Jan 31 2024)
+	Now you have 5 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Got it. I've added this task:
-	[E][ ] project meeting (from: Thursday 4pm to: 6pm)
-	Now you have 3 tasks in the list.
+	[E][ ] project meeting (from: Jan 31 2024 to: Feb 01 2024)
+	Now you have 6 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Noted. I've removed this task:
 	[T][ ] Go school
-	Now you have 2 tasks in the list.
+	Now you have 5 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Noted. I've removed this task:
-	[E][ ] project meeting (from: Thursday 4pm to: 6pm)
-	Now you have 1 tasks in the list.
+	[E][ ] project meeting (from: Jan 31 2024 to: Feb 01 2024)
+	Now you have 4 tasks in the list.
 	____________________________________________________________
 
 	____________________________________________________________
 	Here are the tasks in your list:
-	1. [D][ ] Task 4 (by: Friday)
+	1. [D][X] Task 4 (by: Jan 31 2024)
+	2. [T][ ] Go school
+	3. [D][ ] Task 4 (by: Jan 31 2024)
+	4. [E][ ] project meeting (from: Jan 31 2024 to: Feb 01 2024)
 	____________________________________________________________
 
 	____________________________________________________________
