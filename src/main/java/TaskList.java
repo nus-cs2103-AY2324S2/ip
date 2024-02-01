@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> listItems = new ArrayList<>();
+    private FileHandler fileHandler = new FileHandler();
     private void addTask(Task task){
         this.listItems.add(task);
         OutputMessage.informItemAdded(task, this);
     }
-    @Override
-    public String toString(){
-        return "\tCurrently, the list comprises  " + listItems.size() + " tasks.";
-    }
+//    public TaskList(){
+//        this.listItems = fileHandler.loadTasks();
+//    }
     public void showList(){
         System.out.println("\t____________________________________________________________");
         System.out.println("\tPer your request, I am outlining the tasks from your designated list:");
@@ -28,7 +28,6 @@ public class TaskList {
             OutputMessage.informBadTodoInput();
         }
     }
-
     public void addDeadline(String cmd){
         String[] statement1 = cmd.split(" ", 2);
         try {
@@ -67,6 +66,11 @@ public class TaskList {
         System.out.println("\t   "+task);
         System.out.println("\tCurrently, the list comprises  " + listItems.size() + " tasks.");
         System.out.println("\t____________________________________________________________\n");
+    }
+
+    @Override
+    public String toString(){
+        return "\tCurrently, the list comprises  " + listItems.size() + " tasks.";
     }
 
 }
