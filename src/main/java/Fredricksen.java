@@ -25,7 +25,7 @@ public class Fredricksen {
         ui.listOfCommands();
         System.out.println("");
         boolean loop = true;
-
+        // while loop
         while(loop) {
             String task = ui.readCommand();
             String[] splitTask = task.split(" ");
