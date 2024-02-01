@@ -1,3 +1,5 @@
+package seiki.data.task;
+
 public class Task {
     protected String taskTitle;
     protected boolean isDone;

@@ -1,3 +1,7 @@
+package seiki.data;
+
+import seiki.data.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -32,16 +36,23 @@ public class TaskList {
         return this.taskCount;
     }
 
-    public void printList() {;
+    public ArrayList<Task> getAllTasks() {
+        return this.taskList;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
         if (taskCount == 0) {
-            System.out.println("There are currently no task added.");
+            sb.append("There are currently no task added.");
         } else {
-            System.out.println("Here are the task(s) you have:");
+            sb.append("Here are the task(s) you have:");
             for (int i = 0; i < taskList.size(); i++) {
                 int taskNum = i + 1;
-                String taskString = "→ " + taskNum + ". " + taskList.get(i).toString();
-                System.out.println(taskString);
+                String taskString = "\n→ " + taskNum + ". " + taskList.get(i).toString();
+                sb.append(taskString);
             }
         }
+        return sb.toString();
     }
 }
