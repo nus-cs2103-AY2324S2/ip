@@ -57,7 +57,7 @@ public class Parser {
             try {
                 task = new ToDo(words[1]);
             } catch (IndexOutOfBoundsException e) {
-                throw new FelixException("The description of a todo cannot be empty.");
+                throw new FelixException("The description of a todo cannot be empty");
             }
         } else if (words[0].equals("deadline")) {
             try {
