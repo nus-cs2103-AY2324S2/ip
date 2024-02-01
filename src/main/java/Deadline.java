@@ -6,19 +6,20 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) {
         super(description);
-        if (isValidDateFormat(by)) {
+        if (isValidDateTimeFormat(by)) {
             this.by = by;
         } else {
             this.by = convertDate(by);
         }
     }
 
-    private boolean isValidDateFormat(String by) {
+    private boolean isValidDateTimeFormat(String by) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
         try {
             LocalDate date = LocalDate.parse(by, formatter);
-            String formattedDate = date.format(formatter);
-            return formattedDate.equals(by);
+            String formattedDateTime = date.format(formatter);
+            return formattedDateTime.equals(by);
         } catch (Exception e) {
             return false;
         }

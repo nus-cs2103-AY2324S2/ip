@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -197,14 +199,27 @@ public class Duke {
             String by = parts[1].substring(3);
 
             if (!description.isEmpty()) {
-                Task task = new Deadline(description, by);
-                addTask(task);
+                if (isValidDateFormat(by)) {
+                    Task task = new Deadline(description, by);
+                    addTask(task);
+                } else {
+                    throw new DukeException("Invalid date format. Please use yyyy-mm-dd format for the deadline.");
+                }
             } else {
                 throw new DukeException(" Please provide a valid description of the task.");
             }
         } else {
             throw new DukeException(" Invalid format of Deadline task. Please try again with the correct format.\n" +
                     " deadline (event name) /by (deadline)");
+        }
+    }
+
+    private static boolean isValidDateFormat(String date) {
+        try {
+            LocalDate.parse(date);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
         }
     }
 
