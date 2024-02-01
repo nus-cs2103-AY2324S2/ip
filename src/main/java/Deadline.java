@@ -11,6 +11,16 @@ public class Deadline extends Task {
         replyToUser.displayMessage();
     }
 
+    @Override
+    public String getType() {
+        return "D";
+    }
+
+    @Override
+    public String getDesc() {
+        return super.getDesc() + " | " + this.deadlineTime;
+    }
+
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.deadlineTime + ")";
     }

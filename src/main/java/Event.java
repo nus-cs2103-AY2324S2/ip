@@ -13,6 +13,16 @@ public class Event extends Task {
         replyToUser.displayMessage();
     }
 
+    @Override
+    public String getType() {
+        return "E";
+    }
+
+    @Override
+    public String getDesc() {
+        return super.getDesc() + " | " + this.startTime + "-" + this.endTime;
+    }
+
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.startTime
                 + " to: " + this.endTime + ")";
