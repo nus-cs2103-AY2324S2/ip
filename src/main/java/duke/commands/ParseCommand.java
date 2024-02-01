@@ -2,6 +2,7 @@ package duke.commands;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 import duke.tasks.Task;
 
 public class ParseCommand {

@@ -1,6 +1,7 @@
 package duke.tasks;
 
 import java.time.LocalDateTime;
+
 import duke.common.Utils;
 
 public class Event extends Task {
@@ -18,13 +19,13 @@ public class Event extends Task {
     public String toStorageString() {
         int statusValue = this.getStatus() ? 1 : 0;
 
-        return String.format("event~%d~%s~%s~%s", statusValue,
-                this.description, Utils.inputFormat(this.from), Utils.inputFormat(this.to));
+        return String.format("event~%d~%s~%s~%s", statusValue, this.description,
+                Utils.inputFormat(this.from), Utils.inputFormat(this.to));
     }
 
-    //TODO format the date
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + Utils.outputFormat(this.from) + " to: " + Utils.outputFormat(this.to) + ")";
+        return "[E]" + super.toString() + " (from: " + Utils.outputFormat(this.from) + " to: "
+                + Utils.outputFormat(this.to) + ")";
     }
 }

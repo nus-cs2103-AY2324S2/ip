@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import duke.common.Utils;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
@@ -14,8 +15,8 @@ import duke.tasks.ToDo;
 
 public class Storage {
 
-    private final static String FILE_PATH = "src/main/java/duke/resources/data.txt";
-    private final static String DELIMITER = "~";
+    private static final String FILE_PATH = "src/main/java/duke/resources/data.txt";
+    private static final String DELIMITER = "~";
 
     public Storage() {
 

@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Utils {
-    final static private String FORMAT = "d/M/yyyy HHmm";
+    private static final String FORMAT = "d/M/yyyy HHmm";
 
     public static boolean isValidDateTime(String dateTime) {
         dateTime = dateTime.trim();

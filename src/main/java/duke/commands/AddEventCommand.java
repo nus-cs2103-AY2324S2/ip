@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import duke.common.Utils;
 import duke.storage.Storage;
 import duke.tasks.Event;
@@ -41,9 +42,9 @@ public class AddEventCommand extends Command {
                     "Datetime is in the wrong format. (format: event <your task> /from <dd/MM/yyyy HHmm> /to <dd/MM/yyyy HHmm>)");
         }
 
-        Event eventTask =
-                new Event(eventDetails[0].trim(), Utils.parseDateTime(eventDetails[1].trim()),
-                        Utils.parseDateTime(eventDetails[2].trim()));
+        Event eventTask = new Event(eventDetails[0].trim(),
+                Utils.parseDateTime(eventDetails[1].trim()),
+                Utils.parseDateTime(eventDetails[2].trim()));
         tasks.add(eventTask);
 
         Storage.writeToStorage(eventTask);
