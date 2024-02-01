@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Parser class.
@@ -85,6 +87,25 @@ public class Parser {
             System.out.println("Noted. I've removed this task:\n" + lst.getTask(lstNo - 1));
             lst.deleteTask(lstNo - 1);
             System.out.println("Now you have " + lst.taskSize() + " tasks in the list.");
+        } else if (instr.equalsIgnoreCase(Instruction.FIND.toString())) {
+            List<String> matchedLst = new ArrayList<>();
+            for (int i = 0; i < lst.taskSize(); i++) {
+                String[] words = lst.getTask(i).toString().split(" ");
+                for (int j = 0; j < words.length; j++) {
+                    if (input[1].equalsIgnoreCase(words[j])) {
+                        matchedLst.add(lst.getTask(i).toString());
+                        break;
+                    }
+                }
+            }
+            if (matchedLst.size() > 0) {
+                System.out.println("Here are the list of tasks that matches the keyword:");
+                for (int i = 0; i < matchedLst.size(); i++) {
+                    System.out.println(i + 1 + "." + matchedLst.get(i));
+                }
+            } else {
+                System.out.println("Sorry! No match found!");
+            }
         }
         storage.writeDataToFile(lst.toList());
     }

@@ -11,5 +11,6 @@ public enum Instruction {
     MARK,
     UNMARK,
     BYE,
-    DELETE
+    DELETE,
+    FIND
 }

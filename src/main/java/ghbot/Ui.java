@@ -44,7 +44,8 @@ public class Ui {
                 && !subStr[0].equalsIgnoreCase(Instruction.MARK.toString())
                 && !subStr[0].equalsIgnoreCase(Instruction.UNMARK.toString())
                 && !subStr[0].equalsIgnoreCase(Instruction.BYE.toString())
-                && !subStr[0].equalsIgnoreCase(Instruction.DELETE.toString())) {
+                && !subStr[0].equalsIgnoreCase(Instruction.DELETE.toString())
+                && !subStr[0].equalsIgnoreCase(Instruction.FIND.toString())) {
             throw new GHBotException("Sorry! I don't get the instruction!\n" +
                     "please use either todo, deadline, event, list, mark, unmark, bye or delete!");
         }
@@ -61,6 +62,8 @@ public class Ui {
             throw new GHBotException("Sorry! You need to include a number to unmark your task!");
         } else if (subStr[0].equalsIgnoreCase(Instruction.DELETE.toString()) && subStr.length < 2) {
             throw new GHBotException("Sorry! You need to include a number to delete your task!");
+        } else if (subStr[0].equalsIgnoreCase(Instruction.FIND.toString()) && subStr.length < 2) {
+            throw new GHBotException("Sorry! You need to include a keyword that you want to find!");
         }
 
         if (subStr[0].equalsIgnoreCase(Instruction.DEADLINE.toString())) {
