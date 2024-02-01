@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.io.IOException;
@@ -7,10 +8,14 @@ import java.io.IOException;
 public class Storage {
     private String filePath;
     private File file;
-    public Storage(String filePath) {
+    public Storage(String filePath, String directoryPath) {
         this.filePath = filePath;
         file = new File(filePath);
+        File dir = new File(directoryPath);
 
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
         // Test if file exists
         try {
             if (file.createNewFile()) {
@@ -113,6 +118,24 @@ public class Storage {
         } catch (Exception e) {
         } finally {
             return resultList;
+        }
+    }
+
+    public void saveToDisk(List sourceList) {
+        ArrayList<Task> saveList = sourceList.getArrayList();
+        String content = "";
+        for (int i = 0; i < saveList.size(); i++) {
+            Task curr = saveList.get(i);
+            String currTask = curr.toString();
+            content += currTask + System.lineSeparator();
+        }
+
+        try {
+            FileWriter fw = new FileWriter(this.filePath);
+            fw.write(content);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

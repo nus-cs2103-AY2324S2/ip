@@ -1,6 +1,6 @@
 public abstract class Task {
-    private String task;
-    private boolean done;
+    protected String task;
+    protected boolean done;
     public Task(String task) {
         this.task = task;
         this.done = false;
@@ -29,4 +29,5 @@ public abstract class Task {
 
         return taskString;
     }
+
 }

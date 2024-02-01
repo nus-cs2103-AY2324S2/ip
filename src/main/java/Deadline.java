@@ -14,4 +14,10 @@ public class Deadline extends Task {
     public String printTask() {
         return "[D]" + super.printTask() + " (by: " + this.deadline + ")";
     }
+
+    @Override
+    public String toString() {
+        int marked = this.done ? 1 : 0;
+        return "D | " + marked + " | " + this.task + " | " + this.deadline;
+    }
 }

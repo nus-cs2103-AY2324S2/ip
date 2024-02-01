@@ -10,4 +10,10 @@ public class ToDo extends Task {
     public String printTask() {
         return "[T]" + super.printTask();
     }
+
+    @Override
+    public String toString() {
+        int marked = this.done ? 1 : 0;
+        return "T | " + marked + " | " + this.task;
+    }
 }

@@ -78,4 +78,8 @@ public class List {
         System.out.println(currTask.printTask() + "\n");
         System.out.println("You now have " + list.size() + " tasks in the list\n");
     }
+
+    public ArrayList<Task> getArrayList() {
+        return list;
+    }
 }

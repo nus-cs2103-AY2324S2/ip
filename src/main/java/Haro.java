@@ -33,7 +33,7 @@ public class Haro {
 
     public void initialise() {
         greet();
-        haroStorage = new Storage("data/saveList.txt");
+        haroStorage = new Storage("data/saveList.txt", "data/");
         list = haroStorage.loadSave();
         Scanner inputScanner = new Scanner(System.in);
         String input = inputScanner.nextLine();
@@ -41,7 +41,7 @@ public class Haro {
 
         while (true) {
             String[] inputArr = input.split(" ", 2);
-            String instructWord = inputArr[0].toLowerCase();
+            String instructWord = inputArr[0].toLowerCase().trim();
 
             switch (instructWord) {
                 case "bye":
@@ -222,6 +222,8 @@ public class Haro {
         );
     }
     private void bye() {
+        haroStorage.saveToDisk(list);
+        System.out.println("List has been saved!");
         System.out.println(closingMSg + "\n" +
                 horizontalLine);
     }
