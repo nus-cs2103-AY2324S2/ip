@@ -11,6 +11,8 @@ public class Token {
     private Task task;
     private int selectedItem;
 
+    private String searchKey;
+
     /**
      * Constructs a Token object with the specified command.
      *
@@ -75,6 +77,24 @@ public class Token {
      */
     public void setAsSaved() {
         this.cmd = Command.SAVED;
+    }
+
+    /**
+     * Sets the search key associated with the token.
+     *
+     * @param string The search key to be set.
+     */
+    public void setSearchKey(String string) {
+        this.searchKey = string;
+    }
+
+    /**
+     * Gets the search key associated with the token.
+     *
+     * @return The search key associated with the token.
+     */
+    public String getSearchKey() {
+        return this.searchKey;
     }
 
 }
