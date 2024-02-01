@@ -7,6 +7,9 @@ import java.util.Scanner;
 public class Ui {
     private Scanner scanner;
 
+    /**
+     * Constructor of Ui.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
@@ -49,6 +52,9 @@ public class Ui {
         drawLine();
     }
 
+    /**
+     * Prints out welcome message.
+     */
     public void welcomeMessage() {
         drawLine();
         System.out.println("Hello! I'm Colin");
@@ -56,6 +62,11 @@ public class Ui {
         drawLine();
     }
 
+    /**
+     * Returns the command that being input by User.
+     *
+     * @return String command input by user.
+     */
     public String readCommand() {
         String command = scanner.nextLine();
         return command;

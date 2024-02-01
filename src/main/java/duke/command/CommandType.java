@@ -6,6 +6,11 @@ package duke.command;
 public enum CommandType {
     TODO, DEADLINE, EVENT, TASK, LIST, LISTCOMMANDS, MARK, UNMARK, DELETE, BYE, FILEPATH, CHECKDATE;
 
+    /**
+     * Returns Command line of respective enums.
+     *
+     * @return Command line of respective enums.
+     */
     public String getCommand() {
         switch(this) {
         case TODO:
@@ -43,6 +48,11 @@ public enum CommandType {
         }
     }
 
+    /**
+     * Returns String representation of respective enums.
+     *
+     * @return String representation of respective enums.
+     */
     @Override
     public String toString() {
         switch(this) {

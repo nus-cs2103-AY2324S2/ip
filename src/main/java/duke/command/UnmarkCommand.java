@@ -11,10 +11,22 @@ import java.io.IOException;
 public class UnmarkCommand extends Command {
     private String[] commandArr;
 
+    /**
+     * Constructor of unmark command.
+     *
+     * @param commandArr
+     */
     public UnmarkCommand(String[] commandArr) {
         this.commandArr = commandArr;
     }
 
+    /**
+     * Executes unmark command.
+     *
+     * @param tasks List of tasks.
+     * @param ui Ui of ai chatbot.
+     * @param storage External storage in hard disk.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {

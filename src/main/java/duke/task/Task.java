@@ -97,7 +97,7 @@ public abstract class Task {
 
 
     /**
-     * String representation of task.
+     * Returns String representation of task.
      *
      * @return string representation of task for done and not done task.
      */
@@ -120,7 +120,7 @@ public abstract class Task {
     }
 
     /**
-     * String representation for storage.
+     * Returns String representation for storage.
      *
      * @return String representation for storage of duke.task.ToDo task.
      */
@@ -128,6 +128,12 @@ public abstract class Task {
         return this.isDone() + " , " + this.description;
     };
 
+    /**
+     * Returns boolean value of whether this task related to the given date.
+     *
+     * @param date
+     * @return false (given task does not have date attribute).
+     */
     public boolean checkDate(LocalDate date) {
         return false;
     }
