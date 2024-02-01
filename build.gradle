@@ -13,6 +13,13 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
 
+mainClassName = 'duke.Duke'
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '-source' << '11' // Set the Java source version
+    options.compilerArgs << '-target' << '11' // Set the target Java version
+}
+
 test {
     useJUnitPlatform()
 
@@ -33,6 +40,7 @@ application {
 
 shadowJar {
     archiveBaseName = "duke"
+    archiveVersion = "v0.1"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
