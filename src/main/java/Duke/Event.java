@@ -1,13 +1,13 @@
 package duke;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-
 public class Event extends Task {
-    LocalDate from;
-    LocalDate to;
-    static final DateTimeFormatter f = DateTimeFormatter.ofPattern("MMM d yyyy");
+    private LocalDate from;
+    private LocalDate to;
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     public Event(String name, String from, String to) throws InvalidDateFormat {
         super(name.trim());
@@ -18,10 +18,10 @@ public class Event extends Task {
             throw new InvalidDateFormat();
         }
     }
-    
+
     @Override
     public String toString() {
-        String date = String.format(" (from: %s to: %s)", this.from.format(f), this.to.format(f));
+        String date = String.format(" (from: %s to: %s)", this.from.format(FORMATTER), this.to.format(FORMATTER));
         return "[E]" + super.toString() + date;
     }
 }

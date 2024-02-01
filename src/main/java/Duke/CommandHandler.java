@@ -1,6 +1,5 @@
 package duke;
 
-
 public class CommandHandler {
     private Ui ui;
 
@@ -16,63 +15,61 @@ public class CommandHandler {
     }
 
     public CommandHandler(Ui uiArg) {
-        ui = uiArg;
+        this.ui = uiArg;
     }
 
     public boolean executeCommand(String userInput) throws DukeException {
         String[] words = userInput.split("\\s+");
-        Command command = null;
+        Command command;
         try {
-            command = Command.valueOf(words[0].toUpperCase());   
+            command = Command.valueOf(words[0].toUpperCase());
         } catch (IllegalArgumentException e) {
             String commandStr = words[0];
             throw new CommandNotFoundException(commandStr);
         }
 
         switch (command) {
-            case BYE:
-                ui.goodbye();
-                return true;
-            case LIST:
-                TaskList.list();
+        case BYE:
+            ui.goodbye();
+            return true;
+        case LIST:
+            TaskList.list();
+            break;
+        default:
+            String arguments;
+            try {
+                arguments = userInput.substring(command.name().length() + 1);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new ArgumentNotFoundException(command.name());
+            }
+            switch (command) {
+            case MARK:
+                TaskList.markTask(processTaskIdx(arguments));
+                break;
+            case UNMARK:
+                TaskList.unmarkTask(processTaskIdx(arguments));
+                break;
+            case DELETE:
+                TaskList.deleteTask(processTaskIdx(arguments));
+                break;
+            case TODO:
+                TaskList.addTask(processToDo(arguments));
+                break;
+            case DEADLINE:
+                TaskList.addTask(processDeadline(arguments));
+                break;
+            case EVENT:
+                TaskList.addTask(processEvent(arguments));
                 break;
             default:
-                // The logic below is for commands with arguments
-                String arguments = "";
-                try {
-                    arguments = userInput.substring(command.name().length() + 1);
-                } catch (StringIndexOutOfBoundsException e) {
-                    throw new ArgumentNotFoundException(command.name());
-                }
-                switch (command) {
-                    case MARK:
-                        TaskList.markTask(processTaskIdx(arguments));
-                        break;
-                    case UNMARK:
-                        TaskList.unmarkTask(processTaskIdx(arguments));
-                        break;
-                    case DELETE:
-                        TaskList.deleteTask(processTaskIdx(arguments));
-                        break;
-                    case TODO:
-                        TaskList.addTask(processToDo(arguments));
-                        break;
-                    case DEADLINE:
-                        TaskList.addTask(processDeadline(arguments));
-                        break;
-                    case EVENT:
-                        TaskList.addTask(processEvent(arguments));
-                        break;
-                    default:
-                        System.out.println("Error: CommandSet Hashtable contains a command that is not implemented in the switch statement!");
-                        break;
-                }
-                // To store the updated Task List
-                Storage.store();
+                System.out.println("Error: CommandSet Hashtable contains a command that is not implemented in the switch statement!");
+                break;
+            }
+            Storage.store();
         }
         return false;
     }
-    
+
     private static int processTaskIdx(String arguments) throws IndexOutOfRange{
         int idx = Integer.parseInt(arguments);
         int size = TaskList.listSize();
@@ -105,4 +102,3 @@ public class CommandHandler {
         }
     }
 }
-

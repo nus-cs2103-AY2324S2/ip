@@ -7,7 +7,7 @@ public class Bird {
         new Bird();
     }
 
-    public Bird() {;
+    public Bird() {
         TaskList.create();
         Storage.init();
         this.ui = new Ui();
