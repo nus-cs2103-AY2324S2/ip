@@ -219,7 +219,12 @@ public class Parser {
         storage.saveTaskList(taskList);
         taskDeletedMessage.print();
     }
-    
+
+    /**
+     * Finds tasks that contain the keyword(s) in the input.
+     * @param input
+     * @throws InvalidBanterUsageError
+     */
     private void parseFind(String input) throws InvalidBanterUsageError {
         String[] tokens = getTokens(input);
         if (tokens.length == 1) {
