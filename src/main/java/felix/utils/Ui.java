@@ -1,3 +1,5 @@
+package felix.utils;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -13,7 +15,7 @@ public class Ui {
 
     private final Scanner scanner;
 
-    Ui () {
+    public Ui() {
         this.scanner = new Scanner(System.in);
     }
 

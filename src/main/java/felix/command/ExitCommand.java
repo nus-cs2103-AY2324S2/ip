@@ -1,5 +1,11 @@
+package felix.command;
+
+import felix.exception.FelixException;
+import felix.utils.TaskList;
+import felix.utils.Ui;
+import felix.utils.Storage;
 public class ExitCommand extends Command {
-    ExitCommand() {
+    public ExitCommand() {
         this.isExit = true;
     }
 

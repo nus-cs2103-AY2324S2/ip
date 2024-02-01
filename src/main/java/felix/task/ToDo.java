@@ -1,5 +1,7 @@
+package felix.task;
+
 public class ToDo extends Task {
-    ToDo(String description) {
+    public ToDo(String description) {
         super(description);
     }
 

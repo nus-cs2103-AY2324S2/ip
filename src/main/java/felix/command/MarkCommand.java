@@ -1,6 +1,13 @@
+package felix.command;
+
+import felix.exception.FelixException;
+import felix.task.Task;
+import felix.utils.TaskList;
+import felix.utils.Ui;
+import felix.utils.Storage;
 public class MarkCommand extends Command {
     private final int indexToMark;
-    MarkCommand(int indexToMark) {
+    public MarkCommand(int indexToMark) {
         this.indexToMark = indexToMark;
     }
 
