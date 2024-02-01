@@ -15,6 +15,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String getSaveTask() {
+        return "E | " + super.getSaveTask() + " | " + from + "-" + to;
+    }
+
+    @Override
     public String toString() {
         return "[E][" + this.getStatusIcon() + "] "
                 + this.description + " (from: " + this.from + " to: " + this.to + ")";

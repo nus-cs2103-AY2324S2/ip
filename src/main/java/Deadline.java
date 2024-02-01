@@ -12,6 +12,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String getSaveTask() {
+        return "D | " + super.getSaveTask() + " | " + by;
+    }
+
+    @Override
     public String toString() {
         return "[D][" + this.getStatusIcon() + "] " + this.description + " (by: " + this.by + ")";
     }

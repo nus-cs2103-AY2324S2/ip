@@ -41,6 +41,15 @@ public class Save {
         scanner.close();
     }
 
+    public void addNewTask (Task task) throws IOException {
+        if (!file.exists()) {
+            handleFileAccessErrors();
+        }
+
+        FileWriter fw = new FileWriter(file, true);
+        fw.append("\r\n");
+        fw.append(task.getSaveTask());
+        fw.close();
     }
 
     // Move to error handling class?

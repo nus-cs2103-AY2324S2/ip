@@ -9,6 +9,11 @@ public class ToDo extends Task {
     }
 
     @Override
+    public String getSaveTask() {
+        return "T | " + super.getSaveTask();
+    }
+
+    @Override
     public String toString() {
         return "[T][" + this.getStatusIcon() + "] " + this.description;
     }
