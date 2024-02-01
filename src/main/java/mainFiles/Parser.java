@@ -1,3 +1,5 @@
+package mainFiles;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -34,7 +36,7 @@ public class Parser {
      * @param userInput The input of the user, broken down into arguments
      * @param taskList The list of tasks currently
      */
-    Parser(UserInput userInput, TaskList taskList) {
+    public Parser(UserInput userInput, TaskList taskList) {
         this.userInput = userInput;
         this.taskList = taskList;
     }

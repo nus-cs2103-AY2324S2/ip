@@ -1,3 +1,5 @@
+package mainFiles;
+
 /**
  * Class for receiving user input and storing it as separate arguments.
  */
@@ -15,7 +17,7 @@ public class UserInput {
      * If any of the 3 parameters are left blank, then it will be treated as null.
      * @param input String input of the user
      */
-    UserInput(String input) {
+    public UserInput(String input) {
         String[] readInput = input.split(" ", 2);
         this.name = readInput[0].trim();
         if (readInput.length == 1) {

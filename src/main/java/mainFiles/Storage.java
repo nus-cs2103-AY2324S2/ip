@@ -1,3 +1,5 @@
+package mainFiles;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -16,7 +18,7 @@ import tasks.Todo;
  */
 public class Storage {
 
-    Storage() {
+    public Storage() {
     }
     /**
      * Reads the file that is specified in newFile and stores it in the taskList.

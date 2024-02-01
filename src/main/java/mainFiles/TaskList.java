@@ -1,3 +1,5 @@
+package mainFiles;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,7 +19,7 @@ public class TaskList {
      * Constructor class for TaskList
      * @param storage Class which assists in reading and writing to the hard disk.
      */
-    TaskList(Storage storage) {
+    public TaskList(Storage storage) {
         taskList = new ArrayList<>();
         this.storage = storage;
     }
