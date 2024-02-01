@@ -50,63 +50,65 @@ class CommandScanner {
      */
     public List<Token> scanTokens() {
         // command token
-        scanStartToken();
+        tokens.add(getStartToken());
 
         // argument tokens
         while (!isAtEnd()) {
             start = current;
-            scanToken();
+            tokens.addAll(getNextTokens());
         }
 
         // EOC token
-        scanEndToken();
+        tokens.add(getEndToken());
         return tokens;
     }
 
-    private void scanEndToken() {
-        tokens.add(new Token(TokenType.EOC, ""));
+    private Token getEndToken() {
+        return new Token(TokenType.EOC, "");
     }
 
-    private void scanToken() {
+    private ArrayList<Token> getNextTokens() {
         char c = advance();
+        ArrayList<Token> nextTokens = new ArrayList<Token>();
         switch (c) {
-            case '/':
-                prefix();
-                parameter();
-                break;
-            case ' ':
-            case '\r':
-            case '\t':
-                // ignore whitespace
-                break;
-            default:
-                literal();
-                break;
+        case '/':
+            nextTokens.add(getPrefix());
+            nextTokens.add(getParameter());
+            return nextTokens;
+        case ' ':
+        case '\r':
+        case '\t':
+            // ignore whitespace
+            break;
+        default:
+            nextTokens.add(getLiteral());
+            return nextTokens;
         }
+        return nextTokens;
     }
 
-    private void literal() {
+    private Token getLiteral() {
         while (peek() != '/' && !isAtEnd()) {
             advance();
         }
-        addToken(TokenType.LITERAL);
+        return createToken(TokenType.LITERAL);
     }
 
-    private void parameter() {
+    private Token getParameter() {
         start = current;
 
         while (!isWhiteSpace(peek()) && !isAtEnd()) {
             advance();
         }
 
-        addToken(TokenType.PARAM);
+        return createToken(TokenType.PARAM);
     }
 
-    private void prefix() {
-        addToken(TokenType.FORWARD_DASH);
+    private Token getPrefix() {
+        return createToken(TokenType.FORWARD_DASH);
     }
 
-    private void scanStartToken() {
+    private Token getStartToken() {
         while (!isWhiteSpace(peek()) && !isAtEnd()) {
             advance();
         }
@@ -118,13 +120,13 @@ class CommandScanner {
             type = TokenType.LITERAL; // flag that LITERAL is not recognised command when parsing
         }
 
-        addToken(type);
+        return createToken(type);
     }
 
-    private void addToken(TokenType type) {
+    private Token createToken(TokenType type) {
         String text = source.substring(start, current);
-        Token newToken = new Token(type, text);
-        tokens.add(newToken);
+        return new Token(type, text);
+
     }
 
     private char peek() {
