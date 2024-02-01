@@ -6,7 +6,7 @@ import duke.exception.InvalidCommandException;
 
 public class Parser {
     private enum CommandType {
-        BYE, LIST, DELETE, MARK, UNMARK, TODO, EVENT, DEADLINE
+        BYE, LIST, DELETE, MARK, UNMARK, TODO, EVENT, DEADLINE, FIND
     }
     public static Command parse(String input) throws InvalidCommandException, InvalidArgumentException {
         String[] parts = input.split(" ", 2);
@@ -33,6 +33,8 @@ public class Parser {
                 return new AddDeadlineCommand(parts[1]);
             case EVENT:
                 return new AddEventCommand(parts[1]);
+            case FIND:
+                return new FindCommand(parts[1]);
             default:
                 throw new InvalidCommandException(command);
             }
