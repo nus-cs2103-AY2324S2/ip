@@ -1,247 +1,106 @@
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.io.IOException;
-import java.io.FileWriter;
 
 public class Friday {
     private static final String DATA_FILE_PATH = "./src/main/java/data/Friday.txt";
     private static final String horizontalLine = "_".repeat(60);
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        File f = new File(DATA_FILE_PATH);
+    private final Ui ui;
+    private final Storage storage;
+    private TaskList tasks;
+    private Parser parser;
 
+    public Friday() {
+        ui = new Ui();
+        storage = new Storage(DATA_FILE_PATH);
+        parser = new Parser();
         try {
-            if (!f.exists()) {
-                if (f.createNewFile()) {
-                    System.out.println("Data file created.");
-                } else {
-                    System.out.println("Error creating data file.");
-                }
-            } else {
-                System.out.println("Loading data from Duke.txt...");
-            }
+            storage.checkFile();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            ui.displayMessage(e.getMessage());
         }
 
-        List<Task> tasks = new ArrayList<>();
         try {
-            tasks = loadDataFromFile(f);
+            tasks = storage.loadDataFromFile();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            ui.displayMessage(e.getMessage());
         }
+    }
+    public void run() {
+        ui.displayMessage(horizontalLine);
+        ui.displayMessage("Hello! I'm Friday");
+        ui.displayMessage("What can I do for you?");
+        ui.displayMessage(horizontalLine);
 
-        int counter = tasks.size();
-        System.out.println(horizontalLine);
-        System.out.println("Hello! I'm Friday");
-        System.out.println("What can I do for you?");
-        System.out.println(horizontalLine);
-
-        String userInput = sc.nextLine().trim();
-        String category = userInput.split(" ")[0];
+        String userInput = ui.getUserInput().trim();
+        String category = parser.parseCommand(userInput);
         while (!userInput.equals("bye")) {
-            System.out.println(horizontalLine);
+            ui.displayMessage(horizontalLine);
             switch (category) {
                 case "list":
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < counter; i++) {
-                        System.out.println((i + 1) + ". " + tasks.get(i).toString());
-                    }
+                    ui.displayMessage("Here are the tasks in your list:");
+                    ui.displayTaskList(tasks);
                     break;
                 case "mark":
-                    String[] toMark = userInput.split(" ");
-                    if (toMark.length <= 1) {
-                        System.out.println("Error. Unknown number.");
-                        break;
-                    }
-                    int id = Integer.parseInt(userInput.split(" ")[1]);
-                    if (id > counter) {
-                        System.out.println("Error. Task does not exist.");
-                        break;
-                    }
-                    System.out.println("Nice! I've marked this task as done:");
-                    tasks.get(id - 1).markAsDone();
-                    System.out.println(tasks.get(id - 1).toString());
+                    tasks.markTask(userInput);
                     try {
-                        writeToFile(DATA_FILE_PATH, tasks);
+                        storage.writeToFile(tasks);
                     } catch (IOException e) {
-                        System.out.println(e.getMessage());
+                        ui.displayMessage(e.getMessage());
                     }
                     break;
                 case "unmark":
-                    String[] toUnmark = userInput.split(" ");
-                    if (toUnmark.length <= 1) {
-                        System.out.println("Error. Unknown number.");
-                        break;
-                    }
-                    int num = Integer.parseInt(userInput.split(" ")[1]);
-                    if (num > counter) {
-                        System.out.println("Error. Task does not exist.");
-                        break;
-                    }
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    tasks.get(num - 1).markAsUndone();
-                    System.out.println(tasks.get(num - 1).toString());
+                    tasks.unmarkTask(userInput);
                     try {
-                        writeToFile(DATA_FILE_PATH, tasks);
+                        storage.writeToFile(tasks);
                     } catch (IOException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
                 case "todo":
-                    String[] todos = userInput.split(" ");
-                    if (todos.length <= 1) {
-                        System.out.println("Error. Todo cannot be empty.");
-                        break;
-                    }
-                    System.out.println("Got it. I've added this task:");
-                    Todo t = new Todo(userInput.substring(5));
-                    System.out.println(t);
-                    tasks.add(t);
-                    counter++;
-                    System.out.println(taskCounter(counter));
+                    Todo t = tasks.addTodo(userInput);
                     try {
-                        appendToFile(DATA_FILE_PATH, t.toString() + System.lineSeparator());
+                        storage.appendToFile(t.toString() + System.lineSeparator());
                     } catch (IOException e) {
-                        System.out.println(e.getMessage());
+                        ui.displayMessage(e.getMessage());
                     }
                     break;
                 case "deadline":
-                    String[] deadlines = userInput.split(" ");
-                    if (deadlines.length <= 1) {
-                        System.out.println("Error. Deadline cannot be empty.");
-                        break;
-                    }
-                    int pos = userInput.indexOf("/by");
-                    String description = userInput.substring(8, pos).trim();
-                    if (description.isEmpty()) {
-                        System.out.println("Unknown deadline description.");
-                        break;
-                    }
-                    String by = userInput.substring(pos + 3).trim();
-                    if (by.isEmpty()) {
-                        System.out.println("Unknown deadline.");
-                        break;
-                    }
-                    System.out.println("Got it. I've added this task:");
-                    Deadline d = new Deadline(description, by);
-                    System.out.println(d);
-                    tasks.add(d);
-                    counter++;
-                    System.out.println(taskCounter(counter));
+                    Deadline d = tasks.addDeadline(userInput);
                     try {
-                        appendToFile(DATA_FILE_PATH, d.toString() + System.lineSeparator());
+                        storage.appendToFile(d.toString() + System.lineSeparator());
                     } catch (IOException e) {
-                        System.out.println(e.getMessage());
+                        ui.displayMessage(e.getMessage());
                     }
                     break;
                 case "event":
-                    String[] events = userInput.split(" ");
-                    if (events.length <= 1) {
-                        System.out.println("Error. Event cannot be empty.");
-                        break;
-                    }
-                    int pos_from = userInput.indexOf("/from");
-                    int pos_to = userInput.indexOf("/to");
-                    String descr = userInput.substring(5, pos_from).trim();
-                    if (descr.isEmpty()) {
-                        System.out.println("Unknown event description.");
-                        break;
-                    }
-                    String from = userInput.substring(pos_from + 5, pos_to).trim();
-                    if (from.isEmpty()) {
-                        System.out.println("Unknown event start time.");
-                        break;
-                    }
-                    String to = userInput.substring(pos_to + 3).trim();
-                    if (to.isEmpty()) {
-                        System.out.println("Unknown event end time.");
-                        break;
-                    }
-                    Event e = new Event(descr, from, to);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(e);
-                    tasks.add(e);
-                    counter++;
-                    System.out.println(taskCounter(counter));
+                    Event e = tasks.addEvent(userInput);
                     try {
-                        appendToFile(DATA_FILE_PATH, e.toString() + System.lineSeparator());
+                        storage.appendToFile(e.toString() + System.lineSeparator());
                     } catch (IOException err) {
                         System.out.println(err.getMessage());
                     }
                     break;
                 case "delete":
-                    String[] toDelete = userInput.split(" ");
-                    if (toDelete.length <= 1) {
-                        System.out.println("Error. Unknown number.");
-                        break;
-                    }
-                    int j = Integer.parseInt(userInput.split(" ")[1]);
-                    if (j > counter) {
-                        System.out.println("Error. Task does not exist.");
-                        break;
-                    }
-                    System.out.println("Noted. I have removed this task:");
-                    System.out.println(tasks.get(j - 1));
-                    tasks.remove(j - 1);
-                    counter--;
-                    System.out.println(taskCounter(counter));
+                    tasks.deleteTask(userInput);
                     try {
-                        writeToFile(DATA_FILE_PATH, tasks);
+                        storage.writeToFile(tasks);
                     } catch (IOException err) {
-                        System.out.println(err.getMessage());
+                        ui.displayMessage(err.getMessage());
                     }
                     break;
                 default:
-                    System.out.println("HUH? What do you mean?");
+                    ui.displayMessage("HUH? What do you mean?");
                     break;
             }
-            System.out.println(horizontalLine);
-            userInput = sc.nextLine().trim();
+            ui.displayMessage(horizontalLine);
+            userInput = ui.getUserInput().trim();
             category = userInput.split(" ")[0];
         }
-        System.out.println(horizontalLine);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(horizontalLine);
-        sc.close();
+        ui.displayMessage(horizontalLine);
+        ui.displayMessage("Bye. Hope to see you again soon!");
+        ui.displayMessage(horizontalLine);
     }
 
-    private static String taskCounter(int counter) {
-        if (counter <= 1) {
-            return "Now you have " + counter + " task in the list.";
-        } else {
-            return "Now you have " + counter + " tasks in the list.";
-        }
-    }
-
-    private static void appendToFile(String filePath, String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(textToAppend);
-        fw.close();
-    }
-
-    private static void writeToFile(String filePath, List<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(DATA_FILE_PATH);
-        for (Task t : tasks) {
-            fw.write(t.toString() + System.lineSeparator());
-        }
-        fw.close();
-    }
-    private static List<Task> loadDataFromFile(File file) throws IOException {
-        List<Task> taskList = new ArrayList<>();
-
-        try (Scanner fileScanner = new Scanner(file)) {
-            while (fileScanner.hasNextLine()) {
-                String taskData = fileScanner.nextLine();
-                taskList.add(Task.parseTask(taskData));
-            }
-        }
-        if (taskList.isEmpty()) {
-            // If the file was empty, instantiate a new task list
-            taskList = new ArrayList<>();
-        }
-        return taskList;
+    public static void main(String[] args) {
+        new Friday().run();
     }
 }
