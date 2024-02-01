@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
     /**
-     * Constructor for a Parser
+     * Constructor for a Parser.
      */
     public Parser() {
 

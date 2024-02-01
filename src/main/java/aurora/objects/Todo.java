@@ -6,7 +6,7 @@ package aurora.objects;
 public class Todo extends Task {
 
     /**
-     * Constructor for the ToDo class
+     * Constructor for the ToDo class.
      *
      * @param description: Description of the ToDo task.
      */

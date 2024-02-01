@@ -10,12 +10,6 @@ import aurora.command.ListCommand;
 import aurora.command.MarkCommand;
 import aurora.command.TodoCommand;
 import aurora.command.UnmarkCommand;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-import java.util.ArrayList;
 import aurora.objects.Deadline;
 import aurora.objects.DukeException;
 import aurora.objects.Event;
@@ -25,6 +19,12 @@ import aurora.parser.Parser;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Duke is the main class for the application that runs according to the commands given to it by the user.
@@ -77,15 +77,15 @@ public class Duke {
      */
     public void exeAurora() {
         this.ui.printOpeningMessage();
-        boolean exit = false;
-        while(!exit) {
+        boolean isExit = false;
+        while(!isExit) {
             String command = this.ui.nextCommand();
             String[] splitCommands = Parser.splitAtAllBlanks(command);
             String mainC = splitCommands[0];
             try {
                 if (mainC.equalsIgnoreCase("bye")) {
                     ByeCommand byeCommand = new ByeCommand(this.taskList, this.ui, this.storage);
-                    exit = byeCommand.isBye();
+                    isExit = byeCommand.isBye();
                     byeCommand.handle();
                 } else if (mainC.equalsIgnoreCase("list")) {
                     ListCommand listCommand = new ListCommand(this.taskList, this.ui, this.storage);

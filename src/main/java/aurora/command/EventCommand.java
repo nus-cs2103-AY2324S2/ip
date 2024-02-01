@@ -1,15 +1,15 @@
 package aurora.command;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import aurora.objects.DukeException;
 import aurora.parser.Parser;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * The EventCommand class handles the "event" command.
@@ -19,13 +19,13 @@ public class EventCommand extends Command {
     /** TaskList to interact with. */
     private TaskList taskList;
 
-    /** Ui to interact with */
+    /** Ui to interact with. */
     private Ui ui;
 
-    /** Storage to interact with */
+    /** Storage to interact with. */
     private Storage storage;
 
-    /** Full command */
+    /** Full command. */
     private String command;
 
     /**
