@@ -13,6 +13,8 @@ public class Parser {
         switch (command) {
         case "mark", "unmark", "delete":
             throw new IllegalArgumentException("You need to choose a task number to mark/unmark/delete!");
+        case "find":
+            throw new IllegalArgumentException("Your 'find' field cannot be empty!");
         case "todo", "deadline", "event":
             throw new IllegalArgumentException("You forgot to include the description of your task at all!");
         case "list":
@@ -23,7 +25,9 @@ public class Parser {
             } else if (command.startsWith("unmark ")) {
                 return new String[]{ "unmark", command.substring(7) };
             } else if (command.startsWith("delete ")) {
-                return new String[]{ "delete", command.substring(7) };
+                return new String[]{"delete", command.substring(7)};
+            } else if (command.startsWith("find ")) {
+                return new String[]{"find", command.substring(5)};
             } else {
                 return new String[]{"add", command};
             }

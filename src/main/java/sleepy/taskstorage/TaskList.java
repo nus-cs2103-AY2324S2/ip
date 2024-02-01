@@ -60,6 +60,17 @@ public class TaskList {
                     deleteTask(taskNumber);
                 }
                 break;
+            case "find":
+                String keywords = parsedCommand[1];
+                Ui.printLine("Here are the matching tasks in your list:");
+                int i = 1;
+                for (Task task: tasks) {
+                    if (task.getDescription().contains(keywords)) {
+                        Ui.printLine(i + "." + task.getDescription());
+                        i++;
+                    }
+                }
+                break;
             case "add":
                 addTask(accessCommand);
                 break;
