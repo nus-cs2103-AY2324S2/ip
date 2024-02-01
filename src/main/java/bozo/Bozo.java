@@ -1,3 +1,5 @@
+package bozo;
+
 import java.util.Scanner;
 
 public class Bozo {

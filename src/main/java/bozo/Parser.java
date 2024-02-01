@@ -1,3 +1,5 @@
+package bozo;
+
 public class Parser {
 
     public void parseCommand(String input, TaskList list) throws BozoException {
@@ -29,7 +31,7 @@ public class Parser {
                 System.out.println("  " + currentTask);
                 Ui.showLine();
             } else {
-                throw new BozoException("Error: Task does not exist!");
+                throw new BozoException("Error: bozo.Task does not exist!");
             }
         } else if (input.startsWith("unmark")) {
             // Mark a task as not done
@@ -43,7 +45,7 @@ public class Parser {
                 System.out.println("  " + currentTask);
                 Ui.showLine();
             } else {
-                throw new BozoException("Error: Task does not exist!");
+                throw new BozoException("Error: bozo.Task does not exist!");
             }
         } else if (input.startsWith("delete")) {
             // Remove a task

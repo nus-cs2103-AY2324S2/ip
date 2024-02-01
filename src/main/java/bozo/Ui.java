@@ -1,3 +1,5 @@
+package bozo;
+
 public class Ui {
 
     public void showWelcome() {
