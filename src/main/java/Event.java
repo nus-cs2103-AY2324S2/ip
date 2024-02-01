@@ -32,6 +32,6 @@ public class Event extends Task{
 
     @Override
     public String saveTask() {
-        return String.format("event-%s/from %s/to %s-%d", this.description, this.from, this.to, this.isDoneNumerical());
+        return String.format("event_%s/from %s/to %s_%d", this.description, this.from, this.to, this.isDoneNumerical());
     }
 }

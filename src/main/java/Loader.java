@@ -20,7 +20,7 @@ public class Loader {
                 ArrayList<Task> loadedTasks = new ArrayList<Task>();
                 String line;
                 while (!(line = reader.readLine()).equals("EOF")) {
-                    String[] readTask = line.split("-");
+                    String[] readTask = line.split("_");
                     if (readTask[0].equals("todo")) {
                         ToDo td = new ToDo(readTask[1], readTask[2]);
                         loadedTasks.add(td);
