@@ -1,4 +1,4 @@
-package DylanBot;
+package dylanbot;
 
 public class Task {
 

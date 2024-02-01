@@ -1,3 +1,5 @@
+package dylanbot;
+
 // deals with making sense of the user command
 public class Parser {
     private Ui ui;

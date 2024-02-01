@@ -1,3 +1,5 @@
+package dylanbot;
+
 import java.io.*;
 public class DylanBot {
     private Ui ui;
