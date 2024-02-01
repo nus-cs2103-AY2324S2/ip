@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -32,34 +33,65 @@ public class Duke {
                 input +
                 "\n____________________________________________________________\n");
     }
+    public static String getTaskName(String task, String input) throws DukeException {
+        if (task.equalsIgnoreCase("todo")) {
+            if (input.length() < 6) {
+                throw new DukeException("Please enter a task name for Todo!! >.<");
+            }
+            String taskName = input.substring(5);
+            return taskName;
+        } else if (task.equalsIgnoreCase("deadline")) {
+            int endIndex = input.indexOf("/by");
+            if (input.length() < 10 || endIndex == -1) {
+                throw new DukeException("Please enter a task name for Deadline!! >.<");
+            }
+            String taskName = input.substring(9, endIndex);
+            return taskName;
+        }else if (task.equalsIgnoreCase("event")) {
+            int endIndex = input.indexOf("/from");
+            if (input.length() < 7 || endIndex == -1) {
+                throw new DukeException("Please enter a task name for Event!! >.<");
+            }
+            String taskName = input.substring(6, endIndex);
+            return taskName;
+        } else {
+            throw new DukeException("Please use one of the 3 tasks!! >.<");
+        }
+    }
+    public static String getStartDate(String input) throws DukeException {
+        int startIndex = input.indexOf("/from") + 6;
+        int endIndex = input.indexOf("/to");
+
+        if (startIndex == input.length() || startIndex == 5) {
+            throw new DukeException("Please use the keyword /from for your event! >.<");
+        } else if (startIndex > input.length()) {
+            throw new DukeException("Please enter a start date for your event! >.<");
+        } else if (endIndex == -1) {
+            throw new DukeException("Please use the keyword /to for your event! >.<");
+        } else if (startIndex > endIndex) {
+            throw new DukeException("Please enter an end date for your event! >.<");
+        }
+        return input.substring(startIndex, endIndex);
+    }
+    public static String getEndDate(String task, String input) throws DukeException {
+        String startWord = task.equalsIgnoreCase("deadline") ? "/by" : "/to";
+        int startIndex = input.indexOf(startWord) + startWord.length() + 1;
+        if (startIndex > input.length()) {
+            throw new DukeException(String.format("Please enter an end date for your %s!", task));
+        }
+        return input.substring(startIndex);
+    }
     public void addToList(String input) throws DukeException{
         Task addedTask = null;
         String[] inputArr = input.split(" ");
         String commandWord = inputArr[0];
         try {
             if (commandWord.equalsIgnoreCase("todo")) {
-                if(input.length() < 6){
-                    throw new DukeException(" OOPS!!! The description of a todo cannot be empty.");
-                }
-                addedTask = new Todo(input.substring(5));
-            } else if (commandWord.equalsIgnoreCase("event")) {
-                if(input.length() < 7){
-                    throw new DukeException(" OOPS!!! The description of a event cannot be empty.");
-                }
-                String[] arr = input.split(" /");
-                if(arr.length != 3){
-                    throw new DukeException(" Invalid input for event! Please enter the time.");
-                }
-                addedTask = new Event(arr[0].substring(6, arr[0].length()), arr[1], arr[2]);
+                addedTask = new Todo(getTaskName(commandWord, input));
             } else if (commandWord.equalsIgnoreCase("deadline")) {
-                if(input.length() < 10){
-                    throw new DukeException(" OOPS!!! The description of a event cannot be empty.");
-                }
-                String[] arr = input.split(" /");
-                if(arr.length != 2){
-                    throw new DukeException(" Invalid input for deadline! Please enter the time.");
-                }
-                addedTask = new Deadline(arr[0].substring(9, arr[0].length()), arr[1]);
+                addedTask = new Deadline(getTaskName(commandWord, input), getEndDate(commandWord, input));
+            } else if (commandWord.equalsIgnoreCase("event")) {
+                addedTask = new Event(getTaskName(commandWord, input), getStartDate(input), getEndDate(commandWord, input));
             } else {
                 throw new DukeException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
@@ -79,6 +111,12 @@ public class Duke {
                     "____________________________________________________________\n" +
                     "%s\n" +
                     "____________________________________________________________\n", error.toString());
+            System.out.println(errorMessage);
+        } catch (DateTimeException dte) {
+            String errorMessage = String.format(
+                    "____________________________________________________________\n" +
+                            "Please follow the format for date and time (d/M/yyyy HHmm).\n" +
+                            "____________________________________________________________\n");
             System.out.println(errorMessage);
         }
     }

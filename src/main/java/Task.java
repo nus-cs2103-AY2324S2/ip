@@ -4,10 +4,10 @@ public class Task implements Serializable {
     protected String description;
     protected boolean isDone;
     protected Character taskType;
-    public Task(String description) {
+    public Task(String description, Character taskType) {
         this.description = description;
         this.isDone = false;
-        this.taskType = ' ';
+        this.taskType = taskType;
     }
 
     public String getStatusIcon() {
