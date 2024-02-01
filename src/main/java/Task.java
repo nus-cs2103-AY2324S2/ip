@@ -8,6 +8,7 @@ abstract public class Task implements Serializable {
 
     /**
      * Constructor for Task class.
+     *
      * @param taskName Name of the task.
      */
     public Task(String taskName, boolean isCompleted) {
@@ -36,6 +37,7 @@ abstract public class Task implements Serializable {
 
     /**
      * Returns the status of the task.
+     *
      * @return "X" if the task is completed, " " otherwise.
      */
     public String getStatus() {
@@ -50,6 +52,7 @@ abstract public class Task implements Serializable {
 
     /**
      * Returns the description of the task.
+     *
      * @return Description of the task.
      */
     @Override
