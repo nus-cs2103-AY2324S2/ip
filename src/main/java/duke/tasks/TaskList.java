@@ -17,6 +17,7 @@ public class TaskList {
     private static final String ADD_TASK_MESSAGE = "Got it. I've added this task:%n%s%nNow you have %d tasks in the list.";
     private static final String MISSING_ARGUMENT_MESSAGE = "The command you entered has missing arguments. Please try again!";
     private static final String REMOVE_TASK_MESSAGE = "Noted. I've removed this task:%n%s%nNow you have %d tasks in the list.";
+    private static final String FIND_TASK_MESSAGE = "Here are the matching tasks in your list:%s";
 
     private final ArrayList<Task> taskList;
     private final Storage taskStorage;
@@ -132,6 +133,27 @@ public class TaskList {
         taskList.remove(Integer.parseInt(taskIndex) - 1);
         updateStorage();
         String output = String.format(REMOVE_TASK_MESSAGE, taskToRemove, taskList.size());
+        System.out.println(output);
+    }
+
+    /**
+     * Finds tasks that contains the keyword given.
+     * @param keyword Keyword to find in the taskList.
+     * @throws DukeIllegalArgumentException If the keyword is missing.
+     */
+    public void findTask(String keyword) {
+        if (keyword.isBlank()) {
+            throw new DukeIllegalArgumentException(MISSING_ARGUMENT_MESSAGE);
+        }
+        StringBuilder sb = new StringBuilder();
+        int count = 1;
+        for (Task task : taskList) {
+            if (task.description.contains(keyword)) {
+                sb.append(String.format("%n%d.%s", count, task));
+                count += 1;
+            }
+        }
+        String output = String.format(FIND_TASK_MESSAGE, sb);
         System.out.println(output);
     }
 

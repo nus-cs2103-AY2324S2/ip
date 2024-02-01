@@ -53,6 +53,9 @@ public class Duke {
                 case DELETE:
                     taskList.deleteTask(arguments);
                     break;
+                case FIND:
+                    taskList.findTask(arguments);
+                    break;
                 case INVALID:
                     throw new DukeUnknownCommandException(String.format(UNKNOWN_COMMAND_MESSAGE, p.getUnknownCommand()));
                 default:
