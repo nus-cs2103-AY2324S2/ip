@@ -3,6 +3,9 @@ package chatbot.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event task.
+ */
 public class EventTask extends Task {
     
     private LocalDateTime startTiming;

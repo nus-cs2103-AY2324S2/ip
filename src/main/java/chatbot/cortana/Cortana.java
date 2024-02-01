@@ -11,8 +11,9 @@ import chatbot.task.TaskList;
 import chatbot.ui.Ui;
 
 
-
-
+/**
+ * Represents the chatbot Cortana.
+ */
 public class Cortana {
 
     private String name = "Cortana";
@@ -42,6 +43,9 @@ public class Cortana {
         Ui.bye();
     }
 
+    /**
+     * Reads the user input and executes the command.
+     */
     public void echo() {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();

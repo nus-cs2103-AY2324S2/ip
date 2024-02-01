@@ -1,5 +1,8 @@
 package chatbot.task;
 
+/**
+ * Represents a todo task.
+ */
 public class TodoTask extends Task {
     
     public TodoTask(String description) {
