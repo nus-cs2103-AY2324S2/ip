@@ -1,4 +1,4 @@
-package tasks;
+package shodan.tasks;
 
 public enum TaskType {
     TODO,

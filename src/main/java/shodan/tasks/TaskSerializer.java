@@ -1,7 +1,10 @@
-package tasks;
+package shodan.tasks;
+
+import shodan.tasks.impl.Deadline;
+import shodan.tasks.impl.Event;
+import shodan.tasks.impl.Todo;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -11,24 +14,24 @@ import java.util.stream.Stream;
 public class TaskSerializer {
     private final static String DELIMITER = ";";
 
-    public static String serialize(List<Task> tasks) {
+    public static String serialize(List<shodan.tasks.Task> tasks) {
         StringBuilder sb = new StringBuilder();
-        for (Task t : tasks) {
+        for (shodan.tasks.Task t : tasks) {
             String[] taskFields = {"", "", "", "", ""};
             if (t instanceof Todo) {
                 Todo todo = (Todo) t;
-                taskFields[0] = TaskType.TODO.name();
+                taskFields[0] = shodan.tasks.TaskType.TODO.name();
                 taskFields[1] = String.valueOf(todo.isDone());
                 taskFields[2] = todo.getName();
             } else if (t instanceof Deadline) {
                 Deadline deadline = (Deadline) t;
-                taskFields[0] = TaskType.DEADLINE.name();
+                taskFields[0] = shodan.tasks.TaskType.DEADLINE.name();
                 taskFields[1] = String.valueOf(deadline.isDone());
                 taskFields[2] = deadline.getName();
                 taskFields[4] = deadline.getEndDate();
             } else if (t instanceof Event) {
                 Event event = (Event) t;
-                taskFields[0] = TaskType.EVENT.name();
+                taskFields[0] = shodan.tasks.TaskType.EVENT.name();
                 taskFields[1] = String.valueOf(event.isDone());
                 taskFields[2] = event.getName();
                 taskFields[3] = event.getStartDate();
@@ -43,7 +46,7 @@ public class TaskSerializer {
         return sb.toString();
     }
 
-    public static List<Task> parseText(Stream<String> text) {
+    public static List<shodan.tasks.Task> parseText(Stream<String> text) {
         return text.filter(Predicate.not(String::isBlank)).map((String t) -> {
             String[] fields = t.split(DELIMITER);
             try {

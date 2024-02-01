@@ -1,7 +1,7 @@
-package storage;
+package shodan.storage;
 
-import tasks.Task;
-import tasks.TaskSerializer;
+import shodan.tasks.Task;
+import shodan.tasks.TaskSerializer;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,8 +9,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class StorageManager {
@@ -18,7 +18,7 @@ public class StorageManager {
 
     public StorageManager() {
         ResourceBundle rb = ResourceBundle.getBundle("config");
-        /* Ensure that the storage folder exists. Otherwise, some file writing operations might fail. */
+        /* Ensure that the shodan.storage folder exists. Otherwise, some file writing operations might fail. */
         File dataDir = new File(rb.getString("DATA_DIR_PATH"));
         if (!dataDir.exists()) {
             try {
@@ -39,12 +39,12 @@ public class StorageManager {
         }
     }
 
-    public Optional<List<Task>> loadTasks() {
+    public List<Task> loadTasks() {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.taskSaveLocation))) {
-            return Optional.of(TaskSerializer.parseText(reader.lines()));
+            return TaskSerializer.parseText(reader.lines());
         } catch (IOException e) {
             e.printStackTrace();
-            return Optional.empty();
+            return new ArrayList<>();
         }
     }
 }
