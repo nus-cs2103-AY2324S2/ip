@@ -1,6 +1,10 @@
 package seedu.chatteroo.storage;
 
-import seedu.chatteroo.tasks.*;
+import seedu.chatteroo.tasks.Task;
+import seedu.chatteroo.tasks.TaskList;
+import seedu.chatteroo.tasks.ToDo;
+import seedu.chatteroo.tasks.Deadline;
+import seedu.chatteroo.tasks.Event;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -8,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -41,7 +46,6 @@ public class Storage {
      */
     public ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> listStore = new ArrayList<>();
-        int listCount = listStore.size();
         try {
             if (listFile.exists() && listFile.length() > 0) {
                 Scanner sc = new Scanner(listFile);
@@ -66,7 +70,6 @@ public class Storage {
                         newTask.markAsDone();
                     }
                     listStore.add(newTask);
-                    listCount++;
                 }
                 sc.close();
             }

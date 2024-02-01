@@ -1,6 +1,13 @@
 package seedu.chatteroo.parser;
 
-import seedu.chatteroo.commands.*;
+import seedu.chatteroo.commands.Command;
+import seedu.chatteroo.commands.PrintCommand;
+import seedu.chatteroo.commands.MarkCommand;
+import seedu.chatteroo.commands.UnmarkCommand;
+import seedu.chatteroo.commands.DeleteCommand;
+import seedu.chatteroo.commands.AddCommand;
+import seedu.chatteroo.commands.ExitCommand;
+
 import seedu.chatteroo.tasks.Task;
 import seedu.chatteroo.tasks.ToDo;
 import seedu.chatteroo.tasks.Deadline;

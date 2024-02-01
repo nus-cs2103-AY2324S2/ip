@@ -7,6 +7,7 @@ import seedu.chatteroo.tasks.TaskList;
 import seedu.chatteroo.ui.Ui;
 
 import java.util.Scanner;
+
 import java.io.IOException;
 
 /**
