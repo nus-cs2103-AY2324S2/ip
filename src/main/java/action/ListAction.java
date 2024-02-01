@@ -5,7 +5,8 @@ public class ListAction implements Action{
     public ListAction() {}
     @Override
     public void execute() {
-        String[] data = DataHandler.instance.getData();
+        Task[] data = DataHandler.instance.getData();
+        PrintHandler.instance.print("Here is your list of tasks:");
         PrintHandler.instance.printNumberedDivider(data);
     }
 }

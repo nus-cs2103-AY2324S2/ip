@@ -1,5 +1,7 @@
 package handler;
 
+import action.Task;
+
 public final class PrintHandler {
     public static final PrintHandler instance = new PrintHandler();
     private static final String DIVIDER = "------------------------------------";
@@ -12,7 +14,7 @@ public final class PrintHandler {
         System.out.println(msg);
         System.out.println(DIVIDER);
     }
-    public void printNumberedDivider(String[] msgs) {
+    public void printNumberedDivider(Task[] msgs) {
         for (int i = 0; i < msgs.length; i++) {
             int index = i + 1;
             System.out.println(Integer.toString(index) + ". " + msgs[i]);
