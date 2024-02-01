@@ -10,7 +10,13 @@ import duke.ui.Ui;
 import duke.tasks.Task;
 
 public class Duke {
-
+    /**
+     * The main method of the application. This runs the required 
+     * methods to start the application.
+     * 
+     * @param args
+     * @throws IOException if the file path is not found.
+     */
     public static void main(String[] args) throws IOException {
         ArrayList<Task> tasks = Storage.init();
         Ui ui = new Ui();
@@ -18,7 +24,7 @@ public class Duke {
         while (true) {
             try {
                 String[] strArrCommand = ui.readCommand();
-                Command command = ParseCommand.parse(strArrCommand, tasks);
+                Command command = ParseCommand.parse(strArrCommand);
                 command.execute(tasks, strArrCommand);
             } catch (CommandException | IOException e) {
                 Ui.printOutput(e.getMessage());

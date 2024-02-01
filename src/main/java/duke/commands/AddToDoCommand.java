@@ -7,8 +7,20 @@ import duke.tasks.Task;
 import duke.tasks.ToDo;
 import duke.ui.Ui;
 
+/**
+ * The AddToDoCommand class is a Java class that represents a command to add a new ToDo task to a
+ * list of tasks.
+ */
 public class AddToDoCommand extends Command {
 
+    /**
+     * Adds a ToDo task to a list of tasks, validates the input format, updates the storage and
+     * prints the updated task list.
+     * 
+     * @param tasks An ArrayList of Task objects, representing the current list of tasks.
+     * @param input An array of strings representing the user's input.
+     * @throws CommandException for invalid input.
+     */
     @Override
     public void execute(ArrayList<Task> tasks, String[] input)
             throws CommandException, IOException {

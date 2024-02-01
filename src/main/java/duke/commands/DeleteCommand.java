@@ -6,8 +6,19 @@ import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.ui.Ui;
 
+/**
+ * The DeleteCommand class is responsible for deleting tasks.
+ */
 public class DeleteCommand extends Command {
 
+/**
+ * Deletes a task from an ArrayList of tasks based on the user's input, and updates
+ * the storage.
+ * 
+ * @param tasks An ArrayList of Task objects, representing the list of tasks.
+ * @param input An array of string, representing the user's input.
+ * @throws CommandException for invalid input.
+ */
     @Override
     public void execute(ArrayList<Task> tasks, String[] input)
             throws CommandException, IOException {

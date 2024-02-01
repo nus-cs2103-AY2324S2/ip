@@ -1,12 +1,23 @@
 package duke.commands;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import duke.tasks.Task;
 
+/**
+ * The ParseCommand class is responsible for parsing user input and returning the corresponding Command
+ * object.
+ */
 public class ParseCommand {
 
-    public static Command parse(String[] input, ArrayList<Task> tasks) throws IOException {
+    /**
+     * The function takes in user input and a list of tasks, and returns the corresponding command
+     * object based on the input.
+     * 
+     * @param input An array of strings representing the user's input. The first element of the array
+     * is the command, and the subsequent elements are any additional arguments or parameters for the
+     * command.
+     * @return Command object based on the input command.
+     */
+    public static Command parse(String[] input) throws IOException {
 
         CommandsEnum command = CommandsEnum.getCommandEnum(input[0]);
 
