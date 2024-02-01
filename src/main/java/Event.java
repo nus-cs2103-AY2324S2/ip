@@ -21,6 +21,34 @@ public class Event extends Task{
         this.endDate = endDate;
     }
 
+    /**
+     * Getter for start date.
+     *
+     * @return The start date of the event.
+     */
+    public String getStartDate() {
+        return this.startDate;
+    }
+
+    /**
+     * Getter for end date.
+     *
+     * @return The end date of the event.
+     */
+    public String getEndDate() {
+        return this.endDate;
+    }
+
+    @Override
+    public String toFileString() {
+        String taskType = "E";
+        String isDone = this.getStatus() ? "1" : "0";
+        String description = super.toFileString();
+        String startDate = this.getStartDate();
+        String endDate = this.getEndDate();
+        return taskType + " | " + isDone + " | " + description + " | " + startDate + " | " + endDate;
+    }
+
     @Override
     public String toString() {
         String taskType = "[E]";
