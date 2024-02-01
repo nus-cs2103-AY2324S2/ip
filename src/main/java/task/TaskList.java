@@ -1,3 +1,5 @@
+package src.main.java.task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -6,7 +8,7 @@ public class TaskList {
     private int numTasks;
     private boolean isSaved;
 
-    TaskList() {
+    public TaskList() {
         this.tasks = new ArrayList<>();
         this.numTasks = 0;
         this.isSaved = false;

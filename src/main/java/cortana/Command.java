@@ -1,3 +1,5 @@
+package src.main.java.cortana;
+
 public enum Command {
     BYE,
     LIST,

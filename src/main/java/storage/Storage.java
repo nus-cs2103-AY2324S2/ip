@@ -1,16 +1,23 @@
+package src.main.java.storage;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+import src.main.java.task.DeadlineTask;
+import src.main.java.task.EventTask;
+import src.main.java.task.Task;
+import src.main.java.task.TaskList;
+import src.main.java.task.TodoTask;
 
 public class Storage {
 
     private final String SAVE_DIR_PATH;
     private final String SAVE_FILENAME;  
 
-    Storage(String saveDirPath, String saveFilename) {
+    public Storage(String saveDirPath, String saveFilename) {
         this.SAVE_DIR_PATH = saveDirPath;
         this.SAVE_FILENAME = saveFilename;
     }

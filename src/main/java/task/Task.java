@@ -1,3 +1,5 @@
+package src.main.java.task;
+
 public class Task {
     
     private String description;

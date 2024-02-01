@@ -1,3 +1,5 @@
+package src.main.java.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -5,12 +7,12 @@ public class DeadlineTask extends Task {
     
     private LocalDateTime timing;
 
-    DeadlineTask(String description, LocalDateTime timing) {
+    public DeadlineTask(String description, LocalDateTime timing) {
         super(description);
         this.timing = timing;
     }
 
-    DeadlineTask(String description, LocalDateTime timing, boolean isCompleted) {
+    public DeadlineTask(String description, LocalDateTime timing, boolean isCompleted) {
         super(description, isCompleted);
         this.timing = timing;
     }

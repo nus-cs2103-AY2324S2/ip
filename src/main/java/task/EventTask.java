@@ -1,3 +1,5 @@
+package src.main.java.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -6,13 +8,13 @@ public class EventTask extends Task {
     private LocalDateTime startTiming;
     private LocalDateTime endTiming;
 
-    EventTask(String description, LocalDateTime startTiming, LocalDateTime endTiming) {
+    public EventTask(String description, LocalDateTime startTiming, LocalDateTime endTiming) {
         super(description);
         this.startTiming = startTiming;
         this.endTiming = endTiming;
     }
 
-    EventTask(String description, LocalDateTime startTiming, LocalDateTime endTiming, boolean isCompleted) {
+    public EventTask(String description, LocalDateTime startTiming, LocalDateTime endTiming, boolean isCompleted) {
         super(description, isCompleted);
         this.startTiming = startTiming;
         this.endTiming = endTiming;
