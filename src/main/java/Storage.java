@@ -1,3 +1,6 @@
+import exceptions.storage.LoadingException;
+import exceptions.storage.SavingException;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,21 +10,20 @@ import java.util.stream.Stream;
 
 public class Storage {
     Path filepath;
-    TaskList taskList;
 
-    public Storage(Path filepath, TaskList taskList) {
+    public Storage(Path filepath) {
         this.filepath = filepath;
-        this.taskList = taskList;
     }
 
 
-    public void load() {
+    public TaskList load() throws LoadingException {
+        TaskList taskList = new TaskList();
         try {
             // Solution below adapted from https://stackoverflow.com/a/41514348
             if (!Files.exists(this.filepath)) {
                 Files.createDirectories(this.filepath.getParent());
                 Files.createFile(this.filepath);
-                return;
+                throw new LoadingException("File does not exist");
             }
 
             // Solution below adapted from https://www.baeldung.com/reading-file-in-java
@@ -33,37 +35,38 @@ public class Storage {
                         String taskDesc = s[2];
                         switch (taskType) {
                         case "T":
-                            this.taskList.addToDo(taskDesc);
+                            taskList.addToDo(taskDesc);
                             break;
                         case "D":
-                            this.taskList.addDeadline(taskDesc, s[3]);
+                            taskList.addDeadline(taskDesc, s[3]);
                             break;
                         case "E":
-                            this.taskList.addEvent(taskDesc, s[3], s[4]);
+                            taskList.addEvent(taskDesc, s[3], s[4]);
                             break;
                         default:
-                            System.out.println("Error loading file");
-                            break;
+                            throw new IllegalStateException("Unexpected value: " + taskType);
                         }
+
                         if (isDone) {
-                            this.taskList.markLastAsDone();
+                            taskList.markLastAsDone();
                         }
+
                     }
             );
 
             lines.close();
+            return taskList;
         } catch (IndexOutOfBoundsException | IllegalStateException | IOException | DateTimeParseException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Error loading file");
+            throw new LoadingException("Error loading file");
         }
 
     }
 
-    public void save() {
+    public void save(TaskList taskList) throws SavingException {
         try (BufferedWriter bw = Files.newBufferedWriter(this.filepath)) {
-            bw.write(this.taskList.getSavedTasksString());
+            bw.write(taskList.getSavedTasksString());
         } catch (IOException e) {
-            System.out.println("Error saving file");
+            throw new SavingException("Error saving file");
         }
     }
 

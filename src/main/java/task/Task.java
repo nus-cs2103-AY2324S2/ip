@@ -16,23 +16,17 @@ public abstract class Task {
     }
 
     static LocalDateTime parseStringToLocalDatetime(String by) throws DateTimeParseException {
-        DateTimeFormatter formatterWithTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        DateTimeFormatter formatterWithoutTime = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         try {
-            return LocalDateTime.parse(by, formatterWithoutTime);
+            return LocalDateTime.parse(by, dateTimeFormatter);
         } catch (DateTimeParseException e) {
-            return LocalDateTime.parse(by, formatterWithTime);
+            return LocalDateTime.parse(by + " 00:00", dateTimeFormatter);
         }
     }
 
     static String parseLocalDateTimeToString(LocalDateTime ldt) throws DateTimeException {
-        DateTimeFormatter formatterWithTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        DateTimeFormatter formatterWithoutTime = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        try {
-            return ldt.format(formatterWithoutTime);
-        } catch (DateTimeException e) {
-            return ldt.format(formatterWithTime);
-        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        return ldt.format(formatter);
     }
 
 
