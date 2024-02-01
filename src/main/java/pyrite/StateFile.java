@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * Handles saving and loading of task list.
+ */
 public class StateFile {
     private static String FILE_PATH = "saves/state.txt";
     //  Solution below (use of ObjectOutputStream and FileOutputStream) inspired by ChatGPT
@@ -35,6 +38,14 @@ public class StateFile {
         }
         return list;
     }
+
+    /**
+     * Loads state from state file.
+     * If state file does not exist, creates a new one.
+     *
+     * @param tasks TaskList to save if state file does not exist.
+     * @return TaskList with loaded state.
+     */
     public TaskList loadState(TaskList tasks) {
         try {
             TaskList loadedTasks = this.loadObject();
@@ -46,6 +57,13 @@ public class StateFile {
         }
         return tasks;
     }
+
+    /**
+     * Saves state to state file.
+     *
+     * @param tasks TaskList to save.
+     * @return Error message if any.
+     */
     public String saveState(TaskList tasks) {
         try {
             this.saveObject(tasks);

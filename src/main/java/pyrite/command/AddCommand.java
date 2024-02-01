@@ -4,11 +4,24 @@ import pyrite.StateFile;
 import pyrite.task.Task;
 import pyrite.TaskList;
 
+/**
+ * Command to add a task to the list.
+ */
 public class AddCommand extends Command{
     private Task task;
+
+    /**
+     * Constructs an AddCommand.
+     *
+     * @param task Task to be added.
+     */
     public AddCommand(Task task) {
         this.task = task;
     }
+
+    /**
+     * {inheritDoc}
+     */
     @Override
     public String execute(TaskList tasks, StateFile file) {
         tasks.add(this.task);

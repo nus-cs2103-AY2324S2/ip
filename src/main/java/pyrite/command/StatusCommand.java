@@ -4,13 +4,27 @@ import pyrite.StateFile;
 import pyrite.task.Task;
 import pyrite.TaskList;
 
+/**
+ * Command to change the status of a task.
+ */
 public class StatusCommand extends Command{
     int id;
     private Task.Status targetStatus;
+
+    /**
+     * Constructs a StatusCommand.
+     *
+     * @param id Index of task to be updated.
+     * @param targetStatus Status to be applied.
+     */
     public StatusCommand(int id, Task.Status targetStatus) {
         this.id = id;
         this.targetStatus = targetStatus;
     }
+
+    /**
+     * {inheritDoc}
+     */
     @Override
     public String execute(TaskList tasks, StateFile file) {
         if (!tasks.isValidId(this.id)){
