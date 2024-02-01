@@ -1,3 +1,5 @@
+package chatteroo.tasks;
+
 public class ToDo extends Task {
     protected String taskType = "T";
     public ToDo (String description) {

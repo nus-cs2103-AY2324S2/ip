@@ -1,3 +1,9 @@
+package chatteroo.commands;
+
+import chatteroo.tasks.*;
+import chatteroo.ui.Ui;
+import chatteroo.storage.Storage;
+
 public class Command {
     private int taskNum;
     private Task newTask;

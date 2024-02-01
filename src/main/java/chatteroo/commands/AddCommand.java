@@ -1,3 +1,9 @@
+package chatteroo.commands;
+
+import chatteroo.tasks.*;
+import chatteroo.ui.Ui;
+import chatteroo.storage.Storage;
+
 public class AddCommand extends Command {
     private Task newTask;
     public AddCommand(Task newTask ) {

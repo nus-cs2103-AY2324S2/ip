@@ -1,3 +1,5 @@
+package chatteroo.ui;
+
 public class Ui {
     public Ui() {
     }

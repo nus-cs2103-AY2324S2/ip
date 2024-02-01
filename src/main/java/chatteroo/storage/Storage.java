@@ -1,3 +1,7 @@
+package chatteroo.storage;
+
+import chatteroo.tasks.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -64,7 +68,6 @@ public class Storage {
         return listStore;
     }
 
-
     public void saveTasks(TaskList listStore) throws IOException{
         FileWriter fw = new FileWriter(Paths.get(DIRECTORY, FILE_NAME).toString());
         for (int i = 0; i < listStore.getTaskListSize(); i++) {
@@ -73,7 +76,7 @@ public class Storage {
             String taskStatus = "";
             String taskDescription = currTask.getDescription();
             DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            if (currTask.isDone) {
+            if (currTask.getIsDone()) {
                 taskStatus = "1";
             } else {
                 taskStatus = "0";

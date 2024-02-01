@@ -1,4 +1,5 @@
-import java.lang.reflect.Array;
+package chatteroo.tasks;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -29,10 +30,10 @@ public class TaskList {
                 + listStore.get(taskNum - 1).toString() + "\n");
     }
 
-    //function to delete task and move remaining tasks up in the list
+    //function to delete task and move remaining chatteroo.tasks up in the list
     public void deleteTask(int taskNum) {
         listStore.remove(taskNum - 1);
-        System.out.println("Now you have " + listStore.size() + " tasks in the list.\n");
+        System.out.println("Now you have " + listStore.size() + " chatteroo.tasks in the list.\n");
     }
 
     public int getTaskListSize() {

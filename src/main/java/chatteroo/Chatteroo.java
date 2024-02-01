@@ -1,8 +1,13 @@
-import java.nio.file.Files;
-import java.nio.file.Path;
+package chatteroo;
+
+import chatteroo.commands.Command;
+import chatteroo.parser.Parser;
+import chatteroo.storage.Storage;
+import chatteroo.tasks.TaskList;
+import chatteroo.ui.Ui;
+
 import java.util.Scanner;
 import java.io.IOException;
-import java.nio.file.Paths;
 
 public class Chatteroo {
     private Storage storage;

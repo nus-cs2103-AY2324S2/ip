@@ -1,4 +1,10 @@
-import java.util.ArrayList;
+package chatteroo.parser;
+
+import chatteroo.commands.*;
+import chatteroo.tasks.Task;
+import chatteroo.tasks.ToDo;
+import chatteroo.tasks.Deadline;
+import chatteroo.tasks.Event;
 
 public class Parser {
     public Parser() {
@@ -49,7 +55,7 @@ public class Parser {
         case "BYE":
             return new ExitCommand();
         default:
-            throw new Exception("ChatterOOHNOO! I'm sorry, but I don't know what that means :-(");
+            throw new Exception("ChatterOOHNOO! I'm sorry, but Chatteroo don't know what that means :-(");
         }
     }
 

@@ -1,3 +1,9 @@
+package chatteroo.commands;
+
+import chatteroo.tasks.*;
+import chatteroo.ui.Ui;
+import chatteroo.storage.Storage;
+
 public class DeleteCommand extends Command {
     private int taskNum;
     public DeleteCommand(int taskNum) {
