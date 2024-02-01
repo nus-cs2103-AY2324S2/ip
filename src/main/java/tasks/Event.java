@@ -8,6 +8,15 @@ public class Event extends Task {
         this.startDate = startDate;
         this.endDate = endDate;
     }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)",

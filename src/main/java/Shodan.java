@@ -1,3 +1,4 @@
+import storage.StorageManager;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -6,12 +7,19 @@ import tasks.Todo;
 import java.util.*;
 
 public class Shodan {
-    private static List<Task> taskList = new ArrayList<>();
+    private static List<Task> taskList;
+    private static StorageManager storageManager;
 
     public static void main(String[] args) {
+        init();
         greet();
         handleInput();
         exit();
+    }
+
+    public static void init() {
+        storageManager = new StorageManager();
+        taskList = storageManager.loadTasksFromStorage().orElse(new ArrayList<>());
     }
 
     public static void greet() {
@@ -95,6 +103,7 @@ public class Shodan {
                 selectedTask.undone();
                 System.out.println("Task has been set as not done yet:\n\t" + selectedTask);
             }
+            storageManager.saveTasksToStorage(taskList);
         } catch (NumberFormatException e) {
             throw new ShodanException("Input argument not recognised, please enter the task number.");
         }
@@ -112,6 +121,7 @@ public class Shodan {
                 throw new ShodanException("Couldn't find task with that number. Use the list command to view all current tasks.");
             }
             Task selectedTask = taskList.remove(taskNum - 1);
+            storageManager.saveTasksToStorage(taskList);
             System.out.println("The following task has been removed:\n\t" + selectedTask);
             System.out.printf("There are now %d tasks remaining in the list.\n", taskList.size());
         } catch (NumberFormatException e) {
@@ -193,6 +203,7 @@ public class Shodan {
             throw new ShodanException("You need to specify a name for your task.");
         }
         taskList.add(newTask);
+        storageManager.saveTasksToStorage(taskList);
         System.out.println("Task has been added:\n\t" + newTask);
         System.out.printf("You have %d tasks now.\n", taskList.size());
     }
