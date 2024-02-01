@@ -1,13 +1,18 @@
-package jade;
+package jade.data;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected LocalDate deadlineDate;
 
     public Deadline(String description, LocalDate deadlineDate) {
         super(description);
+        this.deadlineDate = deadlineDate;
+    }
+
+    public Deadline(String description, LocalDate deadlineDate, boolean isDone) {
+        super(description, isDone);
         this.deadlineDate = deadlineDate;
     }
 
