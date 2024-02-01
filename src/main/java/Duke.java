@@ -67,9 +67,7 @@ public class Duke {
             int taskNum = Integer.parseInt(arguments) - 1;
             Task selectedTask = tasks.get(taskNum);
             if (identifier.equals("mark")) {
-                selectedTask.markDone();
-                System.out.println(gap + "Well done, task marked as completed.\n"
-                        + selectedTask.toString() + "\n" + gap);
+                markTask(arguments);
             } else {
                 selectedTask.markNotDone();
                 System.out.println(gap + "Understood, task marked as uncompleted.\n"
@@ -182,5 +180,13 @@ public class Duke {
             taskList += ((i+1) + ". " + curr.toString() + "\n");
         }
         System.out.println(gap + "Here are your tasks:\n" + taskList + gap);
+    }
+
+    private static void markTask(String arguments) throws DukeException {
+        int taskNum = Integer.parseInt(arguments) - 1;
+        Task selectedTask = tasks.get(taskNum);
+        selectedTask.markDone();
+        System.out.println(gap + "Well done, task marked as completed.\n"
+                + selectedTask.toString() + "\n" + gap);
     }
 }
