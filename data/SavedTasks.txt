@@ -1,2 +1,2 @@
-event-project meeting /from Mon 2pm /to 4pm-0
+deadline_read book /by 2023-10-14_0
 EOF
