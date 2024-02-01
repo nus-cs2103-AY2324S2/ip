@@ -15,16 +15,31 @@ import duke.command.Command;
 
 import duke.task.Task;
 public class Duke {
-
+    /** TaskList Object to be used to store Tasks. */
     private TaskList taskList;
+    /** Ui Object for User Interactions. */
     private Ui userInterface;
+    /** Storage Object to store and load Tasklist states. */
     private Storage fileStorage;
 
+    /**
+     * Constucts a Duke Object that will be loaded with existing TaskList state.
+     *
+     * @param FilePath FilePath of file to be used to load TaskList stored.
+     * @throws DukeException
+     * @throws IOException
+     */
     public Duke(String FilePath) throws DukeException,IOException{
         this.userInterface = new Ui();
         this.fileStorage = new Storage(FilePath);
     }
 
+    /**
+     * Runs the Duke Chatbot.
+     * 
+     * @throws DukeException
+     * @throws IOException
+     */
     public void run() throws DukeException,IOException {
         userInterface.showWelcome();
         Scanner s = new Scanner(System.in);

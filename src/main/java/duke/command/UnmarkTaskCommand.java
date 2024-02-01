@@ -9,12 +9,26 @@ import duke.utility.Ui;
 import java.io.IOException;
 
 public class UnmarkTaskCommand extends Command {
+    /** Index of the Task in the TaskList to be Unmarked. */
     private int indexToBeUnmarked;
 
+    /**
+     * Constructs a UnmarkTaskCommand Object.
+     *
+     * @param index Index of the Task in the TaskList to be Unmarked.
+     */
     public UnmarkTaskCommand(int index) {
         this.indexToBeUnmarked = index;
     }
 
+    /**
+     * Runs the UnmarkTaskCommand to unmark an existing Task in the TaskList.
+     *
+     * @param taskList Existing TaskList to be updated.
+     * @param ui Existing UserInterface Object.
+     * @param storage Existing Storage to be updated
+     * @throws DukeException
+     */
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
             Task unmarkedTask = taskList.unmarkTask(indexToBeUnmarked);
@@ -30,6 +44,11 @@ public class UnmarkTaskCommand extends Command {
         }
     }
 
+    /**
+     * Returns a boolean value telling us whether this command is an exit command.
+     *
+     * @return Boolean value indicating whether this command is an exist command.
+     */
     public boolean isExit() {
         return false;
     }

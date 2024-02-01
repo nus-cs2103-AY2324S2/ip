@@ -19,6 +19,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Parser {
+    /**
+     * Returns a Command Object that adds a specified Task by parsing the String input.
+     *
+     * @param description String containing details of the Task to be created.
+     * @return Command Object that adds a specified Task.
+     * @throws DukeException
+     */
     public static Command taskParser(String description) throws DukeException {
         Task newTask;
         validTaskCommand(description);
@@ -87,6 +94,13 @@ public class Parser {
         return new AddTaskCommand(newTask);
     }
 
+    /**
+     * Returns a Command Object which alters Tasks in the TaskList by parsing the String input.
+     *
+     * @param userInput String containing details of the Command to be executed.
+     * @return Command Object which alters Tasks in the TaskList
+     * @throws DukeException
+     */
     public static Command parseInstructions(String userInput) throws DukeException{
         if (userInput.toLowerCase().equals("bye")) {
             return new ExitCommand();
@@ -129,6 +143,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a Task Object by parsing the String obtained from storage.
+     *
+     * @param fileLine String obtained from the storage.
+     * @return Task Object based on String inputted.
+     * @throws DukeException
+     */
     public static Task parseFileLine(String fileLine) throws DukeException{
         Task t;
         DateTimeFormatter dTFormatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm");
@@ -209,6 +230,13 @@ public class Parser {
         return t;
     }
 
+    /**
+     * Checks if the Task Command is valid.
+     *
+     * @param str String containing the user input.
+     * @return Boolean Value of whether the command is valid.
+     * @throws DukeException
+     */
     private static boolean validTaskCommand(String str) throws DukeException {
         List<String> strArr = Arrays.asList(str.split(" "));
         String keyword = str.split(" ")[0].toLowerCase();
@@ -228,6 +256,14 @@ public class Parser {
             return true;
         }
     }
+
+    /**
+     * Returns a LocalDateTime Object based on the String inputted if in valid format.
+     *
+     * @param dateString String containing Date and Time details.
+     * @return LocalDateTime Object based on the String inputted.
+     * @throws DukeException
+     */
     public static LocalDateTime checkDates(String dateString) throws DukeException {
         try {
             DateTimeFormatter dTFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -237,5 +273,4 @@ public class Parser {
             throw new DukeException("Pengu thinks that you need to put the date in this format: yyyy-MM-dd HHmm");
         }
     }
-
 }
