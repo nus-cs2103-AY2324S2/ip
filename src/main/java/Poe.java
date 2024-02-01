@@ -40,7 +40,7 @@ public class Poe {
         System.out.println(line + "\nUnmarked the task, :(\n" + curr.toString()+"\n"+line);
     }
 
-    public void input() {
+    public void input(){
         Scanner sc = new Scanner(System.in);
         while (true) {
             String str = sc.nextLine();
@@ -60,21 +60,43 @@ public class Poe {
                     unmark(Integer.parseInt(splitStr[1])-1);
                     break;
                 case "todo":
-                    Task todo1 = new Todo(splitStr[1]);
-                    list.add(todo1);
-                    System.out.println(line+"\nyippie added new task\n"+todo1.toString()+"\n"+line);
+                    if (splitStr.length == 2){
+                        Task todo1 = new Todo(splitStr[1]);
+                        list.add(todo1);
+                        System.out.println(line+"\nyippie added new task\n"+todo1.toString()+"\n"+line);
+                    }else{
+                        System.out.println("no input on what todo :(\n"+line);
+                    }
                     break;
+
                 case "deadline":
-                    String[] splitStrDeadline = splitStr[1].split("/",2);
-                    Task deadline1 = new Deadline(splitStrDeadline[0],splitStrDeadline[1]);
-                    list.add(deadline1);
-                    System.out.println(line+"\nyessir added new deadline\n"+deadline1.toString()+"\n"+line);
+                    if (splitStr.length == 2) {
+                        String[] splitStrDeadline = splitStr[1].split("/", 2);
+                        if (splitStrDeadline.length == 2) {
+                            Task deadline1 = new Deadline(splitStrDeadline[0], splitStrDeadline[1]);
+                            list.add(deadline1);
+                            System.out.println(line + "\nyessir added new deadline\n" + deadline1.toString() + "\n" + line);
+                        }else {
+                            System.out.println("no deadline input :(\n" + line);
+                        }
+                    }else{
+                        System.out.println("no name input :(\n"+line);
+                    }
                     break;
                 case "event":
-                    String[] splitStrEvent = splitStr[1].split("/");
-                    Task event1 = new Event(splitStrEvent[0],splitStrEvent[1],splitStrEvent[2]);
-                    list.add(event1);
-                    System.out.println(line+"\nalrighty added new event\n"+event1.toString()+"\n"+line);
+                    if (splitStr.length == 2) {
+                        String[] splitStrEvent = splitStr[1].split("/");
+                        if (splitStrEvent.length == 3) {
+                            Task event1 = new Event(splitStrEvent[0], splitStrEvent[1], splitStrEvent[2]);
+                            list.add(event1);
+                            System.out.println(line + "\nalrighty added new event\n" + event1.toString() + "\n" + line);
+                        }else{
+                            System.out.println("no event start and end date :(\n"+line);
+                        }
+                    }else{
+                        System.out.println("no event timeline input :(\n"+line);
+
+                    }
                     break;
                 default:
                     System.out.println("huh? what did you say?");
@@ -88,6 +110,7 @@ public class Poe {
         Poe poe1 = new Poe();
         poe1.greetings();
         poe1.input();
+
 
     }
 }
