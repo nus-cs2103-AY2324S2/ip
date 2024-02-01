@@ -16,7 +16,6 @@ public class Deadline extends Task {
 
     private boolean isValidDateFormat(String by) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-
         try {
             LocalDate date = LocalDate.parse(by, formatter);
             String formattedDateTime = date.format(formatter);

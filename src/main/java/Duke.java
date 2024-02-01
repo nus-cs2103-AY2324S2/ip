@@ -178,18 +178,26 @@ public class Duke {
         String[] parts = input.split("/", 3);
         if (parts.length == 3) {
             String description = parts[0].substring(5);
-            String from = parts[1].substring(5);
+            String from = parts[1].substring(5).trim();
             String to = parts[2].substring(3);
 
             if (!description.isEmpty()) {
-                Task task = new Event(description, from, to);
-                addTask(task);
+                Event eventTask = createEventTask(description, from, to);
+                addTask(eventTask);
             } else {
                 throw new DukeException(" Please provide a valid description of the task.");
             }
         } else {
             throw new DukeException(" Invalid format of Event task. Please try again with the correct format.\n" +
                     " event (event name) /from (start) /to (end)");
+        }
+    }
+
+    private static Event createEventTask(String description, String from, String to) throws DukeException {
+        try {
+            return new Event(description, from, to);
+        } catch (Exception e) {
+            throw new DukeException("Invalid date format. Please use yyyy-MM-dd or yyyy-MM-dd HHmm format for the event.");
         }
     }
 
@@ -216,7 +224,7 @@ public class Duke {
         if (isValidDateFormat(by)) {
             return new Deadline(description, by);
         } else {
-            throw new DukeException("Invalid date format. Please use yyyy-mm-dd or yyyy-mm-dd hhmm format for the deadline.");
+            throw new DukeException("Invalid date format. Please use yyyy-mm-dd or yyyy-mm-dd HHmm format for the deadline.");
         }
     }
 
