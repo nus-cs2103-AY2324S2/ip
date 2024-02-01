@@ -3,15 +3,16 @@ package duke;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import duke.command.Command;
-import duke.command.CommandBye;
-import duke.command.CommandDeadline;
-import duke.command.CommandDelete;
-import duke.command.CommandEvent;
-import duke.command.CommandList;
-import duke.command.CommandMark;
-import duke.command.CommandToDo;
-import duke.command.CommandUnmark;
+
+import duke.commands.Command;
+import duke.commands.CommandBye;
+import duke.commands.CommandDeadline;
+import duke.commands.CommandDelete;
+import duke.commands.CommandEvent;
+import duke.commands.CommandList;
+import duke.commands.CommandMark;
+import duke.commands.CommandToDo;
+import duke.commands.CommandUnmark;
 import duke.tasks.TaskList;
 
 
