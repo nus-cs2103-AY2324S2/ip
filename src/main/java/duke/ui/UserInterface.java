@@ -4,9 +4,7 @@ import java.util.Scanner;
 
 import duke.command.Command;
 import duke.command.CommandProcessor;
-import duke.exceptions.InputException;
-import duke.exceptions.ProcessingException;
-import duke.exceptions.StartUpException;
+import duke.exceptions.HalException;
 import duke.storage.Storage;
 
 /**
@@ -30,7 +28,7 @@ public class UserInterface {
             Storage storage = new Storage(fileLocation);
             cmd = new CommandProcessor(storage);
             startUpSuccess = true;
-        } catch (StartUpException e) {
+        } catch (HalException e) {
             System.out.println(e.getMessage());
         }
 
@@ -50,6 +48,8 @@ public class UserInterface {
     public void exit() {
         String exit = "Bye! See ya soon";
         System.out.println(exit);
+        scan.close();
+        cmd.close();
     }
 
     /**
@@ -67,36 +67,15 @@ public class UserInterface {
         while (polling) {
             String input = scan.nextLine();
             try {
-                Command command = processCommand(input);
+                Command command = Command.processCommand(input);
                 if (command.isExit()) {
                     polling = false;
                 } else {
                     cmd.processData(command, input);
                 }
-            } catch (InputException | ProcessingException e) {
+            } catch (HalException e) {
                 System.out.println(e.getMessage());
             }
-        }
-    }
-
-    /**
-     * Parses and returns the appropriate command based on user input.
-     *
-     * @param input The user's input string.
-     * @return The corresponding `Command` enum value.
-     * @throws InputException If there is an issue processing the input or if the command is unrecognized.
-     */
-    public Command processCommand(String input) throws InputException {
-        try {
-            String commandString = input.split(" ")[0];
-            return Command.valueOf(commandString.toUpperCase());
-        } catch (IndexOutOfBoundsException e) {
-            String message = "Something went wrong when processing your command: \n"
-                + "Check your input again: " + input;
-            throw new InputException(message, e);
-        } catch (IllegalArgumentException e) {
-            String message = "You inputted an unrecognizable command";
-            throw new InputException(message);
         }
     }
 

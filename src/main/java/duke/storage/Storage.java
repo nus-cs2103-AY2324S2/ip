@@ -36,10 +36,13 @@ public class Storage {
                 temp.load(loadList); //Load from local into temp
             }
 
-        } catch (IOException | ProcessingException e) {
-            String message = "An error occurred with the save file. Try again";
-            e.printStackTrace();
-            throw new StartUpException(message);
+        } catch (IOException e) {
+            String message = "An error occurred with the save file at the system level. Try again";
+            throw new StartUpException(message, e);
+
+        } catch (ProcessingException e) {
+            String message = "An error occurred with parsing the save file. Try again";
+            throw new StartUpException(message, e);
         }
 
     }
@@ -85,5 +88,9 @@ public class Storage {
 
     public void displaySearchList(String query) {
         temp.displaySearchList(query);
+    }
+
+    public void close() {
+        local.close();
     }
 }

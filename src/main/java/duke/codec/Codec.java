@@ -14,7 +14,7 @@ import duke.tasks.Todo;
  */
 public class Codec {
 
-    private final String DELIMITER = ", ";
+    private static final String DELIMITER = ", ";
 
     /**
      * Encodes a task into a string representation.
