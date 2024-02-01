@@ -1,12 +1,12 @@
 package dibo.command;
 
+import java.time.LocalDate;
+
 import dibo.Storage;
 import dibo.TaskList;
 import dibo.Ui;
 import dibo.exception.DiboException;
 import dibo.task.Event;
-
-import java.time.LocalDate;
 
 /**
  * Class to handle the command which adds a to-do task.

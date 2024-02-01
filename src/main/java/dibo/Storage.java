@@ -1,11 +1,5 @@
 package dibo;
 
-import dibo.task.Task;
-import dibo.task.ToDo;
-import dibo.task.Deadline;
-import dibo.task.Event;
-import dibo.exception.DiboException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,6 +9,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import dibo.exception.DiboException;
+import dibo.task.Deadline;
+import dibo.task.Event;
+import dibo.task.Task;
+import dibo.task.ToDo;
+
+
+
 
 
 /**

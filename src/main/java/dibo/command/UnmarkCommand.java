@@ -3,7 +3,6 @@ package dibo.command;
 import dibo.Storage;
 import dibo.TaskList;
 import dibo.Ui;
-import dibo.command.Command;
 import dibo.exception.DiboException;
 
 /**

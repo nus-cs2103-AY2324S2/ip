@@ -1,11 +1,19 @@
 package dibo;
 
-import dibo.command.*;
-import dibo.exception.DiboException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import dibo.command.AddDeadlineCommand;
+import dibo.command.AddEventCommand;
+import dibo.command.AddToDoCommand;
+import dibo.command.ByeCommand;
+import dibo.command.Command;
+import dibo.command.DeleteCommand;
+import dibo.command.ListCommand;
+import dibo.command.MarkCommand;
+import dibo.command.UnmarkCommand;
+import dibo.exception.DiboException;
 
 /**
  * The class to make sense of the commands given by the user.

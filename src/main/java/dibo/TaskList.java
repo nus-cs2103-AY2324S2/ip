@@ -1,9 +1,8 @@
 package dibo;
 
-import dibo.task.Task;
-
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import dibo.task.Task;
 
 /**
  * Class to store all the tasks.
@@ -111,8 +110,4 @@ public class TaskList {
     public int getSize() {
         return this.count;
     }
-
-
-
-
 }
