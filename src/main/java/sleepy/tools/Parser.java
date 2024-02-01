@@ -44,18 +44,18 @@ public class Parser {
         if (isToDo) {
             return new String[]{ "todo", task.substring(5) };
         } else if (isDeadline) {
-            String[] details = task.split(" /by ");
+            String[] details = task.substring(9).split(" /by ");
             if (details.length == 1) {
-                throw new IllegalArgumentException("Missing the '/by' field! Try again.");
+                throw new IllegalArgumentException("Missing the task description or the '/by' field! Try again.");
             } else if (details.length >= 3) {
                 throw new IllegalArgumentException("You can only have one '/by' field! Try again.");
             } else {
                 return new String[]{ "deadline", details[0], details[1] };
             }
         } else if (isEvent) {
-            String[] firstSplit = task.split(" /from ");
+            String[] firstSplit = task.substring(6).split(" /from ");
             if (firstSplit.length == 1) {
-                throw new IllegalArgumentException("Missing the '/from' field! Try again.");
+                throw new IllegalArgumentException("Missing the task description or the '/from' field! Try again.");
             } else if (firstSplit.length >= 3) {
                 throw new IllegalArgumentException("You can only have one '/from' field! Try again.");
             }
