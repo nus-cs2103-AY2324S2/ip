@@ -19,7 +19,7 @@ public class Wei {
     }
 
     /**
-     * execute the chatbot.
+     * execute the chatbot
      */
     private void run() {
         ui.greet();
