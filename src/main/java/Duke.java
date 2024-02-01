@@ -89,11 +89,7 @@ public class Duke {
             }
             System.out.println("Total task count: " + tasks.size() + ".\n" + gap);
         } else if (identifier.equals("delete")) {
-            int delIndex = Integer.parseInt(arguments) - 1;
-            Task toDelete = tasks.remove(delIndex);
-            System.out.println(gap + "Acknowledged. The following task has been removed:\n"
-                    + toDelete.toString());
-            System.out.println("\nTasks remaining: " + tasks.size() + ".\n" + gap);
+            deleteTask(arguments);
         }
     }
 
@@ -206,5 +202,13 @@ public class Duke {
                     + " before the start time, \nfollowed by another space and forward slash"
                     + " before the end time.");
         }
+    }
+
+    private static void deleteTask(String arguments) throws DukeException {
+        int delIndex = Integer.parseInt(arguments) - 1;
+        Task toDelete = tasks.remove(delIndex);
+        System.out.println(gap + "Acknowledged. The following task has been removed:\n"
+                + toDelete.toString());
+        System.out.println("\nTasks remaining: " + tasks.size() + ".\n" + gap);
     }
 }
