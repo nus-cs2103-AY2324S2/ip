@@ -5,17 +5,28 @@ public class InvalidSyntaxException extends Throwable {
     public InvalidSyntaxException(String command) {
         this.command = command;
         switch (command) {
-            case "mark": syntax = "mark [task number]";
+        case "bye":
+            syntax = "bye (just 'bye', really)";
             break;
-            case "unmark": syntax = "unmark [task number]";
+        case "list":
+            syntax = "list (just 'list', really)";
             break;
-            case "todo": syntax = "todo [task description]";
+        case "mark":
+            syntax = "mark [task number]";
             break;
-            case "deadline": syntax = "deadline [task description] /by [deadline]";
+        case "unmark":
+            syntax = "unmark [task number]";
             break;
-            case "event": syntax = "event [task description] /from [start date] /to [end date]";
+        case "todo":
+            syntax = "todo [task description]";
             break;
-            case "delete": syntax = "delete [task number]";
+        case "deadline":
+            syntax = "deadline [task description] /by [deadline]";
+            break;
+        case "event":
+            syntax = "event [task description] /from [start date] /to [end date]";
+            break;
+        case "delete": syntax = "delete [task number]";
         }
     }
     @Override
