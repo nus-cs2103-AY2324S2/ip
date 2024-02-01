@@ -93,6 +93,21 @@ public class Parser {
             String endDate = input.split("/to ")[1];
             taskList.addTask(new Event(description, toLocalDateTime(startDate), toLocalDateTime(endDate)));
             break;
+        case "delete":
+            if (input.split(" ").length != 2) {
+                throw new InvalidSyntaxException("delete");
+            }
+            try {
+                Integer.parseInt(input.split(" ")[1]);
+            } catch (Exception e) {
+                throw new InvalidSyntaxException("delete");
+            }
+            int taskNum = Integer.parseInt(input.split(" ")[1]);
+            if (!taskList.validTaskNum(taskNum)) {
+                throw new TaskNotFoundException(taskList);
+            }
+            taskList.deleteTask(taskNum - 1);
+            break;
         default:
             throw new UnknownCommandException();
         }
