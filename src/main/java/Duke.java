@@ -1,12 +1,41 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.*;
+import java.util.List;
+import java.io.IOException;
+import java.io.FileWriter;
 
 public class Duke {
+    private static final String FILE_PATH = "data/duke.txt";
     public static void main(String[] args) throws DukeException {
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> list = new ArrayList<>();
+        File f = new File(FILE_PATH);
+        System.out.println("file exists?: " + f.exists());
+
+
+        try {
+            if (!f.exists()) {
+
+                if (f.createNewFile()) {
+                    System.out.println("File created");
+                } else {
+                    System.out.println("Unable to create file");
+                }
+            } else {
+                System.out.println("Loading data");
+            }
+        } catch (IOException e) {
+            System.out.println("Error " + e.getMessage());
+        }
+
+        List<Task> list = new ArrayList<>();
+
+        try {
+            list = retrieveData(f);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
 
         System.out.println("Hello! I'm tars.");
@@ -29,10 +58,17 @@ public class Duke {
                 if (comd.length() <= 5) {
                     throw new DukeException("Empty Description");
                 }
-                list.add(new Todo(comd.substring(5)));
+                Todo t = new Todo(comd.substring(5));
+                list.add(t);
                 System.out.println("Got it. I've added this task: ");
                 System.out.println(list.get(list.size() - 1));
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
+
+                try {
+                    addData(FILE_PATH, t.toString() + System.lineSeparator());
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
 
             }
 
@@ -42,10 +78,18 @@ public class Duke {
                 }
                 String[] data = comd.split("/");
                 String task = data[0].substring(9);
-                list.add(new Deadline(task, data[1].substring(3)));
+                Deadline d = new Deadline(task, data[1].substring(3));
+                list.add(d);
+
                 System.out.println("Got it. I've added this task: ");
                 System.out.println(list.get(list.size() - 1));
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
+
+                try {
+                    addData(FILE_PATH, d.toString() + System.lineSeparator());
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
             }
 
             else if (comd.startsWith("event ")) {
@@ -54,12 +98,19 @@ public class Duke {
                 }
                 String[] data = comd.split("/");
                 String task = data[0].substring(6);
-                list.add(new Event(task, data[1].substring(5), data[2].substring(3)));
+
+                Event e = new Event(task, data[1].substring(5), data[2].substring(3));
+                list.add(e);
                 System.out.println("Got it. I've added this task: ");
                 System.out.println(list.get(list.size() - 1));
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
-            }
 
+                try {
+                    addData(FILE_PATH, e.toString() + System.lineSeparator());
+                } catch (IOException err) {
+                    System.out.println(err.getMessage());
+                }
+            }
 
             else if(comd.startsWith("mark ")) {
                 String[] res = comd.split(" ");
@@ -70,6 +121,12 @@ public class Duke {
                 System.out.println("Nice! I've marked this task as done: ");
                 System.out.println(list.get(index - 1).printWithStatus());
 
+                try {
+                    write(FILE_PATH, list);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
             }
 
             else if (comd.startsWith("unmark ")) {
@@ -79,6 +136,12 @@ public class Duke {
                 list.get(index - 1).unmark();
                 System.out.println("OK, I've marked this task as not done yet: ");
                 System.out.println(list.get(index - 1).printWithStatus());
+
+                try {
+                    write(FILE_PATH, list);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
             }
 
             else if (comd.startsWith("delete ")) {
@@ -90,15 +153,50 @@ public class Duke {
                 list.remove(in - 1);
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
 
-
+                try {
+                    write(FILE_PATH, list);
+                } catch (IOException err) {
+                    System.out.println(err.getMessage());
+                }
             }
-
             else {
                 throw new DukeException("Invalid Command!");
             }
-
-
+            
         }
         System.out.print("Bye. Hope to see you again soon!");
+    }
+
+    private static List<Task> retrieveData(File file) throws IOException {
+        List<Task> loadedList = new ArrayList<>();
+
+        try (Scanner fileScanner = new Scanner(file)) {
+            while(fileScanner.hasNextLine()) {
+                String taskData = fileScanner.nextLine();
+                loadedList.add(Task.parser(taskData));
+                System.out.println("loaded");
+            }
+        }
+
+        if (loadedList.isEmpty()) {
+            loadedList = new ArrayList<>();
+        }
+
+        return loadedList;
+    }
+
+    private static void write(String filePath, List<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        for (Task t : tasks) {
+            fw.write(t.toString() + System.lineSeparator());
+
+        }
+        fw.close();
+    }
+
+    private static void addData(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAppend);
+        fw.close();
     }
 }
