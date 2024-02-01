@@ -1,3 +1,8 @@
+import task.Task;
+import task.ToDo;
+import task.Event;
+import task.Deadline;
+
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileWriter;
@@ -88,14 +93,14 @@ public class Storage {
             String[] data = tokens.split(",");
             switch (data[0]) {
                 case "T":
-                    return new Task.ToDos(data[1], Boolean.parseBoolean(data[2]));
+                    return new ToDo(data[1], Boolean.parseBoolean(data[2]));
                 case "E":
-                    return new Task.Events(data[1], Boolean.parseBoolean(data[2]),
+                    return new Event(data[1], Boolean.parseBoolean(data[2]),
                             LocalDate.parse(data[3], Task.getDateFormat()),
                             LocalDate.parse(data[4], Task.getDateFormat()));
                 case "D":
 
-                    return new Task.Deadlines(data[1], Boolean.parseBoolean(data[2]), LocalDate.parse(data[3], Task.getDateFormat()));
+                    return new Deadline(data[1], Boolean.parseBoolean(data[2]), LocalDate.parse(data[3], Task.getDateFormat()));
                 default:
                     throw new DukeException.StorageException("Data file is corrupted, task type does not exist");
             }

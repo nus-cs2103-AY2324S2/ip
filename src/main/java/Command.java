@@ -1,5 +1,8 @@
+import task.Task;
+import task.ToDo;
+import task.Event;
+import task.Deadline;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * Commands are a family of classes that represent commands with a defining execute method.
@@ -85,7 +88,7 @@ public abstract class Command {
         }
 
         public void execute(TaskList list, Ui ui, Storage storage) {
-            Task.ToDo newTask = new Task.ToDo(this.description);
+            task.ToDo newTask = new task.ToDo(this.description);
             list.add(newTask);
             ui.showMessage("added new ToDo: " + newTask);
             ui.showMessage("Looks like you have " + list.countTasks() + " things left to do!");
@@ -102,7 +105,7 @@ public abstract class Command {
 
         @Override
         public void execute(TaskList list, Ui ui, Storage storage) {
-            Task.Deadline newDeadline = new Task.Deadline(description, by);
+            Deadline newDeadline = new Deadline(description, by);
             list.add(newDeadline);
             ui.showMessage("added new deadline: " + newDeadline);
             ui.showMessage("Looks like you have " + list.countTasks() + " things left to do!");
@@ -122,7 +125,7 @@ public abstract class Command {
 
         @Override
         public void execute(TaskList list, Ui ui, Storage storage) {
-            Task newEvent = new Task.Event(task, start, end);
+            Event newEvent = new Event(task, start, end);
             list.add(newEvent);
             ui.showMessage("added new event: " + newEvent);
             ui.showMessage("Looks like you have " + list.countTasks() + " things left to do!");
