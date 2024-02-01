@@ -1,3 +1,5 @@
+package Jerry;
+
 public class Parser {
     public Command parse(String input) {
         String[] parts = input.split(" ", 2);
