@@ -25,4 +25,8 @@ public abstract class Task {
         String mark = isDone ? "X" : " ";
         return String.format("[%s] %s", mark, task);
     }
+
+    public String getDescription() {
+        return this.task;
+    }
 }

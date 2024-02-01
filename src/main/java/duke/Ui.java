@@ -66,4 +66,18 @@ public class Ui {
     public void error(DukeException e) {
         System.out.println(DIVIDER + e + DIVIDER);
     }
+
+    public void findTask(TaskList filteredList) {
+        if (filteredList.isEmpty()) {
+            System.out.println(DIVIDER + "There are no matching tasks in your list.\n" + DIVIDER);
+
+        } else {
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 1; i <= filteredList.getLength(); i++) {
+                sb.append(String.format("%d. %s\n", i, filteredList.get(i)));
+            }
+            System.out.println(DIVIDER + "Here are the matching tasks in your list:\n" + sb + DIVIDER);
+        }
+    }
 }
