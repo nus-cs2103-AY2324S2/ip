@@ -58,6 +58,7 @@ public class Task {
     public String toFileString() {
         return this.description;
     }
+
     @Override
     public String toString() {
         String statusBracket;

@@ -13,7 +13,7 @@ public class Deadline extends Task{
     /**
      * Constructor of deadline
      *
-     * @param description: Description of task.
+     * @param description: Description of the deadline.
      * @param date: Date at which the deadline expires.
      */
     public Deadline(String description, LocalDateTime date) {
