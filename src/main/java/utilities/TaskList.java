@@ -6,8 +6,7 @@ import java.util.List;
 import tasks.Task;
 
 /**
- * The TaskList contains the task list e.g. it has operations to add/delete
- * tasks in the list
+ * Contains the task list e.g. it has operations to add/delete tasks in the list
  */
 public class TaskList {
     private List<Task> tasks;
@@ -27,7 +26,7 @@ public class TaskList {
     }
 
     /**
-     * Print out of all the tasks
+     * Prints out of all the tasks
      */
     public void printList() {
         if (this.tasks.isEmpty()) {
@@ -42,7 +41,7 @@ public class TaskList {
     }
 
     /**
-     * Add task into the list of tasks
+     * Adds task into the list of tasks
      * 
      * @param task Input that is the task (could be todo, deadline or event)
      */
@@ -54,7 +53,7 @@ public class TaskList {
     }
 
     /**
-     * Delete the specified task from the list
+     * Deletes the specified task from the list
      * 
      * @param input The ID of the task
      */
@@ -72,7 +71,7 @@ public class TaskList {
     }
 
     /**
-     * Unmark/mark the task based on the ID
+     * Unmarks/marks the task based on the ID
      * 
      * @param input The ID of the task
      */
@@ -84,7 +83,7 @@ public class TaskList {
     }
 
     /**
-     * Getter method for task
+     * Returns the arraylist of tasks
      * 
      * @return arraylist Arraylist of tasks
      */

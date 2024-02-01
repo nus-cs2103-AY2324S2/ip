@@ -6,7 +6,7 @@ import commands.Commands;
 import exceptions.WilliamException;
 
 /**
- * The Ui class deals with interactions with the user
+ * Deals with interactions with the user
  */
 public class Ui {
     private Scanner sc = new Scanner(System.in);
@@ -36,7 +36,7 @@ public class Ui {
     }
 
     /**
-     * Interact with the user and operate based on their input
+     * Interacts with the user and operate based on their input
      * 
      * @param parser Contains the list of tasks and storage class
      */

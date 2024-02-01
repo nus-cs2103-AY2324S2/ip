@@ -9,7 +9,7 @@ import tasks.Deadline;
 import tasks.Todo;
 
 /**
- * The Parser class deals with making sense of the user command
+ * Deals with making sense of the user command
  */
 public class Parser {
 
@@ -18,7 +18,7 @@ public class Parser {
     private boolean isExit = false;
 
     /**
-     * Constructor to initialise the tasklist and the storage
+     * Initialises the tasklist and the storage
      * 
      * @param taskList Arraylist of tasks
      * @param storage  Storage class to write to file
@@ -39,8 +39,8 @@ public class Parser {
     }
 
     /**
-     * Receive the command based on the user input and the additional information to
-     * perform chatbox task
+     * Receives the command based on the user input and the additional information
+     * to perform chatbox task
      * 
      * @param command              Command based on the user input
      * @param additonalInformation Additional information that contains the details

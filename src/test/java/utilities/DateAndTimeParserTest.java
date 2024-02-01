@@ -15,7 +15,8 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 public class DateAndTimeParserTest {
     /**
-     * Test the acceptDateAndTime method with the correct input, no exception thrown
+     * Tests the acceptDateAndTime method with the correct input, no exception
+     * thrown
      */
     @Test
     public void acceptDateAndTime_correctDateTime_noException() {
@@ -25,7 +26,7 @@ public class DateAndTimeParserTest {
     }
 
     /**
-     * Test the acceptDateAndTime method with the wrong input, exception thrown
+     * Tests the acceptDateAndTime method with the wrong input, exception thrown
      */
     @Test
     public void acceptDateAndTime_incorrectDateTime_exceptionThrown() {
@@ -38,7 +39,7 @@ public class DateAndTimeParserTest {
     }
 
     /**
-     * Test the checkWhetherToAndFromValid method with the correct input, no
+     * Tests the checkWhetherToAndFromValid method with the correct input, no
      * exception thrown
      */
     @Test
@@ -47,7 +48,7 @@ public class DateAndTimeParserTest {
     }
 
     /**
-     * Test the checkWhetherToAndFromValid method with the wrong input, exception
+     * Tests the checkWhetherToAndFromValid method with the wrong input, exception
      * thrown
      */
     @Test
@@ -62,7 +63,7 @@ public class DateAndTimeParserTest {
     }
 
     /**
-     * Test the convertStringToDate method with the correct input
+     * Tests the convertStringToDate method with the correct input
      */
     @Test
     public void convertStringToDate() {
