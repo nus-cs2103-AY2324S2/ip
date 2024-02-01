@@ -26,6 +26,7 @@ public class Ui {
     /** A String to print when program stops running. */
     private static final String END = "See you later alligator!\n";
 
+    /** ASCII art of a wolf */
     private static final String WOLF = "               ..:::::..\n" + //
             "             .:::::::::::.\n" + //
             "            :::::::::::::::\n" + //
@@ -39,6 +40,7 @@ public class Ui {
             "     __/  -'/  `-._ `\\_\\__\n" + //
             "   /-'`  /-'`  `\\   \\  \\-.\\";
 
+    /** ASCII art of a garden */
     private static final String FLOWERS = "                _(_)_                        wWWWw   _\n" +
             "    @@@@       (_)@(_)  vVVVv    _     @@@@  (___) _(_)_\n" +
             "   @@()@@ wWWWw  (_)\\   (___)  _(_)_  @@()@@   Y  (_)@(_)\n" +

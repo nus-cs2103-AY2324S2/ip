@@ -7,10 +7,21 @@ import duke.kbot.TaskFileManager;
 import duke.kbot.TaskManager;
 import duke.tasks.Task;
 
+/**
+ * A unmark command that marks a Task as not completed.
+ * 
+ * @author: CHEN WENLONG
+ * @version: CS2103T AY23/24 Semester 2
+ */
 public class UnMarkTask extends Command {
-
+    /** Index where we mark Task as not complete. */
     private int index;
 
+    /**
+     * Constructor for UnMarkTask.
+     * 
+     * @param index Index where we unmark the task.
+     */
     public UnMarkTask(int index) {
         this.index = index;
     }
@@ -35,9 +46,5 @@ public class UnMarkTask extends Command {
         } catch (IOException e) {
             return (e.getMessage());
         }
-    }
-
-    public String toString() {
-        return "Command: UnMarkTask at index " + index;
     }
 }

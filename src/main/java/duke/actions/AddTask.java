@@ -13,17 +13,41 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 
+/**
+ * An add task command that adds a task onto the tasks array.
+ * 
+ * @author: CHEN WENLONG
+ * @version: CS2103T AY23/24 Semester 2
+ */
 public class AddTask extends Command {
+    /** Instruction or type of command. */
     private String ins;
+
+    /** Input parameters to the command. */
     private String info;
 
+    /** Output format for printing dates. */
     private static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern("d-M-yy");
 
+    /**
+     * Constructor for AddTask.
+     * 
+     * @param taskInstruction Takes in an instruction.
+     * @param taskInfo        Takes in instruction parameters.
+     */
     public AddTask(String taskInstruction, String taskInfo) {
         this.ins = taskInstruction;
         this.info = taskInfo;
     }
 
+    /**
+     * Executes the adding of a new Task to the task list.
+     * 
+     * @throws IOException           Exception for writing and loading from
+     *                               memory.
+     * @throws InvalidInputException Exception when input parameters are
+     *                               invalid.
+     */
     @Override
     public String execute() throws IOException, InvalidInputException {
         Task t = null;

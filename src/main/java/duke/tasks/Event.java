@@ -35,12 +35,26 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    /**
+     * Constuctor used when we are loading from storage.
+     * 
+     * @param name      A String value that states the name of the Task.
+     * @param startTime A LocalDateTime to state the start of event.
+     * @param endTime   A LocalDateTime to state the end of event.
+     * @param completed Boolean of whether Task is completed.
+     */
     public Event(String name, LocalDate startTime, LocalDate endTime, boolean completed) {
         super(name, TYPE, completed);
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
+    /**
+     * Searches for a key in name.
+     * 
+     * @param key String to find in the name.
+     * @return Boolean if key is found or not.
+     */
     public boolean find(String key) {
         return super.find(key);
     }

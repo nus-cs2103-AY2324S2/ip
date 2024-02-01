@@ -7,7 +7,6 @@ package duke.tasks;
  * @author: CHEN WENLONG
  * @version: CS2103T AY23/24 Semester 2
  */
-
 public class Task {
     /** A String value that states the name of the Task. */
     private String name;
@@ -29,10 +28,6 @@ public class Task {
         this.completed = completed;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
     /**
      * Sets the status of completed to true.
      */
@@ -47,6 +42,12 @@ public class Task {
         this.completed = false;
     }
 
+    /**
+     * Searches for a key in name.
+     * 
+     * @param key String to find in the name.
+     * @return Boolean if key is found or not.
+     */
     public boolean find(String key) {
         String[] words = this.name.split(" ");
         for (String s : words) {

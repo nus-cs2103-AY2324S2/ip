@@ -4,7 +4,16 @@ import java.lang.StringBuilder;
 
 import duke.kbot.TaskManager;
 
+/**
+ * A list command that gives the user a list of all Tasks in the array.
+ * 
+ * @author: CHEN WENLONG
+ * @version: CS2103T AY23/24 Semester 2
+ */
 public class ListTask extends Command {
+    /**
+     * Constructor for ListTask.
+     */
     public ListTask() {
     }
 

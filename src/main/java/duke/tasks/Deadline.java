@@ -13,7 +13,10 @@ public class Deadline extends Task {
     /** A String value that represent the type of Task, D for Deadline. */
     private static final String TYPE = "D";
 
+    /** Storage date format. */
     private static final DateTimeFormatter STORAGEFORMAT = DateTimeFormatter.ofPattern("d-M-yy");
+
+    /** Output date format. */
     private static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern("MMM-d-yyyy");
 
     /** A LocalDataTime value that represents the time of deadline. */
@@ -23,18 +26,31 @@ public class Deadline extends Task {
      * Constructor for the ToDo.
      * 
      * @param name A String value that states the name of the Task.
-     * @param time A LocalDateTime to state the time of deadline.
+     * @param endTime A LocalDateTime to state the date of deadline.
      */
     public Deadline(String name, LocalDate endTime) {
         super(name, TYPE, false);
         this.endTime = endTime;
     }
 
+    /**
+     * Constuctor used when we are loading from storage.
+     * 
+     * @param name      A String value that states the name of the Task.
+     * @param endTime   LocalTime of when the deadline is.
+     * @param completed Boolean of whether Task is completed.
+     */
     public Deadline(String name, LocalDate endTime, boolean completed) {
         super(name, TYPE, completed);
         this.endTime = endTime;
     }
 
+    /**
+     * Searches for a key in name.
+     * 
+     * @param key String to find in the name.
+     * @return Boolean if key is found or not.
+     */
     public boolean find(String key) {
         return super.find(key);
     }
