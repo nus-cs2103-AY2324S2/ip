@@ -6,18 +6,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class TaskList implements Serializable {
-    private ArrayList<Task> list = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
     public int indexOf(Task task) {
-        return this.list.indexOf(task);
+        return this.tasks.indexOf(task);
     }
     public int size() {
-        return this.list.size();
+        return this.tasks.size();
     }
     public String toString(){
         String output = "";
-        for (Task t : this.list) {
-            output += (this.list.indexOf(t) + 1) + ". " + t.toString();
-            if (this.list.indexOf(t) == this.list.size() - 1) {
+        for (Task t : this.tasks) {
+            output += (this.tasks.indexOf(t) + 1) + ". " + t.toString();
+            if (this.tasks.indexOf(t) == this.tasks.size() - 1) {
                 break;
             }
             output += "\n";
@@ -25,19 +25,19 @@ public class TaskList implements Serializable {
         return output;
     }
     public String toString(int id) {
-        return this.list.get(id).toString();
+        return this.tasks.get(id).toString();
     }
     public void setStatus(int id, Task.Status status) {
-        this.list.get(id).setStatus(status);
+        this.tasks.get(id).setStatus(status);
     }
     public void remove(int id) {
-        this.list.remove(id);
+        this.tasks.remove(id);
     }
     public void add(Task task) {
-        this.list.add(task);
+        this.tasks.add(task);
     }
     public boolean isValidId(int id) {
-        if (id < 0 || id >= this.list.size()) {
+        if (id < 0 || id >= this.tasks.size()) {
             return false;
         }
         return true;
