@@ -1,6 +1,7 @@
 package checkbot.command;
 
-import checkbot.*;
+import checkbot.Storage;
+import checkbot.Ui;
 import checkbot.exception.InvalidIndexException;
 import checkbot.task.Task;
 import checkbot.task.TodoList;

@@ -1,8 +1,13 @@
 package checkbot.command;
 
-import checkbot.*;
+import checkbot.Storage;
+import checkbot.Ui;
 import checkbot.exception.SaveFileException;
-import checkbot.task.*;
+import checkbot.task.Deadline;
+import checkbot.task.Event;
+import checkbot.task.Task;
+import checkbot.task.Todo;
+import checkbot.task.TodoList;
 
 public class AddCommand extends Command {
     Task task;

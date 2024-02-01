@@ -1,9 +1,17 @@
 package checkbot;
 
 import checkbot.exception.SaveFileException;
-import checkbot.task.*;
+import checkbot.task.Deadline;
+import checkbot.task.Event;
+import checkbot.task.Task;
+import checkbot.task.Todo;
+import checkbot.task.TodoList;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
