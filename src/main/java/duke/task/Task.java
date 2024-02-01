@@ -1,3 +1,5 @@
+package duke.task;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -19,7 +21,7 @@ public abstract class Task {
 
     public void markAsUndone() { isDone = false; }
 
-    abstract void writeTask(String path);
+    public abstract void writeTask(String path);
 
     @Override
     public String toString() {
