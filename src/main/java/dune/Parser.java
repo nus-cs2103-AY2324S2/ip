@@ -1,3 +1,7 @@
+package dune;
+
+import dune.task.TaskList;
+
 import java.util.Scanner;
 
 public class Parser {
@@ -20,7 +24,7 @@ public class Parser {
             // abstract this into a method
             try {
                 if (text.equals("mark")) {
-                    throw new DukeException("Give an index to mark");
+                    throw new DuneException("Give an index to mark");
                 }
                 String remaining = "";
                 // remove all leading and trailing spaces
@@ -37,7 +41,7 @@ public class Parser {
                 System.out.println("Give a valid index to mark");
             } catch (NumberFormatException n) {
                 System.out.println("Remaining characters do not match an integer");
-            } catch (DukeException d) {
+            } catch (DuneException d) {
                 System.out.println(d);
             } finally {
                 return true;
@@ -58,9 +62,9 @@ public class Parser {
                 addedTask = true;
                 try {
                     if (text.equals(check)) {
-                        throw new DukeException("The description of a to-do cannot be empty.");
+                        throw new DuneException("The description of a to-do cannot be empty.");
                     }
-                } catch (DukeException d) {
+                } catch (DuneException d) {
                     System.out.println(d);
                     continue;
                 }
@@ -73,8 +77,8 @@ public class Parser {
             {
                 try {
                     // make it more informative LOL
-                    throw new DukeException("Tasks can only be of types todo, deadline, or event.");
-                } catch (DukeException d) {
+                    throw new DuneException("Tasks can only be of types todo, deadline, or event.");
+                } catch (DuneException d) {
                     System.out.println(d);
                 }
             }

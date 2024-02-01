@@ -1,4 +1,4 @@
-Hello! I'm Dune, your task manager.
+Hello! I'm dune.Dune, your task manager.
 What can I do for you?
 
 OOPS! Tasks can only be of types todo, deadline, or event.

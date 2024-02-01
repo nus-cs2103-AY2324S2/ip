@@ -1,17 +1,21 @@
+package dune;
+
+import dune.task.TaskList;
+
 import java.util.Scanner;
 
-public class Duke {
+public class Dune {
 
 
     private TaskList tasks;
 
     private Storage storage;
 
-    private static Parser p;
+    private Parser p;
 
-    private static Ui ui;
+    private Ui ui;
 
-    public Duke() {
+    public Dune() {
         this.ui = new Ui();
         this.storage = new Storage();
         this.tasks = new TaskList();
@@ -29,7 +33,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke().run();
+        new Dune().run();
     }
 
 }
