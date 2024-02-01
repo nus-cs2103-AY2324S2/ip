@@ -1,5 +1,7 @@
 package gpt;
 
+import java.util.ArrayList;
+
 public class Parser {
 
     /**
@@ -34,6 +36,8 @@ public class Parser {
             if (splitInput[0].equals("mark") && Integer.valueOf(splitInput[1]) <= tl.size()) {
                 tl.markTask(Integer.valueOf(splitInput[1]) - 1);
             }
+        }else if (command.startsWith("find")) {
+            processFindCommand(command, tl);
         } else if (command.equals("save")) {
             storage.saveTasks(tl);
         }else {
@@ -99,6 +103,15 @@ public class Parser {
         tl.addTask(eventTask);
         System.out.println("  " + eventTask.toString());
         System.out.println("Now you have " + tl.size() + " tasks in the list.");
+    }
+    private static void processFindCommand(String command, TaskList taskList) throws GPTException {
+        String keyword = command.substring(5).trim(); // assuming "find" is followed by a space
+        TaskList matchingTasks = taskList.findTasks(keyword);
+
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 1; i <= matchingTasks.size(); i++) {
+            System.out.println(i + ". " + matchingTasks.get(i - 1).toString());
+        }
     }
 
 }
