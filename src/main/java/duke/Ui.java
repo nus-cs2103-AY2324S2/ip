@@ -16,6 +16,8 @@ public class Ui {
   private static final String LIST_MESSAGE = "Here are the tasks in your list:";
   private static final String TODO_MESSAGE = "Got it. I've added this task:";
   private static final String DELETE_MESSAGE = "Noted. I've removed this task:";
+  private static final String FIND_MESSAGE =
+    "Here are the matching tasks in your list:";
   private static final String TASKS_SUMMARY_MESSAGE =
     "Now you have %s tasks in the list.";
 
@@ -115,6 +117,18 @@ public class Ui {
           reply(DELETE_MESSAGE);
           reply(String.format("  %s", t));
           reply(String.format(TASKS_SUMMARY_MESSAGE, tasks.numberOfTask()));
+          return true;
+        }
+      case "find":
+        {
+          String query = arguments[0];
+          reply(FIND_MESSAGE);
+          int[] count = { 1 };
+          tasks
+            .getStoredTasks()
+            .stream()
+            .filter(t -> t.toString().contains(query))
+            .forEach(t -> reply(String.format("  %d.%s", count[0]++, t)));
           return true;
         }
       default:
