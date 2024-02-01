@@ -15,6 +15,7 @@ public class Deadline extends Task {
         return "D | " + super.writeTask() + " | "
                 + by.format(DATE_TIME_STRING_FORMAT);
     }
+
     @Override
     public String toString() {
         return "[D]" + super.toString()

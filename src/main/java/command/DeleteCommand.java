@@ -23,6 +23,4 @@ public class DeleteCommand extends Command {
             throw new BuddyException("Not a valid task number buddy!");
         }
     }
-
-
 }

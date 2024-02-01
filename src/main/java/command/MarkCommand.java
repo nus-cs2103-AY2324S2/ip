@@ -9,6 +9,7 @@ import ui.Ui;
 public class MarkCommand extends Command {
     CommandType commandWord;
     int taskIndex;
+
     public MarkCommand(CommandType commandWord, int taskIndex) {
         this.commandWord = commandWord;
         this.taskIndex = taskIndex;
