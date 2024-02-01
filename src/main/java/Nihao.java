@@ -1,3 +1,9 @@
+import action.Action;
+import exception.InvalidCommandException;
+import handler.DataHandler;
+import handler.InputHandler;
+import handler.PrintHandler;
+
 import java.util.Scanner;
 
 public final class Nihao {
@@ -20,6 +26,7 @@ public final class Nihao {
     private final String GOODBYE = "Hope to never see you again. Goodbye!";
     private final PrintHandler printHandler = PrintHandler.instance;
     private final DataHandler dataHandler = DataHandler.instance;
+    private final InputHandler inputHandler = InputHandler.instance;
     private Nihao() {}
 
     public void run() {
@@ -33,13 +40,14 @@ public final class Nihao {
                 printHandler.printWithDivider(GOODBYE);
                 break;
             }
-            if (input.equals("list")) {
-                printHandler.printNumberedDivider(dataHandler.getData());
-            } else {
-                dataHandler.handleData(input);
-                printHandler.printWithDivider("added: " + input);
-            }
-        }
 
+            try {
+                Action action = inputHandler.handleInput(input);
+                action.execute();
+            } catch (InvalidCommandException e) {
+                printHandler.printException(e);
+            }
+
+        }
     }
 }

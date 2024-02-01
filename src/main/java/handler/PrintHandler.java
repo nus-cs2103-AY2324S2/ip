@@ -1,3 +1,5 @@
+package handler;
+
 public final class PrintHandler {
     public static final PrintHandler instance = new PrintHandler();
     private static final String DIVIDER = "------------------------------------";
@@ -15,6 +17,11 @@ public final class PrintHandler {
             int index = i + 1;
             System.out.println(Integer.toString(index) + ". " + msgs[i]);
         }
+        System.out.println(DIVIDER);
+    }
+
+    public void printException(Exception e) {
+        System.out.println("Exception: " + e.getMessage());
         System.out.println(DIVIDER);
     }
 
