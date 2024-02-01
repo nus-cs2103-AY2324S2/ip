@@ -58,37 +58,36 @@ public class Duke {
             arguments += st.nextToken() + " ";
         }
         arguments = arguments.trim();
-        if (identifier.equals("bye")) {
+        switch (identifier) {
+        case "bye":
             exitProgram();
-        }
-        if (identifier.equals("list")) {
+            break;
+        case "list":
             printTaskList(arguments);
-        } else if (identifier.contains("mark")) {
-            if (identifier.equals("mark")) {
-                markTask(arguments);
-            } else {
-                unmarkTask(arguments);
-            }
-        } else if (identifier.equals("todo") || identifier.equals("deadline")
-                || identifier.equals("event")) {
-            switch (identifier) {
-            case "todo":
-                createToDoTask(arguments);
-                break;
-            case "deadline":
-                createDeadlineTask(arguments);
-                break;
-            case "event":
-                createEventTask(arguments);
-                break;
-            default:
-                System.out.println("なに？！");
-                break;
-            }
-            System.out.println("Total task count: " + tasks.size() + ".\n" + gap);
-        } else if (identifier.equals("delete")) {
+            break;
+        case "mark":
+            markTask(arguments);
+            break;
+        case "unmark":
+            unmarkTask(arguments);
+            break;
+        case "todo":
+            createToDoTask(arguments);
+            break;
+        case "deadline":
+            createDeadlineTask(arguments);
+            break;
+        case "event":
+            createEventTask(arguments);
+            break;
+        case "delete":
             deleteTask(arguments);
+            break;
+        default:
+            System.out.println("なに？！");
+            break;
         }
+        System.out.println("Total task count: " + tasks.size() + ".\n" + gap);
     }
 
     private static void exitProgram() {
