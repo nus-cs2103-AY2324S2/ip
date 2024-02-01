@@ -2,7 +2,7 @@ public class Ui {
 
     private static final String LONG_LINE = "____________________________________________________________";
 
-    public void greet() {
+    public static void greet() {
         // Print logo
         String logo = " __   ___  _____   __       __       __    __      ___\n"
                 + "|  | /  / |_   _| |  |     |  |     |  |  |  |    / _ \\\n"
@@ -17,14 +17,14 @@ public class Ui {
         System.out.println(Ui.LONG_LINE);
     }
 
-    public void exit() {
+    public static void exit() {
         // Exit
         System.out.println(Ui.LONG_LINE);
         System.out.println("Alright, I'm always one call away.");
         System.out.println(Ui.LONG_LINE);
     }
 
-    public void add(Task task, Storage storage) {
+    public static void add(Task task, Storage storage) {
         System.out.println(Ui.LONG_LINE);
         System.out.println("Got it. I've added this task:");
         System.out.println(task.getDescriptionStatus());
@@ -32,7 +32,7 @@ public class Ui {
         System.out.println(Ui.LONG_LINE);
     }
 
-    public void list(Storage storage) {
+    public static void list(Storage storage) {
         System.out.println(Ui.LONG_LINE);
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < storage.getItems().size(); i++) {
@@ -42,20 +42,20 @@ public class Ui {
         System.out.println(Ui.LONG_LINE);
     }
 
-    public void mark(Task task) {
+    public static void mark(Task task) {
         System.out.println(Ui.LONG_LINE);
         System.out.println(task.getMarkStatus());
         System.out.println(task.getDescriptionStatus());
         System.out.println(Ui.LONG_LINE);
     }
 
-    public void print(String message) {
+    public static void print(String message) {
         System.out.println(Ui.LONG_LINE);
         System.out.println(message);
         System.out.println(Ui.LONG_LINE);
     }
 
-    public void delete(Task task, Storage storage) {
+    public static void delete(Task task, Storage storage) {
         System.out.println(Ui.LONG_LINE);
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.getDescriptionStatus());
