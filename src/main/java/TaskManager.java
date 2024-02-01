@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class TaskManager {
 
     // Return 0 to leave
@@ -144,57 +148,147 @@ public class TaskManager {
 
     public static int handleTaskDeadline(String task, String[] splitedTask, Storage storage) throws DukeException {
 
-        // Incorrect command syntax handler
+        // Incorrect syntax: No content, no deadline
         if (splitedTask.length == 1) {
             throw new DukeException("deadline");
         }
 
+        // Remove the "deadline " keyword
+        task = task.substring(9);
+
         // Split the string with /by
         String[] splitedBy = task.split(" /by ");
 
-        // Incorrect command syntax handler
-        if (splitedBy.length != 2 || splitedBy[0].length() <= 9
-                || splitedBy[0].substring(9).isBlank()
-                || splitedBy[1].isBlank()) {
+        // Incorrect syntax: The remaining string doesn't separate to content and deadline
+        if (splitedBy.length != 2) {
+            throw new DukeException("deadline");
+        }
+
+        // Get content and deadline
+        String content = splitedBy[0].trim();
+        String deadline = splitedBy[1].trim();
+
+        // Verify content and deadline (cannot be blank)
+        if (content.isBlank() || deadline.isBlank()) {
+            throw new DukeException("deadline");
+        }
+
+        // Verify deadline (must be in format yyyy-MM-dd HH:mm or yyyy-mm-dd)
+        String[] splitedDateTime = deadline.split(" ");
+        if (splitedDateTime.length > 2) {
             throw new DukeException("deadline");
         }
 
         // Create deadline task
-        Task newTask = new Deadline(splitedBy[0].substring(9), splitedBy[1]);
-        storage.add(newTask);
-        Ui.add(newTask, storage);
+        try {
+            if (splitedDateTime.length == 2) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                LocalDateTime parsedDateTime = LocalDateTime.parse(deadline, formatter);
+                Task newTask = new Deadline(content, parsedDateTime);
+                storage.add(newTask);
+                Ui.add(newTask, storage);
+            } else {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate parsedDate = LocalDate.parse(deadline, formatter);
+                Task newTask = new Deadline(content, parsedDate);
+                storage.add(newTask);
+                Ui.add(newTask, storage);
+            }
+        } catch (Exception e) {
+            throw new DukeException("deadline");
+        }
+
         return 2;
     }
 
     public static int handleTaskEvent(String task, String[] splitedTask, Storage storage) throws DukeException {
 
-        // Incorrect command syntax handler
+        // Incorrect syntax: No content, no from, no to
         if (splitedTask.length == 1) {
             throw new DukeException("event");
         }
 
+        // Remove the "event " keyword
+        task = task.substring(6);
+
         // Split the string with /from
         String[] splitedFrom = task.split(" /from ");
 
-        // Incorrect command syntax handler
-        if (splitedFrom.length != 2 || splitedFrom[0].length() <= 6
-                || splitedFrom[0].substring(6).isBlank()
-                || splitedFrom[1].isBlank()) {
+        // Incorrect syntax: The remaining string doesn't separate to content, from and to
+        if (splitedFrom.length != 2) {
+            throw new DukeException("event");
+        }
+
+        // Get content, from and to
+        String content = splitedFrom[0].trim();
+        String fromTo = splitedFrom[1].trim();
+
+        // Split the string with /to
+        String[] splitedTo = fromTo.split(" /to ");
+
+        // Incorrect syntax: The remaining string doesn't separate to from and to
+        if (splitedTo.length != 2) {
+            throw new DukeException("event");
+        }
+
+        // Get from and to
+        String from = splitedTo[0].trim();
+        String to = splitedTo[1].trim();
+
+        // Verify content, from, and to (cannot be blank)
+        if (content.isBlank() || from.isBlank() || to.isBlank()) {
+            throw new DukeException("event");
+        }
+
+        // Verify from (must be in format yyyy-MM-dd HH:mm or yyyy-mm-dd)
+        String[] splitedFromDateTime = from.split(" ");
+        if (splitedFromDateTime.length > 2) {
             throw new DukeException("deadline");
         }
 
-        // Split the string with /to
-        String[] splitedTo = splitedFrom[1].split(" /to ");
-
-        // Incorrect command syntax handler
-        if (splitedTo.length != 2 || splitedTo[0].isBlank() || splitedTo[1].isBlank()) {
+        // Verify to (must be in format yyyy-MM-dd HH:mm or yyyy-mm-dd)
+        String[] splitedToDateTime = to.split(" ");
+        if (splitedToDateTime.length > 2) {
             throw new DukeException("deadline");
         }
 
         // Create event task
-        Task newTask = new Event(splitedFrom[0].substring(6), splitedTo[0], splitedTo[1]);
-        storage.add(newTask);
-        Ui.add(newTask, storage);
+        try {
+            if (splitedFromDateTime.length == 2 && splitedToDateTime.length == 2) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, formatter);
+                LocalDateTime parsedToDateTime = LocalDateTime.parse(to, formatter);
+                Task newTask = new Event(content, parsedFromDateTime, parsedToDateTime);
+                storage.add(newTask);
+                Ui.add(newTask, storage);
+            } else if (splitedFromDateTime.length == 2 && splitedToDateTime.length == 1) {
+                DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, formatter1);
+                LocalDate parsedToDate = LocalDate.parse(to, formatter2);
+                Task newTask = new Event(content, parsedFromDateTime, parsedToDate);
+                storage.add(newTask);
+                Ui.add(newTask, storage);
+            } else if (splitedFromDateTime.length == 1 && splitedToDateTime.length == 2) {
+                DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate parsedFromDate = LocalDate.parse(from, formatter2);
+                LocalDateTime parsedToDateTime = LocalDateTime.parse(to, formatter1);
+                Task newTask = new Event(content, parsedFromDate, parsedToDateTime);
+                storage.add(newTask);
+                Ui.add(newTask, storage);
+            } else {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate parsedFromDate = LocalDate.parse(from, formatter);
+                LocalDate parsedToDate = LocalDate.parse(to, formatter);
+                Task newTask = new Event(content, parsedFromDate, parsedToDate);
+                storage.add(newTask);
+                Ui.add(newTask, storage);
+            }
+        } catch (Exception e) {
+            throw new DukeException("event");
+        }
+
         return 2;
     }
 
