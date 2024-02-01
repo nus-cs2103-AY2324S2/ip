@@ -10,9 +10,9 @@ import sleepy.tools.Ui;
 public abstract class Task {
     // Description of the task (without timings).
     private String description;
-
     // Raw description of the task with all details included.
     private String rawDescription;
+
     private boolean isDone = false;
 
     /**

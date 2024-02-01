@@ -1,5 +1,10 @@
 package sleepy.tools;
 
+/**
+ * This class helps to parse comments the user enters.
+ *
+ * @author kjw142857
+ */
 public class Parser {
 
     /**
@@ -65,7 +70,8 @@ public class Parser {
             }
             String[] secondSplit = firstSplit[1].split(" /to ");
             if (secondSplit.length == 1) {
-                throw new IllegalArgumentException("Your 'to' field is missing or before your 'from' field! Try again.");
+                throw new IllegalArgumentException("Your 'to' field is missing " +
+                        "or before your 'from' field! Try again.");
             } else if (secondSplit.length >= 3) {
                 throw new IllegalArgumentException("You can only have one '/to' field! Try again.");
             } else {
