@@ -15,6 +15,9 @@ public class Duke {
     private static final String SPACE = "    ";
     private static String[] taskTypes = new String[] {"todo", "deadline", "event"};
 
+    private static TaskList tasks = new TaskList();
+
+    private static Storage s = new Storage();
 
     private static final File f = new File(Duke.class.getProtectionDomain().getCodeSource().getLocation().getPath());
     public static void main(String[] args) {
@@ -26,20 +29,15 @@ public class Duke {
 
         System.out.println("Hello! I'm Dune, your task manager.");
         System.out.println("What can I do for you?");
-        List<Task> tasks = new ArrayList<>();
         // method to load data from txt file
         String filePath = "";
-        loadTasks(tasks);
+        s.loadTasks(tasks);
         System.out.println("");
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String text = scanner.nextLine();  // Read user input
             if (text.equals("list")) {
-                // print out tasks line by line
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println(i + 1 + "." + tasks.get(i));
-                }
+                tasks.print();
                 continue;
             } else if (text.equals("bye")) {
                 // exit program
@@ -49,7 +47,7 @@ public class Duke {
 
             if (text.startsWith("delete")) {
                 remove(text.substring(6), tasks);
-                saveTasks(tasks);
+                s.saveTasks(tasks);
                 continue;
             }
 
@@ -64,10 +62,10 @@ public class Duke {
                     // parseInt might throw NumberFormatException
                     int index = Integer.parseInt(remaining);
                     // Index... exception
-                    tasks.get(index - 1).complete();
-                    saveTasks(tasks);
+                    tasks.getTask(index - 1).complete();
+                    s.saveTasks(tasks);
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(tasks.get(index - 1));
+                    System.out.println(tasks.getTask(index - 1));
 
                 } catch (IndexOutOfBoundsException i) {
                     System.out.println("Give a valid index to mark");
@@ -112,7 +110,7 @@ public class Duke {
         }
     }
 
-    public static void createNewTask(int i, String text, List<Task> tasks) {
+    public static void createNewTask(int i, String text, TaskList tasks) {
         Task x = new ToDo(text.trim());
         if (i == 1) {
             try {
@@ -163,24 +161,24 @@ public class Duke {
             }
 
         }
-        tasks.add(x);
+        tasks.addTask(x);
         System.out.println("Got it. I've added this task:");
         System.out.println(x);
-        System.out.println("Now you have " + tasks.size() + " tasks in your list.");
-        saveTasks(tasks);
+        System.out.println("Now you have " + tasks.getSize() + " tasks in your list.");
+        s.saveTasks(tasks);
     }
 
-    public static void remove(String indexStr, List<Task> tasks)  {
+    public static void remove(String indexStr, TaskList tasks)  {
         try {
             if (indexStr.trim().equals("")) {
                 throw new DukeException("Give an index to remove");
             }
             int index = Integer.parseInt(indexStr.trim());
-            Task t = tasks.get(index - 1);
-            tasks.remove(index - 1);
+            Task t = tasks.getTask(index - 1);
+            tasks.deleteTask(index - 1);
             System.out.println("Noted. I've removed this task:");
             System.out.println(t);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("Now you have " + tasks.getSize() + " tasks in the list.");
 
         } catch (NumberFormatException n) {
             System.out.println("Index to be removed needs to be an integer");
@@ -192,110 +190,4 @@ public class Duke {
 
     }
 
-    public static void loadTasks(List<Task> tasks) {
-        String dir = System.getProperty("user.dir");
-        Path filePath = Paths.get(dir, "data", "dune.txt");
-        boolean fileExists = java.nio.file.Files.exists(filePath);
-        // System.out.println(filePath);
-        // System.out.println("*****" + fileExists);
-
-
-        if (fileExists) {
-            try {
-                // 1 line -> 1 item in the list
-                List<String> lines = Files.readAllLines(filePath);
-                for (String line : lines) {
-                    // remove the empty line on initialisation of the txt
-                    if (line.equals("")) {
-                        continue;
-                    }
-                    tasks.add(convertLineToTask(line));
-                }
-            } catch (IOException i) {
-                System.out.println("Error reading from file");
-            }
-        } else {
-            createFile(filePath);
-            return;
-        }
-    }
-
-    // Dates are in the format yyyy-mm-ddTHH:MM, unlike what's printed
-    public static Task convertLineToTask(String s) {
-        // components = [type, T/F, task] for todo
-        // [type, T/F, task, deadline] for deadline, [type, T/F, task, start, end] for event
-        String[] components = s.split("\\|");
-        // System.out.println(components.length);
-        String eventType = components[0];
-        boolean isDone = (components[1].equals("1")) ? true: false;
-        if (eventType.equals("T")) {
-            return new ToDo(components[2], isDone);
-        } else if (eventType.equals("D")) {
-            return new Deadline(components[2], components[3], isDone);
-        } else if (eventType.equals("E")) {
-            return new Event(components[2], components[3], components[4], isDone);
-        } else {
-            // kinda sus
-            return null;
-        }
-    }
-
-    // Dates are in the format yyyy-mm-ddTHH:MM, unlike what's printed
-    public static String convertTaskToLine(Task t) {
-        String ans = "";
-        if (t instanceof ToDo) {
-            ans = "T|" + (t.getIsDone() ? "1" : "0") + "|" + t.getDescription();
-        } else if (t instanceof Deadline) {
-            Deadline d = (Deadline) t;
-            ans = "D|" + (t.getIsDone() ? "1" : "0") + "|" + t.getDescription() + "|"
-                    + d.getDeadline();
-        } else if (t instanceof Event) {
-            Event e = (Event) t;
-            ans = "E|" + (t.getIsDone() ? "1" : "0") + "|" + t.getDescription() + "|"
-                    + e.getStart() + "|" + e.getEnd();
-        } else {
-            // kinda sus
-            return null;
-        }
-        // System.out.println(ans);
-        return ans;
-    }
-
-    public static void saveTasks(List<Task> tasks) {
-        String dir = System.getProperty("user.dir");
-        Path filePath = Paths.get(dir, "data", "dune.txt");
-        boolean fileExists = java.nio.file.Files.exists(filePath);
-        // System.out.println(filePath);
-        // System.out.println("*****" + fileExists);
-
-
-        if (!fileExists) {
-            createFile(filePath);
-        }
-        try {
-            BufferedWriter writer = Files.newBufferedWriter(filePath);
-            for (Task t : tasks) {
-                writer.write(convertTaskToLine(t));
-                writer.newLine();
-            }
-            writer.close();
-        } catch (IOException i) {
-            System.out.println("Error writing to file");
-        }
-    }
-
-    public static void createFile(Path filePath) {
-        try {
-            Files.createDirectories(filePath.getParent());
-            Files.createFile(filePath);
-        } catch (IOException i) {
-            System.out.println("Error creating file");
-        }
-    }
-
-    public static void print(String[] arr) {
-        for (String s : arr) {
-            System.out.println(s);
-        }
-    }
 }

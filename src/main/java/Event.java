@@ -14,8 +14,8 @@ public class Event extends Task {
         super(description);
         this.start = LocalDateTime.parse(start);
         this.end = LocalDateTime.parse(end);
-        if (this.start.isAfter(this.end)) {
-            throw new DateTimeParseException("Start date cannot be after end date", "", 0);
+        if (!this.start.isBefore(this.end)) {
+            throw new DateTimeParseException("Start date must be before end date", "", 0);
         }
     }
 

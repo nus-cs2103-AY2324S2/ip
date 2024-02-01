@@ -1,0 +1,120 @@
+// deals with loading tasks from the file and saving tasks in the file
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.*;
+import java.util.List;
+
+public class Storage {
+
+    private String dir;
+    private Path filePath;
+
+    public Storage() {
+        this.dir = System.getProperty("user.dir");
+        this.filePath = Paths.get(dir, "data", "dune.txt");
+    }
+
+    public void loadTasks(TaskList tasks) {
+        boolean fileExists = java.nio.file.Files.exists(this.filePath);
+        // System.out.println(filePath);
+        // System.out.println("*****" + fileExists);
+
+
+        if (fileExists) {
+            try {
+                // 1 line -> 1 item in the list
+                List<String> lines = Files.readAllLines(this.filePath);
+                for (String line : lines) {
+                    // remove the empty line on initialisation of the txt
+                    if (line.equals("")) {
+                        continue;
+                    }
+                    tasks.addTask(convertLineToTask(line));
+                }
+            } catch (IOException i) {
+                System.out.println("Error reading from file");
+            }
+        } else {
+            createFile(this.filePath);
+            return;
+        }
+    }
+
+    // Dates are in the format yyyy-mm-ddTHH:MM, unlike what's printed
+    public Task convertLineToTask(String s) {
+        // components = [type, T/F, task] for todo
+        // [type, T/F, task, deadline] for deadline, [type, T/F, task, start, end] for event
+        String[] components = s.split("\\|");
+        // System.out.println(components.length);
+        String eventType = components[0];
+        boolean isDone = (components[1].equals("1")) ? true: false;
+        if (eventType.equals("T")) {
+            return new ToDo(components[2], isDone);
+        } else if (eventType.equals("D")) {
+            return new Deadline(components[2], components[3], isDone);
+        } else if (eventType.equals("E")) {
+            return new Event(components[2], components[3], components[4], isDone);
+        } else {
+            // kinda sus
+            return null;
+        }
+    }
+
+    // Dates are in the format yyyy-mm-ddTHH:MM, unlike what's printed
+    public String convertTaskToLine(Task t) {
+        String ans = "";
+        if (t instanceof ToDo) {
+            ans = "T|" + (t.getIsDone() ? "1" : "0") + "|" + t.getDescription();
+        } else if (t instanceof Deadline) {
+            Deadline d = (Deadline) t;
+            ans = "D|" + (t.getIsDone() ? "1" : "0") + "|" + t.getDescription() + "|"
+                    + d.getDeadline();
+        } else if (t instanceof Event) {
+            Event e = (Event) t;
+            ans = "E|" + (t.getIsDone() ? "1" : "0") + "|" + t.getDescription() + "|"
+                    + e.getStart() + "|" + e.getEnd();
+        } else {
+            // kinda sus
+            return null;
+        }
+        // System.out.println(ans);
+        return ans;
+    }
+
+    public void saveTasks(TaskList tasks) {
+        boolean fileExists = java.nio.file.Files.exists(this.filePath);
+        // System.out.println(filePath);
+        // System.out.println("*****" + fileExists);
+
+        if (!fileExists) {
+            createFile(this.filePath);
+        }
+        try {
+            BufferedWriter writer = Files.newBufferedWriter(this.filePath);
+            for (int i = 0; i < tasks.getSize(); i++) {
+                writer.write(convertTaskToLine(tasks.getTask(i)));
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException i) {
+            System.out.println("Error writing to file");
+        }
+    }
+
+    public static void createFile(Path filePath) {
+        try {
+            Files.createDirectories(filePath.getParent());
+            Files.createFile(filePath);
+        } catch (IOException i) {
+            System.out.println("Error creating file");
+        }
+    }
+
+    public static void print(String[] arr) {
+        for (String s : arr) {
+            System.out.println(s);
+        }
+    }
+
+}
