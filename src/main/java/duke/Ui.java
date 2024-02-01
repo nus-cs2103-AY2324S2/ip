@@ -1,6 +1,4 @@
-package Duke;
-
-import java.util.Scanner;
+package duke;
 
 /**
  * Represents the user interface for interacting with the Duke application.

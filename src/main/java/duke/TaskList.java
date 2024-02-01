@@ -1,6 +1,5 @@
-package Duke;
+package duke;
 
-import Duke.Task;
 import java.util.List;
 
 /**

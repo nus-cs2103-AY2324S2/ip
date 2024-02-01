@@ -1,4 +1,4 @@
-package Duke;
+package duke;
 
 /**
  * Represents a ToDo task, which is a subclass of Task.
