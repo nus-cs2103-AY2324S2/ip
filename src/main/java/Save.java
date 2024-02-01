@@ -32,8 +32,7 @@ public class Save {
                 tasks.add(new ToDo(description, done));
 
             } else if (t.equalsIgnoreCase("e")) {
-                String[] time =  st.nextToken().strip().split("-");
-                tasks.add(new Event(description, done, time[0], time[1]));
+                tasks.add(new Event(description, done, st.nextToken().strip(), st.nextToken().strip()));
 
             } else if (t.equalsIgnoreCase("d")) {
                 tasks.add(new Deadline(description, done, st.nextToken().strip()));
