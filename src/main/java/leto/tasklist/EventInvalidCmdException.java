@@ -2,7 +2,9 @@ package leto.tasklist;
 
 public class EventInvalidCmdException extends InvalidTaskException {
     public EventInvalidCmdException() {
-        super("Task need to follow\n   `event _task_ /from _start_time_ /to _end_time_` format\n"
-                + "Note time in YYYY-MM-DD HH:mm format");
+        super("event command should be in the format:\n"
+                + "  event <description> /from <date> /to <date>\n"
+                + "    <date> should be in the format YYYY-MM-DD.\n"
+                + "    Note: NO commas are allowed in the command");
     }
 }

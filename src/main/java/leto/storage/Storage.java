@@ -54,7 +54,6 @@ public class Storage {
             shortSay("Todo added");
             break;
         case "D":
-            letoSpeak("test: deadline entry\n"+entry);
             TaskList.addTaskToList(Deadline.DeadlineFromCSV(entry));
             shortSay("Deadline added");
             break;

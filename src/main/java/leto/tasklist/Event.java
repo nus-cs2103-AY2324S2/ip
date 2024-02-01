@@ -1,30 +1,31 @@
 package leto.tasklist;
 
-public class Event extends Task {
-    private String from;
-    private String to;
+import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-    private Event(Boolean completed, String TaskString, String fromString, String toString) {
+public class Event extends Task {
+    private LocalDate from;
+    private LocalDate to;
+
+    private Event(Boolean completed, String TaskString, LocalDate from, LocalDate to) {
         // Call to 'super()' must be first statement in constructor body
         super(completed, TaskString);
-        this.from = fromString;
-        this.to = toString;
+        this.from = from;
+        this.to = to;
     }
 
 
     public static Event EventFactory(String message) throws InvalidTaskException {
-        message = message.replaceFirst("(?i)event ", "");
-        String[] messageParts = message.split(" /from ");
-        if (messageParts.length < 2) {
+        String regex = "event ([^,]+) /from (\\d{4}-\\d{2}-\\d{2}) /to (\\d{4}-\\d{2}-\\d{2})";
+        Matcher matcher = Pattern.compile(regex).matcher(message);
+        if (!matcher.matches()) {
             throw new EventInvalidCmdException();
         }
-        String taskMessage = messageParts[0];
-        messageParts = message.split(" /to ");
-        if (messageParts.length < 2) {
-            throw new EventInvalidCmdException();
-        }
-        messageParts[0] = messageParts[0].split(" /from ")[1];
-        return new Event(false, taskMessage, messageParts[0], messageParts[1]);
+        String taskMessage = matcher.group(1).trim();
+        LocalDate from = LocalDate.parse(matcher.group(2).trim());
+        LocalDate to = LocalDate.parse(matcher.group(3).trim());
+        return new Event(false, taskMessage, from, to);
     }
 
     /**
@@ -32,13 +33,17 @@ public class Event extends Task {
      * @param entry text string containing the row in the csv
      * @return an Event task
      */
-    public static Event EventFromCSV(String entry) {
-        String[] parts = entry.split(",");
-        Boolean completed = parts[1].equals("Y");
-        String message = parts[2];
-        String fromString = parts[4];
-        String toString = parts[5];
-        return new Event(completed, message, fromString, toString);
+    public static Event EventFromCSV(String entry) throws InvalidTaskException {
+        String regex = "([DTE]),([YN]),([^,]*),([^,]*),([^,]*),([^,]*)(\\n?)";
+        Matcher matcher = Pattern.compile(regex).matcher(entry);
+        if (!matcher.matches()) {
+            throw new InvalidTaskException("Cannot match " + entry + " with regex");
+        }
+        Boolean completed = matcher.group(2).equals("Y");
+        String message = matcher.group(3);
+        LocalDate from = LocalDate.parse(matcher.group(5));
+        LocalDate to = LocalDate.parse(matcher.group(6));
+        return new Event(completed, message, from, to);
     }
 
     @Override
