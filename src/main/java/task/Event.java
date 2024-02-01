@@ -1,16 +1,17 @@
 package task;
 
-import task.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class Event extends Task {
     LocalDateTime start;
     LocalDateTime end;
+
     public Event(String description, boolean isDone, LocalDateTime start, LocalDateTime end) {
         super(description, isDone);
         this.start = start;
