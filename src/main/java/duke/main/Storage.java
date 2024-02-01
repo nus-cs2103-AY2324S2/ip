@@ -56,8 +56,13 @@ public class Storage {
         }
         return tasks;
     }
-
-
+    
+    /**
+     * Saves the provided list of tasks to a file.
+     *
+     * @param list The ArrayList of Task objects to be saved.
+     * @throws DukeException If an IOException occurs while trying to write to the file.
+     */
     public void saveList(ArrayList<Task> list) throws DukeException {
         try {
             File file = new File(filePath);
