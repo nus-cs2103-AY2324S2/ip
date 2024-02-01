@@ -10,6 +10,7 @@ import command.AddEventCommand;
 import command.DeleteCommand;
 import command.SearchCommand;
 import command.ExitCommand;
+import command.FindCommand;
 import command.OtherCommand;
 
 /**
