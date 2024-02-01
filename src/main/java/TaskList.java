@@ -4,18 +4,20 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;
+    private Ui ui;
 
-    public TaskList(TwoArrayList tasksToAdd) throws TaskException {
+    public TaskList(TwoArrayList tasksToAdd, Ui ui) throws TaskException {
         this.tasks = new ArrayList<>();
-        int counter = 1;
+        this.ui = ui;
         for (int i = 0; i < tasksToAdd.getList1().size(); i++) {
             addTask(tasksToAdd.getList1().get(i));
-            changeTaskStatus(counter, tasksToAdd.getList2().get(i));
+            changeTaskStatus(i + 1, tasksToAdd.getList2().get(i));
         }
     }
 
-    public TaskList() {
+    public TaskList(Ui ui) {
         this.tasks = new ArrayList<>();
+        this.ui = ui;
     }
 
     public ArrayList<Task> getTasks() {
@@ -28,16 +30,13 @@ public class TaskList {
         if (splitInput.length == 0) {
             throw new TaskException("Sensei! Please enter some tasks!");
         } else if (!containsEnumValue(TaskEnum.class, type)) {
-            throw new TaskException("Sensei, Arona does not know what that means!.");
+            throw new TaskException("Sensei, Arona does not know what that means!");
         } else if (splitInput.length == 1) {
             throw new TaskException("Sensei! Please provide some task description!");
         }
-        System.out.println(splitInput[1]);
-        String[] info = splitInput[1].split("/", 0);
+
+        String[] info = splitInput[1].split("/");
         String description = info[0];
-        for (String string : info) {
-            System.out.println(string);
-        }
 
         switch(type) {
             case "todo":
@@ -48,7 +47,6 @@ public class TaskList {
 
                 String by = info[1].replaceAll("by", "").trim();
                 try {
-//                    System.out.println(by);
                     LocalDate date = Parser.parseDate(by);
                     tasks.add(new Deadline(description, date));
                 } catch (DateTimeParseException e) {
@@ -70,10 +68,7 @@ public class TaskList {
                 }
                 break;
         }
-
-        System.out.println("Arona has added this task to sensei's task list!: ");
-        System.out.println(tasks.get(tasks.size() - 1).toString());
-        System.out.println("Arona has counted " + tasks.size() + " tasks in the list!");
+        ui.taskAdded(tasks);
     }
 
     public void DeleteTask(int taskNum) throws IndexOutOfBoundsException {
@@ -82,19 +77,7 @@ public class TaskList {
         int index = taskNum - 1;
         Task task = tasks.get(index);
         tasks.remove(index);
-
-        System.out.println("Arona has removed this task!: ");
-        System.out.println(task.toString());
-        System.out.println("Arona has counted " + tasks.size() + " tasks in the list!");
-    }
-
-    public void printTasks() {
-        System.out.println("Sensei! Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i) == null) break;
-            Task task = tasks.get(i);
-            System.out.println(i + 1 + "." + task.toString());
-        }
+        ui.taskDeleted(task, tasks.size());
     }
 
     public void changeTaskStatus(int taskNum, boolean status) throws IndexOutOfBoundsException {
@@ -104,16 +87,16 @@ public class TaskList {
         Task task = tasks.get(index);
 
         if (task.getStatus() == status) {
-            System.out.println("Sensei, the task has already been marked as " + (status ? "done!" : "not done!"));
+            ui.alreadyMarked(status);
             return;
         }
 
         task.setStatusIcon(status);
 
         if (status) {
-            System.out.println("Congratulation, sensei! Arona has marked the task as done!:");
+            ui.markTask();
         } else {
-            System.out.println("I understand, sensei! Arona has marked the task as not done!:");
+            ui.unmarkTask();
         }
         System.out.println(task.toString());
     }

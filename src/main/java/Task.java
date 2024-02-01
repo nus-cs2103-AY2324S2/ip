@@ -11,6 +11,10 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    public String userInputToString() {
+        return "[" + this.getStatusIcon() + "] " + this.description;
+    }
     public String getDescription() {
         return description;
     }

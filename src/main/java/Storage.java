@@ -16,40 +16,14 @@ public class Storage {
             String line = reader.readLine();
 
             while (line != null) {
+//                System.out.println(text.add(Parser.FileInputToTask(line)));
+//                System.out.println(status.add(Parser.FileInputToTaskStatus(line)));
                 text.add(Parser.FileInputToTask(line));
                 status.add(Parser.FileInputToTaskStatus(line));
                 line = reader.readLine();
             }
             reader.close();
             return new TwoArrayList(text, status);
-
-//            PrintStream originalOut = System.out;
-//            System.setOut(new PrintStream(new OutputStream() {
-//                @Override
-//                public void write(int b) {
-//                    // Do nothing
-//                }
-//            }));
-//
-//            while (line != null) {
-//
-//                String[] splitString = line.split("\\|", 0);
-//                String taskStatus = splitString[1];
-//                String taskInput = line.replaceAll("\\| 0 \\|", "")
-//                        .replaceAll("\\| 1 \\|", "")
-//                        .replaceAll("\\|", "/")
-//                        .replaceAll("T", "todo")
-//                        .replaceAll("D", "deadline")
-//                        .replaceAll("E", "event")
-//                        .replaceAll("  ", " ");
-//
-//                addTask(taskInput);
-//                boolean isTaskDone = taskStatus.trim().equals("1") ? true : false;
-//                changeTaskStatus(counter, isTaskDone);
-//                counter++;
-//                System.setOut(originalOut);
-//
-//            }
         } catch (FileNotFoundException e) {
             throw new FileException("Oops, Arona cannot find your task file!");
         } catch (IOException e) {
