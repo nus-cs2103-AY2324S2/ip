@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lex.storage.Storage;
 import lex.tasks.Deadline;
 import lex.tasks.Event;
@@ -62,18 +63,19 @@ public class Lex {
                             throw new Exception("OOPS!!! Formatting error.");
                         }
 
-                        list.add(new Event(eventInputs[0], LocalDate.parse(eventTimeInputs[0]), LocalDate.parse(eventTimeInputs[1])));
+                        list.add(new Event(eventInputs[0], LocalDate.parse(eventTimeInputs[0]),
+                                LocalDate.parse(eventTimeInputs[1])));
                         printAddSuccessMessage();
                         break;
                     case MARK:
                         index = Integer.parseInt(inputs[1]) - 1;
-                        list.get(index).isDone(true);
+                        list.get(index).setIsDone(true);
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println(list.get(index));
                         break;
                     case UNMARK:
                         index = Integer.parseInt(inputs[1]) - 1;
-                        list.get(index).isDone(false);
+                        list.get(index).setIsDone(false);
                         System.out.println("OK, I've marked this task as not done yet:");
                         System.out.println(list.get(index));
                         break;
