@@ -48,6 +48,11 @@ public class Parser {
 
                     case "list":
                         Ui.showTaskList(tasks);
+                      //  try {
+                            TaskList.getList(tasks);
+                      //  } catch (DukeException e) {
+                          //  System.out.println(e);
+                      //  }
                         break;
                     case "mark":
                         if (words.length > 1) {
@@ -97,25 +102,23 @@ public class Parser {
                         break;
 
                     case "deadline":
-                        try {
-                            int byIndex = command.indexOf("/by");
-                            if (byIndex != -1 && byIndex < command.length() - 3) { // Check if "/by" is present
-                                String description = command.substring(9, byIndex).trim();
-                                String by = command.substring(byIndex + 3).trim();
-                                tasks.addDeadlineTask(new Deadline(description, by));
-                                storage.saveTasks(tasks);
-                                ui.printNumberOfTasks(tasks);
-                                hasChanged = true;
-                            } else if (byIndex == -1) {
-                                throw new DukeException("You did not mention the deadline! Please re-enter correctly");
-                            } else {
-                                throw new DukeException("Please include both task description and deadline correctly!");
+                        Matcher byMatcher = Pattern.compile("/by\\s+(\\S.+)").matcher(command);
+                        String deadlineDescription = "";
+                        Matcher deadlineDescMatcher = Pattern.compile("deadline\\s+(.+?)\\s*/by").matcher(command);
+                        if (words.length > 1) {
+                            if (deadlineDescMatcher.find()) {
+                                deadlineDescription = deadlineDescMatcher.group(1).trim();
                             }
-                        } catch (DukeException e) {
-                            System.out.println(e.getMessage());
+                        } else {
+                            ui.showError("Please include both task description and deadline correctly!");
+                            break;
                         }
+                        String by = byMatcher.find() ? byMatcher.group(1).trim() : "";
+                        tasks.addDeadlineTask(new Deadline(deadlineDescription, by));
+                        storage.saveTasks(tasks);
+                        Ui.printNumberOfTasks(tasks);
+                        hasChanged = true;
                         break;
-
                     case "event":
                         Matcher fromMatcher = Pattern.compile("/from\\s+(\\S+[^/]+)").matcher(command);
                         Matcher toMatcher = Pattern.compile("/to\\s+(\\S.+)").matcher(command);
@@ -136,6 +139,17 @@ public class Parser {
                         Ui.printNumberOfTasks(tasks);
                         hasChanged = true;
                         break;
+                    case "find":
+                        String taskToFind = command.substring(5).trim();
+                        TaskList foundTasks = tasks.findTask(taskToFind);
+                        if (foundTasks.size() > 0) {
+                            ui.showFoundTasks(taskToFind);
+                            tasks.getList(foundTasks);
+                        } else {
+                            ui.showNoTasksFound(taskToFind);
+                        }
+                        break;
+
 
                     default:
                         ui.showError("I don't know what you are saying :(");

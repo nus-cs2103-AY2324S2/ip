@@ -48,11 +48,6 @@ public class Ui {
                 System.out.println("You have no tasks in your list!");
             } else {
                 System.out.println(tasks.size() == 1 ? "Here is the task in your list:" : "Here are the tasks in your list:");
-                try {
-                    TaskList.getList(tasks);
-                } catch (DukeException e) {
-                    System.out.println(e);
-                }
             }
         }
 
@@ -68,4 +63,12 @@ public class Ui {
             System.out.println("OK, I've marked this task as not done yet: \n " + "[" + task.getType() + "][" + task.getStatusIcon() + "] " + task.getDescription());
         }
 
-}
+    public static void showFoundTasks(String task) {
+        System.out.println("Here are the tasks matching with \"" + task + "\" in your list: ");
+    }
+
+    public static void showNoTasksFound(String task) {
+        System.out.println("Sorry, you have no items in your tasklist matching with \"" + task + "\"");
+        }
+
+    }

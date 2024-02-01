@@ -23,6 +23,9 @@ public class StorageTest {
 
     @Test
     void saveTasks_shouldSaveTasksToFile() throws IOException, DukeException {
+        taskList.addToDoTask(new ToDo("Finish this project"));
+        taskList.addDeadlineTask(new Deadline("Test project", "Monday"));
+        taskList.addDeadlineTask(new Deadline("Test project", "12/12/2023 1200"));
         taskList.addEventTask(new Event("Test Event", "2022-12-31", "2023-01-01"));
 
         storage.saveTasks(taskList);

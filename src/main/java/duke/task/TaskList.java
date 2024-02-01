@@ -80,4 +80,17 @@ public class TaskList {
             System.out.println(taskDetails);
         }
     }
+
+    public TaskList findTask(String searchString) throws DukeException {
+        TaskList foundTasks = new TaskList();
+
+        for (Task job : tasks) {
+            if (job.getDescription().contains(searchString)) {
+                foundTasks.addTask(job);
+            }
+        }
+        return foundTasks;
+    }
+
+
 }
