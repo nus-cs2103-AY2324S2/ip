@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -28,7 +30,7 @@ public class Storage {
             while((line = reader.readLine()) != null){
                 //adding the task from the file to be read
                 //index++;
-                //tasks.set(index,Task.fromFileString(line));
+                //tasks.set(index,duke.Task.fromFileString(line));
                 tasks.add(Task.fromFileString(line));
                 index++;
             }

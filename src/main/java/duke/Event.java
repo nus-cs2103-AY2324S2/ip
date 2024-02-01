@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDate;
 
 public class Event extends Task {
@@ -6,7 +8,7 @@ public class Event extends Task {
     protected LocalDate to;
 
     public Event(String description, LocalDate from, LocalDate to) {
-        super(description, TaskType.EVENT);
+        super(description, Task.TaskType.EVENT);
         this.from = from;
         this.to = to;
     }

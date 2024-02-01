@@ -1,3 +1,9 @@
+package duke;
+
+import duke.Deadline;
+import duke.Event;
+import duke.Ui;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -92,7 +98,7 @@ public class Parser {
                 }
                 System.out.println(line);
                 break;
-            //Event
+            //duke.Event
             case "event":
                 String[] fromto = elems[1].split("/", 3);
 

@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDate;
 
 public class Deadline extends Task {
@@ -5,7 +7,7 @@ public class Deadline extends Task {
     protected LocalDate by;
 
     public Deadline(String description, LocalDate by) {
-        super(description, TaskType.DEADLINE);
+        super(description, Task.TaskType.DEADLINE);
         this.by = by;
     }
 

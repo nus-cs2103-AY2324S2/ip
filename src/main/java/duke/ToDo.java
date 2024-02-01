@@ -1,9 +1,13 @@
+package duke;
+
+import duke.Task;
+
 public class ToDo extends Task {
 
 
 
     public ToDo(String description) {
-        super(description, TaskType.TODO);
+        super(description, Task.TaskType.TODO);
 
     }
 

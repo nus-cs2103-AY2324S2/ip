@@ -1,11 +1,6 @@
-import java.io.PrintWriter;
-import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+package duke;
+
 import java.util.Scanner;
-import java.io.*;
 
 
 public class Duke {
