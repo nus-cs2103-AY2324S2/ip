@@ -1,4 +1,9 @@
-import java.io.*;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+
 import java.util.Scanner;
 
 public class BadPingGuo {
@@ -42,7 +47,7 @@ public class BadPingGuo {
 
         } catch (FileNotFoundException e) {
             System.out.println("You've been living here for as long as... wait, no headspace detected?");
-            System.out.println("Would you like to enter White Space? \n " +
+            System.out.println("Would you like to enter White Space? \n" +
                     "Only 'yes' will create the required files" );
             String askToCreateFile = sc.nextLine();
             if (askToCreateFile.equalsIgnoreCase("yes")) {
@@ -58,8 +63,9 @@ public class BadPingGuo {
 
     public static boolean makeFile() {
         try {
+            File f1 = new File("src/main/data");
             File f = new File("src/main/data/whiteSpace.txt");
-            return f.createNewFile();
+            return f1.mkdir() && f.createNewFile();
         } catch (IOException e) {
             System.out.println("Humphrey has denied your entrance to white space! \n " +
                     "perhaps the write permissions aren't working?");

@@ -9,8 +9,8 @@ public class Tracker {
     public static boolean suppressMessages = false;
     /**
      * When a user adds a task, a response of PrependMessages + task is rendered
-     * To add a prependMessage: Write the enum and then place the message in brackets
-     * e.g. ANGRY("You better get your ass up and"),
+     * To add a message: Write the enum and then place a prepend and append message in brackets
+     * e.g. ANGRY("You better get your ass up and", "otherwise Freddy will get you"),
      */
     enum CustomMessages {
 
@@ -21,8 +21,8 @@ public class Tracker {
         private final String prepend;
         private final String append;
         private static final Random RNG = new Random();
-        CustomMessages(String label, String append) {
-            this.prepend = label;
+        CustomMessages(String prepend, String append) {
+            this.prepend = prepend;
             this.append = append;
         }
 
@@ -40,7 +40,7 @@ public class Tracker {
         }
     }
 
-    public static ArrayList<Task> tasks = new ArrayList<>();
+    public static ArrayList<Task> tasks = new ArrayList<>(); // Globally accessible Tasks in memory.
 
     public static void addTask(Task task) {
         tasks.add(task);
@@ -51,8 +51,7 @@ public class Tracker {
     }
 
     public static void removeTask(int i) {
-        tasks.remove(i);
-        System.out.println("Exploooosion! now task " + (i+1) + " has been Kazuma-ed out of existence");
+        System.out.println("Exploooosion! now task " + tasks.remove(i).brief() + " has been Kazuma-ed out of existence");
         System.out.println("You now have " + tasks.size() + " tasks in your list");
     }
 
@@ -82,10 +81,17 @@ public class Tracker {
         }
     }
 
+    /**
+     * given a File and its contents, add it into the Tracker's taskList
+     * @param file the file to read from
+     * @throws IOException when a file can't be read from
+     * @throws BadAppleException when the file contents are in the wrong format (i.e. non-command)
+     */
     public static void parseTasks(File file) throws IOException, BadAppleException {
         // check the file to see what tasks are already available.
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
 
+        int taskIndex = 1;
         while (bufferedReader.ready()) {
             String line = bufferedReader.readLine();
             // deconstruct the line:
@@ -94,6 +100,7 @@ public class Tracker {
             String command = "";
             String query = "";
             StringBuilder taskName;
+            boolean status = args.get(2).equals("[X]");
 
             if (!(args.size() < 2)) {
                 command = args.get(1);
@@ -159,13 +166,19 @@ public class Tracker {
                     System.out.println("unrecognizable command detected");
                     throw new BadAppleException("The sun shined brighter when your files weren't corrupted");
             }
+
+            // upon reconstructing the command, execute it.
             ProcessQuery(query, file);
+            if (status) {
+                // if this task is already complete, mark it.
+                ProcessQuery("mark " + taskIndex, file);
+            }
+            taskIndex++;
         }
     }
 
     /**
      * Takes in a user query and performs the necessary reading and writing to a file on the drive.
-     *
      * The file should exist, and is by default handled by BadPingGuo
      * @param s the query the user would like to make
      * @param file the file to read or write from

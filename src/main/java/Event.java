@@ -44,6 +44,7 @@ public class Event extends Task {
         }
     }
 
+    // in case anyone tries to throw an un-formatted string, the program still runs
     public static Event extractDetails(String s) {
         return extractDetails(new ArrayList<>(Arrays.asList(s.split(" "))));
     }

@@ -20,9 +20,11 @@ public class Task {
                 System.out.println("You don't have that task silly!");
                 return;
             }
-            System.out.println("I've " + MARK + " task " + (taskIndex+1));
             this.isComplete = b;
-            System.out.println(this);
+            if (!Tracker.suppressMessages) {
+                System.out.println("I've " + MARK + " task " + (taskIndex+1));
+                System.out.println(this);
+            }
         } catch(NumberFormatException | IndexOutOfBoundsException  e) {
             System.out.println("Usage: mark <taskNumber>");
         }
