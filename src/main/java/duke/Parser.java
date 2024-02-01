@@ -36,13 +36,28 @@
 //    }
 //}
 package duke;
+/**
+ * Represents a parser for processing user commands in the Duke program.
+ */
 public class Parser {
     private String input;
 
+    /**
+     * Constructs a Parser object with the specified input string.
+     *
+     * @param input The input string to be parsed.
+     */
     public Parser(String input) {
         this.input = input;
     }
 
+
+    /**
+     * Parses the input string and returns the corresponding command.
+     *
+     * @return A Command object representing the parsed user command.
+     * @throws DukeException If there is an error parsing the input.
+     */
     public Command parse() throws DukeException {
         if (input.equalsIgnoreCase("bye")) {
             return new Command(Command.CommandType.BYE, null);
