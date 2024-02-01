@@ -3,12 +3,13 @@ package sleepy;
 import sleepy.datastorage.ItemList;
 import sleepy.tools.LinePrinter;
 
+import java.util.Scanner;
+
 /**
  * This class is the main class for the Sleepy AI Chatbot.
  *
  * @author kjw142857
  */
-import java.util.Scanner;
 public class Sleepy {
     public static void main(String[] args) {
         // Initialise chatbot
