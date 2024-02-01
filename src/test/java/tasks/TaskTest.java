@@ -27,16 +27,16 @@ public class TaskTest {
     @Test
     public void test_mark_task_as_done() {
         Task task = new Task("Read book", false);
-        assertFalse(task.isDone);
+        assertFalse(task.isDone());
         task.mark();
-        assertTrue(task.isDone);
+        assertTrue(task.isDone());
     }
 
     @Test
     public void test_unmark_task() {
         Task task = new Task("Clean room", true);
-        assertTrue(task.isDone);
+        assertTrue(task.isDone());
         task.unmark();
-        assertFalse(task.isDone);
+        assertFalse(task.isDone());
     }
 }

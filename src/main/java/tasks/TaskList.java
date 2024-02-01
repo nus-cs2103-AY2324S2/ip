@@ -110,4 +110,15 @@ public class TaskList {
         Task eventTask = new Task(desc, false, start, end);
         taskList.add(eventTask);
     }
+
+    public String findTask(String keyword) {
+        StringBuilder sb = new StringBuilder();
+        int i = 1;
+        for (Task task : taskList) {
+            if (task.getDesc().contains(keyword)) {
+                sb.append(i++).append(". ").append(task).append("\n");
+            }
+        }
+        return sb.toString();
+    }
 }

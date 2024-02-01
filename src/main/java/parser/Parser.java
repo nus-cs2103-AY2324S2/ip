@@ -1,4 +1,5 @@
 package parser;
+
 import java.io.IOException;
 
 import processor.Processor;
@@ -7,6 +8,7 @@ import processor.Processor;
  * The Parser class is responsible for processing user commands and delegating them to the appropriate methods in the Processor class.
  */
 public class Parser {
+
     private final Processor processor;
     
     /**
@@ -29,6 +31,9 @@ public class Parser {
             processor.userInputDeleteTask(userInput);
         } else if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
             processor.userInputProcessMarkUnmark(userInput);
+        } else if (userInput.startsWith("find")) {
+            processor.userInputFindTask(userInput);
+        
         } else if (userInput.equals("list")) {
             processor.userInputListTasks();
         } else {
