@@ -107,6 +107,15 @@ public class UI {
     }
 
     /**
+     * Prints the tasks matching the specified key using the taskList's find method.
+     *
+     * @param key The keyword or item to search for in the tasks.
+     */
+    public void findTaskUI(String key) {
+        System.out.println(this.taskList.find(key));
+    }
+
+    /**
      * Displays the list of tasks in the TaskList.
      */
     public void listItems() {

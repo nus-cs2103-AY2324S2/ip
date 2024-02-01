@@ -118,6 +118,15 @@ public class Parser {
                 token = new Token(Command.MARK, Integer.parseInt(split[1]));
             }
             break;
+        case "find":
+            if (split.length == 1) {
+                throw new MissingArgumentsExceptionTodo("find");
+            } else {
+                int space = this.input.indexOf(" ");
+                token = new Token(Command.FIND);
+                token.setSearchKey(this.input.substring(space + 1));
+            }
+            break;
         case "todo":
             if (split.length == 1) {
                 throw new MissingArgumentsExceptionTodo("todo");

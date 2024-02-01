@@ -71,6 +71,25 @@ public class TaskList {
     }
 
     /**
+     * Searches for tasks containing a specified keyword in their descriptions.
+     *
+     * @param key The keyword to search for in task descriptions.
+     * @return A formatted string representation of tasks that match the search criteria.
+     */
+    public String find(String key) {
+        StringBuilder result = new StringBuilder();
+        result.append(lines).append("\n");
+        for (int i = 1; i <= tasks.size(); i++) {
+            if (this.tasks.get(i-1).getDescription().toLowerCase()
+                    .contains(key.toLowerCase())) {
+                result.append(String.format("    %d.", i)).append(this.tasks.get(i - 1).toString()).append("\n");
+            }
+        }
+        result.append(lines);
+        return result.toString();
+    }
+
+    /**
      * Returns the number of tasks in the task list.
      *
      * @return The number of tasks in the task list.

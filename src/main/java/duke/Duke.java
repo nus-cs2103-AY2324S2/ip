@@ -67,6 +67,9 @@ public class Duke {
                     UI.error(e.getMessage());
                 }
                 break;
+            case FIND:
+                ui.findTaskUI(output.getSearchKey());
+                break;
             case TODO:
                 // Fallthrough
             case DEADLINE:
