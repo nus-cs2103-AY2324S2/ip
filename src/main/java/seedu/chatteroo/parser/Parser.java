@@ -6,9 +6,22 @@ import seedu.chatteroo.tasks.ToDo;
 import seedu.chatteroo.tasks.Deadline;
 import seedu.chatteroo.tasks.Event;
 
+/**
+ * Parses the user input and returns the corresponding command.
+ */
 public class Parser {
+    /**
+     * Constructor for the Parser class.
+     */
     public Parser() {
     }
+
+    /**
+     * Parses the user input and returns the corresponding command using a switch statement.
+     * @param input The user input.
+     * @return The corresponding command.
+     * @throws Exception If the input is invalid.
+     */
     public static Command parseInput(String input) throws Exception {
         String[] inputArr = input.split(" ");
         String command = inputArr[0].toUpperCase();

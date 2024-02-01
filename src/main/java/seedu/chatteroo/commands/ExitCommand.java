@@ -4,11 +4,15 @@ import seedu.chatteroo.tasks.TaskList;
 import seedu.chatteroo.ui.Ui;
 import seedu.chatteroo.storage.Storage;
 
+/**
+ * Prints the exit message.
+ */
 public class ExitCommand extends Command {
     public ExitCommand() {
         super();
     }
 
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showByeText();
     }

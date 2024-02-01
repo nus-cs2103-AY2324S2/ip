@@ -12,9 +12,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Handles the storage of tasks in a file.
+ */
 public class Storage {
     private static String DIRECTORY = "data";
-    private static String FILE_NAME = "duke.txt";
+    private static String FILE_NAME = "chatteroo.txt";
     private static File listFile = new File(Paths.get(DIRECTORY, FILE_NAME).toString());
 
     public Storage() throws IOException {
@@ -31,6 +34,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from the file.
+     * @return The list of tasks.
+     * @throws IOException If an I/O error occurs.
+     */
     public ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> listStore = new ArrayList<>();
         int listCount = listStore.size();
@@ -68,6 +76,11 @@ public class Storage {
         return listStore;
     }
 
+    /**
+     * Saves the tasks to the file.
+     * @param listStore The list of tasks.
+     * @throws IOException If an I/O error occurs.
+     */
     public void saveTasks(TaskList listStore) throws IOException{
         FileWriter fw = new FileWriter(Paths.get(DIRECTORY, FILE_NAME).toString());
         for (int i = 0; i < listStore.getTaskListSize(); i++) {

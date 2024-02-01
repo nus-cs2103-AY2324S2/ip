@@ -1,35 +1,44 @@
 package seedu.chatteroo.tasks;
 
+/**
+ * Represents a task with a description and a status of whether it is done.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
     protected String taskType;
 
+    /**
+     * Constructor for the Task class.
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-    //getter for status icon
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    //mark task as done
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks the task as not done.
+     */
     public void markAsNotdone() {
         this.isDone = false;
     }
 
-    //getter for description
     public String getDescription() {
         return this.description;
     }
 
-    //overridden toString method to print status of task and description
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();

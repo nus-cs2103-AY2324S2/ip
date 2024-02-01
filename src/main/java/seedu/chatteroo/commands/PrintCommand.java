@@ -4,11 +4,15 @@ import seedu.chatteroo.tasks.TaskList;
 import seedu.chatteroo.ui.Ui;
 import seedu.chatteroo.storage.Storage;
 
+/**
+ * Prints the list of tasks.
+ */
 public class PrintCommand extends Command {
     public PrintCommand() {
         super();
     }
 
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         int listCount = tasks.getTaskListSize();
         if (listCount == 0) {
