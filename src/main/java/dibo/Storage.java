@@ -16,10 +16,6 @@ import dibo.task.Event;
 import dibo.task.Task;
 import dibo.task.ToDo;
 
-
-
-
-
 /**
  * The class to load data from and save data to the text file.
  */
