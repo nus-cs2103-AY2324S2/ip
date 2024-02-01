@@ -14,6 +14,13 @@ public class AddCommand extends Command {
         this.task = task;
     }
 
+    /**
+     * Adds given task to the task list.
+     *
+     * @param tasks Target tasklist to add the task to.
+     * @param ui The user interface.
+     * @param storage The storage interface.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
         tasks.addTask(task);

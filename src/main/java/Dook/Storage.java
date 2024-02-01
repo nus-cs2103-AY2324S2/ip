@@ -17,6 +17,12 @@ public class Storage {
         this.path = path;
     }
 
+    /**
+     * Writes the current TaskList to a file.
+     *
+     * @param tasks The current TaskList.
+     * @throws DookException If problems writing to a file is found.
+     */
     public void write(TaskList tasks) throws DookException {
         try {
             File f = new File(String.join("/", path));
@@ -31,6 +37,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads a file to a TaskList object.
+     *
+     * @throws IOException If problems reading from a file is found.
+     * @throws DookException If problems regarding file formatting is found.
+     */
     public TaskList loadTaskListFromFile() throws IOException, DookException {
         TaskList taskList = new TaskList();
         BufferedReader r;
@@ -44,6 +56,10 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Checks the existence of a file to write to in the path, if it does
+     * not exist then it creates one.
+     */
     public void checkFile() {
         try {
             String filename = String.join(File.separator, path.subList(0, path.size() - 1));

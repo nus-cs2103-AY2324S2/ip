@@ -13,6 +13,15 @@ public class MarkCommand extends Command {
     public MarkCommand(int positionToMark) {
         this.positionToMark = positionToMark;
     }
+
+    /**
+     * Marks a task as done.
+     *
+     * @param tasks The bot TaskList.
+     * @param ui The user interface.
+     * @param storage The storage interface.
+     * @throws DookException If TaskList is empty or indexed out of bounds.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
         Task toMark;

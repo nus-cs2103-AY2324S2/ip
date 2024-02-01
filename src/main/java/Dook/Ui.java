@@ -15,6 +15,10 @@ public class Ui {
     public void printSeparator() {
         System.out.println(LINE_SEPARATOR);
     }
+
+    /**
+     * Prints the introduction for the bot.
+     */
     public void introduce() {
         String logo = " ____              _    \n"
                 + "|  _ \\  ___   ___ | | __      ╱|、\n"

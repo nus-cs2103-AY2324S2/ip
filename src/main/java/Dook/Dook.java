@@ -22,6 +22,10 @@ public class Dook {
         this.storage = new Storage(FILE_PATH);
     }
 
+    /**
+     * Main body of the code. Repeatedly takes in a single line command
+     * and acts on the state of Dook accordingly.
+     */
     public void run() {
         try {
             this.storage.checkFile();
@@ -53,6 +57,9 @@ public class Dook {
         }
     }
 
+    /**
+     * Driver function.
+     */
     public static void main(String[] args) {
         Dook dook = new Dook();
         dook.run();
