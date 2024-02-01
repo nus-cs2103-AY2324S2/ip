@@ -17,17 +17,17 @@ Thats sick! Great work, marked as done!
 [T][X] dropout
 Thats sick! Great work, marked as done!
 [E][X] project meeting (from: Mon 2pm to: 4pm)
-I cant do that! The task does not exist!
+I cant do that! The duke.command.task does not exist!
 1.[T][X] dropout
 2.[D][ ] have a breakdown (by: Sunday)
 3.[E][X] project meeting (from: Mon 2pm to: 4pm)
 Awh why uncheck me :( Its ok, it is what it is!
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
-I cant do that! The task does not exist!
+I cant do that! The duke.command.task does not exist!
 1.[T][X] dropout
 2.[D][ ] have a breakdown (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 Looks like you have 2 things left to do!
-I cant delete that task! It does not exist!
-I dont know which task you are trying to mark! Try a number
+I cant delete that duke.command.task! It does not exist!
+I dont know which duke.command.task you are trying to mark! Try a number
 Bye! Have a good time!

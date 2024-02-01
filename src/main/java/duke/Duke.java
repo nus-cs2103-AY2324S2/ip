@@ -1,4 +1,11 @@
-import java.util.Scanner;
+package duke;
+
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.exceptions.DukeException;
+import duke.exceptions.StorageException;
+import duke.task.TaskList;
+
 //main class for the bot
 public class Duke {
     private Storage storage;
@@ -10,7 +17,7 @@ public class Duke {
         this.storage = new Storage(filePath);
         try {
             this.taskList = this.storage.load();
-        } catch (DukeException.StorageException e) {
+        } catch (StorageException e) {
             this.ui.showError(e);
             //todo: ask the user if want to create new datafile, possibly deleting old data
         }
@@ -18,6 +25,9 @@ public class Duke {
 
     public void run() {
         ui.showWelcome();
+        ui.showLine();
+        ui.showList(taskList);
+        ui.showLine();
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -25,7 +35,7 @@ public class Duke {
                 ui.showLine(); // show the divider line ("_______")
                 Command c = Parser.parse(fullCommand);
                 c.execute(taskList, ui, storage);
-                isExit = c instanceof Command.ByeCommand;
+                isExit = c instanceof ByeCommand;
             } catch (DukeException e) {
                 ui.showError(e);
             } finally {

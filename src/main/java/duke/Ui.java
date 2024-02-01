@@ -1,3 +1,8 @@
+package duke;
+
+import duke.exceptions.DukeException;
+import duke.task.TaskList;
+
 import java.util.Scanner;
 
 /**
@@ -9,7 +14,8 @@ public class Ui {
     private Scanner scanner = new Scanner(System.in);
 
     public void showWelcome() {
-        System.out.println("Hello and welcome! I'm fakegpt\nWhat can I do for you?:");
+        System.out.println("Hello and welcome! I'm fakegpt!");
+
     }
 
     public void showBye() {
@@ -43,7 +49,7 @@ public class Ui {
     /**
      * Prints out a message describing error encountered.
      *
-     * @param e DukeException object
+     * @param e duke.exceptions.DukeException object
      */
     public void showError(DukeException e) {
         System.out.println(e.getMessage());

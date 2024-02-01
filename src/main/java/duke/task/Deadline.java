@@ -1,4 +1,4 @@
-package task;
+package duke.task;
 
 import java.time.LocalDate;
 
@@ -8,7 +8,7 @@ public class Deadline extends Task {
     /**
      * Contructs new deadlibe object with a description and a due date.
      *
-     * @param description Brief description of task.
+     * @param description Brief description of duke.command.task.
      * @param by LocalDateTine object
      */
     public Deadline(String description, LocalDate by) {
