@@ -111,7 +111,7 @@ public class Parser {
         } else if (input.equals("list")) {
             Ui.printMessage(taskList.toString());
         } else {
-            throw new InputNotRecognisedException("Input not recognised");
+            throw new InputNotRecognisedException();
         }
         return false;
     }

@@ -11,14 +11,29 @@ import java.nio.file.Path;
 import java.time.format.DateTimeParseException;
 import java.util.stream.Stream;
 
+/**
+ * Interacts with the local filesystem to load and save tasks
+ */
 public class Storage {
     Path filepath;
+
+    /**
+     * Constructs a Storage object with the specified filepath
+     *
+     * @param filepath the path to the file to be loaded and saved
+     */
 
     public Storage(Path filepath) {
         this.filepath = filepath;
     }
 
 
+    /**
+     * Loads tasks from the file
+     *
+     * @return a TaskList object containing the tasks loaded from the file
+     * @throws LoadingException if there is an error loading the file
+     */
     public TaskList load() throws LoadingException {
         TaskList taskList = new TaskList();
         try {
@@ -65,6 +80,12 @@ public class Storage {
 
     }
 
+    /**
+     * Saves the tasks to the file
+     *
+     * @param taskList the TaskList object containing the tasks to be saved
+     * @throws SavingException if there is an error saving the file
+     */
     public void save(TaskList taskList) throws SavingException {
         try (BufferedWriter bw = Files.newBufferedWriter(this.filepath)) {
             bw.write(taskList.getSavedTasksString());
