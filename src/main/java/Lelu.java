@@ -5,6 +5,7 @@ import Tasks.Event;
 import Tasks.Deadline;
 
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -106,6 +107,9 @@ public class Lelu {
                 Lelu.listen();
                 store.save(Lelu.tasks);
                 break;
+            } catch (DateTimeParseException e) {
+                System.out.println("\n    Date should be in the form: " +
+                        "<YYYY-MM-DD HH:mm> e.g.2024-01-20 14:20\n");
             } catch (LeluException e) {
                 System.out.println(e.getMessage());
             }
