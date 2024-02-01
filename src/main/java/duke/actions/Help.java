@@ -12,7 +12,8 @@ public class Help extends Command {
             "\nADD TASK\n" +
             "todo <name>: adds a todo task with its name.\n" +
             "deadline <name> /by <date>: adds a deadline task with name and date in d-M-yy format." +
-            "event <name> /from <date> /to <date>: adds an event task with name and date in d-M-yy format.";
+            "event <name> /from <date> /to <date>: adds an event task with name and date in d-M-yy format."+
+            "find <key>: lists all tasks matching given key";
 
     public Help() {
     }
