@@ -1,20 +1,16 @@
 package utilities;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import commands.Commands;
-import utilities.Parser;
-import utilities.StorageStub;
-import utilities.TaskListStub;
-import tasks.Todo;
 import tasks.Deadline;
 import tasks.Event;
-
-import org.junit.jupiter.api.BeforeEach;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.fail;
+import tasks.Todo;
 
 /**
  * Test class for the Parser in the utilities packages

@@ -2,7 +2,7 @@ package utilities;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import exceptions.WilliamException;
 import tasks.Task;
 
 /**
@@ -84,7 +84,34 @@ public class TaskList {
     }
 
     /**
-     * Returns the arraylist of tasks
+     * Find the task based on whether the currTask contains the input
+     * 
+     * @param input Input from user to find the task
+     */
+    public void findTasks(String input) throws WilliamException {
+        boolean isFound = false;
+        int counter = 0;
+        for (int i = 0; i < this.tasks.size(); i++) {
+            String currTask = this.tasks.get(i).getName();
+            if (currTask.contains(input)) {
+                if (isFound == false) {
+                    System.out.println("Here are the matching tasks in your list:");
+                    isFound = true;
+                }
+                counter++;
+                System.out.println(counter + ". " + this.tasks.get(i).toString());
+            }
+        }
+        System.out.println();
+
+        if (isFound == false) {
+            throw new WilliamException(
+                    "No tasks match the provided input: " + input + ". Please try again!");
+        }
+    }
+
+    /**
+     * Getter method for task
      * 
      * @return arraylist Arraylist of tasks
      */

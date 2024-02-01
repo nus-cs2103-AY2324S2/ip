@@ -1,8 +1,8 @@
 package utilities;
 
-import tasks.Task;
 import java.util.ArrayList;
 import java.util.List;
+import tasks.Task;
 
 /**
  * Deals with loading tasks and saving tasks into a list (it simulates saving
