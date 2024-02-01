@@ -5,6 +5,8 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+mainClassName = 'ghbot.GHBot'
+
 repositories {
     mavenCentral()
 }
@@ -33,9 +35,10 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+//    archiveBaseName = "duke"
+//    archiveClassifier = null
+//    dependsOn("distZip", "distTar")
+    archiveFileName = 'GHBot.jar'
 }
 
 run{
