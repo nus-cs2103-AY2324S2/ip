@@ -1,12 +1,14 @@
 package seiki.storage;
 
-import seiki.data.TaskList;
-import seiki.data.exception.SeikiException;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+
+import seiki.data.TaskList;
+import seiki.data.exception.SeikiException;
 
 /**
  * Storage for the task list.

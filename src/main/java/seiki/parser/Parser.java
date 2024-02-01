@@ -1,10 +1,19 @@
 package seiki.parser;
 
-import seiki.commands.*;
-import seiki.data.exception.SeikiException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import seiki.commands.ByeCommand;
+import seiki.commands.Command;
+import seiki.commands.DeadlineCommand;
+import seiki.commands.DeleteCommand;
+import seiki.commands.EventCommand;
+import seiki.commands.ListCommand;
+import seiki.commands.MarkCommand;
+import seiki.commands.ToDoCommand;
+import seiki.commands.UnmarkCommand;
+import seiki.data.exception.SeikiException;
+
 
 public class Parser {
 
@@ -51,7 +60,8 @@ public class Parser {
         case EventCommand.COMMAND_WORD:
             if (args.size() == 0) {
                 throw new SeikiException("The task title, start and end date time for the task is missing.\n"
-                        + "Please use the following format: event [task title] /from [startdatetime] /to [enddatetime]");
+                        + "Please use the following format:"
+                        + "event [task title] /from [startdatetime] /to [enddatetime]");
             }
             return new EventCommand(args);
         case DeleteCommand.COMMAND_WORD:

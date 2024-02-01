@@ -1,18 +1,18 @@
 package seiki.storage;
 
-import seiki.data.TaskList;
-import seiki.data.exception.SeikiException;
-import seiki.data.task.Deadline;
-import seiki.data.task.Event;
-import seiki.data.task.Task;
-import seiki.data.task.ToDo;
+import static seiki.common.DateTime.DATE_TIME_FORMATTER;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import static seiki.common.DateTime.DATE_TIME_FORMATTER;
+import seiki.data.TaskList;
+import seiki.data.exception.SeikiException;
+import seiki.data.task.Deadline;
+import seiki.data.task.Event;
+import seiki.data.task.Task;
+import seiki.data.task.ToDo;
 
 public class TaskListDecoder {
 
@@ -33,21 +33,21 @@ public class TaskListDecoder {
         Task task;
 
         switch (taskType) {
-            case "T":
-                task = new ToDo(taskTitle, isDone);
-                break;
-            case "D":
-                LocalDateTime dateTime = LocalDateTime.parse(st.nextToken().trim(), DATE_TIME_FORMATTER);
-                task = new Deadline(taskTitle, dateTime, isDone);
-                break;
-            case "E":
-                String[] dateTimeArr = st.nextToken().split("-");
-                LocalDateTime startDateTime = LocalDateTime.parse(dateTimeArr[0].trim(), DATE_TIME_FORMATTER);
-                LocalDateTime endDateTime = LocalDateTime.parse(dateTimeArr[1].trim(), DATE_TIME_FORMATTER);
-                task = new Event(taskTitle, startDateTime, endDateTime, isDone);
-                break;
-            default:
-                throw new SeikiException("Invalid task type");
+        case "T":
+            task = new ToDo(taskTitle, isDone);
+            break;
+        case "D":
+            LocalDateTime dateTime = LocalDateTime.parse(st.nextToken().trim(), DATE_TIME_FORMATTER);
+            task = new Deadline(taskTitle, dateTime, isDone);
+            break;
+        case "E":
+            String[] dateTimeArr = st.nextToken().split("-");
+            LocalDateTime startDateTime = LocalDateTime.parse(dateTimeArr[0].trim(), DATE_TIME_FORMATTER);
+            LocalDateTime endDateTime = LocalDateTime.parse(dateTimeArr[1].trim(), DATE_TIME_FORMATTER);
+            task = new Event(taskTitle, startDateTime, endDateTime, isDone);
+            break;
+        default:
+            throw new SeikiException("Invalid task type");
         }
 
         return task;

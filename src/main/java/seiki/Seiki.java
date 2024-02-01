@@ -8,9 +8,9 @@ import seiki.storage.Storage;
 import seiki.ui.Ui;
 
 public class Seiki {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     public Seiki(String filePath) {
         ui = new Ui();

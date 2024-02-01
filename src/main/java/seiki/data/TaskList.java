@@ -1,8 +1,8 @@
 package seiki.data;
 
-import seiki.data.task.Task;
-
 import java.util.ArrayList;
+
+import seiki.data.task.Task;
 
 public class TaskList {
     protected ArrayList<Task> taskList;

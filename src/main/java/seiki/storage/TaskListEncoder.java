@@ -1,8 +1,9 @@
 package seiki.storage;
 
+import java.util.ArrayList;
+
 import seiki.data.TaskList;
 
-import java.util.ArrayList;
 
 public class TaskListEncoder {
 

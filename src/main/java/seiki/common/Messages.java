@@ -6,7 +6,8 @@ package seiki.common;
 public class Messages {
 
     public static final String MESSAGE_GREETING = "Hello! I'm Seiki\nHow may I assist you today?";
-    public static final String MESSAGE_FAREWELL = "Goodbye! If you ever need assistance in the future, don't hesitate to reach out. Take care!";
+    public static final String MESSAGE_FAREWELL = "Goodbye! If you ever need assistance in the future, "
+                                                + "don't hesitate to reach out. Take care!";
     public static final String MESSAGE_LOGO = "  _____      _  _     _\n"
                                             + " / ____|    (_)| | _ (_)\n"
                                             + "| (___  ___  _ | |/ / _\n"

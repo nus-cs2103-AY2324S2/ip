@@ -1,18 +1,16 @@
 package seiki.commands;
 
-import seiki.data.TaskList;
-import seiki.data.exception.SeikiException;
-import seiki.data.task.Deadline;
-import seiki.data.task.Event;
-import seiki.data.task.ToDo;
-import seiki.storage.Storage;
-import seiki.ui.Ui;
+import static seiki.common.DateTime.DATE_TIME_FORMATTER;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import static seiki.common.DateTime.DATE_TIME_FORMATTER;
+import seiki.data.TaskList;
+import seiki.data.exception.SeikiException;
+import seiki.data.task.Deadline;
+import seiki.storage.Storage;
+import seiki.ui.Ui;
 
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";

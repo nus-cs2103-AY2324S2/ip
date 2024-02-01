@@ -1,12 +1,12 @@
 package seiki.commands;
 
+import java.util.ArrayList;
+
 import seiki.data.TaskList;
 import seiki.data.exception.SeikiException;
 import seiki.data.task.ToDo;
 import seiki.storage.Storage;
 import seiki.ui.Ui;
-
-import java.util.ArrayList;
 
 public class ToDoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
