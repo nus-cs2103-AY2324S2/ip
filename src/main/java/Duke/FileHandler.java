@@ -35,41 +35,6 @@ public class FileHandler {
         }
     }
 
-//    protected void saveInFile(List<Task> list) throws FileIOException {
-//        try {
-//            if (!FILE.exists()) {
-//                create();
-//            }
-//            FileWriter fw = new FileWriter(FILE);
-//            for (int i = 0; i < list.size(); i++) {
-//                Task task = list.get(i);
-//                switch (task.type()) {
-//                    case "D":
-//                        Deadline deadline = (Deadline) task;
-//                        fw.write(deadline.type() + "| " + (deadline.getStatusIcon().isBlank() ? "0" : "1") + "| " +
-//                                deadline.description + "| " +
-//                                deadline.getBy());
-//                        break;
-//                    case "E":
-//                        Event events = (Event) task;
-//                        fw.write(events.type() + "| " + (events.getStatusIcon().isBlank() ? "0" : "1") + "| " +
-//                                events.description + "| " +
-//                                events.getDate());
-//                        break;
-//                    case "T":
-//                        Todo toDo = (Todo) task;
-//                        fw.write(toDo.type() + "| " + (toDo.getStatusIcon().isBlank() ? "0" : "1") + "| " +
-//                                toDo.description);
-//                        break;
-//                }
-//                fw.write("\n");
-//            }
-//            fw.close();
-//        } catch (IOException e) {
-//            throw new FileIOException(e.getMessage());
-//        }
-//    }
-
     protected void saveInFile(List<Task> list) throws FileIOException {
         try {
             if (!FILE.exists()) {
