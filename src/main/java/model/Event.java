@@ -31,7 +31,7 @@ public class Event extends Task {
     public String toTaskListStringFormat() {
         return String.format("%s|%s|%s|%s",
                 Event.typeIcon, super.toTaskListStringFormat(),
-                DateTimeUtility.parseLocalDateTimeToString(this.fromDateTime), DateTimeUtility.parseLocalDateTimeToString(this.toDateTime));
+                this.fromDateTime.toString(), this.toDateTime.toString());
     }
 
     @Override

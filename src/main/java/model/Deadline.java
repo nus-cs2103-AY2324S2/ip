@@ -27,7 +27,7 @@ public class Deadline extends Task {
     @Override
     public String toTaskListStringFormat() {
         return String.format("%s|%s|%s",
-                Deadline.typeIcon, super.toTaskListStringFormat(), DateTimeUtility.parseLocalDateTimeToString(this.byDateTime));
+                Deadline.typeIcon, super.toTaskListStringFormat(), this.byDateTime.toString());
     }
 
     @Override
