@@ -50,12 +50,12 @@ public class Ui {
         System.out.println(line);
     }
 
-    public void showLine() {
-        System.out.println(line);
+    public void showLoadingError() {
+        System.out.println("It seems like you do not have a saved task list. I will be creating an empty one for you.");
     }
 
     public void showError(String s) {
-        System.out.println(s);
+        System.out.println(line + s + "\n" + line);
     }
     public String readCommand() {
         return sc.nextLine();
