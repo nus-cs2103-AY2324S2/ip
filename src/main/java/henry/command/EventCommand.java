@@ -6,6 +6,9 @@ import henry.Ui;
 import henry.HenryException;
 import henry.task.Event;
 
+/**
+ * Represents a command to add an event task.
+ */
 public class EventCommand extends Command {
     private final String description;
     private final String from;

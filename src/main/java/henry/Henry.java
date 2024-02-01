@@ -7,6 +7,12 @@ public class Henry {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+    /**
+     * Represents a Henry chatbot that stores and manages tasks.
+     *
+     * @param filePath The file path to store the tasks.
+     */
     public Henry(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -17,6 +23,10 @@ public class Henry {
             tasks = new TaskList();
         }
     }
+
+    /**
+     * Runs the program until termination.
+     */
     public void run() {
         ui.greet();
         boolean isExit = false;
@@ -31,6 +41,7 @@ public class Henry {
             }
         }
     }
+
     public static void main(String[] args) {
         new Henry("data/tasks.txt").run();
     }

@@ -8,6 +8,13 @@ public class Deadline extends Task {
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
+    /**
+     * Creates a Deadline object.
+     *
+     * @param description The description of the deadline.
+     * @param date The due date of the deadline.
+     * @throws HenryException If the description or due date is not specified.
+     */
     public Deadline(String description, String date) throws HenryException {
         super(description);
 
@@ -17,6 +24,7 @@ public class Deadline extends Task {
 
         this.date = LocalDateTime.parse(date, INPUT_FORMATTER);
     }
+
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), date.format(OUTPUT_FORMATTER));

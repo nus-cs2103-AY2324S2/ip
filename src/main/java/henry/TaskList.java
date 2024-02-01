@@ -3,6 +3,9 @@ package henry;
 import henry.task.Task;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> items;
 
@@ -14,6 +17,11 @@ public class TaskList {
         this.items = items;
     }
 
+    /**
+     * Adds a task to the list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         items.add(task);
         System.out.println("Added this task");
@@ -22,6 +30,12 @@ public class TaskList {
         System.out.println();
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param index The index of the task to be marked as done.
+     * @throws HenryException If the index is out of bounds.
+     */
     public void markTask(int index) throws HenryException {
         if (index < 0 || index >= items.size()) {
             throw new HenryException("The index is out of bounds!");
@@ -32,6 +46,12 @@ public class TaskList {
         System.out.println();
     }
 
+    /**
+     * Marks a task as undone.
+     *
+     * @param index The index of the task to be marked as undone.
+     * @throws HenryException If the index is out of bounds.
+     */
     public void unmarkTask(int index) throws HenryException {
         if (index < 0 || index >= items.size()) {
             throw new HenryException("The index is out of bounds!");
@@ -42,6 +62,12 @@ public class TaskList {
         System.out.println();
     }
 
+    /**
+     * Deletes a task from the list.
+     *
+     * @param index The index of the task to be deleted.
+     * @throws HenryException If the index is out of bounds.
+     */
     public void deleteTask(int index) throws HenryException {
         if (index < 0 || index >= items.size()) {
             throw new HenryException("The index is out of bounds!");
@@ -62,6 +88,9 @@ public class TaskList {
         return ret;
     }
 
+    /**
+     * Prints the list of tasks.
+     */
     public void printList() {
         System.out.println("Here is a matching list of tasks:");
         for (int i = 0; i < items.size(); i = i + 1) {
@@ -70,6 +99,11 @@ public class TaskList {
         System.out.println();
     }
 
+    /**
+     * Returns the list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<String> getFileStrings() {
         ArrayList<String> ret = new ArrayList<>();
         for (Task item : items) {

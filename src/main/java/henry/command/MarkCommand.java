@@ -5,6 +5,9 @@ import henry.TaskList;
 import henry.Ui;
 import henry.HenryException;
 
+/**
+ * Represents a command to mark a task as done.
+ */
 public class MarkCommand extends Command {
     private final int index;
 
