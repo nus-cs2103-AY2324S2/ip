@@ -6,7 +6,8 @@ import duke.tasks.Task;
 
 public class ParseCommand {
 
-    public static Command parse(String[] input, ArrayList<Task> tasks) throws IOException {
+    public static Command parse(String[] input, ArrayList<Task> tasks)
+            throws IOException {
 
         CommandsEnum command = CommandsEnum.getCommandEnum(input[0]);
 
@@ -27,6 +28,8 @@ public class ParseCommand {
             return new AddEventCommand();
         case DELETE_TASK:
             return new DeleteCommand();
+        case FIND:
+            return new FindCommand();
         default:
             return new Command();
         }
