@@ -372,6 +372,16 @@ public class RochinOOP {
             }
             return taskStrings;
         }
+
+        public List<Task> findTasks(String keyword) {
+            List<Task> matchingTasks = new ArrayList<>();
+            for (Task task : tasks) {
+                if (task.description.toLowerCase().contains(keyword.toLowerCase())) {
+                    matchingTasks.add(task);
+                }
+            }
+            return matchingTasks;
+        }
     }
 
     /**
@@ -422,6 +432,9 @@ public class RochinOOP {
                         break;
                     case "unmark":
                         processUnmarkCommand(tasks, ui);
+                        break;
+                    case "find":
+                        processFindCommand(tasks, ui);
                         break;
                     default:
                         ui.showUnknownCommandError();
@@ -530,6 +543,19 @@ public class RochinOOP {
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 ui.showInvalidCommandError();
                 return -1;
+            }
+        }
+
+        public void processFindCommand(TaskList tasks, Ui ui) {
+            try {
+                String keyword = command.substring("find".length()).trim();
+                if (keyword.isEmpty()) {
+                    throw new RochinException("OOPS!!! Please provide a keyword to search for.");
+                }
+                List<Task> matchingTasks = tasks.findTasks(keyword);
+                ui.showTaskList(matchingTasks);
+            } catch (RochinException e) {
+                ui.showError(e.getMessage());
             }
         }
 
