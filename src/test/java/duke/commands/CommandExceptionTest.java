@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.Test;
 
 public class CommandExceptionTest {
-    
     @Test
     public void constructor_withMessage_messageIsSet() {
         String errorMessage = "Test error message";

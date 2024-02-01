@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 public class CommandsEnumTest {
-    
     @Test
     public void getCommandEnum_validInput_returnCorrectEnum() {
         String input = "todo";

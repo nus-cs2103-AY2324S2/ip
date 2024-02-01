@@ -12,18 +12,18 @@ import duke.tasks.Task;
 import duke.ui.Ui;
 
 /**
- * The AddEventCommand class is responsible for executing the command 
- * to add an event task to a list of tasks.
+ * The AddEventCommand class is responsible for executing the command to add an event task to a list
+ * of tasks.
  */
 public class AddEventCommand extends Command {
 
     /**
-     * Adds an event task to a list of tasks, validates the input format, update
-     * the storage, and prints the updated task list.
+     * Adds an event task to a list of tasks, validates the input format, update the storage, and prints
+     * the updated task list.
      * 
      * @param tasks An ArrayList of Task objects, representing the current list of tasks.
      * @param input The input parameter is an array of strings that represents the user's input. It
-     * contains the details of the event task.
+     *              contains the details of the event task.
      * @throws CommandException for invalid input.
      */
     @Override
@@ -34,8 +34,7 @@ public class AddEventCommand extends Command {
 
         Pattern regex = Pattern.compile(pattern);
 
-        // check if it doesnt follow the format of event <some string> /from <some
-        // string> /to <some string>
+        // check if it doesnt follow the format of event <some string> /from <somestring> /to <some string>
         if (input.length < 2) {
             throw new CommandException(
                     "Please enter the event details! (format: event <your task> /from <dd/MM/yyyy HHmm> /to <dd/MM/yyyy HHmm>)");

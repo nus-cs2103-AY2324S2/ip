@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import duke.tasks.Task;
 
 public class AddEventCommandTest {
-    
     @Test
     public void execute_validInput_success() {
         AddEventCommand addEventCommand = new AddEventCommand();
@@ -35,8 +34,7 @@ public class AddEventCommandTest {
     public void execute_invalidDateTimeFormat_throwsCommandException() {
         AddEventCommand addEventCommand = new AddEventCommand();
         ArrayList<Task> tasks = new ArrayList<>();
-        String[] input =
-                {"event", "Attend party /from 31/31/2024 /to 31/31/2024"};
+        String[] input = {"event", "Attend party /from 31/31/2024 /to 31/31/2024"};
 
         assertThrows(CommandException.class, () -> addEventCommand.execute(tasks, input));
     }

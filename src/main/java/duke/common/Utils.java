@@ -14,9 +14,9 @@ public class Utils {
      * Checks if a given string represents a valid date and time in a specific format.
      * 
      * @param dateTime The dateTime parameter is a string representing a date and time in a specific
-     *        format.
-     * @return The method is returning a boolean value. It returns true if the given dateTime string
-     *         is a valid date and time according to the specified format, and false otherwise.
+     *                  format.
+     * @return The method is returning a boolean value. It returns true if the given dateTime string is
+     *         a valid date and time according to the specified format, and false otherwise.
      */
     public static boolean isValidDateTime(String dateTime) {
         dateTime = dateTime.trim();
@@ -30,14 +30,14 @@ public class Utils {
     }
 
     /**
-     * The function checks if two date-time strings are valid and if the "from" date-time is before
-     * or equal to the "to" date-time.
+     * The function checks if two date-time strings are valid and if the "from" date-time is before or
+     * equal to the "to" date-time.
      * 
      * @param fromDateTime The starting date and time.
      * @param toDateTime The ending date and time.
-     * @return The method is returning a boolean value. It returns true if the fromDateTime is
-     *         before or equal to the toDateTime, and false otherwise. If either of the date strings
-     *         cannot be parsed into LocalDateTime objects, it returns false.
+     * @return The method is returning a boolean value. It returns true if the fromDateTime is before or
+     *         equal to the toDateTime, and false otherwise. If either of the date strings cannot be
+     *         parsed into LocalDateTime objects, it returns false.
      */
     public static boolean isValidDateTime(String fromDateTime, String toDateTime) {
         fromDateTime = fromDateTime.trim();
@@ -55,8 +55,8 @@ public class Utils {
     /**
      * Returns a formatted string representation of the date in the format "dd MMMM yyyy".
      * 
-     * @param dateTime The `dateTime` parameter is a `LocalDateTime` object representing a specific
-     *        date and time.
+     * @param dateTime The `dateTime` parameter is a `LocalDateTime` object representing a specific date
+     *        and time.
      * @return The method is returning a formatted string representation of the given LocalDateTime
      *         object. The format of the string is "dd MMMM yyyy", which represents the day of the
      *         month, the full month name, and the year.

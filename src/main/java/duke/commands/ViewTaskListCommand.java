@@ -14,7 +14,7 @@ public class ViewTaskListCommand extends Command {
      * This function executes a command to print a list of tasks.
      * 
      * @param tasks An ArrayList of Task objects. This represents the list of tasks that the program
-     *        currently has.
+     *              currently has.
      * @param input An array of strings representing user input commands or arguments. Can be empty.
      */
     @Override

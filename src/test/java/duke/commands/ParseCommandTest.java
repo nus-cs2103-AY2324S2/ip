@@ -3,11 +3,8 @@ package duke.commands;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
-
-import duke.tasks.Task;
 
 public class ParseCommandTest {
 

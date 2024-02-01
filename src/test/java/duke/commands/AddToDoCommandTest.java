@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import duke.tasks.Task;
 
 public class AddToDoCommandTest {
-    
     @Test
     public void execute_validInput_success() {
         AddToDoCommand addToDoCommand = new AddToDoCommand();

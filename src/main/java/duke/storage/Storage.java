@@ -32,7 +32,7 @@ public class Storage {
      * Initialises an ArrayList of Task objects by either reading from a storage file or creating a
      * new ArrayList if the file does not exist.
      * 
-     * @return The method is returning an ArrayList<Task>. This contains tasks from previous
+     * @return The method is returning an ArrayList of task. This contains tasks from previous
      *         application session if there's any.
      * @throws FileNotFoundException if the FILE_PATH does not exist.
      */
@@ -77,8 +77,8 @@ public class Storage {
      * provided in the input.
      * 
      * @param input An array of strings representing the input data for a task. The first element of
-     *        the array is the command, and the subsequent elements contain the necessary
-     *        information for creating the task object.
+     *              the array is the command, and the subsequent elements contain the necessary
+     *              information for creating the task object.
      * @return The method `parseInput` returns a `Task` object.
      */
     private static Task parseInput(String[] input) {
