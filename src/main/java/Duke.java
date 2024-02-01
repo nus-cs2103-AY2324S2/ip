@@ -20,6 +20,19 @@ public class Duke {
         divider();
     }
 
+
+    public void numberOfTasks() {
+        System.out.println("Now you have " + tasks.size() +" tasks in the list.");
+    }
+
+    public void echoAdd(Task t) {
+        divider();
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + t);
+        numberOfTasks();
+        divider();
+    }
+
     public void exit() {
         System.out.println("Bye. Hope to see you again soon!");
         divider();
@@ -82,9 +95,11 @@ public class Duke {
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+                divider();
+                System.out.println("ERROR : " + e.getMessage());
+                divider();
             }
-            divider();
+
             input = sc.nextLine();
         }
 
@@ -96,39 +111,70 @@ public class Duke {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
+
+        divider();
     }
 
     public void markTask(String input) {
         int index = Integer.parseInt(input.substring(5).trim()) - 1;
         tasks.get(index).markAsDone();
         try {
+            divider();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("  " + tasks.get(index));
+            divider();
             fileHandler.saveInFile(tasks);
         } catch (FileIOException e) {
             System.out.println("Error saving task: " + e.getMessage());
         }
+
+
     }
 
     public void unmarkTask(String input) {
         int index = Integer.parseInt(input.substring(7).trim()) - 1;
         tasks.get(index).unmarkAsDone();
         try {
+            divider();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("  " + tasks.get(index));
+            divider();
             fileHandler.saveInFile(tasks);
         } catch (FileIOException e) {
             System.out.println("Error saving task: " + e.getMessage());
         }
     }
 
-    public void addTodo(String input) {
-        String description = input.substring(5).trim();
-        Todo newTodo = new Todo(description);
-        tasks.add(newTodo);
+
+//    public void addTodo(String input) {
+//        String description = input.substring(5).trim();
+//        Todo newTodo = new Todo(description);
+//        tasks.add(newTodo);
+//        try {
+//            echoAdd(newTodo);
+//            fileHandler.saveInFile(tasks);
+//        } catch (FileIOException e) {
+//            System.out.println("Error saving task: " + e.getMessage());
+//        }
+//    }
+
+    public void addTodo(String str)
+            throws DukeException{
+        String[] todo = str.split("todo ?+");
         try {
-            fileHandler.saveInFile(tasks);
-        } catch (FileIOException e) {
-            System.out.println("Error saving task: " + e.getMessage());
+            if (todo.length > 0) {
+                Todo toDo = new Todo(todo[0]);
+                tasks.add(toDo);
+                echoAdd(toDo);
+            } else {
+                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+            }
+        } catch (DukeException e) {
+            divider();
+            System.out.println(e.getMessage());
+            divider();
         }
     }
-
     public void addDeadline(String input) {
         String[] parts = input.substring(9).trim().split("/by", 2);
         String description = parts[0].trim();
@@ -136,6 +182,7 @@ public class Duke {
         Deadline newDeadline = new Deadline(description, by);
         tasks.add(newDeadline);
         try {
+            echoAdd(newDeadline);
             fileHandler.saveInFile(tasks);
         } catch (FileIOException e) {
             System.out.println("Error saving task: " + e.getMessage());
@@ -143,28 +190,53 @@ public class Duke {
     }
 
     public void addEvent(String input) {
-        String[] parts = input.substring(6).trim().split("/at", 2);
-        String description = parts[0].trim();
-        String[] times = parts[1].trim().split(" to ", 2);
-        String start = times[0].trim();
-        String end = times[1].trim();
-        Event newEvent = new Event(description, start, end);
-        tasks.add(newEvent);
         try {
-            fileHandler.saveInFile(tasks);
-        } catch (FileIOException e) {
-            System.out.println("Error saving task: " + e.getMessage());
+            String[] parts = input.substring(6).trim().split("/from ", 2);
+            if (parts.length < 2) {
+                System.out.println("Invalid event format. Please use 'event description /from start to end'.");
+                return;
+            }
+            String description = parts[0].trim();
+            String[] times = parts[1].trim().split(" /to ", 2);
+            if (times.length < 2) {
+                System.out.println("Invalid event time format. Please use 'from start to end'.");
+                return;
+            }
+            String start = times[0].trim();
+            String end = times[1].trim();
+            // Assuming Event constructor takes description, start, and end times
+            Event newEvent = new Event(description, start, end);
+            tasks.add(newEvent);
+            try {
+                echoAdd(newEvent);
+                fileHandler.saveInFile(tasks);
+            } catch (FileIOException e) {
+                System.out.println("Error saving task: " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println("Error adding event: " + e.getMessage());
         }
     }
 
-    public void deleteTask(String input) {
-        int index = Integer.parseInt(input.substring(7).trim()) - 1;
-        tasks.remove(index);
-        try {
-            fileHandler.saveInFile(tasks);
-        } catch (FileIOException e) {
-            System.out.println("Error saving task: " + e.getMessage());
-        }
+//    public void deleteTask(String input) {
+//        int index = Integer.parseInt(input.substring(7).trim()) - 1;
+//        tasks.remove(index);
+//        try {
+//            fileHandler.saveInFile(tasks);
+//        } catch (FileIOException e) {
+//            System.out.println("Error saving task: " + e.getMessage());
+//        }
+//    }
+
+    public void deleteTask(String str) {
+        String[] string = str.split(" ");
+        int index = Integer.parseInt(string[1]);
+        Task t = tasks.remove(index);
+        divider();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(" " + t.toString());
+        numberOfTasks();
+        divider();
     }
 
     public void divider() {

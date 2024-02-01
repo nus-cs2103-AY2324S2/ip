@@ -1,2 +1,4 @@
-T| 0| read book
 T| 1| return book
+T| 0| buy book
+D| 0| return book| Sunday
+E| 1| project meeting| Mon 2pm-4pm
