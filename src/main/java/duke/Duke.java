@@ -4,7 +4,7 @@ import java.nio.file.Paths;
 
 public class Duke {
     // protected static final String DATA_DIRECTORY = Paths.get( "src", "main", "java", "data").toString();
-    protected static final String DATA_DIRECTORY = Paths.get( "..",  "data").toString();
+    protected static final String DATA_DIRECTORY = Paths.get( "src", "main", "java", "data").toString();
     protected static final String DATA_FILE = Paths.get(DATA_DIRECTORY, "tasks.txt").toString();
     private Storage storage;
     private TaskList tasks;
