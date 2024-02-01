@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class TaskListTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
 
     @BeforeEach
     void setUp() {

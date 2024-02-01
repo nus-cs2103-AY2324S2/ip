@@ -1,6 +1,5 @@
 package duke;
 
-import duke.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.File;
