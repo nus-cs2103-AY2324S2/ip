@@ -1,6 +1,6 @@
-package lex;
+package lex.parser;
 
-public enum Command {
+public enum Instruction {
     LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BYE;
 
     @Override
