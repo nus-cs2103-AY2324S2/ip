@@ -4,7 +4,14 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class HardDiskOperations {
+public class Storage {
+
+    String filepath;
+
+    public Storage(String filepath) {
+        this.filepath = filepath;
+    }
+
     public static void saveTasks(ArrayList<Task> tasks, String filePath) {
         try (PrintWriter writer = new PrintWriter(filePath)) {
             for (Task task : tasks) {

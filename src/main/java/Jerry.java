@@ -4,124 +4,96 @@ import java.io.File;
 
 
 public class Jerry {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+    private Parser parser;
+
+    private String filePath;
+
+    public Jerry() {
+        filePath = "./data/jerry.txt";
+        ui = new Ui();
+        parser = new Parser();
+        storage = new Storage(filePath);
+    }
+
+
     public static void main(String[] args) {
-        File directory = new File("./data");
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+        new Jerry().run();
+    }
 
-        Scanner scanner = new Scanner(System.in);
-        String message = "Hello! I'm Jerry.\n" + "Anything I can do for you?";
-        System.out.println(message);
+    public void run() {
+//        File directory = new File("./data");
+//        if (!directory.exists()) {
+//            directory.mkdirs();
+//        }
 
-        ArrayList<Task> tasks = HardDiskOperations.loadTasks("./data/jerry.txt");
+        ui.showWelcome();
+        tasks = new TaskList(Storage.loadTasks(filePath));
+        boolean isExit = false;
 
-        while (true) {
-            String input = scanner.nextLine().trim();
-            String[] parts = input.split(" ", 2);
-            int taskIndex;
-            String command = parts[0].toLowerCase();
+        while (!isExit) {
+            String input = ui.readCommand();
+            Command command = parser.parse(input);
 
-            switch (command) {
-                case "bye":
-                    System.out.println("Bye!");
-                    scanner.close();
-                    return;
+            switch (command.getCommandType()) {
+                case BYE:
+                    isExit = true;
+                    break;
 
-                case "list":
-                    System.out.println("Here are the tasks in your list:");
-                    for (int x = 0; x < tasks.size() ; x++) {
-                        System.out.println((x + 1) + "." + tasks.get(x));
+                case LIST:
+                    ui.showList(tasks);
+                    break;
+
+                case MARK:
+                    tasks.mark(command.getTaskIndex());
+                    ui.showMark(tasks, command.getTaskIndex());
+                    break;
+
+                case UNMARK:
+                    tasks.unmark(command.getTaskIndex());
+                    ui.showUnmark(tasks, command.getTaskIndex());
+                    break;
+
+                case DELETE:
+                    tasks.deleteTask(command.getTaskIndex());
+                    ui.showDelete(tasks, command.getTaskIndex());
+                    break;
+
+                case ADD_TODO:
+                    ToDo todo = new ToDo(command.getParts());
+                    tasks.addTask(todo);
+                    ui.showAdded(todo, tasks);
+                    break;
+
+                case ADD_DEADLINE:
+                    String[] deadlineParts = command.getParts().split(" /by ", 2);
+                    Deadline deadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+                    if (!deadline.byIsNull()) {
+                        tasks.addTask(deadline);
+                        ui.showAdded(deadline, tasks);
                     }
                     break;
 
-                case "mark":
-                    taskIndex = Integer.parseInt(parts[1]) - 1;
-                    if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                        tasks.get(taskIndex).markDone();
-                        HardDiskOperations.saveTasks(tasks, "./data/jerry.txt");
-                        System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(taskIndex));
+                case ADD_EVENT:
+                    String[] eventParts = command.getParts().split(" /from ", 2);
+                    String[] fromTo = eventParts[1].split(" /to ", 2);
+                    Event event = new Event(eventParts[0], fromTo[0], fromTo[1]);
+                    if (!event.dateTimeIsNull()) {
+                        tasks.addTask(event);
+                        ui.showAdded(event, tasks);
                     }
                     break;
 
-                case "unmark":
-                    taskIndex = Integer.parseInt(parts[1]) - 1;
-                    if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                        tasks.get(taskIndex).markNotDone();
-                        HardDiskOperations.saveTasks(tasks, "./data/jerry.txt");
-                        System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(taskIndex));
-                    }
-                    break;
-
-                case "delete":
-                    if (parts.length < 2) {
-                        System.out.println("Error: Please specify the task number to delete\nUsage: delete <task number>");
-                    } else {
-                        try {
-                            taskIndex = Integer.parseInt(parts[1]) - 1;
-                            if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                                Task removedTask = tasks.remove(taskIndex);
-                                HardDiskOperations.saveTasks(tasks, "./data/jerry.txt");
-                                System.out.println("I've removed this task:\n  " + removedTask);
-                                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                            } else {
-                                System.out.println("Error: Task does not exist.");
-                            }
-                        } catch (NumberFormatException e) {
-                            System.out.println("Error: Please enter a number.");
-                        }
-                    }
-                    break;
-
-                case "todo":
-                    if (parts.length < 2) {
-                        System.out.println("Error: Wrong format \nUsage: todo <task description>");
-                    } else {
-                        ToDo todo = new ToDo(parts[1]);
-                        tasks.add(todo);
-                        HardDiskOperations.saveTasks(tasks, "./data/jerry.txt");
-                        System.out.println("Got it. I've added this task:\n  " + todo);
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-
-                    }
-                    break;
-
-                case "deadline":
-                    if (parts.length < 2 || !parts[1].contains(" /by ")) {
-                        System.out.println("Error: Wrong format, please include deadline \nUsage: deadline <task description> /by <date/time>");
-                    } else {
-                        String[] deadlineParts = parts[1].split(" /by ", 2);
-                        Deadline deadline = new Deadline(deadlineParts[0], deadlineParts[1]);
-                        if (!deadline.byIsNull()) {
-                            tasks.add(deadline);
-                            HardDiskOperations.saveTasks(tasks, "./data/jerry.txt");
-                            System.out.println("Got it. I've added this task:\n  " + deadline);
-                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                        }
-                    }
-                    break;
-
-                case "event":
-                    if (parts.length < 2 || !parts[1].contains(" /from ") || !parts[1].contains(" /to ")) {
-                        System.out.println("Error: Wrong format, please include start and end time \nUsage: event <task description> /from <start time> /to <end time>");
-                    } else {
-                        String[] eventParts = parts[1].split(" /from ", 2);
-                        String[] fromTo = eventParts[1].split(" /to ", 2);
-                        Event event = new Event(eventParts[0], fromTo[0], fromTo[1]);
-                        if (!event.dateTimeIsNull()) {
-                            tasks.add(event);
-                            HardDiskOperations.saveTasks(tasks, "./data/jerry.txt");
-                            System.out.println("Got it. I've added this task:\n  " + event);
-                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                        }
-                    }
-                    break;
-
-                default:
-                    System.out.println("Invalid Command");
+                case INVALID:
+                    ui.showMessage("Invalid Command");
                     break;
             }
+
+            Storage.saveTasks(tasks.getTasks(), "./data/jerry.txt");
         }
+        ui.showGoodbye();
     }
 }
 
