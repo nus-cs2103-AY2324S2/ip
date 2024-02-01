@@ -2,10 +2,6 @@ package duke.task;
 
 import duke.utils.DateTime;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class Event extends Task {
     protected DateTime from;
     protected DateTime to;
