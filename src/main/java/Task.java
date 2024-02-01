@@ -11,6 +11,10 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    };
+
     public void markAsDone() {
         this.isDone = true;
     }
@@ -22,6 +26,14 @@ public class Task {
     public void displayMessage(int currSize) {
         Reply replyToUser = new AddToListReply(this.description, currSize);
         replyToUser.displayMessage();
+    }
+
+    public String getType() {
+        return "Task";
+    }
+
+    public String getDesc() {
+        return this.description;
     }
 
     public String toString() {

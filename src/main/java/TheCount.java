@@ -13,6 +13,8 @@ public class TheCount {
         // Creates a list of tasks
         TaskList tasks = new TaskList();
 
+        Loader loader = new Loader(tasks);
+
         // Creates standard replies
         Reply greeting = new Greeting();
         Reply goodbye = new Goodbye();
@@ -57,6 +59,7 @@ public class TheCount {
                 default:
                     break;
             }
+            loader.write(tasks);
             userInput = scanner.nextLine();
         }
     }
@@ -73,7 +76,7 @@ public class TheCount {
     private static void handleMarkTask(String userInput, TaskList tasks) {
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
-            tasks.markTask(taskNumber);
+            tasks.markTask(taskNumber, true);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             handleException("Please put a number. I can't count that!");
         } catch (TheCountException e) {
@@ -84,7 +87,7 @@ public class TheCount {
     private static void handleUnmarkTask(String userInput, TaskList tasks) {
         try {
             int taskNumber = Integer.parseInt(userInput.split("\\s+")[1]);
-            tasks.unmarkTask(taskNumber);
+            tasks.unmarkTask(taskNumber, true);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             handleException("Please put a number. I can't count that!");
         } catch (TheCountException e) {
@@ -147,7 +150,13 @@ public class TheCount {
 
     private static String getTaskInfo(String userInput, String delimiter) throws TheCountException {
         try {
-            String info = userInput.split("\\s+", 2)[1].split(delimiter)[0].trim();
+            String info;
+            if (delimiter.equals(" ")) {
+                info = userInput.split("\\s+", 2)[1].trim();
+            } else {
+                info = userInput.split("\\s+", 2)[1].split(delimiter)[0].trim();
+            }
+            System.out.println(info);
             if (info.isEmpty()) {
                 // Throw an exception if task information is not provided
                 throw new TheCountException("Description of activity cannot be empty.");

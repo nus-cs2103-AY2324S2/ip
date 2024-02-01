@@ -8,6 +8,11 @@ public class ToDo extends Task {
         replyToUser.displayMessage();
     }
 
+    @Override
+    public String getType() {
+        return "T";
+    }
+
     public String toString() {
         return "[T]" + super.toString();
     }
