@@ -1,23 +1,30 @@
-public class Deadline extends Task {
+import java.time.LocalDateTime;
 
-    private String deadline;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
+import java.util.Locale;
+
+public class Deadline extends Task {
+    private LocalDateTime deadline;
+
+    private static final DateTimePrinter dateTimePrinter = new DateTimePrinter();
 
     public Deadline(String description, String deadline) {
         super(description);
-        this.deadline = deadline;
+        this.deadline = LocalDateTime.parse(deadline);
     }
 
     public Deadline(String description, String deadline, boolean isDone) {
         super(description, isDone);
-        this.deadline = deadline;
+        this.deadline = LocalDateTime.parse(deadline);
     }
 
-    public String getDeadline() {
+    public LocalDateTime getDeadline() {
         return this.deadline;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        return "[D]" + super.toString() + " (by: " + dateTimePrinter.print(this.deadline) + ")";
     }
 }
