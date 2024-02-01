@@ -10,6 +10,9 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents a deadline task.
+ */
 public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
@@ -54,6 +57,14 @@ public class Event extends Task {
             DateTimeFormatter.ofPattern("d/M/yyyy Hmm")
     );
 
+    /**
+     * Constructor for an event task.
+     *
+     * @param description Description of the event.
+     * @param from        Start date and time of the event.
+     * @param to          End date and time of the event.
+     * @throws DukeException If the date time format is invalid.
+     */
     public Event(String description, String from, String to) throws DukeException {
         super(description);
         this.from = parseDateTime(from);
@@ -88,6 +99,12 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Converts a date time to a string.
+     *
+     * @param s Date time to be converted.
+     * @return String representation of the date time.
+     */
     public String datetoString(LocalDateTime s) {
         if (s == null) {
             return "Invalid date time format. Please use the format dd-MM-yyyy HHmm";
@@ -95,6 +112,12 @@ public class Event extends Task {
         return s.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm"));
     }
 
+    /**
+     * Converts a date time to a string for saving.
+     *
+     * @param s Date time to be converted.
+     * @return String representation of the date time for saving.
+     */
     public String datetoSaveString(LocalDateTime s) {
         if (s == null) {
             return "Invalid date time format. Please use the format dd-MM-yyyy HHmm";
@@ -102,19 +125,39 @@ public class Event extends Task {
         return s.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
     }
 
+    /**
+     * Gets the start date and time of the event.
+     *
+     * @return Start date and time of the event.
+     */
     public LocalDateTime getFrom() {
         return this.from;
     }
 
+    /**
+     * Gets the end date and time of the event.
+     *
+     * @return End date and time of the event.
+     */
     public LocalDateTime getTo() {
         return this.to;
     }
 
+    /**
+     * Converts the event task to a string for saving.
+     *
+     * @return String representation of the event task for saving.
+     */
     @Override
     public String toFileFormat() {
         return "E | " + super.toFileFormat() + " | from " + this.datetoSaveString(this.getFrom()) + " to " + this.datetoSaveString(this.getTo());
     }
 
+    /**
+     * Converts the event task to a string.
+     *
+     * @return String representation of the event task.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.datetoString(this.getFrom()) + " to: " + this.datetoString(this.getTo()) + ")";

@@ -10,6 +10,9 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents a deadline task.
+ */
 public class Deadline extends Task {
     private LocalDateTime by;
     private static final List<DateTimeFormatter> DFORMATTERS = Arrays.asList(
@@ -52,6 +55,14 @@ public class Deadline extends Task {
             DateTimeFormatter.ofPattern("d/M/yyyy Hmm")
     );
 
+    
+    /**
+     * Constructor for a deadline task.
+     *
+     * @param description Description of the deadline task.
+     * @param by          Date and time of the deadline.
+     * @throws DukeException If the date and time format is invalid.
+     */
     public Deadline(String description, String by) throws DukeException {
         super(description);
         this.by = parseDateTime(by);
@@ -83,10 +94,22 @@ public class Deadline extends Task {
     }
 
 
+    /**
+     * Converts the date and time to a string.
+     *
+     * @param s Date and time to be converted.
+     * @return Date and time in string format.
+     */
     public String datetoString(LocalDateTime s) {
         return s.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm"));
     }
 
+    /**
+     * Converts the date and time to a string for saving.
+     *
+     * @param s Date and time to be converted.
+     * @return Date and time in string format for saving.
+     */
     public String datetoSaveString(LocalDateTime s) {
         if (s == null) {
             return "Invalid date time format. Please use the format dd-MM-yyyy HHmm";
@@ -94,15 +117,30 @@ public class Deadline extends Task {
         return s.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
     }
 
+    /**
+     * Gets the date and time of the deadline.
+     *
+     * @return Date and time of the deadline.
+     */
     public LocalDateTime getBy() {
         return this.by;
     }
 
+    /**
+     * Converts the deadline task to a string for saving.
+     *
+     * @return Deadline task in string format for saving.
+     */
     @Override
     public String toFileFormat() {
         return "D | " + super.toFileFormat() + " | " + this.datetoSaveString(this.getBy());
     }
 
+    /**
+     * Converts the deadline task to a string.
+     *
+     * @return Deadline task in string format.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.datetoString(this.getBy()) + ")";

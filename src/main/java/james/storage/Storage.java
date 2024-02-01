@@ -12,13 +12,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Represents the storage of tasks in the hard disk.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Creates a new Storage with the given file path.
+     *
+     * @param filePath File path to store the tasks in.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the tasks from the file path.
+     *
+     * @return List of tasks loaded from the file path.
+     * @throws IOException If an error occurs while loading the tasks.
+     */
     public ArrayList<Task> load() throws IOException {
         Path path = Paths.get(this.filePath);
         if (!Files.exists(path)) {
@@ -40,6 +54,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the tasks to the file path.
+     *
+     * @param tasks List of tasks to save to the file path.
+     * @throws IOException If an error occurs while saving the tasks.
+     */
     public void save(List<Task> tasks) throws IOException {
         List<String> lines = tasks.stream()
                                   .map(Task::toFileFormat)

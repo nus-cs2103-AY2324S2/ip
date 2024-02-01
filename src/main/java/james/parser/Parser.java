@@ -7,7 +7,18 @@ import james.tasks.Event;
 import james.tasks.Task;
 import james.tasks.Todo;
 
+/**
+ * Represents a parser to parse user input into commands.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input into a command.
+     *
+     * @param userInput User input to be parsed.
+     * @return Command parsed from the user input.
+     * @throws DukeException If an error occurs during parsing.
+     */
     public static Command parse(String userInput) throws DukeException {
         String[] parts = userInput.trim().split(" ", 2);
         String commandWord = parts[0].toLowerCase();
@@ -79,6 +90,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a line from the storage file into a task.
+     *
+     * @param line Line from the storage file to be parsed.
+     * @return Task parsed from the line.
+     * @throws DukeException If an error occurs during parsing.
+     */
     public static Task parseLineToTask(String line) throws DukeException {
         String[] parts = line.split(" \\| ");
 
