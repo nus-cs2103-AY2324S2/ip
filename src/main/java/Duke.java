@@ -1,4 +1,7 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Duke {
@@ -160,16 +163,20 @@ public class Duke {
                             throw new DukeException("Invalid command >:(");
                         }
                     }
+                try {
+                    saveTasks();
+                } catch (IOException e) {
+                    System.out.println("Error loading tasks: " + e.getMessage());
+                }
                 } else {
                     throw new DukeException("Gurl I'm sorry, idk what that means :-(");
                 }
-
-                //saveTasks();
             } catch (DukeException e) {
                 System.out.println("    ____________________________________________________________");
                 System.out.println("     OOPS!!! " + e.getMessage());
                 System.out.println("    ____________________________________________________________");
             }
+
         }
     }
 
@@ -180,43 +187,52 @@ public class Duke {
         tasks[tasknum - 1] = null;
     }
 
-    private static void loadTasks(Task[] tasks) {
+    private static void saveTasks() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+
+        for (int i = 0; i < taskNum; i++) {
+            writer.write(tasks[i].toSaveString());
+            writer.newLine();
+        }
+
+        writer.close();
     }
 
     private static void loadTasks() throws IOException {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+        Path filePath = Paths.get(FILE_PATH);
+        if (!Files.exists(filePath)) {
+            return;
+        }
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                char taskType = line.charAt(0);
-                boolean isDone = line.charAt(4) == '1';
+        BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
 
-                int Sep1 = line.indexOf(" | ", 6);
-                int Sep2 = line.indexOf(" | ", Sep1 + 3);
-                int to = line.indexOf(" - ", Sep1 + 3);
+        String line;
+        while ((line = reader.readLine()) != null) {
+            char taskType = line.charAt(0);
+            boolean isDone = line.charAt(4) == '1';
 
-                String description = line.substring(Sep1 + 3, Sep2);
+            int Sep1 = line.indexOf(" | ", 6);
+            int Sep2 = line.indexOf(" | ", Sep1 + 3);
+            int to = line.indexOf(" - ", Sep1 + 3);
 
-                if (taskType == 'T') {
-                    tasks[taskNum] = new Todo(description);
-                } else if (taskType == 'D') {
-                    String by = line.substring(Sep2 + 3);
-                    tasks[taskNum] = new Deadline(description, by);
-                } else if (taskType == 'E') {
-                    String from = line.substring(Sep2 + 3);
-                    String too = line.substring(to + 3);
-                    tasks[taskNum] = new Event(description, from, too);
-                }
+            String description = line.substring(Sep1 + 3, Sep2);
 
-                if (isDone) {
-                    tasks[taskNum].markAsDone();
-                }
-
-                taskNum++;
+            if (taskType == 'T') {
+                tasks[taskNum] = new Todo(description);
+            } else if (taskType == 'D') {
+                String by = line.substring(Sep2 + 3);
+                tasks[taskNum] = new Deadline(description, by);
+            } else if (taskType == 'E') {
+                String from = line.substring(Sep2 + 3);
+                String too = line.substring(to + 3);
+                tasks[taskNum] = new Event(description, from, too);
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File doesn't exist??");
+
+            if (isDone) {
+                tasks[taskNum].markAsDone();
+            }
+
+            taskNum++;
         }
     }
 }
