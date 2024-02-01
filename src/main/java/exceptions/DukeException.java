@@ -6,6 +6,11 @@ public class DukeException extends RuntimeException {
         super(error);
     }
 
+    /**
+     * {@inheritDoc}
+     * Gives a description of the error.
+     * @return Message on the error.
+     */
     @Override
     public String getMessage() {
         return super.getMessage();

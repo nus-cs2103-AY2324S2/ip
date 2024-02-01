@@ -27,10 +27,11 @@ public class Duke{
     }
 
     /**
+     * Performs the appropriate action based on the user's input of the task.
+     * From adding of tasks which can be todos, deadlines and events, deleting and marking and unmarking them.
      *
-     *
-     * @param userInput
-     * @param todos
+     * @param userInput user's commands
+     * @param todos the list of tasks that are currently present.
      * @param verbose helps to ensure whether we are preloading (includes the need to save the entries)
      * @throws RuntimeException
      */
@@ -204,6 +205,11 @@ public class Duke{
         storage = new Storage(filePath);
     }
 
+
+    /**
+     * With a Duke object, .run() is the main entry point of the program, running all its processes.
+     *
+     */
     public void run() {
         //do something
         ui.formalities("greet");
