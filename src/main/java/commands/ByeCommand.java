@@ -7,7 +7,7 @@ import ui.Ui;
 import java.io.IOException;
 
 
-public class ByeCommand extends Command {
+public class ByeCommand extends  Command {
 
     public static final String COMMAND = "bye";
 

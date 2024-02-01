@@ -57,6 +57,20 @@ public class Task {
         return s;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Task)) {
+            return false;
+        }
+
+        Task t = (Task) o;
+        return this.task.equals(t.task);
+    }
+
     /**
      * Convert this task.Task to a string.
      * @return A string representation of task.Task, including its status.

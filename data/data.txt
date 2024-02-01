@@ -1,2 +1,0 @@
-T|1|showering
-D|0|to homework |later
