@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -13,7 +17,7 @@ public class TaskList {
         this.taskList = existing.taskList;
     }
 
-    // TaskList actions
+    // duke.TaskList actions
     public void addTask(Task task) {
         this.taskList.add(task);
     }

@@ -1,7 +1,9 @@
+package duke.utils;
+
 import java.util.Random;
 
 public class Ui {
-    protected static final String LINE =
+    public static final String LINE =
             "_________________________________________________________________________\n";
 
     private static final String[] catchphrases = {

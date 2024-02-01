@@ -1,3 +1,7 @@
+package duke;
+
+import duke.utils.Ui;
+
 import java.util.*;
 public class Duke {
     private Storage storage;

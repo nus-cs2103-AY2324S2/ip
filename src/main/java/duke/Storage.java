@@ -1,7 +1,10 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Arrays;
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
+
+import java.io.*;
 import java.util.Scanner;
 
 public class Storage {
@@ -53,7 +56,19 @@ public class Storage {
         }
     }
 
-    public void writeTasks(TaskList tasks){
-        tasks.getTasks().forEach((task) -> task.writeTask(this.path));
+    public void writeTasks(TaskList tasks) {
+        try (BufferedWriter reset = new BufferedWriter(new FileWriter(this.path))){
+            reset.write("");
+            tasks.getTasks().forEach((task) -> {
+                try (BufferedWriter out = new BufferedWriter(new FileWriter(this.path, true))){
+                    out.write(task.writeContent());
+                    out.newLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
