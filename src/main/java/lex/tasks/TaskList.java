@@ -1,4 +1,4 @@
-package lex;
+package lex.tasks;
 
 import java.util.ArrayList;
 

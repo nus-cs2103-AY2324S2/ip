@@ -5,6 +5,7 @@ import java.util.Scanner;
 import lex.parser.Parser;
 import lex.parser.command.Command;
 import lex.storage.Storage;
+import lex.tasks.TaskList;
 import lex.ui.Ui;
 
 public class Lex {

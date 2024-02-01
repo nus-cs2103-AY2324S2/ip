@@ -1,6 +1,6 @@
 package lex.parser.command;
 
-import lex.TaskList;
+import lex.tasks.TaskList;
 import lex.tasks.Task;
 import lex.ui.Ui;
 
