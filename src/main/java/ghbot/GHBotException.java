@@ -1,12 +1,14 @@
+package ghbot;
+
 /**
- * DukeException Class.
+ * GHBotException Class.
  */
-public class DukeException extends Exception {
+public class GHBotException extends Exception {
     /**
      * DukeException Constructor.
      * @param errorMessage A error message.
      */
-    public DukeException(String errorMessage){
+    public GHBotException(String errorMessage){
         super(errorMessage);
     }
 }

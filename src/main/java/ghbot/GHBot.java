@@ -1,12 +1,14 @@
+package ghbot;
+
 import java.io.IOException;
 
 import java.time.format.DateTimeParseException;
 
 /**
- * Duke Class.
+ * GHBot Class.
  * This is the main class for the chatbot.
  */
-public class Duke {
+public class GHBot {
 
     public static void main(String[] args) {
         String fileName = "./data/history.txt";
@@ -18,7 +20,7 @@ public class Duke {
             try {
                 String[] subStr = ui.validateInput();
                 Parser.parse(subStr, lst, storage);
-            } catch (DukeException | IOException | DateTimeParseException e) {
+            } catch (GHBotException | IOException | DateTimeParseException e) {
                 System.out.println(e.getMessage());
             }
         }

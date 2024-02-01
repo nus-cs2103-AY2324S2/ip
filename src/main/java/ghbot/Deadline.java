@@ -1,14 +1,16 @@
+package ghbot;
+
 /**
- * Deadline class.
+ * ghbot.Deadline class.
  * This class contains informations about the deadline.
  */
 public class Deadline extends Task {
     private String time;
 
     /**
-     * Deadline Constructor.
+     * ghbot.Deadline Constructor.
      * @param description Description of the event.
-     * @param time Deadline for the task.
+     * @param time ghbot.Deadline for the task.
      */
     public Deadline(String description, String time) {
         super(description);

@@ -1,5 +1,7 @@
+package ghbot;
+
 /**
- * Task class.
+ * ghbot.Task class.
  * This class contains informations about the task.
  */
 public class Task {
@@ -7,7 +9,7 @@ public class Task {
     private boolean isDone;
 
     /**
-     * Task Constructor.
+     * ghbot.Task Constructor.
      * @param description Description of the task.
      */
     public Task(String description) {
