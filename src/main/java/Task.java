@@ -1,5 +1,5 @@
-public class Task {
-
+public class Task {    
+    public static int EXPECTED_FIELDS = 3;
     public String name;
     public boolean done;
 
@@ -30,5 +30,23 @@ public class Task {
 
     public void unmark() {
         this.done = false;
+    }
+
+    public boolean isMarked() {
+        return this.done;
+    }
+
+    private int isMarkedAsInt() {
+        return (this.done) ? 1 : 0;
+    }
+
+    protected String[] exportDataAsArray() {
+        String[] data = new String[]{(String)this.typeOfTask(), this.name, Integer.toString(this.isMarkedAsInt())};
+        return data;
+    }
+
+    public String exportData() {
+        String data = String.join(" ", this.exportData());
+        return data;
     }
 }
