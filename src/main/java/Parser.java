@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import exceptions.*;
 import tasks.*;
 
+/**
+ * Parser class for Steven
+ * Mainly used to understand the input given by the user and interpreting what the user wants
+ */
 public class Parser {
     private final UserInput userInput;
     private TaskList taskList;
@@ -11,11 +15,21 @@ public class Parser {
     private static final String corrupted = "Oh dear, looks like the file used to handle the data I'm supposed to store is corrupted...\nSteven's Advice: You may need to re-create the file!";
     private static final String formatError = "My, it would appear as though you didn't format your instruction properly!\n";
     private static final String dateErr = "Ah, this one might be slightly complicated - I need your date in the format of \"yyyy-mm-dd\", and I'm quite strict with this, unfortunately.\nSteven's advice: Follow the format, append your days/months with zero as necessary! For example, \"03\" is accepted for the month of March, but not \"3\"!";
+
+    /**
+     * Constructor for the Parser class
+     * @param userInput The input of the user, broken down into arguments
+     * @param taskList The list of tasks currently
+     */
     Parser (UserInput userInput, TaskList taskList) {
         this.userInput = userInput;
         this.taskList = taskList;
     }
 
+    /**
+     * Processes a given input and carries out the appropriate action
+     * @return True, if the program exits ("bye"). False otherwise
+     */
     public boolean processInput() {
         switch (userInput.getInputName()) {
             case "list":

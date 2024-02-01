@@ -1,9 +1,20 @@
+/**
+ * Class for receiving user input and storing it as separate arguments.
+ */
 public class UserInput {
     private final String name;
     private final String arg1;
     private final String arg2;
     private final String arg3;
 
+    /**
+     * Constructor class for UserInput.
+     * It will separate the user's input into a name and 3 arguments.
+     * The name will be the first word, separated by whitespace
+     * the other 3 parameters will be separated by the terms "/from", "/by", and "/to".
+     * If any of the 3 parameters are left blank, then it will be treated as null.
+     * @param input String input of the user
+     */
     UserInput(String input) {
         String[] readInput = input.split(" ", 2);
         this.name = readInput[0].trim();

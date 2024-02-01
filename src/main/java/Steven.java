@@ -1,12 +1,20 @@
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
+
+/**
+ * Main code for running Steven
+ */
 public class Steven {
 
     private Storage storage;
     private TaskList tasks;
     private static final String line = "========\n";
     private static final String bootMsg = ("This is Steven!\nHow can I advise?\n");
+
+    /**
+     * Constructor class for Steven
+     */
     public Steven() {
         this.storage = new Storage();
         this.tasks = new TaskList(storage);
@@ -25,6 +33,9 @@ public class Steven {
         System.out.print(line);
     }
 
+    /**
+     * Driver code for Steven. It will run the entire program
+     */
     public void run() {
         boolean exit = false;
         while (!exit) {
