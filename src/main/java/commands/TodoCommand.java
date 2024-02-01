@@ -4,6 +4,9 @@ import exceptions.DukeException;
 import task.Task;
 import ui.Ui;
 
+/**
+ * Encapsulates a todo command.
+ */
 public class TodoCommand extends Command {
 
     public static final String COMMAND = "todo";
@@ -13,6 +16,10 @@ public class TodoCommand extends Command {
         this.name = s;
     }
 
+    /**
+     * Adds a Task into TaskList.
+     * @throws DukeException Throws an exception when invalid input is provided.
+     */
     @Override
     public void execute() throws DukeException {
         if (name.isEmpty()) {

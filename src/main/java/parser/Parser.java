@@ -3,7 +3,11 @@ package parser;
 import commands.*;
 
 public class Parser {
-
+    /**
+     * Returns a Command class based on input type.
+     * @param input An array of strings split by spaces.
+     * @return Command
+     */
     public Command parseCommand(String[] input) {
         StringBuilder name;
         StringBuilder current;
@@ -24,7 +28,7 @@ public class Parser {
 
         case TodoCommand.COMMAND:
             name = new StringBuilder();
-            for (int j=1; j<input.length; j++) {
+            for (int j = 1; j < input.length; j++) {
                 name.append(input[j]).append(" ");
             }
             return new TodoCommand(name.toString());
@@ -33,8 +37,7 @@ public class Parser {
             name =  new StringBuilder();
             StringBuilder by =  new StringBuilder();
             current = name;
-            int i = 1;
-            for (; i<input.length; i++) {
+            for (int i = 1; i < input.length; i++) {
                 if (input[i].equals("/by")) {
                     name = current;
                     current = by;
@@ -50,8 +53,7 @@ public class Parser {
             StringBuilder from =  new StringBuilder();
             StringBuilder to =  new StringBuilder();
             current = name;
-            i = 1;
-            for (; i<input.length; i++) {
+            for (int i = 1; i < input.length; i++) {
                 if (input[i].equals("/from")) {
                     name = current;
                     current = from;

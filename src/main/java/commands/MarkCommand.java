@@ -3,6 +3,9 @@ package commands;
 import task.Task;
 import ui.Ui;
 
+/**
+ * Encapsulates a mark command.
+ */
 public class MarkCommand extends Command {
 
     public static final String COMMAND = "mark";
@@ -12,10 +15,13 @@ public class MarkCommand extends Command {
         this.index = i;
     }
 
+    /**
+     * Sets this task to complete status.
+     */
     @Override
     public void execute() {
         try {
-            Task toMark = tasks.get(index-1);
+            Task toMark = tasks.get(index - 1);
             Ui.printVLine();
             System.out.println("Acknowledged!!\n" + toMark.setDone());
             Ui.printVLine();
