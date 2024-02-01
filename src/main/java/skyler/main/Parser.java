@@ -52,6 +52,8 @@ public class Parser {
             TaskList.markTask(userInput);
         } else if (userInput.startsWith("unmark")) {
             TaskList.unmarkTask(userInput);
+        } else if (userInput.startsWith("find")) {
+            TaskList.findTasks(userInput.substring(5).trim());
         } else if (userInput.startsWith("view")) {
             TaskList.viewTasksOnDate(userInput);
         } else {

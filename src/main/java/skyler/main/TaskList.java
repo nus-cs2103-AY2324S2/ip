@@ -1,7 +1,9 @@
 package skyler.main;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import skyler.task.Deadline;
@@ -129,6 +131,27 @@ public class TaskList {
         return taskId > 0 && taskId <= tasks.size();
     }
 
+    public static void findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            System.out.println("Skyler: No matching tasks found.");
+        } else {
+            System.out.println("Skyler: Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println(" " + (i + 1) + "." + matchingTasks.get(i));
+            }
+        }
+
+        System.out.println("------------------------------------------------------------");
+    }
+
     /**
      * Views tasks on the specified date, based on the provided user input, and
      * prints them.
@@ -167,5 +190,3 @@ public class TaskList {
         }
     }
 }
-
-
