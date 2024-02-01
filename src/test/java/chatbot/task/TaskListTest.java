@@ -17,15 +17,15 @@ public class TaskListTest {
         assertEquals("1. [T][ ] do todo\n",
                 taskList.toString());
 
-        taskList.add(new Deadline("do deadline", DateStringValue.of("today")));
+        taskList.add(new Deadline("do deadline", new DateStringValue("today")));
         assertEquals(
                 "1. [T][ ] do todo\n" +
                         "2. [D][ ] do deadline (by: today)\n",
                 taskList.toString());
 
         taskList.add(new Event("do event",
-                DateStringValue.of("2pm"),
-                DateStringValue.of("4pm")));
+                new DateStringValue("2pm"),
+                new DateStringValue("4pm")));
         assertEquals(
                 "1. [T][ ] do todo\n" +
                         "2. [D][ ] do deadline (by: today)\n" +

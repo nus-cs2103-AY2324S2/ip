@@ -44,7 +44,7 @@ public final class Deadline extends Task {
      */
     public Deadline(Matcher matcher) throws InvalidTaskStringException {
         super(matcher);
-        this.deadline = DateStringValue.of(matcher.group("by"));
+        this.deadline = new DateStringValue(matcher.group("by"));
     }
 
     /**

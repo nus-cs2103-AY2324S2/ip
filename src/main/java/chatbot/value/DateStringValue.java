@@ -34,16 +34,16 @@ public final class DateStringValue extends StringValue {
             .toFormatter();
 
     /**
-     * Takes in a string, but tries to convert it to a date.
+     * Takes in a string, but tries to convert it to a {@link LocalDate}.
      *
      * @param value the value as a {@link String}
      */
-    private DateStringValue(String value) {
+    public DateStringValue(String value) {
         super(value);
 
         LocalDate date = null;
         try {
-            date = LocalDate.parse(value.trim(), DATE_TIME_FORMATTER);
+            date = LocalDate.parse(super.toString(), DATE_TIME_FORMATTER);
         } catch(DateTimeParseException e) {
             // invalid date
         } finally {
@@ -52,23 +52,12 @@ public final class DateStringValue extends StringValue {
     }
 
     /**
-     * Factory method for taking in a {@link StringValue}, but tries to convert it to a {@link LocalDate}.
+     * Takes in a {@link StringValue}, but tries to convert it to a {@link LocalDate}.
      *
-     * @param value the value as a {@link String}
-     * @see DateStringValue#of(String)
+     * @param value the value as a {@link StringValue}
      */
-    public static DateStringValue of(StringValue value) {
-        return new DateStringValue(value.toString());
-    }
-
-    /**
-     * Factory method for taking in a {@link StringValue}, but tries to convert it to a {@link LocalDate}.
-     *
-     * @param value the value as a {@link String}
-     * @see DateStringValue#of(StringValue)
-     */
-    public static DateStringValue of(String value) {
-        return new DateStringValue(value);
+    public DateStringValue(StringValue value) {
+        this(value.toString());
     }
 
     @Override

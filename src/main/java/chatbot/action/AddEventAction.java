@@ -43,8 +43,8 @@ public final class AddEventAction extends Action {
     @Override
     public void execute(TaskList taskList) {
         String name = findDefaultArgument().toString();
-        DateStringValue from = DateStringValue.of(findArgument("from")),
-                to = DateStringValue.of(findArgument("to"));
+        DateStringValue from = new DateStringValue(findArgument("from")),
+                to = new DateStringValue(findArgument("to"));
 
         // Perform behaviour
         Task task = taskList.addEvent(name, from, to);

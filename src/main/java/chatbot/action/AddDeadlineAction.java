@@ -40,7 +40,7 @@ public final class AddDeadlineAction extends Action {
     @Override
     public void execute(TaskList taskList) {
         String name = findDefaultArgument().toString();
-        DateStringValue by = DateStringValue.of(findArgument("by"));
+        DateStringValue by = new DateStringValue(findArgument("by"));
 
         // Perform behaviour
         Task task = taskList.addDeadline(name, by);
