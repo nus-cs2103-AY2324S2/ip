@@ -11,6 +11,7 @@ import seedu.chatteroo.storage.Storage;
 public class Command {
     private int taskNum;
     private Task newTask;
+    private String keyword;
 
     /**
      * Constructor for the Command class.
@@ -25,6 +26,13 @@ public class Command {
      */
     public Command(Task task) {
         this.newTask = task;
+    }
+    /**
+     * Constructor for the Command class.
+     * @param keyword The keyword to be searched.
+     */
+    public Command(String keyword) {
+        this.keyword = keyword;
     }
     /**
      * Constructor for the Command class.

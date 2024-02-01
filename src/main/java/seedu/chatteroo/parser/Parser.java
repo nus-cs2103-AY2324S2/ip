@@ -1,12 +1,14 @@
 package seedu.chatteroo.parser;
 
-import seedu.chatteroo.commands.Command;
-import seedu.chatteroo.commands.PrintCommand;
-import seedu.chatteroo.commands.MarkCommand;
-import seedu.chatteroo.commands.UnmarkCommand;
-import seedu.chatteroo.commands.DeleteCommand;
 import seedu.chatteroo.commands.AddCommand;
+import seedu.chatteroo.commands.Command;
+import seedu.chatteroo.commands.DeleteCommand;
 import seedu.chatteroo.commands.ExitCommand;
+import seedu.chatteroo.commands.FindCommand;
+import seedu.chatteroo.commands.MarkCommand;
+import seedu.chatteroo.commands.PrintCommand;
+import seedu.chatteroo.commands.UnmarkCommand;
+
 
 import seedu.chatteroo.tasks.Task;
 import seedu.chatteroo.tasks.ToDo;
@@ -44,6 +46,12 @@ public class Parser {
         case "DELETE":
             taskNum = Integer.parseInt(inputArr[1]);
             return new DeleteCommand(taskNum);
+        case "FIND":
+            if (input.length() < 5) {
+                throw new Exception("ChatterOOHNOO! A find's description cannot be empty!");
+            }
+            String keyword = input.substring(5);
+            return new FindCommand(keyword);
         case "TODO":
             if (input.length() < 5) {
                 throw new Exception("ChatterOOHNOO! A todOO's description cannot be empty!");
