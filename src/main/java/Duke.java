@@ -64,8 +64,6 @@ public class Duke {
         if (identifier.equals("list")) {
             printTaskList(arguments);
         } else if (identifier.contains("mark")) {
-            int taskNum = Integer.parseInt(arguments) - 1;
-            Task selectedTask = tasks.get(taskNum);
             if (identifier.equals("mark")) {
                 markTask(arguments);
             } else {
