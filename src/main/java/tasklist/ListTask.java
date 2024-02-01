@@ -17,7 +17,7 @@ public class ListTask {
 
     /**
      * List out all the tasks
-     * @param taskList
+     * @param taskList List of tasks
      */
     public static void execListTask(List<Task> taskList) {
         System.out.println("Here are the tasks in your list:");
