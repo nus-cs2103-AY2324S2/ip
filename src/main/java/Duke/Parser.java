@@ -28,6 +28,9 @@ public class Parser {
             } else if (checkIfBaseCommand(userInputLowercase)) {
                 handleBaseCommand(userInput.split(" "));
                 storage.writeToFile(tasklist);
+            } else if (checkIfFind(userInputLowercase)) {
+                handleFind(userInput.split(" "));
+                storage.writeToFile(tasklist);
             } else if (checkIfLeave(userInputLowercase)) {
                 ui.goodbye();
                 break;
@@ -77,6 +80,19 @@ public class Parser {
 
         } catch (ArrayIndexOutOfBoundsException b) {
             System.out.println("Please enter a event with the format event eventname /from dd/mm/yyyy /to dd/mm/yyyy!");
+        }
+    }
+
+    public void handleFind(String[] commandsplit) {
+        try {
+            String findTarget = commandsplit[1].toLowerCase();
+            for (int i = 0; i < tasklist.length(); i++) {
+                if (tasklist.getTask(i).getDescription().toLowerCase().contains(findTarget)) {
+                    System.out.println(tasklist.getTask(i));
+                }
+            }
+        } catch (Error e) {
+            System.out.println("[angry quacking] I can only find words!");
         }
     }
 
@@ -177,10 +193,14 @@ public class Parser {
         return (f.startsWith("mark ") || f.startsWith("unmark ") || f.startsWith("delete "));
     }
 
+    public boolean checkIfFind(String f) {
+        return (f.startsWith("find "));
+    }
+
     public void handleBaseCommand(String[] commandsplit) {
         String firstword = commandsplit[0].toLowerCase();
-        int num = Integer.parseInt(commandsplit[1]);
         try {
+            int num = Integer.parseInt(commandsplit[1]);
             if (firstword.equals("mark")) {
                 tasklist.mark(num - 1);
             } else if (firstword.equals("unmark")) {
