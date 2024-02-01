@@ -16,40 +16,37 @@ public class TaskList {
         System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
     }
 
-    public void delete(int taskNumber) throws DukeException {
+    public String delete(int taskNumber) throws DukeException {
         if (taskNumber > tasks.size()) {
             throw new DukeException("You do not have " + taskNumber + " tasks.");
         }
-
         Task t = tasks.remove(taskNumber - 1);
-        System.out.println("Ok, I've removed this task:");
-        System.out.println(t);
-        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+        return t.toString();
     }
 
-    public void mark(int taskNumber) throws DukeException {
+    public String mark(int taskNumber) throws DukeException {
         if (taskNumber > tasks.size()) {
             throw new DukeException("You do not have " + taskNumber + " tasks.");
         }
-
         Task t = tasks.get(taskNumber - 1);
         t.mark();
-        System.out.println("Nice, I've marked this task as done:");
-        System.out.println(t);
+        return t.toString();
     }
 
-    public void unmark(int taskNumber) throws DukeException {
+    public String unmark(int taskNumber) throws DukeException {
         if (taskNumber > tasks.size()) {
             throw new DukeException("You do not have " + taskNumber + " tasks.");
         }
 
         Task t = tasks.get(taskNumber - 1);
         t.unmark();
-        System.out.println("Ok, I've marked this task as not done yet:");
-        System.out.println(t);
+        return t.toString();
     }
 
     public ArrayList<Task> getTasks() {
         return this.tasks;
+    }
+    public int size() {
+        return this.tasks.size();
     }
 }
