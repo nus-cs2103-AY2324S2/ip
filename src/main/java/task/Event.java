@@ -2,6 +2,7 @@ package task;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
 
@@ -21,8 +22,10 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString()
-                + " (from: " + startDate + " " + startTime
-                + " | to: " + endDate + " " + endTime + ")";
+        return "[E]" + super.toString() + " (from: "
+                + startDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"))
+                + " " + startTime + " | to: "
+                + endDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"))
+                + " " + endTime + ")";
     }
 }
