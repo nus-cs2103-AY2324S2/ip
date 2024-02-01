@@ -107,4 +107,41 @@ public class TaskList {
     public static Task getTask(int idx) {
         return taskList.get(idx - 1);
     }
+
+    /**
+     * Finds and displays tasks in the task list that match the provided search string.
+     *
+     * This method iterates through the task list, checking if each task's string representation
+     * contains the provided search string (case-insensitive). Matching tasks are displayed with
+     * their corresponding index and task details. If no matches are found, an appropriate message
+     * is printed to indicate no matching tasks.
+     *
+     * @param search The search string to match against task names.
+     */
+    public static void findTask(String search) {
+        boolean isThereMatch = false; // Flag to track if any matching tasks are found
+        int number = 1; // Counter for displaying the index of matching tasks
+
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            String taskName = task.toString2();
+
+            // Check if the task name contains the search string (case-insensitive)
+            if (taskName.toLowerCase().contains(search.toLowerCase())) {
+                if (!isThereMatch) {
+                    System.out.println("Here are the matching tasks in your list: ");
+                    isThereMatch = true;
+                }
+                System.out.println(number + ". " + task);
+                number++;
+            }
+        }
+    
+        // Print a message if no matching tasks are found
+        if (!isThereMatch) {
+            System.out.println("No matching tasks found!");
+        }
+    }
+
 }
+
