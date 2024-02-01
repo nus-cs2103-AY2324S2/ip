@@ -5,11 +5,13 @@ import task.Event;
 import task.Task;
 import task.ToDo;
 
-import java.io.*;
+import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,11 +143,22 @@ public class Storage {
         for (String i : content) {
             String[] stringAttributes = i.split("\\|");
             if (stringAttributes[0].trim().equals("T")) {
-                fileTasks.add(new ToDo(stringAttributes[2].trim(), stringAttributes[1].trim().equals("1") ? true : false));
+                fileTasks.add(new ToDo(
+                        stringAttributes[2].trim(),
+                        stringAttributes[1].trim().equals("1") ? true : false));
+
             } else if (stringAttributes[0].trim().equals("D")) {
-                fileTasks.add(new Deadline(stringAttributes[2].trim(), stringAttributes[1].trim().equals("1") ? true : false, DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim())));
+                fileTasks.add(new Deadline(
+                        stringAttributes[2].trim(),
+                        stringAttributes[1].trim().equals("1") ? true : false,
+                        DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim())));
+
             } else if (stringAttributes[0].trim().equals("E")) {
-                fileTasks.add(new Event(stringAttributes[2].trim(), stringAttributes[1].trim().equals("1") ? true : false, DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim()), DateTimeManager.convertStringToLocalDateTime(stringAttributes[4].trim())));
+                fileTasks.add(new Event(
+                        stringAttributes[2].trim(),
+                        stringAttributes[1].trim().equals("1") ? true : false,
+                        DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim()),
+                        DateTimeManager.convertStringToLocalDateTime(stringAttributes[4].trim())));
             }
         }
 
@@ -165,11 +178,22 @@ public class Storage {
         for (String i : individualStringTask) {
             String[] stringAttributes = i.split("|");
             if (stringAttributes[0].equals("T")) {
-                fileTasks.add(new ToDo(stringAttributes[2].trim(), stringAttributes[1].equals("1") ? true : false));
+                fileTasks.add(new ToDo(
+                        stringAttributes[2].trim(),
+                        stringAttributes[1].equals("1") ? true : false));
+
             } else if (stringAttributes[0].equals("D")) {
-                fileTasks.add(new Deadline(stringAttributes[2].trim(), stringAttributes[1].equals("1") ? true : false, DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim())));
+                fileTasks.add(new Deadline(
+                        stringAttributes[2].trim(),
+                        stringAttributes[1].equals("1") ? true : false,
+                        DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim())));
+
             } else if (stringAttributes[0].equals("E")) {
-                fileTasks.add(new Event(stringAttributes[2].trim(), stringAttributes[1].equals("1") ? true : false, DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim()), DateTimeManager.convertStringToLocalDateTime(stringAttributes[4].trim())));
+                fileTasks.add(new Event(
+                        stringAttributes[2].trim(),
+                        stringAttributes[1].equals("1") ? true : false,
+                        DateTimeManager.convertStringToLocalDateTime(stringAttributes[3].trim()),
+                        DateTimeManager.convertStringToLocalDateTime(stringAttributes[4].trim())));
             }
         }
         return fileTasks;

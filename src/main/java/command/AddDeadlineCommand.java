@@ -5,6 +5,7 @@ import duke.DukeException;
 import duke.TaskList;
 import duke.Ui;
 import duke.Storage;
+
 import task.Deadline;
 import task.Task;
 
@@ -51,12 +52,14 @@ public class AddDeadlineCommand extends Command {
         }
         String name = deadlineSplit[0].substring(9).trim();
         String by = deadlineSplit[1].substring(3).trim();
+
         LocalDateTime byDt = DateTimeManager.convertStringToLocalDateTime(by);
         Deadline newDeadline = new Deadline(name,false, byDt);
         tasks.addTask(newDeadline);
         ArrayList<Task> newDeadlineList = new ArrayList<>();
         newDeadlineList.add(newDeadline);
         storage.writeArrayListToFile(newDeadlineList, false);
+
         ui.printAnyStatement("Got it. I've added this task:");
         ui.printAnyStatement(newDeadline.toString());
         ui.printAnyStatement("Now you have " + tasks.getTasks().size() + " tasks in the list.");

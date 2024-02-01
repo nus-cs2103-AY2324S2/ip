@@ -5,8 +5,7 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+
 
 /**
  * A superclass and abstract class.
@@ -22,6 +21,7 @@ public abstract class Command {
     public Command() {
         isExit = false;
     }
+
 
     /**
      * Executes some actions by the subclasses.

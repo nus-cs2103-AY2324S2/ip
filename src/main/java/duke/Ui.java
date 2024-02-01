@@ -73,27 +73,18 @@ public class Ui {
         System.out.println("    ____________________________________________________________\n");
     }
 
-    /**
-     * Prints when none of the feature is selected.
-     */
-    public void invalidFeature() {
+
+
+    public void printInvalidFeature() {
         System.out.println("      I'm sorry, I do not understand that.");
     }
 
-    /**
-     * Prints an error about the loading of data from the file.
-     */
-    public void showLoadingError() {
+
+    public void printLoadingError() {
         System.out.println("    Unable to load the data from the file.");
     }
 
-
-    /**
-     * Prints any error message.
-     *
-     * @param e the error message to be printed.
-     */
-    public void showError(String e) {
+    public void printError(String e) {
         System.out.println("    " + e);
     }
 

@@ -1,9 +1,7 @@
 package duke;
 
 import command.Command;
-import duke.Ui;
-import duke.Storage;
-import duke.TaskList;
+
 
 /**
  * The Main class of this program.
@@ -31,7 +29,7 @@ public class Duke {
         try {
             tasks = new TaskList(storage.loadTasksFromFile());
         } catch (DukeException e) {
-            ui.showLoadingError();
+            ui.printLoadingError();
             tasks = new TaskList();
         }
     }
@@ -48,11 +46,12 @@ public class Duke {
             try {
                 String command = ui.readCommand();
                 ui.printOpeningDottedLine();
+
                 Command c = Parser.parse(command);
                 c.executeCommand(tasks, ui, storage);
                 isExit = c.getIsExit();
             } catch (DukeException e) {
-                ui.showError(e.getMessage());
+                ui.printError(e.getMessage());
             } finally {
                 ui.printClosingDottedLine();
             }

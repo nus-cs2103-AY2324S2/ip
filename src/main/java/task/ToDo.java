@@ -1,6 +1,5 @@
 package task;
 
-import task.Task;
 
 /**
  * A class to create ToDO Object.
