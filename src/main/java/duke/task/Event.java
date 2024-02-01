@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.util.TimeManager;
+
 public class Event extends Task {
     private String start;
     private String end;
