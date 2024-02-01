@@ -15,8 +15,10 @@ public class Deadline extends Task {
         return "D";
     }
 
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.getDayOfMonth()
+        + " " +  by.getMonth() + " " + by.getYear() + ")" ;
     }
 }

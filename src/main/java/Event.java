@@ -22,6 +22,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.getDayOfMonth()
+                + " " +  from.getMonth() + " " + from.getYear() + " to: " + to.getDayOfMonth()
+                + " " +  to.getMonth() + " " + to.getYear() + ")" ;
     }
 }
