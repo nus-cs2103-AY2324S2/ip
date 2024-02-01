@@ -17,8 +17,7 @@ import tasks.Task;
 import tasks.Todo;
 
 /**
- * The Storage class deals with loading tasks from the file and saving tasks in
- * the file
+ * The Storage class deals with loading tasks from the file and saving tasks in the file
  */
 public class Storage {
     private String filePath;
@@ -31,8 +30,8 @@ public class Storage {
      * Load tasks from the hard disk
      * 
      * @return arraylist ArrayList of tasks
-     * @throws WilliamException If the lists in the txt file is not in the expected
-     *                          format OR if the pattern is wrong
+     * @throws WilliamException If the lists in the txt file is not in the expected format OR if the
+     *         pattern is wrong
      */
     public List<Task> loadFromFile() throws FileNotFoundException, WilliamException {
 
@@ -42,17 +41,18 @@ public class Storage {
         /**
          * Pattern to match lines with five parts separated by pipes ('|')
          * 
-         * Each part can contain any characters, with whitespace handling
-         * Capture non-whitespace characters in the first two parts and at least one
-         * character in the last three parts
+         * Each part can contain any characters, with whitespace handling Capture non-whitespace
+         * characters in the first two parts and at least one character in the last three parts
          */
-        String matchingPattern = "^\\s*(\\S+)\\s*\\|\\s*(\\S+)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*$";
+        String matchingPattern =
+                "^\\s*(\\S+)\\s*\\|\\s*(\\S+)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*$";
         Pattern pattern = Pattern.compile(matchingPattern);
 
         while (sc.hasNext()) {
             Matcher matcher = pattern.matcher(sc.nextLine());
             if (matcher.matches() == false) {
-                throw new WilliamException("The lists is not in the expected format OR The pattern is wrong!");
+                throw new WilliamException(
+                        "The lists is not in the expected format OR The pattern is wrong!");
             }
             String type = matcher.group(1);
             boolean isDone = Integer.parseInt(matcher.group(2)) == 1;
@@ -61,16 +61,17 @@ public class Storage {
             String secondPart = matcher.group(5);
 
             switch (type) {
-                case "T":
-                    tasks.add(new Todo(name, isDone));
-                    break;
-                case "E":
-                    tasks.add(new Event(name, DateAndTimeParser.convertStringToDate(firstPart),
-                            DateAndTimeParser.convertStringToDate(secondPart), isDone));
-                    break;
-                case "D":
-                    tasks.add(new Deadline(name, DateAndTimeParser.convertStringToDate(firstPart), isDone));
-                    break;
+            case "T":
+                tasks.add(new Todo(name, isDone));
+                break;
+            case "E":
+                tasks.add(new Event(name, DateAndTimeParser.convertStringToDate(firstPart),
+                        DateAndTimeParser.convertStringToDate(secondPart), isDone));
+                break;
+            case "D":
+                tasks.add(new Deadline(name, DateAndTimeParser.convertStringToDate(firstPart),
+                        isDone));
+                break;
             }
         }
         sc.close();
@@ -100,14 +101,12 @@ public class Storage {
                 }
                 String[] times = task.getTimes();
                 if (i != actualSizeComparison) {
-                    sb.append(task.getType()).append(" | ").append(isDone).append(" | ").append(name).append(" | ")
-                            .append(times[0])
-                            .append(" | ")
+                    sb.append(task.getType()).append(" | ").append(isDone).append(" | ")
+                            .append(name).append(" | ").append(times[0]).append(" | ")
                             .append(times[1]).append(System.lineSeparator());
                 } else {
-                    sb.append(task.getType()).append(" | ").append(isDone).append(" | ").append(name).append(" | ")
-                            .append(times[0])
-                            .append(" | ")
+                    sb.append(task.getType()).append(" | ").append(isDone).append(" | ")
+                            .append(name).append(" | ").append(times[0]).append(" | ")
                             .append(times[1]);
                 }
             }

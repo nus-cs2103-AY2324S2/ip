@@ -32,9 +32,8 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for toDo switch case for the correct input
-     * (assertTrue if it is added successfully, assertFalse if its not added
-     * successfully)
+     * Test the parseCommands method for toDo switch case for the correct input (assertTrue if it is
+     * added successfully, assertFalse if its not added successfully)
      */
     @Test
     public void parseCommands_toDoCommand_addsToDo() {
@@ -45,8 +44,8 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for toDo switch case for the incorrect input
-     * (assertTrue since it should not be added, and list should be empty)
+     * Test the parseCommands method for toDo switch case for the incorrect input (assertTrue since
+     * it should not be added, and list should be empty)
      */
     @Test
     public void parseCommands_incorrectToDoCommand_doesNotAddTask() {
@@ -55,9 +54,8 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for deadline switch case for the correct input
-     * (assertTrue if it is added successfully, assertFalse if its not added
-     * successfully)
+     * Test the parseCommands method for deadline switch case for the correct input (assertTrue if
+     * it is added successfully, assertFalse if its not added successfully)
      */
     @Test
     public void parseCommands_deadlineCommand_addsDeadline() {
@@ -68,8 +66,8 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for deadline switch case for the incorrect
-     * input (assertTrue since it should not be added, and list should be empty)
+     * Test the parseCommands method for deadline switch case for the incorrect input (assertTrue
+     * since it should not be added, and list should be empty)
      */
     @Test
     public void parseCommands_incorrectDeadlineCommand_doesNotAddTask() {
@@ -80,9 +78,8 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for event switch case for the correct input
-     * (assertTrue if it is added successfully, assertFalse if its not added
-     * successfully)
+     * Test the parseCommands method for event switch case for the correct input (assertTrue if it
+     * is added successfully, assertFalse if its not added successfully)
      */
     @Test
     public void parseCommands_eventCommand_addsDeadline() {
@@ -93,23 +90,25 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for event switch case for the incorrect
-     * input (assertTrue since it should not be added, and list should be empty)
+     * Test the parseCommands method for event switch case for the incorrect input (assertTrue since
+     * it should not be added, and list should be empty)
      */
     @Test
     public void parseCommands_incorrectEventCommand_doesNotAddTask() {
         parser.parseCommands(Commands.event, "CS2103 Assignment 2");
         parser.parseCommands(Commands.event, "CS2103 Assignment 2 /from 12/12/2023 1800 ");
         parser.parseCommands(Commands.event, "CS2103 Assignment 2 /from 12/12/2023 1800 /to ");
-        parser.parseCommands(Commands.event, "CS2103 Assignment 2 /from 12/12/2023 1800 /to 11/12/2023 1900");
-        parser.parseCommands(Commands.event, "CS2103 Assignment 2 /from 12/12/2023 6pm /to 12/12/2023 7pm");
+        parser.parseCommands(Commands.event,
+                "CS2103 Assignment 2 /from 12/12/2023 1800 /to 11/12/2023 1900");
+        parser.parseCommands(Commands.event,
+                "CS2103 Assignment 2 /from 12/12/2023 6pm /to 12/12/2023 7pm");
         assertTrue(taskListStub.getTasks().isEmpty());
     }
 
     /**
-     * Test the parseCommands method for bye switch case, check whether a task been
-     * added successfully to a file (since file should not be used for isolation, it
-     * is temporaily stored in an arraylist instead)
+     * Test the parseCommands method for bye switch case, check whether a task been added
+     * successfully to a file (since file should not be used for isolation, it is temporaily stored
+     * in an arraylist instead)
      */
     @Test
     public void parseCommands_byeCommand_addTasksIntoFile() {
@@ -124,8 +123,8 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for delete switch case, check whether a task
-     * has been deleted successfully
+     * Test the parseCommands method for delete switch case, check whether a task has been deleted
+     * successfully
      */
     @Test
     public void parseCommands_deleteCommand_deleteTaskFromList() {
@@ -138,8 +137,8 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for mark switch case, check whether a task has
-     * been marked successfully
+     * Test the parseCommands method for mark switch case, check whether a task has been marked
+     * successfully
      */
     @Test
     public void parseCommands_markCommand_markTaskAsDone() {
@@ -152,8 +151,8 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for mark switch case, check whether a task has
-     * been marked successfully
+     * Test the parseCommands method for mark switch case, check whether a task has been marked
+     * successfully
      */
     @Test
     public void parseCommands_markCommand_markTaskAsNotDone() {

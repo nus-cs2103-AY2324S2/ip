@@ -10,7 +10,8 @@ import exceptions.WilliamException;
  * The DateAndTimeParser class deals with formatting dates and times
  */
 public class DateAndTimeParser {
-    private static final DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter INPUT_FORMAT =
+            DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
      * Check whether the input matches the date and time format
@@ -20,7 +21,7 @@ public class DateAndTimeParser {
      */
     public static void acceptDateAndTime(String input) throws WilliamException {
         try {
-            LocalDateTime.parse(input, inputFormat);
+            LocalDateTime.parse(input, INPUT_FORMAT);
         } catch (DateTimeParseException e) {
             throw new WilliamException("The date and time format is invalid. Please try again!");
         }
@@ -30,12 +31,13 @@ public class DateAndTimeParser {
      * Check whether the '/from' date is before the '/to' date
      * 
      * @param fromDate The input date '/from'
-     * @param toDate   The input date '/to'
+     * @param toDate The input date '/to'
      * @throws WilliamException If the '/from' date is not before the '/to' date
      */
-    public static void checkWhetherToAndFromValid(String fromDate, String toDate) throws WilliamException {
-        LocalDateTime fromDateModified = LocalDateTime.parse(fromDate, inputFormat);
-        LocalDateTime toDateModified = LocalDateTime.parse(toDate, inputFormat);
+    public static void checkWhetherToAndFromValid(String fromDate, String toDate)
+            throws WilliamException {
+        LocalDateTime fromDateModified = LocalDateTime.parse(fromDate, INPUT_FORMAT);
+        LocalDateTime toDateModified = LocalDateTime.parse(toDate, INPUT_FORMAT);
 
         if (fromDateModified.isBefore(toDateModified) == false) {
             throw new WilliamException(
@@ -50,7 +52,7 @@ public class DateAndTimeParser {
      * @return Date in LocalDateTime
      */
     public static LocalDateTime convertStringToDate(String date) {
-        LocalDateTime modifiedDate = LocalDateTime.parse(date, inputFormat);
+        LocalDateTime modifiedDate = LocalDateTime.parse(date, INPUT_FORMAT);
         return modifiedDate;
     }
 }

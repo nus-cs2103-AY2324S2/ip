@@ -3,16 +3,15 @@ package utilities;
 import exceptions.WilliamException;
 
 /**
- * The AdditonalInformationParser deals with formatting the additional
- * information
+ * The AdditonalInformationParser deals with formatting the additional information
  */
 public class AdditionalInfoParser {
     /**
      * Returns the split input after getting the user input
      * 
      * @param input Input from the user
-     * @return string[] String[] consisting of two variables: [0] == command, [1] ==
-     *         additional information
+     * @return string[] String[] consisting of two variables: [0] == command, [1] == additional
+     *         information
      */
     public static String[] retrieveTexts(String input) {
         String[] resultOfSplit = new String[2];
@@ -32,8 +31,8 @@ public class AdditionalInfoParser {
      * 
      * @param input Input that is the additional details
      * @return string[] String[] that contains the name and the date
-     * @throws WilliamException If the input does not have the "/by" or missing text
-     *                          before/after "/by"
+     * @throws WilliamException If the input does not have the "/by" or missing text before/after
+     *         "/by"
      */
     public static String[] splitBy(String input) throws WilliamException {
         checkAdditionalDetailEmpty(input);
@@ -51,9 +50,8 @@ public class AdditionalInfoParser {
      * 
      * @param input Input that is the additional details
      * @return string[] String[] that contains the name, from and to date
-     * @throws WilliamException If the input does not contain "/to", "/from"
-     *                          keywords
-     *                          and is missing text before/after the keywords
+     * @throws WilliamException If the input does not contain "/to", "/from" keywords and is missing
+     *         text before/after the keywords
      */
     public static String[] splitToAndFrom(String input) throws WilliamException {
         checkAdditionalDetailEmpty(input);
@@ -70,7 +68,7 @@ public class AdditionalInfoParser {
         DateAndTimeParser.acceptDateAndTime(secondSplit[0]);
         DateAndTimeParser.acceptDateAndTime(secondSplit[1]);
         DateAndTimeParser.checkWhetherToAndFromValid(secondSplit[0], secondSplit[1]);
-        String[] threeParts = { firstSplit[0], secondSplit[0], secondSplit[1] };
+        String[] threeParts = {firstSplit[0], secondSplit[0], secondSplit[1]};
         return threeParts;
     }
 
@@ -82,7 +80,8 @@ public class AdditionalInfoParser {
      */
     public static void checkAdditionalDetailEmpty(String input) throws WilliamException {
         if (input == null || input.trim().isEmpty()) {
-            throw new WilliamException("The description of a task should not be empty. Please try again!");
+            throw new WilliamException(
+                    "The description of a task should not be empty. Please try again!");
         }
     }
 }

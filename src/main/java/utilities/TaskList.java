@@ -6,8 +6,7 @@ import java.util.List;
 import tasks.Task;
 
 /**
- * The TaskList contains the task list e.g. it has operations to add/delete
- * tasks in the list
+ * The TaskList contains the task list e.g. it has operations to add/delete tasks in the list
  */
 public class TaskList {
     private List<Task> tasks;
@@ -60,7 +59,8 @@ public class TaskList {
      */
     public void deleteFromList(String input) {
         if (this.tasks.isEmpty()) {
-            System.out.println("There are no task to be deleted. Please add some task to the list first!\n");
+            System.out.println(
+                    "There are no task to be deleted. Please add some task to the list first!\n");
         } else {
             int idOfItem = Integer.parseInt(input);
             int actualId = idOfItem - 1;
