@@ -86,7 +86,7 @@ public class Parser {
                         parseFind(input);
                         break;
                     default:
-                        throw Errors.InvalidCommandError;
+                        throw Errors.INVALID_COMMAND_ERROR;
                 }
             } catch (InvalidBanterUsageError e) {
                 Card errorMessage = new Card(e.getMessage());
@@ -105,7 +105,7 @@ public class Parser {
         try {
             return CommandType.valueOf(input.split(SEPARATOR)[0].toUpperCase());
         } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
-            throw Errors.InvalidCommandError;
+            throw Errors.INVALID_COMMAND_ERROR;
         }
     }
 
@@ -117,7 +117,7 @@ public class Parser {
     private void parseTodo(String input) throws InvalidBanterUsageError {
         String[] tokens = getTokens(input);
         if (tokens.length == 1) {
-            throw Errors.MissingTodoDescriptionError;
+            throw Errors.MISSING_TODO_DESCRIPTION_ERROR;
         }
         String description = joinTokens(tokens, 1, tokens.length - 1);
         Card taskAddedMessage = new Card(taskList.addTodo(description));
@@ -130,17 +130,17 @@ public class Parser {
 
         int indexOfDueDate = indexOf(tokens, DEADLINE_DUE_DATE);
         if (indexOfDueDate == -1) {
-            throw Errors.MissingDeadlineDueDateError;
+            throw Errors.MISSING_DEADLINE_DUE_DATE_ERROR;
         }
         String dueDateStr = joinTokens(tokens, indexOfDueDate + 1, tokens.length - 1);
         if (dueDateStr.isEmpty()) {
-            throw Errors.MissingDeadlineDueDateError;
+            throw Errors.MISSING_DEADLINE_DUE_DATE_ERROR;
         }
         LocalDateTime dueDate = DateTime.getDateTimeFromUserInput(dueDateStr);
 
         String description = joinTokens(tokens, 1, indexOfDueDate - 1);
         if (description.isEmpty()) {
-            throw Errors.MissingDeadlineDescriptionError;
+            throw Errors.MISSING_DEADLINE_DESCRIPTION_ERROR;
         }
 
         Card taskAddedMessage = new Card(taskList.addDeadline(description, dueDate));
@@ -153,27 +153,27 @@ public class Parser {
 
         int indexOfEnd = indexOf(tokens, EVENT_END);
         if (indexOfEnd == -1) {
-            throw Errors.MissingEventEndError;
+            throw Errors.MISSING_EVENT_END_ERROR;
         }
         String endStr = joinTokens(tokens, indexOfEnd + 1, tokens.length - 1);
         if (endStr.isEmpty()) {
-            throw Errors.MissingEventEndError;
+            throw Errors.MISSING_EVENT_END_ERROR;
         }
         LocalDateTime end = DateTime.getDateTimeFromUserInput(endStr);
 
         int indexOfStart = indexOf(tokens, EVENT_START);
         if (indexOfStart == -1) {
-            throw Errors.MissingEventStartError;
+            throw Errors.MISSING_EVENT_START_ERROR;
         }
         String startStr = joinTokens(tokens, indexOfStart + 1, indexOfEnd - 1);
         if (startStr.isEmpty()) {
-            throw Errors.MissingEventStartError;
+            throw Errors.MISSING_EVENT_START_ERROR;
         }
         LocalDateTime start = DateTime.getDateTimeFromUserInput(startStr);
 
         String description = joinTokens(tokens, 1, indexOfStart - 1);
         if (description.isEmpty()) {
-            throw Errors.MissingEventDescriptionError;
+            throw Errors.MISSING_EVENT_DESCRIPTION_ERROR;
         }
 
         Card taskAddedMessage = new Card(taskList.addEvent(description, start, end));
@@ -187,7 +187,7 @@ public class Parser {
         try {
             taskNumber = getTaskNumber(tokens);
         } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
-            throw Errors.InvalidMarkTaskNumberError;
+            throw Errors.INVALID_MARK_TASK_NUMBER_ERROR;
         }
         Card taskDoneMessage = new Card(taskList.markTaskAsDone(taskNumber));
         storage.saveTaskList(taskList);
@@ -200,7 +200,7 @@ public class Parser {
         try {
             taskNumber = getTaskNumber(tokens);
         } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
-            throw Errors.InvalidUnmarkTaskNumberError;
+            throw Errors.INVALID_UNMARK_TASK_NUMBER_ERROR;
         }
         Card taskUndoneMessage = new Card(taskList.markTaskAsUndone(taskNumber));
         storage.saveTaskList(taskList);
@@ -213,7 +213,7 @@ public class Parser {
         try {
             taskNumber = getTaskNumber(tokens);
         } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
-            throw Errors.InvalidDeleteTaskNumberError;
+            throw Errors.INVALID_DELETE_TASK_NUMBER_ERROR;
         }
         Card taskDeletedMessage = new Card(taskList.deleteTask(taskNumber));
         storage.saveTaskList(taskList);
@@ -223,7 +223,7 @@ public class Parser {
     private void parseFind(String input) throws InvalidBanterUsageError {
         String[] tokens = getTokens(input);
         if (tokens.length == 1) {
-            throw Errors.MissingKeywordError;
+            throw Errors.MISSING_KEYWORD_ERROR;
         }
         String keyword = joinTokens(tokens, 1, tokens.length - 1);
         Card taskFoundMessage = new Card(taskList.findTasks(keyword));
