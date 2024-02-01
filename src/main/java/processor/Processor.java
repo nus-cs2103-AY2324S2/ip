@@ -27,7 +27,7 @@ public class Processor {
 
     /**
      * Processes the given user command by delegating it to the appropriate method in the Processor class.
-     *Specifically, this method processes the user command to mark or unmark a task in the TaskList.
+     * Specifically, this method processes the user command to mark or unmark a task in the TaskList.
      * @param userInput the user command to be processed
      * @throws IOException if an I/O error occurs while processing the command
      */

@@ -20,7 +20,6 @@ public class Parser {
 
     /**
      * Processes the given user command by delegating it to the appropriate method in the Processor class.
-     * 
      * @param userInput the user command to be processed
      * @throws IOException if an I/O error occurs while processing the command
      */

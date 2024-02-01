@@ -52,12 +52,15 @@ public class Task {
     }
 
     /*
-     * mark() and unmark() methods are used to mark and unmark a task as done respectively.
+     * used to mark a task as done.
      */
     public void mark() {
         this.isDone = true;
     }
 
+    /*
+     * used to unmark a task as not done.
+     */
     public void unmark() {
         this.isDone = false;
     }
