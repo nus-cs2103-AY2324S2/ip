@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -14,7 +15,7 @@ public class Steven {
         String formatError = "My, it would appear as though you didn't format your instruction properly!\n";
         String line = "========\n";
         String bootMsg = ("This is Steven!\nHow can I advise?\n");
-        //String blankFieldMsg = "Just to let you know, I can't accept a task with missing details.\nSteven's advice: Make sure you're leaving no blanks in your instructions!";
+        String dateErr = "Ah, this one might be slightly complicated - I need your date in the format of \"yyyy-mm-dd\", and I'm quite strict with this, unfortunately.\nSteven's advice: Follow the format, append your days/months with zero as necessary! For example, \"03\" is accepted for the month of March, but not \"3\"!";
         System.out.print(line + bootMsg + line);
         System.out.println("Steven's advice: Don't know what commands I understand? Use \"help\"!");
         System.out.print(line);
@@ -127,7 +128,8 @@ public class Steven {
                             if (!command.arg3Empty()) {
                                 throw new ExcessiveArgException();
                             }
-                            taskList.add(new Deadline(command.getArg1(), command.getArg2()));
+                            LocalDate due = LocalDate.parse(command.getArg2());
+                            taskList.add(new Deadline(command.getArg1(), due));
                             refreshFile(taskList);
                             System.out.print(line);
                             System.out.println("I see. I shall add the following to the list of tasks:");
@@ -137,6 +139,8 @@ public class Steven {
                             System.out.println(formatError + "Steven's advice: The format of \"Deadline\" is as follows:\nDeadline (item) /by (date) - item is the name of an item that you want to add to the list as a deadline. date must be a date.");
                         } catch (IOException e) {
                             System.out.println(corrputed);
+                        } catch (DateTimeParseException error) {
+                            System.out.println(dateErr);
                         }
                         break;
                     case "event":
@@ -144,7 +148,12 @@ public class Steven {
                             if (command.arg1Empty() || command.arg2Empty() || command.arg3Empty()) {
                                 throw new InsufficientArgException();
                             }
-                            taskList.add(new Event(command.getArg1(), command.getArg2(), command.getArg3()));
+                            LocalDate start = LocalDate.parse((command.getArg2()));
+                            LocalDate end = LocalDate.parse(command.getArg3());
+                            if (end.isBefore(start)) {
+                                throw new IllogicalDateException();
+                            }
+                            taskList.add(new Event(command.getArg1(), start, end));
                             refreshFile(taskList);
                             System.out.print(line);
                             System.out.println("I see. I shall add the following to the list of tasks:");
@@ -154,6 +163,10 @@ public class Steven {
                             System.out.println(formatError + "Steven's advice: The format of \"Event\" is as follows:\nDeadline (item) /from (date1) /to (date2) - item is the name of an item that you want to add to the list as a deadline. date1 amd date2 must be a dates.");
                         } catch (IOException e) {
                             System.out.println(corrputed);
+                        } catch (DateTimeParseException error) {
+                            System.out.println(dateErr);
+                        } catch (IllogicalDateException error) {
+                            System.out.println("Now hold on, this doesn't make sense! How can you have an event start earlier than it ends?\nSteven's advice: Make sure your first date is before the second!");
                         }
                         break;
                     case "delete":
@@ -227,10 +240,10 @@ public class Steven {
                     t = new Todo(description);
                     break;
                 case "D":
-                    t = new Deadline(description.split(" \\| ")[0], description.split(" \\| ")[1]);
+                    t = new Deadline(description.split(" \\| ")[0], LocalDate.parse(description.split(" \\| ")[1]));
                     break;
                 case "E":
-                    t = new Event(description.split(" \\| ")[0], description.split(" \\| ")[1], description.split(" \\| ")[2]);
+                    t = new Event(description.split(" \\| ")[0], LocalDate.parse(description.split(" \\| ")[1]), LocalDate.parse(description.split(" \\| ")[2]));
                     break;
                 default:
                     t = new Task("errortemp");
