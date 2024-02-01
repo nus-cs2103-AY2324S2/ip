@@ -13,6 +13,14 @@ public class UnmarkCommand extends Command {
         this.positionToUnmark = positionToUnmark;
     }
 
+    /**
+     * Marks a task as not done.
+     *
+     * @param tasks The bot TaskList.
+     * @param ui The user interface.
+     * @param storage The storage interface.
+     * @throws DookException If TaskList is empty or indexed out of bounds.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
         Task toUnmark;

@@ -22,6 +22,14 @@ public class Parser {
 
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final ArrayList<String> TASK_TYPES = new ArrayList<String>(Arrays.asList("todo", "deadline", "event"));
+
+    /**
+     * Parses a given command as a String.
+     *
+     * @param input The String command.
+     * @return The corresponding command, if valid.
+     * @throws DookException If an invalid command is detected.
+     */
     public static Command parse(String input) throws DookException {
         String[] split = input.split(" ", 2);
         String firstWord = split[0];
@@ -73,6 +81,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a given AddCommand as a String.
+     *
+     * @param taskType The specific type of the task.
+     * @param taskDetails The remaining details as a String.
+     * @return The corresponding Task, if valid.
+     * @throws DookException If an invalid format is detected.
+     */
     public static Task getTask(TaskType taskType, String taskDetails) throws DookException {
         String name;
         String[] details;
@@ -103,6 +119,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a given Task as a String.
+     *
+     * @param s The input line from the file.
+     * @return The corresponding Task, if valid.
+     * @throws DookException If an invalid format is detected.
+     */
     public static Task parseFileLineToTask(String s) throws DookException {
         String[] split = s.split(" \\| ", 3);
         String taskTypeString = split[0];

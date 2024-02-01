@@ -12,6 +12,15 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int positionToDelete) {
         this.positionToDelete = positionToDelete;
     }
+
+    /**
+     * Deletes a command from the TaskList.
+     *
+     * @param tasks The bot TaskList.
+     * @param ui The user interface.
+     * @param storage The storage interface.
+     * @throws DookException If TaskList is empty or indexed out of bounds.
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DookException {
         Task toDelete;
         try {
