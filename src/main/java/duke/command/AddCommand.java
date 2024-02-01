@@ -16,7 +16,11 @@ public class AddCommand extends Command {
     private static final DateTimeFormatter dFormatInp = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm");
     private static final DateTimeFormatter dFormatOut = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
-
+    /**
+     * Constructor for AddCommand.
+     *
+     * @param c command in String format.
+     */
     public AddCommand(String c) {
         super(0);
         com = c;
@@ -89,6 +93,11 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Returns command in String format.
+     *
+     * @return command in String format.
+     */
     public String getCom(){
         return com;
     }

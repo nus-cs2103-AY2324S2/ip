@@ -4,6 +4,16 @@ import duke.command.*;
 import duke.exception.CommandInvalidException;
 
 public class Parser {
+
+    /**
+     * Returns validity whether the command given.
+     * If the command is valid, return true.
+     * If the command is invalid, return false.
+     *
+     * @param n given command.
+     * @return validity of the command.
+     *
+     */
     public static boolean valid(String n){ //check if the given command is valid //throw something
         String[] inputs = n.split(" ");
         for (Commands com : Commands.values()) {
@@ -14,6 +24,13 @@ public class Parser {
         return false;
     }
 
+    /**
+     * Returns an instatiate of Command for the given command.
+     *
+     * @param command given command.
+     * @return an instatiate of Command.
+     * @throws CommandInvalidException If command is invalid.
+     */
     public static Command parse(String command) throws CommandInvalidException {
         if (valid(command)) {
             String[] inputs = command.split(" ");

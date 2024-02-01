@@ -5,6 +5,11 @@ import duke.TaskList;
 import duke.Ui;
 
 public class ByeCommand extends Command{
+
+    /**
+     * Constructor for ByeCommand.
+     *
+     */
     public ByeCommand(){
         super(1);
     }

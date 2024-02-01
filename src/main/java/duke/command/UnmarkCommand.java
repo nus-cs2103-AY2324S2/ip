@@ -9,6 +9,12 @@ import java.io.IOException;
 
 public class UnmarkCommand extends Command{
     private String com;
+
+    /**
+     * Constructor for UnmarkCommand.
+     *
+     * @param i command in String format.
+     */
     public UnmarkCommand(String i){
         super(0);
         com = i;
@@ -38,6 +44,11 @@ public class UnmarkCommand extends Command{
         }
     }
 
+    /**
+     * Returns command in String format.
+     *
+     * @return command in String format.
+     */
     public String getCom(){
         return com;
     }

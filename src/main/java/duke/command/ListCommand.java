@@ -5,6 +5,11 @@ import duke.TaskList;
 import duke.Ui;
 
 public class ListCommand extends Command{
+
+    /**
+     * Constructor for ListCommand.
+     *
+     */
     public ListCommand(){
         super(0);
     }
