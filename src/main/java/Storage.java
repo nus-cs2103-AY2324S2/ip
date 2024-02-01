@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+
 public class Storage {
     private final File storageFile;
     Storage(ArrayList<String> path) throws IOException {
@@ -22,7 +23,7 @@ public class Storage {
         }
     }
 
-    public TaskList getTasksFromFile() throws DukeException {
+    public TaskList getTasksFromFile() throws FelixException {
         try {
             TaskList taskList = new TaskList();
             BufferedReader bufferedReader = new BufferedReader(new FileReader(this.storageFile));
@@ -34,19 +35,19 @@ public class Storage {
             bufferedReader.close();
             return taskList;
         } catch (FileNotFoundException err) {
-            throw new DukeException("File not found");
+            throw new FelixException("File not found");
         } catch (IOException err) {
-            throw new DukeException("Error reading from file");
+            throw new FelixException("Error reading from file");
         }
     }
 
-    public void writeToFile(TaskList tasks) throws DukeException {
+    public void writeToFile(TaskList tasks) throws FelixException {
         try {
             FileWriter writer = new FileWriter(this.storageFile);
             writer.write(tasks.getFileRepresentation());
             writer.close();
         } catch (IOException e) {
-            throw new DukeException("Error when writing to file: " + e.getMessage());
+            throw new FelixException("Error when writing to file: " + e.getMessage());
         }
     }
 }
