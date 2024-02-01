@@ -31,4 +31,8 @@ public class Task {
     public String toString() {
         return String.format("%s%s %s", this.taskTypeDisplay(), this.completionDisplay(), this.name);
     }
+    public String storeFormat() {
+        String completeFormat = complete ? "1" : "0";
+        return String.format("%s | %s | %s", "Err", completeFormat, name);
+    }
 }

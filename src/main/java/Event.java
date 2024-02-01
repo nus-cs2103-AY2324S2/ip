@@ -16,4 +16,9 @@ public class Event extends Task{
     public String toString() {
         return String.format("%s%s %s (from: %s to: %s)", this.taskTypeDisplay(), this.completionDisplay(), this.name, this.start, this.end);
     }
+    @Override
+    public String storeFormat() {
+        String completeFormat = complete ? "1" : "0";
+        return String.format("%s | %s | %s | %s | %s", "D", completeFormat, name, start, end);
+    }
 }
