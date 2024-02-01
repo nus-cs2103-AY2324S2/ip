@@ -1,7 +1,5 @@
 package data;
 
-import data.exception.CoDriverException;
-
 import java.time.LocalDate;
 
 public class Event extends Task {

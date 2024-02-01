@@ -2,10 +2,7 @@ import command.Command;
 import data.exception.CoDriverException;
 import parser.Parser;
 import storage.Storage;
-import data.Deadline;
-import data.Event;
 import data.TaskList;
-import data.Todo;
 import ui.Ui;
 
 public class CoDriver {

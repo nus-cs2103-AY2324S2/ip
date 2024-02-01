@@ -9,9 +9,6 @@ import command.DeadlineCommand;
 import command.EventCommand;
 import command.DeleteCommand;
 import command.UnknownCommand;
-import data.Deadline;
-import data.Event;
-import data.Todo;
 import data.exception.CoDriverException;
 
 import java.time.LocalDate;
