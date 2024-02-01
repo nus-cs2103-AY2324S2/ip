@@ -9,12 +9,13 @@ public class Duke {
         //         + "|____/ \\__,_|_|\\_\\___|\n";
         // System.out.println("Hello from\n" + logo);
         String indent = "    ";
-        String new_line = indent + "____________________________________________________________ \n";
+        String newLine = indent + "____________________________________________________________ \n";
         String greeting = indent + "Good day good sir! I am Chatimous Maximous, here to help you with your every need!\n";
-        System.out.println(new_line + greeting);
+        System.out.println(newLine + greeting);
 
         Scanner reader = new Scanner(System.in);
         String input = reader.next();
+        TaskList taskList = new TaskList();
 
         // if (input == "bye") {
         //     String goodbye = indent + "It has been a pleasure! I do hope to see you again!\n";
@@ -26,11 +27,16 @@ public class Duke {
         // }
          
         while (input.contains("bye") == false) {
-            System.out.println(new_line + indent + input + "\n" + new_line);
+            if (input.equals("list")) {
+                System.out.println(newLine + taskList.showList() + newLine);
+            } else {
+                taskList.addTask(input);
+                System.out.println(newLine + indent + input + "\n" + newLine);
+            }
             input = reader.next();
         }
         String goodbye = indent + "It has been a pleasure! I do hope to see you again!\n";
-        System.out.println(new_line + goodbye + new_line);
+        System.out.println(newLine + goodbye + newLine);
         reader.close();
 
     }
