@@ -1,1 +1,4 @@
-todo | 0 | b
+todo | 0 | a
+todo | 1 | b
+deadline | 0 |  | Feb 27 2019
+deadline | 0 | c | Jan 01 2019 | Jan 01 2019

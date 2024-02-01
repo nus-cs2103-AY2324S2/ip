@@ -1,5 +1,8 @@
 package dibo;
 
+import dibo.command.Command;
+import dibo.exception.DiboException;
+
 import java.util.ArrayList;
 
 public class Dibo {
@@ -8,17 +11,17 @@ public class Dibo {
     private Ui ui;
 
     public static void main(String[] args) {
-        Dibo dibo = new Dibo(new String[]{"todo", "deadline", "event"}, "./data/dibo.txt");
+        Dibo dibo = new Dibo("./data/dibo.txt");
         dibo.run();
     }
-    private Dibo(String[] tasks, String path) {
+    private Dibo(String path) {
         this.storage = new Storage(path);
         this.ui = new Ui();
         try {
-            this.tasks = new TaskList(tasks, storage.loadData());
+            this.tasks = new TaskList(this.storage.loadData());
         } catch (DiboException e) {
             this.ui.showError(e.getMessage());
-            this.tasks = new TaskList(tasks, new ArrayList<>());
+            this.tasks = new TaskList(new ArrayList<>());
         }
     }
 

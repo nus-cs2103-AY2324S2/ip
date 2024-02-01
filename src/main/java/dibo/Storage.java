@@ -1,22 +1,44 @@
 package dibo;
 
+import dibo.task.Task;
+import dibo.task.ToDo;
+import dibo.task.Deadline;
+import dibo.task.Event;
+import dibo.exception.DiboException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
+
+/**
+ * The class to load data from and save data to the text file.
+ */
 public class Storage {
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
     private String filePath;
+
+    /**
+     * Constructor for the Storage class.
+     *
+     * @param filePath The file path to the text file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the data from the text file and returns an ArrayList.
+     *
+     * @return An ArrayList to instantiate the TaskList object.
+     * @throws DiboException If an error occurs when loading.
+     */
     public ArrayList<Task> loadData() throws DiboException {
         ArrayList<Task> taskLists = new ArrayList<>();
 
@@ -38,13 +60,13 @@ public class Storage {
                 case "deadline":
                     String description2 = details[2];
                     String by = details[3].trim();
-                    task = new Deadline(description2, convertDate(by));
+                    task = new Deadline(description2, convertToLocalDate(by));
                     break;
                 case "event":
                     String description3 = details[2];
                     String start = details[3].trim();
                     String end = details[4].trim();
-                    task = new Event(description3, convertDate(start), convertDate(end));
+                    task = new Event(description3, convertToLocalDate(start), convertToLocalDate(end));
                     break;
                 default:
                     throw new DiboException("Sorry sir! Unfortunately the loaded text file "
@@ -67,7 +89,7 @@ public class Storage {
                         + "for you to store your task list but was unable to do so.\n"
                         + "Please do us a favour and check the path name:D");
             }
-        } catch (ParseException | DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new DiboException("Oh no sir! The file seems to be corrupted :O "
                     + " The dates are not in the correct format. It ought to be: yyyy-mm-dd  :(");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -78,6 +100,11 @@ public class Storage {
         return taskLists;
     }
 
+    /**
+     * Saves the data from the task list to the text file.
+     *
+     * @throws DiboException If an error occurs when saving.
+     */
     public void save(TaskList taskList) throws DiboException {
         try {
             String updatedData = taskList.getSaveFormat();
@@ -91,13 +118,8 @@ public class Storage {
         }
     }
 
-    private String convertDate(String date) throws ParseException {
-        SimpleDateFormat originalFormat = new SimpleDateFormat("MMM d yyyy");
-        SimpleDateFormat targetFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateObject = originalFormat.parse(date);
-        return targetFormat.format(dateObject);
+    private LocalDate convertToLocalDate(String date) throws DateTimeParseException {
+        return LocalDate.parse(date, Storage.INPUT_FORMAT);
 
     }
-
-
 }

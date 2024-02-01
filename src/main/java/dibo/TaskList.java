@@ -1,75 +1,42 @@
 package dibo;
 
+import dibo.task.Task;
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
+/**
+ * Class to store all the tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> storage;
     private int count;
-    private final HashSet<String> taskTypes;
 
-    public TaskList(String[] types, ArrayList<Task> storage) {
+    /**
+     * Constructor for the TaskList class.
+     *
+     * @param storage The ArrayList returned from loading from the text file.
+     */
+    public TaskList(ArrayList<Task> storage) {
         this.storage = storage;
         this.count = storage.size();
-        this.taskTypes = new HashSet<>();
-        this.taskTypes.addAll(List.of(types));
-
     }
 
-    public String addTask(String text) throws DiboException {
-        String[] tokens = text.split("/");
-        String type_and_description = tokens[0];
-        String type = type_and_description.split(" ")[0];
-
-        if (!taskTypes.contains(type)) {
-            throw new DiboException("Oh no sir! There is no such task type :(");
-        }
-
-        String description = type_and_description.substring(type.length());
-        if (description.equals("")) {
-            throw new DiboException("Oh no sir! We need a description for your task. "
-                    + "This will enable us to better keep track of your tasks.");
-        }
-
-        Task task;
-        switch (type) {
-        case "todo":
-            task = new ToDo(description);
-            break;
-        case "deadline":
-            try {
-                String by = tokens[1].split(" ")[1].trim();
-                task = new Deadline(description, by);
-            } catch (IndexOutOfBoundsException e) {
-                throw new DiboException("Oh no sir! Please state the deadline of the task :D");
-            } catch (DateTimeParseException e) {
-                throw new DiboException("Oh no sir! Please state the deadline of the task "
-                        + "in this format: yyyy-mm-dd");
-            }
-            break;
-        default:
-            try {
-                String from = tokens[1].split(" ")[1].trim();
-                String to = tokens[2].split(" ")[1].trim();
-                task = new Event(description, from, to);
-            } catch (IndexOutOfBoundsException e) {
-                throw new DiboException("Oh no sir! Please state the start and end of the task :D");
-            } catch (DateTimeParseException e) {
-                throw new DiboException("Oh no sir! Please state the deadline of the task "
-                        + "in this format: yyyy-mm-dd");
-            }
-        }
-        this.addTask(task);
-        return task.toString();
-    }
-
-    public void addTask(Task t) {
-        this.storage.add(t);
+    /**
+     * Takes in a task and adds it into the TaskList.
+     *
+     * @param task The task to be added.
+     */
+    public void addTask(Task task) {
+        this.storage.add(task);
         this.count++;
     }
 
+    /**
+     * Returns the string representation of the list to be displayed.
+     *
+     * @return The string representation of the list to be displayed.
+     */
     public String getDisplayFormat() {
         StringBuilder list = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < count; ++i) {
@@ -81,6 +48,11 @@ public class TaskList {
         return list.toString();
     }
 
+    /**
+     * Returns the string representation of the list to be saved.
+     *
+     * @return The string representation of the list to be saved.
+     */
     public String getSaveFormat() {
         StringBuilder list = new StringBuilder();
         for (int i = 0; i < count; ++i) {
@@ -91,18 +63,39 @@ public class TaskList {
         return list.toString();
     }
 
+    /**
+     * Takes in an index, marks the task at that index as done
+     * and return the string representation of that task.
+     *
+     * @param i The index of the task.
+     * @return The string representation of the task.
+     */
     public String markTask(int i) {
         Task task = storage.get(i - 1);
         task.markAsDone();
         return task.toString();
     }
 
+    /**
+     * Takes in an index, marks the task at that index as not done
+     * and return the string representation of that task.
+     *
+     * @param i The index of the task.
+     * @return The string representation of the task.
+     */
     public String unmarkTask(int i) {
         Task task = storage.get(i - 1);
         task.markAsNotDone();
         return task.toString();
     }
 
+    /**
+     * Takes in an index, deletes the task at that index
+     * and return the string representation of that task.
+     *
+     * @param i The index of the task.
+     * @return The string representation of the task.
+     */
     public String deleteTask(int i) {
         Task task = storage.get(i - 1);
         storage.remove(i - 1);
@@ -110,6 +103,11 @@ public class TaskList {
         return task.toString();
     }
 
+    /**
+     * Returns the size of the TaskList to be shown to the user.
+     *
+     * @return The size of the TaskList.
+     */
     public int getSize() {
         return this.count;
     }
