@@ -4,6 +4,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,9 +43,22 @@ public class Duke {
                 try {
                     String[] splitDeadline = sc.nextLine().split(" /by ");
                     checkEmptyTask(splitDeadline[0]);
-                    addTask(new Deadline(splitDeadline[0].trim(), false, splitDeadline[1]));
+                    String[] splitDateTime = splitDeadline[1].trim().split(" ");
+                    if (splitDateTime.length == 2) {
+                        LocalDateTime time = LocalDateTime.parse(
+                                splitDeadline[1],
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd kk:mm"));
+                        addTask(new Deadline(splitDeadline[0].trim(), false, time));
+                    } else {
+                        LocalDate time = LocalDate.parse(
+                                splitDeadline[1], DateTimeFormatter.ISO_LOCAL_DATE);
+                        addTask(new Deadline(splitDeadline[0].trim(), false, time));
+                    }
                 } catch (EmptyTaskNameException e) {
                     System.out.println(e.getMessage());
+                } catch (DateTimeParseException e) {
+                    System.out.println(
+                            "Please specify the task's deadline using the format 'yyyy-mm-dd hh:mm' or 'yyyy-mm-dd'");
                 }
                 break;
             case "event" :
@@ -99,7 +116,13 @@ public class Duke {
                         taskList.add(new ToDo(taskName, done));
                         break;
                     case 3 :
-                        taskList.add(new Deadline(taskName, done, taskDescriptions[2]));
+                        if (taskDescriptions[2].split("T").length > 1) {
+                            LocalDateTime time = LocalDateTime.parse(taskDescriptions[2]);
+                            taskList.add(new Deadline(taskName, done, time));
+                        } else {
+                            LocalDate time = LocalDate.parse(taskDescriptions[2]);
+                            taskList.add(new Deadline(taskName, done, time));
+                        }
                         break;
                     case 4 :
                         taskList.add(new Event(taskName, done, taskDescriptions[2], taskDescriptions[3]));
