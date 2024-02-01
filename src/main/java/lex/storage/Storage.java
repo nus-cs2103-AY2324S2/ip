@@ -3,22 +3,19 @@ package lex.storage;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import lex.Constant;
-import lex.tasks.Task;
+import lex.TaskList;
 
 public class Storage {
     private final String filePath;
     private final ObjectMapper mapper;
 
-    public Storage() {
-        this(new ObjectMapper(), "./data.json");
+    public Storage(String filePath) {
+        this(new ObjectMapper(), filePath);
     }
 
     public Storage(ObjectMapper mapper, String filePath) {
@@ -28,22 +25,20 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public List<Task> load() {
+    public TaskList load() throws Exception {
         Path path = Paths.get(filePath);
         if (!Files.exists(path)) {
-            return new ArrayList<>();
+            return new TaskList();
         }
 
         try {
             return mapper.readValue(Files.readAllBytes(path), new TypeReference<>(){});
         } catch (Exception e) {
-            System.out.println("Error parsing file.");
-            System.out.println(Constant.SEPERATOR);
-            return new ArrayList<>();
+            throw new Exception("Error parsing file.");
         }
     }
 
-    public void save(List<Task> tasks) {
+    public void save(TaskList tasks) throws Exception {
         Path path = Paths.get(filePath);
 
         try {
@@ -54,8 +49,7 @@ public class Storage {
             byte[] content = mapper.writeValueAsBytes(tasks);
             Files.write(path, content);
         } catch (Exception e) {
-            System.out.println("Error saving file.");
-            System.out.println(Constant.SEPERATOR);
+            throw new Exception("Error saving file.");
         }
     }
 }
