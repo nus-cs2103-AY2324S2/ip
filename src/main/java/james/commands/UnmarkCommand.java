@@ -14,6 +14,11 @@ import java.io.IOException;
 public class UnmarkCommand extends Command {
     private int indexToUnmark;
 
+    /**
+     * Constructor for an unmark command.
+     * 
+     * @param indexToUnmark
+     */
     public UnmarkCommand(int indexToUnmark) {
         this.indexToUnmark = indexToUnmark;
     }

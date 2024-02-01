@@ -8,7 +8,6 @@ import james.ui.Ui;
  * Represents a command to list all tasks in the task list.
  */
 public class ListCommand extends Command {
-
     /**
      * Executes the command to list all tasks in the task list.
      *

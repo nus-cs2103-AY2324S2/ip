@@ -8,7 +8,6 @@ import james.ui.Ui;
  * Represents a command to terminate the application.
  */
 public class ExitCommand extends Command {
-
     /**
      * Executes the exit command which results in terminating the application.
      * This method should handle the necessary cleanup before exiting.
