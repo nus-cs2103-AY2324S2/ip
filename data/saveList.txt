@@ -1,6 +1,4 @@
 T | 0 | read book
-D | 0 | tutorial | tuesday
-E | 0 | meeting | 4pm | 5pm
-T | 1 | buy stuff
+D | 1 | tutorial | tuesday
 D | 0 | watch lecture | today
 E | 1 | party | 1 | ??
