@@ -68,7 +68,7 @@ public class Duke {
         }
         int numItems = tasks.size();
         String sOrP = numItems == 1 ? "task" : "tasks";
-        System.out.println("Got it. I've added this task:\n" + taskAdded.toString() + "Now you have " + numItems + " " + sOrP +" in the list.");
+        System.out.println("Got it. I've added this task:\n" + taskAdded.toString() + "\nNow you have " + numItems + " " + sOrP +" in the list.");
         breakLine();
     }
 
@@ -77,7 +77,7 @@ public class Duke {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
-            System.out.printf("%d. %s", i+1, t.toString());
+            System.out.printf("%d. %s\n", i+1, t.toString());
         }
         breakLine();
     }
