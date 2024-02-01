@@ -1,7 +1,6 @@
 package duke.task;
 
 import duke.exception.DukeException;
-import duke.task.TaskType;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,8 +29,10 @@ public class Deadline extends Task {
         this.byString = byString.trim();
 
         try {
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-            this.by = LocalDateTime.parse(byString, dateTimeFormatter);
+            if (!this.byString.isEmpty()) {
+                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                this.by = LocalDateTime.parse(byString, dateTimeFormatter);
+            }
         } catch (DateTimeParseException e) {
             this.by = null;
         }
@@ -40,10 +41,9 @@ public class Deadline extends Task {
             throw new DukeException("By when? You forgot to enter \"/by\"");
         } else if (description.isEmpty()) {
             throw new DukeException("You forgot to enter the task for which you have to complete it by");
-        } else {
-            throw new DukeException("You did not mention the task or deadline! Please re-enter correctly!");
         }
     }
+
     /**
      * Gets the representation of the deadline (either LocalDateTime or the original string).
      *

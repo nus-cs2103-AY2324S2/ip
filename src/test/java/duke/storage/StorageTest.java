@@ -2,7 +2,9 @@ package duke.storage;
 
 import duke.task.TaskList;
 import duke.task.Task;
+import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.ToDo;
 
 import duke.exception.DukeException;
 
@@ -44,6 +46,9 @@ public class StorageTest {
      */
     @Test
     void saveTasks_shouldSaveTasksToFile() throws IOException, DukeException {
+        taskList.addToDoTask(new ToDo("Finish this project"));
+        taskList.addDeadlineTask(new Deadline("Test project", "Monday"));
+        taskList.addDeadlineTask(new Deadline("Test project", "12/12/2023 1200"));
         taskList.addEventTask(new Event("Test Event", "2022-12-31", "2023-01-01"));
 
         storage.saveTasks(taskList);

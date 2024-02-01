@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
@@ -49,10 +50,15 @@ public class Storage {
                 if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
                     if (deadline.getBy() != null) {
-                        try {
-                            String formattedDateTime = deadline.getByTime().format(DateTimeFormatter.ofPattern("MMM dd YYYY HH:mm"));
-                            text += " | " + formattedDateTime;
-                        } catch (DateTimeException e) {
+                        LocalDateTime byTime = deadline.getByTime();
+                        if (byTime != null) {
+                            try {
+                                String formattedDateTime = byTime.format(DateTimeFormatter.ofPattern("MMM dd YYYY HH:mm"));
+                                text += " | " + formattedDateTime;
+                            } catch (DateTimeException e) {
+                                text += " | " + deadline.getByString();
+                            }
+                        } else {
                             text += " | " + deadline.getByString();
                         }
                     } else {

@@ -152,4 +152,23 @@ public class TaskList {
             System.out.println(taskDetails);
         }
     }
+
+    /**
+     * Searches for tasks within a given list that contain a specified search string in their descriptions.
+     * Creates and returns a new TaskList containing the found tasks.
+     *
+     * @param searchString The string to search for in the task descriptions.
+     * @return A new TaskList containing tasks with descriptions that match the search string.
+     */
+    public TaskList findTask(String searchString) throws DukeException {
+        TaskList foundTasks = new TaskList();
+
+        for (Task job: tasks) {
+            if (job.getDescription().contains(searchString)) {
+                foundTasks.addTask(job);
+            }
+        }
+        return foundTasks;
+    }
+
 }
