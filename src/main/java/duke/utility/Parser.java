@@ -196,7 +196,7 @@ public class Parser {
             } else {
                 String fromDateTimeStr = fromBuilder.toString();
                 String toDateTimeStr = toBuilder.toString();
-                fromDateTimeStr = fromDateTimeStr.substring(0, fromDateTimeStr.length() - 1);
+                fromDateTimeStr = fromDateTimeStr.substring(0, fromDateTimeStr.length());
                 toDateTimeStr = toDateTimeStr.substring(0, toDateTimeStr.length() - 1);
                 LocalDateTime fromTime = LocalDateTime.parse(fromDateTimeStr, dTFormatter);
                 LocalDateTime toTime = LocalDateTime.parse(toDateTimeStr, dTFormatter);
