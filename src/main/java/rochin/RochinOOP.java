@@ -534,7 +534,7 @@ public class RochinOOP {
         }
 
         /**
-         * Checks if the command is an exit command.
+         * Check if the command is an exit command.
          *
          * @return True if the command is an exit command, false otherwise.
          */
