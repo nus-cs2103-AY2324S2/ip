@@ -14,6 +14,9 @@ public class TaskList {
     private List<Task> storage;
     private Ui ui;
 
+    /**
+     * Constructor of TaskList.
+     */
     public TaskList() {
         this.storage = new ArrayList<Task>();
         this.ui = new Ui();
@@ -128,6 +131,11 @@ public class TaskList {
         ui.drawLine();
     }
 
+    /**
+     * Lists out the task related to given date.
+     *
+     * @param date Date that user interested to check for related tasks.
+     */
     public void listTask(LocalDate date) {
         ui.drawLine();
         if (storage.size() == 0) {
@@ -196,6 +204,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds item into arraylist.
+     *
+     * @param item Item to be added.
+     */
     public void add(Task item) {
         this.storage.add(item);
     }

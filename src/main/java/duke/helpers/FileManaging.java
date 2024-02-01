@@ -14,8 +14,8 @@ public class FileManaging {
     /**
      * Adds hard disk memory into local storage.
      *
-     * @param filePath
-     * @param storage
+     * @param filePath path to retrieve the memory.
+     * @param storage the storage to store items from memory.
      * @throws FileNotFoundException if file is not found.
      * @throws DukeException if there is storage format wrong.
      */
@@ -49,8 +49,8 @@ public class FileManaging {
     /**
      * Stores storage memory into hard disk.
      *
-     * @param filePath
-     * @param storage
+     * @param filePath path to store the memory.
+     * @param storage the storage that will be stored in memory.
      * @throws IOException
      */
     public static void writeToFile(String filePath, TaskList storage) throws IOException {

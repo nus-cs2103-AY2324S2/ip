@@ -13,6 +13,7 @@ import java.time.format.DateTimeParseException;
  */
 public class MyDateTime {
     /**
+     * Returns LocalDateTime of the input date time.
      * Converts String datetime to LocalDateTime.
      *
      * @param input String representation of datetime.
@@ -31,6 +32,13 @@ public class MyDateTime {
         }
     }
 
+    /**
+     * Returns a LocalDate of a specific date.
+     *
+     * @param input String of date.
+     * @return LocalDate of the date.
+     * @throws DukeException
+     */
     public static LocalDate convertDate(String input) throws DukeException {
         try {
             return LocalDate.parse(input);
@@ -39,11 +47,23 @@ public class MyDateTime {
         }
     }
 
+    /**
+     * Returns String output of datetime representation in yyyy-MM-dd , HH:mm.
+     *
+     * @param datetime
+     * @return String output of datetime representation in yyyy-MM-dd , HH:mm.
+     */
     public static String formatter(LocalDateTime datetime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd , HH:mm");
         return datetime.format(formatter);
     }
 
+    /**
+     * Returns String output of datetime representation in MMM dd, yyyy HH:mm.
+     *
+     * @param datetime
+     * @return String output of datetime representation in MMM dd, yyyy HH:mm.
+     */
     public static String englishFormatter(LocalDateTime datetime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
         return datetime.format(formatter);

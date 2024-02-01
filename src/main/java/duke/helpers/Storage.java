@@ -10,11 +10,21 @@ public class Storage {
     private String filePath;
     private Ui ui;
 
+    /**
+     * Constructor of Storage.
+     *
+     * @param filePath path to the storage.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         ui = new Ui();
     }
 
+    /**
+     * Gets memory from hard disk.
+     *
+     * @param tasks storage to store the read memory.
+     */
     public void getStorageFromHardDisk(TaskList tasks) {
         try {
             FileManaging.readFileContent(CommandType.FILEPATH.toString(), tasks);

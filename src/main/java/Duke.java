@@ -10,6 +10,9 @@ public class Duke {
     private TaskList tasks;
     private Storage storage;
 
+    /**
+     * Constructor of Duke.
+     */
     public Duke() {
         this.ui = new Ui();
         this.tasks = new TaskList();

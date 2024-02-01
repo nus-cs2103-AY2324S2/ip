@@ -43,7 +43,7 @@ public class Event extends Task {
     }
 
     /**
-     * String representation of event.
+     * Returns String representation of event.
      *
      * @return string representation of event.
      */
@@ -54,7 +54,7 @@ public class Event extends Task {
     }
 
     /**
-     * String representation for storage.
+     * Returns String representation for storage.
      *
      * @return String representation for storage of duke.task.Event task.
      */

@@ -3,7 +3,12 @@ package duke.helpers;
 import duke.command.*;
 
 public class Parser {
-
+    /**
+     * Returns Command by doing parse of a String.
+     *
+     * @param command
+     * @return Command.
+     */
     public static Command parse(String command) {
         String[] commandArr = command.split(" ",2);
 

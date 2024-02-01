@@ -37,7 +37,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * String representation of deadline task.
+     * Returns String representation of deadline task.
      *
      * @return String representation of deadline task.
      */
@@ -47,7 +47,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * String representation for storage.
+     * Returns String representation for storage.
      *
      * @return String representation for storage of duke.task.Deadline task.
      */
