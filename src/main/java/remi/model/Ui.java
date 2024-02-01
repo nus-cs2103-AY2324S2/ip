@@ -24,7 +24,7 @@ public class Ui {
 
 
     public void ioLoop() {
-        Outputter.outputMessage(new Message("Hello! I'm remi.Remi\n" + "What can I do for you?"));
+        Outputter.outputMessage(new Message("Hello! I'm Remi\n" + "What can I do for you?"));
         Storage.get();
 
         while (!exitLoop) {
