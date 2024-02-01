@@ -480,6 +480,11 @@ class DeadlineTask extends Task {
         }
     }
 
+    /**
+     * Return a string representation of the task type.
+     *
+     * @return A string representation of the task type.
+     */
     @Override
     public String getTaskType() {
         return "D";
