@@ -1,3 +1,6 @@
+import com.sun.source.util.TaskEvent;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,9 +15,14 @@ public class Harvard {
 
         List<Task> tasks = new ArrayList<Task>();
 
+        // Read from the text file
+        tasks = GetTasks();
 
 
-        while (true) {
+
+
+            while (true) {
+                WriteTasks(tasks);
             Scanner scanner = new Scanner(System.in);
             String echoInput = scanner.nextLine();
 
@@ -134,6 +142,59 @@ public class Harvard {
                 + "____________________________________________________________\n";
         System.out.println(exit);
     }
+    public static List<Task> GetTasks() {
+        try {
+            BufferedReader buffReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/data/harvard.txt"));
+            List<Task> tasks = new ArrayList<>();
+            String line;
+            while (( line = buffReader.readLine()) != null) {
+
+                String taskType = line.split(",")[0];
+                Boolean isDone =  line.split(",")[1].equals("0") ? false : true;
+                if (taskType.equals("T") ) {
+                    tasks.add(new Todo(line.split(",")[2], isDone));
+                } else if (taskType.equals("D")) {
+                    tasks.add(new Deadline(line.split(",")[2], line.split(",")[3], isDone));
+                } else {
+                    tasks.add(new Event(line.split(",")[2], line.split(",")[3], line.split(",")[4], isDone));
+                }
+
+            }
+            return tasks;
+        } catch (FileNotFoundException ex) {
+            CreateTextFile();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    public static void CreateTextFile() {
+        try {
+            File file = new File(System.getProperty("user.dir") + "/data/harvard.txt");
+            if (file.getParentFile().mkdir()) {
+                file.createNewFile();
+            } else {
+                throw new IOException("Failed to create directory " + file.getParent());
+            }
+        } catch (IOException e) {
+
+        }
+    }
+
+    public static void WriteTasks(List<Task> tasks) {
+        String textToSave = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            textToSave += tasks.get(i).saveString() + "\n";
+        }
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "/data/harvard.txt"));
+            writer.write(textToSave);
+            writer.close();
+        } catch (Exception e) {
+
+        }
+    }
 
     public static class Task {
         protected String description;
@@ -164,12 +225,26 @@ public class Harvard {
         public String getDescription() {
             return this.description;
         }
+
+        public String saveString() {
+            return null;
+        }
     }
 
     public static class Todo extends Task {
 
         public Todo(String description) {
             super(description);
+        }
+
+        public Todo(String description, boolean isDone) {
+            super(description);
+            if (isDone) super.mark();
+
+        }
+        @Override
+        public String saveString() {
+            return "T," + (this.isDone ? "1," : "0,") + super.getDescription();
         }
 
         @Override
@@ -185,6 +260,17 @@ public class Harvard {
         public Deadline(String description, String by) {
             super(description);
             this.by = by;
+        }
+
+        public Deadline(String description, String by, Boolean isDone) {
+            super(description);
+            this.by = by;
+            if (isDone) super.mark();
+        }
+
+        @Override
+        public String saveString() {
+            return "D," + (super.isDone ? "1," : "0,") + super.getDescription() + "," + this.by;
         }
 
         @Override
@@ -204,6 +290,17 @@ public class Harvard {
             this.to = to;
         }
 
+        public Event(String description, String from, String to, Boolean isDone) {
+            super(description);
+            this.from = from;
+            this.to = to;
+            if (isDone) super.mark();
+        }
+
+        @Override
+        public String saveString() {
+            return "D," + (super.isDone ? "1," : "0,") + super.getDescription() + "," + this.from + "," + this.to;
+        }
         @Override
         public String toString() {
             return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
