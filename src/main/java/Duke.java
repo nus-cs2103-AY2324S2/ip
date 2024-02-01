@@ -1,10 +1,9 @@
-package duke.task;
-
 import duke.command.Command;
 import duke.command.CommandType;
 import duke.helpers.Parser;
 import duke.helpers.Storage;
 import duke.helpers.Ui;
+import duke.task.TaskList;
 
 public class Duke {
     private Ui ui;
