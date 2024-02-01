@@ -4,11 +4,19 @@ import duke.command.Command;
 
 import java.io.FileNotFoundException;
 
+/**
+ * Duke, a task manager bot. Also named "MR. WONG"
+ * @author wongkj12
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates an instance of the bot.
+     * @param filePath List of tasks are stored at / retrieved from specified filepath.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,6 +31,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs Duke.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -42,6 +53,10 @@ public class Duke {
     }
 
 
+    /**
+     * Main method which starts the bot.
+     * @param args Any command line arguments.
+     */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }

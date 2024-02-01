@@ -4,11 +4,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class representing Deadlines
+ */
 public class Deadline extends Task {
     protected String by;
 
     protected LocalDate byDate;
 
+    /**
+     * Creates an instance of Deadline
+     * @param name Name of the deadline
+     * @param by Due date of the deadline
+     */
     public Deadline(String name, String by) {
         super(name);
         this.by = by;

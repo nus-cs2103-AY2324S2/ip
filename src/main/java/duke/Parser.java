@@ -8,11 +8,16 @@ import duke.task.Todo;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * Parser class used to parse user input
+ */
 public class Parser {
-
-    // Contains information about each command parsed
-
+    /**
+     * Static method to parse user input and return the recognised commands.
+     * @param input User input to be parsed.
+     * @return Command instance to be executed.
+     * @throws DukeException If command has empty arguments, or user input is unrecognisable
+     */
     public static Command parse(String input) throws DukeException {
         // Simple commands
         if (input.matches("list(\\s*)")) {
