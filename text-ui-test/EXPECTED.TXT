@@ -1,83 +1,77 @@
-_________________________________________________________
+
 Hello! I am Harper.
 What can I do for you?
-_________________________________________________________
-_________________________________________________________
-Nothing is in your list!
-_________________________________________________________
-_________________________________________________________
+
+
+Nothing is in your list
+
+
 Got it. I've added this task into your list:
 T | 0 | read book
 Now you have 1 task in the list.
-_________________________________________________________
-_________________________________________________________
-Got it. I've added this task into your list:
-D | 0 | return book | Sunday
-Now you have 2 tasks in the list.
-_________________________________________________________
-_________________________________________________________
-Got it. I've added this task into your list:
-E | 0 | math class | Mon 2pm - 4pm
-Now you have 3 tasks in the list.
-_________________________________________________________
-_________________________________________________________
+
+
+Date time should follow this format:
+d/M/yyyy HH:mm (e.g., 15/9/2024 16:25)
+
+
+Date time should follow this format:
+d/M/yyyy HH:mm (e.g., 15/9/2024 16:25)
+
+
 Here are the tasks in your list:
 1. T | 0 | read book
-2. D | 0 | return book | Sunday
-3. E | 0 | math class | Mon 2pm - 4pm
-_________________________________________________________
-_________________________________________________________
+
+
 Nice! I've marked this task as done:
 T | 1 | read book
-_________________________________________________________
-_________________________________________________________
-Nice! I've marked this task as done:
-E | 1 | math class | Mon 2pm - 4pm
-_________________________________________________________
-_________________________________________________________
+
+
+Please make sure u have entered a valid index!
+
+
 OK, I've marked this task as not done yet:
 T | 0 | read book
-_________________________________________________________
-_________________________________________________________
-Ok! I've removed this task for you:
-D | 0 | return book | Sunday
-Now you have 2 tasks in the list.
-_________________________________________________________
-_________________________________________________________
+
+
+Please make sure u have entered a valid index!
+
+
 Here are the tasks in your list:
 1. T | 0 | read book
-2. E | 1 | math class | Mon 2pm - 4pm
-_________________________________________________________
-_________________________________________________________
-Index is out of bounds. Please provide a valid task index!
-_________________________________________________________
-_________________________________________________________
-What do you mean? :-(
-_________________________________________________________
-_________________________________________________________
-What do you mean? :-(
-_________________________________________________________
-_________________________________________________________
-What do you mean? :-(
-_________________________________________________________
-_________________________________________________________
+
+
+Please make sure u have entered a valid index!
+
+
+What do you mean? :-()
+
+
+What do you mean? :-()
+
+
+What do you mean? :-()
+
+
 Please follow the format: "deadline [description] /by [deadline]"
 to add a deadline task into your list.
 All fields are required.
 Only the whitespace after "deadline" is required.
-_________________________________________________________
+
+
 _________________________________________________________
 Please follow the format: "event [description] /from [start time] /to [end time]"
 to add a event task into your list.
 All fields are required!
 Only the whitespace after "event" is required
 _________________________________________________________
-_________________________________________________________
-What do you mean? :-(
-_________________________________________________________
-_________________________________________________________
-What do you mean? :-(
-_________________________________________________________
-_________________________________________________________
+
+
+What do you mean? :-()
+
+
+What do you mean? :-()
+
+
 Hope to see you again soon! Peace out!
-_________________________________________________________
+
