@@ -1,11 +1,13 @@
 package Utils;
 public class StringUtils {
-  public static int getIndexOf(String input, String toFind) {
-    int index = input.indexOf(toFind);
-    if (index == -1) throw new IllegalArgumentException("No " + toFind + " specified");
-    return index;
-  }
 
+  /**
+   * Main purpose of this function is to help us find the index of a given string, and offset it by a given amount
+   * @param input The input to search
+   * @param toFind The index of the string to find
+   * @param offset The offset to move from the initial toFind String
+   * @return The index of toFind in the position. Or throws an illegal argument exception if it doesn't exist
+   */
   public static int getIndexOf(String input, String toFind, int offset) {
     int index = input.indexOf(toFind) + offset;
     if (index < 0 || index >= input.length()) throw new IllegalArgumentException("No " + toFind + " specified");
@@ -21,7 +23,7 @@ public class StringUtils {
    * @return
    */
   public static String getValueOfCommand(String input, String command, String stopWord)  {
-    int commandIndex = getIndexOf(input, command);
+    int commandIndex = getIndexOf(input, command, 0);
     // Validates against command that is at the end of the string
     if (commandIndex + command.length() >= input.length()) throw new IllegalArgumentException("No valid value found after " + command);
     commandIndex += command.length();
@@ -39,11 +41,11 @@ public class StringUtils {
 
   /**
    * This function simply abstracts out the splitting logic of the data string
-   * @param data
-   * @return
+   * @param data data to split by |
+   * @return a array of the split up strings
    */
   public static String[] splitDataString(String data) {
-    String[] segments = data.split("\\s*\\|\\s*");
+    String[] segments = data.trim().split("\\s*\\|\\s*");
     return segments;
   }
 }

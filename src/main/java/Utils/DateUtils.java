@@ -17,6 +17,12 @@ public class DateUtils {
         }
     }
 
+    /**
+     * Formats date to specified format of 9/12/1999, 4PM. Used for human friendly date strings mainly.
+     * Dates are stored in a different format
+     * @param dateTime date time to format to string
+     * @return returns in format of d/MM/yyyy, ha (e.g. /12/1999, 4PM)
+     */
     public static String formatDate(LocalDateTime dateTime) {
         try {
             return dateTime.format(OUTPUT_FORMATTER);

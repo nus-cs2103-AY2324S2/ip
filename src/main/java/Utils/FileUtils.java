@@ -14,7 +14,7 @@ public class FileUtils {
     public static List<String> read(Path filePath) {
         List<String> lines = new ArrayList<>();
         try {
-             lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
+            lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

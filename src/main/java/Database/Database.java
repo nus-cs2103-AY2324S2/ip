@@ -10,10 +10,11 @@ import java.util.List;
 
 public class Database {
     private static final String FILE_PATH = "database.db";
+    public static final String BASE_DIR = System.getProperty("user.dir") + "/src/main/java/Database";
     public static File getTable(String fileName) {
-        String baseDir = System.getProperty("user.dir") + "/src/main/java/Database";
+
         try {
-            String filePath = baseDir + "/" + fileName + ".txt";
+            String filePath = BASE_DIR + "/" + fileName + ".txt";
             File db = new File(filePath);
             if (!db.exists() && db.createNewFile()) {
                 System.out.println("Creating new file");
