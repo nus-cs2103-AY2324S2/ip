@@ -1,2 +1,2 @@
-T | 0 | borrow book
-E | 0 | valentines | 14/02/2024 0900 | 14/02/2024 1300
+D 0 project
+2024-02-24T13:00
