@@ -21,7 +21,11 @@ public class UserInterface {
 
     public static void print(String msg) {
         System.out.println(INDENT + LINE);
-        System.out.println(INDENT + msg);
+        String[] lines = msg.split("\n");
+        System.out.println(INDENT + lines[0]);
+        for (int i = 1; i < lines.length; i++) {
+            System.out.println(INDENT + lines[i]);
+        }
         System.out.println(INDENT + LINE + "\n");
     }
 
@@ -56,7 +60,11 @@ public class UserInterface {
 
     public static void showError(String error) {
         System.out.println(INDENT + LINE);
-        System.out.println(INDENT + "Error: " + error);
+        String[] lines = error.split("\n");
+        System.out.println(INDENT + "Error: " + lines[0]);
+        for (int i = 1; i < lines.length; i++) {
+            System.out.println(INDENT + lines[i]);
+        }
         System.out.println(INDENT + LINE + "\n");
     }
 }

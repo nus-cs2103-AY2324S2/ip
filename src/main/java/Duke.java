@@ -1,12 +1,24 @@
-import java.util.ArrayList;
-
 public class Duke {
 
     private static TaskList taskList = new TaskList();
 
+    private static PersistentStorageHandler persistentStorageHandler = new PersistentStorageHandler();
+
     public static void main(String[] args) {
 
         UserInterface.printWelcome();
+
+
+
+        try {
+            if (persistentStorageHandler.ensureTaskFileExists()) {
+                taskList = persistentStorageHandler.readTaskFileFromDisc();
+                int numTasks = taskList.getNumberTasks();
+                UserInterface.print("Read existing tasks (" + numTasks + ") from disc");
+            }
+        } catch (DukeException e) {
+            UserInterface.showError(e.getMessage());
+        }
 
         boolean isExit = false;
         while(!isExit) {
@@ -54,6 +66,8 @@ public class Duke {
                     default:
                     throw new DukeException("Invalid Command" + commandType);
                 }
+
+                persistentStorageHandler.writeTaskFileToDisc(taskList);
             } catch (DukeException e) {
                 UserInterface.showError(e.getMessage());
             }
@@ -110,6 +124,5 @@ public class Duke {
         String end = eventDetails[2];
         String response = taskList.addTask(new Event(description, start, end));
         int totalTasks = taskList.getNumberTasks();
-        UserInterface.printTaskAdded(response, totalTasks);
     }
 }
