@@ -44,13 +44,15 @@ The Joy Amplifying Virtuoso!
 | User Input:
 > | It appears the parameters might be doing a little dance of confusion!
 | Could you please check the parameters and give them another whirl?
+| Echoing input 
+| r 0
 | User Input:
 > | Sure I'll store it right away!
 | User Input:
 > | Here's everything that I'd stored!
 | 1.[T][ ] borrow book
 | 2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-| 3.[D][ ] testing date (by: 2024-02-12) {14 days left}
+| 3.[D][ ] testing date (by: 2024-02-12) {11 days left}
 | User Input:
 > | Farewell!
 | May your days be filled with laughter and warmth!

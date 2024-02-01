@@ -4,71 +4,107 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/* Handles loading and storing of data in local files */
+/**
+* FileManager handles loading and storing of data in local files.
+*/
 public class FileManager {
+    /** Name of text file for the storage data. */
+    public String storageFileName = "StorageData.txt";
     
-    public String StorageFileName = "StorageData.txt";
-    public String FileDirectory = "bin" + File.separatorChar + "SavedData/";
+    /** Name of file directory */
+    public String fileDirectory = "bin" + File.separatorChar + "SavedData" + File.separatorChar;
 
-    // General save method
-    public void Save(String _data, String _fileName) throws IOException {
+    /**
+     * Saves data into a file.
+     * 
+     * @param data a string containing the data to be saved.
+     * @param fileName the name of the file.
+     * 
+     * @throws IOException if an I/O error occurs.
+     */ 
+    public void save(String data, String fileName) throws IOException {
         try {
-            File file = new File(_fileName);
+            // Check if file exists already
+            File file = new File(fileName);
             if (!file.exists()) {
                 file.createNewFile();
             }
 
-            PrintWriter pw = new PrintWriter(new File(_fileName));
+            // Write data into file
+            PrintWriter pw = new PrintWriter(new File(fileName));
+            pw.write(data);
             
-            pw.write(_data);
-            
+            // Don't leave the stream hanging
             pw.flush();
             pw.close();
         } catch (Exception e) {
-            throw new IOException("FileManager cannot save data to " + _fileName, e);
+            throw new IOException("FileManager cannot save data to " + fileName, e);
         }
     }
     
-    // Saves data in storage file
-    public void SaveStorageData(String _data) throws IOException {
+    /**
+     * Saves data into the storage data file.
+     * 
+     * @param data a string containing the data to be saved.
+     * 
+     * @throws IOException if an I/O error occurs.
+     */
+    public void saveStorageData(String _data) throws IOException {
         try {
-            Save(_data, FileDirectory + StorageFileName);
+            save(_data, fileDirectory + storageFileName);
         } catch (Exception e) {
             throw e;
         }
     }
 
-    // General load method
-    public String Load(String _fileName) throws IOException {
+    /**
+     * Reads and returns the data from a file.
+     * 
+     * @param fileName the name of the file to read from.
+     * 
+     * @return the data from the file.
+     * 
+     * @throws IOException if an I/O error occurs
+     */
+    public String load(String fileName) throws IOException {
         try {
-            File file = new File(_fileName);
+            // Check if file exists
+            File file = new File(fileName);
             if (!file.exists()) {
                 file.createNewFile();
             }
 
-            FileReader fr = new FileReader(_fileName);
+            // Read data from file
+            FileReader fr = new FileReader(fileName);
             BufferedReader br = new BufferedReader(fr);
             String line;
             String result = "";
-
             while((line = br.readLine()) != null) {
                 result += line;
                 result += '\n';
             }
 
+            // Don't leave the stream hanging
             br.close();
             fr.close();
 
             return result;
         } catch (IOException e) {
-            throw new IOException("FileManager cannot load data from " + _fileName, e);
+            throw new IOException("FileManager cannot load data from " + fileName, e);
         }
     }
 
-    // Loads data in storage file
-    public String LoadStorageData() throws IOException {
+
+    /**
+     * Loads the data from the storage data file.
+     *
+     * @return a string containing the loaded data.
+     * 
+     * @throws IOException if an I/O error occurs.
+     */
+    public String loadStorageData() throws IOException {
         try {
-            return Load(FileDirectory + StorageFileName);
+            return load(fileDirectory + storageFileName);
         } catch (IOException e) {
             throw e;
         }

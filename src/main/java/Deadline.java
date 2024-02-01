@@ -1,42 +1,69 @@
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 
+/**
+* Deadline is a task that also consists of a due date.
+*/
 public class Deadline extends Task {
+    /** Non-date formatted due date. */
     protected String dueText;
+
+    /**Date formatted due date. */
     protected LocalDate dueDate;
 
-    public Deadline() { type = "Deadline"; name = "deadline"; dueDate = LocalDate.now(); isMarked = false; }
-    public Deadline(String _s, boolean _flag) {
+    /**
+     * Constructs a new Deadline.
+     *
+     * @return a new Deadline.
+     */
+    public Deadline() { 
+        type = "Deadline";
+        description = "deadline";
+        dueDate = LocalDate.now(); 
+        isMarked = false; 
+    }
+
+    /**
+     * Constructs a new Deadline.
+     * 
+     * @param params a string containing the information about the deadline.
+     * @param isMarked whether the deadline is marked.
+     *
+     * @return a new Deadline.
+     * 
+     * @throws InvalidParamException if the parameters are invalid.
+     */
+    public Deadline(String params, boolean isMarked) throws InvalidParamException {
         // Check for invalid params
-        if (!_s.contains(" /by ")) {
+        if (!params.contains(" /by ")) {
             throw new InvalidParamException("Invalid param for deadline", null);
         }
 
+        // Set the deadline values
         type = "Deadline";
-        name = _s.substring(0, _s.indexOf(" /by "));
-        dueText = _s.substring(_s.indexOf(" /by ") + 5);
+        description = params.substring(0, params.indexOf(" /by "));
+        dueText = params.substring(params.indexOf(" /by ") + 5);
         try {
             dueDate = LocalDate.parse(dueText);
         } catch (DateTimeParseException e) {
             dueDate = null;
         }
-        isMarked = _flag;
+        this.isMarked = isMarked;
     } 
 
     @Override
-    public String ToString() { 
+    public String toString() { 
         String s = "[D][";
         if (isMarked) {
             s += "X";
         } else {
             s += " ";
         }
-        s += "] " + name + 
-            " (by: " + 
-            (dueDate != null ? dueDate.toString() : dueText)
-             + ")";
+        s += "] " + description
+          + " (by: "
+          + (dueDate != null ? dueDate.toString() : dueText)
+          + ")";
 
         if (dueDate != null) {
             Period p = Period.between(LocalDate.now(), dueDate);
@@ -58,7 +85,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String GetFileFormatParam() {
-        return name + " /by " + dueText;
+    public String getFileFormatParam() {
+        return description + " /by " + dueText;
     }
 }
