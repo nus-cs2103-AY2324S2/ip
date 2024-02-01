@@ -14,4 +14,7 @@ public class Deadline extends Task{
     public String getDescription() {
         return String.format("%s (by: %s)", this.description, this.date);
     }
+    public String getCommand() {
+        return String.format("deadline %s /by %s\n%b\n", this.description, this.date, this.isDone);
+    }
 }

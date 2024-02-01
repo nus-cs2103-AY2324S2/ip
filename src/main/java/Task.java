@@ -30,4 +30,8 @@ public class Task {
     public String getTypeIcon() {
         return " ";
     }
+
+    public String getCommand() {
+        return "";
+    }
 }

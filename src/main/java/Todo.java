@@ -7,4 +7,9 @@ public class Todo extends Task{
     public String getTypeIcon() {
         return "T";
     }
+
+    @Override
+    public String getCommand() {
+        return String.format("todo %s\n%b\n", this.description, this.isDone);
+    }
 }

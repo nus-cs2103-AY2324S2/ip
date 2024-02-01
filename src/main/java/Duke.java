@@ -1,19 +1,16 @@
+import java.io.File;
+import java.io.FileWriter;   // Import the FileWriter class
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
+
 
 public class Duke {
     private String name;
     private ArrayList<Task> list;
 
-    private enum Command {
-        todo,
-        delete,
-        bye,
-        mark,
-        unmark,
-        deadline,
-        event
-    }
 
     public Duke(String name) {
         this.name = name;
@@ -25,6 +22,7 @@ public class Duke {
     }
 
     public void exit() {
+        this.saveToDoList("src/main/duke.txt");
         System.out.println("Bye. Hope to see you again soon!\n");
     }
 
@@ -36,6 +34,36 @@ public class Duke {
         Task task = new Task(taskMessage);
         this.list.add(task);
         System.out.println(String.format("added: %s", task.getDescription()));
+    }
+
+    public void saveToDoList(String filename){
+        try{
+            FileWriter dest = new FileWriter(filename);
+            for (Task t : this.list) {
+                dest.write(t.getCommand());
+            }
+            dest.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadToDoList(String filename){
+        try {
+            File f = new File(filename);
+            Scanner reader = new Scanner(f);
+            while (reader.hasNextLine()) {
+                String command = reader.nextLine();
+                String isDone = reader.nextLine();
+                this.readCommand(command);
+                if (Objects.equals(isDone, "true")) {
+                    this.markTask(this.list.size());
+                }
+            }
+            System.out.println("Loading Done!");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addToList(Task t) {
@@ -190,6 +218,7 @@ public class Duke {
 
     public static void main(String[] args) {
         Duke chatbot = new Duke("Bob");
+        chatbot.loadToDoList("src/main/duke.txt");
         chatbot.greet();
         Scanner scanner = new Scanner(System.in);
         while (true) {
