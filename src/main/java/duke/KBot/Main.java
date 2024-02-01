@@ -1,5 +1,5 @@
-package KBot;
-import ui_design.Messages;
+package duke.KBot;
+import duke.ui_design.Messages;
 
 public class Main {
     public static void main(String[] args) {

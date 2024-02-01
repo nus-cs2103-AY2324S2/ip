@@ -1,4 +1,4 @@
-package tasks;
+package duke.tasks;
 
 /**
  * A class that encapsulates the ToDo tasks, a type of Task.

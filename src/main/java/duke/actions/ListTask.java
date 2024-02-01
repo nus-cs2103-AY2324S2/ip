@@ -1,8 +1,8 @@
-package actions;
+package duke.actions;
 
 import java.lang.StringBuilder;
 
-import KBot.TaskManager;
+import duke.KBot.TaskManager;
 
 public class ListTask extends Command {
     public ListTask() {

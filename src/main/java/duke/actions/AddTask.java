@@ -1,17 +1,17 @@
-package actions;
+package duke.actions;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import KBot.TaskFileManager;
-import KBot.TaskManager;
-import exceptions.InvalidInputException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
+import duke.KBot.TaskFileManager;
+import duke.KBot.TaskManager;
+import duke.exceptions.InvalidInputException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
 
 public class AddTask extends Command {
     private String ins;

@@ -1,4 +1,4 @@
-package tasks;
+package duke.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +14,7 @@ public class Deadline extends Task {
     private static final String TYPE = "D";
 
     private static final DateTimeFormatter STORAGEFORMAT = DateTimeFormatter.ofPattern("d-M-yy");
-    private static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern("MMM-d-yy");
+    private static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern("MMM-d-yyyy");
 
     /** A LocalDataTime value that represents the time of deadline. */
     private LocalDate endTime;

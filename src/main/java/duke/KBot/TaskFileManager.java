@@ -1,12 +1,12 @@
-package KBot;
+package duke.KBot;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +23,7 @@ import java.time.format.DateTimeParseException;
 public class TaskFileManager {
 
     /** Filepath of where to save to local disk for TASKS */
-    private static final String FILEPATH = "src/main/java/temp/output.txt";
+    private static final String FILEPATH = "src/main/java/duke/temp/output.txt";
 
     private static final DateTimeFormatter STORAGEFORMAT = DateTimeFormatter.ofPattern("d-M-yy");
     private static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern("d-M-yy");

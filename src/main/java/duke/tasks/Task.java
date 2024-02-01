@@ -1,4 +1,4 @@
-package tasks;
+package duke.tasks;
 
 /**
  * Encapsulate a Task with a name and status of boolean to represent whether it

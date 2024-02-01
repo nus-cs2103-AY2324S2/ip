@@ -1,15 +1,14 @@
-package KBot;
+package duke.KBot;
 
-import actions.AddTask;
-import actions.Command;
-import actions.DeleteTask;
-import actions.Help;
-import actions.ListTask;
-import actions.MarkTask;
-import actions.UnMarkTask;
-import exceptions.InvalidCommandException;
-import exceptions.InvalidInputException;
-import exceptions.KException;
+import duke.actions.AddTask;
+import duke.actions.Command;
+import duke.actions.DeleteTask;
+import duke.actions.Help;
+import duke.actions.ListTask;
+import duke.actions.MarkTask;
+import duke.actions.UnMarkTask;
+import duke.exceptions.InvalidCommandException;
+import duke.exceptions.InvalidInputException;
 
 /**
  * Parse through the commands to return a specific command class.

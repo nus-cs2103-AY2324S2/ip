@@ -1,4 +1,4 @@
-package ui_design;
+package duke.ui_design;
 
 /**
  * Manages all messages that should be printed as the UI component.

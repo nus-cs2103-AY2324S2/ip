@@ -1,12 +1,13 @@
-package KBot;
+package duke.KBot;
 
 import java.util.Scanner;
-import java.io.IOException;
 
-import actions.Command;
-import exceptions.InvalidCommandException;
-import exceptions.InvalidInputException;
-import ui_design.Messages;
+import duke.actions.Command;
+import duke.exceptions.InvalidCommandException;
+import duke.exceptions.InvalidInputException;
+import duke.ui_design.Messages;
+
+import java.io.IOException;
 
 /**
  * Encapsulate a chatbot names kaipybara that takes in input from the user and

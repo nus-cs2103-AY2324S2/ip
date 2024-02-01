@@ -1,10 +1,10 @@
-package actions;
+package duke.actions;
 
 import java.io.IOException;
 import java.lang.IndexOutOfBoundsException;
 
-import exceptions.InvalidCommandException;
-import exceptions.InvalidInputException;
+import duke.exceptions.InvalidCommandException;
+import duke.exceptions.InvalidInputException;
 
 public abstract class Command {
 

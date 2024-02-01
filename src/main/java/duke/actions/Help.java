@@ -1,4 +1,4 @@
-package actions;
+package duke.actions;
 
 public class Help extends Command {
     private static final String help = "Active commands:x\n" +

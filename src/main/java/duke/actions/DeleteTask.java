@@ -1,21 +1,21 @@
-package actions;
+package duke.actions;
 
 import java.io.IOException;
 import java.lang.IndexOutOfBoundsException;
 
-import KBot.TaskFileManager;
-import KBot.TaskManager;
-import tasks.Task;
+import duke.KBot.TaskFileManager;
+import duke.KBot.TaskManager;
+import duke.tasks.Task;
 
-public class MarkTask extends Command {
+public class DeleteTask extends Command {
     private int index;
 
-    public MarkTask(int index) {
+    public DeleteTask(int index) {
         this.index = index;
     }
 
     /**
-     * Marks a Task as completed.
+     * Deletes an existing task.
      * 
      * @return String of whether there has been an error or a success.
      * @throws IndexOutOfBoundsException Throws the exception when the index to mark
@@ -25,10 +25,10 @@ public class MarkTask extends Command {
      */
     public String execute() throws IndexOutOfBoundsException, IOException {
         try {
-            Task t = TaskManager.getTasks().get(index); // may throw IndexOutOfBoundsException
-            t.setCompleted();
+            Task t = TaskManager.getTasks().remove(index); // may throw IndexOutOfBoundsException
             TaskFileManager.saveTasksToFile(TaskManager.getTasks()); // may throw IOException
-            return ("Nice! I've marked this task as done:\n" + t);
+            return ("OK, I've deleted this task:\n" + t
+                    + "\nNow you have " + TaskManager.getTasks().size() + " tasks in this list!");
         } catch (IndexOutOfBoundsException e) {
             return (e.getMessage());
         } catch (IOException e) {
@@ -37,6 +37,7 @@ public class MarkTask extends Command {
     }
 
     public String toString() {
-        return "Command: MarkTask at index " + index;
+        return "Command: Delete at index " + index;
     }
+
 }

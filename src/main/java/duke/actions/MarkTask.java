@@ -1,22 +1,21 @@
-package actions;
+package duke.actions;
 
 import java.io.IOException;
 import java.lang.IndexOutOfBoundsException;
 
-import KBot.TaskFileManager;
-import KBot.TaskManager;
-import tasks.Task;
+import duke.KBot.TaskFileManager;
+import duke.KBot.TaskManager;
+import duke.tasks.Task;
 
-public class UnMarkTask extends Command {
-
+public class MarkTask extends Command {
     private int index;
 
-    public UnMarkTask(int index) {
+    public MarkTask(int index) {
         this.index = index;
     }
 
     /**
-     * Marks a Task as not completed.
+     * Marks a Task as completed.
      * 
      * @return String of whether there has been an error or a success.
      * @throws IndexOutOfBoundsException Throws the exception when the index to mark
@@ -27,9 +26,9 @@ public class UnMarkTask extends Command {
     public String execute() throws IndexOutOfBoundsException, IOException {
         try {
             Task t = TaskManager.getTasks().get(index); // may throw IndexOutOfBoundsException
-            t.setNotCompleted();
+            t.setCompleted();
             TaskFileManager.saveTasksToFile(TaskManager.getTasks()); // may throw IOException
-            return ("OK, I've marked this task as not done yet:\n" + t);
+            return ("Nice! I've marked this task as done:\n" + t);
         } catch (IndexOutOfBoundsException e) {
             return (e.getMessage());
         } catch (IOException e) {
@@ -38,6 +37,6 @@ public class UnMarkTask extends Command {
     }
 
     public String toString() {
-        return "Command: UnMarkTask at index " + index;
+        return "Command: MarkTask at index " + index;
     }
 }
