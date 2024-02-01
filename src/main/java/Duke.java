@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -122,7 +123,7 @@ public class Duke {
 
                         // separate to description: deadlineInfo[0]: return book 
                         // and deadline: deadlineInfo[1]: by Sunday
-                        String[] deadlineInfo = inputs[1].split("/", 2);
+                        String[] deadlineInfo = inputs[1].split("/by", 2);
 
                         if (deadlineInfo.length != 2) {
                             throw new DukeException("OOPS!!! Please add "
@@ -133,9 +134,7 @@ public class Duke {
                         System.out.println("\tGot it. I've added this task:");
                         Deadline deadline = new Deadline(
                                                 deadlineInfo[0].strip(), 
-                                                deadlineInfo[1].replaceFirst(
-                                                    "by", 
-                                                    "").strip());
+                                                deadlineInfo[1].strip());
                         AL.add(deadline);
                         System.out.println("\t" + deadline);
                         printListCounter(AL);
@@ -197,8 +196,11 @@ public class Duke {
                 printMsg("Enter a numeric value!!");
             } catch (DukeException e) {
                 printMsg(e.toString());
+            } catch (DateTimeParseException e) {
+                printMsg("ERROR!! Please format date as YYYY-MM-DD and time as HHMM");
             } catch (Exception e) {
                 printMsg("Invalid input.");
+                e.printStackTrace();
             }
 
             if (isExit) break;
