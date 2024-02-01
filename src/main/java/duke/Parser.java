@@ -3,7 +3,7 @@ package duke;
 import command.Command;
 import command.ListCommand;
 import command.MarkCommand;
-import command.unMarkCommand;
+import command.UnmarkCommand;
 import command.AddToDoCommand;
 import command.AddDeadlineCommand;
 import command.AddEventCommand;
