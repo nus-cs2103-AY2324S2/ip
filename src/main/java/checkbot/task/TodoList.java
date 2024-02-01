@@ -6,15 +6,21 @@ import checkbot.exception.InvalidIndexException;
  * Represents a list of tasks.
  */
 public class TodoList {
-    private final Task[] taskList = new Task[100];
-    /**
-     * The number of tasks in the list.
-     */
+    private final Task[] taskList;
     private int length = 0;
+
+    public TodoList() {
+        this.taskList = new Task[100];
+    }
+
+    private TodoList(Task[] taskList, int length) {
+        this.taskList = taskList;
+        this.length = length;
+    }
 
     /**
      * Adds a task to the list.
-     * 
+     *
      * @param task The task to be added.
      */
     public void addTask(Task task) {
@@ -24,7 +30,7 @@ public class TodoList {
 
     /**
      * Marks the task at the specified index as done.
-     * 
+     *
      * @param i The index of the task to be marked as done.
      * @throws InvalidIndexException If the index is invalid.
      */
@@ -38,7 +44,7 @@ public class TodoList {
 
     /**
      * Marks the task at the specified index as incomplete.
-     * 
+     *
      * @param i The index of the task to be unmarked.
      * @throws InvalidIndexException If the index is invalid.
      */
@@ -52,7 +58,7 @@ public class TodoList {
 
     /**
      * Deletes the task at the specified index.
-     * 
+     *
      * @param i The index of the task to be deleted.
      * @return The deleted task.
      * @throws InvalidIndexException If the index is invalid.
@@ -92,7 +98,7 @@ public class TodoList {
 
     /**
      * Formats the list of tasks for saving to a file.
-     * 
+     *
      * @return The formatted list of tasks.
      */
     public String formatForFile() {
@@ -104,5 +110,17 @@ public class TodoList {
             }
         }
         return txt.toString();
+    }
+
+    public TodoList find(String substr) {
+        Task[] subList = new Task[100];
+        int newLength = 0;
+        for (int i = 0; i < length; i++) {
+            if (taskList[i].nameContains(substr)) {
+                subList[newLength] = taskList[i];
+                newLength++;
+            }
+        }
+        return new TodoList(subList, newLength);
     }
 }

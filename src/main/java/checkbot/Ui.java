@@ -88,6 +88,21 @@ public class Ui {
     }
 
     /**
+     * Prints the given sublist to the user.
+     * @param subList The sublist containing tasks that matches the user's search query.
+     */
+    public void showSubList(TodoList subList) {
+        if (subList.getLength() == 0) {
+            print("You have no tasks in your list matching your query!");
+            return;
+        }
+        print(
+                "Here are the matching tasks in your list:\n" +
+                        subList
+        );
+    }
+
+    /**
      * Prints the given string to the console. Starts and ends with a separator
      * and indents each line with the indentation string.
      *
