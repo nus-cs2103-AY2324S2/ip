@@ -15,14 +15,9 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void writeTask(String path) {
-        try (BufferedWriter out = new BufferedWriter(new FileWriter(path, true))){
-            out.write("D |" + (this.isDone ? " 1 | " : " 0 | ") + this.getDescription()
-                    + " | " + this.by);
-            out.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public String writeContent() {
+        return "D |" + (this.isDone ? " 1 | " : " 0 | ") + this.getDescription()
+                    + " | " + this.by;
     }
 
     @Override

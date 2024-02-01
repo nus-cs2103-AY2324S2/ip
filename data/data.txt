@@ -1,17 +1,5 @@
-T | 0 | run
+T | 1 | run
 T | 0 | game
-T | 0 | run
-T | 0 | game
-T | 0 | run
-T | 0 | read
-T | 0 | stonk
-T | 0 | run
-T | 0 | game
-T | 0 | run
-T | 0 | game
-T | 0 | run
-T | 0 | read
-T | 0 | stonk
-T | 0 | run
-T | 0 | breathe
+D | 1 | return book | Feb 12 2019 1800
+T | 0 | write
 T | 0 | gameboy

@@ -21,7 +21,7 @@ public abstract class Task {
 
     public void markAsUndone() { isDone = false; }
 
-    public abstract void writeTask(String path);
+    public abstract String writeContent();
 
     @Override
     public String toString() {

@@ -17,15 +17,11 @@ public class Event extends Task {
     }
 
     @Override
-    public void writeTask(String path) {
-        try (BufferedWriter out = new BufferedWriter(new FileWriter(path, true))){
-            out.write("E |" + (this.isDone ? " 1 | " : " 0 | ") + this.getDescription()
-                    + " | " + this.from + " | " + this.to);
-            out.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public String writeContent() {
+        return "E |" + (this.isDone ? " 1 | " : " 0 | ") + this.getDescription()
+                + " | " + this.from + " | " + this.to;
     }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";

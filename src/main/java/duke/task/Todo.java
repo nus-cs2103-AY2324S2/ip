@@ -10,13 +10,8 @@ public class Todo extends Task {
     }
 
     @Override
-    public void writeTask(String path) {
-        try (BufferedWriter out = new BufferedWriter(new FileWriter(path, true))){
-            out.write("T |" + (this.isDone ? " 1 | " : " 0 | ") + this.getDescription());
-            out.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public String writeContent() {
+        return "T |" + (this.isDone ? " 1 | " : " 0 | ") + this.getDescription();
     }
 
     @Override
