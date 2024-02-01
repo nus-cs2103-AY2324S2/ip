@@ -1,9 +1,9 @@
 package taskList.commands;
 
 import taskList.Storage;
-import taskList.Task;
 import taskList.TaskList;
 import taskList.Ui;
+import taskList.tasks.Task;
 
 public class DeleteCommand implements Command{
 

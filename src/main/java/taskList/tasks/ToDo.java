@@ -1,5 +1,4 @@
-package taskList;
-
+package taskList.tasks;
 
 public class ToDo extends Task {
 

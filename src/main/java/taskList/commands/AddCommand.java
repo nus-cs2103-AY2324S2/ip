@@ -3,6 +3,10 @@ package taskList.commands;
 import java.time.DateTimeException;
 
 import taskList.*;
+import taskList.tasks.Deadline;
+import taskList.tasks.Event;
+import taskList.tasks.Task;
+import taskList.tasks.ToDo;
 
 public class AddCommand implements Command{
 

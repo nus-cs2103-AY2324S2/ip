@@ -3,6 +3,8 @@ package taskList;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import taskList.tasks.Task;
+
 public class TaskList implements Serializable {
     private ArrayList<Task> taskList;
 

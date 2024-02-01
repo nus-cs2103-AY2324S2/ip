@@ -1,5 +1,7 @@
 package taskList;
 
+import taskList.tasks.Task;
+
 public class Ui {
     protected boolean isRunning = true;
 
