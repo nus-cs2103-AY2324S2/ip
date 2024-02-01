@@ -173,12 +173,12 @@ public class Parser {
                 System.out.println("delete (x) - delete the xth item from the list. Do note that this may affect the positioning of some of the items.");
                 break;
             case "bye":
-                return false;
+                return true;
             default:
                 System.out.println("Hm, this doesn't seem like something can do for you. Try something else?\nSteven's advice: try typing \"help\" to see what user inputs are available.");
                 break;
         }
         System.out.print(line);
-        return true;
+        return false;
     }
 }

@@ -32,7 +32,8 @@ public class Steven {
             while (Input.hasNextLine()) {
                 UserInput command = new UserInput(Input.nextLine());
                 exit = new Parser(command, this.tasks).processInput();
-                if (!exit) {
+                if (exit) {
+                    System.out.print(line);
                     break;
                 }
             }
