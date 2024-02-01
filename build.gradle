@@ -28,7 +28,8 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+//    The base path is already set to src.main.java
+    mainClass.set("Duke")
 }
 
 shadowJar {

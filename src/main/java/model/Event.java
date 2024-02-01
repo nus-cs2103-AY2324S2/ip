@@ -1,6 +1,6 @@
 package model;
 
-import Utility.DateTimeUtility;
+import utility.DateTimeUtility;
 
 import java.time.LocalDateTime;
 

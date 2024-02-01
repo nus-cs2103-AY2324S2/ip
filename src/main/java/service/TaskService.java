@@ -1,6 +1,6 @@
 package service;
 
-import Utility.FileUtility;
+import utility.FileUtility;
 import model.Deadline;
 import model.Event;
 import model.Task;
