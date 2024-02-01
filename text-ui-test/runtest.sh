@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# delete output from previous run
+if [ -e "../data/tasks.csv" ]
+then
+    rm "../data/tasks.csv"
+fi
+
 # create bin directory if it doesn't exist
 if [ ! -d "../bin" ]
 then

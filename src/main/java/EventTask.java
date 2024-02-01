@@ -1,15 +1,18 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class EventTask extends Task {
     
-    private String startTiming;
-    private String endTiming;
+    private LocalDateTime startTiming;
+    private LocalDateTime endTiming;
 
-    EventTask(String description, String startTiming, String endTiming) {
+    EventTask(String description, LocalDateTime startTiming, LocalDateTime endTiming) {
         super(description);
         this.startTiming = startTiming;
         this.endTiming = endTiming;
     }
 
-    EventTask(String description, String startTiming, String endTiming, boolean isCompleted) {
+    EventTask(String description, LocalDateTime startTiming, LocalDateTime endTiming, boolean isCompleted) {
         super(description, isCompleted);
         this.startTiming = startTiming;
         this.endTiming = endTiming;
@@ -18,13 +21,24 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         String status = super.isCompleted() ? "[X]" : "[ ]";
-        return "[E]" + status + " " + super.getDescription() + " (from: " + this.startTiming + " to: " + this.endTiming + ")";
+        // change format of date to MMM dd yyyy HH:mm
+        String startTimingString = this.startTiming.format(DateTimeFormatter.ofPattern(Task.DATETIME_FORMAT_OUTPUT));
+        String endTimingString;
+        // check if endTiming is on the same day as startTiming
+        if (this.startTiming.toLocalDate().equals(this.endTiming.toLocalDate())) {
+            endTimingString = this.endTiming.format(DateTimeFormatter.ofPattern("HH:mm"));
+        } else {
+            endTimingString = this.endTiming.format(DateTimeFormatter.ofPattern(Task.DATETIME_FORMAT_OUTPUT));
+        }
+        return "[E]" + status + " " + super.getDescription() + " (from: " + startTimingString 
+                + " to: " + endTimingString + ")";
     }
 
     @Override
     public String exportToSave() {
         String status = super.isCompleted() ? "1" : "0";
-        return "E," + status + "," + super.getDescription() + "," + this.startTiming + "," + this.endTiming;
+        return "E," + status + "," + super.getDescription() + "," + this.startTiming.toString() 
+                + "," + this.endTiming.toString();
     }
 
 }

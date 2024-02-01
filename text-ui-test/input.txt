@@ -1,6 +1,6 @@
 todo make coffee
-deadline drink coffee /by Today 9am
-event buy coffee /from Today 2pm /to 4pm 
+deadline drink coffee /by 2024-02-01 0900
+event buy coffee /from 2024-02-02 1000 /to 2024-02-02 1200
 mark 1
 mark 3
 unmark 1
@@ -15,4 +15,5 @@ list
 delete 2
 delete 1
 list
+event buy coffee /from 2024-02-02 1100 /to 2024-02-03 1300
 bye

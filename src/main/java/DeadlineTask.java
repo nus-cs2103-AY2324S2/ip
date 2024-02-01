@@ -1,13 +1,16 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class DeadlineTask extends Task {
     
-    private String timing;
+    private LocalDateTime timing;
 
-    DeadlineTask(String description, String timing) {
+    DeadlineTask(String description, LocalDateTime timing) {
         super(description);
         this.timing = timing;
     }
 
-    DeadlineTask(String description, String timing, boolean isCompleted) {
+    DeadlineTask(String description, LocalDateTime timing, boolean isCompleted) {
         super(description, isCompleted);
         this.timing = timing;
     }
@@ -15,13 +18,14 @@ public class DeadlineTask extends Task {
     @Override
     public String toString() {
         String status = super.isCompleted() ? "[X]" : "[ ]";
-        return "[D]" + status + " " + super.getDescription() + " (by: " + this.timing + ")";
+        String timingString = this.timing.format(DateTimeFormatter.ofPattern(Task.DATETIME_FORMAT_OUTPUT));
+        return "[D]" + status + " " + super.getDescription() + " (by: " + timingString + ")";
     }
 
     @Override
     public String exportToSave() {
         String status = super.isCompleted() ? "1" : "0";
-        return "D," + status + "," + super.getDescription() + "," + this.timing;
+        return "D," + status + "," + super.getDescription() + "," + this.timing.toString();
     }
 
 }
