@@ -68,6 +68,8 @@ public class Parser {
         case DeleteCommand.COMMAND:
             return new DeleteCommand(Integer.parseInt(input[1]));
 
+        case FindCommand.COMMAND:
+            return new FindCommand(input[1]);
         default:
             return new HelpCommand();
         }
