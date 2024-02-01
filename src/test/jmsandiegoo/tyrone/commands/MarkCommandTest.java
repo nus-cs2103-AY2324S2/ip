@@ -1,7 +1,5 @@
-package jmsandiegoo.commands;
+package jmsandiegoo.tyrone.commands;
 
-import jmsandiegoo.tyrone.commands.CommandResult;
-import jmsandiegoo.tyrone.commands.MarkCommand;
 import jmsandiegoo.tyrone.common.Messages;
 import jmsandiegoo.tyrone.exceptions.CommandExecutionException;
 import jmsandiegoo.tyrone.task.Task;
