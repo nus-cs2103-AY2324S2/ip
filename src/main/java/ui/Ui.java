@@ -1,4 +1,5 @@
 package ui;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -25,17 +26,62 @@ public class Ui {
         this.sc = new Scanner(System.in);
     }
 
+    /**
+     * Returns a string containing the greeting string.
+     *
+     * @return a string containing the greeting string.
+     */
     public String greeting() {return GREETING;}
+
+    /**
+     * Returns a string containing the divider string.
+     *
+     * @return a string containing the divider string.
+     */
     public String divider() {return DIVIDER;}
+
+    /**
+     * Returns a string containing the question string.
+     *
+     * @return a string containing the question string.
+     */
+
+
+     /**
+      * Returns a string containing the question string.
+      *      
+      * @return a string containing the question string.
+      */
     public String question() {return QUESTION;}
 
+    /**
+     * Returns a string containing the marked string.
+     *
+     * @return a string containing the marked string.
+     */
     public String mark() {return MARKED;}
 
+    /**
+     * Returns a string containing the unmarked string.
+     *
+     * @return a string containing the unmarked string.
+     */
     public String unmark() {return UNMARKED;}
 
+    /**
+     * Returns the user's input as a string.
+     *
+     * @return the user's input as a string.
+     */
     public String getCommand() {
         return sc.nextLine().trim();
     }
+
+    /**
+     * Returns a string containing the bye string.
+     *
+     * @return a string containing the bye string.
+     */
     public static String bye() {
         return BYE;
     }

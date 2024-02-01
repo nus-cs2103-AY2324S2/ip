@@ -2,6 +2,7 @@ package parser;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import processor.Processor;
 import tasks.TaskList;
 import ui.Ui;
@@ -51,11 +52,44 @@ public class ParserTest {
     }
 
     @Test
-    public void test_processCommand_delete() throws IOException {
+    public void test_process_command_delete() throws IOException {
         String userInput = "delete 1";
         parser.processCommand(userInput);
         assert(((ProcessorStub) processor).methodsCalled.contains("userInputDeleteTask"));
     }
 
-    // ... repeat for other test methods
+    @Test
+    public void test_process_command_mark() throws IOException {
+        String userInput = "mark 1";
+        parser.processCommand(userInput);
+        assert(((ProcessorStub) processor).methodsCalled.contains("userInputProcessMarkUnmark"));
+    }
+
+    @Test
+    public void test_process_command_unmark() throws IOException {
+        String userInput = "unmark 1";
+        parser.processCommand(userInput);
+        assert(((ProcessorStub) processor).methodsCalled.contains("userInputProcessMarkUnmark"));
+    }
+
+    @Test
+    public void test_process_command_list() throws IOException {
+        String userInput = "list";
+        parser.processCommand(userInput);
+        assert(((ProcessorStub) processor).methodsCalled.contains("userInputListTasks"));
+    }
+
+    @Test
+    public void test_process_command_add() throws IOException {
+        String userInput = "todo buy groceries";
+        parser.processCommand(userInput);
+        assert(((ProcessorStub) processor).methodsCalled.contains("userInputAddTask"));
+    }
+
+    @Test
+    public void test_process_command_invalid() throws IOException {
+        String userInput = "invalid command";
+        parser.processCommand(userInput);
+        assert(((ProcessorStub) processor).methodsCalled.contains("userInputAddTask"));
+    }
 }
