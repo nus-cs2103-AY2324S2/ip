@@ -22,6 +22,7 @@ public class Parser {
     public static Command parse(String userInput) throws DukeException {
         String[] parts = userInput.trim().split(" ", 2);
         String commandWord = parts[0].toLowerCase();
+        System.out.println(commandWord);
 
         switch (commandWord) {
             case "bye":
@@ -85,6 +86,11 @@ public class Parser {
                 } catch (NumberFormatException e) {
                     throw new DukeException("The task number to delete must be a number.");
                 }
+            case "find":
+                if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                    throw new DukeException("The keyword to find cannot be empty.");
+                }
+                return new FindCommand(parts[1].trim());
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
