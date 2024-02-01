@@ -59,9 +59,9 @@ public class TaskList {
         Ui.printMessage(s);
     }
 
-    public void printAddTask(Task t) {
+    public void printAddTask(Task task) {
         Ui.printMessage("Got it, I've added this task:");
-        Ui.printMessage(t.toString() + "\n");
+        Ui.printMessage(task.toString() + "\n");
         String s = String.format("Now you have %d tasks in the list\n", taskList.size());
         Ui.printMessage(s);
 
