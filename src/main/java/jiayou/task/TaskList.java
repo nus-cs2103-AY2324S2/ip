@@ -71,6 +71,16 @@ public class TaskList {
         }
     }
 
+    public void searchByKeyword(String keyword) {
+        System.out.println("Here are the tasks with the keyword " + keyword + " in your list:");
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task task = this.tasks.get(i);
+            if (task.getDescription().contains(keyword)) {
+                System.out.println((i + 1) + "." + task.toString());
+            }
+        }
+    }
+
     public int getSize() {
         return this.tasks.size();
     }

@@ -5,7 +5,7 @@ import jiayou.task.*;
 
 public class Parser {
     private static enum CommandType {
-        TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, SEARCH, BYE
+        TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, SEARCH, FIND, BYE
     }
 
     public void parse(TaskList tasks, String input) {
@@ -70,6 +70,8 @@ public class Parser {
             case SEARCH:
                 LocalDate date = LocalDate.parse(content);
                 tasks.searchByDate(date);
+            case FIND:
+                tasks.searchByKeyword(content);
             }
         } catch (IllegalArgumentException e) {
             System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
