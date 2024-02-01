@@ -1,10 +1,81 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-public class Duke {
+import java.nio.file.*;
+import java.io.*;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class James {
+    private static final String FILE_PATH = "./data/hardDisk.txt";
+
+    private static void saveTasks(ArrayList<Task> tasks) throws IOException {
+        List<String> lines = tasks.stream()
+                                  .map(Task::toFileFormat) 
+                                  .collect(Collectors.toList());
+        Path path = Paths.get(FILE_PATH);
+        Files.write(path, lines);
+    }
+
+    private static void loadTasks(ArrayList<Task> tasks) throws IOException, DukeException {
+        Path path = Paths.get(FILE_PATH);
+        if (Files.exists(path)) {
+            List<String> lines = Files.readAllLines(path);
+            for (String line : lines) {
+                Task task = parseLineToTask(line); 
+                tasks.add(task);
+            }
+        } else {
+            Files.createDirectories(path.getParent());
+            Files.createFile(path);
+        }
+    }
+
+    private static Task parseLineToTask(String line) throws DukeException {
+        String[] parts = line.split(" \\| ");
+
+        // Common task components
+        String type = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+    
+        switch (type) {
+            case "T": // Todo
+                Todo todo = new Todo(description);
+                if (isDone) todo.markAsDone();
+                return todo;
+            case "D": // Deadline
+                // Assuming that the deadline part is after the third " | "
+                String by = parts[3].trim();
+                Deadline deadline = new Deadline(description, by);
+                if (isDone) deadline.markAsDone();
+                return deadline;
+            case "E": // Event
+                // Assuming that the event time part is after the third " | " and includes "from" and "to"
+                String[] timeParts = parts[3].split(" to ");
+                String start = timeParts[0].substring(6).trim(); // Remove "from " prefix
+                String end = timeParts[1].trim();
+                Event event = new Event(description, start, end);
+                if (isDone) event.markAsDone();
+                return event;
+            default:
+                throw new DukeException("Unknown task type in file: " + type);
+        }
+    }
+    
+    
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
         String name = "James";
+
+        try {
+            loadTasks(tasks);
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks: " + e.getMessage());
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
+
         System.out.println("Hello! I'm " + name + "\n");
         System.out.println("What can I do for you?\n");
 
@@ -12,8 +83,13 @@ public class Duke {
             try {
                 String input = scanner.nextLine();
                 if (input.equalsIgnoreCase("bye")) {
-                    System.out.println("Bye. Hope to see you again soon!\n");
-                    break;
+                    try {
+                        saveTasks(tasks);
+                        System.out.println("Bye. Hope to see you again soon!\n");
+                        break;
+                    } catch (IOException e) {
+                        System.out.println("An error occurred while saving tasks: " + e.getMessage());
+                    }
                 }
 
                 String[] parts = input.split(" ", 2);
@@ -34,6 +110,11 @@ public class Duke {
                         tasks.add(newTodo);
                         System.out.println("Got it. I've added this task:\n" + newTodo);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        try {
+                            saveTasks(tasks);
+                        } catch (IOException e) {
+                            System.out.println("An error occurred while saving tasks: " + e.getMessage());
+                        }
                         break;
                     case "deadline":
                         if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -47,6 +128,11 @@ public class Duke {
                         tasks.add(newDeadline);
                         System.out.println("Got it. I've added this task:\n" + newDeadline);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        try {
+                            saveTasks(tasks);
+                        } catch (IOException e) {
+                            System.out.println("An error occurred while saving tasks: " + e.getMessage());
+                        }
                         break;
                     case "event":
                         if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -64,6 +150,11 @@ public class Duke {
                         tasks.add(newEvent);
                         System.out.println("Got it. I've added this task:\n" + newEvent);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        try {
+                            saveTasks(tasks);
+                        } catch (IOException e) {
+                            System.out.println("An error occurred while saving tasks: " + e.getMessage());
+                        }
                         break;
                     case "mark":
                         try {
@@ -75,6 +166,11 @@ public class Duke {
                             System.out.println("Nice! I've marked this task as done:\n" + tasks.get(taskIndexToMark));
                         } catch (NumberFormatException e) {
                             throw new DukeException("Please enter a valid task number to mark.");
+                        }
+                        try {
+                            saveTasks(tasks);
+                        } catch (IOException e) {
+                            System.out.println("An error occurred while saving tasks: " + e.getMessage());
                         }
                         break;
                     case "unmark":
@@ -88,6 +184,11 @@ public class Duke {
                         } catch (NumberFormatException e) {
                             throw new DukeException("Please enter a valid task number to unmark.");
                         }
+                        try {
+                            saveTasks(tasks);
+                        } catch (IOException e) {
+                            System.out.println("An error occurred while saving tasks: " + e.getMessage());
+                        }
                         break;
                     case "delete":
                         try {
@@ -100,6 +201,11 @@ public class Duke {
                             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         } catch (NumberFormatException e) {
                             throw new DukeException("Please enter a valid task number to delete.");
+                        }
+                        try {
+                            saveTasks(tasks);
+                        } catch (IOException e) {
+                            System.out.println("An error occurred while saving tasks: " + e.getMessage());
                         }
                         break;
                     default:

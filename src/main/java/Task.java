@@ -19,6 +19,10 @@ public class Task {
         return this.description;
     }
 
+    public String toFileFormat() {
+        return (this.isDone ? "1" : "0") + " | " + this.description;
+    }
+
     @Override
     public String toString() {
         return (this.isDone ? "[X] " : "[ ] ") + this.description;
