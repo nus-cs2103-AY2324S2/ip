@@ -3,8 +3,8 @@ import java.time.LocalDate;
 
 public class ToDo extends Task {
     
-    public ToDo(String description, int num) {
-        super(description, num);
+    public ToDo(String description) {
+        super(description);
         
     }
 

@@ -1,14 +1,15 @@
 package tasks;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class Deadlines extends Task {
     private String deadline;
     private LocalDateTime actual_deadline;
     
-    public Deadlines(String description, String deadline, LocalDateTime actual_deadline, int num) {
-        super(description, num);
+    public Deadlines(String description, String deadline, LocalDateTime actual_deadline) {
+        super(description);
         this.deadline = deadline;
         this.actual_deadline = actual_deadline;
     }
@@ -22,10 +23,11 @@ public class Deadlines extends Task {
     }
 
     public String toString() {
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm'hrs'");
         if (this.isMarked()) {
-            return "[D][X] " + super.toString() + "(by: " + this.deadline.substring(3) + ")";
+            return "[D][X] " + super.toString() + "(by: " + this.getAbsoluteDeadline().format(outputFormatter) + ")";
         } else {
-            return "[D][ ] " + super.toString() + "(by: " + this.deadline.substring(3) + ")";
+            return "[D][ ] " + super.toString() + "(by: " + this.getAbsoluteDeadline().format(outputFormatter) + ")";
         }
     }
 

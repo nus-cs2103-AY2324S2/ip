@@ -35,7 +35,7 @@ public class Output {
 
     public String execute(String input) {
         if (input.equalsIgnoreCase("bye")) {
-            return layer(this.bye());
+            return this.bye();
         } else {
             return layer(this.parser.parse(input));
         }

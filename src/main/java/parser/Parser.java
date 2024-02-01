@@ -7,6 +7,11 @@ import tasks.Events;
 import tasks.Task;
 import tasks.ToDo;
 import storage.Storage;
+import actions.AddTask;
+import actions.DeleteTask;
+import actions.ListTask;
+import actions.MarkTask;
+import actions.UnmarkTask;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,7 +19,6 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
     private Storage storage;
-    private static int num;
     
     public Parser(Storage storage) {
         this.storage = storage;
@@ -22,19 +26,14 @@ public class Parser {
 
     public String parse(String input) {
         ArrayList<Task> inventory = storage.load();
-        num = 0;
         try {
             if (input.equalsIgnoreCase("list")) {
                 if (!input.trim().equals("list")) {
                     throw new DukeException("OOPS!!! This is an invalid call of list command.");
-                } else {
-                    String result = "";
-                    int count = 1;
-                    for (Task s : inventory) {
-                        result += count + ". " + s.toString() + "\n";
-                        count++;
-                    }
-                    return result;
+                } 
+                else {
+                    ListTask lister = new ListTask(storage);
+                    return lister.list();
                 }
             } 
             else if (input.startsWith("mark")) {
@@ -42,10 +41,11 @@ public class Parser {
                     throw new DukeException("OOPS!!! Invalid Command, highlight which task to mark");
                 } else {
                     int index = Integer.parseInt(input.substring(5));
-                    inventory.get(index - 1).mark();
-                    String temp = "Nice! I've marked this task as done: \n";
-                    temp += inventory.get(index - 1).toString();
-                    return temp;
+                    if (index < 1 || index > inventory.size()) {
+                        throw new DukeException("OOPS!!! The task number you are trying to mark does not exist. ");
+                    }
+                    MarkTask marker = new MarkTask(storage, index);
+                    return marker.mark();
                 }
             } 
             else if (input.startsWith("unmark")) {
@@ -53,10 +53,11 @@ public class Parser {
                     throw new DukeException("OOPS!!! Invalid Command, highlight which task to unmark");
                 } else {
                     int index = Integer.parseInt(input.substring(7));
-                    inventory.get(index - 1).unmark();
-                    String temp = "OK, I've marked this task as not done yet: \n";
-                    temp += inventory.get(index - 1).toString();
-                    return temp;
+                    if (index < 1 || index > inventory.size()) {
+                        throw new DukeException("OOPS!!! The task number you are trying to unmark does not exist. ");
+                    }
+                    UnmarkTask unmarker = new UnmarkTask(storage, index);
+                    return unmarker.unmark();
                 }
             } 
             else if (input.startsWith("todo")) {
@@ -64,12 +65,10 @@ public class Parser {
                     throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
                 } else {
                     String task = input.substring(5);
-                    num++;
-                    inventory.add(new ToDo(task, num));
-                    String temp = "Got it. I've added this task: \n";
-                    temp += " " + inventory.get(inventory.size() - 1).toString();
-                    temp += "\nNow you have " + num + " tasks in the list.";
-                    return temp;
+                    ToDo todoTask = new ToDo(task);
+                    AddTask adder = new AddTask(storage, todoTask);
+                    adder.add();
+                    return adder.toString();
                 }
             }
             else if (input.startsWith("deadline")) {
@@ -94,17 +93,20 @@ public class Parser {
                     catch (DateTimeParseException e) {
                         throw new DukeException("OOPS!!! The date format is invalid. " + valid_format);
                     }
-                    num++;
-                    inventory.add(new Deadlines(parts[0], parts[1], dateTime, num));
-                    String temp = "Got it. I've added this task: \n";
-                    temp += " " + inventory.get(inventory.size() - 1).toString();
-                    temp += "\nNow you have " + num + " tasks in the list.";
+                    Deadlines deadlineTask = new Deadlines(parts[0], parts[1], dateTime);
+                    AddTask adder = new AddTask(storage, deadlineTask);
+                    adder.add();
+                    String temp = adder.toString();
+                    
                     //Also include the tasks with the same deadline as the following task.
                     String similarities = "";
                     int counter = 1;
                     for (int i = 0; i < inventory.size() - 1; i++) {
                         Task t = inventory.get(i);
-                        if (t.getDeadline().equals(dateTime.toLocalDate()) || !t.identifier().equals("[T]")) {
+                        if (!t.identifier().equals("[D]")) {
+                            continue;
+                        }
+                        if (t.getDeadline().equals(dateTime.toLocalDate())) {
                             similarities += counter + ": " + t.toString() + "\n";
                         }
                         counter++;
@@ -135,7 +137,6 @@ public class Parser {
                     try {
                         String dateTimeString1 = parts[1].substring(5).trim();
                         String dateTimeString2 = parts[2].substring(3).trim();
-                        System.out.println(dateTimeString1);
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
                         dateTime1 = LocalDateTime.parse(dateTimeString1, formatter);
                         dateTime2 = LocalDateTime.parse(dateTimeString2, formatter);
@@ -143,28 +144,25 @@ public class Parser {
                     catch (DateTimeParseException e) {
                         throw new DukeException("OOPS!!! The date format is invalid. " + valid_format);
                     }
-                    num++;
-                    inventory.add(new Events(parts[0], parts[1], parts[2], dateTime1, dateTime2, num));
-                    String temp = "Got it. I've added this task: \n";
-                    temp += " " + inventory.get(inventory.size() - 1).toString();
-                    temp += "\nNow you have " + num + " tasks in the list.";
-                    return temp;
+                    Events eventTask = new Events(parts[0], parts[1], parts[2], dateTime1, dateTime2);
+                    AddTask adder = new AddTask(storage, eventTask);
+                    adder.add();
+                    return adder.toString();
                 }
             }
             else if (input.startsWith("delete")) {
+                String valid_format = "Please input in format: delete *index*";
                 if (input.trim().equals("delete")) {
-                    throw new DukeException("OOPS!!! Invalid delete command");
+                    throw new DukeException("OOPS!!! Invalid delete command " + valid_format);
                 } else {
                     int index = Integer.parseInt(input.substring(7));
-                    String temp = "Noted. I've removed this task: \n";
-                    Task t = inventory.get(index - 1);
-                    inventory.remove(index-1);
-                    temp += " " + t.toString();
-                    num--;
-                    temp += "\nNow you have " + num + " tasks in this list.";
-                    return temp;
+                    if (index < 1 || index > inventory.size()) {
+                        throw new DukeException("OOPS!!! The task number you are trying to delete does not exist. ");
+                    }
+                    DeleteTask deleter = new DeleteTask(storage, index);
+                    deleter.delete();
+                    return deleter.toString();
                 }
-
             }
             else {
                 return "OOPS!!! I'm sorry, but that's an invalid command :-(";

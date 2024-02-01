@@ -4,12 +4,12 @@ import java.time.LocalDate;
 abstract public class Task {
     private String description;
     private boolean marked;
-    private int num;
+    
 
-    Task(String description, int num) {
+    Task(String description) {
         this.description = description;
         this.marked = false;
-        this.num = num;
+        
     }
 
     public void mark() {
@@ -22,10 +22,6 @@ abstract public class Task {
 
     public boolean isMarked() {
         return this.marked;
-    }
-
-    public int getNum() {
-        return this.num;
     }
 
     @Override

@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Scanner;
 import ui.Output;
 import storage.Storage;
@@ -20,6 +20,12 @@ public class Duke {
                 break;
             } else {
                 System.out.println(output.execute(input));
+            }
+            //writing into the file
+            try {
+                storage.writeToFile(storage.load());
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
             }
         }
         sc.close();

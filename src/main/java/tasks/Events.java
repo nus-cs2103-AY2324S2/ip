@@ -1,6 +1,7 @@
 package tasks;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Events extends Task {
     private String start;
@@ -8,8 +9,8 @@ public class Events extends Task {
     private LocalDateTime actualStart;
     private LocalDateTime actualEnd;
 
-    public Events(String description, String start, String end, LocalDateTime actualStart, LocalDateTime actualEnd, int num) {
-        super(description, num);
+    public Events(String description, String start, String end, LocalDateTime actualStart, LocalDateTime actualEnd) {
+        super(description);
         this.start = start;
         this.end = end;
         this.actualStart = actualStart;
@@ -25,12 +26,13 @@ public class Events extends Task {
     }
     @Override
     public String toString() {
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm'hrs'");
         if (this.isMarked()) {
-            return "[E][X] " + super.toString() + "(from: " + this.start.substring(5) + 
-            " to: " + this.end.substring(3) + ")";
+            return "[E][X] " + super.toString() + "(from: " + this.actualStart.format(outputFormatter) + 
+            " to: " + this.actualEnd.format(outputFormatter) + ")";
         } else {
-            return "[E][ ] " + super.toString() + "(from: " + this.start.substring(5) + 
-            " to: " + this.end.substring(3) + ")";
+            return "[E][ ] " + super.toString() + "(from: " + this.actualStart.format(outputFormatter) + 
+            ", to: " + this.actualEnd.format(outputFormatter) + ")";
         }
     }
     @Override
