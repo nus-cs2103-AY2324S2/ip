@@ -12,11 +12,20 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Command to add an event into the task list.
+ */
 public class eventCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * The constructor of eventCommand.
+     *
+     * @param taskList The task list which the command will modify.
+     * @param ui The ui to get the input of the user.
+     */
     public eventCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }

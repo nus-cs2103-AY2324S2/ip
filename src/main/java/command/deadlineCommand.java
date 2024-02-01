@@ -12,11 +12,20 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Command to add a deadline into the task list.
+ */
 public class deadlineCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * The constructor of deadlineCommand.
+     *
+     * @param taskList The task list which the command will modify.
+     * @param ui The ui to get the input of the user.
+     */
     public deadlineCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
