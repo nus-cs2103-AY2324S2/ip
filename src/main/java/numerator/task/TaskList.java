@@ -15,6 +15,21 @@ public class TaskList {
 
     }
 
+    public String findTasks(String pattern) {
+        TaskList matchedTasks = new TaskList();
+        for (Task t : this.taskList) {
+            if (t.containsKeyword(pattern)) {
+                matchedTasks.addTask(t);
+            }
+        }
+        return matchedTasks.toString();
+    }
+
+    // used only for findTasks
+    private void addTask(Task t) {
+        this.taskList.add(t);
+    }
+
     public void markLastAsDone() {
         if (this.taskList.isEmpty()) {
             return;
