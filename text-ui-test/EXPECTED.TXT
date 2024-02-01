@@ -5,76 +5,57 @@ ____________________________________________________________
 ____________________________________________________________
 Got it. Added this task:
 [T][ ] borrow book
-Now you have 1 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-Got it. Added this task:
-[D][ ] return book (by: Sunday)
-Now you have 2 tasks in the list.
-____________________________________________________________
+Now you have 10 tasks in the list.
 ____________________________________________________________
 Got it. Added this task:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in the list.
+[D][ ] return book (by: Dec 12 2019 1800)
+Now you have 11 tasks in the list.
 ____________________________________________________________
+Got it. Added this task:
+[E][ ] project meeting (from: Dec 12 2019 1800 to: Dec 13 2019 1800)
+Now you have 12 tasks in the list.
 ____________________________________________________________
  Here are the tasks in your list:
-1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+1. [D][X] return book (by: Dec 03 2019 0000)
+2. [T][X] read book
+3. [T][ ] read book
+4. [E][ ] project meeting (from: Aug 06 2024 1400 to: Aug 06 2024 1800)
+5. [T][X] join sports club
+6. [T][ ] read book
+7. [T][ ] evenNewer
+8. [D][ ] yestheory (by: Dec 03 2019 0000)
+9. [T][ ] test
+10. [T][ ] borrow book
+11. [D][ ] return book (by: Dec 12 2019 1800)
+12. [E][ ] project meeting (from: Dec 12 2019 1800 to: Dec 13 2019 1800)
 ____________________________________________________________
  Nice! I've marked this task as done:
- [E][X] project meeting (from: Mon 2pm to: 4pm)
-____________________________________________________________
-____________________________________________________________
- Here are the tasks in your list:
-1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][X] project meeting (from: Mon 2pm to: 4pm)
+ [T][X] read book
 ____________________________________________________________
 ____________________________________________________________
  OK, I've marked this task as not done yet:
- [E][ ] project meeting (from: Mon 2pm to: 4pm)
+ [T][ ] read book
 ____________________________________________________________
 ____________________________________________________________
  Here are the tasks in your list:
-1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-____________________________________________________________
- Nice! I've marked this task as done:
- [D][X] return book (by: Sunday)
-____________________________________________________________
- Nice! I've marked this task as done:
- [T][X] borrow book
-____________________________________________________________
-____________________________________________________________
- Here are the tasks in your list:
-1. [T][X] borrow book
-2. [D][X] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+1. [D][X] return book (by: Dec 03 2019 0000)
+2. [T][ ] read book
+3. [T][X] read book
+4. [E][ ] project meeting (from: Aug 06 2024 1400 to: Aug 06 2024 1800)
+5. [T][X] join sports club
+6. [T][ ] read book
+7. [T][ ] evenNewer
+8. [D][ ] yestheory (by: Dec 03 2019 0000)
+9. [T][ ] test
+10. [T][ ] borrow book
+11. [D][ ] return book (by: Dec 12 2019 1800)
+12. [E][ ] project meeting (from: Dec 12 2019 1800 to: Dec 13 2019 1800)
 ____________________________________________________________
 ____________________________________________________________
- OK, I've marked this task as not done yet:
- [T][ ] borrow book
-____________________________________________________________
-____________________________________________________________
- Here are the tasks in your list:
-1. [T][ ] borrow book
-2. [D][X] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-____________________________________________________________
-____________________________________________________________
- OK, I've marked this task as not done yet:
- [D][ ] return book (by: Sunday)
-____________________________________________________________
-____________________________________________________________
- Here are the tasks in your list:
-1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Okay! I've fed this task to Woodstock, bye bye!:
+[E][ ] project meeting (from: Dec 12 2019 1800 to: Dec 13 2019 1800)
+Now you have 11 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
  Bye. Don't come back. jk!
 ____________________________________________________________
-No input found. Exiting.
