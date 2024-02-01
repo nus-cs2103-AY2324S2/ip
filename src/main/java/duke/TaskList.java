@@ -9,6 +9,8 @@ import java.util.ArrayList;
  * Performs the task job.
  */
 public class TaskList {
+
+    /** The list of tasks. */
     private static ArrayList<Task> tasks;
 
     /**
@@ -28,7 +30,8 @@ public class TaskList {
 
     /**
      * Retrieves the list of tasks.
-     * @return
+     *
+     * @return The list of tasks.
      */
     public ArrayList<Task> getTasks() {
         return tasks;
@@ -36,6 +39,7 @@ public class TaskList {
 
     /**
      * Changes the list of tasks.
+     *
      * @param tasks the list of tasks to replace.
      */
     public void setTasks(ArrayList<Task> tasks) {
@@ -44,6 +48,7 @@ public class TaskList {
 
     /**
      * Adds a new Task to the list of Tasks.
+     *
      * @param task new Task.
      */
     public void addTask(Task task) {
@@ -52,6 +57,7 @@ public class TaskList {
 
     /**
      * Retrieves an individual task based on the index.
+     *
      * @param index the selection.
      * @return the selected task.
      */
@@ -61,6 +67,7 @@ public class TaskList {
 
     /**
      * Removes the task from the list of tasks.
+     *
      * @param index the selection.
      */
     public void removeTask(int index) {
@@ -69,6 +76,7 @@ public class TaskList {
 
     /**
      * Marks the task as completed.
+     *
      * @param index the selection.
      */
     public void markTask(int index) {
@@ -77,6 +85,7 @@ public class TaskList {
 
     /**
      * Unmarks the task as not complete.
+     *
      * @param index the selection.
      */
     public void unmarkTask(int index) {

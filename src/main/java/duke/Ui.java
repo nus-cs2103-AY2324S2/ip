@@ -14,6 +14,9 @@ public class Ui {
             + "|____/ \\__,_|_|\\_\\___|\n";
 //        System.out.println("Hello from\n" + logo);
 
+    /**
+     * A constructor to create new Ui Object.
+     */
     public Ui() {
 
     }
@@ -37,6 +40,7 @@ public class Ui {
 
     /**
      * Prints any statement.
+     *
      * @param input
      */
     public void printAnyStatement(String input) {
@@ -45,6 +49,7 @@ public class Ui {
 
     /**
      * Reads the user input.
+     *
      * @return the user input.
      */
     public String readCommand() {
@@ -85,6 +90,7 @@ public class Ui {
 
     /**
      * Prints any error message.
+     *
      * @param e the error message to be printed.
      */
     public void showError(String e) {

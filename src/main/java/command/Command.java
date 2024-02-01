@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public abstract class Command {
 
+    /** The status of the system. */
     public boolean isExit;
 
     /**
@@ -23,14 +24,14 @@ public abstract class Command {
     }
 
     /**
-     * An abstract method.
+     * Executes some actions by the subclasses.
      *
-     * @param tasks the Task Object that contains a List of Task.
+     * @param tasks The TaskList Object that contains a List of Task.
      * @param ui The Ui Object that interact with the user.
      * @param storage Storage Manager to writing to the file.
      * @throws DukeException If there is an error.
      */
-    public abstract void excuteCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
     /**
      * Changes the status of the isExit to true.
@@ -41,6 +42,7 @@ public abstract class Command {
 
     /**
      * Gets the status of the isExit.
+     *
      * @return isExit.
      */
     public boolean getIsExit() {

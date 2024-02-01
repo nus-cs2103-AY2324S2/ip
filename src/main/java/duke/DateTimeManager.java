@@ -56,6 +56,7 @@ public class DateTimeManager {
                 // Continue next format
             }
         }
+
         throw new DukeException("There is an error of converting LocalDateTime to String.");
     }
 }

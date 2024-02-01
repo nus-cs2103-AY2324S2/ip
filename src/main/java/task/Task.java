@@ -5,11 +5,14 @@ package task;
  */
 public class Task {
 
+    /** The description for this task. */
     private String description;
+
+    /** The status of completion for this task. */
     private boolean isDone;
 
     /**
-     * A superclass's constructor to create a Task.
+     * A superclass constructor to create a Task.
      *
      * @param description The title of the Task.
      * @param isDone The status of the Task.

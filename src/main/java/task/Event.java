@@ -13,7 +13,11 @@ import java.util.List;
  * A subclass of Task.
  */
 public class Event extends Task {
+
+    /** The start DateTime for this Event. */
     LocalDateTime start;
+
+    /** The end DateTime for this Event. */
     LocalDateTime end;
 
     /**
@@ -59,6 +63,7 @@ public class Event extends Task {
                 DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"),
                 DateTimeFormatter.ofPattern("MMM dd yyyy'T'HH:mm")
         );
+
         String startString = "";
         String endString = "";
 

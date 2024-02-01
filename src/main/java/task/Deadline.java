@@ -13,6 +13,8 @@ import java.util.List;
  * A subclass of Task.
  */
 public class Deadline extends Task {
+
+    /** The DateTime to complete this task. */
     LocalDateTime by;
 
     /**
@@ -29,6 +31,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the DateTime of the deadline.
+     *
      * @return 'by'.
      */
     public LocalDateTime getBy() {
@@ -46,6 +49,7 @@ public class Deadline extends Task {
                 DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"),
                 DateTimeFormatter.ofPattern("MMM dd yyyy'T'HH:mm")
         );
+
         String byString = "";
         for (DateTimeFormatter formatter : formatters) {
             try {
