@@ -13,11 +13,11 @@ import tasks.Task;
 /**
  * To read data from and save data into Hard Disk
  */
-public class FileInput {
+public class FileReader {
     /**
      * No constructor of class needed
      */
-    private FileInput() {
+    private FileReader() {
         throw new AssertionError("Constructor is not allowed");
     }
 
@@ -27,7 +27,7 @@ public class FileInput {
      * @return Action ArrayList from Hard Disk or the empty ArrayList if not present
      * @throws Exception Wrong file location, no data in the file, or content in wrong format
      */
-    public static List<Task> execInput(List<Task> taskList) throws Exception {
+    public static List<Task> inputFromFile(List<Task> taskList) throws Exception {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("taylor.txt"));
             taskList = (List<Task>) ois.readObject();
@@ -52,7 +52,7 @@ public class FileInput {
      * @param taskList get the Action Array List and save in Hard Disk
      * @throws Exception file to save the Actions is not available
      */
-    public static void execOutput(List<Task> taskList) throws Exception {
+    public static void outputToFile(List<Task> taskList) throws Exception {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("taylor.txt"));
             oos.writeObject(taskList);

@@ -9,8 +9,9 @@ import executes.InsertTask;
 import executes.ListTask;
 import executes.MarkTask;
 import executes.SearchTask;
-import filehandler.FileInput;
+import filehandler.FileReader;
 import tasks.Task;
+
 
 /**
  * Main class to execute Taylor ChatBot
@@ -24,7 +25,7 @@ public class Taylor {
         List<Task> tasks = new ArrayList<>();
         // Load pre-existing task from Hard Disk
         try {
-            tasks = FileInput.execInput(tasks);
+            tasks = FileReader.inputFromFile(tasks);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -100,7 +101,7 @@ public class Taylor {
                 }
                 // Save Task into File in Hard Disk
                 try {
-                    FileInput.execOutput(tasks);
+                    FileReader.outputToFile(tasks);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
