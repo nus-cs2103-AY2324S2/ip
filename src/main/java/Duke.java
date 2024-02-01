@@ -160,9 +160,10 @@ public class Duke {
 
                         Task task = tasks.get(del - 1);
                         tasks.remove(del - 1);
+                        save.deleteTask(task, tasks.size());
 
                         System.out.println("Noted. I've removed this task:");
-                        System.out.println(" " + task.toString());
+                        System.out.println(" " + task);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                     } catch (DukeException de) {

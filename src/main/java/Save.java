@@ -1,12 +1,16 @@
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Save {
-    File file = new File("data/data.txt");
+    File file = new File("data/duke.txt");
 
     public Save() {}
 
@@ -41,17 +45,44 @@ public class Save {
         scanner.close();
     }
 
-    public void addNewTask (Task task) throws IOException {
+    public void addNewTask(Task task) throws IOException {
         if (!file.exists()) {
             handleFileAccessErrors();
         }
 
         FileWriter fw = new FileWriter(file, true);
-        fw.append("\r\n");
-        fw.append(task.getSaveTask());
+        fw.write(System.lineSeparator() + task.getSaveTask());
         fw.close();
     }
 
+    public void deleteTask(Task task, int num) throws IOException{
+        String condition = task.getSaveTask();
+        File oldFile = file;
+        File temp = new File("./data/temp.txt");
+
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(temp, true));
+        String currentLine = br.readLine();
+
+        while (currentLine != null) {
+
+            if (!currentLine.equalsIgnoreCase(condition)) {
+                bw.write(currentLine);
+                if (num > 1) {
+                    bw.write(System.lineSeparator());
+                }
+            }
+
+            currentLine = br.readLine();
+            --num;
+        }
+
+        bw.close();
+        br.close();
+
+        oldFile.delete();
+        temp.renameTo(new File("./data/duke.txt"));
+    }
     // Move to error handling class?
     private void handleFileAccessErrors() throws IOException {
         try {
