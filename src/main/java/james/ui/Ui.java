@@ -4,6 +4,7 @@ import james.exception.DukeException;
 import james.tasks.Task;
 import james.tasklist.TaskList;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
@@ -44,6 +45,18 @@ public class Ui {
             }
         }
     }
+
+    public void showTasksFound(List<String> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks match your search keyword.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+        }
+    }
+
 
     public void showDeletedTask(Task task, int remainingTasks) {
         System.out.println("Noted. I've removed this task: " + task);
