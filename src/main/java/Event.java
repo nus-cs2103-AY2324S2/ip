@@ -1,14 +1,17 @@
-public class Event extends Task {
-    protected String startDateTime;
-    protected String endDateTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String taskName, String startDateTime, String endDateTime) {
+public class Event extends Task {
+    protected LocalDateTime startDateTime;
+    protected LocalDateTime endDateTime;
+
+    public Event(String taskName, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         super(taskName);
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
     }
 
-    public Event(String taskName, String startDateTime, String endDateTime, boolean isDone) {
+    public Event(String taskName, LocalDateTime startDateTime, LocalDateTime endDateTime, boolean isDone) {
         super(taskName, isDone);
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -16,11 +19,16 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E] " + super.taskTitle + " (from: " + startDateTime + " to: " + endDateTime + ")" + super.getStatusIcon();
+        return "[E] " + super.taskTitle + " (from: "
+                + this.startDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm")) + " to: "
+                + this.endDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm")) + ")"
+                + super.getStatusIcon();
     }
 
     @Override
     public String toFile() {
-        return "E " + super.toFile() + " | " + this.startDateTime + "-" + this.endDateTime + "\n";
+        return "E " + super.toFile() + " | "
+                + this.startDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")) + "-"
+                + this.endDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")) + "\n";
     }
 }
