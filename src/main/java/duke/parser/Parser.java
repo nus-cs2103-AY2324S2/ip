@@ -3,6 +3,7 @@ package duke.parser;
 import duke.dukeException.*;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Arrays;
 
 import java.time.LocalDate;
@@ -225,10 +226,6 @@ public class Parser {
             }
             if (splitString.length > 3) {
                 String twelveHourFormat = "";
-                String[] timeSplit =  splitString[3].split(":");
-                if (timeSplit.length == 1) {
-                    throw new WrongTimeFormatException("Use : separator in time format");
-                }
                 if (splitString.length > 4) {
                    twelveHourFormat = splitString[4];
                 }
@@ -252,11 +249,12 @@ public class Parser {
 
     private void checkRealTime(String time, String twelveHourFormat) throws WrongTimeFormatException {
         if (twelveHourFormat.equals("")) {
-            if (time.length() < 5) {
+            if (time.length() < 5 && time.indexOf(":") != -1) {
                 time = "0" + time;
             }
             try {
-                LocalTime.parse(time);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[HH:mm]" + "[HHmm]" + "[Hmm]");
+                LocalTime.parse(time, formatter);
             } catch (DateTimeException exception) {
                 throw new WrongTimeFormatException("Date and time are impossible buddy");
             }

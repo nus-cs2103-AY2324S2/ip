@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -21,10 +22,11 @@ public class Deadlines extends Task {
         } else if (lenBy == 4) {
             this.by = LocalDate.parse(String.join("-", Arrays.copyOfRange(splitBy,
                     1, lenBy)));
-            if (splitBy[0].length() < 5) {
+            if (splitBy[0].length() < 5 && splitBy[0].indexOf(":") != -1) {
                 splitBy[0] = "0" + splitBy[0];
             }
-            this.byTime = LocalTime.parse(splitBy[0]);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[HH:mm]" + "[HHmm]" + "[Hmm]");
+            this.byTime = LocalTime.parse(splitBy[0], formatter);
         } else if (lenBy == 5) {
             this.by = LocalDate.parse(String.join("-", Arrays.copyOfRange(splitBy,
                     2, lenBy)));

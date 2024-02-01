@@ -1,4 +1,4 @@
-save 0 todo hearin
-save 0 todo minji
-save 1 deadline h /by 28/4/2077
-save 1 todo hyein
+save 0 deadline gg /by 3/3/2034 1800
+save 0 event h /from 2/2/2024 6:30 pm /to 2/2/2025 7:30 pm
+save 0 event h /from 2/2/2024 6:30 pm /to 2/2/2025 1800
+save 0 event h /from 2/2/2024 6:30 pm /to 2/2/2025 730

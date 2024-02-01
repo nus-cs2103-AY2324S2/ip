@@ -15,7 +15,7 @@ public class Storage {
 
     public static void start(TaskList taskList) {
         try {
-            File file = new File("./src/main/java/Storage/savefile.txt");
+            File file = new File("./src/main/java/duke/storage/savefile.txt");
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 Parser parser = new Parser();
@@ -35,7 +35,7 @@ public class Storage {
 
     public static void save(String input) {
         try {
-            FileWriter fw = new FileWriter("./src/main/java/Storage/savefile.txt");
+            FileWriter fw = new FileWriter("./src/main/java/duke/storage/savefile.txt");
             fw.write(input);
             fw.close();
         } catch (IOException e) {

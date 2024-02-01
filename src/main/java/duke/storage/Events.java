@@ -25,9 +25,11 @@ public class Events extends Task{
         } else if (lenFrom == 4) {
             this.from = LocalDate.parse(String.join("-", Arrays.copyOfRange(splitFrom,
                     1, lenFrom)));
-            if (splitFrom[0].length() < 5) {
+            if (splitFrom[0].length() < 5 && splitTo[0].indexOf(":") != -1) {
                 splitFrom[0] = "0" + splitFrom[0];
             }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[HH:mm]" + "[HHmm]" + "[Hmm]");
+            this.toTime = LocalTime.parse(splitFrom[0], formatter);
         } else if (lenFrom == 5) {
             this.from = LocalDate.parse(String.join("-", Arrays.copyOfRange(splitFrom,
                     2, lenFrom)));
@@ -39,10 +41,11 @@ public class Events extends Task{
         } else if (lenTo == 4) {
             this.to = LocalDate.parse(String.join("-", Arrays.copyOfRange(splitTo,
                     1, lenTo)));
-            if (splitTo[0].length() < 5) {
+            if (splitTo[0].length() < 5 && splitTo[0].indexOf(":") != -1) {
                 splitTo[0] = "0" + splitTo[0];
             }
-            this.toTime = LocalTime.parse(splitTo[0]);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[HH:mm]" + "[HHmm]" + "[Hmm]");
+            this.toTime = LocalTime.parse(splitTo[0], formatter);
         } else if (lenTo == 5) {
             this.to = LocalDate.parse(String.join("-", Arrays.copyOfRange(splitTo,
                     2, lenTo)));
