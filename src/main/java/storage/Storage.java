@@ -11,14 +11,27 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents storage component of Buddy, storing Task data.
+ */
 public class Storage {
     private String filePath;
     private ArrayList<Task> taskList = new ArrayList<>();
 
+    /**
+     * Creates Storage object with specified location of data file.
+     * @param filePath Location of data file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads data from pre-existing file specified in filePath.
+     *
+     * @return ArrayList of Tasks.
+     * @throws BuddyException If unable to load file or if format of saved data is incorrect.
+     */
     public ArrayList<Task> load() throws BuddyException {
         File f = new File(filePath);
         try {
@@ -61,6 +74,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves data from TaskList to a file specified in filePath.
+     *
+     * @param taskList TaskList consisting of Tasks to be saved
+     * @throws BuddyException If unable to save to file.
+     */
     public void save(TaskList taskList) throws BuddyException {
         try {
             FileWriter fw = new FileWriter(filePath);
