@@ -24,6 +24,6 @@ public class Ui {
      * Method that bids farewell to the user upon terminating Duke.
      */
     public void bye() {
-        System.out.println("\tSee you next time! ♥( ˆ⌣ ˆԅ)");
+        System.out.println("\tSee you next time!");
     }
 }

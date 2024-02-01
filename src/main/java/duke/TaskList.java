@@ -98,9 +98,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Method returns all task that has the matching word as desc.
+     * @param desc
+     */
     public void findTask(String desc) {
         findList.clear();
-        for(Task task : taskList) {
+        for (Task task : taskList) {
             if (task.toString().contains(desc)) {
                 findList.add(task);
             }
