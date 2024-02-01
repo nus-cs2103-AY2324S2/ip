@@ -1,9 +1,15 @@
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Jimmy {
 
@@ -71,27 +77,31 @@ public class Jimmy {
      *
      * @param fileString The string to be parsed.
      */
-    private static void parseFileString(String fileString) {
+    private static void parseFileString(String fileString) throws JimmyException {
         String[] attributes = fileString.split(" \\| "); // split by delimiter to obtain the task name, status and timings (if any)
         String taskType = attributes[0];
         boolean isTaskCompleted = Objects.equals(attributes[1], "1");
 
-        switch (taskType) {
-        case "T":
-            String taskDesc = attributes[2];
-            taskList.add(new Todo(taskDesc, isTaskCompleted));
-            break;
-        case "D":
-            String deadlineDesc = attributes[2];
-            String deadline = attributes[3];
-            taskList.add(new Deadline(deadlineDesc, deadline, isTaskCompleted));
-            break;
-        case "E":
-            String eventDesc = attributes[2];
-            String start = attributes[3];
-            String end = attributes[4];
-            taskList.add(new Event(eventDesc, start, end, isTaskCompleted));
-            break;
+        try {
+            switch (taskType) {
+            case "T":
+                String taskDesc = attributes[2];
+                taskList.add(new Todo(taskDesc, isTaskCompleted));
+                break;
+            case "D":
+                String deadlineDesc = attributes[2];
+                String deadline = attributes[3];
+                taskList.add(new Deadline(deadlineDesc, deadline, isTaskCompleted));
+                break;
+            case "E":
+                String eventDesc = attributes[2];
+                String start = attributes[3];
+                String end = attributes[4];
+                taskList.add(new Event(eventDesc, start, end, isTaskCompleted));
+                break;
+            }
+        } catch (DateTimeParseException e) {
+            throw new JimmyException("Error: Cannot parse the date saved locally.");
         }
     }
 
@@ -110,16 +120,26 @@ public class Jimmy {
                 newTask = createNewTodo(details);
                 break;
             case "deadline":
-                newTask = createNewDeadline(details);
-                break;
+                try {
+                    newTask = createNewDeadline(details);
+                    break;
+                } catch (IllegalArgumentException e) {
+                    throw new JimmyException("Please enter a valid deadline.");
+                }
             case "event":
-                newTask = createNewEvent(details);
-                break;
+                try {
+                    newTask = createNewEvent(details);
+                    break;
+                } catch (IllegalArgumentException e) {
+                    throw new JimmyException("Please enter a valid start and end date.");
+                }
             default:
                 throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e) {
             throw new JimmyException("Please enter a valid task type.");
+        } catch (DateTimeParseException e) {
+            throw new JimmyException("Error: Cannot parse the date written by user.");
         }
 
         taskList.add(newTask);

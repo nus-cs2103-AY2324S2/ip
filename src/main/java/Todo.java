@@ -1,9 +1,10 @@
 import java.util.Objects;
 
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Constructor for Todo class.
+     *
      * @param taskName Name of the task.
      */
     public Todo(String taskName, boolean isCompleted) {
@@ -12,6 +13,7 @@ public class Todo extends Task{
 
     /**
      * Details regarding the todo.
+     *
      * @return String representation of a todo.
      */
     @Override
@@ -21,6 +23,7 @@ public class Todo extends Task{
 
     /**
      * Format of the todo to be saved in the file.
+     *
      * @return String representation of a todo.
      */
     public String toFileString() {
