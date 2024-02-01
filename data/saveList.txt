@@ -1,4 +1,0 @@
-T | 0 | read book
-D | 1 | tutorial | tuesday
-D | 0 | watch lecture | today
-E | 1 | party | 1 | ??
