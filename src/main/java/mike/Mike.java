@@ -34,7 +34,8 @@ public class Mike {
                 Ui.displayLine();
                 List<Token> tokens = new CommandScanner(userInput).scanTokens();
                 Command command = new CommandParser(tokens).parse();
-                command.execute(taskList);
+                String response = command.execute(taskList);
+                Ui.display(response);
                 if (command.isExit()) {
                     exitSeen = true;
                 }
@@ -44,6 +45,7 @@ public class Mike {
                 Ui.displayLine();
             }
         }
+
         storage.writeToFile(taskList);
         Ui.display("Session terminated: data saved successfully.");
     }

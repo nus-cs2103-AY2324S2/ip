@@ -26,10 +26,10 @@ public class AddEventCommand extends AddCommand {
     }
 
     @Override
-    public void execute(TaskList taskList) throws MikeException {
+    public String execute(TaskList taskList) throws MikeException {
         Task newTask = new Event(description, startDate, endDate);
         taskList.add(newTask);
-        respond(taskList, newTask);
+        return response(taskList, newTask);
     }
 
     @Override

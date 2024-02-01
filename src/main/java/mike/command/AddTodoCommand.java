@@ -20,10 +20,10 @@ public class AddTodoCommand extends AddCommand {
     }
 
     @Override
-    public void execute(TaskList taskList) throws MikeException {
+    public String execute(TaskList taskList) throws MikeException {
         Task newTask = new Todo(description);
         taskList.add(newTask);
-        respond(taskList, newTask);
+        return response(taskList, newTask);
     }
 
     @Override

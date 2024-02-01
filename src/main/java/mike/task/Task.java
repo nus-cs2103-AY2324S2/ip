@@ -43,15 +43,19 @@ public abstract class Task {
     /**
      * Mark a task as done.
      */
-    public void markAsDone() {
+    public String markAsDone() {
+        String response = this.isDone ? "This task is already done:" : "Nice! I've marked this task as done:";
         this.isDone = true;
+        return response + "\n" + this;
     }
 
     /**
      * Mark a task as not done.
      */
-    public void markAsNotDone() {
+    public String markAsNotDone() {
+        String response = this.isDone ? "I've marked this task as not done:" : "This task was never done:";
         this.isDone = false;
+        return response + "\n" + this;
     }
 
     private String getStatusIcon() {

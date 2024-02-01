@@ -23,10 +23,10 @@ public class AddDeadlineCommand extends AddCommand {
     }
 
     @Override
-    public void execute(TaskList taskList) throws MikeException {
+    public String execute(TaskList taskList) throws MikeException {
         Task newTask = new Deadline(description, deadline);
         taskList.add(newTask);
-        respond(taskList, newTask);
+        return response(taskList, newTask);
     }
 
     @Override

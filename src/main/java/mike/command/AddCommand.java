@@ -18,11 +18,9 @@ public abstract class AddCommand extends Command {
         this.description = description;
     }
 
-    protected void respond(TaskList taskList, Task newTask) {
-        String message =
-                "Got it, I've added this task:\n  "
+    protected String response(TaskList taskList, Task newTask) {
+        return "Got it, I've added this task:\n  "
                 + newTask + "\n"
                 + "Now you have " + taskList.size() + " tasks in the list.";
-        Ui.display(message);
     }
 }

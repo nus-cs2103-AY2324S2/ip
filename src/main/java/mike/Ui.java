@@ -52,16 +52,6 @@ public class Ui {
     }
 
     /**
-     * Displays a farewell message with Wazowski pizazz.
-     */
-    public static void farewell() {
-        String farewell =
-                " Where are you going? We'll talk.\n" +
-                        " We'll have a latte.";
-        display(farewell);
-    }
-
-    /**
      * Prints the Wazowski logo as ASCII art.
      */
     private void displayLogo() {

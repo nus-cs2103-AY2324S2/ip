@@ -21,9 +21,9 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList) throws MikeException {
+    public String execute(TaskList taskList) throws MikeException {
         ListView listView = new ListView(ListViewType.DESCRIPTION, keyword);
-        new ListCommand(listView).execute(taskList);
+        return new ListCommand(listView).execute(taskList);
     }
 
     @Override

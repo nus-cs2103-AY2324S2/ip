@@ -4,6 +4,7 @@ import mike.ListView;
 import mike.MikeException;
 import mike.TaskList;
 import mike.Ui;
+import mike.task.Task;
 
 /**
  * Lists the tasks.
@@ -21,18 +22,17 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList) throws MikeException {
+    public String execute(TaskList taskList) throws MikeException {
         if (taskList.isEmpty()) {
             throw new MikeException("You have no more tasks Sulley...");
         }
-        Ui.display("You and I are a team.\nHere is the task list:");
-        taskList
-                .stream()
-                .filter(task -> task.inListView(listView))
-                .forEach(task -> {
-                    int index = taskList.indexOf(task) + 1;
-                    Ui.display(index + "." + task);}
-                );
+        return response(taskList);
+    }
+
+    private String response(TaskList taskList) {
+        return "You and I are a team.\n"
+                + "Here is the task list:"
+                + taskList.view(listView);
     }
 
     @Override

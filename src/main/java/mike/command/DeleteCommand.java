@@ -22,20 +22,25 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList) throws MikeException {
+    public String execute(TaskList taskList) throws MikeException {
         int taskIndex = taskNumber - 1;
+
         if (taskList.isEmpty()) {
             throw new MikeException("There are no tasks to remove.");
         } else if (taskIndex >= taskList.size() || taskIndex < 0) {
             throw new MikeException("That task doesn't exist. Please enter a number in the range 1-" + taskList.size() + ".");
         }
+
         Task task = taskList.get(taskIndex);
         taskList.remove(taskIndex);
-        String message =
-                "Noted! I've removed this task:\n  " +
-                task + "\n"
+
+        return response(taskList, task);
+    }
+
+    private String response(TaskList taskList, Task deletedTask) {
+        return "Noted! I've removed this task:\n  " +
+                deletedTask + "\n"
                 + "Now you have " + taskList.size() + " tasks in the list.";
-        Ui.display(message);
     }
 
     @Override

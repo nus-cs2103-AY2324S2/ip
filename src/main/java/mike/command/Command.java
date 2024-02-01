@@ -15,7 +15,7 @@ public abstract class Command {
      * @param taskList The list of tasks to be updated.
      * @throws MikeException If command is not executed successfully then the exception is thrown.
      */
-    public abstract void execute(TaskList taskList) throws MikeException;
+    public abstract String execute(TaskList taskList) throws MikeException;
 
     /**
      * Getter.
