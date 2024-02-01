@@ -6,6 +6,9 @@ import henry.TaskList;
 import henry.Ui;
 import henry.task.Deadline;
 
+/**
+ * Represents a command to add a deadline task.
+ */
 public class DeadlineCommand extends Command {
     private String description;
     private String by;

@@ -5,6 +5,9 @@ import henry.TaskList;
 import henry.Ui;
 import henry.HenryException;
 
+/**
+ * Represents a command to unmark a task as done.
+ */
 public class UnmarkCommand extends Command {
     private final int index;
 

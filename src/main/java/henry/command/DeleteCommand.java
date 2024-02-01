@@ -5,6 +5,9 @@ import henry.TaskList;
 import henry.Ui;
 import henry.HenryException;
 
+/**
+ * Represents a command to delete a task.
+ */
 public class DeleteCommand extends Command {
     private int index;
 

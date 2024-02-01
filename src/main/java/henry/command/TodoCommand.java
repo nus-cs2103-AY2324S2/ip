@@ -6,6 +6,9 @@ import henry.Ui;
 import henry.HenryException;
 import henry.task.Todo;
 
+/**
+ * Represents a command to add a todo task.
+ */
 public class TodoCommand extends Command {
     private final String description;
 

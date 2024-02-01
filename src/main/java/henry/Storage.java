@@ -11,11 +11,28 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a Storage object for file IO.
+ */
 public class Storage {
     private final String filePath;
+
+    /**
+     * Creates a Storage object.
+     *
+     * @param filePath The file path to store the tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Loads the tasks from the file.
+     *
+     * @return The list of tasks.
+     * @throws HenryException If the file cannot be read.
+     * @throws IOException If the file cannot be read.
+     */
     public ArrayList<Task> load() throws HenryException, IOException {
         ArrayList<Task> items = new ArrayList<>();
         File file = new File(filePath);
@@ -50,6 +67,12 @@ public class Storage {
 
         return items;
     }
+
+    /**
+     * Saves the tasks to the file.
+     *
+     * @param tasks The list of tasks.
+     */
     public void save(TaskList tasks) {
         File file = new File(filePath);
         try {
