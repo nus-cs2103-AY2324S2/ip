@@ -1,4 +1,8 @@
-import exceptions.HarperException;
+package harper.utils;
+
+import harper.exceptions.HarperException;
+
+import harper.tasks.Task;
 
 import java.util.Scanner;
 
@@ -30,7 +34,7 @@ public class Ui {
     /**
      * Reads user's input.
      *
-     * @return Command entered by user.
+     * @return commands.Command entered by user.
      */
     public String readCommand() {
         return this.scanner.nextLine().trim();
@@ -39,7 +43,7 @@ public class Ui {
     /**
      * Prints out the task list.
      *
-     * @param tasksString Task list in string form.
+     * @param tasksString task.Task list in string form.
      */
     public void printTasks(String tasksString) {
         if (tasksString.isBlank()) {
@@ -53,8 +57,8 @@ public class Ui {
     /**
      * Prints out message for successful add.
      *
-     * @param taskList Task list that being added.
-     * @param task Task that being added.
+     * @param taskList task.Task list that being added.
+     * @param task task.Task that being added.
      */
     public void printSuccessfulAdd(TaskList taskList, Task task) {
         int taskListSize = taskList.size();
@@ -67,8 +71,8 @@ public class Ui {
     /**
      * Prints out message for successful delete.
      *
-     * @param taskList Task list that being deleted.
-     * @param task Task that being deleted.
+     * @param taskList task.Task list that being deleted.
+     * @param task task.Task that being deleted.
      */
     public void printSuccessfulDelete(TaskList taskList, Task task) {
         int taskListSize = taskList.size();
@@ -90,7 +94,7 @@ public class Ui {
     /**
      * Prints out message for successful mark.
      *
-     * @param task Task to be marked.
+     * @param task task.Task to be marked.
      * @param isMarked Indicates whether to mark as done or not done.
      */
     public void printSuccessfulMark(Task task, boolean isMarked) {

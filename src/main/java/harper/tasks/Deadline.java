@@ -1,13 +1,15 @@
+package harper.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    protected LocalDateTime by;
+    private LocalDateTime by;
 
     /**
-     * Creates a Deadline task with description and deadline.
+     * Creates a task.Deadline task with description and deadline.
      *
-     * @param description The description of the Deadline task.
+     * @param description The description of the task.Deadline task.
      * @param by The deadline of the task.
      */
     public Deadline(String description, boolean isDone, LocalDateTime by) {

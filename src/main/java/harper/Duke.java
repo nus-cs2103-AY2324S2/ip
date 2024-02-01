@@ -1,4 +1,13 @@
-import exceptions.HarperException;
+package harper;
+
+import harper.commands.Command;
+
+import harper.exceptions.HarperException;
+
+import harper.utils.Parser;
+import harper.utils.Storage;
+import harper.utils.TaskList;
+import harper.utils.Ui;
 
 /**
  * A chatbot called Harper.
@@ -6,12 +15,12 @@ import exceptions.HarperException;
  * @author gosongying
  * @version CS2103T AY23/24 Sem 2
  */
-public class Harper {
+public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
-    public Harper(String folderName, String fileName) {
+    public Duke(String folderName, String fileName) {
         this.ui = new Ui();
         try {
             this.storage = new Storage(folderName, fileName);
@@ -23,7 +32,7 @@ public class Harper {
     }
 
     /**
-     * Starts the chat bot.
+     * Starts the chatbot.
      */
     public void run() {
         ui.greet();
@@ -38,5 +47,10 @@ public class Harper {
                 ui.showError(e);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        Duke duke = new Duke("data", "harper.txt");
+        duke.run();
     }
 }

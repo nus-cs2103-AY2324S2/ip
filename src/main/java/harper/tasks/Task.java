@@ -1,9 +1,11 @@
+package harper.tasks;
+
 /**
  * Represents a task with a description and a status indicating whether it is done or not.
  */
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
     /**
      * Create a task with description and the task is marked as not done initially.

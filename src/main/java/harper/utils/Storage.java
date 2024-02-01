@@ -1,6 +1,13 @@
-import exceptions.HarperFileCreatingException;
-import exceptions.HarperFileLoadingException;
-import exceptions.HarperFileStoringException;
+package harper.utils;
+
+import harper.exceptions.HarperFileCreatingException;
+import harper.exceptions.HarperFileLoadingException;
+import harper.exceptions.HarperFileStoringException;
+
+import harper.tasks.Deadline;
+import harper.tasks.Event;
+import harper.tasks.Task;
+import harper.tasks.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -84,7 +91,7 @@ public class Storage {
     /**
      * Stores the task list into hard disk.
      *
-     * @param taskList Task list to be stored.
+     * @param taskList task.Task list to be stored.
      */
     public void save(TaskList taskList) {
         try {

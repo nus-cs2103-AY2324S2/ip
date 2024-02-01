@@ -1,3 +1,9 @@
+package harper.commands;
+
+import harper.utils.TaskList;
+import harper.utils.Ui;
+import harper.utils.Storage;
+
 public class ExitCommand extends Command {
 
     public ExitCommand() {
