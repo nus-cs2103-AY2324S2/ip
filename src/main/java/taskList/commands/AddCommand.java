@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 
 import taskList.*;
 import taskList.tasks.Deadline;
+import taskList.tasks.EmptyDateException;
 import taskList.tasks.Event;
 import taskList.tasks.Task;
 import taskList.tasks.ToDo;
@@ -29,7 +30,7 @@ public class AddCommand implements Command{
                         try {
                             Deadline newDeadline = new Deadline(theParts[0].trim(), theParts[1].trim());
                             this.addedTask = newDeadline;
-                        } catch (DateTimeException e) {
+                        } catch (DateTimeException|EmptyDateException e) {
                             System.out.println("Error creating Deadline: " + e.getMessage());
                         }
                     } else {
@@ -48,7 +49,7 @@ public class AddCommand implements Command{
                             try {
                                 Event newEvent = new Event(theParts[0].trim(), theParts[1].trim(), theParts[2].trim());
                                 this.addedTask = newEvent;
-                            } catch (ArrayIndexOutOfBoundsException|IllegalArgumentException e) {
+                            } catch (EmptyDateException|IllegalArgumentException|DateTimeException e) {
                                 System.out.println("Error creating Event: " + e.getMessage());
                             } 
                         } else {

@@ -1,5 +1,6 @@
 package taskList.tasks;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -13,29 +14,29 @@ public class Event extends Task {
 
     public Event(String item, String fromDate, String toDate) {
         super(item);
-    
-
+        
         try {
-            String[] fromDateStringArr = fromDate.split(" ", 2);
-            //System.out.println(dateString[1].trim());
+            String fromDateString = fromDate.substring(fromDate.indexOf("/from") + 5, fromDate.length());
+            String toDateString = toDate.substring(toDate.indexOf("/to") + 3, toDate.length());
+            if (fromDateString.trim() == "" | toDateString.trim() == "") {
+                throw new EmptyDateException();
+            }
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
-            LocalDateTime fromDateLDT = LocalDateTime.parse(fromDateStringArr[1].trim(),formatter);
-            String[] toDateStringArr = toDate.split(" ", 2);
-            LocalDateTime toDateLDT = LocalDateTime.parse(toDateStringArr[1].trim(),formatter);
+            LocalDateTime fromDateLDT = LocalDateTime.parse(fromDateString.trim(),formatter);
+            LocalDateTime toDateLDT = LocalDateTime.parse(toDateString.trim(),formatter);
 
             if (fromDateLDT.isAfter(toDateLDT)) {
                 throw new IllegalArgumentException("Start date must be before end date");
             }
 
             this.fromDateLDT = fromDateLDT;
-            this.fromDateString = fromDateStringArr[1].trim();
+            this.fromDateString = fromDateString.trim();
 
             this.toDateLDT = toDateLDT;
-            this.toDateString = toDateStringArr[1].trim();
-  
-         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException("Please enter a date");
-        } catch (DateTimeParseException dte) {
+            this.toDateString = toDateString.trim();
+
+        } catch (DateTimeException dte) {
             throw new DateTimeParseException("Date format is incorrect, please try again", item, 0, dte);
         }
     }

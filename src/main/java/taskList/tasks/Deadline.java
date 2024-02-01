@@ -7,18 +7,19 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
 
     protected LocalDateTime deadlineDate;
-    protected String dateTimeString;
+    protected String byDateString;
 
     public Deadline(String item, String byDate) {
         super(item);
         try {
-            String[] dateString = byDate.split(" ", 2);
-            //System.out.println(dateString[1].trim());
+            String byDateString = byDate.substring(byDate.indexOf("/to") + 3, byDate.length());
+            if (byDateString.trim() == "") {
+                throw new EmptyDateException();
+            }
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
-
-            LocalDateTime deadlineDate = LocalDateTime.parse(dateString[1].trim(),formatter);
+            LocalDateTime deadlineDate = LocalDateTime.parse(byDateString,formatter);
             this.deadlineDate = deadlineDate;
-            this.dateTimeString = dateString[0].trim() + ": " + dateString[1].trim();
+            this.byDateString = byDateString.trim();
          } catch (ArrayIndexOutOfBoundsException e) {
             throw new ArrayIndexOutOfBoundsException("Please enter a date");
         } catch (DateTimeParseException dte) {
@@ -28,6 +29,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (" + dateTimeString + ")";
+        return "[D]" + super.toString() + " (by: " + byDateString + ")";
     }
 }
