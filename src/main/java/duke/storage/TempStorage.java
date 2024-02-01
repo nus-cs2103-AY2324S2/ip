@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import duke.codec.Codec;
+import duke.command.Command;
 import duke.exceptions.ProcessingException;
 import duke.search.Search;
 import duke.tasks.Task;
@@ -36,10 +37,8 @@ public class TempStorage {
             Task task = list.get(i);
             list.remove(i);
             System.out.printf("I have deleted this:\n%s%n", task);
-        } catch (Exception e) {
-            String message = "Something went wrong when executing your delete command: \n"
-                + "Check your input again";
-            throw new ProcessingException(message);
+        } catch (IndexOutOfBoundsException e) {
+            throw ProcessingException.exceptionCommandExecution(Command.DELETE, e);
         }
     }
 
@@ -54,10 +53,8 @@ public class TempStorage {
             Task task = list.get(i);
             task.markDone();
             System.out.printf("I have marked this:\n%s%n", task);
-        } catch (Exception e) {
-            String message = "Something went wrong when executing your mark command: \n"
-                + "Check your input again";
-            throw new ProcessingException(message);
+        } catch (IndexOutOfBoundsException e) {
+            throw ProcessingException.exceptionCommandExecution(Command.MARK, e);
         }
     }
 
@@ -72,10 +69,8 @@ public class TempStorage {
             Task task = list.get(i);
             task.markUndone();
             System.out.printf("I have unmarked this:\n%s%n", task);
-        } catch (Exception e) {
-            String message = "Something went wrong when executing your unmark command: \n"
-                + "Check your input again";
-            throw new ProcessingException(message);
+        } catch (IndexOutOfBoundsException e) {
+            throw ProcessingException.exceptionCommandExecution(Command.UNMARK, e);
         }
     }
 
@@ -93,8 +88,8 @@ public class TempStorage {
                     task,
                     list.size());
 
-        } catch (Exception e) {
-            String message = "Something went wrong when executing your add command: \n"
+        } catch (IllegalArgumentException e) {
+            String message = "Something went wrong when adding to the list! \n"
                 + "Check your input again";
             throw new ProcessingException(message);
         }
