@@ -14,7 +14,9 @@ public class Duke {
         storage = new Storage(filepath);
         this.tasklist = new TaskList(storage.load_data(), filepath);
     }
-
+    /**
+     * Running the main part of the code to start the Chatbot Cinnamo
+     */
     public void run() throws Exception {
         Scanner sc = new Scanner(System.in);
         this.ui.greet();
@@ -28,6 +30,10 @@ public class Duke {
         ui.exit();
     }
 
+    /**
+     * Setting the path directory to load data from the input and
+     * the file to write and update the output
+     */
     public static void main(String[] args) throws Exception {
         new Duke("src/main/Cinnamo.txt").run();
     }

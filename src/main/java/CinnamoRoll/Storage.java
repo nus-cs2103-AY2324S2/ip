@@ -16,7 +16,16 @@ class Storage {
     Storage(String filepath) {
         this.PATH = filepath;
     }
-
+    /**
+     * Loads tasks from a file specified by the PATH constant and creates an ArrayList of Task objects.
+     * The file is expected to have each task represented in a specific format:
+     * "T | [X or space] | taskDescription" for Todos,
+     * "D | [X or space] | taskDescription /by deadline" for Deadlines,
+     * "E | [X or space] | taskDescription /from startDate /to endDate" for Events.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws IOException If there is an error reading the file.
+     */
     ArrayList<Task> load_data() throws IOException {
         try {
             ArrayList<Task> output = new ArrayList<>();

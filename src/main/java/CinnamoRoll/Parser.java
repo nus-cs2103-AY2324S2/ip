@@ -12,7 +12,17 @@ class Parser {
         output[0] = output[0].toUpperCase();
         return output;
     }
-
+    /**
+     * Parses a string array representing a task and creates the corresponding Task object.
+     * Supported task types are "TODO," "DEADLINE," and "EVENT."
+     * For "TODO," expects the task description.
+     * For "DEADLINE," expects the task description and deadline in the format "yyyy-MM-dd HH:mm."
+     * For "EVENT," expects the task description and event schedule in the format "yyyy-MM-dd HH:mm /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm."
+     *
+     * @param arr The string array representing the task.
+     * @return A Task object based on the parsed input.
+     * @throws CinnamoTimeException If there is an error parsing the date and time information.
+     */
     Task parse_tasks(String[] arr) throws CinnamoTimeException {
         try {
             String identifier = arr[0];
