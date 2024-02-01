@@ -3,6 +3,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -199,27 +201,36 @@ public class Duke {
             String by = parts[1].substring(3);
 
             if (!description.isEmpty()) {
-                if (isValidDateFormat(by)) {
-                    Task task = new Deadline(description, by);
-                    addTask(task);
-                } else {
-                    throw new DukeException("Invalid date format. Please use yyyy-mm-dd format for the deadline.");
-                }
+                Deadline deadlineTask = createDeadlineTask(description, by);
+                addTask(deadlineTask);
             } else {
-                throw new DukeException(" Please provide a valid description of the task.");
+                throw new DukeException("Please provide a valid description of the task.");
             }
         } else {
-            throw new DukeException(" Invalid format of Deadline task. Please try again with the correct format.\n" +
-                    " deadline (event name) /by (deadline)");
+            throw new DukeException("Invalid format of Deadline task. Please try again with the correct format.\n" +
+                    "deadline (event name) /by (deadline)");
         }
     }
 
-    private static boolean isValidDateFormat(String date) {
+    private static Deadline createDeadlineTask(String description, String by) throws DukeException {
+        if (isValidDateFormat(by)) {
+            return new Deadline(description, by);
+        } else {
+            throw new DukeException("Invalid date format. Please use yyyy-mm-dd or yyyy-mm-dd hhmm format for the deadline.");
+        }
+    }
+
+    private static boolean isValidDateFormat(String by) {
         try {
-            LocalDate.parse(date);
+            LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             return true;
         } catch (DateTimeParseException e) {
-            return false;
+            try {
+                LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                return true;
+            } catch (DateTimeParseException ex) {
+                return false;
+            }
         }
     }
 

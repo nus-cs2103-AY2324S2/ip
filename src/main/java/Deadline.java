@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
@@ -6,14 +7,14 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) {
         super(description);
-        if (isValidDateTimeFormat(by)) {
+        if (isValidDateFormat(by)) {
             this.by = by;
         } else {
             this.by = convertDate(by);
         }
     }
 
-    private boolean isValidDateTimeFormat(String by) {
+    private boolean isValidDateFormat(String by) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
         try {
@@ -26,8 +27,19 @@ public class Deadline extends Task {
     }
 
     private String convertDate(String by) {
-        LocalDate date = LocalDate.parse(by);
-        return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        try {
+            LocalDate date = LocalDate.parse(by, inputFormatter);
+            return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (Exception e) {
+            try {
+                LocalDateTime dateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+            } catch (Exception ex) {
+                return by;
+            }
+        }
     }
 
     @Override
