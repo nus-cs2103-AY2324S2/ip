@@ -11,8 +11,7 @@ public class Duke {
         while (!message.equalsIgnoreCase("bye")) {
             if (message.equalsIgnoreCase("list")) {
                 for (int i = 0; i < count; i++) {
-                    System.out.println((i + 1) + ". [" + tasks[i].getStatusIcon() + "] "
-                            + tasks[i].getDescription() + "\n");
+                    System.out.println((i + 1) + ". " + tasks[i] + "\n");
                 }
             } else if (message.split(" ")[0].equalsIgnoreCase("mark")) {
                 try {
@@ -51,6 +50,51 @@ public class Duke {
                 } catch (NumberFormatException e) {
                     System.out.println("Type: 'unmark n' to unmark the n-th task.\n");
                     System.out.println("For example, type: 'unmark 1' to mark the first task.\n");
+                }
+            } else if (message.split(" ")[0].equalsIgnoreCase("todo")) {
+                try {
+                    String task = message.split(" ", 2)[1];
+                    ToDo todo = new ToDo(task);
+                    tasks[count] = todo;
+                    count++;
+                    System.out.println("Got it. I've added this task:\n");
+                    System.out.println(todo + "\n");
+                    System.out.println("Now you have " + count + " tasks in the list.\n");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("The correct format is:\n");
+                    System.out.println("todo <description>\n");
+                }
+            } else if (message.split(" ")[0].equalsIgnoreCase("deadline")) {
+                try {
+                    String task = message.split(" ", 2)[1];
+                    String description = task.split(" /by ", 2)[0];
+                    String by = task.split(" /by ", 2)[1];
+                    Deadline deadline = new Deadline(description, by);
+                    tasks[count] = deadline;
+                    count++;
+                    System.out.println("Got it. I've added this task:\n");
+                    System.out.println(deadline + "\n");
+                    System.out.println("Now you have " + count + " tasks in the list.\n");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("The correct format is:\n");
+                    System.out.println("deadline <description> /by <deadline time>\n");
+                }
+            } else if (message.split(" ")[0].equalsIgnoreCase("event")) {
+                try {
+                    String task = message.split(" ", 2)[1];
+                    String description = task.split(" /from ", 2)[0];
+                    String fromBy = task.split(" /from ", 2)[1];
+                    String from = fromBy.split(" /to ", 2)[0];
+                    String to = fromBy.split(" /to ", 2)[1];
+                    Event event = new Event(description, from, to);
+                    tasks[count] = event;
+                    count++;
+                    System.out.println("Got it. I've added this task:\n");
+                    System.out.println(event + "\n");
+                    System.out.println("Now you have " + count + " tasks in the list.\n");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("The correct format is:\n");
+                    System.out.println("event <description> /from <start time> /to <end time>\n");
                 }
             } else {
                 tasks[count] = new Task(message);
