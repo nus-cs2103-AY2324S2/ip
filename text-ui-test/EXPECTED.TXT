@@ -1,7 +1,7 @@
 Hello! I'm MichelleBot! What can I do for you? (helpg for guide)
 ____________________________________________________________
-I've added in this task: read book
-
+Roger that! I've added in this task:
+ [ ] read book
 Now you have 1 tasks in the list.
 ____________________________________________________________
 Roger that! I've added in this task:
@@ -9,17 +9,18 @@ Roger that! I've added in this task:
 Now you have 2 tasks in the list.
 ____________________________________________________________
 Roger that! I've added in this task:
- [D][ ] return book (by: Sunday)
+ [D][ ] return book (by: 20-11-2020 1200)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 Roger that! I've added in this task:
- [E][ ] project meeting (from: Mon 2pm to: 4pm)
+ [E][ ] project meeting (from: 20-11-2023 1200 to: 21-11-2023 2359)
 Now you have 4 tasks in the list.
 ____________________________________________________________
+Here are your current tasks:
 1. [ ] read book
 2. [T][ ] borrow book
-3. [D][ ] return book (by: Sunday)
-4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+3. [D][ ] return book (by: 20-11-2020 1200)
+4. [E][ ] project meeting (from: 20-11-2023 1200 to: 21-11-2023 2359)
 ____________________________________________________________
 I've marked this task as done: 
 [X] read book
@@ -27,26 +28,29 @@ ____________________________________________________________
 I've marked this task as done: 
 [T][X] borrow book
 ____________________________________________________________
+Here are your current tasks:
 1. [X] read book
 2. [T][X] borrow book
-3. [D][ ] return book (by: Sunday)
-4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+3. [D][ ] return book (by: 20-11-2020 1200)
+4. [E][ ] project meeting (from: 20-11-2023 1200 to: 21-11-2023 2359)
 ____________________________________________________________
 I've marked this task as not done yet: 
 [ ] read book
 ____________________________________________________________
+Here are your current tasks:
 1. [ ] read book
 2. [T][X] borrow book
-3. [D][ ] return book (by: Sunday)
-4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+3. [D][ ] return book (by: 20-11-2020 1200)
+4. [E][ ] project meeting (from: 20-11-2023 1200 to: 21-11-2023 2359)
 ____________________________________________________________
 Roger that! I've removed this task:
  [ ] read book
 Now you have 3 tasks in the list.
 ____________________________________________________________
+Here are your current tasks:
 1. [T][X] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+2. [D][ ] return book (by: 20-11-2020 1200)
+3. [E][ ] project meeting (from: 20-11-2023 1200 to: 21-11-2023 2359)
 ____________________________________________________________
 Type in text to add in a task to your list
 Other commands:
@@ -58,7 +62,8 @@ deadline [task] /by [deadline] - add a DEADLINE to your list
 event [task] /from [date] /to [date] - add an EVENT to your list
 delete [input number] - delete a task from task list
 list - list out the current tasks you have
-bye - exit the program 
+bye - exit the program
+(NOTE: deadline should be in dd-mm-yyyy hhmm format)
 ____________________________________________________________
 Bye. Hope to see you again soon! \(^-^)/ 
 ____________________________________________________________
