@@ -1,10 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class Event extends Task {
-    public Optional<String> fromDate;
-    public Optional<String> toDate;
+    public Optional<LocalDateTime> fromDate;
+    public Optional<LocalDateTime> toDate;
 
     Event(String name) {
         super(name);
@@ -12,14 +14,14 @@ public class Event extends Task {
         this.toDate = Optional.empty();
     }
 
-    Event(String name, boolean isDone, String fromString, String toString) {
+    Event(String name, boolean isDone, String fromString, String toString, boolean useCustomFormatter) {
         super(name, isDone);
-        this.fromDate = Optional.of(fromString);
-        this.toDate = Optional.of(toString);
+        this.fromDate = Optional.of(this.parseDate(fromString, useCustomFormatter));
+        this.toDate = Optional.of(this.parseDate(toString, useCustomFormatter));
     }
 
     Event(String name, String fromString, String toString) {
-        this(name, false, fromString, toString);
+        this(name, false, fromString, toString, true);
     }
 
     public String typeOfTask() {
@@ -29,10 +31,10 @@ public class Event extends Task {
     public String constructTimeString() {
         List<String> arr = new ArrayList<>();
         if (this.fromDate.isPresent()) {
-            arr.add(String.format("from: %s", this.fromDate.get()));
+            arr.add(String.format("from: %s", this.getFromDate()));
         }
         if (this.toDate.isPresent()) {
-            arr.add(String.format("to: %s", this.toDate.get()));
+            arr.add(String.format("to: %s", this.getToDate()));
         }
         String s = String.join(" ", arr);
         return "(" + s + ")";
@@ -43,25 +45,37 @@ public class Event extends Task {
     }
     
     public void setFromDate(String fromDate) {
-        this.fromDate = Optional.of(fromDate);
+        this.fromDate = Optional.of(this.parseDate(fromDate, true));
     }
 
     public void setToDate(String toDate) {
-        this.toDate = Optional.of(toDate);
+        this.toDate = Optional.of(this.parseDate(toDate, true));
     }
 
     public String getFromDate() {
-        return this.fromDate.orElse("");
+        return this.fromDate.map(
+            d -> d.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME_FORMAT))).orElse(""
+            );
     }
 
     public String getToDate() {
-        return this.toDate.orElse("");
+        return this.toDate.map(
+            d -> d.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME_FORMAT))).orElse(""
+            );
+    }
+
+    protected String getFromDateIso() {
+        return this.fromDate.map(d -> d.toString()).orElse("");
+    }
+
+    protected String getToDateIso() {
+        return this.toDate.map(d -> d.toString()).orElse("");
     }
 
     protected ArrayList<String> exportDataAsArray() {
         ArrayList<String> data = super.exportDataAsArray();
-        data.add(this.getFromDate());
-        data.add(this.getToDate());
+        data.add(this.getFromDateIso());
+        data.add(this.getToDateIso());
         return data;
     }
 }
