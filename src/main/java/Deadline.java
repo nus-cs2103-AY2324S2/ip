@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Deadlines are tasks that need to be done before a specific date/time.
@@ -10,15 +9,15 @@ public class Deadline extends Task {
     protected LocalDate deadline = null;
 
     /**
-     * Constructor for a Deadline object.
+     * Constructor for a Taskline object.
      *
      * @param name task name
      * @param d deadline
      */
-    public Deadline(String name, LocalDate deadline) {
+    public Deadline(String name, LocalDate d) {
         super();
         this.name = name;
-        this.deadline = deadline;
+        this.deadline = d;
     }
 
     /**
