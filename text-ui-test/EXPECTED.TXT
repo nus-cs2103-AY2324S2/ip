@@ -1,21 +1,37 @@
-Hello! I'm Duke
+Hello! I'm Dude
 What can I do for you?
+todo apple
 Added ToDo: apple
+deadline pear /by 5jan
 Added Deadline: pear
+event orange /from 10jan /to 20jan
 Added Event: orange
+list
 1. [T][ ] apple
 2. [D][ ] pear (by: 5jan)
 3. [E][ ] orange (from: 10jan to: 20jan)
+done 0
 Marked as done: [T][X] apple
+list
 1. [T][X] apple
 2. [D][ ] pear (by: 5jan)
 3. [E][ ] orange (from: 10jan to: 20jan)
+done 1
 Marked as done: [D][X] pear (by: 5jan)
+list
 1. [T][X] apple
 2. [D][X] pear (by: 5jan)
 3. [E][ ] orange (from: 10jan to: 20jan)
+done 2
 Marked as done: [E][X] orange (from: 10jan to: 20jan)
+list
 1. [T][X] apple
 2. [D][X] pear (by: 5jan)
 3. [E][X] orange (from: 10jan to: 20jan)
+delete 0
+Deleted: [T][X] apple
+list
+1. [D][X] pear (by: 5jan)
+2. [E][X] orange (from: 10jan to: 20jan)
+bye
 Bye. Hope to see you again soon!

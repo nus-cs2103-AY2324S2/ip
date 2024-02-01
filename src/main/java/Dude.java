@@ -67,18 +67,18 @@ class Event extends Task {
     }
 }
 
-public class Duke {
+public class Dude {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
 
-        System.out.println("Hello! I'm Duke");
+        System.out.println("Hello! I'm Dude");
         System.out.println("What can I do for you?");
 
         while (true) {
             try {
                 String input = scanner.nextLine();
-                // System.out.println(input);
+                System.out.println(input);
 
                 if (input.equalsIgnoreCase("bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
