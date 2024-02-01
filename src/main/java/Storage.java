@@ -3,6 +3,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +32,13 @@ public class Storage {
                         storage.add(new Task(description, isDone));
                     } else if (taskType.equals("D")) {
                         String dueDate = split[3];
+                        dueDate = convertDateFormat(dueDate);
                         storage.add(new Deadline(description, dueDate, isDone));
                     } else if (taskType.equals("E")) {
                         String fromDate = split[3];
+                        fromDate = convertDateFormat(fromDate);
                         String toDate = split[4];
+                        toDate = convertDateFormat(toDate);
                         storage.add(new Event(description, fromDate, toDate, isDone));
                     }
                 }
@@ -81,6 +86,18 @@ public class Storage {
     public void removeTask(int index) {
         storage.remove(index);
     }
+    private String convertDateFormat(String oldDateFormat) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
+        // Parse the original string to LocalDate
+        LocalDate localDate = LocalDate.parse(oldDateFormat, inputFormatter);
+
+        // Define the formatter for the output pattern
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // Format the LocalDate to the desired output pattern
+        return localDate.format(outputFormatter);
+    }
 
     public void saveTask(Task task, Path path) {
         try {
@@ -105,7 +122,7 @@ public class Storage {
                 int endIndex = taskString.indexOf(" to:");
                 String fromDate = taskString.substring(startIndex + 7, endIndex);
                 startIndex = taskString.indexOf(")");
-                String toDate = taskString.substring(endIndex + 4, startIndex);
+                String toDate = taskString.substring(endIndex + 5, startIndex);
                 saveEntry = typeOfTask + " | " + taskStatus + " | " + taskDescription
                         + " | " + fromDate + " | " + toDate;
             }
