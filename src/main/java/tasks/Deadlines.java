@@ -5,12 +5,10 @@ import java.time.format.DateTimeFormatter;
 
 
 public class Deadlines extends Task {
-    private String deadline;
     private LocalDateTime actual_deadline;
     
-    public Deadlines(String description, String deadline, LocalDateTime actual_deadline) {
+    public Deadlines(String description, LocalDateTime actual_deadline) {
         super(description);
-        this.deadline = deadline;
         this.actual_deadline = actual_deadline;
     }
 

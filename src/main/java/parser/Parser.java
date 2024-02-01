@@ -93,7 +93,7 @@ public class Parser {
                     catch (DateTimeParseException e) {
                         throw new DukeException("OOPS!!! The date format is invalid. " + valid_format);
                     }
-                    Deadlines deadlineTask = new Deadlines(parts[0], parts[1], dateTime);
+                    Deadlines deadlineTask = new Deadlines(parts[0], dateTime);
                     AddTask adder = new AddTask(storage, deadlineTask);
                     adder.add();
                     String temp = adder.toString();
@@ -121,7 +121,7 @@ public class Parser {
                 }
             }
             else if (input.startsWith("event")) {
-                String valid_format = "Please input in the format: Event *TASK* /*from YYYY-DD-MM TIME* /*to YYYY-DD-MM TIME*";
+                String valid_format = "Please input in the format: Event *TASK* /*from YYYY-MM-DD TIME* /*to YYYY-MM-DD TIME*";
                 if (input.trim().equals("event")) {
                     throw new DukeException("OOPS!!! The description of a event cannot be empty. " + valid_format);
                 }
@@ -144,7 +144,7 @@ public class Parser {
                     catch (DateTimeParseException e) {
                         throw new DukeException("OOPS!!! The date format is invalid. " + valid_format);
                     }
-                    Events eventTask = new Events(parts[0], parts[1], parts[2], dateTime1, dateTime2);
+                    Events eventTask = new Events(parts[0], dateTime1, dateTime2);
                     AddTask adder = new AddTask(storage, eventTask);
                     adder.add();
                     return adder.toString();

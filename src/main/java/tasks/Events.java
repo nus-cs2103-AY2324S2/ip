@@ -4,26 +4,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Events extends Task {
-    private String start;
-    private String end;
     private LocalDateTime actualStart;
     private LocalDateTime actualEnd;
 
-    public Events(String description, String start, String end, LocalDateTime actualStart, LocalDateTime actualEnd) {
+    public Events(String description, LocalDateTime actualStart, LocalDateTime actualEnd) {
         super(description);
-        this.start = start;
-        this.end = end;
         this.actualStart = actualStart;
         this.actualEnd = actualEnd;
     }
 
-    public String getStart() {
-        return this.start;
-    }
-
-    public String getEnd() {
-        return this.end;
-    }
     @Override
     public String toString() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm'hrs'");
