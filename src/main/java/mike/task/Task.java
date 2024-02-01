@@ -7,10 +7,10 @@ import mike.MikeException;
 import java.util.ArrayList;
 
 public abstract class Task {
-    protected final String description;
-    protected boolean isDone;
-    protected String type;
-    protected ArrayList<ListViewType> tags;
+    private final String description;
+    private boolean isDone;
+    private final String type;
+    protected final ArrayList<ListViewType> tags;
 
     public Task(String description, String type) {
         this.description = description;

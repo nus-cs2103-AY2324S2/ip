@@ -1,8 +1,8 @@
 package mike;
 
 class Token {
-    final TokenType type;
-    final String text;
+    public final TokenType type;
+    public final String text;
 
     Token(TokenType type, String text) {
         this.type = type;

@@ -13,7 +13,7 @@ import java.util.Scanner;
 class Storage {
     private final String fileDirectory;
     private final String filePath;
-    protected File file;
+    private File file;
 
     Storage(String filePath) {
         this.fileDirectory = filePath.split("/")[1];

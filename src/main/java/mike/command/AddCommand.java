@@ -4,7 +4,7 @@ import mike.TaskList;
 import mike.Ui;
 import mike.task.Task;
 
-abstract class AddCommand extends Command {
+public abstract class AddCommand extends Command {
     protected final String description;
     public AddCommand(String description) {
         this.description = description;
