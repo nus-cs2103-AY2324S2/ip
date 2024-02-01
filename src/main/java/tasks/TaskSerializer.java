@@ -1,5 +1,7 @@
 package tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -7,7 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TaskSerializer {
-    private final static String DELIMITER = ":";
+    private final static String DELIMITER = ";";
 
     public static String serialize(List<Task> tasks) {
         StringBuilder sb = new StringBuilder();
@@ -43,33 +45,32 @@ public class TaskSerializer {
 
     public static List<Task> parseText(Stream<String> text) {
         return text.filter(Predicate.not(String::isBlank)).map((String t) -> {
-                    String[] fields = t.split(DELIMITER);
-                    try {
-                        switch (TaskType.valueOf(fields[0])) {
-                        case TODO:
-                            Todo todo = new Todo(fields[2]);
-                            if (Boolean.parseBoolean(fields[1])) {
-                                todo.done();
-                            }
-                            return todo;
-                        case DEADLINE:
-                            Deadline deadline = new Deadline(fields[2], fields[4]);
-                            if (Boolean.parseBoolean(fields[1])) {
-                                deadline.done();
-                            }
-                            return deadline;
-                        case EVENT:
-                            Event event = new Event(fields[2], fields[3], fields[4]);
-                            if (Boolean.parseBoolean(fields[1])) {
-                                event.done();
-                            }
-                            return event;
-                        }
-                    } catch (IllegalArgumentException e) {
-                        return null;
+            String[] fields = t.split(DELIMITER);
+            try {
+                switch (TaskType.valueOf(fields[0])) {
+                case TODO:
+                    Todo todo = new Todo(fields[2]);
+                    if (Boolean.parseBoolean(fields[1])) {
+                        todo.done();
                     }
-                    return null;
-                }).filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                    return todo;
+                case DEADLINE:
+                    Deadline deadline = new Deadline(fields[2], LocalDateTime.parse(fields[4]));
+                    if (Boolean.parseBoolean(fields[1])) {
+                        deadline.done();
+                    }
+                    return deadline;
+                case EVENT:
+                    Event event = new Event(fields[2], LocalDateTime.parse(fields[3]), LocalDateTime.parse(fields[4]));
+                    if (Boolean.parseBoolean(fields[1])) {
+                        event.done();
+                    }
+                    return event;
+                }
+            } catch (IllegalArgumentException e) {
+                return null;
+            }
+            return null;
+        }).filter(Objects::nonNull).collect(Collectors.toList());
     }
 }

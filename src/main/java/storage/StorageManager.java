@@ -30,7 +30,7 @@ public class StorageManager {
         this.taskSaveLocation = rb.getString("TASK_SAVE_PATH");
     }
 
-    public void saveTasksToStorage(List<Task> tasks) {
+    public void saveTasks(List<Task> tasks) {
         String tasksSerialized = TaskSerializer.serialize(tasks);
         try (FileWriter writer = new FileWriter(this.taskSaveLocation)) {
             writer.write(tasksSerialized);
@@ -39,7 +39,7 @@ public class StorageManager {
         }
     }
 
-    public Optional<List<Task>> loadTasksFromStorage() {
+    public Optional<List<Task>> loadTasks() {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.taskSaveLocation))) {
             return Optional.of(TaskSerializer.parseText(reader.lines()));
         } catch (IOException e) {

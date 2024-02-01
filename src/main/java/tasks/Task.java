@@ -1,8 +1,12 @@
 package tasks;
 
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     private String name;
     private boolean isDone = false;
+
+    static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("y-LLL-d HH:mm");
 
     public Task(String name) {
         this.name = name;

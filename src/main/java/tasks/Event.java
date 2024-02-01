@@ -1,25 +1,28 @@
 package tasks;
 
+import java.time.LocalDateTime;
+
 public class Event extends Task {
-    private String startDate;
-    private String endDate;
-    public Event(String name, String startDate, String endDate) {
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+
+    public Event(String name, LocalDateTime startDate, LocalDateTime endDate) {
         super(name);
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
     public String getEndDate() {
-        return endDate;
+        return endDate.toString();
     }
 
     public String getStartDate() {
-        return startDate;
+        return startDate.toString();
     }
 
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)",
-                super.toString(), this.startDate, this.endDate);
+                super.toString(), this.startDate.format(Task.dtf), this.endDate.format(Task.dtf));
     }
 }

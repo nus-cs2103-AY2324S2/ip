@@ -4,6 +4,9 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class Shodan {
@@ -19,7 +22,7 @@ public class Shodan {
 
     public static void init() {
         storageManager = new StorageManager();
-        taskList = storageManager.loadTasksFromStorage().orElse(new ArrayList<>());
+        taskList = storageManager.loadTasks().orElse(new ArrayList<>());
     }
 
     public static void greet() {
@@ -103,7 +106,7 @@ public class Shodan {
                 selectedTask.undone();
                 System.out.println("Task has been set as not done yet:\n\t" + selectedTask);
             }
-            storageManager.saveTasksToStorage(taskList);
+            storageManager.saveTasks(taskList);
         } catch (NumberFormatException e) {
             throw new ShodanException("Input argument not recognised, please enter the task number.");
         }
@@ -121,7 +124,7 @@ public class Shodan {
                 throw new ShodanException("Couldn't find task with that number. Use the list command to view all current tasks.");
             }
             Task selectedTask = taskList.remove(taskNum - 1);
-            storageManager.saveTasksToStorage(taskList);
+            storageManager.saveTasks(taskList);
             System.out.println("The following task has been removed:\n\t" + selectedTask);
             System.out.printf("There are now %d tasks remaining in the list.\n", taskList.size());
         } catch (NumberFormatException e) {
@@ -136,6 +139,7 @@ public class Shodan {
         StringJoiner endDate = new StringJoiner(" ");
         int state = 0;
         int sections = 1;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yy HHmm");
         switch (tokens.remove(0).toLowerCase()) {
         case "todo":
             newTask = new Todo(String.join(" ", tokens));
@@ -157,12 +161,16 @@ public class Shodan {
                 }
             }
             if (sections < 2) {
-                throw new ShodanException("Adding a deadline requires a end date specified with /by. For example:\n\tdeadline return books /by 2pm");
+                throw new ShodanException("Adding a deadline requires a end date specified with /by. For example:\n\tdeadline return books /by 1/1/2024 1200");
             }
             if (endDate.toString().isBlank()) {
                 throw new ShodanException("The /by field cannot be empty. Please specify a end date/time.");
             }
-            newTask = new Deadline(taskName.toString(), endDate.toString());
+            try {
+                newTask = new Deadline(taskName.toString(), LocalDateTime.parse(endDate.toString(), dateTimeFormatter));
+            } catch (DateTimeParseException e) {
+                throw new ShodanException("Failed to parse entered date. Please use the DD/MM/YYYY TTTT format.");
+            }
             break;
         case "event":
             for (String token : tokens) {
@@ -188,7 +196,7 @@ public class Shodan {
                 }
             }
             if (sections < 3) {
-                throw new ShodanException("Adding an event requires both a start and end date/time using /from and /to. For example:\n\tevent attend birthday party /from 5pm /to 6pm");
+                throw new ShodanException("Adding an event requires both a start and end date/time using /from and /to. For example:\n\tevent attend birthday party /from 1/1/2024 1200 /to 1/1/2024 1300");
             }
             if (startDate.toString().isBlank()) {
                 throw new ShodanException("The /from field cannot be empty. Please specify a end date/time.");
@@ -196,14 +204,18 @@ public class Shodan {
             if (endDate.toString().isBlank()) {
                 throw new ShodanException("The /to field cannot be empty. Please specify a end date/time.");
             }
-            newTask = new Event(taskName.toString(), startDate.toString(), endDate.toString());
+            try {
+                newTask = new Event(taskName.toString(), LocalDateTime.parse(startDate.toString(), dateTimeFormatter), LocalDateTime.parse(endDate.toString(), dateTimeFormatter));
+            } catch (DateTimeParseException e) {
+                throw new ShodanException("Failed to parse entered date. Please use the DD/MM/YYYY TTTT format.");
+            }
             break;
         }
         if (newTask.getName().isBlank()) {
             throw new ShodanException("You need to specify a name for your task.");
         }
         taskList.add(newTask);
-        storageManager.saveTasksToStorage(taskList);
+        storageManager.saveTasks(taskList);
         System.out.println("Task has been added:\n\t" + newTask);
         System.out.printf("You have %d tasks now.\n", taskList.size());
     }
