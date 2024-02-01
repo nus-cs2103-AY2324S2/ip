@@ -1,3 +1,5 @@
+package dylanbot;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,7 +12,7 @@ public class Ui {
     }
 
     public void sendGreeting() {
-        System.out.println("Hello I am DylanBot! \nWhat can I do for you?");
+        System.out.println("Hello I am dylanbot.DylanBot! \nWhat can I do for you?");
     }
 
     public void sendExit() {

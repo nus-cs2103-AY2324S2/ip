@@ -1,4 +1,4 @@
-Hello I am DylanBot!
+Hello I am dylanbot.DylanBot!
 What can I do for you?
 Roger doger, added this task:
 	[T] [ ] todo read
