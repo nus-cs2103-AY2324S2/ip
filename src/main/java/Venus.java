@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Venus {
 
-    public enum TYPES {
+    public enum TYPES { //Used for type of list encountered
         LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, ALL;
     }
 
