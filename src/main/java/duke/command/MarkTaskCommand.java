@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.task.Task;
+import duke.utility.DukeException;
 import duke.utility.Storage;
 import duke.utility.TaskList;
 import duke.utility.Ui;
@@ -13,9 +14,14 @@ public class MarkTaskCommand extends Command{
     public MarkTaskCommand(int index) {
         this.indexToBeMarked = index;
     }
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        Task markedTask = taskList.markTask(indexToBeMarked);
-        ui.showMarkedTask(markedTask);
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        try {
+            Task markedTask = taskList.markTask(indexToBeMarked);
+            ui.showMarkedTask(markedTask);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new DukeException("*HONK* Pengu thinks you need a valid task number to delete, " +
+                    "consider checking the list command");
+        }
         try {
             storage.saveStorage(taskList.getTaskStore());
         } catch (IOException e) {

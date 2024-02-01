@@ -54,7 +54,7 @@ public class Parser {
                     byBuilder.append(descriptionArr[k] + " ");
                 }
             }
-            newTask = new Deadline(descBuilder.toString(), dateChecker(byBuilder.toString()));
+            newTask = new Deadline(descBuilder.toString(), checkDates(byBuilder.toString()));
         } else {
             String[] descriptionArr = description.split(" ");
             int fromIndex = Arrays.asList(descriptionArr).indexOf("/from");
@@ -83,11 +83,11 @@ public class Parser {
                     toBuilder.append(descriptionArr[k] + " ");
                 }
             }
-            newTask = new Event(descBuilder.toString(), dateChecker(fromBuilder.toString()), dateChecker(toBuilder.toString()));
+            newTask = new Event(descBuilder.toString(), checkDates(fromBuilder.toString()), checkDates(toBuilder.toString()));
         }
         return new AddTaskCommand(newTask);
     }
-    public static Command commandParser(String userInput) throws DukeException, IOException {
+    public static Command parseInstructions(String userInput) throws DukeException{
         if (userInput.toLowerCase().equals("bye")) {
             return new ExitCommand();
         } else if (userInput.toLowerCase().equals("list")) {
@@ -97,7 +97,7 @@ public class Parser {
             try {
                 int index = Integer.parseInt(inputArr[1]) - 1;
                 return new MarkTaskCommand(index);
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 throw new DukeException("*HONK* Pengu thinks you need a valid task number to mark, " +
                         "consider checking the list command");
             }
@@ -106,7 +106,7 @@ public class Parser {
             try {
                 int index = Integer.parseInt(inputArr[1]) - 1;
                 return new UnmarkTaskCommand(index);
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 throw new DukeException("*HONK* Pengu thinks you need a valid task number to unmark, " +
                         "consider checking the list command");
             }
@@ -115,7 +115,7 @@ public class Parser {
             try {
                 int index = Integer.parseInt(inputArr[1]) - 1;
                 return new DeleteTaskCommand(index);
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 throw new DukeException("*HONK* Pengu thinks you need a valid task number to delete, " +
                         "consider checking the list command");
             }
@@ -214,7 +214,7 @@ public class Parser {
         if (!(keyword.equals("todo") || keyword.equals("deadline") || keyword.equals("event"))){
             throw new DukeException("*HONK* Pengu has never seen such a command before, some commands Pengu can do are: list, todo, deadline");
         } else if (keyword.equals("todo") && !(strArr.size() > 1)) {
-            throw new DukeException("*HONK* Pengu needs a To Do duke.task.Task description to record this down");
+            throw new DukeException("*HONK* Pengu needs a Task description to record this down");
         } else if (keyword.equals("deadline") && !(strArr.contains("/by"))) {
             throw new DukeException("*HONK* Pengu needs a /by followed by a end date for your task");
         } else if (keyword.equals("event") && !(strArr.contains("/from") && (strArr.contains("/to")))) {
@@ -227,7 +227,7 @@ public class Parser {
             return true;
         }
     }
-    private static LocalDateTime dateChecker(String dateString) throws DukeException {
+    public static LocalDateTime checkDates(String dateString) throws DukeException {
         try {
             DateTimeFormatter dTFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             LocalDateTime date = LocalDateTime.parse(dateString, dTFormatter);

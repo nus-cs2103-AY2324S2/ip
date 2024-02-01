@@ -13,7 +13,7 @@ public class Storage {
 
     public boolean isOccupied;
 
-    public Storage(String FilePath) throws DukeException,IOException {
+    public Storage(String FilePath) throws DukeException, IOException{
         storageFile = new File(FilePath);
         if (!storageFile.getParentFile().exists()) {
             storageFile.getParentFile().mkdirs();
