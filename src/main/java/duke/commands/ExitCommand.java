@@ -5,7 +5,17 @@ import java.util.ArrayList;
 import duke.tasks.Task;
 import duke.ui.Ui;
 
+/**
+ * The ExitCommand class is responsible for exiting the application.
+ */
 public class ExitCommand extends Command {
+    /**
+     * The function prints a goodbye message and exits the program.
+     * 
+     * @param tasks An ArrayList of Task objects. Can enter empty tasks.
+     * @param input An array of strings representing the user's input. 
+     *              Can enter empty input.
+     */
     public void execute(ArrayList<Task> tasks, String[] input)
             throws CommandException, IOException {
         Ui.printOutput("Goodbye my friend. See you soon!");

@@ -10,8 +10,21 @@ import duke.tasks.Deadline;
 import duke.tasks.Task;
 import duke.ui.Ui;
 
+
+/**
+ * The AddDeadlineCommand class is responsible for executing the command to add a deadline task to a
+ * list of tasks.
+ */
 public class AddDeadlineCommand extends Command {
 
+    /**
+     * Adds a deadline task to a list of tasks, validates the input format, updates the storage, and
+     * prints the updated task list.
+     * 
+     * @param tasks An ArrayList of Task objects, representing the current list of tasks.
+     * @param input A String[] that contains the details of the task being executed.
+     * @throws CommandException for invalid input.
+     */
     @Override
     public void execute(ArrayList<Task> tasks, String[] input)
             throws CommandException, IOException {

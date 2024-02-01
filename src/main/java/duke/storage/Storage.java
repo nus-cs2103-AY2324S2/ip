@@ -12,15 +12,29 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 
+/**
+ * The `Storage` class provides methods for reading and writing tasks to a file.
+ */
 public class Storage {
 
     private final static String FILE_PATH = "src/main/java/duke/resources/data.txt";
     private final static String DELIMITER = "~";
 
+    /**
+     * An empty constructor for Storage.
+     */
     public Storage() {
 
     }
 
+    /**
+     * Initialises an ArrayList of Task objects by either reading from a storage file or creating a
+     * new ArrayList if the file does not exist.
+     * 
+     * @return The method is returning an ArrayList<Task>. This contains tasks from previous
+     *         application session if there's any.
+     * @throws FileNotFoundException if the FILE_PATH does not exist.
+     */
     public static ArrayList<Task> init() throws FileNotFoundException {
         if (new File(FILE_PATH).exists()) {
             return Storage.readFromStorage();
@@ -31,6 +45,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads tasks from a file and returns them as an ArrayList.
+     * 
+     * @return The method is returning an ArrayList of Task objects.
+     * @throws FileNotFoundException if the FILE_PATH does not exist.
+     */
     public static ArrayList<Task> readFromStorage() throws FileNotFoundException {
         try {
             File file = new File(FILE_PATH);
@@ -51,6 +71,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Takes an array of strings as input and returns a `Task` object based on the command and data
+     * provided in the input.
+     * 
+     * @param input An array of strings representing the input data for a task. The first element of
+     *        the array is the command, and the subsequent elements contain the necessary
+     *        information for creating the task object.
+     * @return The method `parseInput` returns a `Task` object.
+     */
     private static Task parseInput(String[] input) {
         String command = input[0];
         switch (command) {
@@ -101,6 +130,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes a list of tasks to a storage file.
+     * 
+     * @param tasks An ArrayList of Task objects that need to be written to storage.
+     */
     public static void writeToStorage(ArrayList<Task> tasks) throws IOException {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
@@ -115,6 +149,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes a task object to a file in storage.
+     * 
+     * @param task The parameter `task` is of type `Task`, which is an object representing a task.
+     */
     public static void writeToStorage(Task task) throws IOException {
         try {
             FileWriter fw = new FileWriter(FILE_PATH, true);

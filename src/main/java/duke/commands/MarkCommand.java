@@ -6,7 +6,18 @@ import duke.common.Utils;
 import duke.tasks.Task;
 import duke.ui.Ui;
 
+/**
+ * The MarkCommand class is responsible for marking a task as done in a task list.
+ */
 public class MarkCommand extends Command {
+    /**
+     * Marks the task as done in a list of tasks.
+     * 
+     * @param tasks An ArrayList of Task objects. This represents the list of tasks that the user
+     *              has.
+     * @param input An array of strings representing the user's input. This contains the index-1
+     *              of the task being marked.
+     */
 
     @Override
     public void execute(ArrayList<Task> tasks, String[] input)

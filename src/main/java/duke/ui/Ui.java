@@ -21,6 +21,11 @@ public class Ui {
         this.sc = new Scanner(System.in);
     }
 
+    /**
+     * Prints the output of the chatbot in formatted form.
+     * 
+     * @param msg The message to output.
+     */
     public static void printOutput(String... msg) {
         System.out.println(indentation + divider);
 
@@ -30,6 +35,11 @@ public class Ui {
         System.out.println(indentation + divider + "\n");
     }
 
+    /**
+     * Prints the list of tasks in the provided ArrayList of tasks.
+     * 
+     * @param tasks ArrayList of task to output.
+     */
     public static void printList(ArrayList<Task> tasks) {
         StringBuilder sb = new StringBuilder();
         int i = 1;
@@ -40,14 +50,25 @@ public class Ui {
         printOutput("Here are the tasks in your list:", sb.toString());
     }
 
+    /**
+     * Reads the command input of the user and returns it.
+     * 
+     * @return Returns an array of String, containing the command.
+     */
     public String[] readCommand() {
         return this.sc.nextLine().trim().split(" ", 2);
     }
 
+    /**
+     * Prints a welcome message.
+     */
     public void printWelcomeMsg() {
         Ui.printOutput(logo, "Hello! I'm Lucky the cat", "What can I do for you?");
     }
 
+    /**
+     * Closes the scanner.
+     */
     public void exit() {
         this.sc.close();
     }
