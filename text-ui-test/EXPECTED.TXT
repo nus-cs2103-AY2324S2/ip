@@ -1,66 +1,72 @@
 ____________________________________________________________
-Hello! I'm Zenify
-What can I do for you?
+ Hello! I'm Zenify
+ What can I do for you?
+____________________________________________________________
+
+____________________________________________________________
+ There are no tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
  Got it. I've added this task:
-   [T][ ] read book
+   [T][ ] borrow book
  Now you have 1 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
+ Nice! I've marked this task as done:
+   [T][X] borrow book
+____________________________________________________________
+
+____________________________________________________________
  Got it. I've added this task:
-   [T][ ] return book
+   [E][ ] play games (from: Jan 06 2024 14:00 to: Feb 06 2024 16:00)
  Now you have 2 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
- Here are the tasks in your list:
- 1.[T][ ] read book
- 2.[T][ ] return book
-____________________________________________________________
-
-____________________________________________________________
  Got it. I've added this task:
-   [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+   [D][ ] play more (by: Jan 22 2025 23:00)
  Now you have 3 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
- Got it. I've added this task:
-   [D][ ] return book (by: Sunday)
- Now you have 4 tasks in the list.
+ Nice! I've marked this task as done:
+   [D][X] play more (by: Jan 22 2025 23:00)
 ____________________________________________________________
 
 ____________________________________________________________
- Nice! I've marked this task as done:
-   [D][X] return book (by: Sunday)
+ Here are the tasks in your list:
+ 1.[T][X] borrow book
+ 2.[E][ ] play games (from: Jan 06 2024 14:00 to: Feb 06 2024 16:00)
+ 3.[D][X] play more (by: Jan 22 2025 23:00)
 ____________________________________________________________
 
 ____________________________________________________________
  OK, I've marked this task as not done yet:
-   [D][ ] return book (by: Sunday)
+   [D][ ] play more (by: Jan 22 2025 23:00)
+____________________________________________________________
+
+____________________________________________________________
+ Noted. I've removed this task:
+   [T][X] borrow book
+ Now you have 2 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+ Noted. I've removed this task:
+   [E][ ] play games (from: Jan 06 2024 14:00 to: Feb 06 2024 16:00)
+ Now you have 1 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
  Here are the tasks in your list:
- 1.[T][ ] read book
- 2.[T][ ] return book
- 3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
- 4.[D][ ] return book (by: Sunday)
+ 1.[D][ ] play more (by: Jan 22 2025 23:00)
 ____________________________________________________________
 
 ____________________________________________________________
- Nice! I've marked this task as done:
-   [T][X] return book
-____________________________________________________________
-
-____________________________________________________________
- Here are the tasks in your list:
- 1.[T][ ] read book
- 2.[T][X] return book
- 3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
- 4.[D][ ] return book (by: Sunday)
+ Noted. I've removed this task:
+   [D][ ] play more (by: Jan 22 2025 23:00)
+ Now you have 0 tasks in the list.
 ____________________________________________________________
 

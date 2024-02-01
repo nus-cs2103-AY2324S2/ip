@@ -1,10 +1,12 @@
-todo read book
-todo return book
 list
-event project meeting /from Aug 6th 2pm /to 4pm
-deadline return book /by Sunday
-mark 4
-unmark 4
+todo borrow book
+mark 1
+event play games /from 2024-01-06 14:00 /to 2024-02-06 16:00
+deadline play more /by 2025-01-22 23:00
+mark 3
 list
-mark 2
+unmark 3
+delete 1
+delete 1
 list
+delete 1
