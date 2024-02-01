@@ -49,6 +49,21 @@ public class TaskList implements Serializable {
         return output;
     }
 
+
+    public String filteredString(String keyword) {
+        String output = "";
+        for (Task t : this.list) {
+            if (t.toString().contains(keyword)) {
+                output += (this.list.indexOf(t) + 1) + ". " + t.toString();
+                if (this.list.indexOf(t) == this.list.size() - 1) {
+                    break;
+                }
+                output += "\n";
+            }
+        }
+        return output;
+    }
+
     /**
      * Returns string representation of a task.
      *
