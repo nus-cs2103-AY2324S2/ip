@@ -4,6 +4,7 @@ import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+
 import task.Task;
 
 /**
@@ -34,7 +35,7 @@ public class FindCommand extends Command {
      * @throws DukeException If missing the description.
      */
     @Override
-    public void excuteCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         String[] splitInput = input.split(" ");
         if (splitInput.length <= 1) {
             throw new DukeException("Missing the Description!");
