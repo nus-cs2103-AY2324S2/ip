@@ -190,13 +190,17 @@ public class Duke {
                 // 1 line -> 1 item in the list
                 List<String> lines = Files.readAllLines(filePath);
                 for (String line : lines) {
+                    // remove the empty line on initialisation of the txt
+                    if (line.equals("")) {
+                        continue;
+                    }
                     tasks.add(convertLineToTask(line));
                 }
             } catch (IOException i) {
                 System.out.println("Error reading from file");
             }
         } else {
-            // create said directory
+            createFile(filePath);
             return;
         }
     }
@@ -248,19 +252,28 @@ public class Duke {
         // System.out.println("*****" + fileExists);
 
 
-        if (fileExists) {
-            try {
-                BufferedWriter writer = Files.newBufferedWriter(filePath);
-                for (Task t : tasks) {
-                    writer.write(convertTaskToLine(t));
-                    writer.newLine();
-                }
-                writer.close();
-            } catch (IOException i) {
-                System.out.println("Error writing to file");
-            }
+        if (!fileExists) {
+            createFile(filePath);
         }
+        try {
+            BufferedWriter writer = Files.newBufferedWriter(filePath);
+            for (Task t : tasks) {
+                writer.write(convertTaskToLine(t));
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException i) {
+            System.out.println("Error writing to file");
+        }
+    }
 
+    public static void createFile(Path filePath) {
+        try {
+            Files.createDirectories(filePath.getParent());
+            Files.createFile(filePath);
+        } catch (IOException i) {
+            System.out.println("Error creating file");
+        }
     }
 
     public static void print(String[] arr) {
