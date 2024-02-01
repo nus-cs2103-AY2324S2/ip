@@ -17,6 +17,7 @@ public class todoCommand extends Command {
      *
      * @param taskList The task list which the command will modify.
      * @param ui The ui to get the input of the user.
+     * @throws EmptyInputException If user did not input description.
      */
     public todoCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);

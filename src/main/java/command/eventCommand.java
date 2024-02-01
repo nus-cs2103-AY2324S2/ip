@@ -25,6 +25,10 @@ public class eventCommand extends Command {
      *
      * @param taskList The task list which the command will modify.
      * @param ui The ui to get the input of the user.
+     * @throws EmptyInputException If user did not input description.
+     * @throws EmptyTimeException If user did not input time.
+     * @throws InvalidFormatException If user's input invalid format.
+     * @throws InvalidDateTimeException If user input invalid date/time format.
      */
     public eventCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);

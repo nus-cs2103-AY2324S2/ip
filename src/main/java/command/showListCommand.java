@@ -15,6 +15,7 @@ public class showListCommand extends Command {
      *
      * @param taskList The task list which the command will modify.
      * @param ui The ui to get the input of the user.
+     * @throws Exception If input is not valid.
      */
     public showListCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
