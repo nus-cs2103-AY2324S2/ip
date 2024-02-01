@@ -21,6 +21,6 @@ public class ToDo extends Task {
      */
     @Override
     public String getTokens() {
-        return String.join(",", "T", super.getTokens());
+        return String.join(",", TaskType.TODO.toString(), super.getTokens());
     }
 }

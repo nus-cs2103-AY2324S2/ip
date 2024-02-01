@@ -3,11 +3,7 @@ package duke;
 import duke.exceptions.DukeException;
 
 import duke.exceptions.StorageException;
-import duke.task.Task;
-import duke.task.ToDo;
-import duke.task.Event;
-import duke.task.Deadline;
-import duke.task.TaskList;
+import duke.task.*;
 
 import java.io.File;
 import java.util.Scanner;
@@ -98,17 +94,21 @@ public class Storage {
         try {
             String[] data = tokens.split(",");
             switch (data[0]) {
-                case "T":
-                    return new ToDo(data[1], Boolean.parseBoolean(data[2]));
-                case "E":
-                    return new Event(data[1], Boolean.parseBoolean(data[2]),
-                            LocalDate.parse(data[3], Task.getDateFormat()),
-                            LocalDate.parse(data[4], Task.getDateFormat()));
-                case "D":
-
-                    return new Deadline(data[1], Boolean.parseBoolean(data[2]), LocalDate.parse(data[3], Task.getDateFormat()));
-                default:
-                    throw new StorageException("Data file is corrupted, duke.command.task type does not exist");
+            case "TODO":
+                return Task.createTask(TaskType.TODO, data[1], Boolean.parseBoolean(data[2]));
+            case "EVENT":
+                return Task.createTask(TaskType.EVENT, data[1], Boolean.parseBoolean(data[2]),
+                        LocalDate.parse(data[3], Task.getDateFormat()),
+                        LocalDate.parse(data[4], Task.getDateFormat()));
+//                    return new Event(data[1], Boolean.parseBoolean(data[2]),
+//                            LocalDate.parse(data[3], Task.getDateFormat()),
+//                            LocalDate.parse(data[4], Task.getDateFormat()));
+            case "DEADLINE":
+                return Task.createTask(TaskType.DEADLINE, data[1], Boolean.parseBoolean(data[2]),
+                        LocalDate.parse(data[3], Task.getDateFormat()));
+//                    return new Deadline(data[1], Boolean.parseBoolean(data[2]), LocalDate.parse(data[3], Task.getDateFormat()));
+            default:
+                throw new StorageException("Data file is corrupted, task type does not exist");
             }
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException | IllegalArgumentException e) {
             throw new StorageException("Data file is corrupted, error parsing data: " + e.getMessage());

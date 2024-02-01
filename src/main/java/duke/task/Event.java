@@ -29,7 +29,7 @@ public class Event extends Task {
      */
     @Override
     public String getTokens() {
-        return String.join(",", "E",
+        return String.join(",", TaskType.EVENT.toString(),
                 super.getTokens(),
                 this.from.format(Task.getDateFormat()),
                 this.to.format(Task.getDateFormat()));

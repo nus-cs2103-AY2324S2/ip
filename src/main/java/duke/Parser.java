@@ -124,7 +124,7 @@ public class Parser {
             throw new ParserException("Missing /from or /to! Use those to indicate times!");
         }
 
-        String task = parts[0].trim();
+        String description = parts[0].trim();
         String startString = parts[1].trim();
         String endString = parts[2].trim();
 
@@ -134,7 +134,7 @@ public class Parser {
             endString = temp;
         }
 
-        if (task.isEmpty()) {
+        if (description.isEmpty()) {
             throw new MissingInfoException("Tasks needs a name! Or I cant remember it!");
         } else if (startString.isEmpty()) {
             throw new MissingInfoException("Please tell me when it starts!");
@@ -147,7 +147,7 @@ public class Parser {
             LocalDate startDate = LocalDate.parse(startString, Task.getDateFormat());
             LocalDate endDate = LocalDate.parse(endString, Task.getDateFormat());
 
-            return new EventCommand(task, startDate, endDate);
+            return new EventCommand(description, startDate, endDate);
         } catch (DateTimeParseException e) {
             throw new ParserException("Invalid date/time format for the deadline!"
                     + "Please use a dd MMM yyyy format (e.g. 21 Jan 2000).");

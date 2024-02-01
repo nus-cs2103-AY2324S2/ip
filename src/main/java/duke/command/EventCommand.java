@@ -3,7 +3,9 @@ package duke.command;
 import duke.Storage;
 import duke.Ui;
 import duke.task.Event;
+import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.TaskType;
 
 import java.time.LocalDate;
 
@@ -20,7 +22,7 @@ public class EventCommand extends Command {
 
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
-        Event newEvent = new Event(task, start, end);
+        Task newEvent = Task.createTask(TaskType.EVENT, task, start, end);
         list.add(newEvent);
         storage.save(list);
         ui.showMessage("added new event: " + newEvent);

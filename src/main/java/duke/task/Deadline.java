@@ -33,6 +33,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getTokens() {
-        return String.join(",", "D", super.getTokens(), this.by.format(Task.getDateFormat()));
+        return String.join(",",  TaskType.DEADLINE.toString(),
+                super.getTokens(), this.by.format(Task.getDateFormat()));
     }
 }
