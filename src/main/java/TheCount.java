@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.time.format.DateTimeParseException;
 
 public class TheCount {
 
@@ -115,6 +116,8 @@ public class TheCount {
             deadline.displayMessage(tasks.length());
         } catch (TheCountException e) {
             handleException(e, "Example: deadline assignment /by 2pm");
+        } catch (DateTimeParseException e) {
+            handleException("Please enter date in the format yyyy-MM-dd.");
         }
     }
 
@@ -156,7 +159,6 @@ public class TheCount {
             } else {
                 info = userInput.split("\\s+", 2)[1].split(delimiter)[0].trim();
             }
-            System.out.println(info);
             if (info.isEmpty()) {
                 // Throw an exception if task information is not provided
                 throw new TheCountException("Description of activity cannot be empty.");

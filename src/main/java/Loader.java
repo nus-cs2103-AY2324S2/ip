@@ -1,5 +1,7 @@
 import java.io.*;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
 public class Loader {
     private static final String DATAFILE_PATH = "./data/the-count.txt";
     private static final String DIR_PATH = "./data";
@@ -64,7 +66,11 @@ public class Loader {
                     break;
                 case "D":
                     String deadlineTime = parts[4].trim();
-                    tasks.add(new Deadline(info, deadlineTime));
+                    try {
+                        tasks.add(new Deadline(info, deadlineTime));
+                    } catch (DateTimeParseException e) {
+                        System.out.println(e);
+                    }
                     break;
                 case "E":
                     String[] time = parts[4].trim().split("-");
