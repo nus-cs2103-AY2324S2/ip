@@ -17,6 +17,7 @@ public class Parser {
         DEADLINE,
         EVENT,
         DELETE,
+        FIND,
         INVALID
     }
 
