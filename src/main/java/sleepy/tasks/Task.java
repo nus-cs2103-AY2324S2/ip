@@ -15,6 +15,12 @@ public abstract class Task {
     private String rawDescription;
     private boolean isDone = false;
 
+    /**
+     * Constructor for the abstract class Task (will only be invoked by subclasses).
+     *
+     * @param rawDescription Full description of the task (including labels and timings).
+     * @param description Description of the task details.
+     */
     public Task(String rawDescription, String description) {
         this.rawDescription = rawDescription;
         this.description = description;

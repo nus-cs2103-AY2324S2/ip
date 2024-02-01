@@ -13,6 +13,14 @@ public class Deadline extends Task {
     private String givenDeadline;
 
     private LocalDate formattedDate;
+
+    /**
+     * Constructor for the Deadline class.
+     *
+     * @param rawDescription Full description of the deadline, including labels and timing.
+     * @param description Description of the deadline details.
+     * @param givenDeadline When the given deadline is.
+     */
     public Deadline(String rawDescription, String description, String givenDeadline) {
         super(rawDescription, description);
         this.givenDeadline = givenDeadline;

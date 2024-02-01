@@ -12,13 +12,18 @@ public class Sleepy {
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Constructor for the Sleepy class.
+     *
+     * @param filePath Filepath of the file used to store the user's list.
+     */
     public Sleepy(String filePath) {
         // Retrieve saved data
         taskList = new TaskList(filePath);
     }
 
     /**
-     * Runs the chatbot.
+     * Runs the Sleepy chatbot.
      */
     public void run() {
         // Initialise chatbot

@@ -17,6 +17,15 @@ public class Event extends Task {
 
     private LocalDate formattedToDate;
 
+    /**
+     * Constructor for the Event class.
+     *
+     * @param rawDescription Full description for the Event, including labels and timings.
+     * @param description Description of the event details.
+     * @param start When the event starts.
+     * @param end When the event ends.
+     */
+
     public Event(String rawDescription, String description, String start, String end) {
         super(rawDescription, description);
         this.start = start;
