@@ -43,11 +43,11 @@ public class Event extends Task {
     public Event(String description, String startTime, String endTime) {
         super(description);
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             this.startTime = LocalDateTime.parse(startTime, formatter);
             this.endTime = LocalDateTime.parse(endTime, formatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date/time format. Please use: yyyy-MM-dd HHmm");
+            System.out.println("Invalid date/time format. Please use: yyyy-MM-dd HH:mm");
             // Handle the exception as needed, e.g., log it or inform the user
             throw e;
         }
