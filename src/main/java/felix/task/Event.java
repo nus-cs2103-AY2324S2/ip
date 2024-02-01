@@ -1,10 +1,12 @@
+package felix.task;
+
 import java.time.LocalDateTime;
 
 public class Event extends Task {
     private final LocalDateTime start;
     private final LocalDateTime end;
 
-    Event(String description, String start, String end) {
+    public Event(String description, String start, String end) {
         super(description);
         this.start = LocalDateTime.parse(start, inputFormatter);
         this.end = LocalDateTime.parse(end, inputFormatter);

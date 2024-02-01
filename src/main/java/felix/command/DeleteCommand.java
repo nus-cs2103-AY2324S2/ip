@@ -1,7 +1,14 @@
+package felix.command;
+
+import felix.exception.FelixException;
+import felix.task.Task;
+import felix.utils.TaskList;
+import felix.utils.Ui;
+import felix.utils.Storage;
 public class DeleteCommand extends Command {
     private final int deleteIndex;
 
-    DeleteCommand(int deleteIndex) {
+    public DeleteCommand(int deleteIndex) {
         this.deleteIndex = deleteIndex;
     }
 

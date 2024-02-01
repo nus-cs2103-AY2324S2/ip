@@ -1,9 +1,11 @@
+package felix.task;
+
 import java.time.LocalDateTime;
 
 public class Deadline extends Task{
     private final LocalDateTime deadline;
 
-    Deadline(String description, String deadline) {
+    public Deadline(String description, String deadline) {
         super(description);
         this.deadline = LocalDateTime.parse(deadline, inputFormatter);
     }

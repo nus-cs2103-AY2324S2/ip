@@ -1,6 +1,13 @@
+package felix.command;
+
+import felix.exception.FelixException;
+import felix.task.Task;
+import felix.utils.TaskList;
+import felix.utils.Ui;
+import felix.utils.Storage;
 public class UnmarkCommand extends Command {
     private final int indexToUnmark;
-    UnmarkCommand(int indexToUnmark) {
+    public UnmarkCommand(int indexToUnmark) {
         this.indexToUnmark = indexToUnmark;
     }
 

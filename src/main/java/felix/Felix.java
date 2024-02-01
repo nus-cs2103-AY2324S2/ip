@@ -1,6 +1,16 @@
+package felix;
+
+import felix.command.Command;
+import felix.exception.FelixException;
+import felix.utils.Parser;
+import felix.utils.Storage;
+import felix.utils.TaskList;
+import felix.utils.Ui;
+
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Felix {
     private static final ArrayList<String> FILE_PATH = new ArrayList<>(List.of("data", "taskList.txt"));

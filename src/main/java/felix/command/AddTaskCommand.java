@@ -1,7 +1,15 @@
+package felix.command;
+
+import felix.exception.FelixException;
+import felix.task.Task;
+import felix.utils.TaskList;
+import felix.utils.Ui;
+import felix.utils.Storage;
+
 public class AddTaskCommand extends Command {
     private final Task task;
 
-    AddTaskCommand(Task task) {
+    public AddTaskCommand(Task task) {
         this.task = task;
     }
 

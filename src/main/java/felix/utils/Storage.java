@@ -1,3 +1,8 @@
+package felix.utils;
+
+import felix.exception.FelixException;
+import felix.task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,7 +14,7 @@ import java.util.ArrayList;
 
 public class Storage {
     private final File storageFile;
-    Storage(ArrayList<String> path) throws IOException {
+    public Storage(ArrayList<String> path) throws IOException {
         String filePath = System.getProperty("user.dir") + File.separator + String.join(File.separator, path);
         this.storageFile = new File(filePath);
         if (this.storageFile.getParentFile().mkdirs()) {
