@@ -7,6 +7,7 @@ import Command.MarkCommand;
 import Command.ByeCommand;
 import Command.ListCommand;
 import Command.UnmarkCommand;
+import Command.FindCommand;
 import Task.Deadline;
 import Task.Event;
 import Task.TaskType;
@@ -68,13 +69,21 @@ public class Parser {
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 throw new DookException("Ohnoo! Please enter a number after \"unmark\"!");
             }
-        } else if (firstWord.equals("delete")){
+        } else if (firstWord.equals("delete")) {
             try {
                 String secondWord;
                 secondWord = split[1];
                 return new DeleteCommand(Integer.valueOf(secondWord));
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 throw new DookException("Ohnoo! Please enter a number after \"delete\"!");
+            }
+        } else if (firstWord.equals("find")) {
+            try {
+                String secondWord;
+                secondWord = split[1];
+                return new FindCommand(secondWord);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DookException("Ohnoo! Please enter a phrase after \"find\"!");
             }
         } else {
             throw new DookException("I don't understand this command :( Try again!");

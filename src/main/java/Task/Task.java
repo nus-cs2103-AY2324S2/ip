@@ -33,6 +33,10 @@ public abstract class Task {
     }
 
     public abstract String fileRepresentation();
+
+    public boolean hasSubstring(String target) {
+        return name.contains(target);
+    }
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), this.name);
