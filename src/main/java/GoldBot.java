@@ -11,8 +11,14 @@ public class GoldBot {
             System.out.println("Unexpected error occured.");
             return;
         }
+        ChatSession session;
+        try {
+            session = FileOperations.createChatSession(data);
+        } catch (FileCorruptionException e) {
+            System.out.println("File corrupted.");
+            return;
+        }
         
-        ChatSession session = FileOperations.createChatSession(data);
         Scanner scanner = new Scanner(System.in);
 
         while (session.continueSession) {

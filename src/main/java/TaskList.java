@@ -1,4 +1,6 @@
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,12 +8,13 @@ public class TaskList {
     public List<Task> internalList;
     private File dataFile;
 
-    TaskList() {
-        this.internalList = new ArrayList<>();
+    TaskList(File dataFile) {
+        this(new ArrayList<>(), dataFile);
     }
 
-    TaskList(List<Task> list) {
+    TaskList(List<Task> list, File dataFile) {
         this.internalList = list;
+        this.dataFile = dataFile;
     }
 
     public String generateName() {
@@ -29,10 +32,12 @@ public class TaskList {
 
     public void add(Task t) {
         this.internalList.add(t);
+        this.saveData();
     }
 
     public void delete(int index) {
         internalList.remove(index - 1);
+        this.saveData();
     }
 
     public Task pop(int index) {
@@ -42,6 +47,15 @@ public class TaskList {
     }
 
     public void saveData() {
-
+        ArrayList<String> data = new ArrayList<>();
+        for (Task t : this.internalList) {
+            data.add(t.exportData());
+        }
+        String dataString = String.join(System.lineSeparator(), data);
+        try (FileWriter writer = new FileWriter(dataFile);) {
+            writer.write(dataString);
+        } catch (IOException e) {
+            System.out.println("Data could not be saved.");
+        }
     }
 }

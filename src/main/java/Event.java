@@ -12,10 +12,14 @@ public class Event extends Task {
         this.toDate = Optional.empty();
     }
 
-    Event(String name, String fromString, String toString) {
-        super(name);
+    Event(String name, boolean isDone, String fromString, String toString) {
+        super(name, isDone);
         this.fromDate = Optional.of(fromString);
         this.toDate = Optional.of(toString);
+    }
+
+    Event(String name, String fromString, String toString) {
+        this(name, false, fromString, toString);
     }
 
     public String typeOfTask() {
