@@ -6,7 +6,7 @@ import pyrite.TaskList;
 
 public class StatusCommand extends Command{
     int id;
-    Task.Status targetStatus;
+    private Task.Status targetStatus;
     public StatusCommand(int id, Task.Status targetStatus) {
         this.id = id;
         this.targetStatus = targetStatus;
