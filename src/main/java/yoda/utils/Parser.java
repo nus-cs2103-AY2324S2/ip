@@ -1,10 +1,9 @@
 package yoda.utils;
-import yoda.utils.Command;
 import yoda.YodaUI;
 import yoda.task.Deadline;
 import yoda.task.Event;
+import yoda.task.TaskList;
 import yoda.task.Todo;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 public class Parser {
@@ -38,7 +37,8 @@ public class Parser {
                     yodaUI.showTasks();
                     break;
                 case SAVE:
-                    yodaUI.saveTasks();
+                    TaskList taskList = yodaUI.getTaskList();
+                    yodaUI.saveTasks(taskList);
                     break;
                 case DELETE:
                     performTaskOperation(parts, yodaUI::deleteTask);
@@ -109,7 +109,7 @@ public class Parser {
     private int parseTaskNumber(String input) throws Exception {
         try {
             int taskNumber = Integer.parseInt(input);
-            if (taskNumber <= 0 || taskNumber > yodaUI.getTaskCount()) {
+            if (taskNumber <= 0 || taskNumber > yodaUI.getTaskListSize()) {
                 throw new Exception("Valid task number, provide you must.");
             }
             return taskNumber;
