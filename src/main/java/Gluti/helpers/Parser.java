@@ -4,21 +4,39 @@ import Gluti.utils.*;
 
 import java.util.ArrayList;
 
+/**
+ * An Interface to interpret user input and call relevant functions
+ * commands are called from UI to perform tasks (Acts as the parser and response)
+ */
 public class Parser {
     private FileStorage fstorage;
     private boolean isExit;
+
+    /**
+     * Initialises a Parser instance
+     * @param fstorage loads and writes tasks from/to data
+     */
     public Parser(FileStorage fstorage) {
         this.fstorage = fstorage;
         this.isExit = false;
     }
 
+    /**
+     * Returns the current status of the program
+     * @return isExit to allow UI to know if the program is still running for it to print the exit message
+     */
     public boolean isLooping() {
         return this.isExit;
     }
+
+    /**
+     * Parsers the user inputs and perform relevant tasks accordingly
+     * @param word The line read from user input
+     * @throws GlutiException Caught exceptions from Tasks subclasses
+     */
     public void parse(String word) throws GlutiException {
         ArrayList<Task> storage = fstorage.readList();
         String function = word.split(" ")[0].toLowerCase();
-        //while(!function.equals("bye")) {
             String[] input = word.split(" ");
             function = input[0].toLowerCase();
             switch (function) {

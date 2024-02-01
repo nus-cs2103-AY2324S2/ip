@@ -5,11 +5,23 @@ import Gluti.utils.*;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Provides a Storage interface that is shared among the program
+ * Loads tasks from file when program is ran
+ * and saves the tasks to file when terminated correctly
+ */
+
 public class FileStorage {
     protected static final File DATA_FOLDER = new File("./src/main/data");
     protected static final File DATA_FILE = new File("./src/main/data/Gluti.txt");
     protected ArrayList<Task> tasklist = new ArrayList<>();
 
+    /**
+     * Initialises a FileStorage instance
+     * Check if there already exists a file, load tasks from file if exists
+     * Creates a new file if !exists
+     * @throws GlutiException IO Exceptions
+     */
     public FileStorage() throws GlutiException {
         checkifexist();
         try {
@@ -25,6 +37,12 @@ public class FileStorage {
         }
 //        System.out.println("Done mounting tasks");
     }
+
+    /**
+     * Interprets the tasks loaded from file
+     * @param line the line read from File
+     * @return the Task interpreted from program
+     */
 
     public Task read(String line) {
         char tasktype = line.charAt(1);
@@ -67,6 +85,11 @@ public class FileStorage {
         }
         return nextTask;
     }
+
+    /**
+     * Checks and creates the directory and file if there is no such directory or file
+     * @throws GlutiException IO Errors
+     */
     private void checkifexist() throws GlutiException {
         if (!DATA_FILE.exists()) {
             if (!DATA_FOLDER.exists()) {
@@ -80,6 +103,11 @@ public class FileStorage {
         }
     }
 
+    /**
+     * Saves the TaskList onto a file (Called during termination)
+     * @param newTasks saved tasks from program
+     * @throws GlutiException IO Errors
+     */
     public void saveList(ArrayList<Task> newTasks) throws GlutiException {
         try {
             FileWriter fileWriter = new FileWriter(DATA_FILE);
@@ -94,6 +122,10 @@ public class FileStorage {
         }
     }
 
+    /**
+     * Returns the TaskList
+     * @return List of Tasks
+     */
     public ArrayList<Task> readList() {
         return tasklist;
     }

@@ -6,11 +6,19 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Deadline subclass that is a child of Task class
+ */
+
 public class Deadline extends Task {
 
     protected String by;
-    protected LocalDate date;
 
+    /**
+     * Initializes a Deadline instance
+     * @param description the name of the Deadline
+     * @param by the due date of the Tasks
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
@@ -22,6 +30,10 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + "(by:" + by +")";
     }
 
+    /**
+     * Checks if the input is a valid date and perform the relevant formatting if valid
+     * @param by the due date input
+     */
     private void validDate(String by) {
         String temp = by.trim();
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
