@@ -1,3 +1,5 @@
+package duke;
+import task.*;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -36,10 +38,10 @@ public class TaskList {
         // check for error
         if (position + 1 > taskList.size()) {
             System.out.println(Ui.INDENT_SEPERATOR);
-            System.out.println(Ui.INDENT + "Task does not exist");
+            System.out.println(Ui.INDENT + "Task.Task does not exist");
         } else if (position < 0) {
             System.out.println(Ui.INDENT_SEPERATOR);
-            System.out.println(Ui.INDENT + "Task does not exist");
+            System.out.println(Ui.INDENT + "Task.Task does not exist");
 
         } else {
             System.out.println(Ui.INDENT_SEPERATOR);
@@ -58,10 +60,10 @@ public class TaskList {
         // check for error
         if (position + 1 > taskList.size()) {
             System.out.println(Ui.INDENT_SEPERATOR);
-            System.out.println(Ui.INDENT + "Task does not exist");
+            System.out.println(Ui.INDENT + "Task.Task does not exist");
         } else if (position < 0) {
             System.out.println(Ui.INDENT_SEPERATOR);
-            System.out.println(Ui.INDENT + "Task does not exist");
+            System.out.println(Ui.INDENT + "Task.Task does not exist");
 
         } else {
             System.out.println(Ui.INDENT_SEPERATOR);
@@ -104,9 +106,9 @@ public class TaskList {
         Task t = taskList.get(position);
         // check for error
         if (position + 1 > taskList.size()) {
-            System.out.println(Ui.INDENT + "Task does not exist");
+            System.out.println(Ui.INDENT + "Task.Task does not exist");
         } else if (position < 0) {
-            System.out.println(Ui.INDENT + "Task does not exist");
+            System.out.println(Ui.INDENT + "Task.Task does not exist");
         } else {
             taskList.remove(t);
             System.out.println(Ui.INDENT_SEPERATOR);
