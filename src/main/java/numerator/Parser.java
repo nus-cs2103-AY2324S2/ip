@@ -125,7 +125,7 @@ public class Parser {
                 Ui.printMessage(taskList.findTasks(keyword));
             }
         } else {
-            throw new InputNotRecognisedException("Input not recognised");
+            throw new InputNotRecognisedException();
         }
         return false;
     }

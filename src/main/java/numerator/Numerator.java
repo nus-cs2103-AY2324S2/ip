@@ -7,14 +7,25 @@ import numerator.task.TaskList;
 import java.nio.file.Path;
 import java.util.Scanner;
 
+/**
+ * Represents the main class of the Numerator program
+ */
 public class Numerator {
-    private TaskList taskList;
     private final Storage storage;
+    private TaskList taskList;
 
+    /**
+     * Constructs a Numerator object with the default file path "data/storage.txt"
+     */
     public Numerator() {
         this("data/storage.txt");
     }
 
+    /**
+     * Constructs a Numerator object with the specified file path
+     *
+     * @param filePath the path to the file to be loaded and saved
+     */
     public Numerator(String filePath) {
         Path path = Path.of(filePath);
         storage = new Storage(path);
@@ -27,6 +38,18 @@ public class Numerator {
         }
     }
 
+    /**
+     * Instantiates The entry point of the Numerator program
+     *
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        new Numerator().run();
+    }
+
+    /**
+     * Runs the Numerator program
+     */
     public void run() {
         Ui.printLogo();
         Scanner sc = new Scanner(System.in);
@@ -57,10 +80,6 @@ public class Numerator {
             }
         }
 
-    }
-
-    public static void main(String[] args) {
-        new Numerator().run();
     }
 }
 
