@@ -26,4 +26,8 @@ public class Task {
     }
 
     public void setunDone() { isDone = false; }
+
+    public boolean isMatch(String keyword) {
+        return this.description.contains(keyword);
+    }
 }

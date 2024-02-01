@@ -115,6 +115,24 @@ public class Parser {
                         throw new GlutiException("Make sure that you have selected the correct task!");
                     }
                     break;
+                case "find":
+                    ArrayList<Task> matchlist = new ArrayList<>();
+                    String keyword = input[1];
+                    for (Task x : storage) {
+                        if (x.isMatch(keyword)){
+                            matchlist.add(x);
+                        }
+                    }
+                    if (matchlist.isEmpty()) {
+                        System.out.println("No matching tasks!");
+                    } else {
+                        System.out.println("Here are the matching tasks in your list:");
+                        int count = 1;
+                        for (Task y : matchlist) {
+                            System.out.println(count++ + "." + y);
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
