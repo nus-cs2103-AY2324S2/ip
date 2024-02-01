@@ -25,6 +25,7 @@ public class TaskList {
      * Constructor for the TaskList class. Initialises the list of tasks
      * based on the saved data in the SleepyTaskList file.
      *
+     * @param filePath The data path to the file linked to this TaskList.
      */
     public TaskList(String filePath) {
         storage = new Storage(filePath);

@@ -12,6 +12,12 @@ import java.util.Scanner;
 
 public class Storage {
     private File hardDiskFile;
+
+    /**
+     * Constructor for the Storage class.
+     *
+     * @param filePath filePath of the file used for storage.
+     */
     public Storage(String filePath) {
         try {;
             hardDiskFile = new File(filePath);
@@ -41,6 +47,8 @@ public class Storage {
 
     /**
      * Saves the tasks in the hard disk.
+     *
+     * @param tasks Tasks to be saved.
      */
     public void saveTasks(ArrayList<Task> tasks) {
         try {

@@ -5,7 +5,7 @@ public class Parser {
     /**
      * Parses the given command.
      *
-     * @param command
+     * @param command Command from the user to be parsed.
      *
      * @return Parsed command, as an array of strings.
      */
@@ -37,7 +37,7 @@ public class Parser {
     /**
      * Parses the given task.
      *
-     * @param task
+     * @param task Task of type ToDo, Deadline or Event to be parsed.
      *
      * @return Parsed task, as an array of strings.
      */
