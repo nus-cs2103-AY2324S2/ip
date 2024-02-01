@@ -1,8 +1,8 @@
-D | 1 | tutorial 1 | friday 12pm
-E | 0 | bday party | jan 31st 6pm | 9pm
-D | 1 | stats homework | feb 10th
-T | 1 | buy birthday present
-T | 0 | read textbook
-E | 0 | coding workshop | feb 2nd | feb 4th
-D | 1 | watch lecture | tmr 3pm
-T | 0 | buy food for fatnom
+T | 1 | buy bday present
+D | 1 | watch lecture 3 | Jan 31 2024 6:00pm
+E | 0 | tchouk ivp | Feb 03 2024 2:00pm | Feb 03 2024 7:00pm
+D | 0 | do tmrs tut | Feb 02 2024 12:00am
+T | 1 | buy fatnoms food
+D | 1 | feed fatnom | Mar 07 2024 12:00am
+D | 0 | return book | Apr 05 2024 6:35pm
+E | 0 | fatnoms birthday party | Apr 01 2024 5:30pm | Apr 01 2024 11:15pm
