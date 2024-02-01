@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 class Parser {
 
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    String[] parse(String str) {
+    String[] parseInput(String str) {
         String[] output = str.split(" ", 2);
         output[0] = output[0].toUpperCase();
         return output;
@@ -23,7 +23,7 @@ class Parser {
      * @return A Task object based on the parsed input.
      * @throws CinnamoTimeException If there is an error parsing the date and time information.
      */
-    Task parse_tasks(String[] arr) throws CinnamoTimeException {
+    Task parseTasks(String[] arr) throws CinnamoTimeException {
         try {
             String identifier = arr[0];
             if (identifier.equals("TODO")) {

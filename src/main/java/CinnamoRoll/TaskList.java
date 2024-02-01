@@ -19,14 +19,9 @@ class TaskList {
         EVENT
     }
 
-    TaskList(String path) {
-        this.tasks = new ArrayList<Task>();
-        this.PATH = path;
-    }
-
     TaskList() {
         this.tasks = new ArrayList<Task>();
-        this.PATH = "src/main/test.txt";
+        this.PATH = "src/main/java/test.txt";
     }
 
     TaskList(ArrayList<Task> tasks, String path) {
@@ -34,7 +29,7 @@ class TaskList {
         this.PATH = path;
     }
 
-    public Task get(int index) {
+    public Task getUser(int index) {
         return this.tasks.get(index);
     }
 
@@ -47,7 +42,7 @@ class TaskList {
     public void writeInto() throws IOException {
         try {
             FileWriter filewriter = new FileWriter(this.PATH);
-            filewriter.write(this.list());
+            filewriter.write(this.listTask());
             filewriter.close();
         } catch (IOException ex) {
             System.out.println("No input provided!");
@@ -62,12 +57,12 @@ class TaskList {
      * @throws IOException If there is an error writing to the file.
      * @throws CinnamoException If there is an error parsing the task instruction or a specific type of task-related exception occurs.
      */
-    private String execute(String[] instruction) throws IOException, CinnamoException {
+    private String executeTask(String[] instruction) throws IOException, CinnamoException {
         try {
-            Task task = this.parser.parse_tasks(instruction);
+            Task task = this.parser.parseTasks(instruction);
             this.tasks.add(task);
             this.writeInto();
-            return task.added(this.tasks.size());
+            return task.addTask(this.tasks.size());
         } catch (ArrayIndexOutOfBoundsException exception) {
             if (instruction[0].equals("TODO")) {
                 throw new CinnamoTodoException();
@@ -84,7 +79,7 @@ class TaskList {
      *
      * @return A string representation of the tasks in the format "1. [Task1] \n 2. [Task2] \n ..."
      */
-    private String list() {
+    private String listTask() {
         String output = "Here are the tasks in your list:\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             output += String.valueOf(i + 1) + "." + this.tasks.get(i).toString();
@@ -103,7 +98,7 @@ class TaskList {
      * @throws CinnamoIndexException If the provided index is out of bounds.
      * @throws Exception If there is an error parsing the index or writing to the file.
      */
-    private String delete(String[] str) throws Exception, CinnamoIndexException {
+    private String deleteTask(String[] str) throws Exception, CinnamoIndexException {
         try {
             int index = Integer.parseInt(str[1]);
             Task temp = this.tasks.get(index - 1);
@@ -124,10 +119,10 @@ class TaskList {
      * @throws CinnamoIndexException If the provided index is out of bounds.
      * @throws Exception If there is an error parsing the index or writing to the file.
      */
-    String mark(String[] str) throws Exception, CinnamoIndexException {
+    String markTask(String[] str) throws Exception, CinnamoIndexException {
         try {
             int index = Integer.parseInt(str[1]) - 1;
-            this.tasks.get(index).marked();
+            this.tasks.get(index).markTask();
             this.writeInto();
             return String.format("Nice! I've marked this task as done:%n   %s",
                     this.tasks.get(index).toString());
@@ -145,10 +140,10 @@ class TaskList {
      * @throws CinnamoIndexException If the provided index is out of bounds.
      * @throws Exception If there is an error parsing the index or writing to the file.
      */
-    String unmark(String[] str) throws Exception, CinnamoIndexException {
+    String unmarkTask(String[] str) throws Exception, CinnamoIndexException {
         try {
             int index = Integer.parseInt(str[1]) - 1;
-            this.tasks.get(index).unmarked();
+            this.tasks.get(index).unmarkTask();
             this.writeInto();
             return String.format("Ok! I've marked this task as not done yet:%n      %s",
                     this.tasks.get(index).toString());
@@ -165,37 +160,37 @@ class TaskList {
      * @throws CinnamoException If an error related to task execution or command parsing occurs.
      * @throws Exception If there is an error during the response process.
      */
-    void respond(String str) throws Exception, CinnamoException {
+    void respondUser(String str) throws Exception, CinnamoException {
         try {
             Parser parser = new Parser();
-            String[] arr = parser.parse(str);
+            String[] arr = parser.parseInput(str);
             switch (TaskList.Users.valueOf(arr[0])) {
                 case MARK:
-                    System.out.println(this.mark(arr));
+                    System.out.println(this.markTask(arr));
                     break;
 
                 case UNMARK:
-                    System.out.println(this.unmark(arr));
+                    System.out.println(this.unmarkTask(arr));
                     break;
 
                 case LIST:
-                    System.out.println(this.list());
+                    System.out.println(this.listTask());
                     break;
 
                 case DELETE:
-                    System.out.println(this.delete(arr));
+                    System.out.println(this.deleteTask(arr));
                     break;
 
                 case TODO:
-                    System.out.println(this.execute(arr));
+                    System.out.println(this.executeTask(arr));
                     break;
 
                 case DEADLINE:
-                    System.out.println(this.execute(arr));
+                    System.out.println(this.executeTask(arr));
                     break;
 
                 case EVENT:
-                    System.out.println(this.execute(arr));
+                    System.out.println(this.executeTask(arr));
                     break;
 
                 default:

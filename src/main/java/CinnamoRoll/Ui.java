@@ -13,7 +13,7 @@ class Ui {
     /**
      * Greet the user by printing out the logo and saying hi!
      */
-    void greet() {
+    void greetUser() {
         System.out.println(logo);
         System.out.println("Hello! I'm CinnamoRoll!" + "\n" + "What can I do for you? \n");
     }
@@ -21,14 +21,14 @@ class Ui {
     /**
      * Saying bye to the user who attempts to exit the chat!
      */
-    void exit() {
+    void exitChat() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
     /**
      * Process and respond to the user's request in terms of input string
      */
-    void respond(TaskList tasks, String str) throws Exception {
-        tasks.respond(str);
+    void respondUser(TaskList tasks, String str) throws Exception {
+        tasks.respondUser(str);
     }
 }

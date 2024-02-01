@@ -26,7 +26,7 @@ class Storage {
      * @return An ArrayList of Task objects loaded from the file.
      * @throws IOException If there is an error reading the file.
      */
-    ArrayList<Task> load_data() throws IOException {
+    ArrayList<Task> loadData() throws IOException {
         try {
             ArrayList<Task> output = new ArrayList<>();
             BufferedReader bf = new BufferedReader(new FileReader(PATH));

@@ -10,7 +10,7 @@ class Todos extends Task {
     }
 
     String getStatusIcon() {
-        return (this.is_marked ? "[T][X]" : "[T][ ]");
+        return (this.isMarked ? "[T][X]" : "[T][ ]");
     }
     /**
      * Returns a string that describes the number of tasks in the list,
@@ -18,7 +18,7 @@ class Todos extends Task {
      *
      * @param length denotes the length of the list
      */
-    String added(int length) {
+    String addTask(int length) {
         return String.format("Got it. I've added this task:%n   " +
                 "%s%nNow you have %d tasks in the list", super.toString(), length);
 
