@@ -1,5 +1,12 @@
+package Thames;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+import Thames.task.ToDo;
+import Thames.task.Deadline;
+import Thames.task.Event;
+import Thames.task.Task;
+
 public class TaskList {
     ArrayList<Task> taskList;
     public TaskList() {

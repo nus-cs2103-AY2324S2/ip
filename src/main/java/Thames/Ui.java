@@ -1,5 +1,7 @@
-import java.util.List;
+package Thames;
+
 import java.util.Scanner;
+import Thames.task.Task;
 public class Ui {
     String line = "_______________________________________________________\n";
 

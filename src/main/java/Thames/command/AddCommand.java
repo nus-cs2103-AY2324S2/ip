@@ -1,13 +1,20 @@
-import java.io.IOException;
+package Thames.command;
 
-public class AddCommand extends Command{
+import java.io.IOException;
+import Thames.TaskList;
+import Thames.Ui;
+import Thames.Storage;
+import Thames.ThamesException;
+import Thames.task.Task;
+
+public class AddCommand extends Command {
     protected Task task;
 
     public AddCommand(Task task) {
         this.task = task;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ThamesException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ThamesException {
         tasks.add(task);
         ui.addTask(task, tasks.size());
         try {
