@@ -18,6 +18,7 @@ class CommandScanner {
         commands.put("deadline", TokenType.DEADLINE);
         commands.put("event", TokenType.EVENT);
         commands.put("delete", TokenType.DELETE);
+        commands.put("find", TokenType.FIND);
     }
 
     private final String source;
@@ -35,6 +36,7 @@ class CommandScanner {
     public List<Token> scanTokens() {
         // command token
         scanStartToken();
+
         // argument tokens
         while (!isAtEnd()) {
             start = current;
@@ -68,13 +70,19 @@ class CommandScanner {
     }
 
     private void literal() {
-        while (peek() != '/' && !isAtEnd()) advance();
+        while (peek() != '/' && !isAtEnd()) {
+            advance();
+        }
         addToken(TokenType.LITERAL);
     }
 
     private void parameter() {
         start = current;
-        while (!isWhiteSpace(peek()) && !isAtEnd()) advance();
+
+        while (!isWhiteSpace(peek()) && !isAtEnd()) {
+            advance();
+        }
+
         addToken(TokenType.PARAM);
     }
 
@@ -83,11 +91,17 @@ class CommandScanner {
     }
 
     private void scanStartToken() {
-        while (!isWhiteSpace(peek()) && !isAtEnd()) advance();
+        while (!isWhiteSpace(peek()) && !isAtEnd()) {
+            advance();
+        }
+
         String text = source.substring(start, current);
         TokenType type = commands.get(text);
-        if (type == null) type = TokenType.LITERAL;
-        // flag that LITERAL is not recognised command when parsing
+
+        if (type == null) {
+            type = TokenType.LITERAL; // flag that LITERAL is not recognised command when parsing
+        }
+
         addToken(type);
     }
 
@@ -98,7 +112,9 @@ class CommandScanner {
     }
 
     private char peek() {
-        if (isAtEnd()) return '\0';
+        if (isAtEnd()) {
+            return '\0';
+        }
         return source.charAt(current);
     }
 
@@ -113,6 +129,5 @@ class CommandScanner {
     private boolean isAtEnd() {
         return current >= source.length();
     }
-
 
 }

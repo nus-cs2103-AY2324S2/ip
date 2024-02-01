@@ -1,8 +1,7 @@
-package mike;/*
-TODO:
-    1. Write comments to document the code.
- */
+package mike;
+
 import mike.command.*;
+import mike.command.FindCommand;
 
 import java.util.List;
 
@@ -39,6 +38,8 @@ class CommandParser {
             return parseEvent();
         case DELETE:
             return parseDelete();
+        case FIND:
+            return parseFind();
         case EOC:
             throw error("Say something.");
         default:
@@ -69,6 +70,9 @@ class CommandParser {
             switch (type) {
             case "date":
                 listViewType = ListViewType.DATE;
+                break;
+            case "description":
+                listViewType = ListViewType.DESCRIPTION;
                 break;
             default:
                 throw error("Invalid type");
@@ -213,6 +217,17 @@ class CommandParser {
                     "'" + argument + "' is not an integer Sulley...";
             throw error(errorMessage);
         }
+    }
+
+    private Command parseFind() throws MikeException {
+        String usage = "Usage: find [keyword]";
+
+        consume(TokenType.LITERAL, usage);
+        String keyword = previousToken().getText().strip();
+
+        consume(TokenType.EOC, usage);
+
+        return new FindCommand(keyword);
     }
 
     private boolean match(TokenType...types) {

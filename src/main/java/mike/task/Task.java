@@ -18,10 +18,11 @@ public abstract class Task {
         this.type = type;
         this.tags = new ArrayList<ListViewType>();
         tags.add(ListViewType.NONE);
+        tags.add(ListViewType.DESCRIPTION);
     }
 
     public boolean in(ListView listView) {
-        return tags.contains(listView.getType());
+        return tags.contains(listView.getType()) && listView.descriptionFilter(description);
     };
 
     public void markAsDone() {

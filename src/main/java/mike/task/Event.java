@@ -26,10 +26,7 @@ public class Event extends Task {
 
     @Override
     public boolean in(ListView listView) {
-        if (listView.getType() == ListViewType.DATE) {
-            return listView.dateFilter(startDate);
-        }
-        return super.in(listView);
+        return super.in(listView) && listView.dateFilter(startDate);
     }
 
     private String getStartDate() {

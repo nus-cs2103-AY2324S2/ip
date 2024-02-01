@@ -1,5 +1,5 @@
 package mike;
 
 public enum ListViewType {
-    NONE, DATE
+    NONE, DATE, DESCRIPTION
 }

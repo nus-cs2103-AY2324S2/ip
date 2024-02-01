@@ -33,4 +33,8 @@ public class ListView {
         return !type.equals(ListViewType.DATE) || date.equals(taskDate);
     }
 
+    public boolean descriptionFilter(String description) {
+        return !type.equals(ListViewType.DESCRIPTION) || description.contains(attribute);
+    }
+
 }

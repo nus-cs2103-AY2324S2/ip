@@ -10,7 +10,6 @@ public class UnmarkCommand extends Command {
     private final int taskNumber;
 
     public UnmarkCommand(int taskNumber) {
-        super("");
         this.taskNumber = taskNumber;
     }
 

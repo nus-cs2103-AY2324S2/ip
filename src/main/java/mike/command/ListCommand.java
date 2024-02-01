@@ -9,7 +9,6 @@ public class ListCommand extends Command {
     private final ListView listView;
 
     public ListCommand(ListView listView) {
-        super("" );
         this.listView = listView;
     }
 
