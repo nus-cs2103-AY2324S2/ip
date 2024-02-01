@@ -41,6 +41,10 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    public boolean find(String key) {
+        return super.find(key);
+    }
+
     /**
      * Converts the data (Event) here into a format to be stored in the file.
      * 

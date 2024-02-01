@@ -23,6 +23,10 @@ public class ToDo extends Task {
         super(name, TYPE, completed);
     }
 
+    public boolean find(String key) {
+        return super.find(key);
+    }
+
     /**
      * Converts the data (ToDo) here into a format to be stored in the file.
      * 

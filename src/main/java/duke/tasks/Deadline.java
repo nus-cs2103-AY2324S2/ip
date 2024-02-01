@@ -35,6 +35,10 @@ public class Deadline extends Task {
         this.endTime = endTime;
     }
 
+    public boolean find(String key) {
+        return super.find(key);
+    }
+
     /**
      * Converts the data (Deadline) here into a format to be stored in the file.
      * 

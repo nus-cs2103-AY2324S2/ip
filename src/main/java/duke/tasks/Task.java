@@ -29,6 +29,10 @@ public class Task {
         this.completed = completed;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     /**
      * Sets the status of completed to true.
      */
@@ -41,6 +45,16 @@ public class Task {
      */
     public void setNotCompleted() {
         this.completed = false;
+    }
+
+    public boolean find(String key) {
+        String[] words = this.name.split(" ");
+        for (String s : words) {
+            if (s.equals(key)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

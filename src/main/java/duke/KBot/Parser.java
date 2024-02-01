@@ -3,6 +3,7 @@ package duke.KBot;
 import duke.actions.AddTask;
 import duke.actions.Command;
 import duke.actions.DeleteTask;
+import duke.actions.FindTask;
 import duke.actions.Help;
 import duke.actions.ListTask;
 import duke.actions.MarkTask;
@@ -29,18 +30,21 @@ public class Parser {
             switch (ins) { // correct ins but wrong params handled by each method call
                 case "mark":
                     int indexToMark = Integer.parseInt(input[1]);
-                    return new MarkTask(indexToMark-1);
+                    return new MarkTask(indexToMark - 1);
                 case "unmark":
                     int indexToUnmark = Integer.parseInt(input[1]);
-                    return new UnMarkTask(indexToUnmark-1);
+                    return new UnMarkTask(indexToUnmark - 1);
                 case "delete":
                     int indexToDelete = Integer.parseInt(input[1]);
-                    return new DeleteTask(indexToDelete-1);
+                    return new DeleteTask(indexToDelete - 1);
                 case "todo":
                 case "deadline":
                 case "event":
                     String info = input[1];
                     return new AddTask(ins, info);
+                case "find":
+                    String key = input[1];
+                    return new FindTask(key);
                 default: // incorrect ins with incorrect params handled here
                     throw new InvalidCommandException("Invalid command: " + ins
                             + "\nPlease input the correct commands. Input help to see list of commands.");
