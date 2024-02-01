@@ -30,7 +30,7 @@ public class RochinOOP {
         new RochinOOP().run();
     }
 
-    private void processCommands() {
+    public void processCommands() {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -48,7 +48,7 @@ public class RochinOOP {
         scanner.close();
     }
 
-    private void loadTasks() {
+    public void loadTasks() {
         try {
             tasks.load(storage.load());
         } catch (RochinException e) {
@@ -56,7 +56,7 @@ public class RochinOOP {
         }
     }
 
-    private void saveTasks() {
+    public void saveTasks() {
         try {
             storage.save(tasks.convertTasksToStrings());
         } catch (RochinException e) {
@@ -64,7 +64,7 @@ public class RochinOOP {
         }
     }
 
-    private class Ui {
+    public class Ui {
         public void showWelcomeMessage() {
             System.out.println("____________________________________________________________");
             System.out.println("Hello! I'm Rochin.");
@@ -142,7 +142,7 @@ public class RochinOOP {
         }
     }
 
-    private class Storage {
+    public class Storage {
         private final String filePath;
 
         public Storage(String filePath) {
@@ -178,7 +178,7 @@ public class RochinOOP {
     }
 
     
-    private class TaskList {
+    public class TaskList {
         private final List<Task> tasks;
 
         public TaskList() {
@@ -238,7 +238,7 @@ public class RochinOOP {
         }
     }
 
-    private class CommandProcessor {
+    public class CommandProcessor {
         private final String command;
         private boolean isExitCommand;
 
@@ -279,7 +279,7 @@ public class RochinOOP {
             }
         }
 
-        private void processTodoCommand(TaskList tasks, Ui ui) {
+        public void processTodoCommand(TaskList tasks, Ui ui) {
             try {
                 String description = command.substring("todo".length()).trim();
                 if (description.isEmpty()) {
@@ -292,7 +292,7 @@ public class RochinOOP {
             }
         }
 
-        private void processDeadlineCommand(TaskList tasks, Ui ui) {
+        public void processDeadlineCommand(TaskList tasks, Ui ui) {
             try {
                 String descriptionWithDate = command.substring("deadline".length()).trim();
                 DeadlineTask ddlTask = new DeadlineTask(descriptionWithDate, "by");
@@ -303,7 +303,7 @@ public class RochinOOP {
             }
         }
 
-        private void processEventCommand(TaskList tasks, Ui ui) {
+        public void processEventCommand(TaskList tasks, Ui ui) {
             try {
                 String descriptionWithDate = command.substring("event".length()).trim();
                 EventTask eventTask = new EventTask(descriptionWithDate, "from", "to");
@@ -314,25 +314,25 @@ public class RochinOOP {
             }
         }
 
-        private void processDeleteCommand(TaskList tasks, Ui ui) {
+        public void processDeleteCommand(TaskList tasks, Ui ui) {
             int taskIndex = getTaskIndex();
             tasks.deleteTask(taskIndex);
             ui.showTaskDeletedMessage(tasks.getAllTasks());
         }
 
-        private void processMarkCommand(TaskList tasks, Ui ui) {
+        public void processMarkCommand(TaskList tasks, Ui ui) {
             int taskIndex = getTaskIndex();
             tasks.markTaskAsDone(taskIndex);
             ui.showTaskMarkedAsDoneMessage(tasks.getAllTasks());
         }
 
-        private void processUnmarkCommand(TaskList tasks, Ui ui) {
+        public void processUnmarkCommand(TaskList tasks, Ui ui) {
             int taskIndex = getTaskIndex();
             tasks.unmarkTaskAsDone(taskIndex);
             ui.showTaskUnmarkedAsDoneMessage(tasks.getAllTasks());
         }
 
-        private int getTaskIndex() {
+        public int getTaskIndex() {
             try {
                 String[] splitCommand = command.split("\\s+");
                 return Integer.parseInt(splitCommand[1]);
