@@ -1,6 +1,7 @@
 package jayne;
 
 import java.util.Scanner;
+
 import jayne.task.TaskList;
 
 public class Jayne {
@@ -31,6 +32,6 @@ public class Jayne {
         }
     }
     public static void main(String[] args) {
-        new Jayne("./data/jayne.txt").run();
+        new Jayne("./out/jayne.txt").run();
     }
 }
