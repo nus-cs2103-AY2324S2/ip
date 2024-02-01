@@ -20,7 +20,8 @@ public class Luke {
 
     public static void main(String[] args) throws LukeException {
         History history;
-        greet();
+        UI ui = new UI();
+        ui.greet();
 
         String wd = System.getProperty("user.dir");
         Path directoryPath = Paths.get(wd,  "data");
@@ -68,16 +69,8 @@ public class Luke {
             isFinished = parser.parseCommand(input);
         }
 
-    }
+        ui.bye();
 
-    private static void greet() {
-        System.out.println("I'm\n" + logo + "\n");
-        System.out.println("Don't expect to get too chummy with me, you got that?\n");
-    }
-
-    private static void bye() {
-        System.out.println("Don't be ridiculous!\n" +
-                "It's... it's not like I want to see you again or anything!\n");
     }
 }
 

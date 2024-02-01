@@ -2,6 +2,7 @@
 import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Parser {
@@ -89,6 +90,10 @@ public class Parser {
                 System.out.println("Hey! You forgot something! Be glad I'm here to remind you.");
                 System.out.println("[Missing deadline parameter(s)]\n");
                 return null;
+            } catch (DateTimeParseException e) {
+                System.out.println("Hey! What are you even talking about?!");
+                System.out.println("[Input date in format dd-mm-yyyy]\n");
+                return null;
             }
         } else if (taskType.equals(eventString)) {
             try {
@@ -99,6 +104,10 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("/// I don't know when you are free... ///");
                 System.out.println("[Missing event parameter(s)]\n");
+                return null;
+            } catch (DateTimeParseException e) {
+                System.out.println("Hey! What are you even talking about?!");
+                System.out.println("[Input date in format dd-mm-yyyy]\n");
                 return null;
             }
         } else {
