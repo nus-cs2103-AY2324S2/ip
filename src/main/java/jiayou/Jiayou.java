@@ -1,3 +1,7 @@
+package jiayou;
+
+import jiayou.task.*;
+
 public class Jiayou {
     private Storage storage;
     private TaskList tasks;

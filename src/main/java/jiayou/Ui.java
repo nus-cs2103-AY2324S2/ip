@@ -1,4 +1,7 @@
+package jiayou;
+
 import java.util.Scanner;
+import jiayou.task.*;
 
 public class Ui {
     private static final String LINE = "____________________________________________________________";
