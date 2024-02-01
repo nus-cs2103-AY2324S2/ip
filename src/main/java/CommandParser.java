@@ -1,9 +1,5 @@
-import java.util.List;
-
-import java.util.List;
-
 public class CommandParser {
-    public static Action parseCommand(String command, TaskList taskList) throws EmptyDescriptionException, NoIndexException, UnknownCommandException {
+public static Action parseCommand(String command, TaskList taskList) throws EmptyDescriptionException, NoIndexException, UnknownCommandException {
         try {
             String[] words = command.split(" ");
 
@@ -73,7 +69,6 @@ public class CommandParser {
                 case "event":
                     if (words.length > 1) {
                         String[] parts = command.split("/from", 2);
-                        // extract description without event
                         String description = parts[0].substring(6).trim();
                         if (description.isEmpty()) {
                             throw new EmptyDescriptionException();
@@ -97,4 +92,3 @@ public class CommandParser {
         }
     }
 }
-

@@ -17,8 +17,16 @@ public class Task {
         this.isDone=false;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public String getType() {
+        return "D";
+    }
+
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : "O"); // mark done task with X
     }
 
     public String getDescription() {
@@ -31,3 +39,5 @@ public class Task {
     }
 
 }
+
+

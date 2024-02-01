@@ -1,6 +1,7 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class TaskList {
+public class TaskList implements Iterable<Task> {
     private final ArrayList<Task> mylist;
 
     public TaskList() {
@@ -77,4 +78,9 @@ public class TaskList {
         System.out.println(" Hello I'm NoisyChatter");
         System.out.println(" What can I do for you?");
     }
+    @Override
+    public Iterator<Task> iterator() {
+        return mylist.iterator();
+    }
 }
+
