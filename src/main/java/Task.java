@@ -4,33 +4,51 @@
  * indicating whether the task is marked.
  */
 public class Task {
-    public String taskname;
-    public boolean marked;
+    public String taskName;
+    public boolean isMarked;
 
     /**
      * Basic constructor
-     * @param taskname name of task to be tracked
+     * @param taskName name of task to be tracked
      */
-    public Task(String taskname) {
-        this.taskname = taskname;
-        this.marked = false;
+    public Task(String taskName) {
+        this.taskName = taskName;
+        this.isMarked = false;
     }
     /**
-     * This method indicates this task as marked, by setting the
+     * Overloaded constructor with marked status
+     * @param taskName name of task to be tracked
+     * @param isMarked status of task (marked or unmarked)
+     */
+    public Task(String taskName, Boolean isMarked) {
+        this.taskName = taskName;
+        this.isMarked = isMarked;
+    }
+    /**
+     * Sets this task as marked, by setting the
      * boolean flag to be true.
      */
     public void mark() {
-        this.marked = true;
+        this.isMarked = true;
     }
     /**
-     * This method indicates this task as unmarked, by setting the
+     * Sets this task as unmarked, by setting the
      * boolean flag to be false.
      */
     public void unmark() {
-        this.marked = false;
+        this.isMarked = false;
+    }
+
+    /**
+     * Returns a formatted string meant for saving into the
+     * text file.
+     * @return formatted String, consisting of isMarked status and taskname
+     */
+    public String stringForSaving() {
+        return this.isMarked + "|" + this.taskName;
     }
     @Override
     public String toString() {
-        return (this.marked ? "[X] " : "[ ] ") + this.taskname;
+        return (this.isMarked ? "[X] " : "[ ] ") + this.taskName;
     }
 }

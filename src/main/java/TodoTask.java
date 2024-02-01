@@ -6,10 +6,22 @@
 public class TodoTask extends Task {
     /**
      * Basic Constructor
-     * @param taskname name of task to be tracked
+     * @param taskName name of task to be tracked
      */
-    public TodoTask(String taskname) {
-        super(taskname);
+    public TodoTask(String taskName) {
+        super(taskName);
+    }
+    /**
+     * Overloaded Constructor with isMarked status
+     * @param taskname name of task to be tracked
+     * @param isMarked status of task (marked or unmarked)
+     */
+    public TodoTask(String taskname, Boolean isMarked) {
+        super(taskname, isMarked);
+    }
+    @Override
+    public String stringForSaving() {
+        return "T|" + super.stringForSaving();
     }
     @Override
     public String toString() {

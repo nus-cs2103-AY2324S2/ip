@@ -6,8 +6,8 @@
  * a String representing the end date and/or time of the event.
  */
 public class EventTask extends Task {
-    public String date_time1;
-    public String date_time2;
+    public String date_time_from;
+    public String date_time_to;
 
     /**
      * Basic Constructor
@@ -15,8 +15,8 @@ public class EventTask extends Task {
      */
     public EventTask(String taskname) {
         super(taskname);
-        this.date_time1 = "";
-        this.date_time2 = "";
+        this.date_time_from = "";
+        this.date_time_to = "";
     }
 
     /**
@@ -28,12 +28,30 @@ public class EventTask extends Task {
      */
     public EventTask(String taskname, String date_time_from, String date_time_to) {
         super(taskname);
-        this.date_time1 = date_time_from;
-        this.date_time2 = date_time_to;
+        this.date_time_from = date_time_from;
+        this.date_time_to = date_time_to;
+    }
+    /**
+     * Overloaded Constructor with event start and end
+     * date and/or time specified, and marked status
+     * @param taskname name of task to be tracked
+     * @param date_time_from start date and/or time of the event
+     * @param date_time_to end date and/or time of the event
+     */
+    public EventTask(String taskname, Boolean marked, String date_time_from, String date_time_to) {
+        super(taskname,marked);
+        this.date_time_from = date_time_from;
+        this.date_time_to = date_time_to;
+    }
+    @Override
+    public String stringForSaving() {
+        return "E|" + super.stringForSaving() + "|"
+                + this.date_time_from + "|"
+                + this.date_time_to;
     }
     @Override
     public String toString() {
         return "[D]" + super.toString() +
-                String.format("(from: %sto: %s)", this.date_time1, this.date_time2);
+                String.format("(from: %sto: %s)", this.date_time_from, this.date_time_to);
     }
 }
