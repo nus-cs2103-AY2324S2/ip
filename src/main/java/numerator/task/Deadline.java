@@ -3,10 +3,10 @@ package numerator.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-public class Deadlines extends numerator.task.Task {
+public class Deadline extends numerator.task.Task {
     private final LocalDateTime by;
 
-    public Deadlines(String description, String by) throws DateTimeParseException {
+    public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
         this.by = Task.parseStringToLocalDatetime(by);
     }

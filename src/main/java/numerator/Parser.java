@@ -5,6 +5,7 @@ import numerator.exceptions.parser.InputFormatException;
 import numerator.exceptions.parser.InputNotRecognisedException;
 import numerator.exceptions.parser.TaskIndexOutOfBoundsException;
 import numerator.task.Task;
+import numerator.task.TaskList;
 
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
@@ -58,8 +59,8 @@ public class Parser {
                     int taskNum = Integer.parseInt(m.group(1)) - 1;
                     Task t = taskList.removeTask(taskNum);
                     Ui.printMessage("Noted. I've removed this task:");
-                    System.out.printf("%s\n", t);
-                    System.out.printf("Now you have %d tasks in the list\n", taskList.taskList.size());
+                    Ui.printMessage(t.toString() + "\n");
+                    Ui.printMessage("Now you have " + taskList.getSizeAsString() + " tasks in the list");
                     storage.save(taskList);
                 }
             } catch (IndexOutOfBoundsException e) {

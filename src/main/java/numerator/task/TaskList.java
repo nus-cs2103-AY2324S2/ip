@@ -1,15 +1,12 @@
-package numerator;
+package numerator.task;
 
-import numerator.task.Deadlines;
-import numerator.task.Task;
-import numerator.task.ToDos;
-import numerator.task.Events;
+import numerator.Ui;
 
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 public class TaskList {
-    ArrayList<Task> taskList = new ArrayList<>();
+    private final ArrayList<Task> taskList = new ArrayList<>();
 
 
     public void markAsDone(int idx) throws IndexOutOfBoundsException {
@@ -39,32 +36,34 @@ public class TaskList {
     }
 
     public Task addToDo(String taskDesc) {
-        Task t = new ToDos(taskDesc);
+        Task t = new ToDo(taskDesc);
         this.taskList.add(t);
         return t;
     }
 
     public Task addEvent(String taskDesc, String from, String to) {
-        Task t = new Events(taskDesc, from, to);
+        Task t = new Event(taskDesc, from, to);
         this.taskList.add(t);
         return t;
     }
 
     public Task addDeadline(String taskDesc, String by) {
-        Task t = new Deadlines(taskDesc, by);
+        Task t = new Deadline(taskDesc, by);
         this.taskList.add(t);
         return t;
     }
 
 
     public void printTask(int idx) {
-        System.out.printf("%s\n", this.taskList.get(idx).toString());
+        String s = this.taskList.get(idx).toString() + "\n";
+        Ui.printMessage(s);
     }
 
     public void printAddTask(Task t) {
-        System.out.println("Got it, I've added this task:");
-        System.out.printf("%s\n", t);
-        System.out.printf("Now you have %d tasks in the list\n", taskList.size());
+        Ui.printMessage("Got it, I've added this task:");
+        Ui.printMessage(t.toString() + "\n");
+        String s = String.format("Now you have %d tasks in the list\n", taskList.size());
+        Ui.printMessage(s);
 
 
     }
@@ -74,6 +73,10 @@ public class TaskList {
                 .stream()
                 .map(Task::getSaveString)
                 .toArray(String[]::new));
+    }
+
+    public String getSizeAsString() {
+        return String.valueOf(this.taskList.size());
     }
 
     @Override

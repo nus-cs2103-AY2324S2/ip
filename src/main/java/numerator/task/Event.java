@@ -2,11 +2,11 @@ package numerator.task;
 
 import java.time.LocalDateTime;
 
-public class Events extends numerator.task.Task {
+public class Event extends numerator.task.Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
-    public Events(String description, String from, String to) {
+    public Event(String description, String from, String to) {
         super(description);
         this.from = Task.parseStringToLocalDatetime(from);
         this.to = Task.parseStringToLocalDatetime(to);
