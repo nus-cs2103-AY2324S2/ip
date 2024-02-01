@@ -16,25 +16,25 @@ public class UserInput {
         String[] arguments = readInput[1].split(" /from | /by | /to ", 3);
 
         switch (arguments.length) {
-            case 1:
-                this.arg1 = arguments[0].trim();
-                this.arg2 = null;
-                this.arg3 = null;
-                break;
-            case 2:
-                this.arg1 = arguments[0].trim();
-                this.arg2 = arguments[1].trim();
-                this.arg3 = null;
-                break;
-            case 3:
-                this.arg1 = arguments[0].trim();
-                this.arg2 = arguments[1].trim();
-                this.arg3 = arguments[2].trim();
-                break;
-            default:
-                this.arg1 = null;
-                this.arg2 = null;
-                this.arg3 = null;
+        case 1:
+            this.arg1 = arguments[0].trim();
+            this.arg2 = null;
+            this.arg3 = null;
+            break;
+        case 2:
+            this.arg1 = arguments[0].trim();
+            this.arg2 = arguments[1].trim();
+            this.arg3 = null;
+            break;
+        case 3:
+            this.arg1 = arguments[0].trim();
+            this.arg2 = arguments[1].trim();
+            this.arg3 = arguments[2].trim();
+            break;
+        default:
+            this.arg1 = null;
+            this.arg2 = null;
+            this.arg3 = null;
         }
     }
 

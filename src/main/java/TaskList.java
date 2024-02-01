@@ -1,27 +1,28 @@
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import exceptions.*;
-import tasks.*;
+import java.util.ArrayList;
+
+import exceptions.IncompatibleMarkException;
+import tasks.Task;
 
 public class TaskList {
-    public ArrayList<Task> taskList;
+    private ArrayList<Task> taskList;
     private Storage storage;
     TaskList(Storage storage) {
         taskList = new ArrayList<>();
         this.storage = storage;
     }
 
-    public void readFile(File newFile) throws FileNotFoundException{
+    public void readFile(File newFile) throws FileNotFoundException {
         storage.readFile(newFile, this.taskList);
     }
-    public void addToList (Task t) throws IOException{
+    public void addToList(Task t) throws IOException {
         taskList.add(t);
         storage.refreshFile(taskList);
     }
 
-    public void removeFromList (int index) throws IOException{
+    public void removeFromList(int index) throws IOException {
         taskList.remove(index);
         storage.refreshFile(taskList);
     }
@@ -34,7 +35,7 @@ public class TaskList {
         }
     }
 
-    public void markList(int index) throws IncompatibleMarkException, IOException{
+    public void markList(int index) throws IncompatibleMarkException, IOException {
         if (taskList.get(index).getCompletionStatus()) {
             taskList.get(index).toggleCompletion();
             storage.refreshFile(taskList);
@@ -43,7 +44,7 @@ public class TaskList {
         throw new IncompatibleMarkException();
     }
 
-    public void unmarkList(int index) throws IncompatibleMarkException, IOException{
+    public void unmarkList(int index) throws IncompatibleMarkException, IOException {
         if (!taskList.get(index).getCompletionStatus()) {
             taskList.get(index).toggleCompletion();
             storage.refreshFile(taskList);
