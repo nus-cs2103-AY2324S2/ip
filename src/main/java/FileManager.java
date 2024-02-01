@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 
 public class FileManager {
@@ -33,9 +34,12 @@ public class FileManager {
             String line = br.readLine();
 
             while (line != null) {
+                String[] taskInfo = line.split(" ");
                 char type;
+                String deadline = null;
+                String from = null;
+                String to = null;
                 String description;
-                String time;
                 boolean isComplete = false;
 
                 if (line.contains("[X]")) {
@@ -45,19 +49,21 @@ public class FileManager {
                 if (line.contains("[T]")) {
                     type = 'T';
                     description = line.substring(6).trim();
-                    time = "";
+                } else if (line.contains("[E]")) {
+                    type = 'E';
+                    int fromIdx = line.indexOf("from:");
+                    int toIdx = line.indexOf("to:");
+                    description = line.substring(6, fromIdx).trim();
+                    from = line.substring(fromIdx + 5, toIdx).trim();
+                    to = line.substring(toIdx + 3).trim();
                 } else {
-                    int index = line.indexOf("(");
-                    description = line.substring(6, index).trim();
-                    time = line.substring(index + 1, line.length() - 1).trim(); // Remove "(" and ")"
-                    if (line.contains("[E]")) {
-                        type = 'E';
-                    } else {
-                        type = 'D';
-                    }
+                    type = 'D';
+                    int by = line.indexOf("by:");
+                    description = line.substring(6, by).trim();
+                    deadline = line.substring(by + 3).trim();
                 }
 
-                BadGPT.loadData(type, description, time, isComplete);
+                BadGPT.loadData(type, description, deadline, from, to, isComplete);
                 line = br.readLine();
             }
         } catch (IOException e) {

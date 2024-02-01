@@ -60,7 +60,7 @@ public class BadGPT {
                     break;
                 }
                 case "todo": {
-                    String description = sc.nextLine().stripLeading();
+                    String description = sc.nextLine().trim();
                     if (description.isEmpty()) {
                         line();
                         System.out.println("are you satisfied with that, todo aoi");
@@ -71,13 +71,21 @@ public class BadGPT {
                     break;
                 }
                 case "deadline": {
-                    String[] taskInfo = parser(sc.nextLine());
-                    store(new Deadline(taskInfo[0], taskInfo[1]));
+                    String taskInfo = sc.nextLine();
+                    int by = taskInfo.indexOf("/by");
+                    String description = taskInfo.substring(0, by).trim();
+                    String deadline = taskInfo.substring(by + 3).trim();
+                    store(new Deadline(description, deadline));
                     break;
                 }
                 case "event": {
-                    String[] taskInfo = parser(sc.nextLine());
-                    store(new Event(taskInfo[0], taskInfo[1]));
+                    String taskInfo = sc.nextLine();
+                    int fromIdx = taskInfo.indexOf("/from");
+                    int toIdx = taskInfo.indexOf("/to");
+                    String description = taskInfo.substring(0, fromIdx).trim();
+                    String from = taskInfo.substring(fromIdx + 5, toIdx).trim();
+                    String to = taskInfo.substring(toIdx + 3).trim();
+                    store(new Event(description, from, to));
                     break;
                 }
                 case "delete":
@@ -110,14 +118,14 @@ public class BadGPT {
         System.out.println("____________________________________________________________");
     }
 
-    public static void loadData(char type, String description, String time, boolean isComplete) {
+    public static void loadData(char type, String descr, String deadline, String from, String to, boolean isComplete) {
         Task task;
         if (type == 'T') {
-            task = new ToDo(description);
+            task = new ToDo(descr);
         } else if (type == 'E') {
-            task = new Event(description, time);
+            task = new Event(descr, from, to);
         } else {
-            task = new Deadline(description, time);
+            task = new Deadline(descr, deadline);
         }
 
         if (isComplete) {
@@ -185,26 +193,6 @@ public class BadGPT {
         }
     }
 
-    public static String[] parser(String in) {
-        String taskInfo = "", description = "";
-        String[] out = new String[2];
-        for (String next : in.split(" ")) {
-            if (next.contains("/")) {
-                if (description.isEmpty()) {
-                    description = taskInfo.trim();
-                    taskInfo = "";
-                }
-                next = next.substring(1);
-                next += ":";
-            }
-            taskInfo += next + " ";
-        }
-        taskInfo = taskInfo.trim();
-        out[0] = description;
-        out[1] = taskInfo;
-        return out;
-    }
-
     public static void delete(int taskNum) throws TaskNotFoundException {
         try {
             Task task = tasks.remove(taskNum);
@@ -223,7 +211,7 @@ public class BadGPT {
         if (hasChanges) {
             String data = "";
             for (Task task : tasks) {
-                data += task.toString() + "\n";
+                data += task.saveTask() + "\n";
             }
             FileManager.writeToFile(data);
         }
