@@ -3,7 +3,7 @@ package exceptions;
 public class TaskNotExistException extends DukeException {
 
     public TaskNotExistException(String number) {
-        super("Task number " + number + " does not exist.");
+        super("model.Task number " + number + " does not exist.");
     }
 
     @Override
