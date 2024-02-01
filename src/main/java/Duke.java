@@ -1,5 +1,7 @@
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Duke {
 
@@ -61,8 +63,9 @@ public class Duke {
                     }
                     String[] parts = userInput.split("/by ");
                     String task = parts[0].replaceFirst("deadline ", "");
-                    String date = parts[1];
-                    store.addItem(new Deadlines(task, date));
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                    LocalDateTime deadline = LocalDateTime.parse(parts[1], formatter);
+                    store.addItem(new Deadlines(task, deadline));
                 } else if (userInput.startsWith("event")) {
                     String[] items = userInput.split(" ", 2);
                     if (items.length == 1) {

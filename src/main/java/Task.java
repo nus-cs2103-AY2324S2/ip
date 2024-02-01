@@ -7,9 +7,11 @@ public class Task {
         this.isDone = false;
     }
 
-    public void markDone() {
+    public void markDone(boolean isNew) {
         this.isDone = true;
-        this.printMarking(this, this.getTag());
+        if (isNew) {
+            this.printMarking(this, this.getTag());
+        }
     }
 
     public void unmark() {

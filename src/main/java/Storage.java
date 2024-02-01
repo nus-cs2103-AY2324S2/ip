@@ -3,6 +3,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Storage {
@@ -21,12 +23,14 @@ public class Storage {
             if (taskDetails.length == 3) { //todo task
                 newTask = new Task(taskDetails[2]);
             } else if (taskDetails.length == 4) { //deadline
-                newTask = new Deadlines(taskDetails[2], taskDetails[3]);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu HHmm");
+                LocalDateTime deadline = LocalDateTime.parse(taskDetails[3], formatter);
+                newTask = new Deadlines(taskDetails[2], deadline);
             } else {
                 newTask = new Events(taskDetails[2], taskDetails[3], taskDetails[4]);
             }
             if (taskDetails[1].equals("1")) { //if task/event/deadline is marked
-                newTask.markDone();
+                newTask.markDone(false);
             }
             tasksToLoad.add(newTask);
         }
@@ -105,7 +109,7 @@ public class Storage {
 
     public void mark(int num) {
         Task toMark = this.storage.get(num - 1);
-        toMark.markDone();
+        toMark.markDone(true);
         String toReplace = toMark.toStore();
         try {
             changeMarking(f, num - 1, toReplace);
