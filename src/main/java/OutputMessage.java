@@ -50,10 +50,11 @@ public class OutputMessage {
         printMessageWithLines(message);
     }
     public static void displayFullList(TaskList taskList){
-        if (taskList != null) {
+        if (taskList.getSize() > 0) {
             taskList.showList();
         } else {
-            System.out.println("\tTaskList is null.");
+            String message = "I would like to inform you that the task list is empty.";
+            printMessageWithLines(message);
         }
     }
 
