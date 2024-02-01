@@ -1,3 +1,5 @@
+package convobot;
+
 import commands.Command;
 import exceptions.ConvoBotException;
 import utils.Parser;

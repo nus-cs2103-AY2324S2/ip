@@ -20,7 +20,7 @@ dependencies {
 
 // Configure application-related settings
 application {
-    mainClass.set("ConvoBot")
+    mainClass.set("convobot.ConvoBot")
 }
 
 // Configure settings for Shadow
@@ -32,6 +32,9 @@ shadowJar {
 
 // Configure run task settings
 run {
+    standardInput = System.in
+}
+runShadow {
     standardInput = System.in
 }
 
