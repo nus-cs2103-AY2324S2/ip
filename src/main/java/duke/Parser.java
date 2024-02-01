@@ -67,7 +67,7 @@ public class Parser {
      * @param t The task list to which the event task will be added.
      */
     public void handleEvent(String s, TaskList t) {
-        String eventname = "";
+        String eventName = "";
         String[] temp = s.split(" ");
         if (temp.length == 1 || temp[1].startsWith("/from")) {
             System.out.println("Duke.Duke.Event cannot be blank");
@@ -77,24 +77,24 @@ public class Parser {
             if (temp[a].startsWith("/from")) {
                 break;
             }
-            eventname = eventname.concat(temp[a]);
-            eventname = eventname.concat(" ");
+            eventName = eventName.concat(temp[a]);
+            eventName = eventName.concat(" ");
         }
         try {
-            String[] findperiod = s.split(" /from ");
-            String start = findperiod[1].split(" /to ")[0];
-            String end = findperiod[1].split(" /to ")[1];
+            String[] findPeriod = s.split(" /from ");
+            String start = findPeriod[1].split(" /to ")[0];
+            String end = findPeriod[1].split(" /to ")[1];
             if (!canBeHandled(start) || !canBeHandled(end)) {
-                System.out.println("Please enter a event with the format event eventname /from dd/mm/yyyy /to dd/mm/yyyy!");
+                System.out.println("Please enter a event with the format event eventName /from dd/mm/yyyy /to dd/mm/yyyy!");
                 return;
             }
-            Task ne = new Event(eventname, DateConvert(start), DateConvert(end));
+            Task ne = new Event(eventName, DateConvert(start), DateConvert(end));
             t.add(ne);
             System.out.println("Duke.Task added! You now have " + t.length() + " tasks to attend to.");
             return;
 
         } catch (ArrayIndexOutOfBoundsException b) {
-            System.out.println("Please enter a event with the format event eventname /from dd/mm/yyyy /to dd/mm/yyyy!");
+            System.out.println("Please enter a event with the format event eventName /from dd/mm/yyyy /to dd/mm/yyyy!");
         }
     }
 
@@ -125,7 +125,7 @@ public class Parser {
      * @param t The task list to which the deadline task will be added.
      */
     public void handleDeadline(String s, TaskList t) {
-        String deadlinename = "";
+        String deadlineName = "";
         String[] temp = s.split(" ");
         if (temp.length == 1 || temp[1].startsWith("/by")) {
             System.out.println("Duke.Duke.Deadline cannot be blank");
@@ -136,23 +136,23 @@ public class Parser {
             if (temp[a].startsWith("/by")) {
                 break;
             }
-            deadlinename = deadlinename.concat(temp[a]);
-            deadlinename = deadlinename.concat(" ");
+            deadlineName = deadlineName.concat(temp[a]);
+            deadlineName = deadlineName.concat(" ");
         }
 
         try {
-            String[] finddeadline = s.split(" /by ");
-            String deadline = finddeadline[1];
+            String[] findDeadline = s.split(" /by ");
+            String deadline = findDeadline[1];
             if (!canBeHandled(deadline)) {
-                System.out.println("Please enter a deadline with the format deadline deadlinename /by dd/mm/yyyy!");
+                System.out.println("Please enter a deadline with the format deadline deadlineName /by dd/mm/yyyy!");
                 return;
             }
-            Task nd = new Deadline(deadlinename, DateConvert(deadline));
+            Task nd = new Deadline(deadlineName, DateConvert(deadline));
             t.add(nd);
             System.out.println("Duke.Task added! You now have " + t.length() + " tasks to attend to.");
             return;
         } catch (ArrayIndexOutOfBoundsException b) {
-            System.out.println("Please enter a deadline with the format deadline deadlinename /by dd/mm/yyyy!");
+            System.out.println("Please enter a deadline with the format deadline deadlineName /by dd/mm/yyyy!");
         }
     }
 
@@ -164,17 +164,17 @@ public class Parser {
      * @param t The task list to which the todo task will be added.
      */
     public void handleTodo(String s, TaskList t) {
-        String todoname = "";
+        String todoName = "";
         String[] temp = s.split(" ");
         if (temp.length == 1) {
             System.out.println("Todo cannot be blank");
             return;
         }
         for (int a = 1; a < temp.length; a++) {
-            todoname = todoname.concat(temp[a]);
-            todoname = todoname.concat(" ");
+            todoName = todoName.concat(temp[a]);
+            todoName = todoName.concat(" ");
         }
-        Task nt = new ToDo(todoname);
+        Task nt = new ToDo(todoName);
         t.add(nt);
         System.out.println("Duke.Task added! You now have " + t.length() + " tasks to attend to.");
     }
@@ -267,17 +267,17 @@ public class Parser {
      * Handles the base commands for marking, unmarking, or deleting tasks.
      * Parses the input command, performs the corresponding task operation, and handles exceptions.
      *
-     * @param commandsplit An array containing the command split into parts.
+     * @param commandSplit An array containing the command split into parts.
      */
-    public void handleBaseCommand(String[] commandsplit) {
-        String firstword = commandsplit[0].toLowerCase();
-        int num = Integer.parseInt(commandsplit[1]);
+    public void handleBaseCommand(String[] commandSplit) {
+        String firstWord = commandSplit[0].toLowerCase();
+        int num = Integer.parseInt(commandSplit[1]);
         try {
-            if (firstword.equals("mark")) {
+            if (firstWord.equals("mark")) {
                 tasklist.mark(num - 1);
-            } else if (firstword.equals("unmark")) {
+            } else if (firstWord.equals("unmark")) {
                 tasklist.unmark(num - 1);
-            } else if (firstword.equals("delete")) {
+            } else if (firstWord.equals("delete")) {
                 tasklist.delete(num - 1);
             }
         } catch (NumberFormatException e) {

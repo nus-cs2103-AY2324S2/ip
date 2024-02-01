@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
  * Handles loading and saving tasks to a file.
  */
 public class Storage {
-    private File infostored; // File where tasks are stored
+    private File infoStored; // File where tasks are stored
     private String filepath; // Path to the file
 
     /**
@@ -70,7 +70,7 @@ public class Storage {
                 System.out.println("Filepath invalid. Data has been stored to the filepath ./data/tasks.txt");
             }
         }
-        infostored = file;
+        infoStored = file;
     }
 
     /**
@@ -80,11 +80,11 @@ public class Storage {
      */
     public List<Task> load() {
         List<Task> tasks = new ArrayList<>();
-        if (infostored.length() == 0) {
+        if (infoStored.length() == 0) {
             return tasks;
         }
         try {
-            Scanner s = new Scanner(infostored);
+            Scanner s = new Scanner(infoStored);
             while (s.hasNext()) {
                 String nextinput = s.nextLine();
                 Task task = convert(nextinput);
