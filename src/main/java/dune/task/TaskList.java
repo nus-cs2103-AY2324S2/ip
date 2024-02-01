@@ -1,3 +1,12 @@
+package dune.task;
+
+import dune.task.Deadline;
+import dune.task.Event;
+import dune.task.Task;
+import dune.task.ToDo;
+import dune.Storage;
+import dune.DuneException;
+
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ArrayList;
@@ -21,9 +30,9 @@ public class TaskList {
             try {
                 String[] parts = text.split("/by");
                 if (parts.length < 2) {
-                    throw new DukeException("Deadlines need a deadline /by ... ");
+                    throw new DuneException("Deadlines need a deadline /by ... ");
                 } else if (parts.length > 2) {
-                    throw new DukeException("There can only be 1 instance of /by. String cannot be parsed...");
+                    throw new DuneException("There can only be 1 instance of /by. String cannot be parsed...");
                 }
                 try {
                     x = new Deadline(parts[0].trim(), parts[1].trim());
@@ -35,7 +44,7 @@ public class TaskList {
                     }
                     return;
                 }
-            } catch (DukeException d) {
+            } catch (DuneException d) {
                 System.out.println(d);
                 return;
             }
@@ -45,14 +54,14 @@ public class TaskList {
 
             try {
                 if (parts.length < 2) {
-                    throw new DukeException("Events need a /from and a /to in this order");
+                    throw new DuneException("Events need a /from and a /to in this order");
                 }
                 String[] dates = parts[1].split("/to");
                 if (parts.length > 2 || dates.length > 2) {
-                    throw new DukeException("There can only be 1 instance of /from and /to\n" +
+                    throw new DuneException("There can only be 1 instance of /from and /to\n" +
                             "String cannot be parsed...");
                 } else if (dates.length < 2) {
-                    throw new DukeException("Events need a /from and a /to in this order");
+                    throw new DuneException("Events need a /from and a /to in this order");
                 }
                 try {
                     x = new Event(parts[0].trim(), dates[0].trim(), dates[1].trim());
@@ -65,7 +74,7 @@ public class TaskList {
                     }
                     return;
                 }
-            } catch (DukeException d) {
+            } catch (DuneException d) {
                 System.out.println(d);
                 return;
             }
@@ -85,7 +94,7 @@ public class TaskList {
     public void deleteTask(String indexStr, Storage storage) {
         try {
             if (indexStr.trim().equals("")) {
-                throw new DukeException("Give an index to remove");
+                throw new DuneException("Give an index to remove");
             }
             int index = Integer.parseInt(indexStr.trim());
             Task t = this.getTask(index - 1);
@@ -99,7 +108,7 @@ public class TaskList {
             System.out.println("Index to be removed needs to be an integer");
         } catch (IndexOutOfBoundsException i) {
             System.out.println("Give a valid index to remove");
-        } catch (DukeException d) {
+        } catch (DuneException d) {
             System.out.println(d);
         }
     }
