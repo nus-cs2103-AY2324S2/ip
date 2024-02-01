@@ -1,43 +1,50 @@
 public class Task {
-    /**
-     * Status denoting if a task is done.
-     */
-    private boolean status;
+    /** Status denoting if a task is done. */
+    private boolean isDone;
 
-    /**
-     * Description of the task.
-     */
+    /** Description of the task. */
     private String description;
 
     /**
      * Constructor for the Task class.
+     *
      * @param description: Description of task.
      */
     public Task(String description) {
-        this.status = false;
+        this.isDone = false;
         this.description = description;
     }
 
     /**
      * Getter for the status of a task.
+     *
      * @return true if the task is done, false if the task is not done.
      */
     public boolean getStatus() {
-        return this.status;
+        return this.isDone;
     }
 
     /**
      * Set the status of the task to "done".
      */
     public void setDone() {
-        this.status = true;
+        this.isDone = true;
     }
 
     /**
      * Set the status of the task to "done".
      */
     public void setNotDone() {
-        this.status = false;
+        this.isDone = false;
+    }
+
+    /**
+     * Converts the task object to a fileString that can be saved.
+     *
+     * @return String representing the task object.
+     */
+    public String toFileString() {
+        return this.description;
     }
     @Override
     public String toString() {

@@ -9,6 +9,14 @@ public class ToDo extends Task {
     }
 
     @Override
+    public String toFileString() {
+        String taskType = "T";
+        String isDone = this.getStatus() ? "1" : "0";
+        String description = super.toFileString();
+        return taskType + " | " + isDone + " | " + description;
+    }
+
+    @Override
     public String toString() {
         String taskType = "[T]";
         String toDoString = taskType + super.toString();

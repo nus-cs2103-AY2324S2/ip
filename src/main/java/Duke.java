@@ -1,11 +1,34 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Duke is the main class for the application that runs according to the commands given to it by the user.
+ */
 public class Duke {
     private final Scanner scanner = new Scanner(System.in);
     private ArrayList<Task> taskList;
+    private Storage storage;
+
+    /**
+     * Constructor for the Duke class
+     */
     private Duke() {
-        this.taskList  = new ArrayList<>();
+        this.storage = new Storage("./data/duke.txt"); // Update the file path as needed
+        try {
+            this.taskList = storage.loadTasks();
+        } catch (IOException exception) {
+            System.out.println("Error loading tasks from file: " + exception.getMessage());
+            this.taskList = new ArrayList<>();
+        } catch (DukeException exception) {
+            String exceptionMessage = exception.getExceptionMessage();
+            printALine();
+            System.out.println(exceptionMessage);
+            printALine();
+            this.taskList = new ArrayList<>();
+        }
+        //this.taskList  = new ArrayList<>();
+
     }
     public static void main(String[] args) {
         Duke aurora1 = new Duke();
@@ -13,7 +36,7 @@ public class Duke {
     }
 
     /**
-     * Method for execution.
+     * Method for the execution of the application.
      */
     public void exeAurora() {
         printOpeningMessage();
@@ -188,6 +211,11 @@ public class Duke {
             int taskIndex = Integer.parseInt(splitCommands[1]);
             markTask(taskIndex - 1);
         }
+        try {
+            storage.saveTasks(taskList);
+        } catch (IOException exception) {
+            System.out.println("Unable to save edits: " + exception.getMessage());
+        }
     }
 
     /**
@@ -210,6 +238,11 @@ public class Duke {
             int taskIndex = Integer.parseInt(splitCommands[1]);
             unmarkTask(taskIndex - 1);
         }
+        try {
+            storage.saveTasks(taskList);
+        } catch (IOException exception) {
+            System.out.println("Unable to save edits: " + exception.getMessage());
+        }
     }
 
     /**
@@ -230,6 +263,11 @@ public class Duke {
             int taskIndex = Integer.parseInt(splitCommands[1]);
             deleteTask(taskIndex - 1);
         }
+        try {
+            storage.saveTasks(taskList);
+        } catch (IOException exception) {
+            System.out.println("Unable to save edits: " + exception.getMessage());
+        }
     }
 
     /**
@@ -242,6 +280,11 @@ public class Duke {
                     "Make sure to enter todo, then specify the task.");
         } else {
             addTodo(descriptionSplit[1]);
+        }
+        try {
+            storage.saveTasks(taskList);
+        } catch (IOException exception) {
+            System.out.println("Unable to save todo to file: " + exception.getMessage());
         }
     }
 
@@ -266,6 +309,11 @@ public class Duke {
             String date = splitVariables[1];
             addDeadline(description, date);
         }
+        try {
+            storage.saveTasks(taskList);
+        } catch (IOException exception) {
+            System.out.println("Unable to save deadline to file: " + exception.getMessage());
+        }
     }
 
     /**
@@ -275,14 +323,16 @@ public class Duke {
         String[] descriptionAndDateSplit = command.split(" ", 2);
         if (descriptionAndDateSplit.length < 2) {
             throw new DukeException("Invalid number of arguments!\n" +
-                    "Make sure to enter event, then specify the description of the task followed by the start and end dates.\n" +
+                    "Make sure to enter event, then specify the description of the task followed by the start and end " +
+                    "dates.\n" +
                     "The start date should be preceded with /from, while the end date should be preceded with /to.");
         }
         String descriptionAndDate = descriptionAndDateSplit[1];
         String[] descriptionSplit = descriptionAndDate.split(" /from ");
         if (descriptionSplit.length != 2) {
             throw new DukeException("Invalid number of arguments!\n" +
-                    "Make sure to enter event, then specify the description of the task followed by the start and end dates.\n" +
+                    "Make sure to enter event, then specify the description of the task followed by the start and end " +
+                    "dates.\n" +
                     "The start date should be preceded with /from, while the end date should be preceded with /to.");
         }
         String description = descriptionSplit[0];
@@ -290,12 +340,18 @@ public class Duke {
         String[] startEndSplit = startEnd.split(" /to ");
         if (startEndSplit.length != 2) {
             throw new DukeException("Invalid number of arguments!\n" +
-                    "Make sure to enter event, then specify the description of the task followed by the start and end dates.\n" +
+                    "Make sure to enter event, then specify the description of the task followed by the start and end " +
+                    "dates.\n" +
                     "The start date should be preceded with /from, while the end date should be preceded with /to.");
         } else {
             String start = startEndSplit[0];
             String end = startEndSplit[1];
             addEvent(description, start, end);
+        }
+        try {
+            storage.saveTasks(taskList);
+        } catch (IOException exception) {
+            System.out.println("Unable to save event to file: " + exception.getMessage());
         }
     }
 
