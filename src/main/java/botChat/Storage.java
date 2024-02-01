@@ -1,3 +1,5 @@
+package botChat;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -28,7 +30,7 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
-        } catch (DukeException e) {
+        } catch (botChatException e) {
             throw new RuntimeException(e);
         }
         return tasks;

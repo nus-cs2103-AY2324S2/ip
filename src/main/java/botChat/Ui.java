@@ -1,9 +1,9 @@
-import java.util.ArrayList;
+package botChat;
 
 public class Ui {
     public void showWelcomeMessage() {
         System.out.println("____________________________________________________________\n" +
-                " Hello! I'm BotChat\n What can I do for you?\n" +
+                " Hello! I'm botChat\n What can I do for you?\n" +
                 "____________________________________________________________\n");
     }
 

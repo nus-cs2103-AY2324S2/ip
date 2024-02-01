@@ -1,3 +1,5 @@
+package botChat;
+
 public enum Command {
     BYE,
     LIST,

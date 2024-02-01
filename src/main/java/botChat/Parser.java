@@ -1,3 +1,5 @@
+package botChat;
+
 public class Parser {
     public static Command getCommand(String input) {
         try {

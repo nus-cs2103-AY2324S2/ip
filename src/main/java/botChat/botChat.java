@@ -1,12 +1,14 @@
+package botChat;
+
 import java.util.Scanner;
 
-public class Duke {
+public class botChat {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private static final String FILE_PATH = "./duke.txt";
+    private static final String FILE_PATH = "./botChat.txt";
 
-    public Duke(String filePath) {
+    public botChat(String filePath) {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
     }
@@ -25,7 +27,7 @@ public class Duke {
                 String input = scanner.nextLine();
                 try {
                     handleInput(input);
-                } catch (DukeException e) {
+                } catch (botChatException e) {
                     ui.showErrorMessage(e.getMessage());
                 }
                 Storage.saveTaskToHardDisk(tasks.getTasks());
@@ -36,7 +38,7 @@ public class Duke {
     }
 
     //Method to handle inputs
-    private void handleInput(String input) throws DukeException {
+    private void handleInput(String input) throws botChatException {
         Command command = Parser.getCommand(input.split(" ")[0]);
         switch (command) {
             case BYE:
@@ -65,11 +67,11 @@ public class Duke {
                 tasks.deleteTask(input);
                 break;
             case UNKNOWN:
-                throw new DukeException("Sorry, I do not understand that command. Please try again.");
+                throw new botChatException("Sorry, I do not understand that command. Please try again.");
         }
     }
 
     public static void main(String[] args) {
-        new Duke(FILE_PATH).run();
+        new botChat(FILE_PATH).run();
     }
 }
