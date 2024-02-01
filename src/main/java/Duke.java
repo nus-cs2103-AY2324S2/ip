@@ -14,6 +14,17 @@ import static java.time.DayOfWeek.MONDAY;
 
 public class Duke {
 
+    public static String formatDate(LocalDate date) {
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        String formattedDate = date.format(outputFormatter);
+        return formattedDate;
+    }
+
+    public static String formatTime(LocalTime time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
+        String formattedTime = time.format(formatter);
+        return formattedTime;
+    }
     public static class Task {
         protected String description;
         protected boolean isDone;
@@ -35,6 +46,10 @@ public class Duke {
             this.description = input;
         }
 
+        public String checkType() {
+            return "Task";
+        }
+
         public boolean checkDone() {
             return this.isDone;
         }
@@ -46,17 +61,10 @@ public class Duke {
             this.isDone = false;
         }
 
-        public String formatDate(LocalDate date) {
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-            String formattedDate = date.format(outputFormatter);
-            return formattedDate;
+        public LocalDate getDue() {
+            return null;
         }
 
-        public String formatTime(LocalTime time) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
-            String formattedTime = time.format(formatter);
-            return formattedTime;
-        }
     }
 
     public static class ToDo extends Task {
@@ -67,6 +75,11 @@ public class Duke {
         @Override
         public String toString() {
             return "T" + super.toString();
+        }
+
+        @Override
+        public String checkType() {
+            return "ToDo";
         }
     }
 
@@ -87,9 +100,19 @@ public class Duke {
         }
 
         @Override
+        public LocalDate getDue() {
+            return this.byDate;
+        }
+
+        @Override
         public String toString() {
             return "D" + super.toString()
                     + " | by: " + formatDate(byDate) + (byTime != null ? " " + formatTime(byTime) : "");
+        }
+
+        @Override
+        public String checkType() {
+            return "Deadline";
         }
     }
 
@@ -121,11 +144,22 @@ public class Duke {
         }
 
         @Override
+        public LocalDate getDue() {
+            return this.startDate;
+        }
+
+        @Override
         public String toString() {
             return "E" + super.toString()
                     + " | from: " + formatDate(startDate) + (startTime != null ? " " + formatTime(startTime) : "")
                     +  " | to: " + (endDate != null ? " " + formatDate(endDate) : "") + formatTime(endTime);
         }
+
+        @Override
+        public String checkType() {
+            return "Event";
+        }
+
     }
 
     private static final String LOGO = " _______  __                       __ \n"
@@ -314,6 +348,19 @@ public class Duke {
         System.out.println(DIV);
     }
 
+//    public static void commandListDate(String date) {
+//        LocalDate d = LocalDate.parse(date);
+//        System.out.println(DIV);
+//        System.out.println("Here's what's happening on " + formatDate(d) + ":");
+//        for (int i = 0; i < index; i++){
+//            Task t = taskList.get(i);
+//            if (t.getDue() == d) {
+//                System.out.println(t.toString());
+//            }
+//        }
+//        System.out.println(DIV);
+//    }
+
     public static String commandMark(int x) {
         Task current = taskList.get(x);
         String response = current.checkDone()
@@ -331,6 +378,8 @@ public class Duke {
         current.markUnDone();
         return response + "  " + current.toString();
     }
+
+
 
     /**
      * Deletes the task from the list and shifts the subsequent tasks forward.
@@ -456,12 +505,20 @@ public class Duke {
                 }
             } else if (userInput.equals("list")) {
                 // command list
-                if (taskList.get(0) == null) {
+                if (taskList.size() == 0) {
                     signalSays("Oops, looks like you haven't added any tasks!");
                 } else {
                     commandList();
                 }
-            } else if (isPermutationMatch(userInput, "list")) {
+            }
+//            else if (inputArray[0].equals("date")) {
+//                if (taskList.size() == 0) {
+//                    signalSays("Oops, looks like you haven't added any tasks!");
+//                } else {
+//                    commandListDate(inputArray[1]);
+//                }
+//            }
+            else if (isPermutationMatch(userInput, "list")) {
                 // check typo of command list
                 if (checkCommandTypo(userInput, "list")) {
                     commandList();
