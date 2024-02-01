@@ -72,6 +72,20 @@ public class BotManager {
         }
     }
 
+    private void deleteTask(int num) throws DukeException {
+        if (num < 0 || num > tasks.size()) {
+            throw new DukeException("    OOPS! Invalid Index!\n");
+        }
+        Task task = tasks.remove(num - 1);
+        System.out.println("    Noted. I've removed this task:");
+        System.out.println("      " + task);
+        if (tasks.size() == 1) {
+            System.out.println("    Now you have 1 task in the list\n");
+        } else {
+            System.out.printf("    Now you have %d tasks in the list\n%n", tasks.size());
+        }
+    }
+
     private void list() {
         if (tasks.isEmpty()) {
             System.out.println("    No tasks yet...\n");
@@ -124,6 +138,8 @@ public class BotManager {
             case "unmark":
                 unmark(Integer.parseInt(order[1]));
                 break;
+            case "delete":
+                deleteTask(Integer.parseInt(order[1]));
             default:
                 addTask(prompt);
             }
