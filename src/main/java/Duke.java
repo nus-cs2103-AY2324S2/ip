@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -76,14 +77,14 @@ public class Duke {
         }
     }
 
-    private static final String logo = " _______  __                       __ \n"
+    private static final String LOGO = " _______  __                       __ \n"
             + "|     __||__|.-----..-----..---.-.|  |\n"
             + "|__     ||  ||  _  ||     ||  _  ||  |\n"
             + "|_______||__||___  ||__|__||___._||__|\n"
             + "             |_____|                  \n";
-    private static final String div = "\n" + "~~**~~";
+    private static final String DIV = "\n" + "~~**~~";
     private static Scanner scanner = new Scanner(System.in);
-    private static Task[] taskList = new Task[100];
+    private static ArrayList<Task> taskList = new ArrayList<>();
     private static int index = 0; // index of the next task to be filled
 
 
@@ -133,7 +134,8 @@ public class Duke {
      * @param input Input collected from the user.
      */
     public static void taskAdded(String input) {
-        taskList[index] = new Task(input);
+        Task t = new Task(input);
+        taskList.add(t);
         index += 1;
         signalSays("Added: " + input);
     }
@@ -143,7 +145,8 @@ public class Duke {
             throw new DukeException("Looks like you haven't entered a task description!");
         }
         if (type.equals("todo")) {
-            taskList[index] = new ToDo(input);
+//            taskList[index] = new ToDo(input);
+            taskList.add(new ToDo(input));
         } else {
             String command[] = input.split("/");
             if (type.equals("deadline")) {
@@ -151,19 +154,23 @@ public class Duke {
                     throw new DukeException("Looks like you haven't added a deadline!");
                 }
                 String deadline = command[1] != null && command[1].length() > 3 ? command[1].substring(3) : command[1];
-                taskList[index] = new Deadline(command[0], deadline);
+//                taskList[index] = new Deadline(command[0], deadline);
+                taskList.add(new Deadline(command[0], deadline));
             } else if (type.equals("event")){
                 if (command.length < 3) {
                     throw new DukeException("Looks like you haven't added a start or end time!");
                 }
                 String start = command[1] != null && command[1].length() > 5 ? command[1].substring(5): command[1];
                 String end = command[2] != null && command[2].length() > 3 ? command[2].substring(3) : command[2];
-                taskList[index] = new Event(command[0], start, end);
+//                taskList[index] = new Event(command[0], start, end);
+                taskList.add(new Event(command[0], start, end));
             } else {
-                taskList[index] = new Task(input);
+//                taskList[index] = new Task(input);
+                taskList.add(new Task(input));
             }
+
         }
-        taskAdded((taskList[index]));
+        taskAdded(taskList.get(index));
     }
 
     public static void taskAdded(Task t) {
@@ -179,16 +186,16 @@ public class Duke {
      *
      */
     public static void commandList() {
-        System.out.println(div);
+        System.out.println(DIV);
         System.out.println("Here is your tasklist!");
         for (int i = 0; i < index; i++) {
-            System.out.println((i + 1) + ". " + taskList[i].toString());
+            System.out.println((i + 1) + ". " + taskList.get(i).toString());
         }
-        System.out.println(div);
+        System.out.println(DIV);
     }
 
     public static String commandMark(int x) {
-        Task current = taskList[x];
+        Task current = taskList.get(x);
         String response = current.checkDone()
                 ? "Task " + (x + 1) + " is already done! Yay!\n"
                 : "Nice! I've marked this task as done:\n";
@@ -197,7 +204,7 @@ public class Duke {
     }
 
     public static String commandUnmark(int x) {
-        Task current = taskList[x];
+        Task current = taskList.get(x);
         String response = current.checkDone()
                 ? "Task " + (x + 1) + " is not done yet!\n"
                 : "OK, I've marked this task as undone:\n";
@@ -212,17 +219,20 @@ public class Duke {
      * @throws DukeException
      */
     public static void commandDelete(int x) throws DukeException {
-        Task current = taskList[x];
-        if (index == 0) {
-            throw new DukeException("Looks like there's nothing here to remove. Better get on those tasks!");
-        }
+        Task current = taskList.get(x);
+//        if (index == 0) {
+//            throw new DukeException("Looks like there's nothing here to remove. Better get on those tasks!");
+//        }
         if (x >= 0 && x <= index) {
             // Shift the remaining elements up
-            for (int i = x; i <= index - 1; i++) {
-                // Adjust the index of each element
-                taskList[i] = taskList[i + 1];
-//                taskList[i].editIndex(i);
-            }
+//            for (int i = x; i <= index - 1; i++) {
+//                // Adjust the index of each element
+////                taskList[i] = taskList[i + 1];
+//                Task moveUp = taskList.get(i + 1);
+//                taskList.set(i, moveUp);
+////                taskList[i].editIndex(i);
+//            }
+            taskList.remove(x);
             index -= 1;
             signalSays("Noted, I've deleted this task from your list: \n"
                     + "  " + current.toString() + "\n"
@@ -281,17 +291,17 @@ public class Duke {
      * @param response The message that is printed.
      */
     public static void signalSays(String response) {
-        System.out.println(div);
+        System.out.println(DIV);
         System.out.println(response);
-        System.out.println(div);
+        System.out.println(DIV);
     }
 
 
     public static void main(String[] args) {
-        System.out.println("Hello! My name is\n" + logo);
+        System.out.println("Hello! My name is\n" + LOGO);
         System.out.println("How can I help?");
         System.out.println("Enter 'help' to see the list of commands available :D");
-        System.out.println(div);
+        System.out.println(DIV);
 
 
         while(true) {
@@ -300,7 +310,6 @@ public class Duke {
 
             if (userInput.equals("bye")) {
                 // Exit program
-                System.out.println(div);
                 break;
             } else if (userInput.equals("")) {
                 // input is blank
@@ -332,7 +341,7 @@ public class Duke {
                 }
             } else if (userInput.equals("list")) {
                 // command list
-                if (taskList[0] == null) {
+                if (taskList.get(0) == null) {
                     signalSays("Oops, looks like you haven't added any tasks!");
                 } else {
                     commandList();
@@ -372,7 +381,7 @@ public class Duke {
             } else if (inputArray.length == 2 && inputArray[0].equals("delete")) {
                 try {
                     int itemIndex = Integer.parseInt(inputArray[1]) - 1;
-                    if (itemIndex == 0) {
+                    if (index == 0) {
                         commandDeleteInvalid(0);
                     }
                     if (itemIndex > index - 1) {
@@ -392,8 +401,7 @@ public class Duke {
             }
         }
 
-        System.out.println("Bye! Hope you come back soon :D");
-        System.out.println(div);
+        signalSays("Bye! Hope you come back soon :D");
 
     }
 }
