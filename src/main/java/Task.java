@@ -1,4 +1,9 @@
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public abstract class Task {
+    protected static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    protected static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
     private final String description;
     private boolean isDone;
     public Task(String description) {

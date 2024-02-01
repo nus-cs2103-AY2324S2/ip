@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class Felix {
@@ -103,6 +104,8 @@ public class Felix {
             System.out.printf("Now you have %d tasks in the list.\n", this.tasks.getCount());
         } catch (IndexOutOfBoundsException e) {
             throw new FelixException("Separate deadline from description with \"/by\"");
+        } catch (DateTimeParseException e) {
+            throw new FelixException("datetime for deadline is not in the format \"yyyy-MM-dd HHmm\"");
         }
     }
 
@@ -116,6 +119,8 @@ public class Felix {
             System.out.printf("Now you have %d tasks in the list.\n", this.tasks.getCount());
         } catch (IndexOutOfBoundsException e) {
             throw new FelixException("Command does not follow this format: event {description} /from {start_datetime} /to {end_datetime}");
+        } catch (DateTimeParseException e) {
+            throw new FelixException("datetime not in the format \"yyyy-MM-dd HHmm\"");
         }
     }
 
