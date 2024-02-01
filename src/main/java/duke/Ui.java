@@ -6,7 +6,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Ui {
-    private static final String name = "duke";
+    private static final String name = "Detective";
     private static final String line = "____________________________________________________________";
 
     private final Scanner in = new Scanner(System.in);
