@@ -83,13 +83,20 @@ public class Deadline extends Task {
         return s.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm"));
     }
 
+    public String datetoSaveString(LocalDateTime s) {
+        if (s == null) {
+            return "Invalid date time format. Please use the format dd-MM-yyyy HHmm";
+        }
+        return s.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+    }
+
     public LocalDateTime getBy() {
         return this.by;
     }
 
     @Override
     public String toFileFormat() {
-        return "D | " + super.toFileFormat() + " | " + this.datetoString(this.getBy());
+        return "D | " + super.toFileFormat() + " | " + this.datetoSaveString(this.getBy());
     }
 
     @Override
