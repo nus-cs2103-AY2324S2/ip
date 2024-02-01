@@ -10,6 +10,7 @@ import java.io.IOException;
 
 
 public class Storage {
+
     private final String filePath;
 
     /**
@@ -20,7 +21,6 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
         createFolderAndFile(filePath);
-
     }
 
     /**
