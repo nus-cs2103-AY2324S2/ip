@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Scanner;
 
 public class Numerator {
-    TaskList taskList;
-    Storage storage;
+    private TaskList taskList;
+    private final Storage storage;
 
     public Numerator() {
         this("data/storage.txt");
@@ -32,11 +32,16 @@ public class Numerator {
         while (true) {
             if (sc.hasNext()) {
                 try {
-
                     input = sc.nextLine();
                     Ui.printLine();
-                    Parser.parseArguments(input, taskList, storage);
+                    boolean exit = Parser.parseArguments(input, taskList, storage);
                     storage.save(taskList);
+
+                    if (exit) {
+                        Ui.printExit();
+                        sc.close();
+                        break;
+                    }
                 } catch (NumeratorException e) {
                     Ui.printError(e);
                 } finally {

@@ -22,4 +22,12 @@ public class Ui {
     public static void printError(NumeratorException e) {
         System.out.println(e.getMessage());
     }
+
+    public static void printMessage(String message) {
+        System.out.println(message);
+    }
+
+    public static void printExit() {
+        System.out.println("Bye. Hope to see you again soon!");
+    }
 }

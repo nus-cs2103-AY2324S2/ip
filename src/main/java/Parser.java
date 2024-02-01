@@ -1,5 +1,7 @@
 import exceptions.NumeratorException;
-import exceptions.parser.*;
+import exceptions.parser.InputFormatException;
+import exceptions.parser.InputNotRecognisedException;
+import exceptions.parser.TaskIndexOutOfBoundsException;
 import task.Task;
 
 import java.time.format.DateTimeParseException;
@@ -7,9 +9,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-    public static void parseArguments(String input, TaskList taskList, Storage storage) throws NumeratorException {
+    public static boolean parseArguments(String input, TaskList taskList, Storage storage) throws NumeratorException {
         if (input.equals("bye")) {
-            throw new ExitException("Bye! Hope to see you soon");
+            return true;
         } else if (input.startsWith("mark")) {
             try {
                 Pattern p = Pattern.compile("mark (\\d+)");
@@ -19,7 +21,7 @@ public class Parser {
                 } else {
                     int taskNum = Integer.parseInt(m.group(1)) - 1;
                     taskList.markAsDone(taskNum);
-                    System.out.println("Nice! I've marked this task as done:");
+                    Ui.printMessage("Nice! I've marked this task as done:");
                     taskList.printTask(taskNum);
                 }
                 storage.save(taskList);
@@ -36,7 +38,8 @@ public class Parser {
                 } else {
                     int taskNum = Integer.parseInt(m.group(1)) - 1;
                     taskList.markAsUndone(taskNum);
-                    System.out.println("OK, I've marked this task as not done yet:");
+
+                    Ui.printMessage("OK, I've marked this task as not done yet:");
                     taskList.printTask(taskNum);
                     storage.save(taskList);
                 }
@@ -52,7 +55,7 @@ public class Parser {
                 } else {
                     int taskNum = Integer.parseInt(m.group(1)) - 1;
                     Task t = taskList.removeTask(taskNum);
-                    System.out.println("Noted. I've removed this task:");
+                    Ui.printMessage("Noted. I've removed this task:");
                     System.out.printf("%s\n", t);
                     System.out.printf("Now you have %d tasks in the list\n", taskList.taskList.size());
                     storage.save(taskList);
@@ -103,9 +106,10 @@ public class Parser {
                 storage.save(taskList);
             }
         } else if (input.equals("list")) {
-            System.out.println(taskList);
+            Ui.printMessage(taskList.toString());
         } else {
             throw new InputNotRecognisedException("Input not recognised");
         }
+        return false;
     }
 }
