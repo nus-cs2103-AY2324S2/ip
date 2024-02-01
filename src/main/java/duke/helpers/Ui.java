@@ -55,9 +55,11 @@ public class Ui {
                 + CommandType.UNMARK.getCommand());
         System.out.println("7. To " + CommandType.DELETE.toString() + " a task : "
                 + CommandType.DELETE.getCommand());
-        System.out.println("8. To tasks related to a date : "
+        System.out.println("8. To find tasks related to a date : "
                 + CommandType.CHECKDATE.getCommand());
-        System.out.println("9. Close chatbot : " + CommandType.BYE.getCommand());
+        System.out.println("9. To find tasks related to a matching word : "
+                + CommandType.FIND.getCommand());
+        System.out.println("10. Close chatbot : " + CommandType.BYE.getCommand());
         drawLine();
     }
 

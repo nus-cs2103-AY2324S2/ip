@@ -26,6 +26,8 @@ public class Parser {
             return new UnmarkCommand(commandArr);
         } else if (commandArr[0].equals(CommandType.DELETE.toString())) {
             return new DeleteCommand(commandArr);
+        } else if (commandArr[0].equals(CommandType.FIND.toString())) {
+            return new FindCommand(commandArr);
         } else {
             return new AddCommand(commandArr);
         }
