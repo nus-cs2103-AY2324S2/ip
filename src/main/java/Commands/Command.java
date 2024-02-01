@@ -19,6 +19,12 @@ public enum Command {
             ui.printList(tasklist.tasks);
         }
     },
+    FIND {
+        @Override
+        public void execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
+            ui.findMessage(tasklist.findTask(parsed.get(1)));
+        }
+    },
     MARK {
         @Override
         public void execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) throws YpxmmException {

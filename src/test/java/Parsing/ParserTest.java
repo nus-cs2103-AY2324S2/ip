@@ -86,5 +86,10 @@ public class ParserTest {
                 new ParserStub().parseStub("delete cc"));
     }
 
-    //1more indexoob, 1 more numberformat
+    @Test
+    public void parseFindTest() {
+        assertEquals("find time", new ParserStub().parseStub("find time"));
+        //tests the case where there is no input after command
+        assertEquals("What u want me to find??", new ParserStub().parseStub("find"));
+    }
 }

@@ -41,7 +41,6 @@ public class TaskList {
             try {
                 String t = tasks.get(index - 1).toString();
                 tasks.remove(index - 1);
-
             } catch (IndexOutOfBoundsException e) {
                 throw new YpxmmException("Eh u seh isit? Now your list got " +
                         (tasks.isEmpty() ? "no tasks to delete." : tasks.size() +
@@ -50,5 +49,15 @@ public class TaskList {
         } catch (YpxmmException y) {
             System.out.println(y.getMessage());
         }
+    }
+
+    public ArrayList<Task> findTask(String string) {
+        ArrayList<Task> ans = new ArrayList<>();
+        for (Task t : tasks) {
+            if (t.getName().contains(string)) {
+                ans.add(t);
+            }
+        }
+        return ans;
     }
 }

@@ -73,6 +73,13 @@ public class ParserStub {
                 } catch (NumberFormatException n) {
                     return "You tell me now what task am I supposed to delete if you don't provide me with a number?";
                 }
+            case "find":
+                try {
+                    String[] info = input.split("find ");
+                    return command + " " + info[1];
+                } catch (IndexOutOfBoundsException e) {
+                    return "What u want me to find??";
+                }
             default:
                 return "Sorry bro, idk what that means. You try type in \"getcommands\" then see if got what u want.";
         }

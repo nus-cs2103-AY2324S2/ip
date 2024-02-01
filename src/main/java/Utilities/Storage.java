@@ -43,7 +43,7 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> load() throws YpxmmException {
+    public ArrayList<Task> loadTasksIntoTaskList() throws YpxmmException {
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -81,6 +81,6 @@ public class Storage {
             file.delete();
             throw new YpxmmException("Wah bro your file is corrupted leh...I help you delete first");
         }
-            return tasks;
+        return tasks;
     }
 }

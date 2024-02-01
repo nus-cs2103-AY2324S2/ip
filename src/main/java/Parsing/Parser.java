@@ -15,6 +15,15 @@ public class Parser {
         case "getcommands":
             parsedResult.add(command);
             return parsedResult;
+        case "find":
+            try {
+                String[] info = input.split("find ");
+                parsedResult.add(command);
+                parsedResult.add(info[1]);
+                return parsedResult;
+            } catch (IndexOutOfBoundsException e) {
+                throw new YpxmmException("What u want me to find??");
+            }
         case "mark":
             try {
                 int index = Integer.parseInt(splitInput[1]);

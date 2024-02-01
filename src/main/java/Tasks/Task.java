@@ -27,6 +27,10 @@ public class Task {
         return (completed ? "X" : " "); // mark done task with X
     }
 
+    public String getName() {
+        return name;
+    }
+
     public String toWrite() {
         return (completed ? "1" : "0") + " | " + name;
     }
