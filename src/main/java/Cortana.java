@@ -1,9 +1,30 @@
-import java.util.Scanner;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
 public class Cortana {
+
+    // We will build the project around the location of this class
+
+    private static Path getBaseDir(Class<?> clazz) {
+        String classFilePath = clazz.getName().replace(".", "/") + ".class";
+        String classLocation = clazz.getClassLoader().getResource(classFilePath).getPath();
+
+        Path basePath = Paths.get(classLocation).getParent();
+        // go up one level
+        basePath = basePath.getParent();
+        return basePath.toAbsolutePath();
+    }
 
     public static class Response {
 
@@ -65,12 +86,22 @@ public class Cortana {
 
     private String name = "Cortana";
     private Memory memory;
+    // get current file dir
+    private final static String BASE_DIR = Cortana.getBaseDir(Main.class).toString();
+    private final static String DATA_FOLDER = "data";
+    private final static String SAVE_DIR_PATH = java.nio.file.Paths.get(BASE_DIR, DATA_FOLDER).toString();
+    private final static String SAVE_FILENAME = "tasks.csv";  
 
     Cortana() {
         this.memory = new Memory();
     }
 
     public void run() {
+        try {
+            this.loadTaskList();
+        } catch (IOException e) {
+            output(e.getMessage());
+        }
         output(Response.greet(this.name));
         echo();
         output(Response.bye());
@@ -208,48 +239,54 @@ public class Cortana {
             try {
                 validateInput(command, input);
                 switch (command) {
-                    case TODO:
-                        curr_task = new TodoTask(input.substring(5));
-                        this.memory.add(curr_task);
-                        response = Response.addTaskSuccess(curr_task, this.memory.getNumTasks());
-                        break;
-                    case DEADLINE:
-                        String[] arr = input.substring(9).split("/by");
-                        curr_task = new DeadlineTask(arr[0].trim(), arr[1].trim());
-                        this.memory.add(curr_task);
-                        response = Response.addTaskSuccess(curr_task, this.memory.getNumTasks());
-                        break;
-                    case EVENT:
-                        String[] arr2 = input.substring(6).split("/from");
-                        String[] arr3 = arr2[1].split("/to");
-                        curr_task = new EventTask(arr2[0].trim(), arr3[0].trim(), arr3[1].trim());
-                        this.memory.add(curr_task);
-                        response = Response.addTaskSuccess(curr_task, this.memory.getNumTasks());
-                        break;
-                    case MARK:
-                        int index = Integer.parseInt(input.substring(5)) - 1;
-                        curr_task = this.memory.markTask(index);
-                        response = Response.markTask(curr_task);
-                        break;
-                    case UNMARK:
-                        int index2 = Integer.parseInt(input.substring(7)) - 1;
-                        curr_task = this.memory.unmarkTask(index2);
-                        response = Response.unmarkTask(curr_task);
-                        break;
-                    case DELETE:
-                        int index3 = Integer.parseInt(input.substring(7)) - 1;
-                        curr_task = this.memory.deleteTask(index3);
-                        response = Response.deleteTask(curr_task, this.memory.getNumTasks());
-                        break;
-                    case LIST:
-                        tasks = this.memory.getTasks();
-                        numTasks = this.memory.getNumTasks();
-                        response = Response.listTasks(tasks, numTasks);
-                        break;
-                    default:
-                        response = "I'm sorry, but I don't know what that means :-(";
+                case TODO:
+                    curr_task = new TodoTask(input.substring(5));
+                    this.memory.add(curr_task);
+                    response = Response.addTaskSuccess(curr_task, this.memory.getNumTasks());
+                    this.saveTaskList();
+                    break;
+                case DEADLINE:
+                    String[] arr = input.substring(9).split("/by");
+                    curr_task = new DeadlineTask(arr[0].trim(), arr[1].trim());
+                    this.memory.add(curr_task);
+                    response = Response.addTaskSuccess(curr_task, this.memory.getNumTasks());
+                    this.saveTaskList();
+                    break;
+                case EVENT:
+                    String[] arr2 = input.substring(6).split("/from");
+                    String[] arr3 = arr2[1].split("/to");
+                    curr_task = new EventTask(arr2[0].trim(), arr3[0].trim(), arr3[1].trim());
+                    this.memory.add(curr_task);
+                    response = Response.addTaskSuccess(curr_task, this.memory.getNumTasks());
+                    this.saveTaskList();
+                    break;
+                case MARK:
+                    int index = Integer.parseInt(input.substring(5)) - 1;
+                    curr_task = this.memory.markTask(index);
+                    response = Response.markTask(curr_task);
+                    this.saveTaskList();
+                    break;
+                case UNMARK:
+                    int index2 = Integer.parseInt(input.substring(7)) - 1;
+                    curr_task = this.memory.unmarkTask(index2);
+                    response = Response.unmarkTask(curr_task);
+                    this.saveTaskList();
+                    break;
+                case DELETE:
+                    int index3 = Integer.parseInt(input.substring(7)) - 1;
+                    curr_task = this.memory.deleteTask(index3);
+                    response = Response.deleteTask(curr_task, this.memory.getNumTasks());
+                    this.saveTaskList();
+                    break;
+                case LIST:
+                    tasks = this.memory.getTasks();
+                    numTasks = this.memory.getNumTasks();
+                    response = Response.listTasks(tasks, numTasks);
+                    break;
+                default:
+                    response = "I'm sorry, but I don't know what that means :-(";
                 }
-            } catch (InvalidInputException e) {
+            } catch (IOException e) {
                 response = e.getMessage();
             }
             output(response);
@@ -257,6 +294,68 @@ public class Cortana {
             command = parseCommand(input);
         }
         sc.close();
+    }
+
+    public void saveTaskList() throws IOException {
+        // create directory if not exists
+        File dir = new File(Cortana.SAVE_DIR_PATH);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        // create file if not exists
+        File file = new File(Cortana.SAVE_DIR_PATH, Cortana.SAVE_FILENAME);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw e;
+            }
+        }
+        ArrayList<Task> tasks = this.memory.getTasks();
+        try {
+            FileWriter fw = new FileWriter(file);
+            for (Task task : tasks) {
+                fw.write(task.exportToSave() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw e;
+        }
+
+    }
+
+    public void loadTaskList() throws IOException {
+        // Load a csv
+        File file = new File(Cortana.SAVE_DIR_PATH, Cortana.SAVE_FILENAME);
+        if (!file.exists()) {
+            throw new IOException("File not found");
+        }
+        Scanner sc = new Scanner(file);
+        try {
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                String[] arr = line.split(",");
+                String type = arr[0];
+                boolean isDone = arr[1].equals("1");
+                String description = arr[2];
+                Task task;
+                if (type.equals("T")) {
+                    task = new TodoTask(description, isDone);
+                } else if (type.equals("D")) {
+                    String by = arr[3];
+                    task = new DeadlineTask(description, by, isDone);
+                } else {
+                    String from = arr[3];
+                    String to = arr[4];
+                    task = new EventTask(description, from, to, isDone);
+                }
+                this.memory.add(task);
+            }
+        } catch (Exception e) {
+            throw new IOException("Error reading file");
+        } finally {
+            sc.close();
+        }
     }
 
 }

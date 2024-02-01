@@ -8,6 +8,11 @@ public class Task {
         this.completed = false;
     }
 
+    public Task(String description, boolean isCompleted) {
+        this.description = description;
+        this.completed = isCompleted;
+    }
+
     public void mark() {
         this.completed = true;
     }
@@ -21,6 +26,10 @@ public class Task {
     }
 
     public String getDescription() {
+        return this.description;
+    }
+
+    public String exportToSave() {
         return this.description;
     }
     
