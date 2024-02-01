@@ -52,6 +52,6 @@ public class Ezra {
      * @param args Command line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        new Ezra("data" + File.separator + "ezra.txt").run();
+        new Ezra("data/ezra.txt").run();
     }
 }

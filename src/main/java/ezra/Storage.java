@@ -32,7 +32,7 @@ public class Storage {
         directory.mkdir();
 
         // Create ezra.txt in data directory if it does not exist
-        File f = new File("data" + File.separator + "ezra.txt");
+        File f = new File("data/ezra.txt");
         f.createNewFile();
 
         // Write tasks to ezra.txt
