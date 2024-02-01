@@ -2,20 +2,17 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description) {
         super(description);
-        this.from = from;
-        this.to = to;
+    }
+
+    public Event(String description, Boolean isDone) {
+        super(description, isDone);
     }
 
     @Override
     public String toString() {
         return "[E]" + this.getStatusIcon() + this.description;
-    }
-
-    @Override
-    public TaskType getTaskType() {
-        return TaskType.EVENT;
     }
 }
 

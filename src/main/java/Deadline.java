@@ -1,8 +1,11 @@
 public class Deadline extends Task {
     protected String by;
-    public Deadline(String description, String by) {
+    public Deadline(String description) {
         super(description);
-        this.by = by;
+    }
+
+    public Deadline(String description, Boolean isDone) {
+        super(description, isDone);
     }
 
     @Override
@@ -10,8 +13,4 @@ public class Deadline extends Task {
         return "[D]" + this.getStatusIcon() + this.description;
     }
 
-    @Override
-    public TaskType getTaskType() {
-        return TaskType.DEADLINE;
-    }
 }

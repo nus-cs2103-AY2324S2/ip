@@ -1,7 +1,13 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+    public enum CommandType {
+        BYE, LIST, DELETE, MARK, UNMARK, TODO, EVENT, DEADLINE
+    }
+
+    private static final String DATA_FILE_PATH = "./data/duke.txt";
     public static void main(String[] args) throws DukeException {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -15,15 +21,35 @@ public class Duke {
         System.out.println("What can I do for you?");
         printDivider();
 
+
+//        tasks = loadTasks();
+
         while (scanner.hasNextLine()) {
             try {
                 userInput = scanner.nextLine();
+                String[] components = parseCommand(userInput);
+                String desc = "";
+                String command;
 
-                if (userInput.contains("unmark")) {
-                    // Unmark the tasks
-                    int indexToUnmark = Integer.parseInt(userInput.substring(7));
+                // Validate Command and Description and initialise them
+                validateNonEmptyCommand(components);
+                command = components[0].toUpperCase();
+                validateValidCommand(command);
+                CommandType formattedCommand = CommandType.valueOf(command);
+
+                if (!formattedCommand.equals(CommandType.LIST) && !formattedCommand.equals(CommandType.BYE)) {
+                    validateNonEmptyDesc(components);
+                    desc = components[1];
+                }
+
+                switch (formattedCommand) {
+                case UNMARK:
+
+                    // Validate and initialise index
+                    int indexToUnmark = Integer.parseInt(desc);
                     validateIndex(indexToUnmark, tasks.size());
 
+                    // Unmark the task
                     Task taskToUnmark = tasks.get(indexToUnmark - 1);
                     taskToUnmark.isDone = false;
 
@@ -31,13 +57,14 @@ public class Duke {
                     System.out.println("  " + taskToUnmark.toString());
 
                     printDivider();
+                    break;
 
-                }
-                else if (userInput.contains("mark")) {
-
-                    int indexToMark = Integer.parseInt(userInput.substring(5));
+                case MARK:
+                    // Validate and initialise index
+                    int indexToMark = Integer.parseInt(desc);
                     validateIndex(indexToMark, tasks.size());
 
+                    // Unmark the task
                     Task taskToMark = tasks.get(indexToMark - 1);
                     taskToMark.isDone = true;
 
@@ -45,128 +72,104 @@ public class Duke {
                     System.out.println("  " + taskToMark.toString());
 
                     printDivider();
+                    break;
 
-                }
-                else if (userInput.equals("list")) {
-                    // listing
-
+                case LIST:
                     System.out.println("Here are the tasks in your list:");
                     int length = tasks.size();
                     for (int i = 0; i < length; i++) {
                         Task task = tasks.get(i);
-                        System.out.println( i + 1 + "." + task.toString());
+                        System.out.println(i + 1 + "." + task.toString());
                     }
 
                     printDivider();
+                    break;
 
-                }
-                else if (userInput.contains("todo")) {
-                    // to-do
+                case TODO:
 
-                    // validating data
-                    String desc = userInput.substring(4);
-                    validateDesc(desc);
-
+                    // instantiate To-do
                     Todo todo = new Todo(desc);
                     tasks.add(todo);
+
                     System.out.println(confirmation);
                     System.out.println("  " + todo.toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                     printDivider();
+                    break;
 
-                }
-                else if (userInput.contains("deadline")) {
-                    // Deadline
+                case DEADLINE:
+                    // Format : deadlineDetails /by some date
+                    String deadlineDetails;
+                    String byDate;
 
-                    //validate non-empty desc
-                    String stringCheck = userInput.substring(8);
-                    validateDesc(stringCheck);
+                    // extract and validate deadlineDetails and byDate
+                    String[] fragments = desc.split(" /by ", 2);
+                    validateFormat(fragments, 2);
+                    deadlineDetails = fragments[0];
+                    byDate = fragments[1];
 
-                    //extract date
-                    int indexOfBy = userInput.indexOf("/by");
-                    int indexOfDate = indexOfBy + 4;
-                    validateFormat(indexOfBy);
-                    validateDate(indexOfDate, userInput.length());
-
-                    String deadlineDetails = userInput.substring(8, indexOfBy - 1);
-                    validateDesc(deadlineDetails);
-
-                    String dateOfDeadline = userInput.substring(indexOfDate);
-
-                    String desc =  deadlineDetails + " (by: " + dateOfDeadline + ")";
-
-
-                    Deadline deadline = new Deadline(desc, dateOfDeadline);
+                    // instantiate deadline
+                    desc = deadlineDetails + " (by: " + byDate + ")";
+                    Deadline deadline = new Deadline(desc);
                     tasks.add(deadline);
+
                     System.out.println(confirmation);
                     System.out.println("  " + deadline.toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                     printDivider();
+                    break;
 
-                }
-                else if (userInput.contains("event")) {
-                    // Event
+                case EVENT:
+                    // Format details /from some date /to some date
+                    String eventDetails;
+                    String fromDate;
+                    String toDate;
 
-                    // validate non-empty string
-                    String stringCheck = userInput.substring(5);
-                    validateDesc(stringCheck);
+                    // extract and validate eventDetails, fromDate, and toDate
+                    fragments = desc.split(" /from | /to ", 3);
+                    validateFormat(fragments, 3);
+                    eventDetails = fragments[0];
+                    fromDate = fragments[1];
+                    toDate = fragments[2];
 
-                    //extract dates
-                    int indexOfFrom = userInput.indexOf("/from");
-                    int indexOfTo = userInput.indexOf("/to");
-
-                    validateFormat(indexOfFrom);
-                    validateFormat(indexOfTo);
-
-                    int startOfFromDate = indexOfFrom + 6;
-                    int endOfFromDate = indexOfTo - 1;
-
-                    int startOfToDate = indexOfTo + 4;
-                    validateDate(startOfFromDate, endOfFromDate);
-                    validateDate(startOfToDate, userInput.length());
-
-
-                    String from = userInput.substring(startOfFromDate, endOfFromDate);
-                    String to = userInput.substring(startOfToDate);
-
-                    String eventDetails = userInput.substring(5, indexOfFrom - 1);
-                    validateDesc(eventDetails);
-
-                    String desc = eventDetails + " (from: " + from + " to: " + to + ")";
-
-                    Event event = new Event(desc, from, to);
+                    // instantiate event
+                    desc = eventDetails + " (from: " + fromDate + " to: " + toDate + ")";
+                    Event event = new Event(desc);
                     tasks.add(event);
+
                     System.out.println(confirmation);
                     System.out.println("  " + event.toString());
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                     printDivider();
+                    break;
 
-                }
-                else if (userInput.contains("delete")) {
+                case DELETE:
 
-
-                    int indexToDelete = Integer.parseInt(userInput.substring(7));
+                    // Validate and initialise index
+                    int indexToDelete = Integer.parseInt(desc);
                     validateIndex(indexToDelete, tasks.size());
 
+                    // Delete the task
                     Task taskToDelete = tasks.get(indexToDelete - 1);
-                    String desc = taskToDelete.toString();
+                    String descOfTaskToDelete = taskToDelete.toString();
                     tasks.remove(taskToDelete);
 
                     System.out.println("Noted. I've removed this task:");
-                    System.out.println("  " + desc);
-
+                    System.out.println("  " + descOfTaskToDelete);
                     System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                     printDivider();
-
-
-                }
-                else if (userInput.equals("bye")) {
                     break;
-                } else {
+
+                case BYE:
+                    System.out.println("Bye. Hope to see you again soon!");
+                    printDivider();
+                    System.exit(0);
+                    break;
+                default:
                     throw new DukeException("Invalid command");
                 }
 
@@ -176,29 +179,39 @@ public class Duke {
 
             }
         }
-
-        //Farewell
-        System.out.println("Bye. Hope to see you again soon!");
-        printDivider();
-
         scanner.close();
     }
 
-    private static void validateDesc(String desc) throws DukeException {
-        if (desc.isBlank()) {
+
+    private static String[] parseCommand(String userInput) {
+        return userInput.split(" ", 2);
+    }
+    private static void validateNonEmptyDesc(String[] components) throws DukeException {
+        if (components.length < 2 || components[1].isBlank()) {
             throw new DukeException("The description cannot be empty :(");
         }
     }
-
-    private static void validateDate(int date, int length) throws DukeException {
-        if (date > length - 1) {
-            throw new DukeException("The date cannot be empty :(");
+    private static void validateNonEmptyCommand(String[] components) throws DukeException {
+        if (components.length < 1 || components[0].isBlank()) {
+            throw new DukeException("Invalid command");
+        }
+    }
+    private static void validateValidCommand(String command) throws DukeException {
+        try {
+            CommandType convertCommand = CommandType.valueOf(command);
+        } catch (IllegalArgumentException e) {
+            throw new DukeException("Invalid command");
         }
     }
 
-    private static void validateFormat(int index) throws DukeException {
-        if (index == -1) {
+    private static void validateFormat(String[] fragments, int expectedNumberOfFragments) throws DukeException {
+        if (fragments.length != expectedNumberOfFragments) {
             throw new DukeException("Something is wrong with the format!");
+        }
+        for (int i = 0; i < expectedNumberOfFragments; i++) {
+            if (fragments[i].isBlank()) {
+                throw new DukeException("Something is wrong with the format!");
+            }
         }
     }
     private static void validateIndex(int index, int length) throws DukeException {
