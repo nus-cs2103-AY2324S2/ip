@@ -1,92 +1,44 @@
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
 
 public class Duke {
-    public static void main(String[] args) {
-        // Initialization
-        String name = "MR. WONG";
-        say("Hey man. I'm " + name + "\nWhat can I do for you?");
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-        // Stores user items
-        Storage list = new Storage();
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage, storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList(storage);
+        } catch (FileNotFoundException e) {
+            // something went wrong
+            ui.showError("File not found.");
+        }
+    }
 
-        // Chatbot logic
-        Parser parser = new Parser();
-        Scanner scanner = new Scanner(System.in);
-        String userInput = "";
-
-        while (true) {
-            userInput = scanner.nextLine();
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                parser.parseCommand(userInput);
-            } catch (IllegalArgumentException e) {
-                say("sry idk what that means =(");
-            } catch (EmptyCommandDescription e) {
-                say("Oh no! This command description cannot be empty =(");
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
             }
-
-            String[] commandInfo = parser.getCommandInfo();
-            // commandInfo: commandType, name, arg1, arg2
-            switch (commandInfo[0]) {
-                case "BYE":
-                    say("Bye bro!");
-                    return;
-                case "LIST":
-                    say("Here are the tasks in your list:\n" + list.displayList());
-                    break;
-                case "MARK":
-                    Task marked = list.markAsDone(Integer.parseInt(commandInfo[2]));
-                    say("OK! I've marked this task as done:\n" + marked.toString());
-                    break;
-                case "UNMARK":
-                    Task unmarked = list.unmark(Integer.parseInt(commandInfo[2]));
-                    say("OK! I've unmarked this task:\n" + unmarked.toString());
-                    break;
-                case "TODO":
-                    Task todo = new Todo(commandInfo[1]);
-                    list.addTask(todo);
-
-                    say("Got it. I've added this task:\n" + todo.toString() +
-                            "\nNow you have " + list.getSize() + " tasks in the list.");
-                    break;
-                case "DEADLINE":
-                    Task deadline = new Deadline(commandInfo[1], commandInfo[2]);
-                    list.addTask(deadline);
-
-                    say("Got it. I've added this task:\n" + deadline.toString() +
-                            "\nNow you have " + list.getSize() + " tasks in the list.");
-                    break;
-                case "EVENT":
-                    Task event = new Event(commandInfo[1], commandInfo[2], commandInfo[3]);
-                    list.addTask(event);
-                    say("Got it. I've added this task:\n" + event.toString() +
-                            "\nNow you have " + list.getSize() + " tasks in the list.");
-                    break;
-                case "DELETE":
-                    Task deleted = list.deleteTask(Integer.parseInt(commandInfo[2]));
-                    say("OK! I've deleted this task:\n" + deleted.toString() +
-                            "\nNow you have " + list.getSize() + " tasks in the list.");
-                    break;
-                default:
-                    break;
-            }
-
         }
     }
 
-    public static void say(String msg) {
-        String horizontal = "_________________________________";
-        System.out.println(horizontal);
-        System.out.println(msg);
-        System.out.println(horizontal);
-    }
 
-    public static String displayList(ArrayList<String> userItems) {
-        String d = "";
-        for (int i = 1; i <= userItems.size(); ++i) {
-            d += (i + ". " + userItems.get(i-1) + '\n');
-        }
-        return d;
+    public static void main(String[] args) {
+        new Duke("data/tasks.txt").run();
     }
 }

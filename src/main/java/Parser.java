@@ -5,21 +5,14 @@ import java.util.regex.Pattern;
 public class Parser {
 
     // Contains information about each command parsed
-    private String commandType = "", name, arg1, arg2;
 
-    public String[] getCommandInfo() {
-        return new String[] {commandType, name, arg1, arg2};
-    }
-
-    public void parseCommand(String input) throws IllegalArgumentException, EmptyCommandDescription {
+    public static Command parse(String input) throws DukeException {
         // Simple commands
         if (input.matches("list(\\s*)")) {
-            this.commandType = "LIST";
-            return;
+            return new ListCommand();
         }
         if (input.matches("bye(\\s*)")) {
-            this.commandType = "BYE";
-            return;
+            return new ExitCommand();
         }
 
         String todoRegex = "todo (\\S.*)";
@@ -52,31 +45,22 @@ public class Parser {
         Matcher deleteErrorMatcher = Pattern.compile(deleteErrorRegex).matcher(input);
 
         if (todoMatcher.matches()) {
-            this.commandType = "TODO";
-            this.name = todoMatcher.group(1);
+            return new AddCommand(new Todo(todoMatcher.group(1)));
         } else if (deadlineMatcher.matches()) {
-            this.commandType = "DEADLINE";
-            this.name = deadlineMatcher.group(1);
-            this.arg1 = deadlineMatcher.group(2);
+            return new AddCommand(new Deadline(deadlineMatcher.group(1), deadlineMatcher.group(2)));
         } else if (eventMatcher.matches()) {
-            this.commandType = "EVENT";
-            this.name = eventMatcher.group(1);
-            this.arg1 = eventMatcher.group(2);
-            this.arg2 = eventMatcher.group(3);
+            return new AddCommand(new Event(eventMatcher.group(1), eventMatcher.group(2), eventMatcher.group(3)));
         } else if (unmarkMatcher.matches()) {
-            this.commandType = "UNMARK";
-            this.arg1 = unmarkMatcher.group(1);
+            return new MarkCommand(Integer.parseInt(unmarkMatcher.group(1)), false);
         } else if (markMatcher.matches()){
-            this.commandType = "MARK";
-            this.arg1 = markMatcher.group(1);
+            return new MarkCommand(Integer.parseInt(markMatcher.group(1)), true);
         } else if (deleteMatcher.matches()) {
-            this.commandType = "DELETE";
-            this.arg1 = deleteMatcher.group(1);
+            return new DeleteCommand(Integer.parseInt(deleteMatcher.group(1)));
         } else if (todoErrorMatcher.matches() || deadlineErrorMatcher.matches() || eventErrorMatcher.matches()
             || markErrorMatcher.matches() || unmarkErrorMatcher.matches() || deleteErrorMatcher.matches()) {
-            throw new EmptyCommandDescription();
+            throw new DukeException("Empty command description");
         } else {
-            throw new IllegalArgumentException();
+            throw new DukeException("sry idk what that means");
         }
     }
 }
