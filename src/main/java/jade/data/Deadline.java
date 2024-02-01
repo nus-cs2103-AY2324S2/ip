@@ -11,6 +11,11 @@ public class Deadline extends Task{
         this.deadlineDate = deadlineDate;
     }
 
+    public Deadline(String description, LocalDate deadlineDate, boolean isDone) {
+        super(description, isDone);
+        this.deadlineDate = deadlineDate;
+    }
+
     public String dateFormatter(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }

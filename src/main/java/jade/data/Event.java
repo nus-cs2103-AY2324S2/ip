@@ -13,6 +13,12 @@ public class Event extends Task{
         this.endDate = endDate;
     }
 
+    public Event(String description, LocalDate startDate, LocalDate endDate, boolean isDone) {
+        super(description, isDone);
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public String dateFormatter(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
