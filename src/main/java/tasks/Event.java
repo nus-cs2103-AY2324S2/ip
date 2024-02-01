@@ -1,3 +1,5 @@
+package tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -20,7 +22,7 @@ public class Event extends Task {
 
     @Override
     public String fileString() {
-        return String.format("EVENT | %s | FROM %s TO %s", super.fileString(), this.from.format(inputFormatter), this.to.format(inputFormatter));
+        return String.format("EVENT | %s | %s | %s", super.fileString(), this.from.format(inputFormatter), this.to.format(inputFormatter));
     }
 
 }

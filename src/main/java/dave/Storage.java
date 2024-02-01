@@ -1,7 +1,17 @@
-import java.io.BufferedReader;
+package dave;
+
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 public class Storage {
     private String storageFilepath;
@@ -32,8 +42,7 @@ public class Storage {
                 break;
 
             default:
-                System.out.println("An error has occurred");
-                break;
+                throw new IOException();
             }
 
             if (taskDescription[1].equals("COMPLETED")) {
@@ -44,6 +53,30 @@ public class Storage {
         }
         br.close();
         return taskList;
+    }
+
+    public void saveTask(Task newTask) throws IOException {
+        File fileToWrite = new File(this.storageFilepath);
+        if (!fileToWrite.exists()) {
+            fileToWrite.getParentFile().mkdir();
+            fileToWrite.createNewFile();
+        }
+        BufferedWriter writer = new BufferedWriter(new FileWriter(this.storageFilepath, true));
+        writer.append(newTask.fileString());
+        writer.newLine();
+        writer.close();
+    }
+
+    public void rewriteOutput(TaskList taskList) {
+        File fileToDelete = new File(this.storageFilepath);
+        try {
+            fileToDelete.delete();
+            for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
+                saveTask(taskList.getTask(i));
+            }
+        } catch (IOException exc) {
+            System.out.println(String.format("Dave had a problem updating the output file."));
+        }
     }
 
 }

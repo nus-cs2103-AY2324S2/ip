@@ -1,3 +1,5 @@
+package tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,6 +20,6 @@ public class Deadline extends Task {
 
     @Override
     public String fileString() {
-        return String.format("DEADLINE | %s | BY %s", super.fileString(), this.deadline.format(inputFormatter));
+        return String.format("DEADLINE | %s | %s", super.fileString(), this.deadline.format(inputFormatter));
     }
 }
