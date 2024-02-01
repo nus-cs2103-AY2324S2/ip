@@ -6,13 +6,14 @@ public class Deadline extends Task{
     private String by;
     private LocalDateTime ldt = null;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DukeExceptions{
         super(description);
         this.by = by;
         try {
             ldt = DateTimeParser.parseDateTime(by);
         } catch (DukeExceptions e) {
             System.out.println(e.getMessage());
+            throw new DukeExceptions("Please enter in the correct format.");
         }
     }
 

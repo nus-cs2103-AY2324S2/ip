@@ -84,7 +84,13 @@ public class Duke {
                     break;
                 case DEADLINE:
                     String[] splitAgain = inputParts[1].split(" /by ");
-                    Task addDeadlineTask = new Deadline(splitAgain[0], splitAgain[1]);
+                    Task addDeadlineTask;
+                    try {
+                        addDeadlineTask = new Deadline(splitAgain[0], splitAgain[1]);
+                    } catch (DukeExceptions e) {
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
                     lst.add(addDeadlineTask);
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
