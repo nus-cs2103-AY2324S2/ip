@@ -1,2 +1,1 @@
-event bob /from 7 /to 80
-deadline gttg /by 2011-12-110
+event bob /from 7 /to 81

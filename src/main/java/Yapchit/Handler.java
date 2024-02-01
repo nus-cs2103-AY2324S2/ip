@@ -10,10 +10,27 @@ import Yapchit.YapchitExceptions.YapchitException;
 
 import java.time.LocalDate;
 
+/**
+ * Class that acts as the 'brains' of the Yapchit program and handles all operations.
+ */
 public class Handler {
 
+    /**
+     * creates new handler instance
+     */
     public Handler(){}
 
+    /**
+     * Primary function is to accept an input and operation and redirect it to appropriate handler function
+     * for handling.
+     *
+     * @param input user input
+     * @param op parsed operation from parser
+     * @param tasks the full tasklist
+     * @param ui the ui to interact with user
+     * @param parser the parser to perform additional parsing
+     * @throws YapchitException if there is conflict in terms of user input and operation to perform
+     */
     public void handleOperation(
             String input,
             Yapchit.Operations op,
@@ -57,6 +74,17 @@ public class Handler {
         }
     }
 
+    /**
+     * Primary function is to accept an input and operation and redirect it to appropriate handler function
+     * for handling. Only this time the input is from the storage file and not the user.
+     *
+     * @param input file stored input
+     * @param op parsed operation from parser
+     * @param tasks the full tasklist
+     * @param ui the ui to interact with user
+     * @param parser the parser to perform additional parsing
+     * @throws YapchitException if there is conflict in terms of input and operation to perform
+     */
     public void handleUpdateListFromFile(String input, Yapchit.Operations op, TaskList tasks, Ui ui, Parser parser) throws InvalidDetailException{
         switch (op) {
             case EVENT:
@@ -71,6 +99,15 @@ public class Handler {
         }
     }
 
+    /**
+     * Creates a new event object based on details in provided input.
+     *
+     * @param input containing details of the event
+     * @param newTask boolean which identifies if this is a task being added to list for the first time
+     * @param tasks list of tasks
+     * @param ui ui object to interact with the user
+     * @throws InvalidDetailException in case of mismatch in input and task detail requirements.
+     */
     public void handleEvent(String input, boolean newTask, TaskList tasks, Ui ui) throws InvalidDetailException {
         int fromStart = input.indexOf("/from");
         int toStart = input.indexOf("/to");
@@ -106,6 +143,16 @@ public class Handler {
         }
     }
 
+    /**
+     * Creates a new deadline object based on details in provided input.
+     *
+     * @param input containing details of the deadline
+     * @param newTask boolean which identifies if this is a task being added to list for the first time
+     * @param tasks list of tasks
+     * @param ui ui object to interact with the user
+     * @param parser parser object to parse input
+     * @throws InvalidDetailException in case of mismatch in input and task detail requirements.
+     */
     public void handleDeadline(String input, boolean newTask, TaskList tasks, Ui ui, Parser parser) throws InvalidDetailException{
 
         int byStart = input.indexOf("/by");
@@ -140,6 +187,15 @@ public class Handler {
         }
     }
 
+    /**
+     * Creates a new todo object based on details in provided input.
+     *
+     * @param input containing details of the todo
+     * @param newTask boolean which identifies if this is a task being added to list for the first time
+     * @param tasks list of tasks
+     * @param ui ui object to interact with the user
+     * @throws InvalidDetailException in case of mismatch in input and task detail requirements.
+     */
     public void handleTodo(String input, boolean newTask, TaskList tasks, Ui ui) throws  InvalidDetailException{
 
         char done = '0';
@@ -168,6 +224,14 @@ public class Handler {
         }
     }
 
+    /**
+     * Handles the printing of all the tasks in the tasks list.
+     *
+     * @param parts The user input split into parts
+     * @param tasks the list of tasks to print
+     * @param ui the ui object to interact with the user
+     * @throws InvalidDetailException if the input does not provide the necessary details
+     */
     public void handleList(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
         if(parts.length != 1){
             throw new InvalidDetailException("Invalid detail after keyword. Please retry");
@@ -176,6 +240,14 @@ public class Handler {
         }
     }
 
+    /**
+     * Handles the deleting of the tasks in the tasks list.
+     *
+     * @param parts The user input split into parts
+     * @param tasks the list of tasks to delete from
+     * @param ui the ui object to interact with the user
+     * @throws InvalidDetailException if the input does not provide the necessary details
+     */
     public void handleDelete(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
         if(parts.length != 2){
             throw new InvalidDetailException("Invalid detail after delete. Please retry");
@@ -191,6 +263,14 @@ public class Handler {
         }
     }
 
+    /**
+     * Handles the marking of the tasks in the tasks list.
+     *
+     * @param parts The user input split into parts
+     * @param tasks the list of tasks to mark from
+     * @param ui the ui object to interact with the user
+     * @throws InvalidDetailException if the input does not provide the necessary details
+     */
     public void handleMark(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
         if(parts.length != 2){
             throw new InvalidDetailException("Invalid detail after mark. Please retry");
@@ -205,6 +285,14 @@ public class Handler {
         }
     }
 
+    /**
+     * Handles the unmarking of tasks in the tasks list.
+     *
+     * @param parts The user input split into parts
+     * @param tasks the list of tasks to unmark from
+     * @param ui the ui object to interact with the user
+     * @throws InvalidDetailException if the input does not provide the necessary details
+     */
     public void handleUnmark(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException{
         if(parts.length != 2){
             throw new InvalidDetailException("Invalid detail after unmark. Please retry");
@@ -219,6 +307,12 @@ public class Handler {
         }
     }
 
+    /**
+     * checks if the user input is equivalent to 'bye'
+     *
+     * @param input user input
+     * @return boolean indicating if input is 'bye' or not
+     */
     public boolean checkIsBye(String input){
         return input.toLowerCase().equals("bye");
     }
