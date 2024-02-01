@@ -11,6 +11,7 @@ public class Duke {
 
     private final String NAME = "Linus";
 
+    private final String FILE_PATH = "./data/linus.txt";
 
     private Ui ui;
 
@@ -19,9 +20,6 @@ public class Duke {
     private Parser parser;
 
     private Storage storage;
-
-    private final String FILE_PATH = "./data/linus.txt";
-
 
     public Duke() {
         this.taskList = new TaskList();
@@ -35,21 +33,16 @@ public class Duke {
         ui.greeting(NAME);
         this.loadData();
         parser.run();
+        this.saveData();
     }
-
 
     public void loadData() {
         storage.loadData(taskList, ui);
     }
 
-    // public void readInput() {
-    //     while (running) {
-    //         parser.readUserInput();
-    //     }
-    // }
-
-
-
+    public void saveData() {
+        storage.saveData(taskList, ui);
+    }
 
     public static void main(String[] args) {
 

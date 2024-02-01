@@ -29,11 +29,6 @@ public class Ui {
         this.print();
     }
 
-    public void goodbye() {
-        this.add("Saving file!");
-        this.add("Goodbye. See you later!");
-    }
-
     @Override
     public String toString() {
         String finalString = "";
