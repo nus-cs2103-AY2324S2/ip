@@ -750,6 +750,13 @@ public class RochinOOP {
         protected String from;
         protected String to;
 
+        /**
+         * Constructs an EventTask with a description, starting, and ending date/time.
+         *
+         * @param description The description of the event task.
+         * @param from        The starting date/time of the event.
+         * @param to          The ending date/time of the event.
+         */
         public EventTask(String description, String from, String to) {
             super(description);
             this.from = from;
