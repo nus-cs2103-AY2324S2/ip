@@ -81,7 +81,7 @@ public class AdditionalInfoParser {
      * @throws WilliamException If the description of the additional detail is empty
      */
     public static void checkAdditionalDetailEmpty(String input) throws WilliamException {
-        if (input == null) {
+        if (input == null || input.trim().isEmpty()) {
             throw new WilliamException("The description of a task should not be empty. Please try again!");
         }
     }
