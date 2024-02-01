@@ -58,7 +58,7 @@ public class Parser {
      * @param command Todo command entered by user.
      * @return commands.AddCommand that adds the todo task into the list.
      */
-    private static Command handleToDo(String command) {
+    public static Command handleToDo(String command) {
         String taskDescription = command.substring("todo".length()).trim();
         Task newToDo = new ToDo(taskDescription, false);
         return new AddCommand(newToDo);
@@ -70,7 +70,7 @@ public class Parser {
      * @param command task.Deadline command entered by user.
      * @return commands.AddCommand that adds the deadline task into the list.
      */
-    private static Command handleDeadline(String command) {
+    public static Command handleDeadline(String command) {
         String taskDesciptionAndDeadline = command.substring("deadline".length()).trim();
         String[] parts = taskDesciptionAndDeadline.split("/by", 2);
         if (parts.length != 2) {
@@ -96,7 +96,7 @@ public class Parser {
      * @param command task.Event command entered by user.
      * @return commands.AddCommand that adds the event task into the list.
      */
-    private static Command handleEvent(String command) {
+    public static Command handleEvent(String command) {
         String taskDescriptionAndStartEnd = command.substring("event".length()).trim();
         String[] parts = taskDescriptionAndStartEnd.split("/from", 2);
         if (parts.length != 2) {
@@ -128,7 +128,7 @@ public class Parser {
      * @param command Delete command entered by user.
      * @return commands.DeleteCommand that delete the task from the list.
      */
-    private static Command handleDelete(String command) {
+    public static Command handleDelete(String command) {
         String[] commands = command.split(" ", 2);
         try {
             int taskIndex = Integer.parseInt(commands[1].trim()) - 1;
@@ -144,7 +144,7 @@ public class Parser {
      * @param command Mark or unmark command entered by user.
      * @return commands.MarkCommand that marks or unmarks the task.
      */
-    private static Command handleMark(String command) {
+    public static Command handleMark(String command) {
         String[] commands = command.split(" ", 2);
         try {
             int taskIndex = Integer.parseInt(commands[1].trim()) - 1;
