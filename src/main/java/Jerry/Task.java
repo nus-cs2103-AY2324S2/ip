@@ -25,5 +25,14 @@ public abstract class Task {
     }
 
     public abstract String toFileFormat();
+
+    // For testing purposes
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
 }
 
