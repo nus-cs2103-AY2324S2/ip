@@ -6,51 +6,39 @@ public class Duke {
     public static class Task {
         protected String description;
         protected boolean isDone;
-        protected int index;
 
-        public Task(String description, int index) {
+        public Task(String description) {
             this.description = description;
-            this.index = index;
             this.isDone = false;
         }
 
         public String getStatusIcon() {
-            return (isDone ? "X" : " "); // mark done task with X
+            return (this.isDone ? "X" : " "); // mark done task with X
         }
 
         public String toString() {
             return "[" + getStatusIcon() + "] " + this.description;
         }
 
-        public String commandMark() {
-            String response = this.isDone == true
-                    ? "Task " + (this.index + 1) + " is already done! Yay!\n"
-                    : "Nice! I've marked this task as done:\n";
-            this.isDone = true;
-            return response + "  " + toString();
-        }
-
-        public String commandUnmark() {
-            String response = this.isDone == false
-                    ? "Task " + (this.index + 1) + " is not done yet!\n"
-                    : "OK, I've marked this task as undone:\n";
-            this.isDone = false;
-            return response + "  " + toString();
-        }
-
-        public void editIndex(int x) {
-            this.index = x;
-        }
-
         public void editDescription(String input) {
             this.description = input;
         }
 
+        public boolean checkDone() {
+            return this.isDone;
+        }
+        public void markDone() {
+            this.isDone = true;
+        }
+
+        public void markUnDone() {
+            this.isDone = false;
+        }
     }
 
     public static class ToDo extends Task {
-        public ToDo(String description, int index) {
-            super(description, index);
+        public ToDo(String description) {
+            super(description);
         }
 
         @Override
@@ -61,8 +49,8 @@ public class Duke {
 
     public static class Deadline extends Task {
         protected String by;
-        public Deadline(String description, String by, int index) {
-            super(description, index);
+        public Deadline(String description, String by) {
+            super(description);
             this.by = by;
         }
 
@@ -76,8 +64,8 @@ public class Duke {
         protected String start;
         protected String end;
 
-        public Event(String description, String start, String end, int index) {
-            super(description, index);
+        public Event(String description, String start, String end) {
+            super(description);
             this.start = start;
             this.end = end;
         }
@@ -88,15 +76,15 @@ public class Duke {
         }
     }
 
-    private static String logo = " _______  __                       __ \n"
+    private static final String logo = " _______  __                       __ \n"
             + "|     __||__|.-----..-----..---.-.|  |\n"
             + "|__     ||  ||  _  ||     ||  _  ||  |\n"
             + "|_______||__||___  ||__|__||___._||__|\n"
             + "             |_____|                  \n";
-    private static String div = "\n" + "~~**~~";
+    private static final String div = "\n" + "~~**~~";
     private static Scanner scanner = new Scanner(System.in);
     private static Task[] taskList = new Task[100];
-    private static int index = 0;
+    private static int index = 0; // index of the next task to be filled
 
 
 
@@ -145,7 +133,7 @@ public class Duke {
      * @param input Input collected from the user.
      */
     public static void taskAdded(String input) {
-        taskList[index] = new Task(input, index);
+        taskList[index] = new Task(input);
         index += 1;
         signalSays("Added: " + input);
     }
@@ -155,7 +143,7 @@ public class Duke {
             throw new DukeException("Looks like you haven't entered a task description!");
         }
         if (type.equals("todo")) {
-            taskList[index] = new ToDo(input, index);
+            taskList[index] = new ToDo(input);
         } else {
             String command[] = input.split("/");
             if (type.equals("deadline")) {
@@ -163,16 +151,16 @@ public class Duke {
                     throw new DukeException("Looks like you haven't added a deadline!");
                 }
                 String deadline = command[1] != null && command[1].length() > 3 ? command[1].substring(3) : command[1];
-                taskList[index] = new Deadline(command[0], deadline, index);
+                taskList[index] = new Deadline(command[0], deadline);
             } else if (type.equals("event")){
                 if (command.length < 3) {
                     throw new DukeException("Looks like you haven't added a start or end time!");
                 }
                 String start = command[1] != null && command[1].length() > 5 ? command[1].substring(5): command[1];
                 String end = command[2] != null && command[2].length() > 3 ? command[2].substring(3) : command[2];
-                taskList[index] = new Event(command[0], start, end, index);
+                taskList[index] = new Event(command[0], start, end);
             } else {
-                taskList[index] = new Task(input, index);
+                taskList[index] = new Task(input);
             }
         }
         taskAdded((taskList[index]));
@@ -182,7 +170,7 @@ public class Duke {
         index += 1;
         signalSays("Got it! I've added this task to your list: \n"
                 + "  " + t.toString() + "\n"
-                + "Now you have " + (t.index + 1) + (t.index == 0 ? " task" : " tasks") + " in the list.");
+                + "Now you have " + (index) + (index == 1 ? " task" : " tasks") + " in the list.");
     }
 
 
@@ -199,27 +187,46 @@ public class Duke {
         System.out.println(div);
     }
 
+    public static String commandMark(int x) {
+        Task current = taskList[x];
+        String response = current.checkDone()
+                ? "Task " + (x + 1) + " is already done! Yay!\n"
+                : "Nice! I've marked this task as done:\n";
+        current.markDone();
+        return response + "  " + current.toString();
+    }
+
+    public static String commandUnmark(int x) {
+        Task current = taskList[x];
+        String response = current.checkDone()
+                ? "Task " + (x + 1) + " is not done yet!\n"
+                : "OK, I've marked this task as undone:\n";
+        current.markUnDone();
+        return response + "  " + current.toString();
+    }
+
     /**
      * Deletes the task from the list and shifts the subsequent tasks forward.
      *
-     * @param t The task to be deleted.
+     * @param x The index of the task to be deleted.
      * @throws DukeException
      */
-    public static void commandDelete(Task t) throws DukeException {
+    public static void commandDelete(int x) throws DukeException {
+        Task current = taskList[x];
         if (index == 0) {
             throw new DukeException("Looks like there's nothing here to remove. Better get on those tasks!");
         }
-        if (t.index >= 0 && t.index <= index) {
+        if (x >= 0 && x <= index) {
             // Shift the remaining elements up
-            for (int i = t.index; i <= index - 1; i++) {
+            for (int i = x; i <= index - 1; i++) {
                 // Adjust the index of each element
                 taskList[i] = taskList[i + 1];
-                taskList[i].index = i;
+//                taskList[i].editIndex(i);
             }
             index -= 1;
             signalSays("Noted, I've deleted this task from your list: \n"
-                    + "  " + t.toString() + "\n"
-                    + "Now you have " + (index) + (index == 0 ? " task" : " tasks") + " in the list.");
+                    + "  " + current.toString() + "\n"
+                    + "Now you have " + (index) + (index == 1 ? " task" : " tasks") + " in the list.");
         } else {
             throw new DukeException("I'd say shoot for the stars but in this case there are only "
                     + (index - 1) + ((index - 1) == 1 ? " item" : " items") + " in this list");
@@ -233,11 +240,15 @@ public class Duke {
      * @throws DukeException
      */
     public static void commandDeleteInvalid(int x) throws DukeException {
+        if (x == 0) {
+            throw new DukeException("Looks like there's nothing here to remove. Better get on those tasks!");
+        }
         if (x < 0) {
             throw new DukeException("Negative numbers might exist in maths but not in this list!");
         }
         if (x > 100) {
-            throw new DukeException("Oops! You only have " + (index) + (index == 0 ? " task" : " tasks") + ". Better get on it then!");
+            throw new DukeException("I'd say shoot for the stars but in this case there are only "
+                    + (index - 1) + ((index - 1) == 1 ? " item" : " items") + " in this list.");
         }
     }
 
@@ -297,19 +308,19 @@ public class Duke {
             } else if (inputArray.length == 2 && inputArray[0].equals("mark")) {
                 // Mark item at index as done
                 int itemIndex = Integer.parseInt(inputArray[1]) - 1;
-                signalSays(taskList[itemIndex].commandMark());
+                signalSays(commandMark(itemIndex));
             } else if (inputArray.length == 2 && inputArray[0].equals("unmark")) {
                 // Mark item at index as done
                 int itemIndex = Integer.parseInt(inputArray[1]) - 1;
-                signalSays(taskList[itemIndex].commandUnmark());
+                signalSays(commandUnmark(itemIndex));
             } else if (inputArray.length == 2 && (isPermutationMatch(inputArray[0], "mark") || isPermutationMatch(inputArray[0], "unmark"))) {
                 // check typo of "mark" or "unmark"
                 if (checkCommandTypo(inputArray[0], "mark")) { // command mark typo
                     int itemIndex = Integer.parseInt(inputArray[1]) - 1;
-                    signalSays(taskList[itemIndex].commandMark());
+                    signalSays(commandMark(itemIndex));
                 } else if (checkCommandTypo(inputArray[0], "unmark")) { // command unmark typo
                     int itemIndex = Integer.parseInt(inputArray[1]) - 1;
-                    signalSays(taskList[itemIndex].commandUnmark());
+                    signalSays(commandUnmark(itemIndex));
                 } else {
                     signalSays("Do you want to add '" + userInput + "'? (y/n)");
                     String addCommandCheck = scanner.nextLine();
@@ -361,13 +372,16 @@ public class Duke {
             } else if (inputArray.length == 2 && inputArray[0].equals("delete")) {
                 try {
                     int itemIndex = Integer.parseInt(inputArray[1]) - 1;
+                    if (itemIndex == 0) {
+                        commandDeleteInvalid(0);
+                    }
                     if (itemIndex > index - 1) {
                         commandDeleteInvalid(101);
                     }
                     if (itemIndex < 0) {
                         commandDeleteInvalid(-1);
                     }
-                    commandDelete(taskList[itemIndex]);
+                    commandDelete(itemIndex);
                 } catch (DukeException e) {
                     signalSays(e.getMessage());
                 }
