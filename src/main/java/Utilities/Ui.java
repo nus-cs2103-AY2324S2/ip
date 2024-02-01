@@ -29,7 +29,7 @@ public class Ui {
                 "  todo <task> - adds todo\n  deadline <task>/<by when> - adds deadline\n" +
                 "  event <task>/<from when>/<to when> - adds event\n  list - lists out all tasks\n" +
                 "  mark <x> - marks task x as done\n  unmark <x> - unmarks task x as undone\n" +
-                "  bye - exit");
+                "  delete <x> - deletes task x from the list\n" +  "  bye - exit");
     }
 
     public void printList(ArrayList<Task> tasks) {
