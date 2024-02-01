@@ -37,7 +37,6 @@ public class Duke {
         }
 
         // save and exit
-        System.out.println(userTasks);
         userTasks.forEach((task) -> task.writeTask("./data/data.txt"));
 
         Random random = new Random();
