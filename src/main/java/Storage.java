@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Storage {
     protected String filePath;
 
-    public Storage(String filePath) throws IOException {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 

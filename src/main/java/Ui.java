@@ -50,16 +50,15 @@ public class Ui {
         System.out.println(line);
     }
 
-    public String next() {
-        return sc.next();
+    public void showLine() {
+        System.out.println(line);
     }
 
-    public String nextLine() {
+    public void showError(String s) {
+        System.out.println(s);
+    }
+    public String readCommand() {
         return sc.nextLine();
-    }
-
-    public int nextInt() {
-        return sc.nextInt();
     }
 
 
