@@ -1,9 +1,13 @@
 public class Deadline extends Task {
     private String byWhen;
 
-    public Deadline(String item, String byWhen) {
-        super(item);
+    public Deadline(String item, boolean marked, String byWhen) {
+        super(item, marked);
         this.byWhen = byWhen;
+    }
+
+    public String getbyWhen() {
+        return this.byWhen;
     }
 
     @Override
