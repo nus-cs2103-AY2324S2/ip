@@ -4,6 +4,7 @@ import checkbot.command.AddCommand;
 import checkbot.command.ByeCommand;
 import checkbot.command.Command;
 import checkbot.command.DeleteCommand;
+import checkbot.command.FindCommand;
 import checkbot.command.ListCommand;
 import checkbot.command.MarkCommand;
 import checkbot.command.UnmarkCommand;
@@ -24,7 +25,7 @@ import java.util.regex.Pattern;
 public class Parser {
     /**
      * Parses the user input and returns the corresponding Command.
-     * 
+     *
      * @param input The user input.
      * @return The corresponding Command.
      * @throws CheckbotException If the user input is invalid.
