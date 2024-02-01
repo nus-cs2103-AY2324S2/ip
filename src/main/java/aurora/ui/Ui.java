@@ -20,7 +20,7 @@ public class Ui {
     private final Scanner scanner;
 
     /**
-     * Constructor for the Ui class
+     * Constructor for the Ui class.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);

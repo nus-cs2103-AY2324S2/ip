@@ -16,13 +16,13 @@ public class TodoCommand extends Command {
     /** TaskList to interact with. */
     private TaskList taskList;
 
-    /** Ui to interact with */
+    /** Ui to interact with. */
     private Ui ui;
 
-    /** Storage to interact with */
+    /** Storage to interact with. */
     private Storage storage;
 
-    /** Full command */
+    /** Full command. */
     private String command;
 
     /**

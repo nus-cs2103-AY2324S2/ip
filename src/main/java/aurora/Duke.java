@@ -75,15 +75,15 @@ public class Duke {
      */
     public void exeAurora() {
         this.ui.printOpeningMessage();
-        boolean exit = false;
-        while(!exit) {
+        boolean isExit = false;
+        while(!isExit) {
             String command = this.ui.nextCommand();
             String[] splitCommands = Parser.splitAtAllBlanks(command);
             String mainC = splitCommands[0];
             try {
                 if (mainC.equalsIgnoreCase("bye")) {
                     ByeCommand byeCommand = new ByeCommand(this.taskList, this.ui, this.storage);
-                    exit = byeCommand.isBye();
+                    isExit = byeCommand.isBye();
                     byeCommand.handle();
                 } else if (mainC.equalsIgnoreCase("list")) {
                     ListCommand listCommand = new ListCommand(this.taskList, this.ui, this.storage);
