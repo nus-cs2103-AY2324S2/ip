@@ -103,10 +103,10 @@ public class Storage {
         if (task instanceof Deadline) {
             return DEADLINE_REPRESENTATION + " | " + statusDescription + " | " + toStorageFormat(((Deadline) task).getDueDate());
         } else if (task instanceof Event) {
-            return EVENT_REPRESENTATION + statusDescription + " | " + toStorageFormat(((Event) task).getStart()) + " | " + 
+            return EVENT_REPRESENTATION + " | " + statusDescription + " | " + toStorageFormat(((Event) task).getStart()) + " | " + 
                     toStorageFormat(((Event) task).getEnd());
         } else {
-            return TODO_REPRESENTATION + statusDescription;
+            return TODO_REPRESENTATION + " | " + statusDescription;
         }
     }
     
