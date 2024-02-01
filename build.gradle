@@ -29,9 +29,11 @@ test {
 
 application {
     mainClass.set("seedu.duke.Duke")
+    mainClassName = "duke.Duke.Main"
 }
 
 shadowJar {
+    archiveFileName = "duke.jar"
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
