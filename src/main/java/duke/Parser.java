@@ -7,19 +7,29 @@ import java.io.File;
 
 public class Parser {
 
+
+    enum CommandType {LIST, BYE, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT};
+
     // private final String NAME = "Linus";
     // private Boolean running;
     private Scanner scanner;
     private Ui ui;
     private TaskList taskList;
+    private Boolean running;
     
 
     public Parser(TaskList taskList, Ui ui) {
-        // this.running = true;
+        this.running = true;
         this.scanner = new Scanner(System.in);
         this.taskList = taskList;
         this.ui = ui;
 
+    }
+
+    public void run() {
+        while (running) {
+            this.readUserInput();
+        }
     }
 
     // public void start() {
@@ -43,22 +53,37 @@ public class Parser {
         this.parseUserInput(userCommand, description);
     }
 
-
-
     private void parseUserInput(String userCommand, String description) {
+        Command command;
 
         try {
-            switch (userCommand) {
-                case "bye":
+            CommandType commandType = CommandType.valueOf(userCommand.toUpperCase());
+            switch (commandType) {
+                case BYE:
+                    command = new CommandBye(taskList, ui);
+                    command.execute(description);
                     this.end();
+                    running = false;
                     break;
-                case "list":
-                    this.taskList.getList(this.ui);
+                case LIST:
+                    command = new CommandList(taskList, ui);
+                    command.execute(description);
                     break;
-                case "mark": case "unmark": case "delete":
-                    this.taskList.markOrDelete(userCommand, description, ui);
+                case MARK: 
+                    command = new CommandMark(taskList, ui);
+                    command.execute(description);
                     break;
-                case "todo": case "deadline": case "event":
+                case UNMARK: 
+                    command = new CommandUnmark(taskList, ui);
+                    command.execute(description);
+                    break;
+                case DELETE:
+                    command = new CommandDelete(taskList, ui);
+                    command.execute(description);
+                    break;
+                case TODO: 
+                case DEADLINE: 
+                case EVENT:
                     this.taskList.addTask(userCommand, description, ui);
                     break;
                 default:

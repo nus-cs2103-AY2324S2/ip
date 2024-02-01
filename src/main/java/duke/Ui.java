@@ -26,6 +26,7 @@ public class Ui {
     public void greeting(String name) {
         this.add(String.format("Hello I'm %s", name));
         this.add("What Can I do for you?");
+        this.print();
     }
 
     public void goodbye() {

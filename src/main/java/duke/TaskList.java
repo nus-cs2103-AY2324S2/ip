@@ -17,11 +17,35 @@ public class TaskList {
         this.list = new ArrayList<Task>();
     }
 
+    public ArrayList<Task> getList() {
+        return list;
+    }
+
     public void uiAddNewTask(Task task, Ui ui) {
         ui.add(String.format("Okay! added this task:"));
         ui.add(task.toString());
         ui.add(String.format("Now you have %d tasks in the list.", this.list.size()));
     }
+
+    public Task getTask(String number) throws DukeCeption {
+        try {
+            int taskNumber = Integer.parseInt(number) - 1;
+            Task task = list.get(taskNumber);
+            return task;
+        } catch (NumberFormatException e) {
+            throw new DukeCeption("The number given is unrecognizable");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeCeption("The number is not in this list!");
+        }
+    }
+
+    public Task delete(String number) throws DukeCeption {
+            Task task = this.getTask(number);
+            int taskNumber = Integer.parseInt(number) - 1;
+            list.remove(taskNumber);
+            return task;
+    }
+    
 
     public void addTask(String task, String fullDescription, Ui ui) throws DukeCeption {
         try {
@@ -89,57 +113,59 @@ public class TaskList {
         
     }
 
-    public void markOrDelete(String command, String taskNumberString, Ui ui) throws DukeCeption {
-        try {
-            int taskNumber = Integer.parseInt(taskNumberString);
-            switch (command) {
-                case "mark":
-                    this.mark(taskNumber, ui);
-                    break;
-                case "unmark":
-                    this.unmark(taskNumber, ui);
-                    break;
-                case "delete":
-                    this.delete(taskNumber, ui);
-                    break;
-            }
-        } catch (NumberFormatException e) {
-            throw new DukeCeption("The number given is unrecognizable");
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeCeption("The number is not in this list!");
-        }
-    }
+    // public void markOrDelete(String command, String taskNumberString, Ui ui) throws DukeCeption {
+    //     try {
+    //         int taskNumber = Integer.parseInt(taskNumberString);
+    //         switch (command) {
+    //             case "mark":
+    //                 this.mark(taskNumber, ui);
+    //                 break;
+    //             case "unmark":
+    //                 this.unmark(taskNumber, ui);
+    //                 break;
+    //             case "delete":
+    //                 this.delete(taskNumber, ui);
+    //                 break;
+    //         }
+    //     } catch (NumberFormatException e) {
+    //         throw new DukeCeption("The number given is unrecognizable");
+    //     } catch (IndexOutOfBoundsException e) {
+    //         throw new DukeCeption("The number is not in this list!");
+    //     }
+    // }
            
-    public void delete(int taskNumber, Ui ui) throws DukeCeption {
-        Task removedTask = this.list.get(taskNumber - 1);
-        this.list.remove(taskNumber - 1);
-        ui.add("This task is now removed:");
-        ui.add(removedTask.toString());
-        ui.add(String.format("Now you have %d tasks in the list.", this.list.size()));
-    }
+    // public void delete(int taskNumber, Ui ui) throws DukeCeption {
+    //     Task removedTask = this.list.get(taskNumber - 1);
+    //     this.list.remove(taskNumber - 1);
+    //     ui.add("This task is now removed:");
+    //     ui.add(removedTask.toString());
+    //     ui.add(String.format("Now you have %d tasks in the list.", this.list.size()));
+    // }
 
-    public void mark(int taskNumber, Ui ui) {
-        Task task = this.list.get(taskNumber - 1);
-        task.markAsDone();
-        ui.add("Great! I will mark this as done:");
-        ui.add(task.toString());
-    }
+    // public void mark(int taskNumber, Ui ui) {
+    //     Task task = this.list.get(taskNumber - 1);
+    //     task.markAsDone();
+    //     ui.add("Great! I will mark this as done:");
+    //     ui.add(task.toString());
+    // }
 
-    public void unmark(int taskNumber, Ui ui) {
-        Task task = this.list.get(taskNumber - 1);
-        task.markAsNotDone();
-        ui.add("Alright! this task is now unmarked:");
-        ui.add(task.toString());
-    }
+    // public void unmark(int taskNumber, Ui ui) {
+    //     Task task = this.list.get(taskNumber - 1);
+    //     task.markAsNotDone();
+    //     ui.add("Alright! this task is now unmarked:");
+    //     ui.add(task.toString());
+    // }
 
-    public void getList(Ui ui) {
-        ui.add("Here are the tasks in your list:");
-        for (int i = 0; i < this.list.size(); i++) {
-            ui.add(String.format("%d. %s",
-                    i + 1,
-                    this.list.get(i)));
-        }
-    }
+
+
+    // public void getList(Ui ui) {
+    //     ui.add("Here are the tasks in your list:");
+    //     for (int i = 0; i < this.list.size(); i++) {
+    //         ui.add(String.format("%d. %s",
+    //                 i + 1,
+    //                 this.list.get(i)));
+    //     }
+    // }
 
     public void textToTask(String line) {
         String[] separate = line.split(";;");
@@ -196,6 +222,6 @@ public class TaskList {
             System.out.println(e.getMessage());
         }
 
-    } 
+    }
 
 }

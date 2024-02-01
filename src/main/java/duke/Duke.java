@@ -3,15 +3,14 @@ package duke;
 public class Duke {
 
     private final String LOGO = "" 
-            + "    __    _                 \n"
-            + "   / /   (_)___  __  _______\n"
-            + "  / /   / / __ \\/ / / / ___/\n"
-            + " / /___/ / / / / /_/ (__  ) \n"
-            + "/_____/_/_/ /_/\\__,_/____/  \n";
+            + "\t    __    _                 \n"
+            + "\t   / /   (_)___  __  _______\n"
+            + "\t  / /   / / __ \\/ / / / ___/\n"
+            + "\t / /___/ / / / / /_/ (__  ) \n"
+            + "\t/_____/_/_/ /_/\\__,_/____/  \n";
 
     private final String NAME = "Linus";
 
-    private boolean running;
 
     private Ui ui;
 
@@ -25,7 +24,6 @@ public class Duke {
 
 
     public Duke() {
-        this.running = true;
         this.taskList = new TaskList();
         this.storage = new Storage(FILE_PATH);
         this.ui = new Ui();
@@ -34,20 +32,21 @@ public class Duke {
 
     public void start() {
         ui.print("Hello from\n" + LOGO);
-        ui.print(NAME);
-        this.readInput();
-        //this.end();
+        ui.greeting(NAME);
+        this.loadData();
+        parser.run();
     }
+
 
     public void loadData() {
         storage.loadData(taskList, ui);
     }
 
-    public void readInput() {
-        while (running) {
-            parser.readUserInput();
-        }
-    }
+    // public void readInput() {
+    //     while (running) {
+    //         parser.readUserInput();
+    //     }
+    // }
 
 
 
