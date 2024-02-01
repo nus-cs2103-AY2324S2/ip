@@ -33,7 +33,7 @@ public class Duke {
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (CommandInvalidException e) {
-                ui.showMessage("Invalid command -_-, please use the available commands!!");
+                ui.showMessage(e.getMessage());
             }
         }
     }

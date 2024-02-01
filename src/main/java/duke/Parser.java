@@ -34,7 +34,7 @@ public class Parser {
                 return new AddCommand(command);
             }
         }
-        throw new CommandInvalidException();
+        throw new CommandInvalidException("Invalid command -_-, please use the available commands!!");
     }
 
 }
