@@ -12,6 +12,8 @@ public class Duke {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         ArrayList<Task> tasks = new ArrayList<>();
+        Save save = new Save();
+        save.loadTasks(tasks);
 
         System.out.println(line);
         System.out.println(logo);
@@ -45,6 +47,8 @@ public class Duke {
                         }
 
                         tasks.get(m - 1).updateIsDone(true);
+                        save.updateTask(tasks.get(m - 1), m, tasks.size());
+
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println(" " + tasks.get(m - 1).toString());
 
@@ -66,6 +70,8 @@ public class Duke {
                         }
 
                         tasks.get(u - 1).updateIsDone(false);
+                        save.updateTask(tasks.get(u - 1), u, tasks.size());
+
                         System.out.println("OK, I've marked this task as not done yet:");
                         System.out.println(" " + tasks.get(u - 1).toString());
                     } catch (DukeException de) {
@@ -81,7 +87,9 @@ public class Duke {
                             throw new DukeException();
                         }
 
-                        tasks.add(new ToDo(t[1]));
+                        Task task = new ToDo(t[1]);
+                        tasks.add(task);
+                        save.addNewTask(task);
                         System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
@@ -103,9 +111,11 @@ public class Duke {
                             throw new DukeException();
                         }
 
-                        tasks.add(new Event(st.nextToken().strip(),
-                                st.nextToken().substring(5).strip(),
-                                st.nextToken().substring(3)));
+                        Task task = new Event(st.nextToken().strip(),
+                                        st.nextToken().substring(5).strip(),
+                                        st.nextToken().substring(3));
+                        tasks.add(task);
+                        save.addNewTask(task);
 
                         System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -129,7 +139,9 @@ public class Duke {
                             throw new DukeException();
                         }
 
-                        tasks.add(new Deadline(st.nextToken().strip(), st.nextToken().substring(3)));
+                        Task task = new Deadline(st.nextToken().strip(), st.nextToken().substring(3));
+                        tasks.add(task);
+                        save.addNewTask(task);
                         System.out.println("Got it. I've added this task:\r\n " + tasks.get(tasks.size() - 1));
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
@@ -152,9 +164,10 @@ public class Duke {
 
                         Task task = tasks.get(del - 1);
                         tasks.remove(del - 1);
+                        save.deleteTask(task);
 
                         System.out.println("Noted. I've removed this task:");
-                        System.out.println(" " + task.toString());
+                        System.out.println(" " + task);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                     } catch (DukeException de) {

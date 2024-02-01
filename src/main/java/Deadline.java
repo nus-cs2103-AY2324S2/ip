@@ -5,6 +5,17 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline (String description, boolean done, String by) {
+        super(description);
+        super.updateIsDone(done);
+        this.by = by;
+    }
+
+    @Override
+    public String getSaveTask() {
+        return "D | " + super.getSaveTask() + " | " + by;
+    }
+
     @Override
     public String toString() {
         return "[D][" + this.getStatusIcon() + "] " + this.description + " (by: " + this.by + ")";
