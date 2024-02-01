@@ -37,7 +37,7 @@ public class AddCommand extends Command {
     public String addDeadline(TaskList tasks, String input) throws WeiException {
         try {
             int index = input.indexOf("/");
-            String task = input.substring(9, index);
+            String task = input.substring(9, index - 1);
             String date = input.substring(index + 4);
             Deadline deadline = new Deadline(task, date);
             return tasks.add(deadline);
@@ -53,7 +53,7 @@ public class AddCommand extends Command {
             int secondIndex = input.lastIndexOf("/");
             String start = input.substring(firstIndex + 6, secondIndex);
             String end = input.substring(secondIndex + 4);
-            String task = input.substring(6, firstIndex);
+            String task = input.substring(6, firstIndex - 1);
             Event event = new Event(task, start, end);
             return tasks.add(event);
         }
