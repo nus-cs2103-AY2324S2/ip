@@ -97,6 +97,12 @@ public class Parser {
                     } catch (DateTimeParseException dtpe) {
                         throw new BuddyException("Not a valid date format!");
                     }
+                case FIND:
+                    if (commandParts.length == 1) {
+                        throw new BuddyException("What are you trying to find buddy?");
+                    }
+
+                    return new FindCommand(commandParts[1].trim());
                 default:
                     throw new BuddyException("Not a valid command!");
             }
