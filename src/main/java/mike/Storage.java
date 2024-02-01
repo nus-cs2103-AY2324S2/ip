@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * Storage is responsible for loading and saving {@link TaskList} instance data.
+ * @author ningc
+ */
 class Storage {
     private final String fileDirectory;
     private final String filePath;
@@ -62,6 +66,10 @@ class Storage {
         }
     }
 
+    /**
+     * Writes taskList data into file.
+     * @param taskList
+     */
     public void writeToFile(TaskList taskList) {
         try (PrintWriter out = new PrintWriter(filePath)) {
             for (Task task : taskList) {

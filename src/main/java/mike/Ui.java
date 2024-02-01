@@ -2,12 +2,22 @@ package mike;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+/**
+ * Ui is the class responsible for the user interface, i.e., user input and response.
+ * @author ningc
+ */
 public class Ui {
     private final Scanner scanner;
     Ui() {
         scanner = new Scanner(System.in);
     }
 
+    /**
+     *  Returns the user command input.
+     * @return the user command as a String.
+     * @throws MikeException if user command input is empty.
+     */
     public String scanInput() throws MikeException {
         try {
             return scanner.nextLine().strip();
@@ -16,13 +26,25 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays the object to the user.
+     * @param object to be displayed.
+     */
     public static void display(Object object) {
         System.out.println(object);
     }
 
+    /**
+     * Displays errorMessage to the user.
+     * @param errorMessage to be displayed.
+     */
     public static void displayError(String errorMessage) {
         display(errorMessage);
     }
+
+    /**
+     * Displays a welcome message to the user.
+     */
     public void displayWelcome() {
         displayLogo();
         displayGreeting();
@@ -76,6 +98,9 @@ public class Ui {
         display(greeting);
     }
 
+    /**
+     * Displays a horizontal line to the user.
+     */
     public static void displayLine() {
         String horizontalLine = "==========================================";
         display(horizontalLine);

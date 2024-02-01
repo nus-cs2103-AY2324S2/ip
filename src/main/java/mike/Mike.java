@@ -4,12 +4,6 @@ import mike.command.Command;
 
 import java.util.List;
 
-/*
-TODO:
-    1. Write comments to document code
-    2. Write the README.md
- */
-
 public class Mike {
     private static final String FILE_PATH = "./data/mike.txt";
     private final TaskList taskList;
@@ -22,6 +16,9 @@ public class Mike {
         this.taskList = storage.load();
     }
 
+    /**
+     * Starts the main control loop of Mike.
+     */
     public void run() {
         ui.displayWelcome();
         boolean exitSeen = false;
@@ -42,11 +39,12 @@ public class Mike {
             }
         }
         storage.writeToFile(taskList);
+        Ui.display("Session terminated: data saved successfully.");
     }
 
     /**
      * Main method that runs the program.
-     * @param args n/a
+     * @param args
      */
     public static void main(String[] args) {
         Mike mike = new Mike();

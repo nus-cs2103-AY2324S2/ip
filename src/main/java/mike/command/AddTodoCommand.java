@@ -5,7 +5,16 @@ import mike.TaskList;
 import mike.task.Task;
 import mike.task.Todo;
 
+/**
+ * Adds a Todo to the task list.
+ * @author ningc
+ */
 public class AddTodoCommand extends AddCommand {
+
+    /**
+     * Constructor.
+     * @param description What the todo task is about.
+     */
     public AddTodoCommand(String description) {
         super(description);
     }

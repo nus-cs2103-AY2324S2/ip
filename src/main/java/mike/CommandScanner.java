@@ -5,7 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * CommandScanner is the class responsible or scanning the command input
+ * @author ningc
+ */
 class CommandScanner {
+    /**
+     * Look up table for commands.
+     */
     private static final Map<String, TokenType> commands;
 
     static {
@@ -33,6 +40,10 @@ class CommandScanner {
         this.current = 0;
     }
 
+    /**
+     * Scans the command input to return a list of tokens. See {@link mike.Token}.
+     * @return the list of tokens characterizing the command input.
+     */
     public List<Token> scanTokens() {
         // command token
         scanStartToken();
@@ -43,6 +54,7 @@ class CommandScanner {
             scanToken();
         }
 
+        // EOC token
         scanEndToken();
         return tokens;
     }

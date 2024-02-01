@@ -8,10 +8,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A Deadline task.
+ * @author ningc
+ */
 public class Deadline extends Task {
     private static final String TYPE = "Deadline";
     private final LocalDate deadline;
 
+    /**
+     * Constructor.
+     * @param description The deadline task.
+     * @param deadline When the task is due.
+     * @throws MikeException todo
+     */
     public Deadline(String description, String deadline) throws MikeException {
         super(description, TYPE);
         try {
@@ -23,8 +33,8 @@ public class Deadline extends Task {
     }
 
     @Override
-    public boolean in(ListView listView) {
-        return super.in(listView) && listView.dateFilter(deadline);
+    public boolean inListView(ListView listView) {
+        return super.inListView(listView) && listView.dateFilter(deadline) && listView.descriptionFilter(description);
     }
 
     private String getDeadline() {
