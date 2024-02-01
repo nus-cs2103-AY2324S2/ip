@@ -23,4 +23,6 @@ public class Task {
     public void markAsUndone() {
         this.isDone = false;
     }
+
+    public String getSaveLine() { return "Unknown Task Type";}
 }
