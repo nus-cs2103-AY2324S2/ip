@@ -13,13 +13,33 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Class that handles interactions with the external storage file that maintains the tasks outside
+ * the yapchit program.
+ */
 public class Storage {
 
     private String filePath;
+
+    /**
+     * Creates new storage object.
+     *
+     * @param filePath FilePath of the external file used to store tasks.
+     */
     public Storage(String filePath){
         this.filePath = filePath;
     }
 
+    /**
+     * Imports existing tasks from file at specified filepath and returns list as a TaskList.
+     *
+     * @param filePath Path where data is stored.
+     * @param ui User interface object to handle outputs
+     * @param handler Handler object to handle tasks.
+     * @param parser Parser object to parse input
+     * @return TaskList containing all tasks in file
+     * @throws YapchitException if file is not found or corrupted
+     */
     public TaskList importFromFile(String filePath, Ui ui, Handler handler, Parser parser) throws YapchitException {
         File f = new File(filePath);
         Scanner s;
@@ -45,6 +65,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Updates file at specified path with list of tasks for permanent storage
+     *
+     * @param filePath Path of file to update
+     * @param tasks List of tasks to update the file with
+     */
     public void updateFile(String filePath, TaskList tasks){
         String toWrite = "";
         for(int i = 0; i < tasks.getListSize(); i++){
@@ -97,6 +123,4 @@ public class Storage {
         fw.write(textToAdd);
         fw.close();
     }
-
-
 }

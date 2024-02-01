@@ -2,9 +2,22 @@ package Yapchit;
 
 import Yapchit.YapchitExceptions.YapchitException;
 
-
+/**
+ * Yapchit is a bot that allows users to create and manage their tasks. The Yapchit class
+ * is the entry point into the program and encapsulates a number of other classes that
+ * enable the functionality of Yapchit.
+ *
+ * @author Archit Goswami
+ * @version 1.0
+ * @since 2024-02-01
+ */
 public class Yapchit {
 
+    /**
+     * List of operations that the Yapchit functionality can handle. Operations
+     * are keywords that the user can enter as Yapchit input.
+     * Yapchit additionally stores tasks across restarts.
+     */
     enum Operations {
         LIST,
         MARK,
@@ -24,6 +37,12 @@ public class Yapchit {
     private boolean isBye;
     private String filePath;
 
+    /**
+     * Constructor of a Yapchit object. Initiates instance of components of Yapchit and loads
+     * tasks from existing file (if any).
+     *
+     * @param filePath The file path to the storage file used to keep track of tasks.
+     */
     public Yapchit(String filePath){
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -40,6 +59,12 @@ public class Yapchit {
         }
     }
 
+    /**
+     * Initiates core functionality of the bot by running a main loop that harnesses relevant components
+     * to accept, handle inputs and output a response.
+     *
+     * Main loop ends when the 'bye' command is entered by the user.
+     */
     public void run(){
 
         ui.printIntro();
@@ -59,6 +84,11 @@ public class Yapchit {
         ui.printOutro();
     }
 
+    /**
+     * The entry point of the application.
+     *
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
 
         Yapchit bot = new Yapchit("./src/main/data/dataStore.txt");
