@@ -1,3 +1,10 @@
+package commands;
+
+import commands.Command;
+import excceptions.WeiException;
+import taskList.TaskList;
+import ui.Ui;
+
 public class DeleteCommand extends Command {
     private String input;
 

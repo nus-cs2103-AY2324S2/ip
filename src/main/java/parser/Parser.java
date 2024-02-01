@@ -1,3 +1,8 @@
+package parser;
+
+import commands.*;
+import excceptions.WeiException;
+
 public class Parser {
 
     public Command parse(String input) throws WeiException {

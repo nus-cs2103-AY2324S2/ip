@@ -1,3 +1,8 @@
+package taskList;
+
+import excceptions.WeiException;
+import tasks.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

@@ -1,3 +1,12 @@
+package commands;
+
+import excceptions.WeiException;
+import taskList.TaskList;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
+import ui.Ui;
+
 public class AddCommand extends Command {
     private String input;
 
@@ -26,7 +35,7 @@ public class AddCommand extends Command {
         return false;
     }
 
-    public String addToDo(TaskList tasks, String input) throws WeiException{
+    public String addToDo(TaskList tasks, String input) throws WeiException {
         if (input.length() < 5) {
             throw new WeiException("please tell me what is your task about");
         }

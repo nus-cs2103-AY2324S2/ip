@@ -1,4 +1,10 @@
-public class MarkCommand extends Command{
+package commands;
+
+import excceptions.WeiException;
+import taskList.TaskList;
+import ui.Ui;
+
+public class MarkCommand extends Command {
     private String input;
 
     public MarkCommand(String input) {
