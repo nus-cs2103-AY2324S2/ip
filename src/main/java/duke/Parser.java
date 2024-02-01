@@ -4,10 +4,24 @@ import duke.command.*;
 import duke.exception.InvalidArgumentException;
 import duke.exception.InvalidCommandException;
 
+
+/**
+ * Represents a parser for the user input.
+ */
 public class Parser {
     private enum CommandType {
         BYE, LIST, DELETE, MARK, UNMARK, TODO, EVENT, DEADLINE
     }
+
+
+    /**
+     * Parse user's input based on the command and returns the command.
+     *
+     * @param input User input from System.in.
+     * @return Command in the user input.
+     * @throws InvalidCommandException If the command is unknown and invalid.
+     * @throws InvalidArgumentException If the argument is missing and invalid.
+     */
     public static Command parse(String input) throws InvalidCommandException, InvalidArgumentException {
         String[] parts = input.split(" ", 2);
 
