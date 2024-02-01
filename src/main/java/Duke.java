@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Duke {
 
@@ -22,6 +23,12 @@ public class Duke {
         boolean exitFlag = false;
         commandHints currentHint = commandHints.EXIT;
         ArrayList<list_Entry> user_list = new ArrayList<>();
+
+        // Testing ListFileManager
+        ListFileManager lfm = new ListFileManager();
+
+
+        // End Testing
 
         while (!exitFlag) {
             String input_command = br.readLine();
