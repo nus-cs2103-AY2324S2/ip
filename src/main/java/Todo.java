@@ -3,6 +3,10 @@ public class Todo extends Task {
         super(description);
     }
 
+    public Todo(String status, String description) {
+        super(status, description);
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();
@@ -10,6 +14,6 @@ public class Todo extends Task {
 
     @Override
     public String toStorageString() {
-        return "T," + description;
+        return "T," + super.getStatusIcon() + "," + description;
     }
 }

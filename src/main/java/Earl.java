@@ -1,7 +1,9 @@
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.io.File;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,6 +11,9 @@ public class Earl {
 
     private static final String PADDING = " ".repeat(4);
     private static final List<Task> tasks = new ArrayList<>();
+
+    private static final DateTimeFormatter DATETIME_FORMAT = DateTimeFormatter
+            .ofPattern("dd/MM/yyyy HHmm");
 
     private static void printDivider() {
         System.out.println(PADDING + "_".repeat(50));
@@ -37,13 +42,16 @@ public class Earl {
                 String[] task = sc.nextLine().split(",");
                 switch (task[0]) {
                 case "T":
-                    tasks.add(new Todo(task[1]));
+                    tasks.add(new Todo(task[1], task[2]));
                     break;
                 case "D":
-                    tasks.add(new Deadline(task[1], task[2]));
+                    tasks.add(new Deadline(task[1], task[2],
+                            LocalDateTime.parse(task[3], DATETIME_FORMAT)));
                     break;
                 case "E":
-                    tasks.add(new Event(task[1], task[2], task[3]));
+                    tasks.add(new Event(task[1], task[2],
+                            LocalDateTime.parse(task[3], DATETIME_FORMAT),
+                            LocalDateTime.parse(task[4], DATETIME_FORMAT)));
                     break;
                 default:
                     tasks.clear();
@@ -63,7 +71,7 @@ public class Earl {
     private static void saveTasks() throws EarlException {
         try (FileWriter fw = new FileWriter("./data/earl.txt")) {
             for (Task task : tasks) {
-                fw.write(task.toStorageString());
+                fw.write(task.toStorageString() + "\n");
             }
         } catch (IOException e) {
             throw new EarlException("Fatal error while saving to storage.");
@@ -146,7 +154,8 @@ public class Earl {
         case "deadline":
             try {
                 command = command[1].split("\\s/by\\s");
-                tasks.add(new Deadline(command[0], command[1]));
+                tasks.add(new Deadline(command[0], LocalDateTime.parse(
+                        command[1], DATETIME_FORMAT)));
                 makeResponse("Added new deadline.",
                         PADDING + tasks.get(tasks.size() - 1),
                         "There are " + tasks.size() + " tasks tracked.");
@@ -167,7 +176,9 @@ public class Earl {
         case "event":
             try {
                 command = command[1].split("\\s/(from|to)\\s");
-                tasks.add(new Event(command[0], command[1], command[2]));
+                tasks.add(new Event(command[0],
+                        LocalDateTime.parse(command[1], DATETIME_FORMAT),
+                        LocalDateTime.parse(command[2], DATETIME_FORMAT)));
                 makeResponse("Added new event.",
                         PADDING + tasks.get(tasks.size() - 1),
                         "There are " + tasks.size() + " tasks tracked.");
