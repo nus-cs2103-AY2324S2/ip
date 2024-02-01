@@ -14,13 +14,12 @@ public class TaskList {
     }
 
     public void bye(Ui ui) {
-        ui.showGoodbyeMessage();
+        Ui.showGoodbyeMessage();
     }
 
     // print the entire list
     public void showList() {
         System.out.println(Ui.INDENT_SEPERATOR);
-
         if (taskList.isEmpty()) {
             System.out.println("There are currently no tasks in your list");
         } else {

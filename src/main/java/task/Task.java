@@ -25,7 +25,6 @@ public class Task {
         } else {
             isDone = true;;
         }
-
     }
 
     public void markAsUndone() {
@@ -34,7 +33,6 @@ public class Task {
         } else {
             System.out.println(indent + "This task is not done yet");
         }
-
     }
 
     @Override

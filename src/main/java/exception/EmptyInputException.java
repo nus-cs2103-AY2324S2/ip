@@ -12,6 +12,4 @@ public class EmptyInputException extends DukeException {
         return "    OOPS!!! The description of a " + this.message + " cannot be empty.\n"
                 + "    ------------------------------------------------\n";
     }
-
 }
-

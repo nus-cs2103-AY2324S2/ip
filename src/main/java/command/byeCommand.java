@@ -2,12 +2,12 @@ package command;
 import duke.Ui;
 import duke.TaskList;
 
-public class byeCommand extends Command {
+public class ByeCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
 
-    public byeCommand(TaskList taskList, Ui ui) {
+    public ByeCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
 

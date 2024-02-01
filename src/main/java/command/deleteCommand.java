@@ -2,12 +2,12 @@ package command;
 import duke.Ui;
 import duke.TaskList;
 
-public class deleteCommand extends Command {
+public class DeleteCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
 
-    public deleteCommand(TaskList taskList, Ui ui) {
+    public DeleteCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
 

@@ -13,23 +13,23 @@ public class Parser {
     public static Command parse(String input)  {
         String temp = input.split(" ")[0];
         Actions action = Actions.valueOf(temp.toUpperCase());
-        switch(action) {
+        switch (action) {
         case BYE:
-            return new byeCommand(taskList, ui);
+            return new ByeCommand(taskList, ui);
         case LIST:
-            return new showListCommand(taskList, ui);
+            return new ShowListCommand(taskList, ui);
         case MARK:
-            return new markCommand(taskList, ui);
+            return new MarkCommand(taskList, ui);
         case UNMARK:
-            return new unmarkCommand(taskList, ui);
+            return new UnmarkCommand(taskList, ui);
         case TODO:
-            return new todoCommand(taskList, ui);
+            return new TodoCommand(taskList, ui);
         case DEADLINE:
-            return new deadlineCommand(taskList, ui);
+            return new DeadlineCommand(taskList, ui);
         case EVENT:
-            return new eventCommand(taskList, ui);
+            return new EventCommand(taskList, ui);
         case DELETE:
-            return new deleteCommand(taskList, ui);
+            return new DeleteCommand(taskList, ui);
         default:
             return new InvalidCommand(taskList, ui);
         }

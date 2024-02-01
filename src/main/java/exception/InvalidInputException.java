@@ -11,5 +11,4 @@ public class InvalidInputException extends DukeException {
     public String getMessage() {
         return this.message;
     }
-
 }

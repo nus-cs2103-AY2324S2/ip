@@ -11,5 +11,4 @@ public class InvalidCommandException extends DukeException {
     public String getMessage() {
         return "\n    OOPS!!! Something went wrong D:\n";
     }
-
 }

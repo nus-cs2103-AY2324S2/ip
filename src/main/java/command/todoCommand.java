@@ -4,12 +4,12 @@ import duke.TaskList;
 import exception.EmptyInputException;
 import task.Todo;
 
-public class todoCommand extends Command {
+public class TodoCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
 
-    public todoCommand(TaskList taskList, Ui ui) {
+    public TodoCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
 

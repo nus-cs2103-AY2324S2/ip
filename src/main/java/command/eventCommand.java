@@ -12,12 +12,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
-public class eventCommand extends Command {
+public class EventCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
 
-    public eventCommand(TaskList taskList, Ui ui) {
+    public EventCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
 
@@ -27,9 +27,9 @@ public class eventCommand extends Command {
         String input = ui.getInput();
         if (input.split(" ").length == 1) {
             throw new EmptyInputException("event");
-        }  else if (!input.contains("/from")) {
+        } else if (!input.contains("/from")) {
             throw new InvalidFormatException("event", "/from");
-        }  else if (!input.contains("/to")) {
+        } else if (!input.contains("/to")) {
             throw new InvalidFormatException("event", "/to");
         } else {
             String temp = input.substring(5);
@@ -49,7 +49,6 @@ public class eventCommand extends Command {
                     LocalTime endTime = LocalTime.parse(end.split(" ")[1].trim());
                     Event t = new Event(description, startDate, startTime, endDate, endTime);
                     taskList.event(t);
-
                 } catch (DateTimeParseException e) {
                     throw new InvalidDateTimeException("event");
                 }

@@ -16,5 +16,4 @@ public class EmptyTimeException extends Exception {
                 + task + ".\n"
                 + "    ------------------------------------------------\n";
     }
-
 }

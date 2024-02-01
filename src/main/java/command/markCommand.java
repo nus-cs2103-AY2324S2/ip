@@ -2,12 +2,12 @@ package command;
 import duke.Ui;
 import duke.TaskList;
 
-public class markCommand extends Command {
+public class MarkCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
 
-    public markCommand(TaskList taskList, Ui ui) {
+    public MarkCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
     @Override

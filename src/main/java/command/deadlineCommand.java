@@ -12,12 +12,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
-public class deadlineCommand extends Command {
+public class DeadlineCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
 
-    public deadlineCommand(TaskList taskList, Ui ui) {
+    public DeadlineCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
 
@@ -27,7 +27,7 @@ public class deadlineCommand extends Command {
         String input = ui.getInput();
         if (input.split(" ").length == 1) {
             throw new EmptyInputException("deadline");
-        }  else if (!input.contains("/by")) {
+        } else if (!input.contains("/by")) {
             throw new InvalidFormatException("deadline", "/by");
         } else {
             input = input.substring(8);
@@ -47,7 +47,6 @@ public class deadlineCommand extends Command {
                 }
             }
         }
-
     }
 
     @Override
