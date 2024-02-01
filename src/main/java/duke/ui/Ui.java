@@ -6,6 +6,10 @@ import java.util.Scanner;
 
 /**
  * Represents the User Interface of the application.
+ * @@author se-edu
+ * Reuse from https://github.com/se-edu/addressbook-level2
+ * with minor modifications to cater for differences in
+ * program design.
  */
 public class Ui {
 

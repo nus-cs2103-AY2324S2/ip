@@ -9,6 +9,10 @@ import static duke.common.DateTimeHandler.DATE_INPUT_FORMAT_STRING;
 
 /**
  * Represents the command to add an event to the data storage.
+ * @@author se-edu
+ * Reuse from https://github.com/se-edu/addressbook-level2
+ * with minor modifications to cater for differences in
+ * error handling and output.
  */
 public class EventCommand extends Command {
     /**

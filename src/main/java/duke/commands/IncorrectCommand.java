@@ -1,9 +1,9 @@
 package duke.commands;
 
-
 /**
  * Represents an incorrect command. Upon execution, produces some feedback to the user.
- * TODO: taken from
+ * @@author se-edu
+ * Reuse from https://github.com/se-edu/addressbook-level2
  */
 public class IncorrectCommand extends Command {
 

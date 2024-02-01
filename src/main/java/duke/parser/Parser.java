@@ -10,12 +10,14 @@ import duke.exception.MalformedUserInputException;
 
 /**
  * Represents a Parser class that parses user input and converts it into executable commands.
+ * @@author se-edu
+ * Reuse from https://github.com/se-edu/addressbook-level2
+ * with modifications to suit the context of my program.
  */
 public class Parser {
 
     /**
      * Used for initial separation of command word and args.
-     * TODO: fill in the reference
      */
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 

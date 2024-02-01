@@ -1,8 +1,14 @@
 package duke.commands;
 
-import duke.exception.MalformedUserInputException;
 import duke.tasklist.Task;
 
+/**
+ * Represents the command to add an event to the data storage.
+ * @@author se-edu
+ * Reuse from https://github.com/se-edu/addressbook-level2
+ * with minor modifications to cater for differences in
+ * error handling and output.
+ */
 public class FindCommand extends Command {
 
     /**

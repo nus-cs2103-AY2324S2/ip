@@ -4,6 +4,10 @@ import duke.tasklist.Todo;
 
 /**
  * Represents the command to create to do event to the data storage.
+ * @@author se-edu
+ * Reuse from https://github.com/se-edu/addressbook-level2
+ * with minor modifications to cater for differences in
+ * error handling and output.
  */
 public class TodoCommand extends Command {
     /**

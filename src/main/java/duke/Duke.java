@@ -9,6 +9,10 @@ import duke.ui.Ui;
 
 /**
  * Duke is a command-line application that allows users to interact with it by entering commands.
+ * @@author se-edu
+ * Reuse from https://github.com/se-edu/addressbook-level2
+ * with minor modifications to cater for differences in
+ * program design.
  */
 public class Duke {
 
@@ -18,10 +22,7 @@ public class Duke {
     /**
      * Duke is a command-line application that allows users to interact with it by entering commands.
      */
-    public Duke() {
-        // Grade
-
-    }
+    public Duke() { }
 
     /**
      * Starts the Duke application by initializing the user interface and data storage,

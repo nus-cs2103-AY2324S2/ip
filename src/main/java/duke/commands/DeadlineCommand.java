@@ -9,6 +9,9 @@ import static duke.common.DateTimeHandler.DATE_INPUT_FORMAT_STRING;
 
 /**
  * Represents the command to add a deadline task to the data storage.
+ * @@author se-edu
+ * Reuse from https://github.com/se-edu/addressbook-level2
+ * with modifications to the format.
  */
 public class DeadlineCommand extends Command {
     /**

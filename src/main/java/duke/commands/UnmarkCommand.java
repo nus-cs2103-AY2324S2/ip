@@ -2,6 +2,13 @@ package duke.commands;
 
 import duke.exception.MalformedUserInputException;
 
+/**
+ * Represents the command to mark the task as uncompleted.
+ * @@author se-edu
+ * Reuse from https://github.com/se-edu/addressbook-level2
+ * with minor modifications to cater for differences in
+ * error handling and output.
+ */
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
 

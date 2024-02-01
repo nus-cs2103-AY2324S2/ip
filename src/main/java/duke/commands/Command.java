@@ -4,6 +4,8 @@ import duke.common.DataStorage;
 
 /**
  * Represents an executable command.
+ * @@author se-edu
+ * Reuse from https://github.com/se-edu/addressbook-level2
  */
 public class Command {
 

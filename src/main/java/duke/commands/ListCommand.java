@@ -4,6 +4,7 @@ import duke.tasklist.Task;
 
 /**
  * Represents the command to display list of all entries in database.
+
  */
 public class ListCommand extends Command {
     /**

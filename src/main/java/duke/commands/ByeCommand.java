@@ -2,6 +2,8 @@ package duke.commands;
 
 /**
  * Ends the program execution
+ * @@author se-edu
+ * Reuse from https://github.com/se-edu/addressbook-level2
  */
 public class ByeCommand extends Command {
     /**
