@@ -1,4 +1,4 @@
-package src.main.java.storage;
+package chatbot.storage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
-import src.main.java.task.DeadlineTask;
-import src.main.java.task.EventTask;
-import src.main.java.task.Task;
-import src.main.java.task.TaskList;
-import src.main.java.task.TodoTask;
+import chatbot.task.DeadlineTask;
+import chatbot.task.EventTask;
+import chatbot.task.Task;
+import chatbot.task.TaskList;
+import chatbot.task.TodoTask;
 
 public class Storage {
 

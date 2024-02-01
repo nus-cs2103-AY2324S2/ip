@@ -1,7 +1,7 @@
-package src.main.java.ui;
+package chatbot.ui;
 
 import java.util.ArrayList;
-import src.main.java.task.Task;
+import chatbot.task.Task;
 
 public class Ui {
 

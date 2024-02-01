@@ -1,46 +1,32 @@
-package src.main.java.cortana;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
+package chatbot.cortana;
 
 import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import src.main.java.storage.Storage;
-import src.main.java.task.Task;
-import src.main.java.task.TaskList;
-import src.main.java.Main;
-import src.main.java.ui.Ui;
+import chatbot.storage.Storage;
+import chatbot.task.Task;
+import chatbot.task.TaskList;
+import chatbot.ui.Ui;
 
 
 
 
 public class Cortana {
 
-    // We will build the project around the location of this class
-
-    private static Path getBaseDir(Class<?> clazz) {
-        String classFilePath = clazz.getName().replace(".", "/") + ".class";
-        String classLocation = clazz.getClassLoader().getResource(classFilePath).getPath();
-
-        Path basePath = Paths.get(classLocation).getParent();
-        // go up one level
-        basePath = basePath.getParent().getParent().getParent();
-        return basePath.toAbsolutePath();
-    }
-
     private String name = "Cortana";
     private TaskList taskList;
     // get current file dir
-    private final static String BASE_DIR = Cortana.getBaseDir(Main.class).toString();
+    private final String BASE_DIR;
+    private final String SAVE_DIR_PATH;
     private final static String DATA_FOLDER = "data";
-    private final static String SAVE_DIR_PATH = java.nio.file.Paths.get(BASE_DIR, DATA_FOLDER).toString();
     private final static String SAVE_FILENAME = "tasks.csv";  
     private Storage storage;
 
-    public Cortana() {
+    public Cortana(String baseDir) {
+        this.BASE_DIR = baseDir;
+        this.SAVE_DIR_PATH = java.nio.file.Paths.get(BASE_DIR, DATA_FOLDER).toString();
         this.storage = new Storage(SAVE_DIR_PATH, SAVE_FILENAME);
         this.taskList = new TaskList();
     }

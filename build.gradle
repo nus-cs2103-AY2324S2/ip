@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("src.main.java.Main")
+    mainClass.set("chatbot.Main")
 }
 
 shadowJar {
@@ -47,4 +47,15 @@ run{
     targetCompatibility = JavaVersion.VERSION_11
     enableAssertions = true
     standardInput = System.in
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java',
+                        'src/main/resources',
+                        'src/test/java',
+                        'src/test/resources']
+        }
+    }
 }

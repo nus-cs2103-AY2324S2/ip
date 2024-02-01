@@ -1,4 +1,4 @@
-package src.main.java.task;
+package chatbot.task;
 
 public class Task {
     

@@ -1,4 +1,4 @@
-package src.main.java.cortana;
+package chatbot.cortana;
 
 public enum Command {
     BYE,
