@@ -1,3 +1,12 @@
+package james.parser;
+
+import james.commands.*;
+import james.exception.DukeException;
+import james.tasks.Deadline;
+import james.tasks.Event;
+import james.tasks.Task;
+import james.tasks.Todo;
+
 public class Parser {
     public static Command parse(String userInput) throws DukeException {
         String[] parts = userInput.trim().split(" ", 2);

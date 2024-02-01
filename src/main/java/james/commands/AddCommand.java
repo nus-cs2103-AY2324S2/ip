@@ -1,3 +1,10 @@
+package james.commands;
+
+import james.storage.Storage;
+import james.tasks.Task;
+import james.tasklist.TaskList;
+import james.ui.Ui;
+
 import java.io.IOException;
 
 public class AddCommand extends Command {

@@ -1,3 +1,9 @@
+package james.ui;
+
+import james.exception.DukeException;
+import james.tasks.Task;
+import james.tasklist.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -12,7 +18,7 @@ public class Ui {
     }
 
     public void showWelcome() {
-        System.out.println("Hello! I'm James!\nWhat can I do for you?\n");
+        System.out.println("Hello! I'm james.James!\nWhat can I do for you?\n");
     }
 
     public void showGoodbye() {
