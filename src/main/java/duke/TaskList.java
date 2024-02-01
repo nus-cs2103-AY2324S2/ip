@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
+    private ArrayList<Task> findList = new ArrayList<>();
 
     public TaskList() {
     }
@@ -64,6 +65,23 @@ public class TaskList {
         } else {
             System.out.println("\tInvalid Task");
         }
+    }
+
+    public void findTask(String desc) {
+        findList.clear();
+        for(Task task : taskList) {
+            if (task.toString().contains(desc)) {
+                findList.add(task);
+            }
+        }
+
+        for (int i = 0; i < findList.size(); i++) {
+            Task currentTask = findList.get(i);
+            System.out.println("\t" + (i + 1) + ". " + currentTask.toString());
+        }
+
+        System.out.println("\tWe have " + (findList.size()) + " matching tasks with the word "
+                + desc + ".");
     }
 
     public int size() {

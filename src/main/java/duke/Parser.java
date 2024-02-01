@@ -26,6 +26,11 @@ public class Parser {
             String[] inputSplit = commandInput.split(" ", 2);
             this.command = inputSplit[0];
 
+            if (this.command.equals("find")) {
+                isCommandValid = true;
+                taskList.findTask(inputSplit[1]);
+            }
+
             try {
                 if (this.command.equals("mark")) {
                     isCommandValid = true;
