@@ -1,5 +1,16 @@
+package ui;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+import objects.Deadline;
+import objects.DukeException;
+import objects.Event;
+import objects.Task;
+import objects.Todo;
+import parser.Parser;
+import storage.Storage;
+import tasklist.TaskList;
+import ui.Ui;
 
 /**
  * The Ui class is used to represent the user interface, including the scanner of the application.

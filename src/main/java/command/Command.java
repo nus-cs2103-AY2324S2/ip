@@ -1,3 +1,7 @@
+package command;
+
+import objects.DukeException;
+
 /**
  * Abstract class used to represent a command after the program parses it.
  */

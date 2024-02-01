@@ -1,5 +1,12 @@
+package tasklist;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import objects.Deadline;
+import objects.DukeException;
+import objects.Event;
+import objects.Task;
+import objects.Todo;
 
 /**
  * The TaskList class is used to represent the list of tasks used in the application.

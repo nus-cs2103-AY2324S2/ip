@@ -1,3 +1,6 @@
+package command;
+import objects.DukeException;
+
 /**
  * Class that handles an invalid command.
  */

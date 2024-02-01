@@ -1,3 +1,8 @@
+package objects;
+
+/**
+ * The Todo class represents the Todo task.
+ */
 public class Todo extends Task {
 
     /**

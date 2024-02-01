@@ -1,10 +1,17 @@
+package command;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import objects.DukeException;
+import parser.Parser;
+import storage.Storage;
+import tasklist.TaskList;
+import ui.Ui;
 
 /**
- * The DeleteCommand class handles the "unmark" command.
+ * The UnmarkCommand class handles the "unmark" command.
  */
-public class DeleteCommand extends Command {
+public class UnmarkCommand extends Command {
 
     /** TaskList to interact with. */
     private TaskList taskList;
@@ -26,7 +33,7 @@ public class DeleteCommand extends Command {
      * @param storage Storage to interact with.
      * @param splitCommands Full command input.
      */
-    public DeleteCommand(TaskList taskList, Ui ui, Storage storage, String[] splitCommands) {
+    public UnmarkCommand(TaskList taskList, Ui ui, Storage storage, String[] splitCommands) {
         this.taskList = taskList;
         this.ui = ui;
         this.storage = storage;
@@ -37,7 +44,7 @@ public class DeleteCommand extends Command {
     public void handle() throws DukeException {
         if (this.splitCommands.length != 2) {
             throw new DukeException("Invalid number of arguments!\n" +
-                    "Make sure to enter unmark, then the number of the task you want to delete.");
+                    "Make sure to enter unmark, then the number of the task you want to unmark.");
             // Solution adapted from https://www.baeldung.com/java-check-string-number
         } else if (!this.splitCommands[1].matches("-?\\d+(\\.\\d+)?")) {
             throw new DukeException("Please enter an integer as the second input.");
@@ -45,10 +52,12 @@ public class DeleteCommand extends Command {
             throw new DukeException("Please enter an integer greater than 0 as the second input.");
         } else if (Integer.parseInt(this.splitCommands[1]) > this.taskList.getTaskList().size()) {
             throw new DukeException("Please enter an integer representing a task within the list.");
+        } else if (!this.taskList.getTaskList().get(Integer.parseInt(splitCommands[1]) - 1).getStatus()) {
+            throw new DukeException("Task already unmarked.");
         } else {
             int taskIndex = Integer.parseInt(splitCommands[1]);
             this.ui.printALine();
-            this.taskList.deleteTask(taskIndex - 1);
+            this.taskList.unmarkTask(taskIndex - 1);
             this.ui.printALine();
         }
         try {

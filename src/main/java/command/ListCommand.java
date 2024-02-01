@@ -1,7 +1,15 @@
+package command;
+
+import java.util.ArrayList;
+import objects.Task;
+import storage.Storage;
+import tasklist.TaskList;
+import ui.Ui;
+
 /**
- * The ByeCommand class handles the "bye" command.
+ * The ListCommand class handles the "list" command.
  */
-public class ByeCommand extends Command {
+public class ListCommand extends Command {
 
     /** TaskList to interact with. */
     private TaskList taskList;
@@ -19,7 +27,7 @@ public class ByeCommand extends Command {
      * @param ui Ui to interact with.
      * @param storage Storage to interact with.
      */
-    public ByeCommand(TaskList taskList, Ui ui, Storage storage) {
+    public ListCommand(TaskList taskList, Ui ui, Storage storage) {
         this.taskList = taskList;
         this.ui = ui;
         this.storage = storage;
@@ -27,12 +35,13 @@ public class ByeCommand extends Command {
 
     @Override
     public void handle() {
-        this.ui.printExitMessage();
+        ArrayList<Task> arrayFormList = this.taskList.getTaskList();
+        this.ui.printTaskList(arrayFormList);
     }
 
     @Override
     public boolean isBye() {
-        return true;
+        return false;
     }
 
 }
