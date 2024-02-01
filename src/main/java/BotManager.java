@@ -45,14 +45,14 @@ public class BotManager {
         Task task = tasks.get(num - 1);
         task.mark();
         System.out.println("    Nice! I've marked this task as done:");
-        System.out.println("      " + task);
+        System.out.println("      " + task + '\n');
     }
 
     private void unmark(int num) {
         Task task = tasks.get(num - 1);
         task.unmark();
         System.out.println("    OK, I've marked this task as not done yet:");
-        System.out.println("      " + task);
+        System.out.println("      " + task + '\n');
     }
 
     private void addTask(String prompt) {
