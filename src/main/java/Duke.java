@@ -1,4 +1,6 @@
+import command.Command;
 import exception.*;
+import duke.*;
 
 public class Duke {
     private Storage storage;
@@ -44,10 +46,10 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }
-    /*private static void writeTasks(ArrayList<Task> list) {
+    /*private static void writeTasks(ArrayList<Task.Task> list) {
         try {
             FileWriter fw = new FileWriter("./data/bee.txt");
-            for (Task t : list) {
+            for (Task.Task t : list) {
                 fw.write(t.toString() + "\n");
             }
             fw.close();
@@ -57,8 +59,8 @@ public class Duke {
         }
     }
 
-    private ArrayList<Task> initTasks() {
-        ArrayList<Task> list = new ArrayList<>();
+    private ArrayList<Task.Task> initTasks() {
+        ArrayList<Task.Task> list = new ArrayList<>();
         try {
             File directory = new File("./data");
             if (!directory.exists()) {
@@ -78,8 +80,8 @@ public class Duke {
         }
     }
 
-    private ArrayList<Task> readTasks(File inputFile) {
-        ArrayList<Task> list = new ArrayList<>();
+    private ArrayList<Task.Task> readTasks(File inputFile) {
+        ArrayList<Task.Task> list = new ArrayList<>();
         try {
             Scanner s = new Scanner(inputFile);
             while (s.hasNextLine()) {
@@ -89,7 +91,7 @@ public class Duke {
 
                 if (type.equals("T")) {
                     String description = line.substring(7);
-                    Todo t = new Todo(description);
+                    Task.Todo t = new Task.Todo(description);
                     if (mark.equals("X")) {
                         t.markAsDone();
                     }
@@ -101,7 +103,7 @@ public class Duke {
                     String by = result[1].substring(0, result[1].length() - 1);
                     LocalDate date = LocalDate.parse(by.split(" ")[0].trim());
                     LocalTime time = LocalTime.parse(by.split(" ")[1].trim());
-                    Deadline t = new Deadline(description, date, time);
+                    Task.Deadline t = new Task.Deadline(description, date, time);
                     if (mark.equals("X")) {
                         t.markAsDone();
                     }
@@ -118,7 +120,7 @@ public class Duke {
                     LocalTime startTime = LocalTime.parse(from.split(" ")[1].trim());
                     LocalDate endDate = LocalDate.parse(to.split(" ")[0].trim());
                     LocalTime endTime = LocalTime.parse(to.split(" ")[1].trim());
-                    Event t = new Event(description, startDate, startTime, endDate, endTime);
+                    Task.Event t = new Task.Event(description, startDate, startTime, endDate, endTime);
 
 
                     if (mark.equals("X")) {
@@ -136,32 +138,32 @@ public class Duke {
     }*/
 
     /*// print the entire list
-    private static void showList(ArrayList<Task> list) {
+    private static void showList(ArrayList<Task.Task> list) {
         System.out.println(INDENT_SEPERATOR);
         System.out.println(INDENT + "Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
-            Task t = list.get(i);
+            Task.Task t = list.get(i);
             System.out.println(INDENT + (i + 1) + "." + t.toString());
         }
         System.out.println(INDENT_SEPERATOR);
     }
 
     // mark an item in list
-    private static void mark(String input, ArrayList<Task> list) {
+    private static void mark(String input, ArrayList<Task.Task> list) {
         String indexStr = input.split(" ")[1];
         int position = Integer.parseInt(indexStr) -1;
 
         // check for error
         if (position + 1 > list.size()) {
             System.out.println(INDENT_SEPERATOR);
-            System.out.println(INDENT + "Task does not exist");
+            System.out.println(INDENT + "Task.Task does not exist");
         } else if (position < 0) {
             System.out.println(INDENT_SEPERATOR);
-            System.out.println(INDENT + "Task does not exist");
+            System.out.println(INDENT + "Task.Task does not exist");
 
         } else {
             System.out.println(INDENT_SEPERATOR);
-            Task t = list.get(position);
+            Task.Task t = list.get(position);
             if (t.getStatusIcon().equals(" ")) {
                 System.out.println(INDENT + "Nice! I've marked this task as done:");
             }
@@ -174,21 +176,21 @@ public class Duke {
     }
 
     // unmark an item in list
-    private static void unmark(String input, ArrayList<Task> list) {
+    private static void unmark(String input, ArrayList<Task.Task> list) {
         String indexStr = input.split(" ")[1];
         int position = Integer.parseInt(indexStr) -1;
 
         // check for error
         if (position + 1 > list.size()) {
             System.out.println(INDENT_SEPERATOR);
-            System.out.println(INDENT + "Task does not exist");
+            System.out.println(INDENT + "Task.Task does not exist");
         } else if (position < 0) {
             System.out.println(INDENT_SEPERATOR);
-            System.out.println(INDENT + "Task does not exist");
+            System.out.println(INDENT + "Task.Task does not exist");
 
         } else {
             System.out.println(INDENT_SEPERATOR);
-            Task t = list.get(position);
+            Task.Task t = list.get(position);
             if (t.getStatusIcon().equals("X")) {
                 System.out.println(INDENT + "OK, I've marked this task as not done yet:");
             }
@@ -197,11 +199,11 @@ public class Duke {
         }
         System.out.println(INDENT_SEPERATOR);
     }
-    private static void todo(String input, ArrayList<Task> list) throws EmptyInputException {
+    private static void todo(String input, ArrayList<Task.Task> list) throws EmptyInputException {
         System.out.println(INDENT_SEPERATOR);
         if (input.split(" ").length > 1) {
             String description = input.substring(4).trim();
-            Todo t = new Todo(description);
+            Task.Todo t = new Task.Todo(description);
             list.add(t);
             System.out.println(INDENT + "Got it. I've added this task:");
             System.out.println(INDENT + "  " + t.toString());
@@ -212,7 +214,7 @@ public class Duke {
         System.out.println(INDENT_SEPERATOR);
     }
 
-    private static void deadline(String input, ArrayList<Task> list)
+    private static void deadline(String input, ArrayList<Task.Task> list)
             throws EmptyInputException, EmptyTimeException, InvalidFormatException, InvalidDateTimeException {
         System.out.println(INDENT_SEPERATOR);
         if (input.split(" ").length == 1) {
@@ -230,7 +232,7 @@ public class Duke {
                     String by = arrOfStr[1].trim();
                     LocalDate date = LocalDate.parse(by.split(" ")[0].trim());
                     LocalTime time = LocalTime.parse(by.split(" ")[1].trim());
-                    Deadline t = new Deadline(description, date, time);
+                    Task.Deadline t = new Task.Deadline(description, date, time);
                     list.add(t);
                     System.out.println(INDENT + "Got it. I've added this task:");
                     System.out.println(INDENT + "  " + t.toString());
@@ -242,7 +244,7 @@ public class Duke {
             }
         }
     }
-    private static void event(String input, ArrayList<Task> list)
+    private static void event(String input, ArrayList<Task.Task> list)
             throws EmptyInputException, EmptyTimeException, InvalidFormatException, InvalidDateTimeException {
         System.out.println(INDENT_SEPERATOR);
         if (input.split(" ").length == 1) {
@@ -267,7 +269,7 @@ public class Duke {
                     String end = arrOfStr[2].substring(2).trim();
                     LocalDate endDate = LocalDate.parse(end.split(" ")[0].trim());
                     LocalTime endTime = LocalTime.parse(end.split(" ")[1].trim());
-                    Event t = new Event(description, startDate, startTime, endDate, endTime);
+                    Task.Event t = new Task.Event(description, startDate, startTime, endDate, endTime);
                     list.add(t);
                     System.out.println(INDENT + "Got it. I've added this task:");
                     System.out.println(INDENT + "  " + t.toString());
@@ -280,19 +282,19 @@ public class Duke {
         }
     }
 
-    private static void delete(String input, ArrayList<Task> list) {
+    private static void delete(String input, ArrayList<Task.Task> list) {
         String indexStr = input.split(" ")[1];
         int position = Integer.parseInt(indexStr) -1;
         System.out.println(INDENT_SEPERATOR);
 
         // check for error
         if (position + 1 > list.size()) {
-            System.out.println(INDENT + "Task does not exist");
+            System.out.println(INDENT + "Task.Task does not exist");
         } else if (position < 0) {
-            System.out.println(INDENT + "Task does not exist");
+            System.out.println(INDENT + "Task.Task does not exist");
 
         } else {
-            Task t = list.get(position);
+            Task.Task t = list.get(position);
             list.remove(t);
             System.out.println(INDENT + "Noted. I've removed this task:");
             System.out.println(INDENT + "  " + t.toString());

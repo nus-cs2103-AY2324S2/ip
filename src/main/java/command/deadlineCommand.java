@@ -1,3 +1,8 @@
+package command;
+import duke.Ui;
+import duke.TaskList;
+
+import task.Deadline;
 import exception.EmptyInputException;
 import exception.EmptyTimeException;
 import exception.InvalidDateTimeException;
