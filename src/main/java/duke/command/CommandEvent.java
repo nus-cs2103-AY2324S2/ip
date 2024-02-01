@@ -1,10 +1,12 @@
 package duke.command;
 
+import duke.TaskList;
+import duke.Ui;
+import duke.exceptions.DukeCeption;
+import duke.exceptions.EmptyDescriptionException;
+import duke.exceptions.IncorrectFormatException;
 import duke.tasks.Event;
 import duke.tasks.Task;
-import duke.Ui;
-import duke.TaskList;
-import duke.DukeCeption;
 
 public class CommandEvent extends Command {
 
@@ -30,7 +32,7 @@ public class CommandEvent extends Command {
     private Task cleanUserInput(String description) throws DukeCeption {
         try {
             if (description.isEmpty()) {
-                throw new DukeCeption("Event cannot be empty!");
+                throw new EmptyDescriptionException("Event cannot be empty!");
             }
             String[] descriptionList = description.split("/from", 2);
             String[] fromAndToList = descriptionList[1].split("/to", 2);
@@ -40,7 +42,7 @@ public class CommandEvent extends Command {
             Task task = new Event(taskDescription, from, to);
             return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeCeption("Make sure /from and /to is written properly");
+            throw new IncorrectFormatException("Make sure /from and /to is written properly");
         }
     }
 }

@@ -1,7 +1,13 @@
 package duke;
 import java.util.ArrayList;
 
-import duke.tasks.*;
+import duke.exceptions.DukeCeption;
+import duke.exceptions.IncorrectFormatException;
+import duke.exceptions.NumberOutOfBoundsException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
 
 public class TaskList {
     
@@ -29,9 +35,9 @@ public class TaskList {
             Task task = list.get(taskNumber);
             return task;
         } catch (NumberFormatException e) {
-            throw new DukeCeption("The number given is unrecognizable");
+            throw new IncorrectFormatException("The number given is unrecognizable");
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeCeption("The number is not in this list!");
+            throw new NumberOutOfBoundsException("The number is not in this list!");
         }
     }
 

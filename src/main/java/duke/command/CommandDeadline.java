@@ -1,10 +1,12 @@
 package duke.command;
 
+import duke.TaskList;
+import duke.Ui;
+import duke.exceptions.DukeCeption;
+import duke.exceptions.EmptyDescriptionException;
+import duke.exceptions.IncorrectFormatException;
 import duke.tasks.Deadline;
 import duke.tasks.Task;
-import duke.Ui;
-import duke.TaskList;
-import duke.DukeCeption;
 
 public class CommandDeadline extends Command {
     
@@ -32,7 +34,7 @@ public class CommandDeadline extends Command {
     public Task cleanUserInput(String description) throws DukeCeption {
         try {
             if (description.isEmpty()) {
-                throw new DukeCeption("Deadline cannot be empty!");
+                throw new EmptyDescriptionException("Deadline cannot be empty!");
             }
             String[] descriptionList = description.split("/by", 2);
             String taskDescription = descriptionList[0].trim();
@@ -40,7 +42,7 @@ public class CommandDeadline extends Command {
             Task task = new Deadline(taskDescription, by);
             return task;
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeCeption("Make sure /by is written properly");
+                throw new IncorrectFormatException("Make sure /by is written properly");
             }
         }
     }

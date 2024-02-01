@@ -1,10 +1,11 @@
 package duke.command;
 
+import duke.TaskList;
+import duke.Ui;
+import duke.exceptions.DukeCeption;
+import duke.exceptions.EmptyDescriptionException;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
-import duke.Ui;
-import duke.TaskList;
-import duke.DukeCeption;
 
 public class CommandToDo extends Command {
 
@@ -30,7 +31,7 @@ public class CommandToDo extends Command {
 
     public Task cleanUserInput(String description) throws DukeCeption {
         if (description.isEmpty()) {
-            throw new DukeCeption("ToDo cannot be empty!");
+            throw new EmptyDescriptionException("ToDo cannot be empty!");
         }
         Task task = new ToDo(description);
         return task;
