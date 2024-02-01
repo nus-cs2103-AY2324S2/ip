@@ -9,7 +9,7 @@ public class Ui {
     /**
      * Empty Constructor for Ui
      */
-    public Ui () {
+    public Ui() {
     }
 
     /**

@@ -1,10 +1,13 @@
 package duke;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * Task Class is the parent class for all Task subclasses such as ToDo, Deadline and Event.
  * Task Class contains information such as the Tasktype, TaskDescription and TaskStatus/
  */
 public class Task {
+    protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     private String task;
     private boolean isDone = false;
     private String taskType;
@@ -30,7 +33,7 @@ public class Task {
     /**
      * Marks task as completed.
      */
-    public void mark(){
+    public void mark() {
         this.isDone = true;
     }
 

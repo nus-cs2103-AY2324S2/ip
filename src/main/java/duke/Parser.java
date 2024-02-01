@@ -7,8 +7,8 @@ import java.time.format.DateTimeParseException;
  * will be thrown and handled.
  */
 public class Parser {
-    String command = "";
-    String secondaryInput = "";
+    private String command = "";
+    private String secondaryInput = "";
 
     /**
      * Constructor for the Parser Class.
@@ -25,8 +25,8 @@ public class Parser {
      */
     public void input(String commandInput, Duke duke, TaskList taskList) {
         boolean isCommandValid = false;
-        this.command ="";
-        this.secondaryInput ="";
+        this.command = "";
+        this.secondaryInput = "";
 
         if (commandInput.equals("bye")) {
             this.command = commandInput;
@@ -56,14 +56,14 @@ public class Parser {
                     isCommandValid = true;
                     taskList.deleteTask(Integer.valueOf((inputSplit[1])) - 1);
                 }
-            } catch(IndexOutOfBoundsException e) {
-                if (taskList.size() == 0) {
+            } catch (IndexOutOfBoundsException e) {
+                if (taskList.getSize() == 0) {
                     System.out.println("\tYou have no task to mark,unmark or delete!");
                 } else {
-                    System.out.println("\tYou only have " + taskList.size() +" tasks!");
-                    System.out.println("\tSelect a number from 1 to " + taskList.size() + ".");
+                    System.out.println("\tYou only have " + taskList.getSize() + " tasks!");
+                    System.out.println("\tSelect a number from 1 to " + taskList.getSize() + ".");
                 }
-            } catch(NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("\tPlease input a number.");
             }
 
@@ -78,7 +78,8 @@ public class Parser {
                 if (this.command.equals("deadline")) {
                     System.out.println("\tPlease input a date or time with a / in front.");
                 } else if (this.command.equals("event")) {
-                    System.out.println("\tPlease input a start and end time or date with a / in front of both periods.");
+                    System.out.println("\tPlease input a start and end time "
+                            + "or date with a / in front of both periods.");
                 }
             } catch (DateTimeParseException e) {
                 System.out.println("\tInvalid DateTime Format. Please input as follows:");

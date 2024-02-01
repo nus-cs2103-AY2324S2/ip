@@ -1,9 +1,6 @@
 package duke;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 /**
  * Deadline Class is a type of task a user can create.
@@ -11,7 +8,6 @@ import java.time.temporal.ChronoUnit;
  */
 public class Deadline extends Task {
     private LocalDateTime deadline;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     /**
      * Constructor for Deadline Class
@@ -53,8 +49,8 @@ public class Deadline extends Task {
      * @return String representation of the Deadline for txt file saving purposes.
      */
     public String saveString() {
-        return this.getTaskTypeSingle() + "|" + this.getStatusBinary() + "|" + this.getTask() + "|" +
-                this.dateToString();
+        return this.getTaskTypeSingle() + "|" + this.getStatusBinary() + "|" + this.getTask() + "|"
+                + this.dateToString();
     }
 
     /**
