@@ -8,13 +8,31 @@ import james.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command {
     private int indexToDelete;
 
+    /**
+     * Creates a DeleteCommand to delete the task at the specified index.
+     *
+     * @param indexToDelete The index of the task to be deleted.
+     */
     public DeleteCommand(int indexToDelete) {
         this.indexToDelete = indexToDelete;
     }
 
+    /**
+     * Executes the delete command which results in removing the task from the task list,
+     * displaying the deletion in the UI, and attempting to save the updated task list
+     * to the storage.
+     *
+     * @param tasks   The TaskList from which the task will be deleted.
+     * @param ui      The Ui responsible for interactions with the user.
+     * @param storage The Storage where the task list is persisted.
+     * @throws DukeException If the index provided is invalid.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
@@ -29,6 +47,12 @@ public class DeleteCommand extends Command {
         }
     }
 
+    /**
+     * Indicates whether the application should terminate after the execution of
+     * this command. For DeleteCommand, it always returns false.
+     *
+     * @return false as the application should not exit after deleting a task.
+     */
     @Override
     public boolean isExit() {
         return false;

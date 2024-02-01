@@ -10,6 +10,9 @@ import james.ui.Ui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents the main class of the Duke application.
+ */
 public class James {
     private Storage storage;
     private TaskList tasks;
@@ -17,7 +20,11 @@ public class James {
 
     private static final String FILE_PATH = "./data/hardDisk.txt";
 
-
+    /**
+     * Creates a new James with the given file path.
+     *
+     * @param filePath File path to store the tasks in.
+     */
     public James(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -29,6 +36,9 @@ public class James {
         }
     }
 
+    /**
+     * Runs the James application.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
