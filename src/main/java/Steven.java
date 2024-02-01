@@ -1,12 +1,12 @@
-import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 public class Steven {
 
-    private Storage storage;
-    private TaskList tasks;
     private static final String line = "========\n";
     private static final String bootMsg = ("This is Steven!\nHow can I advise?\n");
+    private Storage storage;
+    private TaskList tasks;
     public Steven() {
         this.storage = new Storage();
         this.tasks = new TaskList(storage);
@@ -28,9 +28,9 @@ public class Steven {
     public void run() {
         boolean exit = false;
         while (!exit) {
-            Scanner Input = new Scanner(System.in);
-            while (Input.hasNextLine()) {
-                UserInput command = new UserInput(Input.nextLine());
+            Scanner input = new Scanner(System.in);
+            while (input.hasNextLine()) {
+                UserInput command = new UserInput(input.nextLine());
                 exit = new Parser(command, this.tasks).processInput();
                 if (exit) {
                     System.out.print(line);

@@ -1,9 +1,8 @@
 package tasks;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.time.format.DateTimeFormatter;
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     protected LocalDate due;
 
@@ -17,7 +16,8 @@ public class Deadline extends Task{
     }
     @Override
     public String toString() {
-        return String.format("%s%s %s (by: %s)", this.taskTypeDisplay(), this.completionDisplay(), this.name, this.due.format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
+        return String.format("%s%s %s (by: %s)", this.taskTypeDisplay(), this.completionDisplay(), this.name,
+                this.due.format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
     }
     @Override
     public String storeFormat() {
