@@ -1,0 +1,13 @@
+D | 0 | return book | Sep 15 2022, 18:00
+D | 0 | submit assignment | Oct 30 2022, 23:59
+E | 0 | team lunch | Sep 25 2022, 12:30 | Sep 25 2022, 14:00
+T | 0 | dance
+E | 0 | project meeting | Sep 20 2022, 09:00 | Sep 20 2022, 11:00
+E | 1 | project meeting | Sep 20 2022, 09:00 | Sep 20 2022, 11:00
+D | 1 | borrow book | Sep 15 2023, 18:00
+D | 1 | submit assignment | Oct 30 2023, 22:00
+T | 0 | dance 2
+D | 0 | slice even more fruits | Feb 01 2023, 19:00
+T | 0 | one
+D | 0 | two | Jan 01 2024, 18:00
+E | 0 | three | Jan 01 2024, 18:00 | Feb 02 2024, 19:00
