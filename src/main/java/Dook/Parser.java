@@ -22,7 +22,7 @@ public class Parser {
 
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final ArrayList<String> TASK_TYPES = new ArrayList<String>(Arrays.asList("todo", "deadline", "event"));
-    public Command parse(String input) throws DookException {
+    public static Command parse(String input) throws DookException {
         String[] split = input.split(" ", 2);
         String firstWord = split[0];
         if (input.equals("bye")) {
