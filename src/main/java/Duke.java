@@ -1,5 +1,9 @@
 import java.io.PrintWriter;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.io.*;
 
@@ -23,14 +27,12 @@ public class Duke {
         Task[] tasks = new Task[100];
         int index = 0;
         try(BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))){
-
             String line;
             while((line = reader.readLine()) != null){
                 //adding the task from the file to be read
                 tasks[index] = Task.fromFileString(line);
                 index++;
             }
-            //size = index;
         } catch (FileNotFoundException e){
             System.out.println("File not found! Creating new Data File...");
             saveToFile(index, tasks);
@@ -42,18 +44,14 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-
         String line = "------------------------------";
+        String[] dateFormats = {"dd/MM/yyyy", "MMM dd yyyy"};
         Scanner obj = new Scanner(System.in);
-        //Task[] lst = new Task[100];
-
-
         Task[] lst = loadFromFile();
         int i = 0;
         while(lst[i] != null){
             i++;
         }
-        //loadFromFile(lst);
         System.out.println("\n Hello! I'm Leo\n" +
                 " What can I do for you?");
         System.out.println(line);
@@ -119,26 +117,58 @@ public class Duke {
                     System.out.println(line);
                     break;
                 case "deadline":
-                    String[] by = key[1].split("/", 2);
-                    Task dline = new Deadline(by[0], by[1]);
-                    lst[i] = dline;
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(dline.toString());
-                    i++;
-                    saveToFile(i, lst);
-                    System.out.println("Now you have " + i + " task(s) in your list!");
+                    String[] by = key[1].split("/by ", 2);
+                    String[] dateTime = by[1].split(" ", 2);
+                    //LocalDate deadlineDate = LocalDate.parse(by[1].trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+                    LocalDate deadlineDate = null;
+                    for (String format : dateFormats) {
+                        try {
+                            deadlineDate = LocalDate.parse(by[1].trim(),
+                                                        DateTimeFormatter.ofPattern(format));
+                            break;
+                        } catch (DateTimeParseException ignored) {
+                        }
+                    }
+                    if(deadlineDate != null) {
+                        Task dline = new Deadline(by[0], deadlineDate);
+                        lst[i] = dline;
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(dline.toString());
+                        i++;
+                        saveToFile(i, lst);
+                        System.out.println("Now you have " + i + " task(s) in your list!");
+                    } else {
+                        System.out.println("Invalid date and time format -_-");
+                    }
                     System.out.println(line);
                     break;
+                //Event
                 case "event":
                     String[] fromto = key[1].split("/", 3);
-                    Task e = new Event(fromto[0], fromto[1], fromto[2]);
-                    lst[i] = e;
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(e.toString());
-                    i++;
-                    saveToFile(i, lst);
-                    System.out.println("Now you have " + i + " task(s) in your list!");
-                    System.out.println(line);
+
+                    LocalDate fromDate = null;
+                    LocalDate toDate = null;
+                    for (String format : dateFormats) {
+                        try {
+                            fromDate = LocalDate.parse(fromto[1], DateTimeFormatter.ofPattern(format));
+                            toDate = LocalDate.parse(fromto[2], DateTimeFormatter.ofPattern(format));
+                            break;
+                        } catch (DateTimeParseException ignored) {
+                        }
+                    }
+                    if(toDate != null & fromDate!=null) {
+                        Task e = new Event(fromto[0], fromDate, toDate);
+                        lst[i] = e;
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(e.toString());
+                        i++;
+                        saveToFile(i, lst);
+                        System.out.println("Now you have " + i + " task(s) in your list!");
+                        System.out.println(line);
+                    } else {
+                        System.out.println("Invalid date and time format -_-");
+                    }
                     break;
                 case "delete":
                     int toDelete = Integer.valueOf(key[1]) -1;
