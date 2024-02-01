@@ -51,11 +51,11 @@ public class Save {
         }
 
         FileWriter fw = new FileWriter(file, true);
-        fw.write(System.lineSeparator() + task.getSaveTask());
+        fw.write(task.getSaveTask() + System.lineSeparator());
         fw.close();
     }
 
-    public void deleteTask(Task task, int num) throws IOException{
+    public void deleteTask(Task task) throws IOException{
         String condition = task.getSaveTask();
         File oldFile = file;
         File temp = new File("./data/temp.txt");
@@ -67,14 +67,10 @@ public class Save {
         while (currentLine != null) {
 
             if (!currentLine.equalsIgnoreCase(condition)) {
-                bw.write(currentLine);
-                if (num > 1) {
-                    bw.write(System.lineSeparator());
-                }
+                bw.write(currentLine + System.lineSeparator());
             }
 
             currentLine = br.readLine();
-            --num;
         }
 
         bw.close();
@@ -100,13 +96,9 @@ public class Save {
             String currentLine = br.readLine();
 
             if (i == (num - 1)) {
-                bw.write(updated);
+                bw.write(updated + System.lineSeparator());
             } else {
-                bw.write(currentLine);
-            }
-
-            if (!(i == (size - 1))) {
-                bw.write(System.lineSeparator());
+                bw.write(currentLine + System.lineSeparator());
             }
         }
 

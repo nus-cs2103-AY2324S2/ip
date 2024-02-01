@@ -164,7 +164,7 @@ public class Duke {
 
                         Task task = tasks.get(del - 1);
                         tasks.remove(del - 1);
-                        save.deleteTask(task, tasks.size());
+                        save.deleteTask(task);
 
                         System.out.println("Noted. I've removed this task:");
                         System.out.println(" " + task);
