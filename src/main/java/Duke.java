@@ -1,6 +1,9 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+
 public class Duke {
     private List<Task> todolist = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
@@ -129,4 +132,5 @@ public class Duke {
     public Task removeItem(int index) {
         return todolist.remove(index);
     }
+    
 }
