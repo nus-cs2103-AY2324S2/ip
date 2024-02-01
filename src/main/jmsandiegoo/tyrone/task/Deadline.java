@@ -4,7 +4,8 @@ import jmsandiegoo.tyrone.common.DateTime;
 
 public class Deadline extends Task {
     private final DateTime deadlineDateTime;
-    public Deadline(String description, DateTime deadlineDateTime)  {
+
+    public Deadline(String description, DateTime deadlineDateTime) {
         super(description);
         this.deadlineDateTime = deadlineDateTime;
     }

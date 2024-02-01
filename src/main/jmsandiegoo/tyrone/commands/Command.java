@@ -1,7 +1,7 @@
 package jmsandiegoo.tyrone.commands;
 
-import jmsandiegoo.tyrone.task.TaskList;
 import jmsandiegoo.tyrone.exceptions.CommandExecutionException;
+import jmsandiegoo.tyrone.task.TaskList;
 
 public abstract class Command {
     protected TaskList taskList;
