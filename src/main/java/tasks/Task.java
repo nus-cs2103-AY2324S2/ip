@@ -6,7 +6,7 @@ package tasks;
 public class Task {
 
     private String desc;
-    private boolean isDone;
+    public boolean isDone;
     private TaskType type;
     private String start, end;
 

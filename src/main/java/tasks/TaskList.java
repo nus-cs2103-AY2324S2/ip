@@ -43,7 +43,7 @@ public class TaskList {
     }
 
     /**
-     * Constructs a representation of the Tasklist.
+     * Constructs a representation of the TaskList.
      * @return a String representation of the tasks in the TaskList
      */
     public String showList() {
