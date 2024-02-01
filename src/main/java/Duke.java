@@ -81,39 +81,7 @@ public class Duke {
                 createDeadlineTask(arguments);
                 break;
             case "event":
-                if (!arguments.isEmpty()) {
-                    String[] eventInfo = command.split("/");
-                    st = new StringTokenizer(eventInfo[0].trim());
-                    String eventDesc = "";
-                    while(st.hasMoreTokens()) {
-                        eventDesc += st.nextToken() + " ";
-                    }
-                    eventDesc = eventDesc.trim();
-                    st = new StringTokenizer(eventInfo[1].trim());
-                    st.nextToken();
-                    String from = "";
-                    while (st.hasMoreTokens()) {
-                        from += st.nextToken() + " ";
-                    }
-                    from = from.trim();
-                    st = new StringTokenizer(eventInfo[2].trim());
-                    st.nextToken();
-                    String end = "";
-                    while (st.hasMoreTokens()) {
-                        end += st.nextToken() + " ";
-                    }
-                    end = end.trim();
-                    Event newEvent = new Event(eventDesc, from, end);
-                    tasks.add(newEvent);
-                    System.out.println(gap + "Confirmed. New task added:\n"
-                            + newEvent.toString() + "\n");
-                } else {
-                    throw new DukeException("event command requires a description for the task,"
-                            + " start time and end time. \n\nPlease leave a space after 'event'"
-                            + " and enter the task description, \nfollowed by a space and forward slash"
-                            + " before the start time, \nfollowed by another space and forward slash"
-                            + " before the end time.");
-                }
+                createEventTask(arguments);
                 break;
             default:
                 System.out.println("なに？！");
@@ -201,6 +169,42 @@ public class Duke {
                     + " and a deadline. \n\nPlease leave a space after 'deadline'"
                     + " and enter the task description, \nfollowed by a space and a"
                     + " forward slash then the deadline of the task.");
+        }
+    }
+
+    private static void createEventTask(String arguments) throws DukeException {
+        if (!arguments.isEmpty()) {
+            String[] eventInfo = arguments.split("/");
+            StringTokenizer st = new StringTokenizer(eventInfo[0].trim());
+            String eventDesc = "";
+            while(st.hasMoreTokens()) {
+                eventDesc += st.nextToken() + " ";
+            }
+            eventDesc = eventDesc.trim();
+            st = new StringTokenizer(eventInfo[1].trim());
+            st.nextToken();
+            String from = "";
+            while (st.hasMoreTokens()) {
+                from += st.nextToken() + " ";
+            }
+            from = from.trim();
+            st = new StringTokenizer(eventInfo[2].trim());
+            st.nextToken();
+            String end = "";
+            while (st.hasMoreTokens()) {
+                end += st.nextToken() + " ";
+            }
+            end = end.trim();
+            Event newEvent = new Event(eventDesc, from, end);
+            tasks.add(newEvent);
+            System.out.println(gap + "Confirmed. New task added:\n"
+                    + newEvent.toString() + "\n");
+        } else {
+            throw new DukeException("event command requires a description for the task,"
+                    + " start time and end time. \n\nPlease leave a space after 'event'"
+                    + " and enter the task description, \nfollowed by a space and forward slash"
+                    + " before the start time, \nfollowed by another space and forward slash"
+                    + " before the end time.");
         }
     }
 }
