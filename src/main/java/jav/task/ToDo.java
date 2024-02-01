@@ -1,5 +1,7 @@
 package jav.task;
 
+import jav.exception.InvalidParamException;
+
 /**
 * A "ToDo" is a task. (For the time being, it is basically the same)
 */

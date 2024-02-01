@@ -1,5 +1,7 @@
 package jav.command;
 
+import jav.Jav;
+
 /**
  * ShutdownCommand handles the shutdown of the program.
  */

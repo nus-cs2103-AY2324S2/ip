@@ -4,7 +4,11 @@ runme:
   version: v2.2
 ---
 
-# User Guide
+# JAV User Guide
+
+// Product screenshot goes here
+
+// Product intro goes here
 
 ## Features
 
@@ -30,9 +34,9 @@ Chat bot is able to save data into a local file and read the data upon startup.
 
 ### `todo *` or `t *` - Add a task (todo), where * is the name of the task
 
-### `deadline *` or `d *` - Add a task (deadline), where * is the name of the task
+### `deadline *` or `d *` - Add a task (deadline), where * is the name of the task and deadline
 
-### `event *` or `e *` - Add a task (event), where * is the name of the task
+### `event *` or `e *` - Add a task (event), where * is the name of the task, startdate and enddate
 
 Stores a task into the storage. Todos only have a string as its name. Deadlines have a string as its name and a string as its deadline. Events have a string as its name and 2 strings as its start and end.
 
@@ -60,6 +64,7 @@ Bot replies with a confirmation message and stores the string.
 | User Input:
 > e read book \from 1 jan \to 1 dec
 | Sure I'll store it right away!
+
 ```
 
 ### `list` or `l` - Lists out all stored tasks
@@ -79,6 +84,7 @@ Bot replies with a confirmation message and prints all the stored strings in the
 > l
 | Here's everything that I'd stored!
 | 1.[ ] userinputedstring
+
 ```
 
 ### `mark *` or `m *` - Marks a task as done, where * is index of the task (starting from 1)
@@ -105,6 +111,7 @@ If the task exists, the bot replies with a confirmation message and marks the sp
 > m 0
 | It appears the parameters might be doing a little dance of confusion!
 | Could you please check the parameters and give them another whirl?
+
 ```
 
 ### `unmark *` or `u *` - Marks a task as not done, where * is index of the task (starting from 1)
@@ -131,6 +138,7 @@ If the task exists, the bot replies with a confirmation message and marks the sp
 > u 0
 | It appears the parameters might be doing a little dance of confusion!
 | Could you please check the parameters and give them another whirl?
+
 ```
 
 ### `remove *` or `r *` - Deletes a task, where * is index of the task (starting from 1)
@@ -157,4 +165,5 @@ If the task exists, the bot replies with a confirmation message and deletes the 
 > r 0
 | It appears the parameters might be doing a little dance of confusion!
 | Could you please check the parameters and give them another whirl?
+
 ```

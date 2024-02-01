@@ -2,6 +2,12 @@ package jav.manager;
 
 import java.util.ArrayList;
 
+import jav.exception.InvalidParamException;
+import jav.task.Deadline;
+import jav.task.Event;
+import jav.task.Task;
+import jav.task.ToDo;
+
 /**
 * StorageManager manages and stores tasks into a storage.
 */
@@ -66,7 +72,7 @@ public class StorageManager {
      * @param type the type of task.
      * @param isMarked whether the task should be marked.
      */
-    public void store(String param, StorageType type, boolean isMarked) {
+    public void store(String param, StorageType type, boolean isMarked) throws InvalidParamException {
         if (tasks == null) tasks = new ArrayList<>();
 
         Task task;
@@ -86,7 +92,7 @@ public class StorageManager {
                 break;
             }
             tasks.add(task);
-        } catch (Exception e) {
+        } catch (InvalidParamException e) {
             throw e;
         }
     }
