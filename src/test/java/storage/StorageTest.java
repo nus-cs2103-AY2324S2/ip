@@ -5,10 +5,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import tasks.Task;
 import tasks.TaskList;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 public class StorageTest {
 

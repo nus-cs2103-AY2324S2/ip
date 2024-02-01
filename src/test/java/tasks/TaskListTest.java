@@ -2,10 +2,13 @@ package tasks;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskListTest {
 
@@ -17,7 +20,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void test_addTask() {
+    public void test_add_task() {
         Task task = new Task("Buy groceries", false);
         taskList.addTask(task);
         List<Task> tasks = taskList.getTaskList();
@@ -36,7 +39,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void test_showList() {
+    public void test_show_list() {
         Task task1 = new Task("Buy groceries", false);
         Task task2 = new Task("Submit report", true, "2022-10-31");
         taskList.addTask(task1);
@@ -46,7 +49,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void test_getTaskAtIndex() {
+    public void test_get_task_at_index() {
         Task task1 = new Task("Buy groceries", false);
         Task task2 = new Task("Submit report", true, "2022-10-31");
         taskList.addTask(task1);
@@ -56,7 +59,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void test_deleteAtIndex() {
+    public void test_delete_at_index() {
         Task task1 = new Task("Buy groceries", false);
         Task task2 = new Task("Submit report", true, "2022-10-31");
         taskList.addTask(task1);
@@ -68,7 +71,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void test_markTask() {
+    public void test_mark_task() {
         Task task = new Task("Buy groceries", false);
         taskList.addTask(task);
         taskList.markTask(0);
@@ -76,7 +79,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void test_unmarkTask() {
+    public void test_unmark_task() {
         Task task = new Task("Buy groceries", true);
         taskList.addTask(task);
         taskList.unmarkTask(0);
@@ -84,7 +87,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void test_addDeadlineTask() {
+    public void test_add_deadline_task() {
         taskList.addDeadlineTask("Submit report", "2022-10-31");
         List<Task> tasks = taskList.getTaskList();
         assertEquals(1, tasks.size());
@@ -93,7 +96,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void test_addEventTask() {
+    public void test_add_event_task() {
         taskList.addEventTask("Birthday party", "2022-12-25", "2022-12-26");
         List<Task> tasks = taskList.getTaskList();
         assertEquals(1, tasks.size());
