@@ -5,6 +5,11 @@ import chatbot.task.Task;
 
 public class Ui {
 
+    /**
+     * Greets the user.
+     * 
+     * @param name The name of the user.
+     */
     public static void greet(String name) {
         StringBuilder sb = new StringBuilder();
         sb.append("What's up chief? " + name + " here!\n");
@@ -16,6 +21,12 @@ public class Ui {
         Ui.output("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Returns string for successfully adding a task.
+     * 
+     * @param task The task that was added.
+     * @param numTasks The number of tasks in the list.
+     */
     public static String addTaskSuccess(Task task, int numTasks) {
         StringBuilder sb = new StringBuilder();
         sb.append("Got it. I've added this task:\n");
@@ -24,6 +35,11 @@ public class Ui {
         return sb.toString();
     }
 
+    /**
+     * Returns string for successfully marking a task as done.
+     * 
+     * @param task The task that was marked as done.
+     */
     public static String markTask(Task task) {
         StringBuilder sb = new StringBuilder();
         sb.append("Nice! I've marked this task as done:\n");
@@ -31,6 +47,11 @@ public class Ui {
         return sb.toString();
     }
 
+    /**
+     * Returns string for successfully marking a task as not done.
+     * 
+     * @param task The task that was marked as not done.
+     */
     public static String unmarkTask(Task task) {
         StringBuilder sb = new StringBuilder();
         sb.append("OK, I've marked this task as not done yet:\n");
@@ -38,6 +59,12 @@ public class Ui {
         return sb.toString();
     }
 
+    /**
+     * Returns string for listing all tasks.
+     * 
+     * @param tasks The list of tasks.
+     * @param numTasks The number of tasks in the list.
+     */
     public static String listTasks(ArrayList<Task> tasks, int numTasks) {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks in your list:\n");
@@ -47,6 +74,12 @@ public class Ui {
         return sb.toString();
     }
     
+    /**
+     * Returns string for successfully deleting a task.
+     * 
+     * @param task The task that was deleted.
+     * @param numTasks The number of tasks in the list.
+     */
     public static String deleteTask(Task task, int numTasks) {
         StringBuilder sb = new StringBuilder();
         sb.append("Noted. I've removed this task:\n");
@@ -64,6 +97,11 @@ public class Ui {
         System.out.println("____________________________________________________________________________");
     }
 
+    /**
+     * Outputs the given sentences with a line above and below.
+     * 
+     * @param sentences The sentences to be output.
+     */
     public static void output(String sentences) {
         drawLine();
         String[] arr = sentences.split("\n");

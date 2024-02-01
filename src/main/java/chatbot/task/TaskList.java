@@ -2,6 +2,9 @@ package chatbot.task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     
     private ArrayList<Task> tasks;

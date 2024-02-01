@@ -1,5 +1,8 @@
 package chatbot.task;
 
+/**
+ * Represents a task, a base class for all tasks.
+ */
 public class Task {
     
     private String description;

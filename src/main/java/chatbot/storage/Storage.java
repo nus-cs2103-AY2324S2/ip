@@ -12,6 +12,9 @@ import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.task.TodoTask;
 
+/**
+ * Storage class to save and load tasks
+ */
 public class Storage {
 
     private final String SAVE_DIR_PATH;
@@ -22,6 +25,11 @@ public class Storage {
         this.SAVE_FILENAME = saveFilename;
     }
 
+    /**
+     * Saves the task list to a csv file
+     * @param taskList the task list to be saved
+     * @throws IOException if an error occurs when writing to the file
+     */
     public void saveTaskList(TaskList taskList) throws IOException {
         // create directory if not exists
         File dir = new File(this.SAVE_DIR_PATH);
@@ -50,6 +58,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the task list from a csv file
+     * @return the task list
+     * @throws IOException if an error occurs when reading the file
+     */
     public TaskList loadTaskList() throws IOException {
         // Load a csv
         TaskList taskList = new TaskList();

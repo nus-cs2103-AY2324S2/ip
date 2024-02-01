@@ -10,6 +10,9 @@ import chatbot.task.EventTask;
 import chatbot.task.TaskList;
 import chatbot.task.TodoTask;
 
+/**
+ * Parser class to parse user input and validate input
+ */
 public class Parser {
     
     public static boolean isNumeric(String str) {
@@ -18,6 +21,11 @@ public class Parser {
         return matcher.matches(); 
     }
 
+    /**
+     * Formats the date time string to be in the correct format for LocalDateTime.parse
+     * @param timeString the date time string to be formatted
+     * @return the formatted date time string
+     */
     private static String formatDateTimeString(String timeString) {
         timeString = timeString.trim();
         timeString = timeString.replace("/", "-");
@@ -28,10 +36,22 @@ public class Parser {
         return arr[0] + "T" + hour + ":" + minute + ":" + "00";
     }
 
+    /**
+     * Parses the date time string to a LocalDateTime object
+     * @param timeString the date time string to be parsed
+     * @return the LocalDateTime object
+     */
     public static LocalDateTime parseDateTimeString(String timeString) {
         return LocalDateTime.parse(formatDateTimeString(timeString));
     }
 
+    /**
+     * Validates the user input
+     * @param command the command to be executed
+     * @param input the user input
+     * @param taskList the list of tasks
+     * @throws InvalidInputException if the input is invalid
+     */
     public static void validateInput(Command command, String input, TaskList taskList) throws InvalidInputException {
         if (command == Command.TODO) {
             if (input.length() <= 4) {
@@ -118,7 +138,11 @@ public class Parser {
         }
     }
 
-
+    /**
+     * Parses the command from the user input
+     * @param input the user input
+     * @return the command
+     */
     public static Command parseCommand(String input) {
         if (input.startsWith("todo")) {
             return Command.TODO;
@@ -141,6 +165,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the index from the user input
+     * @param command the command to be executed
+     * @param input the user input
+     * @return the index
+     */
     public static int parseIndex(Command command, String input) {
         if (command == Command.MARK) {
             return Integer.parseInt(input.substring(5)) - 1;
@@ -153,16 +183,31 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the todo task from the user input
+     * @param input the user input
+     * @return the todo task
+     */
     public static TodoTask parseTodoTask(String input) {
         return new TodoTask(input.substring(5));
     }
 
+    /**
+     * Parses the deadline task from the user input
+     * @param input the user input
+     * @return the deadline task
+     */
     public static DeadlineTask parseDeadlineTask(String input) {
         String[] arr = input.substring(9).split("/by");
         LocalDateTime dateTime = parseDateTimeString(arr[1].trim());
         return new DeadlineTask(arr[0].trim(), dateTime);
     }
 
+    /**
+     * Parses the event task from the user input
+     * @param input the user input
+     * @return the event task
+     */
     public static EventTask parseEventTask(String input) {
         String[] arr = input.substring(6).split("/from");
         String[] arr2 = arr[1].split("/to");
