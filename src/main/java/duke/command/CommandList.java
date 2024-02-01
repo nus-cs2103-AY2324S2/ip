@@ -3,8 +3,8 @@ package duke.command;
 import java.util.ArrayList;
 
 import duke.tasks.Task;
+import duke.tasks.TaskList;
 import duke.Ui;
-import duke.TaskList;
 
 public class CommandList extends Command {
 

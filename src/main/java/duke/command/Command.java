@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.Ui;
-import duke.TaskList;
+import duke.tasks.TaskList;
 
 public abstract class Command {
     protected TaskList taskList;

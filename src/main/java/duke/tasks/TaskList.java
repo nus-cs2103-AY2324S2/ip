@@ -1,13 +1,9 @@
-package duke;
+package duke.tasks;
 import java.util.ArrayList;
 
 import duke.exceptions.DukeCeption;
 import duke.exceptions.IncorrectFormatException;
 import duke.exceptions.NumberOutOfBoundsException;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
 
 public class TaskList {
     

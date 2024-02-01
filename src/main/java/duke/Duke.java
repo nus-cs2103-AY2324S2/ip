@@ -1,5 +1,7 @@
 package duke;
 
+import duke.tasks.TaskList;
+
 public class Duke {
 
     private final String LOGO = "" 

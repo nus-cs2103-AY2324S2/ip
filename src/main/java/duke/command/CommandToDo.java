@@ -1,10 +1,10 @@
 package duke.command;
 
-import duke.TaskList;
 import duke.Ui;
 import duke.exceptions.DukeCeption;
 import duke.exceptions.EmptyDescriptionException;
 import duke.tasks.Task;
+import duke.tasks.TaskList;
 import duke.tasks.ToDo;
 
 public class CommandToDo extends Command {

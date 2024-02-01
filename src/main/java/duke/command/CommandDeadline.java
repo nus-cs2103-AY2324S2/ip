@@ -1,12 +1,12 @@
 package duke.command;
 
-import duke.TaskList;
 import duke.Ui;
 import duke.exceptions.DukeCeption;
 import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.IncorrectFormatException;
 import duke.tasks.Deadline;
 import duke.tasks.Task;
+import duke.tasks.TaskList;
 
 public class CommandDeadline extends Command {
     

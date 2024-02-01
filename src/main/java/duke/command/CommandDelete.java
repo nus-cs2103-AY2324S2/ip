@@ -1,9 +1,9 @@
 package duke.command;
 
-import duke.TaskList;
 import duke.Ui;
 import duke.exceptions.DukeCeption;
 import duke.tasks.Task;
+import duke.tasks.TaskList;
 
 public class CommandDelete extends Command {
 
