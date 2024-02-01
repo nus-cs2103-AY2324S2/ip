@@ -1,12 +1,12 @@
 package aurora.command;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import aurora.objects.DukeException;
 import aurora.parser.Parser;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * The TodoCommand class handles the "todo" command.

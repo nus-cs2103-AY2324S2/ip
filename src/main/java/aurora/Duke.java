@@ -1,4 +1,5 @@
 package aurora;
+
 import aurora.command.ByeCommand;
 import aurora.command.DeadlineCommand;
 import aurora.command.DeleteCommand;
@@ -8,12 +9,6 @@ import aurora.command.ListCommand;
 import aurora.command.MarkCommand;
 import aurora.command.TodoCommand;
 import aurora.command.UnmarkCommand;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-import java.util.ArrayList;
 import aurora.objects.Deadline;
 import aurora.objects.DukeException;
 import aurora.objects.Event;
@@ -23,6 +18,12 @@ import aurora.parser.Parser;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Duke is the main class for the application that runs according to the commands given to it by the user.

@@ -1,7 +1,5 @@
 package aurora.ui;
 
-import java.util.ArrayList;
-import java.util.Scanner;
 import aurora.objects.Deadline;
 import aurora.objects.DukeException;
 import aurora.objects.Event;
@@ -10,10 +8,13 @@ import aurora.objects.Todo;
 import aurora.parser.Parser;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * The Ui class is used to represent the user interface, including the scanner of the application.
  */
+@SuppressWarnings("checkstyle:Indentation")
 public class Ui {
 
     /** Scanner to be used for inputs. */

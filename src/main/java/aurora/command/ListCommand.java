@@ -1,10 +1,10 @@
 package aurora.command;
 
-import java.util.ArrayList;
 import aurora.objects.Task;
 import aurora.storage.Storage;
 import aurora.tasklist.TaskList;
 import aurora.ui.Ui;
+import java.util.ArrayList;
 
 /**
  * The ListCommand class handles the "list" command.
