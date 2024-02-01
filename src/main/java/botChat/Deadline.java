@@ -16,6 +16,10 @@ public class Deadline extends Task {
         }
     }
 
+    public String getBy() {
+        return by;
+    }
+
     private boolean isValidDateFormat(String by) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         try {

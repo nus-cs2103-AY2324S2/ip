@@ -19,6 +19,14 @@ public class Event extends Task {
         }
     }
 
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
     private boolean isValidDateFormat(String by) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         try {
