@@ -1,3 +1,5 @@
+package luke;
+
 public class UI {
     private static String logo = "  _____             __             \n"
             + " |_   _|           [  |  _         \n"

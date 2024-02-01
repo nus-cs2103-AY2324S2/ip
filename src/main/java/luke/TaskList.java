@@ -1,3 +1,5 @@
+package luke;
+
 import java.util.ArrayList;
 
 //for CURRENT tasks only.
@@ -93,7 +95,7 @@ public class TaskList {
             System.out.println("Looks like you have way too much free time on your hands, huh.");
             System.out.println("[No items in list]");
         }
-        for (Task s : history) {
+        for (luke.Task s : history) {
             if (s.isDone()) {
                 System.out.println(num + "." + s.fullStatus());
             } else {
