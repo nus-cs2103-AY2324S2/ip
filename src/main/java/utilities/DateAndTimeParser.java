@@ -7,13 +7,13 @@ import java.time.format.DateTimeParseException;
 import exceptions.WilliamException;
 
 /**
- * The DateAndTimeParser class deals with formatting dates and times
+ * Deals with formatting dates and times
  */
 public class DateAndTimeParser {
     private static final DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
-     * Check whether the input matches the date and time format
+     * Checks whether the input matches the date and time format
      * 
      * @param input The date and time of the task
      * @throws WilliamException If the format of the date and time is wrong
@@ -27,7 +27,7 @@ public class DateAndTimeParser {
     }
 
     /**
-     * Check whether the '/from' date is before the '/to' date
+     * Checks whether the '/from' date is before the '/to' date
      * 
      * @param fromDate The input date '/from'
      * @param toDate   The input date '/to'
@@ -44,7 +44,7 @@ public class DateAndTimeParser {
     }
 
     /**
-     * Convert String date to LocalDateTime date
+     * Returns a String date that is converted to LocalDateTime date
      * 
      * @param date Date in String
      * @return Date in LocalDateTime

@@ -3,8 +3,7 @@ package utilities;
 import exceptions.WilliamException;
 
 /**
- * The AdditonalInformationParser deals with formatting the additional
- * information
+ * Deals with formatting the additional information
  */
 public class AdditionalInfoParser {
     /**
@@ -28,10 +27,10 @@ public class AdditionalInfoParser {
     }
 
     /**
-     * Split the method by "/by"
+     * Splits the method by "/by"
      * 
      * @param input Input that is the additional details
-     * @return string[] String[] that contains the name and the date
+     * @return string[] An array of String that contains the name and the date
      * @throws WilliamException If the input does not have the "/by" or missing text
      *                          before/after "/by"
      */
@@ -47,10 +46,10 @@ public class AdditionalInfoParser {
     }
 
     /**
-     * Split the method by "/to" and "/from"
+     * Splits the method by "/to" and "/from"
      * 
      * @param input Input that is the additional details
-     * @return string[] String[] that contains the name, from and to date
+     * @return string[] An array of String that contains the name, from and to date
      * @throws WilliamException If the input does not contain "/to", "/from"
      *                          keywords
      *                          and is missing text before/after the keywords
@@ -75,7 +74,7 @@ public class AdditionalInfoParser {
     }
 
     /**
-     * Check whether the additional detail is empty
+     * Checks whether the additional detail is empty
      * 
      * @param input Input that is the additional detail
      * @throws WilliamException If the description of the additional detail is empty

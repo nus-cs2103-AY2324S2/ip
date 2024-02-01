@@ -17,8 +17,7 @@ import tasks.Task;
 import tasks.Todo;
 
 /**
- * The Storage class deals with loading tasks from the file and saving tasks in
- * the file
+ * Deals with loading tasks from the file and saving tasks in the file
  */
 public class Storage {
     private String filePath;
@@ -28,7 +27,7 @@ public class Storage {
     }
 
     /**
-     * Load tasks from the hard disk
+     * Loads tasks from the hard disk
      * 
      * @return arraylist ArrayList of tasks
      * @throws WilliamException If the lists in the txt file is not in the expected
@@ -78,7 +77,7 @@ public class Storage {
     }
 
     /**
-     * Save tasks into hard disk
+     * Saves tasks into hard disk
      * 
      * @param arraylist Arraylist of tasks
      * @throws IOException if the arraylist cannot be written to the file

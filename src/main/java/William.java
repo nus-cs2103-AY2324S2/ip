@@ -9,8 +9,8 @@ import utilities.TaskList;
 import utilities.Ui;
 
 /**
- * The William class is the main class for this chatbot (the other classes have
- * been divided into packages: commands, exceptions, tasks and utilities)
+ * Main class for this chatbot (the other classes have been divided into
+ * packages: commands, exceptions, tasks and utilities)
  */
 public class William {
 
@@ -20,7 +20,7 @@ public class William {
     private Ui ui;
 
     /**
-     * Constructor to intialise the tasklist, storage and UI
+     * Intialises the tasklist, storage and UI
      * 
      * @param filePath The file path
      */
@@ -36,7 +36,7 @@ public class William {
     }
 
     /**
-     * Run the chatbot
+     * Runs the chatbot
      */
     public void run() {
         ui.openingTitle();

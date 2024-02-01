@@ -1,8 +1,7 @@
 package exceptions;
 
 /**
- * The WilliamException class is defined to represent exceptions specific to
- * William
+ * Represents exceptions specific to William class
  */
 public class WilliamException extends Exception {
     public WilliamException(String message) {

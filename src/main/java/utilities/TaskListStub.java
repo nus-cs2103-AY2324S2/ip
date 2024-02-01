@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The TaskListStub contains the task list e.g. it has operations to add/delete
- * tasks in the list (it simulates these operations for the ParserTest)
+ * Contains the task list e.g. it has operations to add/delete tasks in the list
+ * (it simulates these operations for the ParserTest)
  */
 public class TaskListStub extends TaskList {
     private List<Task> tasks;

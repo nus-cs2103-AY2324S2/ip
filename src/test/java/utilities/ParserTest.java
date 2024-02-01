@@ -32,7 +32,7 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for toDo switch case for the correct input
+     * Tests the parseCommands method for toDo switch case for the correct input
      * (assertTrue if it is added successfully, assertFalse if its not added
      * successfully)
      */
@@ -45,7 +45,7 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for toDo switch case for the incorrect input
+     * Tests the parseCommands method for toDo switch case for the incorrect input
      * (assertTrue since it should not be added, and list should be empty)
      */
     @Test
@@ -55,7 +55,7 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for deadline switch case for the correct input
+     * Tests the parseCommands method for deadline switch case for the correct input
      * (assertTrue if it is added successfully, assertFalse if its not added
      * successfully)
      */
@@ -68,7 +68,7 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for deadline switch case for the incorrect
+     * Tests the parseCommands method for deadline switch case for the incorrect
      * input (assertTrue since it should not be added, and list should be empty)
      */
     @Test
@@ -80,7 +80,7 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for event switch case for the correct input
+     * Tests the parseCommands method for event switch case for the correct input
      * (assertTrue if it is added successfully, assertFalse if its not added
      * successfully)
      */
@@ -93,7 +93,7 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for event switch case for the incorrect
+     * Tests the parseCommands method for event switch case for the incorrect
      * input (assertTrue since it should not be added, and list should be empty)
      */
     @Test
@@ -107,7 +107,7 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for bye switch case, check whether a task been
+     * Tests the parseCommands method for bye switch case, check whether a task been
      * added successfully to a file (since file should not be used for isolation, it
      * is temporaily stored in an arraylist instead)
      */
@@ -124,7 +124,7 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for delete switch case, check whether a task
+     * Tests the parseCommands method for delete switch case, check whether a task
      * has been deleted successfully
      */
     @Test
@@ -138,7 +138,7 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for mark switch case, check whether a task has
+     * Tests the parseCommands method for mark switch case, check whether a task has
      * been marked successfully
      */
     @Test
@@ -152,7 +152,7 @@ public class ParserTest {
     }
 
     /**
-     * Test the parseCommands method for mark switch case, check whether a task has
+     * Tests the parseCommands method for mark switch case, check whether a task has
      * been marked successfully
      */
     @Test
