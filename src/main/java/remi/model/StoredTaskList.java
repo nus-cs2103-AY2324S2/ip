@@ -1,7 +1,7 @@
-package model;
+package remi.model;
 
-import storage.Storage;
-import utils.RemiError;
+import remi.storage.Storage;
+import remi.utils.RemiError;
 
 public class StoredTaskList extends TaskList {
     public StoredTaskList() {

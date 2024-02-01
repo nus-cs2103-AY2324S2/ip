@@ -1,4 +1,4 @@
-package io;
+package remi.io;
 
 /**
  * Basic class to carry

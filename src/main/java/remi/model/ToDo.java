@@ -1,4 +1,4 @@
-package model;
+package remi.model;
 
 public class ToDo extends Task{
     public ToDo(String label) {
@@ -11,7 +11,7 @@ public class ToDo extends Task{
     }
 
     /**
-     * Returns a parsable string of the todo task. Meant to be used for storage purposes.
+     * Returns a parsable string of the todo task. Meant to be used for remi.storage purposes.
      *
      * @return a parsable string representation of the task and all its details
      */

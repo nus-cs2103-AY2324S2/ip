@@ -1,8 +1,8 @@
-package model.commands;
+package remi.model.commands;
 
-import io.Message;
-import model.*;
-import utils.RemiError;
+import remi.io.Message;
+import remi.model.*;
+import remi.utils.RemiError;
 
 import java.util.HashMap;
 

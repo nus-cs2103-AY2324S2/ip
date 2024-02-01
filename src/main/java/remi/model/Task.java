@@ -1,8 +1,6 @@
-package model;
+package remi.model;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -55,7 +53,7 @@ public class Task {
     }
 
     /**
-     * Returns a parsable string of the task. Meant to be used for storage purposes.
+     * Returns a parsable string of the task. Meant to be used for remi.storage purposes.
      *
      * @return a parsable string representation of the task and all its details
      */

@@ -1,6 +1,6 @@
-package model;
+package remi.model;
 
-import utils.RemiError;
+import remi.utils.RemiError;
 
 import java.util.ArrayList;
 
@@ -62,7 +62,7 @@ public class TaskList {
     }
 
     /**
-     * Returns a parsable string of the deadline task. Meant to be used for storage purposes.
+     * Returns a parsable string of the deadline task. Meant to be used for remi.storage purposes.
      *
      * @return a parsable string representation of the task and all its details
      */

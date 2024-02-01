@@ -1,4 +1,4 @@
-package model;
+package remi.model;
 
 public class Deadline extends Task{
     private String by;
@@ -19,7 +19,7 @@ public class Deadline extends Task{
     }
 
     /**
-     * Returns a parsable string of the deadline task. Meant to be used for storage purposes.
+     * Returns a parsable string of the deadline task. Meant to be used for remi.storage purposes.
      *
      * @return a parsable string representation of the task and all its details
      */

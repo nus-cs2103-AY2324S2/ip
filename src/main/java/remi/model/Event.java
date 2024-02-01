@@ -1,4 +1,4 @@
-package model;
+package remi.model;
 
 public class Event extends Task{
     private String from;
@@ -16,7 +16,7 @@ public class Event extends Task{
     }
 
     /**
-     * Returns a parsable string of the event task. Meant to be used for storage purposes.
+     * Returns a parsable string of the event task. Meant to be used for remi.storage purposes.
      *
      * @return a parsable string representation of the task and all its details
      */

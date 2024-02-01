@@ -1,8 +1,8 @@
-package parsing;
+package remi.parsing;
 
-import io.Message;
-import model.commands.CommandList;
-import utils.RemiError;
+import remi.io.Message;
+import remi.model.commands.CommandList;
+import remi.utils.RemiError;
 
 public class Parser {
 

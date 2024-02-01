@@ -1,4 +1,4 @@
-package io;
+package remi.io;
 
 /**
  * Class that takes in messages and outputs them in the proper format.

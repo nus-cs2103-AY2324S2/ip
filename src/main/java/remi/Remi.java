@@ -1,4 +1,6 @@
-import model.Ui;
+package remi;
+
+import remi.model.Ui;
 
 public class Remi {
     public static void main(String[] args) {

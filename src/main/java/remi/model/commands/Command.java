@@ -1,6 +1,6 @@
-package model.commands;
-import io.Message;
-import utils.RemiError;
+package remi.model.commands;
+import remi.io.Message;
+import remi.utils.RemiError;
 
 @FunctionalInterface
 public interface Command {

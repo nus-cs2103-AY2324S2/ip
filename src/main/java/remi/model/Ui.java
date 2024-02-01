@@ -1,12 +1,12 @@
-package model;
+package remi.model;
 
-import io.Inputter;
-import io.Message;
-import io.Outputter;
-import model.commands.CommandList;
-import parsing.Parser;
-import storage.Storage;
-import utils.RemiError;
+import remi.io.Inputter;
+import remi.io.Message;
+import remi.io.Outputter;
+import remi.model.commands.CommandList;
+import remi.parsing.Parser;
+import remi.storage.Storage;
+import remi.utils.RemiError;
 
 public class Ui {
 
@@ -24,7 +24,7 @@ public class Ui {
 
 
     public void ioLoop() {
-        Outputter.outputMessage(new Message("Hello! I'm Remi\n" + "What can I do for you?"));
+        Outputter.outputMessage(new Message("Hello! I'm remi.Remi\n" + "What can I do for you?"));
         Storage.get();
 
         while (!exitLoop) {
