@@ -15,7 +15,6 @@ public class Storage {
 
     Storage(ArrayList<String> path) {
         this.path = path;
-        System.out.println("storage");
     }
 
     public void write(TaskList tasks) throws DookException {

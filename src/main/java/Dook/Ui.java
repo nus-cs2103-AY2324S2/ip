@@ -22,7 +22,7 @@ public class Ui {
                 + "| |_| | |_| | |_| |   <      |、˜〵 \n"
                 + "|____/ \\___/ \\___/|_|\\_\\     じしˍ,)ノ\n";
         printSeparator();
-        System.out.println("Hello from Dook.Dook! :D meow\n" + logo);
+        System.out.println("Hello from Dook! :D meow\n" + logo);
         System.out.println("What can I do for you? uwu");
         printSeparator();
     }
