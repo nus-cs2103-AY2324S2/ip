@@ -7,8 +7,8 @@ package sleepy.items;
  */
 public class Deadline extends Item {
     private String givenDeadline;
-    public Deadline(String description, String givenDeadline) {
-        super(description);
+    public Deadline(String rawDescription, String description, String givenDeadline) {
+        super(rawDescription, description);
         this.givenDeadline = givenDeadline;
     }
 

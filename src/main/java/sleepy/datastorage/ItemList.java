@@ -6,7 +6,12 @@ import sleepy.items.Item;
 import sleepy.items.ToDo;
 import sleepy.tools.LinePrinter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * This class stores the items in the Sleepy AI Chatbot.
@@ -16,7 +21,29 @@ import java.util.ArrayList;
 public class ItemList {
     private ArrayList<Item> items = new ArrayList<>();
 
+    private File hardDiskFile;
+
+    private boolean isStartingUp = true;
+
+    /**
+     * Constructor for the ItemList class. Initialises the list of items
+     * based on the saved data in the SleepyItemList file.
+     *
+     */
     public ItemList() {
+        try {
+            hardDiskFile = new File("./src/main/java/sleepy/datastorage/HardDiskStorage.txt");
+            hardDiskFile.createNewFile();
+            Scanner scanner = new Scanner(hardDiskFile);
+            while (scanner.hasNextLine()) {
+                addItem(scanner.nextLine());
+            }
+            isStartingUp = false;
+        } catch (FileNotFoundException f) {
+            LinePrinter.printLine("Sleepy encountered a bug and could not recover his data!");
+        } catch (IOException i) {
+            LinePrinter.printLine("Sleepy encountered a serious error! Please restart the application :(");
+        }
     }
 
     /**
@@ -62,6 +89,8 @@ public class ItemList {
             LinePrinter.printLine("Zzz... The target item must be an integer! Nice try, you won't catch me sleeping :p");
         } catch (IllegalArgumentException i) {
             LinePrinter.printLine(i.getMessage() + " Nice try, you won't catch me sleeping :p");
+        } catch (IOException i) {
+            LinePrinter.printLine("Sleepy couldn't save your data! Please restart the application :(");
         }
     }
 
@@ -70,7 +99,7 @@ public class ItemList {
      *
      * @param item Item to be added.
      */
-    public void addItem(String item) throws IllegalArgumentException {
+    public void addItem(String item) throws IllegalArgumentException, IOException {
         Item createdItem = null;
         if (item.equals("todo") || item.equals("deadline") || item.equals("event")) {
             throw new IllegalArgumentException("You forgot to include the description at all!");
@@ -79,7 +108,7 @@ public class ItemList {
         boolean isDeadline = item.indexOf("deadline ") == 0;
         boolean isEvent = item.indexOf("event ") == 0;
         if (isToDo) {
-            createdItem = new ToDo(item.substring(5));
+            createdItem = new ToDo(item, item.substring(5));
         } else if (isDeadline) {
             int deadlineIndex = item.indexOf("/by ");
             if (deadlineIndex == -1) {
@@ -93,7 +122,7 @@ public class ItemList {
             }
             String description = item.substring(9, deadlineIndex - 1);
             String givenDeadline = item.substring(deadlineIndex + 4);
-            createdItem = new Deadline(description, givenDeadline);
+            createdItem = new Deadline(item, description, givenDeadline);
         }
         else if (isEvent) {
             int fromIndex = item.indexOf("/from ");
@@ -119,12 +148,15 @@ public class ItemList {
             String description = item.substring(6, fromIndex - 1);
             String start = item.substring(fromIndex + 6, toIndex - 1);
             String end = item.substring(toIndex + 4);
-            createdItem = new Event(description, start, end);
+            createdItem = new Event(item, description, start, end);
         } else {
             throw new IllegalArgumentException("This is not a task!");
         }
         items.add(createdItem);
-        LinePrinter.printLine("added: " + createdItem.getDescription());
+        saveItems();
+        if (!isStartingUp) {
+            LinePrinter.printLine("added: " + createdItem.getDescription());
+        }
     }
 
     /**
@@ -132,11 +164,12 @@ public class ItemList {
      *
      * @param itemNumber Item number to be deleted.
      */
-    public void deleteItem(int itemNumber) throws IllegalArgumentException {
+    public void deleteItem(int itemNumber) throws IllegalArgumentException, IOException {
         if (itemNumber <= 0 || itemNumber > items.size()) {
             throw new IllegalArgumentException("Invalid item number!");
         }
         Item removedItem = items.remove(itemNumber - 1);
+        saveItems();
         LinePrinter.printLine("Noted. I've removed this task:");
         LinePrinter.printLine("  " + removedItem.getDescription());
         LinePrinter.printLine(String.format("Now you have %d task(s) in the list.", items.size()));
@@ -168,5 +201,17 @@ public class ItemList {
             Item nextItem = items.get(i - 1);
             LinePrinter.printLine(i + "." + nextItem.getDescription());
         }
+    }
+
+    /**
+     * Saves the items in the hard disk.
+     */
+    public void saveItems() throws IOException {
+        FileWriter fileWriter = new FileWriter(hardDiskFile, false);
+        for (Item item : items) {
+            fileWriter.write(item.getRawDescription() + "\n");
+        }
+        fileWriter.flush();
+        fileWriter.close();
     }
 }

@@ -8,10 +8,15 @@ import sleepy.tools.LinePrinter;
  * @author kjw142857
  */
 public abstract class Item {
+    // Description of the item (without timings).
     private String description;
+
+    // Raw description of the item with all details included.
+    private String rawDescription;
     private boolean isDone = false;
 
-    public Item(String description) {
+    public Item(String rawDescription, String description) {
+        this.rawDescription = rawDescription;
         this.description = description;
     }
 
@@ -43,5 +48,14 @@ public abstract class Item {
             return "[X] " + this.description;
         }
         return "[ ] " + this.description;
+    }
+
+    /**
+     * Returns the raw description of this item.
+     *
+     * @return Raw description of this item.
+     */
+    public String getRawDescription() {
+        return this.rawDescription;
     }
 }

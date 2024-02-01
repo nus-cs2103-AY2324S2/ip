@@ -8,8 +8,8 @@ package sleepy.items;
 public class Event extends Item {
     private String start;
     private String end;
-    public Event(String description, String start, String end) {
-        super(description);
+    public Event(String rawDescription, String description, String start, String end) {
+        super(rawDescription, description);
         this.start = start;
         this.end = end;
     }

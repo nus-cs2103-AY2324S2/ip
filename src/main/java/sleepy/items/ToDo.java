@@ -6,8 +6,8 @@ package sleepy.items;
  * @author kjw142857
  */
 public class ToDo extends Item {
-    public ToDo(String description) {
-        super(description);
+    public ToDo(String rawDescription, String description) {
+        super(rawDescription, description);
     }
 
     /**
