@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,9 +7,14 @@ import java.util.Scanner;
  * The main class representing my chatbot application.
  */
 public class Rochin {
+
+
+
     public static void main(String[] args) throws RochinException {
         Chatbot chatbot = new Chatbot();
+        chatbot.loadData();
         chatbot.start();
+        chatbot.saveData();
     }
 }
 
@@ -17,7 +23,7 @@ public class Rochin {
  */
 class Chatbot {
     private final List<Task> tasks;
-
+    private static final String FILE_PATH = "./data/rochin.txt";
 
     /**
      * Construct a Chatbot and initialize the task storage array.
@@ -228,6 +234,64 @@ class Chatbot {
             return isExitCommand;
         }
     }
+
+    /**
+     * Save tasks to the file.
+     */
+    public void saveData() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
+            for (Task task : tasks) {
+                writer.println(task.toFileString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Load tasks from the file.
+     */
+    public void loadData() {
+        try {
+            File file = new File(FILE_PATH);
+            if (file.exists()) {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    String fileLine = scanner.nextLine();
+                    Task task = Task.createTaskFromFileString(fileLine);
+                    if (task != null) {
+                        tasks.add(task);
+                    }
+                }
+                scanner.close();
+            } else {
+                createDataFileIfNotExists();
+            }
+        } catch (FileNotFoundException | RochinException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Create a new data file.
+     */
+    public void createDataFileIfNotExists() {
+        try {
+            File file = new File(FILE_PATH);
+            File parentDir = file.getParentFile();
+            if (!parentDir.exists() && !parentDir.mkdirs()) {
+                System.out.println("Failed to create data folder. Exiting.");
+                System.exit(1);
+            }
+
+            if (!file.createNewFile()) {
+                System.out.println("Failed to create data file. Exiting.");
+                System.exit(1);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 /**
@@ -272,6 +336,71 @@ class Task {
     }
 
     /**
+     * The string representation of the task that to be saved in the file.
+     *
+     * @return The string representation of the task.
+     */
+    public String toFileString() {
+        return String.format("%s | %d | %s | %s", getTaskType(), isDone ? 1 : 0, description, getAdditionalDetails());
+    }
+
+
+    /**
+     * Create new tasks according to the data in the file.
+     *
+     * @param fileLine data from the file.
+     * @return new task.
+     */
+    public static Task createTaskFromFileString(String fileLine) throws RochinException {
+        String[] parts = fileLine.split("\\s*\\|\\s*");
+        if (parts.length >= 3) {
+            boolean isDone = Integer.parseInt(parts[1]) == 1;
+            String description = parts[2];
+            // Extract additional details based on task type (Todo, Deadline, Event)
+            String additionalDetails = parts.length > 3 ? parts[3] : null;
+            if (parts[0].equals("T")) {
+                TodoTask todoTask = new TodoTask(description);
+                if (isDone) {
+                    todoTask.markAsDone();
+                }
+                return todoTask;
+            } else if (parts[0].equals("D")) {
+                DeadlineTask deadlineTask = new DeadlineTask(description, additionalDetails);
+                if (isDone) {
+                    deadlineTask.markAsDone();
+                }
+                return deadlineTask;
+            } else if (parts[0].equals("E")) {
+                description = parts[2] + parts[3];
+                EventTask eventTask = EventTask.createTask(description);
+                if (isDone) {
+                    eventTask.markAsDone();
+                }
+                return eventTask;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Default implementation of getTaskType, can be overridden by subclasses
+     *
+     * @return A string.
+     */
+    public String getTaskType() {
+        return "U";
+    }
+
+    /**
+     * Default implementation of getAdditionalDetails, can be overridden by subclasses
+     *
+     * @return A string.
+     */
+    public String getAdditionalDetails() {
+        return "";
+    }
+
+    /**
      * Return a string representation of the task.
      *
      * @return A string representation of the task.
@@ -289,6 +418,16 @@ class TodoTask extends Task {
 
     public TodoTask(String description) {
         super(description);
+    }
+
+    @Override
+    public String getAdditionalDetails() {
+        return ""; // Todo tasks don't have additional details
+    }
+
+    @Override
+    public String getTaskType() {
+        return "T";
     }
 
     /**
@@ -329,6 +468,11 @@ class DeadlineTask extends Task {
         } else {
             throw new RochinException("OOPS!!! Please provide both a description and a deadline for a deadline task.");
         }
+    }
+
+    @Override
+    public String getTaskType() {
+        return "D";
     }
 
     /**
@@ -374,6 +518,16 @@ class EventTask extends Task {
             }
         }
         throw new RochinException("OOPS!!! Please provide a description, start time, and end time for an event task.");
+    }
+
+    /**
+     * Return a string representation of the task type.
+     *
+     * @return A string representation of the task type.
+     */
+    @Override
+    public String getTaskType() {
+        return "E";
     }
 
     /**
