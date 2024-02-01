@@ -10,10 +10,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents Parser component of Buddy, parsing inputs given by user.
+ */
 public class Parser {
-
     protected static final DateTimeFormatter DATE_TIME_PARSE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
+    /**
+     * Parses input given by user.
+     *
+     * @param fullCommand Input given by user.
+     * @return Command to be executed.
+     * @throws BuddyException If input given by user is incomplete or unrecognised.
+     */
     public static Command parse(String fullCommand) throws BuddyException {
         if (!fullCommand.isEmpty()) {
             String[] commandParts = fullCommand.split(" ", 2);
@@ -104,6 +113,12 @@ public class Parser {
         return new Command();
     }
 
+    /**
+     * Assigns type of command to input given by user.
+     *
+     * @param cmd Command given by user.
+     * @return CommandType of command to be executed.
+     */
     public static CommandType getCommandType(String cmd) {
         try {
             return CommandType.valueOf(cmd.trim().toUpperCase());

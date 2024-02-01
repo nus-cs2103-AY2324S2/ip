@@ -5,12 +5,22 @@ import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 
+/**
+ * Represents Buddy the chatbot!
+ *
+ * @author Mahadhir
+ */
 public class Buddy {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates a Buddy chatbot instance with specified file path.
+     *
+     * @param filePath Location of file storing task data.
+     */
     public Buddy(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);

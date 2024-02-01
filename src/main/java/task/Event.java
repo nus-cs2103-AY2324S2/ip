@@ -2,10 +2,20 @@ package task;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents an event type task.
+ */
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
+    /**
+     * Creates an Event object with description, start time and end time.
+     *
+     * @param description Description of event.
+     * @param from Start time of event.
+     * @param to End time of event.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;

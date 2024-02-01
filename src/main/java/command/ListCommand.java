@@ -4,6 +4,9 @@ import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 
+/**
+ * Represents Command that lists task in task list.
+ */
 public class ListCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
