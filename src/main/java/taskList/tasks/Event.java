@@ -1,4 +1,3 @@
-/* (C)2024 */
 package taskList.tasks;
 
 import java.time.DateTimeException;
@@ -6,13 +5,27 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a Event Task that needs to be completed. It is an extension of the Task class.
+ * Contains 'from' and 'to' date to specify the start and end of the event.
+ */
 public class Event extends Task {
-
-  protected LocalDateTime fromDateLDT;
-  protected LocalDateTime toDateLDT;
+  // from date as LocalDateTime format.
+  protected LocalDateTime fromDateLdt;
+  // to date as LocalDateTime format.
+  protected LocalDateTime toDateLdt;
+  // from date as String format.
   protected String fromDateString;
+  // to date as String format.
   protected String toDateString;
 
+  /**
+   * Initialize an Event.
+   *
+   * @param item the event to be completed.
+   * @param fromDate start date and time of the event
+   * @param toDate end date and time of the event
+   */
   public Event(String item, String fromDate, String toDate) {
     super(item);
 
@@ -24,17 +37,17 @@ public class Event extends Task {
       }
 
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
-      LocalDateTime fromDateLDT = LocalDateTime.parse(fromDateString.trim(), formatter);
-      LocalDateTime toDateLDT = LocalDateTime.parse(toDateString.trim(), formatter);
+      LocalDateTime fromDateLdt = LocalDateTime.parse(fromDateString.trim(), formatter);
+      LocalDateTime toDateLdt = LocalDateTime.parse(toDateString.trim(), formatter);
 
-      if (fromDateLDT.isAfter(toDateLDT)) {
+      if (fromDateLdt.isAfter(toDateLdt)) {
         throw new IllegalArgumentException("Start date must be before end date");
       }
 
-      this.fromDateLDT = fromDateLDT;
+      this.fromDateLdt = fromDateLdt;
       this.fromDateString = fromDateString.trim();
 
-      this.toDateLDT = toDateLDT;
+      this.toDateLdt = toDateLdt;
       this.toDateString = toDateString.trim();
 
     } catch (DateTimeException dte) {

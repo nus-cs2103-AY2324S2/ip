@@ -1,11 +1,16 @@
-/* (C)2024 */
 package taskList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import taskList.tasks.Task;
 
+/**
+ * Collection of tasks. Provides methods to manage the tasks in the list.
+ *
+ * <p>Example usage: Tasklist taskList = new Tasklist(); Tasklist.addTask(new ToDo("read book"));
+ */
 public class TaskList implements Serializable {
+  /** arraylist to store tasks */
   private ArrayList<Task> taskList;
 
   public TaskList(ArrayList<Task> thelist) {

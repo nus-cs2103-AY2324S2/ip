@@ -1,15 +1,26 @@
-/* (C)2024 */
 package taskList.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a Deadline Task that needs to be completed. It is an extension of the Task class.
+ * Contains 'by' date to specify the deadline of the task.
+ */
 public class Deadline extends Task {
-
+  /** deadline of the task in LocalDateTime format */
   protected LocalDateTime deadlineDate;
+
+  /** deadline of the task in String format */
   protected String byDateString;
 
+  /**
+   * Initalize a Deadline.
+   *
+   * @param item the task to be completed.
+   * @param byDate the deadline of the task.
+   */
   public Deadline(String item, String byDate) {
     super(item);
     try {
