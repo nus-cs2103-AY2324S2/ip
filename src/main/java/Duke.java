@@ -1,9 +1,16 @@
 import com.sun.source.util.TaskListener;
 
 import java.io.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import static java.time.DayOfWeek.MONDAY;
 
 public class Duke {
 
@@ -17,7 +24,7 @@ public class Duke {
         }
 
         public String getStatusIcon() {
-            return (this.isDone ? "1" : "0" ); // mark done task with 1
+            return (this.isDone ? "X" : "0" ); // mark done task with 1
         }
 
         public String toString() {
@@ -38,6 +45,18 @@ public class Duke {
         public void markUnDone() {
             this.isDone = false;
         }
+
+        public String formatDate(LocalDate date) {
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+            String formattedDate = date.format(outputFormatter);
+            return formattedDate;
+        }
+
+        public String formatTime(LocalTime time) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
+            String formattedTime = time.format(formatter);
+            return formattedTime;
+        }
     }
 
     public static class ToDo extends Task {
@@ -52,31 +71,60 @@ public class Duke {
     }
 
     public static class Deadline extends Task {
-        protected String by;
+//        protected String by;
+        private LocalDate byDate;
+        private LocalTime byTime;
+
         public Deadline(String description, String by, boolean isDone) {
             super(description, isDone);
-            this.by = by;
+            String[] parseBy = by.split(" ");
+            if (parseBy.length > 1) {
+                this.byTime = LocalTime.parse(parseBy[1]);
+            }
+            this.byDate = LocalDate.parse(parseBy[0]);
+
+//            this.by = by;
         }
 
         @Override
         public String toString() {
-            return "D" + super.toString() + "| by: " + by;
+            return "D" + super.toString()
+                    + " | by: " + formatDate(byDate) + (byTime != null ? " " + formatTime(byTime) : "");
         }
     }
 
     public static class Event extends Task {
-        protected String start;
-        protected String end;
+//        protected String start;
+//        protected String end;
+        private LocalDate startDate;
+        private LocalTime startTime;
+        private LocalDate endDate;
+        private LocalTime endTime;
 
         public Event(String description, String start, String end, boolean isDone) {
             super(description, isDone);
-            this.start = start;
-            this.end = end;
+            String[] parseStart = start.split(" ");
+            String[] parseEnd = end.split(" ");
+            if (parseStart.length > 1) {
+                this.startTime = LocalTime.parse(parseStart[1]);
+            }
+            this.startDate = LocalDate.parse(parseStart[0]);
+            if (parseEnd.length > 1) {
+                this.endDate = LocalDate.parse(parseEnd[0]);
+                this.endTime = LocalTime.parse(parseEnd[1]);
+            } else {
+                this.endTime = LocalTime.parse(parseEnd[0]);
+            }
+
+//            this.start = start;
+//            this.end = end;
         }
 
         @Override
         public String toString() {
-            return "E" + super.toString() + "| from: " + start +  "| to: " + end;
+            return "E" + super.toString()
+                    + " | from: " + formatDate(startDate) + (startTime != null ? " " + formatTime(startTime) : "")
+                    +  " | to: " + (endDate != null ? " " + formatDate(endDate) : "") + formatTime(endTime);
         }
     }
 
@@ -127,7 +175,7 @@ public class Duke {
         // Example line format: "T | 1 | read book"
         String[] parts = line.split(" \\| ");
         if (parts.length >= 3) {
-            boolean isDone = parts[1].equals("1");
+            boolean isDone = parts[1].equals("X");
             String description = parts[2];
             if (parts[0] == "T") { // todo
                 return new ToDo(description, isDone);
@@ -222,7 +270,7 @@ public class Duke {
         if (type.equals("todo")) {
             taskList.add(new ToDo(input, false));
         } else {
-            String command[] = input.split("/");
+            String command[] = input.split(" /");
             if (type.equals("deadline")) {
                 if (command.length < 2) {
                     throw new DukeException("Looks like you haven't added a deadline!");
