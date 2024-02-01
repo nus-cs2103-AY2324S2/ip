@@ -1,8 +1,9 @@
-package executes;
+package tasklist;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.TaylorException;
 import tasks.Task;
 
 
@@ -19,10 +20,15 @@ public class FindTask {
 
     /**
      * Execute finder using keyword
-     * @param keyword User input
+     * @param input User input
      * @param taskList ArrayList of Tasks
      */
-    public static void exec(String keyword, List<Task> taskList) {
+    public static void exec(String input, List<Task> taskList) {
+        String[] parts = input.split(" ", 2);
+        if (parts.length < 2 || parts[1].trim().isBlank()) {
+            throw new TaylorException("The description of the task is empty.");
+        }
+        String keyword = parts[1];
         List<Task> result = new ArrayList<>();
         for (Task tsk : taskList) {
             if (tsk.getExecute().contains(keyword)) {

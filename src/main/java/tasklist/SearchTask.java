@@ -1,4 +1,4 @@
-package executes;
+package tasklist;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,7 +27,12 @@ public class SearchTask {
      */
     public static void execSearchTask(String input, List<Task> taskList) {
         try {
-            LocalDateTime searchDate = InsertTask.dateConversion(input);
+            String[] parts = input.split(" ", 2);
+            if (parts.length < 2 || parts[1].trim().isBlank()) {
+                throw new TaylorException("The description of the task is empty.");
+            }
+            String content = parts[1];
+            LocalDateTime searchDate = InsertTask.dateConversion(content);
             List<Task> output = new ArrayList<>();
 
             for (Task act : taskList) {

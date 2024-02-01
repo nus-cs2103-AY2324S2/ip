@@ -3,35 +3,30 @@ import java.util.List;
 import java.util.Scanner;
 
 import exceptions.TaylorException;
-import executes.DeleteTask;
-import executes.FindTask;
-import executes.InsertTask;
-import executes.ListTask;
-import executes.MarkTask;
-import executes.SearchTask;
-import filehandler.FileReader;
+import filestorage.Storage;
+import parser.Parser;
+import tasklist.DeleteTask;
+import tasklist.FindTask;
+import tasklist.InsertTask;
+import tasklist.ListTask;
+import tasklist.MarkTask;
+import tasklist.SearchTask;
 import tasks.Task;
-
+import ui.Ui;
 
 /**
  * Main class to execute Taylor ChatBot
  */
 public class Taylor {
-    enum Activity {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, SEARCH, FIND, INVALID
-    }
-
     public static void main(String[] args) {
-        List<Task> tasks = new ArrayList<>();
+        List<Task> tasksList = new ArrayList<>();
         // Load pre-existing task from Hard Disk
         try {
-            tasks = FileReader.inputFromFile(tasks);
+            tasksList = Storage.inputFromFile(tasksList);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Ui.printError(e);
         }
-
-        System.out.println("Hello! I'm Taylor");
-        System.out.println("What can I do for you?");
+        Ui.welcomeText();
         Scanner type = new Scanner(System.in);
 
         label:
@@ -39,7 +34,7 @@ public class Taylor {
             String input = type.nextLine();
 
             if (input.isBlank()) {
-                System.out.println("Input is empty, please enter something.");
+                Ui.blankCommand();
 
             } else {
                 String[] userInputSplit = input.split(" ", 2);
@@ -52,15 +47,15 @@ public class Taylor {
                         break label;
 
                     case LIST:
-                        ListTask.execListTask(tasks);
+                        ListTask.execListTask(tasksList);
 
                         break;
                     case MARK:
                     case UNMARK:
                         try {
-                            MarkTask.execMarkTask(input, tasks);
+                            MarkTask.execMarkTask(input, tasksList);
                         } catch (TaylorException err) {
-                            System.out.println("Error: " + err.getMessage());
+                            Ui.printError(err);
                         }
 
                         break;
@@ -68,55 +63,46 @@ public class Taylor {
                     case DEADLINE:
                     case EVENT:
                         try {
-                            InsertTask.execInsertTask(input, tasks);
+                            InsertTask.execInsertTask(input, tasksList);
                         } catch (TaylorException err) {
-                            System.out.println("Error: " + err.getMessage());
+                            Ui.printError(err);
                         }
                         break;
                     case DELETE:
                         try {
-                            DeleteTask.execDeleteTask(input, tasks);
+                            DeleteTask.execDeleteTask(input, tasksList);
                         } catch (TaylorException err) {
-                            System.out.println("Error: " + err.getMessage());
+                            Ui.printError(err);
                         }
                         break;
                     case SEARCH:
                         try {
-                            SearchTask.execSearchTask(userInputSplit[1], tasks);
+                            SearchTask.execSearchTask(userInputSplit[1], tasksList);
                         } catch (TaylorException err) {
-                            System.out.println("Error: " + err.getMessage());
+                            Ui.printError(err);
                         }
                         break;
                     case FIND:
                         try {
-                            FindTask.exec(userInputSplit[1], tasks);
+                            FindTask.exec(userInputSplit[1], tasksList);
                         } catch (TaylorException err) {
-                            System.out.println("Error: " + err.getMessage());
+                            Ui.printError(err);
                         }
                         break;
                     default:
-                        System.out.println("Invalid input. ChatBot can only handle "
-                                + "'todo', 'deadline', 'event', 'bye', 'list' tasks");
+                        Ui.invalidCommand();
                         break;
                 }
                 // Save Task into File in Hard Disk
                 try {
-                    FileReader.outputToFile(tasks);
+                    Storage.outputToFile(tasksList);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Ui.printError(e);
                 }
             }
         }
 
         type.close();
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    private static Activity getActivity(String action) {
-        try {
-            return Activity.valueOf(action.toUpperCase());
-        } catch (IllegalArgumentException err) {
-            return Activity.INVALID;
-        }
+        Ui.goodbyeText();
     }
 }

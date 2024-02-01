@@ -1,4 +1,4 @@
-package filehandler;
+package filestorage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,11 +13,11 @@ import tasks.Task;
 /**
  * To read data from and save data into Hard Disk
  */
-public class FileReader {
+public class Storage {
     /**
      * No constructor of class needed
      */
-    private FileReader() {
+    private Storage() {
         throw new AssertionError("Constructor is not allowed");
     }
 
