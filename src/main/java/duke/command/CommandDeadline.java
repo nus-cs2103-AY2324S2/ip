@@ -1,7 +1,10 @@
-package duke;
+package duke.command;
 
 import duke.tasks.Deadline;
 import duke.tasks.Task;
+import duke.Ui;
+import duke.TaskList;
+import duke.DukeCeption;
 
 public class CommandDeadline extends Command {
     

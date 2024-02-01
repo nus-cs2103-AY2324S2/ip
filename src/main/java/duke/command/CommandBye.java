@@ -1,4 +1,8 @@
-package duke;
+package duke.command;
+
+import duke.Ui;
+import duke.TaskList;
+
 public class CommandBye extends Command {
 
     public CommandBye(TaskList taskList, Ui ui) {

@@ -1,7 +1,17 @@
 package duke;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import duke.command.Command;
+import duke.command.CommandBye;
+import duke.command.CommandDeadline;
+import duke.command.CommandDelete;
+import duke.command.CommandEvent;
+import duke.command.CommandList;
+import duke.command.CommandMark;
+import duke.command.CommandToDo;
+import duke.command.CommandUnmark;
 
 
 public class Parser {

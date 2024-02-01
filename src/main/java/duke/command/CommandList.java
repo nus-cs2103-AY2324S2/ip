@@ -1,8 +1,10 @@
-package duke;
+package duke.command;
 
 import java.util.ArrayList;
 
 import duke.tasks.Task;
+import duke.Ui;
+import duke.TaskList;
 
 public class CommandList extends Command {
 
@@ -19,9 +21,7 @@ public class CommandList extends Command {
                     i + 1,
                     list.get(i)));
         }
-
         ui.print();
-
     }
     
 }

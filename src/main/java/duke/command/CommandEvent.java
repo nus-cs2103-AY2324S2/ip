@@ -1,11 +1,14 @@
-package duke;
+package duke.command;
 
 import duke.tasks.Event;
 import duke.tasks.Task;
+import duke.Ui;
+import duke.TaskList;
+import duke.DukeCeption;
 
 public class CommandEvent extends Command {
 
-    CommandEvent(TaskList taskList, Ui ui) {
+    public CommandEvent(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
 
