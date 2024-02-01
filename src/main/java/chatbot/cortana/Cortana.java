@@ -89,6 +89,11 @@ public class Cortana {
                     numTasks = this.taskList.getNumTasks();
                     response = Ui.listTasks(tasks, numTasks);
                     break;
+                case FIND:
+                    tasks = this.taskList.findTasks(Parser.parseFindString(input));
+                    numTasks = tasks.size();
+                    response = Ui.listFindTasks(tasks, numTasks);
+                    break;
                 default:
                     response = "I'm sorry, but I don't know what that means :-(";
                 }

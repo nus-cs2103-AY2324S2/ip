@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+classpath="src/main/java"
+
 # delete output from previous run
 if [ -e "./data/tasks.csv" ]
 then
@@ -9,18 +11,18 @@ fi
 # delete output from previous run
 if [ -e "./text-ui-test/ACTUAL.TXT" ]
 then
-    rm ./text-ui-test/ACTUAL.TXT
+    rm ACTUAL.TXT
 fi
 
 # compile the code 
-if ! javac src/main/java/*.java
+if ! javac -cp src/main/java src/main/java/chatbot/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java src/main/java/Main < ./text-ui-test/input.txt > ./text-ui-test/ACTUAL.TXT
+java -cp "$classpath" "chatbot/Main" < ./text-ui-test/input.txt > ./text-ui-test/ACTUAL.TXT
 
 # convert to UNIX format
 cp ./text-ui-test/EXPECTED.TXT ./text-ui-test/EXPECTED-UNIX.TXT

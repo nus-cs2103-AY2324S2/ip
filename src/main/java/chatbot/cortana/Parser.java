@@ -152,6 +152,11 @@ public class Parser {
                 throw new InvalidInputException("Please enter a valid number! " 
                                                 + "Tip: delete <number> \nMissing number");
             }
+        } else if (command == Command.FIND) {
+            if (input.length() <= 4) {
+                throw new InvalidInputException("Please enter a valid keyword! " 
+                                                +  "Tip: find <keyword> \nMissing keyword");
+            }
         }
     }
 
@@ -177,6 +182,8 @@ public class Parser {
             return Command.LIST;
         } else if (input.equals("bye")) {
             return Command.BYE;
+        } else if (input.startsWith("find")) {
+            return Command.FIND;
         } else {
             return Command.INVALID;
         }
@@ -231,6 +238,10 @@ public class Parser {
         LocalDateTime startDateTime = parseDateTimeString(arr2[0].trim());
         LocalDateTime endDateTime = parseDateTimeString(arr2[1].trim());
         return new EventTask(arr[0].trim(), startDateTime, endDateTime);
+    }
+
+    public static String parseFindString(String input) {
+        return input.substring(5).trim();
     }
 
 }
