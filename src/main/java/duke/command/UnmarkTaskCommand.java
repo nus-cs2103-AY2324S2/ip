@@ -8,13 +8,13 @@ import duke.utility.Ui;
 
 import java.io.IOException;
 
-public class UnmarkTaskCommand extends Command{
-
+public class UnmarkTaskCommand extends Command {
     private int indexToBeUnmarked;
 
     public UnmarkTaskCommand(int index) {
         this.indexToBeUnmarked = index;
     }
+
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
             Task unmarkedTask = taskList.unmarkTask(indexToBeUnmarked);
@@ -29,6 +29,7 @@ public class UnmarkTaskCommand extends Command{
             ui.showError(e.getMessage());
         }
     }
+
     public boolean isExit() {
         return false;
     }

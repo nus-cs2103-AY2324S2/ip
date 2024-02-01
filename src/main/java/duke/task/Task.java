@@ -25,5 +25,4 @@ public abstract class Task {
             isDone = false;
         }
     }
-
 }

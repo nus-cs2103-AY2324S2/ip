@@ -13,6 +13,7 @@ public class AddTaskCommand extends Command{
     public AddTaskCommand(Task task) {
         this.taskToBeAdded = task;
     }
+
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.addTask(taskToBeAdded);
         ui.showAddedTask(taskToBeAdded, taskList.listSize());
@@ -22,6 +23,7 @@ public class AddTaskCommand extends Command{
             ui.showError(e.getMessage());
         }
     }
+
     public boolean isExit() {
         return false;
     }
