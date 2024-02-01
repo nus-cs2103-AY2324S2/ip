@@ -7,7 +7,7 @@ import duke.utility.Ui;
 
 import java.io.IOException;
 
-public class AddTaskCommand extends Command{
+public class AddTaskCommand extends Command {
     private Task taskToBeAdded;
 
     public AddTaskCommand(Task task) {
