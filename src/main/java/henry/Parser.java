@@ -3,6 +3,7 @@ package henry;
 import henry.command.Command;
 import henry.command.ByeCommand;
 import henry.command.ListCommand;
+import henry.command.FindCommand;
 import henry.command.DeadlineCommand;
 import henry.command.EventCommand;
 import henry.command.TodoCommand;
@@ -12,13 +13,15 @@ import henry.command.UnmarkCommand;
 import henry.command.UnknownCommand;
 public class Parser {
     private enum CommandType {
-        LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, BYE, UNKNOWN
+        LIST, FIND, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, BYE, UNKNOWN
     }
 
     private static Command handleCommand(CommandType commandType, String args) throws HenryException {
         switch (commandType) {
         case LIST:
             return new ListCommand();
+        case FIND:
+            return new FindCommand(args);
         case MARK:
             return new MarkCommand(args);
         case UNMARK:

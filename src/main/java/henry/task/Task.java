@@ -32,6 +32,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean containsKeyword(String keyword) {
+        return description.contains(keyword);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), description);

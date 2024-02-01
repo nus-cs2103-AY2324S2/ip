@@ -52,8 +52,18 @@ public class TaskList {
         items.remove(index);
     }
 
+    public ArrayList<Task> findTasksByKeyword(String keyword) {
+        ArrayList<Task> ret = new ArrayList<>();
+        for (Task task : items) {
+            if (task.containsKeyword(keyword)) {
+                ret.add(task);
+            }
+        }
+        return ret;
+    }
+
     public void printList() {
-        System.out.println("Here is a list of tasks:");
+        System.out.println("Here is a matching list of tasks:");
         for (int i = 0; i < items.size(); i = i + 1) {
             System.out.printf("%d. %s\n", i + 1, items.get(i));
         }
