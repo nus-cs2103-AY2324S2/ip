@@ -10,6 +10,7 @@ import henry.command.DeleteCommand;
 import henry.command.MarkCommand;
 import henry.command.UnmarkCommand;
 import henry.command.UnknownCommand;
+
 public class Parser {
     private enum CommandType {
         LIST, UNMARK, MARK, DELETE, TODO, DEADLINE, EVENT, BYE, UNKNOWN
