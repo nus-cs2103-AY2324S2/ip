@@ -28,6 +28,7 @@ public class Parser {
         String markRegex = "mark (\\d+)";
         String unmarkRegex = "unmark (\\d+)";
         String deleteRegex = "delete (\\d+)";
+        String findRegex = "find (\\S.*)";
 
         // Regex for simple error of empty description
         String todoErrorRegex = "todo\\s*";
@@ -36,6 +37,7 @@ public class Parser {
         String markErrorRegex = "mark\\s*";
         String unmarkErrorRegex = "unmark\\s*";
         String deleteErrorRegex = "delete\\s*";
+        String findErrorRegex = "find\\s*";
 
         Matcher todoMatcher = Pattern.compile(todoRegex).matcher(input);
         Matcher deadlineMatcher = Pattern.compile(deadlineRegex).matcher(input);
@@ -43,6 +45,7 @@ public class Parser {
         Matcher markMatcher = Pattern.compile(markRegex).matcher(input);
         Matcher unmarkMatcher = Pattern.compile(unmarkRegex).matcher(input);
         Matcher deleteMatcher = Pattern.compile(deleteRegex).matcher(input);
+        Matcher findMatcher = Pattern.compile(findRegex).matcher(input);
 
         Matcher todoErrorMatcher = Pattern.compile(todoErrorRegex).matcher(input);
         Matcher deadlineErrorMatcher = Pattern.compile(deadlineErrorRegex).matcher(input);
@@ -50,6 +53,7 @@ public class Parser {
         Matcher markErrorMatcher = Pattern.compile(markErrorRegex).matcher(input);
         Matcher unmarkErrorMatcher = Pattern.compile(unmarkErrorRegex).matcher(input);
         Matcher deleteErrorMatcher = Pattern.compile(deleteErrorRegex).matcher(input);
+        Matcher findErrorMatcher = Pattern.compile(findErrorRegex).matcher(input);
 
         if (todoMatcher.matches()) {
             return new AddCommand(new Todo(todoMatcher.group(1)));
@@ -63,8 +67,10 @@ public class Parser {
             return new MarkCommand(Integer.parseInt(markMatcher.group(1)), true);
         } else if (deleteMatcher.matches()) {
             return new DeleteCommand(Integer.parseInt(deleteMatcher.group(1)));
+        } else if (findMatcher.matches()) {
+            return new FindCommand(findMatcher.group(1));
         } else if (todoErrorMatcher.matches() || deadlineErrorMatcher.matches() || eventErrorMatcher.matches()
-            || markErrorMatcher.matches() || unmarkErrorMatcher.matches() || deleteErrorMatcher.matches()) {
+            || markErrorMatcher.matches() || unmarkErrorMatcher.matches() || deleteErrorMatcher.matches() || findErrorMatcher.matches()) {
             throw new DukeException("Empty command description");
         } else {
             throw new DukeException("sry idk what that means");
