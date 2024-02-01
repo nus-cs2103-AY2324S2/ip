@@ -11,6 +11,10 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
+/**
+ * Parser class for Steven
+ * Mainly used to understand the input given by the user and interpreting what the user wants
+ */
 public class Parser {
     private static final String line = "========\n";
     private static final String corrupted = "Oh dear, looks like the file used to handle the data "
@@ -25,11 +29,20 @@ public class Parser {
             + "For example, \"03\" is accepted for the month of March, but not \"3\"!";
     private final UserInput userInput;
     private TaskList taskList;
+    /**
+     * Constructor for the Parser class
+     * @param userInput The input of the user, broken down into arguments
+     * @param taskList The list of tasks currently
+     */
     Parser(UserInput userInput, TaskList taskList) {
         this.userInput = userInput;
         this.taskList = taskList;
     }
 
+    /**
+     * Processes a given input and carries out the appropriate action
+     * @return True, if the program exits ("bye"). False otherwise
+     */
     public boolean processInput() {
         switch (userInput.getInputName()) {
         case "list":

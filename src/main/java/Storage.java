@@ -11,11 +11,19 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
+/**
+ * Class used to read and update files from the hard disk
+ */
 public class Storage {
 
     Storage() {
     }
-
+    /**
+     * Reads the file that is specified in newFile and stores it in the taskList.
+     * @param newFile File to be read
+     * @param taskList ArrayList that contains all the tasks
+     * @throws FileNotFoundException If the specified file does not exist
+     */
     public void readFile(File newFile, ArrayList<Task> taskList) throws FileNotFoundException {
         Scanner s = new Scanner(newFile);
         while (s.hasNextLine()) {
@@ -45,6 +53,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Refreshes the file in ./data/Steven.txt such that it is in line with that of the ArrayList/
+     * @param list The ArrayList that stores the list of tasks.
+     * @throws IOException If the ./data/Steven.txt cannot be accessed.
+     */
     public void refreshFile(ArrayList<Task> list) throws IOException {
         FileWriter fw = new FileWriter("./data/Steven.txt");
         for (Task t : list) {

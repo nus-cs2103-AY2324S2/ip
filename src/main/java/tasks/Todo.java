@@ -1,8 +1,15 @@
 package tasks;
 
+/**
+ * For the creation of a Todo class
+ */
 public class Todo extends Task {
 
-    public Todo(String name) {
+    /**
+     * Constructor for the Todo class
+     * @param name Name of the task
+     */
+    public Todo (String name) {
         super(name);
     }
 
