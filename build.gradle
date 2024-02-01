@@ -28,15 +28,23 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("src.main.java.Main")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "main"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
 run{
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    enableAssertions = true
     standardInput = System.in
 }
