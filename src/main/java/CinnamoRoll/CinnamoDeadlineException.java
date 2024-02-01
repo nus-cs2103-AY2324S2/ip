@@ -1,4 +1,5 @@
 package CinnamoRoll;
+
 class CinnamoDeadlineException extends CinnamoException {
     @Override
     public String toString() {

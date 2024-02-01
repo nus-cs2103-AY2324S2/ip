@@ -19,7 +19,7 @@ class Deadlines extends Task {
     }
 
     String getStatusIcon() {
-        return (this.is_marked ? "[D][X]" : "[D][ ]");
+        return (this.isMarked ? "[D][X]" : "[D][ ]");
     }
 
     /**
@@ -28,7 +28,7 @@ class Deadlines extends Task {
      *
      * @param length denotes the length of the list
      */
-    String added(int length) {
+    String addTask(int length) {
         return String.format("Got it. I've added this task:%n   %s%n" +
                 "Now you have %d tasks in the list", this.toString(), length);
     }
