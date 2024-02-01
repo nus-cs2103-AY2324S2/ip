@@ -23,21 +23,21 @@ public class Events extends Task{
         if (!isLast) {
             if (num == 1) {
                 System.out.print("      ________________________________________________________\n");
-                System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s (from: %sto:%s)\n",
+                System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s (from: %s to: %s)\n",
                         num, this.getTag(), this.getStatusIcon(), this.getDescription(), this.from, this.to);
             } else {
-                System.out.printf("      %d.[%s][%s] %s (from: %sto:%s)\n",
+                System.out.printf("      %d.[%s][%s] %s (from: %s to: %s)\n",
                         num, this.getTag(), this.getStatusIcon(), this.getDescription(), this.from, this.to);
             }
         } else {
             if (num == 1) {
                 System.out.print("      ________________________________________________________\n");
-                System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s (from: %sto:%s)\n",
+                System.out.printf("      Here are the tasks in your list:\n      %d.[%s][%s] %s (from: %s to: %s)\n",
                         num, this.getTag(), this.getStatusIcon(), this.getDescription(), this.from, this.to);
                 System.out.print("      ________________________________________________________\n");
 
             } else {
-                System.out.printf("      %d.[%s][%s] %s (from: %sto:%s)\n",
+                System.out.printf("      %d.[%s][%s] %s (from: %s to: %s)\n",
                         num, this.getTag(), this.getStatusIcon(), this.getDescription(), this.from, this.to);
                 System.out.print("      ________________________________________________________\n");
             }
@@ -46,7 +46,7 @@ public class Events extends Task{
 
     @Override
     public void printFullDesc() {
-        System.out.printf("         [%s][%s] %s (from: %sto:%s)\n",
+        System.out.printf("         [%s][%s] %s (from: %s to: %s)\n",
                 this.getTag(), this.getStatusIcon(), this.getDescription(), this.from, this.to);
     }
 }
