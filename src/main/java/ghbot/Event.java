@@ -1,15 +1,15 @@
 package ghbot;
 
 /**
- * ghbot.Event class.
- * This class contains informations about the event.
+ * Event class.
+ * This class contains information about the event.
  */
 public class Event extends Task {
     private String fromTime;
     private String toTime;
 
     /**
-     * ghbot.Event Constructor
+     * Event Constructor
      * @param description Description of the event.
      * @param fromTime Start time of the event.
      * @param toTime End time of the event.
@@ -21,7 +21,7 @@ public class Event extends Task {
     }
 
     /**
-     * Return a string description for the item in the list for file operation.
+     * Returns a string description for the item in the list for file operation.
      * @return a string.
      */
     @Override
@@ -30,7 +30,7 @@ public class Event extends Task {
     }
 
     /**
-     * Return a string description of an event.
+     * Returns a string description of an event.
      * @return a string that describe the event.
      */
     @Override

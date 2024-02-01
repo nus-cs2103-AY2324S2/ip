@@ -12,14 +12,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Storage Class.
+ * It deals with loading tasks from the file and saving tasks into the file.
+ */
 public class Storage {
     private final String fileName;
+
+    /**
+     * Storage Constructor.
+     * @param fileName Name of the file.
+     */
     public Storage(String fileName) {
         this.fileName = fileName;
     }
 
     /**
-     * Return the list of task that were saved previously.
+     * Returns the list of task that were saved previously.
      * @return A list of tasks.
      */
     public List<Task> getInputFromFile() {

@@ -6,9 +6,17 @@ import java.time.format.DateTimeParseException;
 
 import java.util.Scanner;
 
+/**
+ * Ui Class.
+ * It deals with the interaction with the user.
+ */
 public class Ui {
     private Scanner sc;
     private final DateTimeFormatter inTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    /**
+     * Ui Constructor.
+     */
     public Ui() {
         System.out.println("Hello! I'm ghbot.GHBot");
         System.out.println("What can I do for you?");
@@ -16,10 +24,9 @@ public class Ui {
     }
 
     /**
-     * validateInput Method
-     * To check whether the user have key in the input correctly.
+     * Checks whether the user have key in the input correctly.
      * @return String array containing instruction and descriptions.
-     * @throws GHBotException
+     * @throws GHBotException Throws exception when the format of the input is wrong.
      */
     public String[] validateInput() throws GHBotException {
         String input = this.sc.nextLine();

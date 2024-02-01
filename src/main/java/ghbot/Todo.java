@@ -1,13 +1,13 @@
 package ghbot;
 
 /**
- * ghbot.Todo class.
- * This class contains informations about the todo.
+ * Todo class.
+ * This class contains information about the todo task.
  */
 public class Todo extends Task {
 
     /**
-     * ghbot.Todo Constructor.
+     * Todo Constructor.
      * @param description Description of the todo task.
      */
     public Todo(String description) {
@@ -15,8 +15,8 @@ public class Todo extends Task {
     }
 
     /**
-     * Return a string description for the item in the list for file operation.
-     * @return a string.
+     * Returns a string description for the item in the list for file operation.
+     * @return A string.
      */
     @Override
     public String toFile() {
@@ -24,8 +24,8 @@ public class Todo extends Task {
     }
 
     /**
-     * Return a string description of a todo item.
-     * @return a string that describe the todo.
+     * Returns a string description of a todo item.
+     * @return A string that describe the todo.
      */
     @Override
     public String toString() {
