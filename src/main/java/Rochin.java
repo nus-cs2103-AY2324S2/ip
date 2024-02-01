@@ -13,7 +13,7 @@ public class Rochin {
 }
 
 /**
- * Represent a chatbot with more abilities.
+ * Represent a chatbot with more functions.
  */
 class Chatbot {
     private final List<Task> tasks;
