@@ -83,15 +83,17 @@ public class TalkingBox {
                         System.out.println("current number of tasks: " + taskList.size());
                         break;
                     case "deadline":
-                        String[] d = input.split("/");
+                        String[] d = input.split("/by ");
+                        System.out.println(d[1]);
                         taskList.add(new Deadline(d[0], d[1]));
                         System.out.println("added task: ");
                         System.out.println(taskList.getLast().toString());
                         System.out.println("current number of tasks: " + taskList.size());
                         break;
                     case "event":
-                        String[] v = input.split("/");
-                        taskList.add(new Event(v[0], v[1], v[2]));
+                        String[] v1 = input.split("/from ");
+                        String[] v2 = v1[1].split("/to ");
+                        taskList.add(new Event(v1[0], v2[0], v2[1]));
                         System.out.println("added task: ");
                         System.out.println(taskList.getLast().toString());
                         System.out.println("current number of tasks: " + taskList.size());
