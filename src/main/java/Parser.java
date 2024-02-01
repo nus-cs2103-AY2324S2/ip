@@ -161,6 +161,23 @@ public class Parser {
                     System.out.println(corrupted);
                 }
                 break;
+            case "find":
+                try {
+                    if (userInput.arg1Empty()) {
+                        throw new InsufficientArgException();
+                    }
+                    if (!userInput.arg2Empty() || !userInput.arg3Empty()) {
+                        throw new ExcessiveArgException();
+                    }
+                    String matchingList = taskList.findTasks(userInput.getArg1());
+                    System.out.println(String.format(line + "Ah, so you're looking for tasks with the word %s? Sure! "
+                            + "here they are!", userInput.getArg1()));
+                    System.out.println(matchingList);
+                } catch (InsufficientArgException | ExcessiveArgException error) {
+                    System.out.println(formatError + "Steven's advice: The format of \"find\" is as follows:\n"
+                            + "find (item) - item is the name of the task, or part of the task");
+                }
+                break;
             case "help":
                 System.out.println("The following are UserInputs that I recgonise, and their respective formats:");
                 System.out.println("bye - terminates the program");
@@ -171,6 +188,8 @@ public class Parser {
                 System.out.println("deadline (item) /by (date1) - adds a deadline item to the list which is due on date1. The format for both dates must be \"yyyy-mm-dddd\".");
                 System.out.println("event (item) /from (date1) /to (date2) - adds an event item to the list which begins on date1 and ends on date2. The format for both dates must be \"yyyy-mm-dddd\".");
                 System.out.println("delete (x) - delete the xth item from the list. Do note that this may affect the positioning of some of the items.");
+                System.out.println("find (item) - finds any items in the list and prints them out, giving "+
+                        "their indexes.");
                 break;
             case "bye":
                 return true;

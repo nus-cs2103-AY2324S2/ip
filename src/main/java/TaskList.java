@@ -58,4 +58,16 @@ public class TaskList {
     public Task get(int i) {
         return taskList.get(i);
     }
+
+    public String findTasks(String item) {
+        String retString = "";
+        int counter = 1;
+        for (Task t: taskList) {
+            if (t.getName().contains(item)) {
+                retString += String.format("%d. %s\n", counter, t.toString());
+            }
+            counter++;
+        }
+        return retString;
+    }
 }
