@@ -1,8 +1,10 @@
 package lex.tasks;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Todo extends Task {
 
-    public Todo(String title) {
+    public Todo(@JsonProperty("title") String title) {
         super(title);
     }
 
