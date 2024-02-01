@@ -4,9 +4,21 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Parser class.
+ * It deals with making sense of the user command.
+ */
 public class Parser {
     private static final DateTimeFormatter inTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter outTimeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hhmma");
+
+    /**
+     * Prints corresponding string for different commands.
+     * @param input User input.
+     * @param lst List of tasks.
+     * @param storage Tasks from saved file.
+     * @throws IOException Throws an IOException when there is an issue updating the file.
+     */
     public static void parse(String[] input, TaskList lst, Storage storage) throws IOException {
         String instr = input[0];
 

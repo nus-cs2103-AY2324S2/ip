@@ -1,5 +1,8 @@
 package ghbot;
 
+/**
+ * Instruction Enum Class.
+ */
 public enum Instruction {
     TODO,
     DEADLINE,

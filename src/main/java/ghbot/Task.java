@@ -1,15 +1,15 @@
 package ghbot;
 
 /**
- * ghbot.Task class.
- * This class contains informations about the task.
+ * Task class.
+ * This class contains information about the task.
  */
 public class Task {
     private String description;
     private boolean isDone;
 
     /**
-     * ghbot.Task Constructor.
+     * Task Constructor.
      * @param description Description of the task.
      */
     public Task(String description) {
@@ -18,38 +18,38 @@ public class Task {
     }
 
     /**
-     * It is to set isDone to true.
+     * Sets isDone to true.
      */
     public void isCompleted() {
         this.isDone = true;
     }
 
     /**
-     * It is to set isDone to false.
+     * Sets isDone to false.
      */
     public void isNotCompleted() {
         this.isDone = false;
     }
 
     /**
-     * Return X if isDone is true or " " if isDone is false.
-     * @return X or " " depending on isDone.
+     * Returns X if isDone is true or " " if isDone is false.
+     * @return X Returns X or " " depending on isDone.
      */
     public String getStatusIcon() {
         return isDone ? "X" : " ";
     }
 
     /**
-     * Return a string description for the item in the list for file operation.
-     * @return a string.
+     * Returns a string description for the item in the list for file operation.
+     * @return A string.
      */
     public String toFile() {
         return "| " + (isDone ? "1" : "0") + " | " + this.description.trim();
     }
 
     /**
-     * Return a string description of a task.
-     * @return a string that describe the task.
+     * Returns a string description of a task.
+     * @return A string that describe the task.
      */
     @Override
     public String toString() {

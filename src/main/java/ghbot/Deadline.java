@@ -2,15 +2,15 @@ package ghbot;
 
 /**
  * Deadline class.
- * This class contains informations about the deadline.
+ * This class contains information about the deadline.
  */
 public class Deadline extends Task {
     private String time;
 
     /**
-     * ghbot.Deadline Constructor.
+     * Deadline Constructor.
      * @param description Description of the event.
-     * @param time ghbot.Deadline for the task.
+     * @param time Deadline for the task.
      */
     public Deadline(String description, String time) {
         super(description);
@@ -18,7 +18,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return a string description for the item in the list for file operation.
+     * Returns a string description for the item in the list for file operation.
      * @return a string.
      */
     @Override
@@ -27,7 +27,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return a string description of a deadline task.
+     * Returns a string description of a deadline task.
      * @return a string that describe the deadline.
      */
     @Override
