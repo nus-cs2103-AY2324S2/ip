@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
  * Handles user interaction by printing messages to the user and reading user input.
  */
 public class UserInterface {
-    private static String horizontal_line = "____________________________________________________________";
-    private static String farewell = "Bye. Hope to see you again soon!";
+    private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String FAREWELL = "Bye. Hope to see you again soon!";
     //indentString method adapted from ChatGPT generation
     private static String indentString(String input) {
         // Indent each line using Stream API and joining collector
@@ -26,7 +26,7 @@ public class UserInterface {
      * @param what The paragraph to be indented.
      */
     public void say(String what){
-        System.out.println(UserInterface.indentString(horizontal_line + "\n" + what + "\n" +  horizontal_line));
+        System.out.println(UserInterface.indentString(HORIZONTAL_LINE + "\n" + what + "\n" + HORIZONTAL_LINE));
     }
 
     /**

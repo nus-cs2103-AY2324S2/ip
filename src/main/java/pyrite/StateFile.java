@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream;
  * Handles saving and loading of task list.
  */
 public class StateFile {
-    private static String FILE_PATH = "saves/state.txt";
+    private static final String FILE_PATH = "saves/state.txt";
     //  Solution below (use of ObjectOutputStream and FileOutputStream) inspired by ChatGPT
     private void saveObject(TaskList object) throws IOException {
         // Create directory if it does not exist
