@@ -18,14 +18,15 @@ public class Ui {
         System.out.println(this.toString());
     }
 
+    public void print(String printString) {
+        this.add(printString);
+        this.print();
+    }
+
     public void greeting(String name) {
         this.add(String.format("Hello I'm %s", name));
         this.add("What Can I do for you?");
-    }
-
-    public void goodbye() {
-        this.add("Saving file!");
-        this.add("Goodbye. See you later!");
+        this.print();
     }
 
     @Override
