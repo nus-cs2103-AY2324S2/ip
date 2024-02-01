@@ -26,11 +26,15 @@ public class Parser {
         String[] tokens = input.trim().split("\\s+", 2);
 
         if (tokens.length == 0) {
-            throw new ParserException("Master, please give me a duke.command!");
+            throw new ParserException("Master, please give me a command!");
         } else if (clean.equals("bye")) {
             return new ByeCommand();
-        } else if (clean.equals("list")) {
+        } else if (clean.equals("list") || clean.equals("ls")) {
             return new ListCommand();
+        } else if (tokens.length == 1) {
+            //no more one word commands -> throw error
+            throw new MissingInfoException("Masterrr, please tell me more! I dont understand your command or "
+                    + "some information is missing.");
         }
 
         String command = tokens[0].toLowerCase();
@@ -59,7 +63,7 @@ public class Parser {
             int taskId = Integer.parseInt(tokens.trim());
             return new MarkCommand(taskId);
         } catch (NumberFormatException e) {
-            throw new IllegalParamException("I dont know which duke.command.task you are trying to mark! Try a number");
+            throw new IllegalParamException("I cant tell which task you are trying to mark! Try a number");
         }
     }
 
@@ -68,7 +72,7 @@ public class Parser {
             int taskId = Integer.parseInt(tokens.trim());
             return new UnmarkCommand(taskId);
         } catch (NumberFormatException e) {
-            throw new IllegalParamException("I dont know which duke.command.task you are trying to unmark! Try a number");
+            throw new IllegalParamException("I dont know which task you are trying to unmark! Try a number");
         }
     }
 
@@ -83,7 +87,7 @@ public class Parser {
 
     private static Command parseTodoCommand(String tokens) throws MissingInfoException {
         if (tokens.trim().equals("")) {
-            throw new MissingInfoException("Bro u gotta describe the duke.command.task!");
+            throw new MissingInfoException("Bro u gotta describe the task!");
         }
         String taskName = tokens.trim();
         return new ToDoCommand(taskName);
