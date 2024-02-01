@@ -1,16 +1,18 @@
 package duke;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 
 /**
  * This class represents an Event task.
  * It extends the Task class with a specific date range and a specific string representation.
  */
 public class Event extends Task {
-    LocalDate from;
-    LocalDate to;
-    static final DateTimeFormatter f = DateTimeFormatter.ofPattern("MMM d yyyy");
+    private LocalDate from;
+    private LocalDate to;
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     /**
      * Constructs a new Event task with the specified name and date range.
@@ -30,6 +32,7 @@ public class Event extends Task {
         }
     }
 
+
     /**
      * Returns a string representation of the Event task.
      * The returned string includes the task type ([E]), the string representation of the superclass, and the date range.
@@ -38,7 +41,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String date = String.format(" (from: %s to: %s)", this.from.format(f), this.to.format(f));
+        String date = String.format(" (from: %s to: %s)", this.from.format(FORMATTER), this.to.format(FORMATTER));
         return "[E]" + super.toString() + date;
     }
 }

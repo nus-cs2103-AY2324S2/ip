@@ -1,4 +1,5 @@
 package duke;
+
 import java.util.Scanner;
 
 /**
@@ -11,7 +12,6 @@ public class Ui {
      * Constructs a new Ui.
      */
     public Ui() {
-
     }
 
     /**
@@ -42,11 +42,11 @@ public class Ui {
         CommandHandler commandHandler = new CommandHandler(this);
         Scanner scanner = new Scanner(System.in);
 
-        boolean exitScan = false;
-        while (!exitScan) {
+        boolean isExitScan = false;
+        while (!isExitScan) {
             String userInput = scanner.nextLine();
             try {
-                exitScan = commandHandler.executeCommand(userInput);
+                isExitScan = commandHandler.executeCommand(userInput);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }

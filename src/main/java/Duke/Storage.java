@@ -136,9 +136,9 @@ public class Storage {
                 break;
             default:
                 task = new ToDo("ERROR");
-                System.out.println("Error: Decoding Error, task does not match any of the known types");
-        }
-        TaskList.addTaskSlient(task);
+                System.out.println("Error: Decoding Error, task does not match any of the known types");           
+        } 
+        TaskList.addTaskSilent(task);
         if (marked) {
             TaskList.markTaskSilent(TaskList.listSize());
         }

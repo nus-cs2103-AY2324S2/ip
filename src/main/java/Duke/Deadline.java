@@ -1,4 +1,5 @@
 package duke;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -9,7 +10,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task {
     private LocalDate date;
-    static final DateTimeFormatter f = DateTimeFormatter.ofPattern("MMM d yyyy");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     /**
      * Constructs a new Deadline task with the specified name and due date.
@@ -35,7 +36,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String date = String.format(" (by: %s)", this.date.format(f));
+        String date = String.format(" (by: %s)", this.date.format(FORMATTER));
         return "[D]" + super.toString() + date;
     }
 }

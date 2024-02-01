@@ -16,11 +16,12 @@ public class Bird {
         new Bird();
     }
 
+
     /**
      * Constructs a new Bird ChatBot.
      * Initializes the task list, storage, and user interface, and starts the user interface.
      */
-    public Bird() {;
+    public Bird() {
         TaskList.create();
         Storage.init();
         this.ui = new Ui();
