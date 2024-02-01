@@ -22,7 +22,5 @@ public class OtherCommand extends Command {
     @Override
     public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         ui.printInvalidFeature();
-        
-        ui.printInvalidFeature();
     }
 }
