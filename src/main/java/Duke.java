@@ -5,11 +5,14 @@ public class Duke {
     static final String INTRO_MSG = "hi bro, im " + NAME + "\nwhat you want me to do?";
     static final String EXIT_MSG = "ok see you bro";
 
-    private TaskList taskList;
+    private final TaskList taskList;
 
     public Duke() {
         Scanner scanner = new Scanner(System.in);
-        taskList = new TaskList();
+
+        FileHandler.init();
+        String fileContents = FileHandler.read();
+        taskList = new TaskList(fileContents);
 
         print(INTRO_MSG);
         while (true) {
