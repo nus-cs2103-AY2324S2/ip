@@ -1,11 +1,11 @@
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Luke {
@@ -57,27 +57,15 @@ public class Luke {
             return;
         }
 
+        Parser parser = new Parser(history);
         Scanner sc = new Scanner(System.in);
-        while (true) {
+
+        boolean isFinished = false;
+        while (!isFinished) {
             //task mode
             //first, determine the type of input.
             String input = sc.nextLine().trim(); //trim removes preceding and trailing whitespace.
-            if (input.equals("bye")) {
-                history.saveHistory(historyFile);
-                bye();
-                sc.close();
-                break;
-            } else if (input.equals("list")) {
-                history.listHistory();
-            } else if (input.split(" ")[0].equals("mark")) {
-                history.markTask(input);
-            } else if (input.split(" ")[0].equals("delete")) {
-                history.deleteTask(input);
-            } else {
-                //it is a task.
-                Task task = makeTask(input);
-                history.addTask(task);
-            }
+            isFinished = parser.parseCommand(input);
         }
     }
 
@@ -90,47 +78,6 @@ public class Luke {
         System.out.println("Don't be ridiculous!\n" +
                 "It's... it's not like I want to see you again or anything!\n");
     }
-
-    //Makes a task from string input. Returns null if invalid string.
-    private static Task makeTask(String input) {
-        Task task;
-        String taskType = input.split(" ")[0];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        if (taskType.equals("todo")) {
-            task = new Todo(input.substring(4).trim()); //TODO: better not hardcode 5 lol
-            if (input.split(" ").length < 2) {
-                System.out.println("You have eyes for a reason, don't you?");
-                System.out.println("[Missing todo description]\n");
-                return null;
-            }
-        } else if (taskType.equals("deadline")) {
-            try {
-                task = new Deadline(input.split("/")[0].substring(8).trim(),
-                        LocalDate.parse(input.split("/")[1].substring(2).trim(), formatter)
-                );
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Hey! You forgot something! Be glad I'm here to remind you.");
-                System.out.println("[Missing deadline parameter(s)]\n");
-                return null;
-            }
-        } else if (taskType.equals("event")) {
-            try {
-                task = new Event(input.split("/")[0].substring(5).trim(),
-                        LocalDate.parse(input.split("/")[1].substring(4).trim(), formatter),
-                        LocalDate.parse(input.split("/")[2].substring(2).trim(), formatter));
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("/// I don't know when you are free... ///");
-                System.out.println("[Missing event parameter(s)]\n");
-                return null;
-            }
-        } else {
-            System.out.println("/// What on earth are you saying! ///");
-            System.out.println("[Command not found]\n");
-            return null;
-        }
-        return task;
-    }
-
 }
 
 
