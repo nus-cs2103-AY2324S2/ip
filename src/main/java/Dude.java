@@ -1,78 +1,15 @@
+package main.java;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-
-// Base Task class
-abstract class Task {
-    String description;
-    boolean isDone;
-
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
-
-    public void markAsDone() {
-        isDone = true;
-    }
-
-    public void markAsNotDone() {
-        isDone = false;
-    }
-
-    @Override
-    public abstract String toString();
-}
-
-// ToDo subclass
-class ToDo extends Task {
-    public ToDo(String description) {
-        super(description);
-    }
-
-    @Override
-    public String toString() {
-        return "[T]" + (isDone ? "[X] " : "[ ] ") + description;
-    }
-}
-
-// Deadline subclass
-class Deadline extends Task {
-    String by;
-
-    public Deadline(String description, String by) {
-        super(description);
-        this.by = by;
-    }
-
-    @Override
-    public String toString() {
-        return "[D]" + (isDone ? "[X] " : "[ ] ") + description + " (by: " + by + ")";
-    }
-}
-
-// Event subclass
-class Event extends Task {
-    String start;
-    String end;
-
-    public Event(String description, String start, String end) {
-        super(description);
-        this.start = start;
-        this.end = end;
-    }
-
-    @Override
-    public String toString() {
-        return "[E]" + (isDone ? "[X] " : "[ ] ") + description + " (from: " + start + " to: " + end + ")";
-    }
-}
 
 public class Dude {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
-
-        System.out.println("Hello! I'm Dude");
+        System.out.println("Loading tasks from file...");
+        ArrayList<Task> tasks = TaskStorage.loadTasksFromFile();
+        System.out.println("Loaded " + tasks.size() + " tasks from file.");
+        System.out.println("Hello! I'm Duddddde");
         System.out.println("What can I do for you?");
 
         while (true) {
@@ -93,6 +30,7 @@ public class Dude {
                         throw new IndexOutOfBoundsException("Task number does not exist.");
                     }
                     tasks.get(index).markAsDone();
+                    TaskStorage.saveTasksToFile(tasks);
                     System.out.println("Marked as done: " + tasks.get(index));
                 } else if (input.startsWith("undo ")) {
                     int index = Integer.parseInt(input.substring(5));
@@ -100,6 +38,7 @@ public class Dude {
                         throw new IndexOutOfBoundsException("Task number does not exist.");
                     }
                     tasks.get(index).markAsNotDone();
+                    TaskStorage.saveTasksToFile(tasks);
                     System.out.println("Marked as not done: " + tasks.get(index));
                 } else if (input.startsWith("delete ")) {
                     int index = Integer.parseInt(input.substring(7));
@@ -107,6 +46,7 @@ public class Dude {
                         throw new IndexOutOfBoundsException("Task number does not exist.");
                     }
                     Task removedTask = tasks.remove(index);
+                    TaskStorage.saveTasksToFile(tasks);
                     System.out.println("Deleted: " + removedTask);
 
                 } else {
@@ -141,7 +81,9 @@ public class Dude {
                         default:
                             System.out.println("Unknown command");
                             break;
+
                     }
+                    TaskStorage.saveTasksToFile(tasks);
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Error: Please enter a valid task number.");
