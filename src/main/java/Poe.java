@@ -40,6 +40,16 @@ public class Poe {
         System.out.println(line + "\nUnmarked the task, :(\n" + curr.toString()+"\n"+line);
     }
 
+    public String noOfTask(){
+        return "You have "+list.size()+" tasks in the list";
+    }
+
+    public void remove(int index){
+        Task curr = list.get(index);
+        list.remove(index);
+        System.out.println(line +"byebye task! \n"+curr.toString()+"\n"+noOfTask()+"\n" +line);
+    }
+
     public void input(){
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -58,6 +68,9 @@ public class Poe {
                     break;
                 case "unmark":
                     unmark(Integer.parseInt(splitStr[1])-1);
+                    break;
+                case "delete":
+                    remove(Integer.parseInt(splitStr[1])-1);
                     break;
                 case "todo":
                     if (splitStr.length == 2){
