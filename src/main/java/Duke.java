@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Duke {
     public enum CommandType {
@@ -8,7 +11,10 @@ public class Duke {
     }
 
     private static final String DATA_FILE_PATH = "./data/duke.txt";
-    public static void main(String[] args) throws DukeException {
+    private static final Path directoryPath = Paths.get("./data");
+    private static final Path filePath = Paths.get(DATA_FILE_PATH);
+
+    public static void main(String[] args) throws DukeException, IOException {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
         String confirmation = "Got it. I've added this task:";
@@ -22,7 +28,7 @@ public class Duke {
         printDivider();
 
 
-//        tasks = loadTasks();
+        tasks = loadTasks();
 
         while (scanner.hasNextLine()) {
             try {
@@ -173,6 +179,8 @@ public class Duke {
                     throw new DukeException("Invalid command");
                 }
 
+                saveTasks(tasks);
+
             } catch (DukeException e) {
                 System.out.println("Oops: " + e.getMessage());
                 printDivider();
@@ -222,6 +230,44 @@ public class Duke {
 
     private static void printDivider() {
         System.out.println("____________________________");
+    }
+
+    private static void saveTasks(ArrayList<Task> tasks) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE_PATH))) {
+            for (Task task : tasks) {
+                writer.write(task.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    private static ArrayList<Task> loadTasks() throws IOException {
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        if (!Files.exists(filePath)) {
+            if (!Files.exists(directoryPath));
+                Files.createDirectories(directoryPath);
+            System.out.println("dont have");
+            Files.createFile(filePath);
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE_PATH))) {
+            String data;
+            while ((data = reader.readLine()) != null) {
+                Task task = Task.parseFromFileString(data);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No existing file. Starting with an empty task list.");
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+
+        return tasks;
     }
 }
 
