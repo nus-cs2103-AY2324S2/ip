@@ -9,6 +9,7 @@ public class Eve {
         String input = "";
         ArrayList<Task> list = new ArrayList<>();
 
+        // refactor into cases
         while(!input.equals("bye")){
             input = sc.nextLine();
 
@@ -39,7 +40,15 @@ public class Eve {
                 System.out.println(" Nice! I've marked this task as not done yet: ");
                  System.out.println(temp.toString());
             
-            } else {
+            } else if (commandCheck.equals("delete")) {
+                int index = Integer.parseInt(tempyArr[1]) - 1 ;
+                Task temp = list.get(index);
+                list.remove(temp);
+                System.out.println("Noted. I've removed this task: ");
+                System.out.println(temp.toString());
+                System.out.println("Now you have " + list.size() +" tasks in the list.");
+           
+           }else {
 
                 String description = tempyArr[1];
                 if (commandCheck.equals("todo")){
