@@ -1,16 +1,17 @@
+package tasks;
 public class Task {
     protected final String name;
     protected boolean complete;
 
-    Task(String name) {
+    public Task(String name) {
         this.name = name;
         this.complete = false;
     }
 
-    boolean getCompletionStatus() {
+    public boolean getCompletionStatus() {
         return this.complete;
     }
-    void toggleCompletion() {
+    public void toggleCompletion() {
         if (complete) {
             complete = false;
             return;

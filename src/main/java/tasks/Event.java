@@ -1,3 +1,5 @@
+package tasks;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.format.DateTimeFormatter;
@@ -6,7 +8,7 @@ public class Event extends Task{
     protected LocalDate start;
     protected LocalDate end;
 
-    Event(String name, LocalDate start, LocalDate end) {
+    public Event(String name, LocalDate start, LocalDate end) {
         super(name);
         this.start = start;
         this.end = end;

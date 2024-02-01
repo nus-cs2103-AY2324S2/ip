@@ -1,3 +1,5 @@
+package tasks;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.format.DateTimeFormatter;
@@ -5,7 +7,7 @@ public class Deadline extends Task{
 
     protected LocalDate due;
 
-    Deadline(String name, LocalDate due) {
+    public Deadline(String name, LocalDate due) {
         super(name);
         this.due = due;
     }
