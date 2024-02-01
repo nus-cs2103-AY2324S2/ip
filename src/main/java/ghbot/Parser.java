@@ -1,6 +1,7 @@
 package ghbot;
 
 import java.io.IOException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -45,24 +46,24 @@ public class Parser {
             System.out.println("Now you have " + lst.taskSize() + " tasks in the list.");
 
         } else if (instr.equalsIgnoreCase(Instruction.DEADLINE.toString())) {
-            String[] ss = input[1].split("/by");
-            LocalDateTime inputTime = LocalDateTime.parse(ss[1].trim(), inTimeFormat);
+            String[] subStr = input[1].split("/by");
+            LocalDateTime inputTime = LocalDateTime.parse(subStr[1].trim(), inTimeFormat);
             String formattedTime = inputTime.format(outTimeFormat);
 
-            Deadline deadline = new Deadline(ss[0], formattedTime);
+            Deadline deadline = new Deadline(subStr[0], formattedTime);
             lst.addTask(deadline);
             System.out.println("Got it. I've added this task:\n" + deadline);
             System.out.println("Now you have " + lst.taskSize() + " tasks in the list.");
 
         } else if (instr.equalsIgnoreCase(Instruction.EVENT.toString())) {
-            String[] ss = input[1].split("/from");
-            String[] ss2 = ss[1].split("/to");
-            LocalDateTime inputFromTime = LocalDateTime.parse(ss2[0].trim(), inTimeFormat);
+            String[] subStr = input[1].split("/from");
+            String[] subStr2 = subStr[1].split("/to");
+            LocalDateTime inputFromTime = LocalDateTime.parse(subStr2[0].trim(), inTimeFormat);
             String formattedFromTime = inputFromTime.format(outTimeFormat);
-            LocalDateTime inputToTime = LocalDateTime.parse(ss2[1].trim(), inTimeFormat);
+            LocalDateTime inputToTime = LocalDateTime.parse(subStr2[1].trim(), inTimeFormat);
             String formattedToTime = inputToTime.format(outTimeFormat);
 
-            Event event = new Event(ss[0], formattedFromTime, formattedToTime);
+            Event event = new Event(subStr[0], formattedFromTime, formattedToTime);
             lst.addTask(event);
             System.out.println("Got it. I've added this task:\n" + event);
             System.out.println("Now you have " + lst.taskSize() + " tasks in the list.");

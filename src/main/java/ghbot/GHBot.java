@@ -13,13 +13,13 @@ public class GHBot {
     public static void main(String[] args) {
         String fileName = "./data/history.txt";
         Storage storage = new Storage(fileName);
-        TaskList lst = new TaskList(storage.getInputFromFile());
+        TaskList taskLst = new TaskList(storage.getInputFromFile());
         Ui ui = new Ui();
 
         while (true) {
             try {
                 String[] subStr = ui.validateInput();
-                Parser.parse(subStr, lst, storage);
+                Parser.parse(subStr, taskLst, storage);
             } catch (GHBotException | IOException | DateTimeParseException e) {
                 System.out.println(e.getMessage());
             }
