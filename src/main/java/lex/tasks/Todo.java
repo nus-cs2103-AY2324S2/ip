@@ -1,4 +1,4 @@
-package task;
+package lex.tasks;
 
 public class Todo extends Task {
 
