@@ -3,8 +3,8 @@ package duke.actions;
 import java.io.IOException;
 import java.lang.IndexOutOfBoundsException;
 
-import duke.KBot.TaskFileManager;
-import duke.KBot.TaskManager;
+import duke.kbot.TaskFileManager;
+import duke.kbot.TaskManager;
 import duke.tasks.Task;
 
 public class MarkTask extends Command {

@@ -5,9 +5,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import duke.KBot.TaskFileManager;
-import duke.KBot.TaskManager;
 import duke.exceptions.InvalidInputException;
+import duke.kbot.TaskFileManager;
+import duke.kbot.TaskManager;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
