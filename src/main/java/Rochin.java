@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +89,7 @@ class Chatbot {
         System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("    ____________________________________________________________");
     }
+
 
     /**
      * Display the list of stored tasks with their status.
@@ -357,7 +361,7 @@ class Task {
             boolean isDone = Integer.parseInt(parts[1]) == 1;
             String description = parts[2];
             // Extract additional details based on task type (Todo, Deadline, Event)
-            String additionalDetails = parts.length > 3 ? parts[3] : null;
+            // String additionalDetails = parts.length > 3 ? parts[3] : null;
             if (parts[0].equals("T")) {
                 TodoTask todoTask = new TodoTask(description);
                 if (isDone) {
@@ -365,7 +369,8 @@ class Task {
                 }
                 return todoTask;
             } else if (parts[0].equals("D")) {
-                DeadlineTask deadlineTask = new DeadlineTask(description, additionalDetails);
+                description = parts[2] + parts[3];
+                DeadlineTask deadlineTask = DeadlineTask.createTask(description);
                 if (isDone) {
                     deadlineTask.markAsDone();
                 }
@@ -446,12 +451,13 @@ class TodoTask extends Task {
  */
 class DeadlineTask extends Task {
 
-    protected String by;
+    private LocalDate by;
 
-    public DeadlineTask(String description, String by) {
+    public DeadlineTask(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
+
 
     /**
      * Return a new deadline task.
@@ -460,19 +466,28 @@ class DeadlineTask extends Task {
      * @return A new deadline task.
      */
     public static DeadlineTask createTask(String descriptionWithDate) throws RochinException {
-        String[] parts = descriptionWithDate.split("/by");
-        if (parts.length == 2) {
-            String description = parts[0].trim();
-            String by = parts[1].trim();
-            return new DeadlineTask(description, by);
-        } else {
-            throw new RochinException("OOPS!!! Please provide both a description and a deadline for a deadline task.");
+        try {
+            String[] parts = descriptionWithDate.split("/by");
+            if (parts.length == 2) {
+                String description = parts[0].trim();
+                LocalDate by = LocalDate.parse(parts[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                return new DeadlineTask(description, by);
+            } else {
+                throw new RochinException("OOPS!!! Please provide both a description and a deadline for a deadline task.");
+            }
+        } catch (DateTimeParseException e) {
+            throw new RochinException("OOPS!!! Invalid date format. Please use yyyy-MM-dd.");
         }
     }
 
     @Override
     public String getTaskType() {
         return "D";
+    }
+
+    @Override
+    public String toFileString() {
+        return String.format("%s | %d | %s | %s", getTaskType(), isDone ? 1 : 0, description, by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
     }
 
     /**
@@ -482,7 +497,7 @@ class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return String.format("[D]%s (by: %s)", super.toString(), by.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 }
 
@@ -491,10 +506,10 @@ class DeadlineTask extends Task {
  */
 class EventTask extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
 
-    public EventTask(String description, String from, String to) {
+    public EventTask(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -507,17 +522,25 @@ class EventTask extends Task {
      * @return A new event task.
      */
     public static EventTask createTask(String descriptionWithDate) throws RochinException {
-        String[] parts = descriptionWithDate.split("/from");
-        if (parts.length == 2) {
-            String description = parts[0].trim();
-            String[] dateRange = parts[1].split("/to");
-            if (dateRange.length == 2) {
-                String from = dateRange[0].trim();
-                String to = dateRange[1].trim();
+        try {
+            String[] parts = descriptionWithDate.split("/from");
+            if (parts.length == 2) {
+                String description = parts[0].trim();
+                String[] dateRange = parts[1].split("/to");
+                LocalDate from = LocalDate.parse(dateRange[0].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate to = LocalDate.parse(dateRange[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 return new EventTask(description, from, to);
+            } else {
+                throw new RochinException("OOPS!!! Please provide a description, start time, and end time for an event task.");
             }
+        } catch (DateTimeParseException e) {
+            throw new RochinException("OOPS!!! Invalid date format. Please use yyyy-MM-dd.");
         }
-        throw new RochinException("OOPS!!! Please provide a description, start time, and end time for an event task.");
+    }
+
+    @Override
+    public String toFileString() {
+        return String.format("%s | %d | %s | %s to %s", getTaskType(), isDone ? 1 : 0, description, from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")), to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
     }
 
     /**
