@@ -1,6 +1,6 @@
 package handler;
 
-import action.Task;
+import action.task.Task;
 import exception.InvalidCommandException;
 
 import java.util.Arrays;
@@ -11,9 +11,9 @@ public class DataHandler {
     private static int index = 0; // always equals to the index of last valid element plus 1
     private DataHandler() {};
 
-    public void handleData(String msg) {
+    public void handleData(Task task) {
         if (index >= 100) return;
-        tasks[index] = new Task(msg);
+        tasks[index] = task;
         index++;
         // Todo: Exception handling
     }
@@ -30,6 +30,10 @@ public class DataHandler {
             throw new InvalidCommandException("Index out of bound");
         }
         tasks[index - 1].unmark();
+    }
+
+    public int length() {
+        return index;
     }
 
     public Task[] getData() {

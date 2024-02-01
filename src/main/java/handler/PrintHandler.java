@@ -1,6 +1,6 @@
 package handler;
 
-import action.Task;
+import action.task.Task;
 
 public final class PrintHandler {
     public static final PrintHandler instance = new PrintHandler();

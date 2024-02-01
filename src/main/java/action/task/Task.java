@@ -1,4 +1,4 @@
-package action;
+package action.task;
 
 public class Task {
     private boolean isCompleted;

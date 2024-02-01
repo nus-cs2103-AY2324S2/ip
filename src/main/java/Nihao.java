@@ -49,5 +49,6 @@ public final class Nihao {
             }
 
         }
+        scanner.close();
     }
 }
