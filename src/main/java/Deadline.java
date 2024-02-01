@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Deadline is a task with a specified date set as the deadline.
  */
 public class Deadline extends Task{
     /** Date at which the deadline expires */
-    private String date;
+    private LocalDateTime date;
 
     /**
      * Constructor of deadline
@@ -11,7 +14,7 @@ public class Deadline extends Task{
      * @param description: Description of task.
      * @param date: Date at which the deadline expires.
      */
-    public Deadline(String description, String date) {
+    public Deadline(String description, LocalDateTime date) {
         super(description);
         this.date = date;
     }
@@ -21,8 +24,18 @@ public class Deadline extends Task{
      *
      * @return The deadline.
      */
-    public String getDate() {
+    public LocalDateTime getDate() {
         return this.date;
+    }
+
+    /**
+     * Formats the local datetime to string.
+     *
+     * @return Date in String format
+     */
+    private String dateToString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+        return date.format(formatter);
     }
 
     @Override
@@ -30,14 +43,15 @@ public class Deadline extends Task{
         String taskType = "D";
         String isDone = this.getStatus() ? "1" : "0";
         String description = super.toFileString();
-        String deadline = this.getDate();
-        return taskType + " | " + isDone + " | " + description + " | " + deadline;
+        String formattedDate = dateToString();
+        return taskType + " | " + isDone + " | " + description + " | " + formattedDate;
     }
 
     @Override
     public String toString() {
         String taskType = "[D]";
-        String deadlineString = taskType + super.toString() + " (by: " + date + ")";
+        String formattedDate = dateToString();
+        String deadlineString = taskType + super.toString() + " (by: " + formattedDate + ")";
         return deadlineString;
     }
 }

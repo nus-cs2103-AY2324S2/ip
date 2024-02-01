@@ -4,6 +4,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,35 +89,42 @@ public class Storage {
         String type = components[0];
         boolean isDone = components[1].trim().equals("1");
         String description = components[2].trim();
-        switch(type) {
-        case "T":
-            ToDo todo = new ToDo(description);
-            if (isDone) {
-                todo.setDone();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+
+        try {
+            switch (type) {
+            case "T":
+                ToDo todo = new ToDo(description);
+                if (isDone) {
+                    todo.setDone();
+                }
+                return todo; // Fix: Added return statement
+            case "D":
+                if (components.length < 4) {
+                    throw new DukeException("Invalid format for a deadline.");
+                }
+                LocalDateTime date = LocalDateTime.parse(components[3].trim(), formatter);
+                Deadline deadline = new Deadline(description, date);
+                if (isDone) {
+                    deadline.setDone();
+                }
+                return deadline; // Fix: Added return statement
+            case "E":
+                if (components.length < 5) {
+                    throw new DukeException("Invalid format for an event.");
+                }
+                LocalDateTime startDate = LocalDateTime.parse(components[3].trim(), formatter);
+                LocalDateTime endDate = LocalDateTime.parse(components[4].trim(), formatter);
+                Event event = new Event(description, startDate, endDate);
+                if (isDone) {
+                    event.setDone();
+                }
+                return event; // Fix: Added return statement
+            default:
+                throw new DukeException("Unknown task type.");
             }
-        case "D":
-            if (components.length < 4) {
-                throw new DukeException("Invalid format for a deadline.");
-            }
-            String date = components[3].trim();
-            Deadline deadline = new Deadline(description, date);
-            if (isDone) {
-                deadline.setDone();
-            }
-            return deadline;
-        case "E":
-            if (components.length < 5) {
-                throw new DukeException("Invalid format for an event.");
-            }
-            String startDate = components[3].trim();
-            String endDate = components[4].trim();
-            Event event = new Event(description, startDate, endDate);
-            if (isDone) {
-                event.setDone();
-            }
-            return event;
-        default:
-            throw new DukeException("Unknown task type.");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format in task: " + e.getMessage());
         }
     }
 

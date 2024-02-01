@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -141,7 +144,7 @@ public class Duke {
     /**
      * Method to add a Deadline to the taskList.
      */
-    public void addDeadline(String description, String date) {
+    public void addDeadline(String description, LocalDateTime date) {
         Deadline newTask = new Deadline(description, date);
         taskList.add(newTask);
         echoAddTask(newTask, taskList.size());
@@ -150,7 +153,7 @@ public class Duke {
     /**
      * Method to add an Event to the tasklist.
      */
-    public void addEvent(String description, String start, String end) {
+    public void addEvent(String description, LocalDateTime start, LocalDateTime end) {
         Event newTask = new Event(description, start, end);
         taskList.add(newTask);
         echoAddTask(newTask, taskList.size());
@@ -306,8 +309,14 @@ public class Duke {
                     "These two fields should be separated with /by.");
         } else {
             String description = splitVariables[0];
-            String date = splitVariables[1];
-            addDeadline(description, date);
+            String dateString = splitVariables[1];
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                LocalDateTime date = LocalDateTime.parse(dateString, formatter);
+                addDeadline(description, date);
+            } catch (DateTimeParseException e) {
+                throw new DukeException("Invalid date format. Please use dd/MM/yyyy HHmm format for deadlines.");
+            }
         }
         try {
             storage.saveTasks(taskList);
@@ -344,9 +353,14 @@ public class Duke {
                     "dates.\n" +
                     "The start date should be preceded with /from, while the end date should be preceded with /to.");
         } else {
-            String start = startEndSplit[0];
-            String end = startEndSplit[1];
-            addEvent(description, start, end);
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                LocalDateTime start = LocalDateTime.parse(startEndSplit[0].trim(), formatter);
+                LocalDateTime end = LocalDateTime.parse(startEndSplit[1].trim(), formatter);
+                addEvent(description, start, end);
+            } catch (DateTimeParseException e) {
+                throw new DukeException("Invalid date format. Please use dd/MM/yyyy HHmm format for events.");
+            }
         }
         try {
             storage.saveTasks(taskList);
