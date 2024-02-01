@@ -5,14 +5,33 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
-public class unMarkCommand extends Command {
+/**
+ * A UnmarkCommand to mark the task as not complete.
+ * A subclass of Command class.
+ */
+public class UnmarkCommand extends Command {
 
     private String input;
 
-    public unMarkCommand(String userInput) {
+
+    /**
+     * Creates a constructor with userInput as argument.
+     * @param userInput
+     */
+    public UnmarkCommand(String userInput) {
         this.input = userInput;
     }
 
+
+    /**
+     * Unmarks a task as not complete.
+     * If no task is selected, no task at the moment, or invalid index, an error message is returned.
+     *
+     * @param tasks the Task Object that contains a List of Task.
+     * @param ui The Ui Object that interact with the user.
+     * @param storage Storage Manager to writing to the file.
+     * @throws DukeException If no task is selected, no task at the moment, or invalid index.
+     */
     @Override
     public void excuteCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         String splitInput[] = input.split(" ");

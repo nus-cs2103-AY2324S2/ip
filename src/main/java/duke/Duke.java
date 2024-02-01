@@ -5,6 +5,9 @@ import duke.Ui;
 import duke.Storage;
 import duke.TaskList;
 
+/**
+ * The Main class of this program.
+ */
 public class Duke {
 
 
@@ -13,6 +16,10 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates a constructors and performs all the necessary work.
+     * @param filePath the name of the text file to be stored.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,6 +32,9 @@ public class Duke {
     }
 
 
+    /**
+     * Runs the program.
+     */
     public void run() {
         ui.printWelcome();
         boolean isExit = false;

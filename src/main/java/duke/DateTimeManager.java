@@ -6,6 +6,9 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A DateTimeManager to convert between String and LocalDateTime.
+ */
 public class DateTimeManager {
 
     /**

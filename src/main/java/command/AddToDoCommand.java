@@ -9,13 +9,32 @@ import task.ToDo;
 
 import java.util.ArrayList;
 
+/**
+ * A AddToDoCommand to add new ToDo task.
+ * A subclass of Command class.
+ */
 public class AddToDoCommand extends Command {
 
     private String input;
 
+    /**
+     * Creates a constructor with userInput as argument.
+     * @param userInput
+     */
     public AddToDoCommand(String userInput) {
         this.input = userInput;
     }
+
+    /**
+     * Adds new ToDo task.
+     * Performs some prior checks to ensure the validity of the new Deadline.
+     * If invalid input occurs, error message is returned.
+     *
+     * @param tasks the Task Object that contains a List of Task.
+     * @param ui the Ui Object that interact with the user.
+     * @param storage Storage Manager to writing to the file.
+     * @throws DukeException If there is missing description
+     */
     @Override
     public void excuteCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         String[] splitInput = input.split(" ");

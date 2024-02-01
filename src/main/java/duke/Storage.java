@@ -13,6 +13,9 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A Storage class that acts as a File Manager to handle all file's read and write method.
+ */
 public class Storage {
     static final Path DIRECTORY_PATH = Paths.get("./data");
     private String fileName;

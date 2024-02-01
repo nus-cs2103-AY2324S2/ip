@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * An Enum class to list down the list of features in this program.
+ */
 public enum Action {
     LIST,
     TODO,

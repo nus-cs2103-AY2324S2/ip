@@ -8,17 +8,38 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A class to create Deadline Object.
+ * A subclass of Task.
+ */
 public class Deadline extends Task {
     LocalDateTime by;
+
+    /**
+     * A constructor to create the Deadline Object.
+     *
+     * @param description The title of the task.
+     * @param isDone The status of the task.
+     * @param by The DateTime to complete the Deadline.
+     */
     public Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);
         this.by = by;
     }
 
+    /**
+     * Returns the DateTime of the deadline.
+     * @return 'by'.
+     */
     public LocalDateTime getBy() {
         return this.by;
     }
 
+    /**
+     * Prints the information of the Deadline Object.
+     *
+     * @return the information of the Deadline.
+     */
     @Override
     public String toString() {
         List<DateTimeFormatter> formatters = Arrays.asList(

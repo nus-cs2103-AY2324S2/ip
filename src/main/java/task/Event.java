@@ -8,23 +8,51 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A class to create Event Object.
+ * A subclass of Task.
+ */
 public class Event extends Task {
     LocalDateTime start;
     LocalDateTime end;
+
+    /**
+     * A constructor to create the Event Object.
+     *
+     * @param description The title of the Event.
+     * @param isDone The status of the Event.
+     * @param start The start DateTime of the Event.
+     * @param end The end DateTime of the Event.
+     */
     public Event(String description, boolean isDone, LocalDateTime start, LocalDateTime end) {
         super(description, isDone);
         this.start = start;
         this.end = end;
     }
 
+    /**
+     * Returns the start DateTime of the Event.
+     *
+     * @return The start DateTime.
+     */
     public LocalDateTime getStart() {
         return this.start;
     }
 
+    /**
+     * Returns the end DateTime of the Event.
+     *
+     * @return The end DateTime.
+     */
     public LocalDateTime getEnd() {
         return this.end;
     }
 
+    /**
+     * Prints the information of the Event Object.
+     *
+     * @return the information of the Event.
+     */
     @Override
     public String toString() {
         List<DateTimeFormatter> formatters = Arrays.asList(

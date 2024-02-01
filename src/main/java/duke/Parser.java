@@ -14,7 +14,7 @@ public class Parser {
             return new MarkCommand(userInput);
 
         } else if (splitInput[0].equalsIgnoreCase(Action.UNMARK.toString())) {
-            return new unMarkCommand(userInput);
+            return new UnmarkCommand(userInput);
 
         } else if (splitInput[0].equalsIgnoreCase(Action.TODO.toString())) {
             return new AddToDoCommand(userInput);
