@@ -45,12 +45,12 @@ public class Parser {
                 throw new DookException("Noo!! task description cannot be empty!!");
             }
             switch (firstWord) {
-                case "todo":
-                    return new AddCommand(getTask(TaskType.TODO, secondWord));
-                case "deadline":
-                    return new AddCommand(getTask(TaskType.DEADLINE, secondWord));
-                default:
-                    return new AddCommand(getTask(TaskType.EVENT, secondWord));
+            case "todo":
+                return new AddCommand(getTask(TaskType.TODO, secondWord));
+            case "deadline":
+                return new AddCommand(getTask(TaskType.DEADLINE, secondWord));
+            default:
+                return new AddCommand(getTask(TaskType.EVENT, secondWord));
             }
         } else if (firstWord.equals("mark")) {
             try {
@@ -160,22 +160,22 @@ public class Parser {
         }
         try {
             switch (taskType) {
-                case TODO:
-                    return new ToDo(description, isDone);
-                case DEADLINE:
-                    details = description.split(" \\| ", 2);
-                    name = details[0];
-                    LocalDateTime doBy = LocalDateTime.parse(details[1].split("by: ", 2)[1], formatter);
-                    return new Deadline(name, doBy, isDone);
-                case EVENT:
-                    details = description.split(" \\| ", 2);
-                    name = details[0];
-                    String[] startAndEnd = details[1].split(" to: ", 2);
-                    LocalDateTime start = LocalDateTime.parse(startAndEnd[0].split("from: ", 2)[1], formatter);
-                    LocalDateTime end = LocalDateTime.parse(startAndEnd[1], formatter);
-                    return new Event(name, start, end, isDone);
-                default:
-                    throw new DookException("Oh nyo! Wrong format for " + taskType + " command in the file... :)");
+            case TODO:
+                return new ToDo(description, isDone);
+            case DEADLINE:
+                details = description.split(" \\| ", 2);
+                name = details[0];
+                LocalDateTime doBy = LocalDateTime.parse(details[1].split("by: ", 2)[1], formatter);
+                return new Deadline(name, doBy, isDone);
+            case EVENT:
+                details = description.split(" \\| ", 2);
+                name = details[0];
+                String[] startAndEnd = details[1].split(" to: ", 2);
+                LocalDateTime start = LocalDateTime.parse(startAndEnd[0].split("from: ", 2)[1], formatter);
+                LocalDateTime end = LocalDateTime.parse(startAndEnd[1], formatter);
+                return new Event(name, start, end, isDone);
+            default:
+                throw new DookException("Oh nyo! Wrong format for " + taskType + " command in the file... :)");
             }
         } catch (Exception e) {
             throw new DookException("Oh nyo! Wrong format for " + taskType + " command in the file... :(");
