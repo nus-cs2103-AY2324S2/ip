@@ -38,7 +38,7 @@ public class Storage {
         } catch (FileNotFoundException err) {
             throw new FelixException("File not found");
         } catch (IOException err) {
-            throw new FelixException("Error reading from file");
+            throw new FelixException("Cannot read from file");
         } catch (DateTimeParseException err) {
             throw new FelixException("datetime not in the format \"yyyy-MM-dd HHmm\"");
         }
@@ -46,6 +46,7 @@ public class Storage {
 
     public void writeToFile(TaskList tasks) throws FelixException {
         try {
+            // overwrites existing file if the file exists
             FileWriter writer = new FileWriter(this.storageFile);
             writer.write(tasks.getFileRepresentation());
             writer.close();

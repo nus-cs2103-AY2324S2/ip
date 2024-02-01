@@ -11,7 +11,7 @@ public class Deadline extends Task{
     @Override
     public String toFileString() {
         return String.format("D | %s | %s | %s",this.getStatusIcon(),
-                this.getDescription(), this.deadline.format(outputFormatter));
+                this.getDescription(), this.deadline.format(inputFormatter));
     }
 
 

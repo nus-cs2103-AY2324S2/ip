@@ -1,8 +1,8 @@
 import java.time.LocalDateTime;
 
 public class Event extends Task {
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private final LocalDateTime start;
+    private final LocalDateTime end;
 
     Event(String description, String start, String end) {
         super(description);
@@ -13,7 +13,7 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         return String.format("E | %s | %s | %s | %s", this.getStatusIcon(), this.getDescription(),
-                this.start.format(outputFormatter), this.end.format(outputFormatter));
+                this.start.format(inputFormatter), this.end.format(inputFormatter));
     }
 
     @Override
