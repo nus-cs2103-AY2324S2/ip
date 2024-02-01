@@ -1,3 +1,7 @@
+package yoda.task;
+
+import yoda.task.Task;
+
 /**
  * Represents a "Todo" task. It is a simple task with only a description.
  */

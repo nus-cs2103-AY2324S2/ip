@@ -1,3 +1,4 @@
+package exception;
 /**
  * Exception thrown when a required time information is missing.
  * This can occur in scenarios such as creating a deadline or event task

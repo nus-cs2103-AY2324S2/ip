@@ -1,3 +1,4 @@
+package exception;
 /**
  * Exception thrown when an attempt is made to create a task with an empty description.
  */

@@ -1,9 +1,13 @@
+package yoda;
+import yoda.task.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class YodaUI {
@@ -114,17 +118,39 @@ public class YodaUI {
      * Saves the current task list to a file called yoda.txt.
      */
     public void saveTasks() {
-//        String currentDir = System.getProperty("user.dir");
-//        System.out.println("Current directory: " + currentDir);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("./data/yoda.txt"))) {
-            for (Task task : tasks) {
-                writer.write(taskToFileFormat(task) + System.lineSeparator());
+        List<String> currentFileContent = new ArrayList<>();
+        Path path = Paths.get("./data/yoda.txt");
+
+        // Read existing file content
+        try {
+            if (Files.exists(path)) {
+                currentFileContent = Files.readAllLines(path);
             }
-            printMessage("Saved, your task list has been.");
         } catch (IOException e) {
-            printMessage("Error saving tasks: " + e.getMessage());
+            printMessage("Error reading tasks: " + e.getMessage());
+        }
+
+        // Convert current tasks to string format
+        List<String> currentTaskContent = tasks.stream()
+                .map(this::taskToFileFormat)
+                .collect(Collectors.toList());
+
+        // Check if file content is different from current tasks
+        if (!currentFileContent.equals(currentTaskContent)) {
+            // Write to file if there's a difference
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toString()))) {
+                for (String taskString : currentTaskContent) {
+                    writer.write(taskString + System.lineSeparator());
+                }
+                printMessage("Saved, your task list has been.");
+            } catch (IOException e) {
+                printMessage("Error saving tasks: " + e.getMessage());
+            }
+        } else {
+            printMessage("Save, no changes to.");
         }
     }
+
 
     /**
      * Converts a task to a formatted string suitable for file storage.
