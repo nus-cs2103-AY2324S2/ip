@@ -16,12 +16,12 @@ You have a total of 1 tasks in the list.
 ────────────────────────────────────────────────────────────
 ────────────────────────────────────────────────────────────
 The following task has been added:
-→ [D] return book (by: June 6th)
+→ [D] return book (by: 06 Jun 2019 1409)
 You have a total of 2 tasks in the list.
 ────────────────────────────────────────────────────────────
 ────────────────────────────────────────────────────────────
 The following task has been added:
-→ [E] project meeting (from: Aug 6th 2pm to: 4pm)
+→ [E] project meeting (from: 06 Aug 2020 1400 to: 06 Aug 2020 1600)
 You have a total of 3 tasks in the list.
 ────────────────────────────────────────────────────────────
 ────────────────────────────────────────────────────────────
@@ -32,8 +32,8 @@ You have a total of 4 tasks in the list.
 ────────────────────────────────────────────────────────────
 Here are the task(s) you have:
 → 1. [T] read book
-→ 2. [D] return book (by: June 6th)
-→ 3. [E] project meeting (from: Aug 6th 2pm to: 4pm)
+→ 2. [D] return book (by: 06 Jun 2019 1409)
+→ 3. [E] project meeting (from: 06 Aug 2020 1400 to: 06 Aug 2020 1600)
 → 4. [T] join sports club
 ────────────────────────────────────────────────────────────
 ────────────────────────────────────────────────────────────
@@ -52,44 +52,44 @@ The following task has been marked.
 ────────────────────────────────────────────────────────────
 Here are the task(s) you have:
 → 1. [T] read book ✓
-→ 2. [D] return book (by: June 6th)
-→ 3. [E] project meeting (from: Aug 6th 2pm to: 4pm)
+→ 2. [D] return book (by: 06 Jun 2019 1409)
+→ 3. [E] project meeting (from: 06 Aug 2020 1400 to: 06 Aug 2020 1600)
 → 4. [T] join sports club ✓
 → 5. [T] borrow book
 ────────────────────────────────────────────────────────────
 ────────────────────────────────────────────────────────────
 The following task has been added:
-→ [D] return book (by: Sunday)
+→ [D] return book (by: 01 Feb 2024 1425)
 You have a total of 6 tasks in the list.
 ────────────────────────────────────────────────────────────
 ────────────────────────────────────────────────────────────
 The following task has been added:
-→ [E] project meeting (from: Mon 2pm to: 4pm)
+→ [E] project meeting (from: 29 Jan 2024 1400 to: 29 Jan 2024 1600)
 You have a total of 7 tasks in the list.
 ────────────────────────────────────────────────────────────
 ────────────────────────────────────────────────────────────
 Here are the task(s) you have:
 → 1. [T] read book ✓
-→ 2. [D] return book (by: June 6th)
-→ 3. [E] project meeting (from: Aug 6th 2pm to: 4pm)
+→ 2. [D] return book (by: 06 Jun 2019 1409)
+→ 3. [E] project meeting (from: 06 Aug 2020 1400 to: 06 Aug 2020 1600)
 → 4. [T] join sports club ✓
 → 5. [T] borrow book
-→ 6. [D] return book (by: Sunday)
-→ 7. [E] project meeting (from: Mon 2pm to: 4pm)
+→ 6. [D] return book (by: 01 Feb 2024 1425)
+→ 7. [E] project meeting (from: 29 Jan 2024 1400 to: 29 Jan 2024 1600)
 ────────────────────────────────────────────────────────────
 ────────────────────────────────────────────────────────────
 The following task has been deleted.
-→ [D] return book (by: Sunday)
+→ [D] return book (by: 01 Feb 2024 1425)
 You have a total of 6 tasks in the list.
 ────────────────────────────────────────────────────────────
 ────────────────────────────────────────────────────────────
 Here are the task(s) you have:
 → 1. [T] read book ✓
-→ 2. [D] return book (by: June 6th)
-→ 3. [E] project meeting (from: Aug 6th 2pm to: 4pm)
+→ 2. [D] return book (by: 06 Jun 2019 1409)
+→ 3. [E] project meeting (from: 06 Aug 2020 1400 to: 06 Aug 2020 1600)
 → 4. [T] join sports club ✓
 → 5. [T] borrow book
-→ 6. [E] project meeting (from: Mon 2pm to: 4pm)
+→ 6. [E] project meeting (from: 29 Jan 2024 1400 to: 29 Jan 2024 1600)
 ────────────────────────────────────────────────────────────
 ────────────────────────────────────────────────────────────
 Goodbye! If you ever need assistance in the future, don't hesitate to reach out. Take care!
