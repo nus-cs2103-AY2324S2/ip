@@ -2,12 +2,22 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * TaskList Class is responsible for housing the taskList array and methods for adding and removing tasks.
+ */
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
 
+    /**
+     * Empty constructor for TaskList.
+     */
     public TaskList() {
     }
 
+    /**
+     * Marks a mask as complete.
+     * @param index
+     */
     public void markTask(int index) {
         Task currentTask = taskList.get(index);
         System.out.println("\tWe have completed this task!");
@@ -15,6 +25,10 @@ public class TaskList {
         System.out.println("\t" + currentTask.getTaskType() + " " + currentTask.getStatus() + " " + currentTask.getTask());
     }
 
+    /**
+     * Deletes a task from the TaskList.
+     * @param index
+     */
     public void deleteTask(int index) {
         Task currentTask = taskList.get(index);
         System.out.println("\tTask has been deleted!");
@@ -22,6 +36,10 @@ public class TaskList {
         taskList.remove(index);
     }
 
+    /**
+     * Unmarks a task as completed.
+     * @param index
+     */
     public void unmarkTask(int index) {
         Task currentTask = taskList.get(index);
         System.out.println("\tOops, task unmarked!");
@@ -29,6 +47,9 @@ public class TaskList {
         System.out.println("\t" + currentTask.getTaskType() + " " + currentTask.getStatus() + " " + currentTask.getTask());
     }
 
+    /**
+     * Lists all the tasks currently created.
+     */
     public void listTask() {
         System.out.println("\tThese are the tasks we currently have: ");
 
@@ -40,6 +61,11 @@ public class TaskList {
         System.out.println("\tWe have " + (taskList.size()) + " tasks.");
     }
 
+    /**
+     * Adds new task to the TaskListt.
+     * @param first
+     * @param second
+     */
     public void addTask(String first, String second)  {
         Task newTask;
 
@@ -66,14 +92,27 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the number of tasks in the TaskList.
+     * @return number of tasks.
+     */
     public int size() {
         return taskList.size();
     }
 
+    /**
+     * Returns the ArrayList of tasks
+     * @return Arraylist of tasks
+     */
     public ArrayList<Task> getTaskList() {
         return this.taskList;
     }
 
+    /**
+     * Gets a particular task at index.
+     * @param index
+     * @return Task at index value.
+     */
     public Task getTask(int index) {
         return taskList.get(index);
     }
