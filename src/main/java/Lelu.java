@@ -13,42 +13,59 @@ public class Lelu {
 
     public static ArrayList<Task> tasks;
     public static int index;
-    public static void greet() {
-        String greet = "    Hi! I am your favourite friend, Lelu :)\n    What can I do for you?\n";
-        System.out.println(greet);
+
+    private UI ui;
+
+    public Lelu(String filePath) {
+        this.ui = new UI();
+        ui.greet();
+        Lelu.tasks = new ArrayList<>();
+        Lelu.index = 0;
+
+        Storage store = new Storage(filePath);
+        while (true) {
+            try {
+                store.load(Lelu.tasks);
+                this.listen();
+                store.save(Lelu.tasks);
+                break;
+            } catch (DateTimeParseException e) {
+                ui.dateFormatInstructions();
+            } catch (LeluException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
-    public static void exit() {
-        String exit = "    Ok bye, you shall be missed :(";
-        System.out.println(exit);
-    }
+
     public static void list() {
         for (int i = 0; i < Lelu.tasks.size(); i++) {
             System.out.printf("    %d.%s\n", i + 1, tasks.get(i).toString());
         }
         System.out.println();
     }
-    public static void mark(int i) {
-        Lelu.tasks.get(i).markTask();
-        System.out.printf("    Great job completing your task!\n      %s\n\n", tasks.get(i).toString());
+    public void mark(int i) {
+        Task t = Lelu.tasks.get(i);
+        t.markTask();
+        this.ui.markMessage(t);
     }
-    public static void unmark(int i) {
-        Lelu.tasks.get(i).unmarkTask();
-        System.out.printf("    Don't forget to complete your task soon...\n      %s\n\n", tasks.get(i).toString());
+    public void unmark(int i) {
+        Task t = Lelu.tasks.get(i);
+        t.unmarkTask();
+        this.ui.unmarkMessage(t);
     }
 
-    public static void delete(int i) {
+    public void delete(int i) {
         Task t = Lelu.tasks.get(i);
         Lelu.tasks.remove(i);
-        System.out.printf("    Ok, I have removed your task:\n    %s\n    You have %d task(s) in the " +
-                "list now.\n\n", t.toString(), Lelu.tasks.size());;
+        this.ui.deleteMessage(t);
     }
-    public static void listen() throws InvalidInputException {
+    public void listen() throws InvalidInputException {
         Scanner sc = new Scanner(System.in);
         while (true) {
             String taskName = sc.nextLine();
 
             if (taskName.equals("bye")) {
-                Lelu.exit();
+                ui.exit();
                 break;
             } else if (taskName.equals("list")) {
                 Lelu.list();
@@ -57,13 +74,13 @@ public class Lelu {
             Task t = null;
             switch (taskName.split(" ")[0]) {
                 case "mark":
-                    Lelu.mark(Integer.parseInt(taskName.split(" ")[1]) - 1);
+                    this.mark(Integer.parseInt(taskName.split(" ")[1]) - 1);
                     break;
                 case "unmark":
-                    Lelu.unmark(Integer.parseInt(taskName.split(" ")[1]) - 1);
+                    this.unmark(Integer.parseInt(taskName.split(" ")[1]) - 1);
                     break;
                 case "delete":
-                    Lelu.delete(Integer.parseInt(taskName.split(" ")[1]) - 1);
+                    this.delete(Integer.parseInt(taskName.split(" ")[1]) - 1);
                     break;
                 case "todo":
                     t = ToDo.ToDoOf(taskName);
@@ -75,45 +92,17 @@ public class Lelu {
                     t = Event.EventOf(taskName);
                     break;
                 default:
-                    throw new InvalidInputException("Please type in:\n" +
-                            "------------------------\n" +
-                            "[to record your task(s)/ events]\n" +
-                            "- todo <task>\n" +
-                            "- deadline <task> /by <date>\n" +
-                            "- event <event> /from <date and time> /to <date and time>\n\n" +
-                            "[to view your task(s)]\n" +
-                            "- list\n\n" +
-                            "[to mark or unmark your task as done]\n" +
-                            "- mark <task number in list>\n" +
-                            "- unmark <task number in list>\n" +
-                            "-------------------------------------\n");
+                    throw new InvalidInputException(ui.showInstructions());
             }
             if (t != null) {
                 Lelu.tasks.add(t);
-                System.out.printf("    Ok! I have added your task:\n      %s\n    You have %d task(s) in the " +
-                        "list now.\n\n", t.toString(), Lelu.tasks.size());
+                ui.addMessage(t);
             }
         }
     }
 
     public static void main(String[] args) {
-        Lelu.greet();
-        Lelu.tasks = new ArrayList<>();
-        Lelu.index = 0;
-        Storage store = new Storage("./data/lelu.txt");
-        while (true) {
-            try {
-                store.load(Lelu.tasks);
-                Lelu.listen();
-                store.save(Lelu.tasks);
-                break;
-            } catch (DateTimeParseException e) {
-                System.out.println("\n    Date should be in the form: " +
-                        "<YYYY-MM-DD HH:mm> e.g.2024-01-20 14:20\n");
-            } catch (LeluException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        new Lelu("./data/lelu.txt");
      }
 
 }
