@@ -44,6 +44,13 @@ public class Task {
     }
 
     /**
+     * Getter for the description.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Converts the task object to a fileString that can be saved.
      *
      * @return String representing the task object.
