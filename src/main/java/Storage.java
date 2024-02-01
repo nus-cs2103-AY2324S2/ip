@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Storage {
@@ -38,6 +39,8 @@ public class Storage {
             throw new FelixException("File not found");
         } catch (IOException err) {
             throw new FelixException("Error reading from file");
+        } catch (DateTimeParseException err) {
+            throw new FelixException("datetime not in the format \"yyyy-MM-dd HHmm\"");
         }
     }
 

@@ -1,7 +1,6 @@
 T | X | read book
-D |   | return book | June 6th
-E |   | project meeting | Aug 6th 2pm | 4pm
+D |   | return book | 5 Jan 2024 1700
+E |   | project meeting | 10 Jan 2024 1400 | 10 Jan 2024 1700
 T | X | join sports club
 T |   | borrow book
-D |   | return book | Sunday
-E |   | project meeting | Mon 2pm | 4pm
+D |   | return book | 2 Feb 2024 0000
