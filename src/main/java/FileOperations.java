@@ -57,12 +57,12 @@ public class FileOperations {
 
     private static Deadline parseDeadlineData(String[] fields) {
         boolean isDone = (Integer.valueOf(fields[2]) == 1);
-        return new Deadline(fields[1], isDone, fields[3]);
+        return new Deadline(fields[1], isDone, fields[3], false);
     }
 
     private static Event parseEventData(String[] fields) {
         boolean isDone = (Integer.valueOf(fields[2]) == 1);
-        return new Event(fields[1], isDone, fields[3], fields[4]);
+        return new Event(fields[1], isDone, fields[3], fields[4], false);
     }
 
 

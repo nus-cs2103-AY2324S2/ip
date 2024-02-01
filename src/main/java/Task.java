@@ -61,8 +61,8 @@ public class Task {
         return data;
     }
 
-    public LocalDateTime parseDate(String text) {
+    public LocalDateTime parseDate(String text, boolean useCustomFormatter) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(INPUT_DATE_TIME_FORMAT);
-        return LocalDateTime.parse(text, formatter);
+        return useCustomFormatter ? LocalDateTime.parse(text, formatter) : LocalDateTime.parse(text);
     }
 }

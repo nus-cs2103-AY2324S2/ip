@@ -12,13 +12,13 @@ public class Deadline extends Task {
         this.byDate = Optional.empty();
     }
 
-    Deadline(String name, boolean isDone, String byDate) {
+    Deadline(String name, boolean isDone, String byDate, boolean useCustomFormatter) {
         super(name, isDone);
-        this.byDate = Optional.of(this.parseDate(byDate));
+        this.byDate = Optional.of(this.parseDate(byDate, useCustomFormatter));
     }
 
     Deadline(String name, String byDate) {
-        this(name, false, byDate);
+        this(name, false, byDate, true);
     }
 
     public String typeOfTask() {
@@ -27,7 +27,7 @@ public class Deadline extends Task {
 
     public String constructTimeString() {
         if (this.byDate.isPresent()) {
-            return String.format("(by: %s)", this.byDate.get());
+            return String.format("(by: %s)", this.getByDate());
         }
         return "";
     }
@@ -37,7 +37,7 @@ public class Deadline extends Task {
     }
 
     public void setByDate(String byDate) throws DateTimeParseException {
-        this.byDate = Optional.of(this.parseDate(byDate));
+        this.byDate = Optional.of(this.parseDate(byDate, true));
     }
 
     public String getByDate() {
