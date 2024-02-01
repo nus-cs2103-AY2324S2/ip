@@ -1,7 +1,7 @@
-package commands;
+package duke.commands;
 
 public enum CommandsEnum {
-    INSERT_TODO, VIEW_LIST, INSERT_DEADLINE, INSERT_EVENT, SET_MARK, SET_UNMARK, EXIT, DELETE_TASK, WHAT;
+    INSERT_TODO, VIEW_LIST, INSERT_DEADLINE, INSERT_EVENT, SET_MARK, SET_UNMARK, EXIT, DELETE_TASK, DEFAULT;
 
     public static CommandsEnum getCommandEnum(String in) {
         in = in.toLowerCase();
@@ -24,7 +24,7 @@ public enum CommandsEnum {
         case "delete":
             return DELETE_TASK;
         default:
-            return WHAT;
+            return DEFAULT;
         }
     }
 }
