@@ -62,17 +62,7 @@ public class Duke {
             exitProgram();
         }
         if (identifier.equals("list")) {
-
-            if (!arguments.isEmpty()) {
-                throw new DukeException("list command does not accept arguments.\n"
-                        + "Enter 'list' to view the current list of tasks");
-            }
-            String taskList = "";
-            for (int i = 0; i < tasks.size(); i++) {
-                Task curr = tasks.get(i);
-                taskList += ((i+1) + ". " + curr.toString() + "\n");
-            }
-            System.out.println(gap + "Here are your tasks:\n" + taskList + gap);
+            printTaskList(arguments);
         } else if (identifier.contains("mark")) {
             int taskNum = Integer.parseInt(arguments) - 1;
             Task selectedTask = tasks.get(taskNum);
@@ -179,5 +169,18 @@ public class Duke {
     private static void exitProgram() {
         System.out.println(gap + "Goodbye! Have a pleasant day!\n" + gap);
         System.exit(0);
+    }
+
+    private static void printTaskList(String arguments) throws DukeException {
+        if (!arguments.isEmpty()) {
+            throw new DukeException("list command does not accept arguments.\n"
+                    + "Enter 'list' to view the current list of tasks");
+        }
+        String taskList = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            Task curr = tasks.get(i);
+            taskList += ((i+1) + ". " + curr.toString() + "\n");
+        }
+        System.out.println(gap + "Here are your tasks:\n" + taskList + gap);
     }
 }
