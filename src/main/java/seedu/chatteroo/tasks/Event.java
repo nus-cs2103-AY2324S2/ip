@@ -4,10 +4,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.DateTimeException;
 
+/**
+ * Represents an event task with a description, a status of whether it is done and a start and end time.
+ */
 public class Event extends Task {
     protected LocalDateTime from, to;
     protected String taskType = "E";
 
+    /**
+     * Constructor for the Event class.
+     * @param description The description of the task.
+     * @param from The start time of the task.
+     * @param to The end time of the task.
+     * @throws DateTimeException If the date and time is not in the correct format.
+     */
     public Event(String description, String from, String to) {
         super(description);
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");

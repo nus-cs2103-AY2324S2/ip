@@ -4,10 +4,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.DateTimeException;
 
+/**
+ * Represents a deadline task with a description, a status of whether it is done and a deadline.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
     protected String taskType = "D";
 
+    /**
+     * Constructor for the Deadline class.
+     * @param description The description of the task.
+     * @param by The deadline of the task.
+     * @throws DateTimeException If the date and time is not in the correct format.
+     */
     public Deadline(String description, String by) throws DateTimeException {
         super(description);
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
