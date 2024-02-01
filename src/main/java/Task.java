@@ -26,6 +26,6 @@ public abstract class Task {
 
     public String toSaveString() {
         String isDoneString = isDone ? "1" : "0";
-        return isDoneString + " | " + this.description;
+        return isDoneString + "|" + this.description;
     }
 }
