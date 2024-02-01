@@ -6,7 +6,7 @@ package tasks;
 public class Task {
 
     private String desc;
-    public boolean isDone;
+    private boolean isDone;
     private TaskType type;
     private String start, end;
 
@@ -49,6 +49,47 @@ public class Task {
         this.type = TaskType.EVENT;
         this.start = start;
         this.end = end;
+    }
+
+
+    /**
+    * Returns the task description.
+    * @return the task description
+    */
+    public String getDesc() {
+        return desc;
+    }
+
+    /**
+     * Returns true if the task is done, false otherwise.
+     * @return true if the task is done, false otherwise
+     */
+    public boolean isDone() {
+        return isDone;
+    }
+
+    /**
+     * Returns the type of the task.
+     * @return the type of the task
+     */
+    public TaskType getType() {
+        return type;
+    }
+
+    /**
+     * Returns the start date/time of the task.
+     * @return the start date/time of the task
+     */
+    public String getStart() {
+        return start;
+    }
+
+    /**
+     * Returns the end date/time of the task.
+     * @return the end date/time of the task
+     */
+    public String getEnd() {
+        return end;
     }
 
     /*

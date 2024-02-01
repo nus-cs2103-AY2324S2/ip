@@ -26,7 +26,10 @@ public class Parser {
      * @throws IOException if an I/O error occurs while processing the command
      */
     public void processCommand(String userInput) throws IOException {
-        if (userInput.startsWith("delete")) {
+
+        if (userInput.startsWith("find")) {
+            processor.userInputFindTask(userInput);
+        } else if (userInput.startsWith("delete")) {
             processor.userInputDeleteTask(userInput);
         } else if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
             processor.userInputProcessMarkUnmark(userInput);

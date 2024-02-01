@@ -75,7 +75,7 @@ public class TaskListTest {
         Task task = new Task("Buy groceries", false);
         taskList.addTask(task);
         taskList.markTask(0);
-        assertTrue(task.isDone);
+        assertTrue(task.isDone());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class TaskListTest {
         Task task = new Task("Buy groceries", true);
         taskList.addTask(task);
         taskList.unmarkTask(0);
-        assertFalse(task.isDone);
+        assertFalse(task.isDone());
     }
 
     @Test
