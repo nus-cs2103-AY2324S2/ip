@@ -1,6 +1,6 @@
 list
 todo walk dog
-deadline return books /by 18 Mar
+deadline return books /by 
 list
 mark 2
 list
