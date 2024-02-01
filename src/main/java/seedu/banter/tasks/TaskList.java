@@ -27,7 +27,7 @@ public class TaskList implements Iterable<Task> {
      * @param description Description of the Todo task.
      * @return String representation of the Todo task.
      */
-    public String loadTodo(String description) {
+    public String addTodo(String description) {
         Todo todo = new Todo(description);
         taskList.add(todo);
         return "Got it. I've added this task:\n" + todo +
@@ -35,7 +35,7 @@ public class TaskList implements Iterable<Task> {
     }
     
     /**
-     * Adds a Todo task to the TaskList.
+     * Loads a Todo task to the TaskList.
      * @param description Description of the Todo task.
      * @param isDone Done status of the Todo task.
      */
@@ -50,7 +50,7 @@ public class TaskList implements Iterable<Task> {
      * @param dueDate Due date of the Deadline task.
      * @return String representation of the Deadline task.
      */
-    public String loadDeadline(String description, LocalDateTime dueDate) {
+    public String addDeadline(String description, LocalDateTime dueDate) {
         Deadline deadline = new Deadline(description, dueDate);
         taskList.add(deadline);
         return "Got it. I've added this task:\n" + deadline +
@@ -58,7 +58,7 @@ public class TaskList implements Iterable<Task> {
     }
    
     /**
-     * Adds a Deadline task to the TaskList.
+     * Loads a Deadline task to the TaskList.
      * @param description Description of the Deadline task.
      * @param isDone Done status of the Deadline task.
      * @param dueDate Due date of the Deadline task.
@@ -75,7 +75,7 @@ public class TaskList implements Iterable<Task> {
      * @param end End time of the Event task.
      * @return String representation of the Event task.
      */
-    public String loadEvent(String eventDescription, LocalDateTime start, LocalDateTime end) {
+    public String addEvent(String eventDescription, LocalDateTime start, LocalDateTime end) {
         Event event = new Event(eventDescription, start, end);
         taskList.add(event);
         return "Got it. I've added this task:\n" + event +
@@ -83,7 +83,7 @@ public class TaskList implements Iterable<Task> {
     }
     
     /**
-     * Adds an Event task to the TaskList.
+     * Loads an Event task to the TaskList.
      * @param eventDescription Description of the Event task.
      * @param isDone Done status of the Event task.
      * @param start Start time of the Event task.
@@ -95,8 +95,8 @@ public class TaskList implements Iterable<Task> {
     }
     
     /**
-     * Adds a Todo task to the TaskList.
-     * @return String representation of the Todo task.
+     * Returns the string representation of the TaskList.
+     * @return String representation of the TaskList.
      */
     @Override
     public String toString() {
@@ -108,9 +108,9 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Returns the number of tasks in the TaskList.
+     * Marks a task as done.
      * @param taskNumber Number of tasks in the TaskList.
-     * @return Number of tasks in the TaskList.
+     * @return String representation of the task marked as done.
      */
     public String markTaskAsDone(int taskNumber) throws InvalidBanterUsageError {
         try {
@@ -121,9 +121,9 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Returns the number of tasks in the TaskList.
+     * Marks a task as undone.
      * @param taskNumber Number of tasks in the TaskList.
-     * @return Number of tasks in the TaskList.
+     * @return String representation of the task marked as undone.
      */
     public String markTaskAsUndone(int taskNumber) throws InvalidBanterUsageError {
         try {
@@ -134,9 +134,9 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Returns the number of tasks in the TaskList.
+     * Deletes a task from the TaskList.
      * @param taskNumber Number of tasks in the TaskList.
-     * @return Number of tasks in the TaskList.
+     * @return String representation of the task deleted.
      */
     public String deleteTask(int taskNumber) throws InvalidBanterUsageError {
         try {
@@ -147,12 +147,21 @@ public class TaskList implements Iterable<Task> {
             throw new InvalidTaskNumberUsageError(Errors.INVALID_TASK_NUMBER, Ui.DELETE_USAGE, this);
         }
     }
-    
+
+    /**
+     * Returns the iterator of the TaskList.
+     * @return Iterator of the TaskList.
+     */
     @Override
     public Iterator<Task> iterator() {
         return taskList.iterator();
     }
-    
+
+    /**
+     * Returns the string representation of the list of tasks that contain the keyword.
+     * @param keyword
+     * @return String representation of the list of tasks that contain the keyword.
+     */
     public String findTasks(String keyword) {
         StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:");
         int count = 0;

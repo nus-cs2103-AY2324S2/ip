@@ -120,7 +120,7 @@ public class Parser {
             throw Errors.MissingTodoDescriptionError;
         }
         String description = joinTokens(tokens, 1, tokens.length - 1);
-        Card taskAddedMessage = new Card(taskList.loadTodo(description));
+        Card taskAddedMessage = new Card(taskList.addTodo(description));
         storage.saveTaskList(taskList);
         taskAddedMessage.print();
     }
@@ -143,7 +143,7 @@ public class Parser {
             throw Errors.MissingDeadlineDescriptionError;
         }
 
-        Card taskAddedMessage = new Card(taskList.loadDeadline(description, dueDate));
+        Card taskAddedMessage = new Card(taskList.addDeadline(description, dueDate));
         storage.saveTaskList(taskList);
         taskAddedMessage.print();
     }
@@ -176,7 +176,7 @@ public class Parser {
             throw Errors.MissingEventDescriptionError;
         }
 
-        Card taskAddedMessage = new Card(taskList.loadEvent(description, start, end));
+        Card taskAddedMessage = new Card(taskList.addEvent(description, start, end));
         storage.saveTaskList(taskList);
         taskAddedMessage.print();
     }
