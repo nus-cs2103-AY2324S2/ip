@@ -4,6 +4,8 @@
  * This exception should be thrown specifically for the commands: todo, events and deadlines.
  * It occurs when the parameters provided do not fit the requirement of the command.
  */
+package exception;
+
 public class DukeExceptionInvalidParameters extends DukeException {
     
     /**

@@ -4,7 +4,9 @@
  * This class acts as a base for all specific Exception types.
  * It can be extended to create the corresponding Exception.
  */
-public class DukeException extends Exception {
+package exception;
+
+public abstract class DukeException extends Exception {
 
     /**
      * Creates a Exception object.

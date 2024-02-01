@@ -6,11 +6,24 @@
  */
 import java.util.Scanner;
 
+import exception.DukeException;
+import exception.DukeExceptionInvalidCommand;
+import exception.DukeExceptionInvalidNumbering;
+import exception.DukeExceptionInvalidParameters;
+import task.Deadlines;
+import task.Events;
+import task.Task;
+import task.TaskStorage;
+import task.ToDo;
+import util.DataReader;
+import util.DataWriter;
+
 public class Duke {
     public static void main(String[] args) throws DukeException {
         Scanner reader = new Scanner(System.in);
-        TaskStorage ts = new TaskStorage();
         Duke.intro();
+        DataReader dataReader = new DataReader();
+        TaskStorage ts = dataReader.readDataFile();
         
         String command = reader.nextLine();
         while (!command.equals("bye")) {
@@ -146,6 +159,8 @@ public class Duke {
             command = reader.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!");
+        DataWriter dataWriter = new DataWriter();
+        dataWriter.saveData(ts);
         reader.close();
     }
 

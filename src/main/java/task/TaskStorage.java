@@ -3,17 +3,27 @@
  * Uses the ArrayList data structure to store the Task, and allows for manipulation,
  * such as addition, deletion, and editing Tasks.
  */
+package task;
 
 import java.util.ArrayList;
 
 public class TaskStorage {
-    private ArrayList<Task> sl;
+    public ArrayList<Task> sl;
 
     /**
      * Constructs an empty ArrayList to store Task objects.
      */
     public TaskStorage() {
         this.sl = new ArrayList<>();
+    }
+
+    public TaskStorage(ArrayList<Task> taskList) {
+        if (taskList != null) {
+            this.sl = taskList;
+        }
+        else {
+            this.sl = new ArrayList<>();
+        }
     }
 
     /**
