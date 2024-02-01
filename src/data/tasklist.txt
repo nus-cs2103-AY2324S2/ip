@@ -1,1 +1,4 @@
-E | 0 | project meeting | 2020-12-31 | 2021-12-31
+E | 0 | project meeting | 2020-12-31 | 2021-10-20
+T | 0 | food
+D | 1 | movie | 2019-01-01
+D | 0 | run | 2020-03-04

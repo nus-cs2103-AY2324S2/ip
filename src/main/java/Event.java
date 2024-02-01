@@ -14,4 +14,8 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + "(from: " + this.from.format(targetFormatter) + " to: " + this.to.format(targetFormatter) + ")";
     }
+    @Override
+    public String userInputToString() {
+        return "[E]" + super.toString() + "(from: " + this.from + " to: " + this.to + ")";
+    }
 }

@@ -13,4 +13,14 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + "(by: " + this.by.format(targetFormatter) + ")";
     }
+
+    @Override
+    public boolean getStatus() {
+        return super.getStatus();
+    }
+
+    @Override
+    public String userInputToString() {
+        return "[D]" + super.toString() + "(by: " + this.by + ")";
+    }
 }
