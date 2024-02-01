@@ -8,6 +8,14 @@ import skyler.task.ToDo;
 import skyler.exception.SkylerException;
 
 public class Parser {
+
+    /**
+     * Processes user input and performs corresponding actions based on the command
+     * provided.
+     *
+     * @param userInput The user input to be processed.
+     * @throws SkylerException If there is an error processing the user input.
+     */
     public static void processUserInput(String userInput) throws SkylerException {
         if (userInput.equals("list")) {
             TaskList.listTasks();
@@ -51,6 +59,18 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the task description from the user input, starting from the
+     * specified index.
+     *
+     * @param userInput  The user input containing the task description.
+     * @param startIndex The index from which to start extracting the description.
+     * @param keywords   Optional keywords to be removed from the beginning of the
+     *                   description.
+     * @return The extracted task description.
+     * @throws SkylerException If the description is empty or if there is an error
+     *                         extracting it.
+     */
     public static String getTaskDescription(String userInput, int startIndex, String... keywords)
             throws SkylerException {
         String description = userInput.substring(startIndex).trim();

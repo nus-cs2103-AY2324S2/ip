@@ -18,6 +18,12 @@ public class Storage {
     private static final String FILE_PATH = "./data/Skyler.txt";
     private static List<Task> tasks = new ArrayList<>();
 
+    /**
+     * Loads tasks from the specified file path and adds them to the common tasks
+     * list.
+     * Assumes the file format is compatible with the task parsing logic in
+     * parseTaskFromFile method.
+     */
     public static void loadTasksFromFile() {
         File file = new File(FILE_PATH);
         try {
@@ -34,6 +40,16 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a task from the given data string, determining the task type (ToDo,
+     * Deadline, Event)
+     * and creating the corresponding Task object.
+     *
+     * @param data The string containing the task data in a specific format.
+     * @return The Task object parsed from the data string.
+     * @throws SkylerException If there is an error parsing the task or if the task
+     *                         type is unknown.
+     */
     public static Task parseTaskFromFile(String data) throws SkylerException {
         String taskType = data.substring(1, 2); // Extracting task type (T, D, E)
         boolean isDone = data.charAt(4) == 'X'; // Assuming 'x' represents a completed task
@@ -62,6 +78,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks from the common tasks list to the specified file path.
+     * Assumes the tasks have a valid toString method for serialization.
+     */
     public static void saveTasksToFile() {
         try {
             FileWriter writer = new FileWriter(FILE_PATH);
@@ -75,6 +95,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Retrieves the common tasks list.
+     *
+     * @return The list of tasks stored in the common tasks list.
+     */
     // Add this method to get the common tasks list for TaskList.java
     public static List<Task> getTasks() {
         return tasks;
