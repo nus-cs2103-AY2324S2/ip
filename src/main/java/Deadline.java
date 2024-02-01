@@ -9,9 +9,13 @@ public class Deadline extends Task {
         this.byDate = Optional.empty();
     }
 
-    Deadline(String name, String byDate) {
-        super(name);
+    Deadline(String name, boolean isDone, String byDate) {
+        super(name, isDone);
         this.byDate = Optional.of(byDate);
+    }
+
+    Deadline(String name, String byDate) {
+        this(name, false, byDate);
     }
 
     public String typeOfTask() {

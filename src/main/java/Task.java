@@ -6,9 +6,13 @@ public class Task {
     public String name;
     public boolean done;
 
-    Task(String name) {
+    Task(String name, boolean done) {
         this.name = name;
         this.done = false;
+    }
+
+    Task(String name) {
+        this(name, false);
     }
 
     public String getName() {
@@ -49,7 +53,7 @@ public class Task {
     }
 
     public String exportData() {
-        String data = String.join("|", this.exportData());
+        String data = String.join("|", this.exportDataAsArray());
         return data;
     }
 }

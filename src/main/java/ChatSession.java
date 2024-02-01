@@ -5,10 +5,10 @@ public class ChatSession {
     public List<NamedCommand> commandList;
     public boolean continueSession;
 
-    ChatSession() {
+    ChatSession(TaskList taskList) {
         this.continueSession = true;
         this.initCommands();
-        this.taskList = new TaskList();
+        this.taskList = taskList;
         this.initChat();
     }
 
