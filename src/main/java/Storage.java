@@ -13,7 +13,7 @@ public class Storage {
     }
 
     //Load data from hard disk when BotChat starts up
-    public void load() {
+    public TaskList load() {
         TaskList tasks = new TaskList();
         try {
             File file = new File(filePath);
@@ -31,6 +31,7 @@ public class Storage {
         } catch (DukeException e) {
             throw new RuntimeException(e);
         }
+        return tasks;
     }
 
     //Save the changes to the hard disk

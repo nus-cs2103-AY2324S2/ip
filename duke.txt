@@ -1,5 +1,5 @@
 [T] [X]  read book
 [D] [ ]  return book  (by: Sep 08 2023 12:00)
-[E] [X]  project meeting  (from: Sep 09 2023 1400 to: Sep 09 2023 18:00)
+[E] [X]  project meeting  (from: Sep 09 2023 14:00 to: Sep 09 2023 18:00)
 [T] [X]  join sports club
 [T] [ ]  borrow book
