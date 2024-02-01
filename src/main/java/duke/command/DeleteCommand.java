@@ -17,7 +17,7 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int taskNumber = zeroItem + 1;
         if (taskNumber < 1 || taskNumber > tasks.getSize() || tasks.get(taskNumber - 1) == null) {
-            throw new DukeException("\nError! duke.task.Task number '" + taskNumber + "' does not exist.\n");
+            throw new DukeException("Error! duke.task.Task number '" + taskNumber + "' does not exist.");
         }
         Task description = tasks.get(zeroItem);
         tasks.deleteTask(zeroItem);
