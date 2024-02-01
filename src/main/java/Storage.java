@@ -3,6 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.*;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class Storage {
@@ -20,14 +21,13 @@ public class Storage {
         // System.out.println(filePath);
         // System.out.println("*****" + fileExists);
 
-
         if (fileExists) {
             try {
                 // 1 line -> 1 item in the list
                 List<String> lines = Files.readAllLines(this.filePath);
                 for (String line : lines) {
-                    // remove the empty line on initialisation of the txt
-                    if (line.equals("")) {
+                    // remove empty lines
+                    if (line.trim().equals("")) {
                         continue;
                     }
                     tasks.addTask(convertLineToTask(line));
@@ -48,6 +48,7 @@ public class Storage {
         String[] components = s.split("\\|");
         // System.out.println(components.length);
         String eventType = components[0];
+        // System.out.println(eventType);
         boolean isDone = (components[1].equals("1")) ? true: false;
         if (eventType.equals("T")) {
             return new ToDo(components[2], isDone);
@@ -84,8 +85,6 @@ public class Storage {
 
     public void saveTasks(TaskList tasks) {
         boolean fileExists = java.nio.file.Files.exists(this.filePath);
-        // System.out.println(filePath);
-        // System.out.println("*****" + fileExists);
 
         if (!fileExists) {
             createFile(this.filePath);
