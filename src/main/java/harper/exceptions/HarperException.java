@@ -1,4 +1,4 @@
-package exceptions;
+package harper.exceptions;
 
 public class HarperException extends RuntimeException {
     public HarperException(String message) {

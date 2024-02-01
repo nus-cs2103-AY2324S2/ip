@@ -1,8 +1,22 @@
-import exceptions.HarperInvalidCommandException;
-import exceptions.HarperInvalidIndexException;
-import exceptions.HarperInvalidDateTimeException;
-import exceptions.HarperInvalidDeadlineException;
-import exceptions.HarperInvalidEventException;
+package harper.utils;
+
+import harper.commands.DeleteCommand;
+import harper.commands.MarkCommand;
+import harper.commands.ExitCommand;
+import harper.commands.AddCommand;
+import harper.commands.Command;
+import harper.commands.ListCommand;
+
+import harper.exceptions.HarperInvalidCommandException;
+import harper.exceptions.HarperInvalidIndexException;
+import harper.exceptions.HarperInvalidDateTimeException;
+import harper.exceptions.HarperInvalidDeadlineException;
+import harper.exceptions.HarperInvalidEventException;
+
+import harper.tasks.Deadline;
+import harper.tasks.Event;
+import harper.tasks.Task;
+import harper.tasks.ToDo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,8 +29,8 @@ public class Parser {
     /**
      * Parses the command.
      *
-     * @param command Command entered by user.
-     * @return Different type of Command based on user's input.
+     * @param command commands.Command entered by user.
+     * @return Different type of commands.Command based on user's input.
      */
     public static Command parse(String command) {
         if (command.equals("bye")) {
@@ -42,7 +56,7 @@ public class Parser {
      * Parses the todo command.
      *
      * @param command Todo command entered by user.
-     * @return AddCommand that adds the todo task into the list.
+     * @return commands.AddCommand that adds the todo task into the list.
      */
     private static Command handleToDo(String command) {
         String taskDescription = command.substring("todo".length()).trim();
@@ -53,8 +67,8 @@ public class Parser {
     /**
      * Parses the deadline command
      *
-     * @param command Deadline command entered by user.
-     * @return AddCommand that adds the deadline task into the list.
+     * @param command task.Deadline command entered by user.
+     * @return commands.AddCommand that adds the deadline task into the list.
      */
     private static Command handleDeadline(String command) {
         String taskDesciptionAndDeadline = command.substring("deadline".length()).trim();
@@ -79,8 +93,8 @@ public class Parser {
     /**
      * Parses the event command.
      *
-     * @param command Event command entered by user.
-     * @return AddCommand that adds the event task into the list.
+     * @param command task.Event command entered by user.
+     * @return commands.AddCommand that adds the event task into the list.
      */
     private static Command handleEvent(String command) {
         String taskDescriptionAndStartEnd = command.substring("event".length()).trim();
@@ -112,7 +126,7 @@ public class Parser {
      * Parses the delete command.
      *
      * @param command Delete command entered by user.
-     * @return DeleteCommand that delete the task from the list.
+     * @return commands.DeleteCommand that delete the task from the list.
      */
     private static Command handleDelete(String command) {
         String[] commands = command.split(" ", 2);
@@ -128,7 +142,7 @@ public class Parser {
      * Parses the mark or unmark command.
      *
      * @param command Mark or unmark command entered by user.
-     * @return MarkCommand that marks or unmarks the task.
+     * @return commands.MarkCommand that marks or unmarks the task.
      */
     private static Command handleMark(String command) {
         String[] commands = command.split(" ", 2);

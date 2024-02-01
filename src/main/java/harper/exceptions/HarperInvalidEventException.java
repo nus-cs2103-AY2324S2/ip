@@ -1,4 +1,4 @@
-package exceptions;
+package harper.exceptions;
 
 public class HarperInvalidEventException extends HarperException {
     public HarperInvalidEventException() {

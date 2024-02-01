@@ -1,4 +1,8 @@
-import exceptions.HarperInvalidIndexException;
+package harper.utils;
+
+import harper.exceptions.HarperInvalidIndexException;
+
+import harper.tasks.Task;
 
 import java.util.ArrayList;
 
@@ -66,7 +70,7 @@ public class TaskList {
      * Marks the task with index specified as done.
      *
      * @param taskIndex Index of the task to be marked.
-     * @return Task that is marked.
+     * @return task.Task that is marked.
      */
     public Task markTask(int taskIndex, boolean isMarked) {
         try {

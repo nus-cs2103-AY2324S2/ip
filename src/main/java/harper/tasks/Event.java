@@ -1,12 +1,14 @@
+package harper.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    protected LocalDateTime start;
-    protected LocalDateTime end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
     /**
-     * Creates a Event task with description, start time and end time.
+     * Creates a task.Event task with description, start time and end time.
      *
      * @param description Description of the task.
      * @param start Start time of the task.

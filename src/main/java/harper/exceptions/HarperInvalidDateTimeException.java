@@ -1,4 +1,4 @@
-package exceptions;
+package harper.exceptions;
 
 public class HarperInvalidDateTimeException extends HarperException {
     public HarperInvalidDateTimeException() {

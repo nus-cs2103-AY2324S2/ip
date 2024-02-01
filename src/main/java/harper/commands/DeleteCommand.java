@@ -1,3 +1,11 @@
+package harper.commands;
+
+import harper.utils.TaskList;
+import harper.utils.Ui;
+import harper.utils.Storage;
+
+import harper.tasks.Task;
+
 public class DeleteCommand extends Command {
     private int taskIndex;
 
