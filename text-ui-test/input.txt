@@ -1,0 +1,9 @@
+todo read book
+deadline wash clothes /by 2020-01-01
+event do homework /from 2020-01-01 /to 2020-01-01
+list
+mark 1
+mark 2
+delete 1
+list
+bye
