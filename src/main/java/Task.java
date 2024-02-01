@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     public enum TaskType {
         TODO,
@@ -46,11 +49,18 @@ public class Task {
                 todo.isDone = done;
                 return todo;
             case "D":
-                Deadline dline = new Deadline(elements[2], elements[3]);
-                dline.isDone = done;
+                Deadline dline = null;
+                if(elements.length >=4) {
+                    LocalDate deadlineDate = LocalDate.parse(elements[3], DateTimeFormatter.ISO_DATE);
+
+                    dline = new Deadline(elements[2], deadlineDate);
+                    dline.isDone = done;
+                }
                 return dline;
             case "E":
-                Event event = new Event(elements[2], elements[3], elements[4]);
+                LocalDate fromDate = LocalDate.parse(elements[3], DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                LocalDate toDate = LocalDate.parse(elements[4], DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                Event event = new Event(elements[2], fromDate, toDate);
                 event.isDone = done;
                 return event;
             default:
