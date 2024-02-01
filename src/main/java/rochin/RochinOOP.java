@@ -372,6 +372,22 @@ public class RochinOOP {
             }
             return taskStrings;
         }
+
+        /**
+         * Searches for tasks containing the specified keyword.
+         *
+         * @param keyword The keyword to search for in task descriptions.
+         * @return A list of tasks that match the given keyword.
+         */
+        public List<Task> findTasks(String keyword) {
+            List<Task> matchingTasks = new ArrayList<>();
+            for (Task task : tasks) {
+                if (task.description.toLowerCase().contains(keyword.toLowerCase())) {
+                    matchingTasks.add(task);
+                }
+            }
+            return matchingTasks;
+        }
     }
 
     /**
@@ -422,6 +438,9 @@ public class RochinOOP {
                         break;
                     case "unmark":
                         processUnmarkCommand(tasks, ui);
+                        break;
+                    case "find":
+                        processFindCommand(tasks, ui);
                         break;
                     default:
                         ui.showUnknownCommandError();
@@ -530,6 +549,25 @@ public class RochinOOP {
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 ui.showInvalidCommandError();
                 return -1;
+            }
+        }
+
+        /**
+         * Processes the "find" command, searching for tasks containing the specified keyword.
+         *
+         * @param tasks The TaskList containing all tasks.
+         * @param ui    The Ui for displaying user interface messages.
+         */
+        public void processFindCommand(TaskList tasks, Ui ui) {
+            try {
+                String keyword = command.substring("find".length()).trim();
+                if (keyword.isEmpty()) {
+                    throw new RochinException("OOPS!!! Please provide a keyword to search for.");
+                }
+                List<Task> matchingTasks = tasks.findTasks(keyword);
+                ui.showTaskList(matchingTasks);
+            } catch (RochinException e) {
+                ui.showError(e.getMessage());
             }
         }
 
