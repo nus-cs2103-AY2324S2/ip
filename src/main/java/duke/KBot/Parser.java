@@ -1,4 +1,4 @@
-package duke.KBot;
+package duke.kbot;
 
 import duke.actions.AddTask;
 import duke.actions.Command;

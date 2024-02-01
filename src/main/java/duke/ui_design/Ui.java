@@ -6,7 +6,7 @@ package duke.ui_design;
  * @author: CHEN WENLONG
  * @version: CS2103T AY23/24 Semester 2
  */
-public class Messages {
+public class Ui {
     /** A String to separate user input and system output. */
     private static final String LINE = "____________________________________________________________\n";
 
@@ -51,7 +51,7 @@ public class Messages {
     /**
      * Constructor for messages
      */
-    private Messages() {
+    public Ui() {
     }
 
     /**
@@ -59,7 +59,7 @@ public class Messages {
      * 
      * @return Welcome message.
      */
-    public static String getStartMessage() {
+    public String getStartMessage() {
         return START;
     }
 
@@ -68,7 +68,7 @@ public class Messages {
      * 
      * @return End of program message.
      */
-    public static String getEndMessage() {
+    public String getEndMessage() {
         return END;
     }
 
@@ -77,7 +77,7 @@ public class Messages {
      * 
      * @return A line.
      */
-    public static String getLine() {
+    public String getLine() {
         return LINE;
     }
 
@@ -86,7 +86,7 @@ public class Messages {
      * 
      * @return A wolf.
      */
-    public static String getWolf() {
+    public String getWolf() {
         return WOLF;
     }
 
@@ -95,7 +95,7 @@ public class Messages {
      * 
      * @return A flower garden.s
      */
-    public static String getFlower() {
+    public String getFlower() {
         return FLOWERS;
     }
 }
