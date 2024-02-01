@@ -13,6 +13,7 @@ public class Haro {
     private String openingMsg = "Heya! I'm Haro!\n" + "What can I do for you today?";
     private String closingMSg = "Bye. Hope to see you some time soon!";
     private List list;
+    private Storage haroStorage;
     public Haro() {
         this.list = new List();
     }
@@ -32,13 +33,15 @@ public class Haro {
 
     public void initialise() {
         greet();
+        haroStorage = new Storage("data/saveList.txt", "data/");
+        list = haroStorage.loadSave();
         Scanner inputScanner = new Scanner(System.in);
         String input = inputScanner.nextLine();
         Instruction instruction = Instruction.NONE;
 
         while (true) {
             String[] inputArr = input.split(" ", 2);
-            String instructWord = inputArr[0].toLowerCase();
+            String instructWord = inputArr[0].toLowerCase().trim();
 
             switch (instructWord) {
                 case "bye":
@@ -219,6 +222,8 @@ public class Haro {
         );
     }
     private void bye() {
+        haroStorage.saveToDisk(list);
+        System.out.println("List has been saved!");
         System.out.println(closingMSg + "\n" +
                 horizontalLine);
     }

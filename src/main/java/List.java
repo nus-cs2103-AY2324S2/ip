@@ -29,6 +29,10 @@ public class List {
                 "You now have " + list.size() + " tasks in the list\n");
     }
 
+    public void discreteAddTask(Task task) {
+        list.add(task);
+    }
+
     public void markTask(int index) throws InvalidArgsException {
         if (index >= list.size()) {
             throw new InvalidArgsException("Sorry that item does not exist in your list!\n");
@@ -73,5 +77,9 @@ public class List {
         System.out.println("Noted. I've removed this task");
         System.out.println(currTask.printTask() + "\n");
         System.out.println("You now have " + list.size() + " tasks in the list\n");
+    }
+
+    public ArrayList<Task> getArrayList() {
+        return list;
     }
 }
