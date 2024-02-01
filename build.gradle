@@ -33,6 +33,7 @@ application {
 
 shadowJar {
     archiveBaseName = "chatteroo"
+    archiveFileName = "chatteroo.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
