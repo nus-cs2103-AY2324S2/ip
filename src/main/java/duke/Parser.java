@@ -3,6 +3,9 @@ package duke;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Parser parses the commands a user writes and provides helper functions
+ */
 public class Parser {
 
   private static final String BY_CMD = "/by";
@@ -17,10 +20,36 @@ public class Parser {
     return str.matches("-?\\d+(\\.\\d+)?");
   }
 
+  /**
+   * Returns a subarray containing the elements from index {@code a} to {@code b - 1}
+   * incluive of the specified array.
+   *
+   * Similar to {@link Arrays#copyOfRange(Object[], int, int)}, but
+   * provides a more concise way to slice a subarray.
+   *
+   * @param <T> the component type of the array
+   * @param xs the array from which a range is to be copied
+   * @param a the initial index (inclusive) to start the range
+   * @param b the final index (exclusive) to end the range
+   * @return a new array containing the specified range from the original array
+   * @throws ArrayIndexOutOfBoundsException if {@code a} is negative,
+   *         {@code b} is larger than the length of the array, or
+   *         {@code a > b}
+   */
   static <T> T[] range(T[] xs, int a, int b) {
     return Arrays.copyOfRange(xs, a, b);
   }
 
+  /**
+   * Parses the command string provided by the user.
+   *
+   * Takes a command string and processes it to identify command and arguments.
+   *
+   * @param cmdString The command string to be parsed.
+   * @return An array of strings representing the parsed command. The first element of the
+   *       returned array is the command type, and the rest are the command arguments.
+   * @throws DukeExceptio
+   */
   static String[] parseCommand(String cmdString) throws DukeException {
     String[] cmdSplit = cmdString.split(" ");
     String command = cmdSplit[0];

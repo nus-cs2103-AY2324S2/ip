@@ -2,6 +2,14 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * The Ui class manages the user interface for the Duke chatbot application.
+ *
+ * Provides methods for interacting with the user via stdin and stdout, displaying
+ * messages, and processing user commands.
+ *
+ * @see TaskList
+ */
 public class Ui {
 
   private static final String MESSAGE_DELINEATOR =
@@ -24,6 +32,9 @@ public class Ui {
   private static final String NAME = ">uwu<";
   private Scanner scanner;
 
+  /**
+   * Constructs a Ui object, initializing the scanner for user input.
+   */
   public Ui() {
     scanner = new Scanner(System.in);
   }
@@ -44,6 +55,16 @@ public class Ui {
     return scanner.nextLine();
   }
 
+  /**
+   * Handles user commands and performs actions on the task list.
+   *
+   * @param tasks     The task list on which the command actions are performed.
+   * @param command   The command string indicating the action to be performed.
+   * @param arguments An array of strings representing the arguments for the command.
+   * @return {@code true} if the chatbot should continue processing commands,
+   *         {@code false} if it should exit.
+   * @throws DukeException
+   */
   boolean handleCommand(TaskList tasks, String command, String[] arguments)
     throws DukeException {
     messageStart();

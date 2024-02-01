@@ -11,11 +11,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * The Storage class handles the loading and saving of task data to a file.
+ *
+ * The format of the saved data is a serialization of {@link Task} objects, where
+ * each task is separated by "<2>", and task details are further divided using
+ * "<0>" and "<1>" as separators.
+ *
+ * @see Task
+ * @see TaskList
+ */
 public class Storage {
 
   private String fileName;
   private String folderPath;
 
+  /**
+   * Constructs a Storage object with the specified folder path and file name.
+   *
+   * @param folderPath The folder path for storing the task data file.
+   * @param fileName   The name of the file for storing the task data.
+   */
   Storage(String folderPath, String fileName) {
     this.fileName = fileName;
     this.folderPath = folderPath;
@@ -38,6 +54,12 @@ public class Storage {
     }
   }
 
+  /**
+   * Loads tasks from the task data file.
+   *
+   * @return An ArrayList of Task objects representing the loaded tasks.
+   * @throws DukeException
+   */
   ArrayList<Task> load() throws DukeException {
     try {
       FileInputStream f = new FileInputStream(getFileHandle());
@@ -75,6 +97,12 @@ public class Storage {
     }
   }
 
+  /**
+   * Saves the given ArrayList of tasks to the task data file.
+   *
+   * @param storedTasks The ArrayList of Task objects to be saved.
+   * @throws DukeException
+   */
   void save(ArrayList<Task> storedTasks) throws DukeException {
     try {
       String serialised = storedTasks
