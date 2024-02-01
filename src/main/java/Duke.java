@@ -159,8 +159,8 @@ public class Duke {
         ArrayList<Task> TodoList = new ArrayList<>();
 
         boolean isExit = false;
-        while (!isExit) {
-            Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+        while ((!isExit) && scanner.hasNextLine()) {
             String userInput = scanner.nextLine();
             if (userInput.equals("bye")) {
                 isExit = true;
