@@ -134,6 +134,7 @@ public class Lumiere {
                         marked = true;
                     else
                         marked = false;
+
                     Deadline task = new Deadline(info[2], marked, info[3]);
                     tasks.add(task);
                 } else if (info.length == 5) {
