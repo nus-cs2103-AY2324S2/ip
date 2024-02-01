@@ -7,7 +7,7 @@ public class Parser {
     public LocalDateTime toLocalDateTime(String date) {
         return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
-    public boolean parse(String input, List taskList, Ui ui) throws UnknownCommandException,
+    public boolean parse(String input, List taskList, Ui ui, Storage storage) throws UnknownCommandException,
             TaskNotFoundException, IOException, InvalidSyntaxException, InvalidDateTimeException {
         String command = input.split(" ")[0].toLowerCase();
         switch (command) {
@@ -36,7 +36,7 @@ public class Parser {
             if (!taskList.validTaskNum(taskNum)) {
                 throw new TaskNotFoundException(taskList);
             }
-            taskList.markTask(taskNum - 1);
+            taskList.markTask(taskNum - 1, storage);
             break;
         }
         case "unmark": {
@@ -52,14 +52,14 @@ public class Parser {
             if (!taskList.validTaskNum(taskNum)) {
                 throw new TaskNotFoundException(taskList);
             }
-            taskList.unmarkTask(taskNum - 1);
+            taskList.unmarkTask(taskNum - 1, storage);
             break;
         }
         case "todo":
             if (input.split(" ").length <= 1) {
                 throw new InvalidSyntaxException("todo");
             }
-            taskList.addTask(new ToDo(input.substring(5)));
+            taskList.addTask(new ToDo(input.substring(5)), storage);
             break;
         case "deadline": {
             if (!Pattern.matches("deadline .+ /by .+", input) ||
@@ -73,7 +73,7 @@ public class Parser {
             }
             String description = input.substring(9).split(" /by")[0];
             String dueDate = input.split("/by ")[1];
-            taskList.addTask(new Deadline(description, toLocalDateTime(dueDate)));
+            taskList.addTask(new Deadline(description, toLocalDateTime(dueDate)), storage);
             break;
         }
         case "event":
@@ -91,7 +91,7 @@ public class Parser {
             String description = input.substring(6).split(" /from")[0];
             String startDate = input.split("/from ")[1].split(" /to")[0];
             String endDate = input.split("/to ")[1];
-            taskList.addTask(new Event(description, toLocalDateTime(startDate), toLocalDateTime(endDate)));
+            taskList.addTask(new Event(description, toLocalDateTime(startDate), toLocalDateTime(endDate)), storage);
             break;
         case "delete":
             if (input.split(" ").length != 2) {
@@ -106,7 +106,7 @@ public class Parser {
             if (!taskList.validTaskNum(taskNum)) {
                 throw new TaskNotFoundException(taskList);
             }
-            taskList.deleteTask(taskNum - 1);
+            taskList.deleteTask(taskNum - 1, storage);
             break;
         default:
             throw new UnknownCommandException();

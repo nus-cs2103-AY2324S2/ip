@@ -8,22 +8,14 @@ public class Duke {
             InvalidSyntaxException, IOException, InvalidDateTimeException {
         Ui ui = new Ui();
         Parser parser = new Parser();
-        List taskList = new List(new ArrayList<>());
         String fileName = "./data/duke.txt";
-        File f = new File(fileName);
-        if (!f.exists()) {
-            if (!f.getParentFile().exists()) {
-                f.getParentFile().mkdirs();
-            }
-            f.createNewFile();
-        } else {
-            taskList.loadTasks();
-        }
+        Storage storage = new Storage(fileName);
+        List taskList = new List(storage.loadTasks());
         ui.welcome();
         boolean isExit = false;
         while (!isExit) {
             String input = ui.readInput();
-            isExit = parser.parse(input, taskList, ui);
+            isExit = parser.parse(input, taskList, ui, storage);
         }
     }
 
