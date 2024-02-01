@@ -57,16 +57,16 @@ public class Storage {
           boolean isDone = taskData[2].equals("X");
           switch (taskData[0]) {
             case "T":
-              return TaskList.newTodo(taskDesc, isDone);
+              return TaskList.createTodo(taskDesc, isDone);
             case "E":
-              return TaskList.newEvent(
+              return TaskList.createEvent(
                 taskDesc,
                 auxData[0],
                 auxData[1],
                 isDone
               );
             default:
-              return TaskList.newDeadline(taskDesc, auxData[0], isDone);
+              return TaskList.createDeadline(taskDesc, auxData[0], isDone);
           }
         })
         .collect(Collectors.toCollection(ArrayList::new));

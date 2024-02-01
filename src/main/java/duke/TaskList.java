@@ -132,20 +132,24 @@ public class TaskList {
     return storedTasks.get(idx);
   }
 
-  public static Task newEvent(
+  public static Task createEvent(
     String task,
     String from,
     String to,
     boolean done
   ) {
-    return new Event(task, from, to, false);
+    return new Event(task, from, to, done);
   }
 
-  public static Task newTodo(String task, boolean done) {
+  public static Task createTodo(String task, boolean done) {
     return new Todo(task, done);
   }
 
-  public static Task newDeadline(String task, String deadline, boolean done) {
+  public static Task createDeadline(
+    String task,
+    String deadline,
+    boolean done
+  ) {
     return new Deadline(task, deadline, done);
   }
 }

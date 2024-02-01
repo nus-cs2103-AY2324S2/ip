@@ -30,13 +30,16 @@ public class Parser {
         return new String[] { command };
       case "mark":
       case "unmark":
+      case "delete":
         {
           String ferr1 = "%s command: expected an integer argument.";
           if (cmdSplit.length != 2) throw new DukeException(
             String.format(ferr1, command)
           );
-
           String idxString = cmdSplit[1];
+          if (!isNumber(idxString)) throw new DukeException(
+            String.format(ferr1, command)
+          );
           return new String[] { command, idxString };
         }
       case "todo":
@@ -97,18 +100,6 @@ public class Parser {
             String.format(ferr2, "to")
           );
           return new String[] { command, taskStr, fromStr, toStr };
-        }
-      case "delete":
-        {
-          String ferr1 = "%s command: expected an integer argument.";
-          if (cmdSplit.length != 2) throw new DukeException(
-            String.format(ferr1, command)
-          );
-          String idxString = cmdSplit[1];
-          if (!isNumber(idxString)) throw new DukeException(
-            String.format(ferr1, command)
-          );
-          return new String[] { command, idxString };
         }
       default:
         throw new DukeException(

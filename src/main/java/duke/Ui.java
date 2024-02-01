@@ -73,7 +73,7 @@ public class Ui {
       case "todo":
         {
           String taskStr = arguments[0];
-          Task task = TaskList.newTodo(taskStr, false);
+          Task task = TaskList.createTodo(taskStr, false);
           tasks.addTask(task);
           reply(TODO_MESSAGE);
           reply(String.format("  %s", task));
@@ -84,7 +84,7 @@ public class Ui {
         {
           String taskStr = arguments[0];
           String deadline = arguments[1];
-          Task task = TaskList.newDeadline(taskStr, deadline, false);
+          Task task = TaskList.createDeadline(taskStr, deadline, false);
           tasks.addTask(task);
           reply(TODO_MESSAGE);
           reply(String.format("  %s", task));
@@ -96,7 +96,7 @@ public class Ui {
           String taskStr = arguments[0];
           String fromStr = arguments[1];
           String toStr = arguments[2];
-          Task task = TaskList.newEvent(taskStr, fromStr, toStr, false);
+          Task task = TaskList.createEvent(taskStr, fromStr, toStr, false);
           tasks.addTask(task);
           reply(TODO_MESSAGE);
           reply(String.format("  %s", task));
