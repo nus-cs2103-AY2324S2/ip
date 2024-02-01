@@ -1,3 +1,6 @@
+import com.sun.source.util.TaskListener;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -8,17 +11,17 @@ public class Duke {
         protected String description;
         protected boolean isDone;
 
-        public Task(String description) {
+        public Task(String description, boolean isDone) {
             this.description = description;
-            this.isDone = false;
+            this.isDone = isDone;
         }
 
         public String getStatusIcon() {
-            return (this.isDone ? "X" : " "); // mark done task with X
+            return (this.isDone ? "1" : "0" ); // mark done task with 1
         }
 
         public String toString() {
-            return "[" + getStatusIcon() + "] " + this.description;
+            return " | " + getStatusIcon() + " | " + this.description;
         }
 
         public void editDescription(String input) {
@@ -38,26 +41,26 @@ public class Duke {
     }
 
     public static class ToDo extends Task {
-        public ToDo(String description) {
-            super(description);
+        public ToDo(String description, boolean isDone) {
+            super(description, isDone);
         }
 
         @Override
         public String toString() {
-            return "[T]" + super.toString();
+            return "T" + super.toString();
         }
     }
 
     public static class Deadline extends Task {
         protected String by;
-        public Deadline(String description, String by) {
-            super(description);
+        public Deadline(String description, String by, boolean isDone) {
+            super(description, isDone);
             this.by = by;
         }
 
         @Override
         public String toString() {
-            return "[D]" + super.toString() + "(by: " + by + ")";
+            return "D" + super.toString() + "| by: " + by;
         }
     }
 
@@ -65,15 +68,15 @@ public class Duke {
         protected String start;
         protected String end;
 
-        public Event(String description, String start, String end) {
-            super(description);
+        public Event(String description, String start, String end, boolean isDone) {
+            super(description, isDone);
             this.start = start;
             this.end = end;
         }
 
         @Override
         public String toString() {
-            return "[E]" + super.toString() + "(from: " + start +  " to: " + end + ")";
+            return "E" + super.toString() + "| from: " + start +  "| to: " + end;
         }
     }
 
@@ -83,10 +86,82 @@ public class Duke {
             + "|_______||__||___  ||__|__||___._||__|\n"
             + "             |_____|                  \n";
     private static final String DIV = "\n" + "~~**~~";
+    private static final String FILE_PATH = "./data/signal.txt";
     private static Scanner scanner = new Scanner(System.in);
-    private static ArrayList<Task> taskList = new ArrayList<>();
+    private static ArrayList<Task> taskList = loadTasksFromFile();
     private static int index = 0; // index of the next task to be filled
 
+    public static ArrayList<Task> loadTasksFromFile() {
+        ArrayList<Task> taskList = new ArrayList<>();
+
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                // Create the file and necessary directory structure if it doesn't exist
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+                return taskList; // Return an empty list since there are no tasks yet
+            }
+
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                // Parse each line and create Task objects
+                Task task = parseTask(line);
+                if (task != null) {
+                    taskList.add(task);
+                }
+            }
+
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+
+        return taskList;
+    }
+
+    public static Task parseTask(String line) {
+        // Parse each line to create Task objects
+        // Example line format: "T | 1 | read book"
+        String[] parts = line.split(" \\| ");
+        if (parts.length >= 3) {
+            boolean isDone = parts[1].equals("1");
+            String description = parts[2];
+            if (parts[0] == "T") { // todo
+                return new ToDo(description, isDone);
+            } else if (parts[0] == "D") { // deadline
+                String deadline = parts[3];
+                return new Deadline(description, deadline, isDone);
+            } else if (parts[0] == "E") { // event
+                String from = parts[3];
+                String to = parts[4];
+                return new Event(description, from, to, isDone);
+            }
+
+        } else {
+            System.out.println("Invalid line format: " + line);
+            return null;
+        }
+        return null;
+    }
+
+    public static void writeTasksToFile(ArrayList<Task> taskList) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+
+            for (Task task : taskList) {
+                // Write each task to a line in the file
+                writer.write(task.toString());
+                writer.newLine();
+            }
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
 
 
     /**
@@ -134,7 +209,7 @@ public class Duke {
      * @param input Input collected from the user.
      */
     public static void taskAdded(String input) {
-        Task t = new Task(input);
+        Task t = new Task(input, false);
         taskList.add(t);
         index += 1;
         signalSays("Added: " + input);
@@ -145,8 +220,7 @@ public class Duke {
             throw new DukeException("Looks like you haven't entered a task description!");
         }
         if (type.equals("todo")) {
-//            taskList[index] = new ToDo(input);
-            taskList.add(new ToDo(input));
+            taskList.add(new ToDo(input, false));
         } else {
             String command[] = input.split("/");
             if (type.equals("deadline")) {
@@ -154,19 +228,16 @@ public class Duke {
                     throw new DukeException("Looks like you haven't added a deadline!");
                 }
                 String deadline = command[1] != null && command[1].length() > 3 ? command[1].substring(3) : command[1];
-//                taskList[index] = new Deadline(command[0], deadline);
-                taskList.add(new Deadline(command[0], deadline));
+                taskList.add(new Deadline(command[0], deadline, false));
             } else if (type.equals("event")){
                 if (command.length < 3) {
                     throw new DukeException("Looks like you haven't added a start or end time!");
                 }
                 String start = command[1] != null && command[1].length() > 5 ? command[1].substring(5): command[1];
                 String end = command[2] != null && command[2].length() > 3 ? command[2].substring(3) : command[2];
-//                taskList[index] = new Event(command[0], start, end);
-                taskList.add(new Event(command[0], start, end));
+                taskList.add(new Event(command[0], start, end, false));
             } else {
-//                taskList[index] = new Task(input);
-                taskList.add(new Task(input));
+                taskList.add(new Task(input, false));
             }
 
         }
@@ -178,6 +249,7 @@ public class Duke {
         signalSays("Got it! I've added this task to your list: \n"
                 + "  " + t.toString() + "\n"
                 + "Now you have " + (index) + (index == 1 ? " task" : " tasks") + " in the list.");
+        writeTasksToFile(taskList);
     }
 
 
@@ -224,19 +296,12 @@ public class Duke {
 //            throw new DukeException("Looks like there's nothing here to remove. Better get on those tasks!");
 //        }
         if (x >= 0 && x <= index) {
-            // Shift the remaining elements up
-//            for (int i = x; i <= index - 1; i++) {
-//                // Adjust the index of each element
-////                taskList[i] = taskList[i + 1];
-//                Task moveUp = taskList.get(i + 1);
-//                taskList.set(i, moveUp);
-////                taskList[i].editIndex(i);
-//            }
             taskList.remove(x);
             index -= 1;
             signalSays("Noted, I've deleted this task from your list: \n"
                     + "  " + current.toString() + "\n"
                     + "Now you have " + (index) + (index == 1 ? " task" : " tasks") + " in the list.");
+            writeTasksToFile(taskList);
         } else {
             throw new DukeException("I'd say shoot for the stars but in this case there are only "
                     + (index - 1) + ((index - 1) == 1 ? " item" : " items") + " in this list");
@@ -295,6 +360,8 @@ public class Duke {
         System.out.println(response);
         System.out.println(DIV);
     }
+
+
 
 
     public static void main(String[] args) {
