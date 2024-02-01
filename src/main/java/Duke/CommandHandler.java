@@ -3,6 +3,7 @@ package duke;
 
 public class CommandHandler {
     private Ui ui;
+
     public enum Command {
         BYE,
         LIST,

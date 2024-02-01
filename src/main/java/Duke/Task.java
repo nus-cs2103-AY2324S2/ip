@@ -25,4 +25,8 @@ public class Task {
     public void undone() {
         this.isDone = false;
     }
+
+    public boolean isDone() {
+        return isDone;
+    }
 }
