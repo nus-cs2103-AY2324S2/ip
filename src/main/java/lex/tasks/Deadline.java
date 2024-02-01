@@ -1,9 +1,11 @@
 package lex.tasks;
 
-public class Deadline extends Task {
-    protected String end;
+import java.time.LocalDate;
 
-    public Deadline(String title, String end) {
+public class Deadline extends Task {
+    protected LocalDate end;
+
+    public Deadline(String title, LocalDate end) {
         super(title);
         this.end = end;
     }

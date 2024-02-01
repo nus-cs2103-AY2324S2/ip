@@ -1,5 +1,6 @@
 package lex;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -51,7 +52,7 @@ public class Lex {
                             throw new Exception("OOPS!!! Formatting error.");
                         }
 
-                        list.add(new Deadline(deadlineInputs[0], deadlineInputs[1]));
+                        list.add(new Deadline(deadlineInputs[0], LocalDate.parse(deadlineInputs[1])));
                         printAddSuccessMessage();
                         break;
                     case EVENT:
@@ -61,7 +62,7 @@ public class Lex {
                             throw new Exception("OOPS!!! Formatting error.");
                         }
 
-                        list.add(new Event(eventInputs[0], eventTimeInputs[0], eventTimeInputs[1]));
+                        list.add(new Event(eventInputs[0], LocalDate.parse(eventTimeInputs[0]), LocalDate.parse(eventTimeInputs[1])));
                         printAddSuccessMessage();
                         break;
                     case MARK:

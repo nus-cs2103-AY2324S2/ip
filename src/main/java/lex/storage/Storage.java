@@ -1,9 +1,10 @@
 package lex.storage;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class Storage {
         taskDeserializer.bind("Event", Event.class);
 
         builder.registerTypeAdapter(Task.class, taskDeserializer);
+        builder.setPrettyPrinting();
 
         this.gson = builder.create();
         this.filePath = filePath;

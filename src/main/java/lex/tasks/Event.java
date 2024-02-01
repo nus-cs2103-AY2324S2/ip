@@ -1,10 +1,12 @@
 package lex.tasks;
 
-public class Event extends Task {
-    protected String start;
-    protected String end;
+import java.time.LocalDate;
 
-    public Event(String title, String start, String end) {
+public class Event extends Task {
+    protected LocalDate start;
+    protected LocalDate end;
+
+    public Event(String title, LocalDate start, LocalDate end) {
         super(title);
         this.start = start;
         this.end = end;
