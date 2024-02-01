@@ -1,6 +1,13 @@
-import java.io.IOException;
+package Thames.command;
 
-public class DeleteCommand extends Command{
+import java.io.IOException;
+import Thames.TaskList;
+import Thames.Ui;
+import Thames.Storage;
+import Thames.ThamesException;
+import Thames.task.Task;
+
+public class DeleteCommand extends Command {
     int index;
 
     public DeleteCommand(int index) {

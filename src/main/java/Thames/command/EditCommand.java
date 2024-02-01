@@ -1,6 +1,13 @@
-import java.io.IOException;
+package Thames.command;
 
-public class EditCommand extends Command{
+import java.io.IOException;
+import Thames.TaskList;
+import Thames.Ui;
+import Thames.Storage;
+import Thames.ThamesException;
+import Thames.task.Task;
+
+public class EditCommand extends Command {
     protected boolean isMark;
     protected int index;
 
@@ -10,7 +17,7 @@ public class EditCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws ThamesException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ThamesException {
         try {
             Task task = tasks.get(index);
             if (isMark) {

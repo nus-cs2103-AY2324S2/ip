@@ -1,4 +1,7 @@
+package Thames;
+
 import java.io.FileNotFoundException;
+import Thames.command.Command;
 
 public class Thames {
     protected Storage storage;

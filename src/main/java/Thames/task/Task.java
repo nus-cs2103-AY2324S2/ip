@@ -1,3 +1,5 @@
+package Thames.task;
+
 public class Task {
     protected String name;
     protected Boolean isDone;
