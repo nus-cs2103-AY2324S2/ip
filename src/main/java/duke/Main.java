@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.stage.Stage;
 
 /**
@@ -16,6 +17,7 @@ public class Main extends Application {
 
     private Duke duke = new Duke("data/tasklist.txt");
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/satre.jpg"));
+
     @Override
     public void start(Stage stage) {
         try {
