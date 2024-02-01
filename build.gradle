@@ -1,7 +1,12 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
 
 repositories {
@@ -28,15 +33,20 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("Steven")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "steven"
+    archiveFileName = "steven.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
 run{
     standardInput = System.in
+}
+
+run {
+    enableAssertions = true
 }
