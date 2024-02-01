@@ -1,4 +1,4 @@
-package exceptions.parser;
+package numerator.exceptions.parser;
 
 public class TaskIndexOutOfBoundsException extends ParserException {
     public TaskIndexOutOfBoundsException(String message) {

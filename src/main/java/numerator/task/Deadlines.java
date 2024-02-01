@@ -1,9 +1,9 @@
-package task;
+package numerator.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-public class Deadlines extends Task {
+public class Deadlines extends numerator.task.Task {
     private final LocalDateTime by;
 
     public Deadlines(String description, String by) throws DateTimeParseException {

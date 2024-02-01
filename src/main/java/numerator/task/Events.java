@@ -1,8 +1,8 @@
-package task;
+package numerator.task;
 
 import java.time.LocalDateTime;
 
-public class Events extends Task {
+public class Events extends numerator.task.Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
 

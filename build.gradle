@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("Numerator")
+    mainClass.set("numerator.Numerator")
 }
 
 shadowJar {

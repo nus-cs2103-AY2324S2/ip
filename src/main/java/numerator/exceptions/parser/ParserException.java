@@ -1,6 +1,6 @@
-package exceptions.parser;
+package numerator.exceptions.parser;
 
-import exceptions.NumeratorException;
+import numerator.exceptions.NumeratorException;
 
 public class ParserException extends NumeratorException {
     public ParserException(String message) {

@@ -1,8 +1,10 @@
-import exceptions.NumeratorException;
-import exceptions.parser.InputFormatException;
-import exceptions.parser.InputNotRecognisedException;
-import exceptions.parser.TaskIndexOutOfBoundsException;
-import task.Task;
+package numerator;
+
+import numerator.exceptions.NumeratorException;
+import numerator.exceptions.parser.InputFormatException;
+import numerator.exceptions.parser.InputNotRecognisedException;
+import numerator.exceptions.parser.TaskIndexOutOfBoundsException;
+import numerator.task.Task;
 
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;

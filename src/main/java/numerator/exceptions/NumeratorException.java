@@ -1,4 +1,4 @@
-package exceptions;
+package numerator.exceptions;
 
 public class NumeratorException extends Exception {
     public NumeratorException(String message) {

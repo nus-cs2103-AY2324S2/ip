@@ -1,7 +1,9 @@
-import task.Deadlines;
-import task.Task;
-import task.ToDos;
-import task.Events;
+package numerator;
+
+import numerator.task.Deadlines;
+import numerator.task.Task;
+import numerator.task.ToDos;
+import numerator.task.Events;
 
 import java.util.ArrayList;
 import java.util.stream.IntStream;

@@ -1,6 +1,6 @@
-package exceptions.storage;
+package numerator.exceptions.storage;
 
-import exceptions.NumeratorException;
+import numerator.exceptions.NumeratorException;
 
 public class StorageException extends NumeratorException {
     public StorageException(String message) {
