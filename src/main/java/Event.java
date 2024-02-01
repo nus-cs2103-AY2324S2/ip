@@ -28,10 +28,10 @@ public class Event extends Task {
      */
     public Event(String description, boolean b) {
         super(b);
-        int fromIdx = description.indexOf("/from");
-        int toIdx = description.indexOf("/to");
-        this.description[0] = description.substring(6, fromIdx - 1);
-        this.description[1] = description.substring(fromIdx + 6, toIdx - 1);
+        int fromIdx = description.indexOf("(from:");
+        int toIdx = description.indexOf("to:");
+        this.description[0] = description.substring(0, fromIdx - 1);
+        this.description[1] = description.substring(fromIdx + 7, toIdx - 1);
         this.description[2] = description.substring(toIdx + 4);
     }
 
@@ -42,6 +42,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         return super.toString() + "[E] " + this.description[0]
-                + "(from: " + this.description[1] + " to: " + this.description[2] + ")";
+                + " (from: " + this.description[1] + " to: " + this.description[2] + ")";
     }
 }
