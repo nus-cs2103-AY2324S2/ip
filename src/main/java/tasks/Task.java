@@ -8,6 +8,10 @@ public class Task {
         this.complete = false;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public boolean getCompletionStatus() {
         return this.complete;
     }
