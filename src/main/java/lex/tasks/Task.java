@@ -1,6 +1,7 @@
-package task;
+package lex.tasks;
 
-public class Task {
+public abstract class Task {
+    protected final String type = this.getClass().getSimpleName();
     protected String title;
     protected boolean isDone;
 

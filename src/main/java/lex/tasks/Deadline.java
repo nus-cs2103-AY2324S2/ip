@@ -1,4 +1,4 @@
-package task;
+package lex.tasks;
 
 public class Deadline extends Task {
     protected String end;

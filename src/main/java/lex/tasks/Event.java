@@ -1,7 +1,6 @@
-package task;
+package lex.tasks;
 
 public class Event extends Task {
-
     protected String start;
     protected String end;
 

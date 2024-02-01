@@ -1,17 +1,23 @@
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+package lex;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-public class Duke {
-    static ArrayList<Task> list = new ArrayList<>();
+import lex.storage.Storage;
+import lex.tasks.Deadline;
+import lex.tasks.Event;
+import lex.tasks.Task;
+import lex.tasks.Todo;
+
+public class Lex {
+    private static List<Task> list;
 
     public static void main(String[] args) {
+        final var storage = new Storage();
+        list = storage.load();
+
         System.out.println(Constant.SEPERATOR);
-        System.out.print("Hello! I'm Lex\nWhat can I do for you?\n");
+        System.out.print("Hello! I'm lex.Lex\nWhat can I do for you?\n");
         System.out.println(Constant.SEPERATOR);
 
         Scanner scanner = new Scanner(System.in);
@@ -75,19 +81,20 @@ public class Duke {
                         Task removedTask = list.remove(index);
                         System.out.println("Noted. I've removed this task:");
                         System.out.println("  " + removedTask);
-                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                        System.out.println("Now you have " + list.size() + " lex.tasks in the list.");
                         break;
                     case BYE:
+                        storage.save(list);
                         System.out.println("Bye. Hope to see you again soon!");
                         break event;
+                    default:
+                        throw new IllegalArgumentException();
                 }
-
-                System.out.println(Constant.SEPERATOR);
             } catch (IllegalArgumentException e) {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                System.out.println(Constant.SEPERATOR);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+            } finally {
                 System.out.println(Constant.SEPERATOR);
             }
         }
@@ -98,6 +105,6 @@ public class Duke {
     public static void printAddSuccessMessage() {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + list.get(list.size() - 1));
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        System.out.println("Now you have " + list.size() + " lex.tasks in the list.");
     }
 }
