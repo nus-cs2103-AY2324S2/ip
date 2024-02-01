@@ -1,62 +1,64 @@
 //Returns a list of Strings neatly parsed as arguments.
-
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Parser {
 
+    private File saveFile;
     private TaskList taskList;
     private History history;
 
-    public Parser(History history) {
+    public Parser(History history, File saveFile) {
         this.history = history;
         ArrayList<Task> tasks = history.getHistory();
         this.taskList = new TaskList(tasks);
+        this.saveFile = saveFile;
     }
 
     public boolean parseCommand(String input) {
         String trimmedLowercase = input.trim().toLowerCase();
         //bye, list
         if (trimmedLowercase.equals("bye")) {
-            System.out.println("Don't be ridiculous!\n" +
-                    "It's... it's not like I want to see you again or anything!\n");
             //TODO: save history
+            history.saveHistory(saveFile, taskList.getTasks());
             return true;
         } else if (trimmedLowercase.equals("list")) {
             taskList.listTasks();
             return false;
         } else if (trimmedLowercase.split(" ")[0].trim().equals("delete")) {
-            int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
-            taskList.deleteTask(index);
-            return false;
+            try {
+                int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
+                taskList.deleteTask(index);
+                return false;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Hey! You forgot something! Be glad I'm here to remind you.");
+                System.out.println("[Missing delete parameter(s)]\n");
+                return false;
+            }
+
         } else if (trimmedLowercase.split(" ")[0].trim().equals("mark")) {
-            int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
-            taskList.markTask(index);
-            return false;
+            try {
+                int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
+                taskList.markTask(index);
+                return false;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Hey! You forgot something! Be glad I'm here to remind you.");
+                System.out.println("[Missing mark parameter(s)]\n");
+                return false;
+            }
+
         }
 
         //tasks
-        Task task = null;
-        for (TaskType t : TaskType.values()) {
-            try {
-                String prefix = trimmedLowercase.substring(0, t.toString().length());
-                if (prefix.equals(t.toString().toLowerCase())) {
-                    task = makeTask(trimmedLowercase);
-                }
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("oob");
-                return false;
-            }
-        }
+        Task task = makeTask(input);
 
         if (task != null) {
             taskList.addTask(task);
             return false;
         }
 
-        System.out.println("/// What on earth are you saying! ///");
-        System.out.println("[Command not found]\n");
         return false;
     }
 

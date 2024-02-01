@@ -3,11 +3,15 @@ import java.util.ArrayList;
 //for CURRENT tasks only.
 public class TaskList {
 
-    ArrayList<Task> tasks = new ArrayList<Task>();
+    private ArrayList<Task> tasks = new ArrayList<Task>();
 
     //fetch tasks from history
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 
     public void addTask(Task task) {

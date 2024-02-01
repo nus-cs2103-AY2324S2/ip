@@ -57,7 +57,7 @@ public class Luke {
             return;
         }
 
-        Parser parser = new Parser(history);
+        Parser parser = new Parser(history, historyFile);
         Scanner sc = new Scanner(System.in);
 
         boolean isFinished = false;
@@ -67,6 +67,7 @@ public class Luke {
             String input = sc.nextLine().trim(); //trim removes preceding and trailing whitespace.
             isFinished = parser.parseCommand(input);
         }
+
     }
 
     private static void greet() {
