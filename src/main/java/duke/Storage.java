@@ -14,9 +14,19 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+/**
+ * Represents the storage that reads data from and saves data to the Tasks File.
+ */
 public class Storage {
     private String filePath;
 
+
+    /**
+     * Constructor for Storage
+     *
+     * @param filePath Filepath to store tasks data.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -48,6 +58,13 @@ public class Storage {
         return task;
     }
 
+
+    /**
+     * Reads data from the Tasks File.
+     *
+     * @return List of tasks read from the Task File.
+     * @throws TasksFileException If Task File can't be found.
+     */
     public ArrayList<Task> readTasksFile() throws TasksFileException {
         ArrayList<Task> tasks = new ArrayList<>();
         File f = new File(filePath);
@@ -64,6 +81,7 @@ public class Storage {
         }
         return tasks;
     }
+
     private void createTaskFile() throws TasksFileException {
         File tasksFile = new File(filePath);
         File dataDirectory = tasksFile.getParentFile();
@@ -75,6 +93,13 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Saves data to the Task File.
+     *
+     * @param tasks List of tasks to write to the Task File.
+     * @throws IOException If error is thrown when writing to the Task File.
+     */
     public void saveTasksFile(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (int i = 1; i <= tasks.getLength(); i++) {

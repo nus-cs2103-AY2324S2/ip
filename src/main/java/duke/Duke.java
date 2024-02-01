@@ -3,15 +3,22 @@ package duke;
 import duke.command.Command;
 import duke.exception.DukeException;
 
+/**
+ * Represents the Duke Chatbot object.
+ */
+
 public class Duke {
-    private enum CommandType {
-        BYE, LIST, DELETE, MARK, UNMARK, TODO, EVENT, DEADLINE
-    }
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+
+    /**
+     * Constructor for Duke.
+     *
+     * @param filePath Filepath to store tasks data.
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -23,6 +30,7 @@ public class Duke {
 
         }
     }
+
 
     private void run() {
         this.ui.greet();
@@ -40,6 +48,7 @@ public class Duke {
             }
         }
     }
+
 
     public static void main(String[] args) {
         new Duke("./data/duke.txt").run();
