@@ -40,3 +40,7 @@ shadowJar {
 run{
     standardInput = System.in
 }
+
+runShadow{
+    standardInput = System.in
+}
