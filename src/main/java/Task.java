@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Task {
     String taskName;
     Boolean done = false;
@@ -21,7 +23,7 @@ public class Task {
     public String fileRep() {
         return String.format("%s|%d", taskName, done ? 1 : 0);
     }
-    public static Task parseTask(String s) {
+    public static Task parseTask(String s) throws InvalidDateException{
         String[] arr = s.split("\\|", 3);
         Task task = EMPTY_TASK;
         switch(arr[0]) {
@@ -39,5 +41,14 @@ public class Task {
             task.mark();
         }
         return task;
+    }
+    public static DateTimeFormatter TIME_FORMAT_IN = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public static DateTimeFormatter TIME_FORMAT_OUT = DateTimeFormatter.ofPattern("HH:mm yyyy-MM-dd");
+    public static LocalDateTime parseDate(String s) throws InvalidDateException{
+        try{
+            return LocalDateTime.parse(s, Task.TIME_FORMAT_IN);
+        } catch (Exception e) {
+            throw new InvalidDateException();
+        }
     }
 }
