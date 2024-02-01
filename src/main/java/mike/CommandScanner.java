@@ -86,7 +86,9 @@ class CommandScanner {
         while (!isWhiteSpace(peek()) && !isAtEnd()) advance();
         String text = source.substring(start, current);
         TokenType type = commands.get(text);
-        if (type == null) type = TokenType.LITERAL;
+        if (type == null) {
+            type = TokenType.LITERAL;
+        }
         // flag that LITERAL is not recognised command when parsing
         addToken(type);
     }
@@ -98,7 +100,9 @@ class CommandScanner {
     }
 
     private char peek() {
-        if (isAtEnd()) return '\0';
+        if (isAtEnd()) {
+            return '\0';
+        }
         return source.charAt(current);
     }
 

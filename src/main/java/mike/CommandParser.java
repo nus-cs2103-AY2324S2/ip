@@ -1,8 +1,14 @@
-package mike;/*
-TODO:
-    1. Write comments to document the code.
- */
-import mike.command.*;
+package mike;
+
+import mike.command.AddDeadlineCommand;
+import mike.command.AddEventCommand;
+import mike.command.AddTodoCommand;
+import mike.command.Command;
+import mike.command.DeleteCommand;
+import mike.command.ExitCommand;
+import mike.command.ListCommand;
+import mike.command.MarkCommand;
+import mike.command.UnmarkCommand;
 
 import java.util.List;
 
@@ -231,7 +237,9 @@ class CommandParser {
     }
 
     private Token consume(TokenType type, String message) throws MikeException {
-        if (check(type)) return advance();
+        if (check(type)) {
+            return advance();
+        }
         throw error(message);
     }
 

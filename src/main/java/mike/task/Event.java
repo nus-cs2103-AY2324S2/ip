@@ -10,8 +10,8 @@ import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     private static final String TYPE = "Event";
-    protected LocalDate startDate;
-    protected LocalDate endDate;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
 
     public Event(String description, String startDate, String endDate) throws MikeException {
         super(description, TYPE);

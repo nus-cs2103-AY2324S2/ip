@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     private static final String TYPE = "Deadline";
-    protected LocalDate deadline;
+    private final LocalDate deadline;
 
     public Deadline(String description, String deadline) throws MikeException {
         super(description, TYPE);
