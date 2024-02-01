@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 
 public class Duke {
 
@@ -175,48 +179,94 @@ public class Duke {
             divider();
         }
     }
+//    public void addDeadline(String input) {
+//        String[] parts = input.substring(9).trim().split("/by", 2);
+//        String description = parts[0].trim();
+//        String by = parts[1].trim();
+//        Deadline newDeadline = new Deadline(description, by);
+//        tasks.add(newDeadline);
+//        try {
+//            echoAdd(newDeadline);
+//            fileHandler.saveInFile(tasks);
+//        } catch (FileIOException e) {
+//            System.out.println("Error saving task: " + e.getMessage());
+//        }
+//    }
+
     public void addDeadline(String input) {
-        String[] parts = input.substring(9).trim().split("/by", 2);
-        String description = parts[0].trim();
-        String by = parts[1].trim();
-        Deadline newDeadline = new Deadline(description, by);
-        tasks.add(newDeadline);
         try {
+            String[] parts = input.substring(9).trim().split("/by ", 2);
+            String description = parts[0].trim();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime byDateTime = LocalDateTime.parse(parts[1].trim(), formatter);
+            Deadline newDeadline = new Deadline(description, byDateTime);
+            tasks.add(newDeadline);
             echoAdd(newDeadline);
             fileHandler.saveInFile(tasks);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please use 'yyyy-MM-dd HHmm'.");
         } catch (FileIOException e) {
             System.out.println("Error saving task: " + e.getMessage());
         }
     }
 
+
+//    public void addEvent(String input) {
+//        try {
+//            String[] parts = input.substring(6).trim().split("/from ", 2);
+//            if (parts.length < 2) {
+//                System.out.println("Invalid event format. Please use 'event description /from start to end'.");
+//                return;
+//            }
+//            String description = parts[0].trim();
+//            String[] times = parts[1].trim().split(" /to ", 2);
+//            if (times.length < 2) {
+//                System.out.println("Invalid event time format. Please use 'from start to end'.");
+//                return;
+//            }
+//            String start = times[0].trim();
+//            String end = times[1].trim();
+//            // Assuming Event constructor takes description, start, and end times
+//            Event newEvent = new Event(description, start, end);
+//            tasks.add(newEvent);
+//            try {
+//                echoAdd(newEvent);
+//                fileHandler.saveInFile(tasks);
+//            } catch (FileIOException e) {
+//                System.out.println("Error saving task: " + e.getMessage());
+//            }
+//        } catch (Exception e) {
+//            System.out.println("Error adding event: " + e.getMessage());
+//        }
+//    }
+
     public void addEvent(String input) {
         try {
-            String[] parts = input.substring(6).trim().split("/from ", 2);
+            String[] parts = input.substring(6).trim().split("/from ", 2); // Splitting on "/from "
             if (parts.length < 2) {
                 System.out.println("Invalid event format. Please use 'event description /from start to end'.");
                 return;
             }
             String description = parts[0].trim();
-            String[] times = parts[1].trim().split(" /to ", 2);
+            String[] times = parts[1].trim().split(" /to ", 2); // Splitting the times on " /to "
             if (times.length < 2) {
                 System.out.println("Invalid event time format. Please use 'from start to end'.");
                 return;
             }
-            String start = times[0].trim();
-            String end = times[1].trim();
-            // Assuming Event constructor takes description, start, and end times
-            Event newEvent = new Event(description, start, end);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime startDateTime = LocalDateTime.parse(times[0].trim(), formatter);
+            LocalDateTime endDateTime = LocalDateTime.parse(times[1].trim(), formatter);
+            Event newEvent = new Event(description, startDateTime, endDateTime);
             tasks.add(newEvent);
-            try {
-                echoAdd(newEvent);
-                fileHandler.saveInFile(tasks);
-            } catch (FileIOException e) {
-                System.out.println("Error saving task: " + e.getMessage());
-            }
+            echoAdd(newEvent);
+            fileHandler.saveInFile(tasks);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Please use 'yyyy-MM-dd HHmm'.");
         } catch (Exception e) {
             System.out.println("Error adding event: " + e.getMessage());
         }
     }
+
 
 //    public void deleteTask(String input) {
 //        int index = Integer.parseInt(input.substring(7).trim()) - 1;
