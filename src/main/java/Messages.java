@@ -8,21 +8,21 @@ public enum Messages {
     REMOVE("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list."),
     ADD("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list."),
     MISSING_TASK_NAME("Please enter a NAME for your %s task!"),
-    INVALID_DEADLINE_DATE("Please enter a DATE for your Deadline task!"),
-    INVALID_EVENT_FROM("Please enter a START DATE for your Event task!"),
-    INVALID_EVENT_TO("Please enter a END DATE for your Event task!"),
-    INVALID_CMD("I don't understand what you mean by \"%s\"\nPlease request something like: list, mark, delete, todo, deadline, event, etc."),
+    INVALID_DEADLINE_DATE("Please enter a valid DATE and TIME (%s)\nfor your Deadline task!"),
+    INVALID_EVENT_FROM("Please enter a valid START DATE and TIME (%s)\nfor your Event task!"),
+    INVALID_EVENT_TO("Please enter a valid END DATE and TIME (%s)\nfor your Event task!"),
+    INVALID_CMD("I don't understand what you mean by \"%s\"\nPlease request something like:\n" + 
+            "  bye, list, mark, delete, todo, deadline, event."),
     BYE("Bye. Hope to see you again soon!");
     private String msg;
+    private final String DIVIDER = "_".repeat(100) + "\n";
 
-    Messages(String msg) {
+    private Messages(String msg) {
         this.msg = msg;
     }
 
     @Override
     public String toString() {
-        return "____________________________________________________________\n" + 
-            this.msg + 
-            "\n____________________________________________________________\n";
+        return DIVIDER + this.msg + "\n" + DIVIDER;
     }
 }
