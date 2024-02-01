@@ -1,0 +1,36 @@
+[33mcommit e3dd353a5f3117e0770d355cbb78abe7f0ee7ab8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;33mtag: Level-0[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: YuZizhen <yuzizhen123@gmail.com>
+Date:   Mon Jan 29 00:13:15 2024 +0800
+
+    Level-0
+
+[1mdiff --git a/src/main/java/Duke.java b/src/main/java/Duke.java[m
+[1mindex 5d31333..7431e2a 100644[m
+[1m--- a/src/main/java/Duke.java[m
+[1m+++ b/src/main/java/Duke.java[m
+[36m@@ -1,4 +1,13 @@[m
+ public class Duke {[m
+[32m+[m[32m    static void greeting(String botName) {[m
+[32m+[m[32m        System.out.println("Hello! I'm " + botName + "\n"[m
+[32m+[m[32m                + "What can I do for you?");[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    static void exit() {[m
+[32m+[m[32m        System.out.println("Bye. Hope to see you again soon!");[m
+[32m+[m[32m    }[m
+[32m+[m
+     public static void main(String[] args) {[m
+         String logo = " ____        _        \n"[m
+                 + "|  _ \\ _   _| | _____ \n"[m
+[36m@@ -6,5 +15,11 @@[m [mpublic class Duke {[m
+                 + "| |_| | |_| |   <  __/\n"[m
+                 + "|____/ \\__,_|_|\\_\\___|\n";[m
+         System.out.println("Hello from\n" + logo);[m
+[32m+[m
+[32m+[m[32m        String botName = "Zizhen";[m
+[32m+[m[32m        greeting(botName);[m
+[32m+[m
+[32m+[m[32m        exit();[m
+[32m+[m
+     }[m
+ }[m
