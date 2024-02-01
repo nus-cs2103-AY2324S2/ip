@@ -3,18 +3,22 @@ package Parsing;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DateTimeParserTest {
 
     @Test
     public void parseDateTimeTest(){
-        assertEquals(new DateTimeParser().parseDateTime("03-02-2024 1800"), new DateTimeParser().parseDateTime("03-02-2024 1800"));
+        assertEquals(LocalDateTime.of(2024, 2, 3, 18, 0), new DateTimeParser().parseDateTime("03-02-2024 1800"));
     }
 
     @Test
-    public void anotherParseDateTimeTest(){
-        assertEquals(new DateTimeParser().parseDateTime("03-02-2024 1800"), new DateTimeParser().parseDateTime("03-02-2024 1800"));
+    public void failParseDateTimeTest(){
+        assertThrows(DateTimeParseException.class, () -> {
+            new DateTimeParser().parseDateTime("03/02/2024 1800");
+        });
     }
 }
