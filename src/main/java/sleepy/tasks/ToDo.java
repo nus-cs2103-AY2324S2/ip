@@ -1,11 +1,11 @@
-package sleepy.items;
+package sleepy.tasks;
 
 /**
- * This class is a type of item.
+ * This class is a type of task.
  *
  * @author kjw142857
  */
-public class ToDo extends Item {
+public class ToDo extends Task {
     public ToDo(String rawDescription, String description) {
         super(rawDescription, description);
     }

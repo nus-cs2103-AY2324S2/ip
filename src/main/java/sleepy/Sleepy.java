@@ -1,7 +1,7 @@
 package sleepy;
 
-import sleepy.datastorage.ItemList;
-import sleepy.tools.LinePrinter;
+import sleepy.taskstorage.TaskList;
+import sleepy.tools.Ui;
 
 import java.util.Scanner;
 
@@ -11,23 +11,25 @@ import java.util.Scanner;
  * @author kjw142857
  */
 public class Sleepy {
-    public static void main(String[] args) {
+    private TaskList taskList;
+    private Ui ui;
+
+    public Sleepy(String filePath) {
+        // Retrieve saved data
+        taskList = new TaskList(filePath);
+    }
+
+    /**
+     * Runs the chatbot.
+     */
+    public void run() {
         // Initialise chatbot
-        ItemList itemList = new ItemList();
-        String name = "Sleepy";
-        String welcomeLine = "Hello! I'm " + name;
-        String questionLine = "What can I do for you?";
-        LinePrinter.printLine(welcomeLine);
-        LinePrinter.printLine(questionLine);
-        // Await next command from user
-        Scanner userInput = new Scanner(System.in);
-        while (true) {
-            String nextUserCommand = userInput.nextLine();
-            if (nextUserCommand.equals("bye")) {
-                LinePrinter.printExit();
-                break;
-            }
-            itemList.access(nextUserCommand);
-        }
+        ui = new Ui();
+        // UI starts accepting commands on the task list
+        ui.acceptCommands(taskList);
+    }
+
+    public static void main(String[] args) {
+        new Sleepy("./src/main/java/sleepy/taskstorage/HardDiskStorage.txt").run();
     }
 }

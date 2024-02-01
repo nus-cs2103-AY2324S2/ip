@@ -1,15 +1,15 @@
-package sleepy.items;
+package sleepy.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * This class is a type of item.
+ * This class is a type of task.
  *
  * @author kjw142857
  */
-public class Deadline extends Item {
+public class Deadline extends Task {
     private String givenDeadline;
 
     private LocalDate formattedDate;

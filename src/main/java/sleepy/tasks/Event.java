@@ -1,15 +1,15 @@
-package sleepy.items;
+package sleepy.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * This class is a type of item.
+ * This class is a type of task.
  *
  * @author kjw142857
  */
-public class Event extends Item {
+public class Event extends Task {
     private String start;
     private String end;
 
