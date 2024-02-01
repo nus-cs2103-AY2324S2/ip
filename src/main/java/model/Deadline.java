@@ -1,13 +1,17 @@
 package model;
 
+import Utility.DateTimeUtility;
+
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
     public static String typeIcon = "D";
-    private String byDateTime;
+    private LocalDateTime byDateTime;
 
     public Deadline(String name, String byDateTime) {
         super(name);
 
-        this.byDateTime = byDateTime;
+        this.byDateTime = DateTimeUtility.parseStringToLocalDateTime(byDateTime);
     }
 
     public Deadline(String name, Boolean isCompleted, String byDateTime) {
@@ -17,13 +21,13 @@ public class Deadline extends Task {
             super.markTaskCompleted();
         }
 
-        this.byDateTime = byDateTime;
+        this.byDateTime = DateTimeUtility.parseStringToLocalDateTime(byDateTime);
     }
 
     @Override
     public String toTaskListStringFormat() {
         return String.format("%s|%s|%s",
-                Deadline.typeIcon, super.toTaskListStringFormat(), this.byDateTime);
+                Deadline.typeIcon, super.toTaskListStringFormat(), this.byDateTime.toString());
     }
 
     @Override
@@ -33,6 +37,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s (by: %s)", super.toString(), this.byDateTime);
+        return String.format("%s (by: %s)",
+                super.toString(), DateTimeUtility.parseLocalDateTimeToString(this.byDateTime));
     }
 }
