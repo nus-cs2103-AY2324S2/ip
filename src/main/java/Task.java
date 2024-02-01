@@ -7,6 +7,18 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
+    public String[] getFields() {
+        String[] result = new String[2];
+        result[0] = this.description;
+        result[1] = this.isDone ? "Y" : "N";
+        return result;
+    }
+
     public String getDescriptionStatus() {
         return (isDone ? "[X] " : "[ ] ") + this.description;
     }
