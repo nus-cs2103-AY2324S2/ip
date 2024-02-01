@@ -76,8 +76,8 @@ public class TaskList {
         System.out.println("\tCurrently, the list comprises  " + listItems.size() + " tasks.");
         System.out.println("\t____________________________________________________________\n");
     }
-    public ArrayList<Task> getListItems(){
-        return this.listItems;
+    public int getSize(){
+        return this.listItems.size();
     }
     @Override
     public String toString(){
