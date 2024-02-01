@@ -3,7 +3,6 @@ import view.Exit;
 import view.Greeting;
 
 import java.util.Scanner;
-import static objects.Processor.*;
 
 public class Duke {
     public static void main(String[] args) {
@@ -18,7 +17,7 @@ public class Duke {
                 break;
             }
 
-            process(input, tasks);
+            Parser.parse(input, tasks);
             Storage.save(tasks);
         }
 

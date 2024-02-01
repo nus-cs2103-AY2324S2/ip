@@ -2,6 +2,6 @@ package exception;
 
 public class InvalidCommandException extends DukeException {
     public InvalidCommandException() {
-        super("Invalid command");
+        super("Details cannot be empty!");
     }
 }

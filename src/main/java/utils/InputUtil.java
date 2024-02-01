@@ -2,6 +2,9 @@ package utils;
 
 import exception.InvalidCommandException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class InputUtil {
     public static int parseIndex(String input) {
         String[] parts = input.split("\\s+");
@@ -24,6 +27,12 @@ public class InputUtil {
             throw new InvalidCommandException();
         }
 
-        return details[1];
+        return details[1].trim();
+    }
+
+    public static LocalDateTime convertToDateTime(String dateString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
+        return LocalDateTime.parse(dateString, formatter);
     }
 }

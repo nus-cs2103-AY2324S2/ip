@@ -4,6 +4,8 @@ import exception.InvalidCommandException;
 import objects.Task;
 import objects.TaskList;
 import objects.ToDos;
+import view.CreatedTask;
+import view.EncaseLines;
 
 import static utils.InputUtil.getDetails;
 
@@ -19,11 +21,9 @@ public class CreateTodo implements Command{
 
     @Override
     public void execute() throws InvalidCommandException {
-        String details = getDetails(input);
-
-        Task t = new ToDos(details);
+        Task t = new ToDos(input);
         tasks.addTask(t);
 
-
+        CreatedTask.display(this.tasks, t);
     }
 }
