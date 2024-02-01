@@ -1,5 +1,6 @@
-import java.util.ArrayList;
+package jav.manager;
 
+import java.util.ArrayList;
 
 /**
 * StorageManager manages and stores tasks into a storage.

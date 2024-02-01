@@ -1,3 +1,5 @@
+package jav.command;
+
 /**
  * DeleteTaskCommand handles the executing of deletion of tasks.
  */

@@ -1,3 +1,5 @@
+package jav.exception;
+
 /**
  * InvalidParamException signals that an invalid parameter was given.
  * 

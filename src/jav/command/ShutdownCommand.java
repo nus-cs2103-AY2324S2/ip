@@ -1,3 +1,5 @@
+package jav.command;
+
 /**
  * ShutdownCommand handles the shutdown of the program.
  */

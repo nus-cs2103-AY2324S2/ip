@@ -1,3 +1,5 @@
+package jav.manager;
+
 /**
 * StorageManager manages and stores tasks into a storage.
 */

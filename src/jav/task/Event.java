@@ -1,3 +1,5 @@
+package jav.task;
+
 /**
 * Event is a task that also consists of a start and end date.
 */

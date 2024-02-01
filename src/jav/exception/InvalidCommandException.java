@@ -1,3 +1,5 @@
+package jav.exception;
+
 /**
  * InvalidCommandException signals that an invalid command was given.
  * 

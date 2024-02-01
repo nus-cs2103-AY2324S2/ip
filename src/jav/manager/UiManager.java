@@ -1,3 +1,5 @@
+package jav.manager;
+
 /**
 * UiManager outputs custom messages based on the given actions.
 */
