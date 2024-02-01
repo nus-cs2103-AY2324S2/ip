@@ -3,6 +3,9 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Luke {
@@ -92,6 +95,7 @@ public class Luke {
     private static Task makeTask(String input) {
         Task task;
         String taskType = input.split(" ")[0];
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         if (taskType.equals("todo")) {
             task = new Todo(input.substring(4).trim()); //TODO: better not hardcode 5 lol
             if (input.split(" ").length < 2) {
@@ -102,7 +106,8 @@ public class Luke {
         } else if (taskType.equals("deadline")) {
             try {
                 task = new Deadline(input.split("/")[0].substring(8).trim(),
-                        input.split("/")[1].substring(2).trim());
+                        LocalDate.parse(input.split("/")[1].substring(2).trim(), formatter)
+                );
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Hey! You forgot something! Be glad I'm here to remind you.");
                 System.out.println("[Missing deadline parameter(s)]\n");
@@ -111,8 +116,8 @@ public class Luke {
         } else if (taskType.equals("event")) {
             try {
                 task = new Event(input.split("/")[0].substring(5).trim(),
-                        input.split("/")[1].substring(4).trim(),
-                        input.split("/")[2].substring(2).trim());
+                        LocalDate.parse(input.split("/")[1].substring(4).trim(), formatter),
+                        LocalDate.parse(input.split("/")[2].substring(2).trim(), formatter));
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("/// I don't know when you are free... ///");
                 System.out.println("[Missing event parameter(s)]\n");
