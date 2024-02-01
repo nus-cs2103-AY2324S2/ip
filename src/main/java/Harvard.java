@@ -1,6 +1,8 @@
 import com.sun.source.util.TaskEvent;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -81,7 +83,8 @@ public class Harvard {
             if (command.equals("deadline")) {
                 String[] commandItems = echoInput.split(" /by ");
                 String desc = commandItems[0].substring(commandItems[0].indexOf(' ')+1);
-                String by = commandItems[1];
+                LocalDate by = LocalDate.parse(commandItems[1]);
+
                 Deadline deadlineTask = new Deadline(desc, by);
                 tasks.add(deadlineTask);
                 System.out.println("____________________________________________________________");
@@ -95,8 +98,8 @@ public class Harvard {
                 String[] commandItems = echoInput.split(" /from ");
                 String desc = commandItems[0].substring(commandItems[0].indexOf(' ')+1);
                 String[] commandItems2 = commandItems[1].split(" /to ");
-                String from = commandItems2[0];
-                String to = commandItems2[1];
+                LocalDate from = LocalDate.parse(commandItems2[0]);
+                LocalDate to = LocalDate.parse(commandItems2[1]);
 
 
                 Event eventTask = new Event(desc, from, to);
@@ -154,9 +157,9 @@ public class Harvard {
                 if (taskType.equals("T") ) {
                     tasks.add(new Todo(line.split(",")[2], isDone));
                 } else if (taskType.equals("D")) {
-                    tasks.add(new Deadline(line.split(",")[2], line.split(",")[3], isDone));
+                    tasks.add(new Deadline(line.split(",")[2], LocalDate.parse(line.split(",")[3]), isDone));
                 } else {
-                    tasks.add(new Event(line.split(",")[2], line.split(",")[3], line.split(",")[4], isDone));
+                    tasks.add(new Event(line.split(",")[2], LocalDate.parse(line.split(",")[3]), LocalDate.parse(line.split(",")[4]), isDone));
                 }
 
             }
@@ -255,14 +258,14 @@ public class Harvard {
 
     public static class Deadline extends Task {
 
-        protected String by;
+        protected LocalDate by;
 
-        public Deadline(String description, String by) {
+        public Deadline(String description, LocalDate by) {
             super(description);
             this.by = by;
         }
 
-        public Deadline(String description, String by, Boolean isDone) {
+        public Deadline(String description, LocalDate by, Boolean isDone) {
             super(description);
             this.by = by;
             if (isDone) super.mark();
@@ -270,27 +273,28 @@ public class Harvard {
 
         @Override
         public String saveString() {
-            return "D," + (super.isDone ? "1," : "0,") + super.getDescription() + "," + this.by;
+            return "D," + (super.isDone ? "1," : "0,") + super.getDescription() + "," +
+                    this.by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         }
 
         @Override
         public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+            return "[D]" + super.toString() + " (by: " + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         }
     }
 
     public static class Event extends Task {
 
-        protected String from;
-        protected String to;
+        protected LocalDate from;
+        protected LocalDate to;
 
-        public Event(String description, String from, String to) {
+        public Event(String description, LocalDate from, LocalDate to) {
             super(description);
             this.from = from;
             this.to = to;
         }
 
-        public Event(String description, String from, String to, Boolean isDone) {
+        public Event(String description, LocalDate from, LocalDate to, Boolean isDone) {
             super(description);
             this.from = from;
             this.to = to;
@@ -299,11 +303,16 @@ public class Harvard {
 
         @Override
         public String saveString() {
-            return "D," + (super.isDone ? "1," : "0,") + super.getDescription() + "," + this.from + "," + this.to;
+            return "E," + (super.isDone ? "1," : "0,") + super.getDescription() + "," +
+                    this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "," +
+                    this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         }
         @Override
         public String toString() {
-            return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+            return "[E]" + super.toString() + " (from: " +
+                    this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
+                    " to: " +
+                    this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         }
     }
 
