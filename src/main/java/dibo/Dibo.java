@@ -1,19 +1,15 @@
 package dibo;
 
+import java.util.ArrayList;
+
 import dibo.command.Command;
 import dibo.exception.DiboException;
-
-import java.util.ArrayList;
 
 public class Dibo {
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
 
-    public static void main(String[] args) {
-        Dibo dibo = new Dibo("./data/dibo.txt");
-        dibo.run();
-    }
     private Dibo(String path) {
         this.storage = new Storage(path);
         this.ui = new Ui();
@@ -25,6 +21,10 @@ public class Dibo {
         }
     }
 
+    public static void main(String[] args) {
+        Dibo dibo = new Dibo("./data/dibo.txt");
+        dibo.run();
+    }
     public void run() {
         this.ui.sayHi();
         boolean isBye = false;
