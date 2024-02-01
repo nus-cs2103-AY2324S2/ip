@@ -1,6 +1,7 @@
 package parser;
 
 import commands.*;
+import exceptions.DukeException;
 
 public class Parser {
     /**
@@ -8,7 +9,7 @@ public class Parser {
      * @param input An array of strings split by spaces.
      * @return Command
      */
-    public Command parseCommand(String[] input) {
+    public Command parseCommand(String[] input) throws DukeException {
         StringBuilder name;
         StringBuilder current;
         String s1 = input[0];
@@ -21,9 +22,15 @@ public class Parser {
             return new ByeCommand();
 
         case MarkCommand.COMMAND:
+            if (input.length != 2) {
+                throw new DukeException("Invalid arguments detected! Please enter a index.");
+            }
             return new MarkCommand(Integer.parseInt(input[1]));
 
         case UnmarkCommand.COMMAND:
+            if (input.length != 2) {
+                throw new DukeException("Invalid arguments detected! Please enter a index.");
+            }
             return new UnmarkCommand(Integer.parseInt(input[1]));
 
         case TodoCommand.COMMAND:
@@ -71,6 +78,10 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(input[1]));
 
         case FindCommand.COMMAND:
+            if (input.length != 2) {
+                throw new DukeException("Invalid arguments detected! Please enter a valid keyword! " +
+                        "For example: find book");
+            }
             return new FindCommand(input[1]);
         default:
             return new HelpCommand();

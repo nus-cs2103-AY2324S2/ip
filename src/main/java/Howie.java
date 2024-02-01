@@ -38,12 +38,12 @@ public class Howie {
         taskLs = storage.readFile();
         while (true) {
             String[] input = ui.getUserCommand();
-            Command command = new Parser().parseCommand(input);
             try {
+                Command command = new Parser().parseCommand(input);
                 command.setData(taskLs);
                 command.execute();
             } catch (DukeException e) {
-                System.out.println(e.toString());
+                System.out.println(e.getMessage());
                 Ui.printVLine();
             }
         }
