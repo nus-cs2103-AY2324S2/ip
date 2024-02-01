@@ -1,4 +1,4 @@
-package duke;
+package andelu;
 
 import java.util.Scanner;
 

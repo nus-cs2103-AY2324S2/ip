@@ -1,9 +1,9 @@
 package command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import andelu.AndeluException;
+import andelu.Storage;
+import andelu.TaskList;
+import andelu.Ui;
 
 import task.Task;
 
@@ -32,13 +32,13 @@ public class FindCommand extends Command {
      * @param tasks The TaskList Object that contains a List of Tasks.
      * @param ui THe Ui Object that interact with the user.
      * @param storage Storage Manager to write the file.
-     * @throws DukeException If missing the description.
+     * @throws AndeluException If missing the description.
      */
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
         String[] splitInput = input.split(" ");
         if (splitInput.length <= 1) {
-            throw new DukeException("Missing the Description!");
+            throw new AndeluException("Missing the Description!");
         }
 
         ui.printAnyStatement("Here are the matching tasks in your list:");

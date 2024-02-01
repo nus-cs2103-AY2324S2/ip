@@ -1,10 +1,10 @@
 package command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
-import duke.DateTimeManager;
+import andelu.AndeluException;
+import andelu.Storage;
+import andelu.TaskList;
+import andelu.Ui;
+import andelu.DateTimeManager;
 
 import task.Deadline;
 import task.Event;
@@ -38,13 +38,13 @@ public class SearchCommand extends Command {
      * @param tasks The TaskList Object that contains a List of Task.
      * @param ui The Ui Object that interact with the user.
      * @param storage Storage Manager to writing to the file.
-     * @throws DukeException If missing the date.
+     * @throws AndeluException If missing the date.
      */
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
         String[] splitInput = input.split(" ");
         if (splitInput.length <= 1) {
-            throw new DukeException("Missing the date!");
+            throw new AndeluException("Missing the date!");
         }
 
         LocalDateTime dateInput = DateTimeManager.convertStringToLocalDateTime(splitInput[1].trim() +"T00:00");

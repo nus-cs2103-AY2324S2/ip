@@ -1,8 +1,9 @@
 package duke;
 
+import andelu.AndeluException;
+import andelu.DateTimeManager;
 import org.junit.jupiter.api.Test;
 
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class DateTimeManagerTest {
 
     @Test
-    public void convertStringToLocalDateTime_matchedStringInput_success() throws DukeException {
+    public void convertStringToLocalDateTime_matchedStringInput_success() throws AndeluException {
         assertEquals(LocalDateTime.of(2024,01,30,23,59), DateTimeManager.convertStringToLocalDateTime("2024-01-30 23:59"));
 
         assertEquals(LocalDateTime.of(2024,01,30,23,59), DateTimeManager.convertStringToLocalDateTime("2024-01-30 23:59"));
@@ -20,7 +21,7 @@ public class DateTimeManagerTest {
     }
 
     @Test
-    public void convertStringToLocalDateTime_unmatchedStringInput_fail() throws DukeException {
+    public void convertStringToLocalDateTime_unmatchedStringInput_fail() throws AndeluException {
         assertNotEquals(LocalDateTime.of(2025,03,30,10,30), DateTimeManager.convertStringToLocalDateTime("2024-03-30 10:30"));
 
         assertNotEquals(LocalDateTime.of(2024,03,30,12,30), DateTimeManager.convertStringToLocalDateTime("2024-03-30 10:30"));
@@ -29,7 +30,7 @@ public class DateTimeManagerTest {
 
 
     @Test
-    public void convertLocalDateTimeToString_matchedDateTimeInput_success() throws DukeException {
+    public void convertLocalDateTimeToString_matchedDateTimeInput_success() throws AndeluException {
         assertEquals("Mar 30 2024 12:30", DateTimeManager.convertLocalDateTimeToString(LocalDateTime.of(2024,03,30,12,30)));
 
         assertEquals("Jan 30 2024 15:30", DateTimeManager.convertLocalDateTimeToString(LocalDateTime.of(2024,01,30,15,30)));
@@ -42,7 +43,7 @@ public class DateTimeManagerTest {
             assertNotEquals("Dec 30 2024 12:30", DateTimeManager.convertLocalDateTimeToString(LocalDateTime.of(2024, 03, 30, 12, 30)));
 
             assertNotEquals("Jan 30 2024 08:30", DateTimeManager.convertLocalDateTimeToString(LocalDateTime.of(2024, 01, 30, 15, 30)));
-        } catch (DukeException e) {
+        } catch (AndeluException e) {
             assertEquals("There is an error of converting LocalDateTime to String.", e.getMessage());
         }
     }

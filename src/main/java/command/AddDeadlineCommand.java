@@ -1,10 +1,10 @@
 package command;
 
-import duke.DateTimeManager;
-import duke.DukeException;
-import duke.TaskList;
-import duke.Ui;
-import duke.Storage;
+import andelu.DateTimeManager;
+import andelu.AndeluException;
+import andelu.TaskList;
+import andelu.Ui;
+import andelu.Storage;
 
 import task.Deadline;
 import task.Task;
@@ -38,17 +38,17 @@ public class AddDeadlineCommand extends Command {
      * @param tasks The TaskList Object that contains a List of Task.
      * @param ui The Ui Object that interact with the user.
      * @param storage Storage Manager to writing to the file.
-     * @throws DukeException If there is missing description or invalid date and time for 'by'.
+     * @throws AndeluException If there is missing description or invalid date and time for 'by'.
      */
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
         String[] splitInput = input.split(" ");
         if (splitInput.length <= 1) {
-            throw new DukeException("Missing the description!");
+            throw new AndeluException("Missing the description!");
         }
         String[] deadlineSplit = input.split("/");
         if (deadlineSplit.length < 2) {
-            throw new DukeException("Invalid format for new Deadline!");
+            throw new AndeluException("Invalid format for new Deadline!");
         }
         String name = deadlineSplit[0].substring(9).trim();
         String by = deadlineSplit[1].substring(3).trim();

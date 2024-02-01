@@ -1,9 +1,9 @@
 package command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import andelu.AndeluException;
+import andelu.Storage;
+import andelu.TaskList;
+import andelu.Ui;
 import task.Task;
 
 /**
@@ -31,22 +31,22 @@ public class DeleteCommand extends Command {
      * @param tasks the Task Object that contains a List of Task.
      * @param ui The Ui Object that interact with the user.
      * @param storage Storage Manager to writing to the file.
-     * @throws DukeException If the list of tasks is empty, no task selected, or invalid index.
+     * @throws AndeluException If the list of tasks is empty, no task selected, or invalid index.
      */
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
         String[] splitInput = input.split(" ");
         if (tasks.getTasks().size() == 0) {
-            throw new DukeException("No task at the moment.");
+            throw new AndeluException("No task at the moment.");
         } else if (splitInput.length < 2) {
-            throw new DukeException("Please select the task.");
+            throw new AndeluException("Please select the task.");
         }
 
         int choiceDelete;
         try {
             choiceDelete = Integer.parseInt(splitInput[1]);
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a valid integer value.");
+            throw new AndeluException("Please enter a valid integer value.");
         }
 
         if (choiceDelete <= tasks.getTasks().size() && choiceDelete > 0) {
@@ -58,7 +58,7 @@ public class DeleteCommand extends Command {
             ui.printAnyStatement(deletedTask.toString());
             ui.printAnyStatement("Now you have " + tasks.getTasks().size() + " tasks in the list.");
         } else {
-            throw new DukeException("Invalid choice");
+            throw new AndeluException("Invalid choice");
         }
     }
 }

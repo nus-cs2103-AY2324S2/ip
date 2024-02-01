@@ -1,4 +1,4 @@
-package duke;
+package andelu;
 
 import task.Deadline;
 import task.Event;
@@ -83,14 +83,14 @@ public class Storage {
      *
      * @return an ArrayList of Tasks.
      */
-    public ArrayList<Task> loadTasksFromFile() throws DukeException {
+    public ArrayList<Task> loadTasksFromFile() throws AndeluException {
         ArrayList<Task> result = new ArrayList<>();
 
         try {
             List<String> fileContentLines = Files.readAllLines(filePath);
             result = convertStringListToTasks(fileContentLines);
         } catch (IOException io) {
-            throw new DukeException("There is an error when reading the file.");
+            throw new AndeluException("There is an error when reading the file.");
         }
 
         return result;
@@ -137,7 +137,7 @@ public class Storage {
      * @param content the List of String to be converted.
      * @return an ArrayList of Tasks.
      */
-    private ArrayList<Task> convertStringListToTasks(List<String> content) throws DukeException {
+    private ArrayList<Task> convertStringListToTasks(List<String> content) throws AndeluException {
         ArrayList<Task> fileTasks = new ArrayList<>();
 
         for (String i : content) {
@@ -171,7 +171,7 @@ public class Storage {
      * @param content the String content to be converted.
      * @return an ArrayList of Tasks.
      */
-    private ArrayList<Task> convertStringToTasks(String content) throws DukeException {
+    private ArrayList<Task> convertStringToTasks(String content) throws AndeluException {
         String[] individualStringTask = content.trim().split(System.lineSeparator());
         ArrayList<Task> fileTasks = new ArrayList<>();
 

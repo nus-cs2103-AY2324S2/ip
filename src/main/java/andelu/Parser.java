@@ -1,4 +1,4 @@
-package duke;
+package andelu;
 
 import command.Command;
 import command.ListCommand;

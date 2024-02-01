@@ -1,9 +1,9 @@
 package command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import andelu.AndeluException;
+import andelu.Storage;
+import andelu.TaskList;
+import andelu.Ui;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,14 +13,14 @@ public class AddDeadLineCommandTest {
 
     @Test
     public void executeCommand_missingDescription_exceptionThrown() {
-        DukeException exception = assertThrows(DukeException.class, () -> {new AddDeadlineCommand("deadline ").executeCommand(new TaskList(), new Ui(), new Storage("duke"));});
+        AndeluException exception = assertThrows(AndeluException.class, () -> {new AddDeadlineCommand("deadline ").executeCommand(new TaskList(), new Ui(), new Storage("duke"));});
         assertEquals("Missing the description!", exception.getMessage());
     }
 
 
     @Test
     public void executeCommand_missingDateTime_exceptionThrown() {
-        DukeException exception = assertThrows(DukeException.class, () -> {new AddDeadlineCommand("deadline borrow book").executeCommand(new TaskList(), new Ui(), new Storage("duke"));});
+        AndeluException exception = assertThrows(AndeluException.class, () -> {new AddDeadlineCommand("deadline borrow book").executeCommand(new TaskList(), new Ui(), new Storage("duke"));});
         assertEquals("Invalid format for new Deadline!", exception.getMessage());
     }
 

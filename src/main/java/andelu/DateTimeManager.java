@@ -1,4 +1,4 @@
-package duke;
+package andelu;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,9 +17,9 @@ public class DateTimeManager {
      *
      * @param timeString The time in String.
      * @return LocalDateTime.
-     * @throws DukeException If none of the timeString matches the formatter.
+     * @throws AndeluException If none of the timeString matches the formatter.
      */
-    public static LocalDateTime convertStringToLocalDateTime(String timeString) throws DukeException{
+    public static LocalDateTime convertStringToLocalDateTime(String timeString) throws AndeluException {
         List<DateTimeFormatter> formatters = Arrays.asList(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
@@ -32,7 +32,7 @@ public class DateTimeManager {
             }
         }
 
-        throw new DukeException("Invalid format for Date-Time. The format is \"yyyy-MM-dd HH:mm\".");
+        throw new AndeluException("Invalid format for Date-Time. The format is \"yyyy-MM-dd HH:mm\".");
     }
 
 
@@ -41,9 +41,9 @@ public class DateTimeManager {
      *
      * @param dt LocalDateTime.
      * @return the String version of DateTime.
-     * @throws DukeException If none of the formatter matches the LocalDateTime.
+     * @throws AndeluException If none of the formatter matches the LocalDateTime.
      */
-    static String convertLocalDateTimeToString(LocalDateTime dt) throws DukeException {
+    static String convertLocalDateTimeToString(LocalDateTime dt) throws AndeluException {
         List<DateTimeFormatter> formatters = Arrays.asList(
                 DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"),
                 DateTimeFormatter.ofPattern("MMM dd yyyy'T'HH:mm")
@@ -57,6 +57,6 @@ public class DateTimeManager {
             }
         }
 
-        throw new DukeException("There is an error of converting LocalDateTime to String.");
+        throw new AndeluException("There is an error of converting LocalDateTime to String.");
     }
 }

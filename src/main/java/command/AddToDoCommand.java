@@ -1,9 +1,9 @@
 package command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import andelu.AndeluException;
+import andelu.Storage;
+import andelu.TaskList;
+import andelu.Ui;
 
 import task.Task;
 import task.ToDo;
@@ -36,13 +36,13 @@ public class AddToDoCommand extends Command {
      * @param tasks The TaskList Object that contains a List of Task.
      * @param ui the Ui Object that interact with the user.
      * @param storage Storage Manager to writing to the file.
-     * @throws DukeException If there is missing description
+     * @throws AndeluException If there is missing description
      */
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
         String[] splitInput = input.split(" ");
         if (splitInput.length <= 1) {
-            throw new DukeException("Missing the description!");
+            throw new AndeluException("Missing the description!");
         }
 
         String name = "";

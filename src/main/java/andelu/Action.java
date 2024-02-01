@@ -1,4 +1,4 @@
-package duke;
+package andelu;
 
 /**
  * An Enum class to list down the list of features in this program.

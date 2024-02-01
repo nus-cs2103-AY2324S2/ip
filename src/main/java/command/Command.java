@@ -1,9 +1,9 @@
 package command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import andelu.AndeluException;
+import andelu.Storage;
+import andelu.TaskList;
+import andelu.Ui;
 
 
 
@@ -29,9 +29,9 @@ public abstract class Command {
      * @param tasks The TaskList Object that contains a List of Task.
      * @param ui The Ui Object that interact with the user.
      * @param storage Storage Manager to writing to the file.
-     * @throws DukeException If there is an error.
+     * @throws AndeluException If there is an error.
      */
-    public abstract void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract void executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException;
 
     /**
      * Changes the status of the isExit to true.

@@ -1,9 +1,9 @@
 package command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import andelu.AndeluException;
+import andelu.Storage;
+import andelu.TaskList;
+import andelu.Ui;
 
 /**
  * A ListCommand to list down the current list of tasks.
@@ -17,10 +17,10 @@ public class ListCommand extends Command {
      * @param tasks The TaskList Object that contains a List of Task.
      * @param ui The Ui Object that interact with the user.
      * @param storage Storage Manager to writing to the file.
-     * @throws DukeException
+     * @throws AndeluException
      */
     @Override
-    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws AndeluException {
         ui.printAnyStatement("Here are the tasks in your list:");
 
         tasks.setTasks(storage.loadTasksFromFile());
