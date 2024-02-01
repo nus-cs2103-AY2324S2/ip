@@ -39,49 +39,78 @@ public class Duke {
                 word = sc.nextLine();
             } else if (word.startsWith("deadline")) {
                 String[] split = word.split(" /by ");
-                String dateline = split[1];
-                String[] splitAgain = split[0].split(" ", 2);
-                Deadline deadline = new Deadline(splitAgain[1], dateline);
-                list.add(deadline);
-                printBreak();
-                System.out.println("Got it. I've added this task:");
-                System.out.println(" " + deadline);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
-                printBreak();
+                try {
+                    if (split.length < 2) {
+                        throw new DukeException("Where is the rest of your description?");
+                    }
+                    String dateline = split[1];
+                    String[] splitAgain = split[0].split(" ", 2);
+                    Deadline deadline = new Deadline(splitAgain[1], dateline);
+                    list.add(deadline);
+                    printBreak();
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(" " + deadline);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    printBreak();
+                } catch (DukeException d) {
+                    printBreak();
+                    System.out.println(d.getMessage());
+                    printBreak();
+                }
                 word = sc.nextLine();
             } else if (word.startsWith("todo")) {
                 String[] split = word.split(" ", 2);
-                String description = split[1];
-                Todo todo = new Todo(description);
-                list.add(todo);
-                printBreak();
-                System.out.println("Got it. I've added this task:");
-                System.out.println(" " + todo);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
-                printBreak();
+                try {
+                    if (split.length < 2) {
+                        throw new DukeException("Where is the rest of your description?");
+                    }
+                    String description = split[1];
+                    Todo todo = new Todo(description);
+                    list.add(todo);
+                    printBreak();
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(" " + todo);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    printBreak();
+                } catch (DukeException d){
+                    printBreak();
+                    System.out.println(d.getMessage());
+                    printBreak();
+                }
                 word = sc.nextLine();
             } else if (word.startsWith("event")) {
                 String[] split = word.split(" /from ");
-                String description = split[0].split(" ", 2)[1];
-                String from = split[1].split(" /to ")[0];
-                String to = split[1].split(" /to ")[1];
-                Event event = new Event(description, from, to);
-                list.add(event);
-                printBreak();
-                System.out.println("Got it. I've added this task:");
-                System.out.println(" " + event);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
-                printBreak();
+                try {
+                    if (split.length < 2) {
+                        throw new DukeException("Where is the rest of your description?");
+                    }
+                    String description = split[0].split(" ", 2)[1];
+                    String from = split[1].split(" /to ")[0];
+                    String to = split[1].split(" /to ")[1];
+                    Event event = new Event(description, from, to);
+                    list.add(event);
+                    printBreak();
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(" " + event);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    printBreak();
+                } catch (DukeException d) {
+                    printBreak();
+                    System.out.println(d.getMessage());
+                    printBreak();
+                }
                 word = sc.nextLine();
             }
-//            else {
-//                Task task = new Task(word);
-//                list.add(task);
-//                printBreak();
-//                System.out.println("added: " + word);
-//                printBreak();
-//                word = sc.nextLine();
-//            }
+            else {
+                try {
+                    throw new DukeException("I don't understand bro");
+                } catch (DukeException d) {
+                    printBreak();
+                    System.out.println(d.getMessage());
+                    printBreak();
+                    word = sc.nextLine();
+                }
+            }
         }
 
         // Logging off upon "bye" command
