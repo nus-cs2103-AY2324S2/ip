@@ -64,6 +64,10 @@ public class Ui {
         System.out.println(task);
     }
 
+    public void showFind() {
+        System.out.println("Here are the matching tasks!");
+    }
+    
     public void showError(String errorMsg) {
         System.out.println(errorMsg);
     }
