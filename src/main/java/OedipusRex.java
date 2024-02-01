@@ -25,5 +25,6 @@ public class OedipusRex {
         int i = 1;
         int j = 2;
         int k = 3;
+        int l = 4;
     }
 }
