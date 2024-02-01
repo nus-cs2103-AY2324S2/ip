@@ -3,7 +3,7 @@ package duke;
 public class Ui {
     private String name = "XVX-016 Aerial";
 
-    public Ui () {
+    public Ui() {
     }
 
     public void greeting() {

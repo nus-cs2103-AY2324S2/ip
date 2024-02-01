@@ -1,6 +1,9 @@
 package duke;
 
+import java.time.format.DateTimeFormatter;
+
 public class Task {
+    protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     private String task;
     private boolean isDone = false;
     private String taskType;
@@ -14,7 +17,7 @@ public class Task {
         this.taskType = taskType;
     }
 
-    public void mark(){
+    public void mark() {
         this.isDone = true;
     }
 

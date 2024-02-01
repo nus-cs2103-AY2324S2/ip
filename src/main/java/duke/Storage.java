@@ -18,27 +18,28 @@ public class Storage {
 
         file.getParentFile().mkdirs();
 
-        if(!file.exists()) {
+        if (!file.exists()) {
             file.createNewFile();
         }
 
         Scanner scanner = new Scanner(file);
-        while(scanner.hasNext()) {
+        while (scanner.hasNext()) {
             String inputLine = scanner.nextLine();
             String[] inputComponents = inputLine.split("\\|", 5);
 
             Task currentTask = null;
-            if(inputComponents[0].equals("T")) {
-                currentTask = new ToDo(inputComponents[2],inputComponents[0]);
-            } else if(inputComponents[0].equals("D")) {
-                currentTask = new Deadline(inputComponents[2],inputComponents[0],inputComponents[3]);
-            } else if(inputComponents[0].equals("E")) {
-                currentTask = new Event(inputComponents[2],inputComponents[0],inputComponents[3],inputComponents[4]);
+            if (inputComponents[0].equals("T")) {
+                currentTask = new ToDo(inputComponents[2], inputComponents[0]);
+            } else if (inputComponents[0].equals("D")) {
+                currentTask = new Deadline(inputComponents[2], inputComponents[0], inputComponents[3]);
+            } else if (inputComponents[0].equals("E")) {
+                currentTask = new Event(inputComponents[2], inputComponents[0],
+                        inputComponents[3], inputComponents[4]);
             } else {
                 System.out.println("What is this nonsense. Failure to load object.");
             }
 
-            if(inputComponents[1].equals("1")) {
+            if (inputComponents[1].equals("1")) {
                 currentTask.mark();
             }
             taskListInput.getTaskList().add(currentTask);

@@ -1,8 +1,8 @@
 package duke;
 
 public class ToDo extends Task {
-    public ToDo(String Task, String taskType) {
-        super(Task,taskType);
+    public ToDo(String task, String taskType) {
+        super(task, taskType);
     }
 
     public String announcement() {

@@ -1,18 +1,16 @@
 package duke;
 
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
-public class Duke {
-    Storage storage;
-    Ui ui;
-    TaskList taskList;
-    Parser parser = new Parser();
-    Scanner scanner1;
-    boolean isEnded = false;
 
-    String[] commandList = new String[] {"bye", "mark", "unmark", "todo", "deadline", "event", "list"};
+public class Duke {
+    private Storage storage;
+    private Ui ui;
+    private TaskList taskList;
+    private Parser parser = new Parser();
+    private Scanner scanner;
+    private boolean isEnded = false;
+
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -21,7 +19,7 @@ public class Duke {
 
     public void exit() {
         this.ui.bye();
-        this.scanner1.close();
+        this.scanner.close();
         this.storage.saveFile(this.taskList);
         this.isEnded = true;
         horizontalLines();
@@ -32,7 +30,7 @@ public class Duke {
     }
 
     public void parse() {
-        String commandInput = scanner1.nextLine();
+        String commandInput = scanner.nextLine();
         this.parser.input(commandInput, this, this.taskList);
     }
 
@@ -45,16 +43,15 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        Duke Duke1 = new Duke("data/tasks.txt");
-        Duke1.run();
-        Duke1.scanner1 = new Scanner(System.in);
-        Duke1.horizontalLines();
-        Duke1.ui.greeting();
+        Duke duke = new Duke("data/tasks.txt");
+        duke.run();
+        duke.scanner = new Scanner(System.in);
+        duke.horizontalLines();
+        duke.ui.greeting();
 
-        while (!Duke1.isEnded) {
-            Duke1.horizontalLines();
-            Duke1.parse();
-            //Duke1.horizontalLines();
+        while (!duke.isEnded) {
+            duke.horizontalLines();
+            duke.parse();
         }
     }
 }

@@ -1,20 +1,19 @@
 package duke;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+
 public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-    public Event(String Task, String taskType, String start, String end) {
-        super(Task, taskType);
-        this.start = LocalDateTime.parse(start,formatter);
-        this.end = LocalDateTime.parse(end,formatter);
+
+    public Event(String task, String taskType, String start, String end) {
+        super(task, taskType);
+        this.start = LocalDateTime.parse(start, formatter);
+        this.end = LocalDateTime.parse(end, formatter);
     }
     public String toString() {
-        return this.getTaskType() + this.getStatus() + " " + this.getTask() + this.getPeriod();
+        return this.getTaskType() + this.getStatus() + " "
+                + this.getTask() + this.getPeriod();
     }
 
     public String getPeriod() {

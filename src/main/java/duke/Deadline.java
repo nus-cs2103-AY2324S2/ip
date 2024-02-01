@@ -1,12 +1,9 @@
 package duke;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+
 public class Deadline extends Task {
     private LocalDateTime deadline;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     public Deadline(String task, String taskType, String deadline) {
         super(task, taskType);
@@ -25,8 +22,8 @@ public class Deadline extends Task {
     }
 
     public String saveString() {
-        return this.getTaskTypeSingle() + "|" + this.getStatusBinary() + "|" + this.getTask() + "|" +
-                this.dateToString();
+        return this.getTaskTypeSingle() + "|" + this.getStatusBinary() + "|" + this.getTask() + "|"
+                + this.dateToString();
     }
     public String dateToString() {
         return this.deadline.format(formatter).replace("T", " ");
