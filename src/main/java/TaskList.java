@@ -1,8 +1,10 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
     public List<Task> internalList;
+    private File dataFile;
 
     TaskList() {
         this.internalList = new ArrayList<>();
@@ -37,5 +39,9 @@ public class TaskList {
         Task t = this.getTask(index);
         this.delete(index);
         return t;
+    }
+
+    public void saveData() {
+
     }
 }
