@@ -18,3 +18,5 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # My stuff
 src/main/java/Testing.java
+src/text-ui-test/data
+src/data
