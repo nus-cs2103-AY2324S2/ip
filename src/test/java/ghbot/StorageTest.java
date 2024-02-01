@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * StorageTest Class.
+ */
 public class StorageTest {
     @Test
     public void testReadFile() throws IOException {
