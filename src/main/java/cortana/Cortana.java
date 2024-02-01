@@ -1,10 +1,20 @@
+package src.main.java.cortana;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import java.io.IOException;
+import src.main.java.storage.Storage;
+import src.main.java.task.Task;
+import src.main.java.task.TaskList;
+import src.main.java.Main;
+import src.main.java.ui.Ui;
+
+
 
 
 public class Cortana {
@@ -17,7 +27,7 @@ public class Cortana {
 
         Path basePath = Paths.get(classLocation).getParent();
         // go up one level
-        basePath = basePath.getParent();
+        basePath = basePath.getParent().getParent().getParent();
         return basePath.toAbsolutePath();
     }
 
@@ -30,7 +40,7 @@ public class Cortana {
     private final static String SAVE_FILENAME = "tasks.csv";  
     private Storage storage;
 
-    Cortana() {
+    public Cortana() {
         this.storage = new Storage(SAVE_DIR_PATH, SAVE_FILENAME);
         this.taskList = new TaskList();
     }

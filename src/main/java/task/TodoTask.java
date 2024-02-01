@@ -1,10 +1,12 @@
+package src.main.java.task;
+
 public class TodoTask extends Task {
     
-    TodoTask(String description) {
+    public TodoTask(String description) {
         super(description);
     }
 
-    TodoTask(String description, boolean isCompleted) {
+    public TodoTask(String description, boolean isCompleted) {
         super(description, isCompleted);
     }
 
