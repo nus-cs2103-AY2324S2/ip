@@ -23,28 +23,28 @@ import java.util.stream.Collectors;
  */
 public class Storage {
 
-  private String filename;
-  private String folderpath;
+  private String fileName;
+  private String folderPath;
 
   /**
    * Constructs a Storage object with the specified folder path and file name.
    *
-   * @param folderpath The folder path for storing the task data file.
-   * @param filename   The name of the file for storing the task data.
+   * @param folderPath The folder path for storing the task data file.
+   * @param fileName   The name of the file for storing the task data.
    */
-  Storage(String folderpath, String filename) {
-    this.filename = filename;
-    this.folderpath = folderpath;
+  Storage(String folderPath, String fileName) {
+    this.fileName = fileName;
+    this.folderPath = folderPath;
   }
 
   private File getFileHandle() throws DukeException {
     try {
       Path baseFolder = Paths.get(System.getProperty("user.dir"));
-      Path dataFolder = baseFolder.resolve(folderpath);
+      Path dataFolder = baseFolder.resolve(folderPath);
       if (!Files.exists(dataFolder) || !Files.isDirectory(dataFolder)) {
         dataFolder.toFile().mkdirs();
       }
-      Path taskFile = dataFolder.resolve(filename);
+      Path taskFile = dataFolder.resolve(fileName);
       if (!Files.exists(taskFile)) {
         taskFile.toFile().createNewFile();
       }

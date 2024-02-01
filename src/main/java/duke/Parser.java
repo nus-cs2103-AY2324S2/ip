@@ -71,13 +71,19 @@ public class Parser {
           );
           return new String[] { command, idxString };
         }
+      case "find":
       case "todo":
         {
+          String ferr1 = "%s command: %s cannot be empty.";
           if (cmdSplit.length < 2) throw new DukeException(
-            "todo command: description cannot be empty."
+            String.format(
+              ferr1,
+              command,
+              command.equals("find") ? "query" : "description"
+            )
           );
-          String taskStr = cmdJoin(range(cmdSplit, 1, cmdSplit.length));
-          return new String[] { command, taskStr };
+          String argument = cmdJoin(range(cmdSplit, 1, cmdSplit.length));
+          return new String[] { command, argument };
         }
       case "deadline":
         {
