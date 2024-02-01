@@ -1,8 +1,11 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Optional;
 
 public class Deadline extends Task {
-    public Optional<String> byDate;
+    public Optional<LocalDateTime> byDate;
 
     Deadline(String name) {
         super(name);
@@ -11,7 +14,7 @@ public class Deadline extends Task {
 
     Deadline(String name, boolean isDone, String byDate) {
         super(name, isDone);
-        this.byDate = Optional.of(byDate);
+        this.byDate = Optional.of(this.parseDate(byDate));
     }
 
     Deadline(String name, String byDate) {
@@ -33,17 +36,23 @@ public class Deadline extends Task {
         return String.format("%s %s", super.getName(), this.constructTimeString());
     }
 
-    public void setByDate(String byDate) {
-        this.byDate = Optional.of(byDate);
+    public void setByDate(String byDate) throws DateTimeParseException {
+        this.byDate = Optional.of(this.parseDate(byDate));
     }
 
     public String getByDate() {
-        return this.byDate.orElse("");
+        return this.byDate.map(
+            d -> d.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME_FORMAT))).orElse(""
+            );
+    }
+
+    protected String getByDateIso() {
+        return this.byDate.map(d -> d.toString()).orElse("");
     }
 
     protected ArrayList<String> exportDataAsArray() {
         ArrayList<String> data = super.exportDataAsArray();
-        data.add(this.getByDate());
+        data.add(this.getByDateIso());
         return data;
     }
 }
