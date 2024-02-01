@@ -15,7 +15,7 @@ public class Duke {
         check.set(index, done);
     }
 
-    public static void main(String[] args) {
+    public static <string> void main(String[] args) throws DukeException {
         ArrayList<Task> storage = new ArrayList<>();
         String logo = "__________________________________\n" +
                 "Hello! I'm Tim \n" +
@@ -63,44 +63,69 @@ public class Duke {
                 System.out.println(output);
 
             } else if (input.startsWith("todo")) {
-                String msg = input.substring(5);
-                ToDo task = new ToDo(msg);
-                String output = "__________________________________\n" +
-                        "Ok, I have added this task:\n" +
-                        "   " + task.toString() +
-                        String.format("\nNow you have %d tasks in the list", taskNum);
-                System.out.println(output);
-                storage.add(task);
+                try {
+                    String[] test = input.split("");
+                    if (test.length <= 1) {
+                        throw new DukeException("__________________________________\n" +
+                                "So where is the todo task????");
+                    }
+                    String msg = input.substring(5);
+                    ToDo task = new ToDo(msg);
+                    String output = "__________________________________\n" +
+                            "Ok, I have added this task:\n" +
+                            "   " + task.toString() +
+                            String.format("\nNow you have %d tasks in the list", taskNum);
+                    System.out.println(output);
+                    storage.add(task);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
 
             } else if (input.startsWith("deadline")) {
-                String msg = input.substring(9);
-                
-                Deadline task = new Deadline(msg);
-                String output = "__________________________________\n" +
-                        "Ok, I have added this task:\n" +
-                        "   " + task.toString() +
-                        String.format("\nNow you have %d tasks in the list", taskNum);
-                System.out.println(output);
-                storage.add(task);
+                try {
+                    String[] test = input.split(" ");
+                    if (test.length <= 1) {
+                        throw new DukeException("__________________________________\n" +
+                                "So where is the deadline task????");
+                    }
+                    String msg = input.substring(9);
+                    Deadline task = new Deadline(msg);
+                    String output = "__________________________________\n" +
+                            "Ok, I have added this task:\n" +
+                            "   " + task.toString() +
+                            String.format("\nNow you have %d tasks in the list", taskNum);
+                    System.out.println(output);
+                    storage.add(task);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
 
             } else if (input.startsWith("event")) {
-                String msg = input.substring(6);
-                Event task = new Event(msg);
-                String output = "__________________________________\n" +
-                        "Ok, I have added this task:\n" +
-                        "   " + task.toString() +
-                        String.format("\nNow you have %d tasks in the list", taskNum);
-                System.out.println(output);
-                storage.add(task);
+                try {
+                    String[] test = input.split(" ");
+                    if (test.length <= 1) {
+                        throw new DukeException("__________________________________\n" +
+                                "SO where is the event????");
+                    }
+                    String msg = input.substring(6);
+                    Event task = new Event(msg);
+                    String output = "__________________________________\n" +
+                            "Ok, I have added this task:\n" +
+                            "   " + task.toString() +
+                            String.format("\nNow you have %d tasks in the list", taskNum);
+                    System.out.println(output);
+                    storage.add(task);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
 
             } else {
-                Task task = new Task(input);
-                String output = "__________________________________\n" +
-                        "Ok, I have added this task:\n" +
-                        "   " + task.toString() +
-                        String.format("\nNow you have %d tasks in the list", taskNum);
-                System.out.println(output);
-                storage.add(task);
+                try {
+                    throw new DukeException("__________________________________\n" +
+                            "What is this task???");
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
             }
             System.out.println("__________________________________\n");
             input = scan.nextLine();
