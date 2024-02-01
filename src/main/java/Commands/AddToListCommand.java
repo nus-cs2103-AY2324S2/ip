@@ -1,13 +1,14 @@
-package Command;
+package Commands;
 
-import TaskList.TaskList;
-import UiRelated.Ui;
+import TaskLists.TaskList;
 import Tasks.Task;
+import UiRelated.Ui;
+
 
 /**
  * The addToListCommand class represents a command to add a task to the list.
  */
-public class addToListCommand extends Command {
+public class AddToListCommand extends Command {
     private final Task task;
 
     /**
@@ -15,7 +16,7 @@ public class addToListCommand extends Command {
      *
      * @param t The task to be added to the list.
      */
-    public addToListCommand(Task t) {
+    public AddToListCommand(Task t) {
         task = t;
     }
 

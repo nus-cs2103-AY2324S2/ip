@@ -26,6 +26,7 @@ public class Ui {
      * Displays the welcome message.
      */
     public void displayWelcomeMessage() {
+
         System.out.println(WELCOME_MESSAGE);
     }
 
@@ -33,6 +34,7 @@ public class Ui {
      * Displays the goodbye message.
      */
     public void displayByeMessage() {
+
         System.out.println(GOODBYE_MESSAGE);
     }
 
@@ -42,6 +44,7 @@ public class Ui {
      * @param errorMessage The error message to be displayed.
      */
     public void displayErrorMessage(String errorMessage) {
+
         System.out.println(errorMessage);
     }
 
@@ -51,6 +54,7 @@ public class Ui {
      * @param s The message to be displayed.
      */
     public void display(String s) {
+
         System.out.println(s);
     }
 

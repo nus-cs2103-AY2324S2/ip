@@ -1,17 +1,16 @@
 package App;
-import TaskList.TaskList;
+import TaskLists.TaskList;
 import UiRelated.Parser;
 import UiRelated.Ui;
 import org.junit.jupiter.api.Test;
-import Command.*;
+import Commands.*;
 
 import java.time.format.DateTimeParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class testParser {
-   Parser p = new Parser();
+public class TestParser {
    @Test
    public void testParseComplicatedEvent1() {
        Command c = Parser.parseInput("event return to fddfdf 01-01 10:00 am to 12:00 AM");
@@ -58,5 +57,5 @@ public class testParser {
         assertEquals(exception.getMessage(), "Please input a valid time format in am or pm.");}
 
 
-};
+}
 

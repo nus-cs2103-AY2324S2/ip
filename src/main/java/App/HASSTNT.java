@@ -1,13 +1,14 @@
 package App;
 
-import Command.Command;
+import Commands.Command;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import TaskLists.TaskList;
 import UiRelated.Parser;
 import UiRelated.Storage;
 import UiRelated.Ui;
-import TaskList.TaskList;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
 
 /**
  * The HASSTNT class represents the entry point to the program.

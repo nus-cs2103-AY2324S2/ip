@@ -1,12 +1,12 @@
-package Command;
+package Commands;
 
-import TaskList.TaskList;
+import TaskLists.TaskList;
 import UiRelated.Ui;
 
 /**
  * The showListCommand class represents a command to display the list of tasks.
  */
-public class showListCommand extends Command {
+public class ShowListCommand extends Command {
     /**
      * Executes the showListCommand by displaying the list of tasks in the Ui.
      *

@@ -1,6 +1,6 @@
-package Command;
+package Commands;
 
-import TaskList.TaskList;
+import TaskLists.TaskList;
 import UiRelated.Ui;
 
 /**

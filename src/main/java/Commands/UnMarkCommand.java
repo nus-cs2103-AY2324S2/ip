@@ -1,12 +1,12 @@
-package Command;
+package Commands;
 
-import TaskList.TaskList;
+import TaskLists.TaskList;
 import UiRelated.Ui;
 
 /**
  * The unMarkCommand class represents a command to unmark a task and make it not done.
  */
-public class unMarkCommand extends Command {
+public class UnMarkCommand extends Command {
     private final int index;
 
     /**
@@ -14,7 +14,7 @@ public class unMarkCommand extends Command {
      *
      * @param index The index of the task to be marked as not done.
      */
-    public unMarkCommand(int index) {
+    public UnMarkCommand(int index) {
         this.index = index;
     }
 

@@ -1,12 +1,12 @@
-package Command;
+package Commands;
 
-import TaskList.TaskList;
+import TaskLists.TaskList;
 import UiRelated.Ui;
 
 /**
  * The removeCommand class represents a command to remove a task from the list.
  */
-public class removeCommand extends Command {
+public class RemoveCommand extends Command {
     private final int index;
 
     /**
@@ -14,7 +14,7 @@ public class removeCommand extends Command {
      *
      * @param index The index of the task to be removed.
      */
-    public removeCommand(int index) {
+    public RemoveCommand(int index) {
         this.index = index;
     }
 

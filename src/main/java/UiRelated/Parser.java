@@ -1,10 +1,15 @@
 package UiRelated;
 
+
+import Commands.Command;
+import Commands.MarkCommand;
+import Commands.UnMarkCommand;
+import Commands.ShowListCommand;
+import Commands.RemoveCommand;
+import Commands.AddToListCommand;
 import Tasks.DeadLineTask;
 import Tasks.EventTask;
 import Tasks.ToDoTask;
-import Command.*;
-
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -65,7 +70,7 @@ public class Parser {
     private static Command CommandWithNoIndex(String command) {
         switch (command) {
             case "list":
-                return new showListCommand();
+                return new ShowListCommand();
             default:
                 throw new IllegalArgumentException("Please input valid commands: ");
         }
@@ -74,9 +79,9 @@ public class Parser {
     private static Command indexRelatedCommand(String command, int index) {
         switch (command) {
             case "unmark":
-                return new unMarkCommand(index);
+                return new UnMarkCommand(index);
             case "remove":
-                return new removeCommand(index);
+                return new RemoveCommand(index);
             case "mark":
                 return new MarkCommand(index);
         }
@@ -90,7 +95,7 @@ public class Parser {
     private static Command addCommand(String command, String possibleTask) throws IllegalArgumentException, DateTimeParseException {
         switch (command) {
             case "todo":
-                return new addToListCommand(new ToDoTask(possibleTask));
+                return new AddToListCommand(new ToDoTask(possibleTask));
             case "deadline":
                 int index = possibleTask.lastIndexOf("by");
                 String pattern1 = "\\d{2}-\\d{2}";
@@ -106,7 +111,7 @@ public class Parser {
                 }
                 Command c;
                 try {
-                    c = new addToListCommand(new DeadLineTask(deadlineInfo, taskName));
+                    c = new AddToListCommand(new DeadLineTask(deadlineInfo, taskName));
                 } catch (DateTimeParseException e) {
                     throw new DateTimeParseException("Please input a valid time format in am or pm. the given input is invalid: ", e.getParsedString(), e.getErrorIndex());
                 }
@@ -130,7 +135,7 @@ public class Parser {
                 String[] timingDetails = eventDetail.split("to");
                 Command c2;
                 try {
-                    c2 = new addToListCommand(new EventTask(timingDetails[0], timingDetails[1], taskN));
+                    c2 = new AddToListCommand(new EventTask(timingDetails[0], timingDetails[1], taskN));
                 } catch (DateTimeParseException e) {
                     throw new DateTimeParseException("Please input a valid time format in am or pm.", e.getParsedString(), e.getErrorIndex());
                 }
