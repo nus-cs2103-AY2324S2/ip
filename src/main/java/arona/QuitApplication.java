@@ -1,3 +1,5 @@
+package arona;
+
 public class QuitApplication extends Command {
     public QuitApplication(String fullCommand) {
         super(fullCommand);

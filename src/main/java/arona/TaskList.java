@@ -1,3 +1,5 @@
+package arona;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class TaskList {
         if (splitInput.length == 0) {
             throw new TaskException("Sensei! Please enter some tasks!");
         } else if (!containsEnumValue(TaskEnum.class, type)) {
-            throw new TaskException("Sensei, Arona does not know what that means!");
+            throw new TaskException("Sensei, arona.Arona does not know what that means!");
         } else if (splitInput.length == 1) {
             throw new TaskException("Sensei! Please provide some task description!");
         }
@@ -50,7 +52,7 @@ public class TaskList {
                     LocalDate date = Parser.parseDate(by);
                     tasks.add(new Deadline(description, date));
                 } catch (DateTimeParseException e) {
-                    throw new TaskException("Sensei! Arona does not recognise this date format!");
+                    throw new TaskException("Sensei! arona.Arona does not recognise this date format!");
                 }
                 break;
             case "event":
@@ -64,7 +66,7 @@ public class TaskList {
                     LocalDate dateBy = Parser.parseDate(by);
                     tasks.add(new Event(description, dateFrom, dateBy));
                 } catch (DateTimeParseException e) {
-                    throw new TaskException("Sensei! Arona does not recognise this date format!");
+                    throw new TaskException("Sensei! arona.Arona does not recognise this date format!");
                 }
                 break;
         }

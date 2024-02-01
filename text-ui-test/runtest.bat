@@ -15,7 +15,7 @@ if exist ACTUAL.TXT del ACTUAL.TXT
 @REM REM no error here, errorlevel == 0
 
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath "..\out\production\Personal Project" Arona < input.txt > ACTUAL.TXT
+java -classpath "..\out\production\Personal Project" arona.Arona < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT

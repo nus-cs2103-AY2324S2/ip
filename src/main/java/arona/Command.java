@@ -1,3 +1,5 @@
+package arona;
+
 public abstract class Command {
     protected String fullCommand;
     protected boolean exit;

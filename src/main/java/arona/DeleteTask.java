@@ -1,3 +1,5 @@
+package arona;
+
 public class DeleteTask extends Command {
     public DeleteTask(String fullCommand) {
         super(fullCommand);

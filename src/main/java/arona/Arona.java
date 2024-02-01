@@ -1,3 +1,6 @@
+package arona;
+
+;
 import java.io.PrintStream;
 import java.io.OutputStream;
 
@@ -7,7 +10,6 @@ public class Arona {
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
-
 
     public Arona() throws TaskException {
         PrintStream originalOut = System.out;

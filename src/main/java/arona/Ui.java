@@ -1,3 +1,5 @@
+package arona;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -37,15 +39,15 @@ public class Ui {
     }
 
     public void taskAdded(ArrayList<Task> tasks) {
-        System.out.println("Arona has added this task to sensei's task list!: ");
+        System.out.println("arona.Arona has added this task to sensei's task list!: ");
         System.out.println(tasks.get(tasks.size() - 1).toString());
-        System.out.println("Arona has counted " + tasks.size() + " tasks in the list!");
+        System.out.println("arona.Arona has counted " + tasks.size() + " tasks in the list!");
     }
 
     public void taskDeleted(Task task, int size) {
-        System.out.println("Arona has removed this task!: ");
+        System.out.println("arona.Arona has removed this task!: ");
         System.out.println(task.toString());
-        System.out.println("Arona has counted " + size + " tasks in the list!");
+        System.out.println("arona.Arona has counted " + size + " tasks in the list!");
     }
 
     public void alreadyMarked(boolean status) {
@@ -53,11 +55,11 @@ public class Ui {
     }
 
     public void markTask() {
-        System.out.println("Congratulation, sensei! Arona has marked the task as done!:");
+        System.out.println("Congratulation, sensei! arona.Arona has marked the task as done!:");
     }
 
     public void unmarkTask() {
-        System.out.println("I understand, sensei! Arona has marked the task as not done!:");
+        System.out.println("I understand, sensei! arona.Arona has marked the task as not done!:");
     }
 
     public String showLine() {

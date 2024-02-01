@@ -1,3 +1,5 @@
+package arona;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -16,8 +18,8 @@ public class Storage {
             String line = reader.readLine();
 
             while (line != null) {
-//                System.out.println(text.add(Parser.FileInputToTask(line)));
-//                System.out.println(status.add(Parser.FileInputToTaskStatus(line)));
+//                System.out.println(text.add(arona.Parser.FileInputToTask(line)));
+//                System.out.println(status.add(arona.Parser.FileInputToTaskStatus(line)));
                 text.add(Parser.FileInputToTask(line));
                 status.add(Parser.FileInputToTaskStatus(line));
                 line = reader.readLine();
@@ -25,7 +27,7 @@ public class Storage {
             reader.close();
             return new TwoArrayList(text, status);
         } catch (FileNotFoundException e) {
-            throw new FileException("Oops, Arona cannot find your task file!");
+            throw new FileException("Oops, arona.Arona cannot find your task file!");
         } catch (IOException e) {
             throw new FileException("Sensei! There were some errors reading tasks from the file: " + e.getMessage());
         }

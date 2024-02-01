@@ -6,7 +6,7 @@ Hello from
  \____|__  /__|    \____/|___|_  (____  /
          \/                    \/     \/
 
-Hi! I'm Arona. What can I do for you?
+Hi! I'm arona.Arona. What can I do for you?
 Got it. I've added this task:
 [T][ ] food
 Now you have 1 tasks in the list
