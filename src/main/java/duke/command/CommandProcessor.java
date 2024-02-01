@@ -84,7 +84,7 @@ public class CommandProcessor {
             return Integer.parseInt(input.split(" ")[1]) - 1;
 
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw InputException.exceptionCommandProcessing(Command.DELETE, input, e);
+            throw InputException.exceptionCommandParsing(Command.DELETE, input, e);
         }
     }
 
@@ -106,7 +106,7 @@ public class CommandProcessor {
             return new Deadline(taskName, by);
 
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-            throw InputException.exceptionCommandProcessing(Command.DEADLINE, input, e);
+            throw InputException.exceptionCommandParsing(Command.DEADLINE, input, e);
         }
     }
 
@@ -122,7 +122,7 @@ public class CommandProcessor {
             String taskName = input.substring(5);
             return new Todo(taskName);
         } catch (IndexOutOfBoundsException e) {
-            throw InputException.exceptionCommandProcessing(Command.TODO, input, e);
+            throw InputException.exceptionCommandParsing(Command.TODO, input, e);
         }
     }
 
@@ -144,7 +144,7 @@ public class CommandProcessor {
             return new Event(taskName, from, to);
 
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-            throw InputException.exceptionCommandProcessing(Command.EVENT, input, e);
+            throw InputException.exceptionCommandParsing(Command.EVENT, input, e);
         }
     }
 
@@ -161,7 +161,7 @@ public class CommandProcessor {
             return Integer.parseInt(input.split(" ")[1]) - 1;
 
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw InputException.exceptionCommandProcessing(cmd, input, e);
+            throw InputException.exceptionCommandParsing(cmd, input, e);
         }
     }
 
@@ -177,7 +177,7 @@ public class CommandProcessor {
             return input.split(" ")[1];
 
         } catch (IndexOutOfBoundsException e) {
-            throw InputException.exceptionCommandProcessing(Command.FIND, input, e);
+            throw InputException.exceptionCommandParsing(Command.FIND, input, e);
         }
     }
 

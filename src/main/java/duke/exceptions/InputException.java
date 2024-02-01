@@ -15,14 +15,14 @@ public class InputException extends HalException {
     }
 
     /**
-     * Creates an `InputException` for command processing with a specific command, input, and cause.
+     * Creates an `InputException` for command parsing with a specific command, input, and cause.
      *
-     * @param command The command being processed when the exception occurred.
+     * @param command The command being parsed when the exception occurred.
      * @param input The input associated with the exception.
      * @param cause The cause of the exception (a Throwable object).
-     * @return An `InputException` with a message describing the error during command processing.
+     * @return An `InputException` with a message describing the error during command parsing.
      */
-    public static InputException exceptionCommandProcessing(Command command, String input, Throwable cause) {
+    public static InputException exceptionCommandParsing(Command command, String input, Throwable cause) {
         String message = "Something went wrong when processing your " + command + "command: \n"
             + "Check your input again: " + input;
         return new InputException(message, cause);
