@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import commands.Commands;
 import exceptions.WilliamException;
-import tasks.Event;
 import tasks.Deadline;
+import tasks.Event;
 import tasks.Todo;
 
 /**
@@ -21,7 +21,7 @@ public class Parser {
      * Constructor to initialise the tasklist and the storage
      * 
      * @param taskList Arraylist of tasks
-     * @param storage  Storage class to write to file
+     * @param storage Storage class to write to file
      */
     public Parser(TaskList taskList, Storage storage) {
         this.taskList = taskList;
@@ -31,20 +31,19 @@ public class Parser {
     /**
      * Contains the status of isExit
      * 
-     * @return isExit Status of the parseCommands to show whether the user have
-     *         exited the chatbot
+     * @return isExit Status of the parseCommands to show whether the user have exited the chatbot
      */
     public boolean isExit() {
         return isExit;
     }
 
     /**
-     * Receive the command based on the user input and the additional information to
-     * perform chatbox task
+     * Receive the command based on the user input and the additional information to perform chatbox
+     * task
      * 
-     * @param command              Command based on the user input
-     * @param additonalInformation Additional information that contains the details
-     *                             of the task, dates and time
+     * @param command Command based on the user input
+     * @param additonalInformation Additional information that contains the details of the task,
+     *        dates and time
      * @return True or False to see whether the user has exited the chatbot
      */
     public boolean parseCommands(Commands command, String additonalInformation) {
@@ -60,19 +59,19 @@ public class Parser {
             case deadline:
                 try {
                     String[] deadlineDetails = AdditionalInfoParser.splitBy(additonalInformation);
-                    this.taskList
-                            .addTask(new Deadline(deadlineDetails[0],
-                                    DateAndTimeParser.convertStringToDate(deadlineDetails[1])));
+                    this.taskList.addTask(new Deadline(deadlineDetails[0],
+                            DateAndTimeParser.convertStringToDate(deadlineDetails[1])));
                 } catch (WilliamException e) {
                     System.out.println(e.getMessage() + "\n");
                 }
                 break;
             case event:
                 try {
-                    String[] eventDetails = AdditionalInfoParser.splitToAndFrom(additonalInformation);
-                    this.taskList
-                            .addTask(new Event(eventDetails[0], DateAndTimeParser.convertStringToDate(eventDetails[1]),
-                                    DateAndTimeParser.convertStringToDate(eventDetails[2])));
+                    String[] eventDetails =
+                            AdditionalInfoParser.splitToAndFrom(additonalInformation);
+                    this.taskList.addTask(new Event(eventDetails[0],
+                            DateAndTimeParser.convertStringToDate(eventDetails[1]),
+                            DateAndTimeParser.convertStringToDate(eventDetails[2])));
                 } catch (WilliamException e) {
                     System.out.println(e.getMessage() + "\n");
                 }
@@ -90,6 +89,13 @@ public class Parser {
             case unmark:
                 System.out.println("OK, I've marked this task as not done yet:");
                 this.taskList.markAndUnmark(additonalInformation);
+                break;
+            case find:
+                try {
+                    this.taskList.findTasks(additonalInformation);
+                } catch (WilliamException e) {
+                    System.out.println(e.getMessage() + "\n");
+                }
                 break;
             case bye:
                 System.out.println("Bye. Hope to see you again soon!");

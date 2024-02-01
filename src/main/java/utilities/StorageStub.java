@@ -1,12 +1,12 @@
 package utilities;
 
-import tasks.Task;
 import java.util.ArrayList;
 import java.util.List;
+import tasks.Task;
 
 /**
- * The StorageStub class deals with loading tasks and saving tasks into a list
- * (it simulates saving and loading task from a text file for the ParserTest)
+ * The StorageStub class deals with loading tasks and saving tasks into a list (it simulates saving
+ * and loading task from a text file for the ParserTest)
  */
 public class StorageStub extends Storage {
     private List<Task> tasks;

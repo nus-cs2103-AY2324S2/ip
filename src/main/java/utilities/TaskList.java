@@ -2,12 +2,11 @@ package utilities;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import exceptions.WilliamException;
 import tasks.Task;
 
 /**
- * The TaskList contains the task list e.g. it has operations to add/delete
- * tasks in the list
+ * The TaskList contains the task list e.g. it has operations to add/delete tasks in the list
  */
 public class TaskList {
     private List<Task> tasks;
@@ -60,7 +59,8 @@ public class TaskList {
      */
     public void deleteFromList(String input) {
         if (this.tasks.isEmpty()) {
-            System.out.println("There are no task to be deleted. Please add some task to the list first!\n");
+            System.out.println(
+                    "There are no task to be deleted. Please add some task to the list first!\n");
         } else {
             int idOfItem = Integer.parseInt(input);
             int actualId = idOfItem - 1;
@@ -81,6 +81,33 @@ public class TaskList {
         int actualId = idOfItem - 1;
         this.tasks.get(actualId).changeIsDone();
         System.out.println(this.tasks.get(actualId).toString() + "\n");
+    }
+
+    /**
+     * Find the task based on whether the currTask contains the input
+     * 
+     * @param input Input from user to find the task
+     */
+    public void findTasks(String input) throws WilliamException {
+        boolean isFound = false;
+        int counter = 0;
+        for (int i = 0; i < this.tasks.size(); i++) {
+            String currTask = this.tasks.get(i).getName();
+            if (currTask.contains(input)) {
+                if (isFound == false) {
+                    System.out.println("Here are the matching tasks in your list:");
+                    isFound = true;
+                }
+                counter++;
+                System.out.println(counter + ". " + this.tasks.get(i).toString());
+            }
+        }
+        System.out.println();
+
+        if (isFound == false) {
+            throw new WilliamException(
+                    "No tasks match the provided input: " + input + ". Please try again!");
+        }
     }
 
     /**

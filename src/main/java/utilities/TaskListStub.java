@@ -1,13 +1,12 @@
 package utilities;
 
-import tasks.Task;
-
 import java.util.ArrayList;
 import java.util.List;
+import tasks.Task;
 
 /**
- * The TaskListStub contains the task list e.g. it has operations to add/delete
- * tasks in the list (it simulates these operations for the ParserTest)
+ * The TaskListStub contains the task list e.g. it has operations to add/delete tasks in the list
+ * (it simulates these operations for the ParserTest)
  */
 public class TaskListStub extends TaskList {
     private List<Task> tasks;

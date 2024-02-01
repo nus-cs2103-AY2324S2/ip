@@ -1,9 +1,8 @@
 package commands;
 
 /**
- * The Commands class contains the list of commands to be used in the switch
- * case for William.java
+ * The Commands class contains the list of commands to be used in the switch case for William.java
  */
 public enum Commands {
-    list, bye, mark, unmark, todo, deadline, event, delete
+    list, bye, mark, unmark, todo, deadline, event, delete, find
 }
