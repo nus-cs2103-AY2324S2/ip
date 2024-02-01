@@ -21,7 +21,7 @@ Looks like you have way too much free time on your hands, huh.
 [No items in list]
 
 /// What on earth are you saying! ///
-[Command not found]
+[luke.Command not found]
 
 I helped you add task '[T][ ] borrow book'. But do it yourself next time! Hmmph!
 

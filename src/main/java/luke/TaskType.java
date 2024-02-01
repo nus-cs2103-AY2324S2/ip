@@ -1,3 +1,5 @@
+package luke;
+
 public enum TaskType {
     TODO ("todo"),
     DEADLINE ("deadline"),

@@ -1,4 +1,4 @@
-//Returns a list of Strings neatly parsed as arguments.
+package luke;//Returns a list of Strings neatly parsed as arguments.
 import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -112,7 +112,7 @@ public class Parser {
             }
         } else {
             System.out.println("/// What on earth are you saying! ///");
-            System.out.println("[Command not found]\n");
+            System.out.println("[luke.Command not found]\n");
             return null;
         }
         return task;
