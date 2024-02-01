@@ -1,16 +1,19 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import duke.JamieException;
 
-class Deadline extends Task {
+public class Deadline extends Task {
 
     protected LocalDateTime byDateTime;
-    public Deadline(String description, String by) throws JamieException{
+    public Deadline(String description, String by) throws JamieException {
         super(description);
         this.byDateTime = parseDateTime(by);
     }
 
-    public Deadline(String description, String by, boolean isDone) throws JamieException{
+    public Deadline(String description, String by, boolean isDone) throws JamieException {
         super(description, isDone);
         this.byDateTime = parseDateTime(by);
     }

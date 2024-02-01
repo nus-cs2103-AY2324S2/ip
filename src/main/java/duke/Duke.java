@@ -1,3 +1,7 @@
+package duke;
+
+import duke.command.Command;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -28,7 +32,7 @@ public class Duke {
             try {
                 Command command = Parser.parse(userInput);
                 command.execute(tasks, ui, storage);
-                isExit = command.isExited();
+                isExit = command.isExit();
             } catch (JamieException e) {
                 ui.showError(e.getMessage());
             }

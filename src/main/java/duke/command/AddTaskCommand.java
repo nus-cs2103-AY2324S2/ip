@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.TaskList;
+import duke.task.Task;
+import duke.Storage;
+import duke.Ui;
+
 import java.io.IOException;
 
 public class AddTaskCommand extends Command {
