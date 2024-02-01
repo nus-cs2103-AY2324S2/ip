@@ -6,22 +6,32 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-
+/**
+ * This class handles the storage of tasks in a file.
+ * It provides methods to create a storage file, load tasks from the file, and store tasks in the file.
+ */
 public class Storage {
     private final static String dirPath = "./data/";
     private final static String filePath = "./data/taskList.txt";
     private static File file;
 
-
+    /**
+     * Initializes the storage by creating the storage file and loading tasks from it.
+     */
     public static void init() {
-        try{ 
+        try {
             create();
             load();
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        } 
+        }
     }
 
+    /**
+     * Creates the storage file if it does not exist.
+     *
+     * @throws IOException if an I/O error occurs
+     */
     private static void create() throws IOException {
         File directory = new File(dirPath);
 
@@ -29,15 +39,18 @@ public class Storage {
             if (!directory.mkdirs()) {
                 System.out.println("Failed to create directory.");
                 return;
-            } 
+            }
         }
 
         file = new File(directory, "taskList.txt");
         if (!file.exists()) {
-             file.createNewFile();  
-        }  
+            file.createNewFile();
+        }
     }
 
+    /**
+     * Stores the current tasks in the storage file.
+     */
     public static void store() {
         FileWriter fw = null;
         try {
@@ -50,7 +63,7 @@ public class Storage {
             for (int i = 1; i <= TaskList.listSize(); i++) {
                 String textToAppend = TaskList.getTask(i).toString();
                 fw.write(textToAppend + "\n");
-            }   
+            }
         } catch (IOException e) {
             System.out.println("An error occurred while storing data: " + e.getMessage());
         } finally {
@@ -64,6 +77,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @throws IOException if an I/O error occurs
+     */
     private static void load() throws IOException {
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
@@ -72,11 +90,17 @@ public class Storage {
                 decode(line);
             } catch (InvalidDateFormat e) {
                 System.out.println("Decoding Error: " + e.getMessage());
-            }  
+            }
         }
         s.close();
     }
 
+    /**
+     * Decodes a line from the storage file into a task.
+     *
+     * @param line the line to decode
+     * @throws InvalidDateFormat if the date format in the line is invalid
+     */
     private static void decode(String line) throws InvalidDateFormat {
         DateTimeFormatter originalFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
         DateTimeFormatter newFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -85,7 +109,7 @@ public class Storage {
         String[] parts;
 
         char taskType = line.charAt(1);
-        boolean marked = line.charAt(4) == 'X' ? true : false; 
+        boolean marked = line.charAt(4) == 'X' ? true : false;
         Task task;
 
         line = line.substring(7);
@@ -112,12 +136,12 @@ public class Storage {
                 break;
             default:
                 task = new ToDo("ERROR");
-                System.out.println("Error: Decoding Error, task does not match any of the known types");           
-        } 
+                System.out.println("Error: Decoding Error, task does not match any of the known types");
+        }
         TaskList.addTaskSlient(task);
         if (marked) {
             TaskList.markTaskSilent(TaskList.listSize());
         }
     }
-
 }
+
