@@ -1,3 +1,12 @@
+package sleepy.items;
+
+import sleepy.tools.LinePrinter;
+
+/**
+ * This class is an abstract class for the items in the list.
+ *
+ * @author kjw142857
+ */
 public abstract class Item {
     private String description;
     private boolean isDone = false;
@@ -11,8 +20,8 @@ public abstract class Item {
      */
     public void markAsDone() {
         isDone = true;
-        System.out.println(CommandHandler.indentLine("Nice! I've marked this task as done:"));
-        System.out.println(CommandHandler.indentLine(this.getDescription()));
+        LinePrinter.printLine("Nice! I've marked this task as done:");
+        LinePrinter.printLine(this.getDescription());
     }
 
     /**
@@ -20,8 +29,8 @@ public abstract class Item {
      */
     public void markAsUndone() {
         isDone = false;
-        System.out.println(CommandHandler.indentLine("OK, I've marked this task as not done yet:"));
-        System.out.println(CommandHandler.indentLine(this.getDescription()));
+        LinePrinter.printLine("OK, I've marked this task as not done yet:");
+        LinePrinter.printLine(this.getDescription());
     }
 
     /**

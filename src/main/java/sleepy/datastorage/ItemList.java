@@ -1,4 +1,18 @@
+package sleepy.datastorage;
+
+import sleepy.items.Deadline;
+import sleepy.items.Event;
+import sleepy.items.Item;
+import sleepy.items.ToDo;
+import sleepy.tools.LinePrinter;
+
 import java.util.ArrayList;
+
+/**
+ * This class stores the items in the Sleepy AI Chatbot.
+ *
+ * @author kjw142857
+ */
 public class ItemList {
     private ArrayList<Item> items = new ArrayList<>();
 
@@ -45,10 +59,9 @@ public class ItemList {
             }
             addItem(accessCommand);
         } catch (NumberFormatException n) {
-            System.out.println(CommandHandler.indentLine("Zzz... The target item must be an integer! Nice try, you won't catch me sleeping :p"));
+            LinePrinter.printLine("Zzz... The target item must be an integer! Nice try, you won't catch me sleeping :p");
         } catch (IllegalArgumentException i) {
-            String errorMessage = CommandHandler.indentLine(i.getMessage());
-            System.out.println(errorMessage + " Nice try, you won't catch me sleeping :p");
+            LinePrinter.printLine(i.getMessage() + " Nice try, you won't catch me sleeping :p");
         }
     }
 
@@ -111,7 +124,7 @@ public class ItemList {
             throw new IllegalArgumentException("This is not a task!");
         }
         items.add(createdItem);
-        System.out.println(CommandHandler.indentLine("added: " + createdItem.getDescription()));
+        LinePrinter.printLine("added: " + createdItem.getDescription());
     }
 
     /**
@@ -124,9 +137,9 @@ public class ItemList {
             throw new IllegalArgumentException("Invalid item number!");
         }
         Item removedItem = items.remove(itemNumber - 1);
-        System.out.println(CommandHandler.indentLine("Noted. I've removed this task:"));
-        System.out.println(CommandHandler.indentLine("  " + removedItem.getDescription()));
-        System.out.println(CommandHandler.indentLine(String.format("Now you have %d task(s) in the list.", items.size())));
+        LinePrinter.printLine("Noted. I've removed this task:");
+        LinePrinter.printLine("  " + removedItem.getDescription());
+        LinePrinter.printLine(String.format("Now you have %d task(s) in the list.", items.size()));
     }
 
     /**
@@ -153,7 +166,7 @@ public class ItemList {
     public void printItems() {
         for (int i = 1; i <= items.size(); i++) {
             Item nextItem = items.get(i - 1);
-            System.out.println(CommandHandler.indentLine(i + "." + nextItem.getDescription()));
+            LinePrinter.printLine(i + "." + nextItem.getDescription());
         }
     }
 }

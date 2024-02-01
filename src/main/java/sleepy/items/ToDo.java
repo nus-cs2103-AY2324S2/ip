@@ -1,3 +1,10 @@
+package sleepy.items;
+
+/**
+ * This class is a type of item.
+ *
+ * @author kjw142857
+ */
 public class ToDo extends Item {
     public ToDo(String description) {
         super(description);

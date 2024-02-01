@@ -1,19 +1,29 @@
+package sleepy;
+
+import sleepy.datastorage.ItemList;
+import sleepy.tools.LinePrinter;
+
+/**
+ * This class is the main class for the Sleepy AI Chatbot.
+ *
+ * @author kjw142857
+ */
 import java.util.Scanner;
 public class Sleepy {
     public static void main(String[] args) {
         // Initialise chatbot
         ItemList itemList = new ItemList();
         String name = "Sleepy";
-        String welcomeLine = CommandHandler.indentLine("Hello! I'm " + name);
-        String questionLine = CommandHandler.indentLine("What can I do for you?");
-        System.out.println(welcomeLine);
-        System.out.println(questionLine);
+        String welcomeLine = "Hello! I'm " + name;
+        String questionLine = "What can I do for you?";
+        LinePrinter.printLine(welcomeLine);
+        LinePrinter.printLine(questionLine);
         // Await next command from user
         Scanner userInput = new Scanner(System.in);
         while (true) {
             String nextUserCommand = userInput.nextLine();
             if (nextUserCommand.equals("bye")) {
-                CommandHandler.exit();
+                LinePrinter.printExit();
                 break;
             }
             itemList.access(nextUserCommand);

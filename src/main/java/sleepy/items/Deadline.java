@@ -1,3 +1,10 @@
+package sleepy.items;
+
+/**
+ * This class is a type of item.
+ *
+ * @author kjw142857
+ */
 public class Deadline extends Item {
     private String givenDeadline;
     public Deadline(String description, String givenDeadline) {

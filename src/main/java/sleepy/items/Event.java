@@ -1,3 +1,10 @@
+package sleepy.items;
+
+/**
+ * This class is a type of item.
+ *
+ * @author kjw142857
+ */
 public class Event extends Item {
     private String start;
     private String end;
