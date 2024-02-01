@@ -79,4 +79,11 @@ public class LocalStorage {
         printWriter.close();
     }
 
+    /**
+     * Closes Scanner and PrintWriter and releases any system resources associated with it
+     */
+    public void close() {
+        scan.close();
+        printWriter.close();
+    }
 }

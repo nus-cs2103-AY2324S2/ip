@@ -5,7 +5,7 @@ import duke.command.Command;
 /**
  * The `InputException` class represents an exception related to input processing.
  */
-public class InputException extends Exception {
+public class InputException extends HalException {
     public InputException(String message) {
         super(message);
     }

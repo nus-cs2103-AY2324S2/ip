@@ -26,8 +26,8 @@ public class CommandProcessor {
      * Processes the given command and input, executing the corresponding action.
      *
      * @param command The command to execute.
-     * @param input The user input associated with the command.
-     * @throws InputException If there is an issue with the input format or command.
+     * @param input   The user input associated with the command.
+     * @throws InputException      If there is an issue with the input format or command.
      * @throws ProcessingException If there is an issue processing the command or storage.
      */
     public void processData(Command command, String input) throws InputException, ProcessingException {
@@ -152,7 +152,7 @@ public class CommandProcessor {
      * Processes the MARK or UNMARK command input to extract the task index to be marked or unmarked.
      *
      * @param input The user input for the MARK or UNMARK command.
-     * @param cmd The command type (MARK or UNMARK).
+     * @param cmd   The command type (MARK or UNMARK).
      * @return The index of the task to be marked or unmarked.
      * @throws InputException If there is an issue with the input format or command.
      */
@@ -179,5 +179,9 @@ public class CommandProcessor {
         } catch (IndexOutOfBoundsException e) {
             throw InputException.exceptionCommandProcessing(Command.FIND, input, e);
         }
+    }
+
+    public void close() {
+        storage.close();
     }
 }
