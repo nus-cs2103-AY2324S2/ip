@@ -137,4 +137,14 @@ public abstract class Task {
     public boolean checkDate(LocalDate date) {
         return false;
     }
+
+    /**
+     * Returns boolean value of whether this task match to the given word.
+     *
+     * @param word Matching word.
+     * @return true if task have matching word, false if task dont have matching word.
+     */
+    public boolean checkDescription(String word) {
+        return this.description.contains(word);
+    }
 }

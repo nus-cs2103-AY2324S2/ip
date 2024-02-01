@@ -149,6 +149,24 @@ public class TaskList {
         ui.drawLine();
     }
 
+    /**
+     * Lists out the task matching to given word.
+     *
+     * @param word Matching word.
+     */
+    public void listTask(String word) {
+        ui.drawLine();
+        if (storage.size() == 0) {
+            System.out.println("There is no matching task in your list.");
+        } else {
+            System.out.println("Here are the matching tasks in your list related to " + word + " :" );
+        }
+        for (int i = 0; i < storage.size(); i++) {
+            System.out.println((i + 1) + ". " + storage.get(i));
+        }
+        ui.drawLine();
+    }
+
 
     /**
      * Marks a task as done.
@@ -230,6 +248,29 @@ public class TaskList {
             }
         }
         return textToWrite.toString();
+    }
+
+    /**
+     * Prints out all task matching to the word given.
+     *
+     * @param word Matching word.
+     * @throws DukeException If no input word.
+     */
+    public void findTask(String word) throws DukeException {
+        if (word.equals("")) {
+            throw new DukeException("Please insert the word that you are interested in. " +
+                    "Write command using format: " +
+                    CommandType.FIND.getCommand());
+        }
+
+        TaskList arr = new TaskList();
+
+        for (Task item : storage) {
+            if (item.checkDescription(word)) {
+                arr.add(item);
+            }
+        }
+        arr.listTask(word);
     }
 
 
