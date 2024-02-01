@@ -29,7 +29,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        final String FILE_LOCATION = "projects/personal/data/duke.txt";
+        final String FILE_LOCATION = "data/duke.txt";
         new Duke(FILE_LOCATION).run();
     }
 }

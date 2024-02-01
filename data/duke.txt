@@ -1,4 +1,3 @@
 T | X | read book
-D | O | report | Jan 23 2024
-E | X | festival | aug 7th 2024
-T | O | study at home
+D | O | project submission | Jan 24 2024
+E | X | festival | aug 6th
