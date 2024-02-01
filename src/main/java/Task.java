@@ -19,6 +19,15 @@ public class Task {
         this.isDone = false;
     }
 
+    public String savedFormat() {
+        String isDoneStr = " 0 ";
+        if (isDone) {
+            isDoneStr = " 1 ";
+        }
+
+        return isDoneStr + "| " + description;
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
