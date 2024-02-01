@@ -17,6 +17,6 @@ public class ToDo extends Task{
 
     @Override
     public String saveTask() {
-        return String.format("todo-%s-%d",  this.description, this.isDoneNumerical());
+        return String.format("todo_%s_%d",  this.description, this.isDoneNumerical());
     }
 }
