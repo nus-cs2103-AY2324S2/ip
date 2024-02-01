@@ -8,6 +8,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 public class Demon {
     public static void main(String[] args) {
@@ -29,29 +32,37 @@ public class Demon {
 
             String line;
             // Read file line by line
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             while ((line = bufferedReader.readLine()) != null) {
                 // Process the line
                 Task item;
                 String isCompleted;
                 char firstChar = line.charAt(0);
                 if (firstChar == 'D') {
-                    isCompleted = line.split("\\|")[1].trim();
-                    String description = line.split("\\|")[2].trim();
-                    String by = line.split("\\|")[3].trim();
-                    item = new Deadline(description, by);
+                    String[] parts = line.split("\\|");
+                    isCompleted = parts[1].trim();
+                    String description = parts[2].trim();
+                    String by = parts[3].trim();
+                    LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+                    System.out.println(dateTime); // Output with time
+                    item = new Deadline(description, dateTime);
 
                 } else if (firstChar == 'T') {
-                    isCompleted = line.split("\\|")[1].trim();
-                    String description = line.split("\\|")[2].trim();
+                    String[] parts = line.split("\\|");
+                    isCompleted = parts[1].trim();
+                    String description = parts[2].trim();
                     item = new Todo(description);
 
                 } else {
-                    isCompleted = line.split("\\|")[1].trim();
-                    String description = line.split("\\|")[2].trim();
-                    String from = line.split("\\|")[3].trim();
-                    String to = line.split("\\|")[4].trim();
-                    item = new Event(description, from, to);
-                } 
+                    String[] parts = line.split("\\|");
+                    isCompleted = parts[1].trim();
+                    String description = parts[2].trim();
+                    String from = parts[3].trim();
+                    String to = parts[4].trim();
+                    LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
+                    LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
+                    item = new Event(description, dateTimeFrom, dateTimeTo);
+                }
 
                 list.add(item);
                 if (isCompleted.equals("1")) {
@@ -96,7 +107,7 @@ public class Demon {
                             System.out.println("Oops! Task already NOT done!");
                         }
                     } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                        System.out.println(e + ". Please provide valid integer.");
+                        System.err.println(e + ". Please provide valid integer.");
                     } 
                 }
                 input = sc.nextLine();
@@ -119,7 +130,7 @@ public class Demon {
                             System.out.println("Oops! Task already done!");
                         }
                     } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                        System.out.println(e + ". Please provide valid integer.");
+                        System.err.println(e + ". Please provide valid integer.");
                     } 
                 }
                 input = sc.nextLine();
@@ -137,8 +148,16 @@ public class Demon {
                     }
                     String description = parts2[0].trim();
                     String by = parts2[1].trim();
-                    Deadline item_deadline = new Deadline(description, by);
+
+                    // Automatically assume that if time is not given, then time is 0000hrs
+                    int sizeOfBy = by.split(" ").length;
+                    if (sizeOfBy < 2) by += " 0000";
+                    // Format the date, time, and create Deadline object, add to list
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                    LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+                    Deadline item_deadline = new Deadline(description, dateTime);
                     list.add(item_deadline);
+
                     String stringToSave = "D | " + (item_deadline.getStatusIcon().equals("X") ? "1" : "0") + " | " + description + " | " + by + "\n";
                     // May produce IOException
                     writeToFile(taskFilePath, stringToSave);
@@ -148,8 +167,8 @@ public class Demon {
                     System.out.println("Now you have " + list.size() + " tasks in the list.");
                     printDivider();
                     System.out.println("Anything else? Please let me know: ");
-                } catch (NoTimingException | EmptyDescriptionException | IOException e) {
-                    System.out.println("Error -> " + e);
+                } catch (NoTimingException | EmptyDescriptionException | IOException | DateTimeParseException e) {
+                    System.err.println("Error -> " + e);
                 } finally {
                     input = sc.nextLine();
                 }
@@ -173,7 +192,7 @@ public class Demon {
                     printDivider();
                     System.out.println("Anything else? Please let me know: ");
                 } catch (EmptyDescriptionException | IOException e) {
-                    System.out.println("Error -> " + e);
+                    System.err.println("Error -> " + e);
                 } finally {
                     input = sc.nextLine();
                 }
@@ -187,13 +206,24 @@ public class Demon {
                     String description_date = parts[1];
                     String[] parts2 = description_date.split("/from ");
                     if (parts2.length < 2) {
-                        throw new NoTimingException("WOI! Please include deadline!");
+                        throw new NoTimingException("WOI! Please include time!");
                     }
                     String[] details = parts2[1].split("/to ");
                     String description = parts2[0].trim();
                     String from = details[0].trim();
                     String to = details[1].trim();
-                    Event item_event = new Event(description, from, to);
+                    System.out.println(from);
+                    System.out.println(to);
+                    // Automatically assume that if time is not given, then time is 0000hrs
+                    int sizeOfFrom = from.split(" ").length;
+                    if (sizeOfFrom < 2) from += " 0000";
+                    int sizeOfTo = to.split(" ").length;
+                    if (sizeOfTo < 2) to += " 0000";
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                    LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
+                    LocalDateTime dateTimeTo = LocalDateTime.parse(to, formatter);
+                    Event item_event = new Event(description, dateTimeFrom, dateTimeTo);
                     list.add(item_event);
                     String stringToSave = "E | " + (item_event.getStatusIcon().equals("X") ? "1" : "0") + " | " + description + " | " + from + " | " + to + "\n";
                     // May produce IOException
@@ -204,8 +234,8 @@ public class Demon {
                     System.out.println("Now you have " + list.size() + " tasks in the list.");
                     printDivider();
                     System.out.println("Anything else? Please let me know: ");
-                } catch (NoTimingException | EmptyDescriptionException | IOException e) {
-                    System.out.println("Error -> " + e);
+                } catch (NoTimingException | EmptyDescriptionException | IOException | DateTimeParseException  e) {
+                    System.err.println("Error -> " + e);
                 } finally {
                     input = sc.nextLine();
                 }
@@ -224,7 +254,7 @@ public class Demon {
                     printDivider();
                     System.out.println("Anything else? Please let me know: ");
                 } catch (EmptyDescriptionException e) {
-                    System.out.println("Error -> e");
+                    System.err.println("Error -> e");
                 } finally {
                     input = sc.nextLine();
                 }
@@ -272,7 +302,7 @@ public class Demon {
                 // Modify the specific line (adjust for 0-based index)
                 lines.set(lineToEdit - 1, newContent);
             } else {
-                System.out.println("The line number to edit is beyond the file's line count.");
+                System.err.println("The line number to edit is beyond the file's line count.");
             }
 
             Files.write(path, lines);
