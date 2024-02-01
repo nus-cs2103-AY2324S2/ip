@@ -1,12 +1,11 @@
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class Parser {
     private static final DateTimeFormatter inTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter outTimeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hhmma");
-    public static void parse(String[] input, List<Task> lst, Storage storage) throws IOException {
+    public static void parse(String[] input, TaskList lst, Storage storage) throws IOException {
         String instr = input[0];
 
         if (instr.equalsIgnoreCase(Instruction.BYE.toString())) {
@@ -15,33 +14,33 @@ public class Parser {
 
         } else if (instr.equalsIgnoreCase(Instruction.LIST.toString())) {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < lst.size(); i++) {
-                System.out.println(i + 1 + "." + lst.get(i));
+            for (int i = 0; i < lst.taskSize(); i++) {
+                System.out.println(i + 1 + "." + lst.getTask(i));
             }
 
         } else if (instr.equalsIgnoreCase(Instruction.MARK.toString())) {
             int lstNo = Integer.parseInt(input[1]);
-            for (int i = 0; i < lst.size(); i++) {
+            for (int i = 0; i < lst.taskSize(); i++) {
                 if (i + 1 == lstNo) {
-                    lst.get(i).isCompleted();
-                    System.out.println("Nice! I've marked this task as done:\n" + lst.get(i));
+                    lst.getTask(i).isCompleted();
+                    System.out.println("Nice! I've marked this task as done:\n" + lst.getTask(i));
                 }
             }
 
         } else if (instr.equalsIgnoreCase(Instruction.UNMARK.toString())) {
             int lstNo = Integer.parseInt(input[1]);
-            for (int i = 0; i < lst.size(); i++) {
+            for (int i = 0; i < lst.taskSize(); i++) {
                 if (i + 1 == lstNo) {
-                    lst.get(i).isNotCompleted();
-                    System.out.println("OK, I've marked this task as not done yet:\n" + lst.get(i));
+                    lst.getTask(i).isNotCompleted();
+                    System.out.println("OK, I've marked this task as not done yet:\n" + lst.getTask(i));
                 }
             }
 
         } else if (instr.equalsIgnoreCase(Instruction.TODO.toString())) {
             Todo todo = new Todo(input[1]);
-            lst.add(todo);
+            lst.addTask(todo);
             System.out.println("Got it. I've added this task:\n" + todo);
-            System.out.println("Now you have " + lst.size() + " tasks in the list.");
+            System.out.println("Now you have " + lst.taskSize() + " tasks in the list.");
 
         } else if (instr.equalsIgnoreCase(Instruction.DEADLINE.toString())) {
             String[] ss = input[1].split("/by");
@@ -49,9 +48,9 @@ public class Parser {
             String formattedTime = inputTime.format(outTimeFormat);
 
             Deadline deadline = new Deadline(ss[0], formattedTime);
-            lst.add(deadline);
+            lst.addTask(deadline);
             System.out.println("Got it. I've added this task:\n" + deadline);
-            System.out.println("Now you have " + lst.size() + " tasks in the list.");
+            System.out.println("Now you have " + lst.taskSize() + " tasks in the list.");
 
         } else if (instr.equalsIgnoreCase(Instruction.EVENT.toString())) {
             String[] ss = input[1].split("/from");
@@ -62,16 +61,16 @@ public class Parser {
             String formattedToTime = inputToTime.format(outTimeFormat);
 
             Event event = new Event(ss[0], formattedFromTime, formattedToTime);
-            lst.add(event);
+            lst.addTask(event);
             System.out.println("Got it. I've added this task:\n" + event);
-            System.out.println("Now you have " + lst.size() + " tasks in the list.");
+            System.out.println("Now you have " + lst.taskSize() + " tasks in the list.");
 
         } else if (instr.equalsIgnoreCase(Instruction.DELETE.toString())) {
             int lstNo = Integer.parseInt(input[1]);
-            System.out.println("Noted. I've removed this task:\n" + lst.get(lstNo - 1));
-            lst.remove(lstNo - 1);
-            System.out.println("Now you have " + lst.size() + " tasks in the list.");
+            System.out.println("Noted. I've removed this task:\n" + lst.getTask(lstNo - 1));
+            lst.deleteTask(lstNo - 1);
+            System.out.println("Now you have " + lst.taskSize() + " tasks in the list.");
         }
-        storage.writeDataToFile(lst);
+        storage.writeDataToFile(lst.toList());
     }
 }
