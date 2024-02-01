@@ -1,14 +1,15 @@
+package service;
+
 import exceptions.DukeException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Storage {
 
-    //private TaskList taskList;
+    //private service.TaskList taskList;
     String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
