@@ -13,17 +13,17 @@ public final class IntegerStringValue extends StringValue {
     private final Integer integerValue;
 
     /**
-     * Takes in a string, but converts it to a date.
+     * Takes in a string, but converts it to an {@link Integer}.
      *
      * @param value the value as a {@link String}
      * @throws InvalidValueTypeException If the value cannot be converted.
      */
-    private IntegerStringValue(String value) throws InvalidValueTypeException {
+    public IntegerStringValue(String value) throws InvalidValueTypeException {
         super(value);
 
         Integer i = null;
         try {
-            i = Integer.parseInt(value);
+            i = Integer.parseInt(super.toString());
         } catch(NumberFormatException e) {
             // invalid integer
             throw new InvalidValueTypeException("integer", value);
@@ -33,13 +33,13 @@ public final class IntegerStringValue extends StringValue {
     }
 
     /**
-     * Factory method for taking in a {@link StringValue}, but tries to convert it to a date.
+     * Factory method for taking in a {@link StringValue}, but tries to convert it to an {@link Integer}.
      *
-     * @param value the value as a {@link String}
+     * @param value the value as a {@link StringValue}
      * @throws InvalidValueTypeException If the value cannot be converted.
      */
-    public static IntegerStringValue of(StringValue value) throws InvalidValueTypeException {
-        return new IntegerStringValue(value.toString());
+    public IntegerStringValue(StringValue value) throws InvalidValueTypeException {
+        this(value.toString());
     }
 
     /**

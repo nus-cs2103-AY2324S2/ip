@@ -9,21 +9,21 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class IntegerStringValueTest {
     @Test
-    public void of_integer_expectedBehaviour() {
+    public void constructor_integer_expectedBehaviour() {
         try {
-            IntegerStringValue i = IntegerStringValue.of(new StringValue("1"));
+            IntegerStringValue i = new IntegerStringValue("1");
             assertEquals(1, i.tryGetIntegerValue());
 
-            i = IntegerStringValue.of(new StringValue("0"));
+            i = new IntegerStringValue("0");
             assertEquals(0, i.tryGetIntegerValue());
 
-            i = IntegerStringValue.of(new StringValue("-1"));
+            i = new IntegerStringValue("-1");
             assertEquals(-1, i.tryGetIntegerValue());
 
-            i = IntegerStringValue.of(new StringValue("01"));
+            i = new IntegerStringValue("01");
             assertEquals(1, i.tryGetIntegerValue());
 
-            i = IntegerStringValue.of(new StringValue(" 1 "));
+            i = new IntegerStringValue(" 1 ");
             assertEquals(1, i.tryGetIntegerValue());
         } catch (InvalidValueTypeException e) {
             fail();
@@ -31,35 +31,35 @@ public class IntegerStringValueTest {
     }
 
     @Test
-    public void of_nonInteger_exceptionThrown() {
+    public void constructor_nonInteger_exceptionThrown() {
         assertThrows(
                 InvalidValueTypeException.class,
-                () -> IntegerStringValue.of(new StringValue("1.0"))
+                () -> new IntegerStringValue("1.0")
         );
 
         assertThrows(
                 InvalidValueTypeException.class,
-                () -> IntegerStringValue.of(new StringValue("1.5"))
+                () -> new IntegerStringValue("1.5")
         );
 
         assertThrows(
                 InvalidValueTypeException.class,
-                () -> IntegerStringValue.of(new StringValue("1 1"))
+                () -> new IntegerStringValue("1 1")
         );
 
         assertThrows(
                 InvalidValueTypeException.class,
-                () -> IntegerStringValue.of(new StringValue(".1"))
+                () -> new IntegerStringValue(".1")
         );
 
         assertThrows(
                 InvalidValueTypeException.class,
-                () -> IntegerStringValue.of(new StringValue("one"))
+                () -> new IntegerStringValue("one")
         );
 
         assertThrows(
                 InvalidValueTypeException.class,
-                () -> IntegerStringValue.of(new StringValue(""))
+                () -> new IntegerStringValue("")
         );
     }
 }

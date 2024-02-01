@@ -45,8 +45,7 @@ public final class MarkAction extends Action {
         // Validate indexString as an integer
         int index;
         try {
-            index = IntegerStringValue
-                    .of(findDefaultArgument())
+            index = new IntegerStringValue(findDefaultArgument())
                     .tryGetIntegerValue();
         } catch (InvalidValueTypeException e) {
             throw new InvalidArgumentValueException(
