@@ -15,4 +15,8 @@ public class Event extends Task {
         String[] arr2 = to.split(" ", 2);
         return "[E]" + super.toString() + " (from: " + arr1[1] + " to: " + arr2[1] + ")";
     }
+    @Override
+    public String getType(){
+        return "E";
+    }
 }
