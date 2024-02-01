@@ -1,6 +1,7 @@
 package duke.command;
 
 import org.junit.jupiter.api.Test;
+
 import duke.exception.DukeException;
 import duke.task.TaskList;
 import duke.task.ToDo;
@@ -8,6 +9,7 @@ import duke.storage.Storage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;

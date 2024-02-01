@@ -1,7 +1,6 @@
 package duke.task;
 
 import duke.exception.DukeException;
-import duke.task.TaskType;
 
 /**
  * The ToDo class represents a task of type ToDo in the Duke application.

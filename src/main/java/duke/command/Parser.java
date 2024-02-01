@@ -6,6 +6,7 @@ import duke.task.*;
 import duke.ui.Ui;
 
 import java.io.IOException;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -72,7 +73,6 @@ public class Parser {
                     ui.showGoodbyeMessage();
                     this.isRunning = false;
                     break;
-
                 case "list":
                     Ui.showTaskList(tasks);
                     break;
@@ -102,7 +102,6 @@ public class Parser {
                         }
                     }
                     break;
-
                 case "delete":
                     if (words.length > 1) {
                         tasks.deleteTask(Integer.parseInt(words[1]) - 1);
@@ -111,7 +110,6 @@ public class Parser {
                         hasChanged = true;
                     }
                     break;
-
                 case "todo":
                     if (command.length() <= 5) {
                         ui.showError("You gotta enter some task TO DO!");
@@ -122,7 +120,6 @@ public class Parser {
                         hasChanged = true;
                     }
                     break;
-
                 case "deadline":
                     try {
                         int byIndex = command.indexOf("/by");
@@ -142,7 +139,6 @@ public class Parser {
                         System.out.println(e.getMessage());
                     }
                     break;
-
                 case "event":
                     Matcher fromMatcher = Pattern.compile("/from\\s+(\\S+[^/]+)").matcher(command);
                     Matcher toMatcher = Pattern.compile("/to\\s+(\\S.+)").matcher(command);
@@ -163,7 +159,6 @@ public class Parser {
                     Ui.printNumberOfTasks(tasks);
                     hasChanged = true;
                     break;
-
                 default:
                     ui.showError("I don't know what you are saying :(");
                     break;

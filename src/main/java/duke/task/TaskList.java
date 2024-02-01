@@ -1,4 +1,5 @@
 package duke.task;
+
 import duke.exception.DukeException;
 import duke.ui.Ui;
 
