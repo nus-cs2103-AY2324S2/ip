@@ -3,7 +3,7 @@ public class DukeException extends Exception{
         super(errorMessage);
     }
 
-    public String handle() {
+    public String handleTaskError() {
         switch (getMessage()) {
             case "bye": {
                 return "Syntax of bye: bye";
