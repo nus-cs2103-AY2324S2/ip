@@ -29,6 +29,6 @@ public class Mark implements Command {
      */
     @Override
     public String reply() {
-        return String.format("    Nice! I've marked this task as done:\n    %s\n", tasks.getTask(oprand));
+        return String.format("Nice! I've marked this task as done:\n%s\n", tasks.getTask(oprand));
     }
 }

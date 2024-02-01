@@ -31,7 +31,7 @@ public class CurrentTask implements Command {
         int i = 0;
         for (Task task: taskList.getTaskList()) {
             if (task.isTimeForStart(currentTime)) {
-                reply += String.format("    %s.%s\n", ++i, task);
+                reply += String.format("%s.%s\n", ++i, task);
             }
         }
         return reply;

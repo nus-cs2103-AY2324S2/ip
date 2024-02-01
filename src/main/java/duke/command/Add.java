@@ -105,7 +105,7 @@ public class Add implements Command {
     @Override
     public String reply() {
         return String.format(
-                "    Got it. I've added this task:\n      %s\n    Now you have %s tasks in the list.\n",
+                "Got it. I've added this task:\n  %s\nNow you have %s tasks in the list.\n",
                 this.task, this.tasks.getListLength());
     }
 

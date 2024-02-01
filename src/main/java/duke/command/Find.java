@@ -39,7 +39,7 @@ public class Find implements Command {
         String reply = "    Here are the matching tasks in your list:\n";
         int i = 0;
         for (Task task : foundList) {
-            reply += String.format("    %s.%s\n", ++i, task);
+            reply += String.format("%s.%s\n", ++i, task);
         }
         return reply;
     }

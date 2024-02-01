@@ -17,10 +17,10 @@ public class List implements Command {
      */
     @Override
     public String reply() {
-        String reply = "    Here are the tasks in your list:\n";
+        String reply = "Here are the tasks in your list:\n";
         int i = 0;
         for (Task task : taskList.getTaskList()) {
-            reply += String.format("    %s.%s\n", ++i, task);
+            reply += String.format("  %s.%s\n", ++i, task);
         }
         return reply;
     }

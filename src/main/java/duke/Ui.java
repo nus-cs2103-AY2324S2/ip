@@ -41,7 +41,7 @@ public class Ui {
     /**
      * Print out the Good byr message
      */
-    public void sayGoodbye() {
-        System.out.println("    Bye, Hope to see you again soon!");
+    public String sayGoodbye() {
+        return "    Bye, Hope to see you again soon!\n";
     }
 }

@@ -11,6 +11,6 @@ public class Bye implements Command {
     @Override
     public String reply() {
         System.exit(0);
-        return "";
+        return "Bye, Hope to see you again soon!\n";
     }
 }

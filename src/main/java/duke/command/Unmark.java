@@ -29,6 +29,6 @@ public class Unmark implements Command {
      */
     @Override
     public String reply() {
-        return String.format("    OK, I've marked this task as not done yet:\n    %s\n", tasks.getTask(oprand));
+        return String.format("OK, I've marked this task as not done yet:\n%s\n", tasks.getTask(oprand));
     }
 }
