@@ -285,21 +285,16 @@ public class Parser {
      *
      * @param commandSplit An array containing the command split into parts.
      */
-    public void handleBaseCommand(String[] commandSplit) {
-        String firstWord = commandSplit[0].toLowerCase();
-        int num = Integer.parseInt(commandSplit[1]);
-        try {
-            if (firstWord.equals("mark")) {
 
     public boolean checkIfFind(String f) {
         return (f.startsWith("find "));
     }
 
-    public void handleBaseCommand(String[] commandsplit) {
-        String firstword = commandsplit[0].toLowerCase();
+    public void handleBaseCommand(String[] commandSplit) {
+        String firstWord = commandSplit[0].toLowerCase();
         try {
-            int num = Integer.parseInt(commandsplit[1]);
-            if (firstword.equals("mark")) {
+            int num = Integer.parseInt(commandSplit[1]);
+            if (firstWord.equals("mark")) {
                 tasklist.mark(num - 1);
             } else if (firstWord.equals("unmark")) {
                 tasklist.unmark(num - 1);
