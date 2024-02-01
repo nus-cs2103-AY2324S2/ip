@@ -1,9 +1,9 @@
-package detective;
+package duke;
 
-import detective.command.*;
-import detective.task.Deadline;
-import detective.task.Event;
-import detective.task.ToDo;
+import duke.command.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
 
 public class Parser {
     public static Command parseCommand(String input) throws DukeException {

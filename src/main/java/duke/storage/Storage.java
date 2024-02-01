@@ -1,6 +1,6 @@
-package detective.storage;
+package duke.storage;
 
-import detective.task.Task;
+import duke.task.Task;
 
 import java.io.IOException;
 import java.nio.file.Files;

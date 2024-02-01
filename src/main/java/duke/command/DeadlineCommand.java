@@ -1,9 +1,9 @@
-package detective.command;
+package duke.command;
 
-import detective.DukeException;
-import detective.TaskList;
-import detective.Ui;
-import detective.task.Deadline;
+import duke.DukeException;
+import duke.TaskList;
+import duke.Ui;
+import duke.task.Deadline;
 
 public class DeadlineCommand extends Command {
     private Deadline task;

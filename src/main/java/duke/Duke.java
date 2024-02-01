@@ -1,16 +1,16 @@
-package detective;
+package duke;
 
-import detective.command.Command;
-import detective.storage.Storage;
+import duke.command.Command;
+import duke.storage.Storage;
 
 import java.util.Objects;
 
-public class Detective {
+public class Duke {
     private TaskList myList;
     private Ui ui;
     private Storage storage;
 
-    public Detective() {
+    public Duke() {
         ui = new Ui();
         try {
             storage = new Storage();
@@ -44,6 +44,6 @@ public class Detective {
     }
 
     public static void main(String[] args) {
-        new Detective().run();
+        new Duke().run();
     }
 }

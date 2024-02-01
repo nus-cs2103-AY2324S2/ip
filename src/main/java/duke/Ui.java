@@ -1,12 +1,12 @@
-package detective;
+package duke;
 
-import detective.task.Task;
+import duke.task.Task;
 
 import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Ui {
-    private static final String name = "detective";
+    private static final String name = "duke";
     private static final String line = "____________________________________________________________";
 
     private final Scanner in = new Scanner(System.in);

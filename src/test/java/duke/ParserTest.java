@@ -1,4 +1,4 @@
-package detective;
+package duke;
 
 import org.junit.jupiter.api.Test;
 

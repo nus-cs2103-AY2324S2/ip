@@ -1,8 +1,8 @@
-package detective.command;
+package duke.command;
 
-import detective.DukeException;
-import detective.TaskList;
-import detective.Ui;
+import duke.DukeException;
+import duke.TaskList;
+import duke.Ui;
 
 public class ListCommand extends Command {
     @Override

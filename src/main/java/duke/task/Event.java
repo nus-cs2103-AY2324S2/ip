@@ -1,4 +1,4 @@
-package detective.task;
+package duke.task;
 
 public class Event extends Task {
     protected String from;

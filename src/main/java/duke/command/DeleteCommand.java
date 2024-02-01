@@ -1,9 +1,9 @@
-package detective.command;
+package duke.command;
 
-import detective.DukeException;
-import detective.TaskList;
-import detective.Ui;
-import detective.task.Task;
+import duke.DukeException;
+import duke.TaskList;
+import duke.Ui;
+import duke.task.Task;
 
 public class DeleteCommand extends Command {
     private int num;

@@ -1,9 +1,9 @@
-package detective.storage;
+package duke.storage;
 
-import detective.task.Deadline;
-import detective.task.Event;
-import detective.task.Task;
-import detective.task.ToDo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
-package detective;
+package duke;
 
-import detective.task.Task;
+import duke.task.Task;
 
 import java.util.ArrayList;
 

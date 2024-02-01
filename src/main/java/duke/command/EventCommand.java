@@ -1,9 +1,9 @@
-package detective.command;
+package duke.command;
 
-import detective.DukeException;
-import detective.TaskList;
-import detective.Ui;
-import detective.task.Event;
+import duke.DukeException;
+import duke.TaskList;
+import duke.Ui;
+import duke.task.Event;
 
 public class EventCommand extends Command {
     private Event task;
