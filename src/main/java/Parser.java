@@ -9,11 +9,11 @@ public class Parser {
 
     private File saveFile;
     private TaskList taskList;
-    private History history;
+    private Storage storage;
 
-    public Parser(History history, File saveFile) {
-        this.history = history;
-        ArrayList<Task> tasks = history.getHistory();
+    public Parser(Storage storage, File saveFile) {
+        this.storage = storage;
+        ArrayList<Task> tasks = storage.getHistory();
         this.taskList = new TaskList(tasks);
         this.saveFile = saveFile;
     }
@@ -23,7 +23,7 @@ public class Parser {
         //bye, list
         if (trimmedLowercase.equals("bye")) {
             //TODO: save history
-            history.saveHistory(saveFile, taskList.getTasks());
+            storage.saveHistory(saveFile, taskList.getTasks());
             return true;
         } else if (trimmedLowercase.equals("list")) {
             taskList.listTasks();

@@ -1,11 +1,11 @@
 import java.io.*;
 import java.util.ArrayList;
 
-public class History implements Serializable {
+public class Storage implements Serializable {
 
     private ArrayList<Task> history;
 
-    public History() {
+    public Storage() {
         history = new ArrayList<>();
     }
 

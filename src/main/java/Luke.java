@@ -19,7 +19,7 @@ public class Luke {
             + " |________|'.__.'_/[__|  \\_]'.__.' ";
 
     public static void main(String[] args) throws LukeException {
-        History history;
+        Storage storage;
         UI ui = new UI();
         ui.greet();
 
@@ -49,16 +49,16 @@ public class Luke {
         File historyFile = new File(String.valueOf(historyPath));
         try {
             ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(historyFile));
-            history = (History) inputStream.readObject();
+            storage = (Storage) inputStream.readObject();
         } catch (IOException e) {
             //System.out.println("No save data found, creating new save.");
-            history = new History();
+            storage = new Storage();
         } catch (ClassNotFoundException e) {
             System.out.println("Class not found");
             return;
         }
 
-        Parser parser = new Parser(history, historyFile);
+        Parser parser = new Parser(storage, historyFile);
         Scanner sc = new Scanner(System.in);
 
         boolean isFinished = false;
