@@ -1,8 +1,9 @@
-package chatteroo.commands;
+package seedu.chatteroo.commands;
 
-import chatteroo.tasks.*;
-import chatteroo.ui.Ui;
-import chatteroo.storage.Storage;
+import seedu.chatteroo.tasks.Task;
+import seedu.chatteroo.tasks.TaskList;
+import seedu.chatteroo.ui.Ui;
+import seedu.chatteroo.storage.Storage;
 
 public class AddCommand extends Command {
     private Task newTask;

@@ -1,6 +1,6 @@
-package chatteroo.storage;
+package seedu.chatteroo.storage;
 
-import chatteroo.tasks.*;
+import seedu.chatteroo.tasks.*;
 
 import java.io.File;
 import java.io.FileWriter;

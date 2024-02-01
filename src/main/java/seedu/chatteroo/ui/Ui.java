@@ -1,4 +1,4 @@
-package chatteroo.ui;
+package seedu.chatteroo.ui;
 
 public class Ui {
     public Ui() {

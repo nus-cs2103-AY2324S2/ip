@@ -1,4 +1,4 @@
-package chatteroo.tasks;
+package seedu.chatteroo.tasks;
 
 import java.util.ArrayList;
 

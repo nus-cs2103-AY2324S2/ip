@@ -1,10 +1,10 @@
-package chatteroo;
+package seedu.chatteroo;
 
-import chatteroo.commands.Command;
-import chatteroo.parser.Parser;
-import chatteroo.storage.Storage;
-import chatteroo.tasks.TaskList;
-import chatteroo.ui.Ui;
+import seedu.chatteroo.commands.Command;
+import seedu.chatteroo.parser.Parser;
+import seedu.chatteroo.storage.Storage;
+import seedu.chatteroo.tasks.TaskList;
+import seedu.chatteroo.ui.Ui;
 
 import java.util.Scanner;
 import java.io.IOException;

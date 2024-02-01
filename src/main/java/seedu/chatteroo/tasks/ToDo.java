@@ -1,4 +1,4 @@
-package chatteroo.tasks;
+package seedu.chatteroo.tasks;
 
 public class ToDo extends Task {
     protected String taskType = "T";

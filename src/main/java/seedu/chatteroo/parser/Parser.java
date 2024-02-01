@@ -1,10 +1,10 @@
-package chatteroo.parser;
+package seedu.chatteroo.parser;
 
-import chatteroo.commands.*;
-import chatteroo.tasks.Task;
-import chatteroo.tasks.ToDo;
-import chatteroo.tasks.Deadline;
-import chatteroo.tasks.Event;
+import seedu.chatteroo.commands.*;
+import seedu.chatteroo.tasks.Task;
+import seedu.chatteroo.tasks.ToDo;
+import seedu.chatteroo.tasks.Deadline;
+import seedu.chatteroo.tasks.Event;
 
 public class Parser {
     public Parser() {
