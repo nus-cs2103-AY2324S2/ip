@@ -1,6 +1,5 @@
 package UiRelated;
 
-
 import Tasks.DeadLineTask;
 import Tasks.EventTask;
 import Tasks.ToDoTask;
@@ -10,12 +9,23 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Parser class is responsible for parsing user input and converting it into corresponding commands or tasks.
+ */
 public class Parser {
 
-    public static Command parseInput(String input) {
+    /**
+     * Parses the input string and returns the corresponding command.
+     *
+     * @param input The user input string to be parsed.
+     * @return A Command object representing the parsed input.
+     * @throws IllegalArgumentException If the input is empty or does not follow the specific pattern.
+     * @throws DateTimeParseException  If the input has invalid time format.
+     */
+    public static Command parseInput(String input) throws IllegalArgumentException, DateTimeParseException {
         input = input.trim();
         if (input.isEmpty()) {
-            throw new IllegalArgumentException("Tasks.Task cannot be empty. Please enter a valid task.");
+            throw new IllegalArgumentException("Task cannot be empty. Please enter a valid task.");
         }
         String[] parts = input.trim().split("\\s+", 2);
         String command = parts[0];
@@ -27,17 +37,32 @@ public class Parser {
         boolean followedByInteger = isFollowedByInteger(possibleIndexOrTask);
         if (followedByInteger && !command.equals("todo")) {
             int index = Integer.parseInt(possibleIndexOrTask);
-            return indexRelatedCommand(command,index);
+            return indexRelatedCommand(command, index);
         } else {
             return addCommand(command, possibleIndexOrTask);
         }
     }
-    public static boolean IsexitCommand(String s){
+    /**
+     * Checks if the input is a display command.
+     *
+     * @param input The input string to be checked.
+     * @return True if the input is a display command request, false otherwise.
+     */
+    public static boolean isDisplayCommand(String input) {
+        return input.equals("--commands");
+    }
 
+    /**
+     * Checks if the input is an exit command.
+     *
+     * @param s The input string to be checked.
+     * @return True if the input is an exit request, false otherwise.
+     */
+    public static boolean isExitCommand(String s) {
         return s.trim().toLowerCase().equals("bye");
     }
 
-    private static Command CommandWithNoIndex(String command){
+    private static Command CommandWithNoIndex(String command) {
         switch (command) {
             case "list":
                 return new showListCommand();
@@ -45,7 +70,8 @@ public class Parser {
                 throw new IllegalArgumentException("Please input valid commands: ");
         }
     }
-    private static Command indexRelatedCommand(String command, int index){
+
+    private static Command indexRelatedCommand(String command, int index) {
         switch (command) {
             case "unmark":
                 return new unMarkCommand(index);
@@ -56,10 +82,12 @@ public class Parser {
         }
         throw new IllegalArgumentException("Please input valid commands");
     }
-    private static boolean isFollowedByInteger(String s){
+
+    private static boolean isFollowedByInteger(String s) {
         return s.matches("\\d+");
     }
-    private static Command addCommand(String command, String possibleTask) throws IllegalArgumentException, DateTimeParseException{
+
+    private static Command addCommand(String command, String possibleTask) throws IllegalArgumentException, DateTimeParseException {
         switch (command) {
             case "todo":
                 return new addToListCommand(new ToDoTask(possibleTask));
@@ -68,20 +96,18 @@ public class Parser {
                 String pattern1 = "\\d{2}-\\d{2}";
                 String pattern2 = "(?i)\\d{2}-\\d{2} \\d{2}:\\d{2} [ap]m";
 
-                //handling case that does not include by
                 if (index == -1) {
                     throw new IllegalArgumentException("Invalid deadline format. Please specify the task following by its deadline using 'by mm-dd or mm-dd hh:mm am/pm' eg. task1 by 01-14 01:00 pm  or just task1 by 01-14");
                 }
-                String deadlineInfo = possibleTask.substring(index+3);
-                String taskName = possibleTask.substring(0,index);
+                String deadlineInfo = possibleTask.substring(index + 3);
+                String taskName = possibleTask.substring(0, index);
                 if (!deadlineInfo.trim().matches(pattern1) && !deadlineInfo.trim().matches(pattern2)) {
-                    System.out.println(deadlineInfo);
                     throw new IllegalArgumentException("Invalid deadline format. Please specify the deadline using  these formats: 'by mm-dd or mm-dd hh:mm am/pm' eg. task1 by 01-14 01:00 pm  or task1 by 01-14");
                 }
                 Command c;
                 try {
                     c = new addToListCommand(new DeadLineTask(deadlineInfo, taskName));
-                } catch(DateTimeParseException e) {
+                } catch (DateTimeParseException e) {
                     throw new DateTimeParseException("Please input a valid time format in am or pm. the given input is invalid: ", e.getParsedString(), e.getErrorIndex());
                 }
                 return c;
@@ -103,18 +129,17 @@ public class Parser {
                 }
                 String[] timingDetails = eventDetail.split("to");
                 Command c2;
-                try{
+                try {
                     c2 = new addToListCommand(new EventTask(timingDetails[0], timingDetails[1], taskN));
-            }catch (DateTimeParseException e){
+                } catch (DateTimeParseException e) {
                     throw new DateTimeParseException("Please input a valid time format in am or pm.", e.getParsedString(), e.getErrorIndex());
                 }
                 return c2;
-            // invalid command no such command at all in case invalidCommand etcasdad
             default:
                 throw new IllegalArgumentException("Please input valid commands");
-
         }
     }
+
     private static int setEventTimingPos(String input, String regex) {
         int match;
         Pattern pattern = Pattern.compile(regex);
@@ -126,7 +151,6 @@ public class Parser {
         }
         return match;
     }
-    public static boolean isDisplayCommand(String input){
-        return input.equals("--commands");
-    }
+
+
 }

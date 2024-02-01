@@ -5,16 +5,24 @@ import UiRelated.Parser;
 import UiRelated.Storage;
 import UiRelated.Ui;
 import TaskList.TaskList;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-
-public class HASSTNT{
+/**
+ * The HASSTNT class represents the entry point to the program.
+ */
+public class HASSTNT {
 
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructs a HASSTNT object with the specified file path for storage.
+     *
+     * @param filePath The file path for storing tasks.
+     */
     public HASSTNT(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -27,13 +35,16 @@ public class HASSTNT{
         }
     }
 
+    /**
+     * Runs the application.
+     */
     public void run() {
         // Display welcome message
         ui.displayWelcomeMessage();
         // Continuously listen for user input
         while (true) {
             String userInput = ui.getUserInput();
-            if(Parser.IsexitCommand(userInput)){
+            if (Parser.isExitCommand(userInput)) {
                 ui.displayByeMessage();
                 try {
                     storage.saveTasks(tasks);
@@ -42,14 +53,14 @@ public class HASSTNT{
                 }
                 break;
             }
-            if(Parser.isDisplayCommand(userInput)){
+            if (Parser.isDisplayCommand(userInput)) {
                 ui.displayCommand();
             }
             // Process user input
             try {
                 // Parse user input and execute corresponding actions
                 Command c = Parser.parseInput(userInput);
-                c.execute(tasks,ui);
+                c.execute(tasks, ui);
             } catch (IllegalArgumentException e) {
                 // Handle any exceptions or errors
                 ui.displayErrorMessage(e.getMessage());
@@ -60,10 +71,10 @@ public class HASSTNT{
 
     }
 
-
+    /**
+     * The main method to start the application.
+     */
     public static void main(String[] args) {
-
         new HASSTNT("./src/list_log").run();
     }
 }
-
