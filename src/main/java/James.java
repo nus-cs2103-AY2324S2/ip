@@ -44,13 +44,11 @@ public class James {
                 if (isDone) todo.markAsDone();
                 return todo;
             case "D": // Deadline
-                // Assuming that the deadline part is after the third " | "
                 String by = parts[3].trim();
                 Deadline deadline = new Deadline(description, by);
                 if (isDone) deadline.markAsDone();
                 return deadline;
             case "E": // Event
-                // Assuming that the event time part is after the third " | " and includes "from" and "to"
                 String[] timeParts = parts[3].split(" to ");
                 String start = timeParts[0].substring(6).trim(); // Remove "from " prefix
                 String end = timeParts[1].trim();
@@ -124,12 +122,14 @@ public class James {
                         if (deadlineParts.length < 2 || deadlineParts[1].trim().isEmpty()) {
                             throw new DukeException("The deadline must include a time.");
                         }
-                        Deadline newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
-                        tasks.add(newDeadline);
-                        System.out.println("Got it. I've added this task:\n" + newDeadline);
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         try {
+                            Deadline newDeadline = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
+                            tasks.add(newDeadline);
+                            System.out.println("Got it. I've added this task:\n" + newDeadline);
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                             saveTasks(tasks);
+                        } catch (DukeException e) {
+                            System.out.println(e.getMessage());
                         } catch (IOException e) {
                             System.out.println("An error occurred while saving tasks: " + e.getMessage());
                         }
