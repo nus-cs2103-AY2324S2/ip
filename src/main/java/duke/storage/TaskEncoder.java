@@ -19,8 +19,8 @@ public class TaskEncoder {
         if (task instanceof Todo) {
             return String.format("T | %d | %s ", hasDoneInt, task.getDescription());
         } else if (task instanceof Deadline) {
-            return String.format("D | %d | %s | %s", hasDoneInt, task.getDescription(),
-                    ((Deadline) task).getDeadlineString());
+            return String.format("D | %d | %s | %s", hasDoneInt, task.getDescription(), (
+                    (Deadline) task).getDeadlineString());
         } else {
             Event event = (Event) task;
             return String.format("T | %d | %s | %s-%s", hasDoneInt, event.getDescription(),

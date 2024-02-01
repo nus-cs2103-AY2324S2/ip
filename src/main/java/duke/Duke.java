@@ -1,4 +1,5 @@
 package duke;
+import java.util.ArrayList;
 
 import duke.command.Command;
 import duke.common.TaskList;
@@ -8,7 +9,7 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.util.ArrayList;
+
 
 /**
  * The Duke program implements a chat bot that allows users to manage their tasks

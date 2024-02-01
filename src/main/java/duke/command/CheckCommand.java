@@ -1,5 +1,9 @@
 package duke.command;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import duke.common.TaskList;
 import duke.exception.DukeException;
 import duke.storage.Storage;
@@ -8,9 +12,6 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.ui.Ui;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents a check command initited by the user. <code>CheckCommand</code> would check for tasks due on a specific
@@ -18,12 +19,13 @@ import java.util.List;
  */
 public class CheckCommand extends Command {
     public static final String COMMAND_WORD = "check";
-    public static final String COMMAND_USAGE = "check: it checks whether there are any task due to a specific date.\n" +
-            "Example: check 2022-01-01";
+    public static final String COMMAND_USAGE = "check: it checks whether there are any task due to a specific date.\n"
+            + "Example: check 2022-01-01";
     private LocalDate checkDate;
 
     /**
      * Constructor of the CheckCommand
+     *
      * @param checkDate the date that the user wants to check
      */
     public CheckCommand(LocalDate checkDate) {
@@ -32,6 +34,7 @@ public class CheckCommand extends Command {
 
     /**
      * Checks the tasks due on a specific date and then display it to the user
+     *
      * @param taskList
      * @param ui
      * @param storage

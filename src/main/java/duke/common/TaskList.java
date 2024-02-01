@@ -1,8 +1,9 @@
 package duke.common;
+import java.util.List;
 
 import duke.task.Task;
 
-import java.util.List;
+
 
 /**
  * Represents the tasks created by the user and also implements methods to modify the tasks

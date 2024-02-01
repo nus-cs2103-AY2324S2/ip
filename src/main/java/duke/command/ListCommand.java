@@ -8,7 +8,7 @@ import duke.ui.Ui;
 /**
  * Represents a list command initiated by the user. <code>ListCommand</code> would list all tasks that the users have.
  */
-public class ListCommand  extends Command{
+public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
     public static final String COMMAND_USAGE = COMMAND_WORD + ":" + "list all tasks.\n" + "Example: " + COMMAND_WORD;
 

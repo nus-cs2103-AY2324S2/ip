@@ -11,11 +11,12 @@ import duke.ui.Ui;
  */
 public class ByeCommand extends Command {
     public static final String COMMAND_WORD = "bye";
-    public static final String COMMAND_USAGE = "bye: it would quit the chatbot and saves your tasks.\n" +
-            "Example: bye";
+    public static final String COMMAND_USAGE = "bye: it would quit the chatbot and saves your tasks.\n"
+            + "Example: bye";
 
     /**
      * Sets the variable representing whether the command wants to exit to true and save all tasks to the file
+     *
      * @param taskList
      * @param ui
      * @param storage

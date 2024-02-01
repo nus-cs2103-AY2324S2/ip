@@ -12,8 +12,8 @@ import duke.ui.Ui;
  */
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
-    public static final String COMMAND_USAGE = "mark: marks a task in the list as completed by taking a numerical value input.\n" +
-            "Example mark 1";
+    public static final String COMMAND_USAGE = "mark: marks a task in the list as completed by taking "
+            + "a numerical value input.\n" + "Example mark 1";
     private int taskNumber;
 
     /**

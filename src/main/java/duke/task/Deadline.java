@@ -13,22 +13,6 @@ public class Deadline extends Task {
     private String deadlineString;
 
     /**
-     * Returns the datetime of deadline
-     * @return the datetime of deadline
-     */
-    public LocalDateTime getDeadline() {
-        return deadline;
-    }
-
-    /**
-     * Returns a string representation of the datetime of deadline
-     * @return the string representation of the datetime of deadline
-     */
-    public String getDeadlineString() {
-        return deadlineString;
-    }
-
-    /**
      * Constructor of the Deadline object
      * @param description The description of the deadline
      * @param hasDone Whether the deadline is done
@@ -40,6 +24,22 @@ public class Deadline extends Task {
         super.setDescription(description);
         super.setHasDone(hasDone);
     }
+    /**
+     * Returns the datetime of deadline
+     * @return the datetime of deadline
+     */
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+    /**
+     * Returns a string representation of the datetime of deadline
+     * @return the string representation of the datetime of deadline
+     */
+    public String getDeadlineString() {
+        return deadlineString;
+    }
+
+
 
 
 

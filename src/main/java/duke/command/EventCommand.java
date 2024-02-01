@@ -1,5 +1,6 @@
 package duke.command;
 
+import java.time.LocalDateTime;
 
 import duke.common.Messages;
 import duke.common.TaskList;
@@ -8,24 +9,24 @@ import duke.storage.Storage;
 import duke.task.Event;
 import duke.ui.Ui;
 
-import java.time.LocalDateTime;
 
 /**
  * Represents an event command initiated by the user. <code>EventCommand</code> would create an event task
  */
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
-    public static final String COMMAND_USAGE = "event: it creates an event task.\n" +
-            "Example: event foo /from 2022-01-01 10:00 /to 2022-01-01 18:00";
+    public static final String COMMAND_USAGE = "event: it creates an event task.\n"
+            + "Example: event foo /from 2022-01-01 10:00 /to 2022-01-01 18:00";
     private String description;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
     /**
      * Constructor of the event command
+     *
      * @param description The description of the event
-     * @param startDate The start date of the event
-     * @param endDate The end date of the event
+     * @param startDate   The start date of the event
+     * @param endDate     The end date of the event
      */
     public EventCommand(String description, LocalDateTime startDate, LocalDateTime endDate) {
         this.description = description;
@@ -35,6 +36,7 @@ public class EventCommand extends Command {
 
     /**
      * Creates an event task and add it to the TaskList, then show the result to the user.
+     *
      * @param taskList
      * @param ui
      * @param storage

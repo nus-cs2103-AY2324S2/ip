@@ -1,12 +1,13 @@
 package duke.ui;
-
-import duke.common.TaskList;
-import duke.task.Task;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
+
+import duke.common.TaskList;
+import duke.task.Task;
+
+
 
 /**
  * The Ui class implements methods that display result to users with given format and read input from the user
@@ -69,9 +70,9 @@ public class Ui {
      */
     public void showNewTask(Task task, TaskList taskList) {
         System.out.println(DIVIDER);
-        System.out.printf("Got it. I've added this task:\n" +
-                "%s\n" +
-                "Now you have %d tasks in the list%n", task, taskList.getListSize());
+        System.out.printf("Got it. I've added this task:\n"
+                + "%s\n"
+                + "Now you have %d tasks in the list%n", task, taskList.getListSize());
         System.out.println(DIVIDER);
     }
 
@@ -105,9 +106,9 @@ public class Ui {
      */
     public void showDeleteTask(Task task, TaskList taskList) {
         System.out.println(DIVIDER);
-        System.out.println("Noted. I've removed this task:\n" +
-                " " + task + "\n" +
-                "Now you have " + taskList.getListSize() + " tasks in the list");
+        System.out.println("Noted. I've removed this task:\n"
+                + " " + task + "\n"
+                + "Now you have " + taskList.getListSize() + " tasks in the list");
         System.out.println(DIVIDER);
     }
 
@@ -135,7 +136,7 @@ public class Ui {
      * @param tasks
      */
     private void showListView(List<Task> tasks) {
-        for(int i = 0; i< tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.println(i + 1 + "." + " " + tasks.get(i));
         }
     }

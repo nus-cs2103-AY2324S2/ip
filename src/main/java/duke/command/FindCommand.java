@@ -1,14 +1,16 @@
 package duke.command;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import duke.common.TaskList;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.ui.Ui;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 /**
  * Represents a find command initiated by the user. <code>FindCommand</code> would find tasks that match a keyword

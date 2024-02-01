@@ -15,8 +15,8 @@ import duke.ui.Ui;
  */
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
-    public static final String COMMAND_USAGE = "unmark: marks a task in the list as uncompleted by taking a numerical value input.\n" +
-            "Example mark 1";
+    public static final String COMMAND_USAGE = "unmark: marks a task in the list as uncompleted by taking"
+            + " a numerical value input.\n" + "Example mark 1";
     private int taskNumber;
 
     /**

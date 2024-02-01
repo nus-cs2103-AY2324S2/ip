@@ -1,4 +1,9 @@
 package duke.storage;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import duke.common.Messages;
 import duke.exception.StorageOperationException;
@@ -7,11 +12,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 /**
  * The TaskDecoder class implements a method that would decode string and parse it into Task object
@@ -21,8 +22,8 @@ public class TaskDecoder {
             "D \\| (?<hasDone>(0|1)) \\| (?<taskDescription>.*) \\| (?<deadline>.*)");
     private static final Pattern TODO_SAVE_FORMAT = Pattern.compile(
             "T \\| (?<hasDone>(0|1)) \\| (?<taskDescription>.*)");
-    private static final Pattern EVENT_SAVE_FORMAT = Pattern.compile("E \\| (?<hasDone>(0|1)) \\|" +
-            " (?<taskDescription>.*) \\| (?<startDate>.*)\\-(?<endDate>.*)");
+    private static final Pattern EVENT_SAVE_FORMAT = Pattern.compile("E \\| (?<hasDone>(0|1)) \\|"
+            + " (?<taskDescription>.*) \\| (?<startDate>.*)\\-(?<endDate>.*)");
     private static final DateTimeFormatter datetimeFormatter = DateTimeFormatter.ofPattern("MM dd yyyy HH:mm");
 
     /**

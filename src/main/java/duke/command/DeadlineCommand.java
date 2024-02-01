@@ -1,19 +1,20 @@
 package duke.command;
+import java.time.LocalDateTime;
 
 import duke.common.TaskList;
 import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.ui.Ui;
 
-import java.time.LocalDateTime;
+
 
 /**
  * Represents a deadline command initiated by the user. <code>DeadLineCommand</code> would creates a deadline task
  */
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
-    public static final String COMMAND_USAGE = "deadline: it creates a deadline task \n" +
-            "Example: deadline SU 2103T /by 2024-02-06 18:00";
+    public static final String COMMAND_USAGE = "deadline: it creates a deadline task \n"
+            + "Example: deadline SU 2103T /by 2024-02-06 18:00";
     private String description;
     private LocalDateTime deadline;
 

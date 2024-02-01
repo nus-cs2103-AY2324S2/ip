@@ -3,7 +3,6 @@ package duke.command;
 
 import duke.common.Messages;
 import duke.common.TaskList;
-import duke.exception.DukeException;
 import duke.exception.InvalidInputException;
 import duke.storage.Storage;
 import duke.task.Task;
@@ -15,12 +14,13 @@ import duke.ui.Ui;
  */
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
-    public static final String COMMAND_USAGE = "delete: delete a task on the list.\n" +
-            "Example: delete 1";
+    public static final String COMMAND_USAGE = "delete: delete a task on the list.\n"
+            + "Example: delete 1";
     private int taskNumber;
 
     /**
      * Constructor of the DeleteCommand
+     *
      * @param taskNumber The task number in the list to be deleted
      */
     public DeleteCommand(int taskNumber) {
@@ -29,6 +29,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Deletes a task in the list with corresponding list number
+     *
      * @param taskList
      * @param ui
      * @param storage

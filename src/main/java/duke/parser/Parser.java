@@ -1,4 +1,10 @@
 package duke.parser;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import duke.command.ByeCommand;
 import duke.command.CheckCommand;
@@ -15,12 +21,7 @@ import duke.common.Messages;
 import duke.exception.InvalidCommandFormatException;
 import duke.exception.UnknownCommandException;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 /**
  * The Parser class implements a method that would parse the user input into Command
@@ -35,9 +36,10 @@ public class Parser {
 
     /**
      * Returns a Command object by parsing the user input using pre-defined pattern
+     *
      * @param input The user input
      * @return The Command object that is parsed using the input
-     * @throws UnknownCommandException If user key in command word that is not defined
+     * @throws UnknownCommandException       If user key in command word that is not defined
      * @throws InvalidCommandFormatException If user entered command with incorrect format
      */
     public static Command parse(String input) throws UnknownCommandException, InvalidCommandFormatException {

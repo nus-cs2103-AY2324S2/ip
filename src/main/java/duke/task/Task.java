@@ -8,6 +8,19 @@ public class Task {
     private String description;
     private boolean hasDone;
 
+    public Task() {
+
+    }
+
+    /**
+     * Constructor of the task
+     * @param description the description of the task
+     */
+    public Task(String description) {
+        this.description = description;
+        this.hasDone = false;
+    }
+
     /**
      * Returns the description of the task
      * @return the description of the task
@@ -28,18 +41,9 @@ public class Task {
         return hasDone;
     }
 
-    public Task() {
 
-    }
 
-    /**
-     * Constructor of the task
-     * @param description the description of the task
-     */
-    public Task(String description) {
-        this.description = description;
-        this.hasDone = false;
-    }
+
 
     /**
      * Setter of whether the task is done
