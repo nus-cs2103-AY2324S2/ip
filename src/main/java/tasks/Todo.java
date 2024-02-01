@@ -1,3 +1,5 @@
+package tasks;
+
 public class Todo extends Task{
     public Todo(boolean done, String name){
         super(done, name);

@@ -1,3 +1,14 @@
+package duke;
+
+import exceptions.DukeEmptyArgumentException;
+import exceptions.DukeErroneousArgumentException;
+import exceptions.DukeInvalidInputException;
+import exceptions.DukeWrongDateOrderException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.TaskList;
+import tasks.Todo;
+
 import java.io.IOException;
 import java.time.DateTimeException;
 
@@ -61,7 +72,7 @@ public class Parser {
 
             tasks.add(new Todo(n));
 
-            // Deadline
+            // tasks.Deadline
         } else if (s.startsWith("deadline")) {
             // Try to get the index of the first '/', if it does not exist, the statement is invalid.
             // Also, it should adhere to "/by"
@@ -81,7 +92,7 @@ public class Parser {
 
             tasks.add(new Deadline(n, t));
 
-            // Event
+            // tasks.Event
         } else if (s.startsWith("event")) {
             // Try to get the index of the first  and second '/', if it does not exist, the statement is invalid.
             // Also, the format should adhere to "/from" and "/to"

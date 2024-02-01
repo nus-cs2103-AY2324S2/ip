@@ -1,3 +1,7 @@
+package duke;
+
+import tasks.TaskList;
+
 public class Duke {
     private Storage storage;
     private TaskList tasks = new TaskList();
