@@ -1,10 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class Event extends Task {
-    public Optional<String> fromDate;
-    public Optional<String> toDate;
+    public Optional<LocalDateTime> fromDate;
+    public Optional<LocalDateTime> toDate;
 
     Event(String name) {
         super(name);
@@ -14,8 +16,8 @@ public class Event extends Task {
 
     Event(String name, boolean isDone, String fromString, String toString) {
         super(name, isDone);
-        this.fromDate = Optional.of(fromString);
-        this.toDate = Optional.of(toString);
+        this.fromDate = Optional.of(this.parseDate(fromString));
+        this.toDate = Optional.of(this.parseDate(toString));
     }
 
     Event(String name, String fromString, String toString) {
@@ -43,19 +45,31 @@ public class Event extends Task {
     }
     
     public void setFromDate(String fromDate) {
-        this.fromDate = Optional.of(fromDate);
+        this.fromDate = Optional.of(this.parseDate(fromDate));
     }
 
     public void setToDate(String toDate) {
-        this.toDate = Optional.of(toDate);
+        this.toDate = Optional.of(this.parseDate(toDate));
     }
 
     public String getFromDate() {
-        return this.fromDate.orElse("");
+        return this.fromDate.map(
+            d -> d.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME_FORMAT))).orElse(""
+            );
     }
 
     public String getToDate() {
-        return this.toDate.orElse("");
+        return this.toDate.map(
+            d -> d.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME_FORMAT))).orElse(""
+            );
+    }
+
+    protected String getFromDateIso() {
+        return this.fromDate.map(d -> d.toString()).orElse("");
+    }
+
+    protected String getToDateIso() {
+        return this.toDate.map(d -> d.toString()).orElse("");
     }
 
     protected ArrayList<String> exportDataAsArray() {
