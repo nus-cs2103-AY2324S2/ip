@@ -1,7 +1,4 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.io.*;
+import java.io.IOException;
 
 public class Duke {
     public static void main(String[] args) throws TaskNotFoundException, UnknownCommandException,
@@ -18,5 +15,4 @@ public class Duke {
             isExit = parser.parse(input, taskList, ui, storage);
         }
     }
-
 }

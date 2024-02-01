@@ -1,6 +1,6 @@
 public class Task {
     private String description;
-    protected boolean isDone;
+    private boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -17,18 +17,12 @@ public class Task {
 
     public void mark() {
         isDone = true;
-        System.out.println("__________________________________________________________\n"
-                + "Nice! I've marked this task as done:\n"
-                + toString()
-                + "\n__________________________________________________________\n");
+        System.out.println(Ui.LINE + "Nice! I've marked this task as done:\n" + toString() + Ui.LINE);
     }
 
     public void unmark() {
         isDone = false;
-        System.out.println("__________________________________________________________\n"
-                + "OK, I've marked this task as not done yet:\n"
-                + toString()
-                + "\n__________________________________________________________\n");
+        System.out.println(Ui.LINE + "OK, I've marked this task as not done yet:\n" + toString() + Ui.LINE);
     }
 
     @Override

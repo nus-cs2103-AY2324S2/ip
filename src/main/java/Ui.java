@@ -1,21 +1,13 @@
 import java.util.Scanner;
 
 public class Ui {
+    public static final String LINE = "__________________________________________________________\n";
     public void welcome() {
-        System.out.println(
-                "__________________________________________________________\n"
-                        + "Hello! I'm KitchenSink!\n"
-                        + "What can I do for you?\n"
-                        + "__________________________________________________________\n"
-        );
+        System.out.println(LINE + "Hello! I'm KitchenSink!\n" + "What can I do for you?\n" + LINE);
     }
 
     public void sayGoodBye() {
-        System.out.println(
-                "__________________________________________________________\n"
-                        + "Bye. Hope to see you again soon!\n"
-                        + "__________________________________________________________"
-        );
+        System.out.println(LINE + "Bye. Hope to see you again soon!\n" + LINE);
     }
 
     public String readInput() {

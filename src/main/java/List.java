@@ -1,8 +1,5 @@
-import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class List {
     private ArrayList<Task> tasks;
@@ -14,31 +11,29 @@ public class List {
     public void addTask(Task task, Storage storage) throws IOException {
         tasks.add(task);
         String task_s = tasks.size() == 1 ? " task " : " tasks ";
-        System.out.println("__________________________________________________________\n"
+        System.out.println(Ui.LINE
                 + "Got it. I've added this task:\n"
                 + task.toString()
                 + "\nNow you have " + tasks.size() + task_s + "in the list.\n"
-                + "__________________________________________________________\n");
+                + Ui.LINE);
         storage.saveTasks(this);
     }
 
     public void displayTasks() {
-        System.out.println("__________________________________________________________\n"
-                + "Here are the tasks in your list:"
-        );
+        System.out.println(Ui.LINE + "Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i).toString());
         }
-        System.out.println("__________________________________________________________\n");
+        System.out.println(Ui.LINE);
     }
 
     public void deleteTask(int taskNum, Storage storage) throws IOException {
         String task_s = tasks.size() - 1 == 1 ? " task " : " tasks ";
-        System.out.println("__________________________________________________________\n"
+        System.out.println(Ui.LINE
                 + "Noted. I've removed this task:\n"
                 + tasks.get(taskNum).toString()
                 + "\nNow you have " + (tasks.size() - 1) + task_s + "in the list.\n"
-                + "__________________________________________________________\n");
+                + Ui.LINE);
         storage.saveTasks(this);
     }
 

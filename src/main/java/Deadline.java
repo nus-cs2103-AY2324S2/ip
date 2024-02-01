@@ -5,7 +5,6 @@ public class Deadline extends Task {
 
     public Deadline(String description, LocalDateTime dueDate) {
         super(description);
-        super.isDone = false;
         this.dueDate = dueDate;
     }
 
