@@ -36,7 +36,7 @@ public class AddEventCommand extends Command {
      *
      * @param tasks The TaskList Object that contains a List of Task.
      * @param ui The Ui Object that interact with the user.
-     * @param storage storage Storage Manager to writing to the file.
+     * @param storage Storage Manager to writing to the file.
      * @throws DukeException If there is missing description or invalid date and time for 'start' and 'end'.
      */
     @Override
