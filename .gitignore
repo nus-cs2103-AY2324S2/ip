@@ -13,6 +13,9 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# VS code files
+.vscode
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
