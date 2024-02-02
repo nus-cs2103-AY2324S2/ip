@@ -1,3 +1,9 @@
+package thecount;
+
+import thecount.storage.Storage;
+import thecount.task.TaskList;
+import thecount.ui.Ui;
+
 public class TheCount {
 
     private Storage loader;

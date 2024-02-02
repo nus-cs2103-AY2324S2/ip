@@ -1,3 +1,5 @@
+package thecount.ui;
+
 public class Goodbye extends Reply {
 
     public Goodbye() {

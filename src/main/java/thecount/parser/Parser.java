@@ -1,5 +1,15 @@
+package thecount.parser;
+
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import thecount.storage.Storage;
+import thecount.task.TaskList;
+import thecount.task.ToDo;
+import thecount.task.Deadline;
+import thecount.task.Event;
+import thecount.ui.Goodbye;
+import thecount.ui.Reply;
+import thecount.exception.TheCountException;
 
 public class Parser {
     private TaskList tasks;
@@ -154,7 +164,7 @@ public class Parser {
                 info = userInput.split("\\s+", 2)[1].split(delimiter)[0].trim();
             }
             if (info.isEmpty()) {
-                // Throw an exception if task information is not provided
+                // Throw an the_count.exception if the_count.task information is not provided
                 throw new TheCountException("Description of activity cannot be empty.");
             }
             return info;

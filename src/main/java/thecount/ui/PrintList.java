@@ -1,4 +1,7 @@
+package thecount.ui;
+
 import java.util.ArrayList;
+import thecount.task.Task;
 
 public class PrintList extends Reply {
     private ArrayList<Task> tasks;
@@ -22,7 +25,8 @@ public class PrintList extends Reply {
         String message = "";
         for (int i = 0; i < tasks.size(); i++) {
             Task currTask = tasks.get(i);
-            String taskLine = (i + 1) + " | " + currTask.getType() + " | " + (currTask.isDone() ? 1 : 0) + " | " + currTask.getDesc();
+            String taskLine = (i + 1) + " | " + currTask.getType() + " | " +
+                    (currTask.isDone() ? 1 : 0) + " | " + currTask.getDesc();
             message = message.concat( taskLine + "\n");
         }
         return message;

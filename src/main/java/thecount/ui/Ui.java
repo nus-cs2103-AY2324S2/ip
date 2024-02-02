@@ -1,3 +1,9 @@
+package thecount.ui;
+
+import thecount.parser.Parser;
+import thecount.storage.Storage;
+import thecount.task.TaskList;
+
 public class Ui {
     private Parser parser;
     private Storage loader;

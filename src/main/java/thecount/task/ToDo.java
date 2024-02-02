@@ -1,3 +1,8 @@
+package thecount.task;
+
+import thecount.ui.AddToListReply;
+import thecount.ui.Reply;
+
 public class ToDo extends Task {
     public ToDo (String description) {
         super(description);

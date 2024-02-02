@@ -1,3 +1,8 @@
+package thecount.task;
+
+import thecount.ui.AddToListReply;
+import thecount.ui.Reply;
+
 public class Event extends Task {
     private String startTime;
     private String endTime;

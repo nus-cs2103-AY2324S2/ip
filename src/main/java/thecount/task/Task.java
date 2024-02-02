@@ -1,3 +1,8 @@
+package thecount.task;
+
+import thecount.ui.AddToListReply;
+import thecount.ui.Reply;
+
 public class Task {
     private String description;
     private boolean isDone;
@@ -8,7 +13,7 @@ public class Task {
     }
 
     private String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done the_count.task with X
     }
 
     public boolean isDone() {
@@ -29,7 +34,7 @@ public class Task {
     }
 
     public String getType() {
-        return "Task";
+        return " ";
     }
 
     public String getDesc() {

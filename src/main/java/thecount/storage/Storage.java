@@ -1,6 +1,14 @@
+package thecount.storage;
+
 import java.io.*;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
+import thecount.task.TaskList;
+import thecount.task.ToDo;
+import thecount.task.Deadline;
+import thecount.task.Event;
+import thecount.exception.TheCountException;
 
 public class Storage {
     private static final String DATAFILE_PATH = "./data/the-count.txt";
