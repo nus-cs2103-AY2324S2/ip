@@ -37,9 +37,8 @@ public class Deadline extends Task {
         replyToUser.displayMessage();
     }
 
-    private void handleException(Exception e) {
-        Reply errorMsg = new Reply(e.getMessage());
-        errorMsg.displayMessage();
+    public String getDeadlineTime() {
+        return this.deadlineTime.toString();
     }
 
     @Override
