@@ -15,14 +15,23 @@ public class Task {
     protected LocalDate endDate;
     protected char taskType;
 
-    // To-do
+    /**
+     * Constructor for To-do type task.
+     * @param done Doneness of task.
+     * @param description Description of task.
+     */
     public Task(boolean done, String description) {
         this.description = description;
         this.isDone = done;
         this.taskType = 'T';
     }
 
-    // Deadline
+    /**
+     * Constructor for Deadline type task.
+     * @param done Doneness of task.
+     * @param description Description of task.
+     * @param end End date of task, aka deadline day.
+     */
     public Task(boolean done, String description, LocalDate end) {
         this.description = description;
         this.isDone = done;
@@ -30,7 +39,13 @@ public class Task {
         this.taskType = 'D';
     }
 
-    // Event
+    /**
+     * Constructor for Event type task.
+     * @param done Doneness of task.
+     * @param description Description of task.
+     * @param start Start date of Event.
+     * @param end End date of Event.
+     */
     public Task(boolean done, String description, LocalDate start, LocalDate end) {
         this.description = description;
         this.isDone = done;
