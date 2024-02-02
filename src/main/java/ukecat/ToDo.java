@@ -1,4 +1,4 @@
-package ukecat.task;
+package ukecat;
 
 public class ToDo extends Task {
 

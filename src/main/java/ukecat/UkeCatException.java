@@ -1,4 +1,4 @@
-package ukecat.exceptions;
+package ukecat;
 
 public class UkeCatException extends Exception {
     public UkeCatException(String msg) {

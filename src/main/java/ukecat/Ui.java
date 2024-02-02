@@ -1,7 +1,4 @@
-package ukecat.command;
-
-import ukecat.data.Storage;
-import ukecat.enums.MarkType;
+package ukecat;
 
 // Based on the parsed input, generate a response
 public class Ui {

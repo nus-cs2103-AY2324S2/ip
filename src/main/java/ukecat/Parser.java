@@ -1,8 +1,4 @@
-package ukecat.command;
-
-import ukecat.data.Storage;
-import ukecat.exceptions.UkeCatException;
-import ukecat.task.*;
+package ukecat;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -86,16 +82,16 @@ public class Parser {
         }
     }
 
-    // ukecat.task.ToDo: T, 0/1, desc
-    // ukecat.task.Deadline: D, 0/1, desc, by
-    // ukecat.task.Event: E, 0/1, desc, from, to
+    // ukecat.ToDo: T, 0/1, desc
+    // ukecat.Deadline: D, 0/1, desc, by
+    // ukecat.Event: E, 0/1, desc, from, to
     public static String parseTaskToCsv(Task t) {
         if (t instanceof ToDo) {
             return String.format("T,%d,%s", t.getIntIsDone(), t.getDescription());
         } else if (t instanceof Deadline) {
             Deadline x = (Deadline) t;
             return String.format("D,%d,%s,%s", t.getIntIsDone(), t.getDescription(), x.getBy());
-        } else { // instanceof ukecat.task.Event
+        } else { // instanceof ukecat.Event
             Event x = (Event) t;
             return String.format("E,%d,%s,%s,%s", t.getIntIsDone(), t.getDescription(),
                     x.getStart(), x.getEnd());

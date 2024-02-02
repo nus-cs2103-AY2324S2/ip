@@ -1,4 +1,4 @@
-package ukecat.task;
+package ukecat;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

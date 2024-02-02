@@ -1,4 +1,4 @@
-package ukecat.enums;
+package ukecat;
 
 public enum MarkType {
     MARK, UNMARK;

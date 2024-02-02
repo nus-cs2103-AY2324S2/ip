@@ -1,31 +1,31 @@
 UkeCat:
-- ukecat.data.Storage: to store info on user input and tasks
+- ukecat.Storage: to store info on user input and tasks
 - Parses user input
 - Responds accordingly in the output
 
-ukecat.command.Parser:
+ukecat.Parser:
 - Parses the initial user input, stores info in storage
 
-ukecat.command.Ui:
+ukecat.Ui:
 - Based on input, respond or call for further parsing
 - Can give default replies
 - Can ask storage to add / remove tasks
 - Can ask storage to mark / unmark tasks
 
-ukecat.data.Storage:
+ukecat.Storage:
 - Stores input
 - Stores tasks in an ArrayList
 - Can call parser to help with generating required info
 - Has methods to add or give additional info on tasks
 
-ukecat.data.FileManager:
+ukecat.FileManager:
 - Loads data on startup
 - Updates data when add/delete/mark tasks
 
 Task:
-- ukecat.task.ToDo
-- ukecat.task.Deadline
-- ukecat.task.Event
+- ukecat.ToDo
+- ukecat.Deadline
+- ukecat.Event
 
-ukecat.exceptions.UkeCatException:
+ukecat.UkeCatException:
 - Custom exceptions -> Will print out my manually written messages

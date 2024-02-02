@@ -1,5 +1,4 @@
-package ukecat.task;
-import ukecat.enums.MarkType;
+package ukecat;
 
 public abstract class Task {
     private String description;

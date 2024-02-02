@@ -1,11 +1,4 @@
-package ukecat.data;
-
-import ukecat.command.Parser;
-import ukecat.enums.MarkType;
-import ukecat.exceptions.UkeCatException;
-import ukecat.task.Deadline;
-import ukecat.task.Event;
-import ukecat.task.*;
+package ukecat;
 
 import java.util.ArrayList;
 import java.time.LocalDate;
@@ -15,7 +8,7 @@ import java.time.LocalDate;
 // Parsed user input
 // Array to hold tasks
 public class Storage {
-    // ukecat.data.Storage from input
+    // ukecat.Storage from input
     public static String input; // user input
     public static String[] words; // split words using
     public static String desc; // for any task
@@ -25,7 +18,7 @@ public class Storage {
 
     // Tasks
     private static final ArrayList<Task> tasks = new ArrayList<>();
-    private static int numT = 0;
+    public static int numT = 0;
 
     public static ArrayList<Task> getTasks() {
         return tasks;
