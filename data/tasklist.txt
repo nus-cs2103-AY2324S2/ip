@@ -1,8 +1,8 @@
-T,1,read book
-E,0,group meeting ,2024-01-26,2024-01-26
-D,0,3230 written assignmrnt ,2024-02-09
+D,1,3230 written assignmrnt ,2024-02-09
 E,0,sem2 ,2024-01-10,2024-05-04
 D,1,2109ps0 ,2024-01-24
-E,0,hackathon ,2024-01-20,2024-01-27
-T,1,sleep
-E,0,presentation ,2024-02-01,2024-02-02
+E,1,hackathon ,2024-01-20,2024-01-27
+T,0,sleep
+E,1,presentation ,2024-02-01,2024-02-02
+E,0,group meeting ,2024-02-04,2024-02-04
+D,0,2102 ER diagram ,2024-02-12
