@@ -2,9 +2,9 @@ abstract public class Task {
     private String description;
     private boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
@@ -25,4 +25,10 @@ abstract public class Task {
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
+
+    public String formatTask() {
+        return (this.isDone ? "1" : "0") + " | " + this.description;
+    }
+
+    public abstract String formatData();
 }

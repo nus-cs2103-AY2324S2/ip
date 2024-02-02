@@ -8,7 +8,8 @@ public class Shon {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        TodoList list = new TodoList();
+        FileManager data = new FileManager("./data/Shon.txt");
+        TodoList list = data.loadList();
 
         print("Hello! I'm Shon", "What can I do for you?");
         String input = scanner.nextLine();
@@ -42,6 +43,7 @@ public class Shon {
                         print(deleteEvent(input, list));
                         break;
                 }
+                data.updateData(list.formatData());
             } catch (ParameterException | CommandException e) {
                 print(e.getMessage());
             }
