@@ -15,6 +15,8 @@ public class Storage {
     private static Path PATH_DIR;
     private static Path PATH_FILE;
 
+    public Storage() {}
+
     public Storage(String dir, String name) {
         String userDir = System.getProperty("user.dir");
         PATH_DIR = Paths.get(userDir + dir);

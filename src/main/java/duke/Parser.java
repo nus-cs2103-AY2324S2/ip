@@ -63,7 +63,7 @@ public class Parser {
 
     public TaskList addTask(String s, TaskList tasks) {
         // Todo_
-        if (s.startsWith("todo")) {
+        if (s.startsWith("todo ")) {
             // Get name and if it is empty, throw exception
             String n = s.substring(5);
             if (n.isEmpty()) {
@@ -73,19 +73,19 @@ public class Parser {
             tasks.add(new Todo(n));
 
             // tasks.Deadline
-        } else if (s.startsWith("deadline")) {
+        } else if (s.startsWith("deadline ")) {
             // Try to get the index of the first '/', if it does not exist, the statement is invalid.
             // Also, it should adhere to "/by"
             int first = s.indexOf('/');
-            if (first == -1 || s.length() < first + 14) {
+            if (first == -1) {
                 throw new DukeErroneousArgumentException();
-            } else if (!s.startsWith("/by", first)) {
+            } else if (!s.startsWith("/by ", first)) {
                 throw new DukeErroneousArgumentException();
             }
 
             // Get name and time. If empty, throw exception
-            String n = s.substring(9, first);
-            String t = s.substring(first + 4, first + 14);
+            String n = s.substring(9, Math.max(first - 1, 9));
+            String t = s.substring(first + 4);
             if (n.isEmpty() || t.isEmpty()) {
                 throw new DukeEmptyArgumentException();
             }
@@ -93,21 +93,21 @@ public class Parser {
             tasks.add(new Deadline(n, t));
 
             // tasks.Event
-        } else if (s.startsWith("event")) {
+        } else if (s.startsWith("event ")) {
             // Try to get the index of the first  and second '/', if it does not exist, the statement is invalid.
             // Also, the format should adhere to "/from" and "/to"
             int first = s.indexOf('/');
             int second = s.indexOf('/', first + 1);
-            if (first == -1 || second != first + 17 || s.length() < second + 14) {
+            if (first == -1) {
                 throw new DukeErroneousArgumentException();
-            } else if (!s.startsWith("/from", first)
-                    || !s.startsWith("/to", second)) {
+            } else if (!s.startsWith("/from ", first)
+                    || !s.startsWith("/to ", second)) {
                 throw new DukeErroneousArgumentException();
             }
 
-            String n = s.substring(6, first - 1);
-            String f = s.substring(first + 6,  second - 1);
-            String t = s.substring(second + 4, second + 14);
+            String n = s.substring(6, Math.max(first - 1, 6));
+            String f = s.substring(first + 6,  Math.max(second - 1, first + 6));
+            String t = s.substring(second + 4);
             if (n.isEmpty() || f.isEmpty() || t.isEmpty()) {
                 throw new DukeEmptyArgumentException();
             }

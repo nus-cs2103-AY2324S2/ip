@@ -31,11 +31,29 @@ public class Event extends Task {
                 , this.to.format(DateTimeFormatter.ISO_LOCAL_DATE));
     }
 
+    @Override
     public String toString() {
         return String.format("[E][%s] %s (from: %s to: %s)\n"
                 , this.done ? "X" : " "
                 , this.name
                 , this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
                 , this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Event event = (Event) obj;
+        return this.name.equals(event.name)
+                && this.done == event.done
+                && this.from.equals(event.from)
+                && this.to.equals(event.to);
     }
 }

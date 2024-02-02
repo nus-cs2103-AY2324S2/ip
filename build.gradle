@@ -11,6 +11,8 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    testImplementation "org.mockito:mockito-inline:3.+"
+    testImplementation "org.mockito:mockito-junit-jupiter:3.+"
 }
 
 test {
@@ -39,4 +41,12 @@ shadowJar {
 
 run{
     standardInput = System.in
+}
+
+sourceSets {
+    test {
+        java {
+            srcDirs = ['src/test']
+        }
+    }
 }

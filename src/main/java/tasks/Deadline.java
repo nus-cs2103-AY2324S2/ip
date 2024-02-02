@@ -25,10 +25,27 @@ public class Deadline extends Task {
                 , this.time.format(DateTimeFormatter.ISO_LOCAL_DATE));
     }
 
+    @Override
     public String toString() {
         return String.format("[D][%s] %s (by: %s)\n"
                 , this.done ? "X" : " "
                 , this.name
                 , this.time.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Deadline deadline = (Deadline) obj;
+        return this.name.equals(deadline.name)
+                && this.done == deadline.done
+                && this.time.equals(deadline.time);
     }
 }

@@ -15,7 +15,22 @@ public class Todo extends Task{
                 , this.name);
     }
 
+    @Override
     public String toString() {
         return String.format("[T][%s] %s\n", this.done ? "X" : " ", this.name);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Todo todo = (Todo) obj;
+        return this.name.equals(todo.name) && this.done == todo.done;
     }
 }

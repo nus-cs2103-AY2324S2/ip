@@ -89,4 +89,21 @@ public class TaskList {
                 .map(Task::toSavedString)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        TaskList tl = (TaskList) obj;
+
+        return this.list.equals(tl.list);
+    }
+
+
 }
