@@ -35,7 +35,7 @@ public class UnmarkCommand extends Command {
      * @inheriDocs The UnmarkCommand does not indicate the exit of the program.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

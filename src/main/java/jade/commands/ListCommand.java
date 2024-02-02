@@ -12,12 +12,14 @@ import jade.storage.Storage;
  * It is also optional for the user to specify a date for listing all tasks on that date.
  */
 public class ListCommand extends Command {
-    private LocalDate selectedDate; // the user specified date for listing all tasks
+    private final LocalDate selectedDate; // the user specified date for listing all tasks
 
     /**
      * Class constructor initializing the selected date as null.
      */
-    public ListCommand() { this.selectedDate = null; }
+    public ListCommand() {
+        this.selectedDate = null;
+    }
 
     /**
      * Another Class constructor specifying the selected date.
@@ -53,8 +55,7 @@ public class ListCommand extends Command {
                 count++;
             }
         }
-        if (count == 0) {
-            // case when there are no tasks on the selected date
+        if (selectedDate != null && count == 0) {
             ui.printMessage(String.format("\tThere are no tasks on %s", selectedDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))));
         } else {
             ui.printMessage((sb.toString()));
@@ -65,7 +66,7 @@ public class ListCommand extends Command {
      * @inheriDocs The ListCommand does not indicate the exit of the program.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

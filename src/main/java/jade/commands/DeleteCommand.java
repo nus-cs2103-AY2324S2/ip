@@ -36,7 +36,7 @@ public class DeleteCommand extends Command{
      * @inheriDocs The DeleteCommand does not indicate the exit of the program.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

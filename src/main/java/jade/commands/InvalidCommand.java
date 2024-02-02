@@ -30,7 +30,7 @@ public class InvalidCommand extends Command {
      * @inheriDocs The InvalidCommand does not indicate the exit of the program.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

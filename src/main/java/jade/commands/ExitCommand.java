@@ -22,7 +22,7 @@ public class ExitCommand extends Command{
      * @inheriDocs The ExitCommand indicates the exit of the program.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return true;
     }
 }

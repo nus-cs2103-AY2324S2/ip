@@ -52,7 +52,7 @@ public class Jade {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
                 c.execute(taskList, ui, storage);
-                exitProg = c.isExit();
+                exitProg = c.shouldExit();
             } catch (JadeException e) {
                 ui.showError(e.getMessage());
             }

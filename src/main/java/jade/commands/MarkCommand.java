@@ -35,7 +35,7 @@ public class MarkCommand extends Command {
      * @inheriDocs The MarkCommand does not indicate the exit of the program.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

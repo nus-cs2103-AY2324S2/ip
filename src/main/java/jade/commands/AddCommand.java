@@ -32,7 +32,7 @@ public class AddCommand extends Command {
      * @inheriDocs The AddCommand does not indicate the exit of the program.
      */
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }
