@@ -17,7 +17,7 @@ public class TaskList {
         return t;
     }
 
-    public int size() {
+    public int getSize() {
         return getLs().size();
     }
 
@@ -26,6 +26,7 @@ public class TaskList {
     }
 
     public void remove(int taskNumtoRemove) {
-        getLs().remove(taskNumtoRemove);
+        getLs().
+                remove(taskNumtoRemove);
     }
 }

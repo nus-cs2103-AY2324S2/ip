@@ -22,7 +22,9 @@ public class Task {
     }
 
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "["
+                + getStatusIcon() + "] "
+                + description;
     }
     public void mark() {
         this.isDone = true;

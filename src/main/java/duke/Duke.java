@@ -2,12 +2,15 @@ package duke;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import java.lang.reflect.Field;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -32,10 +35,11 @@ public class Duke {
             if (command.equals("list")) {
                 System.out.println("Here're the tasks in ur list:");
                 int counter = 0;
-                for (int i = 0; i < ls.size(); i++) {
+                for (int i = 0; i < ls.getSize(); i++) {
                     counter++;
                     Task tk = ls.get(i);
-                    System.out.println(counter + ". " + tk.toString());
+                    System.out.println(counter + ". "
+                            + tk.toString());
                 }
                 ui.divider();
                 command = myCom.nextLine();
@@ -101,7 +105,8 @@ public class Duke {
                 }
                 else if (cmd[0].equals("deadline")) {
                     try {
-                        String[] date = cmd[1].split("/by", 2);
+                        String[] date = cmd[1].split("/by",
+                                2);
                         try {
                             String d = date[1].trim();
                             Task t = new Deadline(date[0], d);
@@ -123,7 +128,9 @@ public class Duke {
                     try {
                         String[] date = cmd[1].split("/", 3);
                         try {
-                            Task t = new Event(date[0], date[1], date[2]);
+                            Task t = new Event(date[0],
+                                    date[1],
+                                    date[2]);
                             ls.add(t);
                             String taskString = t.toString();
                             ui.printAdded(taskString);
@@ -156,7 +163,9 @@ public class Duke {
 
 
     public static void main(String[] args) throws IOException {
-        new Duke(Storage.getFilePathToDukeTxt()).run();
+        new Duke(Storage
+                .getFilePathToDukeTxt())
+                .run();
 
     }
 }
