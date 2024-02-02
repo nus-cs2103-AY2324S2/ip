@@ -43,7 +43,7 @@ public class Duke {
     }
 
     public static String introMessage() {
-        String greeting = "RAWR!!!";
+        String greeting = "RAWR!!!\n";
         String mickey = "(\\_/)\n" +
                 "( •,•)\n" +
                 "(\")_(\")\n";
@@ -75,68 +75,73 @@ public class Duke {
 
     public static void main(String[] args) {
         System.out.println(introMessage());
-
         Scanner sc = new Scanner(System.in);
         String userInput;
         Task[] tasks = new Task[100];
         int count = 0;
 
-        while(true) {
-            userInput = sc.nextLine();
-            String[] userInputArray = userInput.split("\\s+", 2);
+        try {
+            while(true) {
+                userInput = sc.nextLine();
+                String[] userInputArray = userInput.split("\\s+", 2);
 
-            boolean isTodo = userInputArray[0].equals("todo");
-            boolean isDeadline = userInputArray[0].equals("deadline");
-            boolean isEvent = userInputArray[0].equals("event");
-            boolean isMark = userInputArray[0].equals("mark");
-            boolean isUnmark = userInputArray[0].equals("unmark");
-            char lastChar = userInput.charAt(userInput.length() - 1);
+                boolean isTodo = userInputArray[0].equals("todo");
+                boolean isDeadline = userInputArray[0].equals("deadline");
+                boolean isEvent = userInputArray[0].equals("event");
+                boolean isMark = userInputArray[0].equals("mark");
+                boolean isUnmark = userInputArray[0].equals("unmark");
+                char lastChar = userInput.charAt(userInput.length() - 1);
 
 
-             if (userInput.equals("bye")) {
-                 System.out.println(outroMessage());
-                 break;
-             } else if (userInputArray[0].equals("list")) {
-                 listTasks(tasks, count);
-             } else if (isTodo || isEvent || isDeadline) {
-                if (isTodo) {
-                    tasks[count] = new Todo(userInputArray[1], false);
-                    count++;
-                    System.out.println(addComment(tasks[count - 1], count));
+                if (userInput.equals("bye")) {
+                    System.out.println(outroMessage());
+                    break;
+                } else if (userInputArray[0].equals("list")) {
+                    listTasks(tasks, count);
+                } else if (isTodo || isEvent || isDeadline) {
+                    if (isTodo) {
+                        tasks[count] = new Todo(userInputArray[1], false);
+                        count++;
+                        System.out.println(addComment(tasks[count - 1], count));
+                    }
+                    if (isEvent) {
+                        String task = getTask(userInput);
+                        int index = userInput.indexOf("/");
+                        String when = replacer(userInput).substring(index);
+                        tasks[count] = new Event(task, false, when);
+                        count++;
+                        System.out.println(addComment(tasks[count-1], count));
+                    }
+                    if (isDeadline) {
+                        int index = userInput.indexOf("/");
+                        String when = userInput.substring(index + 3);
+                        String task = getTask(userInput);
+                        tasks[count] = new Deadline(task, false, when);
+                        count++;
+                        System.out.println(addComment(tasks[count-1], count));
+                    }
+
+                } else if (isMark || isUnmark) {
+                    if (isMark) {
+                        int lastNumber = Character.getNumericValue(lastChar);
+                        tasks[lastNumber-1].finishTask();
+                        System.out.println(markMessage(tasks[lastNumber - 1]));
+                    } else {
+                        int lastNumber = Character.getNumericValue(lastChar);
+                        tasks[lastNumber-1].redoTask();
+                        System.out.println(markMessage(tasks[lastNumber - 1]));
+                    }
+                } else {
+                    throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
-                if (isEvent) {
-                    String task = getTask(userInput);
-                    int index = userInput.indexOf("/");
-                    String when = replacer(userInput).substring(index);
-                    tasks[count] = new Event(task, false, when);
-                    count++;
-                    System.out.println(addComment(tasks[count-1], count));
-                }
-                if (isDeadline) {
-                    int index = userInput.indexOf("/");
-                    String when = userInput.substring(index + 3);
-                    String task = getTask(userInput);
-                    tasks[count] = new Deadline(task, false, when);
-                    count++;
-                    System.out.println(addComment(tasks[count-1], count));
-                }
-
-             } else if (isMark || isUnmark) {
-                 if (isMark) {
-                     int lastNumber = Character.getNumericValue(lastChar);
-                     tasks[lastNumber-1].finishTask();
-                     System.out.println(markMessage(tasks[lastNumber - 1]));
-                 } else {
-                     int lastNumber = Character.getNumericValue(lastChar);
-                     tasks[lastNumber-1].redoTask();
-                     System.out.println(markMessage(tasks[lastNumber - 1]));
-                 }
-             } else {
-                 tasks[count] = new Task(userInput, false);
-                 count++;
-                 System.out.println(addComment(tasks[count - 1], count));
             }
+
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
+
+
+
 
     }
 }
