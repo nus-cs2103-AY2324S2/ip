@@ -165,4 +165,15 @@ public class Ui {
     public void showLoadingError(ZackException e) {
         System.err.println("Error: " + e.getMessage()); // Display the exception message
     }
+
+    public void showFoundTasks(TaskList foundTasks) throws ZackException {
+        if (foundTasks.getSize() == 0) {
+            System.out.println("No matching tasks in your list!");
+        } else {
+            System.out.println("Here are the matching tasks in your list:\n");
+            for (int i = 0; i < foundTasks.getSize(); i++) {
+                System.out.println((i + 1) + "." + foundTasks.getTask(i));
+            }
+        }
+    }
 }

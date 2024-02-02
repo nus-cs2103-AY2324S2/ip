@@ -37,7 +37,7 @@ public class Zack {
      * Enumeration representing different types of tasks.
      */
     public enum TaskType {
-        BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE, DATE
+        BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE, DATE, FIND
     }
 
     /**

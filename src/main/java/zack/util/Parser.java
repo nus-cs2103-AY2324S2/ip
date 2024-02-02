@@ -80,6 +80,11 @@ public class Parser {
                     throw new ZackException("Invalid date format. Please enter a date in yyyy-MM-dd format.");
                 }
                 return new DateCommand(specificDate);
+            case FIND:
+                if (sections.length < 2) {
+                    throw new ZackException("No keyword provided. Please specify a keyword.");
+                }
+                return new FindCommand(sections[1]);
             default:
                 throw new ZackException("I'm sorry, but I don't know what that means :-(");
             }

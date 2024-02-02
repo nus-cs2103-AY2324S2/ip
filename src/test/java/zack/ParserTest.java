@@ -6,6 +6,7 @@ import zack.commands.ByeCommand;
 import zack.commands.Command;
 import zack.commands.DateCommand;
 import zack.commands.DeleteCommand;
+import zack.commands.FindCommand;
 import zack.commands.ListCommand;
 import zack.commands.MarkCommand;
 import zack.util.Parser;
@@ -65,6 +66,12 @@ public class ParserTest {
     public void parse_dateCommandWithValidDate_dateCommandReturned() throws Exception {
         Command command = Parser.parse("date 2022-12-25");
         assertTrue(command instanceof DateCommand);
+    }
+
+    @Test
+    public void parse_findCommandWithValidKeyword_findCommandReturned() throws Exception {
+        Command command = Parser.parse("find home");
+        assertTrue(command instanceof FindCommand);
     }
 
     @Test
