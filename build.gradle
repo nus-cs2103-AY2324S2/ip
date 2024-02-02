@@ -24,3 +24,15 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+//plugins {
+//    id 'java'
+//    id 'com.github.johnrengelman.shadow' version '7.1.2'
+//    // other plugins
+//}
+//
+//mainClassName = 'duke.Duke'
+//
+//shadowJar {
+//    archiveFileName = 'duke.jar'
+//}
