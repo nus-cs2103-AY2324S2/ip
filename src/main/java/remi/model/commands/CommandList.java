@@ -1,7 +1,12 @@
 package remi.model.commands;
 
 import remi.io.Message;
-import remi.model.*;
+import remi.model.Deadline;
+import remi.model.Event;
+import remi.model.Task;
+import remi.model.TaskList;
+import remi.model.ToDo;
+import remi.model.Ui;
 import remi.utils.RemiError;
 
 import java.util.HashMap;
