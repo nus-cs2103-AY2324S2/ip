@@ -10,14 +10,29 @@ import thecount.task.Deadline;
 import thecount.task.Event;
 import thecount.exception.TheCountException;
 
+/**
+ * Manages the loading and writing of tasks to a file.
+ */
 public class Storage {
     private static final String DATAFILE_PATH = "./data/the-count.txt";
     private static final String DIR_PATH = "./data";
 
+    /**
+     * Constructs a Storage object.
+     * Load tasks from the data file.
+     *
+     * @param tasks The task list to load tasks into.
+     */
     public Storage(TaskList tasks) {
         load(tasks);
     }
 
+    /**
+     * Loads tasks from the data file into the task list.
+     * Creates the data directory and file if they don't exist.
+     *
+     * @param tasks The task list to load tasks into.
+     */
     public void load(TaskList tasks) {
 
         // Directory creation
@@ -47,6 +62,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes tasks from the task list to the data file.
+     *
+     * @param tasks The task list to load tasks into.
+     */
     public void write(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(DATAFILE_PATH);
@@ -57,6 +77,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads tasks from the data file to the task list.
+     *
+     * @param file The data file to read from.
+     * @param tasks The task list containing tasks to be written to.
+     */
     private void readFile(File file, TaskList tasks) throws FileNotFoundException {
         // Reading from file
         Scanner s = new Scanner(file);

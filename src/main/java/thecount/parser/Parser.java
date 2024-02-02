@@ -11,25 +11,40 @@ import thecount.ui.Goodbye;
 import thecount.ui.Reply;
 import thecount.exception.TheCountException;
 
+/**
+ * Parses user input and executes corresponding commands.
+ */
 public class Parser {
     private TaskList tasks;
     private Scanner scanner;
     private Storage loader;
 
+    /**
+     * Represents the types of commands.
+     */
     public enum CommandType {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
     }
 
+    /**
+     * Constructs a Parser object with the task list and storage.
+     *
+     * @param tasks The task list to be managed.
+     * @param loader The storage instance for loading and saving tasks.
+     */
     public Parser(TaskList tasks, Storage loader) {
         this.tasks = tasks;
         this.scanner = new Scanner(System.in);
         this.loader = loader;
     }
 
+    /**
+     * Parses user input and executes corresponding commands.
+     */
     public void parse() {
         String userInput = scanner.nextLine();
 
-    // Checks for BYE command
+        // Checks for BYE command
         while (true) {
             switch (getCommandType(userInput)) {
                 case BYE:
@@ -68,7 +83,6 @@ public class Parser {
             userInput = scanner.nextLine();
         }
     }
-
     private static CommandType getCommandType(String userInput) {
         String commandName = userInput.split("\\s+")[0].toUpperCase();
         try {
