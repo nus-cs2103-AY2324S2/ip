@@ -36,7 +36,7 @@ public class TempStorage {
         try {
             Task task = list.get(i);
             list.remove(i);
-            System.out.printf("I have deleted this:\n%s%n", task);
+            System.out.printf("I have deleted this:\n%s\n", task);
         } catch (IndexOutOfBoundsException e) {
             throw ProcessingException.exceptionCommandExecution(Command.DELETE, e);
         }
@@ -51,8 +51,12 @@ public class TempStorage {
     public void mark(int i) throws ProcessingException {
         try {
             Task task = list.get(i);
-            task.markDone();
-            System.out.printf("I have marked this:\n%s%n", task);
+            if (!task.getDone()) {
+                task.markDone();
+                System.out.printf("I have marked this:\n%s\n", task);
+            } else {
+                System.out.printf("%s is already marked!\n", task);
+            }
         } catch (IndexOutOfBoundsException e) {
             throw ProcessingException.exceptionCommandExecution(Command.MARK, e);
         }
@@ -67,8 +71,13 @@ public class TempStorage {
     public void unmark(int i) throws ProcessingException {
         try {
             Task task = list.get(i);
-            task.markUndone();
-            System.out.printf("I have unmarked this:\n%s%n", task);
+            if (task.getDone()) {
+                task.markUndone();
+                System.out.printf("I have unmarked this:\n%s\n", task);
+            } else {
+                System.out.printf("%s is already unmarked!\n", task);
+            }
+
         } catch (IndexOutOfBoundsException e) {
             throw ProcessingException.exceptionCommandExecution(Command.UNMARK, e);
         }
@@ -84,13 +93,13 @@ public class TempStorage {
     public void add(Task task) throws ProcessingException {
         try {
             list.add(task);
-            System.out.printf("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.%n",
+            System.out.printf("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.\n",
                     task,
                     list.size());
 
         } catch (IllegalArgumentException e) {
             String message = "Something went wrong when adding to the list! \n"
-                + "Check your input again";
+                + "Check your input again\n";
             throw new ProcessingException(message);
         }
     }
@@ -122,7 +131,7 @@ public class TempStorage {
         } else {
             for (int i = 0; i < list.size(); i++) {
                 Task task = list.get(i);
-                System.out.printf("%d. %s%n", i + 1, task);
+                System.out.printf("%d. %s\n", i + 1, task);
             }
         }
     }
@@ -140,7 +149,7 @@ public class TempStorage {
             System.out.println("Here are your matching search results");
             for (int i = 0; i < resultList.size(); i++) {
                 Task task = resultList.get(i);
-                System.out.printf("%d. %s%n", i + 1, task);
+                System.out.printf("%d. %s\n", i + 1, task);
             }
         }
     }

@@ -19,3 +19,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 #Custom GitIgnore
 *.class
 /src/main/java/*.txt
+*.txt

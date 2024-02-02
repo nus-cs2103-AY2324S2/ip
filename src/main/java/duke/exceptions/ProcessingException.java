@@ -23,7 +23,7 @@ public class ProcessingException extends HalException {
      */
     public static ProcessingException exceptionCommandExecution(Command command, Throwable cause) {
         String message = "Something went wrong when executing your " + command + "command: \n"
-                + "Check your input again";
+                + "Check your input again\n";
         return new ProcessingException(message, cause);
     }
 }

@@ -24,7 +24,7 @@ public class InputException extends HalException {
      */
     public static InputException exceptionCommandParsing(Command command, String input, Throwable cause) {
         String message = "Something went wrong when processing your " + command + "command: \n"
-            + "Check your input again: " + input;
+            + "Check your input again: " + input + "\n";
         return new InputException(message, cause);
     }
 }
