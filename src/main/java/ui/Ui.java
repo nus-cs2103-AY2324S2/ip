@@ -2,7 +2,7 @@ package ui;
 
 public class Ui {
     public void showLine() {
-        System.out.println("______________________________");
+        System.out.println("________________________________________");
     }
 
     public void greet() {

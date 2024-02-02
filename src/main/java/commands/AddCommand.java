@@ -35,7 +35,7 @@ public class AddCommand extends Command {
         return false;
     }
 
-    public String addToDo(TaskList tasks, String input) throws WeiException {
+    private String addToDo(TaskList tasks, String input) throws WeiException {
         if (input.length() < 5) {
             throw new WeiException("please tell me what is your task about");
         }
@@ -43,7 +43,7 @@ public class AddCommand extends Command {
         return tasks.add(todo);
     }
 
-    public String addDeadline(TaskList tasks, String input) throws WeiException {
+    private String addDeadline(TaskList tasks, String input) throws WeiException {
         try {
             int index = input.indexOf("/");
             String task = input.substring(9, index - 1);
@@ -56,7 +56,7 @@ public class AddCommand extends Command {
         }
     }
 
-    public String addEvent(TaskList tasks, String input) throws WeiException {
+    private String addEvent(TaskList tasks, String input) throws WeiException {
         try {
             int firstIndex = input.indexOf("/");
             int secondIndex = input.lastIndexOf("/");
