@@ -1,8 +1,8 @@
 package main.java;
 
-import tasks.Task;
-
 import java.util.Scanner;
+
+import tasks.Task;
 
 /**
  * Ui class handles the user interface of the application.

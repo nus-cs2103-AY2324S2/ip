@@ -1,6 +1,5 @@
 package commands;
 
-import commands.Command;
 import exceptions.DukeException;
 
 public class Parser {
