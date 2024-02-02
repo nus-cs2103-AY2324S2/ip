@@ -1,6 +1,7 @@
 package Utilities;
 
 import Exceptions.YpxmmException;
+
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
@@ -9,16 +10,33 @@ import Tasks.ToDo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles reading from and writing to the storage file.
+ */
 public class Storage {
 
+    /** The file path of the storage file. */
     public String filePath;
+
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath the file path of the storage file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Appends text to the storage file.
+     *
+     * @param textToAppend the text to append to the file
+     * @throws YpxmmException if an I/O error occurs
+     */
     public void appendToFile(String textToAppend) throws YpxmmException {
         try {
             File file = new File(filePath);
@@ -30,6 +48,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Rewrites the entire storage file based on the given task list.
+     *
+     * @param tasklist the task list to rewrite the file with
+     * @throws YpxmmException if an I/O error occurs
+     */
     public void reWrite(TaskList tasklist) throws YpxmmException {
         try {
             File file = new File(filePath);
@@ -43,6 +67,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return the list of tasks loaded from the file
+     * @throws YpxmmException if an I/O error occurs or if the file is corrupted
+     */
     public ArrayList<Task> load() throws YpxmmException {
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -81,6 +111,6 @@ public class Storage {
             file.delete();
             throw new YpxmmException("Wah bro your file is corrupted leh...I help you delete first");
         }
-            return tasks;
+        return tasks;
     }
 }

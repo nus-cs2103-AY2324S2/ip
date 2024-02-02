@@ -1,10 +1,17 @@
 package Parsing;
 
-import Exceptions.YpxmmException;
-
-import java.util.ArrayList;
-
+/**
+ * A stub class for parsing user input into command arguments.
+ * This class is used for testing purposes.
+ */
 public class ParserStub {
+
+    /**
+     * Parses the input string into command arguments and returns the result.
+     *
+     * @param input the input string
+     * @return the parsed command or an error message
+     */
     public String parseStub(String input) {
         String[] splitInput = input.split(" ");
         String command = splitInput[0];
@@ -14,22 +21,15 @@ public class ParserStub {
             case "getcommands":
                 return input;
             case "mark":
-                try {
-                    int index = Integer.parseInt(splitInput[1]);
-                    return command + " " + splitInput[1];
-                } catch (IndexOutOfBoundsException e) {
-                    return "Brother, key in mark <space> then a valid number";
-                } catch (NumberFormatException n) {
-                    return "You tell me now what task am I supposed to mark if you don't provide me with a number?";
-                }
             case "unmark":
+            case "delete":
                 try {
                     int index = Integer.parseInt(splitInput[1]);
                     return command + " " + splitInput[1];
                 } catch (IndexOutOfBoundsException e) {
-                    return "Brother, key in unmark <space> then a valid number";
+                    return "Brother, key in " + command + " <space> then a valid number";
                 } catch (NumberFormatException n) {
-                    return "You tell me now what task am I supposed to unmark if you don't provide me with a number?";
+                    return "You tell me now what task am I supposed to " + command + " if you don't provide me with a number?";
                 }
             case "todo":
                 try {
@@ -63,15 +63,6 @@ public class ParserStub {
                 } catch (IndexOutOfBoundsException e) {
                     return "Eh brother last warning ah. Check that u got key in the start and end time\n" +
                             "Type \"get commands\" if u blur and dunno how to use me properly.";
-                }
-            case "delete":
-                try {
-                    int index = Integer.parseInt(splitInput[1]);
-                    return command + " " + splitInput[1];
-                } catch (IndexOutOfBoundsException e) {
-                    return "Brother, key in delete <space> then a valid number";
-                } catch (NumberFormatException n) {
-                    return "You tell me now what task am I supposed to delete if you don't provide me with a number?";
                 }
             default:
                 return "Sorry bro, idk what that means. You try type in \"getcommands\" then see if got what u want.";
