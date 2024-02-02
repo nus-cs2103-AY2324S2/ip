@@ -1,4 +1,6 @@
 import ExceptionHandling.DukeException;
+import Storage.Storage;
+import TaskList.TaskList;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
@@ -16,6 +18,9 @@ import java.util.Scanner;
 public class Duke {
     private String name;
     private ArrayList<Task> list;
+
+    private TaskList taskList;
+    private Storage storage;
 
 
     public Duke(String name) {
