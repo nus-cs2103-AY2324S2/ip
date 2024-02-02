@@ -1,3 +1,6 @@
+// TODO: divide into multiple packages
+package bob;
+
 import java.time.format.DateTimeParseException;
 
 public class Bob {
