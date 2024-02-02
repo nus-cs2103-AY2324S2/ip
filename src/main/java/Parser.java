@@ -1,3 +1,5 @@
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Parser {
@@ -10,6 +12,8 @@ public class Parser {
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
     public static final String DELETE = "delete";
+
+    public static final DateTimeFormatter INPUT_DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 
     public static String[] extractParameters(String parametersString,
                                              String[] parameters) throws ParameterNotFoundException {
@@ -69,6 +73,8 @@ public class Parser {
             }
         } catch (ParameterNotFoundException e) {
             Ui.print(e.getMessage());
+        } catch (DateTimeParseException e) {
+            Ui.print(Ui.INVALID_DATE_FORMAT);
         }
     }
 

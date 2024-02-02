@@ -34,10 +34,11 @@ public class Storage {
                 String formattedTask = s.nextLine();
                 String[] parameters = formattedTask.split(" \\| ");
 
-                Bob.addTask(parameters[0], Arrays.copyOfRange(parameters, 2, parameters.length));
-                Bob.mark(i, parameters[1].equals("1"));
+                TaskList.add(parameters[0], Arrays.copyOfRange(parameters, 2, parameters.length));
+                TaskList.mark(i, parameters[1].equals("1"));
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
+            // Regardless of what went wrong, print the error message and quit.
             Ui.print(new String[] { Ui.LOADING_ERROR, e.getMessage() });
             System.exit(-1);
         }
