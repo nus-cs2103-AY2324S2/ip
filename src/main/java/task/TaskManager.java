@@ -1,5 +1,7 @@
 package task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -29,10 +31,11 @@ public class TaskManager {
                     task = new Todo(taskDescription, false);
                     break;
                 case EVENT:
-                    task = new Event(taskDescription, false, "", "");
+                    task = new Event(taskDescription, false, LocalDateTime.now(), LocalDateTime.now().plusDays(1));
                     break;
                 case DEADLINE:
-                    task = new Deadline(taskDescription, false, "");
+                    LocalDateTime defaultDeadline = LocalDateTime.now().plusDays(1);
+                    task = new Deadline(taskDescription, false, defaultDeadline);
                     break;
                 default:
                     throw new DukeException("Hey, I'm not quite sure what that means. Mind giving me another shot at understanding?");

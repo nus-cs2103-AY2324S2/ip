@@ -1,8 +1,14 @@
 import task.TaskManager;
 import task.TaskType;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
+
+    public static String userName;
+    private static final List<String> reservedCommands = Arrays.asList("list", "mark", "unmark", "todo", "deadline", "event", "delete", "delete all");
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -15,13 +21,19 @@ public class Duke {
 
         String input = scanner.nextLine();
         if (!input.isBlank()) {
-            Conversation.userName = input.toUpperCase();
+            while (isReservedCommand(input)) {
+                System.out.println(Conversation.LINE);
+                System.out.println(Conversation.INDENTATION + "  Invalid username. Please choose a different username.");
+                System.out.println(Conversation.LINE);
+                input = scanner.nextLine();
+            }
+            userName = input.toUpperCase();
         }
-        conversation.addDialogue("starter", "Hello, " + Conversation.userName + ". Nice to meet you!\n" + Conversation.INDENTATION + "So, what can I do for you today?");
+        conversation.addDialogue("starter", "Hello, " + userName + ". Nice to meet you!\n" + Conversation.INDENTATION + "So, what can I do for you today?");
         conversation.printDialogue("starter");
 
         // Initializing TaskManager
-        TaskManager taskManager = new TaskManager(Conversation.userName);
+        TaskManager taskManager = new TaskManager(userName);
 
         while (true) {
             input = scanner.nextLine();
@@ -102,8 +114,13 @@ public class Duke {
 
     private static void printError(String input) {
         System.out.println(TaskManager.LINE);
-        System.out.println(TaskManager.INDENTATION + "Sorry " + Conversation.userName + ", the TASK NUMBER is missing after " + input.toLowerCase() + ".");
+        System.out.println(TaskManager.INDENTATION + "Sorry " + userName + ", the TASK NUMBER is missing after " + input.toLowerCase() + ".");
         System.out.println(TaskManager.INDENTATION + "Can you please specify a valid task number from the list?");
         System.out.println(TaskManager.LINE);
     }
+
+    private static boolean isReservedCommand(String username) {
+        return reservedCommands.contains(username.toLowerCase());
+    }
+
 }

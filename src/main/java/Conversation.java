@@ -7,7 +7,6 @@ public class Conversation {
     public static final String LINE = "    -----------------------------------------------------------------------------------------";
 
     private static final String CHATBOT_NAME = "Sophia";
-    public static String userName = "BOT";
     protected Hashtable<String, List<String>> dialogues;
 
     public Conversation() {
