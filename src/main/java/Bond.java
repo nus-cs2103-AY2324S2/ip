@@ -1,133 +1,50 @@
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.ListIterator;
 
 public final class Bond {
 
-    private static final String LINE = "____________________________________________________________";
+    private Ui ui;
 
-    private static final String LOGO = "Bond";
+    private TaskList taskList;
 
-    private static final ArrayList<String> COMMANDS = new ArrayList<>() {
-        {
-            add("todo");
-            add("deadline");
-            add("event");
-            add("list");
-            add("mark");
-            add("unmark");
-            add("bye");
-            add("delete");
-        }
-    };
+    private Storage storage;
 
-    private static Boolean isValidCommand(String input) {
-        return COMMANDS.contains(input.toLowerCase());
+    public Bond() {
+        this.ui = new Ui();
+        this.taskList = new TaskList();
+        this.storage = new Storage(System.getProperty("user.home") + "/data/Bond.txt");
     }
 
-    public static Boolean isNumber(String input) {
-        char[] digits = input.toCharArray();
-        Boolean isNumber = true;
+    private void addTask(String taskName, boolean marked, boolean tellUser,
+            String filePath, boolean isWrittenToFile) {
+        Task newTask = Task.makeTask(taskName);
+        taskList.addTask(newTask);
 
-        for (char c : digits) {
-            if (!Character.isDigit(c)) {
-                isNumber = false;
-                break;
+        if (isWrittenToFile) {
+            try {
+                storage.storeTask(newTask, taskList);
+            } catch (IOException e) {
+                ui.showError(e);
+                System.exit(0);
             }
         }
 
-        return isNumber;
-    }
-
-    private static String changeDateFormat(String month, String day, String year) {
-        String newMonth = "";
-        String newDay = "";
-
-        switch (month) {
-            case "Jan":
-                newMonth = "01";
-                break;
-            case "Feb":
-                newMonth = "02";
-                break;
-            case "Mar":
-                newMonth = "03";
-                break;
-            case "Apr":
-                newMonth = "04";
-                break;
-            case "May":
-                newMonth = "05";
-                break;
-            case "Jun":
-                newMonth = "06";
-                break;
-            case "Jul":
-                newMonth = "07";
-                break;
-            case "Aug":
-                newMonth = "08";
-                break;
-            case "Sep":
-                newMonth = "09";
-                break;
-            case "Oct":
-                newMonth = "10";
-                break;
-            case "Nov":
-                newMonth = "11";
-                break;
-            case "Dec":
-                newMonth = "12";
-                break;
+        if (marked) {
+            markTask(taskList.numberOfTasks() - 1, tellUser, filePath);
         }
 
-        if (day.length() == 1) {
-            newDay = "0" + day;
-        } else {
-            newDay = day;
-        }
-
-        return year + "-" + newMonth + "-" + newDay;
-    }
-
-    private static void addTask(String taskName, ArrayList<Task> taskList, Boolean marked, Boolean tellUser,
-            String filePath, Boolean isWrittenToFile) {
-        try {
-            Task newTask = Task.makeTask(taskName);
-            taskList.add(newTask);
-
-            if (isWrittenToFile) {
-                FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
-                fw.write(newTask.toString());
-                fw.write(System.lineSeparator());
-                fw.close();
-            }
-
-            if (marked) {
-                markTask(taskList.size() - 1, taskList, tellUser, filePath);
-            }
-
-            if (tellUser) {
-                System.out.println(String.format(
-                        "%s\n\n    Got it. I've added this task:\n      %s \n    Now you have %d tasks in the list.\n%s\n",
-                        LINE, newTask.toString(), taskList.size(), LINE));
-            }
-        } catch (IOException e) {
-            System.out.println(String.format("%s\n\n    %s\n%s\n", LINE, e.getMessage(), LINE));
-            System.exit(0);
+        if (tellUser) {
+            ui.taskAdded(newTask, taskList);
         }
     }
 
-    private static void parseAndAddTask(String task, ArrayList<Task> taskList, String filePath) throws IOException {
+    private void parseAndAddTask(String task, String filePath) throws IOException {
         // System.out.println(task);
         String remainder = task.substring(4);
         String taskName = "";
-        Boolean isMarked = false;
+        boolean isMarked = false;
 
         if (remainder.startsWith("[X]")) {
             isMarked = true;
@@ -147,15 +64,15 @@ public final class Bond {
 
         // Add task to taskList
         if (task.startsWith("[T]")) {
-            addTask("todo " + taskName, taskList, isMarked, false, filePath, false);
+            addTask("todo " + taskName, isMarked, false, filePath, false);
         } else if (task.startsWith("[D]")) {
             int spaceIndex = remainder.indexOf(" ");
             int closeIndex = remainder.indexOf(")");
             String deadline = remainder.substring(spaceIndex + 1, closeIndex);
             String[] components = deadline.split(" ");
-            deadline = changeDateFormat(components[0], components[1], components[2]) + " " + components[3];
+            deadline = Parser.changeDateFormat(components[0], components[1], components[2]) + " " + components[3];
 
-            addTask("deadline " + taskName + " /by " + deadline, taskList, isMarked, false, filePath, false);
+            addTask("deadline " + taskName + " /by " + deadline, isMarked, false, filePath, false);
         } else if (task.startsWith("[E]")) {
             String start = "";
             String end = "";
@@ -179,17 +96,18 @@ public final class Bond {
             }
 
             String[] startComponents = start.split(" ");
-            start = changeDateFormat(startComponents[0], startComponents[1], startComponents[2]) + " "
+            start = Parser.changeDateFormat(startComponents[0], startComponents[1], startComponents[2]) + " "
                     + startComponents[3];
             String[] endComponents = end.split(" ");
-            end = changeDateFormat(endComponents[0], endComponents[1], endComponents[2]) + " " + endComponents[3];
+            end = Parser.changeDateFormat(endComponents[0], endComponents[1], endComponents[2]) + " "
+                    + endComponents[3];
 
-            addTask("event " + taskName + " /from " + start + " /to " + end, taskList, isMarked, false, filePath,
+            addTask("event " + taskName + " /from " + start + " /to " + end, isMarked, false, filePath,
                     false);
         }
     }
 
-    private static void loadTasksFromFile(String filePath, ArrayList<Task> taskList) {
+    private void loadTasksFromFile(String filePath) {
         try {
             File f = new File(filePath); // create a File for the given file path
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -198,79 +116,59 @@ public final class Bond {
                 // System.out.println("I have reached Loop in " + "loadTasksFromFIle");
                 String currTask = s.nextLine();
                 // System.out.println("Current task read is: " + currTask);
-                parseAndAddTask(currTask, taskList, filePath);
+                parseAndAddTask(currTask, filePath);
             }
 
             s.close();
         } catch (FileNotFoundException e) {
-            System.out.println(String.format("%s\n\n    %s\n%s\n", LINE, e.getMessage(), LINE));
+            ui.showError(e);
             System.exit(0);
         } catch (IOException e) {
-            System.out.println(String.format("%s\n\n    %s\n%s\n", LINE, e.getMessage(), LINE));
+            ui.showError(e);
             System.exit(0);
         }
     }
 
-    private static void updateFile(String filePath, ArrayList<Task> taskList) {
+    private void updateFile(String filePath) {
         try {
-            FileWriter fw = new FileWriter(filePath, false); // create a FileWriter in overwrite mode
-            ListIterator<Task> toWrite = taskList.listIterator();
-
-            while (toWrite.hasNext()) {
-                // System.out.println("I have reached Loop in " + "updateFile");
-                fw.write(toWrite.next().toString());
-                fw.write(System.lineSeparator());
-            }
-
-            fw.close();
+            storage.overwritePreviousSave(taskList);
         } catch (IOException e) {
-            System.out.println(String.format("%s\n\n    %s\n%s\n", LINE, e.getMessage(), LINE));
+            ui.showError(e);
             System.exit(0);
         }
     }
 
-    private static void deleteTask(int taskIndex, ArrayList<Task> taskList, Boolean tellUser, String filePath) {
-        Task deletedTask = taskList.get(taskIndex);
-        taskList.remove(taskIndex);
+    private void deleteTask(int taskIndex, Boolean tellUser, String filePath) {
+        Task deletedTask = taskList.getTask(taskIndex);
+        taskList.deleteTask(taskIndex);
 
-        updateFile(filePath, taskList);
+        updateFile(filePath);
 
         if (tellUser) {
-            System.out.println(String.format(
-                    "%s\n\n    Got it. I've removed this task:\n      %s \n    Now you have %d tasks in the list.\n%s\n",
-                    LINE, deletedTask.toString(), taskList.size(), LINE));
+            ui.taskDeleted(deletedTask, taskList);
         }
     }
 
-    private static void markTask(int taskIndex, ArrayList<Task> taskList, Boolean tellUser, String filePath) {
-        taskList.get(taskIndex).markAsComplete();
-        updateFile(filePath, taskList);
+    private void markTask(int taskIndex, Boolean tellUser, String filePath) {
+        taskList.getTask(taskIndex).markAsComplete();
+        updateFile(filePath);
 
         if (tellUser) {
-            System.out
-                    .println(String.format(
-                            "%s\n\n    Nice! I've marked this task as done:\n      %s \n%s\n",
-                            LINE, taskList.get(taskIndex).toString(), LINE));
+            ui.taskMarked(taskIndex, taskList);
         }
     }
 
-    private static void unmarkTask(int taskIndex, ArrayList<Task> taskList, Boolean tellUser, String filePath) {
-        taskList.get(taskIndex).markAsIncomplete();
-        updateFile(filePath, taskList);
+    private void unmarkTask(int taskIndex, Boolean tellUser, String filePath) {
+        taskList.getTask(taskIndex).markAsIncomplete();
+        updateFile(filePath);
 
         if (tellUser) {
-            System.out
-                    .println(String.format(
-                            "%s\n\n    OK, I've marked this task as not done yet:\n      %s \n%s\n",
-                            LINE, taskList.get(taskIndex).toString(), LINE));
+            ui.taskUnmarked(taskIndex, taskList);
         }
     }
 
-    public static void main(String[] args) {
-
-        System.out.println(String.format("Hello! I'm %s. \nWhat can I do for you? \n%s\n", LOGO, LINE));
-
-        ArrayList<Task> taskList = new ArrayList<Task>();
+    public void run() {
+        ui.showWelcome();
 
         try {
             // Check for directory / file existence
@@ -289,7 +187,7 @@ public final class Bond {
                 java.nio.file.Files.createFile(filePath);
             }
         } catch (java.io.IOException e) {
-            System.out.println(String.format("%s\n\n    %s\n%s\n", LINE, e.getMessage(), LINE));
+            ui.showError(e);
             System.exit(0);
         }
 
@@ -297,7 +195,7 @@ public final class Bond {
 
         // Read from file: Bond.txt
 
-        loadTasksFromFile(filePath, taskList);
+        loadTasksFromFile(filePath);
 
         Scanner scNext = new Scanner(System.in);
 
@@ -313,7 +211,7 @@ public final class Bond {
             try {
 
                 // Invalid Command syntax
-                if (!Bond.isValidCommand(components[0])) {
+                if (Parser.isValidCommand(components[0])) {
                     BondException.raiseException("NA",
                             "INVALID_COMMAND_TYPE");
                 }
@@ -325,7 +223,7 @@ public final class Bond {
                         BondException.raiseException("todo", "EMPTY_DESCRIPTION");
                     }
 
-                    Bond.addTask(userInput, taskList, false, true, filePath, true);
+                    addTask(userInput, false, true, filePath, true);
 
                 } else if (components[0].equalsIgnoreCase("deadline")) {
 
@@ -333,7 +231,7 @@ public final class Bond {
                         BondException.raiseException("deadline", "EMPTY_DESCRIPTION");
                     }
 
-                    Bond.addTask(userInput, taskList, false, true, filePath, true);
+                    addTask(userInput, false, true, filePath, true);
 
                 } else if (components[0].equalsIgnoreCase("event")) {
 
@@ -341,7 +239,7 @@ public final class Bond {
                         BondException.raiseException("event", "EMPTY_DESCRIPTION");
                     }
 
-                    Bond.addTask(userInput, taskList, false, true, filePath, true);
+                    addTask(userInput, false, true, filePath, true);
 
                 } else if (components[0].equalsIgnoreCase("list")) {
 
@@ -349,45 +247,34 @@ public final class Bond {
                         BondException.raiseException("list", "EXTRA_DETAILS");
                     }
 
-                    ListIterator<Task> toprintln = taskList.listIterator();
-
-                    System.out.println(String.format("%s\n\n    Here are the tasks in your list:", LINE));
-
-                    while (toprintln.hasNext()) {
-                        // System.out.println("I have reached Loop in " + "list function");
-                        System.out.println(String.format("    %d. %s",
-                                toprintln.nextIndex() + 1, toprintln.next().toString()));
-                    }
-
-                    System.out.println(LINE + "\n");
-
+                    ui.showList(taskList);
                 } else if (components[0].equalsIgnoreCase("mark")) {
 
                     if (components.length == 1) {
                         BondException.raiseException("mark", "MISSING_INDEX");
-                    } else if (!isNumber(components[1])) {
+                    } else if (!Parser.isNumber(components[1])) {
                         BondException.raiseException("mark", "INVALID_INDEX");
-                    } else if (Integer.parseInt(components[1]) - 1 >= taskList.size()) {
+                    } else if (Integer.parseInt(components[1]) - 1 >= taskList.numberOfTasks()) {
                         BondException.raiseException("mark", "INVALID_INDEX");
                     }
 
                     int index = Integer.parseInt(components[1]) - 1;
 
-                    markTask(index, taskList, true, filePath);
+                    markTask(index, true, filePath);
 
                 } else if (components[0].equalsIgnoreCase("unmark")) {
 
                     if (components.length == 1) {
                         BondException.raiseException("unmark", "MISSING_INDEX");
-                    } else if (!isNumber(components[1])) {
+                    } else if (!Parser.isNumber(components[1])) {
                         BondException.raiseException("unmark", "INVALID_INDEX");
-                    } else if (Integer.parseInt(components[1]) - 1 >= taskList.size()) {
+                    } else if (Integer.parseInt(components[1]) - 1 >= taskList.numberOfTasks()) {
                         BondException.raiseException("unmark", "INVALID_INDEX");
                     }
 
                     int index = Integer.parseInt(components[1]) - 1;
 
-                    unmarkTask(index, taskList, true, filePath);
+                    unmarkTask(index, true, filePath);
 
                 } else if (components[0].equalsIgnoreCase("bye")) {
 
@@ -395,32 +282,37 @@ public final class Bond {
                         BondException.raiseException("bye", "EXTRA_DETAILS");
                     }
 
-                    System.out.println(String.format("%s\n\nBye. Hope to see you again soon! \n%s", LINE, LINE));
+                    ui.showGoodbye();
                     break;
                 } else if (components[0].equalsIgnoreCase("delete")) {
 
-                    if (taskList.isEmpty()) {
+                    if (taskList.noTasks()) {
                         BondException.raiseException("delete", "EMPTY_LIST");
                     } else if (components.length == 1) {
                         BondException.raiseException("delete", "MISSING_INDEX");
-                    } else if (!isNumber(components[1])) {
+                    } else if (!Parser.isNumber(components[1])) {
                         BondException.raiseException("delete", "INVALID_INDEX");
-                    } else if (Integer.parseInt(components[1]) - 1 >= taskList.size()) {
+                    } else if (Integer.parseInt(components[1]) - 1 >= taskList.numberOfTasks()) {
                         BondException.raiseException("delete", "INVALID_INDEX");
                     }
 
                     int index = Integer.parseInt(components[1]) - 1;
 
-                    Bond.deleteTask(index, taskList, true, filePath);
+                    deleteTask(index, true, filePath);
                 }
 
             } catch (BondException e) {
-                System.out.println(String.format("%s\n\n    %s\n%s\n", LINE, e.getMessage(), LINE));
+                ui.showError(e);
                 continue;
             }
         }
 
         scNext.close();
         System.exit(0);
+    }
+
+    public static void main(String[] args) {
+        Bond bond = new Bond();
+        bond.run();
     }
 }
