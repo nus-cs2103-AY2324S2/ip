@@ -10,10 +10,18 @@ import jmsandiegoo.tyrone.parser.Parser;
 import jmsandiegoo.tyrone.task.TaskList;
 import jmsandiegoo.tyrone.ui.Ui;
 
+/**
+ * Represents the entry point of the application, the main class.
+ */
 public class Tyrone {
     private final Ui UI;
-    private TaskList taskList = new TaskList();
+    private final TaskList taskList;
 
+    /**
+     * The main entry method of the application.
+     *
+     * @param args - to pass to the main method.
+     */
     public static void main(String[] args) {
         new Tyrone().run();
     }
@@ -29,6 +37,13 @@ public class Tyrone {
         System.exit(0);
     }
 
+    /**
+     * Initializes the application such as loading the tasklist from storage
+     * and displaying the welcome message.
+     * If file io operations fails it throws RuntimeException(e).
+     *
+     * @throws RuntimeException - runtime exception.
+     * */
     public void start() {
         try {
             this.UI.outputWelcomeMessage();
@@ -39,6 +54,9 @@ public class Tyrone {
         }
     }
 
+    /**
+     * Queries user input and handles it repeatedly until bye command.
+     */
     public void runUntilExit() {
         boolean isActive = true;
         while (isActive) {

@@ -1,22 +1,40 @@
 package jmsandiegoo.tyrone.task;
 
+/**
+ * Represents the abstract task item of the application.
+ */
 public abstract class Task {
     private final String description;
     private boolean isDone;
 
+    /**
+     * @param description - the description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markItem() {
         this.isDone = true;
     }
 
+    /**
+     * Un-marks the task as not done.
+     */
     public void unmarkItem() {
         this.isDone = false;
     }
 
+    /**
+     * Returns boolean whether the task description has the keyword.
+     *
+     * @param keyword - the keyword to search for.
+     * @return boolean - true if it has the keyword, false otherwise.
+     */
     public boolean hasKeyword(String keyword) {
         return this.description.contains(keyword);
     }
@@ -26,6 +44,11 @@ public abstract class Task {
         return "[" + (this.isDone ? "X" : " ") + "]" + " " + this.description;
     }
 
+    /**
+     * Returns String the encoded format of the task to be stored for file storage.
+     *
+     * @return String - the encoded string format of the task.
+     */
     public String serializeTask() {
         return (this.isDone ? "1" : "0") + " | " + this.description;
     }

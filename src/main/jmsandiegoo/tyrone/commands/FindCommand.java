@@ -1,6 +1,7 @@
 package jmsandiegoo.tyrone.commands;
 
 import jmsandiegoo.tyrone.common.Messages;
+import jmsandiegoo.tyrone.task.TaskList;
 
 /**
  * Represents the command to find a task with a keyword
@@ -25,9 +26,18 @@ public class FindCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        return new CommandResult(
-                String.format(Messages.MESSAGE_FIND,
-                        super.taskList.findItemsByKeyword(this.keyword))
-        );
+
+        TaskList resTaskList = super.taskList.findItemsByKeyword(this.keyword);
+
+        if (resTaskList.getListSize() > 0) {
+            return new CommandResult(
+                    String.format(Messages.MESSAGE_FIND,
+                            resTaskList)
+            );
+        } else {
+            return new CommandResult(
+                    String.format(Messages.MESSAGE_FIND, "No items found with the specified keyword")
+            );
+        }
     }
 }

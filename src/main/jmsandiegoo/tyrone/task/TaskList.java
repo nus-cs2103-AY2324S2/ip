@@ -10,22 +10,43 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the task list of the application.
+ */
 public class TaskList {
     private ArrayList<Task> items;
+
     private static final StorageHelper storageHelper = new StorageHelper();
 
     public TaskList() {
         this.items = new ArrayList<>();
     }
 
+    /**
+     * Returns the current number of items in the list.
+     *
+     * @return int
+     */
     public int getListSize() {
         return this.items.size();
     }
 
+    /**
+     * Returns the item from the list with the target index.
+     *
+     * @param index - target list index of the item to get.
+     * @return Task - the task item.
+     */
     public Task getItem(int index) {
         return this.items.get(index);
     }
 
+    /**
+     * Loads the task list from the storage to the application.
+     * Throws StorageHelperException if there is an IO or parsing error.
+     *
+     * @throws StorageHelperException - if io or parsing error occurred.
+     */
     public void loadTaskListFromFile() throws StorageHelperException {
         try {
             File file = storageHelper.loadFile();
@@ -63,6 +84,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Saves the task list from the application to the storage.
+     * Throws StorageHelperException if there is an IO or parsing error.
+     *
+     * @throws StorageHelperException - if io or parsing error occurred.
+     */
     public void saveTaskListToFile() throws StorageHelperException {
         StringBuilder content = new StringBuilder();
         for (Task item : this.items) {
@@ -76,10 +103,21 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Adds the item specified into the task list.
+     *
+     * @param item - the new task to add into list.
+     */
     public void addItem(Task item) {
         this.items.add(item);
     }
 
+    /**
+     * Marks the item as done.
+     *
+     * @param index - the target list index of the item to be marked.
+     */
     public void markItemDone(int index) {
         if (index < 0 || index >= this.getListSize()) return;
         Task currItem = this.items.get(index);
@@ -87,18 +125,36 @@ public class TaskList {
 
     }
 
+    /**
+     * Un-marks the item as done.
+     *
+     * @param index - the target list index of the item to be un-marked.
+     */
     public void unmarkItemDone(int index) {
         if (index < 0 || index >= this.getListSize()) return;
         Task currItem = this.items.get(index);
         currItem.unmarkItem();
     }
 
+    /**
+     * Returns the deleted item from the task list specified
+     * by a target index.
+     *
+     * @param index - the target list index of the item to be deleted.
+     * @return Task - deleted task.
+     */
     public Task deleteItem(int index) {
         if (index < 0 || index >= this.getListSize()) return null;
         return this.items.remove(index);
     }
 
-    public String findItemsByKeyword(String keyword) {
+    /**
+     * Returns the task items from the list with the keyword.
+     *
+     * @param keyword - the target keyword to search for.
+     * @return TaskList - the list of tasks with the keyword.
+     */
+    public TaskList findItemsByKeyword(String keyword) {
         TaskList findTaskList = new TaskList();
         for (Task item : this.items) {
             if (item.hasKeyword(keyword)) {
@@ -106,10 +162,7 @@ public class TaskList {
             }
         }
 
-        System.out.println(findTaskList.getListSize());
-        return findTaskList.getListSize() > 0
-                ? findTaskList.toString()
-                : "No items found with the specified keyword";
+        return findTaskList;
     }
 
     @Override
