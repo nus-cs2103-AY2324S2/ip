@@ -33,6 +33,10 @@ public class Parser {
                 userTasks.printTasks(false);
             // find tasks
             } else if (cmd.equals("find")) {
+                if (currInput.length < 2) {
+                    throw new DukeException(
+                            String.format(DukeException.NON_EMPTY_DESC, cmd));
+                }
                 TaskList searchResults = userTasks.searchTasks(currInput[1], userTasks);
                 searchResults.printTasks(true);
             // mark tasks
