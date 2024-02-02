@@ -26,6 +26,8 @@ public class Replies {
             + "task index is non-zero integer at most the number of tasks you have. "
             + "you gave me \"%s\".";
 
+    public static final String INVALID_DATE_FORMAT = "i only understand yyyy-mm-dd bro";
+
     public static final String EXIT = "ok";
 
     private static String indentAndBreak(String line, int indentSpaceCount) {

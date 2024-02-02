@@ -2,6 +2,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -10,9 +12,14 @@ public class Bob {
     private static final Scanner SCANNER = new Scanner(System.in);
 
     private static final ArrayList<Task> TASKS = new ArrayList<>();
+
     private static File dataFile;
     private static final String DATA_DIR = "data";
     private static final String DATA_PATH = DATA_DIR + "/bob.txt";
+
+    // TODO: Might need to move these to a separate class
+    public static final DateTimeFormatter INPUT_DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
+    public static final DateTimeFormatter OUTPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     private static File createOrRetrieve() throws IOException {
         Path path = Paths.get(DATA_PATH);
@@ -106,9 +113,13 @@ public class Bob {
     }
 
     public static void handleAdd(String taskType, String[] parameters) {
-        Task task = addTask(taskType, parameters);
-
-        Replies.add(task, TASKS.size());
+        try {
+            Task task = addTask(taskType, parameters);
+            Replies.add(task, TASKS.size());
+        } catch (DateTimeParseException e) {
+            Replies.print(Replies.INVALID_DATE_FORMAT);
+            return;
+        }
 
         save(true);
     }
