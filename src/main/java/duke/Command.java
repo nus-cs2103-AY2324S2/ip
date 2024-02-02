@@ -1,19 +1,40 @@
 package duke;
 import java.util.List;
 
+/**
+ * Represents a command that can be executed by the Duke program.
+ */
 public class Command {
     public enum CommandType {
         BYE, LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, FIND, INVALID
 
     }
-
+    /**
+     * Enumerates the possible types of commands.
+     */
     private CommandType type;
     private String argument;
+
+    /**
+     * Constructs a Command object with the specified type and argument.
+     *
+     * @param type     The type of the command.
+     * @param argument The argument associated with the command.
+     */
 
     public Command(CommandType type, String argument) {
         this.type = type;
         this.argument = argument;
     }
+
+    /**
+     * Executes the command based on its type.
+     *
+     * @param tasks   The TaskList on which the command operates.
+     * @param ui      The Ui used to interact with the user.
+     * @param storage The Storage used to save and load tasks.
+     * @throws DukeException If there is an error executing the command.
+     */
 
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         switch (type) {
@@ -89,6 +110,14 @@ public class Command {
             throw new IllegalStateException("Unexpected value: " + type);
         }
     }
+
+    /**
+     * Checks if the given index is valid for the current task list.
+     *
+     * @param index The index to be checked.
+     * @param size  The size of the task list.
+     * @return True if the index is valid, false otherwise.
+     */
     private boolean isValidIndex(int index, int size) {
         return index >= 0 && index < size;
     }
