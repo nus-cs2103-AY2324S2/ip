@@ -53,7 +53,7 @@ public class TaskList {
                 LocalDate date = Parser.parseDate(by);
                 tasks.add(new Deadline(description, date));
             } catch (DateTimeParseException e) {
-                throw new TaskException("Sensei! Arona does not recognise this date format!");
+                throw new TaskException("Sensei! The date format has to be in yyyy-mm-dd!");
             }
             break;
         case "event":
@@ -67,7 +67,7 @@ public class TaskList {
                 LocalDate dateBy = Parser.parseDate(by);
                 tasks.add(new Event(description, dateFrom, dateBy));
             } catch (DateTimeParseException e) {
-                throw new TaskException("Sensei! Arona does not recognise this date format!");
+                throw new TaskException("Sensei! The date format has to be in yyyy-mm-dd!");
             }
             break;
         }

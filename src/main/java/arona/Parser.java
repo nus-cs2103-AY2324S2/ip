@@ -23,16 +23,20 @@ public class Parser {
         case "list":
             return new ListTask(fullCommand);
         case "mark":
-            if (fullCommand.split(" ", 0).length == 1) throw new AronaException("Sensei! Please provide a task number!");
+            if (fullCommand.split(" ", 0).length == 1)
+                throw new AronaException("Sensei! Please provide a task number!");
             return new MarkTask(fullCommand);
         case "unmark":
-            if (fullCommand.split(" ", 0).length == 1) throw new AronaException("Sensei! Please provide a task number!");
+            if (fullCommand.split(" ", 0).length == 1)
+                throw new AronaException("Sensei! Please provide a task number!");
             return new UnmarkTask(fullCommand);
         case "delete":
-            if (fullCommand.split(" ", 0).length == 1) throw new AronaException("Sensei! Please provide a task number!");
+            if (fullCommand.split(" ", 0).length == 1)
+                throw new AronaException("Sensei! Please provide a task number!");
             return new DeleteTask(fullCommand);
         case "find":
-            if (fullCommand.split(" ", 0).length == 1) throw new AronaException("Sensei! Please provide a task number!");
+            if (fullCommand.split(" ", 0).length == 1)
+                throw new AronaException("Sensei! Please provide a description of what you want to find!");
             return new FindTask(fullCommand);
         default:
             return new AddTask(fullCommand);
