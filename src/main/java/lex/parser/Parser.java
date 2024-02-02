@@ -43,6 +43,8 @@ public class Parser {
                 return new UnmarkCommand(inputs, tasks, ui);
             case DELETE:
                 return new DeleteCommand(inputs, tasks, ui);
+            case FIND:
+                return new FindCommand(inputs, tasks, ui);
             case BYE:
                 return new ByeCommand(tasks, ui, storage);
             default:
