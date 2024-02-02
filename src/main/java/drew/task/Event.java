@@ -1,4 +1,4 @@
-package drew.tasktypes;
+package drew.task;
 
 import java.time.LocalDate;
 /**

@@ -1,11 +1,11 @@
 import drew.exceptions.InsufficientArgumentsException;
 import drew.exceptions.UnknownCommandException;
-import drew.tasktypes.Deadline;
-import drew.tasktypes.Event;
-import drew.tasktypes.Task;
-import drew.tasktypes.Todo;
+import drew.task.Deadline;
+import drew.task.Event;
+import drew.task.Task;
+import drew.task.Todo;
+import drew.storage.Storage;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -16,7 +16,6 @@ import java.io.FileWriter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Main chatbot class. Contains the logic of the chatbot.
@@ -24,6 +23,9 @@ import java.time.format.DateTimeFormatter;
  * @author cocoanautz
  */
 public class Drew {
+    public Drew(String filePath) {
+
+    }
     /**
      * Checks the identity of the command.
      *
@@ -287,7 +289,9 @@ public class Drew {
         String DELIMITER = "______________________________________";
 
         ArrayList<Task> tasks = new ArrayList<>();
-        readFile("save/tasks.txt", tasks);
+        String filePath = "save/tasks.txt";
+        Storage storage = new Storage(filePath);
+        storage.load(tasks);
 
         System.out.println(DELIMITER);
         System.out.println("Hello! I'm Drew");
@@ -303,7 +307,7 @@ public class Drew {
             System.out.println(DELIMITER);
             userInput = sc.nextLine();
         }
-        saveFile("save/tasks.txt",tasks);
+        storage.save(tasks);
         System.out.println("Bye. Hope to see you again soon!");
     }
 }

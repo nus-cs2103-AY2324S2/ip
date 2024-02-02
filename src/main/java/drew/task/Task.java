@@ -1,4 +1,4 @@
-package drew.tasktypes;
+package drew.task;
 
 public abstract class Task {
     protected String description;
