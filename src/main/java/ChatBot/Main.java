@@ -1,2 +1,4 @@
-package ChatBot;public class Main {
+package ChatBot;
+
+public class Main {
 }
