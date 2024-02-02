@@ -26,6 +26,14 @@ public class Parser {
 
     public static Handler parseUserInput(String input) {
         String[] command = input.split("\\s", 2);
-        return Handler.dispatch(command, DATETIME_FORMAT);
+        return Handler.dispatch(command);
+    }
+
+    public static LocalDateTime parseDateTime(String dateTime) {
+        return LocalDateTime.parse(dateTime);
+    }
+
+    public static int parseIndex(String index) {
+        return Integer.parseInt(index) - 1;
     }
 }

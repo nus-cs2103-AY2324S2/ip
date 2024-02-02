@@ -20,17 +20,20 @@ public class Earl {
 
     public void run() {
         ui.showGreeting();
+        // main loop
         String input = ui.getUserInput();
-        Handler handler = Parser.parseUserInput(input);
-        while (handler != null) {
+        Handler handler;
+        while (!input.equals("bye")) {
             try {
-                handler.handle(tasks, ui);
-                input = ui.getUserInput();
                 handler = Parser.parseUserInput(input);
+                handler.handle(tasks, ui);
             } catch (EarlException e) {
                 ui.makeResponse(e.getMessage());
+            } finally {
+                input = ui.getUserInput();
             }
         }
+        // save to file
         try {
             storage.save(tasks.getList());
         } catch (EarlException e) {

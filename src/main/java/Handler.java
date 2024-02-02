@@ -5,8 +5,7 @@ public abstract class Handler {
 
     public abstract void handle(TaskList tasks, Ui ui) throws EarlException;
 
-    public static Handler dispatch(String[] command, 
-                                   DateTimeFormatter dateTimeFormat) {
+    public static Handler dispatch(String[] command) {
         switch (command[0]) {
         case "list":
             return new listHandler();
@@ -20,7 +19,7 @@ public abstract class Handler {
             // fallthrough
         case "event":
             // fallthrough
-            return new taskHandler(command, dateTimeFormat);
+            return new taskHandler(command);
         case "delete":
             return new deleteHandler(command);
         case "bye":
@@ -54,7 +53,7 @@ public abstract class Handler {
         }
         public void handle(TaskList tasks, Ui ui) throws EarlException {
             try {
-                int idx = Integer.parseInt(COMMAND[1]) - 1;
+                int idx = Parser.parseIndex(COMMAND[1]);
                 if (tasks.mark(idx)) {
                     ui.makeResponse("Item marked as done.");
                 } else {
@@ -63,7 +62,7 @@ public abstract class Handler {
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 throw new EarlException(
                         "Error, not a valid item number within range.\n"
-                                + "Example use:\n\tmark 3");
+                                + "\tExample use:\n\tmark 3");
             } catch (Exception e) {
                 throw new EarlException("Error, unknown use of mark.\n"
                         + e.getMessage());
@@ -80,7 +79,7 @@ public abstract class Handler {
 
         public void handle(TaskList tasks, Ui ui) throws EarlException {
             try {
-                int idx = Integer.parseInt(COMMAND[1]) - 1;
+                int idx = Parser.parseIndex(COMMAND[1]);
                 if (tasks.unmark(idx)) {
                     ui.makeResponse("Item marked as not done.");
                 } else {
@@ -89,7 +88,7 @@ public abstract class Handler {
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 throw new EarlException(
                         "Error, not a valid item number within range.\n"
-                                + "Example use:\n\tunmark 3");
+                                + "\tExample use:\n\tunmark 3");
             } catch (Exception e) {
                 throw new EarlException("Error, unknown use of unmark.\n"
                         + e.getMessage());
@@ -100,12 +99,9 @@ public abstract class Handler {
     public static final class taskHandler extends Handler {
         
         private final String[] COMMAND;
-        private final DateTimeFormatter DATETIME_FORMAT;
         
-        public taskHandler(String[] command,
-                           DateTimeFormatter dateTimeFormat) {
+        public taskHandler(String[] command) {
             COMMAND = command;
-            DATETIME_FORMAT = dateTimeFormat;
         }
 
         public void handle(TaskList tasks, Ui ui) throws EarlException {
@@ -119,7 +115,7 @@ public abstract class Handler {
                                     + " tasks tracked.");
                 } catch (IndexOutOfBoundsException e) {
                     throw new EarlException("Error, missing task name.\n"
-                            + "Example use:\n\ttodo <task_name>");
+                            + "\tExample use:\n\ttodo <task_name>");
                 } catch (Exception e) {
                     throw new EarlException("Error, unknown use of todo.\n"
                             + e.getMessage());
@@ -128,8 +124,8 @@ public abstract class Handler {
             case "deadline":
                 try {
                     String[] args = COMMAND[1].split("\\s/by\\s");
-                    tasks.add(new Deadline(args[0], LocalDateTime.parse(
-                            args[1], DATETIME_FORMAT)));
+                    tasks.add(new Deadline(args[0],
+                            Parser.parseDateTime(args[1])));
                     ui.makeResponse("Added new deadline.",
                             "\t" + tasks.get(tasks.getSize() - 1),
                             "There are " + tasks.getSize()
@@ -137,8 +133,8 @@ public abstract class Handler {
                 } catch (IndexOutOfBoundsException e) {
                     throw new EarlException(
                             "Error, invalid deadline format.\n"
-                                    + "Example use:\n\t"
-                                    + "deadline <task_name> /by <end>");
+                                    + "\tExample use:\n\t"
+                                    + "\tdeadline <task_name> /by <end>");
                 } catch (Exception e) {
                     throw new EarlException(
                             "Error, unknown use of deadline.\n"
@@ -149,16 +145,16 @@ public abstract class Handler {
                 try {
                     String[] args = COMMAND[1].split("\\s/(from|to)\\s");
                     tasks.add(new Event(args[0],
-                            LocalDateTime.parse(args[1], DATETIME_FORMAT),
-                            LocalDateTime.parse(args[2], DATETIME_FORMAT)));
+                            Parser.parseDateTime(args[1]),
+                            Parser.parseDateTime(args[2])));
                     ui.makeResponse("Added new event.",
                             "\t" + tasks.get(tasks.getSize() - 1),
                             "There are " + tasks.getSize()
                                     + " tasks tracked.");
                 } catch (IndexOutOfBoundsException e) {
                     throw new EarlException("Error, invalid event format.\n"
-                            + "Example use:\n\t"
-                            + "event <task_name> /from <start> /to <end>");
+                            + "\tExample use:\n\t"
+                            + "\tevent <task_name> /from <start> /to <end>");
                 } catch (Exception e) {
                     throw new EarlException("Error, unknown use of event.\n"
                             + e.getMessage());
@@ -179,13 +175,13 @@ public abstract class Handler {
 
         public void handle(TaskList tasks, Ui ui) throws EarlException {
             try {
-                int idx = Integer.parseInt(COMMAND[1]) - 1;
+                int idx = Parser.parseIndex(COMMAND[1]);
                 ui.makeResponse("Item deleted.",
                         "\t" + tasks.delete(idx));
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 throw new EarlException(
                         "Error, not a valid item number within range.\n"
-                                + "Example use:\n\tdelete 3");
+                                + "\tExample use:\n\tdelete 3");
             } catch (Exception e) {
                 throw new EarlException("Error, unknown use of delete.\n"
                         + e.getMessage());
@@ -197,7 +193,7 @@ public abstract class Handler {
         public void handle(TaskList task, Ui ui) {
             ui.makeResponse("Error, unknown command.",
                     "Valid commands:",
-                    "\tlist, mark, unmark, todo, deadline, event");
+                    "\tlist, mark, unmark, todo, deadline, event, delete");
         }
     }
 }
