@@ -16,42 +16,32 @@ public class Parser {
      * @param storage The Storage for saving and loading tasks.
      * @throws ArtemisException If there is an issue with parsing the input or executing the command.
      */
-    public static void parseInput(String input, TaskList tasks, Ui ui, Storage storage) throws ArtemisException {
+    public static String parseInput(String input, TaskList tasks, Ui ui, Storage storage) throws ArtemisException {
         String[] tokens = input.split(" ", 2);
         String command = tokens[0].toLowerCase();
 
         switch (command) {
         case "bye":
-            ui.showGoodbyeMessage();
             storage.save(tasks.getTasks());
-            System.exit(0);
-            break;
+            return ui.showGoodbyeMessage();
         case "list":
-            ui.showTaskList(tasks.getTasks());
-            break;
+            return ui.showTaskList(tasks.getTasks());
         case "find":
-            ui.handleFindTask(tasks.getTasks(), tokens[1]);
-            break;
+            return ui.handleFindTask(tasks.getTasks(), tokens[1]);
         case "mark":
-            handleMarkAsDone(tokens, tasks, ui);
-            break;
+            return handleMarkAsDone(tokens, tasks, ui);
         case "unmark":
-            handleMarkAsNotDone(tokens, tasks, ui);
-            break;
+            return handleMarkAsNotDone(tokens, tasks, ui);
         case "todo":
-            handleTodoTask(tokens, tasks, ui);
-            break;
+            return handleTodoTask(tokens, tasks, ui);
         case "deadline":
-            handleDeadlineTask(input, tasks, ui);
-            break;
+            return handleDeadlineTask(input, tasks, ui);
         case "event":
-            handleEventTask(input, tasks, ui);
-            break;
+            return handleEventTask(input, tasks, ui);
         case "delete":
-            handleDeleteTask(tokens, tasks, ui);
-            break;
+            return handleDeleteTask(tokens, tasks, ui);
         default:
-            ui.showError("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            return ui.showError("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -62,14 +52,14 @@ public class Parser {
      * @param tasks  The TaskList containing the tasks.
      * @param ui     The Ui for user interface interactions.
      */
-    private static void handleMarkAsDone(String[] tokens, TaskList tasks, Ui ui) {
+    private static String handleMarkAsDone(String[] tokens, TaskList tasks, Ui ui) {
         try {
             int taskIndex = Integer.parseInt(tokens[1]) - 1;
             Task task = tasks.getTasks().get(taskIndex);
             task.markAsDone();
-            ui.showTaskMarkedAsDone(task);
+            return ui.showTaskMarkedAsDone(task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            ui.showError("OOPS!!! Please provide a valid task number.");
+            return ui.showError("OOPS!!! Please provide a valid task number.");
         }
     }
 
@@ -80,14 +70,14 @@ public class Parser {
      * @param tasks  The TaskList containing the tasks.
      * @param ui     The Ui for user interface interactions.
      */
-    private static void handleMarkAsNotDone(String[] tokens, TaskList tasks, Ui ui) {
+    private static String handleMarkAsNotDone(String[] tokens, TaskList tasks, Ui ui) {
         try {
             int taskIndex = Integer.parseInt(tokens[1]) - 1;
             Task task = tasks.getTasks().get(taskIndex);
             task.markAsNotDone();
-            ui.showTaskMarkedAsNotDone(task);
+            return ui.showTaskMarkedAsNotDone(task);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            ui.showError("OOPS!!! Please provide a valid task number.");
+            return ui.showError("OOPS!!! Please provide a valid task number.");
         }
     }
 
@@ -98,16 +88,16 @@ public class Parser {
      * @param tasks  The TaskList containing the tasks.
      * @param ui     The Ui for user interface interactions.
      */
-    private static void handleTodoTask(String[] tokens, TaskList tasks, Ui ui) {
+    private static String handleTodoTask(String[] tokens, TaskList tasks, Ui ui) {
         try {
             String description = tokens[1].trim();
             if (description.isEmpty()) {
                 throw new ArtemisException("OOPS!!! The description of a todo cannot be empty.");
             }
             tasks.addTask(new Todo(description));
-            ui.showTaskAdded(tasks.getTasks().size(), tasks.getTasks().get(tasks.getTasks().size() - 1));
+            return ui.showTaskAdded(tasks.getTasks().size(), tasks.getTasks().get(tasks.getTasks().size() - 1));
         } catch (ArtemisException | IndexOutOfBoundsException e) {
-            ui.showError("OOPS!!! The description of a todo cannot be empty.");
+            return ui.showError("OOPS!!! The description of a todo cannot be empty.");
         }
     }
 
@@ -118,7 +108,7 @@ public class Parser {
      * @param tasks The TaskList containing the tasks.
      * @param ui    The Ui for user interface interactions.
      */
-    private static void handleDeadlineTask(String input, TaskList tasks, Ui ui) {
+    private static String handleDeadlineTask(String input, TaskList tasks, Ui ui) {
         try {
             String[] tokens = input.split("/by");
             if (tokens.length < 2) {
@@ -129,9 +119,9 @@ public class Parser {
             String description = tokens[0].replace("deadline ", "").trim();
             String by = tokens[1].trim();
             tasks.addTask(new Deadline(description, by));
-            ui.showTaskAdded(tasks.getTasks().size(), tasks.getTasks().get(tasks.getTasks().size() - 1));
+            return ui.showTaskAdded(tasks.getTasks().size(), tasks.getTasks().get(tasks.getTasks().size() - 1));
         } catch (ArtemisException | DateTimeParseException e) {
-            ui.showError(e.getMessage());
+            return ui.showError(e.getMessage());
         }
     }
 
@@ -142,7 +132,7 @@ public class Parser {
      * @param tasks The TaskList containing the tasks.
      * @param ui    The Ui for user interface interactions.
      */
-    private static void handleEventTask(String input, TaskList tasks, Ui ui) {
+    private static String handleEventTask(String input, TaskList tasks, Ui ui) {
         try {
             String[] tokens = input.split("/from");
             if (tokens.length < 2) {
@@ -160,9 +150,9 @@ public class Parser {
             String from = fromTo[0].trim();
             String to = fromTo[1].trim();
             tasks.addTask(new Event(description, from, to));
-            ui.showTaskAdded(tasks.getTasks().size(), tasks.getTasks().get(tasks.getTasks().size() - 1));
+            return ui.showTaskAdded(tasks.getTasks().size(), tasks.getTasks().get(tasks.getTasks().size() - 1));
         } catch (ArtemisException | DateTimeParseException e) {
-            ui.showError(e.getMessage());
+            return ui.showError(e.getMessage());
         }
     }
 
@@ -173,14 +163,14 @@ public class Parser {
      * @param tasks  The TaskList containing the tasks.
      * @param ui     The Ui for user interface interactions.
      */
-    private static void handleDeleteTask(String[] tokens, TaskList tasks, Ui ui) {
+    private static String handleDeleteTask(String[] tokens, TaskList tasks, Ui ui) {
         try {
             int taskIndex = Integer.parseInt(tokens[1]) - 1;
             Task task = tasks.getTasks().get(taskIndex);
             tasks.deleteTask(taskIndex);
-            ui.showTaskDelete(task, tasks.getTasks().size());
+            return ui.showTaskDelete(task, tasks.getTasks().size());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            ui.showError("OOPS!!! Please provide a valid task number.");
+            return ui.showError("OOPS!!! Please provide a valid task number.");
         }
     }
 }
