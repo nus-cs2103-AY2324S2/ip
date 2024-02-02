@@ -12,12 +12,25 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
-public class EventCommand extends Command {
+/**
+ * Command to add an event into the task list.
+ */
+public class eventCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
 
-    public EventCommand(TaskList taskList, Ui ui) {
+    /**
+     * The constructor of eventCommand.
+     *
+     * @param taskList The task list which the command will modify.
+     * @param ui The ui to get the input of the user.
+     * @throws EmptyInputException If user did not input description.
+     * @throws EmptyTimeException If user did not input time.
+     * @throws InvalidFormatException If user's input invalid format.
+     * @throws InvalidDateTimeException If user input invalid date/time format.
+     */
+    public eventCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
 

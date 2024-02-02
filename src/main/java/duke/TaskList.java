@@ -2,9 +2,17 @@ package duke;
 import task.*;
 import java.util.ArrayList;
 
+/**
+ * TaskList contains the task list.
+ */
 public class TaskList {
     private static ArrayList<Task> taskList;
 
+    /**
+     * The constructor of Parser.
+     *
+     * @param taskList The task list which the command will modify.
+     */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
@@ -13,11 +21,18 @@ public class TaskList {
         this.taskList = taskList;
     }
 
+    /**
+     * To show goodbye message to user.
+     *
+     * @param ui The ui to get the input of the user.
+     */
     public void bye(Ui ui) {
         Ui.showGoodbyeMessage();
     }
 
-    // print the entire list
+    /**
+     * To print the entire Task array.
+     */
     public void showList() {
         System.out.println(Ui.INDENT_SEPERATOR);
         if (taskList.isEmpty()) {
@@ -32,7 +47,13 @@ public class TaskList {
         System.out.println(Ui.INDENT_SEPERATOR);
     }
 
-    // mark an item in list
+    /**
+     * To mark task in the array list.
+     * Show 'Task does not exist' if the position is out of range.
+     *
+     * @param position The index of the specified task in the array list
+     *                 to be marked as completed.
+     */
     public void mark(int position) {
         // check for error
         if (position + 1 > taskList.size()) {
@@ -54,7 +75,13 @@ public class TaskList {
         System.out.println(Ui.INDENT_SEPERATOR);
     }
 
-    // unmark an item in list
+    /**
+     * To unmark task in the array list.
+     * Show 'Task does not exist' if the position is out of range.
+     *
+     * @param position The index of the specified task in the array list
+     *                 to be marked as incompleted.
+     */
     public void unmark(int position) {
         // check for error
         if (position + 1 > taskList.size()) {
@@ -75,6 +102,12 @@ public class TaskList {
         }
         System.out.println(Ui.INDENT_SEPERATOR);
     }
+
+    /**
+     * To add a new todo into taskList.
+     *
+     * @param t New todo to be added into taskList.
+     */
     public void todo(Todo t)  {
         taskList.add(t);
         System.out.println(Ui.INDENT_SEPERATOR);
@@ -84,6 +117,11 @@ public class TaskList {
         System.out.println(Ui.INDENT_SEPERATOR);
     }
 
+    /**
+     * To add a new deadline into taskList.
+     *
+     * @param t New deadline to be added into taskList.
+     */
     public void deadline(Deadline t) {
         System.out.println(Ui.INDENT_SEPERATOR);
         taskList.add(t);
@@ -92,6 +130,12 @@ public class TaskList {
         System.out.println(Ui.INDENT + "Now you have " + taskList.size() + " tasks in the list.");
         System.out.println(Ui.INDENT_SEPERATOR);
     }
+
+    /**
+     * To add a new event into taskList.
+     *
+     * @param t New event to be added into taskList.
+     */
     public void event(Event t) {
         System.out.println(Ui.INDENT_SEPERATOR);
         taskList.add(t);
@@ -101,6 +145,13 @@ public class TaskList {
         System.out.println(Ui.INDENT_SEPERATOR);
     }
 
+    /**
+     * To delete a specific task in the array list.
+     * Show 'Task does not exist' if the position is out of range.
+     *
+     * @param position The index of the specified task in the array list
+     *                 to be deleted.
+     */
     public void delete(int position) {
         Task t = taskList.get(position);
         // check for error
@@ -118,6 +169,11 @@ public class TaskList {
         System.out.println(Ui.INDENT_SEPERATOR);
     }
 
+    /**
+     * A getter function to get the current taskList.
+     *
+     * @return The current taskList.
+     */
     public static ArrayList<Task> getTaskList() {
         return taskList;
     }

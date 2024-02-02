@@ -4,12 +4,22 @@ import duke.TaskList;
 import exception.EmptyInputException;
 import task.Todo;
 
-public class TodoCommand extends Command {
+/**
+ * Command to add a todo into the task list.
+ */
+public class todoCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
 
-    public TodoCommand(TaskList taskList, Ui ui) {
+    /**
+     * The constructor of todo Command.
+     *
+     * @param taskList The task list which the command will modify.
+     * @param ui The ui to get the input of the user.
+     * @throws EmptyInputException If user did not input description.
+     */
+    public todoCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
 

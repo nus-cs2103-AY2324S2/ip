@@ -1,6 +1,7 @@
+package duke;
+
 import command.Command;
 import exception.*;
-import duke.*;
 
 public class Duke {
     private Storage storage;
@@ -44,7 +45,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        new Duke("./data/tasks.txt").run();
     }
     /*private static void writeTasks(ArrayList<Task.Task> list) {
         try {
