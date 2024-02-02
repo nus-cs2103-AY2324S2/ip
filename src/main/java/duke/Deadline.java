@@ -2,11 +2,24 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * Deadline class, a subtype of task.
+ * Deadlines are specified by a due date.
+ */
 public class Deadline extends Task {
 
+    /** Due dtae of deadline */
     protected String by;
+
+    /** Due date format */
     protected LocalDate date;
 
+    /**
+     * Constructor for Deadline.
+     * @param description Contents of deadline entered by the user.
+     * @param by Due date of the deadline.
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = by.trim(); // Trim leading and trailing whitespace
