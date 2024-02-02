@@ -1,4 +1,3 @@
-import java.sql.Array;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.function.Consumer;
@@ -6,9 +5,8 @@ import java.util.stream.Collectors;
 
 public class Duke {
     
-    /** Scanner for user input. */
-    private static final Scanner input = new Scanner(System.in);
-    
+    private static final Ui ui = new Ui();
+
     private static boolean done = false;
 
     private static final HashMap<String, Command> commandMap = new HashMap<>();
@@ -16,31 +14,7 @@ public class Duke {
     private static ArrayList<Task> taskList = new ArrayList<>();
     
     private static final Storage st = new Storage("data.txt");
-    
-    /**
-     * Prints a message to the terminal, decorated with the Louie icon. 
-     * Printing an empty string just outputs the icon
-     *
-     * @param message The message to print.
-     */
-    public static void print(String message) {
-        boolean isFirst = true;
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n");
-        for (String s : message.split("\n")) {
-            sb.append("    ");
-            if (isFirst) {
-                sb.append("(>^.^<)");
-                isFirst = false;
-            } else {
-                sb.append("       ");
-            }
-            sb.append(" ").append(s).append("\n");
-        }
-        sb.append("\n");
-        System.out.print(sb);
-    }
-    
+
     public static void exit() {
         // Duke will exit at the end of the loop
         done = true;
@@ -77,10 +51,10 @@ public class Duke {
                 if (args.length > 1) {
                     throw new DukeOptionParsingException("option was not expected but was given: " + args[1]);
                 }
-                Duke.print("Here's what you've done today...\n" + taskStrings());
+                new Ui().print("Here's what you've done today...\n" + taskStrings());
                 
             } catch (DukeOptionParsingException e) {
-                Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
         
@@ -89,10 +63,10 @@ public class Duke {
                 if (args.length > 1) {
                     throw new DukeOptionParsingException("options were not expected but were given");
                 }
-                Duke.print("Ok, going to sleep...");
+                ui.print("Ok, going to sleep...");
                 Duke.exit();
             } catch (DukeOptionParsingException e) {
-                Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
         
@@ -123,12 +97,12 @@ public class Duke {
                     );
                 }
                 t.mark();
-                Duke.print("CONGRATULATION!!!!!! you completed this task:\n" +
+                ui.print("CONGRATULATION!!!!!! you completed this task:\n" +
                         t.describe()
                 );
                 Duke.st.writeTasks(Duke.taskList);
             } catch (DukeException e) {
-                Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
 
@@ -160,12 +134,12 @@ public class Duke {
                 }
 
                 t.unmark();
-                Duke.print("CONGRATULATION!!!!!! you un completed this task:\n" +
+                ui.print("CONGRATULATION!!!!!! you un completed this task:\n" +
                         t.describe()
                 );
                 Duke.st.writeTasks(Duke.taskList);
             } catch (DukeException e) {
-                Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
         
@@ -180,11 +154,11 @@ public class Duke {
                         .collect(Collectors.joining(" "));
 
                 var t = new ToDo(str);
-                Duke.print(String.format("Ok, I've added a new todo...\n  %s", t.describe()));
+                ui.print(String.format("Ok, I've added a new todo...\n  %s", t.describe()));
                 taskList.add(t);
                 Duke.st.writeTasks(Duke.taskList);
             } catch (DukeException e) {
-                Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
         
@@ -243,11 +217,11 @@ public class Duke {
                     throw new DukeException("Couldn't parse the end date " + by);
                 }
                 
-                Duke.print(String.format("Ok, I've added a new deadline...\n  %s", t.describe()));
+                ui.print(String.format("Ok, I've added a new deadline...\n  %s", t.describe()));
                 Duke.taskList.add(t);
                 Duke.st.writeTasks(Duke.taskList);
             } catch (DukeException e) {
-                Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
             
             
@@ -337,11 +311,11 @@ public class Duke {
                             ("Couldn't parse the start/end date %s/%s", from, to));
                 }
 
-                Duke.print(String.format("Ok, I've added a new event...\n  %s", t.describe()));
+                ui.print(String.format("Ok, I've added a new event...\n  %s", t.describe()));
                 Duke.taskList.add(t);
                 Duke.st.writeTasks(Duke.taskList);
             } catch (DukeException e) {
-                Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
         
@@ -370,33 +344,33 @@ public class Duke {
                 }
                 t = taskList.remove(i);
                 
-                Duke.print
+                ui.print
                         ("I'm deleting this task. bye...\n" +
                         t.describe());
                 Duke.st.writeTasks(Duke.taskList);
             } catch (DukeException e) {
-                Duke.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
         
         try {
             Duke.taskList = Duke.st.loadTasks();
         } catch (DukeException e) {
-            Duke.print(String.format
+            ui.print(String.format
                     ("Error loading task data: %s"
                             + "\n\nPlease delete 'data.txt' and try again. Goodbye...", e.getMessage()));
             System.exit(1);
         }
         
-        Duke.print("Hello, my name is... Louie!!!!\n" + 
+        ui.print("Hello, my name is... Louie!!!!\n" + 
                    "What can I do for you today?");
         while (!done) {
-            String str = input.nextLine();
+            String str = ui.readInput();
             String[] args = str.split(" ");
             if (commandMap.containsKey(args[0])) {
                 commandMap.get(args[0]).run(args);
             } else {
-                Duke.print("no matching command...");
+                ui.print("no matching command...");
             }
         }
     }
