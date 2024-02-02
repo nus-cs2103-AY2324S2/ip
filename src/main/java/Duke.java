@@ -1,3 +1,4 @@
+import java.io.Console;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -55,6 +56,12 @@ public class Duke {
                     i++;
                 }
                 output = output.trim();
+                try {
+                    saveData(todolist);
+                } catch (IOException e) {
+                    System.out.println("?");
+                }
+
                 break;
             case "mark":
                 taskNumber = Integer.parseInt(details) - 1;
@@ -87,8 +94,8 @@ public class Duke {
                     if (d.length == 1) {
                         throw new DukeException("Invalid deadline task!");
                     }
-                    deadlineName = d[0];
-                    by = d[1];
+                    deadlineName = d[0].trim();
+                    by = d[1].trim();
 
                 } catch (DukeException e) {
                     output = e.toString();
@@ -102,6 +109,9 @@ public class Duke {
                 String eventName = details.split("/from ")[0];
                 String from = details.split("/from ")[1].split(" /to")[0];
                 String to = details.split("/to ")[1];
+                String eventName = details.split("/from ")[0].trim();
+                String from = details.split("/from ")[1].split(" /to")[0].trim();
+                String to = details.split("/to ")[1].trim();
                 Task event = new Event(eventName, from, to);
                 addItem(event);
                 output = "added event: " + event.toString();
