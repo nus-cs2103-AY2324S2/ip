@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+ * Class for Deadline Task
+ */
 public class Deadline extends Task {
     protected DateTask by;
 
@@ -12,12 +15,18 @@ public class Deadline extends Task {
         this.by = new DateTask(by);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String saveFormat() {
         return String.format("%s;;%s;;%s",
                 "D",super.saveFormat(), by.saveFormat());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return String.format("%s%s%s",
