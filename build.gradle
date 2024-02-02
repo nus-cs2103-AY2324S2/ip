@@ -10,7 +10,7 @@ checkstyle {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("duke.DukeLauncher")
 }
 
 shadowJar {
