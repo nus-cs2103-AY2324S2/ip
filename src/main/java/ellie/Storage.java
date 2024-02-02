@@ -26,6 +26,8 @@ public class Storage {
         this.filePath = filePath;
         f = new File(filePath);
 
+        // add mkdir function
+
         // If file does not exist, create the file
         if (!f.exists()) {
             try {
