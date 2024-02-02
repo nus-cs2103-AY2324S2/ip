@@ -1,7 +1,9 @@
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.nio.file.*;
+
 
 public class Duke {
     private static final String hRULER = "____________________________________________________________\n";
@@ -76,87 +78,82 @@ public class Duke {
                 Task newTask = null;
 
                 switch (token) {
-                    case bye:
-                        return;
-                    case list:
-                        System.out.printf("%s Here are the tasks in your list:\n", hRULER);
-                        for (int i = 0; i < currentIdx; i++) {
-                            System.out.printf(" %d.%s\n", i + 1, storage.get(i).toString());
-                        }
-                        System.out.println(hRULER);
-                        break;
-                    case mark:
-                        if (words.length == 1 || !isNumeric(words[1])) {
-                            throw new InvalidTaskIndexException(currentIdx);
-                        }
-                        int taskIdx = Integer.parseInt(words[1]) - 1;
-                        if (taskIdx >= currentIdx || taskIdx < 0) {
-                            throw new InvalidTaskIndexException(currentIdx);
-                        }
-                        storage.get(taskIdx).markDone();
-                        rewriteFile(dukefile, storage);
-                        break;
-                    case unmark:
-                        if (words.length == 1 || !isNumeric(words[1])) {
-                            throw new InvalidTaskIndexException(currentIdx);
-                        }
-                        int taskIdx1 = Integer.parseInt(words[1]) - 1;
-                        if (taskIdx1 >= currentIdx || taskIdx1 < 0) {
-                            throw new InvalidTaskIndexException(currentIdx);
-                        }
-                        storage.get(taskIdx1).unMarkDone();
-                        rewriteFile(dukefile, storage);
-                        break;
-                    case delete:
-                        if (words.length == 1 || !isNumeric(words[1])) {
-                            throw new InvalidTaskIndexException(currentIdx);
-                        }
-                        int taskIdx2 = Integer.parseInt(words[1]) - 1;
-                        if (taskIdx2 >= currentIdx || taskIdx2 < 0) {
-                            throw new InvalidTaskIndexException(currentIdx);
-                        }
-                        Task removed = storage.remove(taskIdx2);
-                        currentIdx--;
-                        System.out.printf("%s Noted. I've removed this task:\n   %s\n Now you have %d tasks in the list.\n%s",
-                                hRULER, removed, currentIdx, hRULER);
-                        rewriteFile(dukefile, storage);
-                        break;
-                    case todo:
-                        if (words.length == 1) {
-                            throw new EmptyDescriptionException("todo");
-                        }
-                        newTask = new ToDo(words[1]);
-                        addToWriteFile(dukefile, newTask);
-                        break;
+                case bye:
+                    return;
+                case list:
+                    System.out.printf("%s Here are the tasks in your list:\n", hRULER);
+                    for (int i = 0; i < currentIdx; i++) {
+                        System.out.printf(" %d.%s\n", i + 1, storage.get(i).toString());
+                    }
+                    System.out.println(hRULER);
+                    break;
+                case mark:
+                    if (words.length == 1 || !isNumeric(words[1])) {
+                        throw new InvalidTaskIndexException(currentIdx);
+                    }
+                    int taskIdx = Integer.parseInt(words[1]) - 1;
+                    if (taskIdx >= currentIdx || taskIdx < 0) {
+                        throw new InvalidTaskIndexException(currentIdx);
+                    }
+                    storage.get(taskIdx).markDone();
+                    rewriteFile(dukefile, storage);
+                    break;
+                case unmark:
+                    if (words.length == 1 || !isNumeric(words[1])) {
+                        throw new InvalidTaskIndexException(currentIdx);
+                    }
+                    int taskIdx1 = Integer.parseInt(words[1]) - 1;
+                    if (taskIdx1 >= currentIdx || taskIdx1 < 0) {
+                        throw new InvalidTaskIndexException(currentIdx);
+                    }
+                    storage.get(taskIdx1).unMarkDone();
+                    rewriteFile(dukefile, storage);
+                    break;
+                case delete:
+                    if (words.length == 1 || !isNumeric(words[1])) {
+                        throw new InvalidTaskIndexException(currentIdx);
+                    }
+                    int taskIdx2 = Integer.parseInt(words[1]) - 1;
+                    if (taskIdx2 >= currentIdx || taskIdx2 < 0) {
+                        throw new InvalidTaskIndexException(currentIdx);
+                    }
+                    Task removed = storage.remove(taskIdx2);
+                    currentIdx--;
+                    System.out.printf("%s Noted. I've removed this task:\n   %s\n Now you have %d tasks in the list.\n%s",
+                            hRULER, removed, currentIdx, hRULER);
+                    rewriteFile(dukefile, storage);
+                    break;
+                case todo:
+                    if (words.length == 1) {
+                        throw new EmptyDescriptionException("todo");
+                    }
+                    newTask = new ToDo(words[1]);
+                    addToWriteFile(dukefile, newTask);
+                    break;
                     case event:
                         if (words.length == 1) {
                             throw new EmptyDescriptionException("event");
                         }
                         int startIdx = 0;
-                        int numOfSlash = 0;
+                        boolean haveTime = false;
                         while (startIdx < words[1].length()) {
                             if (words[1].charAt(startIdx) != '/') {
                                 startIdx++;
                             } else {
-                                numOfSlash++;
+                                haveTime = true;
                                 break;
                             }
                         }
-                        int endIdx = startIdx + 1;
-                        while (endIdx < words[1].length()) {
-                            if (words[1].charAt(endIdx) != '/') {
-                                endIdx++;
-                            } else {
-                                numOfSlash++;
-                                break;
-                            }
+                        if (!haveTime) {
+                            throw new InvalidEventException();
                         }
-                        if (numOfSlash < 2) {
+                        String[] dates = words[1].substring(startIdx).split("/from | /to ");
+                        if (dates.length != 3) {
                             throw new InvalidEventException();
                         }
                         newTask = new Event(words[1].substring(0, startIdx),
-                                words[1].substring(startIdx + 6, endIdx),
-                                words[1].substring(endIdx + 4));
+                                dates[1],
+                                dates[2]);
                         addToWriteFile(dukefile, newTask);
                         break;
                     case deadline:
