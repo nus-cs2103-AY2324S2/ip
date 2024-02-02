@@ -4,10 +4,20 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Represents the class that handles Storage related tasks.
+ */
 public class StorageHelper {
     private static final String directoryPath = "data";
     private static final String fileName = "task_list.txt";
 
+    /**
+     * Returns the file that is read from the storage.
+     * Throws IOException, if creating a new file fails if not exists.
+     *
+     * @return File
+     * @throws IOException - thrown if create when not exist errors.
+     */
     public File loadFile() throws IOException {
         // check if the directory exists if not create it
         File directory = new File(directoryPath);
@@ -20,6 +30,12 @@ public class StorageHelper {
         return file;
     }
 
+    /**
+     * Saves the given content to storage.
+     * Throws IOException, if creating a new file fails if not exists.
+     *
+     * @throws IOException - thrown if create when not exist errors.
+     */
     public void saveFile(String content) throws IOException {
         // check if the directory exists if not create it
         File directory = new File(directoryPath);

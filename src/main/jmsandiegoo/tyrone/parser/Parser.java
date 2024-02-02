@@ -11,6 +11,10 @@ import jmsandiegoo.tyrone.exceptions.IncorrectCommandException;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+/**
+ * Represents the parser handling the parsing of the raw user inputs.
+ */
 public class Parser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Pattern TODO_ARGS_FORMAT = Pattern.compile("(?<description>.+)");
@@ -21,6 +25,15 @@ public class Parser {
     private static final Pattern INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)");
     private static final Pattern FIND_ARGS_FORMAT = Pattern.compile("(?<keyword>.+)");
 
+    /**
+     * Parses the raw user input into command and arguments respectively.
+     * Also, redirects it to the command handler. If raw input is not in expected format,
+     * IncorrectCommandException is thrown.
+     *
+     * @param rawUserInput - the raw input from the System.in.
+     * @return Command - returns the correct Command handler for the parsed input.
+     * @throws IncorrectCommandException - thrown if raw user input is not in the expected format.
+     */
     public Command parseRawUserCommand(String rawUserInput) throws IncorrectCommandException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(rawUserInput.trim());
         if (!matcher.matches()) {
