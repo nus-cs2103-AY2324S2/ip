@@ -1,3 +1,7 @@
+package duke;
+
+import duke.command.*;
+
 public class Parser {
     public Parser() {
 
@@ -48,19 +52,19 @@ public class Parser {
         case "mark":
             splitCommand = fullCommand.split(" ");
             if (splitCommand.length == 1) {
-                throw new DukeException("Task number of mark cannot be empty.");
+                throw new DukeException("duke.task.Task number of mark cannot be empty.");
             }
             return new MarkCommand(Integer.parseInt(splitCommand[1]));
         case "unmark":
             splitCommand = fullCommand.split(" ");
             if (splitCommand.length == 1) {
-                throw new DukeException("Task number of unmark cannot be empty.");
+                throw new DukeException("duke.task.Task number of unmark cannot be empty.");
             }
             return new UnmarkCommand(Integer.parseInt(splitCommand[1]));
         case "delete":
             splitCommand = fullCommand.split(" ");
             if (splitCommand.length == 1) {
-                throw new DukeException("Task number of delete cannot be empty.");
+                throw new DukeException("duke.task.Task number of delete cannot be empty.");
             }
             return new DeleteCommand(Integer.parseInt(splitCommand[1]));
         case "bye":

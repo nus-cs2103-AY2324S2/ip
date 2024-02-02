@@ -1,5 +1,5 @@
-import java.io.InputStream;
-import java.io.PrintStream;
+package duke.ui;
+
 import java.util.Scanner;
 
 public class Ui {
