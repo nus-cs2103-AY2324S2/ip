@@ -14,12 +14,24 @@ import dave.tasks.Task;
 import dave.tasks.Todo;
 
 public class Storage {
+    /** The filepath to store tasks. */
     private String storageFilepath;
 
+    /**
+     * Creates new Storage object.
+     * 
+     * @param filepath Output file to operate on for storing and updating tasks in.
+     */
     public Storage(String filepath) {
         this.storageFilepath = filepath;
     }
 
+    /**
+     * Loads the tasks stored, if any.
+     * 
+     * @return An ArrayList<Task> to be used as the task list.
+     * @throws IOException If output file is not found or corrupted.
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> taskList = new ArrayList<Task>();
         BufferedReader br = new BufferedReader(new FileReader(this.storageFilepath));
@@ -55,6 +67,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the task to output file if user adds a task in the task list.
+     * 
+     * @throws IOException If output file is not found.
+     */
     public void saveTask(Task newTask) throws IOException {
         File fileToWrite = new File(this.storageFilepath);
         if (!fileToWrite.exists()) {
@@ -67,6 +84,12 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Rewrites the tasks to the output file when the task list changes.
+     * Changes to task list include marking, unmarking and deletion of tasks.
+     * 
+     * @param taskList Current task list to read from.
+     */
     public void rewriteOutput(TaskList taskList) {
         File fileToDelete = new File(this.storageFilepath);
         try {

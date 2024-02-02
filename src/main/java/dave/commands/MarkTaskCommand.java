@@ -6,12 +6,23 @@ import dave.Ui;
 import dave.exceptions.UnableToFindTaskException;
 
 public class MarkTaskCommand extends Command {
+    /** The index of the task to be marked as done. */
     private int taskNumber;
 
+    /**
+     * Creates new MarkTaskCommand.
+     * Takes in the index of the task to be marked as done.
+     * 
+     * @param taskNumber Index of task to be marked.
+     */
     public MarkTaskCommand(int taskNumber) {
         this.taskNumber = taskNumber;
     }
 
+    /**
+     * {@inheritDoc}
+     * Marks the task as done.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
@@ -25,6 +36,10 @@ public class MarkTaskCommand extends Command {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * Not an exit command.
+     */
     @Override
     public boolean isExit() {
         return false;

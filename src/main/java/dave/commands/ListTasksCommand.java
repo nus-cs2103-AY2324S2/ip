@@ -6,6 +6,10 @@ import dave.TaskList;
 
 public class ListTasksCommand extends Command {
 
+    /**
+     * {@inheritDoc}
+     * Lists the current tasks in the task list.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.showHorizontalLine();
@@ -16,6 +20,10 @@ public class ListTasksCommand extends Command {
         ui.showHorizontalLine();
     }
 
+    /**
+     * {@inheritDoc}
+     * Not an exit command.
+     */
     @Override
     public boolean isExit() {
         return false;

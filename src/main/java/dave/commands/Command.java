@@ -6,7 +6,20 @@ import dave.exceptions.ChatbotException;
 import dave.Storage;
 
 public abstract class Command {
+    /**
+     * Executes the command.
+     * 
+     * @param taskList Task list to add task to.
+     * @param ui User interface to display some feedback after executing the command.
+     * @param storage Storage to store task information when tasks are modified/deleted.
+     * @throws ChatbotException
+     */
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException;
 
+    /**
+     * Checks if the command is the exit command.
+     * 
+     * @return True only if it is an exit command, false otherwise.
+     */
     public abstract boolean isExit();
 }
