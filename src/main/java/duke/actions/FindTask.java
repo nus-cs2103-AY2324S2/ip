@@ -5,13 +5,30 @@ import java.util.ArrayList;
 import duke.kbot.TaskManager;
 import duke.tasks.Task;
 
+/**
+ * An find key command that finds you tasks that contains the key.
+ * 
+ * @author: CHEN WENLONG
+ * @version: CS2103T AY23/24 Semester 2
+ */
 public class FindTask extends Command {
+    /** String key that stores what we will be searching for */
     private String key;
 
+    /**
+     * Constructor for FindTask.
+     * 
+     * @param key Key what we will be searching for.
+     */
     public FindTask(String key) {
         this.key = key;
     }
 
+    /**
+     * Executes the finding of the class
+     * 
+     * @return Returns the Tasks that contain the key.
+     */
     @Override
     public String execute() {
         ArrayList<Task> found = new ArrayList<>();

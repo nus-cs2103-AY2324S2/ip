@@ -13,6 +13,9 @@ import duke.exceptions.InvalidInputException;
 
 /**
  * Parse through the commands to return a specific command class.
+ * 
+ * @author: CHEN WENLONG
+ * @version: CS2103T AY23/24 Semester 2
  */
 public class Parser {
 
@@ -20,7 +23,10 @@ public class Parser {
      * Execute whatever command thrown at the bot by the user
      * 
      * @param userInput String representing command to the bot.
-     * @throws KException Exceptions thrown when the command is not valid.
+     * @throws InvalidCommandException Exceptions thrown when the command is not
+     *                                 valid.
+     * @throws InvalidInputException   Exception thrown when command parameters are
+     *                                 not valid.
      * @return Returns a Command to be executed.
      */
     public static Command parse(String userInput) throws InvalidCommandException, InvalidInputException {

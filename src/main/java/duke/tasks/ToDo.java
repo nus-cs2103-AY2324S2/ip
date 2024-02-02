@@ -19,10 +19,22 @@ public class ToDo extends Task {
         super(name, TYPE, false);
     }
 
+    /**
+     * Constuctor used when we are loading from storage.
+     * 
+     * @param name      A String value that states the name of the Task.
+     * @param completed Boolean of whether Task is completed.
+     */
     public ToDo(String name, boolean completed) {
         super(name, TYPE, completed);
     }
 
+    /**
+     * Searches for a key in name.
+     * 
+     * @param key String to find in the name.
+     * @return Boolean if key is found or not.
+     */
     public boolean find(String key) {
         return super.find(key);
     }

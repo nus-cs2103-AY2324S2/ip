@@ -6,6 +6,12 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
+/**
+ * Encapsulate the test for Deadline class.
+ *
+ * @author: CHEN WENLONG
+ * @version: CS2103T AY23/24 Semester 2
+ */
 public class DeadlineTest {
     @Test
     public void Deadline_toString() {
