@@ -42,34 +42,34 @@ public class TaskList {
         if (description.equals("")) throw new TaskException("Sensei! Please provide some task description!");
 
         switch(type) {
-            case "todo":
-                tasks.add(new Todo(description));
-                break;
-            case "deadline":
-                if (info.length < 2) throw new TaskException("Sensei! Please provide a deadline!");
+        case "todo":
+            tasks.add(new Todo(description));
+            break;
+        case "deadline":
+            if (info.length < 2) throw new TaskException("Sensei! Please provide a deadline!");
 
-                String by = info[1].replaceAll("by", "").trim();
-                try {
-                    LocalDate date = Parser.parseDate(by);
-                    tasks.add(new Deadline(description, date));
-                } catch (DateTimeParseException e) {
-                    throw new TaskException("Sensei! Arona does not recognise this date format!");
-                }
-                break;
-            case "event":
-                if (info.length < 3) throw new TaskException("Sensei! Please provide an event begin and deadline.");
+            String by = info[1].replaceAll("by", "").trim();
+            try {
+                LocalDate date = Parser.parseDate(by);
+                tasks.add(new Deadline(description, date));
+            } catch (DateTimeParseException e) {
+                throw new TaskException("Sensei! Arona does not recognise this date format!");
+            }
+            break;
+        case "event":
+            if (info.length < 3) throw new TaskException("Sensei! Please provide an event begin and deadline.");
 
-                String from = info[1].replaceAll("from", "").trim();
-                by = info[2].replaceAll("to", "").trim();
+            String from = info[1].replaceAll("from", "").trim();
+            by = info[2].replaceAll("to", "").trim();
 
-                try {
-                    LocalDate dateFrom = Parser.parseDate(from);
-                    LocalDate dateBy = Parser.parseDate(by);
-                    tasks.add(new Event(description, dateFrom, dateBy));
-                } catch (DateTimeParseException e) {
-                    throw new TaskException("Sensei! Arona does not recognise this date format!");
-                }
-                break;
+            try {
+                LocalDate dateFrom = Parser.parseDate(from);
+                LocalDate dateBy = Parser.parseDate(by);
+                tasks.add(new Event(description, dateFrom, dateBy));
+            } catch (DateTimeParseException e) {
+                throw new TaskException("Sensei! Arona does not recognise this date format!");
+            }
+            break;
         }
         ui.taskAdded(tasks);
     }
