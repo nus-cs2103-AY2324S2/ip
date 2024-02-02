@@ -8,25 +8,55 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
+/**
+ * The Parser class parses user input and executes corresponding commands.
+ */
 public class Parser {
     Ui ui;
     Storage storage;
     TaskList taskList;
 
+    /**
+     * Constructs a Parser object with the specified Ui, Storage, and TaskList.
+     *
+     * @param ui        the user interface
+     * @param storage   the storage handler
+     * @param taskList  the task list
+     */
     public Parser(Ui ui, Storage storage, TaskList taskList) {
         this.ui = ui;
         this.storage = storage;
         this.taskList = taskList;
     }
 
+    /**
+     * Validates if a given string represents a valid date in the format "yyyy-MM-dd".
+     *
+     * @param dateString the string representation of the date
+     * @return true if the string is a valid date, false otherwise
+     */
     private static boolean isValidDate(String dateString) {
         String parsedInPattern = "\\d{4}-\\d{2}-\\d{2}";
         return Pattern.matches(parsedInPattern, dateString);
     }
+
+    /**
+     * Validates if the start date is before the end date.
+     *
+     * @param startDate the start date
+     * @param endDate   the end date
+     * @return true if the start date is before the end date, false otherwise
+     */
     private static boolean isValidDates(LocalDate startDate, LocalDate endDate) {
         return startDate.isBefore(endDate);
     }
 
+    /**
+     * Executes a user command based on the provided input.
+     *
+     * @param userInput the user input command
+     * @throws IOException if an I/O error occurs
+     */
     public void execute(String userInput) throws IOException {
         String[] words = userInput.split(" ");
         String command = words[0].toLowerCase();

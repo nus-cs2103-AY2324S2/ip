@@ -12,19 +12,39 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Storage class manages the loading and saving of tasks to a file.
+ */
 public class Storage {
     String filePath;
     ArrayList<Task> tasks;
 
+    /**
+     * Constructs a Storage object with the given file path.
+     *
+     * @param filePath the file path where tasks are stored
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Validates if the start date is before the end date.
+     *
+     * @param startDate the start date
+     * @param endDate   the end date
+     * @return true if the start date is before the end date, false otherwise
+     */
     private static boolean isValidDates(LocalDate startDate, LocalDate endDate) {
         return startDate.isBefore(endDate);
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return the list of tasks loaded from the file
+     */
     public ArrayList<Task> loadTasksFromFile() {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -158,6 +178,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the file.
+     *
+     * @param taskList the list of tasks to be saved
+     * @throws IOException if an I/O error occurs while saving the tasks
+     */
     public void saveTasksToFile(ArrayList<Task> taskList) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             for (Task task : taskList) {
@@ -168,4 +194,3 @@ public class Storage {
         }
     }
 }
-
