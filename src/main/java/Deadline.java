@@ -1,23 +1,26 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDate by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
-        this.by = by;
+        this.by = LocalDate.parse(by, Bob.INPUT_DATE_FORMATTER);
     }
 
     public Deadline(String description, String by, String isDone) {
         super(description, isDone);
-        this.by = by;
+        this.by = LocalDate.parse(by, Bob.INPUT_DATE_FORMATTER);
     }
 
     public String format() {
-        return "deadline | " + super.format() + " | " + this.by;
+        return "deadline | " + super.format() + " | " + this.by.format(Bob.INPUT_DATE_FORMATTER);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + this.by.format(Bob.OUTPUT_DATE_FORMATTER) + ")";
     }
 }
