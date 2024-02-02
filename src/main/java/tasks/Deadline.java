@@ -19,18 +19,18 @@ public class Deadline extends Task {
 
     @Override
     public String toSavedString() {
-        return String.format("D,%s,%s,%s"
-                , this.done ? '1' : '0'
-                , this.name
-                , this.time.format(DateTimeFormatter.ISO_LOCAL_DATE));
+        return String.format("D,%s,%s,%s",
+                this.done ? '1' : '0',
+                this.name,
+                this.time.format(DateTimeFormatter.ISO_LOCAL_DATE));
     }
 
     @Override
     public String toString() {
-        return String.format("[D][%s] %s (by: %s)\n"
-                , this.done ? "X" : " "
-                , this.name
-                , this.time.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
+        return String.format("[D][%s] %s (by: %s)\n",
+                this.done ? "X" : " ",
+                this.name,
+                this.time.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
     }
 
     @Override

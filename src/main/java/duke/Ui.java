@@ -15,7 +15,6 @@ public class Ui {
             " ___) | . \\ | || |_) | || |_| | | \n" +
             "|____/|_|\\_\\___|____/___|____/___|";
 
-    private List<Task> list = new ArrayList<>();
 
     public static void printLine() {
         System.out.println("\n-------------------------------------------------------------------\n");
@@ -35,7 +34,7 @@ public class Ui {
 
     public void chat(TaskList tasks, Storage storage) {
         Scanner sc = new Scanner(System.in);
-        String in = null;
+        String in;
         Parser p = new Parser();
 
         while (!(tasks == null)) {
