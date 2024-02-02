@@ -1,7 +1,7 @@
 public class Deadline extends Task {
     protected String by;
 
-    public Deadline(String description, String by, boolean isComplete) { // Adjusted constructor
+    public Deadline(String description, String by, boolean isComplete) {
         super(description);
         this.by = by;
         this.isComplete = isComplete;
@@ -14,7 +14,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D][" + getStatusIcon() + "] " + description + " (by: " + by + ")";
+        return "D | " + (isComplete ? 1 : 0) + " | " + description + " | " + by;
     }
+
 
 }

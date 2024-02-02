@@ -2,7 +2,7 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
-    public Event(String description, String from, String to, boolean isComplete) { // Adjusted constructor
+    public Event(String description, String from, String to, boolean isComplete) {
         super(description);
         this.from = from;
         this.to = to;
@@ -16,7 +16,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E][" + getStatusIcon() + "] " + description + " (from: " + from + " to: " + to + ")";
+        return "E | " + (isComplete ? 1 : 0) + " | " + description + " | " + from + " to " + to;
     }
+
 
 }

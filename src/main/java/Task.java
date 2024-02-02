@@ -19,7 +19,6 @@ public abstract class Task {
         return (isComplete ? "X" : " ");
     }
 
-    // Abstract method to be implemented by subclasses
     public abstract String toFileFormat();
 
     @Override

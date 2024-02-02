@@ -1,7 +1,7 @@
 public class Todo extends Task {
     public Todo(String description, boolean isComplete) {
         super(description);
-        this.isComplete = isComplete; // Adjust constructor to accept isComplete
+        this.isComplete = isComplete;
     }
 
     @Override
@@ -11,7 +11,8 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T][" + getStatusIcon() + "] " + description;
+        return "T | " + (isComplete ? 1 : 0) + " | " + description;
     }
+
 
 }
