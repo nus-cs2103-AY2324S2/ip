@@ -1,17 +1,14 @@
-import duke.DukeException;
-import duke.Parser;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
-import duke.command.Command;
+package morty;
 
-public class Duke {
+import morty.command.Command;
+
+public class Morty {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public Duke(String filePath) {
+    public Morty(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -41,6 +38,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        new Morty("data/tasks.txt").run();
     }
 }

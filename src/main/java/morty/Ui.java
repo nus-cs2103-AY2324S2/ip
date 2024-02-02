@@ -1,8 +1,8 @@
-package duke;
+package morty;
 
 import java.util.Scanner;
 
-import duke.task.Task;
+import morty.task.Task;
 
 public class Ui {
 

@@ -1,14 +1,14 @@
-package duke;
+package morty;
 
-import duke.command.Command;
-import duke.command.DeadlineCommand;
-import duke.command.DeleteCommand;
-import duke.command.DoneCommand;
-import duke.command.EventCommand;
-import duke.command.ExitCommand;
-import duke.command.InvalidCommand;
-import duke.command.ListCommand;
-import duke.command.TodoCommand;
+import morty.command.Command;
+import morty.command.DeadlineCommand;
+import morty.command.DeleteCommand;
+import morty.command.DoneCommand;
+import morty.command.EventCommand;
+import morty.command.ExitCommand;
+import morty.command.InvalidCommand;
+import morty.command.ListCommand;
+import morty.command.TodoCommand;
 
 public class Parser {
 

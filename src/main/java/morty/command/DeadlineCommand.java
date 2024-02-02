@@ -1,14 +1,13 @@
-package duke.command;
+package morty.command;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
-
-import duke.task.Task;
-import duke.task.Deadline;
+import morty.Storage;
+import morty.TaskList;
+import morty.Ui;
+import morty.task.Deadline;
+import morty.task.Task;
 
 /**
  * Represents a command to add a deadline task.

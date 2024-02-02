@@ -1,4 +1,4 @@
-package duke;
+package morty;
 
 public class DukeException extends Exception {
   public DukeException(String message) {

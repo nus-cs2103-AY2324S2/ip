@@ -1,9 +1,9 @@
-package duke.command;
+package morty.command;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
-import duke.task.Todo;
+import morty.Storage;
+import morty.TaskList;
+import morty.Ui;
+import morty.task.Todo;
 
 /**
  * Represents a command to add a todo task.

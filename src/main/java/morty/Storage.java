@@ -1,4 +1,4 @@
-package duke;
+package morty;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,10 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import duke.task.Task;
-import duke.task.Event;
-import duke.task.Todo;
-import duke.task.Deadline;
+import morty.task.Deadline;
+import morty.task.Event;
+import morty.task.Task;
+import morty.task.Todo;
 
 public class Storage {
 

@@ -1,9 +1,8 @@
-package duke.command;
+package morty.command;
 
-import duke.TaskList;
-
-import duke.Storage;
-import duke.Ui;
+import morty.Storage;
+import morty.TaskList;
+import morty.Ui;
 
 /**
  * Represents a command to exit the program.

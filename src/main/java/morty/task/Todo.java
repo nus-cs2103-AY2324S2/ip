@@ -1,4 +1,4 @@
-package duke.task;
+package morty.task;
 
 /**
  * Class representing a Todo task.

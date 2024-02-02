@@ -1,4 +1,4 @@
-package duke.task;
+package morty.task;
 
 /**
  * Class representing a task with an identifier, title, and completion status.

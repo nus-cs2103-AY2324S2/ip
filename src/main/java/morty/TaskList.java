@@ -1,9 +1,9 @@
-package duke;
+package morty;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import duke.task.Task;
+import morty.task.Task;
 
 public class TaskList {
 

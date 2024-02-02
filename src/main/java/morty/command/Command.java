@@ -1,9 +1,9 @@
-package duke.command;
+package morty.command;
 
-import duke.TaskList;
-import duke.Ui;
-import duke.Storage;
-import duke.DukeException;
+import morty.DukeException;
+import morty.Storage;
+import morty.TaskList;
+import morty.Ui;
 
 /**
  * Represents a command.
