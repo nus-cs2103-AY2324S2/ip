@@ -23,7 +23,7 @@ public class Ui {
      *
      * @return String User input
      */
-    public String scanInput(){
+    public String scanInput() {
         String input = scanner.nextLine();
         return input;
     }
@@ -31,7 +31,7 @@ public class Ui {
     /**
      * Prints Yapchit intro message.
      */
-    public void printIntro(){
+    public void printIntro() {
         String intro = "\t--------------------------------------------------\n"
                 + "\tHello! I'm Yapchit\n"
                 + "\tWhat can I do for you?\n"
@@ -42,18 +42,17 @@ public class Ui {
     /**
      * Prints Yapchit outro message.
      */
-    public void printOutro(){
+    public void printOutro() {
         String outro = "\t--------------------------------------------------\n"
                 + "\tBye. Hope to see you again soon!\n"
                 + "\t--------------------------------------------------";
-
         print(outro);
     }
 
     /**
      * Prints error message if there is an issue in loading tasks from existing file.
      */
-    public void printTasklistLoadError(){
+    public void printTasklistLoadError() {
         print("Unable to load existing list from file.\nThis could be due to corrupted file data or missing file.");
     }
 
@@ -63,13 +62,13 @@ public class Ui {
      * @param t    The added task.
      * @param size Size of task list to be printed.
      */
-    public void printTaskAdd(Task t, int size){
-        this.printLine();
+    public void printTaskAdd(Task t, int size) {
+        Ui.printLine();
         print("\tGot it. I've added this task:");
         print("\t\t"+ t.toString());
         String temp = size == 1 ? "task" : "tasks";
         print("\tNow you have " + size +" " + temp + " in the list");
-        this.printLine();
+        Ui.printLine();
     }
 
     /**
@@ -78,7 +77,7 @@ public class Ui {
      * @param t    The deleted task.
      * @param size Size of task list to be printed.
      */
-    public void printTaskDelete(Task t, int size){
+    public void printTaskDelete(Task t, int size) {
         Ui.printLine();
         Ui.print("\tNoted. I've removed this task:");
         Ui.print("\t\t" + t.toString());
@@ -93,8 +92,9 @@ public class Ui {
      * @param t    The task in question
      * @param isDone Boolean that indicates whether the task is completed or not.
      */
-    public void printTaskMark(Task t, boolean isDone){
+    public void printTaskMark(Task t, boolean isDone) {
         Ui.printLine();
+
         if (isDone) {
             Ui.print("\t" + "Nice! I've marked this task as done:");
             Ui.print("\t\t" + t.toString());
@@ -102,6 +102,7 @@ public class Ui {
             Ui.print("\t" + "OK, I've marked this task as not done yet:");
             Ui.print("\t\t" + t.toString());
         }
+
         Ui.printLine();
     }
 
@@ -111,7 +112,7 @@ public class Ui {
      * @param tasks The TaskList in question.
      * @param message the message to print above the list
      */
-    public void printList(TaskList tasks, String message){
+    public void printList(TaskList tasks, String message) {
         Ui.printLine();
         Ui.print("\t" + message);
         for (int i = 0; i < tasks.getListSize(); i++) {
@@ -119,10 +120,10 @@ public class Ui {
             Task item = tasks.getItem(i);
             Ui.print("\t" + idx + "." + item.toString());
         }
+
         Ui.printLine();
     }
-
-    private static void printLine(){
+    public static void printLine() {
         print("\t--------------------------------------------------");
     }
 
@@ -131,7 +132,7 @@ public class Ui {
      *
      * @param o Object to be printed.
      */
-    public static void print(Object o){
+    public static void print(Object o) {
         System.out.println(o);
     }
 }

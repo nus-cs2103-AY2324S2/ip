@@ -1,7 +1,5 @@
 package yapchit;
 
-import yapchit.tasks.Deadline;
-import yapchit.yapchitexceptions.InvalidDetailException;
 import yapchit.yapchitexceptions.InvalidKeywordException;
 import yapchit.yapchitexceptions.YapchitException;
 import org.junit.jupiter.api.Test;

@@ -5,7 +5,7 @@ package yapchit.tasks;
  *
  * Extends Task class
  */
-public class Event extends Task{
+public class Event extends Task {
 
     private String from;
     private String to;
@@ -15,7 +15,7 @@ public class Event extends Task{
      *
      * @param name name of Event
      */
-    public Event(String name, String from, String to){
+    public Event(String name, String from, String to) {
         super(name);
         this.from = from;
         this.to = to;
@@ -27,8 +27,8 @@ public class Event extends Task{
      * @return
      */
     @Override
-    public String toString(){
-        String tag = super.getTag() ? "[X]" : "[ ]";
+    public String toString() {
+        String tag = super.getDone() ? "[X]" : "[ ]";
         return "[E]" + tag + " " + super.getName().strip() + " (from: " + this.from + " to: " + this.to + ")";
     }
 
@@ -37,7 +37,7 @@ public class Event extends Task{
      *
      * @return String representing the 'from' detail of the event.
      */
-    public String getFrom(){
+    public String getFrom() {
         return this.from;
     }
 
@@ -46,7 +46,7 @@ public class Event extends Task{
      *
      * @return String representing the 'to' detail of the deadline.
      */
-    public String getTo(){
+    public String getTo() {
         return this.to;
     }
 }

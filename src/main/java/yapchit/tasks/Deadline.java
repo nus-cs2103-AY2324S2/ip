@@ -17,7 +17,7 @@ public class Deadline extends Task {
      *
      * @param name name of Deadline
      */
-    public Deadline(String name, LocalDate by){
+    public Deadline(String name, LocalDate by) {
         super(name);
         this.by = by;
     }
@@ -28,8 +28,8 @@ public class Deadline extends Task {
      * @return
      */
     @Override
-    public String toString(){
-        String tag = super.getTag() ? "[X]" : "[ ]";
+    public String toString() {
+        String tag = super.getDone() ? "[X]" : "[ ]";
         return "[D]"
                 + tag
                 + " " + super.getName().strip()

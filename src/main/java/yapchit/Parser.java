@@ -16,7 +16,8 @@ public class Parser {
     /**
      * constructs new Parser object
      */
-    public Parser(){ }
+    public Parser(){
+    }
 
     /**
      * Accepts input and converts it into one of the existing, handled operations listed in
@@ -26,13 +27,13 @@ public class Parser {
      * @return Yapchit.Operations object representing the operation to be performed
      * @throws YapchitException if the user input cannot be parsed into one of the existing operations.
      */
-    public Yapchit.Operations parseInputOperation(String input) throws YapchitException{
+    public Yapchit.Operations parseInputOperation(String input) throws YapchitException {
         String[] parts = this.parseInputParts(input);
 
         Yapchit.Operations k;
-        try{
+        try {
             k = Yapchit.Operations.valueOf(parts[0].toUpperCase());
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             throw new InvalidKeywordException("You have entered an invalid keyword. " +
                     "Valid keywords are ['mark', 'unmark', 'deadline', 'todo', 'event', 'bye', 'list', 'delete']");
         }
@@ -46,7 +47,7 @@ public class Parser {
      * @param input to be parsed into parts
      * @return String[] of parsed input
      */
-    public String[] parseInputParts(String input){
+    public String[] parseInputParts(String input) {
         return input.split(" ");
     }
 
@@ -60,11 +61,9 @@ public class Parser {
     public LocalDate parseTimestamp(String timestamp) throws InvalidDetailException {
         try {
             LocalDate d = LocalDate.parse(timestamp);
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             throw new InvalidDetailException("Please enter date in yyyy-mm-dd format");
         }
         return LocalDate.parse(timestamp);
     }
-
-
 }

@@ -10,13 +10,13 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    private ArrayList<Task> list;
+    private ArrayList<Task> tasks;
 
     /**
      * Initates new TaskList instance.
      */
-    public TaskList(){
-        this.list = new ArrayList<>();
+    public TaskList() {
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -24,8 +24,8 @@ public class TaskList {
      *
      * @param idx index of item to delete
      */
-    public void delete(int idx){
-        this.list.remove(idx);
+    public void delete(int idx) {
+        this.tasks.remove(idx);
     }
 
     /**
@@ -35,31 +35,20 @@ public class TaskList {
      * @param val boolean
      * @throws InvalidDetailException
      */
-    public void mark(int idx, boolean val) throws InvalidDetailException{
-        if(idx >= list.size()){
+    public void mark(int idx, boolean isDone) throws InvalidDetailException {
+        if (idx >= tasks.size()) {
             throw new InvalidDetailException("Invalid item index, please try again");
         } else {
-            list.get(idx).updateTag(val);
+            tasks.get(idx).setDone(isDone);
         }
-    }
-
-    public TaskList findSublist(String term){
-        TaskList sublist = new TaskList();
-
-        for(Task task : list){
-            if(task.getName().contains(term)){
-                sublist.addTask(task);
-            }
-        }
-        return sublist;
     }
 
     /**
      * adds task to list.
      * @param t task to add.
      */
-    public void addTask(Task t){
-        list.add(t);
+    public void addTask(Task t) {
+        tasks.add(t);
     }
 
     /**
@@ -67,8 +56,8 @@ public class TaskList {
      *
      * @return int: the size of list
      */
-    public int getListSize(){
-        return this.list.size();
+    public int getListSize() {
+        return this.tasks.size();
     }
 
     /**
@@ -77,7 +66,7 @@ public class TaskList {
      * @param i index of task to locate
      * @return Task that is at the specified index
      */
-    public Task getItem(int i){
-        return this.list.get(i);
+    public Task getItem(int i) {
+        return this.tasks.get(i);
     }
 }

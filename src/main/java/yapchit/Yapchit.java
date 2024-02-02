@@ -43,7 +43,7 @@ public class Yapchit {
      *
      * @param filePath The file path to the storage file used to keep track of tasks.
      */
-    public Yapchit(String filePath){
+    public Yapchit(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.isBye = false;
@@ -53,7 +53,7 @@ public class Yapchit {
 
         try{
             this.tasks = storage.importFromFile(filePath, ui, handler, parser);
-        } catch(YapchitException e){
+        } catch (YapchitException e) {
             ui.printTasklistLoadError();
             this.tasks = new TaskList();
         }
@@ -65,21 +65,21 @@ public class Yapchit {
      *
      * Main loop ends when the 'bye' command is entered by the user.
      */
-    public void run(){
-
+    public void run() {
         ui.printIntro();
         String input = ui.scanInput();
-        while(!handler.checkIsBye(input)){
+
+        while (!handler.checkIsBye(input)) {
             try{
-                Operations k = parser.parseInputOperation(input);
-                String[] parts = parser.parseInputParts(input);
+                Yapchit.Operations k = parser.parseInputOperation(input);
                 handler.handleOperation(input, k, tasks, ui, parser);
-            } catch (YapchitException e){
+            } catch (YapchitException e) {
                 Ui.print(e.getMessage());
             } finally {
                 input = ui.scanInput();
             }
         }
+
         storage.updateFile(filePath, this.tasks);
         ui.printOutro();
     }
@@ -90,7 +90,6 @@ public class Yapchit {
      * @param args Command line arguments
      */
     public static void main(String[] args) {
-
         Yapchit bot = new Yapchit("./src/main/data/dataStore.txt");
         bot.run();
     }
