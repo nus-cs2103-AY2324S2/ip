@@ -5,15 +5,14 @@ import dibo.exception.DiboException;
 
 import java.util.ArrayList;
 
+/**
+ * Class of the dibo chatbot.
+ */
 public class Dibo {
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
 
-    public static void main(String[] args) {
-        Dibo dibo = new Dibo("./data/dibo.txt");
-        dibo.run();
-    }
     private Dibo(String path) {
         this.storage = new Storage(path);
         this.ui = new Ui();
@@ -25,7 +24,11 @@ public class Dibo {
         }
     }
 
-    public void run() {
+    public static void main(String[] args) {
+        Dibo dibo = new Dibo("./data/dibo.txt");
+        dibo.run();
+    }
+    private void run() {
         this.ui.sayHi();
         boolean isBye = false;
         while (!isBye) {
