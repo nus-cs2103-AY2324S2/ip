@@ -35,7 +35,8 @@ public class Parser {
                 // mark tasks
             } else if (cmd.contains("mark")) {
                 if (currInput.length < 2) {
-                    throw new DukeException(String.format(DukeException.NON_EMPTY_DESC, cmd));
+                    throw new DukeException(
+                            String.format(DukeException.NON_EMPTY_DESC, cmd));
                 }
                 int task = Integer.parseInt(currInput[1]);
                 int numTasks = userTasks.getSize();
@@ -61,7 +62,8 @@ public class Parser {
                 // delete tasks
             } else if (cmd.equals("delete")) {
                 if (currInput.length < 2) {
-                    throw new DukeException(String.format(DukeException.NON_EMPTY_DESC, cmd));
+                    throw new DukeException(
+                            String.format(DukeException.NON_EMPTY_DESC, cmd));
                 }
                 int task = Integer.parseInt(currInput[1]);
                 int numTasks = userTasks.getSize();
@@ -81,7 +83,8 @@ public class Parser {
                 // add tasks
             } else if (cmd.equals("deadline")) {
                 if (currInput.length < 2) {
-                    throw new DukeException(String.format(DukeException.NON_EMPTY_DESC, cmd));
+                    throw new DukeException(
+                            String.format(DukeException.NON_EMPTY_DESC, cmd));
                 }
                 String[] task = currInput[1].split(" /by ");
                 Deadline newDL = new Deadline(task[0], task[1]);
@@ -89,7 +92,8 @@ public class Parser {
                 isAdded = true;
             } else if (cmd.equals("event")) {
                 if (currInput.length < 2) {
-                    throw new DukeException(String.format(DukeException.NON_EMPTY_DESC, cmd));
+                    throw new DukeException(
+                            String.format(DukeException.NON_EMPTY_DESC, cmd));
                 }
                 String[] task = currInput[1].split(" /from ", 2);
                 String[] period = task[1].split(" /to ", 2);
@@ -98,7 +102,8 @@ public class Parser {
                 isAdded = true;
             } else if (cmd.equals("todo")) {
                 if (currInput.length < 2) {
-                    throw new DukeException(String.format(DukeException.NON_EMPTY_DESC, cmd));
+                    throw new DukeException(
+                            String.format(DukeException.NON_EMPTY_DESC, cmd));
                 }
                 Todo newTd = new Todo(currInput[1]);
                 userTasks.addTask(newTd);
