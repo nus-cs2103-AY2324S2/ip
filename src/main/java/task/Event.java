@@ -15,7 +15,7 @@ public class Event extends Task {
 
   public static Event createFromInput(String input) throws InvalidTaskFormatException, InvalidDateException {
     try {
-      String[] parts = input.split("/from | /to ");
+      String[] parts = input.split(" /from | /to ");
       String description = parts[0].split("event ")[1];
       String at = parts[1];
       String by = parts[2];

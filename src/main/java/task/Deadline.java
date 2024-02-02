@@ -13,7 +13,7 @@ public class Deadline extends Task {
 
   public static Deadline createFromInput(String input) throws InvalidTaskFormatException, InvalidDateException {
     try {
-      String[] parts = input.split("/by ");
+      String[] parts = input.split(" /by ");
       String description = parts[0].split("deadline ")[1];
       String by = parts[1];
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
