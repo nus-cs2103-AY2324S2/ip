@@ -105,6 +105,25 @@ public class Ui {
         }
     }
 
+    public void findTasks(String findWord, ArrayList<Task> tasks) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(findWord)) {
+                foundTasks.add(task);
+            }
+        }
+        System.out.println("\nHere are the matching tasks in your list:");
+        //for (Task task : foundTasks) {
+          //  System.out.println(task);
+        //}
+        for (int i = 0; i < foundTasks.size(); i++) {
+            if (foundTasks.get(i) != null) {
+                System.out.printf("%d. %s\n", i + 1, foundTasks.get(i));
+            }
+        }
+        System.out.println();
+    }
+
     void showLoadingError(String error) {
         System.out.println("\nLoading error: " + error + "\n");
     }

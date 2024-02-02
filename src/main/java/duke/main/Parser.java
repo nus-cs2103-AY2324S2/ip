@@ -10,6 +10,7 @@ import duke.command.UnMarkCommand;
 import duke.command.OnCommand;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
+import duke.command.FindCommand;
 import duke.exception.DukeException;
 
 import java.time.LocalDate;
@@ -47,6 +48,10 @@ public class Parser {
             String dateInput = userInput.replace("on", "").trim();
             LocalDate targetDate = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("MMM dd yyyy"));
             return new OnCommand(targetDate);
+        } else if (userInput.startsWith("find")) {
+            String findWord = userInput.replace("find", "").trim();
+            processEmptyDescription(findWord, "find");
+            return new FindCommand(findWord);
         } else {
             throw new DukeException("\nError! I don't know what that means. Types of tasks are limited to ToDos, Deadlines and Events.\n");
         }
