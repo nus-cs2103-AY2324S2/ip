@@ -194,8 +194,8 @@ public class Duke{
     private static Storage storage;
 
     /**
-     * Constructor
-     * @param filePath
+     * Constructor of Duke
+     * @param filePath file storage location to save and retrieve list of tasks
      */
     public Duke(String filePath) {
         ui = new UI();
@@ -219,6 +219,7 @@ public class Duke{
         while (true) {
             //Parsing user input.
            String command = new Parser().parse();
+
             //Process user command
             try {
                 processCommand(command, taskList, true);
