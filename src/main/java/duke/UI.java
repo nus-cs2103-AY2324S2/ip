@@ -85,8 +85,7 @@ public class UI {
         }
         switch (currentCommand) {
         case LIST:
-            history.showTaskList();
-            break;
+            return history.showTaskList();
         case BYE:
             return this.sayBye();
         case DELETE:
@@ -168,6 +167,5 @@ public class UI {
         default:
             return "";
         }
-        return "";
     }
 }

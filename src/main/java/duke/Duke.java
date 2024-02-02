@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exceptions.InvalidTaskException;
 import duke.frontend.DialogBox;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -42,6 +43,8 @@ public class Duke extends Application {
 
     private Image duke = new Image(this.getClass().getResourceAsStream("../images/shuheng.png"));
 
+    boolean isExit = false;
+
     /**
      * Constructor for duke application.
      */
@@ -73,6 +76,12 @@ public class Duke extends Application {
             new DialogBox(userText, new ImageView(user)),
             new DialogBox(dukeText, new ImageView(duke))
         );
+        try{
+            isExit =
+                this.parser.getCommand(userInput.getText().split(" ")).equals(UI.Command.BYE);
+        } catch (InvalidTaskException e){
+            System.out.println(e);
+        }
         userInput.clear();
     }
 
@@ -82,7 +91,7 @@ public class Duke extends Application {
      * @param input The user's input into the chatbot.
      */
     private String getResponse(String input) {
-        return "Duke heard: " + this.ui.run(input);
+        return this.ui.run(input);
     }
 
     @Override
@@ -95,11 +104,17 @@ public class Duke extends Application {
         sendButton = new Button("Send");
         sendButton.setOnMouseClicked((e) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
+            handleUserInput();
+            if (isExit) {
+                System.exit(0);
+            }
         });
         userInput.setOnAction((e) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
+            handleUserInput();
+            if (isExit) {
+                System.exit(0);
+            }
         });
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);

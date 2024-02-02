@@ -138,7 +138,7 @@ public class TaskList {
         for (int i = 0; i < this.tasks.size(); i++) {
             Task curr = this.tasks.get(i);
             ret += (i + 1)
-                + "." + curr.getFullStatus();
+                + "." + curr.getFullStatus() + "\n";
         }
         ret += "_________________________\n";
         return ret;
@@ -158,7 +158,7 @@ public class TaskList {
             if (!curr.checkKeyword(keyword)) {
                 continue;
             }
-            ret += (i + 1) + "." + curr.getFullStatus();
+            ret += (i + 1) + "." + curr.getFullStatus() + "\n";
         }
         ret += "_________________________\n";
         return ret;
