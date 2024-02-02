@@ -4,16 +4,37 @@ import exceptions.DukeException;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks in the task management application.
+ * This class encapsulates operations such as adding, removing, marking tasks as done, and listing all tasks.
+ */
 public class TaskList {
 
-    private ArrayList<Task> taskList;
+
+    private ArrayList<Task> taskList;// The list of tasks
+
+    /**
+     * Constructs a TaskList with the specified list of tasks.
+     *
+     * @param taskList The initial list of tasks.
+     */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
 
+    /**
+     * Returns the list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return this.taskList;
     }
+
+    /**
+     * Displays all tasks in the list.
+     * If the list is empty, it prints a message indicating there are no tasks.
+     */
     public void yapTasks() {
         if (taskList.size() == 0) {
             System.out.println("Nothin' to yap...");
@@ -23,16 +44,31 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param index The index of the task in the list to be marked as done, starting from 1.
+     */
     public void markTaskAsDone(int index) {
         Task task = taskList.get(index - 1);
         task.markDone(false);
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param index The index of the task in the list to be marked as done, starting from 1.
+     */
     public void unmarkTaskAsDone(int index) {
         Task task = taskList.get(index - 1);
         task.unmarkDone();
     }
 
+    /**
+     * Adds a task to the list.
+     *
+     * @param task The task to be added to the list.
+     */
     public void addTasktoTaskList(Task task) {
         if (task == null) {
             return;
@@ -40,22 +76,38 @@ public class TaskList {
         taskList.add(task);
     }
 
+    /**
+     * Removes a task from the list.
+     *
+     * @param index The index of the task in the list to be removed, starting from 1.
+     * @return The task that was removed.
+     */
     public Task removeTaskfromTaskList(int index) {
         Task task = taskList.remove(index - 1);
         return task;
     }
 
+    /**
+     * Initializes a task based on the input message and task type.
+     * This method attempts to parse the input and create the appropriate task object.
+     *
+     * @param message The input message containing task details.
+     * @param taskType The type of the task (e.g., "todo", "deadline", "event").
+     * @return The initialized task, or null if the task could not be created due to invalid input.
+     */
     public Task initTask(String message, String taskType) {
         Task task;
         try {
-            if (taskType.equals("todo")) {
+            switch (taskType) {
+            case "todo":
                 try {
                     String[] inputs = message.split("todo ");
                     task = new ToDo(inputs[1]);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("Whats the task, yapper???");
                 }
-            } else if (taskType.equals("deadline")) {
+                break;
+            case "deadline":
                 try {
                     message = message.substring("deadline ".length());
                     String[] inputs = message.split("/by");
@@ -65,7 +117,8 @@ public class TaskList {
                 } catch (StringIndexOutOfBoundsException e ) {
                     throw new DukeException("Whats the task, yapper???");
                 }
-            } else if (taskType.equals("event")) {
+                break;
+            case "event":
                 try {
                     message = message.substring("event ".length());
                     String[] inputs = message.split("/from");
@@ -76,7 +129,8 @@ public class TaskList {
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new DukeException("Whats the task, yapper???");
                 }
-            } else { //should not reach here because of filter in main logic
+            default:
+                //should not reach here because of filter in main logic
                 task = new Task(message);
             }
         } catch (DukeException e) {
