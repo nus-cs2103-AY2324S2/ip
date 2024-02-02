@@ -2,7 +2,11 @@ import java.io.*;
 import java.util.*;
 
 public class Duke {
+    enum Command {
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE
+    }
     public static void main(String[] args) throws IOException {
+
         ArrayList<Task> list = new ArrayList<>();
 
         // Start-up introduction
