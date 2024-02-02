@@ -1,10 +1,15 @@
-public class EditCommand extends Command{
+package duke.command;
 
-    private final boolean isMark;
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+
+public class DeleteCommand extends Command{
+
     private final int index;
 
-    public EditCommand(boolean isMark, int index) {
-        this.isMark = isMark;
+    public DeleteCommand(int index) {
         this.index = index;
     }
 
@@ -17,14 +22,8 @@ public class EditCommand extends Command{
             throw new DukeException("The index of task must be positive integer.");
         }
 
-        if (this.isMark) {
-            tasks.markDone(index);
-            ui.mark(tasks.getItem(index));
-        } else {
-            tasks.unmarkDone(index);
-            ui.mark(tasks.getItem(index));
-        }
-
+        ui.delete(tasks.getItem(index), tasks);
+        tasks.delete(index);
         storage.saveChanges(tasks);
     }
 
@@ -32,5 +31,6 @@ public class EditCommand extends Command{
     public boolean isExit() {
         return false;
     }
+
 
 }

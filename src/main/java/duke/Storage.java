@@ -1,3 +1,10 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -77,7 +84,7 @@ public class Storage {
                 for (String task: tasks) {
                     String[] splited = task.split("`");
                     switch (splited[0]) {
-                        case "Deadline": {
+                        case "duke.task.Deadline": {
                             String content = splited[1];
                             boolean isDone = splited[2].equals("Y");
                             String deadline = splited[3];
@@ -101,7 +108,7 @@ public class Storage {
                             }
                             break;
                         }
-                        case "Event": {
+                        case "duke.task.Event": {
                             String content = splited[1];
                             boolean isDone = splited[2].equals("Y");
                             String from = splited[3];
@@ -167,12 +174,12 @@ public class Storage {
         StringBuilder textToAdd = new StringBuilder();
         for (Task t: tasks.getItems()) {
             switch (t.getClass().getName()) {
-                case "Deadline": {
+                case "duke.task.Deadline": {
                     textToAdd.append(t.getClass().getName() + "`" + t.getFields()[0] + "`" + t.getFields()[1]
                             + "`" + t.getFields()[2] + "/end");
                     break;
                 }
-                case "Event": {
+                case "duke.task.Event": {
                     textToAdd.append(t.getClass().getName() + "`" + t.getFields()[0] + "`" + t.getFields()[1]
                             + "`" + t.getFields()[2] + "`" + t.getFields()[3] + "/end");
                     break;

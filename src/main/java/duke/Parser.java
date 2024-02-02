@@ -1,3 +1,12 @@
+package duke;
+
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.EditCommand;
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
+
 public class Parser {
 
     public enum TaskType {
