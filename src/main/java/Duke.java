@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -78,7 +79,9 @@ public class Duke {
         String argsStr = String.join(" ", taskArgs);
         int byIndex = argsStr.indexOf(byDelim);
 
-        String by = argsStr.substring(byIndex + byDelim.length()).trim();
+        String byStr = argsStr.substring(byIndex + byDelim.length()).trim();
+        LocalDate by = LocalDate.parse(byStr);
+
         String description = argsStr.substring(0, byIndex).trim();
 
         Deadline deadline = new Deadline(description, by);
@@ -95,8 +98,11 @@ public class Duke {
         int fromIndex = argsStr.indexOf(fromDelim);
         int toIndex = argsStr.indexOf(toDelim);
 
-        String from = argsStr.substring(fromIndex + fromDelim.length(), toIndex).trim();
-        String to = argsStr.substring(toIndex + toDelim.length()).trim();
+        String fromStr = argsStr.substring(fromIndex + fromDelim.length(), toIndex).trim();
+        String toStr = argsStr.substring(toIndex + toDelim.length()).trim();
+
+        LocalDate from = LocalDate.parse(fromStr);
+        LocalDate to = LocalDate.parse(toStr);
         String description = argsStr.substring(0, fromIndex).trim();
 
         Event event = new Event(description, from, to);
@@ -197,14 +203,14 @@ public class Duke {
 
                     taskArgs.add("deadline");
                     taskArgs.add(deadLine.getDescription());
-                    taskArgs.add(deadLine.getBy());
+                    taskArgs.add(deadLine.getBy().toString());
                 } else if (t instanceof Event) {
                     Event event = (Event) t;
 
                     taskArgs.add("event");
                     taskArgs.add(event.getDescription());
-                    taskArgs.add(event.getFrom());
-                    taskArgs.add(event.getTo());
+                    taskArgs.add(event.getFrom().toString());
+                    taskArgs.add(event.getTo().toString());
                 } else if (t instanceof Todo) {
                     Todo todo = (Todo) t;
 
@@ -259,7 +265,8 @@ public class Duke {
                 switch (taskType) {
                 case "deadline": {
                     description = taskArgs[1];
-                    String by = taskArgs[2];
+                    String byStr = taskArgs[2];
+                    LocalDate by = LocalDate.parse(byStr);
                     isDoneStr = taskArgs[3];
                     isDone = isDoneStr.equals("1");
 
@@ -268,8 +275,10 @@ public class Duke {
                 }
                 case "event": {
                     description = taskArgs[1];
-                    String from = taskArgs[2];
-                    String to = taskArgs[3];
+                    String fromStr = taskArgs[2];
+                    String toStr = taskArgs[3];
+                    LocalDate from = LocalDate.parse(fromStr);
+                    LocalDate to = LocalDate.parse(toStr);
                     isDoneStr = taskArgs[4];
                     isDone = isDoneStr.equals("1");
 
