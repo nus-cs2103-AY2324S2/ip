@@ -1,3 +1,5 @@
+package knight;
+
 public class CommandParser {
     static Command parseCommand(String s) {
         if (s.equals("bye")) {

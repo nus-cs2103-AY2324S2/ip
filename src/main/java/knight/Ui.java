@@ -1,3 +1,5 @@
+package knight;
+
 public class Ui {
     private static final String LINE = "____________________________________________________________";
     static final String logo = "┓┏┓  •  ┓  \n"

@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
+package knight;
+
 import java.util.Scanner;
 
 public class Knight {

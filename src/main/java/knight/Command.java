@@ -1,3 +1,5 @@
+package knight;
+
 public enum Command {
     BYE,
     LIST,

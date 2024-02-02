@@ -1,3 +1,5 @@
+package knight;
+
 public class NonstandardCommandException extends KnightException {
     private String errorMessage;
     public NonstandardCommandException(String message) {
