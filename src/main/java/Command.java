@@ -2,13 +2,13 @@ import java.util.function.Consumer;
 
 public class Command {
     private final String name;
-    private final Consumer<String[]> executor;
+    private final Consumer<Parser> executor;
 
-    public void run(String[] args) {
+    public void run(Parser args) {
         this.executor.accept(args);
     }
     
-    public Command(String name, Consumer<String[]> executor) {
+    public Command(String name, Consumer<Parser> executor) {
         this.name = name;
         this.executor = executor;
     }

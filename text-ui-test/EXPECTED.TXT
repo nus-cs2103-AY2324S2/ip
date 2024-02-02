@@ -55,11 +55,11 @@
     (>^.^<) OH NYO ERROR!!!!!!!!!!!!! option was not expected but was given: should
 
 
-    (>^.^<) CONGRATULATION!!!!!! you un completed this task:
+    (>^.^<) CONGRATULATION!!!!!! you completed this task:
             [T][ ] read book
 
 
-    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! failed to specify a task to do
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! command ended when an argument was expected
 
 
     (>^.^<) Ok, I've added a new todo...
@@ -78,10 +78,10 @@
               [T][ ]   do  sumting  with trailingspace
 
 
-    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you didn't specify specify a name for your deadline
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! command ended when an argument was expected
 
 
-    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you failed to specify an end date using '/by'
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! command ended when an argument was expected
 
 
     (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you didn't specify specify a name for your deadline
@@ -100,10 +100,10 @@
               [D][ ] do sumting (by: 02:00 pm, 2-03-2001)
 
 
-    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you didn't specify specify a name for your event
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! command ended when an argument was expected
 
 
-    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you failed to specify an start date using '/from'
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! command ended when an argument was expected
 
 
     (>^.^<) OH NYO ERROR!!!!!!!!!!!!! I encountered an unexpected option '/to'
@@ -112,7 +112,7 @@
     (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you failed to specify an start date using '/from'
 
 
-    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you failed to specify an end date using '/to'
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! command ended when an argument was expected
 
 
     (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you failed to specify an end date using '/to'
@@ -157,7 +157,7 @@
     (>^.^<) OH NYO ERROR!!!!!!!!!!!!! You tried to access an invalid task index: 9
 
 
-    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! options were not expected but were given
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! option was not expected but was given: this
 
 
     (>^.^<) Ok, going to sleep...

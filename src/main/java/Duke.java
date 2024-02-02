@@ -20,7 +20,7 @@ public class Duke {
         done = true;
     }
 
-    public static void addCommand(String name, Consumer<String[]> executor) {
+    public static void addCommand(String name, Consumer<Parser> executor) {
         commands.put(name, new Command(name, executor));
     }
 
@@ -29,9 +29,7 @@ public class Duke {
         // initialisation
         Duke.addCommand("list", (args) -> {
             try {
-                if (args.length > 1) {
-                    throw new DukeOptionParsingException("option was not expected but was given: " + args[1]);
-                }
+                args.assertEnd();
                 ui.print("Here's what you've done today...\n" + tasks.toDisplayString());
                 
             } catch (DukeOptionParsingException e) {
@@ -41,9 +39,7 @@ public class Duke {
         
         Duke.addCommand("bye", (args) -> {
             try {
-                if (args.length > 1) {
-                    throw new DukeOptionParsingException("options were not expected but were given");
-                }
+                args.assertEnd();
                 ui.print("Ok, going to sleep...");
                 Duke.exit();
             } catch (DukeOptionParsingException e) {
@@ -53,91 +49,80 @@ public class Duke {
         
         Duke.addCommand("mark", (args) -> {
             try {
-                int i;
+                int index;
                 Task t;
-                
-                try {
-                    i = Integer.parseInt(args[1]) - 1;
-                } catch (NumberFormatException e) {
-                    throw new DukeOptionParsingException(
-                            String.format("I expected a number but %s was given instead", args[1])
-                    );
-                } catch (IndexOutOfBoundsException e) {
-                    throw new DukeOptionParsingException("command ended when an argument was expected");
+
+                {
+                    String indexStr = args.next();
+                    try {
+                        index = Integer.parseInt(indexStr);
+                    } catch (NumberFormatException e) {
+                        throw new DukeOptionParsingException(
+                                String.format("I expected a number but %s was given instead", indexStr)
+                        );
+                    }
                 }
                 
-                if (args.length > 2) {
-                    throw new DukeException("option was not expected but was given: " + args[2]);
-                }
+                args.assertEnd();
                 
                 try { 
-                    t = tasks.get(i);
+                    t = tasks.get(index - 1);
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeException(
-                            String.format("You tried to access an invalid task index: %s", args[1])
+                            String.format("You tried to access an invalid task index: %d", index)
                     );
                 }
                 t.mark();
-                ui.print("CONGRATULATION!!!!!! you completed this task:\n" +
-                        t.describe()
-                );
-                Duke.st.writeTasks(tasks);
-            } catch (DukeException e) {
-                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
-            }
-        });
-
-        Duke.addCommand("unmark", (args) -> {
-            try {
-                int i;
-                Task t;
-
-                try {
-                    i = Integer.parseInt(args[1]) - 1;
-                } catch (NumberFormatException e) {
-                    throw new DukeOptionParsingException(
-                            String.format("I expected a number but %s was given instead", args[1])
-                    );
-                } catch (IndexOutOfBoundsException e) {
-                    throw new DukeOptionParsingException("command ended when an argument was expected");
-                }
-
-                if (args.length > 2) {
-                    throw new DukeException("option was not expected but was given: " + args[2]);
-                }
-
-                try {
-                    t = tasks.get(i);
-                } catch (IndexOutOfBoundsException e) {
-                    throw new DukeException(
-                            String.format("You tried to access an invalid task index: %s", args[1])
-                    );
-                }
-
-                t.unmark();
-                ui.print("CONGRATULATION!!!!!! you un completed this task:\n" +
-                        t.describe()
-                );
+                ui.print("CONGRATULATION!!!!!! you completed this task:\n" + t.describe());
                 Duke.st.writeTasks(tasks);
             } catch (DukeException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
         
+        Duke.addCommand("unmark", (args) -> {
+            try {
+                int index;
+                Task t;
+
+                {
+                    String indexStr = args.next();
+                    try {
+                        index = Integer.parseInt(indexStr);
+                    } catch (NumberFormatException e) {
+                        throw new DukeOptionParsingException(
+                                String.format("I expected a number but %s was given instead", indexStr)
+                        );
+                    }
+                }
+                
+                args.assertEnd();
+                
+                try { 
+                    t = tasks.get(index - 1);
+                } catch (IndexOutOfBoundsException e) {
+                    throw new DukeException(
+                            String.format("You tried to access an invalid task index: %d", index)
+                    );
+                }
+                t.unmark();
+                ui.print("CONGRATULATION!!!!!! you un completed this task:\n" + t.describe());
+                Duke.st.writeTasks(tasks);
+            } catch (DukeException e) {
+                ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
+            }
+        });
+
         Duke.addCommand("todo", (args) -> {
             
             try {
-                if (args.length <= 1) {
-                    throw new DukeOptionParsingException("failed to specify a task to do");
-                }
-                String str = Arrays.stream(args)
-                        .skip(1)
-                        .collect(Collectors.joining(" "));
-
-                var t = new ToDo(str);
+                String str = args.rest();
+                Task t = new ToDo(str);
                 ui.print(String.format("Ok, I've added a new todo...\n  %s", t.describe()));
                 tasks.add(t);
                 Duke.st.writeTasks(tasks);
+            } catch (DukeOptionParsingException e) {
+                ui.print("OH NYO ERROR!!!!!!!!!!!!! failed to specify a task to do");
             } catch (DukeException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
@@ -152,40 +137,35 @@ public class Duke {
             final String NO_BY = "you failed to specify an end date using '/by'";
             
             try {
-                int ctr = 1;
-                for (; ; ctr++) {
-                    if (ctr >= args.length) {
-                        throw new DukeOptionParsingException(ctr == 1 ? NO_NAME : NO_BY);
-                    }
-                    if (args[ctr].startsWith("/")) {
-                        break;
-                    }
+                while (!args.peek().startsWith("/")) {
                     if (!name.isEmpty()) {
                         name.append(" ");
                     }
-                    name.append(args[ctr]);
+                    name.append(args.next());
                 }
 
                 if (name.isEmpty()) {
-                    throw new DukeOptionParsingException
-                            (NO_NAME);
+                    throw new DukeOptionParsingException(NO_NAME);
                 }
-                
-                if (!args[ctr].equals("/by")) {
-                    throw new DukeOptionParsingException
-                            (String.format("I encountered an unexpected option '%s'", args[ctr]));
-                }
-                ctr++;
 
-                for (; ctr < args.length; ctr++) {
-                    if (args[ctr].startsWith("/")) {
+                {
+                    String str = args.next();
+                    if (!str.equals("/by")) {
                         throw new DukeOptionParsingException
-                                (String.format("I encountered an unexpected option '%s'", args[ctr]));
+                                (String.format("I encountered an unexpected option '%s'", str));
+                    }
+                }
+
+                while (args.hasNext()) {
+                    String next = args.next();
+                    if (next.startsWith("/")) {
+                        throw new DukeOptionParsingException
+                                (String.format("I encountered an unexpected option '%s'", next));
                     }
                     if (!by.isEmpty()) {
                         by.append(" ");
                     }
-                    by.append(args[ctr]);
+                    by.append(next);
                 }
 
                 if (by.isEmpty()) {
@@ -209,7 +189,6 @@ public class Duke {
         });
         
         Duke.addCommand("event", (args) -> {
-            int state = 0;
             StringBuilder from = new StringBuilder();
             StringBuilder to = new StringBuilder();
             StringBuilder name = new StringBuilder();
@@ -221,64 +200,55 @@ public class Duke {
             final String NO_TO = "you failed to specify an end date using '/to'";
 
             try {
-                int ctr = 1;
-                for (; ; ctr++) {
-                    if (ctr >= args.length) {
-                        throw new DukeOptionParsingException(ctr == 1 ? NO_NAME : NO_FROM);
-                    }
-                    if (args[ctr].startsWith("/")) {
-                        break;
-                    }
+                while (!args.peek().startsWith("/")) {
                     if (!name.isEmpty()) {
                         name.append(" ");
                     }
-                    name.append(args[ctr]);
+                    name.append(args.next());
                 }
 
                 if (name.isEmpty()) {
-                    throw new DukeOptionParsingException
-                            (NO_NAME);
+                    throw new DukeOptionParsingException(NO_NAME);
                 }
 
-                if (!args[ctr].equals("/from")) {
-                    throw new DukeOptionParsingException
-                            (String.format("I encountered an unexpected option '%s'", args[ctr]));
+                {
+                    String str = args.next();
+                    if (!str.equals("/from")) {
+                        throw new DukeOptionParsingException
+                                (String.format("I encountered an unexpected option '%s'", str));
+                    }
                 }
-                ctr++;
 
-                for (; ; ctr++) {
-                    if (ctr >= args.length) {
-                        throw new DukeOptionParsingException(NO_TO);
-                    }
-                    
-                    if (args[ctr].startsWith("/")) {
-                        break;
-                    }
+
+                while (!args.peek().startsWith("/")) {
                     if (!from.isEmpty()) {
                         from.append(" ");
                     }
-                    from.append(args[ctr]);
+                    from.append(args.next());
                 }
 
                 if (from.isEmpty()) {
                     throw new DukeOptionParsingException(NO_FROM);
                 }
                 
-                if (!args[ctr].equals("/to")) {
-                    throw new DukeOptionParsingException
-                            (String.format("I encountered an unexpected option '%s'", args[ctr]));
-                }
-                ctr++;
-
-                for (; ctr < args.length; ctr++) {
-                    if (args[ctr].startsWith("/")) {
+                {
+                    String str = args.next();
+                    if (!str.equals("/to")) {
                         throw new DukeOptionParsingException
-                                (String.format("I encountered an unexpected option '%s'", args[ctr]));
+                                (String.format("I encountered an unexpected option '%s'", str));
+                    }
+                }
+
+                while (args.hasNext()) {
+                    String next = args.next();
+                    if (next.startsWith("/")) {
+                        throw new DukeOptionParsingException
+                                (String.format("I encountered an unexpected option '%s'", next));
                     }
                     if (!to.isEmpty()) {
                         to.append(" ");
                     }
-                    to.append(args[ctr]);
+                    to.append(next);
                 }
 
                 if (to.isEmpty()) {
@@ -302,33 +272,30 @@ public class Duke {
         
         Duke.addCommand("delete", (args) -> {
             try {
-                int i;
+                int index;
                 Task t;
 
-                try {
-                    i = Integer.parseInt(args[1]) - 1;
-                } catch (NumberFormatException e) {
-                    throw new DukeOptionParsingException(
-                            String.format("I expected a number but %s was given instead", args[1])
-                    );
-                } catch (IndexOutOfBoundsException e) {
-                    throw new DukeOptionParsingException("command ended when an argument was expected");
+                {
+                    String indexStr = args.next();
+                    try {
+                        index = Integer.parseInt(indexStr);
+                    } catch (NumberFormatException e) {
+                        throw new DukeOptionParsingException(
+                                String.format("I expected a number but %s was given instead", indexStr)
+                        );
+                    }
                 }
 
-                if (args.length > 2) {
-                    throw new DukeException("option was not expected but was given: " + args[2]);
-                }
-                
-                if (i < 0 || i >= tasks.size()) {
+                args.assertEnd();
+
+                try {
+                    t = tasks.get(index - 1);
+                } catch (IndexOutOfBoundsException e) {
                     throw new DukeException
-                            (String.format("You tried to access an invalid task index: %s", args[1]));
+                            (String.format("You tried to access an invalid task index: %d", index));
                 }
-                t= tasks.get(i);
-                tasks.remove(i);
-                
-                ui.print
-                        ("I'm deleting this task. bye...\n" +
-                        t.describe());
+                tasks.remove(index);
+                ui.print("I'm deleting this task. bye...\n" + t.describe());
                 Duke.st.writeTasks(tasks);
             } catch (DukeException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
@@ -348,10 +315,10 @@ public class Duke {
                    "What can I do for you today?");
         while (!done) {
             String str = ui.readInput();
-            String[] args = str.split(" ");
+            Parser parser = new Parser(str);
             try {
-                commands.get(args[0]).run(args);
-            } catch (DukeCommandNotFoundException e) {
+                commands.get(parser.next()).run(parser);
+            } catch (DukeCommandNotFoundException | DukeOptionParsingException e) {
                 ui.print("no matching command...");
             }
         }
