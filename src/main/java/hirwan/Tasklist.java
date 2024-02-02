@@ -4,37 +4,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tasklist {
-    static List<String> List = new ArrayList<>();
+    static List<String> tasks = new ArrayList<>();
     public Tasklist(List<String> List) {
-        this.List = List;
+        this.tasks = List;
     }
     public String get(int index) {
-        return List.get(index);
+        return tasks.get(index);
     }
 
     public void add(String input) {
-        List.add(input);
+        tasks.add(input);
     }
 
     public void printList() {
-        for (String element : List) {
-            Ui.output(List.indexOf(element) + 1 + element);
+        for (String element : tasks) {
+            Ui.output(tasks.indexOf(element) + 1 + element);
         }
     }
 
     public void delete(int index) {
-            List.remove(index);
+            tasks.remove(index);
     }
 
     public int size() {
-        return List.size();
+        return tasks.size();
     }
 
     public List<String> getList() {
-        return List;
+        return tasks;
     }
 
     public void set(int Index, String input) {
-        List.set(Index, input);
+        tasks.set(Index, input);
     }
 }

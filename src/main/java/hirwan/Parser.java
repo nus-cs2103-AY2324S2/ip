@@ -17,7 +17,10 @@ class Parser {
     static final int COMMAND_UNMARK = 6;
     static final int COMMAND_DELETE = 7;
     static final int COMMAND_BYE = 8;
+<<<<<<< HEAD
     static final int COMMAND_FIND = 10;
+=======
+>>>>>>> branch-A-CodingStandard
     public static int translate(String text) {
 
         if (text.equals("list")) {
@@ -36,8 +39,11 @@ class Parser {
             return COMMAND_DELETE;
         } else if (text.equals("bye")) {
             return COMMAND_BYE;
+<<<<<<< HEAD
         } else if (text.startsWith("find ")) {
             return COMMAND_FIND;
+=======
+>>>>>>> branch-A-CodingStandard
         } else {
             return 9;
         }
