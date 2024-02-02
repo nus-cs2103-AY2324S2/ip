@@ -1,7 +1,7 @@
 
 todo read book
-deadline return book /by June 6th
-event project meeting /from Aug 6th 2pm /to 4pm
+deadline return book /by 2024-06-06 0000
+event project meeting /from 2000-09-04 1600 /to 2000-09-04 1600
 list this should throw 
 list
 mark 0
@@ -20,18 +20,20 @@ todo do  samadating
 todo   do  sumting  with trailingspace   
 deadline
 deadline do sumting
-deadline /by no name
+deadline /by 2001-02-03 1400
 deadline no by /by
 deadline do sumting /nonsenseoption asjkldf
-deadline do sumting /by time
+deadline do sumting /by 2001-02-03 14001
+deadline do sumting /by 2001-02-03 1400
 event
 event no from to
-event no fromop /to to
-event no from /from /to to
-event no toop /from no toop
-event no to /from no to /to
-event /from noname /to noname
-event eventname /from event from /to event to
+event no fromop /to 2001-02-03 1400
+event no from /from /to 2001-02-03 1400
+event no toop /from 2001-02-03 1400
+event no to /from no 2001-02-03 1400 /to
+event /from 2001-02-03 1400 /to 2001-02-03 1500
+event eventname /from 2001-02-03 1400 /to nonsensedate
+event eventname /from 2001-02-03 1400 /to 2001-02-03 1400
 list
 delete 0
 delete 4
