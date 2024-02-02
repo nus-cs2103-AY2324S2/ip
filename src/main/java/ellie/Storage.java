@@ -21,12 +21,19 @@ public class Storage {
     private final File f;
 
     // Constructor
-    public Storage(String filePath) {
+    public Storage(String filePath, String directory) {
+        // If (data) directory does not exist, create directory
+        File dir = new File(directory);
+        if (!dir.exists()) {
+            boolean dirCreated = dir.mkdir();
+            if (dirCreated) {
+                System.out.println(directory + " Directory created");
+            }
+        }
+
         // Recommended file path: "./data/toDoList.txt"
         this.filePath = filePath;
         f = new File(filePath);
-
-        // add mkdir function
 
         // If file does not exist, create the file
         if (!f.exists()) {

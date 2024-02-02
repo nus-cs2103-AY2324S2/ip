@@ -20,7 +20,7 @@ public class Ellie {
     private Command command;
 
     public Ellie() {
-        storage = new Storage("./data/toDoList.txt");
+        storage = new Storage("./data/toDoList.txt", "./data");
         taskList = new TaskList(storage);
         ui = new Ui();
     }
