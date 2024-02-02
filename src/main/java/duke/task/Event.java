@@ -3,18 +3,18 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
 /**
- * The duke.task.Event class represents a task that occurs within a specified time range.
+ * Represents a task that occurs within a specified date and time range.
  */
 public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
     /**
-     * Constructs an duke.task.Event object with the given description, start time, and end time.
+     * Constructs an Event object with the given description, start time, and end time.
      *
-     * @param description The description of the event task.
-     * @param startTime   The start time of the event.
-     * @param endTime     The end time of the event.
+     * @param description Description of the event task.
+     * @param startTime Start time of the event.
+     * @param endTime End time of the event.
      */
     public Event(String description, String startTime, String endTime) {
         super(description);
@@ -22,29 +22,19 @@ public class Event extends Task {
         this.endTime = parseDateTime(endTime);
     }
 
-    /**
-     * Gets the start time of the task.
-     *
-     * @return The LocalDateTime representing the start time.
-     */
     public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    /**
-     * Gets the end time of the task.
-     *
-     * @return The LocalDateTime representing the end time.
-     */
     public LocalDateTime getEndTime() {
         return endTime;
     }
 
     /**
-     * Parses the date and time from the string representation.
+     * Parses the date and time from the given date and time string of format "yyyy-MM-dd HHmm".
      *
-     * @param dateTimeString The string representation of date and time.
-     * @return The parsed LocalDateTime object.
+     * @param dateTimeString String representation of date and time in format "yyyy-MM-dd HHmm".
+     * @return Parsed LocalDateTime object.
      */
     private LocalDateTime parseDateTime(String dateTimeString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -54,7 +44,7 @@ public class Event extends Task {
     /**
      * Returns a formatted string representation of the event task".
      *
-     * @return The formatted string representation of the event task.
+     * @return Formatted string representation of the event task.
      */
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)",
@@ -64,8 +54,9 @@ public class Event extends Task {
     }
 
     /**
-     * Converts the task into a string format suitable for writing to a file.
-     * @return The formatted string for writing to a file.
+     * Converts the event task into a string format suitable for writing to a file.
+     *
+     * @return Formatted string for writing to a file.
      */
     @Override
     public String toFileString() {

@@ -3,18 +3,19 @@ package duke.task;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
 /**
- * The duke.task.Deadline class represents a task with a specific deadline.
+ * Represents a task with a deadline.
  */
 public class Deadline extends Task {
 
     protected LocalDateTime by;
 
     /**
-     * Constructs a duke.task.Deadline object with the given description and deadline.
+     * Constructs a Deadline object with the given description and deadline.
      *
      * @param description Description of the task.
-     * @param by           duke.task.Deadline of the task.
+     * @param by Deadline of the task.
      */
     public Deadline(String description, String by) {
         super(description);
@@ -22,9 +23,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * Parses the date and time from the string representation.
+     * Parses the date and time from the given string that is of "yyyy-MM-dd HHmm" format.
      *
-     * @param dateTimeString The string representation of date and time.
+     * @param dateTimeString The string representation of the date and time in
+     * "yyyy-MM-dd HHmm" format.
      * @return The parsed LocalDateTime object.
      */
     private LocalDateTime parseDateTime(String dateTimeString) {
@@ -32,19 +34,14 @@ public class Deadline extends Task {
         return LocalDateTime.parse(dateTimeString, formatter);
     }
 
-    /**
-     * Gets the deadline of the task.
-     *
-     * @return The LocalDateTime representing the deadline.
-     */
     public LocalDateTime getBy() {
         return by;
     }
 
     /**
-     * Returns a formatted string representation of the deadline task".
+     * Returns a formatted string representation of the deadline task.
      *
-     * @return The formatted string representation of the task.
+     * @return Formatted string representation of the deadline task.
      */
     @Override
     public String toString() {
@@ -53,7 +50,8 @@ public class Deadline extends Task {
 
     /**
      * Converts the task into a string format suitable for writing to a file.
-     * @return The formatted string for writing to a file.
+     *
+     * @return Formatted string for writing to a file.
      */
     @Override
     public String toFileString() {
