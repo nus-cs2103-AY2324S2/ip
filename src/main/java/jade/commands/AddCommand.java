@@ -4,13 +4,12 @@ import jade.data.Task;
 import jade.data.TaskList;
 import jade.ui.Ui;
 import jade.storage.Storage;
-import jade.exception.JadeException;
 
 /**
  * The <code>AddCommand</code> object represents the command to add a task.
  */
 public class AddCommand extends Command {
-    private Task task; // the task to be added.
+    private final Task task; // the task to be added.
 
     /**
      * Class constructor specifying the task to be added.
@@ -20,7 +19,8 @@ public class AddCommand extends Command {
     }
 
     /**
-     * @inheriDocs This implementation prints an add message after the task is added.
+     * @inheritDoc
+     * This implementation prints an add message after the task is added.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
@@ -29,7 +29,8 @@ public class AddCommand extends Command {
     }
 
     /**
-     * @inheriDocs The AddCommand does not indicate the exit of the program.
+     * @inheritDoc
+     * The AddCommand does not indicate the exit of the program.
      */
     @Override
     public boolean shouldExit() {

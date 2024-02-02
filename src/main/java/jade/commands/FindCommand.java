@@ -1,6 +1,5 @@
 package jade.commands;
 
-import jade.data.Task;
 import jade.data.TaskList;
 import jade.exception.JadeException;
 import jade.storage.Storage;
@@ -21,7 +20,8 @@ public class FindCommand extends Command {
     }
 
     /**
-     * @inheriDocs This implementation prints all tasks that contain the keyword.
+     * @inheritDoc
+     * This implementation prints all tasks that contain the keyword.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JadeException {
@@ -37,7 +37,8 @@ public class FindCommand extends Command {
     }
 
     /**
-     * @inheriDocs The DeleteCommand does not indicate the exit of the program.
+     * @inheritDoc
+     * The DeleteCommand does not indicate the exit of the program.
      */
     @Override
     public boolean shouldExit() {

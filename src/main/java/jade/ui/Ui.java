@@ -14,7 +14,7 @@ public class Ui {
             + "\t  |  | | |_| | | |  | | | |____|\n"
             + "\t|\\|  | | ___ | | |__| | | |____\n"
             + "\t \\___| |_| |_| |_____/  \\_|____\\\n"; // logo for the program
-    private Scanner sc; // scanner object for reading user input
+    private final Scanner sc; // scanner object for reading user input
 
     /**
      * Class constructor initializing the scanner by default.

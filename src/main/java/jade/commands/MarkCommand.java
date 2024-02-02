@@ -1,6 +1,5 @@
 package jade.commands;
 
-import jade.data.Task;
 import jade.data.TaskList;
 import jade.exception.JadeException;
 import jade.ui.Ui;
@@ -10,7 +9,7 @@ import jade.storage.Storage;
  * The <code>MarkCommand</code> object represents the command to mark a task as done.
  */
 public class MarkCommand extends Command {
-    private int index; // the index of the task to be marked
+    private final int index; // the index of the task to be marked
 
     /**
      * Class constructor specifying the index of the task to be marked.
@@ -20,7 +19,8 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * @inheriDocs This implementation prints a mark message after the task is marked.
+     * @inheritDoc
+     * This implementation prints a mark message after the task is marked.
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws JadeException {
@@ -32,7 +32,8 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * @inheriDocs The MarkCommand does not indicate the exit of the program.
+     * @inheritDoc
+     * The MarkCommand does not indicate the exit of the program.
      */
     @Override
     public boolean shouldExit() {

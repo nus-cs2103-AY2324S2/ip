@@ -10,7 +10,8 @@ import jade.storage.Storage;
  */
 public class ExitCommand extends Command{
     /**
-     * @inheriDocs This implementation prints a farewell message after saving changes to the local file.
+     * @inheritDoc
+     * This implementation prints a farewell message after saving changes to the local file.
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws JadeException {
@@ -19,7 +20,8 @@ public class ExitCommand extends Command{
     }
 
     /**
-     * @inheriDocs The ExitCommand indicates the exit of the program.
+     * @inheritDoc
+     * The ExitCommand indicates the exit of the program.
      */
     @Override
     public boolean shouldExit() {

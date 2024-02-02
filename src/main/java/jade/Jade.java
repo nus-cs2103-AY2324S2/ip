@@ -17,8 +17,8 @@ import jade.storage.Storage;
  */
 public class Jade {
     private TaskList taskList; // list that stores all user tasks
-    private Storage storage; // storage object to load from and save to local file
-    private Ui ui; // user interface for reading input and printing output
+    private final Storage storage; // storage object to load from and save to local file
+    private final Ui ui; // user interface for reading input and printing output
 
     /**
      * Class constructor specifying the local filepath that stores user tasks.

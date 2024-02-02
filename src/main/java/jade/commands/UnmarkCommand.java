@@ -1,6 +1,5 @@
 package jade.commands;
 
-import jade.data.Task;
 import jade.data.TaskList;
 import jade.exception.JadeException;
 import jade.ui.Ui;
@@ -10,7 +9,7 @@ import jade.storage.Storage;
  * The <code>UnmarkCommand</code> object represents the command to mark a task as not done yet.
  */
 public class UnmarkCommand extends Command {
-    private int index; // the index of the task to be unmarked
+    private final int index; // the index of the task to be unmarked
 
     /**
      * Class constructor specifying the index of the task to be unmarked.
@@ -20,7 +19,8 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * @inheriDocs This implementation prints an unmark message after the task is unmarked.
+     * @inheritDoc
+     * This implementation prints an unmark message after the task is unmarked.
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws JadeException {
@@ -32,7 +32,8 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * @inheriDocs The UnmarkCommand does not indicate the exit of the program.
+     * @inheritDoc
+     * The UnmarkCommand does not indicate the exit of the program.
      */
     @Override
     public boolean shouldExit() {

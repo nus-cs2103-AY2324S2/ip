@@ -9,7 +9,7 @@ import jade.ui.Ui;
  * The <code>InvalidCommand</code> object represents an invalid command.
  */
 public class InvalidCommand extends Command {
-    private JadeException exception; // exception saved for possible further use
+    private final JadeException exception; // exception saved for possible further use
 
     /**
      * Class constructor specifying the JadeException.
@@ -19,7 +19,8 @@ public class InvalidCommand extends Command {
     }
 
     /**
-     * @inheriDocs This implementation prints an error message to user
+     * @inheritDoc
+     * This implementation prints an error message to user
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
@@ -27,7 +28,8 @@ public class InvalidCommand extends Command {
     }
 
     /**
-     * @inheriDocs The InvalidCommand does not indicate the exit of the program.
+     * @inheritDoc
+     * The InvalidCommand does not indicate the exit of the program.
      */
     @Override
     public boolean shouldExit() {

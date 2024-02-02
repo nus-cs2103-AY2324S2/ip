@@ -10,7 +10,7 @@ import jade.exception.JadeException;
  * The <code>DeleteCommand</code> object represents the command to delete a task.
  */
 public class DeleteCommand extends Command{
-    private int index; // the index of the task to be deleted
+    private final int index; // the index of the task to be deleted
 
     /**
      * Class constructor specifying the index of the task to be deleted.
@@ -20,7 +20,8 @@ public class DeleteCommand extends Command{
     }
 
     /**
-     * @inheriDocs This implementation prints a delete message after the task is deleted.
+     * @inheritDoc
+     * This implementation prints a delete message after the task is deleted.
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws JadeException {
@@ -33,7 +34,8 @@ public class DeleteCommand extends Command{
     }
 
     /**
-     * @inheriDocs The DeleteCommand does not indicate the exit of the program.
+     * @inheritDoc
+     * The DeleteCommand does not indicate the exit of the program.
      */
     @Override
     public boolean shouldExit() {
