@@ -1,8 +1,8 @@
 package Oak.controller;
 
 import Oak.exceptions.InvalidInputException;
-import Oak.model.Feedback;
-import Oak.service.FeedbackService;
+import Oak.Feedback.FeedbackService;
+import Oak.Feedback.enums.CommandEnum;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -19,26 +19,27 @@ public class TerminalController {
         Scanner scanner = new Scanner(System.in);
         boolean stop = false;
 
-        Feedback feedback = null;
+        String feedback = null;
 
         while (!stop) {
             String curInput = scanner.nextLine();
 
-            try {
-                feedback = feedbackService.run(curInput);
+            if (curInput.equals(CommandEnum.Bye.getCommandValue())) {
+                stop = true;
             }
-            catch (InvalidInputException | IOException e) {
-                System.out.println(e.getMessage());
-                continue;
+            else {
+                try {
+                    feedback = feedbackService.run(curInput);
+                }
+                catch (InvalidInputException | IOException e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
             }
 
             System.out.println("----------------------------------------------");
             System.out.println(feedback);
             System.out.println("----------------------------------------------");
-
-            if (feedback.getIsBye()) {
-                stop = true;
-            }
         }
     }
 }

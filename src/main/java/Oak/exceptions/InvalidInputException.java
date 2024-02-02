@@ -1,6 +1,6 @@
 package Oak.exceptions;
 
-import Oak.type.CommandEnum;
+import Oak.Feedback.enums.CommandEnum;
 
 import java.util.Arrays;
 

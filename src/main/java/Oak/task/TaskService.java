@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class TaskService {
     private ArrayList<Task> tasks = new ArrayList<>();
-    private final String tasklistFilePath = "/src/main/java/Oak.resources/tasklist.txt";
+    private final String tasklistFilePath = "/src/main/java/Oak/resources/tasklist.txt";
     private final String taskListSep = "\\|";
 
     private FileUtility fileUtility = new FileUtility();

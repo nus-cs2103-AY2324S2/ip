@@ -1,15 +1,15 @@
-package Oak.type;
+package Oak.Feedback.enums;
 
 public enum CommandEnum {
-    BYE("bye"),
-    LIST("list"),
-    MARK("mark"),
-    UNMARK("unmark"),
-    DELETE("delete"),
+    Bye("bye"),
+    List("list"),
+    Mark("mark"),
+    Unmark("unmark"),
+    Delete("delete"),
 
-    TODO("todo"),
-    DEADLINE("deadline"),
-    EVENT("event");
+    Todo("todo"),
+    Deadline("deadline"),
+    Event("event");
 
     public final String commandValue;
 
