@@ -1,7 +1,8 @@
 public class BondException extends Exception {
 
     private enum ExceptionType {
-        EMPTY_DESCRIPTION, INVALID_COMMAND_TYPE, MISSING_INDEX, EXTRA_DETAILS, INVALID_INDEX, EMPTY_LIST
+        EMPTY_DESCRIPTION, INVALID_COMMAND_TYPE, MISSING_INDEX, EXTRA_DETAILS, INVALID_INDEX, EMPTY_LIST, STORE_FAILURE,
+        LOAD_FAILURE
     }
 
     private BondException(String message) {
@@ -24,6 +25,10 @@ public class BondException extends Exception {
             message = "WHY did you not give me a PROPER INDEX to " + taskName + " a task!!!";
         } else if (exceptionType.equals(ExceptionType.EMPTY_LIST.toString())) {
             message = "ADD something to the list first, BEFORE you " + taskName + " something!!!";
+        } else if (exceptionType.equals(ExceptionType.STORE_FAILURE.toString())) {
+            message = String.format("I COULD NOT %s your tasks!!!", taskName.toUpperCase());
+        } else if (exceptionType.equals(ExceptionType.LOAD_FAILURE.toString())) {
+            message = String.format("I COULD NOT %s your tasks!!!", taskName.toUpperCase());
         }
 
         throw new BondException(message);

@@ -18,17 +18,12 @@ public final class Bond {
     }
 
     private void addTask(String taskName, boolean marked, boolean tellUser,
-            String filePath, boolean isWrittenToFile) {
+            String filePath, boolean isWrittenToFile) throws BondException {
         Task newTask = Task.makeTask(taskName);
         taskList.addTask(newTask);
 
         if (isWrittenToFile) {
-            try {
-                storage.storeTask(newTask, taskList);
-            } catch (IOException e) {
-                ui.showError(e);
-                System.exit(0);
-            }
+            storage.storeTask(newTask, taskList);
         }
 
         if (marked) {
@@ -40,7 +35,7 @@ public final class Bond {
         }
     }
 
-    private void parseAndAddTask(String task, String filePath) throws IOException {
+    private void parseAndAddTask(String task, String filePath) throws BondException {
         // System.out.println(task);
         String remainder = task.substring(4);
         String taskName = "";
@@ -107,7 +102,7 @@ public final class Bond {
         }
     }
 
-    private void loadTasksFromFile(String filePath) {
+    private void loadTasksFromFile(String filePath) throws BondException {
         try {
             File f = new File(filePath); // create a File for the given file path
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -132,7 +127,7 @@ public final class Bond {
     private void updateFile(String filePath) {
         try {
             storage.overwritePreviousSave(taskList);
-        } catch (IOException e) {
+        } catch (BondException e) {
             ui.showError(e);
             System.exit(0);
         }
@@ -154,7 +149,7 @@ public final class Bond {
         updateFile(filePath);
 
         if (tellUser) {
-            ui.taskMarked(taskIndex, taskList);
+            ui.taskMarked(taskList.getTask(taskIndex), taskList);
         }
     }
 
@@ -163,7 +158,7 @@ public final class Bond {
         updateFile(filePath);
 
         if (tellUser) {
-            ui.taskUnmarked(taskIndex, taskList);
+            ui.taskUnmarked(taskList.getTask(taskIndex), taskList);
         }
     }
 
@@ -171,22 +166,8 @@ public final class Bond {
         ui.showWelcome();
 
         try {
-            // Check for directory / file existence
-            String home = System.getProperty("user.home");
-            java.nio.file.Path directoryPath = java.nio.file.Paths.get(home, "data");
-            boolean directoryExists = java.nio.file.Files.exists(directoryPath);
-
-            if (!directoryExists) {
-                java.nio.file.Files.createDirectory(directoryPath);
-            }
-
-            java.nio.file.Path filePath = java.nio.file.Paths.get(home, "data", "Bond.txt");
-            boolean fileExists = java.nio.file.Files.exists(filePath);
-
-            if (!fileExists) {
-                java.nio.file.Files.createFile(filePath);
-            }
-        } catch (java.io.IOException e) {
+            storage.load();
+        } catch (BondException e) {
             ui.showError(e);
             System.exit(0);
         }
@@ -195,7 +176,12 @@ public final class Bond {
 
         // Read from file: Bond.txt
 
-        loadTasksFromFile(filePath);
+        try {
+            loadTasksFromFile(filePath);
+        } catch (BondException e) {
+            ui.showError(e);
+            System.exit(0);
+        }
 
         Scanner scNext = new Scanner(System.in);
 

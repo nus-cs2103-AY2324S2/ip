@@ -1,22 +1,7 @@
-import java.util.ArrayList;
-
 public abstract class Parser {
 
-    private static final ArrayList<String> COMMANDS = new ArrayList<>() {
-        {
-            add("todo");
-            add("deadline");
-            add("event");
-            add("list");
-            add("mark");
-            add("unmark");
-            add("bye");
-            add("delete");
-        }
-    };
-
     public static boolean isValidCommand(String input) {
-        return COMMANDS.contains(input.toLowerCase());
+        return Command.COMMANDS.contains(input.toLowerCase());
     }
 
     public static boolean isNumber(String input) {

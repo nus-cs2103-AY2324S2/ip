@@ -36,22 +36,22 @@ public class Ui {
         this.newLine();
     }
 
-    public void taskMarked(int taskIndex, TaskList taskList) {
+    public void taskMarked(Task markedTask, TaskList taskList) {
         this.showLine();
         System.out
                 .println(String.format(
                         "\n\n    Nice! I've marked this task as done:\n      %s \n",
-                        taskList.getTask(taskIndex).toString()));
+                        markedTask.toString()));
         this.showLine();
         this.newLine();
     }
 
-    public void taskUnmarked(int taskIndex, TaskList taskList) {
+    public void taskUnmarked(Task unmarkedTask, TaskList taskList) {
         this.showLine();
         System.out
                 .println(String.format(
                         "\n\n    OK, I've marked this task as not done yet:\n      %s \n",
-                        taskList.getTask(taskIndex).toString()));
+                        unmarkedTask.toString()));
         this.showLine();
         this.newLine();
     }
