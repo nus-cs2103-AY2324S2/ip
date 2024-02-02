@@ -8,26 +8,18 @@ public class Duke {
 
     protected static TaskList lst = new TaskList();
     protected static String dataPath = "./data/duke.txt";
-    private enum Command {
-        LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
-    }
+//    private enum Command {
+//        LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
+//    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         intro();
         lst = loadTasks();
         while (sc.hasNextLine()) {
-            String s = sc.nextLine();
-
             try {
-                String[] words = s.split(" ", 2);
-                String firstWord = words.length > 0 ? words[0] : "";
-                String taskName = words.length > 1 ? words[1] : "";
-                Command command;
-                try {
-                    command = Command.valueOf(firstWord.toUpperCase());
-                } catch (IllegalArgumentException e) {
-                    command = Command.UNKNOWN;
-                }
+                String s = sc.nextLine();
+                Parser.Command command = Parser.parseCommand(s);
+                String taskDetail = Parser.parseTaskDetail(s);
                 switch (command) {
                     case LIST:
                         displayList();
@@ -37,22 +29,22 @@ public class Duke {
                         saveTasks();
                         return;
                     case MARK:
-                        markComplete(Integer.parseInt(taskName.trim()));
+                        markComplete(Integer.parseInt(taskDetail.trim()));
                         break;
                     case UNMARK:
-                        unmarkComplete(Integer.parseInt(taskName.trim()));
+                        unmarkComplete(Integer.parseInt(taskDetail.trim()));
                         break;
                     case TODO:
-                        addToList(new Todo(taskName));
+                        addToList(new Todo(taskDetail));
                         break;
                     case DEADLINE:
-                        addToList(new Deadline(taskName));
+                        addToList(new Deadline(taskDetail));
                         break;
                     case EVENT:
-                        addToList(new Event(taskName));
+                        addToList(new Event(taskDetail));
                         break;
                     case DELETE:
-                        deleteTask(Integer.parseInt(taskName.trim()));
+                        deleteTask(Integer.parseInt(taskDetail.trim()));
                         break;
                     case UNKNOWN:
                         throw new AllyException();
