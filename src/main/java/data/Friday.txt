@@ -9,4 +9,4 @@
 [T][X] sleep
 [D][ ] wake up (by: Feb 03 2024 0700)
 [T][X] jump
-[D][X] submit (by: Feb 03 2024 2359)
+[D][ ] submit (by: Feb 03 2024 2359)
