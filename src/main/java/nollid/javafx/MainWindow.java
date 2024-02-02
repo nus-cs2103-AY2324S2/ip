@@ -24,8 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Nollid nollid;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserProfilePic.png"));
+    private Image nollidImage = new Image(this.getClass().getResourceAsStream("/images/NollidProfilePic.png"));
 
     /**
      * Initializes the main window, binding the scroll pane's vertical value to the dialog container's height property.
@@ -52,7 +52,7 @@ public class MainWindow extends AnchorPane {
         String response = nollid.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getNollidDialog(response, dukeImage)
+                DialogBox.getNollidDialog(response, nollidImage)
         );
         userInput.clear();
     }
