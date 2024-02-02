@@ -9,7 +9,7 @@ import zack.util.Ui;
 import java.io.IOException;
 
 public abstract class Command {
-    protected boolean isExit;
+    private boolean isExit;
 
     public Command() {
         this.isExit = false;
