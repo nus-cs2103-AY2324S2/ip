@@ -28,7 +28,7 @@ public class Seiki {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line
+                ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 c.execute(storage, tasks, ui);
                 isExit = c.isExit();
