@@ -5,16 +5,6 @@ import java.nio.file.*;
 
 public class Duke {
     private static final String hRULER = "____________________________________________________________\n";
-    private enum Commands {
-        bye,
-        list,
-        mark,
-        todo,
-        event,
-        unmark,
-        delete,
-        deadline
-    }
     private static boolean isNumeric(String s) {
         if (s == null) {
             return false;
