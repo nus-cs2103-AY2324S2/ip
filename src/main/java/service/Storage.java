@@ -60,20 +60,20 @@ public class Storage {
             switch (type) {
             case "D":
                 time1 = task[3];
-                Duke.processCommand("DEADLINE " + desc + " /by " + time1, taskList, false);
+                Duke.processCommand("Deadline " + desc + " /by " + time1, taskList, false);
                 break;
             case "E":
                 time1 = task[3];
                 time2 = task[4];
-                Duke.processCommand("EVENT " + desc + " /from " + time1 + " /to " + time2, taskList, false);
+                Duke.processCommand("Event " + desc + " /from " + time1 + " /to " + time2, taskList, false);
                 break;
             case "T":
-                Duke.processCommand("TODO " + desc, taskList, false);
+                Duke.processCommand("Todo " + desc, taskList, false);
                 break;
             }
 
             if (done.equals("1")) { // done
-                Duke.processCommand("MARK " + taskCounter.toString(), taskList, false);
+                Duke.processCommand("Mark " + taskCounter.toString(), taskList, false);
             }
             //parse each line
             taskCounter++;

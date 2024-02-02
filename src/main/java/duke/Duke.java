@@ -10,15 +10,17 @@ import service.Storage;
 import service.TaskList;
 import ui.UI;
 
+import java.util.ArrayList;
+
 
 public class Duke{
     
     public enum Command {
-        //TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, LIST, BYE, UNKNOWN;
-        Todo, Deadline, Event, Delete, Mark, Unmark, List, Bye, Unknown;
+        Todo, Deadline, Event, Delete, Mark, Unmark, List, Bye, Unknown, Find;
+
         public static Command fromString(String maybeCommand) {
             try {
-                return Command.valueOf(maybeCommand.toUpperCase());
+                return Command.valueOf(maybeCommand);
             } catch (Exception e) {
                 return Unknown;
             }
@@ -48,10 +50,36 @@ public class Duke{
         Command command = Command.fromString(maybeCommand);
 
         switch (command) {
+        case Find:
+
+            //add tasks with that keyword to a new arrayList, print items in that array list.
+            if (verbose) {
+                TaskList matchingTasks = new TaskList();
+                String query = arr[1];
+                for (int i = 0; i < todos.size(); i++) {
+                    Task currTask = todos.get(i);
+                    if (currTask.toString().contains(query)) {
+                        matchingTasks.add(currTask);
+                    }
+                }
+
+                ui.showLine();
+                if (matchingTasks.size() > 0) {
+                    System.out.println(" Here are the tasks in your list:");
+                    for (int i = 0; i < matchingTasks.size(); i++) {
+                        System.out.println((i + 1) + ". " + matchingTasks.get(i).toString());
+                    }
+                } else {
+                    System.out.println(" Sorry no tasks found matching that word :<");
+                }
+                ui.showLine();
+            }
+
+            break;
         case Bye:
             ui.formalities("farewell");
             System.exit(0);
-            break; //TODO uncessary?
+            break;
         case List:
             // list tasks
             if (verbose) {
