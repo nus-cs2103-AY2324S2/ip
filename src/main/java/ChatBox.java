@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -18,6 +19,17 @@ public class ChatBox {
     }
 
     public void launch() {
+        try {
+            this.tasks = FileManager.loadTasks();
+            this.taskCount = this.tasks.size();
+        } catch (IOException e) {
+            WisException.LoadFileExceptionHandler();
+            return;
+        } catch (InputMismatchException e) {
+            WisException.LoadFileExceptionHandler();
+            return;
+        }
+
         Printer.printActionAttach(Action.GREET);
         while (!isExitSignal) {
             this.input = scanner.nextLine();
@@ -28,7 +40,7 @@ public class ChatBox {
 
     private void parseInput() {
         String[] words = input.split(" ");
-        Action action = Parser.parseAction(this.input, words);
+        Action action = InputParser.parseAction(this.input, words);
         switch (action) {
             case NONE:
                 break;
@@ -51,7 +63,7 @@ public class ChatBox {
                 delete(words);
                 break;
             case LIST:
-                Printer.printActionAttach(Action.LIST, tasks, taskCount);
+                Printer.printActionAttach(Action.LIST, this.tasks, this.taskCount);
                 break;
             case BYE:
                 this.isExitSignal = true;
@@ -64,11 +76,25 @@ public class ChatBox {
         }
     }
 
+    private void list() {
+        try {
+            this.tasks = FileManager.loadTasks();
+            Printer.printActionAttach(Action.LIST, this.tasks, this.taskCount);
+        } catch (IOException e) {
+            WisException.LoadFileExceptionHandler();
+        } catch (InputMismatchException e) {
+            WisException.LoadFileExceptionHandler();
+        } finally {
+            Printer.printActionAttach(Action.LIST, this.tasks, this.taskCount);
+        }
+    }
+
     private void addTodo() {
         try {
-            Todo todo = new Todo(Parser.parseTodo(this.input));
+            Todo todo = new Todo(InputParser.parseTodo(this.input));
             this.tasks.add(todo);
             this.taskCount++;
+            FileManager.saveTasks(tasks);
             Printer.printActionAttach(Action.ADD_TODO, todo, this.taskCount);
         } catch (InputMismatchException e) {
             WisException.ActionExceptionHandler(Action.ADD_TODO);
@@ -77,10 +103,11 @@ public class ChatBox {
 
     private void addDeadline() {
         try {
-            String[] parsedString = Parser.parseDeadline(this.input);
+            String[] parsedString = InputParser.parseDeadline(this.input);
             Deadline deadline = new Deadline(parsedString[0], parsedString[1]);
             this.tasks.add(deadline);
             this.taskCount++;
+            FileManager.saveTasks(tasks);
             Printer.printActionAttach(Action.ADD_DEADLINE, deadline, this.taskCount);
         } catch (InputMismatchException e) {
             WisException.ActionExceptionHandler(Action.ADD_DEADLINE);
@@ -89,10 +116,11 @@ public class ChatBox {
 
     private void addEvent() {
         try {
-            String[] parsedString = Parser.parseEvent(this.input);
+            String[] parsedString = InputParser.parseEvent(this.input);
             Event event = new Event(parsedString[0], parsedString[1], parsedString[2]);
             this.tasks.add(event);
             this.taskCount++;
+            FileManager.saveTasks(tasks);
             Printer.printActionAttach(Action.ADD_EVENT, event, this.taskCount);
         } catch (InputMismatchException e) {
             WisException.ActionExceptionHandler(Action.ADD_EVENT);
@@ -103,6 +131,7 @@ public class ChatBox {
         try {
             Task task = tasks.get(Integer.parseInt(words[1]) - 1);
             task.setDone();
+            FileManager.saveTasks(tasks);
             Printer.printActionAttach(Action.MARK, task);
         } catch (IndexOutOfBoundsException e) {
             WisException.ActionExceptionHandler(Action.MARK);
@@ -115,6 +144,7 @@ public class ChatBox {
         try {
             Task task = tasks.get(Integer.parseInt(words[1]) - 1);
             task.setUndone();
+            FileManager.saveTasks(tasks);
             Printer.printActionAttach(Action.UNMARK, task);
         } catch (IndexOutOfBoundsException e) {
             WisException.ActionExceptionHandler(Action.UNMARK);
@@ -127,6 +157,7 @@ public class ChatBox {
         try {
             Task task = tasks.remove(Integer.parseInt(words[1]) - 1);
             this.taskCount--;
+            FileManager.saveTasks(tasks);
             Printer.printActionAttach(Action.DELETE, task, this.taskCount);
         } catch (IndexOutOfBoundsException e) {
             WisException.ActionExceptionHandler(Action.DELETE);

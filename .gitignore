@@ -15,3 +15,10 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# App data files
+/data/
+
+# Git Command Shortcuts
+l
+s

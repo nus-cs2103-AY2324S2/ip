@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.InputMismatchException;
 
 public class WisException {
@@ -49,5 +50,19 @@ public class WisException {
             default:
                 throw new IllegalArgumentException("Illegal action argument provided.\n");
         }
+    }
+
+    public static void SaveFileExceptionHandler(IOException e) {
+        Printer.printDecorator();
+        Printer.println("Failed to save file to local.");
+        Printer.println(e.getMessage());
+        Printer.printDecorator();
+    }
+
+    public static void LoadFileExceptionHandler() {
+        Printer.printDecorator();
+        Printer.println("Failed to load tasks from local.");
+        Printer.println("Local data file might be corrupted.");
+        Printer.printDecorator();
     }
 }
