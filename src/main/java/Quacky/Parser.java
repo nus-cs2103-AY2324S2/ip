@@ -16,14 +16,20 @@ public class Parser {
 
             case "mark": {
                 int taskNumber = Integer.parseInt(keywords[1]) - 1;
-                tasks.markCompleteTask(taskNumber);
-                ui.showMarkDone(tasks.printTask(taskNumber));
-                break;
+                try {
+                    tasks.markCompleteTask(taskNumber);
+                    ui.showMarkDone(tasks.printTask(taskNumber));
+                } catch (QuackyException e) {
+                    ui.showErrorMessage(e);
+                } finally {
+                    break;
+                }
+
             }
 
             case "unmark": {
                 int taskNumber = Integer.parseInt(keywords[1]) - 1;
-                tasks.markCompleteTask(taskNumber);
+                tasks.unmarkCompleteTask(taskNumber);
                 ui.showUnmarkDone(tasks.printTask(taskNumber));
                 break;
             }

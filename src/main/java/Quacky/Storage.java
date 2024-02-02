@@ -46,10 +46,11 @@ public class Storage {
      */
     public void save(TaskList tasks) throws StorageOperationException {
         try {
-            FileWriter fileWriter = new FileWriter(this.file, true);
-            BufferedWriter writer = new BufferedWriter(fileWriter);
+            FileWriter fw = new FileWriter(this.file, false);
             String textToAdd = tasks.printSimplified();
-            writer.write(textToAdd);
+            System.out.println(textToAdd);
+            fw.write(textToAdd);
+            fw.close();
         } catch (IOException ioe) {
             throw new StorageOperationException("Error writing to file: " + path);
         }

@@ -28,11 +28,15 @@ public class TaskList {
     public int taskNumber() {
         return tasks.size();
     }
-    public void markCompleteTask(int i){
-        Task task = tasks.get(i);
-        task.markDone();
+    public void markCompleteTask(int i) throws QuackyException {
+        try {
+            Task task = tasks.get(i);
+            task.markDone();
+        } catch (IndexOutOfBoundsException e) {
+            throw new QuackyException("Quack. The task is not found");
+        }
     }
-    public void unmarkCompleteTask(int i){
+    public void unmarkCompleteTask (int i){
         Task task = tasks.get(i);
         task.unmarkDone();
     }
