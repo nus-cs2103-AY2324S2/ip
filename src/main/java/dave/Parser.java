@@ -16,6 +16,13 @@ public class Parser {
         BYE
     }
 
+    /**
+     * Parses inputs from user.
+     * 
+     * @param input User input.
+     * @return A command that executes operations according to the user's input.
+     * @throws ChatbotException If unrecognisable or invalid input is given.
+     */
     public static Command parse(String input) throws ChatbotException {
         String[] inputArr = input.split(" ");
 
