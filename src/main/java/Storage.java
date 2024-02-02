@@ -14,71 +14,62 @@ import java.util.Scanner;
 
 public class Storage {
 
-    // Data structure to store text entered by user
-    private List<Task> items = new ArrayList<>();
+    private final String filePath;
 
-    public void add(Task task) {
-        items.add(task);
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
 
-    public List<Task> getItems() {
-        return items;
-    }
-
-    public Task getItem(int index) {
-        return items.get(index);
-    }
-
-    public void markDone(int index) {
-        items.get(index).markDone();
-    }
-
-    public void unmarkDone(int index) {
-        items.get(index).unmarkDone();
-    }
-
-    public void delete(int index) {
-        items.remove(index);
-    }
-
-    // Return 0 for success
-    // Return 1 for error
-    public int setup() {
+    public List<Task> load() throws DukeException {
+        List<Task> items = new ArrayList<>();
         String home = System.getProperty("user.dir");
-        String folderName = "data";
-        Path folderPath = Paths.get(home, folderName);
+        String[] splitedFile = this.filePath.split("/");
 
-        // Check whether folder exist
-        if (!Files.exists(folderPath) || !Files.isDirectory(folderPath)) {
-            // Create the folder
-            try {
-                Files.createDirectory(folderPath);
-            } catch (Exception e) {
-                System.out.println("Error accessing / creating the folder: " + e.getMessage());
-                return 1;
+        StringBuilder sb = new StringBuilder();
+        sb.append(home);
+
+        // Ensure that the file exist
+        for (int i = 0; i < splitedFile.length; i++) {
+            sb.append("/" + splitedFile[i]);
+            Path path = Paths.get(sb.toString());
+
+            // Folder not exist
+            if (i != splitedFile.length - 1 && !Files.exists(path)) {
+                try {
+                    Files.createDirectory(path);
+                } catch (Exception e) {
+                    throw new DukeException(e.getMessage());
+                }
+            }
+
+            // Folder exist but not folder
+            if (i != splitedFile.length - 1 && !Files.isDirectory(path)) {
+                throw new DukeException();
+            }
+
+            // File not exist
+            if (i == splitedFile.length - 1 && !Files.exists(path)) {
+                try {
+                    Files.createFile(path);
+                } catch (Exception e) {
+                    throw new DukeException(e.getMessage());
+                }
+            }
+
+            // File exist but not exist
+            if (i == splitedFile.length - 1 && Files.isDirectory(path)) {
+                throw new DukeException();
             }
         }
 
-        String fileName = "duke.txt";
-        Path filePath = Paths.get(home, folderName, fileName);
-
-        // Check whether file exist
-        if (!Files.exists(filePath)) {
-            // Create the folder
-            try {
-                Files.createFile(filePath);
-            } catch (Exception e) {
-                Ui.print("Error accessing / creating the file: " + e.getMessage());
-                return 1;
-            }
-        }
+        Path path = Paths.get(home, this.filePath);
 
         // Read from file
         try {
-            Scanner scanner = new Scanner(new File(filePath.toString()));
+            Scanner scanner = new Scanner(new File(path.toString()));
             while (scanner.hasNext()) {
                 String data = scanner.nextLine();
-                if (data == "") {
+                if (data.isBlank()) {
                     break;
                 }
 
@@ -88,7 +79,7 @@ public class Storage {
                     switch (splited[0]) {
                         case "Deadline": {
                             String content = splited[1];
-                            boolean isDone = splited[2] == "Y";
+                            boolean isDone = splited[2].equals("Y");
                             String deadline = splited[3];
                             String[] splitedDateTime = deadline.split(" ");
 
@@ -98,12 +89,12 @@ public class Storage {
                                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                                     LocalDateTime parsedDateTime = LocalDateTime.parse(deadline, formatter);
                                     Task newTask = new Deadline(content, isDone, parsedDateTime);
-                                    this.add(newTask);
+                                    items.add(newTask);
                                 } else {
                                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                                     LocalDate parsedDate = LocalDate.parse(deadline, formatter);
                                     Task newTask = new Deadline(content, isDone, parsedDate);
-                                    this.add(newTask);
+                                    items.add(newTask);
                                 }
                             } catch (Exception e) {
                                 throw new DukeException("deadline");
@@ -112,7 +103,7 @@ public class Storage {
                         }
                         case "Event": {
                             String content = splited[1];
-                            boolean isDone = splited[2] == "Y";
+                            boolean isDone = splited[2].equals("Y");
                             String from = splited[3];
                             String to = splited[4];
 
@@ -127,27 +118,27 @@ public class Storage {
                                     LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, formatter);
                                     LocalDateTime parsedToDateTime = LocalDateTime.parse(to, formatter);
                                     Task newTask = new Event(content, isDone, parsedFromDateTime, parsedToDateTime);
-                                    this.add(newTask);
+                                    items.add(newTask);
                                 } else if (splitedFrom.length == 2 && splitedTo.length == 1) {
                                     DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                                     DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                                     LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, formatter1);
                                     LocalDate parsedToDate = LocalDate.parse(to, formatter2);
                                     Task newTask = new Event(content, isDone, parsedFromDateTime, parsedToDate);
-                                    this.add(newTask);
+                                    items.add(newTask);
                                 } else if (splitedFrom.length == 1 && splitedTo.length == 2) {
                                     DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                                     DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                                     LocalDate parsedFromDate = LocalDate.parse(from, formatter2);
                                     LocalDateTime parsedToDateTime = LocalDateTime.parse(to, formatter1);
                                     Task newTask = new Event(content, isDone, parsedFromDate, parsedToDateTime);
-                                    this.add(newTask);
+                                    items.add(newTask);
                                 } else {
                                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                                     LocalDate parsedFromDate = LocalDate.parse(from, formatter);
                                     LocalDate parsedToDate = LocalDate.parse(to, formatter);
                                     Task newTask = new Event(content, isDone, parsedFromDate, parsedToDate);
-                                    this.add(newTask);
+                                    items.add(newTask);
                                 }
                             } catch (Exception e) {
                                 throw new DukeException("event");
@@ -155,30 +146,26 @@ public class Storage {
                             break;
                         }
                         default: {
-                            this.add(new Todo(splited[1], splited[2].equals("Y")));
+                            items.add(new Todo(splited[1], splited[2].equals("Y")));
                         }
                     }
                 }
             }
         } catch (Exception e) {
-            Ui.print("Error accessing / creating the file: " + e.getMessage());
-            return 1;
+            throw new DukeException("Error accessing / creating the file: " + e.getMessage());
         }
 
-
-        return 0;
+        return items;
     }
 
     // Return 0 for success
     // Return 1 for error
-    public int saveChanges() {
+    public void saveChanges(TaskList tasks) throws DukeException{
         String home = System.getProperty("user.dir");
-        String folderName = "data";
-        String fileName = "duke.txt";
-        Path filePath = Paths.get(home, folderName, fileName);
+        Path filePath = Paths.get(home, this.filePath);
 
         StringBuilder textToAdd = new StringBuilder();
-        for (Task t: items) {
+        for (Task t: tasks.getItems()) {
             switch (t.getClass().getName()) {
                 case "Deadline": {
                     textToAdd.append(t.getClass().getName() + "`" + t.getFields()[0] + "`" + t.getFields()[1]
@@ -201,9 +188,7 @@ public class Storage {
             fw.write(textToAdd.toString());
             fw.close();
         } catch (IOException e) {
-            Ui.print("Error saving changes: " + e.getMessage());
-            return 1;
+            throw new DukeException("Error saving changes: " + e.getMessage());
         }
-        return 0;
     }
 }
