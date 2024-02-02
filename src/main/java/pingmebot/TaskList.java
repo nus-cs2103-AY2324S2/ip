@@ -36,17 +36,13 @@ public class TaskList {
         return this.tasks.size();
     }
 
-<<<<<<< HEAD
     /**
      * Updates the local file of the modification made to the tasklist.
      *
      * @param fs The actual file that the method is supposed to write into.
-     * @throws myBotException If there is an attempt to write into a non-existent file.
+     * @throws PingMeException If there is an attempt to write into a non-existent file.
      */
-    public void updateTaskToStorage(fileStorage fs) throws myBotException {
-=======
     public void updateTaskToStorage(Storage fs) throws PingMeException {
->>>>>>> branch-A-CodingStandard
         try {
             fs.updateFile(this.tasks);
         } catch (PingMeException e) {

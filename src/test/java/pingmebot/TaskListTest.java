@@ -119,6 +119,41 @@ public class TaskListTest {
         assertEquals("1.[T][ ] project" + "\n", capturedOutput);
     }
 
+    @Test
+    public void findMatchingTaskTest() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new ToDos("read book"));
+        tasks.add(new ToDos("borrow book"));
+        tasks.add(new ToDos("project"));
+        TaskList tl = new TaskList(tasks);
 
+        ArrayList<Task> expectedOutput = new ArrayList<>();
+        expectedOutput.add(new ToDos("read book"));
+        expectedOutput.add(new ToDos("borrow book"));
+        assertEquals(expectedOutput, tl.findMatchingTask("book"));
+    }
+
+    @Test
+    public void listMatchingTaskTest() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new ToDos("read book"));
+        tasks.add(new ToDos("borrow book"));
+        tasks.add(new ToDos("project"));
+        TaskList tl = new TaskList(tasks);
+
+        ArrayList<Task> filteredTask = new ArrayList<>();
+        filteredTask.add(new ToDos("read book"));
+        filteredTask.add(new ToDos("borrow book"));
+
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream newOut = new PrintStream(outputStream);
+        System.setOut(newOut);
+        tl.listMatchingTask(filteredTask);
+
+        System.setOut(originalOut);
+        String capturedOutput = outputStream.toString();
+        assertEquals("1.[T][ ] read book" + "\n" + "2.[T][ ] borrow book" + "\n", capturedOutput);
+    }
 
 }

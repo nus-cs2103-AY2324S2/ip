@@ -8,13 +8,13 @@ import java.util.Scanner;
  * Deals with the user interactivity of the application.
  */
 public class UI {
-    private final Scanner sc;
+    private final Scanner SC;
 
     /**
      * Creates a UI object with the Scanner object intialised to read user's inputs.
      */
     public UI() {
-        this.sc = new Scanner(System.in);
+        this.SC = new Scanner(System.in);
     }
 
     /**
@@ -54,7 +54,7 @@ public class UI {
      * @return User's input.
      */
     public String readCommand() {
-        return this.sc.nextLine();
+        return this.SC.nextLine();
     }
 
     /**
@@ -86,18 +86,14 @@ public class UI {
         System.out.println(toUserUponDeletion);
     }
 
-<<<<<<< HEAD
     /**
      * Sends a message to the user when the task that he/she wishes to mark as completed has been marked.
      *
      * @param taskNum The position of the task in the tasklist which the user wants to mark.
      * @param allTasks The list of all the tasks that the user has in which to mark the task from.
-     * @throws myBotException If the user tries to mark a task which has already been completed.
+     * @throws PingMeException If the user tries to mark a task which has already been completed.
      */
-    public void markTaskText(int taskNum, TaskList allTasks) throws myBotException {
-=======
     public void markTaskText(int taskNum, TaskList allTasks) throws PingMeException {
->>>>>>> branch-A-CodingStandard
         String toUserUponMarkingTask = "";
         if (allTasks.taskStatusIcon(taskNum).equals("X")) {
             throw new PingMeException("You cannot mark task again which has been completed!");
@@ -109,18 +105,14 @@ public class UI {
         System.out.println(toUserUponMarkingTask);
     }
 
-<<<<<<< HEAD
     /**
      * Sends a message to the user when the task that he/she wishes to un-mark as not completed.
      *
      * @param taskNum The position of the task in the tasklist which the user wants to un-mark.
      * @param allTasks The list of all the tasks that the user has in which to un-mark the task from.
-     * @throws myBotException If the user tries to un-mark a task which has not been completed.
+     * @throws PingMeException If the user tries to un-mark a task which has not been completed.
      */
-    public void unmarkTaskText(int taskNum, TaskList allTasks) throws myBotException {
-=======
     public void unmarkTaskText(int taskNum, TaskList allTasks) throws PingMeException {
->>>>>>> branch-A-CodingStandard
         String toUserUponUnmarkingTask = "";
         if (allTasks.taskStatusIcon(taskNum).equals(" ")) {
             throw new PingMeException("You cannot un-mark task which has not been marked!");

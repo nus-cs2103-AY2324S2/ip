@@ -3,9 +3,7 @@ package pingmebot;
 import pingmebot.task.ToDos;
 import pingmebot.task.Deadline;
 import pingmebot.task.Events;
-<<<<<<< HEAD:src/main/java/pingmebot/Pingme.java
 import pingmebot.task.Task;
-import pingmebot.task.ToDos;
 
 import java.util.ArrayList;
 
@@ -13,27 +11,18 @@ import java.util.ArrayList;
  * A simple, interactive task management application.
  * It allows user to interact with it via command line interface.
  */
-public class Pingme {
-    private fileStorage storage;
-=======
-
 public class PingMe {
     private Storage storage;
->>>>>>> branch-A-CodingStandard:src/main/java/pingmebot/PingMe.java
     private TaskList tasks;
     private UI ui;
     private Parser parser;
 
-<<<<<<< HEAD:src/main/java/pingmebot/Pingme.java
     /**
-     * Creates a Pingme object with a specified file path.
+     * Creates a PingMe object with a specified file path.
      *
      * @param filePath The filePath to the storage of data locally.
      */
-    public Pingme(String filePath) {
-=======
     public PingMe(String filePath) {
->>>>>>> branch-A-CodingStandard:src/main/java/pingmebot/PingMe.java
         this.ui = new UI();
         try {
             this.storage = new Storage(filePath);
@@ -45,7 +34,7 @@ public class PingMe {
     }
 
     /**
-     * Help to start the main logic of the application.
+     * Helps to start the main logic of the application.
      */
     public void run() {
         ui.showWelcome();
@@ -60,6 +49,7 @@ public class PingMe {
             } else if (userInput.equals("list")) {
                 ui.listText();
                 tasks.listTask();
+
             } else if (words[0].equals("mark")) {
                 try {
                     int taskNumber = parser.parseMarkCommand(tasks.getTaskSize());
@@ -68,6 +58,7 @@ public class PingMe {
                 } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
+
             } else if (words[0].equals("unmark")) {
                 try {
                     int taskNum = parser.parseUnmarkCommand(tasks.getTaskSize());
@@ -76,6 +67,7 @@ public class PingMe {
                 } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
+
             } else if (words[0].equals("todo")) {
                 try {
                     ToDos todo = parser.parseToDoCommand();
@@ -85,6 +77,7 @@ public class PingMe {
                 } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
+
             } else if (words[0].equals("deadline")) {
                 try {
                     Deadline deadlineTask = parser.parseDeadlineCommand();
@@ -94,6 +87,7 @@ public class PingMe {
                 } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
+
             } else if (words[0].equals("event")) {
                 try {
                     Events events = parser.parseEventsCommand();
@@ -103,6 +97,7 @@ public class PingMe {
                 } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
+
             } else if (words[0].equals("delete")) {
                 try {
                     int taskNumber = parser.parseDeleteCommand(tasks.getTaskSize());
@@ -111,6 +106,7 @@ public class PingMe {
                 } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
+
             } else if (words[0].equals("find")) {
                 try {
                     String keyword = parser.parseFindCommand();
@@ -122,11 +118,12 @@ public class PingMe {
                         ui.listMatchingText();
                         tasks.listMatchingTask(matchingTasks);
                     }
-
-                } catch (myBotException e) {
-                    ui.showError(e.getMessage());
-
                 }
+
+                catch (PingMeException e) {
+                    ui.showError(e.getMessage());
+                }
+
             } else {
                 ui.showError("OOPS! I'm sorry, but I don't know what that means :'(");
             }

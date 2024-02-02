@@ -57,4 +57,12 @@ public class ParserTest {
         Parser parser = new Parser(command);
         assertEquals(1, parser.parseMarkCommand(arbituaryNumOfTask));
     }
+
+    @Test
+    public void findParserTest() throws PingMeException {
+        String command = "find book";
+        Parser parser = new Parser(command);
+        assertEquals("book", parser.parseFindCommand());
+    }
+
 }
