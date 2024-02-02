@@ -55,4 +55,12 @@ public class Messages {
     /* Delete command messages */
     public static String MESSAGE_DELETE = "Boom! Task officially evicted from the list. Consider it gone:\n%1s\n"
             + "Now you have %2d in the list.";
+
+    /* Find command messages */
+    public static String MESSAGE_FIND = "Yo, check it out, here's the lineup of tasks that match up:\n%1s";
+    public static String MESSAGE_FIND_INCORRECT = String.format(
+            MESSAGE_INCORRECT_COMMAND_FORMAT,
+            "find",
+            "\"find <keyword>\""
+    );
 }

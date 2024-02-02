@@ -17,6 +17,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public boolean hasKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     @Override
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "]" + " " + this.description;
