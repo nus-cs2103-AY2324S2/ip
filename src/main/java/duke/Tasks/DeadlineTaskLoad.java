@@ -6,7 +6,6 @@ package duke.Tasks;
 public class DeadlineTaskLoad extends Task {
     private String by;
 
-
     /**
      * Constructs a DeadlineTaskLoad object with the given task description and deadline.
      *
@@ -38,6 +37,7 @@ public class DeadlineTaskLoad extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
+
 
     /**
      * Returns the tag for the deadline task.

@@ -1,22 +1,25 @@
 package duke.Command;
 
-import duke.*;
+import duke.Ui;
+import duke.Storage;
+import duke.DukeException;
 import duke.Tasks.Task;
 import duke.Tasks.TaskList;
+
 
 /**
  * Represents a command to delete a task.
  */
 public class DeleteCommand extends Command {
-    private int index;
+    private int INDEX;
 
     /**
      * Constructs a DeleteCommand object with the given task index.
      *
-     * @param taskIndex The index of the task to be deleted.
+     * @param TASK_INDEX The index of the task to be deleted.
      */
-    public DeleteCommand(int taskIndex) {
-        this.index = taskIndex;
+    public DeleteCommand(int TASK_INDEX) {
+        this.INDEX = TASK_INDEX;
     }
 
 
@@ -30,13 +33,13 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (index < 1 || index > tasks.size()) {
+        if (INDEX < 1 || INDEX > tasks.size()) {
             throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
         }
 
-        Task deletedTask = tasks.get(index - 1);
+        Task deletedTask = tasks.get(INDEX - 1);
         int count = tasks.size() - 1;
-        tasks.delete(index - 1);
+        tasks.delete(INDEX - 1);
         Ui.showDeletedMessage(deletedTask, count);
         storage.save(tasks.getAllTasks());
 
