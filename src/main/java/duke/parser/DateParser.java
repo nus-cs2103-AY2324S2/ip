@@ -21,7 +21,14 @@ public class DateParser {
             DateTimeFormatter.BASIC_ISO_DATE
     );
 
-    public static LocalDateTime parseDateTime(String input) {
+    /**
+     * Parses string date input into appropriate LocalDateTime format
+     *
+     * @param input Date in String type.
+     * @return Date in LocalDateTime type.
+     * @throws IllegalArgumentException If unable to parse string date input.
+     */
+    public static LocalDateTime parseDateTime(String input) throws IllegalArgumentException {
         // First, try parsing with date-only formatters
         for (DateTimeFormatter formatter : DATE_ONLY_FORMATTERS) {
             try {
@@ -38,9 +45,6 @@ public class DateParser {
             } catch (DateTimeParseException ignored) {
             }
         }
-
         throw new IllegalArgumentException("Unable to parse date and time: " + input);
     }
-
-
 }
