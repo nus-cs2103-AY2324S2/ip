@@ -7,23 +7,23 @@ import java.util.Scanner;
  * Represents the ui for the mainframe.
  */
 public class Ui {
-final static String bingus_logo = " B   i   n   g   u   s ";
-    final static  String name = "Bingus";
+final static String BINGUS_LOGO = " B   i   n   g   u   s ";
+    final static  String NAME = "Bingus";
     /**
      * Prints intro.
      */
     public static void intro() {
-        System.out.println("Hello from\n" + bingus_logo);
-        System.out.println("Hello! I'm \n" + name);
+        System.out.println("Hello from\n" + BINGUS_LOGO);
+        System.out.println("Hello! I'm \n" + NAME);
         System.out.println("What can I do for you?\n");// initial introductory message
 
     }
     /**
      * Prints outro.
      */
-    public static void bye(Storage storage) throws DukeException{
+    public static void bye() throws DukeException{
         System.out.println("Bye. Hope to see you again soon!\n");
-        storage.save();
+
         System.exit(1);// if keyword is bye, exit the program
     }
     /**
@@ -42,7 +42,7 @@ final static String bingus_logo = " B   i   n   g   u   s ";
 
 
                 str = bfn.nextLine();
-            }catch(DukeException ex){
+            } catch(DukeException ex){
                 System.out.println("Exception occured: " + ex);
                 str = bfn.nextLine();
 

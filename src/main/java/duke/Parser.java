@@ -6,7 +6,7 @@ package duke;
 public class Parser {
 
     static TaskList list;
-    static Storage storage;
+
     /**
      * Creates a new Parser object.
      *
@@ -14,9 +14,9 @@ public class Parser {
      * @param storage the storage compartment of the mainframe
      * @throws DukeException If the file does not exist and cannot be created.
      */
-    public Parser(TaskList list, Storage storage){
+    public Parser(TaskList list){
         this.list = list;
-        this.storage = storage;
+
     }
 
     /**
@@ -34,7 +34,7 @@ public class Parser {
 
             list.printList();
         } else if (str.equals("bye")) {
-            Ui.bye(storage);
+            Ui.bye();
         } else if (identifier.equals("mark")) {
             list.markCase(tokens);
         } else if (identifier.equals("unmark")) {

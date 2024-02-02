@@ -38,7 +38,7 @@ public class Duke {
         ui.intro();
         storage = new Storage(FILE_PATH);
         list = new TaskList(storage);// array to store tasks given
-        parser = new Parser(list, storage);
+        parser = new Parser(list);
         ui.read_commands(parser);
 
 
