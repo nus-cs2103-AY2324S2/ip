@@ -53,6 +53,20 @@ public class Ui {
     }
 
     /**
+     * Output all the status of the task that are in tasks.
+     *
+     * @param tasks
+     */
+    public void showFilteredTasks (TaskList tasks) {
+        System.out.println(divider);
+        System.out.println("These are all the things that are similar to what you are looking for:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i+1) + ". " + tasks.get(i).getStatus());
+        }
+        System.out.println(divider);
+    }
+
+    /**
      * Shows that the task was successfully created.
      *
      * @param task
