@@ -1,7 +1,9 @@
-
+import java.util.Scanner;
 
 public class Ui {
 
+    // Declare the scanner as a static field in the class
+    private static Scanner scanner = new Scanner(System.in);
 
     //Print opening greeting
     public void printOpeningGreeting() {
@@ -36,5 +38,81 @@ public class Ui {
         }
 
         System.out.println();
+    }
+
+    //Adds user input to list, exits if user inputs "bye"
+    public void printEcho(TaskList taskList, Storage storage) throws DuchessException {
+        // Loop to read user input
+        while (true) {
+            String userInput = scanner.nextLine();
+
+            // Split user input into tokens
+            String[] tokens = userInput.split(" ");
+
+            // Based on user input, change output
+            switch (tokens[0].toLowerCase()) {
+                case "bye":
+                    printClosingGreeting();
+                    return;
+
+                case "list":
+                    taskList.printTaskList();
+                    break;
+
+                case "mark":
+                    if (tokens.length > 1) {
+                        int taskIndexToMark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
+                        taskList.markTaskAsDone(taskIndexToMark);
+                        storage.saveData(taskList);
+                    } else {
+                        throw new DuchessException("Oh dear! That is an invalid command. Try: mark <taskIndex>");
+                    }
+                    break;
+
+                case "unmark":
+                    if (tokens.length > 1) {
+                        int taskIndexToUnmark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
+                        taskList.unmarkTaskAsDone(taskIndexToUnmark);
+                        storage.saveData(taskList);
+                    } else {
+                        throw new DuchessException("Oh dear! That is an invalid command. Try: unmark <taskIndex>");
+                    }
+                    break;
+
+                case "todo":
+                    taskList.addToDo(userInput);
+                    storage.saveData(taskList);
+                    break;
+
+                case "deadline":
+                    taskList.addDeadline(userInput);
+                    storage.saveData(taskList);
+                    break;
+
+                case "event":
+                    taskList.addEvent(userInput);
+                    storage.saveData(taskList);
+                    break;
+
+                case "delete":
+                    if (tokens.length > 1) {
+                        int taskIndexToDelete = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
+                        taskList.deleteTask(taskIndexToDelete);
+                        storage.saveData(taskList);
+                    } else {
+                        throw new DuchessException("Oh dear! That is an invalid command. Try: unmark <taskIndex>");
+                    }
+                    break;
+
+                default:
+                    throw new DuchessException("Oh dear, I can't make out what that is.");
+
+            }
+            printHorizontalLine();
+        }
+    }
+
+    public void closeScanner() {
+        scanner.close();
     }
 }
