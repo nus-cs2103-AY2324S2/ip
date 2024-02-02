@@ -14,103 +14,12 @@ import java.io.FileWriter;
 // name of the chat bot
 public class Liv {
 
-
-    private boolean IsActive() {
-        return currentState != LivState.INACTIVE;
-    }
-
-
-
-
-
-    // parser
-    private boolean isInteger(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private void ProcessInput(String input) throws InputException {
-
-        String[] words = input.split(" ");
-
-        // for multi-word commands
-        if (words[0].equals("mark") || words[0].equals("unmark")) {
-            if (isInteger(words[1])) {
-                boolean isDone = words[0].equals("mark");
-                int taskIndex = Integer.parseInt(words[1]);
-                ui.speak(setTaskDoneWithIndex(taskIndex, words[0], isDone));
-            } else {
-                ui.speak("Action failed: task index input is not an integer");
-            }
-            return;
-        }
-
-        if (words[0].equals("delete")) {
-            if (isInteger(words[1])) {
-                int taskIndex = Integer.parseInt(words[1]);
-                Task deletedTask = deleteTask(taskIndex);
-                ui.speak("Noted. I've removed this task:"
-                        + "\n"
-                        + "    "
-                        + deletedTask
-                        + "\n"
-                        + "Now you have " + getNumOfTasks() + " tasks in the list.");//input);
-                return;
-            } else {
-                ui.speak("Action failed: task index input is not an integer");
-            }
-            return;
-        }
-
-        if (words[0].equals("todo")
-                || words[0].equals("deadline")
-                || words[0].equals("event")) {
-
-            Task newTask = null;
-            newTask = Task.createTask(words[0], input);
-            addTask(newTask);
-            ui.speak("Got it. I've added this task:"
-                    + "\n"
-                    + "    "
-                    + newTask
-                    + "\n"
-                    + "Now you have " + getNumOfTasks() + " tasks in the list.");//input);
-            return;
-        }
-
-
-        if (input.equals("bye")) {
-            ui.EndSession();
-            saveToMemory();
-            return;
-        }
-
-        if (input.equals("list")) {
-            listTasks();
-            return;
-        }
-
-        if (input.equals("print tasks")) {
-            ui.speak(tasks.toString());
-            return;
-        }
-
-        throw new CommandNotFoundException(input);
-    }
-
-
-
-
     // tasklist
-    private static LinkedList<Task> tasks = null;
-    private int getNumOfTasks() {
+    public static LinkedList<Task> tasks = null;
+    public int getNumOfTasks() {
         return tasks.size();
     }
-    private void listTasks() {
+    protected void listTasks() {
         ui.ToggleConversationState();
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= getNumOfTasks(); i++) {
@@ -119,11 +28,11 @@ public class Liv {
         ui.ToggleConversationState();
     }
 
-    private void addTask(Task task) {
+    public void addTask(Task task) {
         tasks.add(task);
     }
 
-    private String setTaskDoneWithIndex(int index, String isDoneUpdateString, boolean isDone)
+    public String setTaskDoneWithIndex(int index, String isDoneUpdateString, boolean isDone)
             throws TaskIndexOutOfBoundsException {
         try {
             tasks.get(index - 1).setIsDone(isDoneUpdateString, isDone);
@@ -133,7 +42,7 @@ public class Liv {
         }
     }
 
-    private Task deleteTask(int index) throws TaskIndexOutOfBoundsException {
+    public Task deleteTask(int index) throws TaskIndexOutOfBoundsException {
         try {
             Task deletedTask = tasks.remove(index - 1);
             return deletedTask;
@@ -167,7 +76,7 @@ public class Liv {
         tasks.add(Task.convertDataToTask(s));
     }
 
-    private void saveToMemory() {
+    public void saveToMemory() {
         try {
             String dataToWrite = "";
             for (int i = 1; i <= getNumOfTasks(); i++) {
@@ -230,22 +139,32 @@ public class Liv {
     }
 
     private Ui ui = null;
+    private Parser parser = null;
     private void Start() {
 
         // initialize Ui
         ui = Ui.getInstance();
         ui.initUi();
+
+        // initialize parser
+        parser = Parser.getInstance();
+        parser.initParser();
+
         instance.ToggleActiveState();
 
-        while (IsActive()) {
+        while (isActive()) {
             // should start the cycle talking
             String userInput = ui.StartListening();
             try{
-                ProcessInput(userInput);
+                parser.ProcessInput(userInput);
             } catch (InputException e) {
                 ui.speak(e.getMessage());
             }
         }
+    }
+
+    private boolean isActive() {
+        return currentState == LivState.ACTIVE;
     }
 
     private enum LivState {

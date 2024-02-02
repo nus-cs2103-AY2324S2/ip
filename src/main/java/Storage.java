@@ -4,6 +4,6 @@ import java.util.Date;
 
 public class Storage {
     public static String convertDateTimeForStorage(LocalDateTime localDateTime) {
-        return CommandParser.convertDateTimeToCommandFormat(localDateTime);
+        return Parser.convertDateTimeToCommandFormat(localDateTime);
     }
 }

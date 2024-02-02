@@ -23,7 +23,7 @@ public class Deadline extends Task {
             if (!input.contains(command)) throw new RuntimeException("not deadline");
             String[] inputArray = Task.NextWords(input.split(delimiter));
             description = inputArray[0].trim();
-            by = CommandParser.parseDateAndTime(inputArray[1].trim());
+            by = Parser.parseDateAndTime(inputArray[1].trim());
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             throw new MissingInputFieldException(type);
         }
