@@ -15,7 +15,7 @@ public class Ui {
     /**
      * Displays a greeting message to the user.
      */
-    public void greet() {
+    public static void greet() {
         Ui.horizontalLine();
         System.out.println("\tHello! I'm Ezra.\n\tWhat can I do for you?");
         Ui.horizontalLine();

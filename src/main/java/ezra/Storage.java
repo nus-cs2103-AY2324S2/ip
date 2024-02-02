@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public class Storage {
 
-    String filepath;
+    protected String filepath;
 
     /**
      * Constructs a Storage object with the specified file path.

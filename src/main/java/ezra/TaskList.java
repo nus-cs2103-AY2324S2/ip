@@ -60,7 +60,7 @@ public class TaskList {
      * Lists all tasks in the TaskList.
      */
     public void listTasks() {
-        if (this.tasks.size() == 0) {
+        if (this.tasks.isEmpty()) {
             System.out.println("\tThere are no tasks in your list.");
             return;
         }
@@ -194,7 +194,7 @@ public class TaskList {
                 matchingTasks.add(i);
             }
         }
-        if (matchingTasks.size() == 0) {
+        if (matchingTasks.isEmpty()) {
             System.out.println("\tThere are no matching tasks in your list:");
             return;
         }

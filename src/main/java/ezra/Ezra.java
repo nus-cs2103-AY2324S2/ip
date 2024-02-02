@@ -2,7 +2,6 @@ package ezra;
 
 import java.util.Scanner;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
@@ -10,7 +9,6 @@ import java.io.FileNotFoundException;
  */
 public class Ezra {
 
-    private Ui ui;
     private Storage storage;
     private TaskList tasks;
 
@@ -20,7 +18,6 @@ public class Ezra {
      * @param filepath The file path for storing tasks.
      */
     public Ezra(String filepath) {
-        this.ui = new Ui();
         this.storage = new Storage(filepath);
         try {
             this.tasks = new TaskList(storage.load());
@@ -33,7 +30,7 @@ public class Ezra {
      * Runs the Ezra application, allowing the user to enter commands.
      */
     public void run() {
-        ui.greet();
+        Ui.greet();
 
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
