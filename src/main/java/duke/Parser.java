@@ -77,6 +77,9 @@ public class Parser {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("I haven't record this detective.task!");
                 }
+            case "find":
+                return new FindCommand(inputContent[1]);
+
             default:
                 throw new DukeException("OOPS!! Sorry, but I don't know what that means. qwq");
         }

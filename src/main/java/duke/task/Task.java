@@ -12,6 +12,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getName() {
+        return name;
+    }
+
     /**
      * Gets the status of the task.
      * @return [Y] or [N] depends on the status of the task

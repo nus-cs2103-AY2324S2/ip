@@ -60,6 +60,15 @@ public class Ui {
                 "Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    public void showFindTask(TaskList taskList) {
+        out.println(line);
+        out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < taskList.size(); i++) {
+            out.println((i + 1) + "." + taskList.get(i));
+        }
+        out.println(line);
+    }
+
     public void showError(String message) {
         showToUser("Error: " + message);
     }
