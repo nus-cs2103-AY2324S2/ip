@@ -1,5 +1,6 @@
-import java.lang.Integer;
-import java.lang.NumberFormatException;
+package haro;
+
+import haro.command.Command;
 public class Haro {
     private String haroLogo = " ___  ___  ________  ________  ________\n"
             + "|\\  \\|\\  \\|\\   __  \\|\\   __  \\|\\   __  \\\n"

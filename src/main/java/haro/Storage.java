@@ -1,6 +1,12 @@
+package haro;
+
+import haro.task.Deadline;
+import haro.task.Event;
+import haro.task.Task;
+import haro.task.ToDo;
+
 import java.io.File;
 import java.io.FileWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
