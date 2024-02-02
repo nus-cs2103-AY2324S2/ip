@@ -16,7 +16,7 @@ public abstract class Task {
         return description;
     }
 
-    public String statusString(){
+    public String toStatusString(){
         return "[" + getStatusIcon() + "] " + description;
     }
 
@@ -29,5 +29,4 @@ public abstract class Task {
     public void setNotDone() {
         isDone = false;
     }
-
 }
