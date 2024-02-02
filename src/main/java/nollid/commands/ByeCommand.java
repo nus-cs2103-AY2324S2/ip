@@ -2,7 +2,6 @@ package nollid.commands;
 
 import nollid.Storage;
 import nollid.TaskList;
-import nollid.Ui;
 
 /**
  * ByeCommand class represents a command for exiting the application.
@@ -12,14 +11,11 @@ public class ByeCommand extends Command {
     /**
      * Overrides the execute method from the Command class.
      * Executes the command to exit the application.
-     *
-     * @param tasks   The TaskList containing tasks.
-     * @param ui      The Ui for user interface interactions.
-     * @param storage The Storage for data storage operations.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.sendGoodbyeMessage();
+    public String execute(TaskList tasks, Storage storage) {
+        // TODO: Make this quit the app.
         System.exit(0);
+        return "what";
     }
 }

@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import nollid.Parser;
 import nollid.Storage;
 import nollid.TaskList;
-import nollid.Ui;
 import nollid.exceptions.NollidException;
 
 /**
@@ -30,11 +29,6 @@ public class FindCommandTest {
     private Storage storage;
 
     /**
-     * The Ui object used for testing.
-     */
-    private Ui ui;
-
-    /**
      * The ByteArrayOutputStream for capturing system output during tests.
      */
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
@@ -46,7 +40,6 @@ public class FindCommandTest {
     public void initializeComponents() {
         this.storage = new Storage(Storage.TEST_FILEPATH);
         this.tasks = new TaskList(this.storage.load());
-        this.ui = new Ui();
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
@@ -57,7 +50,7 @@ public class FindCommandTest {
     public void execute_noKeyword_exceptionThrown() {
         NollidException e = assertThrows(NollidException.class, () -> {
             Command c = Parser.parse("find");
-            c.execute(this.tasks, this.ui, this.storage);
+            c.execute(this.tasks, this.storage);
         });
 
         String expectedMessage = "Please enter a keyword to search for.\n"
@@ -72,7 +65,7 @@ public class FindCommandTest {
     public void execute_tooManyKeywords_exceptionThrown() {
         NollidException e = assertThrows(NollidException.class, () -> {
             Command c = Parser.parse("find but with too many keywords");
-            c.execute(this.tasks, this.ui, this.storage);
+            c.execute(this.tasks, this.storage);
         });
 
         String expectedMessage = "Please enter only 1 keyword.\n"
@@ -86,12 +79,10 @@ public class FindCommandTest {
     @Test
     public void execute_findTaskThatExists_success() throws NollidException {
         Command c = Parser.parse("find deadline");
-        c.execute(this.tasks, this.ui, this.storage);
+        String actualMessage = c.execute(this.tasks, this.storage);
 
-        String expectedMessage = "──────────────────────────────\n"
-                + "Here are the matching tasks in your list:\n"
-                + "1.[D][X] test deadline (by: 23 Jun 2022 23:33)\n"
-                + "──────────────────────────────";
-        assertEquals(expectedMessage, outputStreamCaptor.toString().strip());
+        String expectedMessage = "Here are the matching tasks in your list:\n"
+                + "1.[D][X] test deadline (by: 23 Jun 2022 23:33)";
+        assertEquals(expectedMessage, actualMessage);
     }
 }

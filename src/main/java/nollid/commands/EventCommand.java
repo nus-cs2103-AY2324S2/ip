@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import nollid.Parser;
 import nollid.Storage;
 import nollid.TaskList;
-import nollid.Ui;
 import nollid.exceptions.InvalidArgumentException;
 import nollid.exceptions.NollidException;
 import nollid.tasks.Event;
@@ -40,14 +39,9 @@ public class EventCommand extends Command {
     /**
      * Overrides the execute method from the Command class.
      * Executes the command to add an event task.
-     *
-     * @param tasks   The TaskList containing tasks.
-     * @param ui      The Ui for user interface interactions.
-     * @param storage The Storage for data storage operations.
-     * @throws NollidException Thrown if an exception specific to command execution occurs.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
+    public String execute(TaskList tasks, Storage storage) throws NollidException {
         int fromIndex = this.argsList.indexOf("/from");
         int toIndex = this.argsList.indexOf("/to");
 
@@ -85,8 +79,9 @@ public class EventCommand extends Command {
 
             String message = "Alright, added:\n" + "\t" + task + "\n";
             message += tasks.summary();
-            ui.sendMessage(message);
             storage.update(tasks);
+
+            return message;
         } catch (DateTimeParseException e) {
             throw new InvalidArgumentException("Unrecognized start/end format\n"
                     + USAGE_HINT);

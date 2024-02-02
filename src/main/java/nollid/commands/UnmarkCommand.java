@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import nollid.Storage;
 import nollid.TaskList;
-import nollid.Ui;
 import nollid.exceptions.InvalidArgumentException;
 import nollid.exceptions.NollidException;
 
@@ -30,14 +29,9 @@ public class UnmarkCommand extends Command {
     /**
      * Overrides the execute method from the Command class.
      * Executes the command to mark a task as not done.
-     *
-     * @param tasks   The TaskList containing tasks.
-     * @param ui      The Ui for user interface interactions.
-     * @param storage The Storage for data storage operations.
-     * @throws NollidException Thrown if an exception specific to command execution occurs.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
+    public String execute(TaskList tasks, Storage storage) throws NollidException {
         // This means that the user has not supplied any number with the command
         if (this.argsList.size() == 1) {
             throw new InvalidArgumentException("Please enter the task you wish to mark as not done!\n"
@@ -49,9 +43,9 @@ public class UnmarkCommand extends Command {
 
                 String response = "Alright, I've marked this task as not done yet: \n"
                         + "\t " + tasks.get(taskIndex - 1).toString();
-
-                ui.sendMessage(response);
                 storage.update(tasks);
+
+                return response;
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException("Please enter a number for the unmark command.\n"
                         + "Usage: unmark [task number]");
