@@ -55,6 +55,19 @@ public class TaskList {
         System.out.println("OK, I've marked this task as not done yet:\n" + modTask);
     }
 
+    public void findTask(String keyword) {
+        List<Task> temp = new ArrayList<>();
+        for (Task task : listOfTasks) {
+            if (task.getDescription().contains(keyword)) {
+                temp.add(task);
+            }
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < temp.size(); i++) {
+            System.out.println((i + 1) + "." + temp.get(i));
+        }
+    }
+
     public Task getTask(int index) {
             return listOfTasks.get(index);
     }
