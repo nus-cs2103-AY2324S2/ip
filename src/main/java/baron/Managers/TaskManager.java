@@ -154,4 +154,7 @@ public class TaskManager {
     } else if (input.contains("[E]")) {
       return TaskType.EVENT;
     }
+    return null;
+  }
+
 }

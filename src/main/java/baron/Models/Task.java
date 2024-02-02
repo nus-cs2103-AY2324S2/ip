@@ -36,11 +36,6 @@ public class Task {
         return "[" + done + "] " + name;
     }
 
-    public String toDataString () {
-        String done = this.isDone() ? "1" : "0";
-        return done + " | " + this.getName();
-    }
-
     public boolean isDone () {
         return isDone;
     }
@@ -53,4 +48,12 @@ public class Task {
     String done = this.isDone() ? "1" : "0";
     return done + " | " + this.getName();
   }
+
+    public String getName () {
+        return name;
+    }
+
+    public void setDone (boolean isDone) {
+        this.isDone = isDone;
+    }
 }
