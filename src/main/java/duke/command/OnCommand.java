@@ -25,8 +25,8 @@ public class OnCommand extends Command {
      * Executes the OnCommand by displaying tasks from
      * the task list that happen on a given date using Ui.
      *
-     * @param tasks   TaskList that contains the task list.
-     * @param ui      Ui that deals with user interactions.
+     * @param tasks TaskList that contains the task list.
+     * @param ui Ui that deals with user interactions.
      * @param storage Storage used to load and save tasks.
      */
     @Override

@@ -27,8 +27,8 @@ public class MarkCommand extends Command {
      * displaying the completion message, and saving
      * the updated task list using Storage.
      *
-     * @param tasks   TaskList that contains the task list.
-     * @param ui      Ui that deals with user interactions.
+     * @param tasks askList that contains the task list.
+     * @param ui Ui that deals with user interactions.
      * @param storage Storage used to load and save tasks.
      * @throws DukeException If asked to delete a task with task number 0
      * or task number greater than the size of the task list.
@@ -36,10 +36,8 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         int oneItem = zeroItem + 1;
-        if (oneItem < 1 || oneItem > tasks.getSize()
-                || tasks.get(oneItem - 1) == null) {
-            throw new DukeException("Error! duke.task.Task number '" +
-                    oneItem + "' does not exist.");
+        if (oneItem < 1 || oneItem > tasks.getSize() || tasks.get(oneItem - 1) == null) {
+            throw new DukeException("Error! duke.task.Task number '" + oneItem + "' does not exist.");
         }
         tasks.markAsDone(zeroItem);
         System.out.println("\nNice! I've marked this task as done:\n" +

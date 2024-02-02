@@ -12,8 +12,8 @@ public class Command {
     /**
      * Executes the command given the TaskList, Ui, and Storage.
      *
-     * @param tasks   TaskList that contains the task list.
-     * @param ui      Ui that deals with user interactions.
+     * @param tasks TaskList that contains the task list.
+     * @param ui Ui that deals with user interactions.
      * @param storage Storage used to load and save tasks.
      * @throws DukeException If there is an error executing the command.
      */

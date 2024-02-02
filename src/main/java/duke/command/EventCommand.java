@@ -18,8 +18,8 @@ public class EventCommand extends Command {
      * Constructs an EventCommand given the description, start time, and end time.
      *
      * @param description Description of the event task.
-     * @param startTime   Start time of the event.
-     * @param endTime     End time of the event.
+     * @param startTime Start time of the event.
+     * @param endTime End time of the event.
      */
     public EventCommand(String description, String startTime, String endTime) {
         this.description = description;
@@ -32,8 +32,8 @@ public class EventCommand extends Command {
      * adding it to the task list, displaying the task response
      * using Ui, and saving the updated task list using Storage.
      *
-     * @param tasks   TaskList that contains the task list.
-     * @param ui      Ui that deals with user interactions.
+     * @param tasks TaskList that contains the task list.
+     * @param ui Ui that deals with user interactions.
      * @param storage Storage used to load and save tasks.
      * @throws DukeException If there is an error executing the command.
      */

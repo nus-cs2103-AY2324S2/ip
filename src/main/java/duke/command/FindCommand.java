@@ -11,10 +11,23 @@ public class FindCommand extends Command{
 
     private String findWord;
 
+    /**
+     * Constructs a FindCommand instance with the given word to search for.
+     *
+     * @param findWord Word to search for in tasks.
+     */
     public FindCommand(String findWord) {
         this.findWord = findWord;
     }
 
+    /**
+     * Executes FindCommand to search for tasks containing the given word.
+     *
+     * @param tasks TaskList that contains the task list.
+     * @param ui Ui that deals with user interactions.
+     * @param storage Storage used to load and save tasks.
+     * @throws DukeException If there is an error executing the command.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         ui.findTasks(findWord, tasks.getTasks());

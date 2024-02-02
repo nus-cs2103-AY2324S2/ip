@@ -11,8 +11,8 @@ public class ExitCommand extends Command {
     /**
      * Executes the ExitCommand by displaying a goodbye message using Ui.
      *
-     * @param tasks   TaskList that contains the task list.
-     * @param ui      Ui that deals with user interactions.
+     * @param tasks TaskList that contains the task list.
+     * @param ui Ui that deals with user interactions.
      * @param storage Storage used to load and save tasks.
      */
     @Override

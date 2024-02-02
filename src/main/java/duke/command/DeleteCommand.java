@@ -26,8 +26,8 @@ public class DeleteCommand extends Command {
      * from the task list, displaying the deleted response using Ui,
      * and saving the updated task list using Storage.
      *
-     * @param tasks   TaskList that contains the task list.
-     * @param ui      Ui that deals with user interactions.
+     * @param tasks TaskList that contains the task list.
+     * @param ui Ui that deals with user interactions.
      * @param storage Storage used to load and save tasks.
      * @throws DukeException If asked to delete a task with task number 0
      * or task number greater than the size of the task list.
