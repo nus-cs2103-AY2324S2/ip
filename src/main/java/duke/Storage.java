@@ -7,9 +7,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage class for loading and saving files.
+ */
 public class Storage {
 
+    /** File to be loaded or saved */
     private File file;
+
+    /**
+     * Constructor of Storage class.
+     * Create a new file if the file required is not found.
+     *
+     * @param filePath The path of file duke.txt.
+     * @throws IOException For input error.
+     */
     public Storage(String filePath) throws IOException {
         this.file = new File(filePath);
         if (!file.exists()) {
@@ -27,6 +39,12 @@ public class Storage {
         return filePath;
     }
 
+    /**
+     * Load the file from the txt file.
+     *
+     * @return An arraylist of tasks stored in the txt file.
+     * @throws FileNotFoundException For cases when file is not found.
+     */
     public ArrayList<Task> loadFile() throws FileNotFoundException {
         ArrayList<Task> ls = new ArrayList<>();
         ArrayList<String> existing = new ArrayList<>();
@@ -116,6 +134,13 @@ public class Storage {
     }
 
 
+    /**
+     * Write to file in duke.txt and save it.
+     *
+     * @param file The file used.
+     * @param ls The taskList to be saved.
+     * @throws IOException For input error.
+     */
     public static void saveFile(File file, TaskList ls) throws IOException {
         FileWriter fw = new FileWriter(file);
         String separator = "<>";

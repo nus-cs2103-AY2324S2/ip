@@ -17,12 +17,23 @@ public class Duke {
     private TaskList ls;
     private Ui ui;
 
+    /**
+     * Constructor for Duke
+     *
+     * @param filePath For file duke.txt.
+     * @throws IOException For input error.
+     */
     public Duke(String filePath) throws IOException{
         ui = new Ui();
         storage = new Storage(filePath);
         ls = new TaskList(storage.loadFile());
     }
 
+    /**
+     * Initialize Duke
+     *
+     * @throws IOException For input error.
+     */
     public void run() throws IOException{
         ui.sayHi();
         Scanner myCom = new Scanner(System.in);
@@ -155,6 +166,13 @@ public class Duke {
     }
 
 
+    /**
+     * Create a Duke instance when the main method
+     * is called.
+     *
+     * @param args
+     * @throws IOException For input error.
+     */
     public static void main(String[] args) throws IOException {
         new Duke(Storage.getFilePathToDukeTxt()).run();
 

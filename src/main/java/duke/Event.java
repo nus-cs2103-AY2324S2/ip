@@ -1,9 +1,18 @@
 package duke;
 
 public class Event extends Task{
+    /** Start time of event */
     protected String from;
+    /** End time of event */
     protected String to;
 
+    /**
+     * Constructor of event class.
+     *
+     * @param description Content of the event entered by the user.
+     * @param from Start time of the event.
+     * @param to End time of the event.
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = from.trim();

@@ -2,8 +2,18 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * TaskList class for handling task list.
+ */
 public class TaskList {
+
+    /** An arraylist of task for TaskList */
     private ArrayList<Task> ls;
+
+    /**
+     * Constructor of TaskList class.
+     * @param ls The arraylist of task to be converted to taskList.
+     */
     public TaskList(ArrayList<Task> ls) {
         this.ls = ls;
     }
@@ -21,10 +31,20 @@ public class TaskList {
         return getLs().size();
     }
 
+    /**
+     * Add a task to taskList.
+     *
+     * @param t The task to be added.
+     */
     public void add(Task t) {
         getLs().add(t);
     }
 
+    /**
+     * Remove a task from taskList according to the task number entered.
+     *
+     * @param taskNumtoRemove The task number of the to-be-deleted task.
+     */
     public void remove(int taskNumtoRemove) {
         getLs().remove(taskNumtoRemove);
     }
