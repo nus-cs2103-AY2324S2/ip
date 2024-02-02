@@ -32,7 +32,7 @@ public class InputHandler {
                         break;
                     case "todo":
                         String str = userInput.split("todo ")[1];
-                        Task task = new Task(str);
+                        ToDo task = new ToDo(str);
                         taskList.store(task);
                         break;
                     case "deadline":
@@ -55,6 +55,8 @@ public class InputHandler {
                     //IndexOutOfBoundsException is for missing userInputs.
                     BartenderBobException error = new BartenderBobException(firstWord);
                     error.displayError();
+                } catch (IllegalArgumentException e) {
+                    ui.showInvalidDateFormat();
                 }
             }
         }

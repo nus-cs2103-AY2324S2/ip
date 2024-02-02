@@ -29,6 +29,9 @@ public class Ui {
     public void showInvalidDeadlineCommand() {
         System.out.println("Hey, this is an invalid format for deadline!");
     }
+    public void showInvalidDateFormat() {
+        System.out.println("Date format should be of the form yyyy-MM-dd!");
+    }
     public void showInvalidEventCommand() {
         System.out.println("Hey, this is an invalid format for event!");
     }

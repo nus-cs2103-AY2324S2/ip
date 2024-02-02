@@ -1,5 +1,5 @@
 package BartenderBob;
-public class Task { //This is basically a ToDo task.
+public class Task {
     protected String description;
     protected boolean isDone = false;
     protected String status;
@@ -22,7 +22,6 @@ public class Task { //This is basically a ToDo task.
     }
 
     public String show() {
-        status = isDone? "X": " ";
-        return "[T]" + "[" + status + "]" + " " + this.description;
+        return "";
     }
 }

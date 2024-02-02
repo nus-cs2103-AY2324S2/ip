@@ -30,7 +30,7 @@ public class Storage {
                     String description = split[2];
 
                     if (taskType.equals("T")) {
-                        taskArray.add(new Task(description, isDone));
+                        taskArray.add(new ToDo(description, isDone));
                     } else if (taskType.equals("D")) {
                         String dueDate = split[3];
                         dueDate = convertDateFormat(dueDate);
