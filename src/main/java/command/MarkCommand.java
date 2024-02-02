@@ -1,15 +1,14 @@
 package command;
 
 import exceptions.DukeException;
-
-import task.TaskList;
 import task.Task;
-
+import task.TaskList;
 import utilities.Storage;
 import utilities.Ui;
 
-
-
+/**
+ * Controls what to do when user marks task.
+ */
 public class MarkCommand extends Command {
     /**
      * The task index of which task is to be marked.

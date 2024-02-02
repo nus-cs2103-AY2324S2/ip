@@ -1,18 +1,21 @@
 package utilities;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-import task.TaskList;
-import task.Task;
-import task.Todo;
 import task.Deadline;
 import task.Event;
-import java.util.Scanner;
-import java.io.FileNotFoundException;
+import task.Task;
+import task.TaskList;
+import task.Todo;
 
+/**
+ * SaveFile that stores the user's current task list.
+ */
 public class SaveFile {
     /**
      * The file name of the save file.
@@ -52,7 +55,7 @@ public class SaveFile {
      */
     public void createFile() {
         File file = new File(directoryName, fileName);
-        if(!file.exists()) {
+        if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
@@ -116,7 +119,7 @@ public class SaveFile {
             }
             s.close();
         } catch (FileNotFoundException e) {
-
+            System.out.println("File does not exist.");
         }
         return taskList;
     }

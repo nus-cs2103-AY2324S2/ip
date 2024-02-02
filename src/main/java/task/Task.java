@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * A task created by the user to store in the task list.
+ */
 public class Task {
     /**
      * The task description as a string.

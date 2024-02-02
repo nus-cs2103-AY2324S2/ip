@@ -2,9 +2,12 @@ package utilities;
 
 import java.util.Scanner;
 
-import task.TaskList;
 import task.Task;
+import task.TaskList;
 
+/**
+ * Responsible for interacting with the user through the command line interface.
+ */
 public class Ui {
     /**
      * Method to read what the user inputs.
@@ -82,7 +85,7 @@ public class Ui {
             System.out.println("You have no matching tasks.");
         } else {
             System.out.println("Here are the matching tasks in your list:");
-            for(int i = 0; i < foundTasks.length(); i++) {
+            for (int i = 0; i < foundTasks.length(); i++) {
                 System.out.println((i + 1) + "." + foundTasks.getTask(i).toString());
             }
         }

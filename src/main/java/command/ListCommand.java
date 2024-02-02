@@ -1,10 +1,12 @@
 package command;
 
 import task.TaskList;
-
 import utilities.Storage;
 import utilities.Ui;
 
+/**
+ * Controls what to do when user wants to list all tasks.
+ */
 public class ListCommand extends Command {
     /**
      * ListCommand class constructor.

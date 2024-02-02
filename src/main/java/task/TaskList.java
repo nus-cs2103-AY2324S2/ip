@@ -2,6 +2,9 @@ package task;
 
 import java.util.ArrayList;
 
+/**
+ * The task list that holds all the tasks.
+ */
 public class TaskList {
     /**
      * The task list which contains all the tasks.

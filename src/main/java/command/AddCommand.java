@@ -1,12 +1,14 @@
 package command;
 
-import task.TaskList;
 import task.Task;
-
-import utilities.Ui;
+import task.TaskList;
 import utilities.Storage;
+import utilities.Ui;
 
-public class AddCommand extends Command{
+/**
+ * Controls what happens when a task is added.
+ */
+public class AddCommand extends Command {
     /**
      * Task to be added into the task list.
      */

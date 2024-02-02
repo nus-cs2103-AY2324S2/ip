@@ -1,12 +1,13 @@
 package command;
 
 import exceptions.DukeException;
-
 import task.TaskList;
-
 import utilities.Storage;
 import utilities.Ui;
 
+/**
+ * Controls what to do when user inputs something.
+ */
 public abstract class Command {
     /**
      * Variable to tell the program whether to exit or not.
