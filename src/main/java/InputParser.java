@@ -1,6 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.LocalDateTime;
 
 public class InputParser {
     public static Action parseAction(String input, String[] words) {
@@ -68,5 +69,18 @@ public class InputParser {
             throw new InputMismatchException();
         }
         return ret;
+    }
+
+    /**
+     * Parse date and time input strings to return a Java
+     * LocalDateTime object.
+     *
+     * @param string strings of the form yyyy-mm-dd hh:mm
+     * @return a Java LocalDateTime object
+     */
+    public static LocalDateTime parseDateTime(String string) {
+        // Input format: 2023-12-03 10:15
+        String[] strings = string.split(" ");
+        return LocalDateTime.parse(strings[0] + "T" + strings[1]);
     }
 }

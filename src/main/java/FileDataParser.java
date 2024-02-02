@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.InputMismatchException;
 
 public class FileDataParser extends Parser {
@@ -24,7 +25,8 @@ public class FileDataParser extends Parser {
     }
 
     private static Deadline parseDeadline(String[] words) {
-        Deadline deadline = new Deadline(words[2], words[3]);
+        Deadline deadline = new Deadline(words[2],
+                LocalDateTime.parse(words[3]));
         if (words[1].equals("1")) {
             deadline.setDone();
         }
@@ -32,7 +34,9 @@ public class FileDataParser extends Parser {
     }
 
     private static Event parseEvent(String[] words) {
-        Event event = new Event(words[2], words[3], words[4]);
+        Event event = new Event(words[2],
+                LocalDateTime.parse(words[3]),
+                LocalDateTime.parse(words[4]));
         if (words[1].equals("1")) {
             event.setDone();
         }

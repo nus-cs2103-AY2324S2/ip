@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.time.LocalDateTime;
 
 public class ChatBox {
     Scanner scanner;
@@ -104,7 +105,8 @@ public class ChatBox {
     private void addDeadline() {
         try {
             String[] parsedString = InputParser.parseDeadline(this.input);
-            Deadline deadline = new Deadline(parsedString[0], parsedString[1]);
+            Deadline deadline = new Deadline(parsedString[0],
+                    InputParser.parseDateTime(parsedString[1]));
             this.tasks.add(deadline);
             this.taskCount++;
             FileManager.saveTasks(tasks);
@@ -117,7 +119,9 @@ public class ChatBox {
     private void addEvent() {
         try {
             String[] parsedString = InputParser.parseEvent(this.input);
-            Event event = new Event(parsedString[0], parsedString[1], parsedString[2]);
+            Event event = new Event(parsedString[0],
+                    InputParser.parseDateTime(parsedString[1]),
+                    InputParser.parseDateTime(parsedString[2]));
             this.tasks.add(event);
             this.taskCount++;
             FileManager.saveTasks(tasks);
