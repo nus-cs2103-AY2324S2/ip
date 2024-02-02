@@ -35,7 +35,6 @@ public class Duke {
      * until the user issues the bye command.
      */
     public void run() {
-        ui.greet();
         boolean isRunning = true;
         while (isRunning) {
             String userInput = ui.readCommand();
