@@ -27,7 +27,6 @@ public class TaskList {
     }
 
     // duke.TaskList actions
-
     /**
      * Adds a task to the TaskList.
      *
@@ -71,12 +70,19 @@ public class TaskList {
     /**
      * Retrieves the entire list of tasks from the TaskList in ArrayList form.
      *
-     * @return The list of tasks.
+     * @return The list of tasks in an ArrayList.
      */
     public ArrayList<Task> getTasks() {
         return this.taskList;
     }
 
+    /**
+     * Retrieves the list of tasks from the TaskList that contains the search term.
+     *
+     * @param searchTerm The search input from the user.
+     * @param currTasks The list of tasks the user currently have.
+     * @return The list of tasks.
+     */
     public TaskList searchTasks(String searchTerm, TaskList currTasks) {
         TaskList searchResults = new TaskList();
 
