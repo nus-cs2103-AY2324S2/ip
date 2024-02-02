@@ -18,11 +18,12 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("toothless.Toothless")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveFileName = 'toothless.jar'
+    archiveBaseName = "toothless"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
