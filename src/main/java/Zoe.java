@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import zoe.*;
+
 public class Zoe {
     private Parser parser;
     private TaskList tasks;
@@ -7,7 +9,7 @@ public class Zoe {
     public Zoe() {
         ui = new Ui();
         Loader r = new Loader("./data/", "SavedTasks.txt");
-        tasks = new TaskList(r.loadTasks());
+        tasks =  new TaskList(r.loadTasks());
         parser = new Parser(tasks);
     }
 

@@ -1,4 +1,6 @@
-public class Event extends Task{
+package zoe;
+
+public class Event extends Task {
     protected String from;
     protected String to;
     public Event(String desc) {

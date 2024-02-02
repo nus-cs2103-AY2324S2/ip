@@ -1,8 +1,12 @@
+package zoe;
+
+import zoe.Event;
+
 public class Parser {
-    protected TaskList tl;
+    public TaskList tl;
     protected Ui ui;
 
-    Parser(TaskList tl) {
+    public Parser(TaskList tl) {
         this.tl = tl;
         this.ui = new Ui();
     }
