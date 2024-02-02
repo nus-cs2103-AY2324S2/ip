@@ -8,6 +8,10 @@ repositories {
     mavenCentral()
 }
 
+properties {
+    mainClassName = 'chatbot.Duke'
+}
+
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
@@ -32,7 +36,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "plana"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
