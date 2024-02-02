@@ -48,6 +48,20 @@ public class UIManager {
     }
 
     /**
+     * Prints output for when user finds tasks
+     * 
+     * @param tasks tasks to print out
+     */
+    public static void find(List<Task> tasks) {
+        printSeparator();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+        printSeparator();
+    }
+
+    /**
      * Marks the specified task
      * @param task Task to mark
      * @param isDone mark whether task is done or not
