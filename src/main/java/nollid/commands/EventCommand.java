@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import nollid.Parser;
 import nollid.Storage;
 import nollid.TaskList;
-import nollid.Ui;
 import nollid.exceptions.InvalidArgumentException;
 import nollid.exceptions.NollidException;
 import nollid.tasks.Event;
@@ -42,7 +41,7 @@ public class EventCommand extends Command {
      * Executes the command to add an event task.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
+    public String execute(TaskList tasks, Storage storage) throws NollidException {
         int fromIndex = this.argsList.indexOf("/from");
         int toIndex = this.argsList.indexOf("/to");
 

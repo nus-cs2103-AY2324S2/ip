@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import nollid.Parser;
 import nollid.Storage;
 import nollid.TaskList;
-import nollid.Ui;
 import nollid.exceptions.InvalidArgumentException;
 import nollid.exceptions.NollidException;
 import nollid.tasks.Deadline;
@@ -40,7 +39,7 @@ public class DeadlineCommand extends Command {
      * Executes the command to add a deadline task.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
+    public String execute(TaskList tasks, Storage storage) throws NollidException {
         int byIndex = this.argsList.indexOf("/by");
         if (this.argsList.size() == 1 || byIndex == 1) {
             throw new InvalidArgumentException("Deadline description cannot be empty!\n"

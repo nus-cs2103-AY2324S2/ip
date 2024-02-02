@@ -22,17 +22,11 @@ public class Nollid {
     private final Storage storage;
 
     /**
-     * The user interface object for interacting with the user.
-     */
-    private final Ui ui;
-
-    /**
      * Constructs a Nollid object with the specified file path for data storage.
      *
      * @param filePath The path to the file used for data storage.
      */
     public Nollid(Path filePath) {
-        this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(this.storage.load());
     }
@@ -50,7 +44,7 @@ public class Nollid {
         }
 
         try {
-            return command.execute(this.tasks, this.ui, this.storage);
+            return command.execute(this.tasks, this.storage);
         } catch (NollidException e) {
             return e.getMessage();
         }

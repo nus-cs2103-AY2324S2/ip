@@ -2,7 +2,6 @@ package nollid.commands;
 
 import nollid.Storage;
 import nollid.TaskList;
-import nollid.Ui;
 
 /**
  * HelpCommand class represents a command for displaying a help message with available commands.
@@ -14,7 +13,7 @@ public class HelpCommand extends Command {
      * Executes the command to display information about available commands.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         String message = "Available commands:\n"
                 + "list \t\t- Lists all your tasks\n"
                 + "todo \t- Create a new todo task.\n"

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import nollid.Storage;
 import nollid.TaskList;
-import nollid.Ui;
 import nollid.exceptions.InvalidArgumentException;
 import nollid.exceptions.NollidException;
 import nollid.tasks.Task;
@@ -37,7 +36,7 @@ public class FindCommand extends Command {
      * Executes the command to search for tasks containing a specific keyword.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
+    public String execute(TaskList tasks, Storage storage) throws NollidException {
         // If no keyword provided, throw error
         if (argsList.size() == 1) {
             throw new InvalidArgumentException("Please enter a keyword to search for.\n"

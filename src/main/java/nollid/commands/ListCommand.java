@@ -2,7 +2,6 @@ package nollid.commands;
 
 import nollid.Storage;
 import nollid.TaskList;
-import nollid.Ui;
 
 /**
  * ListCommand class represents a command for listing all tasks in the task list.
@@ -14,7 +13,7 @@ public class ListCommand extends Command {
      * Executes the command to display the tasks in the to-do list.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         // List items in to-do list
         StringBuilder response = new StringBuilder("Here are the tasks in your list: \n");
         if (tasks.isEmpty()) {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import nollid.Storage;
 import nollid.TaskList;
-import nollid.Ui;
 import nollid.exceptions.InvalidArgumentException;
 import nollid.exceptions.NollidException;
 
@@ -32,7 +31,7 @@ public class MarkCommand extends Command {
      * Executes the command to mark a task as done.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
+    public String execute(TaskList tasks, Storage storage) throws NollidException {
         // This means that the user has not supplied any number with the command
         if (argsList.size() == 1) {
             throw new InvalidArgumentException("Please enter the task you wish to mark as done!\n" + "Usage: mark "
