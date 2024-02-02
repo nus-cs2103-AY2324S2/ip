@@ -98,19 +98,23 @@ public class TaskList {
      * @param info The user input containing task information.
      * @throws ByteBuddyException If an error occurs during the marking process.
      */
-    public void mark(String info) throws ByteBuddyException {
+    public String mark(String info) throws ByteBuddyException {
         try {
             int markIndex = Integer.parseInt(info.trim()) - 1;
             if (markIndex < 0 || markIndex >= taskList.size()) {
-                throw new ByteBuddyException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
+                // throw new ByteBuddyException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
+                 return "\t " + NO_SUCH_TASK_NUMBER_ERROR_MESSAGE;
             }
             String markToPrint = taskList.get(markIndex).markAsDone();
             printWithSolidLineBreak("\t " + markToPrint);
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
+            return "\t " + markToPrint;
         } catch (NumberFormatException e) {
-            throw new ByteBuddyException(NUMBER_FORMAT_ERROR_MESSAGE);
+            // throw new ByteBuddyException(NUMBER_FORMAT_ERROR_MESSAGE);
+            return "\t " + NUMBER_FORMAT_ERROR_MESSAGE;
         } catch (IOException e) {
-            throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            // throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            return "\t " + FAILED_WRITE_TO_FILE_ERROR_MESSAGE;
         }
 
     }
@@ -121,19 +125,24 @@ public class TaskList {
      * @param info The user input containing task information.
      * @throws ByteBuddyException If an error occurs during the unmarking process.
      */
-    public void unmark(String info) throws ByteBuddyException {
+    public String unmark(String info) throws ByteBuddyException {
         try {
             int unmarkIndex = Integer.parseInt(info.trim()) - 1;
             if (unmarkIndex < 0 || unmarkIndex >= taskList.size()) {
-                throw new ByteBuddyException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
+                // throw new ByteBuddyException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
+                return "\t " + NO_SUCH_TASK_NUMBER_ERROR_MESSAGE;
             }
             String unmarkToPrint = taskList.get(unmarkIndex).unmarkAsDone();
             printWithSolidLineBreak("\t " + unmarkToPrint);
+
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
+            return "\t " + unmarkToPrint;
         } catch (NumberFormatException e) {
-            throw new ByteBuddyException(NUMBER_FORMAT_ERROR_MESSAGE);
+            // throw new ByteBuddyException(NUMBER_FORMAT_ERROR_MESSAGE);
+            return "\t " + NUMBER_FORMAT_ERROR_MESSAGE;
         } catch (IOException e) {
-            throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            // throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            return "\t " + FAILED_WRITE_TO_FILE_ERROR_MESSAGE;
         }
     }
 
@@ -143,19 +152,24 @@ public class TaskList {
      * @param info The user input containing task information.
      * @throws ByteBuddyException If an error occurs during the deletion process.
      */
-    public void delete(String info) throws ByteBuddyException {
+    public String delete(String info) throws ByteBuddyException {
         try {
             int deleteIndex = Integer.parseInt(info.trim()) - 1;
             if (deleteIndex < 0 || deleteIndex >= taskList.size()) {
-                throw new ByteBuddyException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
+                // throw new ByteBuddyException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
+                return "\t " + NO_SUCH_TASK_NUMBER_ERROR_MESSAGE;
             }
             Task removed = taskList.remove(deleteIndex);
             printTaskRemovedWithSolidLineBreak(removed);
+
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
+            return returnTaskRemovedString(removed);
         } catch (NumberFormatException e) {
-            throw new ByteBuddyException(NUMBER_FORMAT_ERROR_MESSAGE);
+            // throw new ByteBuddyException(NUMBER_FORMAT_ERROR_MESSAGE);
+            return "\t " + NUMBER_FORMAT_ERROR_MESSAGE;
         } catch (IOException e) {
-            throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            // throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            return "\t " + FAILED_WRITE_TO_FILE_ERROR_MESSAGE;
         }
     }
 
@@ -165,18 +179,21 @@ public class TaskList {
      * @param info The user input containing task information.
      * @throws ByteBuddyException If an error occurs during the task creation process.
      */
-    public void todo(String info) throws ByteBuddyException {
+    public String todo(String info) throws ByteBuddyException {
         try {
             if (info.isEmpty()) {
-                throw new ByteBuddyException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+                // throw new ByteBuddyException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+                return "\t " + EMPTY_DESCRIPTION_ERROR_MESSAGE;
             }
             Task todo = new Todo(info);
             taskList.add(todo);
             printTaskAddedWithSolidLineBreak(todo);
 
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
+            return returnTaskAddedString(todo);
         } catch (IOException e) {
-            throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            // throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            return "\t " + FAILED_WRITE_TO_FILE_ERROR_MESSAGE;
         }
     }
 
@@ -186,10 +203,11 @@ public class TaskList {
      * @param info The user input containing task information.
      * @throws ByteBuddyException If an error occurs during the task creation process.
      */
-    public void deadline(String info) throws ByteBuddyException {
+    public String deadline(String info) throws ByteBuddyException {
         try {
             if (info.isEmpty()) {
-                throw new ByteBuddyException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+                // throw new ByteBuddyException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+                return "\t " + EMPTY_DESCRIPTION_ERROR_MESSAGE;
             }
             List<String> deadlineInfo = splitStringWithTrim(info, "/by", 2);
             Task deadline = new Deadline(deadlineInfo.get(0), deadlineInfo.get(1));
@@ -197,23 +215,28 @@ public class TaskList {
             printTaskAddedWithSolidLineBreak(deadline);
 
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
+            return returnTaskAddedString(deadline);
         } catch (IndexOutOfBoundsException e) {
-            throw new ByteBuddyException("The correct usage is: " + DEADLINE_FORMAT);
+            // throw new ByteBuddyException("The correct usage is: " + DEADLINE_FORMAT);
+            return "\t The correct usage is: " + DEADLINE_FORMAT;
         } catch (IOException e) {
-            throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            // throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            return "\t " + FAILED_WRITE_TO_FILE_ERROR_MESSAGE;
         }
     }
 
     /**
+     * Returns String output to inform user that event has been added
      * Adds a new Event task to the task list based on user input.
      *
      * @param info The user input containing task information.
      * @throws ByteBuddyException If an error occurs during the task creation process.
      */
-    public void event(String info) throws ByteBuddyException {
+    public String event(String info) throws ByteBuddyException {
         try {
             if (info.isEmpty()) {
-                throw new ByteBuddyException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+                // throw new ByteBuddyException(EMPTY_DESCRIPTION_ERROR_MESSAGE);
+                return "\t " + EMPTY_DESCRIPTION_ERROR_MESSAGE;
             }
 
             List<String> eventInfo = splitStringWithTrim(info, "/from|/to", 3);
@@ -222,18 +245,21 @@ public class TaskList {
             printTaskAddedWithSolidLineBreak(event);
 
             writeToFile(RELATIVE_OUTPUT_TXT_FILE_PATH, getTaskListFormattedStringOutput(taskList));
+            return returnTaskAddedString(event);
         } catch (IndexOutOfBoundsException e) {
-            throw new ByteBuddyException("The correct usage is: " + EVENT_FORMAT);
+            // throw new ByteBuddyException("The correct usage is: " + EVENT_FORMAT);
+            return "The correct usage is: " + EVENT_FORMAT;
         } catch (IOException e) {
-            throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            // throw new ByteBuddyException(FAILED_WRITE_TO_FILE_ERROR_MESSAGE);
+            return FAILED_WRITE_TO_FILE_ERROR_MESSAGE;
         }
     }
 
     /**
-     * Prints the entire task list with a solid line break above and below the list.
+     * Returns the entire task list.
      * Each task is numbered, and its details are displayed in the format "[task_number].[task_details]".
      */
-    public void printTaskList() {
+    public String getFormattedTaskList() {
         StringBuilder str = new StringBuilder();
 
         for (int i = 0; i < taskList.size(); i++) {
@@ -242,8 +268,15 @@ public class TaskList {
             }
             str.append("\t ").append(i + 1).append(".").append(taskList.get(i));
         }
+        return str.toString();
+    }
 
-        Ui.printWithSolidLineBreak(str.toString());
+    /**
+     * Prints the entire task list with a solid line break above and below the list.
+     * Each task is numbered, and its details are displayed in the format "[task_number].[task_details]".
+     */
+    public void printTaskList() {
+        Ui.printWithSolidLineBreak(getFormattedTaskList());
     }
 
 
@@ -263,19 +296,47 @@ public class TaskList {
     }
 
     /**
+     * Returns a confirmation message for the added task,
+     * and the updated total number of tasks in the list.
+     *
+     * @param task The task that was added to the list.
+     */
+    public String returnTaskAddedString(Task task) {
+        StringBuilder str = new StringBuilder();
+
+        str.append("\t Got it. I've Added this task:\n")
+                .append("\t\t ").append(task).append("\n")
+                .append("\t Now you have ").append(taskList.size()).append(" tasks in the list.");
+
+        return str.toString();
+    }
+
+    /**
      * Prints a solid line break, followed by a confirmation message for the added task,
      * and the updated total number of tasks in the list.
      *
      * @param task The task that was added to the list.
      */
     public void printTaskAddedWithSolidLineBreak(Task task) {
+        Ui.printWithSolidLineBreak(returnTaskAddedString(task));
+    }
+
+    /**
+     * Returns a confirmation message for the removed task,
+     * and the updated total number of tasks in the list.
+     *
+     * @param task The task that was removed from the list.
+     */
+    public String returnTaskRemovedString(Task task) {
         StringBuilder str = new StringBuilder();
 
-        str.append("\t Got it. I've Added this task:\n")
+        str.append("\t Noted. I've removed this task:\n")
                 .append("\t\t ").append(task).append("\n")
                 .append("\t Now you have ").append(taskList.size()).append(" tasks in the list.");
-        Ui.printWithSolidLineBreak(str.toString());
+
+        return str.toString();
     }
+
 
     /**
      * Prints a solid line break, followed by a confirmation message for the removed task,
@@ -284,23 +345,19 @@ public class TaskList {
      * @param task The task that was removed from the list.
      */
     public void printTaskRemovedWithSolidLineBreak(Task task) {
-        StringBuilder str = new StringBuilder();
-
-        str.append("\t Noted. I've removed this task:\n")
-                .append("\t\t ").append(task).append("\n")
-                .append("\t Now you have ").append(taskList.size()).append(" tasks in the list.");
-        Ui.printWithSolidLineBreak(str.toString());
+        Ui.printWithSolidLineBreak(returnTaskRemovedString(task));
     }
 
     /**
      * Finds tasks in the task list that match a specified keyword in their descriptions.
      * The method searches for tasks containing the specified text in their descriptions
      * and prints the matching tasks to the console.
+     * Returns the matching tasks
      *
      * @param keywords The keyword or text to search for among all the tasks in the task list.
      * @throws ByteBuddyException If there is an issue with the search operation, such as an empty keyword.
      */
-    public void findTaskWithKeywordInTaskList(List<String> keywords) throws ByteBuddyException {
+    public String findTaskWithKeywordInTaskList(List<String> keywords) throws ByteBuddyException {
         if (keywords.isEmpty()) {
             throw new ByteBuddyException(EMPTY_KEYWORD_ERROR_MESSAGE + "\n\t Usage: " + LIST_FORMAT);
         }
@@ -316,15 +373,17 @@ public class TaskList {
                         str.append("Here are the matching tasks in your list:");
                         foundTask = true;
                     }
-                    str.append("\n\t ").append(i + 1).append(".").append(taskList.get(i));
+                    str.append("\n\t\t ").append(i + 1).append(".").append(taskList.get(i));
                 }
             }
         }
 
         if (!foundTask) {
             Ui.printWithSolidLineBreak("\t There are no matching tasks in your list :(");
+            return "There are no matching tasks in your list :(";
         } else {
             Ui.printWithSolidLineBreak("\t " + str.toString());
+            return str.toString();
         }
     }
 

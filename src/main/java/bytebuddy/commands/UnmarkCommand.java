@@ -29,8 +29,8 @@ public class UnmarkCommand implements Command {
      * @throws ByteBuddyException If there is an error executing the UnmarkCommand.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
-        taskList.unmark(info);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
+        return taskList.unmark(info);
     }
 
     /**

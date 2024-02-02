@@ -21,17 +21,17 @@ public class ByteBuddy {
 
     /**
      * Creates a new chatbot called ByteBuddy that helps with tasking.
-     * @throws ByteBuddyException if there is an error during the creation of list from previous runs.
      */
-    public ByteBuddy() throws ByteBuddyException {
+    public ByteBuddy() {
         ui = new Ui();
-        storage = new Storage();
 
         try {
+            storage = new Storage();
             taskList = storage.load();
         } catch (ByteBuddyException e) {
             taskList = new TaskList();
-            throw new ByteBuddyException("Error loading the list from output.txt");
+            // throw new ByteBuddyException("Error loading the list from output.txt");
+            System.out.println("Error loading the list from output.txt");
         }
     }
 
@@ -65,5 +65,18 @@ public class ByteBuddy {
 
         // bye
         Ui.printByeMessage();
+    }
+
+    /**
+     * Returns String reply according to user instructions
+     * @param s String input by user
+     */
+    public String getResponse(String s) {
+        try {
+            Command c = Parser.parse(s);
+            return c.execute(taskList, ui, storage);
+        } catch (ByteBuddyException e) {
+            return e.getMessage();
+        }
     }
 }

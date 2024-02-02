@@ -29,8 +29,8 @@ public class MarkCommand implements Command {
      * @throws ByteBuddyException If there is an error executing the MarkCommand.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
-        taskList.mark(info);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
+        return taskList.mark(info);
     }
 
     /**

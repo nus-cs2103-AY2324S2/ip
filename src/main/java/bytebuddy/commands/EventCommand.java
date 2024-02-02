@@ -29,8 +29,8 @@ public class EventCommand implements Command {
      * @throws ByteBuddyException If there is an error executing the EventCommand.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
-        taskList.event(info);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
+        return taskList.event(info);
     }
 
     /**
