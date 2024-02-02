@@ -21,7 +21,7 @@ public class Event extends Task{
      * @return a parsable string representation of the task and all its details
      */
     @Override
-    public String parsableString() {
-        return String.format("E|%s|%s|%s", super.parsableString(), from, to);
+    public String getParsableString() {
+        return String.format("E|%s|%s|%s", super.getParsableString(), from, to);
     }
 }
