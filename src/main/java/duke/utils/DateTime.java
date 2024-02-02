@@ -24,7 +24,8 @@ public class DateTime {
             DateTimeFormatter dateTimeFormatter = acceptedFormats.toFormatter();
             this.datetime = LocalDateTime.parse(datetime, dateTimeFormatter);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Wrong date time format! Try the default: 'yyyy-MM-dd HHmm'");
+            throw new DukeException(
+                    "Wrong date time format! Try the default: 'yyyy-MM-dd HHmm'");
         }
     }
 

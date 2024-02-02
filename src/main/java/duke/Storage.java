@@ -38,7 +38,7 @@ public class Storage {
      * Loads tasks from existing file, if any.
      *
      * @return A TaskList containing the tasks loaded from the file.
-     * @throws DukeException If the file is not found or there is an issue reading from it.
+     * @throws DukeException If the file is not found or there is an issue reading it.
      */
     public TaskList loadTasks() {
         try {
@@ -80,7 +80,8 @@ public class Storage {
         try (BufferedWriter reset = new BufferedWriter(new FileWriter(this.path))){
             reset.write("");
             tasks.getTasks().forEach((task) -> {
-                try (BufferedWriter out = new BufferedWriter(new FileWriter(this.path, true))){
+                try (BufferedWriter out = new BufferedWriter(
+                        new FileWriter(this.path, true))){
                     out.write(task.writeContent());
                     out.newLine();
                 } catch (IOException e) {
