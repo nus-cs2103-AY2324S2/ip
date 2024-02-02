@@ -2,6 +2,7 @@ package duke;
 
 import java.util.Scanner;
 
+
 /**
  * The main class for the Duke application.
  */
@@ -11,13 +12,11 @@ public class Duke {
     private final Ui ui;
 
     /**
-     * Constructs a new Duke instance with a specified file path for storage.
-     *
-     * @param filePath The file path for storing task data.
+     * Constructs a Duke object with a given file path.
      */
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage();
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
@@ -52,6 +51,6 @@ public class Duke {
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        new Duke("./duke.txt").run();
+        new Duke().run();
     }
 }

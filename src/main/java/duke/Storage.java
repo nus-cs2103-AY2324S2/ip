@@ -16,16 +16,16 @@ import java.util.ArrayList;
  * Handles loading and saving of tasks to a file.
  */
 public class Storage {
+    private static final String FILE_PATH = "./duke.txt";
     private String filePath;
 
     /**
      * Constructs a Storage object with a given file path.
-     *
-     * @param filePath The path of the file used for storage.
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage() {
+        this.filePath = FILE_PATH;
     }
+
 
     /**
      * Loads tasks from the file.
