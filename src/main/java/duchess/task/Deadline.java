@@ -1,3 +1,7 @@
+package duchess.task;
+
+import duchess.DuchessException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,7 +18,7 @@ public class Deadline extends Task {
         }
     }
 
-    //Deadline that already has isDone state, and by is written in MMM dd yyyy hh:mm a format
+    //duchess.task.Deadline that already has isDone state, and by is written in MMM dd yyyy hh:mm a format
     public Deadline(String description, boolean isDone, String by) throws DuchessException{
         super(description, isDone);
         try {

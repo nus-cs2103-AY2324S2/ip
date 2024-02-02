@@ -1,3 +1,6 @@
+package duchess;
+
+import duchess.task.Task;
 import java.util.ArrayList;
 
 public class Duchess {

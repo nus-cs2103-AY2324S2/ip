@@ -1,3 +1,11 @@
+package duchess;
+
+import duchess.task.TaskType;
+import duchess.task.Deadline;
+import duchess.task.Event;
+import duchess.task.Task;
+import duchess.task.ToDo;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -17,7 +25,7 @@ public class TaskList {
         this.taskCount = this.tasks.size();
     }
 
-    //Add a ToDo to the task list
+    //Add a duchess.task.ToDo to the task list
     public void addToDo(String userInput) throws DuchessException {
         String[] toDoTokens = userInput.split("todo"); //Split to find description
         if (toDoTokens.length > 1) {
@@ -29,7 +37,7 @@ public class TaskList {
         }
     }
 
-    //Add a Deadline to the taskList
+    //Add a duchess.task.Deadline to the taskList
     public void addDeadline(String userInput) throws DuchessException {
         String[] deadlineTokens = userInput.split("deadline");
 
@@ -50,7 +58,7 @@ public class TaskList {
         }
     }
 
-    //Add an Event to the task list
+    //Add an duchess.task.Event to the task list
     public void addEvent(String userInput) throws DuchessException {
         String[] eventTokens = userInput.split("event");
 

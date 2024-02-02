@@ -1,9 +1,13 @@
+package duchess.task;
+
+import duchess.task.Task;
+
 public class ToDo extends Task {
     public ToDo(String description) {
         super(description);
     }
 
-    //ToDo that already has isDone state
+    //duchess.task.ToDo that already has isDone state
     public ToDo(String description, boolean isDone) {
         super(description, isDone);
     }
