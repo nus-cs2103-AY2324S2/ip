@@ -8,9 +8,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles user interaction and displays messages to the user.
+ */
 public class Ui {
     private Scanner scanner;
 
+    /**
+     * Constructs a Ui object and initializes the scanner for user input.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
@@ -28,6 +34,7 @@ public class Ui {
      * Reads the command from the user.
      *
      * @return The command input by the user.
+     * @throws ZackException If the input is empty.
      */
     public String readCommand() throws ZackException {
         String input = scanner.nextLine().trim();
@@ -44,6 +51,10 @@ public class Ui {
     public void showLine() {
         System.out.println("____________________________________________________________");
     }
+
+    /**
+     * Prints a line divider with an additional new line.
+     */
     public void showNewLineLine() {
         System.out.println("____________________________________________________________\n");
     }
@@ -57,6 +68,12 @@ public class Ui {
         System.out.println("OOPS!!! " + errorMessage);
     }
 
+    /**
+     * Shows a message when tasks are loaded, including the loaded tasks.
+     *
+     * @param tasks The list of loaded tasks.
+     * @throws ZackException If there is an error in loading tasks.
+     */
     public void showLoadedTasks(TaskList tasks) throws ZackException {
         if (tasks.getSize() == 0) {
             this.showLine();
@@ -75,7 +92,7 @@ public class Ui {
     /**
      * Shows a message when a task is added, along with the current number of tasks.
      *
-     * @param task The task that was added.
+     * @param task       The task that was added.
      * @param totalTasks The total number of tasks after adding.
      */
     public void showAddedTask(Task task, int totalTasks) {
@@ -86,7 +103,7 @@ public class Ui {
     /**
      * Shows a message when a task is deleted, along with the current number of tasks.
      *
-     * @param task The task that was removed.
+     * @param task       The task that was removed.
      * @param totalTasks The total number of tasks after deletion.
      */
     public void showDeletedTask(Task task, int totalTasks) {
@@ -101,6 +118,12 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Shows a message when a task is marked as done or undone.
+     *
+     * @param task   The task that was marked.
+     * @param isDone True if the task is marked as done, false otherwise.
+     */
     public void showMarkedTask(Task task, boolean isDone) {
         if (isDone) {
             System.out.println("Nice! I've marked this task as done:\n" + task);
@@ -109,6 +132,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays a list of tasks to the user.
+     *
+     * @param tasks The list of tasks to display.
+     */
     public void showTaskList(ArrayList<Task> tasks) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -116,6 +144,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays tasks on a specific date to the user.
+     *
+     * @param date  The date for which tasks are displayed.
+     * @param tasks The list of tasks happening on the specified date.
+     */
     public void showTasksOnDate(LocalDate date, ArrayList<Task> tasks) {
         System.out.println("Tasks on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
         for (Task task : tasks) {
@@ -123,8 +157,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays an error message when loading tasks fails.
+     *
+     * @param e The exception that occurred while loading tasks.
+     */
     public void showLoadingError(ZackException e) {
         System.err.println("Error: " + e.getMessage()); // Display the exception message
     }
 }
-
