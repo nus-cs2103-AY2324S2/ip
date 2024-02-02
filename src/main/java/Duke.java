@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -66,11 +67,16 @@ public class Duke {
                 String[] newArr = s.split(" /");
                 try {
                     if (arr[0].equals("deadline")) {
+                        LocalDate deadline = null;
                         if (newArr.length < 2) {
                             throw new DukeException("Incomplete deadline information");
                         }
+                        try {
+                            deadline = LocalDate.parse(newArr[1].split("by")[1].trim());
+                        } catch (DateTimeParseException e) {
+                            throw new DukeException("Invalid date");
+                        }
                         System.out.println("\t\tAdded a new task to the list!");
-                        LocalDate deadline = LocalDate.parse(newArr[1].split("by")[1].trim());
                         Deadline d = new Deadline(newArr[0], deadline);
                         list.add(d);
                         System.out.println("\t\t  " + d.toString());
@@ -83,9 +89,16 @@ public class Duke {
                         if (newArr.length < 3) {
                             throw new DukeException("Incomplete event information");
                         }
+                        LocalDate from = null;
+                        LocalDate to = null;
+                        try {
+                            from = LocalDate.parse(newArr[1].split("from")[1].trim());
+                            to = LocalDate.parse(newArr[2].split("to")[1].trim());
+                        } catch (DateTimeParseException e) {
+                            throw new DukeException("Invalid date");
+                        }
                         System.out.println("\t\tAdded a new task to the list!");
-                        LocalDate from = LocalDate.parse(newArr[1].split("from")[1].trim());
-                        LocalDate to = LocalDate.parse(newArr[2].split("to")[1].trim());
+
                         Event e = new Event(newArr[0], from, to);
                         list.add(e);
                         System.out.println("\t\t  " + e.toString());
