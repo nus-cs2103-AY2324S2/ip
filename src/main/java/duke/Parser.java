@@ -27,8 +27,8 @@ public class Parser {
         Task task = new Task(description);
         list.add(task);
         // Construct the response message
-        String response = "Got it. I've added this task:\n" + task.toString() +
-                "\nNow you have " + list.size() + " tasks in the list.";
+        String response = "Got it. I've added this task:\n" + task.toString()
+                + "\nNow you have " + list.size() + " tasks in the list.";
         return response;
     }
 

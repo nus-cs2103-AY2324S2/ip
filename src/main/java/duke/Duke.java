@@ -1,9 +1,9 @@
 package duke;
 
-import javafx.application.Platform;
-
 import java.io.IOException;
 import java.util.Scanner;
+
+import javafx.application.Platform;
 
 
 /**
