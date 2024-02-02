@@ -1,3 +1,5 @@
+package zoe;
+
 import zoe.Task;
 
 import java.io.BufferedWriter;
@@ -7,7 +9,7 @@ import java.io.IOException;
 import java.io.File;
 public class Saver {
     protected ArrayList<Task> tasks;
-    Saver(ArrayList<Task> tasks) {
+    public Saver(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
