@@ -1,3 +1,5 @@
+Directory created successfully.
+File created.
           .wwwwwwww.
         .w"  "WW"  "w.
        ."   /\  /\   ".
@@ -20,41 +22,40 @@
     ____________________________________________________
     ____________________________________________________
       Here are the tasks in your list:
-      1.[T][ ] borrow book
+        1.[T][ ] borrow book
+    ____________________________________________________
+    ____________________________________________________
+      Please enter date in the format yyyy-MM-dd.
     ____________________________________________________
     ____________________________________________________
       Ah-ah-ah! I have added ONE task:
-        [D][ ] return book (by: Sunday)
+        [D][ ] return book (by: Jan 1 2023)
       You have one, two... 2 task(s)!
     ____________________________________________________
     ____________________________________________________
-      Ah-ah-ah! I have added ONE task:
-        [E][ ] project meeting (from: Mon 2pm to: 4pm)
-      You have one, two... 3 task(s)!
+      WHAT?! I can't count that! Try another command!
     ____________________________________________________
     ____________________________________________________
-      Ah-ah-ah! ONE! I've marked this task as done:
-        [D][X] return book (by: Sunday)
+      Ah-ah-ah! ONE! I've marked this the_count.task as done:
+        [D][X] return book (by: Jan 1 2023)
     ____________________________________________________
     ____________________________________________________
-      Ah-ah-ah! ONE! I've marked this task as done:
+      Ah-ah-ah! ONE! I've marked this the_count.task as done:
         [T][X] borrow book
     ____________________________________________________
     ____________________________________________________
       Here are the tasks in your list:
-      1.[T][X] borrow book
-      2.[D][X] return book (by: Sunday)
-      3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+        1.[T][X] borrow book
+        2.[D][X] return book (by: Jan 1 2023)
     ____________________________________________________
     ____________________________________________________
-      MINUS ONE! I've marked this task as not done yet:
+      MINUS ONE! I've marked this the_count.task as not done yet:
         [T][ ] borrow book
     ____________________________________________________
     ____________________________________________________
       Here are the tasks in your list:
-      1.[T][ ] borrow book
-      2.[D][X] return book (by: Sunday)
-      3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+        1.[T][ ] borrow book
+        2.[D][X] return book (by: Jan 1 2023)
     ____________________________________________________
     ____________________________________________________
       Goodbye! Brought to you by...
