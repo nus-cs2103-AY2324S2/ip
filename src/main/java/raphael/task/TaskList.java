@@ -1,11 +1,10 @@
-package duke.task;
+package raphael.task;
 import java.util.ArrayList;
-import duke.format.FileFormattable;
-import duke.exception.DukeException;
-import duke.format.Formatter;
+import raphael.format.FileFormattable;
+import raphael.format.Formatter;
 public class TaskList implements FileFormattable {
     private final ArrayList<Task> tasks;
-    public TaskList(String tasks) throws DukeException {
+    public TaskList(String tasks) throws raphael.exception.RaphaelException {
         this.tasks = new ArrayList<>();
         final String[] tasksArr = tasks.split("\n");
         for (String task : tasksArr) {
@@ -30,9 +29,9 @@ public class TaskList implements FileFormattable {
     public String getSize() {
         return String.format("You now have %d tasks in your list!", this.tasks.size());
     }
-    public int checkTask(int idx) throws DukeException {
+    public int checkTask(int idx) throws raphael.exception.RaphaelException {
         if (idx < 0 || idx >= this.tasks.size()) {
-            throw new DukeException(DukeException.INVALID_TASK_INDEX);
+            throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.INVALID_TASK_INDEX);
         } else {
             if(this.tasks.get(idx).check() == 0) {
                 System.out.printf("Hooray! Congrats on completing the following task!:\n"
@@ -45,9 +44,9 @@ public class TaskList implements FileFormattable {
             }
         }
     }
-    public int uncheckTask(int idx) throws DukeException {
+    public int uncheckTask(int idx) throws raphael.exception.RaphaelException {
         if (idx < 0 || idx >= this.tasks.size()) {
-            throw new DukeException(DukeException.INVALID_TASK_INDEX);
+            throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.INVALID_TASK_INDEX);
         } else {
             if(this.tasks.get(idx).uncheck() == 0) {
                 System.out.printf("Uh oh! Workload + 1 by having the following task:\n"
@@ -64,9 +63,9 @@ public class TaskList implements FileFormattable {
     public void addTask(Task t) {
         this.tasks.add(t);
     }
-    public int deleteTask(int idx) throws DukeException {
+    public int deleteTask(int idx) throws raphael.exception.RaphaelException {
         if (idx < 0 || idx >= this.tasks.size()) {
-            throw new DukeException(DukeException.INVALID_TASK_INDEX);
+            throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.INVALID_TASK_INDEX);
         } else {
             Task temp = this.tasks.get(idx);
             this.tasks.remove(idx);

@@ -1,5 +1,5 @@
-package duke.task;
-import duke.format.FileFormattable;
+package raphael.task;
+import raphael.format.FileFormattable;
 public class Task implements FileFormattable {
     private final String description;
     private boolean isDone;

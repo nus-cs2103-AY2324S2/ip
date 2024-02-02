@@ -1,7 +1,7 @@
-package duke.command;
-import duke.task.TaskList;
-import duke.ui.Ui;
-import duke.storage.Storage;
+package raphael.command;
+import raphael.task.TaskList;
+import raphael.ui.Ui;
+import raphael.storage.Storage;
 public class ExitCommand extends Command {
 
     @Override

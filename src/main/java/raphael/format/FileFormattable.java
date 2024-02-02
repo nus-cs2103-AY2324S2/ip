@@ -1,4 +1,4 @@
-package duke.format;
+package raphael.format;
 public interface FileFormattable {
     String toFileFormat();
 }

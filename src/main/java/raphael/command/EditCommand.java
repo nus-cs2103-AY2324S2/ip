@@ -1,8 +1,9 @@
-package duke.command;
-import duke.task.TaskList;
-import duke.ui.Ui;
-import duke.storage.Storage;
-import duke.exception.DukeException;public class EditCommand extends Command {
+package raphael.command;
+import raphael.task.TaskList;
+import raphael.ui.Ui;
+import raphael.storage.Storage;
+
+public class EditCommand extends Command {
     private final int idx;
     private final boolean isCheck;
     public EditCommand(int idx, boolean isCheck) {
@@ -10,7 +11,7 @@ import duke.exception.DukeException;public class EditCommand extends Command {
         this.isCheck = isCheck;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws raphael.exception.RaphaelException {
         if (this.isCheck) {
             tasks.checkTask(this.idx);
         } else {

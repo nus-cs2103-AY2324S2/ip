@@ -1,16 +1,16 @@
-package duke.command;
+package raphael.command;
 
-import duke.task.TaskList;
-import duke.ui.Ui;
-import duke.storage.Storage;
-import duke.exception.DukeException;
+import raphael.task.TaskList;
+import raphael.ui.Ui;
+import raphael.storage.Storage;
+
 public class DeleteCommand extends Command {
     private final int idx;
     public DeleteCommand(int idx) {
         this.idx = idx;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws raphael.exception.RaphaelException {
         tasks.deleteTask(idx);
         storage.write(tasks.toFileFormat());
     }
