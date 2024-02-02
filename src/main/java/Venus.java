@@ -126,7 +126,6 @@ public class Venus {
                     if (parts.length != 2) {
                         throw new DukeException("Incorrect, choose a specific deadline only please");
                     }
-                    System.out.println(parts.length);
                     parts[0] = parts[0].trim();
                     parts[1] = parts[1].trim();
                     Deadline deadline = new Deadline(parts[0], parts[1]);
@@ -158,7 +157,6 @@ public class Venus {
                         parts[j] = parts[j].trim();
                     }
                     Event event = new Event(parts[0], parts[1], parts[2]);
-                    newTask = event;
                     data.add(event);
                     System.out.println(indented_lines
                             + "     Got it. I've added this task:\n"
@@ -173,12 +171,14 @@ public class Venus {
                             + e.getMessage()
                             + "\n"
                             + indented_lines);
-                } catch (Exception e) {
-                    System.out.println(indented_lines
-                            + "An unknown exception is created, please report to the devs"
-                            + "\n"
-                            + indented_lines);
-                }
+                } //catch (Exception e) {
+//                    System.out.println(indented_lines
+//                            + "An unknown exception is created, please report to the devs"
+//                            + "\n the error is"
+//                            + e.getMessage()
+//                            + "\n"
+//                            + indented_lines);
+//                }
                 break;
             case DELETE:
                 try {
@@ -211,15 +211,6 @@ public class Venus {
                         "\n" + indented_lines);
 
             }
-            //write to file
-//            if (!newTask.getItem().equals("No New Item")) {
-//                try {
-//                    FileControl.saveToFile("data/venus.txt",newTask.toString());
-//                } catch (IOException e) {
-//                    System.out.println("IO exception " + e.getMessage());
-//                }
-//            }
-//            newTask = new Task("No New Item");
             words = sc.nextLine();
         }
         sc.close();
