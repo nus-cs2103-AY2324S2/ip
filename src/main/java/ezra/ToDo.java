@@ -29,7 +29,7 @@ public class ToDo extends Task {
      *
      * @return A formatted string suitable for storage, including task type, status, and description.
      */
-    public String toString2() {
+    public String toStorageString() {
         return String.format("T | %d | %s", this.isDone ? 1 : 0, this.description);
     }
 

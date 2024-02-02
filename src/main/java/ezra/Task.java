@@ -32,5 +32,5 @@ public abstract class Task {
      *
      * @return A formatted string suitable for storage, including the completion status and description.
      */
-    public abstract String toString2();
+    public abstract String toStorageString();
 }

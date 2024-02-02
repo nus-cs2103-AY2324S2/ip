@@ -41,7 +41,7 @@ public class Deadline extends Task {
      *
      * @return A formatted string suitable for storage, including task type, status, description, and deadline.
      */
-    public String toString2() {
+    public String toStorageString() {
         return String.format("D | %d | %s | %s", this.isDone ? 1 : 0, this.description, this.byInput);
     }
 

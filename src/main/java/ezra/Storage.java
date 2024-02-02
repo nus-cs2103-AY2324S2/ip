@@ -39,7 +39,7 @@ public class Storage {
         FileWriter fw = new FileWriter(f);
         StringBuilder builder = new StringBuilder();
         for (Task t : taskList.tasks) {
-            builder.append(t.toString2()).append("\n");
+            builder.append(t.toStorageString()).append("\n");
         }
         fw.write(builder.toString());
         fw.close();
