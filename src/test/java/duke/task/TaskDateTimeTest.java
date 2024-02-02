@@ -1,13 +1,13 @@
 package duke.task;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Test;
+
 public class TaskDateTimeTest {
     @Test
-    public void parse_ValidDateTime_ReturnsTaskDateTime() throws DukeDateTimeParseException {
+    public void parse_validDateTime_returnsTaskDateTime() throws DukeDateTimeParseException {
         // Arrange
         String dateTimeString = "2020-08-25 18:00";
 
@@ -19,7 +19,7 @@ public class TaskDateTimeTest {
     }
 
     @Test
-    public void parse_InvalidDateTime_ThrowsDukeDateTimeParseException() {
+    public void parse_invalidDateTime_throwsDukeDateTimeParseException() {
         // Arrange
         String dateTimeString = "2020-08-25 18:00:00";
 
@@ -28,7 +28,7 @@ public class TaskDateTimeTest {
     }
 
     @Test
-    public void serialize_ValidTaskDateTime_ReturnsSerializedString() throws DukeDateTimeParseException {
+    public void serialize_validTaskDateTime_returnsSerializedString() throws DukeDateTimeParseException {
         // Arrange
         TaskDateTime dateTime = new TaskDateTime("2020-08-25 18:00");
 

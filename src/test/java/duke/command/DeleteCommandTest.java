@@ -1,19 +1,20 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.task.TaskList;
-import duke.task.Task;
-import duke.task.Todo;
-import duke.state.ProgramState;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
+import duke.DukeException;
+import duke.state.ProgramState;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
+
 public class DeleteCommandTest {
     @Test
-    public void execute_ValidIndex_ReturnsCorrectResponse() throws DukeException {
+    public void execute_validIndex_returnsCorrectResponse() throws DukeException {
         // Arrange
         TaskList taskList = new TaskList();
         ProgramState programState = new ProgramState();
@@ -32,7 +33,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_InvalidIndex_ThrowsInvalidTaskIndexException() throws DukeException {
+    public void execute_invalidIndex_throwsInvalidTaskIndexException() throws DukeException {
         // Arrange
         TaskList taskList = new TaskList();
         ProgramState programState = new ProgramState();
@@ -45,7 +46,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_EmptyIndex_ThrowsEmptyTaskDescriptionException() throws DukeException {
+    public void execute_emptyIndex_throwsEmptyTaskDescriptionException() throws DukeException {
         // Arrange
         String index = "";
         // Act & Assert
@@ -53,7 +54,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_NonIntegerIndex_ThrowsInvalidTaskIndexException() throws DukeException {
+    public void execute_nonIntegerIndex_throwsInvalidTaskIndexException() throws DukeException {
         // Arrange
         String index = "abc";
 
