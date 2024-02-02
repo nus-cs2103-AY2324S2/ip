@@ -1,5 +1,6 @@
 package zack.commands;
 
+import zack.Zack;
 import zack.ZackException;
 import zack.util.Storage;
 import zack.util.TaskList;
