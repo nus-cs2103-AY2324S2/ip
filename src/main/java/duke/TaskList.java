@@ -3,6 +3,9 @@ package duke;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 

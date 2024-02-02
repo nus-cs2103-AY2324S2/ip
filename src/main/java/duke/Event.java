@@ -2,7 +2,10 @@ package duke;
 
 import java.time.LocalDate;
 
-public class Event extends Task{
+/**
+ * Constructs an event task.
+ */
+public class Event extends Task {
 
     protected LocalDate from;
     protected LocalDate to;
@@ -38,6 +41,7 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + DateChecker.formatDate(this.from) + " to: " + DateChecker.formatDate(this.to) + ")";
+        return "[E]" + super.toString() + " (from: " + DateChecker.formatDate(this.from)
+                + " to: " + DateChecker.formatDate(this.to) + ")";
     }
 }

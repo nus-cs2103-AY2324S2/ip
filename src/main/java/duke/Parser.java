@@ -2,6 +2,9 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * Parses and executes commands for the Duke application.
+ */
 public class Parser {
 
     /**
@@ -26,29 +29,29 @@ public class Parser {
         String commandWord = parts[0];
 
         switch (commandWord) {
-            case "todo":
-                addTodo(parts[1], tasks, ui, storage);
-                break;
-            case "deadline":
-                addDeadline(parts[1], tasks, ui, storage);
-                break;
-            case "event":
-                addEvent(parts[1], tasks, ui, storage);
-                break;
-            case "mark":
-                markOrUnmarkTask(parts[1], tasks, ui, storage, true);
-                break;
-            case "unmark":
-                markOrUnmarkTask(parts[1], tasks, ui, storage, false);
-                break;
-            case "delete":
-                deleteTask(parts[1], tasks, ui, storage);
-                break;
-            case "find":
-                findTask(parts[1], tasks, ui);
-                break;
-            default:
-                throw new DukeException("Invalid Command. I'm sorry, but I don't know what that means :-(");
+        case "todo":
+            addTodo(parts[1], tasks, ui, storage);
+            break;
+        case "deadline":
+            addDeadline(parts[1], tasks, ui, storage);
+            break;
+        case "event":
+            addEvent(parts[1], tasks, ui, storage);
+            break;
+        case "mark":
+            markOrUnmarkTask(parts[1], tasks, ui, storage, true);
+            break;
+        case "unmark":
+            markOrUnmarkTask(parts[1], tasks, ui, storage, false);
+            break;
+        case "delete":
+            deleteTask(parts[1], tasks, ui, storage);
+            break;
+        case "find":
+            findTask(parts[1], tasks, ui);
+            break;
+        default:
+            throw new DukeException("Invalid Command. I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -124,7 +127,8 @@ public class Parser {
      * @param storage The storage for tasks.
      * @throws DukeException If the command is invalid or execution fails.
      */
-    private static void markOrUnmarkTask(String input, TaskList tasks, Ui ui, Storage storage, boolean isMark) throws DukeException {
+    private static void markOrUnmarkTask(String input, TaskList tasks, Ui ui,
+                                         Storage storage, boolean isMark) throws DukeException {
         try {
             int idx = Integer.parseInt(input) - 1;
             Task task = tasks.getTask(idx);
