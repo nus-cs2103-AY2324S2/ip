@@ -2,11 +2,11 @@ import java.io.*;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-public class Loader {
+public class Storage {
     private static final String DATAFILE_PATH = "./data/the-count.txt";
     private static final String DIR_PATH = "./data";
 
-    public Loader(TaskList tasks) {
+    public Storage(TaskList tasks) {
         load(tasks);
     }
 
