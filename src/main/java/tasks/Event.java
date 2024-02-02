@@ -35,7 +35,7 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + from.getMonth() + " " + from.getDayOfMonth() + " " + from.getYear()
                 + " to " + to.getMonth() + " " + to.getDayOfMonth() + " " + to.getYear() + ")";
     }
-    
+
     /**
      * Returns a string formatted for file storage, including the task type,
      * completion status, description, start date, and end date.
