@@ -6,13 +6,23 @@ import jade.exception.JadeException;
 import jade.storage.Storage;
 import jade.ui.Ui;
 
+/**
+ * The <code>FindCommand</code> object represents the command to
+ * search for tasks that contain the keyword.
+ */
 public class FindCommand extends Command {
-    private final String keyword;
+    private final String keyword; // the keyword of the description to be searched
 
+    /**
+     * Class constructor specifying the keyword of the description to be searched.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 
+    /**
+     * @inheriDocs This implementation prints all tasks that contain the keyword.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JadeException {
         StringBuilder sb = new StringBuilder();
@@ -26,6 +36,9 @@ public class FindCommand extends Command {
         ui.printMessage(String.format("\tHere are the matching tasks in your list:\n%s", sb));
     }
 
+    /**
+     * @inheriDocs The DeleteCommand does not indicate the exit of the program.
+     */
     @Override
     public boolean shouldExit() {
         return false;

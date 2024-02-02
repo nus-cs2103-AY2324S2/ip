@@ -29,7 +29,7 @@ public class ListCommand extends Command {
     }
 
     /**
-     * @inheriDocs This implementation prints all tasks with an optional specified date.
+     * @inheriDocs This implementation prints all tasks with an option to specify a date.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
