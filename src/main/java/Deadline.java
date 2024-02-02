@@ -5,6 +5,10 @@ public class Deadline extends Task {
         this.time = time;
     }
 
+    String getCommand() {
+        return "deadline " + name + " /by " + time;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + time + ")";

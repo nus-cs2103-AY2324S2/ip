@@ -3,6 +3,10 @@ public class ToDo extends Task {
         super(name);
     }
 
+    String getCommand() {
+        return "todo " + name;
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

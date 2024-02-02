@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected boolean isDone = false;
     protected String name;
 
@@ -14,9 +14,10 @@ public class Task {
         this.isDone = false;
     }
 
+    abstract String getCommand();
+
     @Override
     public String toString() {
-        String toggle = this.isDone ? "[X] " : "[ ] ";
-        return toggle + this.name;
+        return (isDone ? "[X] " : "[ ] ") + name;
     }
 }
