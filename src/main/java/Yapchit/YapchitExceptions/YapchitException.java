@@ -1,4 +1,4 @@
-package Yapchit.YapchitExceptions;
+package yapchit.yapchitexceptions;
 
 /**
  * Special exception class for Yapchit.

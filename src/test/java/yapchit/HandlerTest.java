@@ -1,4 +1,4 @@
-package Yapchit;
+package yapchit;
 
 import Yapchit.Tasks.Deadline;
 import Yapchit.YapchitExceptions.InvalidDetailException;

@@ -1,11 +1,11 @@
-package Yapchit;
+package yapchit;
 
-import Yapchit.Tasks.Deadline;
-import Yapchit.Tasks.Event;
-import Yapchit.Tasks.Task;
-import Yapchit.Tasks.ToDo;
-import Yapchit.YapchitExceptions.FileListParseException;
-import Yapchit.YapchitExceptions.YapchitException;
+import yapchit.tasks.Deadline;
+import yapchit.tasks.Event;
+import yapchit.tasks.Task;
+import yapchit.tasks.ToDo;
+import yapchit.yapchitexceptions.FileListParseException;
+import yapchit.yapchitexceptions.YapchitException;
 
 import java.io.File;
 import java.io.FileNotFoundException;

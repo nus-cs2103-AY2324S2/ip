@@ -1,8 +1,8 @@
-package Yapchit;
+package yapchit;
 
-import Yapchit.YapchitExceptions.InvalidDetailException;
-import Yapchit.YapchitExceptions.InvalidKeywordException;
-import Yapchit.YapchitExceptions.YapchitException;
+import yapchit.yapchitexceptions.InvalidDetailException;
+import yapchit.yapchitexceptions.InvalidKeywordException;
+import yapchit.yapchitexceptions.YapchitException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

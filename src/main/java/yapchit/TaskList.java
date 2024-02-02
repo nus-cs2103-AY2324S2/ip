@@ -1,7 +1,7 @@
-package Yapchit;
+package yapchit;
 
-import Yapchit.Tasks.Task;
-import Yapchit.YapchitExceptions.InvalidDetailException;
+import yapchit.tasks.Task;
+import yapchit.yapchitexceptions.InvalidDetailException;
 
 import java.util.ArrayList;
 

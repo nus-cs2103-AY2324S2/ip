@@ -1,6 +1,6 @@
-package Yapchit;
+package yapchit;
 
-import Yapchit.Tasks.Task;
+import yapchit.tasks.Task;
 
 import java.util.Scanner;
 

@@ -1,12 +1,12 @@
-package Yapchit;
+package yapchit;
 
-import Yapchit.Tasks.Deadline;
-import Yapchit.Tasks.Event;
-import Yapchit.Tasks.Task;
-import Yapchit.Tasks.ToDo;
-import Yapchit.YapchitExceptions.InvalidDetailException;
-import Yapchit.YapchitExceptions.InvalidKeywordException;
-import Yapchit.YapchitExceptions.YapchitException;
+import yapchit.tasks.Deadline;
+import yapchit.tasks.Event;
+import yapchit.tasks.Task;
+import yapchit.tasks.ToDo;
+import yapchit.yapchitexceptions.InvalidDetailException;
+import yapchit.yapchitexceptions.InvalidKeywordException;
+import yapchit.yapchitexceptions.YapchitException;
 
 import java.time.LocalDate;
 

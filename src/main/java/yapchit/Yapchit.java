@@ -1,6 +1,6 @@
-package Yapchit;
+package yapchit;
 
-import Yapchit.YapchitExceptions.YapchitException;
+import yapchit.yapchitexceptions.YapchitException;
 
 /**
  * Yapchit is a bot that allows users to create and manage their tasks. The Yapchit class
