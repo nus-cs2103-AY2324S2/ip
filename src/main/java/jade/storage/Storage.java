@@ -40,7 +40,7 @@ public class Storage {
             ArrayList<Task> savedTaskList = new ArrayList<>();
             while (sc.hasNext()) {
                 String[] task = sc.nextLine().split(" \\| ");
-                boolean isDone = task[1] == "1" ? true : false;
+                boolean isDone = task[1].equals("1");
                 switch (task[0]) {
                     case "T":
                         savedTaskList.add(new Todo(task[2], isDone));

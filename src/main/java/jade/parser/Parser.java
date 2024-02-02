@@ -78,6 +78,9 @@ public class Parser {
                 case "bye":
                     checkEmptyDescription(commands, 1);
                     return new ExitCommand();
+                case "find":
+                    checkEmptyDescription(commands, 2);
+                    return new FindCommand(concatDescription(commands, "", ""));
                 default:
                     return new InvalidCommand(new JadeException("\tInput is invalid, please retry.\n"));
             }
