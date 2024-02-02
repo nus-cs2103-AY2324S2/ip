@@ -102,4 +102,13 @@ public class Ui {
     public String readInput() {
         return sc.nextLine();
     }
+
+    /**
+     * Indicates the find command.
+     *
+     * @param keyword the keyword to find for.
+     */
+    public void showFind(String keyword) {
+        System.out.println("Here are the tasks containing '" + keyword + "'.");
+    }
 }

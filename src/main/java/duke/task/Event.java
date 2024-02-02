@@ -25,6 +25,10 @@ public class Event extends Task {
         this.to = LocalDateTime.parse(to, formatter);
     }
 
+    public String getName() {
+        return super.getName();
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm"))

@@ -74,4 +74,20 @@ public class TaskList {
             throw new DukeException("Task not found.");
         }
     }
+
+    /**
+     * Search the task list for a matching keyword.
+     *
+     * @param keyword the word to search for.
+     * @return a list of tasks with the matching keyword.
+     */
+    public ArrayList<Task> searchList(String keyword) {
+        ArrayList<Task> matchingList = new ArrayList<>();
+        for (Task t : this.list) {
+            if (t.getName().contains(keyword)) {
+                matchingList.add(t);
+            }
+        }
+        return matchingList;
+    }
 }

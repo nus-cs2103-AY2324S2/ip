@@ -17,6 +17,7 @@ import duke.command.MarkCommand;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
 import duke.command.UnmarkCommand;
+import duke.command.FindCommand;
 
 /**
  * Parses inputs to Duke.
@@ -95,6 +96,11 @@ public class Parser {
             return new AddCommand(createDeadline(command));
         case "event":
             return new AddCommand(createEvent(command));
+        case "find":
+            if (s.length > 2) {
+                throw new DukeException("Please find one keyword at a time");
+            }
+            return new FindCommand(s[1]);
         default:
             throw new DukeException("Unknown Command");
         }
