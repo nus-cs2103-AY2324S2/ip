@@ -8,13 +8,17 @@ public class MyList implements Action {
     }
 
     @Override
-    public void response() {
-        System.out.println("  Here are the tasks in your list:");
-        //List<Task> tasks = mylist.getTasks();
+    public String response() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("  Here are the tasks in your list:\n");
+
         for (int i = 0; i < mylist.size(); i++) {
             Task task = mylist.get(i);
-            System.out.println("  " + (i + 1) + ". " + task);
+            stringBuilder.append("  ").append(i + 1).append(". ").append(task).append("\n");
         }
+
+        return stringBuilder.toString();
     }
+
 }
 

@@ -2,5 +2,6 @@ T|O|eat cake
 T|O|drink coffee
 T|O|bake cookies
 D|O|return book|2012-08-08
-E|O|eat chocolate|2023-09-10|2023-09-11
-E|O|project meeting|2023-09-10|2023-09-10
+T|O|borrow book
+D|O|return book|2018-11-15
+T|O|12345

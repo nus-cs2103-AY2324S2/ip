@@ -6,8 +6,9 @@ public class Delete implements Action {
     }
 
     @Override
-    public void response() {
-        System.out.println("Noted. I've removed this task:\n" + deletedTask.toString() + "\nNow you have " +  " tasks in the list.");
+    public String response() {
+        return "Noted. I've removed this task:\n" + deletedTask.toString() + "\nNow you have " +
+            " tasks in the list." ;
     }
 }
 

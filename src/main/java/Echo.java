@@ -5,7 +5,7 @@ public class Echo implements Action {
     }
 
     @Override
-    public void response() {
-        System.out.println("  " + "added: " + stuff);
+    public String response() {
+        return "  " + "added: " + stuff;
     }
 }

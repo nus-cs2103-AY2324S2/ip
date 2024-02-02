@@ -67,7 +67,8 @@ public class CommandParser {
                         LocalDate by = LocalDate.parse(parts[1].trim());
                         Deadline deadline = new Deadline(description, by);
                         taskList.addTask(deadline);
-                        return new Echo("Got it. I've added this task:\n  " + deadline + "\nNow you have " + taskList.size() + " tasks in the list.");
+                        return new Echo("Got it. I've added this task:\n  " + deadline + "\nNow " +
+                                "you have " + taskList.size() + " tasks in the list.");
                     } catch (DateTimeParseException e) {
                         throw new WrongDateFormatException();
                     }

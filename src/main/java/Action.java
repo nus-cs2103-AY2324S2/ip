@@ -1,3 +1,7 @@
 public interface Action {
-    public void response();
+    public String response();
+
+    default boolean isExit() {
+        return false;
+    }
 }

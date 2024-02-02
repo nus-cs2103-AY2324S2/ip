@@ -1,7 +1,11 @@
 public class Farewell implements Action {
     @Override
-    public void response() {
-        System.out.println(" Bye. Hope to see you again soon!");
+    public String response() {
+        return " Bye. Hope to see you again soon!";
+    }
+    @Override
+    public boolean isExit() {
+        return true;
     }
 
 }

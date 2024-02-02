@@ -1,28 +1,39 @@
-import java.util.Scanner;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Duke {
-    public static void main(String[] args) throws FileNotFoundException {
-        Storage storage = new Storage("././data/tasks.txt");
-        TaskList taskList = storage.loadFromFile();
-        Intro hi = new Intro();
-        hi.response();
-        Scanner sc = new Scanner(System.in);
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
 
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
-            while (sc.hasNext()) {
-                String command = sc.nextLine();
+            taskList = storage.loadFromFile();
+        } catch (IOException e) {
+            System.out.println("Sorry " + e.getMessage());
+            ui.showLoadingError();
+            taskList = new TaskList();
+        }
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            String command = ui.getUserInput();
+            try {
                 Action response = CommandParser.parseCommand(command, taskList);
                 storage.writeToFile(taskList);
-                if (command.equals("bye")) {
-                    break;
-                }
+                isExit = response.isExit();
+            } catch (DukeException | IOException e) {
+                ui.showError(e.getMessage());
             }
-        } catch (DukeException | IOException e) {
-            System.out.println("Sorry " + e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+        new Duke("./data/tasks.txt").run();
     }
 }
 
