@@ -1,0 +1,29 @@
+diff a/src/main/java/hirwan/hirwan.java b/src/main/java/hirwan/hirwan.java	(rejected hunks)
+@@ -113,21 +113,18 @@
+                     }
+                 } else if (input == 7) {
+                     try {
+-                        int numberint = Integer.parseInt(text.substring(7)) - 1;
++                        int numberInt = Integer.parseInt(text.substring(7)) - 1;
+                         Ui.output("Noted. I've removed this task:\n"
+-                                + "  " + List.get(numberint).substring(2) + "\n"
+-                                + "Now you have " + (List.size() - 1) + " tasks in the list.");
+-                        List.delete(numberint);
+-                        Storage.writeTask(List.getList());
++                                + "  " + tasks.get(numberInt).substring(2) + "\n"
++                                + "Now you have " + (tasks.size() - 1) + " tasks in the list.");
++                        tasks.delete(numberInt);
++                        Storage.writeTask(tasks.getList());
+                     } catch (IndexOutOfBoundsException e) {
+                         Ui.output("Error: Please enter a valid index for deletion!");
+                     } catch (NumberFormatException e) {
+                         Ui.output("Error: Please enter a numerical index to delete!");
+                     }
+-                } else if (input == 10) {
+-                    List<Integer> indexes = hirwan.searchWord(text.substring(5), List.getList());
+-                    hirwan.printSearchResults(indexes, List.getList());
+-                } else if (input == 9) {
++                } else if (input ==9) {
+                     Ui.output("Error: I am sorry but I do not recognise this command");
+                 }
+             }
