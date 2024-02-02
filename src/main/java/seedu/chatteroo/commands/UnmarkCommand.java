@@ -9,6 +9,11 @@ import seedu.chatteroo.storage.Storage;
  */
 public class UnmarkCommand extends Command {
     private int taskNum;
+
+    /**
+     * Constructor for the UnmarkCommand class.
+     * @param taskNum The task number.
+     */
     public UnmarkCommand(int taskNum) {
         super();
         this.taskNum = taskNum;

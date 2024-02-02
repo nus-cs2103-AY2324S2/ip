@@ -8,6 +8,10 @@ import seedu.chatteroo.storage.Storage;
  * Prints the list of tasks.
  */
 public class PrintCommand extends Command {
+
+    /**
+     * Constructor for the PrintCommand class.
+     */
     public PrintCommand() {
         super();
     }

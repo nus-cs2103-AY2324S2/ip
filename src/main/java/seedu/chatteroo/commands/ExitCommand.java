@@ -8,6 +8,10 @@ import seedu.chatteroo.storage.Storage;
  * Prints the exit message.
  */
 public class ExitCommand extends Command {
+
+    /**
+     * Constructor for the ExitCommand class.
+     */
     public ExitCommand() {
         super();
     }

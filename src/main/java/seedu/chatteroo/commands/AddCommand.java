@@ -10,6 +10,11 @@ import seedu.chatteroo.storage.Storage;
  */
 public class AddCommand extends Command {
     private Task newTask;
+
+    /**
+     * Constructor for the AddCommand class.
+     * @param newTask The task to be added.
+     */
     public AddCommand(Task newTask) {
         this.newTask = newTask;
     }
