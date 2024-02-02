@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import Exceptions.DukeException;
 import Task.Task;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> list;
 
@@ -19,10 +22,21 @@ public class TaskList {
         return this.list;
     }
 
+    /**
+     * Adds a task to this task list.
+     *
+     * @param t the task to be added
+     */
     public void addTask(Task t) {
         this.list.add(t);
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param i the index of the task to be marked
+     * @throws DukeException if task chosen is not found in task list.
+     */
     public void markDone(int i) throws DukeException {
         try {
             Task t = list.get(i - 1);
@@ -32,6 +46,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as undone.
+     *
+     * @param i the index of the task to be marked
+     * @throws DukeException if task chosen is not found in task list.
+     */
     public void undo(int i) throws DukeException {
         try {
             Task t = list.get(i - 1);
@@ -41,6 +61,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task in this task list.
+     *
+     * @param i the index of the task to be deleted
+     * @throws DukeException if task chosen is not found in task list.
+     */
     public void deleteTask(int i) throws DukeException {
         try {
             Task t = list.remove(i - 1);
