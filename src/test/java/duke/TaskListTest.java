@@ -2,7 +2,6 @@ package duke;
 
 import duke.task.Task;
 import duke.task.ToDos;
-import duke.TaskList;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ public class TaskListTest {
      *
      */
     @Test
-    public void addTask_success(){
+    public void addTask_success() {
         TaskList TaskL = new TaskList();
         Task dummyTaskA = new ToDos("first");
         String a = "Got it. I've added this task:\n";
@@ -32,7 +31,7 @@ public class TaskListTest {
      *
      */
     @Test
-    public void getList_success(){
+    public void getList_success() {
         TaskList TaskL = new TaskList();
         ArrayList<Task> expected = new ArrayList<>();
         Task dummyTaskA = new ToDos("first");

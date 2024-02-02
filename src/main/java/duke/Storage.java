@@ -4,7 +4,6 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDos;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,33 +14,33 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private static String path;
-    private static DateTimeFormatter dFormatInp = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm");
-    private static DateTimeFormatter dFormatOut = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-    private static File data;
+    private String path;
+    private static final DateTimeFormatter DATE_FORMAT_INP = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm");
+    private static final DateTimeFormatter DATE_FORMAT_OUT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private File data;
 
-    public Storage(String filePath){
+    public Storage(String filePath) {
         path = filePath;
         data = new File(path);
     }
 
-    public static ArrayList<Task> load() throws FileNotFoundException {
+    public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> taskF = new ArrayList<>();
-        if(data.exists()){
+        if (data.exists()) {
             Scanner sc = new Scanner(data);
-            while (sc.hasNext()){
+            while (sc.hasNext()) {
                 String dt = sc.nextLine();
                 String[] dtl = dt.split("/");
                 switch (dtl[0]) {
-                    case "T":
-                        taskF.add(new ToDos(dtl[1], dtl[2]));
-                        break;
-                    case "D":
-                        taskF.add(new Deadline(dtl[1], dtl[2], LocalDateTime.parse(dtl[3], dFormatInp)));
-                        break;
-                    case "E":
-                        taskF.add(new Event(dtl[1], dtl[2], LocalDateTime.parse(dtl[3],dFormatInp),
-                                LocalDateTime.parse(dtl[4],dFormatInp)));
+                case "T":
+                    taskF.add(new ToDos(dtl[1], dtl[2]));
+                    break;
+                case "D":
+                    taskF.add(new Deadline(dtl[1], dtl[2], LocalDateTime.parse(dtl[3], DATE_FORMAT_INP)));
+                    break;
+                case "E":
+                    taskF.add(new Event(dtl[1], dtl[2], LocalDateTime.parse(dtl[3], DATE_FORMAT_INP),
+                            LocalDateTime.parse(dtl[4], DATE_FORMAT_INP)));
                 }
             }
         } else {
@@ -50,13 +49,13 @@ public class Storage {
         return taskF;
     }
 
-    public static void write(ArrayList<Task> task) throws IOException {
-        FileWriter rf;
-        rf = new FileWriter(path);
-        for(int i = 0; i < task.size(); i++){
-            rf.write(task.get(i).toWrite());
-            rf.write("\n");
+    public void write(ArrayList<Task> tasks) throws IOException {
+        FileWriter rFile;
+        rFile = new FileWriter(path);
+        for (int i = 0; i < tasks.size(); i++) {
+            rFile.write(tasks.get(i).toWrite());
+            rFile.write("\n");
         }
-        rf.close();
+        rFile.close();
     }
 }

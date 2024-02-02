@@ -9,23 +9,23 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() { //method to get the mark status of task
-        return (isDone ? "X" : " "); // mark done task with X
+    public String getStatusIcon() {
+        return (isDone ? "X" : " ");
     }
 
-    public void mark() { //method to mark the status
+    public void setMark() {
         isDone = true;
     }
-    public void unMark() { //method to unmark the status
+    public void setUnMark() {
         isDone = false;
     }
     @Override
-    public String toString(){ //method to get the string representation of task
+    public String toString() {
         String s = "[" + this.getStatusIcon() + "] " + this.description;
         return s;
     }
 
-    public String toWrite(){ //method to get the string representation of task
+    public String toWrite() {
         String s = this.getStatusIcon() + " | " + this.description;
         return s;
     }

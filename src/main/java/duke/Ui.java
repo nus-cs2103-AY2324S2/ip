@@ -5,12 +5,12 @@ import java.util.Scanner;
 public class Ui {
     private static String name = "GanAnWo";
 
-    private static Scanner sc;
+    private Scanner sc;
     public Ui(){
         sc = new Scanner(System.in);
     }
 
-    public void showWelcome(){
+    public void showWelcome() {
         System.out.println("Hello! I'm " + name + "\n"
                 + "What can I do for you?");
     }
