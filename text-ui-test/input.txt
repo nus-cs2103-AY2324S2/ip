@@ -1,7 +1,7 @@
 list
 todo read book
-deadline return book/bySunday
-event math class/from Mon 2pm /to 4pm
+deadline return book/by 12/12/1001 12:12
+event math class/from 12/12/1212 12:12 /to 12/12/1212 12:12
 list
 mark 1
 mark 3

@@ -39,9 +39,8 @@ public class TaskList {
      */
     public String listTasksIntoFile() {
         String tasksString = "";
-        int tasksSize = this.tasks.size();
-        for (int i = 0; i < tasksSize; i++) {
-            tasksString = tasksString + this.tasks.get(i).toString() + System.lineSeparator();
+        for (Task task : this.tasks) {
+            tasksString = tasksString + task.toString() + System.lineSeparator();
         }
         return tasksString;
     }
@@ -88,10 +87,28 @@ public class TaskList {
 
     /**
      * Returns size of the list.
+     *
      * @return Size of the list.
      */
     public int size() {
         return this.tasks.size();
     }
 
+    /**
+     * Finds tasks inside the list that match the keyword.
+     *
+     * @param keyword Keyword to be checked.
+     * @return String representation of the task list that match the keyword.
+     */
+    public String findTasks(String keyword) {
+        String tasksString = "";
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task task = this.tasks.get(i);
+            if (task.matchKeyword(keyword)) {
+                int index = i + 1;
+                tasksString = tasksString + index + ". " + task.toString() + "\n";
+            }
+        }
+        return tasksString;
+    }
 }

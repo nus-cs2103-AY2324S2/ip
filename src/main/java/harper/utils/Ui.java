@@ -46,10 +46,24 @@ public class Ui {
      * @param tasksString task.Task list in string form.
      */
     public void printTasks(String tasksString) {
-        if (tasksString.isBlank()) {
-            System.out.println("\nNothing is in your list\n");
+        if (tasksString.isEmpty()) {
+            System.out.println("\nNothing is in your list :-(\n");
         } else {
             System.out.println("\nHere are the tasks in your list:\n"
+                    + tasksString);
+        }
+    }
+
+    /**
+     * Prints out the matching task list.
+     *
+     * @param tasksString Matching task.Task list in string form.
+     */
+    public void printMatchingTasks(String tasksString) {
+        if (tasksString.isEmpty()) {
+            System.out.println("\nNo matching task is found :-(\n");
+        } else {
+            System.out.println("\nHere are the matching tasks in your list:\n"
                     + tasksString);
         }
     }

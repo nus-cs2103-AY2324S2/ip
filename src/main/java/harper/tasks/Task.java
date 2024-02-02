@@ -40,4 +40,14 @@ public class Task {
         String statusSymbol = this.isDone ? "1" : "0";
         return " | " + statusSymbol + " | " + this.description;
     }
+
+    /**
+     * Checks whether the task description contains the keyword.
+     *
+     * @param keyword Keyword to be checked with the task.
+     * @return Boolean indicates whether it is a match.
+     */
+    public boolean matchKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
 }
