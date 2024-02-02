@@ -9,7 +9,7 @@ enum TaskType {
 
 public class Task {
 
-    private boolean done;
+    private boolean isDone;
     private final String taskName;
     private final TaskType taskType;
     private LocalDateTime startDate;
@@ -23,11 +23,11 @@ public class Task {
      *
      * @param taskName The name of the task.
      * @param taskType The type of the task (T, D, E).
-     * @param done     The completion status of the task.
+     * @param isDone     The completion status of the task.
      */
-    public Task(String taskName, TaskType taskType, Boolean done ) {
+    public Task(String taskName, TaskType taskType, Boolean isDone ) {
         this.taskName = taskName;
-        this.done = done;
+        this.isDone = isDone;
         this.taskType = taskType;
     }
 
@@ -36,12 +36,12 @@ public class Task {
      *
      * @param taskName The name of the task.
      * @param taskType The type of the task (T, D, E).
-     * @param done     The completion status of the task.
+     * @param isDone     The completion status of the task.
      * @param startDate The start date of the task.
      */
-    public Task(String taskName, TaskType taskType, Boolean done, String startDate) {
+    public Task(String taskName, TaskType taskType, Boolean isDone, String startDate) {
         this.taskName = taskName;
-        this.done = done;
+        this.isDone = isDone;
         this.taskType = taskType;
         this.startDate= parseDateTime(startDate);
     }
@@ -51,13 +51,13 @@ public class Task {
      *
      * @param taskName The name of the task.
      * @param taskType The type of the task (T, D, E).
-     * @param done     The completion status of the task.
+     * @param isDone     The completion status of the task.
      * @param startDate The start date of the task.
      * @param endDate The end date of the task.
      */
-    public Task(String taskName, TaskType taskType, Boolean done, String startDate, String endDate) {
+    public Task(String taskName, TaskType taskType, Boolean isDone, String startDate, String endDate) {
         this.taskName = taskName;
-        this.done = done;
+        this.isDone = isDone;
         this.taskType = taskType;
         this.startDate = parseDateTime(startDate);
         this.endDate = parseDateTime(endDate);
@@ -67,14 +67,14 @@ public class Task {
      * Marks the task as done.
      */
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Unmarks the task as done.
      */
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -92,7 +92,7 @@ public class Task {
      * @return The completion status of the task.
      */
     public boolean isDone() {
-        return this.done;
+        return this.isDone;
     }
 
     /**
@@ -156,7 +156,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String status = done ? "[X]" : "[ ]";
+        String status = isDone ? "[X]" : "[ ]";
         switch (taskType) {
             case T:
                 return String.format("[%s]%s %s", taskType, status, taskName);

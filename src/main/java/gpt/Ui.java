@@ -14,6 +14,7 @@ class Ui {
      * Prints the goodbye message.
      */
     public void printGoodbyeMessage() {
+
         System.out.println("ByeBye. Hope to see you soon");
     }
 

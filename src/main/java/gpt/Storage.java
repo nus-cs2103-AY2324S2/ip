@@ -59,21 +59,21 @@ public class Storage {
                 if (taskData.length >= 4) {
                     TaskType type = TaskType.valueOf(taskData[0]);
                     String name = taskData[1];
-                    Boolean done = Integer.parseInt(taskData[2]) == 1;
+                    Boolean isDone = Integer.parseInt(taskData[2]) == 1;
                     String startTime =  taskData[3];
                     String endTime = taskData.length > 4 ? taskData[4] : "";
 
                     switch(type) {
 
                         case T:
-                            loadedTL.addTask(new Task(name, type, done));
+                            loadedTL.addTask(new Task(name, type, isDone));
                             break;
                         case D:
-                            loadedTL.addTask(new Task(name, type, done, startTime));
+                            loadedTL.addTask(new Task(name, type, isDone, startTime));
                             break;
 
                         case E:
-                            loadedTL.addTask(new Task(name, type, done, startTime, endTime));
+                            loadedTL.addTask(new Task(name, type, isDone, startTime, endTime));
                             break;
 
                     }
