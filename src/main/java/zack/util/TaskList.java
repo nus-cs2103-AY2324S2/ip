@@ -1,3 +1,8 @@
+package zack.util;
+
+import zack.ZackException;
+import zack.tasks.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

@@ -1,5 +1,12 @@
+package zack.commands;
+
+import zack.ZackException;
+import zack.tasks.Task;
+import zack.util.Storage;
+import zack.util.TaskList;
+import zack.util.Ui;
+
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class DeleteCommand extends Command {
     private int index;
