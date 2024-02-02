@@ -105,9 +105,9 @@ public class Storage {
                     String[] result = temp.split("\\(by: ");
                     String description  = result[0].trim();
                     String by = result[1].substring(0, result[1].length() - 1);
-                    System.out.println("by " + by);
+/*                    System.out.println("by " + by);
                     System.out.println("by date " + by.substring(0, 11));
-                    System.out.println("by time " + by.substring(12, 17));
+                    System.out.println("by time " + by.substring(12, 17));*/
                     LocalDate date = LocalDate.parse(by.substring(0, 11), dateTimeFormatter);
                     System.out.println("formatted date " + date);
                     LocalTime time = LocalTime.parse(by.substring(12, 17));
@@ -124,11 +124,11 @@ public class Storage {
                     String[] temp2 = temp.split("\\(from: ");
                     String description  = temp2[0];
                     String result = temp2[1];
-                    System.out.println("TEST " + result);
+/*                    System.out.println("TEST " + result);
                     System.out.println("from date " + result.substring(0, 11));
                     System.out.println("from time " + result.substring(12, 17));
                     System.out.println("to date " + result.substring(24, 35));
-                    System.out.println("to time " + result.substring(36, 41));
+                    System.out.println("to time " + result.substring(36, 41));*/
                     LocalDate startDate = LocalDate.parse(result.substring(0, 11), dateTimeFormatter);
                     LocalTime startTime = LocalTime.parse(result.substring(12, 17));
                     LocalDate endDate = LocalDate.parse(result.substring(24, 35), dateTimeFormatter);
