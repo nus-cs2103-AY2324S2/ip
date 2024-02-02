@@ -1,5 +1,4 @@
 package duke;
-
 import exceptions.DukeException;
 import exceptions.TaskNotExistException;
 import model.Deadline;
@@ -15,13 +14,13 @@ import ui.UI;
 public class Duke{
     
     public enum Command {
-        TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, LIST, BYE, UNKNOWN;
-
+        //TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, LIST, BYE, UNKNOWN;
+        Todo, Deadline, Event, Delete, Mark, Unmark, List, Bye, Unknown;
         public static Command fromString(String maybeCommand) {
             try {
                 return Command.valueOf(maybeCommand.toUpperCase());
             } catch (Exception e) {
-                return UNKNOWN;
+                return Unknown;
             }
         }
     }
@@ -49,11 +48,11 @@ public class Duke{
         Command command = Command.fromString(maybeCommand);
 
         switch (command) {
-        case BYE:
+        case Bye:
             ui.formalities("farewell");
             System.exit(0);
             break; //TODO uncessary?
-        case LIST:
+        case List:
             // list tasks
             if (verbose) {
                 ui.showLine();
@@ -67,7 +66,7 @@ public class Duke{
                 ui.showLine();
             }
             break;
-        case MARK:
+        case Mark:
             // mark task as done
             Integer index = Integer.valueOf(arr[1]) - 1;
             Task currTask = todos.get(index);
@@ -79,7 +78,7 @@ public class Duke{
                 storage.updateRecords(taskList);
             }
             break;
-        case UNMARK:
+        case Unmark:
             // mark task as undone
             index = Integer.valueOf(arr[1]) - 1;
             if (verbose) {
@@ -96,7 +95,7 @@ public class Duke{
                 storage.updateRecords(taskList);
             }
             break;
-        case TODO:
+        case Todo:
             if (arr.length == 1) {
                 throw new DukeException(" Nuh uh! The description of a todo cannot be empty.");
             }
@@ -113,7 +112,7 @@ public class Duke{
                 storage.updateRecords(taskList);
             }
             break;
-        case DEADLINE:
+        case Deadline:
             if (arr.length == 1) {
                 throw new DukeException(" Nuh uh! The description of a deadline cannot be empty.\nMake sure to add a deadline after the description with /by too!");
             }
@@ -133,7 +132,7 @@ public class Duke{
                 storage.updateRecords(taskList);
             }
             break;
-        case EVENT:
+        case Event:
             if (arr.length == 4) {
                 throw new DukeException(" Nuh uh! The description of an event cannot be empty.\nMake sure to add a from and to date after the description with /from and /to too!");
             }
@@ -159,7 +158,7 @@ public class Duke{
                 storage.updateRecords(taskList);
             }
             break;
-        case DELETE:
+        case Delete:
             if (arr.length == 1) {
                 throw new DukeException(" Nuh uh! Which task to delete? \nMake sure to add the task number!");
             }
@@ -196,8 +195,8 @@ public class Duke{
     private static Storage storage;
 
     /**
-     * Constructor
-     * @param filePath
+     * Constructor of Duke
+     * @param filePath file storage location to save and retrieve list of tasks
      */
     public Duke(String filePath) {
         ui = new UI();
@@ -226,6 +225,7 @@ public class Duke{
         while (true) {
             //Parsing user input.
            String command = new Parser().parse();
+
             //Process user command
             try {
                 processCommand(command, taskList, true);
