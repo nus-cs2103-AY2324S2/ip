@@ -157,11 +157,8 @@ public class Duke {
                         output.add(indent + item);
                         output.add(manager.numOfTask());
                     } else if (next.contains("update")) {
-                        //for debugging purposes
                         System.out.println(manager.getUpdate());
                     } else {
-                        //At this point this doest not really makes sense but will still be here
-                        //For error handling here
                         throw new DukeException("invalid");
                     }
                 }
