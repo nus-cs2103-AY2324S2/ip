@@ -1,4 +1,4 @@
-package Quacky;
+package quacky;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,19 +15,22 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
-    public void addTask(Task task){
+    public void addTask(Task task) {
         tasks.add(task);
     }
+
     /*
     This method prints a given task at position i
      */
-    public String printTask(int i){
+    public String printTask(int i) {
         Task task = tasks.get(i);
         return task.toString();
     }
+
     public int taskNumber() {
         return tasks.size();
     }
+
     public void markCompleteTask(int i) throws QuackyException {
         try {
             Task task = tasks.get(i);
@@ -36,17 +39,20 @@ public class TaskList {
             throw new QuackyException("Quack. The task is not found");
         }
     }
-    public void unmarkCompleteTask (int i){
+
+    public void unmarkCompleteTask(int i) {
         Task task = tasks.get(i);
         task.unmarkDone();
     }
-    public void deleteTask(int i){
+
+    public void deleteTask(int i) {
         tasks.remove(i);
     }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < tasks.size();i++){
+        for (int i = 0; i < tasks.size(); i++) {
             sb.append(i + 1)
                     .append(". ")
                     .append(tasks.get(i).toString())
@@ -58,7 +64,7 @@ public class TaskList {
 
     protected String printSimplified() {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             sb.append(tasks.get(i).toFileString()).append("\n");
         }
 
@@ -66,6 +72,7 @@ public class TaskList {
         return simplifiedString;
 
     }
+
     protected void writeToFile(String filePath) throws IOException {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
@@ -94,15 +101,15 @@ public class TaskList {
                 Task task = null;
 
                 switch (parts[0]) {
-                    case "E":
-                        task = new Event(parts[2], LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
-                        break;
-                    case "D":
-                        task = new Deadline(parts[2], LocalDate.parse(parts[3]));
-                        break;
-                    case "T":
-                        task = new Todo(parts[2]);
-                        break;
+                case "E":
+                    task = new Event(parts[2], LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
+                    break;
+                case "D":
+                    task = new Deadline(parts[2], LocalDate.parse(parts[3]));
+                    break;
+                case "T":
+                    task = new Todo(parts[2]);
+                    break;
                 }
 
                 if (task != null) {

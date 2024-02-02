@@ -1,11 +1,10 @@
-package Quacky;
+package quacky;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.BufferedWriter;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -16,11 +15,14 @@ import java.io.FileNotFoundException;
  * adapted from:https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/storage/StorageFile.java
  */
 public class Storage {
-    /** Default file path used if the user doesn't provide the file name. */
+    /**
+     * Default file path used if the user doesn't provide the file name.
+     */
     public static final String DEFAULT_STORAGE_FILEPATH = "./data.txt";
     public final File file;
 
     public final Path path;
+
     /**
      * @throws InvalidStorageFilePathException if the default path is invalid
      */
@@ -75,15 +77,15 @@ public class Storage {
                 Task task = null;
 
                 switch (parts[0]) {
-                    case "E":
-                        task = new Event(parts[2], LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
-                        break;
-                    case "D":
-                        task = new Deadline(parts[2], LocalDate.parse(parts[3]));
-                        break;
-                    case "T":
-                        task = new Todo(parts[2]);
-                        break;
+                case "E":
+                    task = new Event(parts[2], LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
+                    break;
+                case "D":
+                    task = new Deadline(parts[2], LocalDate.parse(parts[3]));
+                    break;
+                case "T":
+                    task = new Todo(parts[2]);
+                    break;
                 }
                 if (task != null) {
                     if (parts[1].equals("0")) {
@@ -96,7 +98,7 @@ public class Storage {
             return tasks;
         } catch (FileNotFoundException fnfe) {
             return tasks;
-        }  catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new StorageOperationException("Error writing to file: " + path);
         }
 

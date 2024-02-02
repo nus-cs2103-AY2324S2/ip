@@ -1,4 +1,5 @@
-package Quacky;
+package quacky;
+
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

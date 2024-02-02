@@ -1,4 +1,4 @@
-package Quacky;
+package quacky;
 
 public class Todo extends Task {
     public Todo(String description) {

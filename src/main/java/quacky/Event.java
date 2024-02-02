@@ -1,13 +1,14 @@
-package Quacky;
+package quacky;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task{
+public class Event extends Task {
     protected LocalDate from;
     protected String stringFrom;
     protected LocalDate to;
     protected String stringTo;
+
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;

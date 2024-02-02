@@ -1,11 +1,9 @@
-package Quacky;
+package quacky;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.FormatStyle;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected LocalDate by;
     protected String stringBy;
 
@@ -22,6 +20,6 @@ public class Deadline extends Task{
 
     @Override
     protected String toFileString() {
-        return "D | " + super.toFileString() + " | " + this.by ;
+        return "D | " + super.toFileString() + " | " + this.by;
     }
 }

@@ -1,4 +1,4 @@
-package Quacky;
+package quacky;
 
 /**
  * The main class for the Quacky application.
@@ -25,11 +25,11 @@ public class Quacky {
             tasks = storage.load();
         } catch (Storage.InvalidStorageFilePathException e) {
             System.out.println(e.getMessage());
-        }
-        catch (Storage.StorageOperationException e) {
+        } catch (Storage.StorageOperationException e) {
             System.out.println(e.getMessage());
         }
     }
+
     /**
      * Starts the main application loop, processing user commands until termination.
      * Handles command parsing, execution, and any resulting exceptions.
