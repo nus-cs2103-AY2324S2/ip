@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class Task {
@@ -66,12 +67,11 @@ class Event extends Task {
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task[] task = new Task[100];
-        int count = 0;
-
+        ArrayList<Task> tasks = new ArrayList<>();
+        
         System.out.println("Hello! I'm Bentley\n" + "What can I do for you?\n");
 
-        while (count < 100) {
+        while (true) {
             try {
                 String userInput = scanner.nextLine();
 
@@ -80,8 +80,8 @@ public class Duke {
                     break;
                 } else if (userInput.equals("List")) {
 
-                    for (int i = 0; i < count; i++) {
-                        System.out.println((i + 1) + ". " + task[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + ". " + tasks.get(i));
                     }
 
                 } else if (userInput.startsWith("todo")) {
@@ -92,12 +92,11 @@ public class Duke {
                     if (description.isEmpty()) {
                         throw new IllegalArgumentException("looks like the description is missing");
                     }
-                    task[count] = new Todo(userInput.substring(5));
+                    tasks.add(new Todo(description));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + task[count]);
-                    System.out.println("Now you have " + (count + 1) + " tasks in the list.");
-                    count++;
-
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                
                 } else if (userInput.startsWith("deadline")) {
                     if (userInput.length() <= 9) {
                         throw new IllegalArgumentException("looks like something is missing (description/ Deadline)");
@@ -108,11 +107,10 @@ public class Duke {
                     if (description.isEmpty() || by.isEmpty()) {
                         throw new IllegalArgumentException("looks like something is missing (description/ Deadline)");
                     }
-                    task[count] = new Deadline(parts[0].trim(), parts[1].trim());
+                    tasks.add(new Deadline(description, by));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + task[count]);
-                    System.out.println("Now you have " + (count + 1) + " tasks in the list.");
-                    count++;
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                 } else if (userInput.startsWith("event")) {
                     if (userInput.length() <= 6) {
@@ -127,28 +125,38 @@ public class Duke {
                         throw new IllegalArgumentException(
                                 "looks like something is missing (description/ start date/ end date)");
                     }
-                    task[count] = new Event(parts[0].trim(), eventParts[0].trim(), eventParts[1].trim());
+                    tasks.add(new Event(description, from, to));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + task[count]);
-                    System.out.println("Now you have " + (count + 1) + " tasks in the list.");
-                    count++;
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
                 } else if (userInput.startsWith("mark")) {
                     System.out.println(" Nice! I've marked this task as done:");
                     int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-                    task[taskNumber - 1].markAsDone();
+                    tasks.get(taskNumber - 1).markAsDone();
 
-                    for (int i = 0; i < count; i++) {
-                        System.out.println((i + 1) + ". " + task[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + ". " + tasks.get(i));
                     }
 
                 } else if (userInput.startsWith("unmark")) {
                     System.out.println(" OK, I've marked this task as not done yet:");
                     int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-                    task[taskNumber - 1].markAsUndone();
+                    tasks.get(taskNumber - 1).markAsUndone();
 
-                    for (int i = 0; i < count; i++) {
-                        System.out.println((i + 1) + ". " + task[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + ". " + tasks.get(i));
+                    }
+
+                } else if (userInput.startsWith("delete")) {
+                    int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+                    if (taskNumber > 0 && taskNumber <= tasks.size()) {
+                        Task removedTask = tasks.remove(taskNumber - 1);
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println("  " + removedTask);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    } else {
+                        System.out.println("Invalid task number. Please provide a valid task number.");
                     }
 
                 } else {
