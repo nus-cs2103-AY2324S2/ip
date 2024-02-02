@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class FileHandler {
+public class Storage {
     ArrayList<String> listStates= new ArrayList<>();
     private static String listFilePath = "./data/duke.txt";
     public ArrayList<Task> loadTasks(){

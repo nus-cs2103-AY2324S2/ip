@@ -1,15 +1,16 @@
-import java.util.ArrayList;
-public class OutputMessage {
-    private final String name;
-    public OutputMessage(String name){
-        this.name = name;
-    }
+public class Ui {
+    private String logo = "\t  __   __    ____  ____  ____  ____\n"
+            + "\t / _\\ (  )  (  __)(  _ \\(  __)(    \\\n"
+            + "\t/    \\/ (_/\\ ) _)  )   / ) _)  ) D (\n"
+            + "\t\\_/\\_/\\____/(__)  (__\\_)(____)(____/\n";
+    private final String name = "Alfred";
     private static void printMessageWithLines(String content){
         System.out.println("\t____________________________________________________________");
         System.out.println("\t" + content);
         System.out.println("\t____________________________________________________________\n" );
     }
     public void greet(){
+        System.out.println(logo);
         String message = "Greetings! I am " + name + "." +"\n\tHow may I be of service to you today?";
         printMessageWithLines(message);
     }
@@ -56,6 +57,10 @@ public class OutputMessage {
             String message = "I would like to inform you that the task list is empty.";
             printMessageWithLines(message);
         }
+    }
+    public static void informItemRemoved(Task task, int size){
+        String message = "I acknowledge your update. The specified task has been duly removed:\n" + task + "Currently, " +
+                "the list comprises  " + size + " tasks.";
     }
 
 }

@@ -1,7 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Scanner;
+
 public class Parser {
     public enum Cmd{
         list, todo, deadline, event, mark, unmark, delete, bye, none;
@@ -38,7 +38,7 @@ public class Parser {
         try {
             switch (Cmd.valueOf(cmds[0])) {
                 case bye:
-                    command = new Bye(Cmd.bye);
+                    command = new ByeCommand(Cmd.bye);
                     break;
                 case list:
                     command = new ListTask(Cmd.list);
@@ -68,7 +68,7 @@ public class Parser {
                     break;
             }
         }catch (IllegalArgumentException e){
-            OutputMessage.informInvalidCommand();
+            Ui.informInvalidCommand();
         }
         return command;
     }
