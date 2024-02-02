@@ -1,11 +1,14 @@
 package tasks;
 
 import exceptions.tasks.EmptyDescriptionException;
-import tasks.Task;
 
 public class Todo extends Task {
     public Todo(String description) throws EmptyDescriptionException {
         super(description);
+    }
+
+    public Todo(String description, boolean isDone) throws EmptyDescriptionException {
+        super(description, isDone);
     }
 
     @Override

@@ -11,6 +11,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) throws EmptyDescriptionException {
+        this.setDescription(description);
+        this.isDone = isDone;
+    }
+
     public String getDescription() {
         return this.description;
     }
@@ -24,6 +29,10 @@ public abstract class Task {
             throw new EmptyDescriptionException();
         }
         this.description = description;
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
     public void mark() {
