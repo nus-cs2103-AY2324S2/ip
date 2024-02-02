@@ -243,6 +243,33 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks in the task list that contain the specified keyword in their description.
+     *
+     * @param input The keyword to search for in task descriptions.
+     */
+    public void findTasks(String input) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(input.substring(5)
+                    .toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("____________________________________________________________");
+            System.out.println(" Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + ". " + matchingTasks.get(i));
+            }
+            System.out.println("____________________________________________________________");
+        }
+    }
+
+    /**
      * Gets the list of tasks.
      *
      * @return The list of tasks.

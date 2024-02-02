@@ -45,6 +45,11 @@ public enum Command {
     DELETE,
 
     /**
+     * Command to find a task.
+     */
+    FIND,
+
+    /**
      * Unknown or unsupported command.
      */
     UNKNOWN

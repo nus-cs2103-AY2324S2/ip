@@ -86,6 +86,9 @@ public class BotChat {
         case DELETE:
             tasks.deleteTask(input);
             break;
+        case FIND:
+            tasks.findTasks(input);
+            break;
         case UNKNOWN:
             throw new BotChatException("Sorry, I do not understand that command. Please try again.");
         }
