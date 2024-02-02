@@ -8,13 +8,27 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Storage class handles the saving and loading of tasks from a file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath The path to the data file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the tasks to the data file.
+     *
+     * @param tasks The TaskList containing tasks to be saved.
+     * @throws IOException If an error occurs while saving the file.
+     */
     public void saveTasksToFile(TaskList tasks) throws IOException {
         Path filePath = Paths.get(this.filePath);
 
@@ -28,6 +42,13 @@ public class Storage {
         Files.write(filePath, encodedTasks);
     }
 
+    /**
+     * Loads tasks from the data file.
+     *
+     * @return The loaded TaskList.
+     * @throws IOException              If an error occurs while reading the file.
+     * @throws DukeDataCorruptedException If the data file is corrupted.
+     */
     public TaskList loadTasksFromFile() throws IOException, DukeDataCorruptedException {
         Path filePath = Paths.get(this.filePath);
 
@@ -55,6 +76,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Ensures that the data file exists; if not, it creates the file.
+     *
+     * @throws IOException If an error occurs while creating the file.
+     */
     public void ensureDataFileExists() throws IOException {
         Path filePath = Paths.get(this.filePath);
 
@@ -71,8 +97,16 @@ public class Storage {
     }
 }
 
-
+/**
+ * The TaskListEncoder class encodes a list of tasks into a format suitable for saving to a file.
+ */
 class TaskListEncoder {
+    /**
+     * Encodes a list of tasks into a list of strings.
+     *
+     * @param tasks The list of tasks to encode.
+     * @return The encoded list of strings.
+     */
     public static List<String> encode(List<Task> tasks) {
         List<String> encodedTasks = new ArrayList<>();
         for (Task task : tasks) {
@@ -100,7 +134,17 @@ class TaskListEncoder {
     }
 }
 
+/**
+ * The TaskListDecoder class decodes a list of strings from a file into a list of tasks.
+ */
 class TaskListDecoder {
+    /**
+     * Decodes a list of strings into a list of tasks.
+     *
+     * @param lines The list of strings to decode.
+     * @return The decoded list of tasks.
+     * @throws DukeDataCorruptedException If the data file is corrupted.
+     */
     public static List<Task> decode(List<String> lines) throws DukeDataCorruptedException {
         List<Task> decodedTasks = new ArrayList<>();
         try {

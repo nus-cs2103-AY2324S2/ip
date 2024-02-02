@@ -65,16 +65,16 @@ public class Duke {
     }
 }
 
-class DukeException extends Exception {
-    public DukeException(String message) {
-        super(message);
-    }
-}
 class DukeDataCorruptedException extends Exception {
     public DukeDataCorruptedException(String message) {
         super(message);
     }
 }
 
+class DukeException extends Exception {
+    public DukeException(String message) {
+        super(message);
+    }
+}
 
 
