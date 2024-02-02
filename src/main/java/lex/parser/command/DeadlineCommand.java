@@ -6,11 +6,21 @@ import lex.ui.Ui;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a command to add a deadline task.
+ */
 public class DeadlineCommand implements Command {
     private final String[] inputs;
     private final TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructor for DeadlineCommand.
+     *
+     * @param inputs The user input.
+     * @param tasks The list of tasks.
+     * @param ui The user interface.
+     */
     public DeadlineCommand(String[] inputs, TaskList tasks, Ui ui) {
         this.inputs = inputs;
         this.tasks = tasks;
