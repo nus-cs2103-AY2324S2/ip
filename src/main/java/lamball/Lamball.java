@@ -58,6 +58,8 @@ public class Lamball {
                 isActive = tasks.runComd(comd, false);
                 if (!isActive) {
                     ui.goodbyeMessage();
+                } else {
+                    ui.displayAction(tasks.lastDoneTask);
                 }
             } catch (LamballParseException e) {
                 ui.displayError(e);

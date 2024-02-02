@@ -18,6 +18,8 @@ public class TaskList {
     private final String INDENT = "    ____________________________________________________________\n";
     protected ArrayList<Task> tasks;
 
+    String lastDoneTask;
+
 
     /**
      * Constructor for TaskList
@@ -25,15 +27,15 @@ public class TaskList {
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
+        this.lastDoneTask = "";
     }
 
-    public void printList() {
-        System.out.println(INDENT);
-        System.out.println("    Here aaaaare the taaaasks in your list:");
-        for(int i = 0; i < tasks.size(); i++) {
-            System.out.println("    " + (i + 1) + ". " + tasks.get(i).toString() + "");
+    private void printList(ArrayList<Task> lst) {
+        String listStr = "    Here aaaaare the taaaasks in your list:";
+        for(int i = 0; i < lst.size(); i++) {
+            listStr += "\n    " + (i + 1) + ". " + lst.get(i).toString() + "";
         }
-        System.out.println(INDENT);
+        lastDoneTask = listStr;
     }
 
     private boolean mark(String[] parts, boolean isInit) throws LamballParseException {
@@ -44,9 +46,7 @@ public class TaskList {
         }
         Task temp = tasks.get(idx);
         temp.mark();
-        if (!isInit) {
-            Ui.displayAction("I have maaarked the task as done:\n" + "    " + temp.toString());
-        }
+        lastDoneTask = "I have maaarked the task as done:\n" + "    " + temp.toString();
         if (!isInit) {
             Storage.replaceLine("1 | " + temp.command(), idx);
         }
@@ -61,7 +61,7 @@ public class TaskList {
         }
         Task temp = tasks.get(idx);
         temp.unMark();
-        Ui.displayAction("I have maaarked the task as undone:\n" + "    " + temp.toString());
+        lastDoneTask = "I have maaarked the task as undone:\n" + "    " + temp.toString();
         Storage.replaceLine("0 | " + temp.command(), idx);
         return true;
     }
@@ -69,9 +69,9 @@ public class TaskList {
     private boolean toDo(String[] parts, boolean isInit) throws LamballParseException {
         Task temp = new ToDo(parts[1]);
         tasks.add(temp);
+        lastDoneTask = "Added ToDo:\n        " + temp.toString() + "\n    Now you have " + tasks.size()
+                + " tasks in the list.";
         if (!isInit) {
-            Ui.displayAction("Added ToDo:\n        " + temp.toString() + "\n    Now you have " + tasks.size()
-                    + " tasks in the list.");
             Storage.writeToFile("0 | " + temp.command());
         }
         return true;
@@ -86,11 +86,10 @@ public class TaskList {
         try {
             Task temp = new Deadline(furtherSplit[0], furtherSplit[1].replaceFirst("by ", ""));
             tasks.add(temp);
+            lastDoneTask = "Added Deadline:\n        " + temp.toString() + "\n    Now you have " +
+                    tasks.size() + " tasks in the list.";
             if (!isInit) {
-                Ui.displayAction("Added Deadline:\n        " + temp.toString() + "\n    Now you have " +
-                        tasks.size() + " tasks in the list.");
                 Storage.writeToFile("0 | " + temp.command());
-
             }
             return true;
         } catch (DateTimeParseException e) {
@@ -110,9 +109,9 @@ public class TaskList {
             Task temp = new Event(furtherSplit[0], furtherSplit[1].replaceFirst("from ", ""),
                     furtherSplit[2].replaceFirst("to ", ""));
             tasks.add(temp);
+            lastDoneTask = "Added Event:\n        " + temp.toString() + "\n    Now you have "
+                    + tasks.size() + " tasks in the list.";
             if (!isInit) {
-                Ui.displayAction("Added Event:\n        " + temp.toString() + "\n    Now you have "
-                        + tasks.size() + " tasks in the list.");
                 Storage.writeToFile("0 | " + temp.command());
             }
             return true;
@@ -130,24 +129,19 @@ public class TaskList {
         }
         Task temp = tasks.remove(idx);
         Storage.deleteLine(idx);
-        Ui.displayAction("I have removed this taaask:\n" + "        " + temp.toString() + "\n    Now you have "
-                + tasks.size() + " tasks in the list.");
+        lastDoneTask = "I have removed this taaask:\n" + "        " + temp.toString() + "\n    Now you have "
+                + tasks.size() + " tasks in the list.";
         return true;
     }
 
     private boolean find(String[] parts) throws LamballParseException {
-        String message = "Here aaaaare the taaaasks in your list:\n";
-        int count = 1;
-
-        for(int i = 0; i < tasks.size(); i++) {
-            Task temp = tasks.get(i);
+        ArrayList<Task> positives = new ArrayList<>();
+        for (Task temp : tasks) {
             if (temp.containing(parts[1])) {
-                message += "    " + count + "." +temp.toString() + "\n";
-                count++;
+                positives.add(temp);
             }
         }
-
-        Ui.displayAction(message);
+        printList(positives);
         return true;
     }
 
@@ -173,7 +167,7 @@ public class TaskList {
                 return false;
             }
             case "list": {
-                printList();
+                printList(this.tasks);
                 return true;
             }
             case "todo": {

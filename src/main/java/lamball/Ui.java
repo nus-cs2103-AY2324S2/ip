@@ -56,7 +56,7 @@ public class Ui {
      *
      * @param msg Action that was performed.
      */
-    public static void displayAction(String msg) {
+    public void displayAction(String msg) {
         System.out.println(INDENT + "    " + msg + "\n" + INDENT);
     }
 }
