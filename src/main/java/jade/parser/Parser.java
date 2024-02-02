@@ -108,6 +108,9 @@ public class Parser {
             case "delete":
                 checkEmptyDescription(commands, 2);
                 return new DeleteCommand(parseInt(commands[1]));
+            case "find":
+                checkEmptyDescription(commands, 2);
+                return new FindCommand(concatDescription(commands, "", ""));
             case "bye":
                 checkEmptyDescription(commands, 1);
                 return new ExitCommand();

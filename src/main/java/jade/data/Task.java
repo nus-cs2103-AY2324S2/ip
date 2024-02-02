@@ -68,6 +68,10 @@ public class Task {
         return String.format("T | %s | %s\n", statusFormatter(), description);
     }
 
+    public boolean containsKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s",this.getStatusIcon(),  this.description);
