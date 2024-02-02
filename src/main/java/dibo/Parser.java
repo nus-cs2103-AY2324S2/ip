@@ -4,15 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import dibo.command.AddDeadlineCommand;
-import dibo.command.AddEventCommand;
-import dibo.command.AddToDoCommand;
-import dibo.command.ByeCommand;
-import dibo.command.Command;
-import dibo.command.DeleteCommand;
-import dibo.command.ListCommand;
-import dibo.command.MarkCommand;
-import dibo.command.UnmarkCommand;
+import dibo.command.*;
 import dibo.exception.DiboException;
 
 /**
@@ -57,17 +49,23 @@ public class Parser {
                 throw new DiboException("Oh no sir! You have to delete the items based on their index."
                         + "If you are not sure of the index, enter 'list' to check it out :D");
             }
+        case "find":
+            if (!hasDescription(fullCommand)) {
+                throw new DiboException("Oh no sir! We need a keyword to search.");
+            }
+            String keyword = commandDetails[1];
+            return new FindCommand(keyword);
         case "bye":
             return new ByeCommand();
         case "todo":
-            if (commandDetails.length < 2) {
+            if (!hasDescription(fullCommand)) {
                 throw new DiboException("Oh no sir! We need a description for your task. "
                         + "This will enable us to better keep track of your tasks.");
             }
             String descriptionToDo = getDescription(fullCommand, "todo");
             return new AddToDoCommand(descriptionToDo);
         case "deadline":
-            if (commandDetails.length < 2) {
+            if (!hasDescription(fullCommand)) {
                 throw new DiboException("Oh no sir! We need a description for your task. "
                         + "This will enable us to better keep track of your tasks.");
             }
@@ -83,7 +81,7 @@ public class Parser {
                         + "in this format: yyyy-mm-dd");
             }
         case "event":
-            if (commandDetails.length < 2) {
+            if (!hasDescription(fullCommand)) {
                 throw new DiboException("Oh no sir! We need a description for your task. "
                         + "This will enable us to better keep track of your tasks.");
             }
@@ -101,6 +99,12 @@ public class Parser {
         default:
             throw new DiboException("Oh no sir! There is no such task type :(");
         }
+    }
+
+    private static boolean hasDescription(String fullCommand) {
+        String[] details = fullCommand.split("/");
+        String[] typeAndDescription = details[0].split(" ");
+        return typeAndDescription.length == 2;
     }
 
     private static String getDescription(String fullCommand, String type) {

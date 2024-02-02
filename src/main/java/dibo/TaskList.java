@@ -2,6 +2,7 @@ package dibo;
 
 import java.util.ArrayList;
 
+import dibo.exception.DiboException;
 import dibo.task.Task;
 
 /**
@@ -58,6 +59,31 @@ public class TaskList {
             Task task = storage.get(i);
             list.append(task.getSaveFormat());
             list.append("\n");
+        }
+        return list.toString();
+    }
+
+    /**
+     * Returns the string representation of the tasks with the specified keyword.
+     *
+     * @return The string representation of the tasks with the specified keyword.
+     * @throws DiboException if there is no such task with the specified keyword.
+     */
+    public String getTasksWithKeyword(String keyword) throws DiboException {
+        StringBuilder list = new StringBuilder();
+        int taskCount = 0;
+        for (int i = 0; i < count; ++i) {
+            Task task = storage.get(i);
+            if (task.hasKeyword(keyword)) {
+                taskCount++;
+                list.append(taskCount);
+                list.append(".");
+                list.append(task.toString());
+                list.append("\n");
+            }
+        }
+        if (taskCount == 0) {
+            throw new DiboException("Oh no sir! We cannot find any task with the specified keyword :(");
         }
         return list.toString();
     }

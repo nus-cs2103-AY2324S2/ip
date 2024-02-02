@@ -56,6 +56,13 @@ public class Ui {
         showSeparator();
     }
 
+    public void showFound(String taskWithKeyword) {
+        showSeparator();
+        System.out.println("Good news sir! We've found the tasks in your list:");
+        System.out.println(taskWithKeyword);
+        showSeparator();
+    }
+
     public void showError(String errorMessage) {
         System.out.println(errorMessage);
     }

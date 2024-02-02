@@ -28,7 +28,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String outputByString = this.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        return "[D]" + outputByString + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + outputByString + ")";
     }
 
     /**
