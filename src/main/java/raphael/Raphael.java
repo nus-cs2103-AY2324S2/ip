@@ -1,11 +1,11 @@
-package duke;
-import duke.parser.Parser;
-import duke.storage.Storage;
-import duke.task.TaskList;
-import duke.ui.Ui;
-import duke.exception.DukeException;
-import duke.command.Command;
-public class Duke {
+package raphael;
+import raphael.parser.Parser;
+import raphael.storage.Storage;
+import raphael.task.TaskList;
+import raphael.ui.Ui;
+import raphael.exception.DukeException;
+import raphael.command.Command;
+public class Raphael {
     public static final String LOGO = "\n"
             + "  _____                _                   _\n"
             + " |  __ \\              | |                 | |\n"
@@ -15,11 +15,11 @@ public class Duke {
             + " |_|  \\_\\\\__,_|| .__/ |_| |_| \\__,_| \\___||_|\n"
             + "               | |\n"
             + "               |_|\n";
-    public static final String BOT_NAME = "Raphael";
+    public static final String BOT_NAME = "raphael";
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
-    public Duke(String filePath) {
+    public Raphael(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
@@ -47,6 +47,6 @@ public class Duke {
         }
     }
     public static void main(String[] args) {
-        new Duke("./data/tasks.txt").run();
+        new Raphael("./data/tasks.txt").run();
     }
 }

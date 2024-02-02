@@ -1,8 +1,8 @@
-package duke.command;
-import duke.task.TaskList;
-import duke.ui.Ui;
-import duke.storage.Storage;
-import duke.exception.DukeException;public class EditCommand extends Command {
+package raphael.command;
+import raphael.task.TaskList;
+import raphael.ui.Ui;
+import raphael.storage.Storage;
+import raphael.exception.DukeException;public class EditCommand extends Command {
     private final int idx;
     private final boolean isCheck;
     public EditCommand(int idx, boolean isCheck) {

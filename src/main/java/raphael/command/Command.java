@@ -1,9 +1,9 @@
-package duke.command;
+package raphael.command;
 
-import duke.task.TaskList;
-import duke.ui.Ui;
-import duke.storage.Storage;
-import duke.exception.DukeException;
+import raphael.task.TaskList;
+import raphael.ui.Ui;
+import raphael.storage.Storage;
+import raphael.exception.DukeException;
 public abstract class Command {
     public static enum TYPE {
         CHECK,

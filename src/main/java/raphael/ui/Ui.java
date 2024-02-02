@@ -1,8 +1,7 @@
-package duke.ui;
+package raphael.ui;
 import java.util.Scanner;
-import duke.task.TaskList;
-import duke.Duke;
-import duke.task.Task;
+import raphael.task.TaskList;
+import raphael.task.Task;
 public class Ui {
     private static final String START_LINE = "----------------"
             + "------------[Rep"
@@ -41,8 +40,8 @@ public class Ui {
         System.out.println("Failed to load task list!");
     }
     public void showWelcome() {
-        System.out.println(Duke.LOGO);
-        System.out.printf("Hi! I am %s, how can I help you?\n", Duke.BOT_NAME);
+        System.out.println(raphael.Raphael.LOGO);
+        System.out.printf("Hi! I am %s, how can I help you?\n", raphael.Raphael.BOT_NAME);
     }
     public void showAddOutput(TaskList tasks, Task task) {
         System.out.printf("Roger that! I have added the following task into your list:\n" +
