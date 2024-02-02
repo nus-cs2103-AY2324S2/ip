@@ -150,7 +150,7 @@ public class Ui {
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toList());
 
-        // Display the matching tasks
+        // Display the matching tasks according to keyword
         for (int i = 0; i < matchingTasks.size(); i++) {
             System.out.println(" " + (i + 1) + "." + matchingTasks.get(i));
         }
