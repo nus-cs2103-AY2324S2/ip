@@ -1,55 +1,42 @@
-import java.util.ArrayList;
-
-public class Storage <T extends FileFormattable> implements FileFormattable {
-    private final ArrayList<T> storage;
-
-    public Storage() {
-        this.storage = new ArrayList<T>();
-    }
-
-    public void storeItem(T item) {
-        this.storage.add(item);
-    }
-    public T getItem(int idx) {
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+public class Storage {
+    private final Path filePath;
+    public Storage(String filePath) {
+        this.filePath = Paths.get(filePath);
         try {
-            return this.storage.get(idx);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
+            Files.createDirectories(this.filePath.getParent());
+            Files.createFile(this.filePath);
+        } catch (IOException e) {
+//            throw new DukeException(DukeException.CONNECT_FILE_EXCEPTION);
         }
     }
-    public int deleteItem(int idx) {
-        if (idx < 0 || idx >= this.storage.size()) {
-            return -1;
-        } else {
-            this.storage.remove(idx);
-            return 0;
-        }
-    }
-    public int getSize() {
-        return this.storage.size();
-    }
-    public void dueBy(String date) {
-        for(T item : this.storage) {
-            if (item instanceof Deadline) {
-                ((Deadline) item).isDueBy(date);
+    public String load() throws DukeException {
+        try {
+            BufferedReader br = Files.newBufferedReader(this.filePath);
+            String line;
+            StringBuilder tasks = new StringBuilder();
+            while((line = br.readLine()) != null && !line.equals("\n")) {
+                tasks.append(line).append("\n");
             }
+            br.close();
+            return tasks.toString();
+        } catch (IOException e) {
+            throw new DukeException(DukeException.READ_IO_EXCEPTION);
         }
-    }
-    @Override
-    public String toString() {
-        String res = "";
-        for(int i = 0; i < this.storage.size(); ++i) {
-            res = String.format("%s\n%d. %s", res, i + 1, this.storage.get(i).toString());
-        }
-        return res;
     }
 
-    @Override
-    public String toFileFormat() {
-        String res = "";
-        for (T item : this.storage) {
-            res = String.format("%s\n%s", res, item.toFileFormat());
+    public void write(String content) throws DukeException {
+        try {
+            BufferedWriter bw = Files.newBufferedWriter(this.filePath);
+            bw.write(content);
+            bw.close();
+        } catch (IOException e) {
+            throw new DukeException(DukeException.WRITE_IO_EXCEPTION);
         }
-        return res;
     }
 }

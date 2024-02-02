@@ -11,6 +11,6 @@ public class Todo extends Task {
     }
     @Override
     public String toFileFormat() {
-        return String.format("T %s", super.toFileFormat());
+        return String.format("T |&| %s", super.toFileFormat());
     }
 }

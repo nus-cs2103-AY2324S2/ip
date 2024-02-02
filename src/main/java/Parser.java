@@ -7,6 +7,81 @@ import java.time.format.DateTimeFormatter;
 public class Parser {
     private static final Pattern datePattern = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static Command parse(String input) throws DukeException {
+        if (input.isEmpty()) {
+            throw new DukeException("The command can't be empty!");
+        }
+        final String[] inputArr = input.split(" ", 2);
+        switch(inputArr[0]) {
+            case "bye":
+                return new ExitCommand();
+            case "todo":
+                if (inputArr.length == 1 || (inputArr[1] = inputArr[1].trim()).isEmpty()) {
+                    throw new DukeException(DukeException.invalidFormat("TODO"));
+                }
+                Task toDo = new Todo(inputArr[1]);
+                return new AddCommand(toDo);
+            case "deadline":
+                if (inputArr.length == 1 || (inputArr[1] = inputArr[1].trim()).isEmpty()) {
+                    throw new DukeException(DukeException.invalidFormat("DEADLINE"));
+                }
+                final String[] descriptionDeadline = inputArr[1].split("/by ");
+                if (descriptionDeadline.length != 2
+                        || (descriptionDeadline[0] = descriptionDeadline[0].trim()).isEmpty()) {
+                    throw new DukeException(DukeException.invalidFormat("DEADLINE"));
+                }
+                Task deadline = new Deadline(descriptionDeadline[0], descriptionDeadline[1]);
+                return new AddCommand(deadline);
+            case "event":
+                if (inputArr.length == 1 || (inputArr[1] = inputArr[1].trim()).isEmpty()) {
+                    throw new DukeException(DukeException.invalidFormat("EVENT"));
+                }
+                final String[] descriptionTime = inputArr[1].split("/from ");
+                if (descriptionTime.length != 2
+                        || (descriptionTime[0] = descriptionTime[0].trim()).isEmpty()) {
+                    throw new DukeException(DukeException.invalidFormat("EVENT"));
+                }
+                final String[] timeRange = descriptionTime[1].split("/to ");
+                if (timeRange.length != 2
+                        || (timeRange[0] = timeRange[0].trim()).isEmpty()) {
+                    throw new DukeException(DukeException.invalidFormat("EVENT"));
+                }
+                Event event = new Event(descriptionTime[0], timeRange[0], timeRange[1]);
+                return new AddCommand(event);
+            case "mark":
+                return Parser.processTaskWithIndex(inputArr, Command.TYPE.CHECK);
+            case "unmark":
+                return Parser.processTaskWithIndex(inputArr, Command.TYPE.UNCHECK);
+            case "delete":
+                return Parser.processTaskWithIndex(inputArr, Command.TYPE.DELETE);
+            case "list":
+                return new ListCommand();
+            case "any":
+                return new CheckCommand();
+            default:
+                throw new DukeException("I'm sorry that I can't recognize the command!");
+        }
+    }
+    private static Command processTaskWithIndex(String[] inputArr, Command.TYPE commandType) throws DukeException {
+        final String invalidFormatType = commandType.equals(Command.TYPE.CHECK) ? "CHECK_TASk"
+                : commandType.equals(Command.TYPE.UNCHECK)
+                ? "UNCHECK_TASK"
+                : commandType.equals(Command.TYPE.DELETE)
+                ? "DELETE_TASK"
+                : "";
+        if (inputArr.length != 2) {
+            throw new DukeException(DukeException.invalidFormat(invalidFormatType));
+        }
+        try {
+            int idx = Integer.parseInt(inputArr[1]) - 1;
+            if (commandType.equals(Command.TYPE.DELETE)) {
+                return new DeleteCommand(idx);
+            }
+            return new EditCommand(idx, commandType.equals(Command.TYPE.CHECK));
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            throw new DukeException(DukeException.invalidFormat(invalidFormatType));
+        }
+    }
     public static String getCommand(String input) {
         if (input.isEmpty()) {
             return null;

@@ -1,90 +1,109 @@
-public class TaskList extends Storage<Task> {
-    public TaskList(String taskListFilePath) {
-        super();
-        FileProcess.fileOpen(taskListFilePath);
-        final String[] content = FileProcess.fileRead().split(" ");
-        for(int i = 0; i < content.length; ++i) {
-            switch(content[i]) {
+import java.util.ArrayList;
+
+public class TaskList implements FileFormattable {
+    private final ArrayList<Task> tasks;
+    public TaskList(String tasks) throws DukeException {
+        this.tasks = new ArrayList<>();
+        final String[] tasksArr = tasks.split("\n");
+        for (String task : tasksArr) {
+            final String[] taskArr = task.split(" \\|&\\| ");
+            switch (taskArr[0]) {
+                case "T":
+                    this.tasks.add(new Todo(taskArr[2], taskArr[1].equals("1")));
+                    break;
                 case "D":
-                    super.storeItem(new Deadline(content[i + 2], content[i + 3], content[i + 1].equals("1")));
-                    i += 3;
+                    this.tasks.add(new Deadline(taskArr[2], taskArr[3], taskArr[1].equals("1")));
                     break;
                 case "E":
-                    super.storeItem(
-                            new Event(content[i + 2], content[i + 3], content[i + 4], content[i + 1].equals("1")));
-                    i += 4;
-                    break;
-                case "T":
-                    super.storeItem(new Todo(content[i + 2], content[i + 1].equals("1")));
-                    i += 2;
+                    this.tasks.add(new Event(taskArr[2], taskArr[3],
+                            taskArr[4], taskArr[1].equals("1")));
                     break;
             }
         }
-        System.out.println("Data loaded successfully!");
     }
     public TaskList() {
-        super();
+        this.tasks = new ArrayList<>();
     }
-    private void updateFile() {
-        if (FileProcess.fileWrite(super.toFileFormat()) == -1)  {
-            System.out.println("Failed to update Task List file!");
-        }
+    public String getSize() {
+        return String.format("You now have %d tasks in your list!", this.tasks.size());
     }
-    public void checkTask(int idx) {
-        Task toCheck = super.getItem(idx);
-        if (toCheck != null) {
-            toCheck.check();
-            final String output = String.format("Nice! I've marked this task as done:\n"+
-                    "%s", super.getItem(idx).toString());
-            System.out.println(output);
-            this.updateFile();
+    public int checkTask(int idx) throws DukeException {
+        if (idx < 0 || idx >= this.tasks.size()) {
+            throw new DukeException(DukeException.INVALID_TASK_INDEX);
         } else {
-            System.out.println("Invalid task index!");
-        }
-    }
-    public void uncheckTask(int idx) {
-        Task toUncheck = super.getItem(idx);
-        if (toUncheck != null) {
-            toUncheck.uncheck();
-            final String output = String.format("OK, I've marked this task as not done yet:\n"+
-                    "%s", super.getItem(idx).toString());
-            System.out.println(output);
-            this.updateFile();
-        } else {
-            System.out.println("Invalid task index!");
-        }
-    }
-    public void listItem() {
-        if (super.getSize() == 0) {
-            System.out.println("YAY! You have no tasks ongoing ^_^");
-        } else {
-            System.out.println("Here are the tasks in your list:");
-            System.out.println(super.toString());
-        }
-    }
-    @Override
-    public int deleteItem(int idx) {
-        Task toBeDeleted = super.getItem(idx);
-        if (toBeDeleted == null) {
-            return -1;
-        } else {
-            if (super.deleteItem(idx) == 0) {
-                System.out.printf("Noted. I've removed this task:\n%s\n", toBeDeleted);
-                this.updateFile();
+            if(this.tasks.get(idx).check() == 0) {
+                System.out.printf("Hooray! Congrats on completing the following task!:\n"
+                        + "\t%s\n", this.tasks.get(idx));
                 return 0;
             } else {
-                System.out.println("Invalid task index!");
+                System.out.printf("Hmm. You seems to have completed the task:\n"
+                        + "\t%s\n", this.tasks.get(idx));
                 return -1;
             }
         }
     }
+    public int uncheckTask(int idx) throws DukeException {
+        if (idx < 0 || idx >= this.tasks.size()) {
+            throw new DukeException(DukeException.INVALID_TASK_INDEX);
+        } else {
+            if(this.tasks.get(idx).uncheck() == 0) {
+                System.out.printf("Uh oh! Workload + 1 by having the following task:\n"
+                        + "\t%s\n", this.tasks.get(idx));
+                return 0;
+            } else {
+                System.out.printf("Hmm. You seems to have not complete the task before:\n"
+                        + "\t%s\n", this.tasks.get(idx));
+                return -1;
+            }
+        }
+    }
+
+    public void addTask(Task t) {
+        this.tasks.add(t);
+    }
+    public int deleteTask(int idx) throws DukeException {
+        if (idx < 0 || idx >= this.tasks.size()) {
+            throw new DukeException(DukeException.INVALID_TASK_INDEX);
+        } else {
+            Task temp = this.tasks.get(idx);
+            this.tasks.remove(idx);
+            System.out.printf("Alrigthy! I have deleted the following task for you:\n"
+                    + "\t%s\n", temp);
+            System.out.println(this.getSize());
+            return 0;
+        }
+    }
+    public void listTasks() {
+        if (this.tasks.isEmpty()) {
+            System.out.println("YAY! You have no tasks ongoing ^_^");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            System.out.println(this);
+        }
+    }
     @Override
-    public void storeItem(Task task) {
-        super.storeItem(task);
-        final String output = String.format("Got it. I've added this task:\n"
-                + "    %s\n"
-                + "Now you have %d tasks in the list.", task.toString(), super.getSize());
-        System.out.println(output);
-        this.updateFile();
+    public String toString() {
+        String res = "";
+        for(int i = 0; i < this.tasks.size(); ++i) {
+            if (i == 0) {
+                res = Formatter.addIndex(this.tasks.get(i), i + 1);
+            } else {
+                res = String.format("%s\n%s", res, Formatter.addIndex(this.tasks.get(i), i + 1));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public String toFileFormat() {
+        String fileFormat = "";
+        for(Task task : this.tasks) {
+            if (fileFormat.isEmpty()) {
+                fileFormat = task.toFileFormat();
+            } else {
+                fileFormat = String.format("%s\n%s", fileFormat, task.toFileFormat());
+            }
+        }
+        return fileFormat;
     }
 }
