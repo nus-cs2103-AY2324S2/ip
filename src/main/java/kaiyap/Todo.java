@@ -1,5 +1,10 @@
 package kaiyap;
 
+/**
+ * Represents a Todo task in the KaiYap application.
+ * A Todo task is a basic task type that includes a description but does not require any date or time information.
+ * This class extends the Task class, inheriting its basic properties.
+ */
 public class Todo extends Task {
     public Todo(String listItem, String inputItem) {
         super(listItem, inputItem);
@@ -7,9 +12,8 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" +
-                (this.completedTask ? "[X] " : "[ ] ") +
-                this.listItem
-        ;
+        return "[T]"
+                + (this.completedTask ? "[X] " : "[ ] ")
+                + this.listItem;
     }
 }

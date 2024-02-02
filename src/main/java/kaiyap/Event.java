@@ -2,42 +2,38 @@ package kaiyap;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents an event task in the KaiYap application.
+ * An event task is characterized by a start time and an end time.
+ * This class extends the Task class, inheriting its basic properties,
+ * while adding specific time details relevant to an event.
+ */
 public class Event extends Task {
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
+    /**
+     * Constructs a new Event task with the specified details.
+     *
+     * @param listItem  The string representation of the task to be displayed in the list.
+     * @param inputItem The original input string used to create the task.
+     * @param startTime The start time of the event, represented as a LocalDateTime object.
+     * @param endTime   The end time of the event, represented as a LocalDateTime object.
+     */
     public Event(String listItem, String inputItem, LocalDateTime startTime, LocalDateTime endTime) {
         super(listItem, inputItem);
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
     @Override
     public String toString() {
-        return "[E]" +
-                (this.completedTask ? "[X] " : "[ ] ") +
-                this.listItem +
-                " (from: " +
-                this.startTime +
-                " to: " +
-                this.endTime +
-                ")"
-                ;
+        return "[E]"
+                + (this.completedTask ? "[X] " : "[ ] ")
+                + this.listItem
+                + " (from: "
+                + this.startTime
+                + " to: "
+                + this.endTime
+                + ")";
     }
 }
