@@ -58,5 +58,22 @@ public class TaskList {
         undoneTask.markAsUndone();
         ui.markAsUndone(undoneTask);
     }
+
+    public void searchTasks(String keyword) {
+        // Search for tasks containing the specified keyword
+        int currentIndex = 1;
+        boolean isFound = false;
+        for (Task task : this.tasks) {
+            String lowerCasedTasks = task.toString().toLowerCase();
+            if (lowerCasedTasks.contains(keyword.toLowerCase())) {
+                System.out.println(currentIndex + ". " + task.toString());
+                currentIndex += 1;
+                isFound = true;
+            }
+        }
+        if (!isFound) {
+            this.ui.noMatchingTasks(keyword);
+        }
+    }
 }
 

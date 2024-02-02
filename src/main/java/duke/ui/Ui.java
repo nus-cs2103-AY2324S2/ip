@@ -105,5 +105,13 @@ public class Ui {
     public void invalidEventStartingTimeAndEndingTime() {
         System.out.println("Error input: Start time should be earlier than end time.");
     }
+
+    public void noMatchingTasks(String keyword) {
+        System.out.println("There are no tasks matching with '" + keyword + "'.");
+    }
+
+    public void noKeywordsForSearching() {
+        System.out.println("Please provide a keyword to search.");
+    }
 }
 

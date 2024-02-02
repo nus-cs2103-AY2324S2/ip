@@ -104,6 +104,14 @@ public class Parser {
                     this.ui.insufficientEventStartTimeEndTime();
                 }
                 break;
+            case "search":
+                if (words.length > 1) {
+                    String keyword = userInput.substring(command.length()).trim();
+                    this.taskList.searchTasks(keyword);
+                } else {
+                    this.ui.noKeywordsForSearching();
+                }
+                break;
             default:
                 ui.badUserInput();
                 break;
