@@ -1,5 +1,9 @@
 package parser;
 
+import exception.GeePeeTeeException;
+import exception.InvalidDateException;
+import exception.InvalidTaskFormatException;
+import exception.InvalidTaskIndexException;
 import storage.Storage;
 import task.Deadline;
 import task.Event;
@@ -7,22 +11,42 @@ import task.Task;
 import task.ToDo;
 import tasklist.TaskList;
 import ui.Ui;
-import exception.DukeException;
-import exception.InvalidDateException;
-import exception.InvalidTaskFormatException;
-import exception.InvalidTaskIndexException;
 
+/**
+ * Represents a parser that processes user input and executes the corresponding
+ * commands.
+ * <p>
+ * This class is responsible for parsing user input and executing the
+ * corresponding commands, such as adding, deleting, or marking tasks, as well
+ * as
+ * providing help and exiting the application.
+ * </p>
+ */
 public class Parser {
   private TaskList taskList;
   private Storage storage;
   private Ui ui;
 
+  /**
+   * Constructs a new {@code Parser} instance with the specified task list,
+   * storage
+   * and user interface.
+   *
+   * @param taskList The task list to be associated with the parser.
+   * @param storage  The storage to be associated with the parser.
+   * @param ui       The user interface to be associated with the parser.
+   */
   public Parser(TaskList taskList, Storage storage, Ui ui) {
     this.taskList = taskList;
     this.storage = storage;
     this.ui = ui;
   }
 
+  /**
+   * Parses the user input and executes the corresponding command.
+   *
+   * @param input The user input to be parsed and executed.
+   */
   public void parseInput(String input) {
     String command = input.split(" ")[0];
     switch (command) {
@@ -58,7 +82,15 @@ public class Parser {
   }
 
   /*
-   * Processes the mark command
+   * Processes the mark command by attempting to mark the task at the specified
+   * index.
+   * 
+   * @param input The user input to be processed.
+   * 
+   * @throws InvalidTaskIndexException If the index of the task is invalid or does
+   * not exist.
+   * 
+   * @throws GeePeeTeeException If an error occurs while marking the task.
    */
   private void processMarkCommand(String input) {
     try {
@@ -79,7 +111,7 @@ public class Parser {
       taskToMark.markAsDone();
       ui.showTaskMarked(taskToMark);
       storage.saveTaskList(taskList.getTasksList());
-    } catch (DukeException e) {
+    } catch (GeePeeTeeException e) {
       ui.showErrorMessage(e.getMessage());
     } catch (InvalidTaskIndexException e) {
       ui.showErrorMessage(e.getMessage());
@@ -87,7 +119,15 @@ public class Parser {
   }
 
   /*
-   * Processes the unmark command
+   * Processes the unmark command by attempting to unmark the task at the
+   * specified index.
+   * 
+   * @param input The user input to be processed.
+   * 
+   * @throws InvalidTaskIndexException If the index of the task is invalid or does
+   * not exist.
+   * 
+   * @throws GeePeeTeeException If an error occurs while unmarking the task.
    */
   private void processUnmarkCommand(String input) {
     try {
@@ -108,7 +148,7 @@ public class Parser {
       taskToUnmark.unmarkAsDone();
       ui.showTaskUnmarked(taskToUnmark);
       storage.saveTaskList(taskList.getTasksList());
-    } catch (DukeException e) {
+    } catch (GeePeeTeeException e) {
       ui.showErrorMessage(e.getMessage());
     } catch (InvalidTaskIndexException e) {
       ui.showErrorMessage(e.getMessage());
@@ -116,7 +156,15 @@ public class Parser {
   }
 
   /*
-   * Processes the delete command
+   * Processes the delete command by attempting to delete the task at the
+   * specified index.
+   * 
+   * @param input The user input to be processed.
+   * 
+   * @throws InvalidTaskIndexException If the index of the task is invalid or does
+   * not exist.
+   * 
+   * @throws GeePeeTeeException If an error occurs while deleting the task.
    */
   private void processDeleteCommand(String input) {
     try {
@@ -137,7 +185,7 @@ public class Parser {
       taskList.removeTask(deleteIndex);
       ui.showDeleteTask(taskToDelete, taskList.getTaskCount());
       storage.saveTaskList(taskList.getTasksList());
-    } catch (DukeException e) {
+    } catch (GeePeeTeeException e) {
       ui.showErrorMessage(e.getMessage());
     } catch (InvalidTaskIndexException e) {
       ui.showErrorMessage(e.getMessage());
@@ -145,7 +193,17 @@ public class Parser {
   }
 
   /*
-   * Processes the event command
+   * Processes the event command by attempting to create and add a new event task
+   * to the task list.
+   * 
+   * @param input The user input to be processed.
+   * 
+   * @throws InvalidDateException If the date of the event is invalid.
+   * 
+   * @throws InvalidTaskFormatException If the input format of the event is
+   * incorrect.
+   * 
+   * @throws GeePeeTeeException If an error occurs while adding the event task.
    */
   private void processEventCommand(String input) {
     try {
@@ -157,13 +215,23 @@ public class Parser {
       ui.showErrorMessage(e.getMessage());
     } catch (InvalidTaskFormatException e) {
       ui.showErrorMessage(e.getMessage());
-    } catch (DukeException e) {
+    } catch (GeePeeTeeException e) {
       ui.showErrorMessage(e.getMessage());
     }
   }
 
   /*
-   * Processes the deadline command
+   * Processes the deadline command by attempting to create and add a new deadline
+   * task to the task list.
+   * 
+   * @param input The user input to be processed.
+   * 
+   * @throws InvalidDateException If the date of the deadline is invalid.
+   * 
+   * @throws InvalidTaskFormatException If the input format of the deadline is
+   * incorrect.
+   * 
+   * @throws GeePeeTeeException If an error occurs while adding the deadline task.
    */
   private void processDeadlineCommand(String input) {
     try {
@@ -175,13 +243,21 @@ public class Parser {
       ui.showErrorMessage(e.getMessage());
     } catch (InvalidTaskFormatException e) {
       ui.showErrorMessage(e.getMessage());
-    } catch (DukeException e) {
+    } catch (GeePeeTeeException e) {
       ui.showErrorMessage(e.getMessage());
     }
   }
 
   /*
-   * Processes the todo command
+   * Processes the todo command by attempting to create and add a new todo task to
+   * the task list.
+   * 
+   * @param input The user input to be processed.
+   * 
+   * @throws InvalidTaskFormatException If the input format of the todo is
+   * incorrect.
+   * 
+   * @throws GeePeeTeeException If an error occurs while adding the todo task.
    */
   private void processToDoCommand(String input) {
     try {
@@ -191,7 +267,7 @@ public class Parser {
       storage.saveTaskList(taskList.getTasksList());
     } catch (InvalidTaskFormatException e) {
       ui.showErrorMessage(e.getMessage());
-    } catch (DukeException e) {
+    } catch (GeePeeTeeException e) {
       ui.showErrorMessage(e.getMessage());
     }
   }
