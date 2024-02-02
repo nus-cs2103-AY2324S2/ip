@@ -19,4 +19,8 @@ public class Task {
     public void markAsDone(boolean isDone) {
         this.isDone = isDone;
     }
+
+    public String getDataString() {
+        return "";
+    }
 }
