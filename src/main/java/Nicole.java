@@ -1,9 +1,9 @@
+import java.io.File;
+import java.io.IOException;
+
 import nicoleexceptions.NicoleException;
 import taskstorage.Storage;
 import userrequests.Ui;
-
-import java.io.File;
-import java.io.IOException;
 
 public class Nicole {
     public static void main(String[] args) {

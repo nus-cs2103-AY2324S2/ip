@@ -1,13 +1,13 @@
 package userrequests;
 
-import nicoleexceptions.NicoleException;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import nicoleexceptions.NicoleException;
 
 public class Ui {
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

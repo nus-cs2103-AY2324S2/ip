@@ -14,7 +14,8 @@ public class EventTest {
             fail();
         } catch (NicoleException e) {
             assertEquals(
-                    "Nicole: ERROR. Describe your event like this: event [name] from YYYY-MM-DD at HH-MM-SS to YYYY-MM-DD at HH-MM-SS",
+                    "Nicole: ERROR. Describe your event like this: event [name] from YYYY-MM-DD at HH-MM-SS "
+                              + "to YYYY-MM-DD at HH-MM-SS",
                     e.toString());
         }
     }
@@ -25,7 +26,8 @@ public class EventTest {
             fail();
         } catch (NicoleException e) {
             assertEquals(
-                    "Nicole: ERROR. Describe your event like this: event [name] from YYYY-MM-DD at HH-MM-SS to YYYY-MM-DD at HH-MM-SS",
+                    "Nicole: ERROR. Describe your event like this: event [name] from YYYY-MM-DD at HH-MM-SS "
+                              + "to YYYY-MM-DD at HH-MM-SS",
                     e.toString());
         }
     }
@@ -37,7 +39,8 @@ public class EventTest {
             fail();
         } catch (NicoleException e) {
             assertEquals(
-                    "Nicole: ERROR. Are you sure your date and time are in the proper [YYYY-MM-DD], [HH-MM-SS] format...?",
+                    "Nicole: ERROR. Are you sure your date and time are in the proper [YYYY-MM-DD], "
+                              + "[HH-MM-SS] format...?",
                     e.toString());
         }
     }
@@ -57,7 +60,8 @@ public class EventTest {
     void eventCreation_perfectConditions_toStringCorrect() {
         try {
             Event testEvent = new Event("meeting with kay from 2024-01-29 at 18:00:00 to 2024-01-30 at 21:00:00");
-            assertEquals("[E][I] meeting with kay from 2024-01-29 at 18:00:00 to 2024-01-30 at 21:00:00", testEvent.toString());
+            assertEquals("[E][I] meeting with kay from 2024-01-29 at 18:00:00 to 2024-01-30 at 21:00:00",
+                         testEvent.toString());
         } catch (NicoleException e) {
             fail();
         }

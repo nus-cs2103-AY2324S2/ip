@@ -1,16 +1,12 @@
 package userrequests;
 
-import task.Task;
-
-import nicoleexceptions.NicoleException;
-
-import taskstorage.Storage;
-import taskstorage.TaskList;
-
 import java.io.IOException;
 
+import nicoleexceptions.NicoleException;
+import task.Task;
+import taskstorage.TaskList;
+
 public class Request {
-    public static boolean needPriorityTasking = false;
     private Task newTask;
 
     /**
@@ -72,7 +68,7 @@ public class Request {
                     + "8. help"
             );
         } else if (name.equals("priority")) {
-            Request.needPriorityTasking = true;
+            taskList.sortTasksByPriority();
         } else if (name.contains("find")) {
             try {
                 String taskKeyWord = name.substring(6);

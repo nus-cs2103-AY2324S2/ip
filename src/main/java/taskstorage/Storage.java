@@ -25,8 +25,8 @@ public class Storage {
     protected void saveTasksToFile() throws NicoleException {
         try {
             FileWriter taskFileWriter = new FileWriter("tasks.txt");
-            for (int i = 0; i < TaskList.taskList.size(); i++) {
-                taskFileWriter.write(TaskList.taskList.get(i) + "\n");
+            for (int i = 0; i < TaskList.TASKS.size(); i++) {
+                taskFileWriter.write(TaskList.TASKS.get(i) + "\n");
             }
             taskFileWriter.close();
         } catch (IOException e) {
@@ -46,7 +46,7 @@ public class Storage {
             Scanner userTaskFileReader = new Scanner(tasksFile);
             while (userTaskFileReader.hasNextLine()) {
                 String task = userTaskFileReader.nextLine();
-                if (TaskList.taskList.size() < numTasksInFile) {
+                if (TaskList.TASKS.size() < numTasksInFile) {
                     char taskType = task.charAt(1);
                     char taskCompleted = task.charAt(4);
                     String taskDescription = task.substring(7);
@@ -54,7 +54,7 @@ public class Storage {
                     if (taskCompleted == 'C') {
                         recreatedTask.markDone();
                     }
-                    TaskList.taskList.add(recreatedTask);
+                    TaskList.TASKS.add(recreatedTask);
                 }
             }
         } catch (FileNotFoundException e) {

@@ -25,8 +25,8 @@ public class Event extends Task {
     public Event(String name) throws NicoleException {
         super();
         if (name.contains("null")) {
-            throw new NicoleException("Describe your event like this: " +
-                                      "event [name] from YYYY-MM-DD at HH-MM-SS to YYYY-MM-DD at HH-MM-SS");
+            throw new NicoleException("Describe your event like this: "
+                                      + "event [name] from YYYY-MM-DD at HH-MM-SS to YYYY-MM-DD at HH-MM-SS");
         }
         this.parseDateTime(name);
         super.setName(name);
@@ -48,8 +48,8 @@ public class Event extends Task {
                 }
             }
         } catch (DateTimeParseException e) {
-            throw new NicoleException("Are you sure your date and time are in the proper " +
-                    "[YYYY-MM-DD], [HH-MM-SS] format...?");
+            throw new NicoleException("Are you sure your date and time are in the proper "
+                                      + "[YYYY-MM-DD], [HH-MM-SS] format...?");
         }
         if (this.deadlineFromDateTimeLocalDate.isAfter(this.deadlineToDateTimeLocalDate)) {
             throw new NicoleException("Erm, the 'to' datetime can't be before 'from' right...");

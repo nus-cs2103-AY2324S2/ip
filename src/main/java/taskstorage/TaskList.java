@@ -10,10 +10,9 @@ import java.util.List;
 import nicoleexceptions.NicoleException;
 
 import task.Task;
-import userrequests.Request;
 
 public class TaskList {
-    protected static final List<Task> taskList = new ArrayList<>();
+    protected static final List<Task> TASKS = new ArrayList<>();
     private final Storage storage;
 
     /**
@@ -27,7 +26,7 @@ public class TaskList {
     }
 
     private void crudChecker(int taskNumber) throws NicoleException {
-        if (taskNumber <= 0 || taskNumber > TaskList.taskList.size()) {
+        if (taskNumber <= 0 || taskNumber > TaskList.TASKS.size()) {
             throw new NicoleException("Huh? That's not a valid item number :')");
         }
     }
@@ -39,7 +38,7 @@ public class TaskList {
      */
     public void unmarkTask(int taskNumber) throws NicoleException {
         this.crudChecker(taskNumber);
-        System.out.println(TaskList.taskList.get(taskNumber - 1).markUndone());
+        System.out.println(TaskList.TASKS.get(taskNumber - 1).markUndone());
         this.storage.saveTasksToFile();
     }
 
@@ -50,7 +49,7 @@ public class TaskList {
      */
     public void markTask(int taskNumber) throws NicoleException {
         this.crudChecker(taskNumber);
-        System.out.println(TaskList.taskList.get(taskNumber - 1).markDone());
+        System.out.println(TaskList.TASKS.get(taskNumber - 1).markDone());
         this.storage.saveTasksToFile();
     }
 
@@ -61,7 +60,7 @@ public class TaskList {
      */
     public void deleteTask(int taskNumber) throws NicoleException {
         this.crudChecker(taskNumber);
-        TaskList.taskList.remove(taskNumber - 1);
+        TaskList.TASKS.remove(taskNumber - 1);
         System.out.println("Nicole: Phew...deleted  :>");
         this.storage.saveTasksToFile();
     }
@@ -72,7 +71,7 @@ public class TaskList {
      * @throws NicoleException if there are write issues to tasks.txt
      */
     public void addTask(Task newTask) throws NicoleException {
-        TaskList.taskList.add(newTask);
+        TaskList.TASKS.add(newTask);
         try {
             FileWriter taskFileWriter = new FileWriter("tasks.txt", true);
             taskFileWriter.write(newTask.toString() + "\n");
@@ -92,9 +91,9 @@ public class TaskList {
     public void findTasks(String name) throws NicoleException {
         int numMatchingTasks = 0;
         System.out.println("Nicole: Let me see..");
-        for (int i = 0; i < TaskList.taskList.size(); i++) {
-            if (TaskList.taskList.get(i).contains(name)) {
-                System.out.println((i + 1) + ". " + taskList.get(i));
+        for (int i = 0; i < TaskList.TASKS.size(); i++) {
+            if (TaskList.TASKS.get(i).contains(name)) {
+                System.out.println((i + 1) + ". " + TASKS.get(i));
                 numMatchingTasks += 1;
             }
         }
@@ -110,27 +109,31 @@ public class TaskList {
      *
      */
     public void listTasks() {
-        if (TaskList.taskList.size() == 0) {
+        if (TaskList.TASKS.size() == 0) {
             System.out.println("Nicole: No tasks yet. Let's make some moves BD");
         } else {
             System.out.println("Nicole: Here's the tasks I saved so far,");
         }
 
-        if (Request.needPriorityTasking) {
-            Comparator<Task> sorter = (task1, task2) -> {
-                if (task1.getDate().isBefore(task2.getDate())) {
-                    return -1;
-                } else if (task1.getDate().isEqual(task2.getDate())) {
-                    return 0;
-                } else {
-                    return 1;
-                }
-            };
-            TaskList.taskList.sort(sorter);
+        for (int i = 0; i < TaskList.TASKS.size(); i++) {
+            System.out.println((i + 1) + ". " + TaskList.TASKS.get(i));
         }
+    }
 
-        for (int i = 0; i < TaskList.taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + TaskList.taskList.get(i));
-        }
+    /**
+     * Sorts the list by task date if the user requests priority ordering.
+     *
+     */
+    public void sortTasksByPriority() {
+        Comparator<Task> sorter = (task1, task2) -> {
+            if (task1.getDate().isBefore(task2.getDate())) {
+                return -1;
+            } else if (task1.getDate().isEqual(task2.getDate())) {
+                return 0;
+            } else {
+                return 1;
+            }
+        };
+        TaskList.TASKS.sort(sorter);
     }
 }
