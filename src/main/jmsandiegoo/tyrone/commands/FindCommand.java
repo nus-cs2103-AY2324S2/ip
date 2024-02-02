@@ -32,12 +32,10 @@ public class FindCommand extends Command {
         if (resTaskList.getListSize() > 0) {
             return new CommandResult(
                     String.format(Messages.MESSAGE_FIND,
-                            resTaskList)
-            );
+                            resTaskList));
         } else {
             return new CommandResult(
-                    String.format(Messages.MESSAGE_FIND, "No items found with the specified keyword")
-            );
+                    String.format(Messages.MESSAGE_FIND, "No items found with the specified keyword"));
         }
     }
 }

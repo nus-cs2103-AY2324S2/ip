@@ -121,8 +121,7 @@ public class Parser {
         try {
             Deadline item = new Deadline(
                     matcher.group("description"),
-                    new DateTime(matcher.group("dateTime"))
-            );
+                    new DateTime(matcher.group("dateTime")));
             return new DeadlineCommand(item);
         } catch (IllegalArgumentException | DateTimeParseException e) {
             throw new IncorrectCommandException(Messages.MESSAGE_DEADLINE_INCORRECT);

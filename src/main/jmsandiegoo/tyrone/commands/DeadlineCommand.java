@@ -26,7 +26,6 @@ public class DeadlineCommand extends Command {
     public CommandResult execute() {
         super.taskList.addItem(this.deadlineItem);
         return new CommandResult(
-                String.format(Messages.MESSAGE_ADD_TASK, this.deadlineItem, super.taskList.getListSize())
-        );
+                String.format(Messages.MESSAGE_ADD_TASK, this.deadlineItem, super.taskList.getListSize()));
     }
 }
