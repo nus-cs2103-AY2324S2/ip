@@ -33,10 +33,10 @@ public class Duke{
      *
      * @param userInput user's commands
      * @param todos the list of tasks that are currently present.
-     * @param verbose helps to ensure whether we are preloading (includes the need to save the entries)
+     * @param isVerbose helps to ensure whether we are preloading (includes the need to save the entries)
      * @throws RuntimeException
      */
-    public static void processCommand(String userInput, TaskList todos, Boolean verbose) throws RuntimeException {
+    public static void processCommand(String userInput, TaskList todos, Boolean isVerbose) throws RuntimeException {
         String maybeCommand;
         String arr[];
         try {
@@ -53,7 +53,7 @@ public class Duke{
         case Find:
 
             //add tasks with that keyword to a new arrayList, print items in that array list.
-            if (verbose) {
+            if (isVerbose) {
                 TaskList matchingTasks = new TaskList();
                 String query = arr[1];
                 for (int i = 0; i < todos.size(); i++) {
@@ -82,15 +82,15 @@ public class Duke{
             break;
         case List:
             // list tasks
-            if (verbose) {
+            if (isVerbose) {
                 ui.showLine();
                 System.out.println(" Here are the tasks in your list:");
             }
             for (int i = 0; i < todos.size(); i++) {
                 Task currTask = todos.get(i);
-                if (verbose) { System.out.println((i + 1) + ". " + currTask.toString()); }
+                if (isVerbose) { System.out.println((i + 1) + ". " + currTask.toString()); }
             }
-            if (verbose) {
+            if (isVerbose) {
                 ui.showLine();
             }
             break;
@@ -99,7 +99,7 @@ public class Duke{
             Integer index = Integer.valueOf(arr[1]) - 1;
             Task currTask = todos.get(index);
             currTask.markAsDone();
-            if (verbose) {
+            if (isVerbose) {
                 System.out.print(" Nice! I've marked this task as done:\n");
                 System.out.println(" " + currTask.toString());
                 ui.showLine();
@@ -109,7 +109,7 @@ public class Duke{
         case Unmark:
             // mark task as undone
             index = Integer.valueOf(arr[1]) - 1;
-            if (verbose) {
+            if (isVerbose) {
                 ui.showLine();
                 System.out.print(" OK, I've marked this task as not done yet:\n");
             }
@@ -117,7 +117,7 @@ public class Duke{
             currTask = todos.get(index);
             currTask.markAsUndone();
 
-            if (verbose) {
+            if (isVerbose) {
                 System.out.println(" " + currTask.toString());
                 ui.showLine();
                 storage.updateRecords(taskList);
@@ -127,13 +127,13 @@ public class Duke{
             if (arr.length == 1) {
                 throw new DukeException(" Nuh uh! The description of a todo cannot be empty.");
             }
-            if (verbose) {
+            if (isVerbose) {
                 ui.showLine();
                 System.out.println("Got it. Added this task:");
             }
             Todo todo = new Todo(arr[1]);
             todos.add(todo);
-            if (verbose) {
+            if (isVerbose) {
                 System.out.println(todo.toString());
                 System.out.println("Now you have " + todos.size() + " tasks in the list.");
                 ui.showLine();
@@ -144,7 +144,7 @@ public class Duke{
             if (arr.length == 1) {
                 throw new DukeException(" Nuh uh! The description of a deadline cannot be empty.\nMake sure to add a deadline after the description with /by too!");
             }
-            if (verbose) {
+            if (isVerbose) {
                 ui.showLine();
                 System.out.println("Got it. Added this task:");
             }
@@ -153,7 +153,7 @@ public class Duke{
             String by = arguments[1];
             Deadline deadline = new Deadline(description, by);
             todos.add(deadline);
-            if (verbose) {
+            if (isVerbose) {
                 System.out.println(deadline.toString());
                 System.out.println("Now you have " + todos.size() + " tasks in the list.");
                 ui.showLine();
@@ -164,7 +164,7 @@ public class Duke{
             if (arr.length == 4) {
                 throw new DukeException(" Nuh uh! The description of an event cannot be empty.\nMake sure to add a from and to date after the description with /from and /to too!");
             }
-            if (verbose) {
+            if (isVerbose) {
                 ui.showLine();
                 System.out.println("Got it. Added this task:");
             }
@@ -179,7 +179,7 @@ public class Duke{
             Event event = new Event(desc, from, to);
             todos.add(event);
 
-            if (verbose) {
+            if (isVerbose) {
                 System.out.println(event.toString());
                 System.out.println("Now you have " + todos.size() + " tasks in the list.");
                 ui.showLine();
@@ -190,7 +190,7 @@ public class Duke{
             if (arr.length == 1) {
                 throw new DukeException(" Nuh uh! Which task to delete? \nMake sure to add the task number!");
             }
-            if (verbose) {
+            if (isVerbose) {
                 ui.showLine();
             }
             Integer i = Integer.valueOf(arr[1]);
@@ -201,7 +201,7 @@ public class Duke{
             } catch (Exception e) {
                 throw new TaskNotExistException(Integer.toString(i));
             }
-            if (verbose) {
+            if (isVerbose) {
                 System.out.println("Okay! I've fed this task to Woodstock, bye bye!:");
                 System.out.println(task.toString());
                 System.out.println("Now you have " + todos.size() + " tasks in the list.");
