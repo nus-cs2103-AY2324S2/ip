@@ -11,6 +11,9 @@ public class Duke {
     private Ui ui;
     private TaskList taskList;
 
+    /**
+     * Starting JavaDoc
+     */
     public Duke(){
         this.parser = new Parser();
         this.ui = new Ui();
