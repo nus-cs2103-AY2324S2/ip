@@ -1,12 +1,12 @@
 package remi.model.commands;
 
 import org.junit.jupiter.api.Test;
-import remi.io.Message;
 import remi.model.TaskList;
 import remi.model.Ui;
 import remi.utils.RemiError;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CommandListTest {
     @Test
