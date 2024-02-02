@@ -22,7 +22,7 @@ public class Duke {
         ui = new Ui();
         try {
             storage = new Storage(filePath);
-            tasks = new TaskList(storage.loadTaskslist());
+            tasks = new TaskList(storage.loadTasks());
         } catch (DukeException e) {
             ui.showError(e.getMessage());
             tasks = new TaskList(new ArrayList<Task>());

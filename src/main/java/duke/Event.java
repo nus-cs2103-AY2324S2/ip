@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
  * Represents event task that handles start and end date of the event.
  */
 public class Event extends Task {
-
     protected LocalDate from;
     protected LocalDate to;
 

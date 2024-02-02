@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Deals with interactions with the user.
  */
 public class Ui {
-    private final Scanner scanner;
+    private Scanner scanner;
 
     /**
      * Initializes a new scanner for user input.
@@ -42,8 +42,8 @@ public class Ui {
     /**
      * Provides bot name for the given messages.
      */
-    private void botHeader(String s) {
-        System.out.print("DevGPT " + s + ":\n\t");
+    private void botHeader(String message) {
+        System.out.print("DevGPT " + message + ":\n\t");
     }
 
     /**
@@ -127,9 +127,9 @@ public class Ui {
      *
      * @param s the error message to be shown.
      */
-    public void showError(String s) {
+    public void showError(String message) {
         botHeader("Error");
-        System.out.println(s);
+        System.out.println(message);
     }
 
     /**

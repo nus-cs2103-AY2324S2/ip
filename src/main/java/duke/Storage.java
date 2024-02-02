@@ -28,7 +28,7 @@ public class Storage {
      * @throws IOException if there is an error reading the file.
      * @throws DukeException if the file could not be created.
      */
-    public ArrayList<Task> loadTaskslist() throws IOException, DukeException {
+    public ArrayList<Task> loadTasks() throws IOException, DukeException {
         ArrayList<Task> tasksList = new ArrayList<Task>();
 
         File file = new File(filePath);

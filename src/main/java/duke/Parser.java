@@ -5,7 +5,7 @@ import java.time.format.DateTimeParseException;
 
 /**
  * Represents a parser that handles users input and
- * return the respective commands and descriptions.
+ * returns the respective commands and descriptions.
  */
 public class Parser {
     private String input;
