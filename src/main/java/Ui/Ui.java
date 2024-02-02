@@ -14,6 +14,10 @@ public class Ui {
         this.in.close();
     }
 
+    /**
+     * Prints to the console a welcome message
+     * everytime a user starts up the chatbot.
+     */
     public void showWelcome() {
         System.out.println(line);
         System.out.println("Hello! I'm Fredricksen");
@@ -25,18 +29,36 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Returns the content String passed as argument
+     * in between 2 lines given by the line variable.
+     *
+     * @param content The String in between the 2 lines.
+     * @return A String line separated consisting of line, content, line.
+     */
     public String output(String content) {
         return line + "\n" + content + "\n" + line + "\n";
     }
 
+    /**
+     * Prints to the console the error message of the Exception.
+     */
     public void showError(Exception e) {
         System.out.println(e.getMessage());
     }
 
+    /**
+     * Returns the next line that the user inputs into the CLI.
+     * @return A String that the user inputs into the CLI.
+     */
     public String readCommand() {
         return this.in.nextLine();
     }
 
+    /**
+     * Prints to the console a list of valid commands
+     * and how to use them to get valid outputs.
+     */
     public void listOfCommands() {
         System.out.println("Below are the available commands and formats to follow!");
         System.out.println("1. To view all your current task: list");
