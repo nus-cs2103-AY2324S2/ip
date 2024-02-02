@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,12 +63,26 @@ public class TaskList {
             Ui.speak("Understood. This task hath been added to thy list:\n" + task);
         } else if (commandType == Command.DEADLINE) {
             String[] params = message.split(" /");
-            Task task = new Deadline(params[0].substring(9), params[1].substring(3));
+            Task task;
+            try {
+                task = new Deadline(params[0].substring(9), params[1].substring(3));
+            } catch (DateTimeParseException e) {
+                Ui.speak("Your Excellency, I struggle to understand thee. To specify a date, use format\n"
+                        + "yyyy-mm-dd");
+                return;
+            }
             tasks.add(task);
             Ui.speak("Understood. This task hath been added to thy list:\n" + task);
         } else if (commandType == Command.EVENT) {
             String[] params = message.split(" /");
-            Task task = new Event(params[0].substring(6), params[1].substring(5), params[2].substring(3));
+            Task task;
+            try {
+                task = new Event(params[0].substring(6), params[1].substring(5), params[2].substring(3));
+            } catch (DateTimeParseException e) {
+                Ui.speak("Your Excellency, I struggle to understand thee. To specify a date, use format\n"
+                        + "yyyy-mm-dd");
+                return;
+            }
             tasks.add(task);
             Ui.speak("Understood. This task hath been added to thy list:\n" + task);
         }
@@ -79,11 +94,21 @@ public class TaskList {
             tasks.add(task);
         } else if (commandType == Command.DEADLINE) {
             String[] params = message.split(" /");
-            Task task = new Deadline(params[0].substring(9), params[1].substring(3));
+            Task task;
+            try {
+                task = new Deadline(params[0].substring(9), params[1].substring(3));
+            } catch (DateTimeParseException e) {
+                return;
+            }
             tasks.add(task);
         } else if (commandType == Command.EVENT) {
             String[] params = message.split(" /");
-            Task task = new Event(params[0].substring(6), params[1].substring(5), params[2].substring(3));
+            Task task;
+            try {
+                task = new Event(params[0].substring(6), params[1].substring(5), params[2].substring(3));
+            } catch (DateTimeParseException e) {
+                return;
+            }
             tasks.add(task);
         } else if (commandType == Command.MARK) {
             int index = Integer.parseInt(message.substring(5));

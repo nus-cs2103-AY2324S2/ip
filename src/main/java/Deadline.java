@@ -1,8 +1,10 @@
+import java.time.LocalDate;
+
 public class Deadline extends Task {
-    private String time;
+    private LocalDate time;
     Deadline(String name, String time) {
         super(name);
-        this.time = time;
+        this.time = LocalDate.parse(time);
     }
 
     String getCommand() {
@@ -11,6 +13,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + time + ")";
+        return "[D]" + super.toString() + " (by: " + time.format(Task.DATE_FORMATTER) + ")";
     }
 }

@@ -1,5 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +24,10 @@ public class Storage {
                 }
                 tasks.executeCommandSilently(command, line);
             }
-        } catch (NonstandardCommandException e) {
+        } catch (NonstandardCommandException | DateTimeParseException e) {
             Ui.speak("Unexpected or invalid content in thy scroll of tasks. Thy scroll is cleared.");
             return new TaskList();
         }
-
         return tasks;
     }
     public static void writeToFile(TaskList tasks) {

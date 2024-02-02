@@ -1,10 +1,12 @@
+import java.time.LocalDate;
+
 public class Event extends Task {
-    private String startTime;
-    private String endTime;
+    private LocalDate startTime;
+    private LocalDate endTime;
     Event(String name, String startTime, String endTime) {
         super(name);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = LocalDate.parse(startTime);
+        this.endTime = LocalDate.parse(endTime);
     }
 
     String getCommand() {
@@ -13,6 +15,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        return "[E]" + super.toString() + " (from: " + startTime.format(Task.DATE_FORMATTER)
+                + " to: " + endTime.format(Task.DATE_FORMATTER) + ")";
     }
 }
