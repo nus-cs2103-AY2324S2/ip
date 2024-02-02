@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- * Handles the loading and saving of tasks to a file.
+ * Handles loading and saving of tasks to a file.
  */
 public class Storage {
     private String filePath;
