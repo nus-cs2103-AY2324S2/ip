@@ -8,4 +8,9 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString().trim();
     }
+
+    @Override
+    public String toStringForFile() {
+        return "T | " + super.toStringForFile();
+    }
 }

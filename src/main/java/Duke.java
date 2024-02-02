@@ -1,9 +1,17 @@
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.nio.file.Paths;
+import java.io.File;
 public class Duke {
+    private static final String FILE_NAME = "duke.txt";
+    private static final String FILE_PATH = Paths.get(".", FILE_NAME).toString();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> list = new ArrayList<>();
+        ArrayList<Task> list = loadFile();
 
         System.out.println("\t\tHello, my name is Xilef.\n\t\tHow may I help you today??\n");
 
@@ -89,6 +97,7 @@ public class Duke {
                     System.out.println("\t\t" + e.getMessage());
                 }
             }
+            saveToFile(list);
         }
         System.out.println("\t\tBye bye, see you next time!!!");
     }
@@ -103,5 +112,62 @@ public class Duke {
             s.append(arr[i]).append(" ");
         }
         return s.toString();
+    }
+
+    private static void saveToFile(ArrayList<Task> list) {
+        try (FileWriter writer = new FileWriter(FILE_PATH)) {
+            for (Task t : list) {
+                writer.write(t.toStringForFile() + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving file: " + e.getMessage());
+        }
+    }
+
+    private static ArrayList<Task> loadFile() {
+        ArrayList<Task> list = new ArrayList<>();
+        File file = new File(FILE_PATH);
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Task task = createTaskFromLine(line);
+                if (task != null) {
+                    list.add(task);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        } catch (NoSuchElementException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+        return list;
+    }
+
+    private static Task createTaskFromLine(String line) {
+        Task t = null;
+        String[] parts = line.split("\\|");
+        String taskType = parts[0].trim();
+        String taskStatus = parts[1].trim();
+        String taskDescription = parts[2].trim();
+        switch (taskType) {
+            case "T":
+                t = new Todo(taskDescription);
+                break;
+            case "D":
+                String taskBy = parts[3].trim();
+                t = new Deadline(taskDescription, taskBy);
+                break;
+            case "E":
+                String taskFrom = parts[3].trim();
+                String taskTo = parts[4].trim();
+                t = new Event(taskDescription, taskTo,  taskFrom);
+                break;
+            default:
+                System.out.println("Invalid task type: " + taskType);
+        }
+        if (taskStatus.equals("1")) {
+            t.markDone();
+        }
+        return t;
     }
 }
