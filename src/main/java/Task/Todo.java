@@ -6,6 +6,10 @@ public class Todo extends Task {
         super(name);
     }
 
+    public String getName() {
+        return super.getName();
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

@@ -13,6 +13,10 @@ public class Deadline extends Task {
         this.by = LocalDateTime.parse(by, formatter);
     }
 
+    public String getName() {
+        return super.getName();
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy HHmm")) + ")";

@@ -18,6 +18,7 @@ import Command.ListCommand;
 import Command.UnmarkCommand;
 import Command.ExitCommand;
 import Command.Command;
+import Command.FindCommand;
 
 public class Parser {
     private static Event createEvent(String s) throws DukeException {
@@ -86,6 +87,11 @@ public class Parser {
             return new AddCommand(createDeadline(command));
         case "event":
             return new AddCommand(createEvent(command));
+        case "find":
+            if (s.length > 2) {
+                throw new DukeException("Please find one keyword at a time");
+            }
+            return new FindCommand(s[1]);
         default:
             throw new DukeException("Unknown Command");
         }

@@ -11,6 +11,10 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public void setDone(Boolean b) {
         this.isDone = b;
     }
