@@ -1,3 +1,4 @@
+package duke.exception;
 public class DukeException extends Exception {
     public static final String INVALID_TASK_INDEX = "Invalid task index!";
     public static final String EXECUTE_EXIT_COMMAND = "Exit command can't be executed!";
