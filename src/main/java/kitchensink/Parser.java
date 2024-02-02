@@ -31,7 +31,7 @@ public class Parser {
             if (!input.equalsIgnoreCase("list")) {
                 throw new InvalidSyntaxException("list");
             }
-            taskList.displayTasks();
+            ui.displayTasks(taskList);
             break;
         case "mark": {
             if (input.split(" ").length != 2) {
@@ -69,7 +69,7 @@ public class Parser {
             if (input.split(" ").length <= 1) {
                 throw new InvalidSyntaxException("todo");
             }
-            taskList.addTask(new ToDo(input.substring(5)), storage);
+            taskList.addTask(new ToDo(input.substring(5)), storage, ui);
             break;
         case "deadline": {
             if (!Pattern.matches("deadline .+ /by .+", input)
@@ -83,7 +83,7 @@ public class Parser {
             }
             String description = input.substring(9).split(" /by")[0];
             String dueDate = input.split("/by ")[1];
-            taskList.addTask(new Deadline(description, toLocalDateTime(dueDate)), storage);
+            taskList.addTask(new Deadline(description, toLocalDateTime(dueDate)), storage, ui);
             break;
         }
         case "event":
@@ -101,7 +101,7 @@ public class Parser {
             String description = input.substring(6).split(" /from")[0];
             String startDate = input.split("/from ")[1].split(" /to")[0];
             String endDate = input.split("/to ")[1];
-            taskList.addTask(new Event(description, toLocalDateTime(startDate), toLocalDateTime(endDate)), storage);
+            taskList.addTask(new Event(description, toLocalDateTime(startDate), toLocalDateTime(endDate)), storage, ui);
             break;
         case "delete":
             if (input.split(" ").length != 2) {
@@ -116,7 +116,7 @@ public class Parser {
             if (!taskList.validTaskNum(taskNum)) {
                 throw new TaskNotFoundException(taskList);
             }
-            taskList.deleteTask(taskNum - 1, storage);
+            taskList.deleteTask(taskNum - 1, storage, ui);
             break;
         default:
             throw new UnknownCommandException();

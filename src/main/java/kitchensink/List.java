@@ -12,33 +12,17 @@ public class List {
         this.tasks = tasks;
     }
 
-    public void addTask(Task task, Storage storage) throws IOException {
+    public void addTask(Task task, Storage storage, Ui ui) throws IOException {
         tasks.add(task);
-        String taskOrTasks = tasks.size() == 1 ? " task " : " tasks ";
-        System.out.println(Ui.LINE
-                + "Got it. I've added this task:\n"
-                + task.toString()
-                + "\nNow you have " + tasks.size() + taskOrTasks + "in the list.\n"
-                + Ui.LINE);
         storage.saveTasks(this);
+        ui.sayTaskAdded(task, tasks.size());
     }
 
-    public void displayTasks() {
-        System.out.println(Ui.LINE + "Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i).toString());
-        }
-        System.out.println(Ui.LINE);
-    }
-
-    public void deleteTask(int taskNum, Storage storage) throws IOException {
-        String taskOrTasks = tasks.size() - 1 == 1 ? " task " : " tasks ";
-        System.out.println(Ui.LINE
-                + "Noted. I've removed this task:\n"
-                + tasks.get(taskNum).toString()
-                + "\nNow you have " + (tasks.size() - 1) + taskOrTasks + "in the list.\n"
-                + Ui.LINE);
+    public void deleteTask(int taskNum, Storage storage, Ui ui) throws IOException {
+        Task task = tasks.get(taskNum);
+        tasks.remove(taskNum);
         storage.saveTasks(this);
+        ui.sayTaskDeleted(task, tasks.size());
     }
 
     public boolean validTaskNum(int taskNum) {
