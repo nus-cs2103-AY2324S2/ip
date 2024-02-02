@@ -1,3 +1,0 @@
-T | 1 | sleep
-D | 0 | chatbot | weekend
-E | 0 | arabic class | 3pm | 5pm

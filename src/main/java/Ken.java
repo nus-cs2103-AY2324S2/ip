@@ -97,9 +97,22 @@ public class Ken {
     }
 
     private static void saveTasks() {
-        try (FileWriter writer = new FileWriter(FILE_PATH)) {
-            for (Task task : tasks) {
-                writer.write(task.toFileString() + "\n");
+        try {
+
+            File directory = new File("." + File.separator + "data");
+            if (!directory.exists()) {
+                directory.mkdirs();  // Create the directory if it doesn't exist
+            }
+
+            File file = new File(directory, "ken.txt");
+            if (!file.exists()) {
+                file.createNewFile();  // Create the file if it doesn't exist
+            }
+
+            try (FileWriter writer = new FileWriter(FILE_PATH)) {
+                for (Task task : tasks) {
+                    writer.write(task.toFileString() + "\n");
+                }
             }
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
@@ -107,12 +120,25 @@ public class Ken {
     }
 
     private static void loadTasks() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Task task = Task.parseFromFileString(line);
-                if (task != null) {
-                    tasks.add(task);
+        try {
+            File directory = new File("." + File.separator + "data");
+            if (!directory.exists()) {
+                directory.mkdirs();  // Create the directory if it doesn't exist
+                return;  // Return early, no need to load tasks from a non-existent file
+            }
+
+            File file = new File(directory, "ken.txt");
+            if (!file.exists()) {
+                return;  // Return early, no need to load tasks from a non-existent file
+            }
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Task task = Task.parseFromFileString(line);
+                    if (task != null) {
+                        tasks.add(task);
+                    }
                 }
             }
         } catch (IOException e) {
