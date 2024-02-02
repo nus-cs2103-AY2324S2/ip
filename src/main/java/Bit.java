@@ -9,33 +9,33 @@ import java.io.FileReader;
 
 public class Bit {
 
-    public static String seperator = "---------------------------------------------------------";
+    private static final Ui UI = new Ui();
 
 
 
     private static  String fileName = "./data/bit.txt";
     public static void main(String[] args) {
 
-        System.out.println("Hi! This is Bit!\nWhat shall we do today?\n");
+        UI.greet();
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
 
         File myFile = new File(fileName);
         myFile.getParentFile().mkdirs();
         if (!createFile(myFile)) {
-            System.out.println("Error! Something went wrong while creating your file!");
+            UI.fileError();
             return;
         }
         loadFile(list);
         cleanList();
 
         while(true) {
-            System.out.println(seperator);
+            UI.printLineBreak();
             String input = scanner.nextLine();
             if (input.equals("bye")) {
                 break;
             } else if (input.equals("list")) {
-                toList(list);
+                UI.listOut(list);
             } else if (input.contains("mark ")) {
                 String[] parts = input.split(" ");
                 try {
@@ -51,9 +51,10 @@ public class Bit {
                     }
 
                 } catch (NumberFormatException e) {
-                    try{addTo(list, input);} catch(DukeException x) {System.out.println(x.getMessage());}
-
-
+                    try{
+                        addTo(list, input);
+                    } catch(DukeException x) {
+                        System.out.println(x.getMessage());}
                 }
             } else if (input.startsWith("delete")) {
                 try {
@@ -61,12 +62,16 @@ public class Bit {
                     int i = Integer.parseInt(strings[1]);
                     delete(i, list);
                 } catch (NumberFormatException x) {
-                    System.out.println("Woah! That is not a number!");
+                    UI.handleErrorMessage("Not a number");
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Did you forget something?");
+                    UI.handleErrorMessage("forget");
                 }
             } else {
-                try{addTo(list, input);} catch(DukeException e) {System.out.println(e.getMessage());}
+                try{
+                    addTo(list, input);}
+                catch(DukeException e) {
+                    System.out.println(e.getMessage());
+                }
 
             }
 
@@ -74,7 +79,7 @@ public class Bit {
 
         }
         saveAll(list);
-        System.out.println("Alright. See you soon!!");
+        UI.sayBye();
 
     }
 
@@ -90,7 +95,8 @@ public class Bit {
                 }
                 list.add(new Todo(parts[1]));
                 int i = list.size();
-                System.out.println("I have added this todo: " + (i) + " " + list.get(i - 1).toString());
+                Task t = list.get(i - 1);
+                UI.sayAdded(i,"todo", t);
 
 
             } catch(ArrayIndexOutOfBoundsException e) {
@@ -113,7 +119,7 @@ public class Bit {
                 }
                 list.add(new Event(compo[0], start, end));
                 int i = list.size();
-                System.out.println("I have added this event: " + (i) + " " + list.get(i - 1).toString());
+                UI.sayAdded(i, "event", list.get(i - 1));
 
 
 
@@ -135,20 +141,19 @@ public class Bit {
                     }
                     Deadline d = new Deadline(compo[0], compo[1]);
                     if (!d.getValid()) {
-                        System.out.println("The date you entered is invalid.");
+                        UI.handleErrorMessage("NotaDate");
                         return;
                     }
                     list.add(d);
                     int i = list.size();
-                    System.out.println("Done! I have added this to the list:" + list.get(i - 1).toString()
-                     + "\n There are now " + (i) + " items");
+                    UI.sayAdded(i, "deadline", list.get(i - 1));
                 }
             } catch (ArrayIndexOutOfBoundsException x) {
                 throw new DukeException("Did you miss something?");
             }
 
         } else {
-            System.out.println("Sorry, I don't understand what you mean\n");
+            UI.handleErrorMessage("");
             return;
         }
 
@@ -156,25 +161,13 @@ public class Bit {
 
 
     }
-
-
-    public static void toList(ArrayList<Task> list) {
-        System.out.println("Sure! Here is the list:\n");
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i) == null) {
-                break;
-            }
-            System.out.println((i + 1) + "." + list.get(i).toString());
-        }
-    }
-
     public static void mark(int i, ArrayList<Task> list) {
         i -= 1;
         try {
             list.get(i).complete();
-            System.out.println("Done and dusted: " + list.get(i).toString());
+            UI.sayMarked(list.get(i));
         } catch (IndexOutOfBoundsException x) {
-            System.out.println("Hey, I don't think you have added that yet!");
+            UI.handleErrorMessage("absent");
         }
     }
 
@@ -182,9 +175,9 @@ public class Bit {
         i -= 1;
         try {
             list.get(i).incomplete();
-            System.out.println("Alright, let me uncheck that for you: " + list.get(i).toString());
+            UI.sayUnmarked(list.get(i));
         } catch (IndexOutOfBoundsException x) {
-            System.out.println("Hey, I don't think you have added that yet!");
+            UI.handleErrorMessage("absent");
         }
     }
 
@@ -193,9 +186,9 @@ public class Bit {
             i -= 1;
             String s = list.get(i).toString();
             list.remove(i);
-            System.out.println("Got it! I have deleted this item: " + s);
+            UI.sayDeleted(s);
         } catch (IndexOutOfBoundsException x) {
-            System.out.println("I couldn't find that task! Are you sure it exists?");
+            UI.handleErrorMessage("absent");
         }
     }
 

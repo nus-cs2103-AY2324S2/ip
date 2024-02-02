@@ -5,7 +5,7 @@ What shall we do today?
 Sorry, I don't understand what you mean
 
 ---------------------------------------------------------
-I have added this todo: 1 [T][ ] x
+I have added this todo: 1.[T][ ] x
 ---------------------------------------------------------
 Hmmm, that todo is empty!
 ---------------------------------------------------------
@@ -34,8 +34,7 @@ Did you miss something?
 Did you miss something?
 ---------------------------------------------------------
 2024-01-31
-Done! I have added this to the list:[D][ ] c  (by: 31 January 2024)
- There are now 3 items
+Done! I have added this deadline[D][ ] c  (by: 31 January 2024)
 ---------------------------------------------------------
 Done and dusted: [T][X] x
 ---------------------------------------------------------
@@ -48,11 +47,11 @@ Sorry, I don't understand what you mean
 ---------------------------------------------------------
 Done and dusted: [E][X] y  (from:  1  to:  2)
 ---------------------------------------------------------
-I have added this todo: 4 [T][ ] m
+I have added this todo: 4.[T][ ] m
 ---------------------------------------------------------
 Got it! I have deleted this item: [T][ ] m
 ---------------------------------------------------------
-I couldn't find that task! Are you sure it exists?
+Hey, I don't think you have added that yet!
 ---------------------------------------------------------
 Woah! That is not a number!
 ---------------------------------------------------------
