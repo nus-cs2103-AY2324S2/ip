@@ -19,7 +19,7 @@ public class TaskDao {
      * @param done Whether it should be marked as done or not
      * @return Task wit hthe updated values
      */
-    public static Task mark(long id, String NAME, Task task, boolean done) {
+    public static Task mark (long id, String NAME, Task task, boolean done) {
         File table = Database.getTable(NAME);
         task.setDone(done);
         String data = task.toDataString();

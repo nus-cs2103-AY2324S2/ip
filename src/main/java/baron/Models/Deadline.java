@@ -1,26 +1,17 @@
 package baron.Models;
 
-import baron.Models.Task;
 import baron.Utils.DateUtils;
 
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {
 
-  private LocalDateTime deadline;
-  public Deadline(String name, LocalDateTime deadline) {
-    super(name);
-    this.deadline = deadline;
-  }
+    private final LocalDateTime deadline;
 
-  public Deadline(int id, String name, boolean done, LocalDateTime deadline) {
-    super(id, name, done);
-    this.deadline = deadline;
-  }
-  @Override
-  public String toString() {
-    return "[D]" + super.toString() + " (by: " + DateUtils.formatDate(deadline) + ")";
-  }
+    public Deadline (String name, LocalDateTime deadline) {
+        super(name);
+        this.deadline = deadline;
+    }
 
   @Override
   public String toDataString() {

@@ -9,13 +9,13 @@ public enum Commands {
   BYE("bye");
 
 
-  private final String command;
+    private final String command;
 
-  Commands(String command) {
-      this.command = command;
-  }
+    Commands (String command) {
+        this.command = command;
+    }
 
-  public String getCommand() {
-      return command;
-  }
+    public String getCommand () {
+        return command;
+    }
 }

@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeadlineDao extends TaskDao {
-  public static final String NAME = TaskType.DEADLINE.getCommand();
-  private static final String byString = "/by";
+    public static final String NAME = TaskType.DEADLINE.getCommand();
+    private static final String byString = "/by";
 
   /**
    * Creates a deadline object from the given input string
@@ -55,7 +55,5 @@ public class DeadlineDao extends TaskDao {
     } catch (IOException ex) {
       ex.printStackTrace();
     }
-    return deadlines;
-  }
 
 }

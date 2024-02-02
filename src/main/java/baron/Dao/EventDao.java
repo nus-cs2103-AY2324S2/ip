@@ -43,18 +43,30 @@ public class EventDao extends TaskDao {
     } catch (IOException ex) {
       ex.printStackTrace();
     }
-    return events;
-  }
 
-  private static String getEventName(String input) {
-    return StringUtils.getValueOfCommand(input, EventDao.NAME, EventDao.FROM_STRING);
-  }
+    private static String getEventName (String input) {
+        return StringUtils.getValueOfCommand(input, EventDao.NAME, EventDao.FROM_STRING);
+    }
 
-  private static String getEventTo(String input) {
-    return StringUtils.getValueOfCommand(input, EventDao.TO_STRING, null);
-  }
+    private static String getEventFrom (String input) {
+        return StringUtils.getValueOfCommand(input, EventDao.FROM_STRING, EventDao.TO_STRING);
+    }
 
-  private static String getEventFrom(String input) {
-    return StringUtils.getValueOfCommand(input, EventDao.FROM_STRING, EventDao.TO_STRING);
-  }
+    private static String getEventTo (String input) {
+        return StringUtils.getValueOfCommand(input, EventDao.TO_STRING, null);
+    }
+
+    public static List<Event> getEvents () {
+        File table = Database.getTable(NAME);
+        List<Event> events = new ArrayList<>();
+        try {
+            Files.lines(table.toPath()).forEach(line -> {
+                Event event = Event.fromDataString(line);
+                events.add(event);
+            });
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return events;
+    }
 }

@@ -1,6 +1,4 @@
 package baron.Managers;
-import java.util.ArrayList;
-import java.util.List;
 
 import baron.Dao.DeadlineDao;
 import baron.Dao.EventDao;
@@ -14,10 +12,13 @@ import baron.Models.Task;
 import baron.Models.Todo;
 import baron.Utils.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // TODO: Stretch goal: add exceptions for marking and listing non-existent indexes
 public class TaskManager {
 
-  private List<Task> tasks = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
 
   /**
    * Initialises data from the different files so that it's all shown in 1 task list
@@ -153,6 +154,4 @@ public class TaskManager {
     } else if (input.contains("[E]")) {
       return TaskType.EVENT;
     }
-    throw new IllegalArgumentException("Could not find task type for input " + input);
-  }
 }
