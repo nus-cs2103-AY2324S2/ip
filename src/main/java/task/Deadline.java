@@ -1,22 +1,24 @@
 package task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Deadline extends Task {
-    private String by;
+    private LocalDateTime by;
 
-    public Deadline(String taskDescription, boolean isCompleted, String by) {
+    public Deadline(String taskDescription, boolean isCompleted, LocalDateTime by) {
         super(taskDescription, isCompleted);
         this.by = by;
     }
 
-    public String getBy() {
-        return this.by;
+    public String getDeadlineDescription() {
+        return trimDescription(taskDescription);
     }
 
-    public String getDescription() {
-        return trimDescription(taskDescription);
+    public LocalDateTime getBy() {
+        return this.by;
     }
 
     @Override
@@ -31,20 +33,23 @@ public class Deadline extends Task {
 
     @Override
     public String getTaskDescription() {
-        return getDescription() + " (by: " + by + ")";
+        return trimDescription(taskDescription) + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 
-   @Override
+    @Override
     protected String trimDescription(String taskDescription) {
+        // Use regex to remove "deadline", "/by", and extract the date and time details
         String regex = "(?i)deadline\\s*(.*?)\\s*/by\\s*(.*?)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(taskDescription);
 
         if (matcher.matches()) {
             taskDescription = matcher.group(1).trim();
-            by = matcher.group(2).trim();
+            by = LocalDateTime.parse(matcher.group(2), DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
         }
 
         return taskDescription;
     }
+
+
 }
