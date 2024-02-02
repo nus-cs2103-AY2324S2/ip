@@ -9,3 +9,4 @@ D | 0 | yestheory | 2019-12-03 0000
 T | 0 | test
 T | 0 | borrow book
 D | 0 | return book | 2019-12-12 1800
+T | 0 | eat book
