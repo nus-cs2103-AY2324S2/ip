@@ -13,7 +13,7 @@ public class Storage {
         Storage.FILE_PATH = filePath;
     }
 
-    public void updateSaved(ArrayList<Task> AL) {
+    public static void updateSaved(ArrayList<Task> AL) {
         try {
             File data = initDataFile();
             BufferedWriter writer = new BufferedWriter(new FileWriter(data));
@@ -29,7 +29,7 @@ public class Storage {
         
     }
 
-    public static ArrayList<Task> loadTasks() {
+    public ArrayList<Task> loadTasks() {
         try {
             File data = initDataFile();
             ArrayList<Task> taskAL = new ArrayList<>();

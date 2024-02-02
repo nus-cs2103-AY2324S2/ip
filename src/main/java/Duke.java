@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -24,13 +23,22 @@ public class Duke {
         }
     }
 
+    private Storage storage;
+    private static TaskList tasks;
+
+    private Duke() {
+        storage = new Storage("./data/duke.txt");
+        tasks = new TaskList(this.storage.loadTasks());
+    }
+
+    public void run() {
+        printGreeting();
+    }
+
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> AL = new ArrayList<>();
-        Storage storage = new Storage("./data/duke.txt");
-        AL = Storage.loadTasks();
-
-        printGreeting();
+        Duke duke = new Duke();
+        duke.run();
 
         while (true) {
             boolean isExit = false;
@@ -49,11 +57,7 @@ public class Duke {
                 switch (cmd) {
                     case LIST:
                         printDiv();
-                        System.out.println("\tHere are the tasks in your list:");
-                        for (int i = 0; i < AL.size(); i++) {
-                            int num = i + 1;
-                            System.out.println("\t" + num + ". " + AL.get(i));
-                        }
+                        tasks.printTasks();
                         printDiv();
                         break;
                     case MARK:
@@ -63,18 +67,15 @@ public class Duke {
 
                         int taskIndex = Integer.parseInt(inputs[1]) - 1;
 
-                        if (taskIndex < 0 || taskIndex >= AL.size()) {
+                        if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
                             throw new DukeException("Oh no!!! Invalid task index!");
                         }
 
                         printDiv();
-                        Task taskToMark = AL.get(taskIndex);
-                        taskToMark.mark();
+                        tasks.markTask(taskIndex);
                         System.out.println("\tNice! I've marked this task as done: ");
-                        System.out.println("\t" + taskToMark);
+                        System.out.println("\t" + tasks.getTask(taskIndex));
                         printDiv();
-                        storage.updateSaved(AL);
-
                         break;
                     case UNMARK:
                         if (inputs.length != 2) {
@@ -83,17 +84,15 @@ public class Duke {
 
                         int taskIndexUn = Integer.parseInt(inputs[1]) - 1;
 
-                        if (taskIndexUn < 0 || taskIndexUn >= AL.size()) {
+                        if (taskIndexUn < 0 || taskIndexUn >= tasks.getSize()) {
                             throw new DukeException("Oh no!!! Invalid task index!");
                         }
 
                         printDiv();
-                        Task taskToUnmark = AL.get(taskIndexUn);
-                        taskToUnmark.unmark();
+                        tasks.unmarkTask(taskIndexUn);
                         System.out.println("\tOK, I've marked this task as not done yet: ");
-                        System.out.println("\t" + taskToUnmark);
+                        System.out.println("\t" + tasks.getTask(taskIndexUn));
                         printDiv();
-                        storage.updateSaved(AL);
                         break;
                     case TODO:
                         if (inputs.length != 2) {
@@ -105,11 +104,10 @@ public class Duke {
                         printDiv();
                         System.out.println("\tGot it. I've added this task:");
                         Todo todo = new Todo(inputs[1]);
-                        AL.add(todo);
+                        tasks.addTask(todo);
                         System.out.println("\t" + todo);
-                        printListCounter(AL);
+                        tasks.printListCounter();
                         printDiv();
-                        storage.updateSaved(AL);
                         break;
                     case DEADLINE:
                         if (inputs.length != 2) {
@@ -131,11 +129,10 @@ public class Duke {
                         Deadline deadline = new Deadline(
                                                 deadlineInfo[0].strip(), 
                                                 deadlineInfo[1].strip());
-                        AL.add(deadline);
+                        tasks.addTask(deadline);
                         System.out.println("\t" + deadline);
-                        printListCounter(AL);
+                        tasks.printListCounter();
                         printDiv();
-                        storage.updateSaved(AL);
                         break;
                     case EVENT:
                         if (inputs.length != 2) {
@@ -155,11 +152,10 @@ public class Duke {
                                             eventInfo[0].strip(), 
                                             eventInfo[1].replaceFirst("from", "").strip(),
                                             eventInfo[2].replaceFirst("to", "").strip());
-                        AL.add(event);
+                        tasks.addTask(event);
                         System.out.println("\t" + event);
-                        printListCounter(AL);
+                        tasks.printListCounter();
                         printDiv();
-                        storage.updateSaved(AL);
                         break;
                     case DELETE:
                         if (inputs.length != 2) {
@@ -169,16 +165,15 @@ public class Duke {
 
                         int delIndex = Integer.parseInt(inputs[1]) - 1;
 
-                        if (delIndex < 0 || delIndex >= AL.size()) {
+                        if (delIndex < 0 || delIndex >= tasks.getSize()) {
                             throw new DukeException("Oh no!!! Invalid task index!");
                         }
                         printDiv();
                         System.out.println("\tNoted. I've removed this task:");
-                        System.out.println("\t" + AL.get(delIndex));
-                        AL.remove(delIndex);
-                        printListCounter(AL);
+                        System.out.println("\t" + tasks.getTask(delIndex));
+                        tasks.deleteTask(delIndex);
+                        tasks.printListCounter();
                         printDiv();
-                        storage.updateSaved(AL);
                         break;
                     case BYE:
                         printMsg("Bye. Hope to see you again soon!");
@@ -221,9 +216,5 @@ public class Duke {
         printDiv();
         System.out.println("\t" + msg);
         printDiv();
-    }
-
-    public static void printListCounter(ArrayList<Task> AL) {
-        System.out.println("\tNow you have " + AL.size() + " tasks in the list.");
     }
 }
