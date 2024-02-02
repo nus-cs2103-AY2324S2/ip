@@ -1,26 +1,37 @@
+import task.TaskManager;
+import task.TaskType;
 import java.util.Scanner;
-import java.util.StringTokenizer;
+
 public class Duke {
-    public static final String CHATBOTNAME = "Sophia";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Initialization of common commands
-        Greetings greetings = new Greetings();
-        Goodbye goodbye = new Goodbye();
-        TaskManager taskManager = new TaskManager();
+        // Initializing Conversation
+        Conversation conversation = new Conversation();
 
-        greetings.printDialogue("greeting2");
+        conversation.printDialogue("default");
+        conversation.printDialogue("username");
+
+        String input = scanner.nextLine();
+        if (!input.isBlank()) {
+            Conversation.userName = input.toUpperCase();
+        }
+        conversation.addDialogue("starter", "Hello, " + Conversation.userName + ". Nice to meet you!\n" + Conversation.INDENTATION + "So, what can I do for you today?");
+        conversation.printDialogue("starter");
+
+        // Initializing TaskManager
+        TaskManager taskManager = new TaskManager(Conversation.userName);
 
         while (true) {
-            String input = scanner.nextLine();
+            input = scanner.nextLine();
             String[] userMessage = input.split(" ");
 
             if (!userMessage[0].equalsIgnoreCase("bye")) {
-                handleCommand(input, userMessage, taskManager);
+                handleCommand(input, userMessage, taskManager, conversation);
             } else {
-                goodbye.printDialogue("goodbye1");
+                conversation.printDialogue("bye");
+                taskManager.autoSaveTask();
                 break;
             }
         }
@@ -28,16 +39,29 @@ public class Duke {
         scanner.close();
     }
 
-    private static void handleCommand(String input, String[] userMessage, TaskManager taskManager) {
+    private static void handleCommand(String input, String[] userMessage, TaskManager taskManager, Conversation conversation) {
+        if (input.equalsIgnoreCase("delete all")) {
+            taskManager.deleteAllTasks();
+            return;
+        }
+
         switch (userMessage[0].toLowerCase()) {
             case "list":
                 taskManager.displayTask(input);
                 break;
             case "mark":
+                if (userMessage.length == 1 || isNumeric(userMessage[1])) {
+                    printError(input);
+                    break;
+                }
                 taskManager.markAsComplete(Integer.parseInt(userMessage[1]) - 1);
                 taskManager.displayTask(input);
                 break;
             case "unmark":
+                if (userMessage.length == 1 || isNumeric(userMessage[1])) {
+                    printError(input);
+                    break;
+                }
                 taskManager.markAsIncomplete(Integer.parseInt(userMessage[1]) - 1);
                 taskManager.displayTask(input);
                 break;
@@ -54,13 +78,32 @@ public class Duke {
                 taskManager.displayTask(input);
                 break;
             case "delete":
-                taskManager.deleteTask(Integer.parseInt(userMessage[1]) - 1);
+                if (userMessage.length == 1 || isNumeric(userMessage[1])) {
+                    printError(input);
+                    break;
+                }
                 taskManager.displayTask(input);
+                taskManager.deleteTask(Integer.parseInt(userMessage[1]) - 1);
                 break;
             default:
-                taskManager.addTask(input, TaskType.NORMAL);
-                taskManager.displayTask(input);
+                conversation.printDialogue(input);
                 break;
         }
+    }
+
+    private static boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return false;
+        } catch (NumberFormatException e) {
+            return true;
+        }
+    }
+
+    private static void printError(String input) {
+        System.out.println(TaskManager.LINE);
+        System.out.println(TaskManager.INDENTATION + "Sorry " + Conversation.userName + ", the TASK NUMBER is missing after " + input.toLowerCase() + ".");
+        System.out.println(TaskManager.INDENTATION + "Can you please specify a valid task number from the list?");
+        System.out.println(TaskManager.LINE);
     }
 }

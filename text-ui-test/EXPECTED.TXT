@@ -35,10 +35,10 @@
     -----------------------------------------------------------------------------------------
       Here are the tasks in your list:
       1.  [T][ ] borrow book
-      1.  [D][ ] deadline return book (by: Sunday)
-      1.  [E][ ] event project meeting (from: Mon 2pm to: 4pm)
-      1.  [E][ ] event startup meet (from: Tue 3pm to: 8pm)
-      1.  [T][ ] go to dance studio
+      2.  [D][ ] deadline return book (by: Sunday)
+      3.  [E][ ] event project meeting (from: Mon 2pm to: 4pm)
+      4.  [E][ ] event startup meet (from: Tue 3pm to: 8pm)
+      5.  [T][ ] go to dance studio
     -----------------------------------------------------------------------------------------
     -----------------------------------------------------------------------------------------
       Nice! I've marked this task as done:
@@ -51,10 +51,10 @@
     -----------------------------------------------------------------------------------------
       Here are the tasks in your list:
       1.  [T][ ] borrow book
-      1.  [D][X] deadline return book (by: Sunday)
-      1.  [E][X] event project meeting (from: Mon 2pm to: 4pm)
-      1.  [E][ ] event startup meet (from: Tue 3pm to: 8pm)
-      1.  [T][ ] go to dance studio
+      2.  [D][X] deadline return book (by: Sunday)
+      3.  [E][X] event project meeting (from: Mon 2pm to: 4pm)
+      4.  [E][ ] event startup meet (from: Tue 3pm to: 8pm)
+      5.  [T][ ] go to dance studio
     -----------------------------------------------------------------------------------------
     -----------------------------------------------------------------------------------------
       Nice! I've marked this task as done:
@@ -67,8 +67,8 @@
     -----------------------------------------------------------------------------------------
       Here are the tasks in your list:
       1.  [T][X] borrow book
-      1.  [D][X] deadline return book (by: Sunday)
-      1.  [E][ ] event project meeting (from: Mon 2pm to: 4pm)
-      1.  [E][ ] event startup meet (from: Tue 3pm to: 8pm)
-      1.  [T][ ] go to dance studio
+      2.  [D][X] deadline return book (by: Sunday)
+      3.  [E][ ] event project meeting (from: Mon 2pm to: 4pm)
+      4.  [E][ ] event startup meet (from: Tue 3pm to: 8pm)
+      5.  [T][ ] go to dance studio
     -----------------------------------------------------------------------------------------
