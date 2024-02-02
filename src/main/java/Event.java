@@ -13,8 +13,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String from1 = this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        String to1 = this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String from1 = this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        String to1 = this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         return "E" + super.toString() + " | from: " + from1 + " to: " + to1;
     }
 }

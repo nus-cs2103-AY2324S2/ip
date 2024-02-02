@@ -2,11 +2,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Storage {
     private  ArrayList<Task> tasks;
     private static final String FILE_PATH = "./data/Tes.txt";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     public Storage() {
         this.tasks = new ArrayList<>(); // assume maximum size of task list to be 100
@@ -120,14 +122,17 @@ public class Storage {
                         String[] time = temp.split(" to: ");
                         String from = time[0];
                         String to = time[1];
-                        this.storeEvent(split[2], from, to);
+                        LocalDate from1 = LocalDate.parse(from, formatter);
+                        LocalDate to1 = LocalDate.parse(to, formatter);
+                        this.storeEvent(split[2], from1.toString(), to1.toString());
                         if (split[1].equals("X")) {
                             this.mark(this.tasks.size() - 1);
                         }
                     } else if (line.contains("by:")) {
                         String[] split = line.split(" \\| ");
                         String by = split[3].substring(4);
-                        this.storeDeadline(split[2], by);
+                        LocalDate by1 = LocalDate.parse(by, formatter);
+                        this.storeDeadline(split[2], by1.toString());
                         if (split[1].equals("X")) {
                             this.mark(this.tasks.size() - 1);
                         }
