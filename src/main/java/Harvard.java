@@ -8,23 +8,24 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Harvard {
-    public static void main(String[] args) throws HarvardException {
-        String initial = "____________________________________________________________\n"
-                + "Hello! I'm Harvard\n"
-                + "What can I do for you?\n"
-                + "____________________________________________________________\n";
-        System.out.println(initial);
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-        List<Task> tasks = new ArrayList<Task>();
+    public Harvard(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (Exception e) {
+            tasks = new TaskList();
+        }
+    }
 
-        // Read from the text file
-        tasks = GetTasks();
-
-
-
-
-            while (true) {
-                WriteTasks(tasks);
+    public void run() {
+        ui.showWelcome();
+        Parser parser = new Parser(storage, tasks, ui);
+        while (true) {
             Scanner scanner = new Scanner(System.in);
             String echoInput = scanner.nextLine();
 
@@ -32,8 +33,199 @@ public class Harvard {
                 break;
             }
 
-            String command = echoInput.split(" ")[0];
+            parser.parse(echoInput);
+        }
+        ui.showGoodbye();
+    }
 
+    public static void main(String[] args) {
+        new Harvard(System.getProperty("user.dir") + "/data/harvard.txt").run();
+    }
+
+    public class Ui {
+        public Ui() {
+        }
+
+        public void showWelcome() {
+            String initial = "____________________________________________________________\n"
+                + "Hello! I'm Harvard\n"
+                + "What can I do for you?\n"
+                + "____________________________________________________________\n";
+            System.out.println(initial);
+        }
+
+        public void showGoodbye() {
+            String exit = "____________________________________________________________\n"
+                + "Bye. Hope to see you again soon!\n"
+                + "____________________________________________________________\n";
+            System.out.println(exit);
+        }
+
+        public void printAddTask(Task task, int tasksLeft) {
+            System.out.println("____________________________________________________________");
+            System.out.println("Got it. I've added this task:");
+            System.out.println(task.toString());
+            System.out.println("Now you have " + tasksLeft + " tasks in the list.");
+            System.out.println("____________________________________________________________\n");
+        }
+
+        public void printDeleteTask(Task task, int tasksLeft) {
+            System.out.println("____________________________________________________________");
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(task.toString());
+            System.out.println("Now you have " + tasksLeft + " tasks in the list.");
+            System.out.println("____________________________________________________________\n");
+        }
+
+        public void printMark(Task task) {
+            System.out.println("____________________________________________________________");
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(task.toString());
+            System.out.println("____________________________________________________________\n");
+        }
+
+        public void printUnmark(Task task) {
+            System.out.println("____________________________________________________________");
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(task.toString());
+            System.out.println("____________________________________________________________\n");
+        }
+
+        public void printUnrecognisedCommand() {
+            System.out.println("____________________________________________________________");
+            System.out.println("Bro... Idk what that is man.");
+            System.out.println("____________________________________________________________");
+        }
+
+        public void printTasks(TaskList tasks) {
+            System.out.println("____________________________________________________________");
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < tasks.getSize(); i++) {
+                System.out.println(i + 1 + ". " + tasks.printString(i));
+            }
+            System.out.println("____________________________________________________________\n");
+        }
+
+    }
+
+    public class Storage {
+        String filePath;
+        public Storage(String fP) {
+            this.filePath = fP;
+        }
+
+        public BufferedReader load() {
+            try {
+                BufferedReader buffReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/data/harvard.txt"));
+                return buffReader;
+            } catch (FileNotFoundException ex) {
+                CreateTextFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            return null;
+        }
+
+
+        public void CreateTextFile() {
+            try {
+                File file = new File(System.getProperty("user.dir") + "/data/harvard.txt");
+                if (file.getParentFile().mkdir()) {
+                    file.createNewFile();
+                } else {
+                    throw new IOException("Failed to create directory " + file.getParent());
+                }
+            } catch (IOException e) {
+
+            }
+        }
+
+        public void store(TaskList tasks) {
+            String textToSave = "";
+            for (int i = 0; i < tasks.getSize(); i++) {
+                textToSave += tasks.getTask(i).saveString() + "\n";
+            }
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "/data/harvard.txt"));
+                writer.write(textToSave);
+                writer.close();
+            } catch (Exception e) {
+
+            }
+        }
+    }
+
+    public class TaskList {
+        List<Task> taskList = new ArrayList<>();
+
+        public TaskList(BufferedReader br) {
+            populateTaskList(br);
+        }
+
+        public TaskList() {
+        }
+
+        public String printString(int index) {
+            return taskList.get(index).toString();
+        }
+
+        public int getSize() {
+            return taskList.size();
+        }
+
+        public Task getTask(int index) {
+            return this.taskList.get(index);
+        }
+
+        public void delete(int index) {
+            taskList.remove(index);
+        }
+
+        public void add(Task task) {
+            taskList.add(task);
+        }
+
+        public void mark(int index) {
+            this.taskList.get(index).mark();
+        }
+
+        public void unmark(int index) {
+            this.taskList.get(index).unmark();
+        }
+        public void populateTaskList(BufferedReader buffReader) {
+            try {
+                String line;
+                while (( line = buffReader.readLine()) != null) {
+                    String taskType = line.split(",")[0];
+                    Boolean isDone =  line.split(",")[1].equals("0") ? false : true;
+                    if (taskType.equals("T") ) {
+                        taskList.add(new Todo(line.split(",")[2], isDone));
+                    } else if (taskType.equals("D")) {
+                        taskList.add(new Deadline(line.split(",")[2], LocalDate.parse(line.split(",")[3]), isDone));
+                    } else {
+                        taskList.add(new Event(line.split(",")[2], LocalDate.parse(line.split(",")[3]), LocalDate.parse(line.split(",")[4]), isDone));
+                    }
+                }
+            } catch (IOException e) {
+
+            }
+
+        }
+
+    }
+
+    public static class Parser {
+        private Storage storage;
+        private TaskList tasks;
+        private Ui ui;
+        public Parser(Storage s, TaskList tL, Ui ui) {
+            this.storage = s;
+            this.tasks = tL;
+            this.ui = ui;
+        }
+
+        public void parse(String commandLine) {
+            String command = commandLine.split(" ")[0];
             try {
                 if (!command.equals("list") && !command.equals("todo") && !command.equals("deadline") &&
                         !command.equals("event") && !command.equals("mark") && !command.equals("unmark") &&
@@ -41,161 +233,71 @@ public class Harvard {
                     throw new HarvardException("Bro... Idk what that is man.");
                 }
             } catch (HarvardException e) {
-                System.out.println("____________________________________________________________");
-                System.out.println(e.getMessage());
-                System.out.println("____________________________________________________________");
+                this.ui.printUnrecognisedCommand();
+            }
+
+            if (command.equals("list")) {
+                this.ui.printTasks(tasks);
             }
 
             if (command.equals("delete")) {
-                int index = Integer.parseInt(echoInput.split(" ")[1]);
-                Task targetTask = tasks.get(index - 1);
+                int index = Integer.parseInt(commandLine.split(" ")[1]);
 
-                System.out.println("____________________________________________________________");
-                System.out.println("Noted. I've removed this task:");
-                System.out.println(targetTask.toString());
-                tasks.remove(index - 1);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________\n");
-                continue;
+                this.ui.printDeleteTask(tasks.getTask(index - 1), tasks.getSize() - 1);
+                this.tasks.delete(index - 1);
             }
-
 
             if (command.equals("todo")) {
                 try {
-                    if (echoInput.split(" ").length == 1) {
+                    if (commandLine.split(" ").length == 1) {
                         throw new HarvardException("Wow that's awkward... Please enter a description for todo!");
                     }
-                    Todo todoTask = new Todo(echoInput.substring(echoInput.indexOf(' ') + 1));
-                    tasks.add(todoTask);
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(todoTask.toString());
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________\n");
+                    Todo todoTask = new Todo(commandLine.substring(commandLine.indexOf(' ') + 1));
+                    this.tasks.add(todoTask);
+                    this.ui.printAddTask(todoTask, tasks.getSize());
                 } catch (HarvardException e) {
                     System.out.println("____________________________________________________________");
                     System.out.println(e.getMessage());
                     System.out.println("____________________________________________________________");
                 }
-
             }
 
             if (command.equals("deadline")) {
-                String[] commandItems = echoInput.split(" /by ");
+                String[] commandItems = commandLine.split(" /by ");
                 String desc = commandItems[0].substring(commandItems[0].indexOf(' ')+1);
                 LocalDate by = LocalDate.parse(commandItems[1]);
 
                 Deadline deadlineTask = new Deadline(desc, by);
-                tasks.add(deadlineTask);
-                System.out.println("____________________________________________________________");
-                System.out.println("Got it. I've added this task:");
-                System.out.println(deadlineTask.toString());
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________\n");
+                this.tasks.add(deadlineTask);
+                this.ui.printAddTask(deadlineTask, tasks.getSize());
             }
 
             if (command.equals("event")) {
-                String[] commandItems = echoInput.split(" /from ");
+                String[] commandItems = commandLine.split(" /from ");
                 String desc = commandItems[0].substring(commandItems[0].indexOf(' ')+1);
                 String[] commandItems2 = commandItems[1].split(" /to ");
                 LocalDate from = LocalDate.parse(commandItems2[0]);
                 LocalDate to = LocalDate.parse(commandItems2[1]);
 
-
                 Event eventTask = new Event(desc, from, to);
-                tasks.add(eventTask);
-                System.out.println("____________________________________________________________");
-                System.out.println("Got it. I've added this task:");
-                System.out.println(eventTask.toString());
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________\n");
+                this.tasks.add(eventTask);
+                this.ui.printAddTask(eventTask, tasks.getSize());
             }
 
             if (command.equals("mark") || command.equals("unmark")) {
-                int index = Integer.parseInt(echoInput.split(" ")[1]);
-                Task targetTask = tasks.get(index - 1);
+                int index = Integer.parseInt(commandLine.split(" ")[1]) - 1;
 
-                System.out.println("____________________________________________________________");
                 if (command.equals("mark")) {
-                    targetTask.mark();
-                    System.out.println("Nice! I've marked this task as done:");
+                    this.tasks.mark(index);
+                    this.ui.printMark(this.tasks.getTask(index));
                 } else {
-                    targetTask.unmark();
-                    System.out.println("OK, I've marked this task as not done yet:");
-                }
-
-                System.out.println(targetTask.toString());
-                System.out.println("____________________________________________________________\n");
-                continue;
-            }
-
-            if (command.equals("list")) {
-                System.out.println("____________________________________________________________");
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println(i + 1 + "." + tasks.get(i).toString());
-                }
-                System.out.println("____________________________________________________________\n");
-            }
-
-        }
-
-        String exit = "____________________________________________________________\n"
-                + "Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________\n";
-        System.out.println(exit);
-    }
-    public static List<Task> GetTasks() {
-        try {
-            BufferedReader buffReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/data/harvard.txt"));
-            List<Task> tasks = new ArrayList<>();
-            String line;
-            while (( line = buffReader.readLine()) != null) {
-
-                String taskType = line.split(",")[0];
-                Boolean isDone =  line.split(",")[1].equals("0") ? false : true;
-                if (taskType.equals("T") ) {
-                    tasks.add(new Todo(line.split(",")[2], isDone));
-                } else if (taskType.equals("D")) {
-                    tasks.add(new Deadline(line.split(",")[2], LocalDate.parse(line.split(",")[3]), isDone));
-                } else {
-                    tasks.add(new Event(line.split(",")[2], LocalDate.parse(line.split(",")[3]), LocalDate.parse(line.split(",")[4]), isDone));
+                    this.tasks.unmark(index);
+                    this.ui.printUnmark(this.tasks.getTask(index ));
                 }
 
             }
-            return tasks;
-        } catch (FileNotFoundException ex) {
-            CreateTextFile();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return new ArrayList<>();
-    }
 
-    public static void CreateTextFile() {
-        try {
-            File file = new File(System.getProperty("user.dir") + "/data/harvard.txt");
-            if (file.getParentFile().mkdir()) {
-                file.createNewFile();
-            } else {
-                throw new IOException("Failed to create directory " + file.getParent());
-            }
-        } catch (IOException e) {
-
-        }
-    }
-
-    public static void WriteTasks(List<Task> tasks) {
-        String textToSave = "";
-        for (int i = 0; i < tasks.size(); i++) {
-            textToSave += tasks.get(i).saveString() + "\n";
-        }
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "/data/harvard.txt"));
-            writer.write(textToSave);
-            writer.close();
-        } catch (Exception e) {
-
+            this.storage.store(this.tasks);
         }
     }
 
@@ -321,4 +423,7 @@ public class Harvard {
             super(errorMessage);
         }
     }
+
+
 }
+
