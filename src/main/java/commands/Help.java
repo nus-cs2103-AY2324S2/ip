@@ -1,6 +1,6 @@
 package commands;
 
-import objects.FilePath;
+import utils.FilePath;
 import view.EncaseLines;
 
 import static utils.FileUtil.getFile;

@@ -1,7 +1,7 @@
 package view;
 
-import static objects.FilePath.GREETING_PATH;
-import static objects.FilePath.LOGO_PATH;
+import static utils.FilePath.GREETING_PATH;
+import static utils.FilePath.LOGO_PATH;
 import static utils.FileUtil.getFile;
 
 public class Greeting extends UI {

@@ -1,6 +1,6 @@
 package view;
 
-import static objects.FilePath.LINE_PATH;
+import static utils.FilePath.LINE_PATH;
 import static utils.FileUtil.getFile;
 
 public class SingleLine extends UI {

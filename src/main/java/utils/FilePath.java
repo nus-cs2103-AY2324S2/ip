@@ -1,4 +1,4 @@
-package objects;
+package utils;
 
 public class FilePath {
     public static final String GRAPHICS_FOLDER = "./src/main/graphics/";

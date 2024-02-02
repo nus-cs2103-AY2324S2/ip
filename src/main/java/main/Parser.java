@@ -1,3 +1,5 @@
+package main;
+
 import commands.Command;
 import commands.CreateDeadline;
 import commands.CreateEvent;

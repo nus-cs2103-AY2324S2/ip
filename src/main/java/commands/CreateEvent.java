@@ -1,7 +1,6 @@
 package commands;
 
 import exception.InvalidEventException;
-import objects.Deadlines;
 import objects.Events;
 import objects.Task;
 import objects.TaskList;
