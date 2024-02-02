@@ -49,7 +49,7 @@ public class Storage {
                 String line;
                 while ((line = br.readLine()) != null) {
                     boolean isTaskDone;
-                    isTaskDone = !line.substring(line.lastIndexOf(' ') + 1).equals("incomplete");
+                    isTaskDone = !line.substring(line.lastIndexOf(' ') + 1).equals("false");
                     line = line.substring(0, line.lastIndexOf(' '));
                     try {
                         Task task = taskList.taskCreator(line);

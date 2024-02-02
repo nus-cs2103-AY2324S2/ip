@@ -104,6 +104,22 @@ public class Ui {
     }
 
     /**
+     * Formats and returns a string listing tasks marked as done.
+     *
+     * @param values Indices of tasks to be marked as done.
+     * @return Formatted string of tasks marked as done.
+     */
+    public String printTaskMarked(int... values) {
+        StringBuilder output = new StringBuilder(SEPARATOR);
+        output.append("\tNice! I've marked these tasks as done:\n");
+        for (int i : values) {
+            output.append("\t\t").append(taskList.get(i - 1).toString()).append("\n");
+        }
+        output.append(SEPARATOR);
+        return output.toString();
+    }
+
+    /**
      * Displays the information about a newly added task.
      * It prints a message confirming that the task has been added to the list
      * and shows the total number of tasks currently in the list.

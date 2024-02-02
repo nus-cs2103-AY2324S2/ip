@@ -1,6 +1,7 @@
 package kaiyap;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import exceptions.AlreadyExistsException;
 import exceptions.InvalidInputException;
@@ -156,21 +157,21 @@ public class KaiYap {
                     "\tSorry, it seems like there is some missing input. Please try again! UwU :3"
             );
         }
-        int numericIndex = Integer.parseInt(index.substring(5).strip()) - 1;
-        if (numericIndex >= this.taskList.size()) {
-            throw new InvalidInputException("\tSorry, this task does not exist. Please try again! UwU :3");
-        } else if (taskList.get(numericIndex).isTaskDone()) {
-            throw new AlreadyExistsException("\tThis task has already been marked as done. Great job!");
-        } else {
-            taskList.get(numericIndex).setTaskDone(true);
-            storage.saveData();
-            return (
-                    "\t____________________________________________________________\n"
-                            + "\tNice! I've marked this task as done:\n"
-                            + "\t\t" + taskList.get(numericIndex).toString()
-                            + "\n\t____________________________________________________________"
-                );
+        index = index.substring(index.indexOf(' ') + 1);
+        int[] numericIndices = Arrays.stream(index.split(" "))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+        for (int numericIndex : numericIndices) {
+            if (numericIndex > this.taskList.size()) {
+                throw new InvalidInputException("\tSorry, this task does not exist. Please try again! UwU :3");
+            } else if (taskList.get(numericIndex - 1).isTaskDone()) {
+                throw new AlreadyExistsException("\tOne of these tasks has already been marked as done. Great job!");
+            } else {
+                taskList.get(numericIndex - 1).setTaskDone(true);
+                storage.saveData();
+            }
         }
+        return ui.printTaskMarked(numericIndices);
     }
 
     /**
