@@ -1,4 +1,4 @@
-package duke;
+package duke.conversation;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
