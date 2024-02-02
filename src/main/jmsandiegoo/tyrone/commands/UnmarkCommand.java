@@ -28,8 +28,7 @@ public class UnmarkCommand extends Command {
         try {
             super.taskList.unmarkItemDone(this.index);
             return new CommandResult(
-                    String.format(Messages.MESSAGE_UNMARK, super.taskList.getItem(this.index))
-            );
+                    String.format(Messages.MESSAGE_UNMARK, super.taskList.getItem(this.index)));
         } catch (IndexOutOfBoundsException e) {
             throw new CommandExecutionException(String.format(Messages.MESSAGE_INCORRECT_COMMAND_INDEX, "unmark"));
         }

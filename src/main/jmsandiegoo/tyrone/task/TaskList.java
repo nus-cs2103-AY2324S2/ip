@@ -119,10 +119,12 @@ public class TaskList {
      * @param index - the target list index of the item to be marked.
      */
     public void markItemDone(int index) {
-        if (index < 0 || index >= this.getListSize()) return;
+        if (index < 0 || index >= this.getListSize()) {
+            return;
+        }
+
         Task currItem = this.items.get(index);
         currItem.markItem();
-
     }
 
     /**
@@ -131,7 +133,10 @@ public class TaskList {
      * @param index - the target list index of the item to be un-marked.
      */
     public void unmarkItemDone(int index) {
-        if (index < 0 || index >= this.getListSize()) return;
+        if (index < 0 || index >= this.getListSize()) {
+            return;
+        }
+
         Task currItem = this.items.get(index);
         currItem.unmarkItem();
     }
@@ -144,7 +149,10 @@ public class TaskList {
      * @return Task - deleted task.
      */
     public Task deleteItem(int index) {
-        if (index < 0 || index >= this.getListSize()) return null;
+        if (index < 0 || index >= this.getListSize()) {
+            return null;
+        }
+
         return this.items.remove(index);
     }
 
@@ -170,8 +178,11 @@ public class TaskList {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < this.items.size(); ++i) {
             output.append(i + 1).append(".  ").append(this.items.get(i).toString());
-            if (i < this.items.size() - 1) output.append("\n");
+            if (i < this.items.size() - 1) {
+                output.append("\n");
+            }
         }
+
         return output.toString();
     }
 }

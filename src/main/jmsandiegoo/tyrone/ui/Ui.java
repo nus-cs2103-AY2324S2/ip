@@ -33,8 +33,7 @@ public class Ui {
                 LINE_SEPARATOR,
                 Messages.MESSAGE_GREET,
                 LINE_SEPARATOR,
-                DIVIDER
-        );
+                DIVIDER);
     }
 
     public void outputByeMessage() {
@@ -43,8 +42,7 @@ public class Ui {
                 LINE_SEPARATOR,
                 Messages.MESSAGE_BYE,
                 LINE_SEPARATOR,
-                DIVIDER
-        );
+                DIVIDER);
     }
 
     public void outputFailedInitMessage() {
@@ -53,8 +51,7 @@ public class Ui {
                 LINE_SEPARATOR,
                 Messages.MESSAGE_INITIALIZE_FAIL,
                 LINE_SEPARATOR,
-                DIVIDER
-        );
+                DIVIDER);
     }
 
     public String getRawUserCommand() {

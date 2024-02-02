@@ -26,7 +26,6 @@ public class EventCommand extends Command {
     public CommandResult execute() {
         super.taskList.addItem(this.eventItem);
         return new CommandResult(
-                String.format(Messages.MESSAGE_ADD_TASK, this.eventItem, super.taskList.getListSize())
-        );
+                String.format(Messages.MESSAGE_ADD_TASK, this.eventItem, super.taskList.getListSize()));
     }
 }
