@@ -42,4 +42,16 @@ public class TaskList {
         return taskList.size();
     }
 
+    public ArrayList<String> find(String key) {
+        ArrayList<String> result = new ArrayList<>();
+        int count = 1;
+        for (Task i : taskList) {
+            if (i.getName().contains(key)) {
+                result.add(Integer.toString(count) + "." + i.getStatus());
+                count++;
+            }
+        }
+        return result;
+    }
+
 }

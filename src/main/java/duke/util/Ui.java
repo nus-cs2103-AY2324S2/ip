@@ -83,4 +83,14 @@ public class Ui {
         System.out.println(indent + e);
         spacing();
     }
+
+    public void showFilteredList(String keyword, TaskList tasks){
+        separate();
+        System.out.println(indent + "Here are the matching tasks in your list:");
+        ArrayList<String> list = tasks.find(keyword);
+        for (String i : list) {
+            System.out.println(indent + i);
+        }
+        spacing();
+    }
 }

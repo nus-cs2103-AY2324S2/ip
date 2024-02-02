@@ -1,3 +1,4 @@
+import duke.task.TaskException;
 import duke.task.TaskList;
 import duke.util.FileManager;
 import duke.util.Parser;
@@ -29,7 +30,11 @@ public class Duke {
         boolean isDone = false;
         while(!isDone) {
             String current = input.nextLine();
-            parser.read(current);
+            try {
+                parser.read(current);
+            } catch (TaskException e) {
+                System.out.println(e);
+            }
             isDone = parser.isExit();
         }
         storage.saveFile(tasks.giveList());

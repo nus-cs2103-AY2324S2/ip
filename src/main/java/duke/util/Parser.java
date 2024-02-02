@@ -68,7 +68,7 @@ public class Parser {
         }
     }
 
-    public void read(String current){
+    public void read(String current) throws TaskException {
         if(current.equals("bye")) {
             ui.bye();
             this.isExit = true;
@@ -90,6 +90,14 @@ public class Parser {
             String[] marking = current.split(" ");
             int position = Integer.parseInt(marking[1]) - 1;
             ui.delete(position, tasks);
+        } else if (current.startsWith("find")) {
+            String[] reqList = current.split(" ");
+            if (reqList.length < 2) {
+                throw new TaskException("What do you want me to find? Please specify");
+            }
+            String keyword = String.join(" ", Arrays.copyOfRange(reqList, 1, reqList.length));
+            ui.showFilteredList(keyword, tasks);
+
         } else {
             try {
                 Task newTask = identify(current);
