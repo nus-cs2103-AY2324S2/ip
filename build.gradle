@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("Friday.main.Friday")
+    mainClass.set("friday.main.Friday")
 }
 
 shadowJar {

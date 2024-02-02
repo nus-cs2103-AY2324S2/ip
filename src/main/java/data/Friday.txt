@@ -8,5 +8,4 @@
 [T][X] assignment
 [T][X] sleep
 [D][ ] wake up (by: Feb 03 2024 0700)
-[T][X] jump
-[D][ ] submit (by: Feb 03 2024 2359)
+[T][ ] jump

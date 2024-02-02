@@ -1,30 +1,38 @@
-package Friday.task;
+package friday.task;
 
 import java.util.ArrayList;
 import java.util.List;
-import Friday.ui.Ui;
-import Friday.storage.Storage;
+import friday.ui.Ui;
 
+/**
+ * Represents a list of tasks in the Friday application.
+ */
 public class TaskList {
     private List<Task> tasks ;
     private Ui ui;
-    private Storage storage;
 
+    /**
+     * Constructs a TaskList object with an empty list of tasks and initializes UI and Storage components.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
         this.ui = new Ui();
     }
 
-    public void displayTasks() {
-        for (Task t : tasks) {
-            ui.displayMessage(t.toString() + System.lineSeparator());
-        }
-    }
-
+    /**
+     * Returns the number of tasks in the task list.
+     *
+     * @return The number of tasks in the task list.
+     */
     public int length() {
         return tasks.size();
     }
 
+    /**
+     * Marks a task as done based on user input.
+     *
+     * @param userInput The user input specifying the task to be marked as done.
+     */
     public void markTask(String userInput) {
         String num = userInput.substring(4).trim();
         if (num.isEmpty()) {
@@ -41,6 +49,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as undone based on user input.
+     *
+     * @param userInput The user input specifying the task to be marked as undone.
+     */
     public void unmarkTask(String userInput) {
         String num = userInput.substring(6).trim();
         if (num.isEmpty()) {
@@ -56,7 +69,11 @@ public class TaskList {
             }
         }
     }
-
+    /**
+     * Deletes a task based on user input.
+     *
+     * @param userInput The user input specifying the task number to be deleted.
+     */
     public void deleteTask(String userInput) {
         String num = userInput.substring(6).trim();
         if (num.isEmpty()) {
@@ -74,6 +91,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Retrieves a task from the task list based on the specified index.
+     *
+     * @param index The index of the task to retrieve.
+     * @return The task at the specified index, or null if the index is out of bounds.
+     */
     public Task getTask(int index) {
         if (index >= 0 && index < tasks.size()) {
             return tasks.get(index);
@@ -83,10 +106,21 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task to the task list based on data loaded from a file.
+     *
+     * @param task The task to be added to the task list.
+     */
     public void addTaskFromData(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Adds a task to the task list based on user input for a Todo.
+     *
+     * @param userInput The user input specifying the Todo task to be added.
+     * @return The added Todo task.
+     */
     public Todo addTodo(String userInput) {
         String description = userInput.substring(5).trim();
         if (description.isEmpty()) {
@@ -102,6 +136,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task to the task list based on user input for a Deadline.
+     *
+     * @param userInput The user input specifying the Deadline task to be added.
+     * @return The added Deadline task.
+     */
     public Deadline addDeadline(String userInput) {
         int id = userInput.indexOf("/by");
         String description = userInput.substring(8, id).trim();
@@ -124,6 +164,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task to the task list based on user input for an Event.
+     *
+     * @param userInput The user input specifying the Event task to be added.
+     * @return The added Event task.
+     */
     public Event addEvent(String userInput) {
         int idFrom = userInput.indexOf("/from");
         int idTo = userInput.indexOf("/to");
@@ -149,14 +195,30 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the task list based on user input.
+     *
+     * @param index The task number to be deleted.
+     */
     public void deleteTask(int index) {
         tasks.remove(index);
     }
 
+    /**
+     * Checks if the task list is empty.
+     *
+     * @return true if the task list is empty, false otherwise.
+     */
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
 
+    /**
+     * Generates a message indicating the number of tasks in the list.
+     *
+     * @param num The number of tasks in the list.
+     * @return A message indicating the number of tasks in the list.
+     */
     private String displayCounter(int num) {
         if (num <= 1) {
             return "Now you have " + num + " task in the list.";

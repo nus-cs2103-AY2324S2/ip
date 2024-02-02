@@ -1,19 +1,32 @@
-package Friday.storage;
+package friday.storage;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import Friday.task.TaskList;
-import Friday.task.Task;
+import friday.task.TaskList;
+import friday.task.Task;
 
+/**
+ * The Storage class is responsible for handling the reading and writing of task data to a file in the Friday application.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where task data is stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Checks if the data file exists; if not, creates a new file.
+     *
+     * @throws IOException If an I/O error occurs during file creation.
+     */
     public void checkFile() throws IOException {
         File f = new File(filePath);
         if (!f.exists()) {
@@ -27,6 +40,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the task list data to the file.
+     *
+     * @param tasks The TaskList containing tasks to be written to the file.
+     * @throws IOException If an I/O error occurs during file writing.
+     */
     public void writeToFile(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
         for (int i = 0; i < tasks.length(); i++) {
@@ -35,6 +54,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Reads task data from the file and returns a TaskList.
+     *
+     * @return The TaskList containing tasks loaded from the file.
+     * @throws IOException If an I/O error occurs during file reading.
+     */
     public TaskList loadDataFromFile() throws IOException {
         File file = new File(filePath);
         TaskList tasks = new TaskList();
@@ -56,6 +81,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Appends text to the end of the file.
+     *
+     * @param textToAppend The text to append to the file.
+     * @throws IOException If an I/O error occurs during file appending.
+     */
     public void appendToFile(String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAppend);

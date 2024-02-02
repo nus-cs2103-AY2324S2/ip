@@ -1,10 +1,10 @@
-package Friday.test;
+package friday.test;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import Friday.task.TaskList;
-import Friday.task.Todo;
+import friday.task.TaskList;
+import friday.task.Todo;
 
 public class FridayTest {
     @Test
