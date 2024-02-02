@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class Duke {
@@ -114,7 +115,11 @@ public class Duke {
                 String dt = sbDL.toString();
                 String by = sbBy.toString();
                 if (!dt.isEmpty() && !by.isEmpty()) {
-                   task = new Deadline(dt,false, by);
+                    try {
+                        task = new Deadline(dt, false, new Date(by));
+                    } catch (DateTimeParseException e) {
+                        throw new ftException("Invalid date format. Please follow yyyy-mm-ddThh:mm format.");
+                    }
                 } else {
                     throw new ftException("Error: Please tell me your task and its deadline");
                 }
@@ -145,7 +150,11 @@ public class Duke {
                 String from = sbFrom.toString();
                 String to = sbTo.toString();
                 if (!name.isEmpty() && !from.isEmpty() && !to.isEmpty()) {
-                    task = new Event(name, false, from, to);
+                    try {
+                    task = new Event(name, false, new Date(from), new Date(to));
+                    } catch (DateTimeParseException e) {
+                        throw new ftException("Invalid date format. Please follow yyyy-mm-ddThh:mm format.");
+                    }
                 } else {
                     throw new ftException("Error: Please tell me your event and its from/to dates");
                 }
@@ -264,10 +273,10 @@ public class Duke {
                         myList.add(new ToDo(elements[2], Boolean.parseBoolean(elements[1])));
                         break;
                     case "D":
-                        myList.add(new Deadline(elements[2], Boolean.parseBoolean(elements[1]), elements[3]));
+                        myList.add(new Deadline(elements[2], Boolean.parseBoolean(elements[1]), new Date(elements[3])));
                         break;
                     case "E":
-                        myList.add(new Event(elements[2], Boolean.parseBoolean(elements[1]), elements[3], elements[4]));
+                        myList.add(new Event(elements[2], Boolean.parseBoolean(elements[1]), new Date(elements[3]), new Date(elements[4])));
                         break;
                     default:
                         throw new ftException("    Warning: The file is corrupted. Please delete the file");

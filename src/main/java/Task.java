@@ -1,3 +1,5 @@
+import java.time.format.DateTimeParseException;
+
 public class Task {
     private String name;
     private boolean isDone;
@@ -49,27 +51,27 @@ class ToDo extends Task {
 }
 
 class Deadline extends Task {
-    private String by;
-    public Deadline(String name, boolean isDone, String by) {
+    private Date by;
+    public Deadline(String name, boolean isDone, Date by) {
         super(name, isDone);
         this.by = by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() +" (by: " + by + ")";
+            return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
     @Override
     public String toSaveFormat() {
-        return "D " + super.toSaveFormat() + " | " + by + "\n";
+        return "D " + super.toSaveFormat() + " | " + by.toSaveFormat() + "\n";
     }
 }
 
-class Event extends  Task {
-    private String from;
-    private String to;
-    public Event(String name, boolean isDone, String from, String to) {
+class Event extends Task {
+    private Date from;
+    private Date to;
+    public Event(String name, boolean isDone, Date from, Date to) {
         super(name, isDone);
         this.from = from;
         this.to = to;
@@ -82,6 +84,6 @@ class Event extends  Task {
 
     @Override
     public String toSaveFormat() {
-        return "E " + super.toSaveFormat() + " | " + from + " | " + to + "\n";
+        return "E " + super.toSaveFormat() + " | " + from.toSaveFormat() + " | " + to.toSaveFormat() + "\n";
     }
 }
