@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Duke {
     static void greeting(String botName) {
@@ -43,7 +47,7 @@ public class Duke {
                         String[] parts = description.split("\\\\by");
                         String ddl_description = parts.length > 0 ? parts[0].trim() : "";
                         String ddl_time = parts.length > 1 ? parts[1].trim() : "";
-                        Task t = new Deadline(ddl_description, ddl_time);
+                        Task t = new Deadline(ddl_description, readAsDate(ddl_time));
                         TodoList.add(t);
                         listOverviewAfterAdding(t, TodoList);
                     }
@@ -63,7 +67,7 @@ public class Duke {
 
                         // Collect words after "\to" into one string
                         String event_to = parts.length > 2 ? parts[2].trim() : "";
-                        Task t = new Event(event_description, event_from, event_to);
+                        Task t = new Event(event_description, readAsDate(event_from), readAsDate(event_to));
                         TodoList.add(t);
                         listOverviewAfterAdding(t, TodoList);
                     }
@@ -76,6 +80,15 @@ public class Duke {
         } else {
             System.out.println("Sorry, I don't understand your command.");
         }
+    }
+
+    static LocalDate readAsDate(String time) {
+        String[] parts = time.split(" ");
+        String datePart = parts[0];
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(datePart, formatter);
+
+        return localDate;
     }
 
     static void printList(ArrayList<Task> TodoList) {
@@ -209,6 +222,7 @@ public class Duke {
         if (parts.length >= 3) {
             boolean isDone = Boolean.parseBoolean(parts[1]);
             String description = parts[2];
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
             switch (parts[0]) {
                 case "T":
@@ -216,14 +230,17 @@ public class Duke {
                 case "D":
                     if (parts.length >= 4) {
                         String by = parts[3];
-                        return new Deadline(description, by, isDone);
+                        LocalDate localDate = LocalDate.parse(by, formatter);
+                        return new Deadline(description, localDate, isDone);
                     }
                     break;
                 case "E":
                     if (parts.length >= 5) {
                         String from = parts[3];
                         String to = parts[4];
-                        return new Event(description, from, to, isDone);
+                        LocalDate localDateFrom = LocalDate.parse(from, formatter);
+                        LocalDate localDateTo = LocalDate.parse(to, formatter);
+                        return new Event(description, localDateFrom, localDateTo, isDone);
                     }
                     break;
                 default:
