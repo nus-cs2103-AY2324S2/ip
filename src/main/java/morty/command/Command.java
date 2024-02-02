@@ -1,6 +1,6 @@
 package morty.command;
 
-import morty.DukeException;
+import morty.MortyException;
 import morty.Storage;
 import morty.TaskList;
 import morty.Ui;
@@ -35,7 +35,7 @@ public abstract class Command {
    * @param tasks   The list of tasks.
    * @param ui      The user interface.
    * @param storage The storage.
-   * @throws DukeException If an error occurs during execution.
+   * @throws MortyException If an error occurs during execution.
    */
   public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 

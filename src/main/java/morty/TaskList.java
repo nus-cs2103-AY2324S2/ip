@@ -23,9 +23,9 @@ public class TaskList {
    * Constructs a TaskList object with the given list of tasks.
    *
    * @param tasks The list of tasks.
-   * @throws DukeException If the given list of tasks is null.
+   * @throws MortyException If the given list of tasks is null.
    */
-  public TaskList(List<Task> tasks) throws DukeException {
+  public TaskList(List<Task> tasks) throws MortyException {
     this.tasks = tasks;
   }
 

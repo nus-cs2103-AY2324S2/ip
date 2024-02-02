@@ -13,7 +13,7 @@ public class Morty {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (MortyException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
