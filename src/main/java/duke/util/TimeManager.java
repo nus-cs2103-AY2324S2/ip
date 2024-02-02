@@ -6,7 +6,20 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Manages the parsing and formatting of date and time strings.
+ * This class supports multiple input formats and converts them into a standard output format.
+ */
 public class TimeManager {
+    /**
+     * Parses a date and time string from various known formats into a standardized format.
+     * If the input does not match any known format, it returns the input as is.
+     *
+     * @param input The date and time string to be parsed.
+     * @return A date and time string formatted in the standard output format
+     *         "dd MMMM yyyy, h:mm a" if the input matches any of the known formats;
+     *         otherwise, returns the original input string.
+     */
     public static String parseTime(String input) {
         List<DateTimeFormatter> formatters = Arrays.asList(
                 DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
