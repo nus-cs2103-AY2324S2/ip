@@ -6,13 +6,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a specific event duration.
+ */
 public class Event extends Task {
     private LocalDateTime from, to;
 
-    public boolean isHappeningOnDate(LocalDateTime date) {
-        return !from.toLocalDate().isAfter(date.toLocalDate()) && !to.toLocalDate().isBefore(date.toLocalDate());
-    }
-
+    /**
+     * Constructs an Event task with the specified description, start time, end time, and completion status.
+     *
+     * @param description The description of the event.
+     * @param from        The start time of the event in "yyyy-MM-dd HHmm" format.
+     * @param to          The end time of the event in "yyyy-MM-dd HHmm" format.
+     * @param isDone      True if the event is marked as done, false otherwise.
+     * @throws ZackException If there is an error in parsing the event times or if the format is invalid.
+     */
     public Event(String description, String from, String to, boolean isDone) throws ZackException {
         super(description, isDone);
         try {
@@ -23,12 +31,21 @@ public class Event extends Task {
         }
     }
 
-    @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
+    /**
+     * Checks if the event is happening on the specified date and time.
+     *
+     * @param date The date and time to check.
+     * @return True if the event is happening at the specified date and time, false otherwise.
+     */
+    public boolean isHappeningOnDate(LocalDateTime date) {
+        return !from.toLocalDate().isAfter(date.toLocalDate()) && !to.toLocalDate().isBefore(date.toLocalDate());
     }
 
+    /**
+     * Returns a string in a specific format for saving to a file.
+     *
+     * @return A string representation of the Event task for saving to a file.
+     */
     @Override
     public String toFileString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");

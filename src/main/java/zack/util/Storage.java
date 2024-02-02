@@ -13,13 +13,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles saving and loading tasks from a file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The file path where tasks will be saved and loaded.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the list of tasks to the specified file.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws IOException If there is an error in writing to the file.
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         File file = new File(filePath);
         file.getParentFile().mkdirs(); // Create directories if they don't exist
@@ -30,6 +44,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the specified file.
+     *
+     * @return An ArrayList of loaded tasks.
+     * @throws ZackException If there is an error in reading or parsing the file.
+     */
     public ArrayList<Task> load() throws ZackException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
         File file = new File(filePath);
@@ -42,11 +62,18 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new ZackException("Task file not found. A new file will be created upon adding to task list.");
+            throw new ZackException("Task file not found. A new file will be created upon adding tasks to the task list.");
         }
         return loadedTasks;
     }
 
+    /**
+     * Parses a line from the file into a Task object.
+     *
+     * @param line The line from the file to be parsed.
+     * @return The parsed Task object.
+     * @throws ZackException If there is an error in parsing the line.
+     */
     public Task parseTask(String line) throws ZackException {
         String[] parts = line.split(" \\| ");
         // handle exceptions for when the text file is edited.
@@ -64,7 +91,7 @@ public class Storage {
             return new Deadline(description, parts[3], isDone);
         case "E":
             if (parts.length < 4) throw new ZackException("Invalid event format");
-            // ["E", "1", "project meeting", "Aug 5th to Aug 6th"]
+            // ["E", "1", "project meeting", "2022-08-01 2200 to 2022-08-01 2300"]
             String[] from_to = parts[3].split(" to ");
             String from = from_to[0];
             String to = from_to[1];
