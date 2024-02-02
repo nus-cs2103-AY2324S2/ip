@@ -4,11 +4,8 @@ import duke.JamieException;
 
 public class ToDo extends Task {
 
-    public ToDo(String description)  throws JamieException {
-        super(description);
-        if (description.isBlank()) {
-            throw new JamieException("The description of a todo task cannot be empty.");
-        }
+    public ToDo(String description) {
+        super(description.isBlank() ? "Default Description" : description);
     }
 
     public ToDo(String description, boolean isDone) {

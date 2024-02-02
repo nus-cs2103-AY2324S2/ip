@@ -29,6 +29,7 @@ public class Storage {
         while (scanner.hasNextLine()) {
             String taskString = scanner.nextLine();
             String[] splits = taskString.split(" \\| "); // Splitting each part of the task
+
             switch (splits[0]) {
                 case "T": {
                     Task toAdd = new ToDo(splits[2], splits[1].equals("1"));
