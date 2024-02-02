@@ -23,8 +23,8 @@ public class MarkCommand extends Command {
     /**
      * Executes the MarkCommand by marking the task with
      * the given task number as done in the task list,
-     * displaying the completion message using Ui,
-     * and saving the updated task list using Storage.
+     * displaying the completion message, and saving
+     * the updated task list using Storage.
      *
      * @param tasks   TaskList that contains the task list.
      * @param ui      Ui that deals with user interactions.
