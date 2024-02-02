@@ -6,8 +6,8 @@ public class InputHandler {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String userInput = scanner.nextLine();
-            String[] strArray = userInput.split(" ");
-            String firstWord = strArray[0];
+            String[] stringComponents = userInput.split(" ");
+            String firstWord = stringComponents[0];
             String index;
             if (firstWord.equals("bye")) {
                 ui.leave();
@@ -19,15 +19,15 @@ public class InputHandler {
                         taskList.list();
                         break;
                     case "mark":
-                        index = strArray[1];
+                        index = stringComponents[1];
                         taskList.markDone(index);
                         break;
                     case "unmark":
-                        index = strArray[1];
+                        index = stringComponents[1];
                         taskList.unmarkDone(index);
                         break;
                     case "delete":
-                        index = strArray[1];
+                        index = stringComponents[1];
                         taskList.delete(index);
                         break;
                     case "todo":
@@ -36,13 +36,13 @@ public class InputHandler {
                         taskList.store(task);
                         break;
                     case "deadline":
-                        String[] deadlineSplit = userInput.split("deadline | /by ");
-                        Deadline deadline = new Deadline(deadlineSplit[1], deadlineSplit[2]);
+                        String[] deadlineComponents = userInput.split("deadline | /by ");
+                        Deadline deadline = new Deadline(deadlineComponents[1], deadlineComponents[2]);
                         taskList.store(deadline);
                         break;
                     case "event":
-                        String[] eventSplit = userInput.split("event | /from | /to ");
-                        Event event = new Event(eventSplit[1], eventSplit[2], eventSplit[3]);
+                        String[] eventComponents = userInput.split("event | /from | /to ");
+                        Event event = new Event(eventComponents[1], eventComponents[2], eventComponents[3]);
                         taskList.store(event);
                         break;
                     default:
