@@ -24,7 +24,7 @@ public class Parser {
      * Represents the types of commands.
      */
     public enum CommandType {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND
     }
 
     /**
@@ -73,6 +73,9 @@ public class Parser {
                     break;
                 case DELETE:
                     handleDeleteTask(userInput, tasks);
+                    break;
+                case FIND:
+                    handleFindTask(userInput, tasks);
                     break;
                 case INVALID:
                     handleInvalidCommand();
@@ -167,6 +170,15 @@ public class Parser {
             throw new TheCountException("WHAT?! I can't count that! Try another command!");
         } catch (TheCountException e) {
             handleException(e);
+        }
+    }
+
+    private static void handleFindTask(String userInput, TaskList tasks) {
+        try {
+            String keyword = userInput.split("\\s+", 2)[1].trim();
+            tasks.findTask(keyword);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            handleException("Please enter a keyword to search for.");
         }
     }
 

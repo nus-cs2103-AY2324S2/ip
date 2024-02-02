@@ -104,6 +104,28 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks containing the specified keyword (non case-sensitive).
+     *
+     * @param keyword The keyword to search for.
+     */public void findTask(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        keyword = keyword.toLowerCase();
+
+        for (Task task : this.tasks) {
+            if (task.getDesc().toLowerCase().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        if (foundTasks.size() == 0) {
+            Reply replyToUser = new Reply("I can't find any matching tasks.");
+            replyToUser.displayMessage();
+        } else {
+            Reply replyToUser = new PrintList(foundTasks);
+            replyToUser.displayMessage();
+        }
+    }
+
+    /**
      * Gets the number of tasks in the list.
      *
      * @return The number of tasks in the list.
