@@ -6,7 +6,7 @@ public class Task {
 
     public Task(String taskTitle) {
         this.taskTitle = taskTitle;
-        this.isDone = false;
+        isDone = false;
     }
 
     public Task(String taskTitle, boolean isDone) {
@@ -15,17 +15,20 @@ public class Task {
     }
 
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public void markAsNotDone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     public String getStatusIcon() {
-        return this.isDone ? " ✓" : "";
+        return isDone ? " ✓" : "";
     }
 
+    public boolean hasKeyword(String keyword) {
+        return taskTitle.contains(keyword);
+    }
     @Override
     public String toString() {
         return this.taskTitle + this.getStatusIcon();
