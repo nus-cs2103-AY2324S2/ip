@@ -61,6 +61,12 @@ public class AddCommand extends Command {
                     if (name.length != 2) {
                         throw new DescriptionFormatException("Wrong format!, please use this format: "
                                 + ToDos.getFormat());
+                    } else {
+                        name = com.split("todo ");
+                        if(name.length != 2){
+                            throw new DescriptionFormatException("Wrong format!, please use this format: "
+                                    + ToDos.getFormat());
+                        }
                     }
                     String out = tL.addTask(new ToDos(name[1]));
                     ui.showMessage(out);

@@ -104,4 +104,25 @@ public class TaskList {
         return sl;
     }
 
+    /**
+     * Returns all the tasks that contains the key in
+     * String format.
+     *
+     * @param key the string key need to be contained.
+     * @return the list of tasks that contains key in String format.
+     */
+    public String findList(String key) {
+        String sl = "";
+        int no = 1;
+        for (int i = 0 ; i < tasks.size(); i++) {
+            if (tasks.get(i).hasFind(key)) {
+                sl = sl + no + "." + tasks.get(i).toString() + "\n";
+                no++;
+            }
+        }
+        if (sl.equals("")) {
+            sl = "Not found task with keyword: " + key;
+        }
+        return sl;
+    }
 }

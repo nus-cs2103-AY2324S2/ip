@@ -40,12 +40,19 @@ public class Task {
     }
 
     /**
-     * Returns string representative of Task.
-     * The string consist of symbol, mark status,
-     * description, and deadline date.
+     * Returns true if the key given is contained in
+     * the description of the task.
      *
-     * @return String representative of Task.
+     * @param key the string key need to be contained.
+     * @return a boolean whether the key is contained.
      */
+    public boolean hasFind(String key) {
+        if (description.contains(key)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     @Override
     public String toString() {
         String s = "[" + this.getStatusIcon() + "] " + this.description;

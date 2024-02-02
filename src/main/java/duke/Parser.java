@@ -8,6 +8,7 @@ import duke.command.UnmarkCommand;
 import duke.command.ListCommand;
 import duke.command.DeleteCommand;
 import duke.command.ByeCommand;
+import duke.command.FindCommand;
 import duke.exception.CommandInvalidException;
 
 public class Parser {
@@ -54,11 +55,14 @@ public class Parser {
                 return new ListCommand();
             } else if (inputs[0].equals("delete")) { //if the user use delete command
                 return new DeleteCommand(command);
+            } else if (inputs[0].equals("find")) {
+                System.out.println(inputs[0]);
+                return new FindCommand(command);
             } else {
                 return new AddCommand(command);
             }
         }
-        throw new CommandInvalidException("Invalid command -_-, please use the available commands!!");
+        throw new CommandInvalidException("Invalid command -_-, please use the available commands!!!");
     }
 
 }
