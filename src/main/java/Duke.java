@@ -9,6 +9,11 @@ public class Duke {
         System.out.println("Hello! I'm ChatterPal!");
         System.out.println("What can I do for you?");
         System.out.print(line);
+
+
+        Save saved = new Save("data/duke.txt");
+        saved.loadData(storage);
+
         Scanner sc = new Scanner(System.in);
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -106,6 +111,7 @@ public class Duke {
             input = sc.nextLine();
             inputParts = Arrays.asList(input.split(" "));
         }
+        saved.saveData((storage));
         System.out.println(line);
         System.out.println("Farewell! Can't wait to catch up with you again. Until next time, " +
                 "take care and stay awesome! ");
