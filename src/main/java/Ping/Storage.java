@@ -1,6 +1,8 @@
+package Ping;
 import java.io.*;
 import java.util.ArrayList;
-public class FileManage {
+
+public class Storage {
     private static final String PATH = "./data/duke.txt";
 
     public static void saveFiles(ArrayList<Task> tasks) {
@@ -43,7 +45,12 @@ public class FileManage {
         } catch (IOException e) {
             System.out.println("Oops! Something is missing");
         } catch (ClassNotFoundException e) {
-            System.out.println("Oops! class doesn't find");
+            System.out.println("----------------------------------------------------------");
+            System.out.println("No existing file found\n" +
+                    "Dont'worry, I already creat an empty list for you\n"+
+                    "ChatBot Ping now could be used!"
+            );
+            System.out.println("----------------------------------------------------------");
         }
 
         return tasks;
