@@ -1,6 +1,7 @@
-package Quacky;
+package quacky;
 
 import java.lang.Exception;
+
 /**
  * Represents exceptions specific to the Quacky application.
  */

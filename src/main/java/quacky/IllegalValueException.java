@@ -1,4 +1,4 @@
-package Quacky;
+package quacky;
 
 /**
  * Signals that some given data does not fulfill some constraints.

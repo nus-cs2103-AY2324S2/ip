@@ -1,4 +1,4 @@
-package Quacky;
+package quacky;
 
 /**
  * Represents an abstract task in the Quacky application. This class provides
@@ -30,6 +30,7 @@ public abstract class Task {
 
     /**
      * This method returns a value of the status for a given task
+     *
      * @return 0 if the task is done and 1 otherwise
      */
     public int getStatusValue() {
@@ -38,7 +39,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s",this.getStatusIcon(), description);
+        return String.format("[%s] %s", this.getStatusIcon(), description);
     }
 
     /**
@@ -47,16 +48,20 @@ public abstract class Task {
     public void markDone() {
         isDone = true;
     }
+
     public void unmarkDone() {
         isDone = false;
     }
 
     /**
      * This method is used to return a string that is easy to parse to recover the tasks data
+     *
      * @return the parsible string representation of the task
      */
     protected String toFileString() {
-       return getStatusValue() +  " | " + this.description;
-    };
+        return getStatusValue() + " | " + this.description;
+    }
+
+    ;
 
 }

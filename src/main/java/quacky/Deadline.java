@@ -1,9 +1,7 @@
-package Quacky;
+package quacky;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.FormatStyle;
 
 /**
  * Represents a deadline task in the Quacky application. A deadline task is a task that needs
@@ -32,6 +30,6 @@ public class Deadline extends Task{
 
     @Override
     protected String toFileString() {
-        return "D | " + super.toFileString() + " | " + this.by ;
+        return "D | " + super.toFileString() + " | " + this.by;
     }
 }

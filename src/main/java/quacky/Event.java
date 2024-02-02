@@ -1,4 +1,4 @@
-package Quacky;
+package quacky;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

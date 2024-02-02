@@ -1,6 +1,7 @@
-package Quacky;
-import Quacky.TaskList;
+package quacky;
+
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -17,7 +18,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void addTask_taskNotMutated_success(){
+    public void addTask_taskNotMutated_success() {
         TaskList tasks = new TaskList();
         Task todo1 = new Todo("Finish Assignments");
         tasks.addTask(todo1);

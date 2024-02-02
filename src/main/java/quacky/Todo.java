@@ -1,4 +1,4 @@
-package Quacky;
+package quacky;
 
 /**
  * Represents a to-do task in the Quacky application. A to-do task is a basic task

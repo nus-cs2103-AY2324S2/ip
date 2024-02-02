@@ -1,4 +1,4 @@
-package Quacky;
+package quacky;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class TaskList {
      * @param i The index of the task in the list.
      * @return The string representation of the task.
      */
-    public String printTask(int i){
+    public String printTask(int i) {
         Task task = tasks.get(i);
         return task.toString();
     }
@@ -63,6 +63,7 @@ public class TaskList {
             throw new QuackyException("Quack. The task is not found");
         }
     }
+
     /**
      * Marks the task at the specified position as not completed.
      *
@@ -83,17 +84,19 @@ public class TaskList {
      * @param i The index of the task in the list.
      * @throws QuackyException if the index is out of bounds
      */
-    public void deleteTask(int i) throws QuackyException{
+    public void deleteTask(int i) throws QuackyException {
         try {
             tasks.remove(i);
         } catch (IndexOutOfBoundsException e) {
             throw new QuackyException("Quack. The task is not found");
         }
     }
+
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < tasks.size();i++){
+        for (int i = 0; i < tasks.size(); i++) {
             sb.append(i + 1)
                     .append(". ")
                     .append(tasks.get(i).toString())
@@ -109,7 +112,7 @@ public class TaskList {
      */
     protected String printSimplified() {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             sb.append(tasks.get(i).toFileString()).append("\n");
         }
 
