@@ -23,7 +23,7 @@ public class Tasklist {
     }
 
     public void delete(int index) {
-        List.remove(index);
+            List.remove(index);
     }
 
     public int size() {

@@ -1,5 +1,3 @@
-. [T][ ] faj
-. [T][X] fja
-. [T][ ] kasfj
-. [T][ ] fajfj
-. [T][ ] jfdaj
+1
+2
+3
