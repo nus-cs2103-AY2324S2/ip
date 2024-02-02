@@ -26,34 +26,34 @@ public class Parser {
         // separate first word from rest of words
         String[] words = line.split(" ", 2);
         switch (words[0]) {
-            case "bye":
-                return new ExitCommand();
-            case "list":
-                return new ListCommand();
-            case "mark":
-                try {
-                    return new MarkCommand(Integer.parseInt(words[1]) - 1);
-                } catch (NumberFormatException err) {
-                    throw new FelixException("Enter a number after \"mark\"");
-                }
-            case "unmark":
-                try {
-                    return new UnmarkCommand(Integer.parseInt(words[1]) - 1);
-                } catch (NumberFormatException err) {
-                    throw new FelixException("Enter a number after \"unmark\"");
-                }
-            case "delete":
-                try {
-                    return new DeleteCommand(Integer.parseInt(words[1]) - 1);
-                } catch (NumberFormatException err) {
-                    throw new FelixException("Enter a number after \"delete\"");
-                }
-            case "todo":
-            case "deadline":
-            case "event":
-                return new AddTaskCommand(this.generateTask(words));
-            default:
-                throw new FelixException("Unrecognised command");
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            return new ListCommand();
+        case "mark":
+            try {
+                return new MarkCommand(Integer.parseInt(words[1]) - 1);
+            } catch (NumberFormatException err) {
+                throw new FelixException("Enter a number after \"mark\"");
+            }
+        case "unmark":
+            try {
+                return new UnmarkCommand(Integer.parseInt(words[1]) - 1);
+            } catch (NumberFormatException err) {
+                throw new FelixException("Enter a number after \"unmark\"");
+            }
+        case "delete":
+            try {
+                return new DeleteCommand(Integer.parseInt(words[1]) - 1);
+            } catch (NumberFormatException err) {
+                throw new FelixException("Enter a number after \"delete\"");
+            }
+        case "todo":
+        case "deadline":
+        case "event":
+            return new AddTaskCommand(this.generateTask(words));
+        default:
+            throw new FelixException("Unrecognised command");
         }
     }
 
