@@ -51,7 +51,7 @@ public class Duke {
                 if (args.length > 1) {
                     throw new DukeOptionParsingException("option was not expected but was given: " + args[1]);
                 }
-                new Ui().print("Here's what you've done today...\n" + taskStrings());
+                ui.print("Here's what you've done today...\n" + taskStrings());
                 
             } catch (DukeOptionParsingException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
