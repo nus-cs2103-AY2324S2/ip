@@ -1,3 +1,5 @@
+package kitchensink;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,6 +10,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
+import kitchensink.task.Deadline;
+import kitchensink.task.Event;
+import kitchensink.task.Task;
+import kitchensink.task.ToDo;
 
 public class Storage {
     private String fileName;

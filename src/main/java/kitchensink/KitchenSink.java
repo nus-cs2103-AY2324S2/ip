@@ -1,8 +1,15 @@
+package kitchensink;
+
+import kitchensink.exception.InvalidDateTimeException;
+import kitchensink.exception.InvalidSyntaxException;
+import kitchensink.exception.TaskNotFoundException;
+import kitchensink.exception.UnknownCommandException;
+
 import java.io.IOException;
 
-public class Duke {
-    public static void main(String[] args) throws TaskNotFoundException, UnknownCommandException,
-            InvalidSyntaxException, IOException, InvalidDateTimeException {
+public class KitchenSink {
+    public static void main(String[] args) throws IOException, TaskNotFoundException, UnknownCommandException,
+            InvalidSyntaxException, InvalidDateTimeException {
         Ui ui = new Ui();
         Parser parser = new Parser();
         String fileName = "./data/duke.txt";

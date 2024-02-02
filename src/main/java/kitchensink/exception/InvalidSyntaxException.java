@@ -1,3 +1,5 @@
+package kitchensink.exception;
+
 public class InvalidSyntaxException extends Throwable {
     private String command;
     private String syntax;

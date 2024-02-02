@@ -1,3 +1,6 @@
+package kitchensink.task;
+
+import kitchensink.Ui;
 public class Task {
     private String description;
     private boolean isDone;

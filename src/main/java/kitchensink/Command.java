@@ -1,3 +1,5 @@
+package kitchensink;
+
 import java.io.IOException;
 
 public abstract class Command {

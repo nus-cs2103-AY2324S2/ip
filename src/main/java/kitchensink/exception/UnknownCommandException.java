@@ -1,3 +1,5 @@
+package kitchensink.exception;
+
 public class UnknownCommandException extends Throwable {
     @Override
     public String toString() {

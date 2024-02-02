@@ -1,3 +1,5 @@
+package kitchensink.exception;
+
 public class InvalidDateTimeException extends Throwable {
     @Override
     public String toString() {

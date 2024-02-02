@@ -1,3 +1,4 @@
+package kitchensink;
 import java.util.Scanner;
 
 public class Ui {

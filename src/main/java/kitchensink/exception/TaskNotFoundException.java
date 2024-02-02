@@ -1,3 +1,7 @@
+package kitchensink.exception;
+
+import kitchensink.List;
+
 public class TaskNotFoundException extends Throwable {
     private List taskList;
 
