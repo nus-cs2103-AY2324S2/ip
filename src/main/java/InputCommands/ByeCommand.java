@@ -1,7 +1,8 @@
 package InputCommands;
 
 import SnomExceptions.InvalidCommandException;
-import Storage.TaskList;
+import TaskList.TaskList;
+
 
 public class ByeCommand extends Command {
 

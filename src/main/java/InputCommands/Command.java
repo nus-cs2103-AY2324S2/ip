@@ -1,24 +1,24 @@
 package InputCommands;
 
 import SnomExceptions.InvalidCommandException;
-import Storage.TaskList;
+import TaskList.TaskList;
 
 public abstract class Command {
 
 //    /**
-//     * Checks against the Storage.TaskList to ensure that task is valid.
+//     * Checks against the Storage.TaskList.TaskList to ensure that task is valid.
 //     * Prevents duplicate tasks and invalid indices (if applicable).
 //     *
-//     * @param lst is the instance of Storage.TaskList containing all the tasks.
+//     * @param lst is the instance of Storage.TaskList.TaskList containing all the tasks.
 //     * @return a boolean value depending on whether the command is valid.
 //     */
-//    public abstract boolean checkCommand(Storage.TaskList lst);
+//    public abstract boolean checkCommand(Storage.TaskList.TaskList lst);
 
     /**
      * Verifies whether the command is valid or not.
      * If invalid, an exception will be thrown.
      *
-     * @param lst is the instance of Storage.TaskList containing all the tasks.
+     * @param lst is the instance of Storage.TaskList.TaskList containing all the tasks.
      * @return a String representing the command
      */
     public abstract String execute (TaskList lst) throws InvalidCommandException;
@@ -62,7 +62,7 @@ public abstract class Command {
             cmd = null;
             break;
         default:
-            throw new InvalidCommandException("Please enter a valid command");
+            throw new InvalidCommandException();
 
         }
 
