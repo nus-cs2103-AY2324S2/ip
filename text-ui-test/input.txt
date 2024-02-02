@@ -1,5 +1,6 @@
 list
 hi
+delete 2a
 delete 2
 todo
 deadline /by a

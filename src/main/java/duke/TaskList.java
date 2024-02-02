@@ -39,18 +39,21 @@ public class TaskList {
     /**
      * Prints the Task array to user, directs user to input Tasks if empty
      */
-    public void showTasks() throws DukeException{
-
+    public String showTasks() throws DukeException{
+        StringBuilder sb = new StringBuilder();
         if(tasks.size() == 0){
             throw new DukeException("Add tasks to list first! Type something other than List/list or Bye/bye.\n");
         } else {
             System.out.println("Here are the tasks in your list:\n");
-
+            sb.append("Here are the tasks in your list:\n\n");
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println(i+1 + "." + tasks.get(i).toString());
+                sb.append(i+1 + "." + tasks.get(i).toString() + "\n");
             }
             System.out.println();
+            sb.append("\n");
         }
+        return sb.toString();
     }
 
 
@@ -105,16 +108,13 @@ public class TaskList {
      * @param num index of Task in taskList to be removed
      * @return Task that was deleted for storage to settle
      */
-    public Task deleteMechanism(int num) {
+    public Task deleteMechanism(int num) throws IndexOutOfBoundsException {
         Task removed = new Task("Task to be deleted");
-        try {
-            removed = tasks.remove(num - 1);
-            System.out.println("Very well. I have removed this task.\n" + removed
-                    + "\nNow you have " + tasks.size()
-                    + " task(s) in the list.\n");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("There are only: " + tasks.size() + " task(s) in the list to delete.\n");
-        }
+        removed = tasks.remove(num - 1);
+        System.out.println("Very well. I have removed this task.\n" + removed
+                + "\nNow you have " + tasks.size()
+                + " task(s) in the list.\n");
+
         return removed;
     }
 }

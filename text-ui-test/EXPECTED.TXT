@@ -16,7 +16,16 @@ Here are the tasks in your list:
 
 1.[D][ ] read book  (by:Dec 10 2020 12:30)
 
-Error.Please enter a todo, deadline or event with the relevant details!
+Invalid command. Please ensuredelete/mark/unmark commands
+only contain numbers after the command.
+Please enter a todo, deadline or event with the relevant details!
+Todo: todo + task ;
+Event: event + task + /from yyyy-MM-dd HH:mm + /to yyyy-MM-dd HH:mm;
+Deadline: deadline + task + /by yyyy-MM-dd HH:mm;
+
+Invalid command. Please ensuredelete/mark/unmark commands
+only contain numbers after the command.
+Please enter a todo, deadline or event with the relevant details!
 Todo: todo + task ;
 Event: event + task + /from yyyy-MM-dd HH:mm + /to yyyy-MM-dd HH:mm;
 Deadline: deadline + task + /by yyyy-MM-dd HH:mm;

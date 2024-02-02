@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
@@ -100,8 +101,12 @@ public class Duke {
                         storage.fileUpdate(taskToAdd, 0, 0);
                         break;
                 }
-            } catch (DukeException e){
+            } catch (DukeException e) {
                 System.out.println(e.getMessage());
+            } catch (DateTimeParseException e) {
+                System.out.println("Make sure your datetime format is correct! ");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("There are only: " + tasks.getSize() + " task(s) in the list to delete.\n");
             }
         }
 
