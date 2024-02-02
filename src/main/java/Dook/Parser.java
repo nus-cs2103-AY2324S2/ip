@@ -9,6 +9,7 @@ import Command.ListCommand;
 import Command.UnmarkCommand;
 import Command.FindCommand;
 import Command.MeowCommand;
+import Command.DanceCommand;
 import Task.Deadline;
 import Task.Event;
 import Task.TaskType;
@@ -88,6 +89,8 @@ public class Parser {
             }
         } else if (input.equals("meow")) {
             return new MeowCommand();
+        } else if (input.equals("dance")) {
+            return new DanceCommand();
         } else {
             throw new DookException("I don't understand this command :( Try again!");
         }

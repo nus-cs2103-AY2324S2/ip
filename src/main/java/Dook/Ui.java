@@ -1,5 +1,7 @@
 package Dook;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
@@ -8,6 +10,17 @@ public class Ui {
 
     private Scanner scanner;
 
+    private static ArrayList<String> danceString = new ArrayList<String>(List.of("♪\n" +
+            "　　　  　∧＿∧　　　♪\n" +
+            "　　　 （´・ω・｀∩\n" +
+            "　　 　　o　　　,ﾉ\n" +
+            "　　　　Ｏ＿　.ﾉ\n" +
+            "♪　　　 　 (ノ",
+            "　　　 　∧＿∧　♪\n" +
+            "　　　 ∩・ω・｀）\n" +
+            "　　　 |　　 ⊂ﾉ\n" +
+            "　　 　｜　　 _⊃　　♪\n" +
+            "　　　 し ⌒,"));
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
@@ -41,5 +54,16 @@ public class Ui {
 
     public String getInput() {
         return scanner.nextLine();
+    }
+
+    public void printDance() {
+        try {
+            for (int i = 0; i < 20; i++) {
+                Thread.sleep(250);
+                println(danceString.get(i % 2));
+            }
+        } catch (InterruptedException e) {
+            println("Okay, I'll stop :(");
+        }
     }
 }
