@@ -35,6 +35,13 @@ public abstract class Task {
     public abstract String toFileString();
 
     /**
+     * Returns true if the specified keyword is a substring of the task description and false otherwise.
+     */
+    public boolean hasKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
+
+    /**
      * Creates a task from a given line of a file within the hard disk.
      * If necessary, the task will be marked as done.
      *

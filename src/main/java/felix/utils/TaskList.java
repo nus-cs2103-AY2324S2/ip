@@ -55,6 +55,21 @@ public class TaskList {
     }
 
     /**
+     * Returns new task list only containing the tasks with the specified keyword as a substring of description.
+     * @param keyword String to filter tasks with.
+     * @return list of tasks with description containing specified keyword.
+     */
+    public TaskList filterByKeyword(String keyword) {
+        TaskList taskList = new TaskList();
+        for (Task t: this.tasks) {
+            if (t.hasKeyword(keyword)) {
+                taskList.addTask(t);
+            }
+        }
+        return taskList;
+    }
+
+    /**
      * Returns String representation of all tasks within taskList to be displayed.
      */
     @Override

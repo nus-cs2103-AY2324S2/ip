@@ -1,12 +1,6 @@
 package felix.utils;
 
-import felix.command.AddTaskCommand;
-import felix.command.Command;
-import felix.command.DeleteCommand;
-import felix.command.ExitCommand;
-import felix.command.ListCommand;
-import felix.command.MarkCommand;
-import felix.command.UnmarkCommand;
+import felix.command.*;
 import felix.exception.FelixException;
 import felix.task.Deadline;
 import felix.task.Event;
@@ -52,6 +46,12 @@ public class Parser {
         case "deadline":
         case "event":
             return new AddTaskCommand(this.generateTask(words));
+        case "find":
+            try {
+                return new FindCommand(words[1]);
+            } catch (IndexOutOfBoundsException err) {
+                throw new FelixException("keyword cannot be empty");
+            }
         default:
             throw new FelixException("Unrecognised command");
         }
