@@ -1,18 +1,26 @@
 package duke.commands;
 
 import duke.Ui;
+
 import duke.exceptions.DukeCeption;
 import duke.exceptions.EmptyDescriptionException;
+
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.tasks.ToDo;
 
+/**
+ * The command class to create a ToDo task
+ */
 public class CommandToDo extends Command {
 
     public CommandToDo(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(String description) {
         try {
@@ -29,6 +37,13 @@ public class CommandToDo extends Command {
 
     }
 
+    /**
+     * Cleans the raw user input and creates a ToDo Task after cleaning user input
+     * Returns a task after cleaning the user input
+     * @param description String of raw user input
+     * @return Task after cleaning user input
+     * @throws DukeCeption when description is empty or /by is written incorrectly
+     */
     public Task cleanUserInput(String description) throws DukeCeption {
         if (description.isEmpty()) {
             throw new EmptyDescriptionException("ToDo cannot be empty!");

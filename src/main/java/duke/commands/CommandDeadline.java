@@ -1,19 +1,27 @@
 package duke.commands;
 
 import duke.Ui;
+
 import duke.exceptions.DukeCeption;
 import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.IncorrectFormatException;
+
 import duke.tasks.Deadline;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 
+/**
+ * The command class to create a deadline task
+ */
 public class CommandDeadline extends Command {
     
     public CommandDeadline(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
 
+    /**
+     * {@inherit}
+     */
     @Override
     public void execute(String description) {
         try {
@@ -27,10 +35,15 @@ public class CommandDeadline extends Command {
         } finally {
             ui.print();
         }
-        
-
     }
 
+    /**
+     * Cleans the raw user input and creates a Task after cleaning user input
+     * Returns a task after cleaning the user input
+     * @param description String of raw user input
+     * @return Task after cleaning user input
+     * @throws DukeCeption when description is empty or /by is written incorrectly
+     */
     public Task cleanUserInput(String description) throws DukeCeption {
         try {
             if (description.isEmpty()) {

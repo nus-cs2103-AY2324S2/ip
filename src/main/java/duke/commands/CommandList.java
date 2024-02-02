@@ -4,14 +4,21 @@ import java.util.ArrayList;
 
 import duke.tasks.Task;
 import duke.tasks.TaskList;
+
 import duke.Ui;
 
+/**
+ * The command class when user wants to see tasks in the list
+ */
 public class CommandList extends Command {
 
     public CommandList(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(String description) {
         ArrayList<Task> list = taskList.getList();

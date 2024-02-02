@@ -1,19 +1,27 @@
 package duke.commands;
 
 import duke.Ui;
+
 import duke.exceptions.DukeCeption;
 import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.IncorrectFormatException;
+
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 
+/**
+ * The command class when user wants to create an event task
+ */
 public class CommandEvent extends Command {
 
     public CommandEvent(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(String description) {
         try {
@@ -29,6 +37,13 @@ public class CommandEvent extends Command {
         }
     }
     
+    /**
+     * Cleans the raw user input and creates an Event Task after cleaning user input
+     * Returns a task after cleaning the user input
+     * @param description String of raw user input
+     * @return Task after cleaning user input
+     * @throws DukeCeption when description is empty or /from and /to is written incorrectly
+     */
     private Task cleanUserInput(String description) throws DukeCeption {
         try {
             if (description.isEmpty()) {
