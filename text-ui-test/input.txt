@@ -1,9 +1,10 @@
-eat
-todo sleep
 event play /from 10am /to 10pm
-deadline homework /by tmr
+deadline sleep /by 2023-09-08 11:59
 mark 2
 list
 unmark 2
 list
+delete 1
+list
+deadline homework /by tmr
 bye

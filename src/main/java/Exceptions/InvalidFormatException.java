@@ -1,7 +1,5 @@
 package Exceptions;
 
-import Tasks.Task;
-
 public class InvalidFormatException extends InvalidInputException {
     public InvalidFormatException(String message) {
         super(message);

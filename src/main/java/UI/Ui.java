@@ -1,6 +1,8 @@
+package UI;
+
 import Tasks.Task;
 
-public class UI {
+public class Ui {
 
     public String showInstructions() {
         return "Please type in:\n" +
@@ -35,19 +37,18 @@ public class UI {
         System.out.printf("    Don't forget to complete your task soon...\n      %s\n\n", t.toString());
     }
 
-    public void deleteMessage(Task t) {
+    public void deleteMessage(Task t, int size) {
         System.out.printf("    Ok, I have removed your task:\n    %s\n    You have %d task(s) in the " +
-                "list now.\n\n", t.toString(), Lelu.tasks.size());;
+                "list now.\n\n", t.toString(), size);;
     }
 
-    public void addMessage(Task t) {
+    public void addMessage(Task t, int size) {
         System.out.printf("    Ok! I have added your task:\n      %s\n    You have %d task(s) in the " +
-                "list now.\n\n", t.toString(), Lelu.tasks.size());
+                "list now.\n\n", t.toString(), size);
     }
 
     public void dateFormatInstructions() {
-        System.out.println("\n    Date should be in the form: " +
-                "<YYYY-MM-DD HH:mm> e.g.2024-01-20 14:20\n");
+        System.out.printf("    Your date should be in this format:\n    <YYYY-MM-DD HH:mm> e.g. 2024-02-03 15:25\n");
     }
 
 }

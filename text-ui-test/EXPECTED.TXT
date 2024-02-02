@@ -1,18 +1,31 @@
     Hi! I am your favourite friend, Lelu :)
     What can I do for you?
 
-Please type in:
-------------------------
-[to record your task(s)/ events]
-- todo <task>
-- deadline <task> /by <date>
-- event <event> /from <date and time> /to <date and time>
+    Ok! I have added your task:
+      [E][ ] play  (From: 10am  To: 10pm)
+    You have 1 task(s) in the list now.
 
-[to view your task(s)]
-- list
+    Ok! I have added your task:
+      [D][ ] sleep  (by: 8 Sept 2023 11:59am)
+    You have 2 task(s) in the list now.
 
-[to mark or unmark your task as done]
-- mark <task number in list>
-- unmark <task number in list>
--------------------------------------
+    Great job completing your task!
+      [D][X] sleep  (by: 8 Sept 2023 11:59am)
 
+    1.[E][ ] play  (From: 10am  To: 10pm)
+    2.[D][X] sleep  (by: 8 Sept 2023 11:59am)
+
+    Don't forget to complete your task soon...
+      [D][ ] sleep  (by: 8 Sept 2023 11:59am)
+
+    1.[E][ ] play  (From: 10am  To: 10pm)
+    2.[D][ ] sleep  (by: 8 Sept 2023 11:59am)
+
+    Ok, I have removed your task:
+    [E][ ] play  (From: 10am  To: 10pm)
+    You have 1 task(s) in the list now.
+
+    1.[D][ ] sleep  (by: 8 Sept 2023 11:59am)
+
+    Your date should be in this format:
+    <YYYY-MM-DD HH:mm> e.g. 2024-02-03 15:25

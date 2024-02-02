@@ -1,3 +1,5 @@
+package TasksStorage;
+
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
@@ -12,7 +14,7 @@ import java.util.Scanner;
 
 public class Storage {
     private File file;
-    Storage(String filePath) {
+    public Storage(String filePath) {
         this.file = new File(filePath);
         try {
             if (!file.exists()) {
