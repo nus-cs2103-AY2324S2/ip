@@ -26,6 +26,7 @@ public class Ui {
     private static final DateTimeFormatter PRINT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd YYYY HH:mm");
     private Liv livInstance = null;
     private static Scanner scanner = null;
+    private TaskList taskList = null;
 
     private Ui() {
         // break the initialisation into the initialization function of different classes
@@ -52,6 +53,7 @@ public class Ui {
     }
 
     public void initUi() {
+        taskList = TaskList.getInstance();
         Greet();
     }
 
@@ -102,5 +104,14 @@ public class Ui {
 
     public static void printHorizontalLine() {
         horizontalLine.printLine();
+    }
+
+    public void listTasks() {
+        ToggleConversationState();
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 1; i <= taskList.getNumOfTasks(); i++) {
+            System.out.println(i + "." + taskList.getTask(i).toString());
+        }
+        ToggleConversationState();
     }
 }

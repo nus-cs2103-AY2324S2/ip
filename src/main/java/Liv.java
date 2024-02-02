@@ -13,55 +13,6 @@ import java.io.FileWriter;
 
 // name of the chat bot
 public class Liv {
-
-    // tasklist
-    public static LinkedList<Task> tasks = null;
-    public int getNumOfTasks() {
-        return tasks.size();
-    }
-    protected void listTasks() {
-        ui.ToggleConversationState();
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 1; i <= getNumOfTasks(); i++) {
-            System.out.println(i + "." + tasks.get(i - 1).toString());
-        }
-        ui.ToggleConversationState();
-    }
-
-    public void addTask(Task task) {
-        tasks.add(task);
-    }
-
-    public String setTaskDoneWithIndex(int index, String isDoneUpdateString, boolean isDone)
-            throws TaskIndexOutOfBoundsException {
-        try {
-            tasks.get(index - 1).setIsDone(isDoneUpdateString, isDone);
-            return tasks.get(index - 1).updateIsDoneMessage();
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-            throw new TaskIndexOutOfBoundsException(index);
-        }
-    }
-
-    public Task deleteTask(int index) throws TaskIndexOutOfBoundsException {
-        try {
-            Task deletedTask = tasks.remove(index - 1);
-            return deletedTask;
-        } catch (IndexOutOfBoundsException e) {
-            throw new TaskIndexOutOfBoundsException(index);
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
     // storage
     private static String dataFilePath = "Data/savedTasks.txt";
     private void loadFromMemory() throws FileNotFoundException {
@@ -73,15 +24,15 @@ public class Liv {
     }
 
     private void loadSingleRowOfData(String s) {
-        tasks.add(Task.convertDataToTask(s));
+        taskList.addTask(Task.convertDataToTask(s));
     }
 
     public void saveToMemory() {
         try {
             String dataToWrite = "";
-            for (int i = 1; i <= getNumOfTasks(); i++) {
-                dataToWrite += tasks.get(i - 1).convertToDataRow();
-                if (i < getNumOfTasks()) dataToWrite += System.lineSeparator();
+            for (int i = 1; i <= taskList.getNumOfTasks(); i++) {
+                dataToWrite += taskList.getTask(i).convertToDataRow();
+                if (i < taskList.getNumOfTasks()) dataToWrite += System.lineSeparator();
             }
             writeToFile(dataFilePath, dataToWrite);
         } catch (IOException e) {
@@ -120,12 +71,6 @@ public class Liv {
     private Liv() {
         // break the initialisation into the initialization function of different classes
         currentState = LivState.INACTIVE;
-        tasks = new LinkedList<>();
-        try {
-            loadFromMemory();
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     public static Liv getInstance() {
@@ -140,6 +85,7 @@ public class Liv {
 
     private Ui ui = null;
     private Parser parser = null;
+    private TaskList taskList = null;
     private void Start() {
 
         // initialize Ui
@@ -149,6 +95,16 @@ public class Liv {
         // initialize parser
         parser = Parser.getInstance();
         parser.initParser();
+
+        // initialize taskList
+        taskList = TaskList.getInstance();
+        taskList.initTaskList();
+
+        try {
+            loadFromMemory();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
 
         instance.ToggleActiveState();
 

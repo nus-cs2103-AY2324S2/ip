@@ -18,6 +18,7 @@ public class Parser {
     private static Parser instance = null;
     private Ui ui = null;
     private Liv liv = null;
+    private TaskList taskList = null;
     public static Parser getInstance() {
         if (instance == null) {
             instance = new Parser();
@@ -28,6 +29,7 @@ public class Parser {
     public void initParser() {
         ui = Ui.getInstance();
         liv = Liv.getInstance();
+        taskList = TaskList.getInstance();
     }
 
     public void ProcessInput(String input) throws InputException {
@@ -39,7 +41,7 @@ public class Parser {
             if (isInteger(words[1])) {
                 boolean isDone = words[0].equals("mark");
                 int taskIndex = Integer.parseInt(words[1]);
-                ui.speak(liv.setTaskDoneWithIndex(taskIndex, words[0], isDone));
+                ui.speak(taskList.setTaskDoneWithIndex(taskIndex, words[0], isDone));
             } else {
                 ui.speak("Action failed: task index input is not an integer");
             }
@@ -49,13 +51,13 @@ public class Parser {
         if (words[0].equals("delete")) {
             if (isInteger(words[1])) {
                 int taskIndex = Integer.parseInt(words[1]);
-                Task deletedTask = liv.deleteTask(taskIndex);
+                Task deletedTask = taskList.deleteTask(taskIndex);
                 ui.speak("Noted. I've removed this task:"
                         + "\n"
                         + "    "
                         + deletedTask
                         + "\n"
-                        + "Now you have " + liv.getNumOfTasks() + " tasks in the list.");//input);
+                        + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.");//input);
                 return;
             } else {
                 ui.speak("Action failed: task index input is not an integer");
@@ -69,13 +71,13 @@ public class Parser {
 
             Task newTask = null;
             newTask = Task.createTask(words[0], input);
-            liv.addTask(newTask);
+            taskList.addTask(newTask);
             ui.speak("Got it. I've added this task:"
                     + "\n"
                     + "    "
                     + newTask
                     + "\n"
-                    + "Now you have " + liv.getNumOfTasks() + " tasks in the list.");//input);
+                    + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.");//input);
             return;
         }
 
@@ -86,13 +88,8 @@ public class Parser {
             return;
         }
 
-        if (input.equals("list")) {
-            liv.listTasks();
-            return;
-        }
-
-        if (input.equals("print tasks")) {
-            ui.speak(Liv.tasks.toString());
+        if (input.equals("list") || input.equals("print tasks") ) {
+            ui.listTasks();
             return;
         }
 
