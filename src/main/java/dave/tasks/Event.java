@@ -9,9 +9,9 @@ public class Event extends Task {
     /** Time when event ends. */
     protected LocalDateTime to;
     /** The format of the input. */
-    static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    static final DateTimeFormatter FORMATTER_INPUT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     /** The format of the output. */
-    static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy ha");
+    static final DateTimeFormatter FORMATTER_OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy ha");
 
     /**
      * Creates new Event object.
@@ -22,9 +22,9 @@ public class Event extends Task {
      */
     public Event(String desc, String from, String to) {
         super(desc);
-        this.from = LocalDateTime.parse(from, inputFormatter);
-        this.to = LocalDateTime.parse(to, inputFormatter);
-    }
+        this.from = LocalDateTime.parse(from, FORMATTER_INPUT);
+        this.to = LocalDateTime.parse(to, FORMATTER_INPUT);
+    }    
 
     /**
      * Formats the printing of the Event object when shown to user.
@@ -33,8 +33,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[Event]%s (from: %s to: %s)", super.toString(), this.from.format(outputFormatter),
-                this.to.format(outputFormatter));
+        return String.format("[Event]%s (from: %s to: %s)", super.toString(), this.from.format(FORMATTER_OUTPUT), this.to.format(FORMATTER_OUTPUT));
     }
 
     /**
@@ -44,8 +43,7 @@ public class Event extends Task {
      */
     @Override
     public String fileString() {
-        return String.format("EVENT | %s | %s | %s", super.fileString(), this.from.format(inputFormatter),
-                this.to.format(inputFormatter));
+        return String.format("EVENT | %s | %s | %s", super.fileString(), this.from.format(FORMATTER_INPUT), this.to.format(FORMATTER_INPUT));
     }
 
 }

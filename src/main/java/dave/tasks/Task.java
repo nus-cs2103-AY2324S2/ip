@@ -4,7 +4,7 @@ public class Task {
     /** Name or description of task. */
     protected String desc;
     /** Completion status of task. */
-    protected Boolean completed;
+    protected boolean isDone;
 
     /**
      * Creates new Task object.
@@ -13,23 +13,19 @@ public class Task {
      */
     public Task(String desc) {
         this.desc = desc;
-        this.completed = false;
+        this.isDone = false;
     }
 
     public String getStatusIcon() {
-        return (this.completed ? "X" : " "); // mark X if task is completed
+        return (this.isDone ? "X" : " "); // mark X if task is completed
     }
 
     public String getTaskName() {
         return this.desc;
     }
 
-    public void isCompleted() {
-        this.completed = true;
-    }
-
-    public void isNotCompleted() {
-        this.completed = false;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     /**

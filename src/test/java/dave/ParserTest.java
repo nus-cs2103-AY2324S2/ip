@@ -12,12 +12,12 @@ public class ParserTest {
         try {
             Parser.parse("delete 1");
         } catch (ChatbotException exc) {
-            assertEquals("__________________________________________________\r\n" + //
-                        "\r\n" + //
-                        "Dave could not find the specified task.\r\n" + //
-                        "Note that there are 0 task(s) currently.\r\n" + //
-                        "____________________________________________________________\r\n",
-                        exc.getMessage());
+            assertEquals("__________________________________________________\r\n"
+                    + "\r\n"
+                    + "Dave could not find the specified task.\r\n"
+                    + "Note that there are 0 task(s) currently.\r\n"
+                    + "____________________________________________________________\r\n",
+                    exc.getMessage());
         }
     }
 
@@ -26,12 +26,12 @@ public class ParserTest {
         try {
             Parser.parse("deadline");
         } catch (ChatbotException exc) {
-            assertEquals("____________________________________________________________" +
-                        "\nDave cannot record a DEADLINE task without a name/deadline." +
-                        "\nPlease help Dave by entering your DEADLINE task as follows:" +
-                        "\n\ndeadline <name> /by dd-mm-yyyy hhmm" +
-                        "\n____________________________________________________________",
-                        exc.getMessage());
+            assertEquals("____________________________________________________________"
+                    + "\nDave cannot record a DEADLINE task without a name/deadline."
+                    + "\nPlease help Dave by entering your DEADLINE task as follows:"
+                    + "\n\ndeadline <name> /by dd-mm-yyyy hhmm"
+                    + "\n____________________________________________________________",
+                    exc.getMessage());
         }
     }
 }

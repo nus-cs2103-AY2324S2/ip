@@ -11,7 +11,7 @@ public class UnableToFindTaskException extends ChatbotException {
      * @param taskList Current task list.
      */
     public UnableToFindTaskException(TaskList taskList) {
-        super("Dave could not find the specified task." +
-        "\nNote that there are " + taskList.getNumberOfTasks() + " task(s) currently.");
+        super("Dave could not find the specified task." + "\nNote that there are "
+        + taskList.getNumberOfTasks() + " task(s) currently.");
     }
 }

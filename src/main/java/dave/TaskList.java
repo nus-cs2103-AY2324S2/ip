@@ -2,7 +2,10 @@ package dave;
 
 import java.util.ArrayList;
 
-import dave.tasks.*;
+import dave.tasks.Task;
+import dave.tasks.Todo;
+import dave.tasks.Deadline;
+import dave.tasks.Event;
 
 public class TaskList {
     /** The tasks. */
