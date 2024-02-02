@@ -1,14 +1,15 @@
 package pingmebot;
 
+import pingmebot.task.ToDos;
 import pingmebot.task.Deadline;
 import pingmebot.task.Events;
-import pingmebot.task.ToDos;
 
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import java.util.Arrays;
+import java.util.ArrayList;
 
 /**
  * Helps to parse and make sense of user's inputs.
@@ -34,7 +35,7 @@ public class Parser {
      * @return A ToDos object with a specified task description.
      * @throws myBotException If the user did not specify any task description or when the user command is not understood.
      */
-    public ToDos todoParser() throws myBotException {
+    public ToDos parseToDoCommand() throws PingMeException {
         try {
             if (!this.words.get(1).isEmpty()) {
                 StringBuilder description = new StringBuilder(this.words.get(1));
@@ -42,11 +43,13 @@ public class Parser {
                     description.append(" ").append(this.words.get(i));
                 }
                 return new ToDos(description.toString());
+
             } else {
                 throw new IndexOutOfBoundsException();
             }
+
         } catch (IndexOutOfBoundsException e) {
-            throw new myBotException("OOPS! The command is incomplete. Please provide a task description!");
+            throw new PingMeException("OOPS! The command is incomplete. Please provide a task description!");
         }
     }
 
@@ -57,7 +60,7 @@ public class Parser {
      * @return A Deadline object with a specified task description and a datetime to compelte the task.
      * @throws myBotException If the user did not specify any task description or datetime to finish the task, or when the user command is not understood.
      */
-    public Deadline deadlineParser() throws myBotException {
+    public Deadline parseDeadlineCommand() throws PingMeException {
         StringBuilder description = new StringBuilder();
         StringBuilder by  = new StringBuilder();
         int index = this.words.indexOf("/by");
@@ -67,8 +70,9 @@ public class Parser {
                 // if the user forgets to include description field
                 description = new StringBuilder(this.words.get(1));
             }
+
         } else {
-            throw new myBotException("I don't understand your command. Try writing: deadline (task description) /by (d/m/yyyy HHmm format)");
+            throw new PingMeException("I don't understand your command. Try writing: deadline (task description) /by (d/m/yyyy HHmm format)");
         }
 
         for (int i = 2; i < words.size(); i++) {
@@ -78,17 +82,20 @@ public class Parser {
                 by.append(" ").append(words.get(i));
             }
         }
+
         if (!(by.toString().isEmpty() || description.toString().isEmpty())) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             LocalDateTime parsedDateTime;
+
             try {
                 parsedDateTime = LocalDateTime.parse(by.toString().trim(), formatter);
             } catch (DateTimeParseException e) {
-                throw new myBotException("I don't understand your command. Try writing: deadline (task description) /by (d/m/yyyy HHmm format)");
+                throw new PingMeException("I don't understand your command. Try writing: deadline (task description) /by (d/m/yyyy HHmm format)");
             }
             return new Deadline(description.toString(), parsedDateTime);
+
         } else {
-            throw new myBotException("You have missing fields! You need a task description & a deadline to finish your task, try again!");
+            throw new PingMeException("You have missing fields! You need a task description & a deadline to finish your task, try again!");
         }
 
 
@@ -100,7 +107,7 @@ public class Parser {
      * @return An Events object with a specified task description, start and end date or time of the event.
      * @throws myBotException If the user did not specify any task description, start and end date or time of the event or when the user command is not understood.
      */
-    public Events eventsParser() throws myBotException {
+    public Events parseEventsCommand() throws PingMeException {
         StringBuilder description = new StringBuilder();
         StringBuilder start = new StringBuilder();
         StringBuilder end = new StringBuilder();
@@ -108,7 +115,8 @@ public class Parser {
         int indexOfTo = this.words.indexOf("/to");
 
         if (indexOfFrom == -1 || indexOfTo == -1) {
-            throw new myBotException("I don't understand your command. Try writing: event (task description) /from (date/time) /to (date/time)");
+            throw new PingMeException("I don't understand your command. Try writing: event (task description) /from (date/time) /to (date/time)");
+
         } else {
             if (indexOfFrom == 1 || indexOfTo == 1) {} else {
                 description = new StringBuilder(this.words.get(1));
@@ -118,14 +126,18 @@ public class Parser {
         for (int i = 2; i < words.size(); i++) {
             if (i < indexOfFrom) {
                 description.append(" ").append(words.get(i));
+
             } else if (i > indexOfFrom && i < indexOfTo) {
                 start.append(" ").append(words.get(i));
+
             } else if (i > indexOfTo){
                 end.append(" ").append(words.get(i));
             }
         }
+
         if (description.toString().isEmpty() || start.toString().isEmpty() || end.toString().isEmpty()) {
-            throw new myBotException("You having missing fields! You need a task description, start and end date/time for your task, try again!");
+            throw new PingMeException("You having missing fields! You need a task description, start and end date/time for your task, try again!");
+
         } else {
             return new Events(description.toString(), start.toString(), end.toString());
         }
@@ -138,19 +150,22 @@ public class Parser {
      * @return A 0-based index of the task to be marked.
      * @throws myBotException If the index of the task in the tasklist is not specified or when it is higher or lower than the actual total number of tasks currently.
      */
-    public int markParser(int currentNumOfTask) throws myBotException {
+    public int parseMarkCommand(int currentNumOfTask) throws PingMeException {
         try {
             if (!this.words.get(1).isEmpty()) {
                 if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
-                    throw new myBotException("You have currently " + currentNumOfTask + " tasks. You cannot mark task larger or smaller than this!");
+                    throw new PingMeException("You have currently " + currentNumOfTask + " tasks. You cannot mark task larger or smaller than this!");
+
                 } else {
                     return Integer.parseInt(this.words.get(1)) - 1;
                 }
+
             } else {
                 throw new IndexOutOfBoundsException();
             }
+
         } catch (IndexOutOfBoundsException e) {
-            throw new myBotException("I'm not sure which task you wish to mark. Please specify the task you wish to mark and try again!");
+            throw new PingMeException("I'm not sure which task you wish to mark. Please specify the task you wish to mark and try again!");
         }
     }
 
@@ -161,19 +176,22 @@ public class Parser {
      * @return A 0-based index of the task to be un-marked.
      * @throws myBotException If the index of the task in the tasklist is not specified or when it is higher or lower than the actual total number of tasks currently.
      */
-    public int unmarkParser(int currentNumOfTask) throws myBotException {
+    public int parseUnmarkCommand(int currentNumOfTask) throws PingMeException {
         try {
             if (!this.words.get(1).isEmpty()) {
                 if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
-                    throw new myBotException("You have currently " + currentNumOfTask + " tasks. You cannot un-mark task larger or smaller than this!");
+                    throw new PingMeException("You have currently " + currentNumOfTask + " tasks. You cannot un-mark task larger or smaller than this!");
+
                 } else {
                     return Integer.parseInt(this.words.get(1)) - 1;
                 }
+
             } else {
                 throw new IndexOutOfBoundsException();
             }
+
         } catch (IndexOutOfBoundsException e) {
-            throw new myBotException("I'm not sure which task you wish to un-mark. Please specify the task you wish to un-mark and try again!");
+            throw new PingMeException("I'm not sure which task you wish to un-mark. Please specify the task you wish to un-mark and try again!");
         }
     }
 
@@ -184,21 +202,25 @@ public class Parser {
      * @return A 0-based index of the task to be marked.
      * @throws myBotException If the index of the task in the tasklist is not specified or when it is higher or lower than the actual total number of tasks currently.
      */
-    public int deleteParser(int currentNumOfTask) throws myBotException {
+    public int parseDeleteCommand(int currentNumOfTask) throws PingMeException {
         try {
             if (!this.words.get(1).isEmpty()) {
                 if (Integer.parseInt(this.words.get(1)) > currentNumOfTask || Integer.parseInt(this.words.get(1)) <= 0) {
-                    throw new myBotException("You have currently " + currentNumOfTask + " tasks. You cannot delete task larger or smaller than this!");
+                    throw new PingMeException("You have currently " + currentNumOfTask + " tasks. You cannot delete task larger or smaller than this!");
+
                 } else {
                     return Integer.parseInt(this.words.get(1)) - 1;
                 }
+
             } else {
                 throw new IndexOutOfBoundsException();
             }
+
         } catch (IndexOutOfBoundsException e) {
-            throw new myBotException("I'm not sure which task you wish to delete. Please specify the task you want to delete and try again!");
+            throw new PingMeException("I'm not sure which task you wish to delete. Please specify the task you want to delete and try again!");
         }
     }
+<<<<<<< HEAD
 
     /**
      * Returns the keyword of what the user is trying to find in his/her tasklist.
@@ -217,4 +239,6 @@ public class Parser {
             throw new myBotException("I'm not sure what you are trying to find. Please specify a keyword and try again!");
         }
     }
+=======
+>>>>>>> branch-A-CodingStandard
 }

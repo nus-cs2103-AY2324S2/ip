@@ -12,49 +12,49 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
     @Test
-    public void todoParserTest() throws myBotException {
+    public void todoParserTest() throws PingMeException {
         String command = "todo project";
         Parser parser = new Parser(command);
-        assertEquals(new ToDos("project"),parser.todoParser());
+        assertEquals(new ToDos("project"),parser.parseToDoCommand());
     }
 
     @Test
-    public void deadlineParserTest() throws myBotException {
+    public void deadlineParserTest() throws PingMeException {
         String command = "deadline project /by 05/05/2000 1800";
         Parser parser = new Parser(command);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         String time = "05/05/2000 1800";
-        assertEquals(new Deadline("project", LocalDateTime.parse(time, formatter)),parser.deadlineParser());
+        assertEquals(new Deadline("project", LocalDateTime.parse(time, formatter)),parser.parseDeadlineCommand());
     }
 
     @Test
-    public void eventParserTest() throws myBotException {
+    public void eventParserTest() throws PingMeException {
         String command  = "event project /from 9am /to 8pm";
         Parser parser = new Parser(command);
-        assertEquals(new Events("project", " 9am"," 8pm"),parser.eventsParser());
+        assertEquals(new Events("project", " 9am"," 8pm"),parser.parseEventsCommand());
     }
 
     @Test
-    public void markParserTest() throws myBotException {
+    public void markParserTest() throws PingMeException {
         String command = "mark 2";
         int arbituaryNumOfTask = 3;
         Parser parser = new Parser(command);
-        assertEquals(1, parser.markParser(arbituaryNumOfTask));
+        assertEquals(1, parser.parseMarkCommand(arbituaryNumOfTask));
     }
 
     @Test
-    public void unmarkParserTest() throws myBotException {
+    public void unmarkParserTest() throws PingMeException {
         String command = "unmark 2";
         int arbituaryNumOfTask = 3;
         Parser parser = new Parser(command);
-        assertEquals(1, parser.markParser(arbituaryNumOfTask));
+        assertEquals(1, parser.parseMarkCommand(arbituaryNumOfTask));
     }
 
     @Test
-    public void deleteParserTest() throws myBotException {
+    public void deleteParserTest() throws PingMeException {
         String command = "delete 2";
         int arbituaryNumOfTask = 3;
         Parser parser = new Parser(command);
-        assertEquals(1, parser.markParser(arbituaryNumOfTask));
+        assertEquals(1, parser.parseMarkCommand(arbituaryNumOfTask));
     }
 }

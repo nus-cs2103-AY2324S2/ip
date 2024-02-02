@@ -86,6 +86,7 @@ public class UI {
         System.out.println(toUserUponDeletion);
     }
 
+<<<<<<< HEAD
     /**
      * Sends a message to the user when the task that he/she wishes to mark as completed has been marked.
      *
@@ -94,16 +95,21 @@ public class UI {
      * @throws myBotException If the user tries to mark a task which has already been completed.
      */
     public void markTaskText(int taskNum, TaskList allTasks) throws myBotException {
+=======
+    public void markTaskText(int taskNum, TaskList allTasks) throws PingMeException {
+>>>>>>> branch-A-CodingStandard
         String toUserUponMarkingTask = "";
         if (allTasks.taskStatusIcon(taskNum).equals("X")) {
-            throw new myBotException("You cannot mark task again which has been completed!");
+            throw new PingMeException("You cannot mark task again which has been completed!");
         }
+
         allTasks.taskMarkAsDone(taskNum);
         toUserUponMarkingTask += "Nice! I've marked this task as done:";
         toUserUponMarkingTask += "\n" + "  " + allTasks.taskToString(taskNum);
         System.out.println(toUserUponMarkingTask);
     }
 
+<<<<<<< HEAD
     /**
      * Sends a message to the user when the task that he/she wishes to un-mark as not completed.
      *
@@ -112,10 +118,14 @@ public class UI {
      * @throws myBotException If the user tries to un-mark a task which has not been completed.
      */
     public void unmarkTaskText(int taskNum, TaskList allTasks) throws myBotException {
+=======
+    public void unmarkTaskText(int taskNum, TaskList allTasks) throws PingMeException {
+>>>>>>> branch-A-CodingStandard
         String toUserUponUnmarkingTask = "";
         if (allTasks.taskStatusIcon(taskNum).equals(" ")) {
-            throw new myBotException("You cannot un-mark task which has not been marked!");
+            throw new PingMeException("You cannot un-mark task which has not been marked!");
         }
+
         allTasks.taskUncheckTask(taskNum);
         toUserUponUnmarkingTask += "OK, I've marked this task as not done yet:";
         toUserUponUnmarkingTask += "\n" + "  " + allTasks.taskToString(taskNum);
@@ -130,9 +140,5 @@ public class UI {
     public void showError(String errorMessage) {
         System.out.println(errorMessage);
     }
-
-
-
-
 
 }

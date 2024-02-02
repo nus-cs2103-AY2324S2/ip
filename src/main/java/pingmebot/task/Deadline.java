@@ -55,11 +55,12 @@ public class Deadline extends Task {
         if (this == obj) {
             return true;
         }
+
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
+
         Deadline otherDeadline = (Deadline) obj;
         return this.description.equals(otherDeadline.description) && this.by.equals(otherDeadline.by);
     }
-
 }

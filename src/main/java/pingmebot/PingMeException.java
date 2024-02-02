@@ -1,5 +1,6 @@
 package pingmebot;
 
+<<<<<<< HEAD:src/main/java/pingmebot/myBotException.java
 /**
  * Responsible for throwing exception that is specific to the bot.
  */
@@ -12,6 +13,11 @@ public class myBotException extends Exception {
      * @param message Error message.
      */
     public myBotException(String message) {
+=======
+public class PingMeException extends Exception {
+    protected String message;
+    public PingMeException(String message) {
+>>>>>>> branch-A-CodingStandard:src/main/java/pingmebot/PingMeException.java
         super(message);
         this.message = message;
     }
