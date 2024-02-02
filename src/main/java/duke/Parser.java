@@ -19,16 +19,19 @@ public class Parser {
      * @param message The user input string.
      * @throws DukeException If the todo description is empty.
      */
-    public static void handleTodo(TaskList list, String message) throws DukeException {
+    public static String handleTodo(TaskList list, String message) throws DukeException {
         if (message.trim().equals("todo")) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty buddy.");
         }
         String description = message.substring(5).trim();
         Task task = new Task(description);
         list.add(task);
-        Ui.printWithLines("Got it. I've added this task:", task.toString(),
-                "Now you have " + list.size() + " tasks in the list.");
+        // Construct the response message
+        String response = "Got it. I've added this task:\n" + task.toString() +
+                "\nNow you have " + list.size() + " tasks in the list.";
+        return response;
     }
+
 
     /**
      * Parses and handles the "deadline" command.
@@ -38,7 +41,7 @@ public class Parser {
      * @param message The user input string.
      * @throws DukeException If the deadline or its date/time format is incorrect.
      */
-    public static void handleDeadline(TaskList list, String message) throws DukeException {
+    public static String handleDeadline(TaskList list, String message) throws DukeException {
         String[] parts = message.split("/by", 2);
         if (parts.length < 2) {
             throw new DukeException("OOPS!!! The deadline date/time is missing buddy.");
@@ -46,16 +49,20 @@ public class Parser {
         String description = parts[0].substring(9).trim();
         String by = parts[1].trim();
 
+        Deadline task;
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate date = LocalDate.parse(by, formatter);
-            Deadline task = new Deadline(description, date);
+            task = new Deadline(description, date);
             list.add(task);
             Ui.printWithLines("Got it. I've added this task:", task.toString(),
                     "Now you have " + list.size() + " tasks in the list.");
         } catch (DateTimeParseException e) {
             throw new DukeException("OOPS!!! The deadline date format is incorrect. Please use yyyy-MM-dd format.");
         }
+
+        return String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",
+                task.toString(), list.size());
     }
 
     /**
@@ -66,7 +73,7 @@ public class Parser {
      * @param message The user input string.
      * @throws DukeException If the event time is missing or the date/time format is incorrect.
      */
-    public static void handleEvent(TaskList list, String message) throws DukeException {
+    public static String handleEvent(TaskList list, String message) throws DukeException {
         String[] parts = message.split(" /from ", 2);
         if (parts.length < 2 || !parts[1].contains(" /to ")) {
             throw new DukeException("OOPS!!! The event time is missing or incomplete buddy.");
@@ -75,11 +82,12 @@ public class Parser {
         String[] timeParts = parts[1].split(" /to ", 2);
         String fromTime = timeParts[0].trim();
         String toTime = timeParts[1].trim();
+        Event task;
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime dateTimeFrom = LocalDateTime.parse(fromTime, formatter);
             LocalDateTime dateTimeTo = LocalDateTime.parse(toTime, formatter);
-            Event task = new Event(description, dateTimeFrom, dateTimeTo);
+            task = new Event(description, dateTimeFrom, dateTimeTo);
             list.add(task);
             Ui.printWithLines("Got it. I've added this task:", task.toString(),
                     "Now you have " + list.size() + " tasks in the list.");
@@ -87,6 +95,8 @@ public class Parser {
             throw new DukeException("OOPS!!! The deadline date format is incorrect. "
                     + "Please use yyyy-MM-dd HH:mm format.");
         }
+        return String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",
+                task.toString(), list.size());
     }
 
     /**
@@ -95,13 +105,12 @@ public class Parser {
      *
      * @param list The task list to display.
      */
-    public static void handleList(TaskList list) {
-        ArrayList<String> taskDescriptions = new ArrayList<>();
-        taskDescriptions.add("Here are the tasks in your list:");
+    public static String handleList(TaskList list) {
+        StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < list.size(); i++) {
-            taskDescriptions.add((i + 1) + ". " + list.get(i).toString());
+            response.append(String.format("%d. %s\n", i + 1, list.get(i).toString()));
         }
-        Ui.printWithLines(taskDescriptions.toArray(new String[0]));
+        return response.toString().trim();
     }
 
     /**
@@ -112,7 +121,7 @@ public class Parser {
      * @param message The user input string.
      * @throws DukeException If the task number is missing or invalid.
      */
-    public static void handleMark(TaskList list, String message) throws DukeException {
+    public static String handleMark(TaskList list, String message) throws DukeException {
         if (message.trim().equals("mark")) {
             throw new DukeException("OOPS!!! The task number is missing buddy.");
         }
@@ -123,6 +132,7 @@ public class Parser {
         Task task = list.get(index);
         task.markAsDone();
         Ui.printWithLines("Nice! I've marked this task as done:", task.toString());
+        return String.format("Nice! I've marked this task as done:\n%s", task.toString());
     }
 
     /**
@@ -133,7 +143,7 @@ public class Parser {
      * @param message The user input string.
      * @throws DukeException If the task number is missing or invalid.
      */
-    public static void handleUnmark(TaskList list, String message) throws DukeException {
+    public static String handleUnmark(TaskList list, String message) throws DukeException {
         if (message.trim().equals("unmark")) {
             throw new DukeException("OOPS!!! The task number is missing buddy.");
         }
@@ -144,6 +154,7 @@ public class Parser {
         Task task = list.get(index);
         task.unMarkAsDone();
         Ui.printWithLines("OK, I've marked this task as not done yet:", task.toString());
+        return String.format("OK, I've marked this task as not done yet:\n%s", task.toString());
     }
 
     /**
@@ -154,7 +165,7 @@ public class Parser {
      * @param message The user input string.
      * @throws DukeException If the task number is missing or invalid.
      */
-    public static void deleteTask(TaskList list, String message) throws DukeException {
+    public static String deleteTask(TaskList list, String message) throws DukeException {
         if (message.trim().equals("delete")) {
             throw new DukeException("OOPS!!! The task number is missing buddy.");
         }
@@ -165,6 +176,7 @@ public class Parser {
         Task task = list.get(index);
         list.remove(index);
         Ui.printWithLines("OK, I've deleted this task:", task.toString());
+        return String.format("OK, I've deleted this task:\n%s", task.toString());
     }
 
     /**
@@ -175,19 +187,21 @@ public class Parser {
      * @param message The user input string.
      * @throws DukeException If the keyword is missing.
      */
-    public static void findTask(TaskList list, String message) throws DukeException {
+    public static String findTask(TaskList list, String message) throws DukeException {
         if (message.trim().equals("find")) {
             throw new DukeException("OOPS!!! The keyword is missing buddy.");
         }
         String keyword = message.substring(5).trim();
         ArrayList<Task> matchingTasks = list.find(keyword);
+        StringBuilder response = new StringBuilder();
         if (matchingTasks.size() == 0) {
-            Ui.printWithLines("No matching task found.");
+            response.append("No matching task found.");
         } else {
-            Ui.printWithLines("Here is the matching tasks in your list: ");
+            response.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println((i + 1) + ". " + matchingTasks.get(i).toString());
+                response.append(String.format("%d. %s\n", i + 1, matchingTasks.get(i).toString()));
             }
         }
+        return response.toString().trim();
     }
 }

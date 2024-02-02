@@ -1,5 +1,7 @@
 package duke;
 
+import javafx.application.Platform;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -12,7 +14,6 @@ import java.util.Scanner;
 public class Duke {
     private static TaskList tasks;
     private Storage storage;
-
 
     /**
      * Constructor for Duke.
@@ -38,7 +39,7 @@ public class Duke {
      * @param args Command line arguments (not used).
      * @throws IOException If an I/O error occurs.
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, DukeException {
         try {
             Duke duke = new Duke("./data/duke.txt");
         } catch (DukeException e) {
@@ -60,5 +61,31 @@ public class Duke {
         Ui.printWithLines("Bye. Hope to see you again soon!");
         System.out.println("------------------------------------------");
     }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        String response;
+
+        if (input.equals("bye")) {
+            try {
+                Storage.saveCurrentList(tasks);
+                Platform.exit();
+            } catch (IOException e) {
+                return "Error saving file";
+            }
+            return "Bye. Hope to see you again soon!";
+        } else {
+            try {
+                response = Ui.parse(tasks, input);
+            } catch (DukeException e) {
+                return e.getMessage();
+            }
+        }
+        return response;
+    }
+
 
 }

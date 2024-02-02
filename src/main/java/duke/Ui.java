@@ -39,32 +39,36 @@ public class Ui {
      * Parses and processes the user input string.
      * It delegates the command handling to the Parser class.
      *
-     * @param list The TaskList to be used for executing commands.
+     * @param list    The TaskList to be used for executing commands.
      * @param message The user input string.
      */
-    public static void parse(TaskList list, String message) {
+    public static String parse(TaskList list, String message) throws DukeException {
         try {
             if (message.startsWith("todo")) {
-                Parser.handleTodo(list, message);
+                return Parser.handleTodo(list, message);
             } else if (message.startsWith("deadline")) {
-                Parser.handleDeadline(list, message);
+                return Parser.handleDeadline(list, message);
             } else if (message.startsWith("event")) {
-                Parser.handleEvent(list, message);
+                return Parser.handleEvent(list, message);
             } else if (message.equals("list")) {
-                Parser.handleList(list);
+                return Parser.handleList(list);
             } else if (message.startsWith("mark")) {
-                Parser.handleMark(list, message);
+                return Parser.handleMark(list, message);
             } else if (message.startsWith("unmark")) {
-                Parser.handleUnmark(list, message);
+                return Parser.handleUnmark(list, message);
             } else if (message.startsWith("delete")) {
-                Parser.deleteTask(list, message);
+                return Parser.deleteTask(list, message);
             } else if (message.startsWith("find")) {
-                Parser.findTask(list, message);
-            } else if (!message.equals("bye")) {
+                return Parser.findTask(list, message);
+            } else if (message.equals("bye")) {
+                // Assuming you have some logic to handle the "bye" command
+                return "Bye! Hope to see you again soon!";
+            } else {
                 throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means buddy.");
             }
         } catch (DukeException e) {
-            printWithLines(e.getMessage());
+            // Use the message from the caught exception
+            throw e;
         }
     }
 
