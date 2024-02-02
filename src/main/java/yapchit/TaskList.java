@@ -32,7 +32,7 @@ public class TaskList {
      * marks item as completed or incomplete
      *
      * @param idx item to be marked
-     * @param val boolean
+     * @param isDone boolean
      * @throws InvalidDetailException
      */
     public void mark(int idx, boolean isDone) throws InvalidDetailException {
@@ -68,5 +68,16 @@ public class TaskList {
      */
     public Task getItem(int i) {
         return this.tasks.get(i);
+    }
+
+    public TaskList findSublist(String term){
+        TaskList sublist = new TaskList();
+
+        for(Task task : tasks){
+            if(task.getName().contains(term)){
+                sublist.addTask(task);
+            }
+        }
+        return sublist;
     }
 }

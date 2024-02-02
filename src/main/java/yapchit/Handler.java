@@ -107,7 +107,7 @@ public class Handler {
      * Creates a new event object based on details in provided input.
      *
      * @param input containing details of the event
-     * @param newTask boolean which identifies if this is a task being added to list for the first time
+     * @param isNewTask boolean which identifies if this is a task being added to list for the first time
      * @param tasks list of tasks
      * @param ui ui object to interact with the user
      * @throws InvalidDetailException in case of mismatch in input and task detail requirements.
@@ -196,7 +196,7 @@ public class Handler {
      * Creates a new todo object based on details in provided input.
      *
      * @param input containing details of the todo
-     * @param newTask boolean which identifies if this is a task being added to list for the first time
+     * @param isNewTask boolean which identifies if this is a task being added to list for the first time
      * @param tasks list of tasks
      * @param ui ui object to interact with the user
      * @throws InvalidDetailException in case of mismatch in input and task detail requirements.
@@ -226,14 +226,6 @@ public class Handler {
             } else {
                 t.setDone(isDone == '1' ? true : false);
             }
-        }
-    }
-
-    public void handleList(String[] parts, TaskList tasks, Ui ui) throws InvalidDetailException {
-        if (parts.length != 1) {
-            throw new InvalidDetailException("Invalid detail after keyword. Please retry");
-        } else {
-            ui.printList(tasks);
         }
     }
 

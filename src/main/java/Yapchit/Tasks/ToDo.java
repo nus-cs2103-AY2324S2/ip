@@ -22,7 +22,7 @@ public class ToDo extends Task{
      */
     @Override
     public String toString(){
-        String tag = super.getTag() ? "[X]" : "[ ]";
+        String tag = super.getDone() ? "[X]" : "[ ]";
         return "[T]" + tag + " " + super.getName();
     }
 }

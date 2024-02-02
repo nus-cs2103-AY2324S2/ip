@@ -5,7 +5,7 @@ package yapchit.tasks;
  */
 public class Task {
     private String name;
-    private boolean tag;
+    private boolean isDone;
 
     /**
      * Constructor of task class.
@@ -14,16 +14,16 @@ public class Task {
      */
     public Task(String name){
         this.name = name;
-        this.tag = false;
+        this.isDone = false;
     }
 
     /**
      * setter function to set the tag of the class based on input.
      *
-     * @param val the boolean value to update the tag to
+     * @param isDone the boolean value to update the tag to
      */
-    public void updateTag(boolean val){
-        this.tag = val;
+    public void setDone(boolean isDone){
+        this.isDone = isDone;
     }
 
     /**
@@ -35,7 +35,7 @@ public class Task {
         return this.name;
     }
 
-    public boolean getTag(){
-        return this.tag;
+    public boolean getDone(){
+        return this.isDone;
     }
 }
