@@ -21,12 +21,12 @@ public class Parser {
     public boolean processCmd(String command) {
         String border = "____________________________________________________________";
 
-        System.out.println(border);
         try {
             String cmd = command.split(" ")[0];
             String params = command.substring(cmd.length()).trim();
             switch (cmd) {
             case "bye":
+                System.out.println("Goodbye!");
                 return false;
                 // Fallthrough
             case "list":
@@ -143,7 +143,7 @@ public class Parser {
             System.out.println(e);
             System.out.println("An unexpected error occurred.");
         }
-        System.out.println(border);
+//        System.out.println(border);
         return true;
     }
 }

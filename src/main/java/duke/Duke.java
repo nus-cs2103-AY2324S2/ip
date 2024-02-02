@@ -1,5 +1,7 @@
 package duke;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,11 +11,12 @@ import java.util.Scanner;
  * The class does the initial setup for components for the main application
  */
 public class Duke {
-    public static final String DB_PATH = "../data/duke.txt"; // uncommment for runtest.sh
-    // public static final String DB_PATH = "data/duke.txt";
+    //    public static final String DB_PATH = "../data/duke.txt"; // uncommment for runtest.sh
+    public static final String DB_PATH = "data/duke.txt";
     private Storage storage;
     private TaskList myTasks;
     private Ui ui;
+    private Parser parser;
 
     /**
      * Initialises a Duke instance, and loads tasks and components before starting up the app
@@ -23,10 +26,46 @@ public class Duke {
         storage = new Storage(DB_PATH);
         try {
             myTasks = new TaskList(storage.load());
+            parser = new Parser(new Scanner(System.in), this.myTasks);
         } catch (DukeException e) {
             ui.showLoadingError();
             myTasks = new TaskList();
         }
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    String getResponse(String input) {
+        // Create a StringBuilder to hold the output
+        StringBuilder outputBuilder = new StringBuilder();
+
+        // Create a PrintStream that writes to the StringBuilder
+        PrintStream ps = new PrintStream(new OutputStream() {
+            @Override
+            public void write(int b) {
+                outputBuilder.append((char) b);
+            }
+        });
+
+        // Save the original System.out
+        PrintStream prev = System.out;
+
+        // Set the System.out to the custom PrintStream
+        System.setOut(ps);
+        // process the user input
+        try {
+            this.parser.processCmd(input);
+            this.save();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            // Restore the original System.out
+            System.setOut(prev);
+        }
+        // Return the captured output
+        return outputBuilder.toString();
     }
 
     /**
@@ -56,15 +95,12 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in); // Create a Scanner object
         String line = scanner.nextLine(); // Get first input
-        Parser parser = new Parser(scanner, this.myTasks);
 
-        while (parser.processCmd(line)) {
+        while (this.parser.processCmd(line)) {
             line = scanner.nextLine();
         }
-        System.out.println(goodbye);
         // save the tasks from myTasks to duke.Storage
         this.save();
-
     }
 
     public static void main(String[] args) {
