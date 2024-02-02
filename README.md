@@ -1,24 +1,53 @@
-# Duke project template
+# Lulu Task Manager 🤖
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Lulu Task Manager is a simple command-line task manager written in Java. Keep track of your tasks with ease!
 
-## Setting up in Intellij
+## Table of Contents
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Introduction
+
+Lulu Task Manager is a Java-based task management application. It allows users to add, mark, unmark, and delete tasks, as well as perform queries based on specific criteria. The application utilizes a command-line interface for a straightforward user experience.
+
+## Features
+
+- **Task Management:** Add, mark, unmark, and delete tasks.
+- **Task Types:** Support for different task types, including Todo, Deadline, and Event.
+- **Query Tasks:** Find tasks based on specific criteria like name or date.
+
+- [x] Task 1
+- [ ] Task 2
+- [ ] Task 3
+
+## Installation
+
+Ensure you have Java installed on your system. Clone the repository and compile the Java files.
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/lulu-task-manager.git
+
+# Compile the Java files
+javac -d . src/*.java
+```
+
+This is Lulu `Lulu chatbot = new Lulu();`.
+
+```java
+public static void main(String[] args) {
+        Lulu chatbot = new Lulu();
+        UI.start();
+        try {
+            chatbot.respond();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        UI.exit();
+    }
+```
