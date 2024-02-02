@@ -10,5 +10,6 @@ public class EventTest {
     @Test
     public void Event_Test_Success(){
         assertEquals(new Event(" this is a test", "2019-10-15" , "2019-10-16").ToString(),"[E] [ ]  this is a test (from: Oct 15 2019 to: Oct 16 2019)" );
+        assertEquals(new Event(" this is a test", "2019-10-15" , "2019-10-16").toStore(),"E/0/ this is a test/2019-10-15/2019-10-16" );
     }
 }

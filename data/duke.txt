@@ -1,5 +1,4 @@
 D/1/ return book / 2019-10-15
-D/0/ return book / 2019-10-15
 D/1/ return book / 2019-10-15
 D/0/ return book / 2019-10-15
 E/0/ fight/2000-01-20/2000-11-20

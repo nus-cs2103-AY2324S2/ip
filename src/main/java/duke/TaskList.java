@@ -187,6 +187,7 @@ public class TaskList {
      * gets the size of the task list.
      */
     public int getSize(){
+
         return list.size();
     }
     /**
@@ -194,6 +195,7 @@ public class TaskList {
      * @param  n The number of the specified task in the task list.
      */
     public Task getTask(int n){
+
         return list.get(n);
     }
 
