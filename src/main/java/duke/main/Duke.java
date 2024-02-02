@@ -11,6 +11,21 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.io.File;
 
+/**
+ * Represents the main class of the Duke application, a personal assistant chatbot
+ * that helps users to keep track of various tasks. The application is capable of
+ * understanding commands to add, delete, mark, and list tasks among other functionalities.
+ *
+ * Duke uses a combination of components to manage tasks:
+ * - {@link duke.storage.Storage} for loading from and saving tasks to a file.
+ * - {@link duke.parser.Parser} for interpreting user input.
+ * - {@link duke.ui.Ui} for handling interactions with the user.
+ * - {@link duke.tasklist.TaskList} for storing and managing a list of tasks.
+ *
+ * The application supports tasks of types: Todo, Deadline, and Event, which can be
+ * added, marked as done, deleted, and listed. It operates in a loop, processing user
+ * commands until a termination command is received.
+ */
 public class Duke {
     
     private static final String FILE_PATH = System.getProperty("user.home") + File.separator
@@ -20,6 +35,12 @@ public class Duke {
     private Parser parser;
     private TaskList list;
     
+    /**
+     * Constructs a new Duke object with a specified file path for data storage.
+     * Initializes the UI, Parser, TaskList, and Storage components of Duke.
+     *
+     * @param filePath The path of the file where task data is stored.
+     */
     public Duke(String filePath) {
         this.parser = new Parser();
         this.ui = new Ui();
@@ -27,10 +48,20 @@ public class Duke {
         this.storage = new Storage(filePath, parser);
         
     }
+    
+    /**
+     * Enum representing possible instructions that Duke can process.
+     */
     public enum Instruction {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE, ANYTHING_ELSE
     }
     
+    /**
+     * Determines the type of instruction given by the user input.
+     *
+     * @param input The raw input string from the user.
+     * @return The Instruction that corresponds to the user's command.
+     */
     public Instruction getInstr(String input) {
         if (input.toLowerCase().startsWith("list")) {
             return Instruction.LIST;
@@ -53,6 +84,13 @@ public class Duke {
         }
     }
     
+    /**
+     * Starts the Duke application. This method sets up necessary components,
+     * loads existing tasks from storage, and processes user input until the "bye"
+     * command is received.
+     *
+     * @throws DukeException If the application encounters an error it cannot recover from.
+     */
     public void run() throws DukeException {
         Scanner sc = new Scanner(System.in);
         Duke duke = new Duke(FILE_PATH);
@@ -148,6 +186,12 @@ public class Duke {
         sc.close();
     }
     
+    /**
+     * The main entry point of the Duke application.
+     *
+     * @param args Command line arguments (not used).
+     * @throws DukeException If the application encounters an unrecoverable error during startup.
+     */
     public static void main(String[] args) throws DukeException {
         new Duke(FILE_PATH).run();
     }
