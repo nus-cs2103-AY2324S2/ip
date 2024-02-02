@@ -1,4 +1,4 @@
-package botChat;
+package BotChat;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,14 +7,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and saving of task data from/to the hard disk in the botChat application.
+ */
 public class Storage {
+
+    /**
+     * The file path where the task data is stored.
+     */
     private static String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The file path where the task data is stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    //Load data from hard disk when BotChat starts up
+    /**
+     * Loads task data from the hard disk when the botChat application starts up.
+     *
+     * @return A TaskList containing the tasks loaded from the hard disk.
+     * @throws RuntimeException If an error occurs during the loading process.
+     */
     public TaskList load() {
         TaskList tasks = new TaskList();
         try {
@@ -30,13 +47,17 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
-        } catch (botChatException e) {
+        } catch (BotChatException e) {
             throw new RuntimeException(e);
         }
         return tasks;
     }
 
-    //Save the changes to the hard disk
+    /**
+     * Saves the changes to the hard disk by overwriting the existing task data.
+     *
+     * @param tasks The list of tasks to be saved to the hard disk.
+     */
     public static void saveTaskToHardDisk(ArrayList<Task> tasks) {
         try {
             File file = new File(filePath);

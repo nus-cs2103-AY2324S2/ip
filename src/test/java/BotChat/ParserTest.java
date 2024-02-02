@@ -1,11 +1,17 @@
-package botChat;
+package BotChat;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+/**
+ * Unit tests for the Parser class.
+ */
 public class ParserTest {
+    /**
+     * Tests the getCommand method for valid command inputs.
+     */
     @Test
     public void testGetCommandValid() {
         assertEquals(Command.LIST, Parser.getCommand("list"));
@@ -18,12 +24,18 @@ public class ParserTest {
         assertEquals(Command.DELETE, Parser.getCommand("delete"));
     }
 
+    /**
+     * Tests the getCommand method for unknown command inputs.
+     */
     @Test
     public void testGetCommandUnknown() {
         assertEquals(Command.UNKNOWN, Parser.getCommand("invalid"));
         assertEquals(Command.UNKNOWN, Parser.getCommand(""));
     }
 
+    /**
+     * Tests the convertTask method for a todo task.
+     */
     @Test
     public void testConvertTaskTodo() {
         String todoLine = "[T] [X] Sample Todo";
@@ -34,6 +46,9 @@ public class ParserTest {
         assertEquals("X", todoTask.getStatusIcon());
     }
 
+    /**
+     * Tests the convertTask method for a deadline task.
+     */
     @Test
     public void testConvertTaskDeadline() {
         String deadlineLine = "[D] [ ] Project (by: 2024-02-29)";
@@ -45,6 +60,9 @@ public class ParserTest {
         assertEquals("Feb 29 2024", ((Deadline) deadlineTask).getBy());
     }
 
+    /**
+     * Tests the convertTask method for an event task.
+     */
     @Test
     public void testConvertTaskEvent() {
         String eventLine = "[E] [X] Team Meeting (from: 2024-02-01 to: 2024-02-02)";
@@ -57,6 +75,9 @@ public class ParserTest {
         assertEquals("Feb 02 2024", ((Event) eventTask).getTo());
     }
 
+    /**
+     * Tests the convertTask method for an invalid task.
+     */
     @Test
     public void testConvertTaskInvalid() {
         String invalidLine = "[I][ ] Invalid Task";

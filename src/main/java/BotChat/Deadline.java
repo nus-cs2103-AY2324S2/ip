@@ -1,30 +1,43 @@
-package botChat;
+package BotChat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task {
-    protected String from;
-    protected String to;
+/**
+ * Represents a task with a deadline in the botChat application.
+ * Extends the base Task class.
+ */
+public class Deadline extends Task {
 
-    public Event(String description, String from, String to) {
+    /**
+     * The deadline string in its original format.
+     */
+    protected String by;
+
+    /**
+     * Constructs a Deadline object with the specified description and deadline.
+     * If the provided deadline is in a valid format, it is used as-is; otherwise, it is converted.
+     *
+     * @param description The description of the deadline task.
+     * @param by          The deadline in its original format.
+     */
+    public Deadline(String description, String by) {
         super(description);
-        if (isValidDateFormat(from) && isValidDateFormat(to)) {
-            this.from = from;
-            this.to = to;
+        if (isValidDateFormat(by)) {
+            this.by = by;
         } else {
-            this.from = convertDate(from);
-            this.to = convertDate(to);
+            this.by = convertDate(by);
         }
     }
 
-    public String getFrom() {
-        return from;
-    }
-
-    public String getTo() {
-        return to;
+    /**
+     * Gets the deadline in its original format.
+     *
+     * @return The deadline in its original format.
+     */
+    public String getBy() {
+        return by;
     }
 
     private boolean isValidDateFormat(String by) {
@@ -40,6 +53,7 @@ public class Event extends Task {
 
     private String convertDate(String by) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         try {
             LocalDate date = LocalDate.parse(by, inputFormatter);
             return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
@@ -53,8 +67,13 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Overrides the toString method to provide a string representation of the Deadline object.
+     *
+     * @return A string representation of the Deadline object.
+     */
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[D] " + super.toString() + " (by: " + by + ")";
     }
 }
