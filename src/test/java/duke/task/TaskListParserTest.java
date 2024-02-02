@@ -1,17 +1,17 @@
 package duke.task;
 
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.FileWriter;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import org.junit.jupiter.api.Test;
+
 public class TaskListParserTest {
     @Test
-    public void parse_ValidFile_ReturnsTaskList()
+    public void parse_validFile_returnsTaskList()
             throws IOException, InvalidDataFormatException, DukeDateTimeParseException {
         // Arrange
         File file = new File("./data/duke.txt");
@@ -38,7 +38,7 @@ public class TaskListParserTest {
     }
 
     @Test
-    public void parse_InvalidFile_ThrowsInvalidDataFormatException() throws IOException {
+    public void parse_invalidFile_throwsInvalidDataFormatException() throws IOException {
         // Arrange
         File file = new File("./data/duke.txt");
         if (!file.exists()) {
@@ -58,7 +58,7 @@ public class TaskListParserTest {
     }
 
     @Test
-    public void serialize_ValidTaskList_ReturnsSerializedString() throws DukeDateTimeParseException {
+    public void serialize_validTaskList_returnsSerializedString() throws DukeDateTimeParseException {
         // Arrange
         TaskList taskList = new TaskList();
         // Add tasks to the task list

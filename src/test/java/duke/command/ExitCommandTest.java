@@ -1,14 +1,15 @@
 package duke.command;
 
-import duke.task.TaskList;
-import duke.state.ProgramState;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import duke.state.ProgramState;
+import duke.task.TaskList;
 
 public class ExitCommandTest {
     @Test
-    public void execute_ExitCommand_SetsProgramStateToExit() {
+    public void execute_exitCommand_setsProgramStateToExit() {
         // Arrange
         ExitCommand exitCommand = new ExitCommand();
         TaskList taskList = new TaskList();

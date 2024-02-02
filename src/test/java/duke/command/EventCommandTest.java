@@ -1,15 +1,15 @@
 package duke.command;
 
-import duke.DukeException;
-import duke.command.EmptyDateTimeException;
-import duke.command.EmptyTaskDescriptionException;
-import duke.state.ProgramState;
-import duke.task.Event;
-import duke.task.TaskList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import duke.DukeException;
+import duke.state.ProgramState;
+import duke.task.TaskList;
 
 public class EventCommandTest {
     private EventCommand eventCommand;
@@ -24,7 +24,7 @@ public class EventCommandTest {
     }
 
     @Test
-    public void execute_ValidEventCommand_AddsEventToTaskList() throws DukeException {
+    public void execute_validEventCommand_addsEventToTaskList() throws DukeException {
         // Arrange
         String body = "Event description /from 2022-01-01 10:00 /to 2022-01-01 12:00";
         eventCommand = new EventCommand(body);
@@ -40,7 +40,7 @@ public class EventCommandTest {
     }
 
     @Test
-    public void execute_EmptyTaskDescription_ThrowsEmptyTaskDescriptionException() {
+    public void execute_emptyTaskDescription_throwsEmptyTaskDescriptionException() {
         // Arrange
         String body = "/from 2022-01-01 10:00 /to 2022-01-01 12:00";
         eventCommand = new EventCommand(body);
@@ -50,7 +50,7 @@ public class EventCommandTest {
     }
 
     @Test
-    public void execute_EmptyStartTime_ThrowsEmptyDateTimeException() {
+    public void execute_emptyStartTime_throwsEmptyDateTimeException() {
         // Arrange
         String body = "Event description /to 2022-01-01 12:00";
         eventCommand = new EventCommand(body);
@@ -60,7 +60,7 @@ public class EventCommandTest {
     }
 
     @Test
-    public void execute_EmptyEndTime_ThrowsEmptyDateTimeException() {
+    public void execute_emptyEndTime_throwsEmptyDateTimeException() {
         // Arrange
         String body = "Event description /from 2022-01-01 10:00";
         eventCommand = new EventCommand(body);

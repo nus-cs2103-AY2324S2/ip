@@ -5,6 +5,9 @@ package duke.state;
  * exit, and error.
  */
 public class ProgramState {
+    /**
+     * Represents the possible states of the program.
+     */
     public static enum State {
         NORMAL, EXIT, ERROR
     }

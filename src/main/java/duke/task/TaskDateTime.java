@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
  * Represents a date and time used by tasks.
  */
 public class TaskDateTime {
-    private LocalDateTime dateTime;
     /** The format of the date and time used by the tasks. */
     private static final String INPUT_FORMAT = "yyyy-MM-dd HH:mm";
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -15,6 +14,8 @@ public class TaskDateTime {
      * The format of the date and time used when displaying the tasks to the user.
      */
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("EEE, MMM d yyyy HH:mm");
+
+    private LocalDateTime dateTime;
 
     /**
      * Parses the given string into a date and time.

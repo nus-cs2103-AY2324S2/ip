@@ -2,10 +2,9 @@ package duke.command;
 
 import duke.DukeException;
 import duke.state.ProgramState;
-
+import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
-import duke.task.Task;
 
 /**
  * Represents a command to add a simple todo.

@@ -14,6 +14,11 @@ public class UI {
     private String botName = "Sylvia";
     private final BufferedReader reader;
 
+    /**
+     * Constructs a new user interface.
+     *
+     * @param name The name of the bot.
+     */
     public UI(String name) {
         this.botName = name;
         this.reader = new BufferedReader(new InputStreamReader(System.in));
@@ -23,12 +28,20 @@ public class UI {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Shows an error message from the bot.
+     *
+     * @param e The exception that caused the error.
+     */
     public void showBotError(DukeException e) {
         showLine();
         System.out.println(e.getBotMessage());
         showLine();
     }
 
+    /**
+     * Shows the welcome message from the bot.
+     */
     public void showWelcomeMessage() {
         showLine();
         System.out.println("Hello! I'm " + botName);
@@ -39,7 +52,7 @@ public class UI {
     /**
      * Shows the response from the bot. If the response is null, nothing will be
      * shown.
-     * 
+     *
      * @param response The response from the bot.
      */
     public void showResponse(String response) {
@@ -53,7 +66,7 @@ public class UI {
 
     /**
      * Reads a command from the user.
-     * 
+     *
      * @return The command from the user.
      */
     public String readCommand() {

@@ -1,7 +1,7 @@
 package duke.command;
 
-import duke.state.ProgramState;
 import duke.DukeException;
+import duke.state.ProgramState;
 import duke.task.TaskList;
 
 /**
