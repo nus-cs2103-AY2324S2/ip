@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Save {
     public String filePath = "data/duke.txt";
 
@@ -101,7 +103,9 @@ public class Save {
                         }
                         s.add(e);
                     } else if (parts[0].equals("D")) {
-                        Deadlines d = new Deadlines(parts[2], parts[3]);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+                        LocalDateTime localDateTime = LocalDateTime.parse(parts[3], formatter);
+                        Deadlines d = new Deadlines(parts[2], localDateTime);
                         if (isDone) {
                             d.markAsDone();
                         }
