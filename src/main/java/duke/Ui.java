@@ -75,12 +75,16 @@ public class Ui {
         divider();
     }
 
+    public void invalidKeyWord() {
+        System.out.println("Plz enter a valid keyword");
+        divider();
+    }
+
     public static void botUnknownFormat(int i) {
         System.out.println("Oops, I don't understand the file format");
         i = i + 1;
         System.out.println("Line " + i + " in the given file will be ignored");
     }
-
 
 
 }

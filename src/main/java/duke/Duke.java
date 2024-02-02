@@ -137,7 +137,26 @@ public class Duke {
                         ui.invalidDescription();
                         command = myCom.nextLine();
                     }
-                } else {
+                } else if (command.startsWith("find")) {
+                    try {
+                        String keyWord = cmd[1];
+                        System.out.println("Here're the matching tasks in ur list:");
+                        int counter = 0;
+                        for (int i = 0; i < ls.size(); i++) {
+                            Task tk = ls.get(i);
+                            if (tk.getDescription().contains(keyWord)) {
+                                counter++;
+                                System.out.println(counter + ". " + tk.toString());
+                            }
+                        }
+                        ui.divider();
+                        command = myCom.nextLine();
+                    } catch (Exception exc) {
+                        ui.invalidKeyWord();
+                        command = myCom.nextLine();
+                    }
+                }
+                 else {
                     ui.invalidInput();
                     command = myCom.nextLine();
                 }
