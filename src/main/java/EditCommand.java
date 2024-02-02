@@ -12,5 +12,6 @@ public class EditCommand extends Command {
         } else {
             tasks.uncheckTask(this.idx);
         }
+        storage.write(tasks.toFileFormat());
     }
 }
