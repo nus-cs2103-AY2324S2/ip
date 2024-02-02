@@ -57,23 +57,23 @@ public class Storage {
         Task task = new Task(description);
 
         switch (type) {
-            case "T":
-                task = createTask("todo", description);
-                break;
-            case "D":
-                if (parts.length < 4) ChatbotException.getError(ChatbotException.ErrorType.TODO_CORRUPT);
-                description += " /by " + parts[3];
-                task = createTask("deadline", description);
-                break;
-            case "E":
-                String timeInfo = parts[3].trim();
-                String[] timeParts = timeInfo.split(" - ");
-                if (timeParts.length < 2) ChatbotException.getError(ChatbotException.ErrorType.EVENT_CORRUPT);
-                description += " /from " + timeParts[0].trim() + " /to " + timeParts[1].trim();
-                task = createTask("event", description);
-                break;
-            default:
-                ChatbotException.getError(ChatbotException.ErrorType.UNKNOWN_TASK);
+        case "T":
+            task = createTask("todo", description);
+            break;
+        case "D":
+            if (parts.length < 4) ChatbotException.getError(ChatbotException.ErrorType.TODO_CORRUPT);
+            description += " /by " + parts[3];
+            task = createTask("deadline", description);
+            break;
+        case "E":
+            String timeInfo = parts[3].trim();
+            String[] timeParts = timeInfo.split(" - ");
+            if (timeParts.length < 2) ChatbotException.getError(ChatbotException.ErrorType.EVENT_CORRUPT);
+            description += " /from " + timeParts[0].trim() + " /to " + timeParts[1].trim();
+            task = createTask("event", description);
+            break;
+        default:
+            ChatbotException.getError(ChatbotException.ErrorType.UNKNOWN_TASK);
         }
 
         task.mark(isDone);

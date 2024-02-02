@@ -32,17 +32,17 @@ public class TaskList {
 
     private void catchInputError(String command) {
         switch (command.toLowerCase()) {
-            case "todo":
-                ChatbotException.getError(ChatbotException.ErrorType.TODO_EMPTY);
-                break;
-            case "deadline":
-                ChatbotException.getError(ChatbotException.ErrorType.DEADLINE_EMPTY);
-                break;
-            case "event":
-                ChatbotException.getError(ChatbotException.ErrorType.EVENT_EMPTY);
-                break;
-            default:
-                ChatbotException.getError(ChatbotException.ErrorType.UNKNOWN_COMMAND);
+        case "todo":
+            ChatbotException.getError(ChatbotException.ErrorType.TODO_EMPTY);
+            break;
+        case "deadline":
+            ChatbotException.getError(ChatbotException.ErrorType.DEADLINE_EMPTY);
+            break;
+        case "event":
+            ChatbotException.getError(ChatbotException.ErrorType.EVENT_EMPTY);
+            break;
+        default:
+            ChatbotException.getError(ChatbotException.ErrorType.UNKNOWN_COMMAND);
         }
     }
 
