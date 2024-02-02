@@ -3,6 +3,7 @@ package commands;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import storages.Storage;
 import tasks.Task;
@@ -42,6 +43,27 @@ public class Command {
     }
 
     /**
+     * Returns a boolean of whether the date passed
+     * by the user is in the list of current tasks.
+     * @param word
+     * @return
+     */
+    public boolean findWordPresent(Task currTask, String word) {
+        return currTask.getTask().contains(word);
+    }
+
+    public ArrayList<Task> findCommand(TaskList tasks, String keyWord) {
+        ArrayList<Task> matchList = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currTask = tasks.getTask(i);
+            if (findWordPresent(currTask, keyWord)) {
+                matchList.add(currTask);
+            }
+        }
+        return matchList;
+    }
+
+    /**
      * Returns an array of possible DateTime patterns
      * that the user can enter and the system can accept.
      *
@@ -77,7 +99,7 @@ public class Command {
                 duefrom = LocalDateTime.parse(from, format);
                 dueto = LocalDateTime.parse(to, format);
                 String task = fullCommand.substring(0, fromStartIndex - 1);
-                String dueEvent = task + "(from: "
+                String dueEvent = task + " (from: "
                         + duefrom.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a"))
                         + " to: "
                         + dueto.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a")) + ")";
@@ -109,7 +131,7 @@ public class Command {
                 time = LocalDateTime.parse(timecommand, format);
                 String task = fullCommand.substring(9, byStartIndex - 1);
                 String deadline = task
-                        + "(by: "
+                        + " (by: "
                         + time.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a"))
                         + ")";
                 Task newTask = new Task(deadline, symbol, false, time);
@@ -191,47 +213,59 @@ public class Command {
             ui.listOfCommands();
         } else {
             switch (command[0]) {
-                case "list":
-                    ui.output(tasks.getList().toString());
-                    break;
-                case "todo":
-                case "event":
-                case "deadline":
-                    ui.showLine();
-                    System.out.println("Got it. I've added this task: ");
-                    String symbol = this.getTaskSymbol(command[0]);
-                    int byStartIndex = fullCommand.indexOf("/by");
-                    int fromStartIndex = fullCommand.indexOf("/from");
-                    if (byStartIndex == -1 && fromStartIndex == -1) {
-                        String des = fullCommand.substring(command[0].length() + 1);
-                        Task newTask = new Task(des, symbol, false);
-                        tasks.addTask(newTask);
-                    } else if (fromStartIndex == -1) {
-                        byCommand(fullCommand, byStartIndex, symbol, tasks);
-                    } else {
-                        fromCommand(fullCommand, fromStartIndex, symbol, tasks);
-                    }
+            case "list":
+                ui.output(tasks.getList().toString());
+                break;
+            case "todo":
+            case "event":
+            case "deadline":
+                ui.showLine();
+                System.out.println("Got it. I've added this task: ");
+                String symbol = this.getTaskSymbol(command[0]);
+                int byStartIndex = fullCommand.indexOf("/by");
+                int fromStartIndex = fullCommand.indexOf("/from");
+                if (byStartIndex == -1 && fromStartIndex == -1) {
+                    String des = fullCommand.substring(command[0].length() + 1);
+                    Task newTask = new Task(des, symbol, false);
+                    tasks.addTask(newTask);
+                } else if (fromStartIndex == -1) {
+                    byCommand(fullCommand, byStartIndex, symbol, tasks);
+                } else {
+                    fromCommand(fullCommand, fromStartIndex, symbol, tasks);
+                }
 
-                    Task latestTask = tasks.getTask(tasks.size() - 1);
-                    String task = latestTask.toString();
-                    System.out.println("    " + task);
-                    String singular = tasks.size() == 1 ? "task" : "tasks";
-                    int num = tasks.size();
-                    System.out.println("Now you have " + num + " " + singular + " in the list.");
-                    ui.showLine();
-                    break;
-                case "mark":
-                    ui.output(mark(tasks, fullCommand));
-                    break;
-                case "unmark":
-                    ui.output(unmark(tasks, fullCommand));
-                    break;
-                case "delete":
-                    ui.showLine();
-                    delete(tasks, fullCommand);
-                    ui.showLine();
-                default:
-                    ui.listOfCommands();
+                Task latestTask = tasks.getTask(tasks.size() - 1);
+                String task = latestTask.toString();
+                System.out.println("    " + task);
+                String singular = tasks.size() == 1 ? "task" : "tasks";
+                int num = tasks.size();
+                System.out.println("Now you have " + num + " " + singular + " in the list.");
+                ui.showLine();
+                break;
+            case "mark":
+                ui.output(mark(tasks, fullCommand));
+                break;
+            case "unmark":
+                ui.output(unmark(tasks, fullCommand));
+                break;
+            case "delete":
+                ui.showLine();
+                delete(tasks, fullCommand);
+                ui.showLine();
+                break;
+            case "find":
+                String keyWord = fullCommand.substring(5);
+                ArrayList<Task> newList = findCommand(tasks, keyWord);
+                ui.showLine();
+                System.out.println("Here are the matching tasks in your list:");
+                for (Task matchTask : newList) {
+                    System.out.println(matchTask.toString());
+                }
+                ui.showLine();
+                break;
+            default:
+                ui.listOfCommands();
+                break;
             }
 
         }
