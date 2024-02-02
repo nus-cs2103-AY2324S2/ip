@@ -46,9 +46,7 @@ public class TaskList {
      */
     public String addTaskTest(Task t) {
         this.tasks.add(t);
-        String toPrint = "_________________________\n"
-            + "added: " + t.getFullStatus() + "\n"
-            + "_________________________\n"
+        String toPrint = "added: " + t.getFullStatus() + "\n"
             + "Now you have " + this.tasks.size() + " items in your list!\n";
         return toPrint;
     }
@@ -66,10 +64,9 @@ public class TaskList {
      */
     public String deleteTask(int i) {
         Task deleted = this.tasks.remove(i);
-        String printOut = "_________________________\n"
-            + "Finished with this? Good Job!" + "\n"
+        String printOut =
+            "Finished with this? Good Job!" + "\n"
             + deleted.getFullStatus() + "\n"
-            + "_________________________\n"
             + "Now you have " + this.tasks.size() + " items in your list!\n";
         this.saveTaskList();
         return printOut;
@@ -83,9 +80,9 @@ public class TaskList {
      */
     public String addTask(Task t) {
         this.tasks.add(t);
-        String toPrint = "_________________________\n"
-            + "added: " + t.getFullStatus() + "\n"
-            + "_________________________\n" + "Now you have " + this.tasks.size()
+        String toPrint =
+            "added: " + t.getFullStatus() + "\n"
+            + "Now you have " + this.tasks.size()
             + " items in your list!\n";
         this.saveTaskList();
         return toPrint;
@@ -104,10 +101,8 @@ public class TaskList {
     public String markTask(int idx) {
         Task focusTask = this.tasks.get(idx);
         focusTask.mark();
-        String printOut = "_________________________\n"
-            + "Marking this done!" + "\n"
-            + focusTask.getFullStatus() + "\n"
-            + "_________________________\n";
+        String printOut = "Marking this done!" + "\n"
+            + focusTask.getFullStatus();
         this.saveTaskList();
         return printOut;
     }
@@ -120,10 +115,9 @@ public class TaskList {
     public String unmarkTask(int idx) {
         Task focusTask = this.tasks.get(idx);
         focusTask.unmark();
-        String printOut = "_________________________\n"
-            + "Marking this done!" + "\n"
-            + focusTask.getFullStatus() + "\n"
-            + "_________________________\n";
+        String printOut =
+            "Marking this done!" + "\n"
+            + focusTask.getFullStatus() + "\n";
         this.saveTaskList();
         return printOut;
     }
@@ -133,14 +127,12 @@ public class TaskList {
      * @return The output of the task list to be printed.
      */
     public String showTaskList() {
-        String ret = "_________________________\n"
-            + "Get off your ass and starting doing work!" + "\n";
+        String ret = "Get off your ass and starting doing work!" + "\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             Task curr = this.tasks.get(i);
             ret += (i + 1)
                 + "." + curr.getFullStatus() + "\n";
         }
-        ret += "_________________________\n";
         return ret;
     }
 
@@ -151,8 +143,7 @@ public class TaskList {
      * @return The list of searched items to be printed out.
      */
     public String listKeywords(String keyword) {
-        String ret = "_________________________\n"
-            + "Asking shuheng for tasks related to " + keyword + "...\n";
+        String ret = "Asking shuheng for tasks related to " + keyword + "...\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             Task curr = this.tasks.get(i);
             if (!curr.checkKeyword(keyword)) {
@@ -160,7 +151,6 @@ public class TaskList {
             }
             ret += (i + 1) + "." + curr.getFullStatus() + "\n";
         }
-        ret += "_________________________\n";
         return ret;
     }
 }
