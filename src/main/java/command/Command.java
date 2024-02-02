@@ -29,7 +29,7 @@ public abstract class Command {
      * @param tasks   The {@code TaskList} to be modified.
      * @param storage The {@code Storage} to be modified.
      */
-    public abstract void execute(TaskList tasks, Storage storage);
+    public abstract String execute(TaskList tasks, Storage storage);
 
     /**
      * Gets test data associated with the command.

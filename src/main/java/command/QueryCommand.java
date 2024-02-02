@@ -52,16 +52,14 @@ public class QueryCommand extends Command {
      * @param storage The Storage where changes are saved.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         switch (this.commandType) {
         case QUERY:
-            query(tasks);
-            break;
+            return query(tasks);
         case FIND:
-            find(tasks);
-            break;
+            return find(tasks);
         default:
-            break;
+            return "";
         }
     }
 
@@ -80,25 +78,31 @@ public class QueryCommand extends Command {
      *
      * @param tasks   The TaskList from which tasks are queried.
      */
-    public void query(TaskList tasks) {
+    public String query(TaskList tasks) {
         String formattedDate = this.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
-
         if (this.query.equals("deadline")) {
             UI.print("Below are deadlines that are due on " + formattedDate);
+            String result = "Below are deadlines that are due on " + formattedDate + "\n";
             for (Task task : tasks.fetchAll()) {
                 if (task instanceof Deadline && task.queryByDate(this.date)) {
                     UI.print(task);
+                    result += task + "\n";
                 }
             }
+            return result;
         } else if (this.query.equals("event")) {
             UI.print("Below are events that are operating on " + formattedDate);
+            String result = "Below are events that are operating on " + formattedDate + "\n";
             for (Task task : tasks.fetchAll()) {
                 if (task instanceof Event && task.queryByDate(date)) {
                     UI.print(task);
+                    result += task + "\n";
                 }
             }
+            return result;
         } else {
             UI.print("Could not query given task type");
+            return "Could not query given task type";
         }
     }
 
@@ -107,13 +111,16 @@ public class QueryCommand extends Command {
      *
      * @param tasks   The TaskList from which tasks are queried.
      */
-    public void find(TaskList tasks) {
+    public String find(TaskList tasks) {
         UI.print("Here are the matching tasks in your list:");
+        String result = "Here are the matching tasks in your list:\n";
         int index = 1;
         for (Task task : tasks.fetchAll()) {
             if (task.getName().contains(this.query)) {
                 UI.print(index + "." + task);
+                result += index + "." + task + "\n";
             }
         }
+        return result;
     }
 }

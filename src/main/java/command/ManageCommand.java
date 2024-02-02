@@ -40,19 +40,16 @@ public class ManageCommand extends Command {
      * @param storage The Storage where changes are saved.
      */
     @Override
-    public void execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         switch (this.type) {
         case MARK:
-            mark(tasks, storage);
-            break;
+            return mark(tasks, storage);
         case UNMARK:
-            unmark(tasks, storage);
-            break;
+            return unmark(tasks, storage);
         case DELETE:
-            delete(tasks, storage);
-            break;
+            return delete(tasks, storage);
         default:
-            break;
+            return "";
         }
     }
 
@@ -72,23 +69,33 @@ public class ManageCommand extends Command {
      * @param tasks   The TaskList from which the task is marked.
      * @param storage The Storage where changes are saved.
      */
-    public void mark(TaskList tasks, Storage storage) {
+    public String mark(TaskList tasks, Storage storage) {
         if (index >= tasks.getSize() || index < 0) {
             UI.print("Oops! You did not give a valid index.");
-            return;
+            return "Oops! You did not give a valid index.";
         }
         Task task = tasks.getTask(this.index);
         try {
             task.updateStatus(true);
             UI.print("Nice! I've marked this task as done:");
             UI.print(task);
+
+            String result = "Nice! I've marked this task as done:\n";
+            result += task;
+
             String line = storage.readLine(index);
             String newLine = line.substring(0, line.length() - 5) + "true";
             storage.updateLine(index, newLine);
             storage.updateLine(index, newLine);
+
+            return result;
         } catch (InvalidStatusUpdateException e) {
             UI.print("This task was already marked!");
             UI.print(task);
+
+            String result = "This task was already marked!\n";
+            result += task;
+            return result;
         }
     }
 
@@ -98,22 +105,32 @@ public class ManageCommand extends Command {
      * @param tasks   The TaskList from which the task is unmarked.
      * @param storage The Storage where changes are saved.
      */
-    public void unmark(TaskList tasks, Storage storage) {
+    public String unmark(TaskList tasks, Storage storage) {
         if (index >= tasks.getSize() || index < 0) {
             UI.print("Oops! You did not give a valid index.");
-            return;
+            return "Oops! You did not give a valid index.";
         }
         Task task = tasks.getTask(index);
         try {
             task.updateStatus(false);
             UI.print("OK, I've marked this task as not done yet:");
             UI.print(task);
+
+            String result = "OK, I've marked this task as not done yet:\n";
+            result += task;
+
             String line = storage.readLine(index);
             String newLine = line.substring(0, line.length() - 4) + "false";
             storage.updateLine(index, newLine);
+
+            return result;
         } catch (InvalidStatusUpdateException e) {
             UI.print("This task was already unmarked!");
             UI.print(task);
+
+            String result = "This task was already unmarked!\n";
+            result += task;
+            return result;
         }
     }
 
@@ -123,10 +140,10 @@ public class ManageCommand extends Command {
      * @param tasks   The TaskList from which the task is deleted.
      * @param storage The Storage where changes are saved.
      */
-    public void delete(TaskList tasks, Storage storage) {
+    public String delete(TaskList tasks, Storage storage) {
         if (index >= tasks.getSize() || index < 0) {
             UI.print("Oops! You did not give a valid index.");
-            return;
+            return "Oops! You did not give a valid index.";
         }
         Task removed = tasks.deleteTask(index);
         storage.deleteLine(index);
@@ -134,5 +151,10 @@ public class ManageCommand extends Command {
         UI.print("Noted. I've removed this task:");
         UI.print("\t" + removed);
         UI.print(String.format("Now you have %d tasks in the list.", tasks.getSize()));
+
+        String result = "Noted. I've removed this task:\n";
+        result += "\t" + removed + "\n";
+        result += String.format("Now you have %d tasks in the list.", tasks.getSize());
+        return result;
     }
 }

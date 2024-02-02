@@ -47,11 +47,18 @@ public class UI {
      * Prints the tasks in the provided TaskList with indices.
      * @param tasks The TaskList containing tasks to be printed.
      */
-    public static void printTasks(TaskList tasks) {
+    public static String printTasks(TaskList tasks) {
         UI.print("Here are the tasks in your list:");
         for (int i = 0; i < tasks.getSize(); i++) {
             String output = (i + 1) + "." + tasks.getTask(i);
             UI.print(output);
         }
+
+        String result = "Here are the tasks in your list:\n";
+        for (int i = 0; i < tasks.getSize(); i++) {
+            String output = (i + 1) + "." + tasks.getTask(i);
+            result += output + "\n";
+        }
+        return result;
     }
 }

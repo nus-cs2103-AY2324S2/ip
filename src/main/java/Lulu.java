@@ -1,9 +1,14 @@
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import command.Command;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidDateException;
 import exceptions.InvalidSlashParameterException;
 import exceptions.LuluException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -86,8 +91,6 @@ public class Lulu extends Application {
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
-
-        //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -107,11 +110,11 @@ public class Lulu extends Application {
         stage.setTitle("Duke");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
+        stage.setMinWidth(600.0);
 
-        mainLayout.setPrefSize(400.0, 600.0);
+        mainLayout.setPrefSize(600.0, 600.0);
 
-        scrollPane.setPrefSize(385, 535);
+        scrollPane.setPrefSize(585, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
@@ -121,7 +124,7 @@ public class Lulu extends Application {
         //You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
-        userInput.setPrefWidth(325.0);
+        userInput.setPrefWidth(525.0);
 
         sendButton.setPrefWidth(55.0);
 
@@ -134,6 +137,8 @@ public class Lulu extends Application {
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         //Step 3. Add functionality to handle user input.
+        displayStartMessage();
+
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -146,26 +151,76 @@ public class Lulu extends Application {
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles the user's input in the chat application. Displays the user's input, Duke's response, and updates the UI
+     * accordingly. If the user enters "bye," schedules a program exit after 2 seconds.
      */
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+    public void handleUserInput() {
+        // Get the user's input text and convert it to lowercase
+        String userInputText = userInput.getText().toLowerCase();
+
+        // Create labels for user's input and Duke's response
+        Label userText = new Label(userInputText);
+        Label dukeText = new Label(getResponse(userInputText));
+
+        // Add user and Duke dialog boxes to the dialog container
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
+
+        // Clear the user input field
         userInput.clear();
+
+        // Check if the user entered "bye" and schedule program exit after 3 seconds
+        if (userInputText.equals("bye")) {
+            exit();
+        }
     }
+
+    /**
+     * Displays the initial greeting message from Duke when the chat application starts.
+     * The message includes a welcome greeting and an inquiry about how Duke can assist the user.
+     */
+    public void displayStartMessage() {
+        Label greetingMessage = new Label("Hello! I'm Lulu.\nWhat can I do for you?");
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(greetingMessage, new ImageView(duke)));
+    }
+
+    /**
+     * Schedules the program to exit after a 3-second delay. This method is typically called when the user inputs "bye."
+     * Uses a ScheduledExecutorService to execute the Platform.exit() method after the specified delay.
+     */
+    public void exit() {
+        // Schedule program exit after 2 seconds
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler.schedule(() -> Platform.exit(), 2, TimeUnit.SECONDS);
+        scheduler.shutdown();
+    }
+
 
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
-        return "Duke heard: " + input;
+    public String getResponse(String input) {
+        try {
+            if (input.toLowerCase().equals("bye")) {
+                return "Bye. Hope to see you again soon!";
+            } else if (input.toLowerCase().equals("list")) {
+                return UI.printTasks(this.tasks);
+            } else {
+                Command command = parser.parse(input);
+                return command.execute(this.tasks, this.storage);
+            }
+        } catch (InvalidCommandException e) {
+            return "Sorry, I don't think I quite understood what you meant...";
+        } catch (InvalidDateException e) {
+            return "Please ensure that you are inputting valid start and end dates.";
+        } catch (InvalidSlashParameterException e) {
+            return "Please ensure that you are inputting valid date parameters.";
+        } catch (LuluException e) {
+            return e.getMessage();
+        }
     }
 
     /**
