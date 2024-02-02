@@ -1,3 +1,5 @@
+package duke;
+
 public class Parser {
     /**
      * Handles user input and performs corresponding actions

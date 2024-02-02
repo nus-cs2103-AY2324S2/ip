@@ -3,7 +3,7 @@ hi bro, im jun jie
 what you want me to do?
 -------------------------
 -------------------------
-DukeException: oi the task needs a name la 😡😡
+duke.DukeException: oi the task needs a name la 😡😡
 -------------------------
 -------------------------
 what are u saying
