@@ -4,3 +4,4 @@ D | 0 | assignment | Jan 01 2002 5:00PM
 T | 1 | read book
 T | 0 | borrow book
 D | 1 | return book | Jan 01 2024 2:00PM
+E | 0 | presentation | Jan 01 2024 6:00PM - Jan 01 2024 7:23PM

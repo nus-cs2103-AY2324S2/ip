@@ -1,7 +1,5 @@
 package com.example.artemis;
 
-import java.util.Scanner;
-
 /**
  * Artemis is a simple task management application.
  * It allows users to add, list, mark as done, and delete tasks.
@@ -11,56 +9,39 @@ public class Artemis {
     private static final String FILE_PATH = "./data/artemis.txt";
 
     // Components of Artemis
-    private Storage storage;
+    private static final Storage STORAGE = new Storage(FILE_PATH);
+    private static final Ui UI = new Ui();
     private TaskList tasks;
-    private Ui ui;
+
 
     /**
-     * Constructor for Artemis class.
-     *
-     * @param filepath The file path for storing tasks data.
+     * Constructs an instance of the Artemis application.
+     * Initializes the application components, including the task list,
+     * user interface, and storage. Attempts to load tasks from the storage,
+     * and displays an error message if loading fails.
      */
-    public Artemis(String filepath) {
-        ui = new Ui();
-        storage = new Storage(filepath);
+    public Artemis() {
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(STORAGE.load());
         } catch (ArtemisException e) {
-            ui.showLoadingError();
+            UI.showLoadingError();
             tasks = new TaskList();
         }
     }
 
     /**
-     * Runs the Artemis application, handling user input and performing tasks.
-     */
-    public void run() {
-        Scanner sc = new Scanner(System.in);
-
-        ui.showWelcomeMessage();
-
-        while (true) {
-            String input = sc.nextLine();
-            try {
-                // Parse user input and perform corresponding actions
-                Parser.parseInput(input, tasks, ui, storage);
-            } catch (ArtemisException e) {
-                ui.showError("Oops, there might be invalid input..");
-            }
-            // Check if the user entered "bye" to exit the application
-            if (input.contains("bye")) {
-                break;
-            }
-        }
-        sc.close();
-    }
-
-    /**
-     * Main method to start the Artemis application.
+     * Generates a response to user input by parsing the input and performing
+     * corresponding actions in the Artemis application.
      *
-     * @param args Command-line arguments (not used in this application).
+     * @param input The user input to be processed.
+     * @return A string representing the response to the user input.
      */
-    public static void main(String[] args) {
-        new Artemis(FILE_PATH).run();
+    public String getResponse(String input) {
+        try {
+            // Parse user input and perform corresponding actions
+            return Parser.parseInput(input, tasks, UI, STORAGE);
+        } catch (ArtemisException e) {
+            return UI.showError("Oops, there might be invalid input..");
+        }
     }
 }
