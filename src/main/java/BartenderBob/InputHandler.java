@@ -1,3 +1,4 @@
+package BartenderBob;
 import java.util.Scanner;
 
 public class InputHandler {

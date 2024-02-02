@@ -1,3 +1,5 @@
+package BartenderBob;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -5,21 +7,14 @@ public class TaskList {
     private final ArrayList<Task> TASKS;
     private Ui ui = new Ui();
     public TaskList(ArrayList<Task> tasks) {
-//        STORAGE = new Storage("./data/duke.txt");
-//        STORAGE.load();
         this.TASKS = tasks;
     }
 
     public void store(Task task) {
-//        STORAGE.addTask(task);
         TASKS.add(task);
         STORAGE.saveTask(task);
-//        int totalTasks = STORAGE.getSize();
         int totalTasks = TASKS.size();
         ui.showStoreTasksMessage(task, totalTasks);
-//        System.out.println("Got it. I've added this task:");
-//        System.out.println(task.show());
-//        System.out.println("Now you have " + totalTasks + " tasks in the list.");
     }
     public void list() {
         ui.showListCommandHeader();

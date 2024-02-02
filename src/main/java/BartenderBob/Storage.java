@@ -1,3 +1,4 @@
+package BartenderBob;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.nio.file.Files;
@@ -12,11 +13,8 @@ import java.util.List;
 public class Storage {
     private String filePath; //eg "./data/tasks.txt"
     private Ui ui = new Ui();
-//    private ArrayList<Task> storage;
-
     public Storage(String filePath) {
         this.filePath = filePath;
-//        this.storage = new ArrayList<>();
     }
     public ArrayList<Task> load() throws BartenderBobException {
         try {
@@ -56,18 +54,8 @@ public class Storage {
             return taskArray;
         } catch (IOException e) {
             throw new BartenderBobException();
-//            System.out.println("Error occurred in storage->load() method: " + e.getMessage());
         }
     }
-//    public void addTask(Task task) {
-//        //[T][X] read book = T | X | read book
-//        //[D][ ] return book (by: June 6th) = D |  | return book | June 6th
-//        //[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-//        // = E |  | project meeting | Aug 6th 2pm | 4pm
-//////        storage.add(task);
-////        Path path = Paths.get(filePath);
-//        saveTask(task);
-//    }
     public void saveChanges(ArrayList<Task> tasks) { //for marking or unmarking tasks
         try {
             Path path = Paths.get(filePath);
@@ -80,16 +68,6 @@ public class Storage {
         }
 
     }
-
-//    public int getSize() {
-//        return storage.size();
-//    }
-//    public Task getTask(int index) {
-//        return storage.get(index);
-//    }
-//    public void removeTask(int index) {
-//        storage.remove(index);
-//    }
     private String convertDateFormat(String oldDateFormat) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
@@ -104,6 +82,10 @@ public class Storage {
     }
 
     public void saveTask(Task task) {
+        //[T][X] read book = T | X | read book
+        //[D][ ] return book (by: June 6th) = D |  | return book | June 6th
+        //[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+        // = E |  | project meeting | Aug 6th 2pm | 4pm
         try {
             Path path = Paths.get(filePath);
             String taskString = task.show();
