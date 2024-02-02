@@ -1,6 +1,12 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.IOException;
+
 
 /**
  * A Personal Assistant Chatbot that helps a person to keep track of various things.
@@ -28,14 +34,78 @@ public class Duke {
     }
 
     private Scanner scanner;
+
     private ArrayList<Task> tasks;
 
     private int counter;
 
+    private static final String DIRECTORY_PATH = "./data/";
+
+    private static final String FILE_PATH = "./data/duke.txt";
+
     public Duke() {
         this.scanner = new Scanner(System.in);
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
         this.counter = 0;
+        loadSavedTasks();
+    }
+
+    /**
+     * Saves the current list of tasks to a file.
+     * If the file or directory doesn't exist, it will be created.
+     * Each task is written to a new line in the file.
+     *
+     * @throws IOException If an error occurs while writing to the file.
+     */
+    public void saveTasks() {
+        File directory = new File(DIRECTORY_PATH);
+
+        // Create a directory if it doesn't exist
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // Write the tasks in the list into the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            for (Task task : tasks) {
+                writer.write(task.toString());
+                writer.newLine();
+            }
+            System.out.println("Tasks saved successfully.");
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Loads tasks from a file into the current list of tasks.
+     * If the file doesn't exist, a new file will be created.
+     * Each line in the file is considered as a task and is added to the list.
+     *
+     * @throws IOException If an error occurs while reading from the file.
+     */
+    public void loadSavedTasks() {
+        File file = new File(FILE_PATH);
+
+        // Create a new file if it doesn't exist
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error loading tasks: " + e.getMessage());
+            }
+        } else {
+            try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Task task = Task.fromString(line);
+                    addTasks(task);
+                }
+                System.out.println("Tasks loaded successfully.");
+            } catch (IOException e) {
+                System.out.println("Error loading tasks: " + e.getMessage());
+            }
+        }
     }
 
     /**
@@ -211,9 +281,10 @@ public class Duke {
     }
 
     /**
-     * Terminates the Chitty-Chatty program.
+     * Saves the changes and terminates the program.
      */
     public void exit() {
+        saveTasks();
         System.out.println("Goodbye. Have a great day ahead!");
         System.exit(0);
     }
