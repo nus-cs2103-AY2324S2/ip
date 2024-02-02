@@ -1,4 +1,4 @@
-package Ui;
+package ui;
 
 import org.junit.jupiter.api.Test;
 

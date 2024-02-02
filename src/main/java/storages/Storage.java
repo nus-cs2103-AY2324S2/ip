@@ -1,16 +1,15 @@
-package Storages;
-
-import Tasks.Task;
-import Tasks.TaskList;
+package storages;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import tasks.Task;
+import tasks.TaskList;
 
 public class Storage {
     private File file;
@@ -27,11 +26,11 @@ public class Storage {
      * @throws IOException if file cannot be opened or read.
      */
     public ArrayList<Task> loadFile() throws IOException {
-        ArrayList<Task> list = new ArrayList();
+        ArrayList<Task> list = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(this.file));
 
         String next;
-        while((next = br.readLine()) != null) {
+        while ((next = br.readLine()) != null) {
             int type = next.indexOf("type: ");
             int isDone = next.indexOf("isDone: ");
             int content = next.indexOf("content: ");

@@ -1,9 +1,9 @@
-import Commands.Command;
-import Storages.Storage;
-import Tasks.TaskList;
-import Ui.Ui;
-
 import java.io.IOException;
+
+import commands.Command;
+import storages.Storage;
+import tasks.TaskList;
+import ui.Ui;
 
 public class Fredricksen {
     private Ui ui = new Ui();
@@ -24,13 +24,13 @@ public class Fredricksen {
         ui.showWelcome();
         ui.listOfCommands();
         System.out.println("");
-        boolean loop = true;
+        boolean isLoop = true;
         // while loop
-        while(loop) {
+        while(isLoop) {
             String task = ui.readCommand();
             String[] splitTask = task.split(" ");
             if (splitTask[0].equals("bye")) {
-                loop = false;
+                isLoop = false;
             } else {
                 Command command = new Command(task);
                 command.execute(task, list, ui, store);
