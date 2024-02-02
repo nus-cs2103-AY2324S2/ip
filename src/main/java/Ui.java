@@ -1,8 +1,16 @@
+import java.util.Scanner;
+
 public class Ui {
 
     private static final String LONG_LINE = "____________________________________________________________";
 
-    public static void greet() {
+    public void showLoadingError() {
+        System.out.println(Ui.LONG_LINE);
+        System.out.println("No saved tasks.");
+        System.out.println(Ui.LONG_LINE);
+    }
+
+    public void showWelcome() {
         // Print logo
         String logo = " __   ___  _____   __       __       __    __      ___\n"
                 + "|  | /  / |_   _| |  |     |  |     |  |  |  |    / _ \\\n"
@@ -17,49 +25,48 @@ public class Ui {
         System.out.println(Ui.LONG_LINE);
     }
 
-    public static void exit() {
-        // Exit
-        System.out.println(Ui.LONG_LINE);
-        System.out.println("Alright, I'm always one call away.");
+    public String readCommand() {
+        Scanner inputReader = new Scanner(System.in);
+        return inputReader.nextLine();
+    }
+
+    public void showLine() {
         System.out.println(Ui.LONG_LINE);
     }
 
-    public static void add(Task task, Storage storage) {
-        System.out.println(Ui.LONG_LINE);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.getDescriptionStatus());
-        System.out.println("Now you have " + storage.getItems().size() + " tasks in the list.");
-        System.out.println(Ui.LONG_LINE);
+    public void showError(String message) {
+        System.out.println(message);
     }
 
-    public static void list(Storage storage) {
-        System.out.println(Ui.LONG_LINE);
+    public void list(TaskList tasks) {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < storage.getItems().size(); i++) {
-            Task nextTask = storage.getItems().get(i);
+        for (int i = 0; i < tasks.getItems().size(); i++) {
+            Task nextTask = tasks.getItems().get(i);
             System.out.println((i + 1) + ". " + nextTask.getDescriptionStatus());
         }
-        System.out.println(Ui.LONG_LINE);
     }
 
-    public static void mark(Task task) {
-        System.out.println(Ui.LONG_LINE);
+    public void mark(Task task) {
         System.out.println(task.getMarkStatus());
         System.out.println(task.getDescriptionStatus());
-        System.out.println(Ui.LONG_LINE);
     }
 
-    public static void print(String message) {
-        System.out.println(Ui.LONG_LINE);
-        System.out.println(message);
-        System.out.println(Ui.LONG_LINE);
+    public void add(Task task, TaskList tasks) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task.getDescriptionStatus());
+        System.out.println("Now you have " + tasks.getItems().size() + " tasks in the list.");
     }
 
-    public static void delete(Task task, Storage storage) {
-        System.out.println(Ui.LONG_LINE);
+    public void delete(Task task, TaskList tasks) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.getDescriptionStatus());
-        System.out.println("Now you have " + (storage.getItems().size() - 1) + " tasks in the list.");
-        System.out.println(Ui.LONG_LINE);
+        System.out.println("Now you have " + (tasks.getItems().size() - 1) + " tasks in the list.");
     }
+
+    public void exit() {
+        // Exit
+        System.out.println("Alright, I'm always one call away.");
+    }
+
+
 }
