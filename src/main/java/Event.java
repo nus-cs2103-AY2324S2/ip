@@ -5,6 +5,8 @@ public class Event extends Task {
         super(desc);
         this.start = start;
         this.end = end;
+        System.out.println(start);
+        System.out.println(end);
     }
     public Event(String status, String description, String start, String end) {
         super(description);
