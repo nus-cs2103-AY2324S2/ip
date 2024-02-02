@@ -10,9 +10,8 @@ import java.util.List;
 
 public class Database {
     private static final String FILE_PATH = "database.db";
-    public static final String BASE_DIR = System.getProperty("user.dir") + "/src/main/java/baron/Database";
+    public static final String BASE_DIR = System.getProperty("user.dir");
     public static File getTable(String fileName) {
-
         try {
             String filePath = BASE_DIR + "/" + fileName + ".txt";
             File db = new File(filePath);
