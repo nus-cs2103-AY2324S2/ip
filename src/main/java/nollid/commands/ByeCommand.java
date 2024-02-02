@@ -18,8 +18,9 @@ public class ByeCommand extends Command {
      * @param storage The Storage for data storage operations.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.sendGoodbyeMessage();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        // TODO: Make this quit the app.
         System.exit(0);
+        return "what";
     }
 }

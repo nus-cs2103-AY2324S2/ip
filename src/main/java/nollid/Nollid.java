@@ -38,40 +38,22 @@ public class Nollid {
         this.tasks = new TaskList(this.storage.load());
     }
 
-    public static void main(String[] args) {
-        new Nollid(Storage.DEFAULT_FILEPATH).run();
-    }
-
-    /**
-     * Runs the main loop to process user commands and interact with the user.
-     */
-    public void run() {
-        this.ui.sendWelcomeMessage();
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-            String fullCommand = this.ui.readCommand(scanner);
-            Command command;
-            try {
-                command = Parser.parse(fullCommand);
-            } catch (InvalidCommandException e) {
-                this.ui.sendMessage("Invalid command! Type 'help' to view a list of commands.");
-                continue;
-            }
-
-            try {
-                command.execute(this.tasks, this.ui, this.storage);
-            } catch (NollidException e) {
-                this.ui.sendMessage(e.getMessage());
-            }
-        }
-    }
-
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        Command command;
+        try {
+            command = Parser.parse(input);
+        } catch (InvalidCommandException e) {
+            return "Invalid command! Type 'help' to view a list of commands.";
+        }
+
+        try {
+            return command.execute(this.tasks, this.ui, this.storage);
+        } catch (NollidException e) {
+            return e.getMessage();
+        }
     }
 }

@@ -37,7 +37,7 @@ public class TodoCommand extends Command {
      * @throws NollidException Thrown if an exception specific to command execution occurs.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
         if (argsList.size() == 1) {
             throw new InvalidArgumentException("Todo description cannot be empty!\n"
                     + "Usage: todo [task description]");
@@ -58,7 +58,8 @@ public class TodoCommand extends Command {
 
         String message = "Alright, added:\n" + "\t" + task + "\n";
         message += tasks.summary();
-        ui.sendMessage(message);
         storage.update(tasks);
+
+        return message;
     }
 }

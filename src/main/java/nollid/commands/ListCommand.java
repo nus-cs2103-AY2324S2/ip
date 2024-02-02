@@ -18,7 +18,7 @@ public class ListCommand extends Command {
      * @param storage The Storage for data storage operations.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         // List items in to-do list
         StringBuilder response = new StringBuilder("Here are the tasks in your list: \n");
         if (tasks.isEmpty()) {
@@ -32,6 +32,6 @@ public class ListCommand extends Command {
                 response.append(i + 1).append(".").append(tasks.get(i).toString());
             }
         }
-        ui.sendMessage(response.toString());
+        return response.toString();
     }
 }

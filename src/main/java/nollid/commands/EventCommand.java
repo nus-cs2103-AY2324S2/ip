@@ -47,7 +47,7 @@ public class EventCommand extends Command {
      * @throws NollidException Thrown if an exception specific to command execution occurs.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
         int fromIndex = this.argsList.indexOf("/from");
         int toIndex = this.argsList.indexOf("/to");
 
@@ -85,8 +85,9 @@ public class EventCommand extends Command {
 
             String message = "Alright, added:\n" + "\t" + task + "\n";
             message += tasks.summary();
-            ui.sendMessage(message);
             storage.update(tasks);
+
+            return message;
         } catch (DateTimeParseException e) {
             throw new InvalidArgumentException("Unrecognized start/end format\n"
                     + USAGE_HINT);

@@ -42,7 +42,7 @@ public class FindCommand extends Command {
      * @throws NollidException Thrown if an exception specific to command execution occurs.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
         // If no keyword provided, throw error
         if (argsList.size() == 1) {
             throw new InvalidArgumentException("Please enter a keyword to search for.\n"
@@ -79,6 +79,6 @@ public class FindCommand extends Command {
                 outputMessage.append(i + 1).append(".").append(results.get(i).toString());
             }
         }
-        ui.sendMessage(outputMessage.toString());
+        return outputMessage.toString();
     }
 }

@@ -18,7 +18,7 @@ public class HelpCommand extends Command {
      * @param storage The Storage for data storage operations.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         String message = "Available commands:\n"
                 + "list \t\t- Lists all your tasks\n"
                 + "todo \t\t- Create a new todo task.\n"
@@ -29,6 +29,6 @@ public class HelpCommand extends Command {
                 + "delete \t\t- Delete a task.\n"
                 + "find \t\t- Look for task containing a given keyword.";
 
-        ui.sendMessage(message);
+        return message;
     }
 }

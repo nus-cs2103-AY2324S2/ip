@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
      * @throws NollidException Thrown if an exception specific to command execution occurs.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
         // This means that the user has not supplied any number with the command
         if (this.argsList.size() == 1) {
             throw new InvalidArgumentException("Please enter the task you wish to delete!\n"
@@ -51,8 +51,9 @@ public class DeleteCommand extends Command {
 
                 message += tasks.summary();
 
-                ui.sendMessage(message);
                 storage.update(tasks);
+
+                return message;
             } catch (NumberFormatException e) {
                 throw new InvalidArgumentException("Please enter a number for the delete command.\n"
                         + "Usage: delete [task number]");

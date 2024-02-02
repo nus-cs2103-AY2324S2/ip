@@ -20,5 +20,5 @@ public abstract class Command {
      * @param storage The Storage for data storage operations.
      * @throws NollidException Thrown if an exception specific to command execution occurs.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws NollidException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws NollidException;
 }

@@ -45,7 +45,7 @@ public class DeadlineCommand extends Command {
      * @throws NollidException Thrown if an exception specific to command execution occurs.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
         int byIndex = this.argsList.indexOf("/by");
         if (this.argsList.size() == 1 || byIndex == 1) {
             throw new InvalidArgumentException("Deadline description cannot be empty!\n"
@@ -82,8 +82,9 @@ public class DeadlineCommand extends Command {
 
             String message = "Alright, added:\n" + "\t" + task + "\n";
             message += tasks.summary();
-            ui.sendMessage(message);
             storage.update(tasks);
+
+            return message;
         } catch (DateTimeParseException e) {
             throw new InvalidArgumentException("Unrecognized deadline format\n"
                     + USAGE_HINT);
