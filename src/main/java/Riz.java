@@ -1,9 +1,13 @@
 import java.util.*;
+import java.io.*;
+
 
 public class Riz {
-    public static void main(String[] args) throws Exception {
-        Scanner scanner = new Scanner(System.in);
+    private static final String FILE_PATH = "./data/riz.txt";
+
+    public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
         String dotted = "-----------------------------------";
         //greetings
         String greetings = "Hello... I'm Riz...\n"
@@ -127,6 +131,27 @@ public class Riz {
             } catch (RizException e) {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    public static void writeToFile(Task[] tasks) {
+        try (FileWriter fw = new FileWriter(Riz.FILE_PATH)) {
+            for (Task task : tasks) {
+                fw.write(task.toString() + System.lineSeparator());
+            }
+        } catch (IOException e) {
+                System.out.println("There is something wrong: " + e.getMessage());
+        }
+    }
+
+    public static void printFromFile() {
+        File file = new File(Riz.FILE_PATH);
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNext()) {
+                System.out.println(scanner.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File is not found...");
         }
     }
 }
