@@ -2,9 +2,13 @@ package bob;
 
 import java.time.LocalDateTime;
 
+/**
+ * Utility functions that are used by the chat bot.
+ */
 public class BobUtil {
 
-    public static LocalDateTime getLocalDateTime(String[] args, int hour, int minute) throws BobException.InvalidDateTimeFormat {
+    public static LocalDateTime getLocalDateTime(String[] args, int hour, int minute)
+            throws BobException.InvalidDateTimeFormat {
         String[] date = args[0].split("\\/");
         if (date.length != 3) {
             throw new BobException.InvalidDateTimeFormat(

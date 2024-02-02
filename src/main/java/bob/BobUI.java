@@ -3,6 +3,9 @@ package bob;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class that renders the user interface of the chat bot.
+ */
 public class BobUI {
 
     private Scanner scanner;
@@ -17,6 +20,8 @@ public class BobUI {
 
     /**
      * Method for getting user input.
+     *
+     * @return user input as String.
      */
     public String getUserInput() {
         return this.scanner.nextLine();
@@ -50,6 +55,9 @@ public class BobUI {
 
     /**
      * List items in list.
+     *
+     * @param summarized To print a summarized version or detailed version.
+     * @param list The bot's task list.
      */
     public void printList(boolean summarized, ArrayList<Task> list) {
 
