@@ -19,13 +19,25 @@ public class FindCommand extends Command {
     @Override
     public void execute(ArrayList<Task> tasks, String[] input)
             throws CommandException, IOException {
+
+        if (input.length < 2) {
+            throw new CommandException(
+                    "Please specify the keyword. (Format: find <keyword>)");
+        }
+
         ArrayList<Task> matchingTask = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.getDescription().contains(input[1])) {
+            if (task.getDescription().contains(input[1].trim())) {
                 matchingTask.add(task);
             }
         }
 
-        Ui.printList(matchingTask);
+        if (matchingTask.size() != 0) {
+            Ui.printList(matchingTask);
+        } else {
+            Ui.printOutput(String.format(
+                    "Hmmm... I can't find any task that corresponds to the keyword '%s'",
+                    input[1].toString()));
+        }
     }
 }
