@@ -1,1 +1,3 @@
 
+T|1| apple
+T|0| orange

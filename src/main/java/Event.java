@@ -17,6 +17,17 @@ public class Event extends Task{
             this.unmark();
         }
     }
+
+    public Event (String s, boolean mark, String start, String end, boolean dummy){
+        super(s);
+        this.start = "from:" + start;
+        this.end = "to:" + end;
+        if (mark) {
+            this.mark();
+        } else {
+            this.unmark();
+        }
+    }
     @Override
     public String toString(){
         String X = this.getMark() ? "X" : " ";

@@ -1,5 +1,9 @@
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,7 +28,17 @@ public class Venus {
         System.out.println(start);
 
         ArrayList<Task> data = new ArrayList<>();
-        FileControl.loadFile("data/venus.txt", data);
+
+        File folder = new File ("data/");
+        if (!folder.exists()) { //handling folder does not exist issues
+            folder.mkdir();
+            System.out.println("Folder does not exist, data folder is created");
+        }
+        if (Files.exists(Path.of("data/venus.txt"))) { //handling file doesnot exist
+            FileControl.loadFile("data/venus.txt", data);
+        } else {
+            File f = new File("data/venus.txt");
+        }
         Scanner sc = new Scanner(System.in);
         String words = sc.nextLine();
         while (!words.equals("bye")) {
@@ -198,17 +212,18 @@ public class Venus {
 
             }
             //write to file
-            if (!newTask.getItem().equals("No New Item")) {
-                try {
-                    FileControl.saveToFile("data/venus.txt",newTask.toString());
-                } catch (IOException e) {
-                    System.out.println("IO exception " + e.getMessage());
-                }
-            }
-            newTask = new Task("No New Item");
+//            if (!newTask.getItem().equals("No New Item")) {
+//                try {
+//                    FileControl.saveToFile("data/venus.txt",newTask.toString());
+//                } catch (IOException e) {
+//                    System.out.println("IO exception " + e.getMessage());
+//                }
+//            }
+//            newTask = new Task("No New Item");
             words = sc.nextLine();
         }
         sc.close();
+        FileControl.saveAllFile("data/venus.txt",data);
         System.out.println(end);
     }
 }
