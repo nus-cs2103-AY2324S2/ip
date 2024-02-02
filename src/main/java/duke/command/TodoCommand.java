@@ -1,3 +1,13 @@
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.task.Todo;
+
+/**
+ * Represents a command to add a todo task.
+ */
 public class TodoCommand extends Command {
 
   /**
@@ -16,6 +26,7 @@ public class TodoCommand extends Command {
    * @param ui      The user interface.
    * @param storage The storage.
    */
+  @Override
   public void execute(TaskList tasks, Ui ui, Storage storage) {
     try {
       String title = tokens[1];

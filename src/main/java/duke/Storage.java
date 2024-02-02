@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -5,6 +7,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import duke.task.Task;
+import duke.task.Event;
+import duke.task.Todo;
+import duke.task.Deadline;
 
 public class Storage {
 

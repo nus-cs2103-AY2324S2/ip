@@ -1,3 +1,13 @@
+package duke.command;
+
+import duke.TaskList;
+import duke.Ui;
+import duke.Storage;
+import duke.DukeException;
+
+/**
+ * Represents a command.
+ */
 public abstract class Command {
 
   /**
@@ -27,7 +37,7 @@ public abstract class Command {
    * @param storage The storage.
    * @throws DukeException If an error occurs during execution.
    */
-  public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+  public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 
   /**
    * Returns true if the command is an exit command, false otherwise.

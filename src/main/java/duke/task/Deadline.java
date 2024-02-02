@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -5,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Class representing a Deadline task with a due date.
  * Inherits from the Task class and adds a deadline date.
  */
-class Deadline extends Task {
+public class Deadline extends Task {
   private LocalDate by;
 
   /**

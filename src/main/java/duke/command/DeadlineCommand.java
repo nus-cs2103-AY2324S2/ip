@@ -1,6 +1,18 @@
+package duke.command;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+
+import duke.task.Task;
+import duke.task.Deadline;
+
+/**
+ * Represents a command to add a deadline task.
+ */
 public class DeadlineCommand extends Command {
 
   /**
@@ -19,6 +31,7 @@ public class DeadlineCommand extends Command {
    * @param ui      The user interface.
    * @param storage The storage.
    */
+  @Override
   public void execute(TaskList tasks, Ui ui, Storage storage) {
     try {
       String[] deadlineTokens = tokens[1].split(" /by ");

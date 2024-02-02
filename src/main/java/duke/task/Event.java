@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -5,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Class representing an Event task with a location or time.
  * Inherits from the Task class and adds event details.
  */
-class Event extends Task {
+public class Event extends Task {
   private LocalDate at;
 
   /**

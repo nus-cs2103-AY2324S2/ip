@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Class representing a task with an identifier, title, and completion status.
  * Each task has a unique ID, a title, and a boolean flag to mark it as done or

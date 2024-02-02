@@ -1,3 +1,10 @@
+import duke.DukeException;
+import duke.Parser;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.command.Command;
+
 public class Duke {
 
     private Storage storage;
@@ -25,7 +32,7 @@ public class Duke {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (Exception e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();

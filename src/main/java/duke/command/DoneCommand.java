@@ -1,32 +1,44 @@
-public class DeleteCommand extends Command {
+package duke.command;
+
+import duke.TaskList;
+
+import duke.Storage;
+import duke.Ui;
+import duke.task.Task;
+
+/**
+ * Represents a command to add a deadline task.
+ */
+public class DoneCommand extends Command {
 
   /**
-   * Constructs a DeleteCommand object with the given tokens.
+   * Constructs a DoneCommand object with the given tokens.
    *
    * @param tokens The tokens of the user input.
    */
-  public DeleteCommand(String[] tokens) {
+  public DoneCommand(String[] tokens) {
     super(tokens);
   }
 
   /**
-   * Executes the DeleteCommand.
+   * Executes the DoneCommand.
    *
    * @param tasks   The list of tasks.
    * @param ui      The user interface.
    * @param storage The storage.
    */
+  @Override
   public void execute(TaskList tasks, Ui ui, Storage storage) {
     try {
       int index = Integer.parseInt(tokens[1]) - 1;
       Task task = tasks.get(index);
-      tasks.remove(index);
-      ui.showTaskRemoved(task, tasks.getSize());
+      tasks.markDone(index);
+      ui.showTaskMarkedDone(task);
       storage.save(tasks);
     } catch (NumberFormatException e) {
-      ui.showInvalidDelete();
+      ui.showInvalidDone();
     } catch (IndexOutOfBoundsException e) {
-      ui.showInvalidDelete();
+      ui.showInvalidDone();
     }
   }
 }

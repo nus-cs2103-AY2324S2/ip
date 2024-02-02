@@ -1,9 +1,11 @@
+package duke.task;
+
 /**
  * Class representing a Todo task.
  * Inherits from the Task class and adds specific formatting to the toString
  * method.
  */
-class Todo extends Task {
+public class Todo extends Task {
   /**
    * Constructor to create a new Todo task.
    * Calls the constructor of the parent Task class.
