@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FileUtilsTest {
     public static final String BASE_DIR = System.getProperty("user.dir") + "/src/test/java/baron.Database";
@@ -15,6 +14,7 @@ public class FileUtilsTest {
     public FileUtilsTest() {
 
     }
+
     @Test
     public void readFile_fileExists_linesReturned() {
         Path filePath = Path.of(BASE_DIR + "/todo.txt");

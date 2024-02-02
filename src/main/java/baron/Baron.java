@@ -1,8 +1,8 @@
 package baron;
 
-import java.util.Scanner;
-
 import baron.Managers.TaskManager;
+
+import java.util.Scanner;
 
 public class Baron {
     public static void main(String[] args) {
@@ -15,7 +15,7 @@ public class Baron {
             input = scanner.nextLine();
             taskManager.handleInput(input);
         } while (!input.equals("bye"));
-        
+
         scanner.close();
         System.out.println("Bye, good riddance");
     }

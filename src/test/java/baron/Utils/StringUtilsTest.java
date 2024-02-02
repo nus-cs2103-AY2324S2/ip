@@ -9,7 +9,7 @@ public class StringUtilsTest {
     public void getIndexOfWithOffset_toFindExists_returnsIndex() {
         String input = "a b /by c";
         int actual = StringUtils.getIndexOf(input, "/by", -1);
-        int expected = input.indexOf("/by")-1;
+        int expected = input.indexOf("/by") - 1;
         assertEquals(actual, expected);
     }
 
@@ -34,7 +34,7 @@ public class StringUtilsTest {
     public void splitDataString_multipleSegments_segmentsReturned() {
         String input = " 0| mary| had |a |little|    lamb    ";
         String[] actual = StringUtils.splitDataString(input);
-        String[] expected = new String[] {"0", "mary", "had", "a", "little", "lamb"};
+        String[] expected = new String[]{"0", "mary", "had", "a", "little", "lamb"};
         assertArrayEquals(actual, expected);
     }
 
@@ -42,7 +42,7 @@ public class StringUtilsTest {
     public void splitDataString_noSegments_inputReturned() {
         String input = " this has no segments";
         String[] actual = StringUtils.splitDataString(input);
-        String[] expected = new String[] {"this has no segments"};
+        String[] expected = new String[]{"this has no segments"};
         assertArrayEquals(actual, expected);
     }
 

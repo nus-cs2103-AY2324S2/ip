@@ -12,6 +12,7 @@ public class DateUtils {
     // 03/21/1999 1600
     public static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     public static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("d/MM/yyyy, ha");
+
     public static LocalDateTime parseDate(String dateString) {
         try {
             return LocalDateTime.parse(dateString, INPUT_FORMATTER);
@@ -23,6 +24,7 @@ public class DateUtils {
     /**
      * Formats date to specified format of 9/12/1999, 4PM. Used for human friendly date strings mainly.
      * Dates are stored in a different format
+     *
      * @param dateTime date time to format to string
      * @return returns in format of d/MM/yyyy, ha (e.g. /12/1999, 4PM)
      */
