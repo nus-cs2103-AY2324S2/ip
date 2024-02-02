@@ -59,30 +59,30 @@ public class Parser {
         String commandType = parts[0].toLowerCase();
 
         switch (commandType) {
-            case "bye":
-            case "exit":
-            case "quit":
-                return new ExitCommand();
-            case "list":
-                return new ListCommand();
-            case "mark":
-                int markIndex = parseTaskIndex(userInput);
-                return new MarkCommand(markIndex);
-            case "unmark":
-                int unmarkIndex = parseTaskIndex(userInput);
-                return new UnmarkCommand(unmarkIndex);
-            case "delete":
-                int deleteIndex = parseTaskIndex(userInput);
-                return new DeleteCommand(deleteIndex);
-            case "find":
-                String keyword = parts.length > 1 ? parts[1].trim() : "";
-                return new FindCommand(keyword);
-            case "todo":
-            case "deadline":
-            case "event":
-                return new AddCommand(userInput);
-            default:
-                throw new DukeException("I'm sorry, but I don't understand that command :(");
+        case "bye":
+        case "exit":
+        case "quit":
+            return new ExitCommand();
+        case "list":
+            return new ListCommand();
+        case "mark":
+            int markIndex = parseTaskIndex(userInput);
+            return new MarkCommand(markIndex);
+        case "unmark":
+            int unmarkIndex = parseTaskIndex(userInput);
+            return new UnmarkCommand(unmarkIndex);
+        case "delete":
+            int deleteIndex = parseTaskIndex(userInput);
+            return new DeleteCommand(deleteIndex);
+        case "find":
+            String keyword = parts.length > 1 ? parts[1].trim() : "";
+            return new FindCommand(keyword);
+        case "todo":
+        case "deadline":
+        case "event":
+            return new AddCommand(userInput);
+        default:
+            throw new DukeException("I'm sorry, but I don't understand that command :(");
         }
     }
 }

@@ -1,4 +1,5 @@
 package Duke;
+
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -17,10 +18,10 @@ public class UiTest {
 
         ui.showWelcomeMessage();
 
-        String expectedOutput = "____________________________________________________________\n" +
-                " Hello! I'm Duck\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n";
+        String expectedOutput = "____________________________________________________________\n"
+                + " Hello! I'm Duck\n"
+                + " What can I do for you?\n"
+                + "____________________________________________________________\n";
         assertEquals(expectedOutput, outputStream.toString());
         System.setOut(System.out); // Reset System.out to the console
     }
@@ -33,9 +34,9 @@ public class UiTest {
 
         ui.showGoodbyeMessage();
 
-        String expectedOutput = "____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________\n";
+        String expectedOutput = "____________________________________________________________\n"
+                + " Bye. Hope to see you again soon!\n"
+                + "____________________________________________________________\n";
         assertEquals(expectedOutput, outputStream.toString());
         System.setOut(System.out); // Reset System.out to the console
     }
@@ -54,11 +55,11 @@ public class UiTest {
 
         ui.showTaskList(tasks);
 
-        String expectedOutput = "____________________________________________________________\n" +
-                " Here are the 2 tasks in your list:\n" +
-                " 1.[ ][ ] Task 1\n" +
-                " 2.[ ][ ] Task 2\n" +
-                "____________________________________________________________\n";
+        String expectedOutput = "____________________________________________________________\n"
+                + " Here are the 2 tasks in your list:\n"
+                + " 1.[ ][ ] Task 1\n"
+                + " 2.[ ][ ] Task 2\n"
+                + "____________________________________________________________\n";
         assertEquals(expectedOutput, outputStream.toString());
         System.setOut(System.out); // Reset System.out to the console
     }

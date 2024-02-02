@@ -34,7 +34,7 @@ public class AddCommand implements Command {
             storage.saveTasksToFile(tasks);
         } catch (IOException e) {
             // Handle or log the IOException as needed
-            ui.showIOExceptionMessage();
+            ui.showIoExceptionMessage();
         }
     }
 }
