@@ -28,10 +28,19 @@ public class Task {
     }
 
     /**
+     * Finds if the string find matches with a part of the description
+     * @param find String to find match
+     * @return Boolean true if match else false
+     */
+    public Boolean isMatchingDescription(String find) {
+        return description.contains(find);
+    }
+
+    /**
      * gets status of class whether it is marked or not
      * @return String X or ' '
      */
-    private String getStatusIcon() {
+    public String getStatusIcon() {
         return (this.isDone ? "X" : " ");
     }
 
@@ -39,14 +48,14 @@ public class Task {
      * Mark task as done
      */
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Unmark a task
      */
     public void markAsNotDone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
@@ -66,7 +75,7 @@ public class Task {
     public String toString() {
         return String.format("[%s] %s",
             this.getStatusIcon(),
-            this.description);
+            description);
     }
 
 }
