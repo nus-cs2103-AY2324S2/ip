@@ -20,7 +20,10 @@ public class UI {
     private TaskList history;
     private Scanner sc;
 
-    enum Command {
+    /**
+     * This enum represents a UI command.
+     */
+    public enum Command {
         BYE,
         LIST,
         EVENT,
