@@ -5,13 +5,19 @@ import drew.tasktypes.Event;
 import drew.tasktypes.Task;
 import drew.tasktypes.Todo;
 
-import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Main chatbot class. Contains the logic of the chatbot.
  *
@@ -90,16 +96,10 @@ public class Drew {
             if (inputNoWhitespaceLength == 8) {
                 throw new InsufficientArgumentsException("'Deadline task' cannot be empty");
             }
-            if (backslashCount != 1) {
-                throw new IllegalArgumentException("Number of '/' is invalid");
-            }
             break;
         case EVENT:
             if (inputNoWhitespaceLength == 5) {
                 throw new InsufficientArgumentsException("'Event task' cannot be empty");
-            }
-            if (backslashCount != 2) {
-                throw new IllegalArgumentException("Number of '/' is invalid");
             }
             break;
         }
@@ -117,10 +117,10 @@ public class Drew {
             task = new Todo(args[2]);
             break;
         case "D":
-            task = new Deadline(args[2], args[3]);
+            task = new Deadline(args[2], LocalDate.parse(args[3]));
             break;
         case "E":
-            task = new Event(args[2], args[3], args[4]);
+            task = new Event(args[2], LocalDate.parse(args[3]), LocalDate.parse(args[4]));
             break;
         }
 
@@ -129,7 +129,7 @@ public class Drew {
         }
         return task;
     }
-    public static int readFile(String filePath, ArrayList<Task> ls) {
+    public static void readFile(String filePath, ArrayList<Task> ls) {
         File savedTasks = new File(filePath);
         System.out.println(savedTasks.getAbsolutePath());
 
@@ -140,13 +140,11 @@ public class Drew {
                 String line = fileReader.nextLine();
                 System.out.println(line);
                 Task task = parseFromSave(line);
-                System.out.println(task.statusString());
+                System.out.println(task.toStatusString());
                 ls.add(task);
             }
-            return ls.size();
         } catch (FileNotFoundException e){
             System.out.println("Status: File not found");
-            return 0;
         }
     }
 
@@ -175,14 +173,121 @@ public class Drew {
         }
     }
 
+    public static String executeCommand(ArrayList<Task> ls, String input) {
+        String reply = "";
+        int listLength = ls.size();
+        try {
+            Command userCommand;
+            userCommand = checkCommandIdentity(input);
+
+            switch (userCommand) {
+            case LIST: {
+                reply = reply + "Here are the tasks in your list:" + "\n";
+                for (int i = 0; i < listLength; i++) {
+                    reply = reply + Integer.toString(i + 1) + ". " +
+                            ls.get(i).toStatusString() + "\n";
+                }
+                reply = reply + String.format("Now you have %d task(s) in the list.", listLength) + "\n";
+                break;
+            }
+            case MARK: {
+                int taskIndex;
+                taskIndex = Integer.parseInt(input.substring(5));
+                if (taskIndex > listLength) {
+                    throw new IllegalArgumentException("This task does not exist!");
+                }
+                ls.get(taskIndex - 1).setDone();
+                reply = "Well done! I have marked this task as done:\n" +
+                        ls.get(taskIndex - 1).toStatusString() + "\n";
+                break;
+            }
+            case UNMARK: {
+                int taskIndex;
+                taskIndex = Integer.parseInt(input.substring(7));
+                if (taskIndex > listLength) {
+                    throw new IllegalArgumentException("This task does not exist!");
+                }
+                ls.get(taskIndex - 1).setNotDone();
+                reply = "Ok. I have marked this task as not done yet:\n" +
+                        ls.get(taskIndex - 1).toStatusString() + "\n";
+                break;
+            }
+            case DELETE:
+                int taskIndex;
+                taskIndex = Integer.parseInt(input.substring(7));
+                if (taskIndex > listLength) {
+                    throw new IllegalArgumentException("This task does not exist!");
+                }
+                reply = "Ok. I have deleted this task :\n" +
+                        ls.get(taskIndex - 1).toStatusString() + "\n";
+                ls.remove(taskIndex - 1);
+                listLength--;
+                break;
+            case TODO: {
+                String todoDescription = input.substring(5);
+                Todo newTask = new Todo(todoDescription);
+                ls.add(newTask);
+                reply = "Got it. I've added this task:\n";
+                reply = reply + newTask.toStatusString() + "\n";
+                listLength++;
+                reply = reply + String.format("Now you have %d task(s) in the list.", listLength) + "\n";
+                break;
+            }
+            case DEADLINE: {
+                int firstBackslashIndex = input.indexOf("/by");
+                if (firstBackslashIndex == -1) {
+                    throw new IllegalArgumentException("Incorrect input. Ensure that date begins with /by");
+                }
+                String deadlineDescription = input.substring(9, firstBackslashIndex);
+                LocalDate deadline = LocalDate.parse(input.substring(firstBackslashIndex + 4).trim());
+                Deadline newTask = new Deadline(deadlineDescription, deadline);
+                ls.add(newTask);
+                reply = "Got it. I've added this task:\n";
+                reply = reply + newTask.toStatusString() + "\n";
+                listLength++;
+                reply = reply + String.format("Now you have %d task(s) in the list.", listLength) + "\n";
+                break;
+            }
+            case EVENT: {
+                int firstBackslashIndex = input.indexOf("/from");
+                if (firstBackslashIndex == -1) {
+                    throw new IllegalArgumentException("Incorrect input. Ensure that start date begins with /from");
+                }
+                int secondBackslashIndex = input.indexOf("/to", firstBackslashIndex + 5);
+                if (secondBackslashIndex == -1) {
+                    throw new IllegalArgumentException("Incorrect input. Ensure that end date begins with /to");
+                }
+                String eventDescription = input.substring(6, firstBackslashIndex);
+                LocalDate startDate = LocalDate.parse(input.substring(firstBackslashIndex + 5, secondBackslashIndex).trim());
+                LocalDate endDate = LocalDate.parse(input.substring(secondBackslashIndex + 3).trim());
+                Event newTask = new Event(eventDescription, startDate, endDate);
+                ls.add(newTask);
+                reply = "Got it. I've added this task:\n";
+                reply = reply + newTask.toStatusString() + "\n";
+                listLength++;
+                reply = reply + String.format("Now you have %d task(s) in the list.", listLength) + "\n";
+                break;
+            }
+            }
+        } catch (UnknownCommandException e) {
+            reply = "That does not seem to be a valid command. Please try again.\n";
+        } catch (InsufficientArgumentsException e) {
+            reply = e.getMessage() + "\n";
+        } catch (NumberFormatException e) {
+            reply = "Please enter a valid value.\n";
+        } catch (IllegalArgumentException e) {
+            reply = e.getMessage() + "\n";
+        } catch (DateTimeParseException e) {
+            reply =  "Incorrect date. Please enter date in YYYY-MM-DD format\n";
+        }
+        return reply;
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String DELIMITER = "______________________________________";
 
         ArrayList<Task> tasks = new ArrayList<>();
-        int listLength = 0;
-
-        listLength = readFile("save/tasks.txt", tasks);
+        readFile("save/tasks.txt", tasks);
 
         System.out.println(DELIMITER);
         System.out.println("Hello! I'm Drew");
@@ -192,108 +297,11 @@ public class Drew {
         String userInput = sc.nextLine();
 
         while (!userInput.equalsIgnoreCase("bye")) {
-            String reply = "";
-
-            try {
-                Command userCommand;
-                userCommand = checkCommandIdentity(userInput);
-
-                switch (userCommand) {
-                case LIST: {
-                    reply = reply + "Here are the tasks in your list:" + "\n";
-                    for (int i = 0; i < listLength; i++) {
-                        reply = reply + Integer.toString(i + 1) + ". " +
-                                tasks.get(i).statusString() + "\n";
-                    }
-                    reply = reply + String.format("Now you have %d task(s) in the list.", listLength) + "\n";
-                    break;
-                }
-                case MARK: {
-                    int taskIndex;
-                    taskIndex = Integer.parseInt(userInput.substring(5));
-                    if (taskIndex > listLength) {
-                        throw new IllegalArgumentException("This task does not exist!");
-                    }
-                    tasks.get(taskIndex - 1).setDone();
-                    reply = "Well done! I have marked this task as done:\n" +
-                            tasks.get(taskIndex - 1).statusString() + "\n";
-                    break;
-                }
-                case UNMARK: {
-                    int taskIndex;
-                    taskIndex = Integer.parseInt(userInput.substring(7));
-                    if (taskIndex > listLength) {
-                        throw new IllegalArgumentException("This task does not exist!");
-                    }
-                    tasks.get(taskIndex - 1).setNotDone();
-                    reply = "Ok. I have marked this task as not done yet:\n" +
-                            tasks.get(taskIndex - 1).statusString() + "\n";
-                    break;
-                }
-                case DELETE:
-                    int taskIndex;
-                    taskIndex = Integer.parseInt(userInput.substring(7));
-                    if (taskIndex > listLength) {
-                        throw new IllegalArgumentException("This task does not exist!");
-                    }
-                    reply = "Ok. I have deleted this task :\n" +
-                            tasks.get(taskIndex - 1).statusString() + "\n";
-                    tasks.remove(taskIndex - 1);
-                    listLength--;
-                    break;
-                case TODO: {
-                    String todoDescription = userInput.substring(5);
-                    Todo newTask = new Todo(todoDescription);
-                    tasks.add(newTask);
-                    reply = "Got it. I've added this task:\n";
-                    reply = reply + newTask.statusString() + "\n";
-                    listLength++;
-                    reply = reply + String.format("Now you have %d task(s) in the list.", listLength) + "\n";
-                    break;
-                }
-                case DEADLINE: {
-                    int firstBackslashIndex = userInput.indexOf("/");
-                    String deadlineDescription = userInput.substring(9, firstBackslashIndex);
-                    String date = userInput.substring(firstBackslashIndex + 1);
-                    Deadline newTask = new Deadline(deadlineDescription, date);
-                    tasks.add(newTask);
-                    reply = "Got it. I've added this task:\n";
-                    reply = reply + newTask.statusString() + "\n";
-                    listLength++;
-                    reply = reply + String.format("Now you have %d task(s) in the list.", listLength) + "\n";
-                    break;
-                }
-                case EVENT: {
-                    int firstBackslashIndex = userInput.indexOf("/");
-                    int secondBackslashIndex = userInput.indexOf("/", firstBackslashIndex + 1);
-                    //known bug: event // does not work
-                    String eventDescription = userInput.substring(6, firstBackslashIndex);
-                    String startDate = userInput.substring(firstBackslashIndex + 1, secondBackslashIndex);
-                    String endDate = userInput.substring(secondBackslashIndex + 1);
-                    Event newTask = new Event(eventDescription, startDate, endDate);
-                    tasks.add(newTask);
-                    reply = "Got it. I've added this task:\n";
-                    reply = reply + newTask.statusString() + "\n";
-                    listLength++;
-                    reply = reply + String.format("Now you have %d task(s) in the list.", listLength) + "\n";
-                    break;
-                }
-                }
-            } catch (UnknownCommandException e) {
-                reply = "That does not seem to be a valid command. Please try again.\n";
-            } catch (InsufficientArgumentsException e) {
-                reply = e.getMessage() + "\n";
-            } catch (NumberFormatException e) {
-                reply = "Please enter a valid value.\n";
-            } catch (IllegalArgumentException e) {
-                reply = e.getMessage() + "\n";
-            } finally {
-                System.out.println(DELIMITER);
-                System.out.print(reply);
-                System.out.println(DELIMITER);
-
-                userInput = sc.nextLine();
-            }
+            String reply = executeCommand(tasks, userInput);
+            System.out.println(DELIMITER);
+            System.out.print(reply);
+            System.out.println(DELIMITER);
+            userInput = sc.nextLine();
         }
         saveFile("save/tasks.txt",tasks);
         System.out.println("Bye. Hope to see you again soon!");
