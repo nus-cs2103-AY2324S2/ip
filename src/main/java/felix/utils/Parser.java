@@ -16,6 +16,12 @@ import felix.task.ToDo;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
+    /**
+     * Parses a line of user input and returns the corresponding Command.
+     *
+     * @return Command.
+     * @throws FelixException If command is unrecognised or command formatting is wrong.
+     */
     public Command getCommand(String line) throws FelixException {
         // separate first word from rest of words
         String[] words = line.split(" ", 2);

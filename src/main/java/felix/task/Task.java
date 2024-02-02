@@ -13,8 +13,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns a String representing the task's status as done.
+     */
     protected String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     public void markAsDone() {
@@ -31,6 +34,12 @@ public abstract class Task {
 
     public abstract String toFileString();
 
+    /**
+     * Creates a task from a given line of a file within the hard disk.
+     * If necessary, the task will be marked as done.
+     *
+     * @return task represented by file line.
+     */
     public static Task createTaskFromFileLine(String line) {
         String[] words = line.split(" \\| ");
         Task task;
