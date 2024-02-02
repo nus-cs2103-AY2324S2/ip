@@ -33,6 +33,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(
+                DialogBox.getNollidDialog("Hello! I'm Nollid.\n"
+                        + "What can I do for you?", nollidImage)
+        );
     }
 
     /**
