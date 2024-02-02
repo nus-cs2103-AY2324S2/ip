@@ -5,6 +5,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private final ArrayList<Task> list;
+    private static final String FILE_NAME = "data/task_list.txt";
 
     /**
      * Constructs an empty TaskList.
@@ -20,6 +21,7 @@ public class TaskList {
      */
     public void addTask(Task t) {
         this.list.add(t);
+        FileManager.writeFile(FILE_NAME, this);
     }
 
     /**
@@ -38,6 +40,7 @@ public class TaskList {
     public Task markTask(int i) {
         Task t = this.list.get(i);
         t.mark();
+        FileManager.writeFile(FILE_NAME, this);
         return t;
     }
 
@@ -50,6 +53,7 @@ public class TaskList {
     public Task unmarkTask(int i) {
         Task t = this.list.get(i);
         t.unmark();
+        FileManager.writeFile(FILE_NAME, this);
         return t;
     }
 
@@ -61,6 +65,45 @@ public class TaskList {
      */
     public Task deleteTask(int i) {
         return this.list.remove(i);
+    }
+
+    public String convertTaskListToFileString() {
+        StringBuilder fileStringBuilder = new StringBuilder();
+        for (Task task: list) {
+            fileStringBuilder.append(task.convertTaskToFileString()).append("\n");
+        }
+        return fileStringBuilder.toString();
+    }
+
+    public static TaskList convertFileStringToTaskList() {
+        String fileString = FileManager.readFile(FILE_NAME);
+        TaskList newTaskList = new TaskList();
+        if (fileString.isEmpty()) {
+            return newTaskList;
+        }
+        String[] taskStrings = fileString.split("\n");
+        for (String taskString: taskStrings) {
+            String[] taskDetails = taskString.split("\\|");
+            Task newTask;
+            switch (taskDetails[0]) {
+                case "T":
+                    newTask = new Todo(taskDetails[2]);
+                    break;
+                case "D":
+                    newTask = new Deadline(taskDetails[2], taskDetails[3]);
+                    break;
+                case "E":
+                    newTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + taskDetails[0]);
+            }
+            if (taskDetails[1].equals("1")) {
+                newTask.mark();
+            }
+            newTaskList.addTask(newTask);
+        }
+        return newTaskList;
     }
 
     /**

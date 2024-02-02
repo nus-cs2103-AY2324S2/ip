@@ -18,7 +18,7 @@ public class Chitty {
     private static final String INVALID_COMMAND = "Invalid command, please only use the following commands:\n" +
             "todo, deadline, event, list, mark, unmark, delete, bye \n";
     private static final String SPACING = "----------------------------------------------------------\n";
-    private static final TaskList taskList = new TaskList();
+    private static final TaskList taskList = TaskList.convertFileStringToTaskList();
 
     /**
      * Displays a greeting message to the user.
@@ -134,19 +134,25 @@ public class Chitty {
     /**
      * Displays a message indicating that the user input is invalid.
      */
-    private static void invalidInput() { System.out.println(SPACING + INVALID_INPUT + SPACING); }
+    private static void invalidInput() {
+        System.out.println(SPACING + INVALID_INPUT + SPACING);
+    }
 
     /**
      * Displays a specific message indicating why the user input is invalid.
      *
      * @param message The specific message about invalid input.
      */
-    private static void invalidInput(String message) { System.out.println(SPACING + message + SPACING); }
+    private static void invalidInput(String message) {
+        System.out.println(SPACING + message + SPACING);
+    }
 
     /**
      * Displays a message indicating that the user command is invalid.
      */
-    private static void invalidCommand() { System.out.println(SPACING + INVALID_COMMAND + SPACING); }
+    private static void invalidCommand() {
+        System.out.println(SPACING + INVALID_COMMAND + SPACING);
+    }
 
     /**
      * Processes the user input and executes the corresponding command.

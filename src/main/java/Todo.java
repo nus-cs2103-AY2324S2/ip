@@ -13,6 +13,11 @@ public class Todo extends Task {
         super(description);
     }
 
+    @Override
+    public String convertTaskToFileString() {
+        return String.format("T|%s|%s", super.getIsDone() ? "1" : "0", this.description.trim());
+    }
+
     /**
      * Returns a string representation of the To-do.
      * The string includes the To-do identifier, followed by the Task's string representation.
