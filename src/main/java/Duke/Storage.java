@@ -1,8 +1,10 @@
-package Duke;
 
+package Duke;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -126,7 +128,8 @@ class TaskListEncoder {
             Event eventTask = (Event) task;
             String from = eventTask.getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             String to = eventTask.getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            return "E | " + (task.isDone() ? "1" : "0") + " | " + eventTask.getDescription() + " | " + from + " to " + to;
+            return "E | " + (task.isDone() ? "1" : "0") + " | "
+                    + eventTask.getDescription() + " | " + from + " to " + to;
         } else {
             // Handle other task types if needed
             return "";
@@ -166,32 +169,31 @@ class TaskListDecoder {
         String description = parts[2];
 
         switch (taskType) {
-            case "T":
-                Task newTodo = new Todo(description);
-                newTodo.setDone(isDone);
-                return newTodo;
-            case "D":
-                String by = parts[3];
-                LocalDate byDateTime = LocalDate.parse(by.substring(3), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                Task newDeadline = new Deadline(description, byDateTime);
-                newDeadline.setDone(isDone);
-                return newDeadline;
-            case "E":
-                String dateTimeString = parts[3];
-                String[] dateTimeParts = dateTimeString.split(" to ");
-                String from = dateTimeParts[0];
-                String to = dateTimeParts[1];
+        case "T":
+            Task newTodo = new Todo(description);
+            newTodo.setDone(isDone);
+            return newTodo;
+        case "D":
+            String by = parts[3];
+            LocalDate byDateTime = LocalDate.parse(by.substring(3), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            Task newDeadline = new Deadline(description, byDateTime);
+            newDeadline.setDone(isDone);
+            return newDeadline;
+        case "E":
+            String dateTimeString = parts[3];
+            String[] dateTimeParts = dateTimeString.split(" to ");
+            String from = dateTimeParts[0];
+            String to = dateTimeParts[1];
 
-                LocalDate fromDateTime = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                LocalDate toDateTime = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate fromDateTime = LocalDate.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate toDateTime = LocalDate.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                Task newEvent =  new Event(description, fromDateTime, toDateTime);
-                newEvent.setDone(isDone);
-                return newEvent;
-            default:
-                // Handle other task types if needed
-                return null;
+            Task newEvent = new Event(description, fromDateTime, toDateTime);
+            newEvent.setDone(isDone);
+            return newEvent;
+        default:
+            // Handle other task types if needed
+            return null;
         }
     }
 }
-

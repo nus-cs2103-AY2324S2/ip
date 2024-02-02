@@ -1,8 +1,9 @@
 package Duke;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalDate;
+
 
 /**
  * The TaskFactory class provides methods to create different types of tasks based on user input.
@@ -19,7 +20,8 @@ public class TaskFactory {
     public static Task createTask(String userInput) throws DukeException {
         String[] inputParts = userInput.split(" ", 2);
 
-        if(!(inputParts[0].equals("todo")) && !(inputParts[0].equals("deadline")) && !(inputParts[0].equals("event"))) {
+        if (!(inputParts[0].equals("todo")) && !(inputParts[0].equals("deadline"))
+                && !(inputParts[0].equals("event"))) {
             throw new DukeException("Don't talk nonsense");
         } else if (inputParts.length < 2) {
             throw new DukeException("What do you want to do");
@@ -28,14 +30,14 @@ public class TaskFactory {
         String taskType = inputParts[0].toLowerCase();
 
         switch (taskType) {
-            case "todo":
-                return new Todo(inputParts[1]);
-            case "deadline":
-                return createDeadlineTask(inputParts[1]);
-            case "event":
-                return createEventTask(inputParts[1]);
-            default:
-                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        case "todo":
+            return new Todo(inputParts[1]);
+        case "deadline":
+            return createDeadlineTask(inputParts[1]);
+        case "event":
+            return createEventTask(inputParts[1]);
+        default:
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -90,3 +92,4 @@ public class TaskFactory {
         }
     }
 }
+

@@ -190,7 +190,7 @@ class Event extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) +
-                " to: " + to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ")";
+        return super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ")";
     }
 }

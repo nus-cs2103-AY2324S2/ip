@@ -37,7 +37,7 @@ public class DeleteCommand implements Command {
                 ui.invalidTaskIndex();
             }
         } catch (IOException e) {
-            ui.showIOExceptionMessage();
+            ui.showIoExceptionMessage();
         }
     }
 }

@@ -67,7 +67,9 @@ public class TaskList {
      *
      * @param index The index of the task to mark as not done.
      */
-    public void markTaskAsNotDone(int index) { tasks.get(index).setDone(false); }
+    public void markTaskAsNotDone(int index) {
+        tasks.get(index).setDone(false);
+    }
 
     /**
      * Retrieves the list of tasks in the TaskList.
