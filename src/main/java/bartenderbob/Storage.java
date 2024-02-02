@@ -40,22 +40,22 @@ public class Storage {
             if (Files.exists(path)) {
                 List<String> tasks = Files.readAllLines(path);
                 for (String taskString : tasks) {
-                    String[] split = taskString.split(" \\| ");
-                    String taskType = split[0];
-                    String taskStatus = split[1];
+                    String[] taskStringComponents = taskString.split(" \\| ");
+                    String taskType = taskStringComponents[0];
+                    String taskStatus = taskStringComponents[1];
                     boolean isDone = taskStatus.equals("X");
-                    String description = split[2];
+                    String description = taskStringComponents[2];
 
                     if (taskType.equals("T")) {
                         taskArray.add(new ToDo(description, isDone));
                     } else if (taskType.equals("D")) {
-                        String dueDate = split[3];
+                        String dueDate = taskStringComponents[3];
                         dueDate = convertDateFormat(dueDate);
                         taskArray.add(new Deadline(description, dueDate, isDone));
                     } else if (taskType.equals("E")) {
-                        String fromDate = split[3];
+                        String fromDate = taskStringComponents[3];
                         fromDate = convertDateFormat(fromDate);
-                        String toDate = split[4];
+                        String toDate = taskStringComponents[4];
                         toDate = convertDateFormat(toDate);
                         taskArray.add(new Event(description, fromDate, toDate, isDone));
                     }
