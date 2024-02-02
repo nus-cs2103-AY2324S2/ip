@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Parent class for various tasks.
+ */
 public class Task {
     protected String name;
     protected boolean isDone;
@@ -9,8 +12,12 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Gets the status of the task.
+     * @return [Y] or [N] depends on the status of the task
+     */
     public String getStatusIcon() {
-        return isDone ? "[Y] " : "[N] "; //mark done detective.task with X
+        return isDone ? "[Y] " : "[N] ";
     }
 
     public void markAsDone() {

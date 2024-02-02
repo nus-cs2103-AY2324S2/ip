@@ -5,7 +5,16 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
+    /**
+     * Parses user input into command for execution.
+     *
+     * @param input full user input string
+     * @return the command based on the user input
+     */
     public static Command parseCommand(String input) throws DukeException {
         String[] inputContent = input.split(" ", 2);
         String mainCommand = inputContent[0];

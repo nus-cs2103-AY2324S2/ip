@@ -4,6 +4,9 @@ import duke.DukeException;
 import duke.TaskList;
 import duke.Ui;
 
+/**
+ * Marks the task done or undone.
+ */
 public class MarkCommand extends Command {
     private int num;
     private boolean isMark;

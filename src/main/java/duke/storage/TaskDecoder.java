@@ -8,6 +8,9 @@ import duke.task.ToDo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Decodes the storage data file into an object.
+ */
 public class TaskDecoder {
     public static ArrayList<Task> decodeTask(List<String> lines) {
         ArrayList<Task> task = new ArrayList<>();

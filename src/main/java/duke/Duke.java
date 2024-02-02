@@ -5,11 +5,18 @@ import duke.storage.Storage;
 
 import java.util.Objects;
 
+/**
+ * Entry point of the Duke application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Duke {
     private TaskList myList;
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Sets up the required objects, loads up the data from the storage file, and prints the welcome message.
+     */
     public Duke() {
         ui = new Ui();
         try {
@@ -20,6 +27,7 @@ public class Duke {
         }
     }
 
+    /** Runs the program until termination.  */
     public void run() {
         boolean isContinue = true;
         ui.showWelcome();

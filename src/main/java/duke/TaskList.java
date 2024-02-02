@@ -4,6 +4,9 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * List of tasks entry by user
+ */
 public class TaskList extends ArrayList<Task> {
     public TaskList() {
         super();

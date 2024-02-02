@@ -5,6 +5,9 @@ import duke.task.Task;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+/**
+ * Text UI of the application.
+ */
 public class Ui {
     private static final String name = "Detective";
     private static final String line = "____________________________________________________________";
@@ -12,6 +15,10 @@ public class Ui {
     private final Scanner in = new Scanner(System.in);
     private final PrintStream out = System.out;
 
+    /**
+     * Reads the text entered by the user.
+     * @return command (full line) entered by the user
+     */
     public String getCommand() {
         return in.nextLine();
     }
@@ -53,6 +60,7 @@ public class Ui {
         showToUser("Error: " + message);
     }
 
+    /** Shows message(s) to the user */
     public void showToUser(String... message) {
         out.println(line);
         for (String m : message) {

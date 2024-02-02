@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * The task with only name.
+ */
 public class ToDo extends Task {
     public ToDo(String name) {
         super(name);

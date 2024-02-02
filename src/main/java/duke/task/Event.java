@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * The task with name, start and deadline.
+ */
 public class Event extends Task {
     protected String from;
     protected String to;
