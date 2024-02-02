@@ -15,7 +15,13 @@ public class TaskList {
 
     private List<Task> l;
 
-
+    /**
+     * Constructs a TaskList with the specified storage and UI.
+     *
+     * @param storage The storage to be used for loading and saving tasks.
+     * @param ui      The UI to be used for displaying information to the user.
+     * @throws IOException If an I/O error occurs.
+     */
     public TaskList(Storage storage, Ui ui) throws IOException {
         //this.tasks = new ArrayList<>();
         this.storage = storage;
@@ -43,6 +49,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Lists all tasks in the task list.
+     *
+     * @throws IOException If an I/O error occurs.
+     */
     public void listTasks() throws IOException {
         l = storage.readFromFile();
         ui.divider();
@@ -53,6 +64,11 @@ public class TaskList {
         ui.divider();
     }
 
+    /**
+     * Marks a task as done.
+     * @param index The index of the task to mark as done, starting from 0.
+     * @throws IOException If there is an error saving the updated task list to storage.
+     */
     public void markTask(int index) throws IOException {
         if (index >= 0 && index < l.size()) {
             Task task = l.get(index);
@@ -66,6 +82,11 @@ public class TaskList {
         ui.divider();
     }
 
+    /**
+     * Marks a task as not done.
+     * @param index The index of the task to mark as not done, starting from 0.
+     * @throws IOException If there is an error saving the updated task list to storage.
+     */
     public void unmarkTask(int index) throws IOException {
         if (index >= 0 && index < l.size()) {
             Task task = l.get(index);
@@ -79,6 +100,11 @@ public class TaskList {
         ui.divider();
     }
 
+    /**
+     * Adds a new task to the task list.
+     * @param task The task to be added.
+     * @throws IOException If there is an error saving the updated task list to storage.
+     */
     public void addTask(Task task) throws IOException {
         l.add(task);
         System.out.println("Got it. I've added this task:");
@@ -88,6 +114,11 @@ public class TaskList {
         ui.divider();
     }
 
+    /**
+     * Deletes a task from the task list.
+     * @param deleted_index The index of the task to delete, starting from 0.
+     * @throws IOException If there is an error saving the updated task list to storage.
+     */
     public void deleteTask(int deleted_index) throws IOException {
         System.out.println("______________________________________________________");
         int actual_index = deleted_index - 1;
@@ -104,6 +135,11 @@ public class TaskList {
         storage.saveToFile(l);
     }
 
+    /**
+     * Adds a new Event task to the task list.
+     * @param task The Event task to be added.
+     * @throws IOException If there is an error saving the updated task list to storage.
+     */
     public void addEventTask(Task task) throws IOException {
         System.out.println("______________________________________________________");
         System.out.println("Got it. I've added this task:");
@@ -119,6 +155,11 @@ public class TaskList {
         System.out.println("______________________________________________________");
     }
 
+    /**
+     * Adds a new ToDo task to the task list.
+     * @param task The ToDo task to be added.
+     * @throws IOException If there is an error saving the updated task list to storage.
+     */
     public void addTodoTask(Task task) throws IOException {
         System.out.println("______________________________________________________");
         System.out.println("Got it. I've added this task:");
@@ -134,6 +175,11 @@ public class TaskList {
         System.out.println("______________________________________________________");
     }
 
+    /**
+     * Adds a new Deadline task to the task list.
+     * @param task The Deadline task to be added.
+     * @throws IOException If there is an error saving the updated task list to storage.
+     */
     public void addDeadlineTask(Task task) throws IOException {
         System.out.println("______________________________________________________");
         System.out.println("Got it. I've added this task:");
@@ -149,10 +195,21 @@ public class TaskList {
         System.out.println("______________________________________________________");
     }
 
+    /**
+     * Gets the size of the task list.
+     *
+     * @return The size of the task list.
+     */
     public int getSize() {
         return l.size();
     }
 
+    /**
+     * Retrieves a task from the task list at the specified index.
+     *
+     * @param i The index of the task to retrieve.
+     * @return The task at the specified index.
+     */
     public Object getTask(int i) {
         return l.get(i);
     }

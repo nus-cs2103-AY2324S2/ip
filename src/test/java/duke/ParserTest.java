@@ -49,7 +49,7 @@ class ParserTest {
         assertTrue(addedTask instanceof Deadline);
         Deadline addedDeadline = (Deadline) addedTask;
         //The Deadline task's description should match output
-        assertEquals(description, addedDeadline.description());
+        assertEquals(description, addedDeadline.getDescription());
         //The Deadline task's end time should match the output end time
         assertEquals(endTime, addedDeadline.getEndTime());
     }
@@ -70,7 +70,7 @@ class ParserTest {
         assertTrue(addedTask instanceof Event);
         Event addedEvent = (Event) addedTask;
         //The Event task's description should match the expected description
-        assertEquals(description, addedEvent.description());
+        assertEquals(description, addedEvent.getDescription());
         assertEquals(startDate, addedEvent.getStartTime());
         assertEquals(endDate, addedEvent.getEndTime());
     }

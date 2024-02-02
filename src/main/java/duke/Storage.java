@@ -13,10 +13,23 @@ import java.util.Scanner;
 public class Storage {
     private static final File FILE = new File("./data/logfile.txt");
 
+    /**
+     * Constructs a Storage object using a specified file path.
+     * Ensures the necessary file and directories exist.
+     *
+     * @param filePath The path to the file used for storage.
+     * @throws IOException If an I/O error occurs while creating file or directories.
+     */
     public Storage(String filePath) throws IOException {
         createFile();
     }
 
+    /**
+     * Ensures the storage file and its parent directories exist.
+     * Creates them if they do not exist.
+     *
+     * @throws IOException If an I/O error occurs while creating file or directories.
+     */
     public static void createFile() throws IOException {
 
         if (!FILE.getParentFile().exists()) {
@@ -27,6 +40,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads tasks from the storage file and constructs a list of Task objects.
+     *
+     * @return A list of Task objects read from the file.
+     * @throws IOException If an I/O error occurs while reading from the file.
+     */
     public List<Task> readFromFile() throws IOException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         List<Task> l = new ArrayList<>();
@@ -79,7 +98,13 @@ public class Storage {
         return l;
     }
 
-    private String formatTaskForFile(Task task) {
+    /**
+     * Formats a Task object into a string representation for file storage.
+     *
+     * @param task The Task object to format.
+     * @return A string representation of the Task object.
+     */
+    protected String formatTaskForFile(Task task) {
         String status = task.getStatusIcon();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         if (task instanceof ToDo) {
@@ -100,6 +125,12 @@ public class Storage {
         return "";
     }
 
+    /**
+     * Saves a list of Task objects to the storage file.
+     *
+     * @param l The list of Task objects to write.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void saveToFile(List<Task> l) throws IOException {
         createFile();
 

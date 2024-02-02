@@ -23,7 +23,11 @@ public class Duke {
     public TaskList taskList;
     public static Parser parser;
 
-
+    /**
+     * Constructs the Duke application with necessary initializations.
+     *
+     * @throws IOException If an input or output exception occurred.
+     */
     public Duke() throws IOException {
         //l = new ArrayList<>();
         this.taskList = new TaskList(storage, ui);
@@ -31,6 +35,13 @@ public class Duke {
         l = storage.readFromFile();
     }
 
+    /**
+     * The main method is the entry point to the Duke application.
+     * It starts the application and runs the main loop.
+     *
+     * @param args Unused.
+     * @throws IOException If an input or output exception occurred.
+     */
     public static void main(String[] args) throws IOException {
         //System.out.println("Hello! I'm Lucifer\nWhat can I do for you?");
         ui.showWelcome();

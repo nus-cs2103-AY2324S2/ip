@@ -11,6 +11,13 @@ public class Parser {
     private Storage storage;
     private TaskList taskList;
 
+    /**
+     * Constructs a Parser with commands to UI, Storage, and TaskList to handle user commands.
+     *
+     * @param ui       The user interface component of Duke.
+     * @param storage  The storage component responsible for file operations.
+     * @param taskList The task list component managing tasks.
+     */
     public Parser(Ui ui, Storage storage, TaskList taskList) {
         this.ui = ui;
         this.storage = storage;
@@ -20,6 +27,13 @@ public class Parser {
     public Parser() {
     }
 
+    /**
+     * Processes the user command, and implements tasks based on the command type.
+     *
+     * @param user_word The command line input by the user.
+     * @throws IOException   If there is an error during input/output operations.
+     * @throws DukeException If the command is invalid or incomplete.
+     */
     public void processCommand(String user_word) throws IOException, DukeException {
         if (user_word.equals("bye")) {
             ui.showGoodbye();
@@ -100,6 +114,7 @@ public class Parser {
             return null;
         }
     }
+
     private static LocalDateTime parseDateTime(String dateTimeStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         try {
