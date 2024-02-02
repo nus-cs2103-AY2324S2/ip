@@ -29,7 +29,7 @@ public class Deadlines extends Task{
         String output = "";
         output += "[D]";
         output += super.taskInfo();
-        return output + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm")) + "hrs )"
+        return output + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm")) + "hrs)"
                 + System.lineSeparator();
     }
 }

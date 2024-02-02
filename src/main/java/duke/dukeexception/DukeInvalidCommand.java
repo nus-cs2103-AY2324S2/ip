@@ -7,6 +7,6 @@ public class DukeInvalidCommand extends DukeException {
     }
     @Override
     public String toString() {
-        return String.format("%s This is not a valid duke.command: \""+command+"\"", super.toString());
+        return String.format("%s This is not a valid duke command: \""+command+"\"", super.toString());
     }
 }

@@ -38,7 +38,7 @@ public class Task {
             throw new DukeCannotBeMarked();
         }
         isDone = true;
-        return "Nice! I've marked this duke.task as done:" + this.taskInfo();
+        return "Nice! I've marked this task as done:" + this.taskInfo();
     }
 
     public String unmark() throws DukeCannotBeUnmarked {
@@ -46,6 +46,6 @@ public class Task {
             throw new DukeCannotBeUnmarked();
         }
         isDone = false;
-        return "OK, I've marked this duke.task as not done yet:" + this.taskInfo();
+        return "OK, I've marked this task as not done yet:" + this.taskInfo();
     }
 }

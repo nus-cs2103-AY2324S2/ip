@@ -35,6 +35,6 @@ public class Events extends Task{
         output += "[E]";
         output += super.taskInfo();
         return output + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm")) + "hrs to: "
-                + to.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm")) + ")" + System.lineSeparator();
+                + to.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm")) + "hrs)" + System.lineSeparator();
     }
 }
