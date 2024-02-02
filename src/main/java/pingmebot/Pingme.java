@@ -2,12 +2,18 @@ package pingmebot;
 
 import pingmebot.task.Deadline;
 import pingmebot.task.Events;
+import pingmebot.task.Task;
 import pingmebot.task.ToDos;
 
+<<<<<<< HEAD
 /**
  * A simple, interactive task management application.
  * It allows user to interact with it via command line interface.
  */
+=======
+import java.util.ArrayList;
+
+>>>>>>> branch-Level-9
 public class Pingme {
     private fileStorage storage;
     private TaskList tasks;
@@ -96,6 +102,22 @@ public class Pingme {
                     tasks.updateTaskToStorage(this.storage);
                 } catch (myBotException e) {
                     ui.showError(e.getMessage());
+                }
+            } else if (words[0].equals("find")) {
+                try {
+                    String keyword = parser.parseFindCommand();
+                    ArrayList<Task> matchingTasks = tasks.findMatchingTask(keyword);
+                    if (matchingTasks.isEmpty()) {
+                        ui.showError("No matching results found!");
+
+                    } else {
+                        ui.listMatchingText();
+                        tasks.listMatchingTask(matchingTasks);
+                    }
+
+                } catch (myBotException e) {
+                    ui.showError(e.getMessage());
+
                 }
             } else {
                 ui.showError("OOPS! I'm sorry, but I don't know what that means :'(");

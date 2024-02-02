@@ -41,10 +41,20 @@ public class UI {
     }
 
     /**
+<<<<<<< HEAD
      * Reads the user's inputs.
      *
      * @return User's input.
      */
+=======
+     * Prints an overview text of matching tasks found in the tasklist.
+     */
+    public void listMatchingText() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
+
+
+>>>>>>> branch-Level-9
     public String readCommand() {
         return this.sc.nextLine();
     }
