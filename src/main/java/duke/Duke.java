@@ -1,12 +1,14 @@
+package duke;
+
 import java.io.IOException;
-import Exceptions.DukeException;
+import duke.exceptions.DukeException;
 
-import Utility.TaskList;
-import Utility.Ui;
-import Utility.Storage;
-import Utility.Parser;
+import duke.utility.TaskList;
+import duke.utility.Ui;
+import duke.utility.Storage;
+import duke.utility.Parser;
 
-import Command.Command;
+import duke.command.Command;
 
 /**
  * Represents a chatbot of the name Duke.

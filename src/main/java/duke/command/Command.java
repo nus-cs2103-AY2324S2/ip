@@ -1,8 +1,8 @@
-package Command;
+package duke.command;
 
-import Utility.TaskList;
-import Utility.Ui;
-import Utility.Storage;
+import duke.utility.Storage;
+import duke.utility.TaskList;
+import duke.utility.Ui;
 
 /**
  * Represents a command which can be executed

@@ -1,33 +1,35 @@
-package Command;
+package duke.command;
 
 import java.io.IOException;
-import Exceptions.DukeException;
+import duke.exceptions.DukeException;
 
-import Utility.TaskList;
-import Utility.Ui;
-import Utility.Storage;
+import duke.utility.Ui;
+import duke.utility.TaskList;
+import duke.utility.Storage;
+
+import duke.task.Task;
 
 /**
- * Represents a command to mark a {@link Task} in a {@link TaskList} as done.
+ * Represents a command to mark a {@link Task} in a {@link TaskList} as undone.
  */
-public class MarkCommand extends Command {
+public class UnmarkCommand extends Command {
     private int taskNumber;
 
-    public MarkCommand(int i) {
+    public UnmarkCommand(int i) {
         this.taskNumber = i;
     }
 
     /**
-     * Marks task as done and update the file.
+     * Marks a task as undone and updates the file.
      *
      * @param list the task list
      * @param ui Duke UI
      * @param s Duke Storage
      */
     public void execute(TaskList list, Ui ui, Storage s) {
-        ui.showMark();
+        ui.showUnmark();
         try {
-            list.markDone(taskNumber);
+            list.undo(this.taskNumber);
             s.storeTaskList(list.getList());
         } catch (IOException | DukeException e) {
             ui.showError(e.getMessage());

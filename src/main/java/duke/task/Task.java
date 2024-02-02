@@ -1,4 +1,4 @@
-package Task;
+package duke.task;
 
 /**
  * Represents a task that can be done or undone.
@@ -6,6 +6,7 @@ package Task;
 public class Task {
     private String name;
     private boolean isDone;
+
     public Task(String s) {
         this.name = s;
     }
@@ -17,6 +18,7 @@ public class Task {
     public void setDone(Boolean b) {
         this.isDone = b;
     }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.name;

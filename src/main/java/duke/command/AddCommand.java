@@ -1,9 +1,10 @@
-package Command;
+package duke.command;
 
-import Utility.TaskList;
-import Utility.Ui;
-import Utility.Storage;
-import Task.Task;
+import duke.utility.Ui;
+import duke.utility.TaskList;
+import duke.utility.Storage;
+
+import duke.task.Task;
 import java.io.IOException;
 
 /**

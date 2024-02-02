@@ -1,10 +1,9 @@
-package Task;
+package duke.task;
 
 /**
  * Represents a {@link Task} with no deadline or duration.
  */
 public class Todo extends Task {
-
     /**
      * Constructor for a task.
      *

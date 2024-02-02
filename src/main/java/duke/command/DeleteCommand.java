@@ -1,11 +1,13 @@
-package Command;
+package duke.command;
 
 import java.io.IOException;
-import Exceptions.DukeException;
+import duke.exceptions.DukeException;
 
-import Utility.TaskList;
-import Utility.Ui;
-import Utility.Storage;
+import duke.utility.Ui;
+import duke.utility.TaskList;
+import duke.utility.Storage;
+
+import duke.task.Task;
 
 /**
  * Represents a command to delete a {@link Task} in a {@link TaskList}.
