@@ -1,5 +1,10 @@
 
+import java.time.LocalDateTime;
 import java.util.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public class Duke {
     public static void main(String[] args) {
         String input;
@@ -64,8 +69,11 @@ public class Duke {
                             deadline += inputParts.get(i)+ " ";
                         }
                         deadline = deadline.trim();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+                        LocalDateTime localDateTime = LocalDateTime.parse(deadline, formatter);
+
                         descriptor = descriptor.trim();
-                        Deadlines d = new Deadlines(descriptor, deadline);
+                        Deadlines d = new Deadlines(descriptor, localDateTime);
                         storage.add(d);
                         System.out.println(line + storage.addToListOutput(d) + "\n" + line);
                     } else if (inputParts.get(0).equals("event")) {
