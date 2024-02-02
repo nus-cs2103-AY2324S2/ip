@@ -1,4 +1,4 @@
-package model;
+package Oak.task.model;
 
 public class Task {
     public Boolean isCompleted = false; // Default value = false

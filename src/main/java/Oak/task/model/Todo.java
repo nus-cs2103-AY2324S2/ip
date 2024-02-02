@@ -1,4 +1,4 @@
-package model;
+package Oak.task.model;
 
 public class Todo extends Task {
     public static String typeIcon = "T";

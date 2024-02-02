@@ -1,4 +1,4 @@
-package model;
+package Oak.model;
 
 public class Feedback {
     private boolean isBye;

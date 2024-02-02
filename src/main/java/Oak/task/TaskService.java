@@ -1,10 +1,10 @@
-package service;
+package Oak.task;
 
-import Utility.FileUtility;
-import model.Deadline;
-import model.Event;
-import model.Task;
-import model.Todo;
+import Oak.Utility.FileUtility;
+import Oak.task.model.Deadline;
+import Oak.task.model.Event;
+import Oak.task.model.Task;
+import Oak.task.model.Todo;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class TaskService {
     private ArrayList<Task> tasks = new ArrayList<>();
-    private final String tasklistFilePath = "/src/main/java/resources/tasklist.txt";
+    private final String tasklistFilePath = "/src/main/java/Oak.resources/tasklist.txt";
     private final String taskListSep = "\\|";
 
     private FileUtility fileUtility = new FileUtility();
@@ -65,7 +65,7 @@ public class TaskService {
             newTask = new Event(task[2], isCompleted, task[3], task[4]);
         }
         else {
-            // TODO: Throw invalid task type exception
+            // TODO: Throw invalid task Oak.type exception
             System.out.println("Invalid task detected");
         }
 

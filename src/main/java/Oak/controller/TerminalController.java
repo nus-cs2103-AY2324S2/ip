@@ -1,8 +1,8 @@
-package controller;
+package Oak.controller;
 
-import exceptions.InvalidInputException;
-import model.Feedback;
-import service.FeedbackService;
+import Oak.exceptions.InvalidInputException;
+import Oak.model.Feedback;
+import Oak.service.FeedbackService;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -10,11 +10,12 @@ import java.util.Scanner;
 public class TerminalController {
     private FeedbackService feedbackService = new FeedbackService();
 
-    public void printWelcomeMessage() {
-        System.out.println(feedbackService.getWelcomeMessage());
+    public void start() {
+        System.out.println(this.feedbackService.getWelcomeMessage());
+        this.listen();
     }
 
-    public void listen() {
+    private void listen() {
         Scanner scanner = new Scanner(System.in);
         boolean stop = false;
 

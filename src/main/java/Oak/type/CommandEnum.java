@@ -1,4 +1,4 @@
-package type;
+package Oak.type;
 
 public enum CommandEnum {
     BYE("bye"),

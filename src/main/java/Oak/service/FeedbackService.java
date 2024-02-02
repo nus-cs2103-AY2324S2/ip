@@ -1,9 +1,9 @@
-package service;
+package Oak.service;
 
-import exceptions.InvalidCommandException;
-import exceptions.InvalidInputException;
-import model.Feedback;
-import type.CommandEnum;
+import Oak.exceptions.InvalidInputException;
+import Oak.model.Feedback;
+import Oak.task.TaskService;
+import Oak.type.CommandEnum;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class FeedbackService {
     private TaskService taskService = new TaskService();
 
-    public Feedback run(String userInput) throws InvalidCommandException, InvalidInputException, IOException {
+    public Feedback run(String userInput) throws InvalidInputException, IOException {
         String[] cur = userInput.split(" ");
         CommandEnum curCommand = CommandEnum.getCommandEnum(cur[0]);
         Feedback feedback = null;
@@ -20,7 +20,7 @@ public class FeedbackService {
         int taskId = -1;
 
         if (curCommand == null) {
-            throw new InvalidCommandException(cur[0]);
+            throw new InvalidInputException.InvalidCommandException(cur[0]);
         }
 
         // TODO: Exception Handling for incorrect input
@@ -34,28 +34,28 @@ public class FeedbackService {
                 break;
             case MARK:
                 if (cur.length <= 1) {
-                    throw new InvalidInputException("No TaskId detected, please provide a TaskId");
+                    throw new InvalidInputException.InvalidFormatException("No TaskId detected, please provide a TaskId", cur[0]);
                 }
 
                 try {
                     taskId = Integer.parseInt(cur[1]) - 1;
                 }
                 catch (NumberFormatException e) {
-                    throw new InvalidInputException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command");
+                    throw new InvalidInputException.InvalidFormatException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
                 }
 
                 feedback = new Feedback(false, this.taskService.markTaskCompleted(taskId));
                 break;
             case UNMARK:
                 if (cur.length <= 1) {
-                    throw new InvalidInputException("No TaskId detected, please provide a TaskId");
+                    throw new InvalidInputException.InvalidFormatException("No TaskId detected, please provide a TaskId", cur[0]);
                 }
 
                 try {
                     taskId = Integer.parseInt(cur[1]) - 1;
                 }
                 catch (NumberFormatException e) {
-                    throw new InvalidInputException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command");
+                    throw new InvalidInputException.InvalidFormatException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
                 }
 
                 feedback = new Feedback(false, this.taskService.markTaskUncompleted(taskId));
@@ -74,14 +74,14 @@ public class FeedbackService {
                 break;
             case DELETE:
                 if (cur.length <= 1) {
-                    throw new InvalidInputException("No TaskId detected, please provide a TaskId");
+                    throw new InvalidInputException.InvalidFormatException("No TaskId detected, please provide a TaskId", cur[0]);
                 }
 
                 try {
                     taskId = Integer.parseInt(cur[1]) - 1;
                 }
                 catch (NumberFormatException e) {
-                    throw new InvalidInputException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command");
+                    throw new InvalidInputException.InvalidFormatException("Invalid TaskId detected, please provide the TaskId Number as seen in 'list' command", cur[0]);
                 }
 
                 feedback = new Feedback(false, this.taskService.deleteTask(taskId));
@@ -156,11 +156,4 @@ public class FeedbackService {
 
         return new String[] { temp[0].strip(), datetimes[0].strip(), datetimes[1].strip() };
     }
-
-    // NOTE: REMOVE THIS if not going to be graded since add tasks exists
-//    private void Echo(String input) {
-//        System.out.println("----------------------------------------------");
-//        System.out.println(input);
-//        System.out.println("----------------------------------------------");
-//    }
 }
