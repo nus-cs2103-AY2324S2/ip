@@ -1,22 +1,27 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.IOException;
 
 public class ChatBro {
     public static void main(String[] args) {
-        System.out.println("_________________________\n" +
-                " __  __       __\n" +
-                " \\ \\/ /__    / /\n" +
-                "  \\  / _ \\  /_/ \n" +
-                "  /_/\\___/ (_)\n\n" +
-                "I'm ChatBro!\n" +
-                "What can I do for you bro?\n" +
-                "Use the available commands: list, bye, mark, unmark, delete, OR\n" +
-                "create a new task (todo, deadline, event) to store in your list bro.\n" +
-                "_________________________\n");
-
+        System.out.println("_________________________\n"
+                + " __  __       __\n"
+                + " \\ \\/ /__    / /\n"
+                + "  \\  / _ \\  /_/ \n"
+                + "  /_/\\___/ (_)\n\n"
+                + "I'm ChatBro!\n"
+                + "What can I do for you bro?\n"
+                + "Use the available commands: list, bye, mark, unmark, delete, OR\n"
+                + "create a new task (todo, deadline, event) to store in your list bro.\n"
+                + "_________________________\n");
+        Path filePath = Paths.get("chatbro.txt");
         Scanner sc = new Scanner(System.in);
         boolean isQuit = false;
         ArrayList<Task> taskList = new ArrayList<>(101); // First element left empty for 1-based indexing
+
         for (int i = 0; i < 102; i++) {
             taskList.add(null);
         }
