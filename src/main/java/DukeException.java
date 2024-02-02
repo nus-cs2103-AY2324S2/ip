@@ -4,7 +4,7 @@ public class DukeException extends Exception {
     }
 
     @Override
-    public String toString() {
-        return super.getMessage();
+    public String getMessage() {
+        return "ERROR: " + super.getMessage();
     }
 }
