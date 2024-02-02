@@ -10,8 +10,8 @@ public class Storage {
         this.path = path;
     }
 
-    public ArrayList<Task> loadTasks() throws DukeException {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public TaskList loadTasks() throws DukeException {
+        TaskList tasks = new TaskList();
         File f = new File(path);
         Scanner scanner = null;
         if (!f.exists()) {
@@ -37,16 +37,11 @@ public class Storage {
         return tasks;
     }
 
-    public void writeTasks(ArrayList<Task> tasks) throws DukeException {
+    public void writeTasks(TaskList tasks) throws DukeException {
         PrintWriter pw = null;
         File f = new File(path);
-        StringBuilder sb = new StringBuilder();
+        String toWrite = tasks.toStorageString();
         
-        for (Task t : tasks) {
-            sb.append(t.toStorageString()).append('\n');
-        }
-        
-        String toWrite = sb.toString();
         try {
             pw = new PrintWriter(new File(path));
             pw.write(toWrite);

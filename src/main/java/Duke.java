@@ -9,10 +9,10 @@ public class Duke {
 
     private static boolean done = false;
     
-    private static final CommandList commands = new CommandList(); 
-
-    private static ArrayList<Task> taskList = new ArrayList<>();
+    private static final CommandList commands = new CommandList();
     
+    private static TaskList tasks = new TaskList();
+
     private static final Storage st = new Storage("data.txt");
 
     public static void exit() {
@@ -24,25 +24,6 @@ public class Duke {
         commands.put(name, new Command(name, executor));
     }
 
-    public static String taskStrings() {
-        // here's your """""effectively final""""" value bro
-        var numBox = new Object() {
-            int num = 1;
-        };
-        return taskList.stream()
-                .reduce(
-                        new StringBuilder(),
-                        (curr, acc) -> {
-                            curr.append(numBox.num).append(".").append(acc.describe());
-                            if (numBox.num < taskList.size()) {
-                                curr.append("\n");
-                            }
-                            numBox.num++;
-                            return curr;
-                        },
-                        StringBuilder::append)
-                .toString();
-    }
     public static void main(String[] mainArgs) {
         
         // initialisation
@@ -51,7 +32,7 @@ public class Duke {
                 if (args.length > 1) {
                     throw new DukeOptionParsingException("option was not expected but was given: " + args[1]);
                 }
-                ui.print("Here's what you've done today...\n" + taskStrings());
+                ui.print("Here's what you've done today...\n" + tasks.toDisplayString());
                 
             } catch (DukeOptionParsingException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
@@ -90,7 +71,7 @@ public class Duke {
                 }
                 
                 try { 
-                    t = taskList.get(i);
+                    t = tasks.get(i);
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeException(
                             String.format("You tried to access an invalid task index: %s", args[1])
@@ -100,7 +81,7 @@ public class Duke {
                 ui.print("CONGRATULATION!!!!!! you completed this task:\n" +
                         t.describe()
                 );
-                Duke.st.writeTasks(Duke.taskList);
+                Duke.st.writeTasks(tasks);
             } catch (DukeException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
@@ -126,7 +107,7 @@ public class Duke {
                 }
 
                 try {
-                    t = taskList.get(i);
+                    t = tasks.get(i);
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeException(
                             String.format("You tried to access an invalid task index: %s", args[1])
@@ -137,7 +118,7 @@ public class Duke {
                 ui.print("CONGRATULATION!!!!!! you un completed this task:\n" +
                         t.describe()
                 );
-                Duke.st.writeTasks(Duke.taskList);
+                Duke.st.writeTasks(tasks);
             } catch (DukeException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
@@ -155,8 +136,8 @@ public class Duke {
 
                 var t = new ToDo(str);
                 ui.print(String.format("Ok, I've added a new todo...\n  %s", t.describe()));
-                taskList.add(t);
-                Duke.st.writeTasks(Duke.taskList);
+                tasks.add(t);
+                Duke.st.writeTasks(tasks);
             } catch (DukeException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
@@ -218,8 +199,8 @@ public class Duke {
                 }
                 
                 ui.print(String.format("Ok, I've added a new deadline...\n  %s", t.describe()));
-                Duke.taskList.add(t);
-                Duke.st.writeTasks(Duke.taskList);
+                tasks.add(t);
+                Duke.st.writeTasks(tasks);
             } catch (DukeException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
@@ -312,8 +293,8 @@ public class Duke {
                 }
 
                 ui.print(String.format("Ok, I've added a new event...\n  %s", t.describe()));
-                Duke.taskList.add(t);
-                Duke.st.writeTasks(Duke.taskList);
+                tasks.add(t);
+                Duke.st.writeTasks(tasks);
             } catch (DukeException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
@@ -338,23 +319,24 @@ public class Duke {
                     throw new DukeException("option was not expected but was given: " + args[2]);
                 }
                 
-                if (i < 0 || i >= taskList.size()) {
+                if (i < 0 || i >= tasks.size()) {
                     throw new DukeException
                             (String.format("You tried to access an invalid task index: %s", args[1]));
                 }
-                t = taskList.remove(i);
+                t= tasks.get(i);
+                tasks.remove(i);
                 
                 ui.print
                         ("I'm deleting this task. bye...\n" +
                         t.describe());
-                Duke.st.writeTasks(Duke.taskList);
+                Duke.st.writeTasks(tasks);
             } catch (DukeException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
         });
         
         try {
-            Duke.taskList = Duke.st.loadTasks();
+            tasks = Duke.st.loadTasks();
         } catch (DukeException e) {
             ui.print(String.format
                     ("Error loading task data: %s"
