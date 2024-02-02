@@ -1,33 +1,34 @@
 package task;
 
 public class Task {
-  protected String description;
-  protected boolean isDone;
 
-  public Task(String description) {
-    this.description = description;
-    this.isDone = false;
-  }
+    protected String description;
+    protected boolean isDone;
 
-  public String getStatusIcon() {
-    return (isDone ? "X" : " ");
-  }
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
 
-  public void markAsDone() {
-    this.isDone = true;
-  }
+    public String getStatusIcon() {
+        return (isDone ? "X" : " ");
+    }
 
-  public void unmarkAsDone() {
-    this.isDone = false;
-  }
+    public void markAsDone() {
+        isDone = true;
+    }
 
-  @Override
-  public String toString() {
-    return "[" + this.getStatusIcon() + "] " + this.description;
-  }
+    public void unmarkAsDone() {
+        isDone = false;
+    }
 
-  public String toFileString() {
-    return (this.isDone ? "1" : "0") + " | " + this.description;
-  }
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
+    }
+
+    public String toFileString() {
+        return (isDone ? "1" : "0") + " | " + description;
+    }
 
 }
