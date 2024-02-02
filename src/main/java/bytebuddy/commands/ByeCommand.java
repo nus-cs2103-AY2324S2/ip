@@ -5,6 +5,8 @@ import bytebuddy.storage.Storage;
 import bytebuddy.tasks.TaskList;
 import bytebuddy.ui.Ui;
 
+import static bytebuddy.constants.Messages.BYE_MESSAGE;
+
 /**
  * Command to exit the chatbot and say bye.
  */
@@ -17,8 +19,9 @@ public class ByeCommand implements Command {
      * @param storage The storage for saving and loading data.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
         // No action needed for ByeCommand
+        return "\t " + BYE_MESSAGE;
     }
 
     /**

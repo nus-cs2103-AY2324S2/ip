@@ -37,8 +37,8 @@ public class FindCommand implements Command {
      * @throws ByteBuddyException If there is an issue executing the 'findInTaskList' method.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
-        taskList.findTaskWithKeywordInTaskList(keywords);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
+        return "\t " + taskList.findTaskWithKeywordInTaskList(keywords);
     }
 
     /**

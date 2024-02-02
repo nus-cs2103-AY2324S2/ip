@@ -17,8 +17,8 @@ public class ListCommand implements Command {
      * @param storage  The storage for saving and loading data.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        taskList.printTaskList();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return taskList.getFormattedTaskList();
     }
 
     /**

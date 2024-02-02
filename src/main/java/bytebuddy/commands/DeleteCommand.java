@@ -29,8 +29,8 @@ public class DeleteCommand implements Command {
      * @throws ByteBuddyException If there is an error executing the DeleteCommand.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
-        taskList.delete(info);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
+        return taskList.delete(info);
     }
 
     /**

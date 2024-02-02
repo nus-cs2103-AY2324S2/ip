@@ -22,6 +22,6 @@ public class ByteBuddyException extends Exception {
      */
     @Override
     public String getMessage() {
-        return String.format("holup!! %s", super.getMessage());
+        return String.format("\t holup!! %s", super.getMessage());
     }
 }

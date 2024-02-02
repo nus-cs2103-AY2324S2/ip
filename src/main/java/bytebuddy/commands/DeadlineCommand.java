@@ -29,8 +29,8 @@ public class DeadlineCommand implements Command {
      * @throws ByteBuddyException If there is an error executing the DeadlineCommand.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
-        taskList.deadline(info);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException {
+        return taskList.deadline(info);
     }
 
     /**
