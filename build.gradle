@@ -13,6 +13,7 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
 
+
 test {
     useJUnitPlatform()
 
@@ -27,12 +28,13 @@ test {
     }
 }
 
+mainClassName = 'dune.Dune'
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("dune.Dune")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "dune"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
