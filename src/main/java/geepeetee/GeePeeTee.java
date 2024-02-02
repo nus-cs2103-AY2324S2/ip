@@ -22,8 +22,8 @@ public class GeePeeTee {
 
   public GeePeeTee(String filePath) {
     ui = new Ui();
-    storage = new Storage("./data/GeePeeTee.txt");
     try {
+      storage = new Storage("GeePeeTee.txt");
       taskList = new TaskList(storage.loadTaskList());
     } catch (FileNotFoundException e) {
       ui.showFileNotFoundError();
@@ -40,13 +40,13 @@ public class GeePeeTee {
     Scanner scanner = new Scanner(System.in);
     Parser parser = new Parser(taskList, storage, ui);
     while (!input.equals("bye")) {
-        input = scanner.nextLine();
-        System.out.println("\n--------------------------------------------------");
-        if (input.equals("bye")) {
-          scanner.close();
-          ui.showGoodbyeMessage();
-        }
-        parser.parseInput(input);
+      input = scanner.nextLine();
+      System.out.println("\n--------------------------------------------------");
+      if (input.equals("bye")) {
+        scanner.close();
+        ui.showGoodbyeMessage();
+      }
+      parser.parseInput(input);
 
       System.out.println("--------------------------------------------------\n");
     }

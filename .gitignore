@@ -18,3 +18,7 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Database files
+*.txt
+src/main/java/*.txt
