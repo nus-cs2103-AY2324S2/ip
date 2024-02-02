@@ -90,7 +90,7 @@ public class RochinOOP {
     public class Ui {
 
         /**
-         * Displays the welcome message.
+         * Display the welcome message.
          */
         public void showWelcomeMessage() {
             System.out.println("____________________________________________________________");
@@ -100,7 +100,7 @@ public class RochinOOP {
         }
 
         /**
-         * Displays the goodbye message.
+         * Display the goodbye message.
          */
         public void showGoodbyeMessage() {
             System.out.println("____________________________________________________________");
@@ -109,28 +109,28 @@ public class RochinOOP {
         }
 
         /**
-         * Displays the command prompt.
+         * Display the command prompt.
          */
         public void showCommandPrompt() {
             System.out.print("Enter a command: ");
         }
 
         /**
-         * Displays an error message for loading tasks.
+         * Display an error message for loading tasks.
          */
         public void showLoadingError() {
             System.out.println("Failed to load tasks. Creating a new task list.");
         }
 
         /**
-         * Displays an error message for saving tasks.
+         * Display an error message for saving tasks.
          */
         public void showSavingError() {
             System.out.println("Failed to save tasks.");
         }
 
         /**
-         * Displays a generic error message with the provided errorMessage.
+         * Display a generic error message with the provided errorMessage.
          *
          * @param errorMessage The error message to be displayed.
          */
@@ -139,21 +139,21 @@ public class RochinOOP {
         }
 
         /**
-         * Displays an unknown command error message.
+         * Display an unknown command error message.
          */
         public void showUnknownCommandError() {
             System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
         /**
-         * Displays an invalid command error message.
+         * Display an invalid command error message.
          */
         public void showInvalidCommandError() {
             System.out.println("Invalid command. Please enter a valid command.");
         }
 
         /**
-         * Displays the list of tasks.
+         * Display the list of tasks.
          *
          * @param tasks The list of tasks to be displayed.
          */
@@ -167,7 +167,7 @@ public class RochinOOP {
         }
 
         /**
-         * Displays a message confirming the addition of a task.
+         * Display a message confirming the addition of a task.
          *
          * @param tasks The updated list of tasks.
          */
@@ -180,7 +180,7 @@ public class RochinOOP {
         }
 
         /**
-         * Displays a message confirming the deletion of a task.
+         * Display a message confirming the deletion of a task.
          *
          * @param tasks The updated list of tasks.
          */
@@ -193,7 +193,7 @@ public class RochinOOP {
         }
 
         /**
-         * Displays a message confirming the marking of a task as done.
+         * Display a message confirming the marking of a task as done.
          *
          * @param tasks The updated list of tasks.
          */
@@ -205,7 +205,7 @@ public class RochinOOP {
         }
 
         /**
-         * Displays a message confirming the marking of a task as not done.
+         * Display a message confirming the marking of a task as not done.
          *
          * @param tasks The updated list of tasks.
          */
@@ -233,7 +233,7 @@ public class RochinOOP {
         }
 
         /**
-         * Loads tasks from the specified file.
+         * Load tasks from the specified file.
          *
          * @return A list of strings representing the loaded tasks.
          * @throws RochinException If an error occurs while loading tasks from the file.
@@ -256,7 +256,7 @@ public class RochinOOP {
         }
 
         /**
-         * Saves tasks to the specified file.
+         * Save tasks to the specified file.
          *
          * @param lines The list of strings representing tasks to be saved.
          * @throws RochinException If an error occurs while saving tasks to the file.
@@ -273,13 +273,13 @@ public class RochinOOP {
     }
 
     /**
-     * Represents a list of tasks.
+     * Represent a list of tasks.
      */
     public class TaskList {
         private final List<Task> tasks;
 
         /**
-         * Constructs an empty TaskList.
+         * Construct an empty TaskList.
          */
         public TaskList() {
             this.tasks = new ArrayList<>();
@@ -290,7 +290,7 @@ public class RochinOOP {
         }
 
         /**
-         * Adds a new task to the TaskList.
+         * Add a new task to the TaskList.
          *
          * @param newTask The task to be added.
          */
@@ -299,7 +299,7 @@ public class RochinOOP {
         }
 
         /**
-         * Deletes a task from the TaskList based on its index.
+         * Delete a task from the TaskList based on its index.
          *
          * @param taskIndex The index of the task to be deleted.
          */
@@ -310,7 +310,7 @@ public class RochinOOP {
         }
 
         /**
-         * Marks a task as done based on its index.
+         * Mark a task as done based on its index.
          *
          * @param taskIndex The index of the task to be marked as done.
          */
@@ -321,7 +321,7 @@ public class RochinOOP {
         }
 
         /**
-         * Unmarks a task as done based on its index.
+         * Unmark a task as done based on its index.
          *
          * @param taskIndex The index of the task to be marked as not done.
          */
@@ -332,7 +332,7 @@ public class RochinOOP {
         }
 
         /**
-         * Retrieves a copy of all tasks in the TaskList.
+         * Retrieve a copy of all tasks in the TaskList.
          *
          * @return A list containing all tasks.
          */
@@ -345,7 +345,7 @@ public class RochinOOP {
         }
 
         /**
-         * Loads tasks from a list of strings.
+         * Load tasks from a list of strings.
          *
          * @param lines The list of strings representing tasks.
          * @throws RochinException if there's an error during loading.
@@ -361,7 +361,7 @@ public class RochinOOP {
         }
 
         /**
-         * Converts all tasks to a list of strings.
+         * Convert all tasks to a list of strings.
          *
          * @return A list of strings representing tasks.
          */
@@ -374,7 +374,7 @@ public class RochinOOP {
         }
 
         /**
-         * Searches for tasks containing the specified keyword.
+         * Search for tasks containing the specified keyword.
          *
          * @param keyword The keyword to search for in task descriptions.
          * @return A list of tasks that match the given keyword.
@@ -391,14 +391,14 @@ public class RochinOOP {
     }
 
     /**
-     * Represents a command processor for handling user commands related to tasks.
+     * Represent a command processor for handling user commands related to tasks.
      */
     public class CommandProcessor {
         private final String command;
         private boolean isExitCommand;
 
         /**
-         * Constructs a CommandProcessor with the given command.
+         * Construct a CommandProcessor with the given command.
          *
          * @param command The command to be processed.
          */
