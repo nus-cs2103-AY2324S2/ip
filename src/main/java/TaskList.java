@@ -11,6 +11,12 @@ public class TaskList {
         this.taskCount = 0;
     }
 
+    //Constructor if storage already existed.
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+        this.taskCount = this.tasks.size();
+    }
+
     //Add a ToDo to the task list
     public void addToDo(String userInput) throws DuchessException {
         String[] toDoTokens = userInput.split("todo"); //Split to find description
@@ -85,7 +91,6 @@ public class TaskList {
         if (this.taskCount < MAX_TASKS) {
             this.tasks.add(task);
             this.taskCount++;
-            //saveDataToFile();
 
             //printHorizontalLine();
             System.out.println(" Understood. I've added this " + taskType + " task:");
@@ -101,7 +106,6 @@ public class TaskList {
         if (isValidTaskIndex(taskIndex)) {
             Task deletedTask = this.tasks.remove(taskIndex);
             this.taskCount--;
-            //saveDataToFile();
 
             //printHorizontalLine();
             System.out.println(" Understood. I've deleted this task:");
@@ -117,7 +121,6 @@ public class TaskList {
     public void markTaskAsDone(int taskIndex) throws DuchessException {
         if (isValidTaskIndex(taskIndex)) {
             this.tasks.get(taskIndex).markAsDone();
-            //saveDataToFile();
             //printHorizontalLine();
             System.out.println(" Perfect! I've marked this task as done:");
             System.out.println(this.tasks.get(taskIndex).toString());
@@ -131,7 +134,6 @@ public class TaskList {
     public void unmarkTaskAsDone(int taskIndex) throws DuchessException {
         if (isValidTaskIndex(taskIndex)) {
             this.tasks.get(taskIndex).unmarkAsDone();
-            //saveDataToFile();
             //printHorizontalLine();
             System.out.println(" Understood, I've marked this task as not done yet:");
             System.out.println(this.tasks.get(taskIndex).toString());
@@ -153,4 +155,11 @@ public class TaskList {
     public void decreaseTaskCount() {
         this.taskCount--;
     }
+
+    //Remove this in the future... not very good to have getters!
+    //Gets the "tasks" array list
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
 }
+

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Duchess {
     private TaskList taskList;
+    private Storage storage;
 
     // Declare the scanner as a static field in the class
     private static Scanner scanner = new Scanner(System.in);
@@ -14,8 +15,12 @@ public class Duchess {
     private static final String FILE_PATH = "./data/duchess.txt";
 
     public Duchess() throws DuchessException {
+        this.storage = new Storage(FILE_PATH);
         this.taskList = new TaskList();
-        //loadDataFromFile();
+        ArrayList<Task> tasksStored = storage.loadData();
+        if (!tasksStored.isEmpty()) {
+            this.taskList = new TaskList(storage.loadData());
+        }
     }
 
     public static void main(String[] args) {
@@ -35,76 +40,6 @@ public class Duchess {
 
         printHorizontalLine();
     }
-
-    //Load data from file
-    /*
-    private void loadDataFromFile() throws DuchessException {
-        try {
-            File file = new File(FILE_PATH);
-            if (!file.exists()) {
-                file.createNewFile(); // Create file if it doesn't exist
-            }
-
-            Scanner fileScanner = new Scanner(file);
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                Task task = parseTaskFromFileString(line); // Parse task from file line
-                if (task != null) {
-                    //task.add(task); // Add task to the list
-                    //taskCount++;
-                }
-            }
-            fileScanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("Error loading tasks from file: " + e.getMessage());
-        }
-    }
-
-    //Saves the data to the file after every change, rewriting each task in the list
-    private void saveDataToFile() {
-        try (FileWriter writer = new FileWriter(FILE_PATH)) {
-            for (Task task : tasks) {
-                writer.write(task.toFileString() + "\n"); // Write each task to file
-            }
-        } catch (IOException e) {
-            System.out.println("Error saving tasks to file: " + e.getMessage());
-        }
-    }
-    */
-
-    // Method to parse task from a line read from file
-    private Task parseTaskFromFileString(String line) throws DuchessException {
-        Task task = null;
-        // Parse the line and create task objects accordingly
-        // Example line format: "T | 1 | read book"
-        String[] parts = line.split("\\|");
-        String type = parts[0].trim();
-        boolean isDone = parts[1].trim().equals("1");
-        String description = parts[2].trim();
-
-        switch (type) {
-            case "T":
-                task = new ToDo(description, isDone);
-                break;
-            case "D":
-                String by = parts[3].trim();
-                task = new Deadline(description, isDone, by);
-                break;
-            case "E":
-                String from = parts[3].trim();
-                String to = parts[4].trim();
-                task = new Event(description, isDone, from, to);
-                break;
-            default:
-                System.out.println("Unknown task type: " + type);
-        }
-        return task;
-    }
-
-
-
 
 
     //Adds user input to list, exits if user inputs "bye"
@@ -130,6 +65,7 @@ public class Duchess {
                     if (tokens.length > 1) {
                         int taskIndexToMark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
                         taskList.markTaskAsDone(taskIndexToMark);
+                        storage.saveData(taskList);
                     } else {
                         throw new DuchessException("Oh dear! That is an invalid command. Try: mark <taskIndex>");
                     }
@@ -139,6 +75,7 @@ public class Duchess {
                     if (tokens.length > 1) {
                         int taskIndexToUnmark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
                         taskList.unmarkTaskAsDone(taskIndexToUnmark);
+                        storage.saveData(taskList);
                     } else {
                         throw new DuchessException("Oh dear! That is an invalid command. Try: unmark <taskIndex>");
                     }
@@ -146,20 +83,24 @@ public class Duchess {
 
                 case "todo":
                     taskList.addToDo(userInput);
+                    storage.saveData(taskList);
                     break;
 
                 case "deadline":
                     taskList.addDeadline(userInput);
+                    storage.saveData(taskList);
                     break;
 
                 case "event":
                     taskList.addEvent(userInput);
+                    storage.saveData(taskList);
                     break;
 
                 case "delete":
                     if (tokens.length > 1) {
                         int taskIndexToDelete = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
                         taskList.deleteTask(taskIndexToDelete);
+                        storage.saveData(taskList);
                     } else {
                         throw new DuchessException("Oh dear! That is an invalid command. Try: unmark <taskIndex>");
                     }
