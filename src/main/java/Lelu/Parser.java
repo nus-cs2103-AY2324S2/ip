@@ -1,3 +1,5 @@
+package Lelu;
+
 import Exceptions.InvalidInputException;
 import Exceptions.LeluException;
 import UI.Ui;

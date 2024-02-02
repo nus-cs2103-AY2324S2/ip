@@ -21,7 +21,7 @@ public class Ui {
     }
 
     public void greet() {
-        String greet = "    Hi! I am your favourite friend, Lelu :)\n    What can I do for you?\n";
+        String greet = "    Hi! I am your favourite friend, Lelu.Lelu :)\n    What can I do for you?\n";
         System.out.println(greet);
     }
 
