@@ -23,10 +23,15 @@ public class Deadline extends Task {
             throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.invalidFormat("Deadline"));
         }
     }
-    public void isDueBy(String date) {
-        if (this.deadline.equals(LocalDateTime.parse(date, this.inputFormat))) {
-            System.out.println(this);
-        }
+
+    /**
+     * Returns a boolean value indicating if the current task deadline is exactly as the specified date.
+     *
+     * @param date the deadline used for the checking.
+     * @return the boolean indicating if the deadline of current task is exactly as the specified one.
+     */
+    public boolean isDueBy(String date) {
+        return this.deadline.isEqual(LocalDateTime.parse(date, inputFormat));
     }
     @Override
     public String toString() {
