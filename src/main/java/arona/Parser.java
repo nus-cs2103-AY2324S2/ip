@@ -4,8 +4,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Takes an input and process the string
+ */
 public class Parser {
 
+    /**
+     *
+     * @param fullCommand Input from user that specify kind of command
+     * @return A command that can be executed to perform it's actions
+     * @throws AronaException if the user does not provide a task number
+     */
     public static Command parseCommand(String fullCommand) throws AronaException {
         String command = fullCommand.split(" ", 0)[0];
         switch(command) {
@@ -26,11 +35,25 @@ public class Parser {
                 return new AddTask(fullCommand);
         }
     }
+
+    /**
+     * Takes user input and parse the date into another format
+     * @param date Date given by user
+     * @return Formatted date
+     * @throws DateTimeParseException if user input date is of
+     * invalid format
+     */
     public static LocalDate parseDate(String date) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return LocalDate.parse(date, formatter);
     }
 
+    /**
+     * Takes a task and format it into a string that is to
+     * be saved in the file
+     * @param task Task to be saved
+     * @return Task in string format
+     */
     public static String taskToFileOutput(Task task) {
         String output = task.userInputToString()
                 .replaceAll("\\[T]", "T")
@@ -46,6 +69,12 @@ public class Parser {
         return output;
     }
 
+    /**
+     * Takes a string from file and format it to be added into
+     * tasklist
+     * @param input Task in string format to be added to tasklist
+     * @return String format of task
+     */
     public static String FileInputToTask(String input) {
 
         String output = input.replaceAll("\\| 0 \\|", "")
@@ -58,6 +87,11 @@ public class Parser {
         return output;
     }
 
+    /**
+     * Takes a task in string format and find the status of the task
+     * @param input Task in string format
+     * @return Boolean indicating if the task is completed
+     */
     public static boolean FileInputToTaskStatus(String input) {
         String taskStatus = input.split("\\|", 0)[1];
         boolean isTaskDone = taskStatus.trim().equals("1") ? true : false;
