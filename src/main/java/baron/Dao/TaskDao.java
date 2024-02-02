@@ -1,7 +1,7 @@
-package Dao;
+package baron.Dao;
 
-import Database.Database;
-import Models.Task;
+import baron.Database.Database;
+import baron.Models.Task;
 
 import java.io.File;
 
