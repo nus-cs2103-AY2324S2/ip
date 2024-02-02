@@ -20,7 +20,8 @@ public class DeleteCommand extends Command {
         this.commandList = commandList;
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DeleteInvalidException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws DeleteInvalidException {
+        String response = "";
         String deleteMessage = "Noted. I've removed this task:\n  ";
         try {
             if (this.commandList.length <= 1) {
@@ -32,14 +33,16 @@ public class DeleteCommand extends Command {
             }
             Task deleteTask = taskList.get(deleteIndex - 1);
             taskList.remove(deleteTask);
-            System.out.println(deleteMessage + deleteTask);
+            response += deleteMessage + deleteTask;
 
             storage.save(taskList);
         } catch (NumberFormatException e) {
             throw new DeleteInvalidException();
         } catch (SaveStorageException e) {
-            ui.showError(e.getMessage());
+            response = ui.showError(e.getMessage());
         }
+
+        return response;
     }
 
     public boolean isExit() {

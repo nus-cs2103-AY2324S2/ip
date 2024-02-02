@@ -19,7 +19,7 @@ public abstract class Command {
      * @param ui The user interaction object for the current instance of the chatbot.
      * @param storage The storage object for the current instance of the chatbot.
      * */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
     /**
      * Getter method for isExit property which dictates if the programme should be exited.

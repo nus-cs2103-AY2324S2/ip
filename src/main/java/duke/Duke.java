@@ -21,6 +21,23 @@ public class Duke {
     /* The user interaction object. */
     Ui ui;
 
+    /**
+     * Generates a response to the user input.
+     *
+     * @param input The user-entered input.
+     * @return The response to the input.
+     */
+    public String getResponse(String input) {
+        String response;
+        try {
+            Command c = Parser.parseCommand(input);
+            response = c.execute(taskList, ui, storage);
+        } catch (DukeException e) {
+            response = e.getMessage();
+        }
+        return response;
+    }
+
     public Duke(String relativeFilePath) {
         this.ui = new Ui();
 
@@ -31,30 +48,5 @@ public class Duke {
         } catch (LoadStorageException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    /**
-     * Driver method for the chatbot.
-     * */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parseCommand(fullCommand);
-                c.execute(taskList, ui, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        new Duke("src/db.txt").run();
     }
 }

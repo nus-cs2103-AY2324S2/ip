@@ -10,12 +10,13 @@ import duke.util.Storage;
  * The class representing a list command.
  * */
 public class ListCommand extends Command {
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        System.out.println("Here are the tasks in your list:");
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        String response = "Here are the tasks in your list:";
         for (int i = 0; i < taskList.size(); i++) {
             Task currentTask = taskList.get(i);
-            System.out.println(i + 1 + "." + currentTask);
+            response += "\n" + i + 1 + "." + currentTask;
         }
+        return response;
     }
 
     public boolean isExit() {

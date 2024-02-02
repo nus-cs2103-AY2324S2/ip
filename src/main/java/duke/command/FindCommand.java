@@ -17,18 +17,23 @@ public class FindCommand extends Command {
         this.commandList = commandList;
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws FindInvalidException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws FindInvalidException {
+        String response = "";
+
         if (this.commandList.length <= 1) {
             throw new FindInvalidException();
         }
 
-        System.out.println("Here are the matching tasks in your list:");
+        response += "Here are the matching tasks in your list:";
+
         for (int i = 0; i < taskList.size(); i++) {
             Task currentTask = taskList.get(i);
             if (currentTask.getDescription().contains(commandList[1])) {
-                System.out.println(i + 1 + "." + currentTask);
+                response += "\n" + i + 1 + "." + currentTask;
             }
         }
+
+        return response;
     }
 
     public boolean isExit() {
