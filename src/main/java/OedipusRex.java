@@ -29,5 +29,6 @@ public class OedipusRex {
         String thing4 = "A-JUnit";
         String thing5 = "A-Jar";
         String thing6 = "A-JavaDoc";
+        String thing7 = "A-CodingStandard";
     }
 }
