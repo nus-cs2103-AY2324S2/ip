@@ -1,7 +1,6 @@
-package task;
+package duke.task;
 
 import java.io.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -93,7 +92,7 @@ public class FileManager {
                     LocalDateTime toDate = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                     return new Event(taskDescription, isMarked, fromDate, toDate);
                 default:
-                    System.err.println("Sorry, there's no such task in my system. Try these: todo, deadline, event");
+                    System.err.println("Sorry, there's no such duke.task in my system. Try these: todo, deadline, event");
                     break;
             }
         }

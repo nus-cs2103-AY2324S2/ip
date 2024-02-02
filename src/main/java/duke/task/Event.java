@@ -1,6 +1,5 @@
-package task;
+package duke.task;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
@@ -39,7 +38,6 @@ public class Event extends Task {
 
     @Override
     protected String trimDescription(String taskDescription) {
-        // Used regex to remove "event", "/from", and "/to" and extracted "from" and "to" details
         String regex = "(?i)event\\s*(.*?)\\s*/from\\s*(.*?)\\s*/to\\s*(.*?)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(taskDescription);

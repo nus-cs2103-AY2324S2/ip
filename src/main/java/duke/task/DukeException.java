@@ -1,4 +1,4 @@
-package task;
+package duke.task;
 
 public class DukeException extends RuntimeException {
     public DukeException(String message) {

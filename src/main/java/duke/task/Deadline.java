@@ -1,4 +1,4 @@
-package task;
+package duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,7 +38,6 @@ public class Deadline extends Task {
 
     @Override
     protected String trimDescription(String taskDescription) {
-        // Use regex to remove "deadline", "/by", and extract the date and time details
         String regex = "(?i)deadline\\s*(.*?)\\s*/by\\s*(.*?)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(taskDescription);
