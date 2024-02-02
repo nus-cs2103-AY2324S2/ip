@@ -1,30 +1,29 @@
 import java.util.Scanner;
 public class Duke {
-    public static void main(String[] args) {
-        String logo = "\t  __   __    ____  ____  ____  ____\n"
-                + "\t / _\\ (  )  (  __)(  _ \\(  __)(    \\\n"
-                + "\t/    \\/ (_/\\ ) _)  )   / ) _)  ) D (\n"
-                + "\t\\_/\\_/\\____/(__)  (__\\_)(____)(____/\n";
+    private Parser parser;
+    private Ui ui;
+    private TaskList taskList;
 
-        System.out.println(logo);
-        final String name = "Alfred";
-        TaskList taskList = new TaskList();
-        OutputMessage output = new OutputMessage(name);
-        Parser parser = new Parser();
-        output.greet();
-        runProgram(parser, taskList);
+    public Duke(){
+        this.parser = new Parser();
+        this.ui = new Ui();
+        this.taskList = new TaskList();
     }
-
-    public static void runProgram(Parser parser, TaskList taskList){
+    public void run(){
+        this.ui.greet();
         Scanner scanner = new Scanner(System.in);
         try {
             Command command;
             do{
-                command = parser.parse(scanner.nextLine());
-                command.run(taskList);
+                command = this.parser.parse(scanner.nextLine());
+                command.run(this.taskList);
             }while(!command.getType().equals(Parser.Cmd.bye));
         }catch(IllegalArgumentException e){
-            OutputMessage.informInvalidCommand();
+            Ui.informInvalidCommand();
         }
+    }
+    public static void main(String[] args) {
+        Duke Alfred = new Duke();
+        Alfred.run();
     }
 }

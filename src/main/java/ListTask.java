@@ -4,6 +4,6 @@ public class ListTask extends Command{
     }
     @Override
     public void run(TaskList taskList){
-        OutputMessage.displayFullList(taskList);
+        Ui.displayFullList(taskList);
     }
 }

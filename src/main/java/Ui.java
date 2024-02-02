@@ -1,15 +1,16 @@
-import java.util.ArrayList;
-public class OutputMessage {
-    private final String name;
-    public OutputMessage(String name){
-        this.name = name;
-    }
+public class Ui {
+    private String logo = "\t  __   __    ____  ____  ____  ____\n"
+            + "\t / _\\ (  )  (  __)(  _ \\(  __)(    \\\n"
+            + "\t/    \\/ (_/\\ ) _)  )   / ) _)  ) D (\n"
+            + "\t\\_/\\_/\\____/(__)  (__\\_)(____)(____/\n";
+    private final String name = "Alfred";
     private static void printMessageWithLines(String content){
         System.out.println("\t____________________________________________________________");
         System.out.println("\t" + content);
         System.out.println("\t____________________________________________________________\n" );
     }
     public void greet(){
+        System.out.println(logo);
         String message = "Greetings! I am " + name + "." +"\n\tHow may I be of service to you today?";
         printMessageWithLines(message);
     }
@@ -21,6 +22,7 @@ public class OutputMessage {
         String message = "I regret to inform you that I currently lack an understanding of the intended meaning behind"
                 + "that statement.";
         printMessageWithLines(message);
+        informWrongInputFormat();
     }
     public static void informBadTodoInput(){
         String message = "It is imperative that the description of a to-do is not left empty.";
@@ -56,6 +58,28 @@ public class OutputMessage {
             String message = "I would like to inform you that the task list is empty.";
             printMessageWithLines(message);
         }
+    }
+    public static void informItemRemoved(Task task, int size){
+        String message = "I acknowledge your update. The specified task has been duly removed:\n" + task + "Currently, " +
+                "the list comprises  " + size + " tasks.";
+    }
+    public static void informWrongDateFormat(){
+        String message = "Please entered the date and time in the (yyyy/mm/dd HHmm) format";
+        printMessageWithLines(message);
+    }
+    public static void informWrongInputFormat(){
+        String message = "Please follow the correct format for adding tasks:\n" +
+                "\t\tTo add todos: todo <Taskname>\n" +
+                "\t\tTo add deadlines: deadline <Taskname> /by <deadline in yyyy-mm-dd HHmm format>\n"+
+                "\t\tTo add events: event <Taskname> /from <start time in yyyy-mm-dd HHmm format> " +
+                "/to <end time in yyyy-mm-dd HHmm format>\n" +
+                "\tOther commands: \n" +
+                "\t\tlist : to list the full list\n" +
+                "\t\tmark <index>: to mark the task at index no <index> in the list as complete\n" +
+                "\t\tunmark <index>: to mark the task at index no <index> in the last as incomplete\n" +
+                "\t\tdelete <index>: to remove the taks at index no <index> in the last\n" +
+                "\t\tbye: to leave the program";
+        printMessageWithLines(message);
     }
 
 }

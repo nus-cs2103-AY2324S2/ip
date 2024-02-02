@@ -1,17 +1,15 @@
 import java.util.ArrayList;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+
 public class TaskList {
     private ArrayList<Task> listItems = new ArrayList<>();
-    private FileHandler fileHandler = new FileHandler();
+    private Storage storage = new Storage();
     public void addTask(Task task, String type, String[]data){
         this.listItems.add(task);
-        fileHandler.addListStateRecord(type, data);
-        OutputMessage.informItemAdded(task, this);
+        storage.addListStateRecord(type, data);
+        Ui.informItemAdded(task, this);
     }
     public TaskList(){
-        this.listItems = fileHandler.loadTasks();
+        this.listItems = storage.loadTasks();
     }
     public void showList(){
         System.out.println("\t____________________________________________________________");
@@ -25,22 +23,18 @@ public class TaskList {
     }
     public void markList(int index){
         this.listItems.get(index-1).mark();
-        fileHandler.modifyStateRecord(true, index-1);
-        OutputMessage.informListMarked(listItems.get(index-1));
+        storage.modifyStateRecord(true, index-1);
+        Ui.informListMarked(listItems.get(index-1));
     }
     public void unmarkList(int index){
         this.listItems.get(index-1).unmark();
-        fileHandler.modifyStateRecord(false, index-1);
-        OutputMessage.informListUnmarked(listItems.get(index-1));
+        storage.modifyStateRecord(false, index-1);
+        Ui.informListUnmarked(listItems.get(index-1));
     }
     public void deleteList(int index){
         Task task = listItems.remove(index-1);
-        fileHandler.removeListStateRecord( index-1);
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\tI acknowledge your update. The specified task has been duly removed:");
-        System.out.println("\t   "+task);
-        System.out.println("\tCurrently, the list comprises  " + listItems.size() + " tasks.");
-        System.out.println("\t____________________________________________________________\n");
+        storage.removeListStateRecord( index-1);
+        Ui.informItemRemoved(task, listItems.size());
     }
     public int getSize(){
         return this.listItems.size();
