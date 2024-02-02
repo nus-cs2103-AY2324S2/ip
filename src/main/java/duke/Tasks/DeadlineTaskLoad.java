@@ -38,7 +38,7 @@ public class DeadlineTaskLoad extends Task {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
-    
+
     /**
      * Returns the tag for the deadline task.
      *

@@ -1,6 +1,8 @@
 package duke.Command;
 
-import duke.*;
+import duke.Ui;
+import duke.Storage;
+import duke.DukeException;
 import duke.Tasks.Task;
 import duke.Tasks.TaskList;
 
@@ -8,15 +10,15 @@ import duke.Tasks.TaskList;
  * Represents a command to mark a task as not done.
  */
 public class UnmarkCommand extends Command {
-    private int index;
+    private int INDEX;
 
     /**
      * Constructs an UnmarkCommand object with the given task index.
      *
-     * @param index The index of the task to mark as not done.
+     * @param TASK_INDEX The index of the task to mark as not done.
      */
-    public UnmarkCommand(int index) {
-        this.index = index;
+    public UnmarkCommand(int TASK_INDEX) {
+        this.INDEX = TASK_INDEX;
     }
 
 
@@ -30,11 +32,11 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        if (index < 1 || index > tasks.size()) {
+        if (INDEX < 1 || INDEX > tasks.size()) {
             throw new DukeException("OOPS!!! duke.Tasks.Task index is out of range.");
         }
 
-        Task task = tasks.get(index - 1);
+        Task task = tasks.get(INDEX - 1);
         task.markNotDone();
         ui.showUnmarkedMessage(task);
         storage.save(tasks.getAllTasks());
