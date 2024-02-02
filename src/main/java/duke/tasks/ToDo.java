@@ -25,8 +25,8 @@ public class ToDo extends Task {
      * @param name      A String value that states the name of the Task.
      * @param completed Boolean of whether Task is completed.
      */
-    public ToDo(String name, boolean completed) {
-        super(name, TYPE, completed);
+    public ToDo(String name, boolean isCompleted) {
+        super(name, TYPE, isCompleted);
     }
 
     /**

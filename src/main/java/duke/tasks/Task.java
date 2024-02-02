@@ -15,31 +15,31 @@ public class Task {
     private String type;
 
     /** A boolean value that states whether the Task has been completed or not. */
-    private boolean completed;
+    private boolean isCompleted;
 
     /**
      * Constructor for the Task.
      * 
      * @param name A String value that states the name of the Task.
      */
-    public Task(String name, String type, boolean completed) {
+    public Task(String name, String type, boolean isCompleted) {
         this.name = name;
         this.type = type;
-        this.completed = completed;
+        this.isCompleted = isCompleted;
     }
 
     /**
      * Sets the status of completed to true.
      */
     public void setCompleted() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     /**
      * Sets the status of completed to false.
      */
     public void setNotCompleted() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -64,7 +64,7 @@ public class Task {
      * @return String representation of the Task to be store in local disk.
      */
     public String convertToStorageFormat() {
-        String mark = completed ? "X" : " ";
+        String mark = isCompleted ? "X" : " ";
         return this.type + " | " + mark + " | " + this.name;
     }
 
@@ -75,7 +75,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String mark = completed ? "X" : " ";
+        String mark = isCompleted ? "X" : " ";
         return "[" + this.type + "]" + "[" + mark + "]" + " " + this.name;
     }
 }

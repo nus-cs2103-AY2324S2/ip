@@ -9,7 +9,7 @@ package duke.actions;
  */
 public class Help extends Command {
     /** String of all possible commands. */
-    private static final String help = "Active commands:x\n" +
+    private static final String HELP = "Active commands:x\n" +
             "\nVIEW\n" +
             "list: lists all tasks saved.\n" +
             "help: lists all available commands.\n" +
@@ -32,7 +32,7 @@ public class Help extends Command {
     /** Executes by returning all commands. */
     @Override
     public String execute() {
-        return help;
+        return HELP;
     }
 
 }

@@ -30,33 +30,33 @@ public class Parser {
      * @return Returns a Command to be executed.
      */
     public static Command parse(String userInput) throws InvalidCommandException, InvalidInputException {
-        String[] input = userInput.trim().split(" ", 2);
-        String ins = input[0];
-        if (input.length > 1) { // for ins with parameter
-            switch (ins) { // correct ins but wrong params handled by each method call
+        String[] inputs = userInput.trim().split(" ", 2);
+        String instruction = inputs[0];
+        if (inputs.length > 1) { // for ins with parameter
+            switch (instruction) { // correct ins but wrong params handled by each method call
                 case "mark":
-                    int indexToMark = Integer.parseInt(input[1]);
+                    int indexToMark = Integer.parseInt(inputs[1]);
                     return new MarkTask(indexToMark - 1);
                 case "unmark":
-                    int indexToUnmark = Integer.parseInt(input[1]);
+                    int indexToUnmark = Integer.parseInt(inputs[1]);
                     return new UnMarkTask(indexToUnmark - 1);
                 case "delete":
-                    int indexToDelete = Integer.parseInt(input[1]);
+                    int indexToDelete = Integer.parseInt(inputs[1]);
                     return new DeleteTask(indexToDelete - 1);
                 case "todo":
                 case "deadline":
                 case "event":
-                    String info = input[1];
-                    return new AddTask(ins, info);
+                    String parameter = inputs[1];
+                    return new AddTask(instruction, parameter);
                 case "find":
-                    String key = input[1];
+                    String key = inputs[1];
                     return new FindTask(key);
                 default: // incorrect ins with incorrect params handled here
-                    throw new InvalidCommandException("Invalid command: " + ins
+                    throw new InvalidCommandException("Invalid command: " + instruction
                             + "\nPlease input the correct commands. Input help to see list of commands.");
             }
         } else { // for ins with no parameter
-            switch (ins) {
+            switch (instruction) {
                 case "list":
                     return new ListTask();
                 case "help":
@@ -67,9 +67,9 @@ public class Parser {
                 case "todo":
                 case "deadline":
                 case "event": // correct ins but no param handled
-                    throw new InvalidInputException("Error: " + "Invalid parameters for " + ins);
+                    throw new InvalidInputException("Error: " + "Invalid parameters for " + instruction);
                 default: // incorrect ins and no param handled here
-                    throw new InvalidCommandException("Invalid command: " + ins
+                    throw new InvalidCommandException("Invalid command: " + instruction
                             + "\nPlease input the correct commands. Input help to see list of commands.");
             }
         }

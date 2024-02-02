@@ -60,20 +60,20 @@ public class TaskFileManager {
      * @return Tasks which are saved in the local drive as an ArrayList<Task>.
      */
     public static ArrayList<Task> loadTasksFromFile() throws FileNotFoundException, IOException {
-        File f = new File(FILEPATH); // create a File for the given file path
-        if (!f.exists()) { // Check if the file exists. If not, create a new file.
-            f.createNewFile();
+        File file = new File(FILEPATH); // create a File for the given file path
+        if (!file.exists()) { // Check if the file exists. If not, create a new file.
+            file.createNewFile();
         }
-        Scanner sc = new Scanner(f); // create a Scanner using the File as the source
-        ArrayList<Task> data = new ArrayList<>();
+        Scanner sc = new Scanner(file); // create a Scanner using the File as the source
+        ArrayList<Task> tasks = new ArrayList<>();
         while (sc.hasNext()) { // TYPE | MARK | NAME \ BY \ FROM | TO
             String[] taskSegments = sc.nextLine().split(" \\| ", 2);
-            String ins = taskSegments[0];
-            String info = taskSegments[1];
-            data.add(loadIns(ins, info));
+            String instruction = taskSegments[0];
+            String parameter = taskSegments[1];
+            tasks.add(loadTask(instruction, parameter));
         }
         sc.close();
-        return data;
+        return tasks;
     }
 
     /**
@@ -85,37 +85,37 @@ public class TaskFileManager {
      * @param info String representing the information stored in the Task.
      * @return Returns the Task that is loaded from the given instruction and info.
      */
-    public static Task loadIns(String ins, String info) {
+    public static Task loadTask(String instruction, String parameter) {
         Task t = null;
-        switch (ins) {
+        switch (instruction) {
             case "T":
-                String[] td = info.split(" \\| ", 2);
-                boolean tCompleted = (td[0].trim() != "");
-                String tName = td[1];
-                t = new ToDo(tName, tCompleted);
+                String[] todoInput = parameter.split(" \\| ", 2);
+                boolean todoIsCompleted = (todoInput[0].trim() != "");
+                String tName = todoInput[1];
+                t = new ToDo(tName, todoIsCompleted);
                 break;
             case "D":
-                String[] d = info.split(" \\| ", 3);
-                boolean dCompleted = (d[0].trim() != "");
-                String dName = d[1];
-                String dDate = d[2];
+                String[] deadlineInputs = parameter.split(" \\| ", 3);
+                boolean deadlineIsCompleted = (deadlineInputs[0].trim() != "");
+                String deadlineName = deadlineInputs[1];
+                String deadlineDate = deadlineInputs[2];
                 try {
-                    LocalDate deadline = LocalDate.parse(dDate, STORAGEFORMAT);
-                    t = new Deadline(dName, deadline, dCompleted);
+                    LocalDate deadline = LocalDate.parse(deadlineDate, STORAGEFORMAT);
+                    t = new Deadline(deadlineName, deadline, deadlineIsCompleted);
                 } catch (DateTimeParseException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
             case "E":
-                String[] e = info.split(" \\| ", 4);
-                boolean eCompleted = (e[0].trim() != "");
-                String eName = e[1];
-                String eFrom = e[2];
-                String eTo = e[3];
+                String[] eventInputs = parameter.split(" \\| ", 4);
+                boolean eventIsCompleted = (eventInputs[0].trim() != "");
+                String eventName = eventInputs[1];
+                String eventFrom = eventInputs[2];
+                String eventTo = eventInputs[3];
                 try {
-                    LocalDate from = LocalDate.parse(eFrom, STORAGEFORMAT);
-                    LocalDate to = LocalDate.parse(eTo, STORAGEFORMAT);
-                    t = new Event(eName, from, to, eCompleted);
+                    LocalDate from = LocalDate.parse(eventFrom, STORAGEFORMAT);
+                    LocalDate to = LocalDate.parse(eventTo, STORAGEFORMAT);
+                    t = new Event(eventName, from, to, eventIsCompleted);
                 } catch (DateTimeParseException f) {
                     System.out.println(f.getMessage());
                 }

@@ -21,10 +21,10 @@ import duke.tasks.ToDo;
  */
 public class AddTask extends Command {
     /** Instruction or type of command. */
-    private String ins;
+    private String instruction;
 
     /** Input parameters to the command. */
-    private String info;
+    private String parameter;
 
     /** Output format for printing dates. */
     private static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern("d-M-yy");
@@ -35,9 +35,9 @@ public class AddTask extends Command {
      * @param taskInstruction Takes in an instruction.
      * @param taskInfo        Takes in instruction parameters.
      */
-    public AddTask(String taskInstruction, String taskInfo) {
-        this.ins = taskInstruction;
-        this.info = taskInfo;
+    public AddTask(String instruction, String parameter) {
+        this.instruction = instruction;
+        this.parameter = parameter;
     }
 
     /**
@@ -51,41 +51,41 @@ public class AddTask extends Command {
     @Override
     public String execute() throws IOException, InvalidInputException {
         Task t = null;
-        switch (ins) {
+        switch (instruction) {
             case "todo":
-                t = new ToDo(info);
+                t = new ToDo(parameter);
                 break;
             case "deadline":
-                String[] deadlineParts = info.split(" /by ", 2);
-                if (deadlineParts.length == 1) { // if there is command but no input
-                    throw new InvalidInputException("Invalid parameters for " + ins);
+                String[] deadlineParameter = parameter.split(" /by ", 2);
+                if (deadlineParameter.length == 1) { // if there is command but no input
+                    throw new InvalidInputException("Invalid parameters for " + instruction);
                 }
-                String dName = deadlineParts[0];
-                String dEndTime = deadlineParts[1].trim();
+                String deadlineName = deadlineParameter[0];
+                String deadlineEndDate = deadlineParameter[1].trim();
                 try {
-                    LocalDate deadline = LocalDate.parse(dEndTime, PRINTFORMAT);
-                    t = new Deadline(dName, deadline);
+                    LocalDate deadline = LocalDate.parse(deadlineEndDate, PRINTFORMAT);
+                    t = new Deadline(deadlineName, deadline);
                 } catch (DateTimeParseException e) {
                     return ("Error while parsing date: Format should be d-M-yy.");
                 }
                 break;
             case "event":
-                String[] eventParts = info.split(" /from ", 2);
-                if (eventParts.length == 1) { // if there is command but no input
-                    throw new InvalidInputException("Invalid parameters for " + ins);
+                String[] eventParameter = parameter.split(" /from ", 2);
+                if (eventParameter.length == 1) { // if there is command but no input
+                    throw new InvalidInputException("Invalid parameters for " + instruction);
                 }
-                String eName = eventParts[0];
-                String time = eventParts[1];
-                String[] timeParts = time.split(" /to ", 2);
-                if (timeParts.length == 1) { // if there is command but no input
-                    throw new InvalidInputException("Invalid parameters for " + ins);
+                String eventName = eventParameter[0];
+                String eventDates = eventParameter[1];
+                String[] dateParameters = eventDates.split(" /to ", 2);
+                if (dateParameters.length < 2) { // if there are less than 2 dates given
+                    throw new InvalidInputException("Invalid parameters for " + instruction);
                 }
-                String startTime = timeParts[0].trim();
-                String endTime = timeParts[1].trim();
+                String eventStartDate = dateParameters[0].trim();
+                String eventEndDate = dateParameters[1].trim();
                 try {
-                    LocalDate start = LocalDate.parse(startTime, PRINTFORMAT);
-                    LocalDate end = LocalDate.parse(endTime, PRINTFORMAT);
-                    t = new Event(eName, start, end);
+                    LocalDate start = LocalDate.parse(eventStartDate, PRINTFORMAT);
+                    LocalDate end = LocalDate.parse(eventEndDate, PRINTFORMAT);
+                    t = new Event(eventName, start, end);
                 } catch (DateTimeParseException e) {
                     return ("Error while parsing date: Format should be d-M-yy.");
                 }
