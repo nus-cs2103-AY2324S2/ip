@@ -3,9 +3,8 @@ package jayne.task;
 import java.util.ArrayList;
 import java.util.List;
 
-import jayne.Storage;
-
 import jayne.JayneException;
+import jayne.Storage;
 
 /**
  * Represents a list of tasks. This class handles operations such as

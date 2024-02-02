@@ -45,7 +45,8 @@ public class JayneException extends Exception {
      * @return a new JayneException with a message indicating that the task number for unmarking cannot be empty.
      */
     public static JayneException unmarkEmptyException() {
-        return new JayneException("What are you doing? The number of the task to unmark cannot be empty lah. E.g. unmark 1");
+        return new JayneException("What are you doing? The number of the "
+                + "task to unmark cannot be empty lah. E.g. unmark 1");
     }
 
     /**
@@ -80,7 +81,8 @@ public class JayneException extends Exception {
      * @return a new JayneException with a message indicating that the description of a to-do task cannot be empty.
      */
     public static JayneException todoException() {
-        return new JayneException("Huh?? why your description of a todo is empty! Please enter description. E.g. todo read book");
+        return new JayneException("Huh?? why your description of a todo "
+                + "is empty! Please enter description. E.g. todo read book");
     }
 
     /**
@@ -89,7 +91,8 @@ public class JayneException extends Exception {
      * @return a new JayneException with a message indicating that the description of an event task cannot be empty.
      */
     public static JayneException emptyEventException() {
-        return new JayneException("The description of an event cannot be empty lah. E.g. event project meeting /from Mon 2pm /to 4pm");
+        return new JayneException("The description of an event "
+                + "cannot be empty lah. E.g. event project meeting /from Mon 2pm /to 4pm");
     }
     /**
      * Constructs a JayneException for an empty start time in an event task.
@@ -97,7 +100,8 @@ public class JayneException extends Exception {
      * @return a new JayneException with a message indicating that the start time of an event task cannot be empty.
      */
     public static JayneException eventStartException() {
-        return new JayneException("The event start time cannot be empty. E.g. event project meeting /from Mon 2pm /to 4pm");
+        return new JayneException("The event start time cannot be empty. "
+                + "E.g. event project meeting /from Mon 2pm /to 4pm");
     }
     /**
      * Constructs a JayneException for an empty end time in an event task.
@@ -105,7 +109,8 @@ public class JayneException extends Exception {
      * @return a new JayneException with a message indicating that the end time of an event task cannot be empty.
      */
     public static JayneException eventEndException() {
-        return new JayneException("The event end time cannot be empty please. E.g. event project meeting /from Mon 2pm /to 4pm");
+        return new JayneException("The event end time cannot be empty please. "
+                + "E.g. event project meeting /from Mon 2pm /to 4pm");
     }
     /**
      * Constructs a JayneException for an empty task number when marking a task.

@@ -19,7 +19,8 @@ public class Event extends Task {
         this.end = end;
     }
     /**
-     * Returns the string representation of the event task, including its type, status, description, start time, and end time.
+     * Returns the string representation of the event task,
+     * including its type, status, description, start time, and end time.
      *
      * @return a string representation of the event task.
      */

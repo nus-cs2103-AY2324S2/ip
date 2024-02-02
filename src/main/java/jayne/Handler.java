@@ -4,13 +4,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import jayne.task.Deadline;
+import jayne.task.Event;
 import jayne.task.Task;
 import jayne.task.TaskList;
-
-import jayne.task.Deadline;
-
-import jayne.task.Event;
 import jayne.task.Todo;
+
+/**
+ * Handles the execution of user commands.
+ * This class is responsible for processing user input commands
+ * and invoking the appropriate actions on the TaskList.
+ * It acts as a bridge between the user interface and the data model.
+ */
 public class Handler {
     private static final String dash = "___________________________________";
     /**
