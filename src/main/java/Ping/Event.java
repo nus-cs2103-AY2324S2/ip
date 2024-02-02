@@ -1,5 +1,5 @@
 //// Solution below adapted by week2 iP Level-3 Partial solution
-package ping;
+package Ping;
 import java.time.LocalDateTime;
 
 public class Event extends Task {

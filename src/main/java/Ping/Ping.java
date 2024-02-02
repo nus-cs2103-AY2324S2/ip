@@ -1,8 +1,8 @@
-package ping;
+package Ping;
 
 import java.util.ArrayList;
 
-import command.Command;
+import Command.Command;
 
 public class Ping {
     private UI ui;

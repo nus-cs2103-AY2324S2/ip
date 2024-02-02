@@ -1,17 +1,17 @@
-package ping;
+package Ping;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import command.AddCommand;
-import command.BlahCommand;
-import command.Command;
-import command.DeleteCommand;
-import command.ExitCommand;
-import command.HiCommand;
-import command.ListCommand;
-import command.MarkCommand;
-import command.UnMarkCommand;
+import Command.AddCommand;
+import Command.BlahCommand;
+import Command.Command;
+import Command.DeleteCommand;
+import Command.ExitCommand;
+import Command.HiCommand;
+import Command.ListCommand;
+import Command.MarkCommand;
+import Command.UnMarkCommand;
 
 
 public class Parser {

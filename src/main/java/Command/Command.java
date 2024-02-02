@@ -1,7 +1,7 @@
-package command;
+package Command;
 
-import ping.TaskList;
-import ping.UI;
+import Ping.TaskList;
+import Ping.UI;
 
 public abstract class Command {
     public abstract TaskList perform(TaskList tasks, UI ui);

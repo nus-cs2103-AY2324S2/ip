@@ -1,7 +1,8 @@
-package command;
+package Command;
 
-import ping.TaskList;
-import ping.UI;
+
+import Ping.TaskList;
+import Ping.UI;
 
 public class HiCommand extends Command {
 

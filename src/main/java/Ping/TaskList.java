@@ -1,4 +1,4 @@
-package ping;
+package Ping;
 import java.util.ArrayList;
 
 public class TaskList {

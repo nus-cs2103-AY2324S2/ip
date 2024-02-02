@@ -1,8 +1,8 @@
-package command;
+package Command;
 
-import ping.Task;
-import ping.TaskList;
-import ping.UI;
+import Ping.Task;
+import Ping.TaskList;
+import Ping.UI;
 public class MarkCommand extends Command {
     private int idx;
 

@@ -1,5 +1,5 @@
 //// Solution below adapted by week2 iP Level-3 Partial solution
-package ping;
+package Ping;
 public class Todo extends Task {
     public Todo(String description) {
         super(description);

@@ -1,4 +1,4 @@
-package ping;
+package Ping;
 import java.io.*;
 import java.util.ArrayList;
 
