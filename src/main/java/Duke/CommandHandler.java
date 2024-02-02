@@ -6,7 +6,7 @@ package duke;
  * It provides methods to execute commands.
  */
 public class CommandHandler {
-    private Ui ui;
+    private Gui gui;
 
     public enum Command {
         BYE,
@@ -23,10 +23,10 @@ public class CommandHandler {
     /**
      * Constructs a new CommandHandler with the specified user interface.
      *
-     * @param uiArg the user interface to use
+     * @param gui the user interface to use
      */
-    public CommandHandler(Ui uiArg) {
-        this.ui = uiArg;
+    public CommandHandler(Gui gui) {
+        this.gui = gui;
     }
 
     /**
@@ -36,7 +36,7 @@ public class CommandHandler {
      * @return true if the command is to exit, false otherwise
      * @throws DukeException if the command is not recognized or if an error occurs while executing the command
      */
-    public boolean executeCommand(String userInput) throws DukeException {
+    public String executeCommand(String userInput) throws DukeException {
         String[] words = userInput.split("\\s+");
         Command command;
         try {
@@ -46,50 +46,52 @@ public class CommandHandler {
             throw new CommandNotFoundException(commandStr);
         }
 
+        String output = "";
         switch (command) {
-        case BYE:
-            ui.goodbye();
-            return true;
-        case LIST:
-            TaskList.list();
-            break;
-        default:
-            String arguments;
-            try {
-                arguments = userInput.substring(command.name().length() + 1);
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new ArgumentNotFoundException(command.name());
-            }
-            switch (command) {
-            case MARK:
-                TaskList.markTask(processTaskIdx(arguments));
+            case BYE:
+                output = "bye";
                 break;
-            case UNMARK:
-                TaskList.unmarkTask(processTaskIdx(arguments));
+            case LIST:
+                output = TaskList.list();
                 break;
-            case DELETE:
-                TaskList.deleteTask(processTaskIdx(arguments));
-                break;
-            case TODO:
-                TaskList.addTask(processToDo(arguments));
-                break;
-            case DEADLINE:
-                TaskList.addTask(processDeadline(arguments));
-                break;
-            case EVENT:
-                TaskList.addTask(processEvent(arguments));
-                break;
-            case FIND:
-                TaskList.findTask(arguments);
-                break;
-                default:
-                System.out.println("Error: Fell into default case in executeCommand method!");
-                break;
+            default:
+                String arguments;
+                try {
+                    arguments = userInput.substring(command.name().length() + 1);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new ArgumentNotFoundException(command.name());
                 }
-                // To store the updated Task List
-                Storage.store();
+                switch (command) {
+                case MARK:
+                    output = TaskList.markTask(processTaskIdx(arguments));
+                    break;
+                case UNMARK:
+                    output = TaskList.unmarkTask(processTaskIdx(arguments));
+                    break;
+                case DELETE:
+                    output = TaskList.deleteTask(processTaskIdx(arguments));
+                    break;
+                case TODO:
+                    output = TaskList.addTask(processToDo(arguments));
+                    break;
+                case DEADLINE:
+                    output = TaskList.addTask(processDeadline(arguments));
+                    break;
+                case EVENT:
+                    output = TaskList.addTask(processEvent(arguments));
+                    break;
+                case FIND:
+                    output = TaskList.findTask(arguments);
+                    break;
+                default:
+                    output = "Error: Fell into default case in executeCommand method!";
+                    break;
+                }
         }
-        return false;
+            // To store the updated Task List
+            Storage.store();
+
+            return output;
     }
 
 
