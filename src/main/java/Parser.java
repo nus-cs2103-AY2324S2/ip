@@ -1,5 +1,4 @@
 
-
 public class Parser {
     // Method to parse task from a line read from file
     public Task parseTaskFromFileString(String line) throws DuchessException {

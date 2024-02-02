@@ -1,13 +1,12 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duchess {
     private TaskList taskList;
     private Storage storage;
+
+    private Ui ui;
 
     // Declare the scanner as a static field in the class
     private static Scanner scanner = new Scanner(System.in);
@@ -21,24 +20,28 @@ public class Duchess {
         if (!tasksStored.isEmpty()) {
             this.taskList = new TaskList(storage.loadData());
         }
+        this.ui = new Ui();
     }
 
     public static void main(String[] args) {
-        printHorizontalLine();
-        printOpeningGreeting();
-        printHorizontalLine();
-
         try {
-            Duchess duchess = new Duchess();
-            duchess.printEcho();
+            new Duchess().run();
+        } catch (DuchessException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public void run() {
+        ui.printOpeningGreeting();
+        try {
+            printEcho();
         } catch (DuchessException e) {
             System.out.println(e.getMessage());
         } finally {
             //Close scanner
             scanner.close();
         }
-
-        printHorizontalLine();
     }
 
 
@@ -54,7 +57,7 @@ public class Duchess {
             // Based on user input, change output
             switch (tokens[0].toLowerCase()) {
                 case "bye":
-                    printClosingGreeting();
+                    ui.printClosingGreeting();
                     return;
 
                 case "list":
@@ -108,39 +111,9 @@ public class Duchess {
 
                 default:
                     throw new DuchessException("Oh dear, I can't make out what that is.");
+
             }
+            ui.printHorizontalLine();
         }
-    }
-
-    //Print opening greeting
-    private static void printOpeningGreeting() {
-        String logo = " ____            __\n"
-                + "|  _ \\ _   ______| |      ___  ___  ___\n"
-                + "| | | | | | |  __| |__  /  _ \\/ __|/ __|\n"
-                + "| |_| | |_| | |__| ___ |   __/\\__ \\\\__ \\\n"
-                + "|____/ \\__,_|____|_| |_|\\ ___||___/|___/\n";
-        System.out.println(logo);
-        printHorizontalLine();
-        System.out.println("Hello! I'm Duchess.");
-        System.out.println("What can I do for you today?");
-    }
-
-
-    //Prints closing greeting
-    private static void printClosingGreeting() {
-        printHorizontalLine();
-        System.out.println("Farewell. Hope to see you again soon, my dear!");
-    }
-
-    //Prints a Horizontal Line of 50 dashes
-    private static void printHorizontalLine() {
-        int lineLength = 50; // Specify the length of the line
-
-        // Print the horizontal line
-        for (int i = 0; i < lineLength; i++) {
-            System.out.print("_");
-        }
-
-        System.out.println();
     }
 }
