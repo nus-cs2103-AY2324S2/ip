@@ -148,14 +148,6 @@ public class TaskList {
         return taskIndex >= 0 && taskIndex < this.taskCount;
     }
 
-    public void increaseTaskCount() {
-        this.taskCount++;
-    }
-
-    public void decreaseTaskCount() {
-        this.taskCount--;
-    }
-
     //Remove this in the future... not very good to have getters!
     //Gets the "tasks" array list
     public ArrayList<Task> getTasks() {

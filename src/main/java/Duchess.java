@@ -9,13 +9,13 @@ public class Duchess {
     private static final String FILE_PATH = "./data/duchess.txt";
 
     public Duchess() throws DuchessException {
-        this.storage = new Storage(FILE_PATH);
-        this.taskList = new TaskList();
+        storage = new Storage(FILE_PATH);
+        taskList = new TaskList();
         ArrayList<Task> tasksStored = storage.loadData();
         if (!tasksStored.isEmpty()) {
-            this.taskList = new TaskList(storage.loadData());
+            taskList = new TaskList(storage.loadData());
         }
-        this.ui = new Ui();
+        ui = new Ui();
     }
 
     public static void main(String[] args) {

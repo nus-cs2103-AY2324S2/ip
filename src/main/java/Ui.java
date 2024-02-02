@@ -56,10 +56,12 @@ public class Ui {
                     return;
 
                 case "list":
+                    printHorizontalLine();
                     taskList.printTaskList();
                     break;
 
                 case "mark":
+                    printHorizontalLine();
                     if (tokens.length > 1) {
                         int taskIndexToMark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
                         taskList.markTaskAsDone(taskIndexToMark);
@@ -70,6 +72,7 @@ public class Ui {
                     break;
 
                 case "unmark":
+                    printHorizontalLine();
                     if (tokens.length > 1) {
                         int taskIndexToUnmark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
                         taskList.unmarkTaskAsDone(taskIndexToUnmark);
@@ -80,21 +83,25 @@ public class Ui {
                     break;
 
                 case "todo":
+                    printHorizontalLine();
                     taskList.addToDo(userInput);
                     storage.saveData(taskList);
                     break;
 
                 case "deadline":
+                    printHorizontalLine();
                     taskList.addDeadline(userInput);
                     storage.saveData(taskList);
                     break;
 
                 case "event":
+                    printHorizontalLine();
                     taskList.addEvent(userInput);
                     storage.saveData(taskList);
                     break;
 
                 case "delete":
+                    printHorizontalLine();
                     if (tokens.length > 1) {
                         int taskIndexToDelete = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
                         taskList.deleteTask(taskIndexToDelete);
