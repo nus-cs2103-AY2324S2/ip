@@ -1,7 +1,6 @@
 package nollid;
 
 import java.nio.file.Path;
-import java.util.Scanner;
 
 import nollid.commands.Command;
 import nollid.exceptions.InvalidCommandException;

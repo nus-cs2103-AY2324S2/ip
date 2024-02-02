@@ -12,10 +12,6 @@ public class ListCommand extends Command {
     /**
      * Overrides the execute method from the Command class.
      * Executes the command to display the tasks in the to-do list.
-     *
-     * @param tasks   The TaskList containing tasks.
-     * @param ui      The Ui for user interface interactions.
-     * @param storage The Storage for data storage operations.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {

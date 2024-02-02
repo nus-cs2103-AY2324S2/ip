@@ -12,10 +12,6 @@ public class ByeCommand extends Command {
     /**
      * Overrides the execute method from the Command class.
      * Executes the command to exit the application.
-     *
-     * @param tasks   The TaskList containing tasks.
-     * @param ui      The Ui for user interface interactions.
-     * @param storage The Storage for data storage operations.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {

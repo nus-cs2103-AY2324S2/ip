@@ -27,17 +27,23 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the main window, binding the scroll pane's vertical value to the dialog container's height property.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the given Nollid instance for interaction.
+     */
     public void setNollid(Nollid n) {
         this.nollid = n;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Nollid's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -46,7 +52,7 @@ public class MainWindow extends AnchorPane {
         String response = nollid.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getNollidDialog(response, dukeImage)
         );
         userInput.clear();
     }

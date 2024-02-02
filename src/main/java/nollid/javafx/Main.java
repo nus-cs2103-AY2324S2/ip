@@ -11,11 +11,16 @@ import nollid.Nollid;
 import nollid.Storage;
 
 /**
- * A GUI for Duke using FXML.
- */
+ * Main class responsible for launching the Nollid application.
+ * */
 public class Main extends Application {
     private Nollid nollid = new Nollid(Storage.DEFAULT_FILEPATH);
 
+    /**
+     * The entry point for the application.
+     *
+     * @param stage The primary stage for the application.
+     */
     @Override
     public void start(Stage stage) {
         try {

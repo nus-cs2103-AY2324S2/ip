@@ -27,6 +27,10 @@ public class MarkCommand extends Command {
         this.argsList = argsList;
     }
 
+    /**
+     * Overrides the execute method from the Command class.
+     * Executes the command to mark a task as done.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NollidException {
         // This means that the user has not supplied any number with the command
