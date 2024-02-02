@@ -6,6 +6,9 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.nio.file.Paths;
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 public class Duke {
     private static final String FILE_NAME = "duke.txt";
     private static final String FILE_PATH = Paths.get(".", FILE_NAME).toString();
@@ -67,7 +70,8 @@ public class Duke {
                             throw new DukeException("Incomplete deadline information");
                         }
                         System.out.println("\t\tAdded a new task to the list!");
-                        Deadline d = new Deadline(newArr[0], newArr[1]);
+                        LocalDate deadline = LocalDate.parse(newArr[1].split("by")[1].trim());
+                        Deadline d = new Deadline(newArr[0], deadline);
                         list.add(d);
                         System.out.println("\t\t  " + d.toString());
                     } else if (arr[0].equals("todo")) {
@@ -80,7 +84,9 @@ public class Duke {
                             throw new DukeException("Incomplete event information");
                         }
                         System.out.println("\t\tAdded a new task to the list!");
-                        Event e = new Event(newArr[0], newArr[1], newArr[2]);
+                        LocalDate from = LocalDate.parse(newArr[1].split("from")[1].trim());
+                        LocalDate to = LocalDate.parse(newArr[2].split("to")[1].trim());
+                        Event e = new Event(newArr[0], from, to);
                         list.add(e);
                         System.out.println("\t\t  " + e.toString());
                     } else {
@@ -155,11 +161,12 @@ public class Duke {
                 break;
             case "D":
                 String taskBy = parts[3].trim();
-                t = new Deadline(taskDescription, taskBy);
+                LocalDate taskDeadline = LocalDate.parse((taskBy));
+                t = new Deadline(taskDescription, taskDeadline);
                 break;
             case "E":
-                String taskFrom = parts[3].trim();
-                String taskTo = parts[4].trim();
+                LocalDate taskFrom = LocalDate.parse(parts[3].trim());
+                LocalDate taskTo = LocalDate.parse(parts[4].trim());
                 t = new Event(taskDescription, taskTo,  taskFrom);
                 break;
             default:
