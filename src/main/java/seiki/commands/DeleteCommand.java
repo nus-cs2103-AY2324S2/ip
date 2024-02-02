@@ -8,7 +8,9 @@ import seiki.data.task.Task;
 import seiki.storage.Storage;
 import seiki.ui.Ui;
 
-
+/**
+ * Represents the 'delete' command.
+ */
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     private ArrayList<String> args;

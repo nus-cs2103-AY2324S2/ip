@@ -12,6 +12,9 @@ import seiki.data.task.Event;
 import seiki.storage.Storage;
 import seiki.ui.Ui;
 
+/**
+ * Represents the 'event' command.
+ */
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
     private final ArrayList<String> args;

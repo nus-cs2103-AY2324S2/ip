@@ -4,6 +4,9 @@ import seiki.data.TaskList;
 import seiki.storage.Storage;
 import seiki.ui.Ui;
 
+/**
+ * Represents the 'list' command.
+ */
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";

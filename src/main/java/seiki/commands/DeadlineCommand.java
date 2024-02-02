@@ -12,6 +12,9 @@ import seiki.data.task.Deadline;
 import seiki.storage.Storage;
 import seiki.ui.Ui;
 
+/**
+ * Represents the 'deadline' command.
+ */
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
     private final ArrayList<String> args;

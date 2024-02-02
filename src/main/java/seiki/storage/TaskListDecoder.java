@@ -14,8 +14,16 @@ import seiki.data.task.Event;
 import seiki.data.task.Task;
 import seiki.data.task.ToDo;
 
+/**
+ * Decodes the storage data file into a {@code TaskList} object.
+ */
 public class TaskListDecoder {
 
+    /**
+     * Decodes {@code encodedTaskList} into a {@code TaskList} containing the decoded tasks.
+     * @param encodedTaskList
+     * @throws SeikiException
+     */
     public static TaskList decodeTaskList(List<String> encodedTaskList) throws SeikiException {
         final ArrayList<Task> decodedTasks = new ArrayList<>();
         for (String encodedTask : encodedTaskList) {
@@ -24,6 +32,11 @@ public class TaskListDecoder {
         return new TaskList(decodedTasks);
     }
 
+    /**
+     * Decodes {@code encodedTask} into a {@code Task}.
+     * @param encodedTask
+     * @throws SeikiException
+     */
     public static Task decodeTaskFromString(String encodedTask) throws SeikiException {
         StringTokenizer st = new StringTokenizer(encodedTask, "|");
 

@@ -3,14 +3,28 @@ package seiki.data.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a Deadline.
+ */
 public class Deadline extends Task {
     protected LocalDateTime dateTime;
 
+    /**
+     * Constructor of the Deadline.
+     * @param taskName  the title of the task.
+     * @param dateTime  the date & time of the task.
+     */
     public Deadline(String taskName, LocalDateTime dateTime) {
         super(taskName);
         this.dateTime = dateTime;
     }
 
+    /**
+     * Constructor of the Deadline with status set.
+     * @param taskName  the title of the task.
+     * @param dateTime  the date & time of the task.
+     * @param isDone    the status of the task.
+     */
     public Deadline(String taskName, LocalDateTime dateTime, boolean isDone) {
         super(taskName, isDone);
         this.dateTime = dateTime;

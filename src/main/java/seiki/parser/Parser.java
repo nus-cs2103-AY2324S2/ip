@@ -14,9 +14,17 @@ import seiki.commands.ToDoCommand;
 import seiki.commands.UnmarkCommand;
 import seiki.data.exception.SeikiException;
 
-
+/**
+ * Parses user input.
+ */
 public class Parser {
 
+    /**
+     * Parses user input into command for execution.
+     * @param input full user input string
+     * @return the command based on the user input
+     * @throws SeikiException
+     */
     public static Command parse(String input) throws SeikiException {
         try {
             ArrayList<String> args = new ArrayList<>(Arrays.asList(input.split(" ")));

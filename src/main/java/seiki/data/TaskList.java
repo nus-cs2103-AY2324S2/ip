@@ -4,25 +4,44 @@ import java.util.ArrayList;
 
 import seiki.data.task.Task;
 
+/**
+ * Represents the entire task list.
+ * Contains the data of the task list.
+ */
 public class TaskList {
     protected ArrayList<Task> taskList;
     protected int taskCount;
 
+    /**
+     * Creates an empty task list.
+     */
     public TaskList() {
         this.taskList = new ArrayList<>();
         this.taskCount = 0;
     }
 
+    /**
+     * Constructs a task list with the given data.
+     * @param tasks
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.taskList = tasks;
         this.taskCount = tasks.size();
     }
 
+    /**
+     * Adds task to the task list.
+     * @param task
+     */
     public void addTask(Task task) {
         taskList.add(task);
         taskCount++;
     }
 
+    /**
+     * Deletes task from the task list.
+     * @param task
+     */
     public void deleteTask(Task task) {
         taskList.remove(task);
         taskCount--;
