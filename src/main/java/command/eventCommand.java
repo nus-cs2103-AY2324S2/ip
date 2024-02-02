@@ -12,11 +12,24 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Command to add an event into the task list.
+ */
 public class eventCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * The constructor of eventCommand.
+     *
+     * @param taskList The task list which the command will modify.
+     * @param ui The ui to get the input of the user.
+     * @throws EmptyInputException If user did not input description.
+     * @throws EmptyTimeException If user did not input time.
+     * @throws InvalidFormatException If user's input invalid format.
+     * @throws InvalidDateTimeException If user input invalid date/time format.
+     */
     public eventCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
@@ -27,9 +40,9 @@ public class eventCommand extends Command {
         String input = ui.getInput();
         if (input.split(" ").length == 1) {
             throw new EmptyInputException("event");
-        }  else if (!input.contains("/from")) {
+        } else if (!input.contains("/from")) {
             throw new InvalidFormatException("event", "/from");
-        }  else if (!input.contains("/to")) {
+        } else if (!input.contains("/to")) {
             throw new InvalidFormatException("event", "/to");
         } else {
             String temp = input.substring(5);
@@ -49,7 +62,6 @@ public class eventCommand extends Command {
                     LocalTime endTime = LocalTime.parse(end.split(" ")[1].trim());
                     Event t = new Event(description, startDate, startTime, endDate, endTime);
                     taskList.event(t);
-
                 } catch (DateTimeParseException e) {
                     throw new InvalidDateTimeException("event");
                 }
