@@ -1,4 +1,4 @@
-package Oak.Feedback.enums;
+package Oak.feedback.enums;
 
 public enum CommandEnum {
     Bye("bye"),
@@ -6,11 +6,9 @@ public enum CommandEnum {
     Mark("mark"),
     Unmark("unmark"),
     Delete("delete"),
-
     Todo("todo"),
     Deadline("deadline"),
     Event("event");
-
     public final String commandValue;
 
     private CommandEnum(String commandValue) {

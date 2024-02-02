@@ -8,10 +8,16 @@ public class Task {
         this.name = name;
     }
 
+    /**
+     * Mark task completed.
+     */
     public void markTaskCompleted() {
         this.isCompleted = true;
     }
 
+    /**
+     * Mark task not completed.
+     */
     public void markTaskNotCompleted() {
         this.isCompleted = false;
     }
@@ -27,6 +33,11 @@ public class Task {
         return null;
     };
 
+    /**
+     * Converts the current task to a string format to be saved in the task list
+     *
+     * @return the formatted string
+     */
     public String toTaskListStringFormat() {
         String completedValue = this.isCompleted ? "1" : "0";
         return String.format("%s|%s", completedValue, this.name);

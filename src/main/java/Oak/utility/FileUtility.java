@@ -1,4 +1,4 @@
-package Oak.Utility;
+package Oak.utility;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,7 +7,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The type File utility.
+ */
 public class FileUtility {
+    /**
+     * Load file array list.
+     *
+     * @param filename the filename
+     * @return the array list
+     * @throws FileNotFoundException the file not found exception
+     */
     public ArrayList<String> loadFile(String filename) throws FileNotFoundException {
         File file = new File(System.getProperty("user.dir") + filename);
         ArrayList<String> fileData = new ArrayList<>();
@@ -21,6 +31,13 @@ public class FileUtility {
         return fileData;
     }
 
+    /**
+     * Write to file.
+     *
+     * @param filename the filename
+     * @param data     the data
+     * @throws IOException the io exception
+     */
     public void writeToFile(String filename, String data) throws IOException {
         File file = new File(System.getProperty("user.dir") + filename);
         FileWriter fw = new FileWriter(file, true);
@@ -29,6 +46,13 @@ public class FileUtility {
         fw.close();
     }
 
+    /**
+     * Remove line from file.
+     *
+     * @param filename the filename
+     * @param data     the data
+     * @throws IOException the io exception
+     */
     public void removeLineFromFile(String filename, String data) throws IOException {
         File file = new File(System.getProperty("user.dir") + filename);
         File tempFile = new File(System.getProperty("user.dir") + "temp");

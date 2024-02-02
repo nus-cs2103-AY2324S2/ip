@@ -1,6 +1,6 @@
-package Oak.Feedback;
+package Oak.feedback;
 
-import Oak.Feedback.enums.CommandEnum;
+import Oak.feedback.enums.CommandEnum;
 import Oak.exceptions.InvalidInputException;
 import Oak.task.TaskService;
 
@@ -8,10 +8,23 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * The type Feedback service.
+ */
 public class FeedbackService {
     private TaskService taskService = new TaskService();
 
+    /**
+     * Runs the feedback service on the user input
+     * Parses the user input and calls the appropriate method in the Task Service
+     *
+     * @param userInput the user input
+     * @return the output string to the user in the terminal
+     * @throws InvalidInputException the invalid input exception
+     * @throws IOException           the io exception
+     */
     public String run(String userInput) throws InvalidInputException, IOException {
+
         String[] cur = userInput.split(" ");
         CommandEnum curCommand = CommandEnum.getCommandEnum(cur[0]);
         String feedback = null;
@@ -111,18 +124,28 @@ public class FeedbackService {
 
     }
 
-    private String parseTodoInput(String[] input) {
-        // Sample Todo Input: todo borrow book
 
+    /**
+     * Parses the input provided by the user for the 'Todo' command
+     *
+     * @param input
+     * @return the name of the Todo item
+     */
+    private String parseTodoInput(String[] input) {
         // @@author SherisseTJW-reused
         // Reused from https://stackoverflow.com/a/34440330
         // with minor modifications
         return Arrays.stream(input).skip(1).map(String::trim).collect(Collectors.joining(" "));
     }
 
+    /**
+     * Parses the input provided by the user for the 'Deadline' command
+     *
+     * @param input
+     * @return A string array of the name of the task item, and the deadline provided by the user
+     * @throws InvalidInputException
+     */
     private String[] parseDeadlineInput(String[] input) throws InvalidInputException {
-        // Sample Deadline Input: deadline return book /by Sunday
-
         // @@author SherisseTJW-reused
         // Reused from https://stackoverflow.com/a/34440330
         String fullInput = Arrays.stream(input).skip(1).collect(Collectors.joining(" "));
@@ -136,6 +159,13 @@ public class FeedbackService {
         return new String[] { temp[0].strip(), temp[1].strip() };
     }
 
+    /**
+     * Parses the input provided by the user for the 'Event' command
+     *
+     * @param input
+     * @return A String Array of the name of the Task, the from datetime and the to datetime
+     * @throws InvalidInputException
+     */
     private String[] parseEventInput(String[] input) throws InvalidInputException {
         // Sample Event Input: event project meeting /from Mon 2pm /to 4pm
 
