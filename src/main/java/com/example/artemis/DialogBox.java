@@ -15,9 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * Represents a custom control for a dialog box using FXML.
+ * This control consists of an ImageView to display the speaker's face and a Label for the text from the speaker.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -25,6 +24,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a DialogBox with the specified text and image.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image representing the speaker's face.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -49,11 +54,25 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a DialogBox for the user with the specified text and image.
+     *
+     * @param text The text to be displayed in the user's dialog box.
+     * @param img  The image representing the user's face.
+     * @return A DialogBox representing the user's dialog.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    /**
+     * Creates a DialogBox for Artemis with the specified text and image, flipping the layout.
+     *
+     * @param text The text to be displayed in Artemis's dialog box.
+     * @param img  The image representing Artemis's face.
+     * @return A DialogBox representing Artemis's dialog.
+     */
+    public static DialogBox getArtemisDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

@@ -9,12 +9,19 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * The main class for the Artemis GUI application.
+ * Launches the JavaFX application and initializes the main window.
  */
 public class Main extends Application {
 
     private Artemis artemis = new Artemis();
 
+    /**
+     * Starts the JavaFX application, initializes the main window,
+     * and sets up the Artemis instance.
+     *
+     * @param stage The primary stage for the application.
+     */
     @Override
     public void start(Stage stage) {
         try {

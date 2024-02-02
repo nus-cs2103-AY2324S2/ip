@@ -1,7 +1,5 @@
 package com.example.artemis;
 
-import java.util.Scanner;
-
 /**
  * Artemis is a simple task management application.
  * It allows users to add, list, mark as done, and delete tasks.
@@ -17,7 +15,10 @@ public class Artemis {
 
 
     /**
-     * Constructor for Artemis class.
+     * Constructs an instance of the Artemis application.
+     * Initializes the application components, including the task list,
+     * user interface, and storage. Attempts to load tasks from the storage,
+     * and displays an error message if loading fails.
      */
     public Artemis() {
         try {
@@ -29,32 +30,11 @@ public class Artemis {
     }
 
     /**
-     * Runs the Artemis application, handling user input and performing tasks.
-     */
-    public void run() {
-        Scanner sc = new Scanner(System.in);
-
-        UI.showWelcomeMessage();
-
-        while (true) {
-            String input = sc.nextLine();
-            try {
-                // Parse user input and perform corresponding actions
-                Parser.parseInput(input, tasks, UI, STORAGE);
-            } catch (ArtemisException e) {
-                UI.showError("Oops, there might be invalid input..");
-            }
-            // Check if the user entered "bye" to exit the application
-            if (input.contains("bye")) {
-                break;
-            }
-        }
-        sc.close();
-    }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates a response to user input by parsing the input and performing
+     * corresponding actions in the Artemis application.
+     *
+     * @param input The user input to be processed.
+     * @return A string representing the response to the user input.
      */
     public String getResponse(String input) {
         try {
@@ -63,14 +43,5 @@ public class Artemis {
         } catch (ArtemisException e) {
             return UI.showError("Oops, there might be invalid input..");
         }
-    }
-
-    /**
-     * Main method to start the Artemis application.
-     *
-     * @param args Command-line arguments (not used in this application).
-     */
-    public static void main(String[] args) {
-        new Artemis().run();
     }
 }

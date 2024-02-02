@@ -3,7 +3,8 @@ package com.example.artemis;
 import java.time.format.DateTimeParseException;
 
 /**
- * Parses user input and performs corresponding actions in the Artemis application.
+ * The `Parser` class is responsible for parsing user input and executing corresponding actions
+ * within the Artemis application.
  */
 public class Parser {
 
@@ -11,9 +12,10 @@ public class Parser {
      * Parses the user input and performs the corresponding action.
      *
      * @param input   The user input.
-     * @param tasks   The TaskList containing the tasks.
-     * @param ui      The Ui for user interface interactions.
-     * @param storage The Storage for saving and loading tasks.
+     * @param tasks   The `TaskList` containing the tasks.
+     * @param ui      The `Ui` for user interface interactions.
+     * @param storage The `Storage` for saving and loading tasks.
+     * @return A message or response generated based on the user input.
      * @throws ArtemisException If there is an issue with parsing the input or executing the command.
      */
     public static String parseInput(String input, TaskList tasks, Ui ui, Storage storage) throws ArtemisException {
@@ -49,8 +51,9 @@ public class Parser {
      * Handles the "mark" command to mark a task as done.
      *
      * @param tokens The array of tokens from the user input.
-     * @param tasks  The TaskList containing the tasks.
-     * @param ui     The Ui for user interface interactions.
+     * @param tasks  The `TaskList` containing the tasks.
+     * @param ui     The `Ui` for user interface interactions.
+     * @return A message indicating the result of marking a task as done.
      */
     private static String handleMarkAsDone(String[] tokens, TaskList tasks, Ui ui) {
         try {
@@ -67,8 +70,9 @@ public class Parser {
      * Handles the "unmark" command to mark a task as not done.
      *
      * @param tokens The array of tokens from the user input.
-     * @param tasks  The TaskList containing the tasks.
-     * @param ui     The Ui for user interface interactions.
+     * @param tasks  The `TaskList` containing the tasks.
+     * @param ui     The `Ui` for user interface interactions.
+     * @return A message indicating the result of marking a task as not done.
      */
     private static String handleMarkAsNotDone(String[] tokens, TaskList tasks, Ui ui) {
         try {
@@ -85,8 +89,9 @@ public class Parser {
      * Handles the "todo" command to add a todo task.
      *
      * @param tokens The array of tokens from the user input.
-     * @param tasks  The TaskList containing the tasks.
-     * @param ui     The Ui for user interface interactions.
+     * @param tasks  The `TaskList` containing the tasks.
+     * @param ui     The `Ui` for user interface interactions.
+     * @return A message indicating the result of adding a todo task.
      */
     private static String handleTodoTask(String[] tokens, TaskList tasks, Ui ui) {
         try {
@@ -96,8 +101,8 @@ public class Parser {
             }
             tasks.addTask(new Todo(description));
             return ui.showTaskAdded(tasks.getTasks().size(), tasks.getTasks().get(tasks.getTasks().size() - 1));
-        } catch (ArtemisException | IndexOutOfBoundsException e) {
-            return ui.showError("OOPS!!! The description of a todo cannot be empty.");
+        } catch (ArtemisException e) {
+            return ui.showError(e.getMessage());
         }
     }
 
@@ -105,8 +110,9 @@ public class Parser {
      * Handles the "deadline" command to add a deadline task.
      *
      * @param input The user input containing the deadline details.
-     * @param tasks The TaskList containing the tasks.
-     * @param ui    The Ui for user interface interactions.
+     * @param tasks The `TaskList` containing the tasks.
+     * @param ui    The `Ui` for user interface interactions.
+     * @return A message indicating the result of adding a deadline task.
      */
     private static String handleDeadlineTask(String input, TaskList tasks, Ui ui) {
         try {
@@ -121,7 +127,7 @@ public class Parser {
             tasks.addTask(new Deadline(description, by));
             return ui.showTaskAdded(tasks.getTasks().size(), tasks.getTasks().get(tasks.getTasks().size() - 1));
         } catch (ArtemisException | DateTimeParseException e) {
-            return ui.showError(e.getMessage());
+            return ui.showError("Please use: deadline [description] /by [dd-mm-yyyy hhmm]");
         }
     }
 
@@ -129,8 +135,9 @@ public class Parser {
      * Handles the "event" command to add an event task.
      *
      * @param input The user input containing the event details.
-     * @param tasks The TaskList containing the tasks.
-     * @param ui    The Ui for user interface interactions.
+     * @param tasks The `TaskList` containing the tasks.
+     * @param ui    The `Ui` for user interface interactions.
+     * @return A message indicating the result of adding an event task.
      */
     private static String handleEventTask(String input, TaskList tasks, Ui ui) {
         try {
@@ -152,7 +159,7 @@ public class Parser {
             tasks.addTask(new Event(description, from, to));
             return ui.showTaskAdded(tasks.getTasks().size(), tasks.getTasks().get(tasks.getTasks().size() - 1));
         } catch (ArtemisException | DateTimeParseException e) {
-            return ui.showError(e.getMessage());
+            return ui.showError("Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
         }
     }
 
@@ -162,6 +169,7 @@ public class Parser {
      * @param tokens The array of tokens from the user input.
      * @param tasks  The TaskList containing the tasks.
      * @param ui     The Ui for user interface interactions.
+     * @return A message indicating the result of deleting a task.
      */
     private static String handleDeleteTask(String[] tokens, TaskList tasks, Ui ui) {
         try {
