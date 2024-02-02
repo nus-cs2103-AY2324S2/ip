@@ -6,11 +6,12 @@ public class Duke {
     protected static Storage storage = new Storage();
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        intro();
+        UI ui = new UI(sc);
+        ui.showWelcome();
         lst = storage.loadTasks();
-        while (sc.hasNextLine()) {
+        while (ui.hasNextCommand()) {
             try {
-                String s = sc.nextLine();
+                String s = ui.readCommand();
                 Parser.Command command = Parser.parseCommand(s);
                 String taskDetail = Parser.parseTaskDetail(s);
                 switch (command) {
@@ -18,7 +19,7 @@ public class Duke {
                         lst.displayList();
                         break;
                     case BYE:
-                        exit();
+                        ui.showGoodbye();
                         Storage.saveTasks();
                         return;
                     case MARK:
@@ -43,24 +44,10 @@ public class Duke {
                         throw new AllyException();
                 }
             } catch (Exception e) {
-                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                ui.showError();
+
             }
         }
-    }
-    private static void intro() {
-        String logo = "        _  _        \n  __ _ | || | _   _ \n / _` || || || | | |\n| (_| || || || |_| |\n \\__,_||_||_| \\__, |\n              |___/ \n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm Ally \n" + "What can I do for you?");
-    }
-    private static void echo(Scanner sc) {
-        String task = sc.nextLine();
-        while (!task.equals("bye")) {
-            System.out.println(task);
-            task = sc.nextLine();
-        }
-    }
-    private static void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
     }
 
 
