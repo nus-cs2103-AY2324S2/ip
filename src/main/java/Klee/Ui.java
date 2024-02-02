@@ -11,7 +11,7 @@ public class Ui {
     /**
      * Constructor for Ui class.
      */
-    public Ui () {
+    public Ui() {
 
     }
 
@@ -47,7 +47,7 @@ public class Ui {
         System.out.println(divider);
         System.out.println("These are all the things that we have to do today:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i+1) + ". " + tasks.get(i).getStatus());
+            System.out.println((i + 1) + ". " + tasks.get(i).getStatus());
         }
         System.out.println(divider);
     }
@@ -57,11 +57,11 @@ public class Ui {
      *
      * @param tasks
      */
-    public void showFilteredTasks (TaskList tasks) {
+    public void showFilteredTasks(TaskList tasks) {
         System.out.println(divider);
         System.out.println("These are all the things that are similar to what you are looking for:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i+1) + ". " + tasks.get(i).getStatus());
+            System.out.println((i + 1) + ". " + tasks.get(i).getStatus());
         }
         System.out.println(divider);
     }
