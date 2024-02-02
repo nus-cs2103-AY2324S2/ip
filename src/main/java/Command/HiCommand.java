@@ -1,13 +1,13 @@
-package Command;
+package command;
 
-import Ping.TaskList;
-import Ping.UI;
+import ping.TaskList;
+import ping.UI;
 
 public class HiCommand extends Command {
 
     @Override
     public TaskList perform(TaskList tasks, UI ui) {
-        ui.HiMessage();
+        ui.hiMessage();
         return null;
     }
 }

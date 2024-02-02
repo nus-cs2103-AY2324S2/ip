@@ -1,6 +1,8 @@
-package Ping;
-import java.util.Scanner;
+package ping;
+
 import java.util.ArrayList;
+import java.util.Scanner;
+
 public class UI {
     private Scanner sc;
 
@@ -14,8 +16,7 @@ public class UI {
 
     public void welcome() {
         System.out.println("----------------------------------------------------------");
-        System.out.println("Hello! I'm Ping"+
-                "\nWhat can I do for you?");
+        System.out.println("Hello! I'm Ping" + "\nWhat can I do for you?");
         System.out.println("----------------------------------------------------------");
     }
     public void goodBye() {
@@ -30,7 +31,7 @@ public class UI {
         System.out.println("Incorrect number or command");
     }
 
-    public void HiMessage() {
+    public void hiMessage() {
         System.out.println("Hi, there");
     }
     /**

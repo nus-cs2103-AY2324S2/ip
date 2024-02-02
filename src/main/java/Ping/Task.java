@@ -1,4 +1,4 @@
-package Ping;
+package ping;
 import java.io.Serializable;
 // Solution below adapted by week2 iP Level-3 Partial solution
 public class Task implements Serializable {

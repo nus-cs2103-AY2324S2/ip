@@ -1,8 +1,9 @@
-package Command;
+package command;
 
-import Ping.TaskList;
-import Ping.UI;
-import Ping.Task;
+import ping.Task;
+import ping.TaskList;
+import ping.UI;
+
 
 public class AddCommand extends Command {
     private Task task;

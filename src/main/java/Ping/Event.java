@@ -1,8 +1,8 @@
 //// Solution below adapted by week2 iP Level-3 Partial solution
-package Ping;
+package ping;
 import java.time.LocalDateTime;
 
-public class Event extends Task{
+public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 

@@ -1,7 +1,8 @@
-package Ping;
+package ping;
 import java.io.*;
 import java.util.ArrayList;
 
+@SuppressWarnings("unchecked")
 public class Storage {
     private static final String PATH = "./data/duke.txt";
 
@@ -42,17 +43,14 @@ public class Storage {
             tasks = (ArrayList<Task>) objInputStream.readObject();
             objInputStream.close();
             inputStream.close();
-        } catch (IOException e) {
-            System.out.println("Oops! Something is missing");
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             System.out.println("----------------------------------------------------------");
-            System.out.println("No existing file found\n" +
-                    "Dont'worry, I already creat an empty list for you\n"+
-                    "ChatBot Ping now could be used!"
+            System.out.println("No existing file found\n"
+                    + "Dont'worry, I already creat an empty list for you\n"
+                    + "ChatBot Ping now could be used!"
             );
             System.out.println("----------------------------------------------------------");
         }
-
         return tasks;
     }
 }

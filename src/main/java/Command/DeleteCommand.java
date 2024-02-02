@@ -1,8 +1,8 @@
-package Command;
+package command;
 
-import Ping.Task;
-import Ping.TaskList;
-import Ping.UI;
+import ping.Task;
+import ping.TaskList;
+import ping.UI;
 
 public class DeleteCommand extends Command {
     private int idx;

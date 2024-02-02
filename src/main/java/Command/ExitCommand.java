@@ -1,6 +1,6 @@
-package Command;
-import Ping.TaskList;
-import Ping.UI;
+package command;
+import ping.TaskList;
+import ping.UI;
 public class ExitCommand extends Command {
     @Override
     public TaskList perform(TaskList tasks, UI ui) {

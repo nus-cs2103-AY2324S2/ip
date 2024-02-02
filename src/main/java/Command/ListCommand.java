@@ -1,7 +1,7 @@
-package Command;
+package command;
 
-import Ping.TaskList;
-import Ping.UI;
+import ping.TaskList;
+import ping.UI;
 public class ListCommand extends Command {
     @Override
     public TaskList perform(TaskList tasks, UI ui) {

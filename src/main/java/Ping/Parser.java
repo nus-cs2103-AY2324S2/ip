@@ -1,37 +1,47 @@
-package Ping;
+package ping;
 
-import Command.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import command.AddCommand;
+import command.BlahCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.ExitCommand;
+import command.HiCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.UnMarkCommand;
+
+
 public class Parser {
-    public static Command parseCommand(String input) {
+  public static Command parseCommand(String input) {
         String[] restCommands = input.split(" ");
         String command = restCommands[0];
-
         switch (command.toLowerCase()) {
-            case "hi":
-                return new HiCommand();
-            case "blah":
-                return new BlahCommand();
-            case "bye":
-                return new ExitCommand();
-            case "mark":
-                return parseMark(restCommands);
-            case "unmark":
-                return parseUnMark(restCommands);
-            case "todo":
-                return parseTodo(restCommands);
-            case "list":
-                return new ListCommand();
-            case "delete":
-                return parseDelete(restCommands);
-            case "deadline":
-                return parseDeadline(restCommands);
-            case "event":
-                return parseEvent(restCommands);
-            default:
-                System.out.println("Pleas fill in the valid command\n" +
-                        "Valid commands are: bye, list, blah, todo, event, deadline, mark, unmark, delete, hi");
+        case "hi":
+            return new HiCommand();
+        case "blah":
+            return new BlahCommand();
+        case "bye":
+            return new ExitCommand();
+        case "mark":
+            return parseMark(restCommands);
+        case "unmark":
+            return parseUnMark(restCommands);
+        case "todo":
+            return parseTodo(restCommands);
+        case "list":
+            return new ListCommand();
+        case "delete":
+            return parseDelete(restCommands);
+        case "deadline":
+            return parseDeadline(restCommands);
+        case "event":
+            return parseEvent(restCommands);
+        default:
+            System.out.println("Pleas fill in the valid command\n"
+                    + "Valid commands are: bye, list, blah, todo, event, deadline, mark, unmark, delete, hi");
         }
 
         return null;
