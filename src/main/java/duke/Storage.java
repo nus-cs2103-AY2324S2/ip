@@ -7,10 +7,19 @@ import duke.task.Todo;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles the loading and saving of task data for the Duke chatbot.
+ * It interacts with the file system to read and write tasks from and to a file.
+ */
 public class Storage {
     private File file;
     private String path;
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param path The file path for loading and saving tasks.
+     */
     public Storage(String path) {
         this.path = path;
         this.file = new File(path);
@@ -25,6 +34,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from existing file, if any.
+     *
+     * @return A TaskList containing the tasks loaded from the file.
+     * @throws DukeException If the file is not found or there is an issue reading from it.
+     */
     public TaskList loadTasks() {
         try {
             TaskList tasks = new TaskList();
@@ -56,6 +71,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes current tasks to the file.
+     *
+     * @param tasks The TaskList containing the tasks to be written.
+     */
     public void writeTasks(TaskList tasks) {
         try (BufferedWriter reset = new BufferedWriter(new FileWriter(this.path))){
             reset.write("");
