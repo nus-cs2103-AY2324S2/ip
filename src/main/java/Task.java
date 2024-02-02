@@ -1,19 +1,24 @@
 /**
- * This class represent each task recorded.
+ * Represents a task in the task list.
  *
  * @author Wong Xu Cheng
  */
 public class Task {
-    private String description;
-    private boolean isDone;
+    private String description; // Description of the task.
+    private boolean isDone; // Status of the task.
 
+    /**
+     * Constructs a task.
+     *
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
     /**
-     * Get the status of the task.
+     * Gets the status of the task.
      * X for done, empty space for not done.
      *
      * @return Icon of status.
@@ -28,14 +33,14 @@ public class Task {
     }
 
     /**
-     * Mark the task as done.
+     * Marks the task as done.
      */
     public void mark() {
         this.isDone = true;
     }
 
     /**
-     * Unmark the task.
+     * Unmarks the task.
      */
     public void unmark() {
         this.isDone = false;

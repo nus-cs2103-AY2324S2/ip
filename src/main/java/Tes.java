@@ -1,14 +1,22 @@
+/**
+ * Represents the chatbot.
+ */
 public class Tes {
+    /** User interface to deal with input and output */
     private Ui ui;
+    /** Parser to deal with commands */
     private Parser parser;
 
+    /**
+     * Constructs a chatbot.
+     */
     public Tes(){
         this.ui = new Ui();
         this.parser = new Parser(ui);
     }
 
     /**
-     * Initialize the chatbot.
+     * Initializes the chatbot.
      */
     public void run() {
         this.ui.greet();

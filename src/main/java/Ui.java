@@ -1,24 +1,31 @@
 import java.util.Scanner;
-public class Ui {
-    // Line separator.
-    private static final String line = "    _______________________________________________________________";
-    private Scanner scanner;
-    private Storage taskList;
 
+/**
+ * Represents a class to deal with input and output of the chatbot system.
+ */
+public class Ui {
+    /** Line seperator */
+    private static final String LINE = "    _______________________________________________________________";
+    private Scanner scanner; // Scanner for input
+    private Storage taskList; // Task List to store tasks
+
+    /**
+     * Constructs a User Interface to deal with input and output.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
         this.taskList = new Storage();
     }
 
     /**
-     * Print a separator line.
+     * Prints a separator line.
      */
     public static void printLine() {
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
-     * Greeting from chatbot when initialized.
+     * Greets the user when initializing the chatbot.
      */
     public void greet() {
         printLine();
@@ -30,7 +37,7 @@ public class Ui {
     }
 
     /**
-     * Scan the next input.
+     * Scans the next input.
      *
      * @return New input.
      */
@@ -39,7 +46,7 @@ public class Ui {
     }
 
     /**
-     * Say goodbye when close the chatbot.
+     * Says goodbye when closing the chatbot.
      */
     public void close() {
         printLine();
@@ -50,7 +57,7 @@ public class Ui {
     }
 
     /**
-     * Add a task to the task list.
+     * Adds a to-do task to the task list.
      *
      * @param command Task description of the new task.
      */
@@ -63,6 +70,12 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Adds a task with deadline to the task list.
+     *
+     * @param command Task description of the new task.
+     * @param by Deadline of the task.
+     */
     public void addDeadline(String command, String by) {
         this.taskList.storeDeadline(command, by);
         printLine();
@@ -72,6 +85,12 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Adds a task with a designated period to the task list.
+     * @param command Task description of the new task.
+     * @param from Starting time of the task.
+     * @param to Ending time of the task.
+     */
     public void addEvent(String command, String from, String to) {
         this.taskList.storeEvent(command, from, to);
         printLine();
@@ -82,7 +101,7 @@ public class Ui {
     }
 
     /**
-     * List the tasks stored.
+     * Lists the tasks stored.
      */
     public void listTask() {
         printLine();
@@ -95,7 +114,8 @@ public class Ui {
     }
 
     /**
-     * Mark a task as done.
+     * Marks a task as done.
+     *
      * @param index Index of the task to be marked.
      */
     public void mark(int index) {
@@ -106,7 +126,7 @@ public class Ui {
     }
 
     /**
-     * Unmark a task.
+     * Unmarks a task.
      *
      * @param index Index of the task to be unmarked.
      */
@@ -118,6 +138,11 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Deletes a task in the task list.
+     *
+     * @param index Index of the task to be unmarked.
+     */
     public void delete(int index) {
         printLine();
         System.out.println("    Noted. I've removed this task:\n      "
