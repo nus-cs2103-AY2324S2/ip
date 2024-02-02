@@ -7,6 +7,12 @@ import duke.task.TaskList;
 import duke.task.Event;
 
 public class Parser {
+    /**
+     * Reads user input of tasks and parse it into the current TaskList.
+     *
+     * @param inputCommand User input from terminal.
+     * @param tasklist Current TaskList.
+     */
     public static void parse(String inputCommand, TaskList tasklist) {
         if (inputCommand.equals("list")) {
             tasklist.listDownTask();

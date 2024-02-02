@@ -4,11 +4,22 @@ public class Task {
     private String description;
     private boolean isDone;
 
+    /**
+     * Creates a new Task object with isDone set as false.
+     * First constructor.
+     *
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Overloaded constructor. isDone set by the user input.
+     * @param description Description of the task.
+     * @param isDone Task done status.
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;

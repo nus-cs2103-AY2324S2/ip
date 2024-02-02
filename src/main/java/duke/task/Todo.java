@@ -9,6 +9,11 @@ public class Todo extends Task {
         super(description, isDone);
     }
 
+    /**
+     * Returns the Todo in a new String format when written in a file.
+     *
+     * @return New String format.
+     */
     @Override
     public String outputString() {
         return "T | " + super.outputString();
