@@ -7,6 +7,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Task(String name, boolean isDone) {
+        this.name = name;
+        this.isDone = isDone;
+    }
+
     public void markDone() {
         this.isDone = true;
         System.out.println("     Nice! I've marked this task as done:\n       " + this.toString());
@@ -20,5 +25,9 @@ public abstract class Task {
     @Override
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + this.name;
+    }
+
+    public String toFileString() {
+        return (isDone ? "1" : "0") + " | " + this.name;
     }
 }

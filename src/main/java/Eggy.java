@@ -1,14 +1,24 @@
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 public class Eggy {
     public static final String name = "Eggy";
     public static List<Task> taskList = new ArrayList<>();
+
     public enum CommandType {
         LIST, DELETE, MARK, UNMARK, TODO, DEADLINE, EVENT
     }
 
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
+        loadTaskList();
 
         System.out.println("    ____________________________________________________________");
         System.out.println("     Hello! I'm " + name + "\uD83E\uDD5A.");
@@ -23,37 +33,40 @@ public class Eggy {
                 validateCommand(commandArr);
                 CommandType commandType = CommandType.valueOf(commandArr[0].toUpperCase());
                 switch (commandType) {
-                    case LIST:
-                        showList();
-                        break;
-                    case DELETE:
-                        Task task = taskList.remove(Integer.parseInt(commandArr[1]) - 1);
-                        System.out.println("     Noted. I've removed this task:");
-                        System.out.println("       " + task.toString());
-                        System.out.println("     Now you have " + taskList.size() + " tasks in the list.");
-                        break;
-                    case MARK:
-                        taskList.get(Integer.parseInt(commandArr[1]) - 1).markDone();
-                        break;
-                    case UNMARK:
-                        taskList.get(Integer.parseInt(commandArr[1]) - 1).unmarkDone();
-                        break;
-                    case TODO:
-                        Todo newTodo = new Todo(commandArr[1]);
-                        addTask(newTodo);
-                        break;
-                    case DEADLINE:
-                        String[] deadlineSplit = commandArr[1].split(" /by ");
-                        Deadline newDeadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
-                        addTask(newDeadline);
-                        break;
-                    case EVENT:
-                        String[] eventSplit = commandArr[1].split(" /from | /to ");
-                        Event newEvent = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
-                        addTask(newEvent);
-                        break;
-                    default:
-                        throw new EggyException("");
+                case LIST:
+                    showList();
+                    break;
+                case DELETE:
+                    Task task = taskList.remove(Integer.parseInt(commandArr[1]) - 1);
+                    saveTaskListToFile();
+                    System.out.println("     Noted. I've removed this task:");
+                    System.out.println("       " + task.toString());
+                    System.out.println("     Now you have " + taskList.size() + " tasks in the list.");
+                    break;
+                case MARK:
+                    taskList.get(Integer.parseInt(commandArr[1]) - 1).markDone();
+                    saveTaskListToFile();
+                    break;
+                case UNMARK:
+                    taskList.get(Integer.parseInt(commandArr[1]) - 1).unmarkDone();
+                    saveTaskListToFile();
+                    break;
+                case TODO:
+                    Todo newTodo = new Todo(commandArr[1]);
+                    addTask(newTodo);
+                    break;
+                case DEADLINE:
+                    String[] deadlineSplit = commandArr[1].split(" /by ");
+                    Deadline newDeadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
+                    addTask(newDeadline);
+                    break;
+                case EVENT:
+                    String[] eventSplit = commandArr[1].split(" /from | /to ");
+                    Event newEvent = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
+                    addTask(newEvent);
+                    break;
+                default:
+                    throw new EggyException("");
                 }
             } catch (EggyException e) {
                 System.out.println("     " + e.getMessage());
@@ -97,6 +110,7 @@ public class Eggy {
 
     public static void addTask(Task task) {
         taskList.add(task);
+        saveTaskListToFile();
         System.out.println("     Got it. I've added this task:");
         System.out.println("       " + task.toString());
         System.out.println("     Now you have " + taskList.size() + " tasks in the list.");
@@ -106,6 +120,58 @@ public class Eggy {
         System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println("     " + (i + 1) + "." + taskList.get(i).toString());
+        }
+    }
+
+    public static void loadTaskList() {
+        try {
+            File file = new File("data/eggy.txt");
+            if (file.exists()) {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String line = br.readLine();
+                while (line != null) {
+                    String[] taskArr = line.split(" \\| ");
+                    Task task;
+                    switch (taskArr[0]) {
+                    case "T":
+                        task = new Todo(taskArr[2], taskArr[1].equals("1"));
+                        break;
+                    case "D":
+                        task = new Deadline(taskArr[2], taskArr[3], taskArr[1].equals("1"));
+                        break;
+                    case "E":
+                        task = new Event(taskArr[2], taskArr[3], taskArr[4], taskArr[1].equals("1"));
+                        break;
+                    default:
+                        throw new RuntimeException("Invalid task type");
+                    }
+                    taskList.add(task);
+                    line = br.readLine();
+                }
+                br.close();
+            } else {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void saveTaskListToFile() {
+        try {
+            File file = new File("data/eggy.txt");
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            for (Task task : taskList) {
+                fw.write(task.toFileString() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
