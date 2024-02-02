@@ -1,13 +1,18 @@
-import java.util.*;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Duke {
 
     protected static ArrayList<Task> lst = new ArrayList<>();
+    protected static String dataPath = "./data/duke.txt";
     private enum Command {
         LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         intro();
+        lst = loadTasks();
         while (sc.hasNextLine()) {
             String s = sc.nextLine();
 
@@ -27,6 +32,7 @@ public class Duke {
                         break;
                     case BYE:
                         exit();
+                        saveTasks();
                         return;
                     case MARK:
                         markComplete(Integer.parseInt(taskName.trim()));
@@ -110,5 +116,25 @@ public class Duke {
 
     private static void countTasks() {
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
+    }
+
+    private static ArrayList<Task> loadTasks() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dataPath))) {
+            return (ArrayList<Task>) ois.readObject();
+        } catch (IOException | ClassCastException | ClassNotFoundException e) {
+
+            System.out.println(new File(".").getAbsolutePath());
+            System.out.println(e);
+        }
+        return new ArrayList<>();
+    }
+
+    private static void saveTasks() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(dataPath))) {
+            oos.writeObject(lst);
+            System.out.println("Success!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
