@@ -2,6 +2,7 @@ package baron.Enums;
 
 public enum Commands {
   LIST("list"),
+  FIND("find"),
   MARK("mark"),
   UNMARK("unmark"),
   DELETE("delete"),

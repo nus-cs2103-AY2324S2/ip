@@ -85,6 +85,8 @@ public class TaskManager {
         return;
       } else if (command.equals("text")) {
         EventDao.getEvents();
+      } else if (command.equals(Commands.FIND.getCommand())) {
+        this.find(input);
       } else {
         throw new IllegalArgumentException("Command not recognized");
       }
@@ -92,6 +94,22 @@ public class TaskManager {
       System.out.println(ex.getMessage());
     }
 
+  }
+
+  /**
+   * Prints out a list of tasks that match the search term (fuzzy search)
+   * @param input user input
+   */
+  private void find(String input) {
+    String term = StringUtils.getValueOfCommand(input, Commands.FIND.getCommand(), null);
+    List<Task> filteredTasks = new ArrayList<>();
+    for (int i = 0; i < this.tasks.size(); i++) {
+      Task task = this.tasks.get(i);
+      if (task.getName().contains(term)) {
+        filteredTasks.add(task);;
+      }
+    }
+    UIManager.find(filteredTasks);
   }
 
   private void addTodo(String input) {

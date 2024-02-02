@@ -46,6 +46,15 @@ public class UIManager {
         }
         printSeparator();
     }
+    
+    public static void find(List<Task> tasks) {
+        printSeparator();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+        printSeparator();
+    }
 
     /**
      * Marks the specified task
