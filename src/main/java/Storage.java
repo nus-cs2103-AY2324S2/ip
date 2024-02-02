@@ -7,9 +7,11 @@ import java.util.Scanner;
 
 public class Storage {
     private String filePath;
+    private Parser parser;
 
     public Storage(String filePath) {
         this.filePath = filePath;
+        this.parser = new Parser();
     }
 
     //Load data from file --> Change to just return task list itself...
@@ -24,7 +26,7 @@ public class Storage {
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
-                Task task = parseTaskFromFileString(line); // Parse task from file line
+                Task task = this.parser.parseTaskFromFileString(line); // Parse task from file line
                 if (task != null) {
                     taskList.getTasks().add(task); // Add task to the list
                 }
@@ -48,36 +50,5 @@ public class Storage {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
-
-
-    // Method to parse task from a line read from file
-    private Task parseTaskFromFileString(String line) throws DuchessException {
-        Task task = null;
-        // Parse the line and create task objects accordingly
-        // Example line format: "T | 1 | read book"
-        String[] parts = line.split("\\|");
-        String type = parts[0].trim();
-        boolean isDone = parts[1].trim().equals("1");
-        String description = parts[2].trim();
-
-        switch (type) {
-            case "T":
-                task = new ToDo(description, isDone);
-                break;
-            case "D":
-                String by = parts[3].trim();
-                task = new Deadline(description, isDone, by);
-                break;
-            case "E":
-                String from = parts[3].trim();
-                String to = parts[4].trim();
-                task = new Event(description, isDone, from, to);
-                break;
-            default:
-                System.out.println("Unknown task type: " + type);
-        }
-        return task;
-    }
-
 
 }

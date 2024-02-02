@@ -129,7 +129,7 @@ public class Duchess {
     //Prints closing greeting
     private static void printClosingGreeting() {
         printHorizontalLine();
-        System.out.println("Goodbye. Hope to see you again soon!");
+        System.out.println("Farewell. Hope to see you again soon, my dear!");
     }
 
     //Prints a Horizontal Line of 50 dashes
