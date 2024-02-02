@@ -8,9 +8,9 @@ public class Duke {
     private static final Ui ui = new Ui();
 
     private static boolean done = false;
-
-    private static final HashMap<String, Command> commandMap = new HashMap<>();
     
+    private static final CommandList commands = new CommandList(); 
+
     private static ArrayList<Task> taskList = new ArrayList<>();
     
     private static final Storage st = new Storage("data.txt");
@@ -21,7 +21,7 @@ public class Duke {
     }
 
     public static void addCommand(String name, Consumer<String[]> executor) {
-        commandMap.put(name, new Command(name, executor));
+        commands.put(name, new Command(name, executor));
     }
 
     public static String taskStrings() {
@@ -367,9 +367,9 @@ public class Duke {
         while (!done) {
             String str = ui.readInput();
             String[] args = str.split(" ");
-            if (commandMap.containsKey(args[0])) {
-                commandMap.get(args[0]).run(args);
-            } else {
+            try {
+                commands.get(args[0]).run(args);
+            } catch (DukeCommandNotFoundException e) {
                 ui.print("no matching command...");
             }
         }
