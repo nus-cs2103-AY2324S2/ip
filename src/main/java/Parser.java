@@ -1,10 +1,30 @@
+/**
+ * Represents a parser to react accordingly to the command given.
+ */
 public class Parser {
+    /** User interface which deals with input and output */
     private Ui ui;
 
+    /**
+     * Constructs a parser to deal with command given.
+     * @param ui User interface to deal with input and output.
+     */
     public Parser(Ui ui) {
         this.ui = ui;
     }
 
+    /**
+     * Parses the command given and reacts accordingly.
+     * If given "bye", the chatbot is closed.
+     * If given "list", the lists of tasks stored is shown.
+     * If given "unmark", the specific task is unmarked.
+     * If given "mark", the specific task is marked.
+     * If given "delete", the specific task is deleted form the list.
+     * If given "deadline", a new task with a deadline is added to the list.
+     * If given "event", a new task with a designated period is added to the list.
+     * If given "todo", a new normal task is added to the list.
+     * If commands other than the above are given, nothing will be done and the user is asked for the next command.
+     */
     public void parse() {
         while (true) {
             try {
