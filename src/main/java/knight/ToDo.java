@@ -1,5 +1,8 @@
 package knight;
 
+/**
+ * Represents a task that needs to be done.
+ */
 public class ToDo extends Task {
     ToDo(String name) {
         super(name);

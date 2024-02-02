@@ -2,6 +2,9 @@ package knight;
 
 import java.util.Scanner;
 
+/**
+ * The main class of the program.
+ */
 public class Knight {
     private static TaskList tasks = new TaskList();
 

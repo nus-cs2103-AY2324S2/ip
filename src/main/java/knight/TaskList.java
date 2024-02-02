@@ -4,6 +4,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a list of tasks in the Knight program.
+ */
 public class TaskList {
     private List<Task> tasks = new ArrayList<>();
 
@@ -14,6 +17,12 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Execute a command on the task list.
+     *
+     * @param commandType The type of command to execute.
+     * @param message     The full command message.
+     */
     void executeCommand(Command commandType, String message) {
         if (commandType == Command.LIST) {
             if (tasks.isEmpty()) {
@@ -94,6 +103,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Execute a command on the task list without speaking.
+     *
+     * @param commandType The type of command to execute.
+     * @param message     The full command message.
+     */
     void executeCommandSilently(Command commandType, String message) {
         if (commandType == Command.TODO) {
             Task task = new ToDo(message.substring(5));
@@ -142,6 +157,11 @@ public class TaskList {
         return output;
     }
 
+    /**
+     * Get the commands representation of the task list.
+     *
+     * @return The commands representation of the task list.
+     */
     String getCommands() {
         String output = "";
         for (int i = 0; i < tasks.size(); i++) {

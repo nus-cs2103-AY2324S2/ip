@@ -1,6 +1,16 @@
 package knight;
 
+/**
+ * Parses the user input to determine the command.
+ */
 public class CommandParser {
+    /**
+     * Parses the user input to determine the command.
+     *
+     * @param s The user input.
+     * @return The command type.
+     * @throws NonstandardCommandException If the command is not recognised.
+     */
     static Command parseCommand(String s) {
         if (s.equals("bye")) {
             return Command.BYE;

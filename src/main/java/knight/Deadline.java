@@ -2,6 +2,9 @@ package knight;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
     private LocalDate time;
     Deadline(String name, String time) {
@@ -9,6 +12,12 @@ public class Deadline extends Task {
         this.time = LocalDate.parse(time);
     }
 
+    /**
+     * Get the command representation of the task.
+     *
+     * @return The command representation of the task.
+     */
+    @Override
     String getCommand() {
         return "deadline " + name + " /by " + time;
     }

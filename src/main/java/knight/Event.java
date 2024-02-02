@@ -2,6 +2,9 @@ package knight;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a task that starts and ends at a specific time.
+ */
 public class Event extends Task {
     private LocalDate startTime;
     private LocalDate endTime;
@@ -11,6 +14,12 @@ public class Event extends Task {
         this.endTime = LocalDate.parse(endTime);
     }
 
+    /**
+     * Get the command representation of the task.
+     *
+     * @return The command representation of the task.
+     */
+    @Override
     String getCommand() {
         return "event " + name + " /from " + startTime + " /to " + endTime;
     }

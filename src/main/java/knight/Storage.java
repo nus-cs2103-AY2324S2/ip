@@ -5,7 +5,15 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+/**
+ * Handles the reading and writing of tasks to and from a file.
+ */
 public class Storage {
+    /**
+     * Reads the tasks from a file.
+     *
+     * @return The tasks read from the file.
+     */
     public static TaskList readFromFile() {
         TaskList tasks = new TaskList();
         List<String> lines;
@@ -31,6 +39,12 @@ public class Storage {
         }
         return tasks;
     }
+
+    /**
+     * Writes the tasks to a file.
+     *
+     * @param tasks The tasks to write to the file.
+     */
     public static void writeToFile(TaskList tasks) {
         try {
             FileWriter writer = new FileWriter("scrolls_of_tasks.txt");
