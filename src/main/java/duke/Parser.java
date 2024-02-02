@@ -30,9 +30,12 @@ public class Parser {
 
             // list tasks
             if (cmd.equals("list")) {
-                userTasks.printTasks();
-
-                // mark tasks
+                userTasks.printTasks(false);
+            // find tasks
+            } else if (cmd.equals("find")) {
+                TaskList searchResults = userTasks.searchTasks(currInput[1], userTasks);
+                searchResults.printTasks(true);
+            // mark tasks
             } else if (cmd.contains("mark")) {
                 if (currInput.length < 2) {
                     throw new DukeException(
@@ -59,7 +62,7 @@ public class Parser {
                             + "        " + currTask);
                 }
 
-                // delete tasks
+            // delete tasks
             } else if (cmd.equals("delete")) {
                 if (currInput.length < 2) {
                     throw new DukeException(
@@ -80,7 +83,7 @@ public class Parser {
                         + "    Now you have " + (numTasks - 1) + " tasks in the list."
                 );
 
-                // add tasks
+            // add tasks
             } else if (cmd.equals("deadline")) {
                 if (currInput.length < 2) {
                     throw new DukeException(
@@ -109,7 +112,7 @@ public class Parser {
                 userTasks.addTask(newTd);
                 isAdded = true;
 
-                // unknown commands
+            // unknown commands
             } else {
                 throw new DukeException(String.format(DukeException.UNKNOWN_CMD, cmd));
             }
