@@ -1,3 +1,2 @@
 D,0,eat,2021-12-24
 T,1,return
-E,0,g,tdy,tmr
