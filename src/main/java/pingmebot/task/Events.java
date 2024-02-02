@@ -27,9 +27,11 @@ public class Events extends Task {
         if (this == obj) {
             return true;
         }
+
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
+
         Events otherEvent = (Events) obj;
         return this.description.equals(otherEvent.description) && this.start.equals(otherEvent.start) && this.end.equals(otherEvent.end);
     }

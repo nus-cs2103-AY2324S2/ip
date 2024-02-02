@@ -19,11 +19,11 @@ public class TaskList {
         return this.tasks.size();
     }
 
-    public void updateTaskToStorage(fileStorage fs) throws myBotException {
+    public void updateTaskToStorage(Storage fs) throws PingMeException {
         try {
             fs.updateFile(this.tasks);
-        } catch (myBotException e) {
-            throw new myBotException(e.getMessage());
+        } catch (PingMeException e) {
+            throw new PingMeException(e.getMessage());
         }
     }
     public void addTask(Task task) {

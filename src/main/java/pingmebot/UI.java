@@ -45,22 +45,24 @@ public class UI {
         System.out.println(toUserUponDeletion);
     }
 
-    public void markTaskText(int taskNum, TaskList allTasks) throws myBotException {
+    public void markTaskText(int taskNum, TaskList allTasks) throws PingMeException {
         String toUserUponMarkingTask = "";
         if (allTasks.taskStatusIcon(taskNum).equals("X")) {
-            throw new myBotException("You cannot mark task again which has been completed!");
+            throw new PingMeException("You cannot mark task again which has been completed!");
         }
+
         allTasks.taskMarkAsDone(taskNum);
         toUserUponMarkingTask += "Nice! I've marked this task as done:";
         toUserUponMarkingTask += "\n" + "  " + allTasks.taskToString(taskNum);
         System.out.println(toUserUponMarkingTask);
     }
 
-    public void unmarkTaskText(int taskNum, TaskList allTasks) throws myBotException {
+    public void unmarkTaskText(int taskNum, TaskList allTasks) throws PingMeException {
         String toUserUponUnmarkingTask = "";
         if (allTasks.taskStatusIcon(taskNum).equals(" ")) {
-            throw new myBotException("You cannot un-mark task which has not been marked!");
+            throw new PingMeException("You cannot un-mark task which has not been marked!");
         }
+
         allTasks.taskUncheckTask(taskNum);
         toUserUponUnmarkingTask += "OK, I've marked this task as not done yet:";
         toUserUponUnmarkingTask += "\n" + "  " + allTasks.taskToString(taskNum);
@@ -71,9 +73,5 @@ public class UI {
     public void showError(String errorMessage) {
         System.out.println(errorMessage);
     }
-
-
-
-
 
 }

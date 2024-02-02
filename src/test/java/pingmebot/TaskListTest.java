@@ -31,7 +31,7 @@ public class TaskListTest {
             TaskList tl = new TaskList(tasks);
             String filePath = "./data/dukeData.txt";
             // File will always exist since it will be created in the file storage constructor if not found
-            tl.updateTaskToStorage(new fileStorage(filePath));
+            tl.updateTaskToStorage(new Storage(filePath));
 
             String line;
             String totalLine = "";
@@ -44,7 +44,7 @@ public class TaskListTest {
             }
 
             assertEquals("todo | 0 | project 1" + "\n" + "todo | 0 | project 2" + "\n",totalLine);
-        } catch (myBotException e) {
+        } catch (PingMeException e) {
             fail("Test Failed.");
         }
 

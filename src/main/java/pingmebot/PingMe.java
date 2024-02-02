@@ -1,21 +1,21 @@
 package pingmebot;
 
+import pingmebot.task.ToDos;
 import pingmebot.task.Deadline;
 import pingmebot.task.Events;
-import pingmebot.task.ToDos;
 
-public class Pingme {
-    private fileStorage storage;
+public class PingMe {
+    private Storage storage;
     private TaskList tasks;
     private UI ui;
     private Parser parser;
 
-    public Pingme(String filePath) {
+    public PingMe(String filePath) {
         this.ui = new UI();
         try {
-            this.storage = new fileStorage(filePath);
+            this.storage = new Storage(filePath);
             this.tasks = new TaskList(storage.bootingUp());
-        } catch (myBotException e) {
+        } catch (PingMeException e) {
             this.tasks = new TaskList();
             ui.showError(e.getMessage());
         }
@@ -36,53 +36,53 @@ public class Pingme {
                 tasks.listTask();
             } else if (words[0].equals("mark")) {
                 try {
-                    int taskNumber = parser.markParser(tasks.getTaskSize());
+                    int taskNumber = parser.parseMarkCommand(tasks.getTaskSize());
                     tasks.updateTaskToStorage(this.storage);
                     ui.markTaskText(taskNumber, this.tasks);
-                } catch (myBotException e) {
+                } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
             } else if (words[0].equals("unmark")) {
                 try {
-                    int taskNum = parser.unmarkParser(tasks.getTaskSize());
+                    int taskNum = parser.parseUnmarkCommand(tasks.getTaskSize());
                     tasks.updateTaskToStorage(this.storage);
                     ui.unmarkTaskText(taskNum, this.tasks);
-                } catch (myBotException e) {
+                } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
             } else if (words[0].equals("todo")) {
                 try {
-                    ToDos todo = parser.todoParser();
+                    ToDos todo = parser.parseToDoCommand();
                     tasks.addTask(todo);
                     tasks.updateTaskToStorage(this.storage);
                     ui.additionToTasksText(todo, this.tasks);
-                } catch (myBotException e) {
+                } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
             } else if (words[0].equals("deadline")) {
                 try {
-                    Deadline deadlineTask = parser.deadlineParser();
+                    Deadline deadlineTask = parser.parseDeadlineCommand();
                     tasks.addTask(deadlineTask);
                     tasks.updateTaskToStorage(this.storage);
                     ui.additionToTasksText(deadlineTask, this.tasks);
-                } catch (myBotException e) {
+                } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
             } else if (words[0].equals("event")) {
                 try {
-                    Events events = parser.eventsParser();
+                    Events events = parser.parseEventsCommand();
                     tasks.addTask(events);
                     tasks.updateTaskToStorage(this.storage);
                     ui.additionToTasksText(events, this.tasks);
-                } catch (myBotException e) {
+                } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
             } else if (words[0].equals("delete")) {
                 try {
-                    int taskNumber = parser.deleteParser(tasks.getTaskSize());
+                    int taskNumber = parser.parseDeleteCommand(tasks.getTaskSize());
                     ui.deletionToTasksText(taskNumber, this.tasks);
                     tasks.updateTaskToStorage(this.storage);
-                } catch (myBotException e) {
+                } catch (PingMeException e) {
                     ui.showError(e.getMessage());
                 }
             } else {
@@ -92,6 +92,6 @@ public class Pingme {
     }
 
     public static void main(String[] args) {
-        new Pingme("./data/dukeData.txt").run();
+        new PingMe("./data/dukeData.txt").run();
     }
 }
