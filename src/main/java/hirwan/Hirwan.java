@@ -132,6 +132,9 @@ public class Hirwan {
                     } catch (NumberFormatException e) {
                         Ui.output("Error: Please enter a numerical index to delete!");
                     }
+                } else if (input == 10) {
+                    List<Integer> indexes = Hirwan.searchWord(text.substring(5), tasks.getList());
+                    Hirwan.printSearchResults(indexes, tasks.getList());
                 } else if (input == 9) {
                     Ui.output("Error: I am sorry but I do not recognise this command");
                 }

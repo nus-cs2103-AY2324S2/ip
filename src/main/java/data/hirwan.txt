@@ -1,6 +1,5 @@
 . [T][ ] jafj
 . [T][ ] fa
-. [T][X] workeat
 . [T][ ] faj
 . [T][ ] schwork
 . [T][X] workformhoem
