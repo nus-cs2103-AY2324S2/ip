@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Parser {
@@ -33,7 +34,7 @@ public class Parser {
     }
     public Command parse(String input){
         Command command = new NoAction(Cmd.none);
-        String[] cmds = input.split(" ");
+        String[] cmds = input.split(" ", 2);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
         try {
             switch (Cmd.valueOf(cmds[0])) {
@@ -53,13 +54,16 @@ public class Parser {
                     command = new AddTodo(Cmd.todo, cmds[1]);
                     break;
                 case deadline:
-                    LocalDateTime date = LocalDateTime.parse(cmds[3] + " " + cmds[4], formatter);
-                    command = new AddDeadline(Cmd.deadline, cmds[1], date);
+                    String[] deadlineData = cmds[1].split(" /by ", 2);
+                    LocalDateTime date = LocalDateTime.parse(deadlineData[1], formatter);
+                    command = new AddDeadline(Cmd.deadline, deadlineData[0], date);
                     break;
                 case event:
-                    LocalDateTime fromDate = LocalDateTime.parse(cmds[3] + " " + cmds[4], formatter);
-                    LocalDateTime toDate = LocalDateTime.parse(cmds[6] + " " + cmds[7], formatter);
-                    command = new AddEvent(Cmd.event, cmds[1], fromDate, toDate);
+                    String[] eventData = cmds[1].split(" /from ", 2);
+                    String[] eventData2 = eventData[1].split(" /to ", 2);
+                    LocalDateTime fromDate = LocalDateTime.parse(eventData2[0], formatter);
+                    LocalDateTime toDate = LocalDateTime.parse(eventData2[1], formatter);
+                    command = new AddEvent(Cmd.event, eventData[0], fromDate, toDate);
                     break;
                 case delete:
                     command = new DeleteTask(Cmd.delete, Integer.parseInt(cmds[1]));
@@ -69,6 +73,10 @@ public class Parser {
             }
         }catch (IllegalArgumentException e){
             Ui.informInvalidCommand();
+        }catch (DateTimeParseException e){
+            Ui.informWrongDateFormat();
+        }catch (ArrayIndexOutOfBoundsException e){
+            Ui.informWrongInputFormat();
         }
         return command;
     }
