@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Shon {
@@ -46,6 +47,9 @@ public class Shon {
                 data.updateData(list.formatData());
             } catch (ParameterException | CommandException e) {
                 print(e.getMessage());
+            } catch (DateTimeParseException e) {
+                print(e.getParsedString() + " is not a valid date/time",
+                        "Please enter the date/time in \"dd/mm/yyyy hhmm\" format with valid values.");
             }
 
             input = scanner.nextLine();
@@ -109,7 +113,7 @@ public class Shon {
         return list.addTodo(description);
     }
 
-    private static String[] addDeadline(String input, TodoList list) throws ParameterException {
+    private static String[] addDeadline(String input, TodoList list) throws ParameterException, DateTimeParseException {
         String[] split = input.split(" ", 2);
         if (split.length == 1) {
             throw new ParameterException("Please enter Deadline description and due date/time.");
@@ -127,7 +131,7 @@ public class Shon {
         return list.addDeadline(task[0].strip(), task[1].strip());
     }
 
-    private static String[] addEvent(String input, TodoList list) throws ParameterException {
+    private static String[] addEvent(String input, TodoList list) throws ParameterException, DateTimeParseException {
         String[] split = input.split(" ", 2);
         if (split.length == 1) {
             throw new ParameterException("Please enter Event description and from/to date/time.");

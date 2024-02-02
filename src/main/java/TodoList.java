@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class TodoList {
         add(task);
     }
 
-    public String[] addDeadline(String description, String by) {
+    public String[] addDeadline(String description, String by) throws DateTimeParseException {
         Task task = new Deadline(description, by, false);
         return add(task);
     }
@@ -36,7 +37,7 @@ public class TodoList {
         add(task);
     }
 
-    public String[] addEvent(String description, String from, String to) {
+    public String[] addEvent(String description, String from, String to) throws DateTimeParseException {
         Task task = new Event(description, from, to, false);
         return add(task);
     }
