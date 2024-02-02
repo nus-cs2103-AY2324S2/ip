@@ -9,8 +9,16 @@ public class EmptyInputException extends DukeException {
 
     @Override
     public String getMessage() {
-        return "    OOPS!!! The description of a " + this.message + " cannot be empty.\n"
-                + "    ------------------------------------------------\n";
+        String str;
+        if (message.equals("find")) {
+            str =  "    OOPS!!! No keyword was provided.\n"
+                    + "    ------------------------------------------------\n";
+        } else {
+            str =  "    OOPS!!! The description of a " + this.message + " cannot be empty.\n"
+                    + "    ------------------------------------------------\n";
+        }
+
+        return str;
     }
 
 }

@@ -119,6 +119,26 @@ public class TaskList {
         System.out.println(Ui.INDENT_SEPERATOR);
     }
 
+    public void find(String keyword) {
+        System.out.println(Ui.INDENT_SEPERATOR);
+
+        if (taskList.isEmpty()) {
+            System.out.println("There are currently no tasks in your list");
+        } else {System.out.println("keyword:" + keyword + "end");
+            System.out.println(Ui.INDENT + "Here are the matching tasks in your list:");
+            int index = 1;
+            for (int i = 0; i < taskList.size(); i++) {
+                Task t = taskList.get(i);
+                String description = t.getDescription();
+                if (description.contains(keyword)) {
+                    System.out.println(Ui.INDENT + index + "." + t.toString());
+                    index += 1;
+                }
+            }
+        }
+        System.out.println(Ui.INDENT_SEPERATOR);
+    }
+
     public static ArrayList<Task> getTaskList() {
         return taskList;
     }

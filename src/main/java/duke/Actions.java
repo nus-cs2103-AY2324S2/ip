@@ -8,5 +8,6 @@ public enum Actions {
     TODO,
     DEADLINE,
     EVENT,
-    DELETE;
+    DELETE,
+    FIND;
 }

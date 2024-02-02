@@ -30,6 +30,8 @@ public class Parser {
             return new eventCommand(taskList, ui);
         case DELETE:
             return new deleteCommand(taskList, ui);
+        case FIND:
+            return new findCommand(taskList, ui);
         default:
             return new InvalidCommand(taskList, ui);
         }
