@@ -1,5 +1,8 @@
 package Task;
 
+/**
+ * Represents a task that can be done or undone.
+ */
 public class Task {
     private String name;
     private boolean isDone;

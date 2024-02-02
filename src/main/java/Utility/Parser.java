@@ -19,6 +19,9 @@ import Command.UnmarkCommand;
 import Command.ExitCommand;
 import Command.Command;
 
+/**
+ * Parses inputs to Duke.
+ */
 public class Parser {
     private static Event createEvent(String s) throws DukeException {
         int fromIndex = s.indexOf("/from");
@@ -58,6 +61,13 @@ public class Parser {
         return new Todo(name);
     }
 
+    /**
+     * Parses a line of input to Duke.
+     *
+     * @param command the line of input
+     * @return Command.
+     * @throws DukeException if input is incorrect.
+     */
     public static Command parse(String command) throws DukeException {
         String[] s = command.split(" ");
         switch (s[0]) {
@@ -102,6 +112,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a line in a file with a task list.
+     *
+     * @param s the line of input from a file
+     * @return A task.
+     * @throws DukeException if task list is in the wrong format.
+     */
     public static Task parseFile(String s) throws DukeException {
         Task t;
         if (s.charAt(1) == 'T') {

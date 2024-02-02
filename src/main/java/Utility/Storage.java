@@ -10,11 +10,21 @@ import java.util.Scanner;
 
 import Task.Task;
 
+/**
+ * Stores task list into files and reads task list from files to load into Duke.
+ */
 public class Storage {
     private String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Stores the current task list into the filepath.
+     *
+     * @param list the task list
+     * @throws IOException if there is a problem with the file.
+     */
     public void storeTaskList(ArrayList<Task> list) throws IOException {
         File taskList = new File(filePath);
         if (!taskList.getParentFile().exists()) {
@@ -35,6 +45,13 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Loads the task list in the file to Duke.
+     *
+     * @return Task list.
+     * @throws IOException if there is a problem with the file.
+     * @throws DukeException if the task list is of the wrong format.
+     */
     public ArrayList<Task> load() throws IOException, DukeException {
         File taskList = new File(filePath);
         if (!taskList.getParentFile().exists()) {

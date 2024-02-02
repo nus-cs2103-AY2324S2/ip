@@ -8,11 +8,19 @@ import Utility.Parser;
 
 import Command.Command;
 
+/**
+ * Represents a chatbot of the name Duke.
+ */
 public class Duke {
     private TaskList list;
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Creates a Duke object that can run.
+     *
+     * @param filePath a filepath where Duke stores a {@link TaskList} in
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,7 +32,7 @@ public class Duke {
         }
     }
 
-    public void run() {
+    private void run() {
         ui.greet();
         boolean end = false;
         while (!end) {
