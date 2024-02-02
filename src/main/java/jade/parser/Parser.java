@@ -52,34 +52,34 @@ public class Parser {
         try {
             String[] commands = str.split(" ");
             switch (commands[0]) {
-                case "todo":
-                    checkEmptyDescription(commands, 2);
-                    return new AddCommand(new Todo(concatDescription(commands, "", "")));
-                case "deadline":
-                    checkEmptyDescription(commands, 3);
-                    return new AddCommand(new Deadline(concatDescription(commands, "", "/by"), parseDate(concatDescription(commands, "/by", ""))));
-                case "event":
-                    checkEmptyDescription(commands, 4);
-                    return new AddCommand(new Event(concatDescription(commands, "", "/from"), parseDate(concatDescription(commands, "/from", "/to")), parseDate(concatDescription(commands, "/to", ""))));
-                case "list":
-                    if (commands.length != 1) {
-                        return new ListCommand(parseDate(concatDescription(commands, "", "")));
-                    }
-                    return new ListCommand();
-                case "mark":
-                    checkEmptyDescription(commands, 2);
-                    return new MarkCommand(parseInt(commands[1]));
-                case "unmark":
-                    checkEmptyDescription(commands, 2);
-                    return new UnmarkCommand(parseInt(commands[1]));
-                case "delete":
-                    checkEmptyDescription(commands, 2);
-                    return new DeleteCommand(parseInt(commands[1]));
-                case "bye":
-                    checkEmptyDescription(commands, 1);
-                    return new ExitCommand();
-                default:
-                    return new InvalidCommand(new JadeException("\tInput is invalid, please retry.\n"));
+            case "todo":
+                checkEmptyDescription(commands, 2);
+                return new AddCommand(new Todo(concatDescription(commands, "", "")));
+            case "deadline":
+                checkEmptyDescription(commands, 3);
+                return new AddCommand(new Deadline(concatDescription(commands, "", "/by"), parseDate(concatDescription(commands, "/by", ""))));
+            case "event":
+                checkEmptyDescription(commands, 4);
+                return new AddCommand(new Event(concatDescription(commands, "", "/from"), parseDate(concatDescription(commands, "/from", "/to")), parseDate(concatDescription(commands, "/to", ""))));
+            case "list":
+                if (commands.length != 1) {
+                    return new ListCommand(parseDate(concatDescription(commands, "", "")));
+                }
+                return new ListCommand();
+            case "mark":
+                checkEmptyDescription(commands, 2);
+                return new MarkCommand(parseInt(commands[1]));
+            case "unmark":
+                checkEmptyDescription(commands, 2);
+                return new UnmarkCommand(parseInt(commands[1]));
+            case "delete":
+                checkEmptyDescription(commands, 2);
+                return new DeleteCommand(parseInt(commands[1]));
+            case "bye":
+                checkEmptyDescription(commands, 1);
+                return new ExitCommand();
+            default:
+                return new InvalidCommand(new JadeException("\tInput is invalid, please retry.\n"));
             }
         } catch (JadeException e) {
             return new InvalidCommand(e);

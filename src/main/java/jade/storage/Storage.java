@@ -15,7 +15,7 @@ import jade.data.*;
 import jade.exception.JadeException;
 
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -40,17 +40,17 @@ public class Storage {
             ArrayList<Task> savedTaskList = new ArrayList<>();
             while (sc.hasNext()) {
                 String[] task = sc.nextLine().split(" \\| ");
-                boolean isDone = task[1] == "1" ? true : false;
+                boolean isDone = task[1].equals("1");
                 switch (task[0]) {
-                    case "T":
-                        savedTaskList.add(new Todo(task[2], isDone));
-                        break;
-                    case "D":
-                        savedTaskList.add(new Deadline(task[2], LocalDate.parse(task[3], DateTimeFormatter.ofPattern("MMM d yyyy")), isDone));
-                        break;
-                    case "E":
-                        savedTaskList.add(new Event(task[2], LocalDate.parse(task[3], DateTimeFormatter.ofPattern("MMM d yyyy")), LocalDate.parse(task[4], DateTimeFormatter.ofPattern("MMM d yyyy")), isDone));
-                        break;
+                case "T":
+                    savedTaskList.add(new Todo(task[2], isDone));
+                    break;
+                case "D":
+                    savedTaskList.add(new Deadline(task[2], LocalDate.parse(task[3], DateTimeFormatter.ofPattern("MMM d yyyy")), isDone));
+                    break;
+                case "E":
+                    savedTaskList.add(new Event(task[2], LocalDate.parse(task[3], DateTimeFormatter.ofPattern("MMM d yyyy")), LocalDate.parse(task[4], DateTimeFormatter.ofPattern("MMM d yyyy")), isDone));
+                    break;
                 }
             }
             sc.close();

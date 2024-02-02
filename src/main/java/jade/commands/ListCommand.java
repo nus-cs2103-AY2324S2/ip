@@ -8,9 +8,11 @@ import jade.ui.Ui;
 import jade.storage.Storage;
 
 public class ListCommand extends Command {
-    private LocalDate selectedDate;
+    private final LocalDate selectedDate;
 
-    public ListCommand() { this.selectedDate = null; }
+    public ListCommand() {
+        this.selectedDate = null;
+    }
 
     public ListCommand(LocalDate selectedDate) {
         this.selectedDate = selectedDate;
@@ -24,7 +26,7 @@ public class ListCommand extends Command {
         }
         int count = 0;
         StringBuilder sb = new StringBuilder();
-        String dateString = selectedDate==null ? "" : " on " + selectedDate;
+        String dateString = selectedDate == null ? "" : " on " + selectedDate;
         sb.append(String.format("\tHere are the task(s) in your list%s:\n", dateString));
         for (int i = 1; i <= tasks.size(); i++) {
             if (selectedDate != null) { // print tasks on a specific date
@@ -32,12 +34,12 @@ public class ListCommand extends Command {
                     sb.append(String.format("\t%d. %s\n", i, tasks.get(i-1)));
                     count++;
                 }
-            } else { // print all tasks in list
+            } else {
                 sb.append(String.format("\t%d. %s\n", i, tasks.get(i-1)));
                 count++;
             }
         }
-        if (count == 0) {
+        if (selectedDate != null && count == 0) {
             ui.printMessage(String.format("\tThere are no tasks on %s", selectedDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))));
         } else {
             ui.printMessage((sb.toString()));
@@ -45,7 +47,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }

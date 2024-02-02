@@ -23,7 +23,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public boolean isExit() {
+    public boolean shouldExit() {
         return false;
     }
 }
