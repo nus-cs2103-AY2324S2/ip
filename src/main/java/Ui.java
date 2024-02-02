@@ -34,16 +34,6 @@ public class Ui {
         currentState = UiState.ACTIVE_TALKING;
         this.livInstance = Liv.getInstance();
         scanner = new Scanner(System.in);
-        /*
-        scanner = new Scanner(System.in);
-        tasks = new LinkedList<>();
-
-        try {
-            loadFromMemory();
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-        */
     }
     public static Ui getInstance() {
         if (instance == null) {

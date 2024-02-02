@@ -19,6 +19,7 @@ public class Parser {
     private Ui ui = null;
     private Liv liv = null;
     private TaskList taskList = null;
+    private Storage storage = null;
     public static Parser getInstance() {
         if (instance == null) {
             instance = new Parser();
@@ -30,6 +31,7 @@ public class Parser {
         ui = Ui.getInstance();
         liv = Liv.getInstance();
         taskList = TaskList.getInstance();
+        storage = Storage.getInstance();
     }
 
     public void ProcessInput(String input) throws InputException {
@@ -84,7 +86,7 @@ public class Parser {
 
         if (input.equals("bye")) {
             ui.EndSession();
-            liv.saveToMemory();
+            storage.saveToMemory();
             return;
         }
 

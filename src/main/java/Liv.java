@@ -1,5 +1,4 @@
 import java.io.FileNotFoundException;
-import java.util.LinkedList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
@@ -13,61 +12,6 @@ import java.io.FileWriter;
 
 // name of the chat bot
 public class Liv {
-    // storage
-    private static String dataFilePath = "Data/savedTasks.txt";
-    private void loadFromMemory() throws FileNotFoundException {
-        File file = new File(dataFilePath);
-        Scanner scanner = new Scanner(file);
-        while (scanner.hasNext()) {
-            loadSingleRowOfData(scanner.nextLine());
-        }
-    }
-
-    private void loadSingleRowOfData(String s) {
-        taskList.addTask(Task.convertDataToTask(s));
-    }
-
-    public void saveToMemory() {
-        try {
-            String dataToWrite = "";
-            for (int i = 1; i <= taskList.getNumOfTasks(); i++) {
-                dataToWrite += taskList.getTask(i).convertToDataRow();
-                if (i < taskList.getNumOfTasks()) dataToWrite += System.lineSeparator();
-            }
-            writeToFile(dataFilePath, dataToWrite);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static void writeToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fileWriter = new FileWriter(filePath);
-        fileWriter.write(textToAdd);
-        fileWriter.close();
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // main
-
     private Liv() {
         // break the initialisation into the initialization function of different classes
         currentState = LivState.INACTIVE;
@@ -86,6 +30,8 @@ public class Liv {
     private Ui ui = null;
     private Parser parser = null;
     private TaskList taskList = null;
+
+    private Storage storage = null;
     private void Start() {
 
         // initialize Ui
@@ -100,8 +46,12 @@ public class Liv {
         taskList = TaskList.getInstance();
         taskList.initTaskList();
 
+        // initialize storage
+        storage = Storage.getInstance();
+        storage.initStorage();
+
         try {
-            loadFromMemory();
+            storage.loadFromMemory();
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
