@@ -1,13 +1,13 @@
 package duke;
 
-import duke.state.ProgramState;
 import duke.command.Command;
 import duke.command.CommandParser;
-import duke.ui.UI;
+import duke.state.ProgramState;
 import duke.storage.Storage;
 import duke.storage.StorageLoadException;
 import duke.storage.StorageSaveException;
 import duke.task.TaskList;
+import duke.ui.UI;
 
 /**
  * Represents the main class of the bot.
@@ -43,7 +43,7 @@ public class Duke {
 
     /**
      * Runs a command and returns the response from the bot.
-     * 
+     *
      * @param commandString The command to run.
      * @return The response from the bot.
      */

@@ -1,7 +1,7 @@
 package duke.command;
 
-import duke.state.ProgramState;
 import duke.DukeException;
+import duke.state.ProgramState;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -14,6 +14,11 @@ public class EventCommand extends Command {
     private String startTime;
     private String endTime;
 
+    /**
+     * Constructs a new event command.
+     *
+     * @param body The body of the command.
+     */
     public EventCommand(String body) {
         super(body);
         String[] parts = body.split("/from|/to", 3);

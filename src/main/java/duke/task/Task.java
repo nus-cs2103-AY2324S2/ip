@@ -9,12 +9,23 @@ public abstract class Task {
 
     private String escapedDescription;
 
+    /**
+     * Constructs a new task. By default, the task is not done.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.escapedDescription = escapeDescription(description);
         this.isDone = false;
     }
 
+    /**
+     * Constructs a new task with the given done status.
+     *
+     * @param description The description of the task.
+     * @param isDone      The done status of the task.
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.escapedDescription = escapeDescription(description);

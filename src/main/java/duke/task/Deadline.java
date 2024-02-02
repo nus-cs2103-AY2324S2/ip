@@ -46,7 +46,7 @@ public class Deadline extends Task {
      */
     @Override
     public String serialize() {
-        return "D | " + super.serialize() + " | " + dueTime.serialize(); // assuming that the dueTime does not contain
-                                                                         // "|"
+        // assuming that the dueTime does not contain "|"
+        return "D | " + super.serialize() + " | " + dueTime.serialize();
     }
 }

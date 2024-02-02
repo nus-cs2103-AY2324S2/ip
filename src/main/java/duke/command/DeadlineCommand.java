@@ -1,8 +1,8 @@
 package duke.command;
 
+import duke.DukeException;
 import duke.state.ProgramState;
 import duke.task.Deadline;
-import duke.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -13,6 +13,11 @@ public class DeadlineCommand extends Command {
     private String taskDescription;
     private String dueTime;
 
+    /**
+     * Constructs a new deadline command.
+     *
+     * @param body The body of the command.
+     */
     public DeadlineCommand(String body) {
         super(body);
         String[] parts = body.split("/by", 2);
