@@ -46,9 +46,7 @@ public class TaskList {
      */
     public String addTaskTest(Task t) {
         this.tasks.add(t);
-        String toPrint = "_________________________\n"
-            + "added: " + t.getFullStatus() + "\n"
-            + "_________________________\n"
+        String toPrint = "added: " + t.getFullStatus() + "\n"
             + "Now you have " + this.tasks.size() + " items in your list!\n";
         return toPrint;
     }
@@ -60,32 +58,34 @@ public class TaskList {
     }
     /**
      * Deletes the task at index i.
+     *
      * @param i Index to delete the task at.
+     * @return The output to print.
      */
-    public void deleteTask(int i) {
+    public String deleteTask(int i) {
         Task deleted = this.tasks.remove(i);
-        String printOut = "_________________________\n"
-            + "Finished with this? Good Job!" + "\n"
+        String printOut =
+            "Finished with this? Good Job!" + "\n"
             + deleted.getFullStatus() + "\n"
-            + "_________________________\n"
             + "Now you have " + this.tasks.size() + " items in your list!\n";
-        System.out.println(printOut);
         this.saveTaskList();
+        return printOut;
     }
 
     /**
      * Adds task to the task list.
      *
      * @param t The task to add.
+     * @return The output to print.
      */
-    public void addTask(Task t) {
+    public String addTask(Task t) {
         this.tasks.add(t);
-        String toPrint = "_________________________\n"
-            + "added: " + t.getFullStatus() + "\n"
-            + "_________________________\n" + "Now you have " + this.tasks.size()
+        String toPrint =
+            "added: " + t.getFullStatus() + "\n"
+            + "Now you have " + this.tasks.size()
             + " items in your list!\n";
-        System.out.println(toPrint);
         this.saveTaskList();
+        return toPrint;
     }
 
     public int getLength() {
@@ -96,61 +96,61 @@ public class TaskList {
      * Marks a task as done.
      *
      * @param idx The index to mark the task done.
+     * @return The output to print out.
      */
-    public void markTask(int idx) {
+    public String markTask(int idx) {
         Task focusTask = this.tasks.get(idx);
         focusTask.mark();
-        String printOut = "_________________________\n"
-            + "Marking this done!" + "\n"
-            + focusTask.getFullStatus() + "\n"
-            + "_________________________\n";
-        System.out.println(printOut);
+        String printOut = "Marking this done!" + "\n"
+            + focusTask.getFullStatus();
         this.saveTaskList();
+        return printOut;
     }
     /**
      * Marks a task as not completed.
      *
      * @param idx The index to unmark the task done.
+     * @return The output to print out.
      */
-    public void unmarkTask(int idx) {
+    public String unmarkTask(int idx) {
         Task focusTask = this.tasks.get(idx);
         focusTask.unmark();
-        String printOut = "_________________________\n"
-            + "Marking this done!" + "\n"
-            + focusTask.getFullStatus() + "\n"
-            + "_________________________\n";
-        System.out.println(printOut);
+        String printOut =
+            "Marking this done!" + "\n"
+            + focusTask.getFullStatus() + "\n";
         this.saveTaskList();
+        return printOut;
     }
     /**
      * Prints current tasks in the list as well as their respective states.
+     *
+     * @return The output of the task list to be printed.
      */
-    public void showTaskList() {
-        System.out.println("_________________________\n"
-            + "Get off your ass and starting doing work!" + "\n");
+    public String showTaskList() {
+        String ret = "Get off your ass and starting doing work!" + "\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             Task curr = this.tasks.get(i);
-            System.out.println((i + 1)
-                + "." + curr.getFullStatus());
+            ret += (i + 1)
+                + "." + curr.getFullStatus() + "\n";
         }
-        System.out.println("_________________________\n");
+        return ret;
     }
 
     /**
      * Lists current tasks related to keyword given.
      *
      * @param keyword The keyword we are concerned about.
+     * @return The list of searched items to be printed out.
      */
-    public void listKeywords(String keyword) {
-        System.out.println("_________________________\n"
-            + "Asking shuheng for tasks related to " + keyword + "...\n");
+    public String listKeywords(String keyword) {
+        String ret = "Asking shuheng for tasks related to " + keyword + "...\n";
         for (int i = 0; i < this.tasks.size(); i++) {
             Task curr = this.tasks.get(i);
             if (!curr.checkKeyword(keyword)) {
                 continue;
             }
-            System.out.println((i + 1) + "." + curr.getFullStatus());
+            ret += (i + 1) + "." + curr.getFullStatus() + "\n";
         }
-        System.out.println("_________________________\n");
+        return ret;
     }
 }
