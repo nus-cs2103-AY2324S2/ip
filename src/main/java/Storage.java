@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Storage {
@@ -24,13 +25,16 @@ public class Storage {
     }
 
     public void storeDeadline(String task, String by) {
-        Deadline newDeadline = new Deadline(task, by);
+        LocalDate by1 = LocalDate.parse(by);
+        Deadline newDeadline = new Deadline(task, by1);
         this.tasks.add(newDeadline);
         this.saveToFile();
     }
 
     public void storeEvent(String task, String from, String to) {
-        Event newEvent = new Event(task, from, to);
+        LocalDate from1 = LocalDate.parse(from);
+        LocalDate to1 = LocalDate.parse(to);
+        Event newEvent = new Event(task, from1, to1);
         this.tasks.add(newEvent);
         this.saveToFile();
     }
