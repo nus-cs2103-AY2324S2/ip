@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.task.*;
+import duke.ui.Ui;
+
+
 public class AddCommand extends Command {
     private String[] details;
     private String command;
@@ -28,7 +36,7 @@ public class AddCommand extends Command {
             tasks.add(t);
             break;
         }
-        ui.showResult("Got it. I've added this task:");
+        ui.showResult("Got it. I've added this duke.task:");
         ui.showResult(t.toString());
         ui.showResult("Now you have " + tasks.size() + " task(s) in the list.");
 

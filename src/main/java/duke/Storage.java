@@ -1,7 +1,10 @@
+package duke;
+
+import duke.task.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
