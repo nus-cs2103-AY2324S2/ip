@@ -49,11 +49,15 @@ public class Ui {
     }
 
     public void showAddTask(TaskList taskList, Task task) {
-        showToUser("Got it. I've added this detective.task:", task.toString(), "Now you have " + taskList.size() + " tasks in the list.");
+        showToUser("Got it. I've added this detective.task:",
+                task.toString(),
+                "Now you have " + taskList.size() + " tasks in the list.");
     }
 
     public void showDeleteTask(TaskList taskList, Task task) {
-        showToUser("Got it. I've deleted this detective.task:", task.toString(), "Now you have " + taskList.size() + " tasks in the list.");
+        showToUser("Got it. I've deleted this detective.task:",
+                task.toString(),
+                "Now you have " + taskList.size() + " tasks in the list.");
     }
 
     public void showError(String message) {

@@ -17,11 +17,11 @@ public class Deadline extends Task {
         converter(by);
     }
 
-    public String converter(String by) {
+    public void converter(String by) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDate inputDate = LocalDate.parse(by, inputFormatter);
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return date = inputDate.format(outputFormatter);
+        date = inputDate.format(outputFormatter);
     }
 
     @Override
