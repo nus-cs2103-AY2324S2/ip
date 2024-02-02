@@ -11,7 +11,7 @@ public class Duke {
     private Ui ui;
 
     /**
-     * The main method for the chat application.
+     * Main method for the chat application.
      *
      * @param args Command-line arguments.
      */

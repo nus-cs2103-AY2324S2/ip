@@ -1,5 +1,4 @@
 package duke.main;
-
 import duke.command.DeadlineCommand;
 import duke.command.EventCommand;
 import duke.command.ToDoCommand;
@@ -16,6 +15,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+/**
+ * Parses user input and makes sense of user commands.
+ */
 public class Parser {
      static Command parse(String userInput) throws DukeException {
         if (userInput.equals("bye")) {
@@ -51,13 +54,13 @@ public class Parser {
     }
 
     /**
-     * Parses the task number from the user input and validates it.
-     * Throws a duke.exception.DukeException for empty task number or invalid task number that is outside the indexes of the list.
+     * Extracts the task number from the user input, which is a command, and validates it.
+     * Throws a DukeException if the task number is empty or invalid.
      *
-     * @param input   The user input containing the task number.
-     * @param command The type of task.
-     * @return The parsed and validated task number.
-     * @throws DukeException If the task number is invalid or empty.
+     * @param input User input, which is a command containing the task number.
+     * @param command Type of task.
+     * @return Parsed and validated one-indexed task number.
+     * @throws DukeException If the task number is empty or invalid.
      */
     private static int parseTaskNumber(String input, String command) throws DukeException {
         String taskNumString = input.replace(command, "").trim();
@@ -70,10 +73,10 @@ public class Parser {
 
     /**
      * Processes and validates that the description is not empty.
-     * Throws a duke.exception.DukeException if the description is empty.
+     * Throws a DukeException if the description is empty.
      *
-     * @param description The description to be checked.
-     * @param task        The type of task.
+     * @param description Description to be checked.
+     * @param task Type of task.
      * @throws DukeException If the description is empty.
      */
     private static void processEmptyDescription(String description, String task) throws DukeException {
@@ -82,6 +85,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a string input of format "yyyy-MM-dd HHmm" into a LocalDateTime object.
+     *
+     * @param input String input representing a date and time in the format "yyyy-MM-dd HHmm".
+     * @return LocalDateTime object parsed from the input.
+     * @throws DukeException If the input date and time is not in the format "yyyy-MM-dd HHmm".
+     */
     private static LocalDateTime parseDateTimeInput(String input) throws DukeException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -93,11 +103,11 @@ public class Parser {
 
     /**
      * Parses and validates the user input for deadline tasks.
-     * Throws a duke.exception.DukeException for invalid input or wrong formatting.
+     * Throws a DukeException for invalid input or wrong formatting.
      *
-     * @param input   The user input containing the description and deadline.
-     * @param command The type of task.
-     * @return An array containing the parsed description and deadline.
+     * @param input User input containing the description and deadline.
+     * @param command Type of task.
+     * @return Array containing the parsed description and deadline.
      * @throws DukeException If the input is invalid or has wrong formatting.
      */
     private static String[] parseDeadlineInput(String input, String command) throws DukeException {
@@ -117,11 +127,11 @@ public class Parser {
 
     /**
      * Parses and validates the user input for event tasks.
-     * Throws a duke.exception.DukeException for invalid input or wrong formatting.
+     * Throws a DukeException for invalid input or wrong formatting.
      *
-     * @param input   The user input for event tasks.
-     * @param command The type of task.
-     * @return An array containing the parsed description, start time, and end time.
+     * @param input User input for event tasks.
+     * @param command Type of task.
+     * @return Array containing the parsed description, start time, and end time of the event.
      * @throws DukeException If the input is invalid or has wrong formatting.
      */
     private static String[] parseEventInput(String input, String command) throws DukeException {
