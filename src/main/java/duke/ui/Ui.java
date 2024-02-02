@@ -1,5 +1,8 @@
+package duke.ui;
 import java.util.Scanner;
-
+import duke.task.TaskList;
+import duke.Duke;
+import duke.task.Task;
 public class Ui {
     private static final String START_LINE = "----------------"
             + "------------[Rep"

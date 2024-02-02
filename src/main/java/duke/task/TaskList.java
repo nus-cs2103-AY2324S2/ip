@@ -1,5 +1,8 @@
+package duke.task;
 import java.util.ArrayList;
-
+import duke.format.FileFormattable;
+import duke.exception.DukeException;
+import duke.format.Formatter;
 public class TaskList implements FileFormattable {
     private final ArrayList<Task> tasks;
     public TaskList(String tasks) throws DukeException {

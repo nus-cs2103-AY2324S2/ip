@@ -1,3 +1,10 @@
+package duke;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+import duke.exception.DukeException;
+import duke.command.Command;
 public class Duke {
     public static final String LOGO = "\n"
             + "  _____                _                   _\n"
