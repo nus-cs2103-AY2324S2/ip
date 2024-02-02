@@ -3,19 +3,33 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-import exception.DukeException;
+import exception.GeePeeTeeException;
 import parser.Parser;
 import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 
+/**
+ * Represents the main class of the GeePeeTee application.
+ * <p>
+ * This class is responsible for initializing the application and running the
+ * main
+ * loop of the application, which processes user input and executes the
+ * corresponding commands.
+ * </p>
+ */
 public class GeePeeTee {
 
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
 
-    public GeePeeTee(String filePath) {
+    /**
+   * Constructs a new {@code GeePeeTee} instance with the specified file path.
+   *
+   * @param filePath The file path to be associated with the application.
+   */
+  public GeePeeTee(String filePath) {
         ui = new Ui();
         try {
             storage = new Storage("GeePeeTee.txt");
@@ -24,12 +38,16 @@ public class GeePeeTee {
             ui.showFileNotFoundError();
         } catch (IOException e) {
             ui.showLoadingError();
-        } catch (DukeException e) {
+        } catch (GeePeeTeeException e) {
             ui.showErrorMessage(e.getMessage());
         }
     }
 
-    public void run() {
+    /**
+   * Runs the main loop of the application, processing user input and executing
+   * the corresponding commands.
+   */
+  public void run() {
         String input = "";
         ui.showWelcomeMessage();
         Scanner scanner = new Scanner(System.in);

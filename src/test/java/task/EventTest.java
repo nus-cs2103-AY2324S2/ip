@@ -9,7 +9,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/*
+ * Tests for the Event class.
+ */
 public class EventTest {
+
+    /*
+     * Tests the creation of an event task from user input.
+     * <p>
+     * The input string is in the correct format and the event task is created
+     * successfully.
+     */
     @Test
     public void eventToString_correctFormat_correctOutput() {
         String eventStartDate = "2024-01-01";
@@ -25,6 +35,11 @@ public class EventTest {
         }
     }
 
+    /*
+     * Tests the creation of an event task from user input.
+     * <p>
+     * The input string is in the incorrect format and an exception is thrown.
+     */
     @Test
     public void eventToString_incorrectFormat_invalidTaskFormatExceptionThrown() {
         String eventStartDate = "2024-01-01";
@@ -50,6 +65,12 @@ public class EventTest {
         });
     }
 
+    /*
+     * Tests the creation of an event task from user input.
+     * <p>
+     * The input string is in the correct format but the date is in an incorrect
+     * format and an exception is thrown.
+     */
     @Test
     public void eventToString_incorrectDateFormat_invalidDateExceptionThrown() {
         String eventStartDate = "20240101";
