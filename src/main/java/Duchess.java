@@ -6,18 +6,16 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duchess {
-    private static final int MAX_TASKS = 100;
-    private ArrayList<Task> tasks;
-    private int taskCount;
+    private TaskList taskList;
+
     // Declare the scanner as a static field in the class
     private static Scanner scanner = new Scanner(System.in);
 
     private static final String FILE_PATH = "./data/duchess.txt";
 
     public Duchess() throws DuchessException {
-        tasks = new ArrayList<>();
-        taskCount = 0;
-        loadDataFromFile();
+        this.taskList = new TaskList();
+        //loadDataFromFile();
     }
 
     public static void main(String[] args) {
@@ -39,6 +37,7 @@ public class Duchess {
     }
 
     //Load data from file
+    /*
     private void loadDataFromFile() throws DuchessException {
         try {
             File file = new File(FILE_PATH);
@@ -51,8 +50,8 @@ public class Duchess {
                 String line = fileScanner.nextLine();
                 Task task = parseTaskFromFileString(line); // Parse task from file line
                 if (task != null) {
-                    tasks.add(task); // Add task to the list
-                    taskCount++;
+                    //task.add(task); // Add task to the list
+                    //taskCount++;
                 }
             }
             fileScanner.close();
@@ -73,6 +72,7 @@ public class Duchess {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
+    */
 
     // Method to parse task from a line read from file
     private Task parseTaskFromFileString(String line) throws DuchessException {
@@ -103,140 +103,7 @@ public class Duchess {
         return task;
     }
 
-    //Add a ToDo to the task list
-    private void addToDo(String userInput) throws DuchessException {
-        String[] toDoTokens = userInput.split("todo"); //Split to find description
-        if (toDoTokens.length > 1) {
-            String description = toDoTokens[1].trim(); //Trim to only keep description
-            ToDo newToDo = new ToDo(description);
-            addTask(newToDo, TaskType.TODO);
-        } else {
-            throw new DuchessException("Oh dear! That is an invalid command. Try: todo <description>");
-        }
-    }
 
-    //Add a Deadline to the taskList
-    private void addDeadline(String userInput) throws DuchessException {
-        String[] deadlineTokens = userInput.split("deadline");
-
-        if (deadlineTokens.length > 1) {
-            // Split further to extract description and deadline details
-            String[] details = deadlineTokens[1].trim().split("/by");
-
-            if (details.length > 1) {
-                String description = details[0].trim();
-                String by = details[1].trim(); // by is everything after
-                Deadline newDeadline = new Deadline(description, by);
-                addTask(newDeadline, TaskType.DEADLINE);
-            } else {
-                throw new DuchessException("Oh dear! That is an invalid command. Try: deadline <description> /by <deadline>");
-            }
-        } else {
-            throw new DuchessException("Oh dear! That is an invalid command. Try: deadline <description> /by <deadline>");
-        }
-    }
-
-    //Add an Event to the task list
-    private void addEvent(String userInput) throws DuchessException {
-        String[] eventTokens = userInput.split("event");
-
-        if (eventTokens.length > 1) {
-            // Split further to extract description and event details
-            String[] details = eventTokens[1].trim().split("/from|/to"); // Means can use either /from or /to as delimiter
-
-            if (details.length > 2) {
-                String description = details[0].trim();
-                String from = details[1].trim(); // from is everything after
-                String to = details[2].trim();   // to is everything after
-
-                Event newEvent = new Event(description, from, to);
-                addTask(newEvent, TaskType.EVENT);
-            } else {
-                throw new DuchessException("Oh dear! That is an invalid command. Try: event <description> /from <start> /to <end>");
-            }
-        } else {
-            throw new DuchessException("Oh dear! That is an invalid command. Try: event <description> /from <start> /to <end>");
-        }
-    }
-
-    private void printTaskList() {
-        printHorizontalLine();
-        if (taskCount == 0) {
-            System.out.println(" No tasks have been added yet.");
-        } else {
-            System.out.println(" Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println(" " + (i + 1) + "." + tasks.get(i).toString());
-            }
-        }
-        printHorizontalLine();
-    }
-
-    //Add a task to task list
-    private void addTask(Task task, TaskType taskType) throws DuchessException {
-        if (taskCount < MAX_TASKS) {
-            tasks.add(task);
-            taskCount++;
-            saveDataToFile();
-
-            printHorizontalLine();
-            System.out.println(" Understood. I've added this " + taskType + " task:");
-            System.out.println(task.toString());
-            System.out.println("Now you have " + taskCount + " tasks in the list.");
-            printHorizontalLine();
-        } else {
-            throw new DuchessException("The task list is full. I cannot add more tasks.");
-        }
-    }
-
-    private void deleteTask(int taskIndex) throws DuchessException {
-        if (isValidTaskIndex(taskIndex)) {
-            Task deletedTask = tasks.remove(taskIndex);
-            taskCount--;
-            saveDataToFile();
-
-            printHorizontalLine();
-            System.out.println(" Understood. I've deleted this task:");
-            System.out.println(deletedTask.toString());
-            System.out.println(" Now you have " + taskCount + " tasks in the list.");
-            printHorizontalLine();
-        } else {
-            throw new DuchessException("Invalid task index.");
-        }
-    }
-
-    // Mark a task as done
-    private void markTaskAsDone(int taskIndex) throws DuchessException {
-        if (isValidTaskIndex(taskIndex)) {
-            tasks.get(taskIndex).markAsDone();
-            saveDataToFile();
-            printHorizontalLine();
-            System.out.println(" Perfect! I've marked this task as done:");
-            System.out.println(tasks.get(taskIndex).toString());
-            printHorizontalLine();
-        } else {
-            throw new DuchessException("Invalid task index.");
-        }
-    }
-
-    // Unmark a task as done
-    private void unmarkTaskAsDone(int taskIndex) throws DuchessException {
-        if (isValidTaskIndex(taskIndex)) {
-            tasks.get(taskIndex).unmarkAsDone();
-            saveDataToFile();
-            printHorizontalLine();
-            System.out.println(" Understood, I've marked this task as not done yet:");
-            System.out.println(tasks.get(taskIndex).toString());
-            printHorizontalLine();
-        } else {
-            throw new DuchessException("Invalid task index.");
-        }
-    }
-
-    // Check if the task index is valid
-    private boolean isValidTaskIndex(int taskIndex) {
-        return taskIndex >= 0 && taskIndex < taskCount;
-    }
 
 
 
@@ -256,13 +123,13 @@ public class Duchess {
                     return;
 
                 case "list":
-                    printTaskList();
+                    taskList.printTaskList();
                     break;
 
                 case "mark":
                     if (tokens.length > 1) {
                         int taskIndexToMark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
-                        markTaskAsDone(taskIndexToMark);
+                        taskList.markTaskAsDone(taskIndexToMark);
                     } else {
                         throw new DuchessException("Oh dear! That is an invalid command. Try: mark <taskIndex>");
                     }
@@ -271,28 +138,28 @@ public class Duchess {
                 case "unmark":
                     if (tokens.length > 1) {
                         int taskIndexToUnmark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
-                        unmarkTaskAsDone(taskIndexToUnmark);
+                        taskList.unmarkTaskAsDone(taskIndexToUnmark);
                     } else {
                         throw new DuchessException("Oh dear! That is an invalid command. Try: unmark <taskIndex>");
                     }
                     break;
 
                 case "todo":
-                    addToDo(userInput);
+                    taskList.addToDo(userInput);
                     break;
 
                 case "deadline":
-                    addDeadline(userInput);
+                    taskList.addDeadline(userInput);
                     break;
 
                 case "event":
-                    addEvent(userInput);
+                    taskList.addEvent(userInput);
                     break;
 
                 case "delete":
                     if (tokens.length > 1) {
                         int taskIndexToDelete = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
-                        deleteTask(taskIndexToDelete);
+                        taskList.deleteTask(taskIndexToDelete);
                     } else {
                         throw new DuchessException("Oh dear! That is an invalid command. Try: unmark <taskIndex>");
                     }
