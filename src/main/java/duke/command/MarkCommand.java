@@ -26,7 +26,8 @@ public class MarkCommand extends Command {
         this.commandList = commandList;
         this.type = type;
     }
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws MarkInvalidException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws MarkInvalidException {
+        String response = "";
         String markMessage;
         if (Objects.equals(this.type, "mark")) {
             markMessage = "Nice! I've marked this task as done:\n  ";
@@ -43,14 +44,15 @@ public class MarkCommand extends Command {
             }
             Task currentTask = taskList.get(index - 1);
             currentTask.changeDone();
-            System.out.println(markMessage + currentTask);
+            response = markMessage + currentTask;
 
             storage.save(taskList);
         } catch (NumberFormatException e) {
             throw new MarkInvalidException(this.type);
         } catch (SaveStorageException e) {
-            ui.showError(e.getMessage());
+            response = ui.showError(e.getMessage());
         }
+        return response;
     }
 
     public boolean isExit() {

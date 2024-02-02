@@ -20,20 +20,24 @@ public class DeadlineCommand extends Command {
         this.commandList = commandList;
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws MissingDeadlineException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws MissingDeadlineException {
+        String response = "";
         if (this.commandList.length <= 1) {
             throw new MissingDeadlineException();
         }
         Deadline currentDeadline = new Deadline(commandList[1], commandList[2]);
         taskList.add(currentDeadline);
-        System.out.println("Got it. I've added this task:\n  " + currentDeadline);
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+
+        response += "Got it. I've added this task:\n  " + currentDeadline;
+        response += "\nNow you have " + taskList.size() + " tasks in the list.";
 
         try {
             storage.save(taskList);
         } catch (SaveStorageException e) {
-            ui.showError(e.getMessage());
+            response = ui.showError(e.getMessage());
         }
+
+        return response;
     }
 
     public boolean isExit() {

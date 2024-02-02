@@ -20,20 +20,24 @@ public class TodoCommand extends Command {
         this.commandList = commandList;
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws MissingTodoException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws MissingTodoException {
+        String response = "";
+
         if (this.commandList.length <= 1) {
             throw new MissingTodoException();
         }
         Todo currentTodo = new Todo(commandList[1]);
         taskList.add(currentTodo);
-        System.out.println("Got it. I've added this task:\n  " + currentTodo);
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+
+        response += "Got it. I've added this task:\n  " + currentTodo;
+        response += "\nNow you have " + taskList.size() + " tasks in the list.";
 
         try {
             storage.save(taskList);
         } catch (SaveStorageException e) {
-            ui.showError(e.getMessage());
+            response = ui.showError(e.getMessage());
         }
+        return response;
     }
 
     public boolean isExit() {
