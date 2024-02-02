@@ -127,7 +127,7 @@ public class Duke {
                 break;
             case DELETE:
                 int indexOfTaskToDelete = Integer.parseInt(inputFromUser.substring(7));
-                duke.ui.handleDeleteError(duke.list, inputFromUser,indexOfTaskToDelete);
+                duke.ui.handleDeleteError(duke.list,indexOfTaskToDelete);
                 Task taskToDelete = duke.parser.getTaskToDelete(inputFromUser, duke.list);
                 duke.ui.deleting(taskToDelete, duke.list);
                 duke.list.delete(taskToDelete);

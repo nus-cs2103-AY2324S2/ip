@@ -51,7 +51,7 @@ public class Ui {
     
     public void deleting(Task t, TaskList list) {
         String toPrint = "Noted. I've removed this task:\n" + "  " + t.toString() + "\n"
-            + "Now you have " + (list.size() - 1) + " tasks in  the list"
+            + "Now you have " + (list.size() - 1) + " tasks in the list"
             + "\n___________________________________" ;
         System.out.println(toPrint);
     }
@@ -107,7 +107,7 @@ public class Ui {
         }
     }
     
-    public void handleDeleteError(TaskList list, String inputFromUser, int indexOfTaskToDelete) throws DukeException {
+    public void handleDeleteError(TaskList list, int indexOfTaskToDelete) throws DukeException {
         if (list.size() < 1) {
             throw new DukeException("No task at the moment");
         }
