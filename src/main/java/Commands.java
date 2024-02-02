@@ -65,7 +65,7 @@ public class Commands {
                     Bob.handleAdd(commandArgs[0], parameters);
             }
         } catch (ParameterNotFoundException e) {
-            Replies.print(e.getMessage());
+            Ui.print(e.getMessage());
         }
     }
 
@@ -83,12 +83,12 @@ public class Commands {
                 processDeleteOrMarkCommands(commandArgs);
             } catch (NumberFormatException e) {
                 // The more "correct" way is to throw an InvalidTaskIndexException?
-                Replies.print(String.format(Replies.INVALID_TASK_INDEX, commandArgs[1]));
+                Ui.print(String.format(Ui.INVALID_TASK_INDEX, commandArgs[1]));
             } catch (InvalidTaskIndexException e) {
-                Replies.print(String.format(e.getMessage(), commandArgs[1]));
+                Ui.print(String.format(e.getMessage(), commandArgs[1]));
             } catch (ArrayIndexOutOfBoundsException e) {
                 // TODO: processParameterisedCommands, which is any command other than exit and list
-                Replies.print(String.format(Replies.EMPTY_DESCRIPTION, commandArgs[0]));
+                Ui.print(String.format(Ui.EMPTY_DESCRIPTION, commandArgs[0]));
             }
             break;
         case Commands.TODO:
@@ -99,14 +99,14 @@ public class Commands {
             try {
                 processAddCommands(commandArgs);
             } catch (EmptyDescriptionException e) {
-                Replies.print(e.getMessage());
+                Ui.print(e.getMessage());
             }
             break;
         default:
             try {
                 throw new InvalidCommandException();
             } catch (InvalidCommandException e) {
-                Replies.print(e.getMessage());
+                Ui.print(e.getMessage());
             }
         }
     }

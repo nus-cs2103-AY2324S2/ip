@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Replies {
+public class Ui {
     private static final int INDENT_SPACE_COUNT = 4;
 
     public static final String HORIZONTAL_LINE

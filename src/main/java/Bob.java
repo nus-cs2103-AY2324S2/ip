@@ -73,7 +73,7 @@ public class Bob {
 
         Task task = TASKS.get(taskIndex);
         task.setDone(done);
-        Replies.mark(task, done);
+        Ui.mark(task, done);
 
         save(false);
     }
@@ -85,13 +85,13 @@ public class Bob {
 
         Task task = TASKS.get(taskIndex);
         TASKS.remove(taskIndex);
-        Replies.delete(task, TASKS.size());
+        Ui.delete(task, TASKS.size());
 
         save(false);
     }
 
     public static void handleList() {
-        Replies.list(TASKS);
+        Ui.list(TASKS);
     }
 
     public static Task addTask(String taskType, String[] parameters) {
@@ -115,9 +115,9 @@ public class Bob {
     public static void handleAdd(String taskType, String[] parameters) {
         try {
             Task task = addTask(taskType, parameters);
-            Replies.add(task, TASKS.size());
+            Ui.add(task, TASKS.size());
         } catch (DateTimeParseException e) {
-            Replies.print(Replies.INVALID_DATE_FORMAT);
+            Ui.print(Ui.INVALID_DATE_FORMAT);
             return;
         }
 
@@ -126,14 +126,14 @@ public class Bob {
 
     public static void main(String[] args) {
         load();
-        Replies.print(Replies.GREET);
+        Ui.print(Ui.GREET);
 
         while (true) {
             String command = SCANNER.nextLine();
             String[] commandArgs = command.split(" ", 2);
 
             if (commandArgs[0].equals(Commands.EXIT)) {
-                Replies.print(Replies.EXIT);
+                Ui.print(Ui.EXIT);
                 break;
             }
 
