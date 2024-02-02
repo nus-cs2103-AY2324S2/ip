@@ -3,7 +3,9 @@ package seiki.ui;
 import static seiki.common.Messages.MESSAGE_ADD_SUCCESS;
 import static seiki.common.Messages.MESSAGE_DELETE_SUCCESS;
 import static seiki.common.Messages.MESSAGE_FAREWELL;
+import static seiki.common.Messages.MESSAGE_FIND_SUCCESS;
 import static seiki.common.Messages.MESSAGE_GREETING;
+import static seiki.common.Messages.MESSAGE_LIST_SUCCESS;
 import static seiki.common.Messages.MESSAGE_LOGO;
 import static seiki.common.Messages.MESSAGE_MARK_SUCCESS;
 import static seiki.common.Messages.MESSAGE_REMAINING_TASKS;
@@ -97,7 +99,8 @@ public class Ui {
      * @param taskList
      */
     public void showList(TaskList taskList) {
-        showToUser(taskList.toString());
+        showToUser(MESSAGE_LIST_SUCCESS,
+                taskList.toString());
     }
 
     /**
@@ -127,5 +130,10 @@ public class Ui {
         showToUser(MESSAGE_DELETE_SUCCESS,
                 String.format(MESSAGE_TASK, task),
                 String.format(MESSAGE_REMAINING_TASKS, taskList.getTaskCount()));
+    }
+
+    public void showFindTask(String keyword, TaskList resultList) {
+        showToUser(String.format(MESSAGE_FIND_SUCCESS, keyword),
+                resultList.toString());
     }
 }

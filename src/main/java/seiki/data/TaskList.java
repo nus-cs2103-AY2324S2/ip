@@ -59,17 +59,29 @@ public class TaskList {
         return this.taskList;
     }
 
+    public TaskList searchByKeyword(String keyword) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.hasKeyword(keyword)) {
+                result.add(task);
+            }
+        }
+        return new TaskList(result);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         if (taskCount == 0) {
             sb.append("There are currently no task added.");
         } else {
-            sb.append("Here are the task(s) you have:");
             for (int i = 0; i < taskList.size(); i++) {
                 int taskNum = i + 1;
-                String taskString = "\n→ " + taskNum + ". " + taskList.get(i).toString();
+                String taskString = "→ " + taskNum + ". " + taskList.get(i).toString();
                 sb.append(taskString);
+                if (taskNum != taskList.size()) {
+                    sb.append("\n");
+                }
             }
         }
         return sb.toString();
