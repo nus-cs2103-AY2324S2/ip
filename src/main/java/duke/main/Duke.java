@@ -1,20 +1,30 @@
 package duke.main;
 import duke.command.Command;
 import duke.exception.DukeException;
+
 /**
- * This class represents a chat application.
+ * Represents the main class for the chat application.
  */
-public class Duke {
+public class Duke { 
+
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+    /**
+     * Main method for the chat application.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         Duke duke = new Duke("data/duke.txt");
         duke.startChat();
     }
 
     /**
-     * Constructs a task list of size.
+     * Constructs a Duke instance with the given file path to store tasks.
+     *
+     * @param filePath The file path for storing tasks.
      */
     private Duke(String filePath) {
         storage = new Storage(filePath);
@@ -29,10 +39,7 @@ public class Duke {
     }
 
     /**
-     * Initiates the chat by invoking the sayHi() method.
-     * Handles user input to display the list for "list" input, exit the chat for "bye" input,
-     * marks or unmarks tasks as done, deletes tasks, or append to the list for to-do/deadline/event input,
-     * separates responses based on the type of task.
+     * Starts the chat interface.
      */
     private void startChat() {
         ui.sayHi();
@@ -48,6 +55,4 @@ public class Duke {
             }
         }
     }
-
-
 }

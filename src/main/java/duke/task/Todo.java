@@ -1,15 +1,23 @@
 package duke.task;
+
 /**
- * The to-do class represents a task without a date/time attached to it.
+ * Represents a task with a description and without a date or time attached to it.
  */
 public class Todo extends Task {
+
+    /**
+     * Constructs a to-do instance with the given description.
+     *
+     * @param description Description of the to-do task.
+     */
     public Todo(String description) {
         super(description);
     }
 
     /**
      * Converts the task into a string format suitable for writing to a file.
-     * @return The formatted string for writing to a file.
+     *
+     * @return Formatted string for writing to a file.
      */
     @Override
     public String toFileString() {
@@ -17,9 +25,9 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns a formatted string representation of the to-do task".
+     * Returns a formatted string representation of the to-do task.
      *
-     * @return The formatted string representation of the to-do task.
+     * @return Formatted string representation of the to-do task.
      */
     @Override
     public String toString() {

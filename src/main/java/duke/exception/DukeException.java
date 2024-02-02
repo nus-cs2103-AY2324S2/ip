@@ -1,14 +1,18 @@
 package duke.exception;
+
 /**
- * Class duke.exception.DukeException represents exceptions specific to duke.main.Duke and inherits from the Exception class.
+ * Represents exceptions specific to duke and inherits from the Exception class.
  */
 public class DukeException extends Exception {
+
     /**
-     * Constructor for duke.exception.DukeException class.
+     * Constructs a DukeException with the given error message.
      *
-     * @param message The error message.
+     * @param message Error message for the exception.
      */
     public DukeException(String message) {
         super(message);
     }
 }
+
+
