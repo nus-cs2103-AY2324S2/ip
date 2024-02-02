@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("C:\\repos\\cs2103t stuff\\src\\main\\java\\duke\\Duke.java")
 }
 
 shadowJar {
