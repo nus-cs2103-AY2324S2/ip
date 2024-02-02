@@ -160,7 +160,7 @@ public class Duke {
                         String keyWord = cmd[1];
                         System.out.println("Here're the matching tasks in ur list:");
                         int counter = 0;
-                        for (int i = 0; i < ls.size(); i++) {
+                        for (int i = 0; i < ls.getSize(); i++) {
                             Task tk = ls.get(i);
                             if (tk.getDescription().contains(keyWord)) {
                                 counter++;

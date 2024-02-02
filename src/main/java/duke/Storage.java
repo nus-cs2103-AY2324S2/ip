@@ -146,10 +146,10 @@ public class Storage {
         String separator = "<>";
         ArrayList<String> arr = new ArrayList<>();
 
-        if (ls.size() == 0 ) {
+        if (ls.getSize() == 0 ) {
             fw.write("");
         } else {
-            for (int i = 0; i < ls.size(); i++) {
+            for (int i = 0; i < ls.getSize(); i++) {
                 Task task = ls.get(i);
                 if (task instanceof ToDo) {
                     String s;

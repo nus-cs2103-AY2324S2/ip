@@ -84,7 +84,7 @@ public class Ui {
      * @param taskList The list of all tasks.
      */
     public void printTaskAmount(TaskList taskList) {
-        System.out.println("  Now u have " + taskList.size() +
+        System.out.println("  Now u have " + taskList.getSize() +
                 " tasks in the list." + "\n");
         divider();
     }
