@@ -4,16 +4,35 @@ import duke.task.*;
 
 import java.util.Arrays;
 
+/**
+ * Parses user input and executes commands based on the input.
+ * This class handles the interpretation of user commands, creating tasks,
+ * and managing user interactions through the Ui class.
+ */
 public class Parser {
     private boolean isExit;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Parser with references to the current task list and the UI for user interaction.
+     *
+     * @param tasks The current list of tasks.
+     * @param ui    The UI instance for displaying messages to the user.
+     */
     public Parser(TaskList tasks, Ui ui){
         this.isExit = false;
         this.tasks = tasks;
         this.ui = ui;
     }
+
+    /**
+     * Searches for a specific string within an array of strings and returns its index.
+     *
+     * @param checker The string to find within the array.
+     * @param list    The array of strings to search through.
+     * @return The index of the string if found, or -1 if not found.
+     */
     public int finder(String checker, String[] list) {
         for (int i = 0; i < list.length; i++) {
             if (list[i].equals(checker)) {
@@ -22,6 +41,15 @@ public class Parser {
         }
         return -1;
     }
+
+    /**
+     * Identifies the type of task based on the user's request and creates the appropriate task object.
+     * Throws TaskException if the input format is incorrect or missing necessary information.
+     *
+     * @param request The user's command input.
+     * @return A Task object corresponding to the user's request.
+     * @throws TaskException If the request format is invalid or lacks necessary information.
+     */
     public Task identify(String request) throws TaskException {
         if (request.startsWith("todo")) {
             String[] reqList = request.split(" ");
@@ -68,6 +96,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Processes the user's input command and performs actions such as adding, deleting, or listing tasks.
+     * Uses the Ui class to interact with the user based on the processed commands.
+     *
+     * @param current The user's input command.
+     */
     public void read(String current) throws TaskException {
         if(current.equals("bye")) {
             ui.bye();

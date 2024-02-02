@@ -10,12 +10,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Manages the loading and saving of tasks to a file.
+ * This class encapsulates file operations, allowing tasks to be persisted to disk and loaded back into the application.
+ */
 public class FileManager {
     private String path;
+
+    /**
+     * Constructs a FileManager with a specified file path for saving and loading tasks.
+     *
+     * @param path The file path where tasks are saved and loaded from.
+     */
     public FileManager(String path) {
         this.path = path;
     }
 
+    /**
+     * Loads tasks from the file specified by the path.
+     * If the file does not exist, it creates a new file. Each line in the file is expected to represent a single task.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     */
     public ArrayList<Task> loadFile() {
         List<String> tasks = new ArrayList<>();
         File file = new File(this.path);
@@ -45,6 +61,12 @@ public class FileManager {
         return TaskConverter.loadConvert(tasks);
     }
 
+    /**
+     * Saves the current list of tasks to the file specified by the path.
+     * Each task is converted to a string representation and written as a new line in the file.
+     *
+     * @param taskList The ArrayList of Task objects to be saved.
+     */
     public void saveFile(ArrayList<Task> taskList) {
         List<String> tasks = TaskConverter.saveConvert(taskList);
         try {
