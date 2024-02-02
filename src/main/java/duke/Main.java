@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,8 +38,13 @@ public class Main extends Application {
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
-        scene = new Scene(mainLayout);
+        userInput.setStyle("-fx-text-fill: white; -fx-background-color: #555;");
+        sendButton.setStyle("-fx-background-color: #555; -fx-text-fill: white;");
+        scrollPane.setStyle("-fx-background: #333; -fx-background-color: #333;");
+        dialogContainer.setStyle("-fx-background-color: #333;");
 
+        scene = new Scene(mainLayout);
+        scene.setFill(Color.web("#333"));
         stage.setScene(scene);
         stage.show();
 
