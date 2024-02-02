@@ -1,6 +1,15 @@
 package Quacky;
 
+/**
+ * Represents a to-do task in the Quacky application. A to-do task is a basic task
+ * without a specific deadline or time frame.
+ */
 public class Todo extends Task {
+    /**
+     * Constructs a new Todo task with the specified description.
+     *
+     * @param description The textual description of the to-do task.
+     */
     public Todo(String description) {
         super(description);
     }

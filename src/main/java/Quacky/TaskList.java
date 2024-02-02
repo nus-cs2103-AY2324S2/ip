@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Manages a list of tasks in the Quacky application. This class provides functionalities
+ * to add, remove, mark, and unmark tasks, as well as to represent the tasks in string form.
+ */
 public class TaskList {
     private List<Task> tasks;
 
@@ -15,19 +19,42 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
+
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task){
         tasks.add(task);
     }
-    /*
-    This method prints a given task at position i
+
+    /**
+     * Returns a string representation of the task at the specified position in the task list.
+     *
+     * @param i The index of the task in the list.
+     * @return The string representation of the task.
      */
     public String printTask(int i){
         Task task = tasks.get(i);
         return task.toString();
     }
+
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return The number of tasks.
+     */
     public int taskNumber() {
         return tasks.size();
     }
+
+    /**
+     * Marks the task at the specified position as completed.
+     *
+     * @param i The index of the task in the list.
+     * @throws QuackyException if the index is out of bounds.
+     */
     public void markCompleteTask(int i) throws QuackyException {
         try {
             Task task = tasks.get(i);
@@ -36,12 +63,32 @@ public class TaskList {
             throw new QuackyException("Quack. The task is not found");
         }
     }
-    public void unmarkCompleteTask (int i){
-        Task task = tasks.get(i);
-        task.unmarkDone();
+    /**
+     * Marks the task at the specified position as not completed.
+     *
+     * @param i The index of the task in the list.
+     * @throws QuackyException if the index is out of bounds
+     */
+    public void unmarkCompleteTask(int i) throws QuackyException {
+        try {
+            Task task = tasks.get(i);
+            task.unmarkDone();
+        } catch (IndexOutOfBoundsException e) {
+            throw new QuackyException("Quack. The task is not found");
+        }
     }
-    public void deleteTask(int i){
-        tasks.remove(i);
+    /**
+     * Removes the task at the specified position from the task list.
+     *
+     * @param i The index of the task in the list.
+     * @throws QuackyException if the index is out of bounds
+     */
+    public void deleteTask(int i) throws QuackyException{
+        try {
+            tasks.remove(i);
+        } catch (IndexOutOfBoundsException e) {
+            throw new QuackyException("Quack. The task is not found");
+        }
     }
     @Override
     public String toString() {
@@ -55,7 +102,11 @@ public class TaskList {
         return sb.toString();
     }
 
-
+    /**
+     * Generates a simplified string representation of all tasks, suitable for file storage.
+     *
+     * @return A parsable string representation of all tasks in the list.
+     */
     protected String printSimplified() {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < tasks.size(); i++) {
@@ -66,58 +117,5 @@ public class TaskList {
         return simplifiedString;
 
     }
-    protected void writeToFile(String filePath) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append(tasks.get(i).toFileString()).append("\n");
-        }
-
-        String textToAdd = sb.toString();
-        System.out.println(this.printSimplified());
-        FileWriter fw = new FileWriter(filePath, false);
-        fw.write(textToAdd);
-        fw.close();
-    }
-
-    public void loadFromFile(String filePath) {
-        try {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            }
-            Scanner fileReader = new Scanner(file);
-
-            while (fileReader.hasNext()) {
-                String line = fileReader.nextLine();
-                String[] parts = line.split(" \\| ");
-                Task task = null;
-
-                switch (parts[0]) {
-                    case "E":
-                        task = new Event(parts[2], LocalDate.parse(parts[3]), LocalDate.parse(parts[4]));
-                        break;
-                    case "D":
-                        task = new Deadline(parts[2], LocalDate.parse(parts[3]));
-                        break;
-                    case "T":
-                        task = new Todo(parts[2]);
-                        break;
-                }
-
-                if (task != null) {
-                    if (parts[1].equals("0")) {
-                        task.markDone();
-                    }
-                    this.addTask(task);
-                }
-            }
-
-            fileReader.close();
-        } catch (IOException e) {
-            System.out.println("An error has occurred");
-        }
-    }
-
 
 }

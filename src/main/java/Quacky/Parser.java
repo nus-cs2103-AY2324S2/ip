@@ -3,8 +3,23 @@ package Quacky;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * Parses and processes user commands for the Quacky application. This class is responsible for
+ * interpreting the string input from the user and executing the corresponding actions on the
+ * application's task list and user interface.
+ */
 public class Parser {
 
+    /**
+     * Parses the given command string and performs actions based on the command. This method
+     * supports various commands including adding, marking, and deleting tasks, as well as
+     * listing tasks and exiting the application.
+     *
+     * @param command The command string entered by the user.
+     * @param tasks The TaskList instance on which operations are performed based on the command.
+     * @param ui The UI instance used for communicating messages back to the user.
+     * @throws QuackyException If an error occurs during the processing of the command
+     */
     public static void parseCommand(String command, TaskList tasks, UI ui) throws QuackyException {
         String[] keywords = command.split(" ", 2);
         String commandWord = keywords[0];

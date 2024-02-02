@@ -5,10 +5,20 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 
+/**
+ * Represents a deadline task in the Quacky application. A deadline task is a task that needs
+ * to be completed before a specific date.
+ */
 public class Deadline extends Task{
     protected LocalDate by;
     protected String stringBy;
 
+    /**
+     * Constructs a new Deadline task with the specified description and deadline date.
+     *
+     * @param description The text description of the deadline task.
+     * @param by The date the task needs to be completed by.
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;

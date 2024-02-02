@@ -1,6 +1,10 @@
 package Quacky;
 
 import java.util.Scanner;
+/**
+ * Handles user interactions for the Quacky application. This class is responsible for
+ * input/output operations, including reading commands from the user and displaying messages.
+ */
 public class UI {
     public boolean isRunning;
     private final Scanner scanner = new Scanner(System.in);
@@ -11,6 +15,13 @@ public class UI {
     public String readCommand() {
         return scanner.nextLine();
     }
+
+    /**
+     * Formats the given text with a standardized header and footer for display.
+     *
+     * @param text The text to be formatted and displayed.
+     * @return The formatted text string.
+     */
     private String format(String text){
         String[] lines = text.split("\n");
         StringBuilder sb = new StringBuilder("\t____________________________________________________________\n");
