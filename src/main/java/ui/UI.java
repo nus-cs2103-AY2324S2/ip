@@ -1,8 +1,8 @@
 package ui;
 
-import tasklist.TaskList;
-
 import java.util.Scanner;
+
+import tasklist.TaskList;
 
 /**
  * The UI class responsible for handling user interface interactions.

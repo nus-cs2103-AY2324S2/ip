@@ -1,11 +1,10 @@
 package command;
 
-import task.Task;
+import exceptions.InvalidStatusUpdateException;
 import storage.Storage;
+import task.Task;
 import tasklist.TaskList;
 import ui.UI;
-
-import exceptions.InvalidStatusUpdateException;
 
 /**
  * The ManageCommand class represents a command to manage tasks, such as marking, unmarking, or deleting.
@@ -43,15 +42,17 @@ public class ManageCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) {
         switch (this.type) {
-            case MARK:
-                mark(tasks, storage);
-                break;
-            case UNMARK:
-                unmark(tasks, storage);
-                break;
-            case DELETE:
-                delete(tasks, storage);
-                break;
+        case MARK:
+            mark(tasks, storage);
+            break;
+        case UNMARK:
+            unmark(tasks, storage);
+            break;
+        case DELETE:
+            delete(tasks, storage);
+            break;
+        default:
+            break;
         }
     }
 

@@ -1,19 +1,18 @@
 package parser;
 
-import task.Deadline;
-import task.Event;
-import task.Todo;
+import java.time.LocalDate;
+
 import command.AddCommand;
 import command.Command;
 import command.ManageCommand;
 import command.QueryCommand;
-
-import exceptions.LuluException;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidDateException;
 import exceptions.InvalidSlashParameterException;
-
-import java.time.LocalDate;
+import exceptions.LuluException;
+import task.Deadline;
+import task.Event;
+import task.Todo;
 
 /**
  * The Parser class is responsible for parsing user input and creating corresponding Command objects.
@@ -63,18 +62,18 @@ public class Parser {
      */
     public Command manageTasks(Command.Types command, String input) throws LuluException {
         switch (command) {
-            case MARK:
-                return mark(input);
-            case UNMARK:
-                return unmark(input);
-            case DELETE:
-                return delete(input);
-            case QUERY:
-                return query(input);
-            case FIND:
-                return find(input);
-            default:
-                throw new InvalidCommandException();
+        case MARK:
+            return mark(input);
+        case UNMARK:
+            return unmark(input);
+        case DELETE:
+            return delete(input);
+        case QUERY:
+            return query(input);
+        case FIND:
+            return find(input);
+        default:
+            throw new InvalidCommandException();
         }
     }
 
@@ -88,14 +87,14 @@ public class Parser {
      */
     public Command addTasks(Command.Types command, String input) throws LuluException {
         switch (command) {
-            case TODO:
-                return todo(input);
-            case DEADLINE:
-                return deadline(input);
-            case EVENT:
-                return event(input);
-            default:
-                throw new InvalidCommandException();
+        case TODO:
+            return todo(input);
+        case DEADLINE:
+            return deadline(input);
+        case EVENT:
+            return event(input);
+        default:
+            throw new InvalidCommandException();
         }
     }
 
@@ -165,6 +164,15 @@ public class Parser {
         return new QueryCommand(Command.Types.QUERY, taskType, date);
     }
 
+
+    /**
+     * Parses the input command to create a {@code QueryCommand} for searching tasks.
+     *
+     * @param input The user input containing the search query.
+     * @return A {@code QueryCommand} object with the search query and type.
+     * @throws InvalidCommandException If the input command is invalid.
+     * @throws LuluException           If there is an exception specific to the Lulu application.
+     */
     public Command find(String input) throws LuluException {
         String[] words = input.split(" ");
         if (words.length <= 1) {

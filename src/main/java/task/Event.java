@@ -34,7 +34,8 @@ public class Event extends Task {
      * @return true if the event occurs on the specified date, false otherwise.
      */
     public boolean queryByDate(LocalDate date) {
-        return (date.isAfter(this.startDate) && date.isBefore(this.endDate)) || date.isEqual(this.startDate) || date.isEqual(this.endDate);
+        return (date.isAfter(this.startDate) && date.isBefore(this.endDate))
+                || date.isEqual(this.startDate) || date.isEqual(this.endDate);
     }
 
     /**

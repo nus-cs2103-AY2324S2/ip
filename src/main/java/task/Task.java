@@ -1,8 +1,8 @@
 package task;
 
-import exceptions.InvalidStatusUpdateException;
-
 import java.time.LocalDate;
+
+import exceptions.InvalidStatusUpdateException;
 
 /**
  * The {@code Task} class represents a generic task with a name and a status.

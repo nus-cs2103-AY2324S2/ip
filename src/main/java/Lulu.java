@@ -1,13 +1,12 @@
 import command.Command;
+import exceptions.InvalidCommandException;
+import exceptions.InvalidDateException;
+import exceptions.InvalidSlashParameterException;
+import exceptions.LuluException;
 import parser.Parser;
 import storage.Storage;
 import tasklist.TaskList;
 import ui.UI;
-
-import exceptions.LuluException;
-import exceptions.InvalidCommandException;
-import exceptions.InvalidDateException;
-import exceptions.InvalidSlashParameterException;
 
 /**
  * The main class for Lulu, a simple chatbot application.

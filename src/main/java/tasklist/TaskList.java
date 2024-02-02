@@ -1,16 +1,15 @@
 package tasklist;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import exceptions.InvalidStatusUpdateException;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
 import ui.UI;
-
-import exceptions.InvalidStatusUpdateException;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * The TaskList class manages a list of tasks and provides methods

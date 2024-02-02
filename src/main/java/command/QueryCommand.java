@@ -1,15 +1,15 @@
 package command;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import storage.Storage;
-import tasklist.TaskList;
-import ui.UI;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+
+import storage.Storage;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import tasklist.TaskList;
+import ui.UI;
 
 /**
  * The QueryCommand class represents a command to query tasks based on type and date.
@@ -54,12 +54,14 @@ public class QueryCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) {
         switch (this.commandType) {
-            case QUERY:
-                query(tasks);
-                break;
-            case FIND:
-                find(tasks);
-                break;
+        case QUERY:
+            query(tasks);
+            break;
+        case FIND:
+            find(tasks);
+            break;
+        default:
+            break;
         }
     }
 
