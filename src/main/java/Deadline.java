@@ -8,9 +8,13 @@ public class Deadline extends Task{
         this.by = by;
     }
 
+    /**
+     * The String a call to deadline returns
+     * @return The task with deadline formatted to be readable by parser
+     */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by + ")";
+        return "Deadline" + " " + super.toString() + "(by: " + by + ")";
     }
 
     /**
