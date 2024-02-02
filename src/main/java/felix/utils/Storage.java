@@ -14,6 +14,13 @@ import java.util.ArrayList;
 
 public class Storage {
     private final File storageFile;
+
+    /**
+     * Constructor for Storage class.
+     *
+     * @param path ArrayList of Strings representing relative path to save file when joined by file separators.
+     * @throws IOException If there is error creating the new file.
+     */
     public Storage(ArrayList<String> path) throws IOException {
         String filePath = System.getProperty("user.dir") + File.separator + String.join(File.separator, path);
         this.storageFile = new File(filePath);
@@ -29,6 +36,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Generates a list of tasks from the storage file associated with the created Storage instance.
+     *
+     * @return list of tasks.
+     * @throws FelixException If file is not found, there is error reading from the file, or datetime is not in correct format.
+     */
     public TaskList getTasksFromFile() throws FelixException {
         try {
             TaskList taskList = new TaskList();
@@ -49,6 +62,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the list of tasks to the storage file associated with the created Storage instance.
+     *
+     * @param tasks List of tasks.
+     * @throws FelixException If error arises when writing to file.
+     */
     public void writeToFile(TaskList tasks) throws FelixException {
         try {
             // overwrites existing file if the file exists
