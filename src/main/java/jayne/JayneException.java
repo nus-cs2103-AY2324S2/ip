@@ -19,8 +19,7 @@ public class JayneException extends Exception {
      * @return a new JayneException with a message indicating that deadline time cannot be empty.
      */
     public static JayneException deadlineException() {
-        return new JayneException("Where can have empty deadline time, "
-                + "enter deadline lah. E.g. deadline return book /by Sunday");
+        return new JayneException("Where can have empty deadline time, enter deadline lah. E.g. deadline return book /by MMM dd yyyy");
     }
     /**
      * Constructs a JayneException for invalid unmark task number.

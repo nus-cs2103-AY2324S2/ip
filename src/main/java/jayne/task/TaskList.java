@@ -35,6 +35,28 @@ public class TaskList {
     public Storage getStorage() {
         return storage;
     }
+
+    /**
+     * Finds and displays tasks whose description contains the given keyword.
+     *
+     * @param keyword the keyword to search for in task descriptions.
+     */
+    public void findTask(String keyword) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the matching tasks in your list:");
+        int count = 0;
+        for (int i = 0; i < taskArray.size(); i++) {
+            Task task = taskArray.get(i);
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                System.out.println(++count + "." + task);
+            }
+        }
+        if (count == 0) {
+            System.out.println("No tasks found with the keyword: " + keyword);
+        }
+        System.out.println("____________________________________________________________");
+    }
+
     /**
      * Deletes the task at the specified position in the task list.
      *

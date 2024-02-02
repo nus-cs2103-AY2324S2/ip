@@ -17,6 +17,7 @@ import jayne.task.Todo;
  * It acts as a bridge between the user interface and the data model.
  */
 public class Handler {
+
     private static final String dash = "___________________________________";
     /**
      * Handles the deletion of a task from the task list.
@@ -40,6 +41,18 @@ public class Handler {
         } catch (NumberFormatException e) {
             throw JayneException.deleteInvalidException();
         }
+    }
+    /**
+     * Handles finding tasks by keyword.
+     *
+     * @param parts the array containing the input command and its parts.
+     * @param taskList the TaskList containing the list of tasks.
+     */
+    public static void handleFind(String[] parts, TaskList taskList) throws JayneException {
+        if (parts.length < 2 || parts[1].isEmpty()) {
+            throw new JayneException("The search keyword cannot be empty.");
+        }
+        taskList.findTask(parts[1]);
     }
     /**
      * Handles unmarking a task as not done.

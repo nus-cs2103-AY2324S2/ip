@@ -21,6 +21,9 @@ public class Task {
     public void markAsDone() {
         this.isDone = true;
     }
+    public String getDescription() {
+        return description;
+    }
     /**
      * Checks if the task is completed.
      *

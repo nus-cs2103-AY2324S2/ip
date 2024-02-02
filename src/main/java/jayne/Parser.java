@@ -33,6 +33,9 @@ public class Parser {
         String[] parts = input.split(" ", 2);
         String commandText = parts[0].toLowerCase();
         switch (commandText) {
+        case "find":
+            Handler.handleFind(parts, taskList);
+            break;
         case "bye":
             Handler.handleBye();
             return true;
@@ -58,7 +61,7 @@ public class Parser {
             Handler.handleDelete(parts, taskList);
             break;
         default:
-            throw new JayneException(ui.question());
+            ui.question();
         }
         return false;
     }
