@@ -6,7 +6,7 @@ public class JayneException extends Exception {
     }
     //Deadline
     public static JayneException deadlineException() {
-        return new JayneException("Where can have empty deadline time, enter deadline lah. E.g. deadline return book /by Sunday");
+        return new JayneException("Where can have empty deadline time, enter deadline lah. E.g. deadline return book /by MMM dd yyyy");
     }
 
     //Unmark

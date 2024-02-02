@@ -29,6 +29,18 @@ public class Handler {
         }
     }
     /**
+     * Handles finding tasks by keyword.
+     *
+     * @param parts the array containing the input command and its parts.
+     * @param taskList the TaskList containing the list of tasks.
+     */
+    public static void handleFind(String[] parts, TaskList taskList) throws JayneException {
+        if (parts.length < 2 || parts[1].isEmpty()) {
+            throw new JayneException("The search keyword cannot be empty.");
+        }
+        taskList.findTask(parts[1]);
+    }
+    /**
      * Handles unmark of task
      */
     public static void handleUnmark(String[] parts, TaskList taskList) throws JayneException {
