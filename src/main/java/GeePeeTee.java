@@ -1,4 +1,3 @@
-package geepeetee;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,10 +14,6 @@ public class GeePeeTee {
   private TaskList taskList;
   private Storage storage;
   private Ui ui;
-
-  public static void main(String[] args) {
-    new GeePeeTee("./data/GeePeeTee.txt").run();
-  }
 
   public GeePeeTee(String filePath) {
     ui = new Ui();
