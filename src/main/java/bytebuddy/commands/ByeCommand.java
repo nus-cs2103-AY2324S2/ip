@@ -1,11 +1,12 @@
 package bytebuddy.commands;
 
+import static bytebuddy.constants.Messages.BYE_MESSAGE;
+
 import bytebuddy.exceptions.ByteBuddyException;
 import bytebuddy.storage.Storage;
 import bytebuddy.tasks.TaskList;
 import bytebuddy.ui.Ui;
 
-import static bytebuddy.constants.Messages.BYE_MESSAGE;
 
 /**
  * Command to exit the chatbot and say bye.

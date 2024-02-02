@@ -103,7 +103,7 @@ public class TaskList {
             int markIndex = Integer.parseInt(info.trim()) - 1;
             if (markIndex < 0 || markIndex >= taskList.size()) {
                 // throw new ByteBuddyException(NO_SUCH_TASK_NUMBER_ERROR_MESSAGE);
-                 return "\t " + NO_SUCH_TASK_NUMBER_ERROR_MESSAGE;
+                return "\t " + NO_SUCH_TASK_NUMBER_ERROR_MESSAGE;
             }
             String markToPrint = taskList.get(markIndex).markAsDone();
             printWithSolidLineBreak("\t " + markToPrint);

@@ -24,8 +24,8 @@ public interface Command {
      * @param taskList   The task list on which the command operates.
      * @param ui      The user interface for displaying information to the user.
      * @param storage The storage for saving and loading data.
-     * @throws ByteBuddyException If an error occurs during the execution of the command.
      * @return String result output after executing instruction given
+     * @throws ByteBuddyException If an error occurs during the execution of the command.
      */
     String execute(TaskList taskList, Ui ui, Storage storage) throws ByteBuddyException;
 
