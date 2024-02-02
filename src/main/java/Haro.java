@@ -19,13 +19,14 @@ public class Haro {
         this.taskList = new TaskList();
         this.haroUi = new Ui();
         this.haroStorage = new Storage(dataPath, directory);
+        this.taskList = new TaskList(haroStorage.loadSave());
     }
 
     public void initialise() {
         haroUi.greet();
         boolean isExit = false;
 //        haroStorage = new Storage("data/saveList.txt", "data/");
-        taskList = haroStorage.loadSave();
+//        taskList = haroStorage.loadSave();
 //        Scanner inputScanner = new Scanner(System.in);
 //        String input = inputScanner.nextLine();
 //        Instruction instruction = Instruction.NONE;

@@ -45,7 +45,6 @@ public class Ui {
         } else {
             System.out.println("Here are the tasks in your list:");
             System.out.println(taskString);
-            System.out.println("");
         }
     }
 

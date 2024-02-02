@@ -5,6 +5,10 @@ public class TaskList {
     public TaskList() {
         tasks = new ArrayList<Task>();
     }
+
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
     private String horizontalLine = "______________________________________________\n";
 
     public String tasksToString() {

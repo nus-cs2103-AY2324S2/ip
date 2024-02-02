@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -28,11 +29,10 @@ public class Storage {
         }
     }
 
-    public TaskList loadSave() {
-        TaskList resultTaskList = new TaskList();
+    public ArrayList<Task> loadSave() {
+        ArrayList<Task> resultTasks = new ArrayList<Task>();
         try {
             Scanner storageScanner = new Scanner(this.file);
-
 
             while (storageScanner.hasNext()) {
                 String storageLine = storageScanner.nextLine();
@@ -65,11 +65,11 @@ public class Storage {
                         int markedInt = Integer.valueOf(storageArr[1].trim());
                         boolean marked = markedInt == 0 ? false : true;
                         ToDo newTodo = new ToDo(storageArr[2].trim(), marked);
-                        resultTaskList.discreteAddTask(newTodo);
+                        resultTasks.add(newTodo);
                         continue;
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
-                        resultTaskList = new TaskList();
+                        resultTasks = new ArrayList<Task>();
                         break;
                     }
                 } else if (actionType == "deadline") {
@@ -83,12 +83,12 @@ public class Storage {
                         String task = storageArr[2].trim();
                         String deadline = storageArr[3].trim();
                         Deadline newDeadline = new Deadline(task, deadline, marked);
-                        resultTaskList.discreteAddTask(newDeadline);
+                        resultTasks.add(newDeadline);
                         continue;
 
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
-                        resultTaskList = new TaskList();
+                        resultTasks = new ArrayList<Task>();
                         break;
                     }
                 } else if (actionType == "event") {
@@ -103,12 +103,12 @@ public class Storage {
                         String start = storageArr[3].trim();
                         String end = storageArr[4].trim();
                         Event newEvent = new Event(task, start, end, marked);
-                        resultTaskList.discreteAddTask(newEvent);
+                        resultTasks.add(newEvent);
                         continue;
 
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
-                        resultTaskList = new TaskList();
+                        resultTasks = new ArrayList<Task>();
                         break;
                     }
                 }
@@ -117,7 +117,7 @@ public class Storage {
         } catch (NoSuchElementException e) {
         } catch (Exception e) {
         } finally {
-            return resultTaskList;
+            return resultTasks;
         }
     }
 
