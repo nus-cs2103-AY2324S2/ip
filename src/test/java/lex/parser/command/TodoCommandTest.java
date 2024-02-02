@@ -1,18 +1,19 @@
 package lex.parser.command;
 
-import lex.parser.command.TodoCommand;
-import lex.tasks.TaskList;
-import lex.tasks.Todo;
-import lex.ui.Ui;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.mockito.Mockito.*;
+import lex.tasks.TaskList;
+import lex.tasks.Todo;
+import lex.ui.Ui;
 
 public class TodoCommandTest {
 

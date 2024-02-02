@@ -1,10 +1,10 @@
 package lex.parser.command;
 
-import lex.tasks.TaskList;
-import lex.tasks.Event;
-import lex.ui.Ui;
-
 import java.time.LocalDate;
+
+import lex.tasks.Event;
+import lex.tasks.TaskList;
+import lex.ui.Ui;
 
 /**
  * Represents a command to add an event to the task list.

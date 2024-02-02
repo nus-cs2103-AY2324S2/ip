@@ -13,9 +13,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         property = "type"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = Todo.class, name = "TODO"),
-        @JsonSubTypes.Type(value = Deadline.class, name = "DEADLINE"),
-        @JsonSubTypes.Type(value = Event.class, name = "EVENT")
+    @JsonSubTypes.Type(value = Todo.class, name = "TODO"),
+    @JsonSubTypes.Type(value = Deadline.class, name = "DEADLINE"),
+    @JsonSubTypes.Type(value = Event.class, name = "EVENT")
 })
 public abstract class Task {
     /**

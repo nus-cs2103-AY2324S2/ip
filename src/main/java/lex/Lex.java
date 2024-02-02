@@ -12,8 +12,8 @@ import lex.ui.Ui;
  * Represents the main class of the Lex chatbot.
  */
 public class Lex {
-    final private Parser parser;
-    final private Ui ui;
+    private final Parser parser;
+    private final Ui ui;
 
     /**
      * Constructor for the Lex class.

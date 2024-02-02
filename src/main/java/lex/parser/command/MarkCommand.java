@@ -23,7 +23,7 @@ public class MarkCommand implements Command {
         this.tasks = tasks;
         this.ui = ui;
     }
-    
+
     @Override
     public boolean execute() {
         int index = Integer.parseInt(inputs[1]) - 1;

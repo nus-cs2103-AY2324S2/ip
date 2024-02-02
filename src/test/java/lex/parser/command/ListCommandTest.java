@@ -1,5 +1,12 @@
 package lex.parser.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
@@ -9,10 +16,6 @@ import lex.tasks.Deadline;
 import lex.tasks.TaskList;
 import lex.tasks.Todo;
 import lex.ui.Ui;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.mockito.Mockito.*;
 
 public class ListCommandTest {
     @Test

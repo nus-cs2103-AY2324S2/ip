@@ -1,9 +1,9 @@
 package lex.tasks;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Represents an event task.
