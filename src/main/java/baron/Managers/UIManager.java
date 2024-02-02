@@ -46,7 +46,12 @@ public class UIManager {
         }
         printSeparator();
     }
-    
+
+    /**
+     * Prints output for when user finds tasks
+     * 
+     * @param tasks tasks to print out
+     */
     public static void find(List<Task> tasks) {
         printSeparator();
         System.out.println("Here are the matching tasks in your list:");

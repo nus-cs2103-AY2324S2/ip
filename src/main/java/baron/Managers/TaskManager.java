@@ -98,6 +98,7 @@ public class TaskManager {
 
   /**
    * Prints out a list of tasks that match the search term (fuzzy search)
+   * 
    * @param input user input
    */
   private void find(String input) {
