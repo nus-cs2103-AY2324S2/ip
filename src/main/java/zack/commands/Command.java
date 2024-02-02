@@ -12,7 +12,7 @@ import java.io.IOException;
  * Represents an abstract command that can be executed.
  */
 public abstract class Command {
-    protected boolean isExit;
+    private boolean isExit;
 
     /**
      * Constructs a Command object with the initial state of not being an exit command.

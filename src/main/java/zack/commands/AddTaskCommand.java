@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 public class AddTaskCommand extends Command {
     private Zack.TaskType taskType;
-    String description;
+    private String description;
 
     /**
      * Constructs an AddTaskCommand with the specified task description and type.
