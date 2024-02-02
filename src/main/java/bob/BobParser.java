@@ -42,7 +42,7 @@ public class BobParser {
      */
     public void processInput(String input) {
 
-        final String command = input.split("\\s+")[0];
+        String command = input.split("\\s+")[0];
 
         try {
             switch (command) {
