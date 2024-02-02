@@ -11,4 +11,9 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), this.by);
     }
+
+    @Override
+    public String formatData() {
+        return "D" + " | " + this.formatTask() + " | " + this.by;
+    }
 }

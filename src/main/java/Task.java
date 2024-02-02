@@ -25,4 +25,10 @@ abstract public class Task {
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
+
+    public String formatTask() {
+        return (this.isDone ? "1" : "0") + " | " + this.description;
+    }
+
+    public abstract String formatData();
 }

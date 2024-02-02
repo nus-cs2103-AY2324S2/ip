@@ -89,4 +89,13 @@ public class TodoList {
         return new String[]{"Noted. I've removed this task:", "  " + task,
                 String.format("Now you have %s %s in the list.", size, size < 2 ? "task" : "tasks")};
     }
+
+    public String[] formatData() {
+        int size = this.list.size();
+        String[] output = new String[size];
+        for (int i = 0; i < size; i++) {
+            output[i] = this.list.get(i).formatData();
+        }
+        return output;
+    }
 }

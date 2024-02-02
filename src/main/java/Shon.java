@@ -43,6 +43,7 @@ public class Shon {
                         print(deleteEvent(input, list));
                         break;
                 }
+                data.updateData(list.formatData());
             } catch (ParameterException | CommandException e) {
                 print(e.getMessage());
             }
