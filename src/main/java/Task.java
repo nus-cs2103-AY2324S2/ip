@@ -1,8 +1,8 @@
 /**
  * Represents a task with a description and a completion status.
  */
-public class Task {
-    private final String description;
+public abstract class Task {
+    protected final String description;
     private boolean done;
 
     /**
@@ -11,7 +11,7 @@ public class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
-        this.description = description;
+        this.description = description.trim();
         this.done = false;
     }
 
@@ -28,6 +28,15 @@ public class Task {
     public void unmark() {
         this.done = false;
     }
+
+    /**
+     * Getter for done class attribute.
+     */
+    public boolean getIsDone() {
+        return this.done;
+    }
+
+    public abstract String convertTaskToFileString();
 
     /**
      * Returns a string representation of the Task.
