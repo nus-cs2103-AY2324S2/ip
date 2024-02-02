@@ -5,6 +5,11 @@ package checkbot.task;
  * A todo task is a task without any date/time attached to it.
  */
 public class Todo extends Task {
+    /**
+     * Constructor for Todo.
+     *
+     * @param name The name of the Todo.
+     */
     public Todo(String name) {
         super(name);
     }

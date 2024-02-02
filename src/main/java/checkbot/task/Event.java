@@ -8,6 +8,13 @@ public class Event extends Task {
     private final String from;
     private final String to;
 
+    /**
+     * Constructor for an Event.
+     *
+     * @param name The name of the Event.
+     * @param from When the Event started.
+     * @param to   When the Event ends.
+     */
     public Event(String name, String from, String to) {
         super(name);
         this.from = tryParseDate(from);

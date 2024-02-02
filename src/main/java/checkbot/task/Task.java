@@ -13,7 +13,7 @@ public abstract class Task {
 
     /**
      * Constructor for Task.
-     * 
+     *
      * @param name The name of the task.
      */
     public Task(String name) {
@@ -62,7 +62,7 @@ public abstract class Task {
 
     /**
      * Formats the task for saving to a file.
-     * 
+     *
      * @return The formatted string.
      */
     public String formatForFile() {
@@ -74,6 +74,13 @@ public abstract class Task {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.name;
     }
 
+    /**
+     * Returns whether the name of the task contains the substring provided.
+     * Case-insensitive.
+     *
+     * @param substr The substring
+     * @return A boolean that represents if the name of the task contains the substring.
+     */
     public boolean nameContains(String substr) {
         return this.name.toLowerCase().contains(substr.toLowerCase());
     }

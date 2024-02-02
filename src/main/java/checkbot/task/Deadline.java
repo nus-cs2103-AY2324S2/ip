@@ -7,6 +7,12 @@ package checkbot.task;
 public class Deadline extends Task {
     private final String to;
 
+    /**
+     * Constructor for a Deadline.
+     *
+     * @param name The name of the Deadline.
+     * @param to   When the deadline actually is.
+     */
     public Deadline(String name, String to) {
         super(name);
         this.to = tryParseDate(to);
