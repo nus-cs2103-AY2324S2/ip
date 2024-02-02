@@ -1,12 +1,14 @@
 import java.util.ArrayList;
 
 import Commands.Command;
+
 import Parsing.Parser;
+
 import Utilities.Storage;
 import Utilities.TaskList;
 import Utilities.Ui;
-import Exceptions.YpxmmException;
 
+import Exceptions.YpxmmException;
 
 public class Ypxmm {
     private Storage storage;

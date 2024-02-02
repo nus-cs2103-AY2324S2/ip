@@ -1,9 +1,5 @@
 package Parsing;
 
-import Exceptions.YpxmmException;
-
-import java.util.ArrayList;
-
 public class ParserStub {
     public String parseStub(String input) {
         String[] splitInput = input.split(" ");
