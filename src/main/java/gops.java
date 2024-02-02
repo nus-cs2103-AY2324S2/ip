@@ -1,7 +1,14 @@
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.FileReader;
 
 public class gops {
+
     public static class Todo {
         protected String itemDescription;
         protected boolean todoStatus = false;
@@ -10,16 +17,16 @@ public class gops {
         }
         public String doneOrNot() {
             if (todoStatus) {
-                return "X";
+                return "1";
             } else {
-                return " ";
+                return "0";
             }
         }
-        public void Printer() {
-            System.out.println("  " + "[T] " + "[" + this.doneOrNot() + "] " + itemDescription);
-        }
         public String stringPrinter() {
-            return " " + "[T] " + "[" + this.doneOrNot() + "] " + itemDescription;
+            return " T " + "| " + this.doneOrNot() + " | " + itemDescription;
+        }
+        public void Printer() {
+            System.out.println(stringPrinter());
         }
     }
 
@@ -31,16 +38,19 @@ public class gops {
             super(todoDescription);
             this.dayTodoBy = dayTodoBy;
         }
-        @Override
-        public void Printer() {
-            System.out.println("  " + "[D] " + "[" + this.doneOrNot() + "] " + itemDescription + "(by:" + dayTodoBy + ")");
-        }
+
         @Override
         public String stringPrinter() {
-            return " " + "[D] " + "[" + this.doneOrNot() + "] " + itemDescription + "(by:" + dayTodoBy + ")";
+            return " " + "D " + "| " + this.doneOrNot() + " | " + itemDescription + " | by:" + dayTodoBy;
+        }
+
+        @Override
+        public void Printer() {
+            System.out.println(stringPrinter());
         }
 
     }
+
 
     public static class Event extends Todo {
         protected String todoDescription;
@@ -52,23 +62,98 @@ public class gops {
             this.startBy = startBy;
             this.endBy  = endBy;
         }
-        @Override
-        public void Printer() {
-            System.out.println("  " + "[E] " + "[" + this.doneOrNot() + "] " + itemDescription + "(from:" + startBy + "to:" + endBy + ")");
-        }
 
         @Override
         public String stringPrinter() {
-            return " " + "[E] " + "[" + this.doneOrNot() + "] " + itemDescription + "(from:" + startBy + "to:" + endBy + ")";
+            return " " + "E " + "| " + this.doneOrNot() + " | " + itemDescription + " | from: " + startBy + " | to: " + endBy + "";
         }
 
+        @Override
+        public void Printer() {
+            System.out.println(stringPrinter());
+        }
     }
 
+    public static void writeToHardDisk(Todo[] taskList, int messageCount, File file) {
+        BufferedWriter taskWriter = null;
+        try {
+            taskWriter = new BufferedWriter(new FileWriter(file));
+            for (int i = 0; i < messageCount; i++) {
+                taskWriter.write(taskList[i].stringPrinter());
+                taskWriter.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (taskWriter != null) {
+                try {
+                    taskWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static Todo[] readFromHardDisk(File taskFile) {
+        Todo[] taskList = new Todo[100];
+        BufferedReader taskReader = null;
+        int taskIndex = 0;
+
+        try {
+            taskReader = new BufferedReader(new FileReader(taskFile));
+            String taskString;
+            while ((taskString = taskReader.readLine()) != null) {
+                String[] taskData = taskString.split("\\|");
+                String taskType = taskData[0].trim();
+                boolean status = taskData[1].trim().equals("1");
+                String taskDescription = taskData[2].trim();
+
+                if (taskType.equals("T")) {
+                    taskList[taskIndex] = new Todo(taskDescription);
+                    taskList[taskIndex].todoStatus = status;
+                } else if (taskType.equals("D")) {
+                    String dayToDoBy = taskData[3].trim().substring(3);
+                    taskList[taskIndex] = new Deadline(taskDescription, dayToDoBy);
+                    taskList[taskIndex].todoStatus = status;
+                } else if (taskType.equals("E")) {
+                    String startBy = taskData[3].trim().substring(6);
+                    String endBy = taskData[4].trim().substring(4);
+                    taskList[taskIndex] = new Event(taskDescription, startBy, endBy);
+                    taskList[taskIndex].todoStatus = status;
+                }
+                taskIndex++;
+            }
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        return taskList;
+    }
 
     public static void main(String[] args) {
         Scanner inputTaker = new Scanner(System.in);
         Todo[] toDoList = new Todo[100];
         int messageCount = 0;
+
+        File dataFolder = new File("data");
+        if (!dataFolder.exists()) {
+            dataFolder.mkdir();
+        }
+        File txtFile = new File(dataFolder,"gops.txt");
+        if (!txtFile.exists()) {
+            try {
+                txtFile.createNewFile();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        } else {
+            toDoList = readFromHardDisk(txtFile);
+            for (Todo todo : toDoList) {
+                if (todo != null) {
+                    messageCount++;
+                }
+            }
+        }
 
         System.out.println("Hello! I'm gops");
         System.out.println("What can I do for you?");
@@ -86,6 +171,7 @@ public class gops {
                     messageCount += 1;
                     System.out.println("Got it. I've added this task:");
                     todoObject.Printer();
+                    writeToHardDisk(toDoList, messageCount, txtFile);
                     System.out.println("Now you have " + messageCount + " tasks in the list.");
                     userReply = inputTaker.nextLine();
                 } catch (gopsException e) {
@@ -104,6 +190,7 @@ public class gops {
                     messageCount += 1;
                     System.out.println("Got it. I've added this task:");
                     deadlineObject.Printer();
+                    writeToHardDisk(toDoList, messageCount, txtFile);
                     System.out.println("Now you have " + messageCount + " tasks in the list.");
                     userReply = inputTaker.nextLine();
                 } catch (gopsException e) {
@@ -122,6 +209,7 @@ public class gops {
                     toDoList[messageCount] = eventObject;
                     messageCount += 1;
                     System.out.println("Got it. I've added this task:");
+                    writeToHardDisk(toDoList, messageCount, txtFile);
                     eventObject.Printer();
                     System.out.println("Now you have " + messageCount + " tasks in the list.");
                     userReply = inputTaker.nextLine();
@@ -138,6 +226,7 @@ public class gops {
                     toDoList[toDoListIndex].todoStatus = false;
                     System.out.println("OK! I've marked this task as not done yet:");
                     System.out.println("[" + toDoList[toDoListIndex].doneOrNot() + "] " + toDoList[toDoListIndex].itemDescription);
+                    writeToHardDisk(toDoList, messageCount, txtFile);
                     userReply = inputTaker.nextLine();
                 } catch (gopsException e) {
                     System.out.println("Please follow the format for unmarking tasks\nunmark [task-number]");
@@ -153,6 +242,7 @@ public class gops {
                     toDoList[toDoListIndex].todoStatus = true;
                     System.out.println("Nice! I've marked this task as done:");
                     toDoList[toDoListIndex].Printer();
+                    writeToHardDisk(toDoList, messageCount, txtFile);
                     userReply = inputTaker.nextLine();
                 } catch (gopsException e) {
                     System.out.println("Please follow the format for marking tasks as done\nmark [task-number]");
@@ -163,7 +253,7 @@ public class gops {
             else if (userReply.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < messageCount; i++) {
-                    System.out.println(i + 1 + toDoList[i].stringPrinter());
+                    System.out.println(i + 1 + ")" + toDoList[i].stringPrinter());
                 }
                 userReply = inputTaker.nextLine();
             } else if (userReply.contains("delete")) {
@@ -173,6 +263,9 @@ public class gops {
                     }
                     String[] splitter = userReply.split(" ", 2);
                     int listIndex = Integer.parseInt(splitter[1]);
+                    if (listIndex > messageCount) {
+                        throw new gopsException();
+                    }
                     Todo deletedTask = toDoList[listIndex - 1];
                     toDoList[listIndex - 1] = null;
                     for (int i = listIndex; i < messageCount; i++) {
@@ -181,9 +274,10 @@ public class gops {
                     System.out.println("I've deleted this task");
                     System.out.println(" " + deletedTask.stringPrinter());
                     messageCount -= 1;
+                    writeToHardDisk(toDoList, messageCount, txtFile);
                     System.out.println("Here are the remaining " + messageCount + " task/s in your list:");
                     for (int i = 0; i < messageCount; i++) {
-                        System.out.println(i + 1 + toDoList[i].stringPrinter());
+                        System.out.println(i + 1 + ")" + toDoList[i].stringPrinter());
                     }
                     userReply = inputTaker.nextLine();
                 } catch (gopsException e) {
