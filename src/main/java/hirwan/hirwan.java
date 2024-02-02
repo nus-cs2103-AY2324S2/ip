@@ -14,10 +14,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-
 public class hirwan {
     static String FILE_PATH = "C:\\Users\\eugen\\Documents\\National University of Singapore\\Y2S2\\CS2103T\\IP\\src\\main\\java\\data\\hirwan.txt";
-    static List<String> List = new ArrayList<>();
 
     public static void main(String[] args) {
         String logo = "I'm hirwan \n"
@@ -127,7 +125,10 @@ public class hirwan {
                     } catch (NumberFormatException e) {
                         Ui.output("Error: Please enter a numerical index to delete!");
                     }
-                } else if (input ==9) {
+                } else if (input == 10) {
+                    List<Integer> indexes = hirwan.searchWord(text.substring(5), List.getList());
+                    hirwan.printSearchResults(indexes, List.getList());
+                } else if (input == 9) {
                     Ui.output("Error: I am sorry but I do not recognise this command");
                 }
             }
@@ -143,109 +144,37 @@ public class hirwan {
         LocalDateTime dateStored = LocalDateTime.parse(date, formatter);
         return dateStored;
     }
-}
 
-//class Ui {
-//    public static String input() {
-//        Scanner scanner = new Scanner(System.in);
-//        String text = scanner.nextLine();
-//        return text;
-//    }
-//
-//    public static void output(String printText) {
-//        System.out.println(printText);
-//    }
-//}
-//
-//class Storage {
-//    static List<String> List = new ArrayList<>();
-//    static String FILE_PATH = "C:\\Users\\eugen\\Documents\\National University of Singapore\\Y2S2\\CS2103T\\IP\\src\\main\\java\\data\\hirwan.txt";
-//
-//    public static List<String> read() {
-//        try {
-//            File filePath = new File(FILE_PATH);
-//            Scanner scan = new Scanner(filePath);
-//            while (scan.hasNext()) {
-//                List.add(scan.nextLine());
-//            }
-//        } catch (FileNotFoundException e) {
-//            Ui.output("Error: file to read data from cannot be found!");
-//        }
-//        return List;
-//    }
-//
-//    public static void writeTask(List<String> List) {
-//        try {
-//            FileWriter file = new FileWriter(FILE_PATH);
-//            for (String tasks : List) {
-//                file.write(tasks + "\n");
-//            }
-//            file.close();
-//        } catch (IOException e) {
-//            Ui.output("Error: could not write to file");
-//            e.printStackTrace();
-//        }
-//    }
-//
-//}
-//
-//class Parser {
-//    public static int translate(String text) {
-//
-//        if (text.equals("list")) {
-//            return 1;
-//        } else if (text.startsWith("todo")) {
-//            return 2;
-//        } else if (text.startsWith("deadline")) {
-//            return 3;
-//        } else if (text.startsWith("event")) {
-//            return 4;
-//        } else if (text.startsWith("mark")) {
-//            return 5;
-//        } else if (text.startsWith("unmark")) {
-//            return 6;
-//        } else if (text.startsWith("delete")) {
-//            return 7;
-//        } else if (text.equals("bye")) {
-//            return 8;
-//        } else {
-//            return 9;
-//        }
-//    }
-//}
-//
-//class Tasklist {
-//    static List<String> List = new ArrayList<>();
-//    public Tasklist(List<String> List) {
-//        this.List = List;
-//    }
-//    public String get(int index) {
-//        return List.get(index);
-//    }
-//
-//    public void add(String input) {
-//        List.add(input);
-//    }
-//
-//    public void printList() {
-//        for (String element : List) {
-//            Ui.output(List.indexOf(element) + 1 + element);
-//        }
-//    }
-//
-//    public void delete(int index) {
-//        List.remove(index);
-//    }
-//
-//    public int size() {
-//        return List.size();
-//    }
-//
-//    public List<String> getList() {
-//        return List;
-//    }
-//
-//    public void set(int Index, String input) {
-//        List.set(Index, input);
-//    }
-//}
+    /**
+     * The method to search the tasks list to check if each element contains the search word
+     *
+     * @param word The search word to be found
+     * @return the list of indexes of tasks that contain the search word
+     */
+    public static List<Integer> searchWord(String word, List<String> tasks) {
+        List<Integer> indexes = new ArrayList<>();
+        for (String element : tasks) {
+            if (element.contains(word)) {
+                indexes.add(tasks.indexOf(element));
+            }
+        }
+        return indexes;
+    }
+
+    /**
+     * The print search result method that prints the list of search results from the tasklist
+     * that match the search term
+     *
+     * @param indexes the list of indexes of items in the tasklist that having matching substrings to the search term
+     */
+    public static void printSearchResults(List<Integer> indexes, List<String> tasks) {
+        Ui.output("Here are the results of your search in the tasklist:\n");
+        if (indexes.size() == 0) {
+            Ui.output("There are no matching tasks with the search word!");
+        } else {
+            for (int index : indexes) {
+                Ui.output((index + 1) + tasks.get(index));
+            }
+        }
+    }
+}

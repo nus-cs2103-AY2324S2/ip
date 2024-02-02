@@ -35,6 +35,7 @@ public class StorageTest {
                 assertEquals(i, Integer.parseInt(temp));
                 i++;
             }
+            File file = new File(FILE_PATH);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
