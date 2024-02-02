@@ -1,9 +1,9 @@
 package lex.tasks;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Represents a deadline task.
@@ -15,7 +15,7 @@ public class Deadline extends Task {
      * Constructor for the Deadline class.
      *
      * @param title The title of the deadline.
-     * @param end The end date of the deadline.
+     * @param end   The end date of the deadline.
      */
     public Deadline(@JsonProperty("title") String title, @JsonProperty("end") LocalDate end) {
         super(title);
@@ -42,6 +42,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
+        return String.format("[D]%s (by: %s)", super.toString(),
+                end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
     }
 }
