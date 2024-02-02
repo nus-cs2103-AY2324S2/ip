@@ -5,6 +5,12 @@ import TaskList.TaskList;
 
 public abstract class Command {
 
+    protected String desc;
+
+    public Command(String desc) {
+        this.desc = desc;
+    }
+
 //    /**
 //     * Checks against the Storage.TaskList.TaskList to ensure that task is valid.
 //     * Prevents duplicate tasks and invalid indices (if applicable).
@@ -37,22 +43,21 @@ public abstract class Command {
 
         switch (type) {
         case "list":
-            cmd = null;
+            cmd = new ListCommand();
             break;
         case "bye":
-            cmd = null;
+            cmd = new ByeCommand();
             break;
         case "mark":
-            cmd = null;
+            cmd = new MarkTaskCommand(description);
             break;
         case "unmark":
-            cmd = null;
+            cmd = new UnmarkTaskCommand(description);
             break;
         case "delete":
-            cmd = null;
+            cmd = new DeleteTaskCommand(description);
             break;
         case "todo":
-            System.out.println("done");
             cmd = null;
             break;
         case "deadline":
