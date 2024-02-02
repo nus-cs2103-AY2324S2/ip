@@ -23,7 +23,7 @@ public class Ui {
     }
 
 
-    public void ioLoop() {
+    public void doIoLoop() {
         Outputter.outputMessage(new Message("Hello! I'm Remi\n" + "What can I do for you?"));
         Storage.get();
 
