@@ -10,12 +10,21 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Task(String description, String isDone) {
+        this.description = description;
+        this.isDone = isDone.equals("1");
+    }
+
     public String getStatusIcon() {
         return (isDone ? DONE_ICON : NOT_DONE_ICON);
     }
 
     public void setDone(boolean done) {
         this.isDone = done;
+    }
+
+    public String format() {
+        return (isDone ? '1' : '0') + " | " + this.description;
     }
 
     @Override
