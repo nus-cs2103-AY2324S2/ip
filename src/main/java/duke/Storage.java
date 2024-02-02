@@ -1,12 +1,16 @@
 package duke;
 
-import java.io.*;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Storage {
-    private String filePath;
     private static final String FILE_PATH = ".data/text/duke.txt";
+    private String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;

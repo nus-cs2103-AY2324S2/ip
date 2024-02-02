@@ -1,27 +1,27 @@
 package duke;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 public class Ui {
-        public void showWelcome() {
+    public void showWelcome() {
 
-            System.out.println("Hello! I'm Aether!");
+        System.out.println("Hello! I'm Aether!");
 
-            System.out.println("What can I do for you?");
+        System.out.println("What can I do for you?");
 
-        }
+    }
 
-        public void showLoadingError() {
-            System.out.println("Error loading tasks from file.");
-        }
+    public void showLoadingError() {
+        System.out.println("Error loading tasks from file.");
+    }
 
     public void showSeparator() {
         System.out.println("_____________________________");
     }
-        public void showErrorMessage(String errorMessage) {
-            System.out.println("OOPS!!! " + errorMessage);
-            System.out.println("_____________________________");
-        }
+    public void showErrorMessage(String errorMessage) {
+        System.out.println("OOPS!!! " + errorMessage);
+        System.out.println("_____________________________");
+    }
 
     public void showTaskList(TaskList taskList) {
         System.out.println("Here are the tasks in your list:");
@@ -37,7 +37,7 @@ public class Ui {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
-        System.out.println("_____________________________"); 
+        System.out.println("_____________________________");
     }
 
     public void showTaskDeleted(Task deletedTask, int remainingTasks) {
