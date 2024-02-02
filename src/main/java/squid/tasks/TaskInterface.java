@@ -1,5 +1,8 @@
 package squid.tasks;
 
+/**
+ * Interface to implement Task object.
+ */
 public interface TaskInterface {
     public void setCompleted(boolean completed);
     public boolean isCompleted();

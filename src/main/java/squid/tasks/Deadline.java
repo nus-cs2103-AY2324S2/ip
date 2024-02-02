@@ -1,10 +1,13 @@
 package squid.tasks;
 
-import squid.constants.MESSAGES;
-import squid.constants.REGEX;
-
 import java.util.Objects;
 
+import squid.constants.Messages;
+import squid.constants.Regex;
+
+/**
+ * Class encapsulating Deadline tasks.s
+ */
 public class Deadline extends Task {
     private DateTime deadline;
 
@@ -32,7 +35,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getAdditionalInfo() {
-        return String.format(MESSAGES.DEADLINE_TO_STRING, deadline);
+        return String.format(Messages.DEADLINE_TO_STRING, deadline);
     }
 
     /**
@@ -40,7 +43,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("%s[%s]: %s%s", getType(), completedIcon(), taskName, getAdditionalInfo());
+        return String.format("%s[%s]: %s%s", getType(), completedIcon(), getTaskName(), getAdditionalInfo());
     }
 
     /**
@@ -51,11 +54,11 @@ public class Deadline extends Task {
         return String.format(
                 "%s%s%s%s%s%s%s\n",
                 getType(),
-                REGEX.TASK_SPLIT,
+                Regex.TASK_SPLIT,
                 Objects.equals(completedIcon(), "X") ? "X" : "-",
-                REGEX.TASK_SPLIT,
-                taskName,
-                REGEX.TASK_SPLIT,
+                Regex.TASK_SPLIT,
+                getTaskName(),
+                Regex.TASK_SPLIT,
                 deadline);
     }
 }

@@ -1,21 +1,34 @@
 package squid.tasks;
 
-import squid.constants.CORRECT_USAGE;
-import squid.constants.EXCEPTIONS;
-import squid.constants.REGEX;
-import squid.io.SquidFile;
-import squid.exceptions.DuplicateTaskNameException;
-import squid.exceptions.IncorrectIndexException;
-import squid.exceptions.ParseFailException;
-import squid.exceptions.SquidDateException;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import squid.constants.CorrectUsage;
+import squid.constants.Exceptions;
+import squid.constants.Regex;
+import squid.exceptions.DuplicateTaskNameException;
+import squid.exceptions.IncorrectIndexException;
+import squid.exceptions.ParseFailException;
+import squid.exceptions.SquidDateException;
+import squid.io.SquidFile;
+
+/**
+ * Class encapsulating the Tasks Squid is tracking.
+ */
 public class Tasks {
+    /**
+     * The data structure to represent tasks.
+     */
     private static ArrayList<Task> arr;
+
+    /**
+     * Initialize a Tasks class.
+     */
+    public Tasks() {
+        arr = new ArrayList<>();
+    }
 
     /**
      * @return The number of existing tasks.
@@ -35,7 +48,7 @@ public class Tasks {
         try {
             return arr.get(i);
         } catch (IndexOutOfBoundsException e) {
-            throw new IncorrectIndexException(EXCEPTIONS.INCORRECT_INDEX);
+            throw new IncorrectIndexException(Exceptions.INCORRECT_INDEX);
         }
     }
 
@@ -46,10 +59,10 @@ public class Tasks {
      * @throws DuplicateTaskNameException If there is an existing task with the same task name.
      */
     public static void add(Task task) throws DuplicateTaskNameException {
-        long dupes = arr.stream().filter(task1 -> task1.taskName.equals(task.taskName)).count();
+        long dupes = arr.stream().filter(task1 -> task1.getTaskName().equals(task.getTaskName())).count();
         if (dupes != 0) {
             throw new DuplicateTaskNameException(
-                    String.format(EXCEPTIONS.DUPLICATE_TASK_NAME, task.taskName));
+                    String.format(Exceptions.DUPLICATE_TASK_NAME, task.getTaskName()));
         }
         arr.add(task);
     }
@@ -69,7 +82,7 @@ public class Tasks {
             deleted = arr.get(i);
         } catch (Exception e) {
             throw new IncorrectIndexException(
-                    String.format(EXCEPTIONS.INCORRECT_INDEX, CORRECT_USAGE.DELETE));
+                    String.format(Exceptions.INCORRECT_INDEX, CorrectUsage.DELETE));
         }
         arr.remove(i);
         return deleted;
@@ -86,6 +99,10 @@ public class Tasks {
         }
     }
 
+    /**
+     * Prints the tasks contained in the given input.
+     * @param arr The data structure representing tasks.
+     */
     public static void list(List<Task> arr) {
         for (int i = 0; i < arr.size(); i++) {
             Task currTask = arr.get(i);
@@ -93,16 +110,13 @@ public class Tasks {
         }
     }
 
-    public static void find(String regex) {
-        List<Task> filtered = arr.stream().filter(x -> x.taskName.matches(".*" + regex + ".*")).toList();
-        list(filtered);
-    }
-
     /**
-     * Initialize a Tasks class.
+     * Finds tasks matching the input.
+     * @param regex the input to match similar tasks with.
      */
-    public Tasks() {
-        arr = new ArrayList<>();
+    public static void find(String regex) {
+        List<Task> filtered = arr.stream().filter(x -> x.getTaskName().matches(".*" + regex + ".*")).toList();
+        list(filtered);
     }
 
     /**
@@ -113,24 +127,24 @@ public class Tasks {
      * @throws SquidDateException If the DateTime object is unable to be parsed.
      */
     public static Task parseTask(String s) throws ParseFailException, SquidDateException {
-        String[] params = s.split(REGEX.TASK_SPLIT);
+        String[] params = s.split(Regex.TASK_SPLIT);
         Task task;
-//        System.out.println("string " + s + " length " + params.length);
         switch (params.length) {
-            case (5): // event
-                task = new Event(params[2], new DateTime(params[3]), new DateTime(params[4]));
-                task.setCompleted(Objects.equals(params[1], "X"));
-                return task;
-            case (4): // deadline
-                task = new Deadline(params[2], new DateTime(params[3]));
-                task.setCompleted(Objects.equals(params[1], "X"));
-                return task;
-            case (3): //todo
-                task = new Todo(params[2]);
-                task.setCompleted(Objects.equals(params[1], "X"));
-                return task;
+        case (5): // event
+            task = new Event(params[2], new DateTime(params[3]), new DateTime(params[4]));
+            task.setCompleted(Objects.equals(params[1], "X"));
+            return task;
+        case (4): // deadline
+            task = new Deadline(params[2], new DateTime(params[3]));
+            task.setCompleted(Objects.equals(params[1], "X"));
+            return task;
+        case (3): //todo
+            task = new Todo(params[2]);
+            task.setCompleted(Objects.equals(params[1], "X"));
+            return task;
+        default:
+            throw new ParseFailException(String.format(Exceptions.PARSE_FAIL, s));
         }
-        throw new ParseFailException(String.format(EXCEPTIONS.PARSE_FAIL, s));
     }
 
     /**
@@ -144,8 +158,8 @@ public class Tasks {
         }
         try {
             SquidFile.writeToFile(stringBuilder.toString(), false);
-        } catch (IOException e) {
-//            System.out.println(e);
+        } catch (IOException ignored) {
+            ignored = ignored;
         }
     }
 
@@ -160,18 +174,15 @@ public class Tasks {
         try {
             String tasks = SquidFile.readFromFile();
             String[] separated = tasks.split("\n");
-            if (separated.length == 1 && separated[0] == "") {
+            if (separated.length == 1 && Objects.equals(separated[0], "")) {
                 // empty file; do nothing
             } else {
                 for (int i = 0; i < separated.length; i++) {
                     Tasks.add(parseTask(separated[i]));
                 }
             }
-
-        } catch (IOException e) {
+        } catch (IOException ignored) {
+            ignored = ignored;
         }
     }
-
-
-
 }

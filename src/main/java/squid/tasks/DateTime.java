@@ -1,78 +1,23 @@
 package squid.tasks;
 
-import squid.constants.CORRECT_USAGE;
-import squid.constants.FORMAT;
-import squid.constants.EXCEPTIONS;
-import squid.exceptions.SquidDateException;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
+import squid.constants.CorrectUsage;
+import squid.constants.Exceptions;
+import squid.constants.Format;
+import squid.exceptions.SquidDateException;
 
+/**
+ * Class to handle Date/Time formatting.
+ */
 public class DateTime {
     private String date;
     private LocalDate formattedDate;
     private LocalTime formattedTime;
-
-    private void formatTime(String time) throws SquidDateException {
-        switch (time) {
-        case (""):
-            break;
-        case ("NOW"):
-            this.formattedTime = LocalTime.now();
-            break;
-        default:
-            this.formattedTime = parseTime(time);
-        }
-    }
-
-    private LocalTime parseTime(String time) throws SquidDateException {
-        for (int i = 0; i < FORMAT.TIMES.length; i++) {
-            try {
-                return LocalTime.parse(time, DateTimeFormatter.ofPattern(FORMAT.TIMES[i], Locale.ENGLISH));
-            } catch (DateTimeParseException e) {
-                try{
-                    return LocalTime.parse(time);
-                } catch (DateTimeParseException f) {
-                }
-            }
-        }
-        throw new SquidDateException(String.format(EXCEPTIONS.SQUID_DATE, time, "time", CORRECT_USAGE.DATE));
-    }
-
-
-    private void formatDate(String date) throws SquidDateException {
-        switch (date) {
-        case ("today"):
-            this.formattedDate = LocalDate.now();
-            break;
-        case ("tmr"):
-            // Fallthrough
-        case ("tomorrow"):
-            this.formattedDate = LocalDate.now().plusDays(1);
-            break;
-        default:
-            this.formattedDate = parseDate(date);
-        }
-    }
-
-    private LocalDate parseDate(String date) throws SquidDateException {
-        for (int i = 0; i < FORMAT.DATES.length; i++) {
-            try {
-                return LocalDate.parse(date, DateTimeFormatter.ofPattern(FORMAT.DATES[i]));
-            } catch (DateTimeParseException e) {
-                try{
-                    return LocalDate.parse(date);
-                } catch (DateTimeParseException ignored) {
-                }
-            }
-        }
-        throw new SquidDateException(String.format(EXCEPTIONS.SQUID_DATE, date, "date", CORRECT_USAGE.DATE));
-    }
-
 
     /**
      * Initializer to store a string to be understood as a date/time.
@@ -93,6 +38,64 @@ public class DateTime {
         }
     }
 
+    private void formatTime(String time) throws SquidDateException {
+        switch (time) {
+        case (""):
+            break;
+        case ("NOW"):
+            this.formattedTime = LocalTime.now();
+            break;
+        default:
+            this.formattedTime = parseTime(time);
+        }
+    }
+
+    private LocalTime parseTime(String time) throws SquidDateException {
+        for (int i = 0; i < Format.TIMES.length; i++) {
+            try {
+                return LocalTime.parse(time, DateTimeFormatter.ofPattern(Format.TIMES[i], Locale.ENGLISH));
+            } catch (DateTimeParseException e) {
+                try {
+                    return LocalTime.parse(time);
+                } catch (DateTimeParseException ignored) {
+                    ignored = ignored;
+                }
+            }
+        }
+        throw new SquidDateException(String.format(Exceptions.SQUID_DATE, time, "time", CorrectUsage.DATE));
+    }
+
+
+    private void formatDate(String date) throws SquidDateException {
+        switch (date) {
+        case ("today"):
+            this.formattedDate = LocalDate.now();
+            break;
+        case ("tmr"):
+            // Fallthrough
+        case ("tomorrow"):
+            this.formattedDate = LocalDate.now().plusDays(1);
+            break;
+        default:
+            this.formattedDate = parseDate(date);
+        }
+    }
+
+    private LocalDate parseDate(String date) throws SquidDateException {
+        for (int i = 0; i < Format.DATES.length; i++) {
+            try {
+                return LocalDate.parse(date, DateTimeFormatter.ofPattern(Format.DATES[i]));
+            } catch (DateTimeParseException e) {
+                try {
+                    return LocalDate.parse(date);
+                } catch (DateTimeParseException ignored) {
+                    ignored = ignored;
+                }
+            }
+        }
+        throw new SquidDateException(String.format(Exceptions.SQUID_DATE, date, "date", CorrectUsage.DATE));
+    }
+
     /**
      * Custom formatting for printing DateTime objects.
      *
@@ -101,8 +104,8 @@ public class DateTime {
     public String toString() {
         String timeString = "";
         if (this.formattedTime != null) {
-            timeString = formattedTime.format(DateTimeFormatter.ofPattern(FORMAT.TIME)) + ", ";
+            timeString = formattedTime.format(DateTimeFormatter.ofPattern(Format.TIME)) + ", ";
         }
-        return timeString + this.formattedDate.format(DateTimeFormatter.ofPattern(FORMAT.DATE));
+        return timeString + this.formattedDate.format(DateTimeFormatter.ofPattern(Format.DATE));
     }
 }

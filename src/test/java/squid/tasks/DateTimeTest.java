@@ -1,15 +1,17 @@
 package squid.tasks;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import squid.constants.FORMAT;
-import squid.exceptions.SquidDateException;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import squid.constants.Format;
+import squid.exceptions.SquidDateException;
 
 public class DateTimeTest {
     @BeforeEach
@@ -35,7 +37,7 @@ public class DateTimeTest {
 
     @Test
     public void testWordDate_today() {
-        String expected = LocalDate.now().format(DateTimeFormatter.ofPattern(FORMAT.DATE));
+        String expected = LocalDate.now().format(DateTimeFormatter.ofPattern(Format.DATE));
         try {
             String actual = new DateTime("today").toString();
             Assertions.assertEquals(expected, actual);
@@ -46,7 +48,7 @@ public class DateTimeTest {
 
     @Test
     public void testWordDate_tomorrow() {
-        String expected = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern(FORMAT.DATE));
+        String expected = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern(Format.DATE));
         try {
             String actual = new DateTime("tomorrow").toString();
             Assertions.assertEquals(expected, actual);
@@ -57,7 +59,7 @@ public class DateTimeTest {
 
     @Test
     public void testWordDate_tmr() {
-        String expected = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern(FORMAT.DATE));
+        String expected = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern(Format.DATE));
         try {
             String actual = new DateTime("tmr").toString();
             Assertions.assertEquals(expected, actual);
@@ -68,7 +70,7 @@ public class DateTimeTest {
 
     @Test
     public void testWordTime_now() {
-        String expected = LocalTime.now().format(DateTimeFormatter.ofPattern(FORMAT.TIME));
+        String expected = LocalTime.now().format(DateTimeFormatter.ofPattern(Format.TIME));
         try {
             String actual = new DateTime("now, 27 Jan 2025").toString().split(",")[0];
             Assertions.assertEquals(expected, actual);
