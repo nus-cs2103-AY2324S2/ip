@@ -1,5 +1,5 @@
+package duke.task;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 public class Deadlines extends Task{
     protected LocalDate by;
     
@@ -14,6 +14,6 @@ public class Deadlines extends Task{
     
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + Task.formatDateForPrinting(this.getBy()) + ")";
+        return "[D]" + super.toString() + " (by: " + formatDateForPrinting(this.getBy()) + ")";
     }
 }

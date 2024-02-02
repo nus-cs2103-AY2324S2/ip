@@ -1,3 +1,12 @@
+package duke.parser;
+
+import duke.task.Task;
+import duke.task.ToDos;
+import duke.task.Deadlines;
+import duke.task.Events;
+import duke.tasklist.TaskList;
+import duke.exception.DukeException;
+import duke.ui.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -68,7 +77,8 @@ public class Parser {
             LocalDate end = parseFileDateToStorageDate(endString);
             t = new Events(description, start, end);
         }
-        t.isDone = status == 'X';
+        boolean doneOrNot = (status == 'X');
+        t.setStatus(doneOrNot);
         return t;
     }
     

@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -24,6 +26,10 @@ public class Task {
     
     public void markUndone() {
         this.isDone = false;
+    }
+    
+    public void setStatus(boolean status) {
+        this.isDone = status;
     }
     
     @Override

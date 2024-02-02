@@ -1,5 +1,5 @@
+package duke.task;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 public class Events extends Task{
     protected LocalDate start;
     protected LocalDate end;
@@ -20,7 +20,7 @@ public class Events extends Task{
     
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from " + Task.formatDateForPrinting(this.getStart())
-                + " to " + Task.formatDateForPrinting(this.getEnd()) + ")";
+        return "[E]" + super.toString() + " (from " + formatDateForPrinting(this.getStart())
+                + " to " + formatDateForPrinting(this.getEnd()) + ")";
     }
 }

@@ -1,3 +1,11 @@
+package duke.main;
+
+import duke.storage.Storage;
+import duke.parser.Parser;
+import duke.ui.Ui;
+import duke.tasklist.TaskList;
+import duke.task.Task;
+import duke.exception.DukeException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -66,67 +74,67 @@ public class Duke {
                 duke.ui.listing(duke.list);
                 break;
             case MARK:
-                ui.handleMarkError(inputFromUser, list);
-                Task taskToBeMarked = parser.getTaskTobeMarked(inputFromUser, list);
+                duke.ui.handleMarkError(inputFromUser, duke.list);
+                Task taskToBeMarked = duke.parser.getTaskTobeMarked(inputFromUser, duke.list);
                 taskToBeMarked.markDone();
-                ui.marking(taskToBeMarked);
+                duke.ui.marking(taskToBeMarked);
                 try {
-                    storage.changeFileContent(list);
+                    duke.storage.changeFileContent(duke.list);
                 } catch (IOException e) {
-                    this.ui.changingFileError();
+                    duke.ui.changingFileError();
                 }
                 break;
             case UNMARK:
-                ui.handleUnmarkError(inputFromUser, list);
-                Task taskToBeUnmarked = parser.getTaskToBeUnmarked(inputFromUser, list);
+                duke.ui.handleUnmarkError(inputFromUser, duke.list);
+                Task taskToBeUnmarked = duke.parser.getTaskToBeUnmarked(inputFromUser, duke.list);
                 taskToBeUnmarked.markUndone();
-                ui.unmarking(taskToBeUnmarked);
+                duke.ui.unmarking(taskToBeUnmarked);
                 try {
-                    storage.changeFileContent(list);
+                    duke.storage.changeFileContent(duke.list);
                 } catch (IOException e) {
-                    this.ui.changingFileError();
+                    duke.ui.changingFileError();
                 }
                 break;
             case TODO:
-                ui.handleTodoError(inputFromUser);
-                Task todoTask = parser.createToDo(inputFromUser);
-                ui.echo(todoTask, list);
+                duke.ui.handleTodoError(inputFromUser);
+                Task todoTask = duke.parser.createToDo(inputFromUser);
+                duke.ui.echo(todoTask, duke.list);
                 try {
-                    storage.addTaskToFile((todoTask));
+                    duke.storage.addTaskToFile((todoTask));
                 } catch (IOException e) {
-                    this.ui.changingFileError();
+                    duke.ui.changingFileError();
                 }
                 break;
             case DEADLINE:
-                ui.handleDeadlineError(inputFromUser);
-                Task deadlineTask = parser.createDeadline(inputFromUser, ui);
-                ui.echo(deadlineTask, list);
+                duke.ui.handleDeadlineError(inputFromUser);
+                Task deadlineTask = duke.parser.createDeadline(inputFromUser, duke.ui);
+                duke.ui.echo(deadlineTask, duke.list);
                 try {
-                    storage.addTaskToFile((deadlineTask));
+                    duke.storage.addTaskToFile((deadlineTask));
                 } catch (IOException e) {
-                    this.ui.changingFileError();
+                    duke.ui.changingFileError();
                 }
                 break;
             case EVENT:
-                ui.handleEventError(inputFromUser);
-                Task eventTask = parser.createEvent(inputFromUser, ui);
+                duke.ui.handleEventError(inputFromUser);
+                Task eventTask = duke.parser.createEvent(inputFromUser, duke.ui);
                 duke.ui.echo(eventTask, duke.list);
                 try {
                     duke.storage.addTaskToFile((eventTask));
                 } catch (IOException e) {
-                    this.ui.changingFileError();
+                    duke.ui.changingFileError();
                 }
                 break;
             case DELETE:
                 int indexOfTaskToDelete = Integer.parseInt(inputFromUser.substring(7));
-                ui.handleDeleteError(list, inputFromUser,indexOfTaskToDelete);
+                duke.ui.handleDeleteError(duke.list, inputFromUser,indexOfTaskToDelete);
                 Task taskToDelete = duke.parser.getTaskToDelete(inputFromUser, duke.list);
                 duke.ui.deleting(taskToDelete, duke.list);
                 duke.list.delete(taskToDelete);
                 try {
                     duke.storage.changeFileContent(duke.list);
                 } catch (IOException e) {
-                    this.ui.changingFileError();
+                    duke.ui.changingFileError();
                 }
                 break;
             case BYE:
