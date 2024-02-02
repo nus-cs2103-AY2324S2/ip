@@ -58,6 +58,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Makes Nollid say the specified message by adding a DialogBox to the dialogContainer.
+     */
     public void makeNollidSay(String message) {
         dialogContainer.getChildren().add(DialogBox.getNollidDialog(message, nollidImage));
     }
