@@ -14,6 +14,10 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public Boolean isMatchingDescription(String find) {
+        return description.contains(find);
+    }
+
     public String getStatusIcon() {
         return (this.isDone ? "X" : " ");
     }

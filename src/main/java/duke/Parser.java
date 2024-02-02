@@ -13,12 +13,13 @@ import duke.commands.CommandList;
 import duke.commands.CommandMark;
 import duke.commands.CommandToDo;
 import duke.commands.CommandUnmark;
+import duke.commands.CommandFind;
 import duke.tasks.TaskList;
 
 
 public class Parser {
 
-    enum CommandType {LIST, BYE, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT};
+    enum CommandType {LIST, BYE, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND};
 
     private Scanner scanner;
     private Ui ui;
@@ -77,8 +78,11 @@ public class Parser {
                 case DEADLINE:
                     command = new CommandDeadline(taskList, ui);
                     break;
-                default: // EVENT
+                case EVENT:
                     command = new CommandEvent(taskList, ui);
+                    break;
+                default: // find
+                    command = new CommandFind(taskList, ui);
                     break;
             }
             command.execute(description);
