@@ -407,7 +407,7 @@ public class RochinOOP {
         }
 
         /**
-         * Processes the command based on its operation.
+         * Process the command based on its operation.
          *
          * @param tasks The TaskList to be modified.
          * @param ui    The user interface for displaying messages.
@@ -449,7 +449,7 @@ public class RochinOOP {
         }
 
         /**
-         * Processe a "todo" command and adds a new todo task to the TaskList.
+         * Process a "todo" command and adds a new todo task to the TaskList.
          *
          * @param tasks The TaskList to be modified.
          * @param ui    The user interface for displaying messages.
@@ -468,7 +468,7 @@ public class RochinOOP {
         }
 
         /**
-         * Processe a "deadline" command and adds a new deadline task to the TaskList.
+         * Process a "deadline" command and adds a new deadline task to the TaskList.
          *
          * @param tasks The TaskList to be modified.
          * @param ui    The user interface for displaying messages.
@@ -485,7 +485,7 @@ public class RochinOOP {
         }
 
         /**
-         * Processe an "event" command and adds a new event task to the TaskList.
+         * Process an "event" command and adds a new event task to the TaskList.
          *
          * @param tasks The TaskList to be modified.
          * @param ui    The user interface for displaying messages.
@@ -502,7 +502,7 @@ public class RochinOOP {
         }
 
         /**
-         * Processe a "delete" command and deletes a task from the TaskList.
+         * Process a "delete" command and deletes a task from the TaskList.
          *
          * @param tasks The TaskList to be modified.
          * @param ui    The user interface for displaying messages.
@@ -514,7 +514,7 @@ public class RochinOOP {
         }
 
         /**
-         * Processe a "mark" command and marks a task as done in the TaskList.
+         * Process a "mark" command and marks a task as done in the TaskList.
          *
          * @param tasks The TaskList to be modified.
          * @param ui    The user interface for displaying messages.
@@ -526,7 +526,7 @@ public class RochinOOP {
         }
 
         /**
-         * Processe an "unmark" command and unmarks a task as done in the TaskList.
+         * Process an "unmark" command and unmarks a task as done in the TaskList.
          *
          * @param tasks The TaskList to be modified.
          * @param ui    The user interface for displaying messages.
@@ -553,7 +553,7 @@ public class RochinOOP {
         }
 
         /**
-         * Processes the "find" command, searching for tasks containing the specified keyword.
+         * Process the "find" command, searching for tasks containing the specified keyword.
          *
          * @param tasks The TaskList containing all tasks.
          * @param ui    The Ui for displaying user interface messages.
