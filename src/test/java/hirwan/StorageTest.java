@@ -26,14 +26,15 @@ public class StorageTest {
         listToWrite.add("3");
         Storage.writeTask(listToWrite);
 
-        List<String> listToRead = new ArrayList<>();
         try {
             File filePath = new File(FILE_PATH);
             Scanner scan = new Scanner(filePath);
-            while (scan.hasNext()) {
-                listToRead.add(scan.nextLine());
+            int i = 1;
+            while (i < 4) {
+                String temp = scan.nextLine();
+                assertEquals(i, Integer.parseInt(temp));
+                i++;
             }
-            assertEquals("1\n2\n3", listToRead);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
