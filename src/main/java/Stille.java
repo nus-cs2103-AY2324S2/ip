@@ -44,6 +44,10 @@ public class Stille {
                 System.out.println("  " + t);
                 break;
             case "todo" :
+                if (command.length == 1 || command[1].trim() == "") {
+                    System.out.println("\nOOPS!!! The description of a todo cannot be empty.\n ");
+                    break;
+                }
                 t = new ToDo(command[1].trim());
                 list.add(t);
                 System.out.println("\nGot it. I've added this task:\n " + t);
@@ -64,8 +68,8 @@ public class Stille {
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
                 break;
             default:
-                list.add(new Task(input.trim()));
-                System.out.println("\nadded: " + input);
+                //list.add(new Task(input.trim()));
+                System.out.println("\nOOPS!!! I'm sorry, but I don't know what that means");
                 break;
             }
         }
