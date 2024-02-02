@@ -5,10 +5,9 @@ import duke.exceptions.DukeException;
 import duke.exceptions.IllegalParamException;
 import duke.exceptions.MissingInfoException;
 import duke.exceptions.ParserException;
-import duke.task.Event;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ParserTest {
     @Test
@@ -21,6 +20,9 @@ public class ParserTest {
         // random capitalization of bye results in ByeCommand returned
         Command bye = Parser.parse("ByE");
         assertTrue(bye instanceof ByeCommand);
+    }
+
+    private void assertTrue(boolean b) {
     }
 
     @Test

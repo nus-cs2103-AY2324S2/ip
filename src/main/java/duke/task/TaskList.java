@@ -1,6 +1,5 @@
 package duke.task;
 
-import duke.exceptions.DukeException;
 import duke.exceptions.IllegalParamException;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class TaskList implements Iterable<Task>{
             out += count + "." + currentItem + "\n";
             count++;
         }
-        return out.equals("") ? "Looks like you have nothing to do! Yay!\n" : out;
+        return out.equals("Here is the list of things I remember!\n") ? "Looks like you have nothing to do! Yay!\n" : out;
     }
 
     @Override
@@ -35,7 +34,7 @@ public class TaskList implements Iterable<Task>{
         try {
             return this.taskList.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new IllegalParamException("I cant do that! The duke.command.task does not exist!");
+            throw new IllegalParamException("I cant do that! The task does not exist!");
         }
 
     }
@@ -44,7 +43,7 @@ public class TaskList implements Iterable<Task>{
         try {
             this.taskList.remove(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new IllegalParamException("I cant delete that duke.command.task! It does not exist!");
+            throw new IllegalParamException("I cant delete that task! It does not exist!");
         }
     }
 
