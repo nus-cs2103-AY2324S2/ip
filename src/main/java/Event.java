@@ -1,3 +1,4 @@
+
 public class Event extends Task {
 
     protected String by1;
@@ -12,6 +13,7 @@ public class Event extends Task {
     @Override
     public String toString() {
 
-        return "[E]" + super.toString() + "(from:" + by1.substring(4) + "to:" + by2.substring(2) + ")";
+        return "[E]" + super.toString() +
+                "(from: " + by1.substring(5) + "to: " + by2.substring(3) + ")";
     }
 }
