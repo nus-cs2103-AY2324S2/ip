@@ -119,6 +119,11 @@ public class TaskList {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Finds if the substring is in the name of th list of tasks and print it if there is.
+     *
+     * @param in A string in the format of "find x" where x is the substring to find.
+     */
     public void find(String in) {
         System.out.println("Here are the matching tasks in your list:");
         int number = 1;
