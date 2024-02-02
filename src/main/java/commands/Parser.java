@@ -32,6 +32,8 @@ public class Parser {
             return Command.ADD_EVENT;
         } else if (message.startsWith("delete")) {
             return Command.DELETE;
+        } else if (message.startsWith("find")) {
+            return Command.FIND;
         } else {
             throw new DukeException("What's YAPpening??!! Please yap your instruction more clearly");
         }

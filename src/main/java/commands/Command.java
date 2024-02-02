@@ -6,11 +6,13 @@ import main.java.Storage;
 import tasks.Task;
 import tasks.TaskList;
 
+import java.util.ArrayList;
 
 /**
  * Defines the set of commands that can be executed within the Duke application.
  * Each enum constant represents a distinct command and defines its own execution behavior.
  */
+
 public enum Command {
     /**
      * Command to terminate the application. It saves the current state of tasks before exiting.
@@ -108,7 +110,18 @@ public enum Command {
             ui.triggerDeleteMessage(task);
             storage.saveTasks(tasks);
         }
-    };
+    },
+    FIND {
+        @Override
+        public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
+            String[] inputs = message.split(" ");
+            String queryString = inputs[1];
+            ArrayList<Task> tempList = new ArrayList<>();
+            TaskList tempTaskList = tasks.filter(queryString);
+            tempTaskList.yapTasks();
+        }
+    }
+    ;
 
 
     /**
