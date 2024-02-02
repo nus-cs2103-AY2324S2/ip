@@ -1,9 +1,12 @@
 package squid.tasks;
 
-import squid.constants.REGEX;
-
 import java.util.Objects;
 
+import squid.constants.Regex;
+
+/**
+ * Class encapsulating Todo tasks.
+ */
 public class Todo extends Task {
     /**
      * The constructor of an Event.
@@ -34,7 +37,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return String.format("%s[%s]: %s", getType(), completedIcon(), taskName);
+        return String.format("%s[%s]: %s", getType(), completedIcon(), getTaskName());
     }
 
     /**
@@ -44,9 +47,9 @@ public class Todo extends Task {
     public String parseStr() {
         return String.format("%s%s%s%s%s\n",
                 getType(),
-                REGEX.TASK_SPLIT,
+                Regex.TASK_SPLIT,
                 Objects.equals(completedIcon(), "X") ? "X" : "-",
-                REGEX.TASK_SPLIT,
-                taskName);
+                Regex.TASK_SPLIT,
+                getTaskName());
     }
 }

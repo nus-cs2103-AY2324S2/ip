@@ -1,13 +1,15 @@
 package squid.tasks;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import squid.constants.REGEX;
-
 import static org.junit.Assert.assertEquals;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import squid.constants.Regex;
+
+
 public class TodoTest {
-    Todo task;
+    private Todo task;
     @BeforeEach
     public void setup() {
         task = new Todo("testTest");
@@ -19,7 +21,7 @@ public class TodoTest {
 
     @Test
     public void testTodoName() {
-        assertEquals("testTest", task.taskName);
+        assertEquals("testTest", task.getTaskName());
     }
 
     @Test
@@ -44,7 +46,7 @@ public class TodoTest {
 
     @Test
     public void testParseString() {
-        String expected = String.format("[T]%s-%stestTest\n", REGEX.TASK_SPLIT, REGEX.TASK_SPLIT);
+        String expected = String.format("[T]%s-%stestTest\n", Regex.TASK_SPLIT, Regex.TASK_SPLIT);
         assertEquals(expected, task.parseStr());
     }
 

@@ -2,12 +2,10 @@ package squid;
 
 import java.util.Scanner;
 
-import squid.constants.MESSAGES;
-import squid.constants.EXCEPTIONS;
-import squid.constants.REGEX;
-import squid.constants.CORRECT_USAGE;
-
-import squid.exceptions.DukeException;
+import squid.constants.CorrectUsage;
+import squid.constants.Exceptions;
+import squid.constants.Messages;
+import squid.constants.Regex;
 import squid.exceptions.DuplicateTaskNameException;
 import squid.exceptions.IncorrectIndexException;
 import squid.exceptions.IncorrectInputException;
@@ -15,18 +13,21 @@ import squid.exceptions.NotEnoughDatesException;
 import squid.exceptions.NotEnoughInputsException;
 import squid.exceptions.ParseFailException;
 import squid.exceptions.SquidDateException;
-
-import squid.tasks.Todo;
-import squid.tasks.Event;
+import squid.exceptions.SquidException;
 import squid.tasks.DateTime;
 import squid.tasks.Deadline;
+import squid.tasks.Event;
 import squid.tasks.Task;
 import squid.tasks.Tasks;
+import squid.tasks.Todo;
 
-public class Duke {
+/**
+ * The main class of Squid.
+ */
+public class Squid {
 
 
-    private static void Squid() {
+    public Squid() {
         new Tasks();
     }
 
@@ -37,7 +38,7 @@ public class Duke {
      * @throws IncorrectIndexException Should never happen.
      */
     private static void list() throws NotEnoughInputsException, IncorrectIndexException {
-        echo(MESSAGES.LIST);
+        echo(Messages.LIST);
         Tasks.list();
     }
 
@@ -50,9 +51,9 @@ public class Duke {
         } catch (ParseFailException | DuplicateTaskNameException | SquidDateException e) {
             echo(e.toString());
         }
-        System.out.println(MESSAGES.LINE_BREAK);
-        echo(squid.constants.MESSAGES.HELLO);
-        System.out.println(MESSAGES.LINE_BREAK);
+        System.out.println(Messages.LINE_BREAK);
+        echo(Messages.HELLO);
+        System.out.println(Messages.LINE_BREAK);
     }
 
     /**
@@ -61,7 +62,7 @@ public class Duke {
      * @throws NotEnoughInputsException Should never happen, unless constant MESSAGES.BYE is blank.
      */
     private static void bye() throws NotEnoughInputsException {
-        echo(MESSAGES.BYE);
+        echo(Messages.BYE);
         Tasks.save();
     }
 
@@ -81,7 +82,7 @@ public class Duke {
         if (params.length <= 1) {
             throw new NotEnoughInputsException(
                     String.format(
-                            EXCEPTIONS.NOT_ENOUGH_INPUTS, "echo", CORRECT_USAGE.ECHO));
+                            Exceptions.NOT_ENOUGH_INPUTS, "echo", CorrectUsage.ECHO));
         }
         echo(params[1]);
     }
@@ -92,7 +93,7 @@ public class Duke {
      * @param message The message to be printed.
      */
     private static void echo(String message) {
-        System.out.println(MESSAGES.ECHO + message);
+        System.out.println(Messages.ECHO + message);
     }
 
     /**
@@ -107,13 +108,13 @@ public class Duke {
         if (params.length <= 1) {
             throw new NotEnoughInputsException(
                     String.format(
-                            EXCEPTIONS.NOT_ENOUGH_INPUTS, "todo", CORRECT_USAGE.TODO));
+                            Exceptions.NOT_ENOUGH_INPUTS, "todo", CorrectUsage.TODO));
 
         }
 
         Task t = new Todo(params[1]);
         Tasks.add(t);
-        echo(String.format(MESSAGES.TODO, t));
+        echo(String.format(Messages.TODO, t));
     }
 
     /**
@@ -132,25 +133,25 @@ public class Duke {
         if (params.length <= 1) {
             throw new NotEnoughInputsException(
                     String.format(
-                            EXCEPTIONS.NOT_ENOUGH_INPUTS,
+                            Exceptions.NOT_ENOUGH_INPUTS,
                             "deadline",
-                            CORRECT_USAGE.DEADLINE));
+                            CorrectUsage.DEADLINE));
         }
-        String[] arguments = params[1].split(REGEX.DEADLINE);
+        String[] arguments = params[1].split(Regex.DEADLINE);
 
         if (arguments.length == 1) {
             throw new NotEnoughDatesException(
                     String.format(
-                            EXCEPTIONS.NOT_ENOUGH_DATES,
+                            Exceptions.NOT_ENOUGH_DATES,
                             1,
                             "deadline",
-                            CORRECT_USAGE.DEADLINE));
+                            CorrectUsage.DEADLINE));
         }
         String task = arguments[0];
         DateTime dateTime = new DateTime(arguments[1]);
         Task t = new Deadline(task, dateTime);
         Tasks.add(t);
-        echo(String.format(MESSAGES.DEADLINE, t));
+        echo(String.format(Messages.DEADLINE, t));
     }
 
     /**
@@ -169,25 +170,25 @@ public class Duke {
         if (params.length <= 1) {
             throw new NotEnoughInputsException(
                     String.format(
-                            EXCEPTIONS.NOT_ENOUGH_INPUTS,
+                            Exceptions.NOT_ENOUGH_INPUTS,
                             "event",
-                            CORRECT_USAGE.EVENT));
+                            CorrectUsage.EVENT));
         }
-        params = params[1].split(REGEX.EVENT_FROM);
-        if (params.length != 2 || params[1].split(REGEX.EVENT_TO).length != 2) {
+        params = params[1].split(Regex.EVENT_FROM);
+        if (params.length != 2 || params[1].split(Regex.EVENT_TO).length != 2) {
             throw new NotEnoughDatesException(
                     String.format(
-                            EXCEPTIONS.NOT_ENOUGH_DATES,
+                            Exceptions.NOT_ENOUGH_DATES,
                             2,
                             "event",
-                            CORRECT_USAGE.EVENT));
+                            CorrectUsage.EVENT));
         }
-        String[] dates = params[1].split(REGEX.EVENT_TO);
+        String[] dates = params[1].split(Regex.EVENT_TO);
         DateTime from = new DateTime(dates[0]);
         DateTime to = new DateTime(dates[1]);
         Task t = new Event(params[0], from, to);
         Tasks.add(t);
-        echo(String.format(MESSAGES.EVENT, t));
+        echo(String.format(Messages.EVENT, t));
     }
 
 
@@ -206,31 +207,31 @@ public class Duke {
         if (params.length <= 1) {
             throw new NotEnoughInputsException(
                     String.format(
-                            EXCEPTIONS.NOT_ENOUGH_INPUTS,
+                            Exceptions.NOT_ENOUGH_INPUTS,
                             isCompleted ? "mark" : "unmark",
-                            CORRECT_USAGE.MARK(isCompleted)));
+                            CorrectUsage.mark(isCompleted)));
         }
         String task = params[1];
         // Find the task entry.
         Task found = null;
         for (int i = 0; i < Tasks.size(); i++) {
-            if (Tasks.get(i).taskName.equals(task)) {
+            if (Tasks.get(i).getTaskName().equals(task)) {
                 found = Tasks.get(i);
             }
         }
         if (found != null) {
             if (found.isCompleted() == isCompleted) {
-                echo(String.format(MESSAGES.MARK_REPEAT,isCompleted ? "" : "un"));
+                echo(String.format(Messages.MARK_REPEAT, isCompleted ? "" : "un"));
             } else {
                 found.setCompleted(isCompleted);
                 echo(String.format(isCompleted
-                        ? MESSAGES.MARK_COMPLETE
-                        : MESSAGES.MARK_INCOMPLETE, found));
+                        ? Messages.MARK_COMPLETE
+                        : Messages.MARK_INCOMPLETE, found));
             }
 
 
         } else {
-            echo(MESSAGES.MARK_NOT_FOUND);
+            echo(Messages.MARK_NOT_FOUND);
         }
     }
 
@@ -245,12 +246,12 @@ public class Duke {
         String[] params = input.split(" ", 2);
         if (params.length == 1) {
             throw new NotEnoughInputsException(
-                    String.format(EXCEPTIONS.NOT_ENOUGH_INPUTS,
+                    String.format(Exceptions.NOT_ENOUGH_INPUTS,
                             "delete",
-                            CORRECT_USAGE.DELETE));
+                            CorrectUsage.DELETE));
         }
         Task deleted = Tasks.delete(params[1]);
-        echo(String.format(MESSAGES.DELETE, params[1], deleted));
+        echo(String.format(Messages.DELETE, params[1], deleted));
         Tasks.list();
     }
 
@@ -260,10 +261,10 @@ public class Duke {
         String[] params = input.split(" ", 2);
         if (params.length == 1) {
             throw new NotEnoughInputsException(
-                    String.format(EXCEPTIONS.NOT_ENOUGH_INPUTS, "find", CORRECT_USAGE.FIND));
+                    String.format(Exceptions.NOT_ENOUGH_INPUTS, "find", CorrectUsage.FIND));
         }
         String keyword = params[1];
-        echo(MESSAGES.FIND);
+        echo(Messages.FIND);
         Tasks.find(keyword);
     }
 
@@ -273,10 +274,10 @@ public class Duke {
      * @param loop Condition whether to terminate loop.
      * @param input The user's input.
      * @return Whether the loop should continue (Usually true unless "bye" command is given).
-     * @throws DukeException General exception thrown by Squid.
+     * @throws SquidException General exception thrown by Squid.
      */
-    private static boolean parseInput(boolean loop, String input) throws DukeException {
-        System.out.println(MESSAGES.LINE_BREAK);
+    private static boolean parseInput(boolean loop, String input) throws SquidException {
+        System.out.println(Messages.LINE_BREAK);
         String[] messages = input.split(" ", 2);
         String command = messages[0];
         String params = "";
@@ -316,15 +317,15 @@ public class Duke {
                 break;
             case ("save"):
                 Tasks.save();
-                echo(MESSAGES.SAVE);
+                echo(Messages.SAVE);
                 break;
             case ("find"):
                 find(input);
                 break;
             default:
-                throw new IncorrectInputException(EXCEPTIONS.INCORRECT_INPUT);
+                throw new IncorrectInputException(Exceptions.INCORRECT_INPUT);
             }
-        } catch (DukeException e) {
+        } catch (SquidException e) {
             echo(e.getMessage());
         }
         return loop;
@@ -332,8 +333,8 @@ public class Duke {
 
 
 
-    public static void main(String[] args) throws DukeException {
-        Squid();
+    public static void main(String[] args) throws SquidException {
+        new Squid();
         hello();
 
         Scanner scanner = new Scanner(System.in);
@@ -342,7 +343,7 @@ public class Duke {
         while (loop) {
             String input = scanner.nextLine().strip();
             loop = parseInput(loop, input);
-            System.out.println(MESSAGES.LINE_BREAK);
+            System.out.println(Messages.LINE_BREAK);
             Tasks.save();
         }
 

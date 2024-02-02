@@ -1,10 +1,13 @@
 package squid.tasks;
 
-import squid.constants.MESSAGES;
-import squid.constants.REGEX;
-
 import java.util.Objects;
 
+import squid.constants.Messages;
+import squid.constants.Regex;
+
+/**
+ * Class encapsulating Deadline tasks.
+ */
 public class Event extends Task {
     private DateTime from;
     private DateTime to;
@@ -34,7 +37,7 @@ public class Event extends Task {
      */
     @Override
     public String getAdditionalInfo() {
-        return String.format(MESSAGES.EVENT_TO_STRING, from, to);
+        return String.format(Messages.EVENT_TO_STRING, from, to);
     }
 
     /**
@@ -42,7 +45,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("%s[%s]: %s%s", getType(), completedIcon(), taskName, getAdditionalInfo());
+        return String.format("%s[%s]: %s%s", getType(), completedIcon(), getTaskName(), getAdditionalInfo());
     }
 
     /**
@@ -51,14 +54,14 @@ public class Event extends Task {
     @Override
     public String parseStr() {
         return String.format(
-                "%s%s%s%s%s%s%s%s%s\n",getType(),
-                REGEX.TASK_SPLIT,
+                "%s%s%s%s%s%s%s%s%s\n", getType(),
+                Regex.TASK_SPLIT,
                 Objects.equals(completedIcon(), "X") ? "X" : "-",
-                REGEX.TASK_SPLIT,
-                taskName,
-                REGEX.TASK_SPLIT,
+                Regex.TASK_SPLIT,
+                getTaskName(),
+                Regex.TASK_SPLIT,
                 from,
-                REGEX.TASK_SPLIT,
+                Regex.TASK_SPLIT,
                 to);
     }
 }

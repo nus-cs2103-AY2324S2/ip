@@ -1,18 +1,20 @@
 package squid.tasks;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import squid.constants.REGEX;
+
+import squid.constants.Regex;
 import squid.exceptions.DuplicateTaskNameException;
 import squid.exceptions.IncorrectIndexException;
 import squid.exceptions.ParseFailException;
 import squid.exceptions.SquidDateException;
-
-import static org.junit.Assert.*;
 
 public class TasksTest {
 
@@ -56,20 +58,20 @@ public class TasksTest {
 
         @Override
         public String parseStr() {
-            return "before" + REGEX.TASK_SPLIT + "middle" + REGEX.TASK_SPLIT + "after";
+            return "before" + Regex.TASK_SPLIT + "middle" + Regex.TASK_SPLIT + "after";
         }
 
         @Override
         public String toString() {
-            return "test!";
+            return "test";
         }
     }
 
 
     @BeforeEach
     public void setup() {
-         tasks = new Tasks();
-         stub = new TodoStub("test!");
+        tasks = new Tasks();
+        stub = new TodoStub("test");
         System.setOut(new PrintStream(outContent));
     }
 
@@ -85,7 +87,7 @@ public class TasksTest {
     public void testAdd() {
         try {
             Tasks.add(stub);
-            Assertions.assertEquals(1, Tasks.size());
+            assertEquals(1, Tasks.size());
         } catch (DuplicateTaskNameException e) {
             fail();
         }
@@ -103,7 +105,7 @@ public class TasksTest {
     public void testGet() {
         try {
             Tasks.add(stub);
-            Assertions.assertEquals(Tasks.get(0), stub);
+            assertEquals(Tasks.get(0), stub);
         } catch (DuplicateTaskNameException | IncorrectIndexException e) {
             fail();
         }
@@ -128,7 +130,7 @@ public class TasksTest {
         try {
             Tasks.add(stub);
             Tasks.list();
-            assertEquals("1: test!\r\n",  outContent.toString());
+            assertEquals("1: test" + "\r" + "\n", outContent.toString());
         } catch (IncorrectIndexException | DuplicateTaskNameException e) {
             fail();
         }
@@ -140,8 +142,8 @@ public class TasksTest {
         try {
             Task actual = Tasks.parseTask(stub.parseStr());
 
-            System.out.println("actual"+ actual.taskName);
-            assertEquals(expected, actual.taskName);
+            System.out.println("actual" + actual.getTaskName());
+            assertEquals(expected, actual.getTaskName());
         } catch (ParseFailException | SquidDateException e) {
             fail();
         }
@@ -153,7 +155,7 @@ public class TasksTest {
         try {
             Task actual = Tasks.parseTask(stub.parseStr());
 
-            System.out.println("actual"+ actual.isCompleted());
+            System.out.println("actual" + actual.isCompleted());
             assertEquals(expected, actual.isCompleted());
         } catch (ParseFailException | SquidDateException e) {
             fail();

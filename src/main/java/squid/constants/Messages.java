@@ -1,6 +1,9 @@
 package squid.constants;
 
-public class MESSAGES {
+/**
+ * The class of constants for Strings regarding messages sent by Squid.
+ */
+public class Messages {
     public static final String LINE_BREAK = "\n---------------------------------------------\n";
     public static final String ADD = "Added %s. When are you going to add 'feed Squid'?";
     public static final String HELLO = "HMm human. What do you want again?";

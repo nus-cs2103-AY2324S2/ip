@@ -1,13 +1,32 @@
 package squid.tasks;
 
+/**
+ * Class encapsulating a Task.
+ */
 public abstract class Task implements TaskInterface {
+
+    protected boolean completed;
 
     /**
      * The name of the task.
      */
-    public String taskName;
+    private String taskName;
 
-    protected boolean completed;
+    /**
+     * Initializer for task.
+     * @param taskName The name of the task.
+     */
+    public Task(String taskName) {
+        this.taskName = taskName;
+        this.completed = false;
+    }
+
+    /**
+     * Get task name.
+     */
+    public String getTaskName() {
+        return this.taskName;
+    }
 
     /**
      * Set the task to be either complete or incomplete.
@@ -26,20 +45,10 @@ public abstract class Task implements TaskInterface {
     }
 
     /**
-     *
      * @return The string representation of completeness.
      */
     public String completedIcon() {
         return isCompleted() ? "X" : " ";
-    }
-
-    /**
-     * Initializer for task.
-     * @param taskName The name of the task.
-     */
-    public Task(String taskName) {
-        this.taskName = taskName;
-        this.completed = false;
     }
 
     /**

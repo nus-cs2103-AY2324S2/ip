@@ -1,7 +1,5 @@
 package squid.io;
 
-import squid.constants.FILEPATH;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,7 +8,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+import squid.constants.Filepath;
 
+/**
+ * Class to handle writing/reading to hard disk storage.
+ */
 public class SquidFile {
     /**
      * Referenced from:
@@ -35,13 +37,13 @@ public class SquidFile {
      * @throws IOException if there is IO error.
      */
     public static void writeToFile(String textToAdd, boolean append) throws IOException {
-        if (!doesFileExist(FILEPATH.DIR)) {
-            Files.createDirectory(Path.of(FILEPATH.DIR));
+        if (!doesFileExist(Filepath.DIR)) {
+            Files.createDirectory(Path.of(Filepath.DIR));
         }
-        if (!doesFileExist(FILEPATH.FULL_PATH)) {
-            Files.createFile(Paths.get(FILEPATH.FULL_PATH));
+        if (!doesFileExist(Filepath.FULL_PATH)) {
+            Files.createFile(Paths.get(Filepath.FULL_PATH));
         }
-        FileWriter fw = new FileWriter(FILEPATH.FULL_PATH, append);
+        FileWriter fw = new FileWriter(Filepath.FULL_PATH, append);
         fw.write(textToAdd);
         fw.close();
     }
@@ -55,7 +57,7 @@ public class SquidFile {
      * @throws IOException in case of IO error.
      */
     public static String readFromFile() throws IOException {
-        File f = new File(FILEPATH.FULL_PATH); // create a File for the given file path
+        File f = new File(Filepath.FULL_PATH); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         String str = "";
         while (s.hasNext()) {
