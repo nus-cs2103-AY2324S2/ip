@@ -23,7 +23,6 @@ public class TalkingJohn {
             for (Task task : taskArr) {
                 writer.write(task.toString() + "\n");
             }
-            System.out.println("Tasks saved to " + filePath);
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
