@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.*;
 public class Storage {
     protected static String dataPath = "./data/duke.txt";

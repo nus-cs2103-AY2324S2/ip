@@ -1,5 +1,12 @@
-import java.util.Scanner;
+package duke;
+import duke.parser.Parser;
 
+import java.util.Scanner;
+import duke.ui.UI;
+import duke.exception.AllyException;
+import duke.task.Todo;
+import duke.task.Event;
+import duke.task.Deadline;
 public class Duke {
 
     protected static TaskList lst = new TaskList();
@@ -43,9 +50,8 @@ public class Duke {
                     case UNKNOWN:
                         throw new AllyException();
                 }
-            } catch (Exception e) {
+            } catch (AllyException e) {
                 ui.showError();
-
             }
         }
     }
