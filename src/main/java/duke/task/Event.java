@@ -13,6 +13,11 @@ public class Event extends Task {
         this.at = at;
     }
 
+    /**
+     * Returns the event in a new String format when written in a file.
+     *
+     * @return New String format.
+     */
     @Override
     public String outputString() {
         return "E | " + super.outputString() + " | " + at;
