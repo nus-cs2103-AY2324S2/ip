@@ -8,6 +8,7 @@ import duke.main.Ui;
  * Represents a command to mark a task as done in the task list.
  */
 public class MarkCommand extends Command {
+
     private int zeroItem;
 
     /**

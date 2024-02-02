@@ -1,4 +1,5 @@
 package duke.main;
+
 import duke.task.Event;
 import duke.task.Deadline;
 import duke.task.Task;
@@ -13,6 +14,7 @@ import java.util.Scanner;
  * Handles user interactions.
  */
 public class Ui {
+
     private Scanner sc;
 
     /**
@@ -111,10 +113,10 @@ public class Ui {
                     }
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
-                    if (event.getStartTime().toLocalDate().equals(targetDate) ||
-                            event.getEndTime().toLocalDate().equals(targetDate) ||
-                            (targetDate.isAfter(event.getStartTime().toLocalDate()) &&
-                                    targetDate.isBefore(event.getEndTime().toLocalDate()))) {
+                    if (event.getStartTime().toLocalDate().equals(targetDate)
+                            || event.getEndTime().toLocalDate().equals(targetDate)
+                            || (targetDate.isAfter(event.getStartTime().toLocalDate())
+                            && targetDate.isBefore(event.getEndTime().toLocalDate()))) {
                         System.out.println(event);
                     }
                 }

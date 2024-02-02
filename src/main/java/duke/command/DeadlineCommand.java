@@ -9,6 +9,7 @@ import duke.task.Deadline;
  * Represents a command to add a deadline task to the task list.
  */
 public class DeadlineCommand extends Command {
+
     private String description;
     private String by;
 

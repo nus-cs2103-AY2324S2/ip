@@ -9,6 +9,7 @@ import duke.task.Todo;
  * Represents a command to add a to-do task to the task list .
  */
 public class ToDoCommand extends Command {
+
     private String description;
 
     /**

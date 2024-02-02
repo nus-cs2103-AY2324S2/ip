@@ -8,6 +8,7 @@ import duke.main.Ui;
  * Represents a command to unmark a task as done in the task list.
  */
 public class UnMarkCommand extends Command {
+
     private int zeroItem;
 
     /**

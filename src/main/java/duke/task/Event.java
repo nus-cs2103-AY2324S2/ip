@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
  * Represents a task that occurs within a specified date and time range.
  */
 public class Event extends Task {
+
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 

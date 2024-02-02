@@ -9,6 +9,7 @@ import duke.command.UnMarkCommand;
 import duke.command.OnCommand;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
+
 import duke.exception.DukeException;
 
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ import java.time.format.DateTimeParseException;
  * Parses user input and makes sense of user commands.
  */
 public class Parser {
+
      static Command parse(String userInput) throws DukeException {
         if (userInput.equals("bye")) {
             return new ExitCommand();
@@ -155,5 +157,4 @@ public class Parser {
 
         return new String[]{description, startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")), endTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))};
     }
-
 }

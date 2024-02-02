@@ -6,6 +6,7 @@ import duke.exception.DukeException;
  * Represents the main class for the chat application.
  */
 public class Duke { 
+
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
