@@ -1,3 +1,8 @@
+package duke.command;
+
+import duke.util.Parser;
+import duke.util.TaskList;
+
 public class ToggleMarkTask extends Command{
     private boolean isMarking;
     private int index;

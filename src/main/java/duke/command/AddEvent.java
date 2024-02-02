@@ -1,3 +1,9 @@
+package duke.command;
+
+import duke.util.Parser;
+import duke.util.TaskList;
+import duke.task.Event;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

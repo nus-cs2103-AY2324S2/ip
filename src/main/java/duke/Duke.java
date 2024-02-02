@@ -1,3 +1,10 @@
+package duke;
+
+import duke.command.Command;
+import duke.util.Parser;
+import duke.util.TaskList;
+import duke.util.Ui;
+
 import java.util.Scanner;
 public class Duke {
     private Parser parser;

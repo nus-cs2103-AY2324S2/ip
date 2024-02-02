@@ -1,3 +1,9 @@
+package duke.command;
+
+import duke.util.Parser;
+import duke.util.TaskList;
+import duke.task.Todo;
+
 public class AddTodo extends Command{
     private String description;
     public AddTodo(Parser.Cmd type, String description){

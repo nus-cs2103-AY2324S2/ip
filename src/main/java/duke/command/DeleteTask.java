@@ -1,3 +1,8 @@
+package duke.command;
+
+import duke.util.Parser;
+import duke.util.TaskList;
+
 public class DeleteTask extends Command{
     private int index;
     public DeleteTask(Parser.Cmd type, int index){

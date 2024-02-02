@@ -1,3 +1,7 @@
+package duke.util;
+
+import duke.task.Task;
+
 public class Ui {
     private String logo = "\t  __   __    ____  ____  ____  ____\n"
             + "\t / _\\ (  )  (  __)(  _ \\(  __)(    \\\n"
@@ -60,8 +64,9 @@ public class Ui {
         }
     }
     public static void informItemRemoved(Task task, int size){
-        String message = "I acknowledge your update. The specified task has been duly removed:\n" + task + "Currently, " +
-                "the list comprises  " + size + " tasks.";
+        String message = "I acknowledge your update. The specified task has been duly removed:\n\t" + task + "\n\tCurrently, " +
+                "the list comprises " + size + " tasks.";
+        printMessageWithLines(message);
     }
     public static void informWrongDateFormat(){
         String message = "Please entered the date and time in the (yyyy/mm/dd HHmm) format";
