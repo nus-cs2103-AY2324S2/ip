@@ -8,6 +8,7 @@ import Command.ByeCommand;
 import Command.ListCommand;
 import Command.UnmarkCommand;
 import Command.FindCommand;
+import Command.MeowCommand;
 import Task.Deadline;
 import Task.Event;
 import Task.TaskType;
@@ -85,6 +86,8 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 throw new DookException("Ohnoo! Please enter a phrase after \"find\"!");
             }
+        } else if (input.equals("meow")) {
+            return new MeowCommand();
         } else {
             throw new DookException("I don't understand this command :( Try again!");
         }
