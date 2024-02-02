@@ -1,7 +1,16 @@
 package bartenderbob;
 import java.util.Scanner;
 
+/**
+ * Represents a parser that receives and handle user inputs.
+ */
 public class InputHandler {
+    /**
+     * Receives and handles the user inputs to BartenderBob chatbot.
+     *
+     * @param taskList The tasks that the user has inputted into BartenderBob.
+     * @param ui Displays appropriate messages for its corresponding user input.
+     */
     public void handleInput(TaskList taskList, Ui ui) {
         Scanner scanner = new Scanner(System.in);
         while (true) {

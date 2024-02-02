@@ -9,12 +9,30 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the storage class to store user tasks into the hard disk.
+ */
 public class Storage {
+    /** File path to the storage file */
     private String filePath; //eg "./data/tasks.txt"
+    /** Displays messages to the user */
     private Ui ui = new Ui();
+
+    /**
+     * Creates an instance of the Storage class and initialises its file path.
+     *
+     * @param filePath File path to the storage file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Loads the tasks from the storage file into BartenderBob.
+     *
+     * @return ArrayList of tasks
+     * @throws BartenderBobException If error occurred while loading the tasks into BartenderBob.
+     */
     public ArrayList<Task> load() throws BartenderBobException {
         try {
             ArrayList<Task> taskArray = new ArrayList<>();
@@ -55,7 +73,14 @@ public class Storage {
             throw new BartenderBobException();
         }
     }
-    public void saveChanges(ArrayList<Task> tasks) { //for marking or unmarking tasks
+
+    /**
+     * Save changes to the files in the hard disk
+     * especially after unmarking, marking and deleting them.
+     *
+     * @param tasks The tasks that the user has inputted to BartenderBob.
+     */
+    public void saveChanges(ArrayList<Task> tasks) {
         try {
             Path path = Paths.get(filePath);
             Files.write(path, "".getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
@@ -67,6 +92,13 @@ public class Storage {
         }
 
     }
+
+    /**
+     * Convert date format from MMM dd yyyy to yyyy-MM-dd
+     *
+     * @param oldDateFormat Date which is of MMM dd yyyy format.
+     * @return Date which is of yyyy-MM-dd format.
+     */
     private String convertDateFormat(String oldDateFormat) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
@@ -80,6 +112,12 @@ public class Storage {
         return localDate.format(outputFormatter);
     }
 
+    /**
+     * Saves tasks to the storage file specified by the filepath,
+     * especially after adding them to the tasks list.
+     *
+     * @param task The task that we are saving to the storage file.
+     */
     public void saveTask(Task task) {
         //[T][X] read book = T | X | read book
         //[D][ ] return book (by: June 6th) = D |  | return book | June 6th
