@@ -19,43 +19,43 @@ public class ParserTest {
     @Test
     void testParseInputOperationSuccess() throws YapchitException {
         String input = "deadline";
-        yapchit.Operations op = yapchit.Operations.DEADLINE;
+        Yapchit.Operations op = Yapchit.Operations.DEADLINE;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "todo";
-        op = yapchit.Operations.TODO;
+        op = Yapchit.Operations.TODO;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "event";
-        op = yapchit.Operations.EVENT;
+        op = Yapchit.Operations.EVENT;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "mark";
-        op = yapchit.Operations.MARK;
+        op = Yapchit.Operations.MARK;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "unmark";
-        op = yapchit.Operations.UNMARK;
+        op = Yapchit.Operations.UNMARK;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "list";
-        op = yapchit.Operations.LIST;
+        op = Yapchit.Operations.LIST;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "delete";
-        op = yapchit.Operations.DELETE;
+        op = Yapchit.Operations.DELETE;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "Delete";
-        op = yapchit.Operations.DELETE;
+        op = Yapchit.Operations.DELETE;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "toDo";
-        op = yapchit.Operations.TODO;
+        op = Yapchit.Operations.TODO;
         assertEquals(op, parser.parseInputOperation(input));
 
         input = "MARK";
-        op = yapchit.Operations.MARK;
+        op = Yapchit.Operations.MARK;
         assertEquals(op, parser.parseInputOperation(input));
     }
 
