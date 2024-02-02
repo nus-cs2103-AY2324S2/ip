@@ -3,6 +3,10 @@ import exceptions.InvalidCommandException;
 import exceptions.InvalidDateException;
 import exceptions.InvalidSlashParameterException;
 import exceptions.LuluException;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import parser.Parser;
 import storage.Storage;
 import tasklist.TaskList;
@@ -13,7 +17,7 @@ import ui.UI;
  * Lulu interacts with the user through a command-line interface (CLI)
  * to perform tasks such as adding, listing, and deleting tasks.
  */
-public class Lulu {
+public class Lulu extends Application {
 
     /** The storage component for managing data persistence. */
     private Storage storage;
@@ -61,6 +65,15 @@ public class Lulu {
                 UI.print(e.getMessage());
             }
         }
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
     /**
