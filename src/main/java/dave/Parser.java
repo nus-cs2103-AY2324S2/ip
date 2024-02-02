@@ -6,6 +6,7 @@ import dave.exceptions.*;
 public class Parser {
     private enum CommandType {
         LIST,
+        FIND,
         DELETE,
         MARK,
         UNMARK,
@@ -29,6 +30,15 @@ public class Parser {
                 switch (commandStr) {
                 case LIST:
                     return new ListTasksCommand();
+                case FIND:
+                    try {
+                        String keyword = input.substring(5);
+                        return new FindTaskCommand(keyword);
+                    } catch (Exception exc) {
+                        return new InvalidCommand(new EmptyTaskException("Dave cannot find a task without a keyword."
+                        + "\nPlease help Dave by entering your search as follows:\n" +
+                        "\nfind <keyword>"));
+                    }
                 case DELETE:
                     int deleteNumber = Integer.parseInt(inputArr[1]) - 1;
                     try {
