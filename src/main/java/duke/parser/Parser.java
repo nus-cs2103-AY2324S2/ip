@@ -4,6 +4,12 @@ import duke.command.*;
 import duke.dukeexception.DukeInvalidCommand;
 
 public class Parser {
+    /**
+     * Returns the corresponding command given the input string.
+     * @param fullCommand the String command to be parsed
+     * @return the command corresponding to the string
+     * @throws DukeInvalidCommand if string is not a valid command
+     */
     public static Command parse(String fullCommand) throws DukeInvalidCommand {
             String[] input = fullCommand.split(" ", 2);
             String command = input[0];

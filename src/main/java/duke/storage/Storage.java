@@ -16,12 +16,26 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Facilitates the loading and saving of TaskList data during start up and closing of NotDuke.
+ */
 public class Storage {
+    /** The file to load and save to. */
     private final File filePath;
+
+    /**
+     * Constructs tne storage controller with the given String as the target file location.
+     * @param path The location to read and save the savefile
+     */
     public Storage(String path) {
         filePath = new File(path);
     }
 
+    /**
+     * Returns an ArrayList containing all the tasks saved in the savefile.
+     * @return an ArrayList of tasks
+     * @throws DukeNoSaveFile if savefile cannot be found
+     */
     public ArrayList<Task> load() throws DukeNoSaveFile {
         ArrayList<Task> saveFile = new ArrayList<>();
         try {
@@ -54,6 +68,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves data of TaskList in this session to the target savefile location.
+     * @param taskList the TaskList of the session
+     * @throws DukeSaveError if file cannot be saved
+     */
     public void save(TaskList taskList) throws DukeSaveError {
         try {
             filePath.getParentFile().mkdirs();
