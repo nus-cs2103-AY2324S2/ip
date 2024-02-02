@@ -27,5 +27,6 @@ public class OedipusRex {
         String thing2 = "A-Packages";
         String thing3 = "A-Gradle";
         String thing4 = "A-JUnit";
+        String thing5 = "A-Jar";
     }
 }
