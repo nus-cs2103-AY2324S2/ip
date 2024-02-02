@@ -20,7 +20,9 @@ Features:
 - [x] Managing tasks
 - [ ] Managing deadlines (coming soon)
 - [ ] Reminders (coming soon)
-<br/>
+
+---
+
 If you are a Java programmer, you can use it to practice Java too. Here's the `main` method:
 
 ```
