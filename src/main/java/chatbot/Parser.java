@@ -9,6 +9,9 @@ import java.time.temporal.ChronoField;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents a utility class to parse string inputs from the user.
+ */
 public class Parser {
     private static final Map<String, Command> cmdStrMap = new HashMap<>();
 
@@ -18,6 +21,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a string to extract the relevant command.
+     *
+     * @param rep The input string.
+     * @return The command.
+     * @throws InvalidCommandException If the string does not represent a valid command.
+     */
     public static Command toCommand(String rep) throws InvalidCommandException {
         String[] split = rep.split("\\s+", 2);
         Command cmd = cmdStrMap.get(split[0]);
@@ -30,6 +40,12 @@ public class Parser {
         return cmd;
     }
 
+    /**
+     * Parses a string to extract the date.
+     *
+     * @param date The date string.
+     * @return The date as LocalDateTime.
+     */
     public static LocalDateTime parseDate(String date) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .append(DateTimeFormatter.ofPattern(

@@ -6,6 +6,9 @@ import chatbot.exceptions.InvalidArgumentException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents an enum of the valid user commands.
+ */
 public enum Command {
     EXIT("bye"),
     LIST("list"),
@@ -20,12 +23,20 @@ public enum Command {
     private String args = "";
     private final boolean isBreaking;
 
-
+    /**
+     * Constructor that initialises a user command.
+     *
+     * @param cmd The string input representing the command.
+     */
     Command(String cmd) {
         this.rep = cmd.toLowerCase();
         this.isBreaking = this.rep.equals("bye");
     }
 
+    /**
+     * Populates the command with arguments provided.
+     * @param args The arguments.
+     */
     public void withArgs(String args) {
         this.args = args;
     }
@@ -35,10 +46,22 @@ public enum Command {
         return this.rep + this.args;
     }
 
+    /**
+     * Getter for if the command breaks the input loop.
+     *
+     * @return True if the command breaks the input loop.
+     */
     public boolean shouldExit() {
         return this.isBreaking;
     }
 
+    /**
+     * Executes the command for the provided task list.
+     *
+     * @param view The UI object to interface with.
+     * @param tl The task list object to operate on.
+     * @throws DukeException If an error occurs with the execution.
+     */
     public void execute(Ui view, TaskList tl) throws DukeException {
         switch (this) {
             case LIST:
@@ -57,6 +80,13 @@ public enum Command {
         }
     }
 
+    /**
+     * Executes a command with arguments for the provided task list.
+     *
+     * @param view The UI object to interface with.
+     * @param tl The task list object to operate on.
+     * @throws DukeException If an error occurs with the execution.
+     */
     private void executeFlagged(Ui view, TaskList tl) throws DukeException {
         Task t = new Task("");
         Pattern pattern;
@@ -88,6 +118,13 @@ public enum Command {
         view.displayAdd(tl, t);
     }
 
+    /**
+     * Executes a command with only index for the provided task list.
+     *
+     * @param view The UI object to interface with.
+     * @param tl The task list object to operate on.
+     * @throws DukeException If an error occurs with the execution.
+     */
     private void executeIndexing(Ui view, TaskList tl) throws DukeException {
         int i;
         try {

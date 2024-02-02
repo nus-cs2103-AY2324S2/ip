@@ -3,10 +3,7 @@ package chatbot;
 import chatbot.exceptions.AlreadyMarkedException;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class TodoTaskTest {
     @Test
