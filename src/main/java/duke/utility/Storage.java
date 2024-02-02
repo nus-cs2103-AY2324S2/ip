@@ -1,14 +1,14 @@
-package Utility;
+package duke.utility;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import Exceptions.DukeException;
+import duke.exceptions.DukeException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Task.Task;
+import duke.task.Task;
 
 public class Storage {
     private String filePath;

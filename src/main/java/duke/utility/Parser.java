@@ -1,23 +1,22 @@
-package Utility;
+package duke.utility;
 
 import java.time.format.DateTimeParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import Exceptions.DukeException;
+import duke.exceptions.DukeException;
+import duke.task.Event;
+import duke.task.Deadline;
+import duke.task.Todo;
+import duke.task.Task;
 
-import Task.Deadline;
-import Task.Todo;
-import Task.Event;
-import Task.Task;
-
-import Command.DeleteCommand;
-import Command.AddCommand;
-import Command.MarkCommand;
-import Command.ListCommand;
-import Command.UnmarkCommand;
-import Command.ExitCommand;
-import Command.Command;
+import duke.command.Command;
+import duke.command.AddCommand;
+import duke.command.DeleteCommand;
+import duke.command.MarkCommand;
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
+import duke.command.UnmarkCommand;
 
 public class Parser {
     private static Event createEvent(String s) throws DukeException {

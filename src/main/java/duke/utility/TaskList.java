@@ -1,8 +1,8 @@
-package Utility;
+package duke.utility;
 
 import java.util.ArrayList;
-import Exceptions.DukeException;
-import Task.Task;
+import duke.exceptions.DukeException;
+import duke.task.Task;
 
 public class TaskList {
     private final ArrayList<Task> list;

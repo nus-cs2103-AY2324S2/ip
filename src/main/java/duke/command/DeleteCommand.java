@@ -1,11 +1,11 @@
-package Command;
+package duke.command;
 
 import java.io.IOException;
-import Exceptions.DukeException;
+import duke.exceptions.DukeException;
 
-import Utility.TaskList;
-import Utility.Ui;
-import Utility.Storage;
+import duke.utility.Ui;
+import duke.utility.TaskList;
+import duke.utility.Storage;
 
 public class DeleteCommand extends Command {
     private int taskNumber;
@@ -13,6 +13,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int i) {
         this.taskNumber = i;
     }
+
     public void execute(TaskList list, Ui ui, Storage s) {
         ui.showDelete();
         try {

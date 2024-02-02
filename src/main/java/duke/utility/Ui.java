@@ -1,11 +1,12 @@
-package Utility;
+package duke.utility;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import Task.Task;
+import duke.task.Task;
 
 public class Ui {
     Scanner sc = new Scanner(System.in);
+
     public void greet() {
         System.out.println("Hello! I'm Friendy.");
         System.out.println("What can I do for you?");

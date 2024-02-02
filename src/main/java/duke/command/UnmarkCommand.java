@@ -1,21 +1,23 @@
-package Command;
+package duke.command;
 
 import java.io.IOException;
-import Exceptions.DukeException;
+import duke.exceptions.DukeException;
 
-import Utility.TaskList;
-import Utility.Ui;
-import Utility.Storage;
-public class MarkCommand extends Command {
+import duke.utility.Ui;
+import duke.utility.TaskList;
+import duke.utility.Storage;
+
+public class UnmarkCommand extends Command {
     private int taskNumber;
 
-    public MarkCommand(int i) {
+    public UnmarkCommand(int i) {
         this.taskNumber = i;
     }
+
     public void execute(TaskList list, Ui ui, Storage s) {
-        ui.showMark();
+        ui.showUnmark();
         try {
-            list.markDone(taskNumber);
+            list.undo(this.taskNumber);
             s.storeTaskList(list.getList());
         } catch (IOException | DukeException e) {
             ui.showError(e.getMessage());
