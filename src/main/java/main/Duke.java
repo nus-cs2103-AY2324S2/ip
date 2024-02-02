@@ -1,15 +1,15 @@
 package main;
 
-import exceptions.DukeException;
-
-import task.TaskList;
-
 import command.Command;
-
-import utilities.Ui;
-import utilities.Storage;
+import exceptions.DukeException;
+import task.TaskList;
 import utilities.Parser;
+import utilities.Storage;
+import utilities.Ui;
 
+/**
+ * Duke class responsible for running the program.
+ */
 public class Duke {
     /**
      * Ui responsible for user interaction.

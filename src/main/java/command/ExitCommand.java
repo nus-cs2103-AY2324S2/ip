@@ -1,10 +1,12 @@
 package command;
 
 import task.TaskList;
-
 import utilities.Storage;
 import utilities.Ui;
 
+/**
+ * Controls what to do when user exits program.
+ */
 public class ExitCommand extends Command {
     /**
      * ExitCommand class constructor.

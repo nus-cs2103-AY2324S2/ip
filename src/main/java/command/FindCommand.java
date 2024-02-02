@@ -1,12 +1,13 @@
 package command;
 
 import exceptions.DukeException;
-
 import task.TaskList;
-
 import utilities.Storage;
 import utilities.Ui;
 
+/**
+ * Controls what to do when user wants to find keyword.
+ */
 public class FindCommand extends Command {
     /**
      * The keyword that the user is filtering.

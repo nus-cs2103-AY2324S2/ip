@@ -1,8 +1,10 @@
 package utilities;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
+/**
+ * A DateTime object that interprets the specified date.
+ */
 public class DateTime {
     /**
      * The date time string that the user inputs.

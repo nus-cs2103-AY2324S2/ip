@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * A task with no due date.
+ */
 public class Todo extends Task {
     /**
      * Todo class constructor.

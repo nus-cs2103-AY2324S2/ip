@@ -1,13 +1,14 @@
 package command;
 
 import exceptions.DukeException;
-
-import task.TaskList;
 import task.Task;
-
-import utilities.Ui;
+import task.TaskList;
 import utilities.Storage;
+import utilities.Ui;
 
+/**
+ * Controls what happens when a task is deleted.
+ */
 public class DeleteCommand extends Command {
     /**
      * The task index of the task that is to be deleted.

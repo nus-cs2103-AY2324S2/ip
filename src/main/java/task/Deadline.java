@@ -2,6 +2,9 @@ package task;
 
 import utilities.DateTime;
 
+/**
+ * A task with a due date.
+ */
 public class Deadline extends Task {
     /**
      * The due date or deadline of the given task in string form.

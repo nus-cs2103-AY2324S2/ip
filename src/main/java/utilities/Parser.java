@@ -1,13 +1,22 @@
 package utilities;
 
-import command.*;
-import exceptions.DukeException;
-import task.Todo;
-import task.Deadline;
-import task.Event;
-
 import java.time.format.DateTimeParseException;
 
+import command.AddCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.ExitCommand;
+import command.FindCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import exceptions.DukeException;
+import task.Deadline;
+import task.Event;
+import task.Todo;
+
+/**
+ * Parser object that helps to interpret what the user inputs.
+ */
 public class Parser {
     /**
      * A method that helps to interpret what the user has keyed in the command line, and responds accordingly.
@@ -30,7 +39,8 @@ public class Parser {
             try {
                 String keyword = userInput.split(" ", 2)[1];
                 if (keyword.isEmpty()) {
-                    throw new DukeException("Keyword cannot be empty. Please follow the given find format 'find <keyword>'.");
+                    throw new DukeException("Keyword cannot be empty. "
+                            + "Please follow the given find format 'find <keyword>'.");
                 }
                 return new FindCommand(keyword);
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -61,7 +71,8 @@ public class Parser {
                         return new AddCommand(newDeadline);
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("OOPS!!! Please follow the given deadline format 'deadline <task description> /by <deadline>'.");
+                    throw new DukeException("OOPS!!! Please follow the given deadline format "
+                            + "'deadline <task description> /by <deadline>'.");
                 } catch (DateTimeParseException e) {
                     throw new DukeException("Invalid date time provided!");
                 }
@@ -77,12 +88,14 @@ public class Parser {
                         return new AddCommand(newEvent);
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("OOPS!!! Please follow the given event format 'event <task description> /from <start> /to <end>'.");
+                    throw new DukeException("OOPS!!! Please follow the given event format "
+                            + "'event <task description> /from <start> /to <end>'.");
                 } catch (DateTimeParseException e) {
                     throw new DukeException("Invalid date time provided!");
                 }
             } else {
-                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-( Please start with todo, deadline or event.");
+                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-( "
+                        + "Please start with todo, deadline or event.");
             }
         }
     }

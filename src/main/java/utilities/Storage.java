@@ -2,9 +2,12 @@ package utilities;
 
 import java.util.ArrayList;
 
-import task.TaskList;
 import task.Task;
+import task.TaskList;
 
+/**
+ * The storage which helps to access the save file.
+ */
 public class Storage {
     /**
      * The save file stored in the storage.

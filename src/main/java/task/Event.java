@@ -2,6 +2,9 @@ package task;
 
 import utilities.DateTime;
 
+/**
+ * A task with a start date and an end date.
+ */
 public class Event extends Task {
     /**
      * The date time of the start of the event as a string.
