@@ -1,20 +1,13 @@
-import java.io.*;
 import java.util.Scanner;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public class Duke {
 
     protected static TaskList lst = new TaskList();
-    protected static String dataPath = "./data/duke.txt";
-//    private enum Command {
-//        LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
-//    }
+    protected static Storage storage = new Storage();
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         intro();
-        lst = loadTasks();
+        lst = storage.loadTasks();
         while (sc.hasNextLine()) {
             try {
                 String s = sc.nextLine();
@@ -26,7 +19,7 @@ public class Duke {
                         break;
                     case BYE:
                         exit();
-                        saveTasks();
+                        Storage.saveTasks();
                         return;
                     case MARK:
                         markComplete(Integer.parseInt(taskDetail.trim()));
@@ -110,22 +103,5 @@ public class Duke {
 
     private static void countTasks() {
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
-    }
-
-    private static TaskList loadTasks() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dataPath))) {
-            return (TaskList) ois.readObject();
-        } catch (IOException | ClassCastException | ClassNotFoundException e) {
-            // do nothing
-        }
-        return new TaskList();
-    }
-
-    private static void saveTasks() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(dataPath))) {
-            oos.writeObject(lst);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
