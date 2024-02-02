@@ -10,12 +10,20 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;
 
+/**
+ * The <code>Parser</code> object to parse command line input from user.
+ */
 public class Parser {
 
-    public static boolean parseBooleanNum(String str) {
-        return str.equals("1") ? true : false;
-    }
-
+    /**
+     * Returns the concatenated string of the descriptions.
+     *
+     * @param commands Array of commands.
+     * @param start The string where the description starts in the array, if empty then starts at 1 by default.
+     * @param end The string where the description ends in the array, if empty then ends at the end of the command by default.
+     * @return The concatenated description of the task.
+     * @throws JadeException If IllegalArgumentException is caught.
+     */
     public static String concatDescription(String[] commands, String start, String end) throws JadeException {
         try {
             int startIndex = start.isEmpty() ? 1 : Arrays.asList(commands).indexOf(start) + 1;
@@ -26,12 +34,26 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the description in the commands is empty,
+     * if empty then throws an exception.
+     *
+     * @param commands Array of commands.
+     * @param length The expected length of the command array.
+     * @throws JadeException If the command length is less than expected length.
+     */
     public static void checkEmptyDescription(String[] commands, int length) throws JadeException {
         if (commands.length < length) {
             throw new JadeException("\tYour task description cannot be empty!");
         }
     }
 
+    /**
+     * Returns a LocalDate object by parsing the date string.
+     *
+     * @param date The date to be parsed.
+     * @throws JadeException If DateTimeException is caught.
+     */
     public static LocalDate parseDate(String date) throws JadeException {
         try {
             return LocalDate.parse(date);
@@ -40,6 +62,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns an integer by parsing the string.
+     *
+     * @param intStr The integer string to be parsed.
+     * @throws JadeException If NumberFormatException is caught.
+     */
     public static int parseInt(String intStr) throws JadeException {
         try {
             return Integer.parseInt(intStr);
@@ -48,6 +76,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a Command object by parsing the single line user input.
+     *
+     * @param str The single line user input.
+     */
     public static Command parse(String str) {
         try {
             String[] commands = str.split(" ");

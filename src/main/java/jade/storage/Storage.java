@@ -14,13 +14,27 @@ import java.util.Scanner;
 import jade.data.*;
 import jade.exception.JadeException;
 
+/**
+ * The <code>Storage</code> object for loading user tasks from local file
+ * and save changes to the same file after program exits.
+ */
 public class Storage {
-    private String filePath;
+    private String filePath; // the file path storing all user tasks
 
+    /**
+     * Class constructor specifying the local file path.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Returns all saved user tasks in the local file.
+     * If the directory or file does not exit, an empty list is returned.
+     *
+     * @return A list of user tasks.
+     * @throws JadeException If directory or file does not exit
+     */
     public List<Task> load () throws JadeException {
         String[] dirs = filePath.split("/");
         String jadeDirStr = System.getProperty("user.dir") + "/" + String.join("/", Arrays.copyOfRange(dirs, 0, dirs.length - 1));
@@ -60,6 +74,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Modifies the local file to store updated user tasks.
+     *
+     * @param taskList The list of updated user tasks.
+     * @throws JadeException If IOException is caught
+     */
     public void saveChange(TaskList taskList) throws JadeException {
         try {
             Path dataFilePath = java.nio.file.Paths.get(System.getProperty("user.dir"), "data", "jadeList.txt");
