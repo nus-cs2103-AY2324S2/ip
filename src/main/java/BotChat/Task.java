@@ -57,11 +57,6 @@ public class Task {
         isDone = false;
     }
 
-    /**
-     * Provides a string representation of the task, including its status icon and description.
-     *
-     * @return A string representation of the task.
-     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

@@ -14,11 +14,6 @@ public class Todo extends Task {
         super(description);
     }
 
-    /**
-     * Provides a string representation of the todo task, including its status icon and description.
-     *
-     * @return A string representation of the todo task.
-     */
     @Override
     public String toString() {
         return "[T] " + super.toString();
