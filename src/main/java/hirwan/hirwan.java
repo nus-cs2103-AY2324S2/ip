@@ -14,11 +14,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-
+/**
+ * The chatbots main class which simulates talking to a virtual assistant
+ */
 public class hirwan {
     static String FILE_PATH = "C:\\Users\\eugen\\Documents\\National University of Singapore\\Y2S2\\CS2103T\\IP\\src\\main\\java\\data\\hirwan.txt";
     static List<String> List = new ArrayList<>();
 
+    /**
+     * The main method of the program. This method is the entry point
+     * when the program is executed.
+     *
+     * @param args Command-line arguments passed to the program.
+     */
     public static void main(String[] args) {
         String logo = "I'm hirwan \n"
                 + "_________________________________\n"
@@ -137,6 +145,13 @@ public class hirwan {
         }
     }
 
+    /**
+     * Translates the string given into a LocalDateTime instance by taking in the string and formatting the date and
+     * time then return the LocalDateTime instance
+     *
+     * @param date Date to be converted into LocalDateTime instance
+     * @return The translated LocalDateTime instance
+     */
     public static LocalDateTime translateDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
@@ -144,108 +159,3 @@ public class hirwan {
         return dateStored;
     }
 }
-
-//class Ui {
-//    public static String input() {
-//        Scanner scanner = new Scanner(System.in);
-//        String text = scanner.nextLine();
-//        return text;
-//    }
-//
-//    public static void output(String printText) {
-//        System.out.println(printText);
-//    }
-//}
-//
-//class Storage {
-//    static List<String> List = new ArrayList<>();
-//    static String FILE_PATH = "C:\\Users\\eugen\\Documents\\National University of Singapore\\Y2S2\\CS2103T\\IP\\src\\main\\java\\data\\hirwan.txt";
-//
-//    public static List<String> read() {
-//        try {
-//            File filePath = new File(FILE_PATH);
-//            Scanner scan = new Scanner(filePath);
-//            while (scan.hasNext()) {
-//                List.add(scan.nextLine());
-//            }
-//        } catch (FileNotFoundException e) {
-//            Ui.output("Error: file to read data from cannot be found!");
-//        }
-//        return List;
-//    }
-//
-//    public static void writeTask(List<String> List) {
-//        try {
-//            FileWriter file = new FileWriter(FILE_PATH);
-//            for (String tasks : List) {
-//                file.write(tasks + "\n");
-//            }
-//            file.close();
-//        } catch (IOException e) {
-//            Ui.output("Error: could not write to file");
-//            e.printStackTrace();
-//        }
-//    }
-//
-//}
-//
-//class Parser {
-//    public static int translate(String text) {
-//
-//        if (text.equals("list")) {
-//            return 1;
-//        } else if (text.startsWith("todo")) {
-//            return 2;
-//        } else if (text.startsWith("deadline")) {
-//            return 3;
-//        } else if (text.startsWith("event")) {
-//            return 4;
-//        } else if (text.startsWith("mark")) {
-//            return 5;
-//        } else if (text.startsWith("unmark")) {
-//            return 6;
-//        } else if (text.startsWith("delete")) {
-//            return 7;
-//        } else if (text.equals("bye")) {
-//            return 8;
-//        } else {
-//            return 9;
-//        }
-//    }
-//}
-//
-//class Tasklist {
-//    static List<String> List = new ArrayList<>();
-//    public Tasklist(List<String> List) {
-//        this.List = List;
-//    }
-//    public String get(int index) {
-//        return List.get(index);
-//    }
-//
-//    public void add(String input) {
-//        List.add(input);
-//    }
-//
-//    public void printList() {
-//        for (String element : List) {
-//            Ui.output(List.indexOf(element) + 1 + element);
-//        }
-//    }
-//
-//    public void delete(int index) {
-//        List.remove(index);
-//    }
-//
-//    public int size() {
-//        return List.size();
-//    }
-//
-//    public List<String> getList() {
-//        return List;
-//    }
-//
-//    public void set(int Index, String input) {
-//        List.set(Index, input);
-//    }
-//}
