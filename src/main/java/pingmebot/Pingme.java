@@ -5,15 +5,12 @@ import pingmebot.task.Events;
 import pingmebot.task.Task;
 import pingmebot.task.ToDos;
 
-<<<<<<< HEAD
+import java.util.ArrayList;
+
 /**
  * A simple, interactive task management application.
  * It allows user to interact with it via command line interface.
  */
-=======
-import java.util.ArrayList;
-
->>>>>>> branch-Level-9
 public class Pingme {
     private fileStorage storage;
     private TaskList tasks;
