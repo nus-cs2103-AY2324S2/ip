@@ -6,7 +6,6 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
     }
-
     @Override
     public String saveFile() {
         return "D" + "|" + super.done() + "|" + super.description + "|" + by;

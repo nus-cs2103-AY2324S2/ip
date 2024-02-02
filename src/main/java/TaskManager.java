@@ -15,15 +15,14 @@ public class TaskManager {
         this.items = new ArrayList<>();
     }
 
-    public Task addTask(Tasks options, String instructions) throws DukeException {
+    public Task addTask(Tasks options, String instruction) throws DukeException {
         Task item;
         String name;
         String by;
         String from;
         switch (options) {
             case TODO:
-                //Add the todo task
-                name = instructions.replaceAll("todo", "").trim();
+                name = instruction.replaceAll("todo", "").trim();
                 if (name.isBlank()) {
                     throw new DukeException("description");
                 }
@@ -31,11 +30,11 @@ public class TaskManager {
                 break;
             case DEADLINE:
                 //add the deadline task
-                if (!instructions.contains("/") || !instructions.contains("by")) {
+                if (!instruction.contains("/") || !instruction.contains("by")) {
                     throw new DukeException("dateError");
                 }
-                by = instructions.split("/")[1].replaceAll("by", "").trim();
-                name = instructions.split("/")[0].replaceAll("deadline", "").trim();
+                by = instruction.split("/")[1].replaceAll("by", "").trim();
+                name = instruction.split("/")[0].replaceAll("deadline", "").trim();
                 if (by.isBlank()) {
                     throw new DukeException("by");
                 } else if (name.isBlank()) {
@@ -45,12 +44,12 @@ public class TaskManager {
                 item = new Deadline(name, by);
                 break;
             case EVENT:
-                if (!instructions.contains("/") || !(instructions.contains("by") && instructions.contains("from"))) {
+                if (!instruction.contains("/") || !(instruction.contains("by") && instruction.contains("from"))) {
                     throw new DukeException("dateError");
                 }
-                from = instructions.split("/")[1].replaceAll("from", "").trim();
-                by = instructions.split("/")[2].replaceAll("to", "").trim();
-                name = instructions.split("/")[0].replaceAll("event", "").trim();
+                from = instruction.split("/")[1].replaceAll("from", "").trim();
+                by = instruction.split("/")[2].replaceAll("to", "").trim();
+                name = instruction.split("/")[0].replaceAll("event", "").trim();
                 if (from.isBlank()) {
                     throw new DukeException("from");
                 } else if (by.isBlank()) {
@@ -61,7 +60,6 @@ public class TaskManager {
                 item = new Event(name, from, by);
                 break;
             default:
-                //old code
                 throw new DukeException("Invalid");
         }
         hasChanged = true;
@@ -70,8 +68,8 @@ public class TaskManager {
 
     }
 
-    public Task mangeTask(Actions act, String instructions) throws DukeException {
-        String[] getNumber = instructions.split(" "); 
+    public Task mangeTask(Actions act, String instruction) throws DukeException {
+        String[] getNumber = instruction.split(" ");
         if (items.isEmpty()) {
             throw new DukeException("empty");
         }
@@ -95,7 +93,6 @@ public class TaskManager {
                 break;
             default:
                 //This does nothing
-                //Should throw and error here if it is stupid
                 break;
         }
         hasChanged = true;
@@ -168,7 +165,7 @@ public class TaskManager {
                 break;
         }
         String isDone = data[1];
-        if(isDone.equals("x")) {
+        if (isDone.equals("x")) {
             item.markAsDone();
         }
         return item;

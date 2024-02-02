@@ -26,7 +26,7 @@ public class Duke {
     private static final String FILE_PATH = "data/duke.txt";
 
 
-    private static String manHandleUser(String msg) {
+    private static String handleException(String msg) {
         //Used when your user does not know how to use the application
         switch (msg) {
             case "description":
@@ -59,7 +59,6 @@ public class Duke {
             System.out.println(indent + l);
         }
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-        boolean exit = false;
 
         //Try to load the task
         //And get the items
@@ -167,7 +166,7 @@ public class Duke {
                     }
                 }
             } catch (DukeException e) {
-                output.add(indent + manHandleUser(e.getMessage()));
+                output.add(indent + handleException(e.getMessage()));
             } catch (NumberFormatException e) {
                 output.add(indent + " OPPPS!!!!That is not a number!!!!!!!!!!");
             }
