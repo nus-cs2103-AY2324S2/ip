@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class BobStorage {
 
     private static final String HOME_BASE_PATH = System.getProperty("user.home");
-    private static final File saveData = new File(HOME_BASE_PATH + "/save.txt");
+    private static final File SAVE_DATA = new File(HOME_BASE_PATH + "/save.txt");
     private static final String NEW_LINE = System.lineSeparator();
 
     private BobUI ui;
@@ -42,10 +42,10 @@ public class BobStorage {
      */
     public void updateTaskList(ArrayList<Task> list) {
         try {
-            if (!this.saveData.exists()) {
+            if (!this.SAVE_DATA.exists()) {
                 this.instantiateDirectory();
             }
-            FileWriter fileWriter = new FileWriter(this.saveData, false);
+            FileWriter fileWriter = new FileWriter(this.SAVE_DATA, false);
             for (Task t : list) {
                 fileWriter.write(t.toSavableFormat() + this.NEW_LINE);
             }
@@ -70,12 +70,12 @@ public class BobStorage {
 
         try {
 
-            if (!this.saveData.exists()) {
+            if (!this.SAVE_DATA.exists()) {
                 this.instantiateDirectory();
                 return new ArrayList<Task>();
             }
 
-            try (BufferedReader br = new BufferedReader(new FileReader(this.saveData))) {
+            try (BufferedReader br = new BufferedReader(new FileReader(this.SAVE_DATA))) {
 
                 String line;
                 boolean invalidFile = false;
@@ -153,7 +153,7 @@ public class BobStorage {
 
     private void instantiateDirectory() throws BobException.FileAccessError {
         try {
-            this.saveData.createNewFile();
+            this.SAVE_DATA.createNewFile();
         } catch (IOException e) {
             throw new BobException.FileAccessError("An error occurred when trying to access the save file. "
                     + "Please ensure that the application has permissions to write and read from your HOME directory.");
