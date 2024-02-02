@@ -17,7 +17,7 @@ public class CommandDelete extends Command {
     }
 
     /**
-     * {@inherit}
+     * {@inheritDoc}
      */
     @Override
     public void execute(String taskNumber) {

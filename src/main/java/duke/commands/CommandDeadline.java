@@ -20,7 +20,7 @@ public class CommandDeadline extends Command {
     }
 
     /**
-     * {@inherit}
+     * {@inheritDoc}
      */
     @Override
     public void execute(String description) {
@@ -38,7 +38,7 @@ public class CommandDeadline extends Command {
     }
 
     /**
-     * Cleans the raw user input and creates a Task after cleaning user input
+     * Cleans the raw user input and creates a Deadline Task after cleaning user input
      * Returns a task after cleaning the user input
      * @param description String of raw user input
      * @return Task after cleaning user input
