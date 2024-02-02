@@ -24,8 +24,8 @@ public class Event extends Task {
             if (!input.contains(command)) throw new RuntimeException("not todo");
             String[] inputArray = Task.NextWords(input.split(delimiter));
             description = inputArray[0].trim();
-            from = CommandParser.parseDateAndTime(inputArray[1].trim());
-            to = CommandParser.parseDateAndTime(inputArray[2].trim());
+            from = Parser.parseDateAndTime(inputArray[1].trim());
+            to = Parser.parseDateAndTime(inputArray[2].trim());
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             throw new MissingInputFieldException(type);
         }
@@ -35,7 +35,7 @@ public class Event extends Task {
     public String toString() {
         return "[" + printType() + "]" + "[" + getIsDoneStatus() + "] "
                 + description + " " + "(from: "
-                + from + " to: " + to + ")";
+                + Ui.printTime(from) + " to: " + Ui.printTime(to) + ")";
     }
 
     @Override
