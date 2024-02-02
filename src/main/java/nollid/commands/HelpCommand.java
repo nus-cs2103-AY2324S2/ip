@@ -17,13 +17,14 @@ public class HelpCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         String message = "Available commands:\n"
                 + "list \t\t- Lists all your tasks\n"
-                + "todo \t\t- Create a new todo task.\n"
+                + "todo \t- Create a new todo task.\n"
                 + "deadline \t- Create a new task with a deadline.\n"
-                + "event \t\t- Create a new task with a starting and ending time.\n"
-                + "mark \t\t- Mark a task as completed.\n"
-                + "unmark \t\t- Mark a task as not completed.\n"
-                + "delete \t\t- Delete a task.\n"
-                + "find \t\t- Look for task containing a given keyword.";
+                + "event \t- Create a new task with a starting and ending time.\n"
+                + "mark \t- Mark a task as completed.\n"
+                + "unmark \t- Mark a task as not completed.\n"
+                + "delete \t- Delete a task.\n"
+                + "find \t\t- Look for task containing a given keyword.\n"
+                + "bye \t\t- Closes the application.";
 
         return message;
     }
