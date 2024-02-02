@@ -2,10 +2,21 @@ package duke.task;
 
 import java.util.List;
 
+/**
+ * The Task class represents a general task with a description and completion status.
+ * It is an abstract class that serves as the base class for specific task types such as Todo, Deadline, and Event.
+ */
 public class TaskDisplay {
     private static final String INDENTATION = "    ";
     private static final String LINE = "    -----------------------------------------------------------------------------------------";
 
+
+    /**
+     * Displays tasks based on the user command and task list.
+     *
+     * @param taskList The list of tasks to display.
+     * @param input    The user input command.
+     */
     public void displayTasks(List<Task> taskList, String input) {
         String[] tokens = input.split(" ");
         String command = tokens[0].toLowerCase();
@@ -43,6 +54,11 @@ public class TaskDisplay {
         System.out.println(LINE);
     }
 
+    /**
+     * Prints the list of tasks with their icons, status, and descriptions.
+     *
+     * @param taskList The list of tasks to print.
+     */
     private void printTaskList(List<Task> taskList) {
         System.out.println(INDENTATION + " Here are the tasks in your list:");
         int count = 1;
@@ -52,6 +68,12 @@ public class TaskDisplay {
         }
     }
 
+    /**
+     * Prints a message indicating that a task has been marked as done.
+     *
+     * @param taskList The list of tasks.
+     * @param index    The index of the task in the list.
+     */
     private void printMarkTask(List<Task> taskList, int index) {
         if (index < 0 || index >= taskList.size()) {
             return;
@@ -61,6 +83,12 @@ public class TaskDisplay {
         System.out.println(INDENTATION  + "    " + task.getTaskIcon() + task.getStatusIcon() + task.getTaskDescription());
     }
 
+    /**
+     * Prints a message indicating that a task has been marked as not done yet.
+     *
+     * @param taskList The list of tasks.
+     * @param index    The index of the task in the list.
+     */
     private void printUnmarkTask(List<Task> taskList, int index) {
         if (index < 0 || index >= taskList.size()) {
             return;
@@ -70,6 +98,12 @@ public class TaskDisplay {
         System.out.println(INDENTATION  + "    " + task.getTaskIcon() + task.getStatusIcon() + task.getTaskDescription());
     }
 
+    /**
+     * Prints a message indicating that a task has been deleted.
+     *
+     * @param taskList The list of tasks.
+     * @param index    The index of the task in the list.
+     */
     private void printDeletedTask(List<Task> taskList, int index) {
         if (index < 0 || index >= taskList.size()) {
             System.out.println(INDENTATION + "  Sorry, I believe the TASK NUMBER you specified doesn't exist.");
@@ -81,6 +115,12 @@ public class TaskDisplay {
         System.out.println(INDENTATION + "  Now you have " + (taskList.size() - 1) + " tasks left in this list.");
     }
 
+    /**
+     * Prints a message indicating that a task has been added.
+     *
+     * @param taskList The list of tasks.
+     * @param index    The index of the task in the list.
+     */
     private void printAddedTask(List<Task> taskList, int index) {
         if (index < 0 || index >= taskList.size()) {
             return;
@@ -91,6 +131,11 @@ public class TaskDisplay {
         System.out.println(INDENTATION + "  Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    /**
+     * Prints an error message for an invalid user command.
+     *
+     * @param input The user input command.
+     */
     public void printErrorMessage(String input) {
         System.out.println(INDENTATION + "  Sorry, the description of " + input.toUpperCase() + " cannot be empty. Please add details, so that I can");
         System.out.println(INDENTATION + "  assist you better!");
