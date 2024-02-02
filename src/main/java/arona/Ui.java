@@ -39,15 +39,15 @@ public class Ui {
     }
 
     public void taskAdded(ArrayList<Task> tasks) {
-        System.out.println("arona.Arona has added this task to sensei's task list!: ");
+        System.out.println("Arona has added this task to sensei's task list!: ");
         System.out.println(tasks.get(tasks.size() - 1).toString());
-        System.out.println("arona.Arona has counted " + tasks.size() + " tasks in the list!");
+        System.out.println("Arona has counted " + tasks.size() + " tasks in the list!");
     }
 
     public void taskDeleted(Task task, int size) {
-        System.out.println("arona.Arona has removed this task!: ");
+        System.out.println("Arona has removed this task!: ");
         System.out.println(task.toString());
-        System.out.println("arona.Arona has counted " + size + " tasks in the list!");
+        System.out.println("Arona has counted " + size + " tasks in the list!");
     }
 
     public void alreadyMarked(boolean status) {
