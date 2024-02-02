@@ -1,7 +1,7 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 public class Duke {
     private boolean isActive;
@@ -21,6 +21,11 @@ public class Duke {
                 + "    What can I do for you?\n"
                 + "    ____________________________________________________________"
         );
+        try {
+            loadTask();
+        } catch (ftException e) {
+            System.out.println(e.getMessage());
+        }
         Scanner sc = new Scanner(System.in);
         while (this.isActive) {
             String input = sc.nextLine();
@@ -86,7 +91,7 @@ public class Duke {
                 }
                 String todo = sbTD.toString();
                 if (!todo.isEmpty()) {
-                    task = new ToDo(todo);
+                    task = new ToDo(todo, false);
                 } else {
                     throw new ftException("Error: Please tell me what you have TO DO");
                 }
@@ -109,7 +114,7 @@ public class Duke {
                 String dt = sbDL.toString();
                 String by = sbBy.toString();
                 if (!dt.isEmpty() && !by.isEmpty()) {
-                   task = new Deadline(dt, by);
+                   task = new Deadline(dt,false, by);
                 } else {
                     throw new ftException("Error: Please tell me your task and its deadline");
                 }
@@ -140,16 +145,16 @@ public class Duke {
                 String from = sbFrom.toString();
                 String to = sbTo.toString();
                 if (!name.isEmpty() && !from.isEmpty() && !to.isEmpty()) {
-                    task = new Event(name, from, to);
+                    task = new Event(name, false, from, to);
                 } else {
                     throw new ftException("Error: Please tell me your event and its from/to dates");
                 }
                 break;
             default:
                 throw new ftException("Error: Invalid Task Type");
-
         }
         myList.add(task);
+        updateTask();
         System.out.println("    ____________________________________________________________\n"
                 + "    Completed. I've added this task: \n    "
                 + task.toString()
@@ -159,7 +164,7 @@ public class Duke {
 
     private void showList() {
         System.out.println("    ____________________________________________________________\n"
-                + "Here are the tasks in your list:");
+                + "    Here are the tasks in your list:");
         for (int i = 1; i < myList.size() + 1; i++) {
             Task task = myList.get(i-1);
             if (task.isDone()) {
@@ -179,6 +184,7 @@ public class Duke {
         if ((0 < i) && (i <= myList.size())) {
             Task task = myList.get(i - 1);
             task.mark();
+            updateTask();
             System.out.println("    ____________________________________________________________\n"
                     + "    Nice! I've marked this task as done:\n"
                     + "      " + task.toString()
@@ -196,6 +202,7 @@ public class Duke {
         if ((0 < i) && (i <= myList.size())) {
             Task task = myList.get(i - 1);
             task.unmark();
+            updateTask();
             System.out.println("    ____________________________________________________________\n"
                     + "    OK, I've marked this task as not done yet:\n"
                     + "      " + task.toString()
@@ -221,4 +228,55 @@ public class Duke {
             throw new ftException("Error: Please provide valid index");
         }
     }
+
+    private void updateTask() throws ftException {
+        try {
+            FileWriter fw = new FileWriter("./data/myTask.txt");
+            for (Task task: myList) {
+                fw.write(task.toSaveFormat() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new ftException("Error in updating the task");
+        }
+    }
+
+    private void loadTask() throws ftException {
+        try {
+            File save = new File("./data/myTask.txt");
+            if (!save.exists()) {
+                System.out.println("    There was no save data.");
+                boolean isSuccessful = save.createNewFile();
+                System.out.println(isSuccessful ? "    New save data file created." : "    Failed to create a new save data");
+            } else {
+                System.out.println("    Successfully loaded the save data. ");
+            }
+            Scanner s = new Scanner(save);
+            while (s.hasNext()) {
+                String saved = s.nextLine();
+                String[] elements = saved.split("\\|");
+                elements = Arrays.stream(elements).map(String::trim).toArray(String[]::new);
+                String taskType = elements[0];
+                switch (taskType) {
+                    case "T":
+                        myList.add(new ToDo(elements[2], Boolean.parseBoolean(elements[1])));
+                        break;
+                    case "D":
+                        myList.add(new Deadline(elements[2], Boolean.parseBoolean(elements[1]), elements[3]));
+                        break;
+                    case "E":
+                        myList.add(new Event(elements[2], Boolean.parseBoolean(elements[1]), elements[3], elements[4]));
+                        break;
+                    default:
+                        throw new ftException("File corrupted. Please delete the File");
+                }
+                s.nextLine();
+            }
+        } catch (IOException e) {
+            File file = new File("./data/myTask.txt");
+            throw new ftException("File not found");
+        }
+
+    }
 }
+
