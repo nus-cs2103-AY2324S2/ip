@@ -21,7 +21,7 @@ public class Event extends Task {
         this.endTime = LocalDateTime.of(endYear, endMonth, endDay, endHour,00);
     }
     public String toString() {
-        String status = this.complete ? "[x] " : "[ ]";
+        String status = this.complete ? "[x]" : "[ ]";
         DateTimeFormatter returnFormat = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
         return "[E] " + status + " " + this.name + " (" + returnFormat.format(this.startTime) + " to "
                  + returnFormat.format(this.endTime) + ")";

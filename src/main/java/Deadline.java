@@ -14,7 +14,7 @@ public class Deadline extends Task {
         this.dueDate = LocalDateTime.of(year, month, day, time, 00);
     }
     public String toString() {
-        String status = this.complete ? "[x] " : "[ ]";
+        String status = this.complete ? "[x]" : "[ ]";
         DateTimeFormatter returnFormat = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
         return "[D] " + status + " " + this.name + " (" + returnFormat.format(this.dueDate) + ")";
     }

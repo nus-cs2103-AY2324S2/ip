@@ -3,7 +3,7 @@ public class ToDo extends Task {
         super(name, "T");
     }
     public String toString() {
-        String status = this.complete ? "[x] " : "[ ]";
+        String status = this.complete ? "[x]" : "[ ]";
         return "[T] " + status + " " + this.name;
     }
 }
