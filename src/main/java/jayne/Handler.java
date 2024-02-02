@@ -3,10 +3,11 @@ package jayne;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import jayne.task.Task;
-import jayne.task.TaskList;
+
 import jayne.task.Deadline;
 import jayne.task.Event;
+import jayne.task.Task;
+import jayne.task.TaskList;
 import jayne.task.Todo;
 public class Handler {
     /**
@@ -41,7 +42,8 @@ public class Handler {
                 throw JayneException.unmarkTaskExistException(taskNumber);
             }
             taskList.markTaskAsNotDone(taskNumber);
-            System.out.println(dash + "\nOK, I've marked this task as not done yet:\n  " + taskList.getTask(taskNumber) + "\n" + dash);
+            System.out.println(dash + "\nOK, I've marked this task as not done yet:\n  "
+                    + taskList.getTask(taskNumber) + "\n" + dash);
         } catch (NumberFormatException e) {
             throw JayneException.unmarkException();
         }
@@ -80,7 +82,8 @@ public class Handler {
         taskList.addTask(newTodo);
         System.out.println(dash + "\nGot it. I've added this task:");
         System.out.println("  " + newTodo);
-        System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n"  + dash);
+        System.out.println("Now you have " + taskList.getTaskCount()
+                + " tasks in the list." + "\n" + dash);
     }
     /**
      * Handles event task
@@ -116,7 +119,8 @@ public class Handler {
                 throw JayneException.markTaskExistException(taskNumber);
             }
             taskList.markTaskAsDone(taskNumber);
-            System.out.println(dash + "\nNice! I've marked this task as done:\n  " + taskList.getTask(taskNumber) + "\n" + dash);
+            System.out.println(dash + "\nNice! I've marked this task as done:\n  "
+                    + taskList.getTask(taskNumber) + "\n" + dash);
         } catch (NumberFormatException e) {
             throw JayneException.markInvalidTaskException();
         }
