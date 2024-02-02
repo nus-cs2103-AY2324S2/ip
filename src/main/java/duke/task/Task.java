@@ -39,12 +39,14 @@ public abstract class Task {
     /**
      * Marks the task as done.
      */
-    public void markAsDone() { isDone = true; }
+    public void markAsDone() {
+        isDone = true; }
 
     /**
      * Marks the task as not done.
      */
-    public void markAsUndone() { isDone = false; }
+    public void markAsUndone() {
+        isDone = false; }
 
     /**
      * Abstract method to generate the formatted content of the task for writing to file.

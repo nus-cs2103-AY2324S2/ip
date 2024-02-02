@@ -6,7 +6,7 @@ public class Ui {
     public static final String LINE =
             "_________________________________________________________________________\n";
 
-    private static final String[] catchphrases = {
+    private static final String[] CATCHPHRASES = {
             "Yee-haw!",
             "So long, partner.",
             "To infinity and beyond!",
@@ -23,7 +23,7 @@ public class Ui {
 
     public static void goodbye() {
         Random random = new Random();
-        System.out.println("   Bye! " + catchphrases[random.nextInt(catchphrases.length)]
+        System.out.println("   Bye! " + CATCHPHRASES[random.nextInt(CATCHPHRASES.length)]
                 + "\n" + LINE);
     }
 

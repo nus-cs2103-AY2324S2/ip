@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 
 public class DateTime {
-    private final static String printFormat = "MMM dd yyyy HHmm";
+    private final static String PRINT_FORMAT = "MMM dd yyyy HHmm";
 
     private static DateTimeFormatterBuilder acceptedFormats
             = new DateTimeFormatterBuilder().append(
@@ -31,6 +31,6 @@ public class DateTime {
 
     @Override
     public String toString() {
-        return this.datetime.format(DateTimeFormatter.ofPattern(printFormat));
+        return this.datetime.format(DateTimeFormatter.ofPattern(PRINT_FORMAT));
     }
 }
