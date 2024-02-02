@@ -1,4 +1,5 @@
 
+T|1| apple
 T|0| orange
 T|0| apple
 D|0| 360 | Oct 15 2019
