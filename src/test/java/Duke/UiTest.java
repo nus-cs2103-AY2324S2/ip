@@ -7,8 +7,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class for the Ui class, which is responsible for handling user interface interactions.
+ */
 public class UiTest {
 
+    /**
+     * Tests the showWelcomeMessage method, verifying the output in the console.
+     */
     @Test
     public void testShowWelcomeMessage() {
         Ui ui = new Ui();
@@ -25,6 +31,9 @@ public class UiTest {
         System.setOut(System.out); // Reset System.out to the console
     }
 
+    /**
+     * Tests the showGoodbyeMessage method, verifying the output in the console.
+     */
     @Test
     public void testShowGoodbyeMessage() {
         Ui ui = new Ui();
@@ -40,8 +49,9 @@ public class UiTest {
         System.setOut(System.out); // Reset System.out to the console
     }
 
-    // Add more test methods for other Ui methods...
-
+    /**
+     * Tests the showTaskList method, verifying the output in the console.
+     */
     @Test
     public void testShowTaskList() {
         Ui ui = new Ui();
@@ -62,6 +72,4 @@ public class UiTest {
         assertEquals(expectedOutput, outputStream.toString());
         System.setOut(System.out); // Reset System.out to the console
     }
-
-    // Add more test methods for other Ui methods...
 }
