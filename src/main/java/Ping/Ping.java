@@ -21,6 +21,7 @@ public class Ping {
             try {
                 String lines = ui.readLines();
                 Command cmd = Parser.parseCommand(lines);
+                assert cmd != null;
                 cmd.perform(this.tasks, ui);
                 isRun = cmd.isRunning();
             } catch (Exception e) {

@@ -10,8 +10,7 @@ public class DateTimeCheck {
     public static LocalDate timeCheckOnDate(String s) {
         DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         try {
-            LocalDate date = LocalDate.parse(s, formatterDate);
-            return date;
+            return LocalDate.parse(s, formatterDate);
         } catch (DateTimeParseException e) {
             System.out.println("Invalid date format. Check whether it is format dd/MM/yyyy");
             return null;
@@ -22,8 +21,7 @@ public class DateTimeCheck {
     public static LocalDateTime timeCheckOnTime(String s) {
         DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         try {
-            LocalDateTime dateTime = LocalDateTime.parse(s, formatterDateTime);
-            return dateTime;
+            return LocalDateTime.parse(s, formatterDateTime);
         } catch (DateTimeParseException e) {
             System.out.println("Invalid date format. Check whether it is format dd/MM/yyyy HHmm");
             return null;

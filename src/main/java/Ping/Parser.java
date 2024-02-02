@@ -64,7 +64,7 @@ public class Parser {
                 rest = rest + todoCommand[i] + " ";
             }
             Todo j = new Todo(rest);
-            if (rest.length() > 0) {
+            if (!rest.isEmpty()) {
                 return new AddCommand(j);
             } else {
                 System.out.println("Todo what? you can't to do nothing right?");
@@ -86,8 +86,8 @@ public class Parser {
     }
 
     private static Command parseDeadline(String[] dlCommand) {
-        String rest = "";
-        String date = "";
+        StringBuilder rest = new StringBuilder();
+        StringBuilder date = new StringBuilder();
         try {
             int idx = 0;
             for (int i = 1; i < dlCommand.length; i++) {
@@ -95,22 +95,22 @@ public class Parser {
                     idx = i;
                     break;
                 } else {
-                    rest = rest + dlCommand[i] + " ";
+                    rest.append(dlCommand[i]).append(" ");
                 }
             }
             // Check for weekdays or month
             int check = idx + 1;
             for (int j = idx + 1; j < dlCommand.length; j++) {
                 if (check != dlCommand.length - 1) {
-                    date = date + dlCommand[j] + " ";
+                    date.append(dlCommand[j]).append(" ");
                     check++;
                 } else {
-                    date = date + dlCommand[j];
+                    date.append(dlCommand[j]);
                 }
             }
 
-            LocalDate dt = DateTimeCheck.timeCheckOnDate(date);
-            Deadline dl = new Deadline(rest, dt);
+            LocalDate dt = DateTimeCheck.timeCheckOnDate(date.toString());
+            Deadline dl = new Deadline(rest.toString(), dt);
             if (rest.length() > 0 && dt != null) {
                 return new AddCommand(dl);
             } else {
@@ -123,9 +123,9 @@ public class Parser {
     }
 
     private static Command parseEvent(String[] evCommand) {
-        String rest = "";
-        String date1 = "";
-        String date2 = "";
+        StringBuilder rest = new StringBuilder();
+        StringBuilder date1 = new StringBuilder();
+        StringBuilder date2 = new StringBuilder();
         try {
             int idx = 0;
             for (int i = 1; i < evCommand.length; i++) {
@@ -133,7 +133,7 @@ public class Parser {
                     idx = i;
                     break;
                 } else {
-                    rest = rest + evCommand[i] + " ";
+                    rest.append(evCommand[i]).append(" ");
                 }
             }
             int idx2 = 0;
@@ -142,23 +142,23 @@ public class Parser {
                     idx2 = j;
                     break;
                 } else {
-                    date1 = date1 + evCommand[j] + " ";
+                    date1.append(evCommand[j]).append(" ");
                 }
             }
             int check = idx2 + 1;
             for (int k = idx2 + 1; k < evCommand.length; k++) {
                 if (check != evCommand.length - 1) {
-                    date2 = date2 + evCommand[k] + " ";
+                    date2.append(evCommand[k]).append(" ");
                     check++;
                 } else {
-                    date2 = date2 + evCommand[k];
+                    date2.append(evCommand[k]);
                 }
             }
-            LocalDateTime dt1 = DateTimeCheck.timeCheckOnTime(date1.stripTrailing());
-            LocalDateTime dt2 = DateTimeCheck.timeCheckOnTime(date2);
+            LocalDateTime dt1 = DateTimeCheck.timeCheckOnTime(date1.toString().stripTrailing());
+            LocalDateTime dt2 = DateTimeCheck.timeCheckOnTime(date2.toString());
             boolean compareOfTime = DateTimeCheck.timeCompare(dt1, dt2);
-            Event e = new Event(rest, dt1, dt2);
-            if (!rest.isEmpty() && dt1 != null && dt2 != null && compareOfTime) {
+            Event e = new Event(rest.toString(), dt1, dt2);
+            if ((rest.length() > 0) && dt1 != null && dt2 != null && compareOfTime) {
                 return new AddCommand(e);
             } else {
                 System.out.println("Did you type right?");
