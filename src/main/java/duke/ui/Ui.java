@@ -1,8 +1,11 @@
 package duke.ui;
 
+import duke.storage.Storage;
+import duke.task.Task;
 import duke.task.TaskList;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 public class Ui {
 
@@ -24,7 +27,7 @@ public class Ui {
         out.println(LINE);
         out.println("Bye lol see you again!");
         out.println(LINE);
-        tasklist.saveTasks();
+        Storage.saveTasks(tasklist);
     }
 
     public static void echo(String input) {
@@ -73,6 +76,13 @@ public class Ui {
         out.println("Sure, I've removed this task:");
         out.println("    " + deletedTask);
         out.println("Now you have " + TaskList.tasksCount + " tasks in the list.");
+        out.println(LINE);
+    }
+
+    public static void find(TaskList tasklist, String keyword) {
+        out.println(LINE);
+        out.println("Here are the matching tasks in your list:");
+        tasklist.findTasks(keyword);
         out.println(LINE);
     }
 }

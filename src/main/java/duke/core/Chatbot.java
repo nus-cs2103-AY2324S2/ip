@@ -37,6 +37,9 @@ public class Chatbot {
                 } else if (input.contains("delete")) {
                     String[] parts = input.split("\\s+", 2);
                     Ui.delete(tasklist, parts[1]);
+                } else if (input.contains("find")) {
+                    String[] parts = input.split("\\s+", 2);
+                    Ui.find(tasklist, parts[1]);
                 } else {
                     Ui.addTask(tasklist, input);
                 }
