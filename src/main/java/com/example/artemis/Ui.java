@@ -46,7 +46,11 @@ public class Ui {
                 + showLine();
     }
 
-
+    /**
+     * Displays all the task in the list.
+     *
+     * @param tasks The task list that contain all the task
+     */
     public String showTaskList(ArrayList<Task> tasks) {
         StringBuilder result = new StringBuilder();
         result.append(showLine()).append("     Here are the tasks in your list:\n");
@@ -135,6 +139,6 @@ public class Ui {
      * Displays a horizontal line separator.
      */
     public String showLine() {
-        return "    ____________________________________________________________\n";
+        return "    _________________________________________________________\n";
     }
 }
