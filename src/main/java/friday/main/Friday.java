@@ -2,13 +2,13 @@ package friday.main;
 
 import java.io.IOException;
 
-import friday.ui.Ui;
+import friday.parser.Parser;
 import friday.storage.Storage;
 import friday.task.TaskList;
 import friday.task.Todo;
 import friday.task.Deadline;
 import friday.task.Event;
-import friday.parser.Parser;
+import friday.ui.Ui;
 
 /**
  * The main class for the Friday task management application.

@@ -1,11 +1,11 @@
 package friday.storage;
 
+import friday.task.Task;
+import friday.task.TaskList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import friday.task.TaskList;
-import friday.task.Task;
 
 /**
  * The Storage class is responsible for handling the reading and writing of task data to a file in the Friday application.
