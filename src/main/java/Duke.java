@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 public class Duke {
 
     protected static ArrayList<Task> lst = new ArrayList<>();
