@@ -30,6 +30,10 @@ public class InputHandler {
                         index = strArray[1];
                         taskList.delete(index);
                         break;
+                    case "find":
+                        String substring = strArray[1];
+                        taskList.find(substring);
+                        break;
                     case "todo":
                         String str = userInput.split("todo ")[1];
                         ToDo task = new ToDo(str);

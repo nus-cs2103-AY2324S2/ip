@@ -58,4 +58,18 @@ public class TaskList {
             throw new BartenderBobException();
         }
     }
+
+    public void find(String substring) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task task : TASKS) {
+            if (task.getDescription().contains(substring)) {
+                result.add(task);
+            }
+        }
+        ui.showFindCommandHeader();
+        for (int i = 0; i < result.size(); i++) {
+            int number = i + 1;
+            ui.showListElements(number, result, i);
+        }
+    }
 }
