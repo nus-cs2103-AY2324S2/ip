@@ -1,3 +1,7 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,5 +65,27 @@ public class TaskList {
     // Method to return the number of tasks
     public int getTaskCount() {
         return taskCount;
+    }
+
+    public void parseTaskFromString(String line) {
+        char taskType = line.charAt(1);
+        System.out.println("Task type: " + taskType);
+        String taskDescription = line.substring(2).trim();
+        switch (taskType) {
+            case 'T':
+                // addTodo(taskDescription);
+                // break;
+            case 'D':
+
+                // addDeadline(taskDescription, dueDate);
+                // break;
+            case 'E':
+
+                // addEvent(taskDescription, startTime, endTime);
+                // break;
+            default:
+                System.out.println("Error parsing task from string");
+                break;
+        }
     }
 }

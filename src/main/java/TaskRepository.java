@@ -29,7 +29,7 @@ public class TaskRepository {
         if (Files.exists(filePath)) {
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
-
+                taskList.parseTaskFromString(line);
             }
         }
         return taskList;
