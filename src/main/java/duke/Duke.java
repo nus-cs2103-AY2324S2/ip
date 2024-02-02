@@ -1,7 +1,7 @@
+package duke;
+
 import java.time.format.DateTimeParseException;
-import java.util.*;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class Duke {
     
@@ -16,7 +16,7 @@ public class Duke {
     private static final Storage st = new Storage("data.txt");
 
     public static void exit() {
-        // Duke will exit at the end of the loop
+        // duke.Duke will exit at the end of the loop
         done = true;
     }
 

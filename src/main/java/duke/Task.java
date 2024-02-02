@@ -1,9 +1,7 @@
-import java.time.LocalDateTime;
+package duke;
+
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 public abstract class Task {
     protected final String name;
