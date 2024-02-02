@@ -6,6 +6,10 @@ import harper.tasks.Task;
 
 import java.util.ArrayList;
 
+/**
+ * The TaskList class handles operations on the task list, such as add task, delete task
+ * mark or unmark task and list task.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 

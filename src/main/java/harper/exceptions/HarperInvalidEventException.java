@@ -1,5 +1,8 @@
 package harper.exceptions;
 
+/**
+ * Exception that indicates the format of command to add event is incorrect
+ */
 public class HarperInvalidEventException extends HarperException {
     public HarperInvalidEventException() {
         super("Please follow the format: \"event [description] /from [start time] /to [end time]\"\n"

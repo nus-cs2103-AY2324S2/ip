@@ -4,6 +4,9 @@ import harper.utils.TaskList;
 import harper.utils.Ui;
 import harper.utils.Storage;
 
+/**
+ * Represents a list command.
+ */
 public class ListCommand extends Command {
 
     public ListCommand() {

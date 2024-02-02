@@ -6,6 +6,9 @@ import harper.utils.TaskList;
 import harper.utils.Ui;
 import harper.utils.Storage;
 
+/**
+ * Represents an add command.
+ */
 public class AddCommand extends Command {
     private Task task;
 

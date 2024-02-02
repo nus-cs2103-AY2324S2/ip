@@ -1,5 +1,8 @@
 package harper.exceptions;
 
+/**
+ * Exception that indicates the date time format is invalid.
+ */
 public class HarperInvalidDateTimeException extends HarperException {
     public HarperInvalidDateTimeException() {
         super("Date time should follow this format:\n"

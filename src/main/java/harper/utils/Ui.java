@@ -7,7 +7,7 @@ import harper.tasks.Task;
 import java.util.Scanner;
 
 /**
- * A class that interacts with user's input and output.
+ * The Ui class interacts with user. It read user's input and show different messages to user.
  */
 public class Ui {
     private final Scanner scanner = new Scanner(System.in);

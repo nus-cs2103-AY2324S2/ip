@@ -11,9 +11,6 @@ import harper.utils.Ui;
 
 /**
  * A chatbot called Harper.
- *
- * @author gosongying
- * @version CS2103T AY23/24 Sem 2
  */
 public class Duke {
     private Storage storage;

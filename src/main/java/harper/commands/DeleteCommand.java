@@ -6,6 +6,9 @@ import harper.utils.Storage;
 
 import harper.tasks.Task;
 
+/**
+ * Represents a delete command.
+ */
 public class DeleteCommand extends Command {
     private int taskIndex;
 

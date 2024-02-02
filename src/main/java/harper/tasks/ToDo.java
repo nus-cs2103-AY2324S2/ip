@@ -1,5 +1,8 @@
 package harper.tasks;
 
+/**
+ * Represents a todo task.
+ */
 public class ToDo extends Task {
     /**
      * Creates a task.ToDo task with description.
