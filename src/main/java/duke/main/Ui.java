@@ -127,6 +127,22 @@ public class Ui {
         }
     }
 
+    public void findTasks(String findWord, ArrayList<Task> tasks) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(findWord)) {
+                foundTasks.add(task);
+            }
+        }
+        System.out.println("\nHere are the matching tasks in your list:");
+        for (int i = 0; i < foundTasks.size(); i++) {
+            if (foundTasks.get(i) != null) {
+                System.out.printf("%d. %s\n", i + 1, foundTasks.get(i));
+            }
+        }
+        System.out.println();
+    }
+
     /**
      * Displays an error message when there is a loading issue.
      *
