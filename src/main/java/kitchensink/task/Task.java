@@ -18,14 +18,14 @@ public class Task {
         isDone = true;
     }
 
-    public void mark() {
+    public void mark(Ui ui) {
         isDone = true;
-        System.out.println(Ui.LINE + "Nice! I've marked this task as done:\n" + toString() + Ui.LINE);
+        ui.sayTaskMarked(this);
     }
 
-    public void unmark() {
+    public void unmark(Ui ui) {
         isDone = false;
-        System.out.println(Ui.LINE + "OK, I've marked this task as not done yet:\n" + toString() + Ui.LINE);
+        ui.sayTaskUnmarked(this);
     }
 
     @Override

@@ -33,6 +33,14 @@ public class Ui {
         System.out.println(Ui.LINE + "Here are the tasks in your list:\n" + taskList.toString() + "\n" + Ui.LINE);
     }
 
+    public void sayTaskMarked(Task task) {
+        System.out.println(Ui.LINE + "Nice! I've marked this task as done:\n" + task.toString() + "\n" + Ui.LINE);
+    }
+
+    public void sayTaskUnmarked(Task task) {
+        System.out.println(Ui.LINE + "OK, I've marked this task as not done yet:\n" + task.toString() + "\n" + Ui.LINE);
+    }
+
     public void sayTaskDeleted(Task task, int taskListSize) {
         String taskOrTasks = taskListSize == 1 ? " task " : " tasks ";
         System.out.println(Ui.LINE + "Noted. I've removed this task:\n" + task.toString()

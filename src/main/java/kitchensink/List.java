@@ -29,13 +29,13 @@ public class List {
         return taskNum > 0 && taskNum <= tasks.size();
     }
 
-    public void markTask(int taskNum, Storage storage) throws IOException {
-        tasks.get(taskNum).mark();
+    public void markTask(int taskNum, Storage storage, Ui ui) throws IOException {
+        tasks.get(taskNum).mark(ui);
         storage.saveTasks(this);
     }
 
-    public void unmarkTask(int taskNum, Storage storage) throws IOException {
-        tasks.get(taskNum).unmark();
+    public void unmarkTask(int taskNum, Storage storage, Ui ui) throws IOException {
+        tasks.get(taskNum).unmark(ui);
         storage.saveTasks(this);
     }
 

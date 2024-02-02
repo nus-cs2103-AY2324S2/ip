@@ -46,7 +46,7 @@ public class Parser {
             if (!taskList.validTaskNum(taskNum)) {
                 throw new TaskNotFoundException(taskList);
             }
-            taskList.markTask(taskNum - 1, storage);
+            taskList.markTask(taskNum - 1, storage, ui);
             break;
         }
         case "unmark": {
@@ -62,7 +62,7 @@ public class Parser {
             if (!taskList.validTaskNum(taskNum)) {
                 throw new TaskNotFoundException(taskList);
             }
-            taskList.unmarkTask(taskNum - 1, storage);
+            taskList.unmarkTask(taskNum - 1, storage, ui);
             break;
         }
         case "todo":

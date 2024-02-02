@@ -32,14 +32,14 @@ public class Storage {
 
     public void saveTasks(List taskList) throws IOException {
         String newFileContent = taskList.toString();
-        BufferedWriter writer = new BufferedWriter(new FileWriter("./data/duke.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
         writer.write(newFileContent);
         writer.close();
     }
 
     public ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader("./data/duke.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader(fileName));
         String currLine;
         while ((currLine = reader.readLine()) != null) {
             String taskType = currLine.split("]")[0].split("\\[")[1];
@@ -70,5 +70,10 @@ public class Storage {
             }
         }
         return tasks;
+    }
+
+    public void clearData() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+        writer.write("");
     }
 }
