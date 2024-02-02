@@ -1,13 +1,14 @@
 package dibo;
 
+import java.util.ArrayList;
+
 import dibo.command.Command;
 import dibo.exception.DiboException;
-
-import java.util.ArrayList;
 
 /**
  * Class of the dibo chatbot.
  */
+
 public class Dibo {
     private TaskList tasks;
     private Storage storage;
