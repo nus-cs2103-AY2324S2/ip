@@ -19,6 +19,21 @@ public class Task {
     public void unMark() { //method to unmark the status
         isDone = false;
     }
+
+    /**
+     * Returns true if the key given is contained in
+     * the description of the task.
+     *
+     * @param key the string key need to be contained.
+     * @return a boolean whether the key is contained.
+     */
+    public boolean hasFind(String key) {
+        if (description.contains(key)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     @Override
     public String toString(){ //method to get the string representation of task
         String s = "[" + this.getStatusIcon() + "] " + this.description;

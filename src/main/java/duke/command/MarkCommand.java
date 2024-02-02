@@ -16,7 +16,7 @@ public class MarkCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tl, Ui ui, Storage st) {// method to mark task (mark command)
+    public void execute(TaskList tL, Ui ui, Storage st) {// method to mark task (mark command)
         int noArr;
         String[] inputs = com.split(" ");
         try {
@@ -24,9 +24,9 @@ public class MarkCommand extends Command{
                 throw new CommandFormatException();
             }
             noArr = Integer.parseInt(inputs[1])-1;
-            String out = tl.mark(noArr);
+            String out = tL.mark(noArr);
             ui.showMessage(out);
-            st.write(tl.getList());
+            st.write(tL.getList());
         } catch (IndexOutOfBoundsException e){ //when the given number is out of bounds (exception handling)
             ui.showMessage("No task number " + inputs[1]);
         } catch (NumberFormatException e){ //when the given number is not a number (exception handling)

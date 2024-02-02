@@ -23,7 +23,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tl, Ui ui, Storage st) {
+    public void execute(TaskList tL, Ui ui, Storage st) {
         String[] inputs = com.split(" ");
         String[] name;
         try {
@@ -42,9 +42,9 @@ public class AddCommand extends Command {
                         }
                         LocalDateTime ldtf = LocalDateTime.parse(fromTo[0], dFormatInp);
                         LocalDateTime ldtt = LocalDateTime.parse(fromTo[1], dFormatInp);
-                        String out = tl.addTask(new Event(desFromTo[0], ldtf, ldtt));
+                        String out = tL.addTask(new Event(desFromTo[0], ldtf, ldtt));
                         ui.showMessage(out);
-                        st.write(tl.getList());
+                        st.write(tL.getList());
                     }
                     break;
                 case "todo": // when the task added is todo
@@ -57,9 +57,9 @@ public class AddCommand extends Command {
                             throw new DescriptionFormatException("Wrong format!, please use this format: "
                                     + ToDos.getFormat());
                         }
-                        String out = tl.addTask(new ToDos(name[1]));
+                        String out = tL.addTask(new ToDos(name[1]));
                         ui.showMessage(out);
-                        st.write(tl.getList());
+                        st.write(tL.getList());
                     }
                     break;
                 case "deadline": // when the task added is deadline
@@ -74,9 +74,9 @@ public class AddCommand extends Command {
                                     + Deadline.getFormat());
                         }
                         LocalDateTime ldt = LocalDateTime.parse(desBy[1], dFormatInp);
-                        String out = tl.addTask(new Deadline(desBy[0], ldt));
+                        String out = tL.addTask(new Deadline(desBy[0], ldt));
                         ui.showMessage(out);
-                        st.write(tl.getList());
+                        st.write(tL.getList());
                     }
                     break;
             }

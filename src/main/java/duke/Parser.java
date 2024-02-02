@@ -30,11 +30,14 @@ public class Parser {
                 return new ListCommand();
             } else if (inputs[0].equals("delete")) { //if the user use delete command
                 return new DeleteCommand(command);
+            } else if (inputs[0].equals("find")) {
+                System.out.println(inputs[0]);
+                return new FindCommand(command);
             } else {
                 return new AddCommand(command);
             }
         }
-        throw new CommandInvalidException("Invalid command -_-, please use the available commands!!");
+        throw new CommandInvalidException("Invalid command -_-, please use the available commands!!!");
     }
 
 }

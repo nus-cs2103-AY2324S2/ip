@@ -14,7 +14,7 @@ public abstract class Command {
             isExit = false;
         }
     }
-    public abstract void execute(TaskList tl, Ui ui, Storage st);
+    public abstract void execute(TaskList tL, Ui ui, Storage st);
 
     public boolean isExit(){
         return isExit;
