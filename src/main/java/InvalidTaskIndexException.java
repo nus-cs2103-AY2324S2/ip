@@ -1,5 +1,5 @@
 public class InvalidTaskIndexException extends BobException {
     public InvalidTaskIndexException() {
-        super(Replies.INVALID_TASK_INDEX);
+        super(Ui.INVALID_TASK_INDEX);
     }
 }

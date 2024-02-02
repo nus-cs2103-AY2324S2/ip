@@ -7,15 +7,15 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
-        this.by = LocalDate.parse(by, Bob.INPUT_DATE_FORMATTER);
+        this.by = LocalDate.parse(by, Parser.INPUT_DATE_FORMATTER);
     }
 
     public String format() {
-        return "deadline | " + super.format() + " | " + this.by.format(Bob.INPUT_DATE_FORMATTER);
+        return "deadline | " + super.format() + " | " + this.by.format(Parser.INPUT_DATE_FORMATTER);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by.format(Bob.OUTPUT_DATE_FORMATTER) + ")";
+        return "[D]" + super.toString() + " (by: " + this.by.format(Ui.OUTPUT_DATE_FORMATTER) + ")";
     }
 }

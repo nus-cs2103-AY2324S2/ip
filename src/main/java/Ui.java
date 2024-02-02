@@ -1,6 +1,7 @@
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class Replies {
+public class Ui {
     private static final int INDENT_SPACE_COUNT = 4;
 
     public static final String HORIZONTAL_LINE
@@ -26,7 +27,12 @@ public class Replies {
             + "task index is non-zero integer at most the number of tasks you have. "
             + "you gave me \"%s\".";
 
+    public static final DateTimeFormatter OUTPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
     public static final String INVALID_DATE_FORMAT = "i only understand yyyy-mm-dd bro";
+
+    public static final String LOADING_ERROR = "wait what happened i cant load any data";
+
+    public static final String SAVING_ERROR = "wait what happened i cant seem to save";
 
     public static final String EXIT = "ok";
 
