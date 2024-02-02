@@ -21,10 +21,13 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(" + from +" "+ to.trim() + ")";
+        return "[E]"
+                + super.toString() + "("
+                + from +" "+ to.trim() + ")";
     }
 
     public String getFromTo() {
-        return from +" "+ to.trim();
+        return from +" "
+                + to.trim();
     }
 }

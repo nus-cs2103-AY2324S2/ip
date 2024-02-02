@@ -36,7 +36,9 @@ public class Task {
      * @return A string of task information.
      */
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "["
+                + getStatusIcon() + "] "
+                + description;
     }
 
     /**

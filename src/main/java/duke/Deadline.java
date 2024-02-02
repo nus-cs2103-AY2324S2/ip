@@ -29,7 +29,11 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         //return "[D]" + super.toString() + "(by:" + getBy() + ")";
-        return "[D]" + super.toString() + "(by:" + getDate().format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[D]" + super.toString()
+                + "(by:" + getDate()
+                .format(DateTimeFormatter
+                        .ofPattern("MMM dd yyyy"))
+                + ")";
     }
 
     public String getBy() {

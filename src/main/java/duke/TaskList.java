@@ -27,7 +27,7 @@ public class TaskList {
         return t;
     }
 
-    public int size() {
+    public int getSize() {
         return getLs().size();
     }
 
@@ -46,7 +46,8 @@ public class TaskList {
      * @param taskNumtoRemove The task number of the to-be-deleted task.
      */
     public void remove(int taskNumtoRemove) {
-        getLs().remove(taskNumtoRemove);
+        getLs().
+                remove(taskNumtoRemove);
     }
 
 }
