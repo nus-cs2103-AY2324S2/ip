@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+ * Class for ToDo Task
+ */
 public class ToDo extends Task {
     
     public ToDo(String description){
@@ -10,12 +13,18 @@ public class ToDo extends Task {
         super(description, isDone);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String saveFormat() {
         return String.format("%s;;%s",
                 "T", super.saveFormat());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return String.format("%s%s", "[T]", super.toString());

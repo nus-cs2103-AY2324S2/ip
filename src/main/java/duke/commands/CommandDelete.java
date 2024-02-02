@@ -1,16 +1,24 @@
 package duke.commands;
 
 import duke.Ui;
+
 import duke.exceptions.DukeCeption;
+
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 
+/**
+ * The command class when user inputs delete
+ */
 public class CommandDelete extends Command {
 
     public CommandDelete(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
 
+    /**
+     * {@inherit}
+     */
     @Override
     public void execute(String taskNumber) {
         try {

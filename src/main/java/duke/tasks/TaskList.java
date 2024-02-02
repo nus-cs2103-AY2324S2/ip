@@ -1,30 +1,55 @@
 package duke.tasks;
+
 import java.util.ArrayList;
 
 import duke.exceptions.DukeCeption;
 import duke.exceptions.IncorrectFormatException;
 import duke.exceptions.NumberOutOfBoundsException;
 
+/**
+ * Class for storing all the tasks in the list
+ */
 public class TaskList {
     
     private ArrayList<Task> list;
 
+    /**
+     * Constructor for TaskList
+     */
     public TaskList() {
         this.list = new ArrayList<Task>();
     }
 
+    /**
+     * 
+     * @return ArrayList of Tasks
+     */
     public ArrayList<Task> getList() {
         return list;
     }
 
+    /**
+     * 
+     * @return int size of the list
+     */
     public int getSize() {
         return list.size();
     }
 
+    /**
+     * Adds task into the list
+     * @param task Task to be added
+     */
     public void addNewTask(Task task) {
         list.add(task);
     }
 
+    /**
+     * 
+     * @param number String of number
+     * @return Task that is inputted by the user
+     * @throws DukeCeption when number is not recognizeable or outside the range of the list
+     */
     public Task getTask(String number) throws DukeCeption {
         try {
             int taskNumber = Integer.parseInt(number) - 1;
@@ -37,6 +62,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * 
+     * @param number String of number
+     * @return Task that is inputted by the user
+     * @throws DukeCeption when number is not recognizeable or outside the range of the list
+     */
     public Task delete(String number) throws DukeCeption {
             Task task = this.getTask(number);
             int taskNumber = Integer.parseInt(number) - 1;
@@ -44,12 +75,20 @@ public class TaskList {
             return task;
     }
 
+    /**
+     * Loads the list from text that was initially from the file
+     * @param dataStrings ArrayList of data in String form
+     */
     public void loadList(ArrayList<String> dataStrings) {
         for (String line : dataStrings) {
             this.textToTask(line);
         }
     }
 
+    /**
+     * Parse data texts from file and add task into Task List
+     * @param line String of Task data
+     */
     public void textToTask(String line) {
         String[] separate = line.split(";;");
         String taskType = separate[0];
@@ -74,6 +113,10 @@ public class TaskList {
         list.add(task);
     }
 
+    /**
+     * Create a save format for the data to be saved into a file
+     * @return ArrayList of Task data strings
+     */
     public ArrayList<String> saveFormat() {
         ArrayList<String> dataToText = new ArrayList<>();
         for (Task task : list) {

@@ -13,9 +13,12 @@ import duke.commands.CommandList;
 import duke.commands.CommandMark;
 import duke.commands.CommandToDo;
 import duke.commands.CommandUnmark;
+
 import duke.tasks.TaskList;
 
-
+/**
+ * Class that reads user input
+ */
 public class Parser {
 
     enum CommandType {LIST, BYE, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT};
@@ -25,7 +28,11 @@ public class Parser {
     private TaskList taskList;
     private Boolean isRunning;
     
-
+    /**
+     * Constructor for Parser
+     * @param taskList TaskList List for storing Tasks
+     * @param ui UI for printing to system
+     */
     public Parser(TaskList taskList, Ui ui) {
         this.isRunning = true;
         this.scanner = new Scanner(System.in);
@@ -34,13 +41,19 @@ public class Parser {
 
     }
 
+    /**
+     * starts the chatbot
+     */
     public void run() {
         while (isRunning) {
             this.readUserInput();
         }
     }
 
-    public void readUserInput() {
+    /**
+     * splits the user command and description
+     */
+    private void readUserInput() {
         String userInput = scanner.nextLine();
         String[] userInputSplit = userInput.split(" ", 2);
         ArrayList<String> userInputList = new ArrayList<>(Arrays.asList(userInputSplit));
@@ -50,6 +63,11 @@ public class Parser {
         this.parseUserInput(userCommand, description);
     }
 
+    /**
+     * Reads and understand user input then create a command and executes it
+     * @param userCommand String user command
+     * @param description String user description
+     */
     private void parseUserInput(String userCommand, String description) {
         Command command;
         try {

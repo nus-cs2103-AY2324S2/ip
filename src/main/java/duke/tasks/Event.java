@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+ * Class for Event Task
+ */
 public class Event extends Task {
     protected DateTask from;
     protected DateTask to;
@@ -14,12 +17,18 @@ public class Event extends Task {
         this.to = new DateTask(to);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String saveFormat() {
         return String.format("%s;;%s;;%s;;%s",
                 "E", super.saveFormat(), from.saveFormat(), to.saveFormat());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + 

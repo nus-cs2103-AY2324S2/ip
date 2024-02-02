@@ -2,6 +2,9 @@ package duke;
 
 import duke.tasks.TaskList;
 
+/**
+ * Main class that runs the program
+ */
 public class Duke {
 
     private final String LOGO = "" 
@@ -23,6 +26,9 @@ public class Duke {
 
     private Storage storage;
 
+    /**
+     * Constructor for Chatbot
+     */
     public Duke() {
         this.taskList = new TaskList();
         this.storage = new Storage(FILE_PATH);
@@ -30,6 +36,9 @@ public class Duke {
         this.parser = new Parser(taskList, ui);
     }
 
+    /**
+     * Starts the program
+     */
     public void start() {
         ui.print("Hello from\n" + LOGO);
         ui.greeting(NAME);
@@ -38,10 +47,16 @@ public class Duke {
         this.saveData();
     }
 
+    /**
+     * Loads the TaskList tasks data from file
+     */
     public void loadData() {
         storage.loadData(taskList, ui);
     }
 
+    /**
+     * Saves TaskList tasks into file
+     */
     public void saveData() {
         storage.saveData(taskList, ui);
     }
