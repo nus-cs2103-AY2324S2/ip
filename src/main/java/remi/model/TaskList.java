@@ -66,11 +66,11 @@ public class TaskList {
      *
      * @return a parsable string representation of the task and all its details
      */
-    public String parsableString() {
+    public String getParsableString() {
         StringBuilder res = new StringBuilder();
         // NOTE: May be slow
         for (int i = 1; taskList.size() >= i; i++) {
-            res.append(getTask(i).parsableString());
+            res.append(getTask(i).getParsableString());
             if (i != taskList.size()) {
                 res.append("\n");
             }

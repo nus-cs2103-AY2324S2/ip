@@ -58,7 +58,7 @@ public class Storage {
      */
     public static void store(StoredTaskList taskList) {
         try (FileWriter out = new FileWriter(FILE_PATH)){
-            out.write(taskList.parsableString());
+            out.write(taskList.getParsableString());
             out.close();
         } catch (IOException err) {
             // do nothing
