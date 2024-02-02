@@ -14,27 +14,33 @@ public class Task {
         return String.format("| %d | %s", isDone ? 1 : 0, name);
     }
 
-    public void happenOn(LocalDate date) {
+    public String happenOn(LocalDate date) {
+        return "";
     }
 
-    public void taskInfo() {
+    public String taskInfo() {
+        String output = "";
         if (isDone) {
-            System.out.print("[X]");
+            output += "[X]";
         } else {
-            System.out.print("[ ]");
+            output += "[ ]";
         }
-        System.out.print(" " + name);
+        return output + " " + name;
     }
 
-    public void mark() {
-        this.isDone = true;
-        System.out.println("Nice! I've marked this task as done:");
-        this.taskInfo();
+    public String mark() throws DukeCannotBeMarked {
+        if (isDone) {
+            throw new DukeCannotBeMarked();
+        }
+        isDone = true;
+        return "Nice! I've marked this task as done:" + this.taskInfo();
     }
 
-    public void unmark() {
-        this.isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:");
-        this.taskInfo();
+    public String unmark() throws DukeCannotBeUnmarked {
+        if (!isDone) {
+            throw new DukeCannotBeUnmarked();
+        }
+        isDone = false;
+        return "OK, I've marked this task as not done yet:" + this.taskInfo();
     }
 }

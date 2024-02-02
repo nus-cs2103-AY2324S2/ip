@@ -10,10 +10,11 @@ public class Deadlines extends Task{
     }
 
     @Override
-    public void happenOn(LocalDate date) {
+    public String happenOn(LocalDate date) {
         if (date.isEqual(by.toLocalDate())) {
-            this.taskInfo();
+            return taskInfo();
         }
+        return "";
     }
 
     @Override
@@ -22,9 +23,11 @@ public class Deadlines extends Task{
     }
 
     @Override
-    public void taskInfo() {
-        System.out.print("[D]");
-        super.taskInfo();
-        System.out.println(" (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm")) + "hrs )");
+    public String taskInfo() {
+        String output = "";
+        output += "[D]";
+        output += super.taskInfo();
+        return output + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm")) + "hrs )"
+                + System.lineSeparator();
     }
 }

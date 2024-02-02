@@ -12,9 +12,9 @@ public class ToDos extends Task{
     }
 
     @Override
-    public void taskInfo() {
-        System.out.print("[T]");
-        super.taskInfo();
-        System.out.println();
+    public String taskInfo() {
+        String output = "";
+        output += "[T]";
+        return output + super.taskInfo() + System.lineSeparator();
     }
 }

@@ -1,0 +1,22 @@
+public class UnmarkCommand extends Command {
+    private String inputs;
+
+    public UnmarkCommand(String command) {
+        inputs = command;
+    }
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (inputs.isEmpty()) {
+            throw new DukeMissingArgument(1,"unmark");
+        }
+        try {
+            int index = Integer.valueOf(inputs);
+            ui.sendReply(tasks.unmark(index));
+        } catch (NumberFormatException e) {
+            throw new DukeInvalidArgument(inputs);
+        }
+    }
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+}

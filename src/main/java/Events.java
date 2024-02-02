@@ -14,11 +14,12 @@ public class Events extends Task{
     }
 
     @Override
-    public void happenOn(LocalDate date) {
+    public String happenOn(LocalDate date) {
         if ((date.isAfter(from.toLocalDate()) && date.isBefore(to.toLocalDate()))
                 || date.isEqual(from.toLocalDate()) || date.isEqual(to.toLocalDate())) {
-            taskInfo();
+            return taskInfo();
         }
+        return "";
     }
 
     @Override
@@ -27,10 +28,11 @@ public class Events extends Task{
     }
 
     @Override
-    public void taskInfo() {
-        System.out.print("[E]");
-        super.taskInfo();
-        System.out.println(" (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm")) + "hrs to: "
-                + to.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm")) + ")");
+    public String taskInfo() {
+        String output = "";
+        output += "[E]";
+        output += super.taskInfo();
+        return output + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm")) + "hrs to: "
+                + to.format(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm")) + ")" + System.lineSeparator();
     }
 }
