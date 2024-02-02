@@ -1,9 +1,12 @@
 import commands.Command;
 import commands.Parser;
+
 import exceptions.DukeException;
-import tasks.TaskList;
+
 import main.java.Ui;
 import main.java.Storage;
+
+import tasks.TaskList;
 
 public class Duke {
 

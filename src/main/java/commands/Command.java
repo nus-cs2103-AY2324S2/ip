@@ -1,9 +1,11 @@
 package commands;
 
-import tasks.Task;
-import tasks.TaskList;
 import main.java.Ui;
 import main.java.Storage;
+
+import tasks.Task;
+import tasks.TaskList;
+
 
 public enum Command {
     BYE {
