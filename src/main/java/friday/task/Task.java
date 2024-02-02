@@ -45,6 +45,16 @@ public class Task {
     }
 
     /**
+     * Checks if the task's description contains the specified keyword.
+     *
+     * @param keyword The keyword to search for in the task's description.
+     * @return {@code true} if the task's description contains the keyword (case-insensitive), {@code false} otherwise.
+     */
+    public boolean containsKeyword(String keyword) {
+        return description.toLowerCase().contains(keyword);
+    }
+
+    /**
      * Parses a task from its string representation and returns the corresponding Task object.
      *
      * @param taskString The string representation of the task.

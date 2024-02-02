@@ -110,6 +110,9 @@ public class Friday {
                     ui.displayMessage(err.getMessage());
                 }
                 break;
+            case "find":
+                tasks.searchTask(userInput);
+                break;
             default:
                 ui.displayMessage("HUH? What do you mean?");
                 break;

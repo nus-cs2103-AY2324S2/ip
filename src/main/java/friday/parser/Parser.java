@@ -12,6 +12,6 @@ public class Parser {
      * @return The command keyword extracted from the user input.
      */
     public String parseCommand(String userInput) {
-        return userInput.split(" ")[0].trim();
+        return userInput.split(" ")[0].toLowerCase().trim();
     }
 }

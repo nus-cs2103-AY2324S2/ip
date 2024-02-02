@@ -8,4 +8,6 @@
 [T][X] assignment
 [T][X] sleep
 [D][ ] wake up (by: Feb 03 2024 0700)
-[T][ ] jump
+[T][X] jump
+[T][ ] run
+[T][ ] jog
