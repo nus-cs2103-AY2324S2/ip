@@ -7,11 +7,11 @@ public class DeadlineTest {
     @Test
     public void testToString() {
         Deadline deadline1 = new Deadline("Return book", "29/01/2024 1800");
-        String expectedString1 = "[D][ ] Return book (by: 29 Jan 2024 06:00 pm)";
+        String expectedString1 = "[D][ ] Return book (by: 29 Jan 2024 06:00 PM)";
         assertEquals(expectedString1, deadline1.toString());
 
         Deadline deadline2 = new Deadline("Finish assignment", "01/02/2024 0000");
-        String expectedString2 = "[D][ ] Finish assignment (by: 01 Feb 2024 12:00 am)";
+        String expectedString2 = "[D][ ] Finish assignment (by: 01 Feb 2024 12:00 AM)";
         assertEquals(expectedString2, deadline2.toString());
     }
 
