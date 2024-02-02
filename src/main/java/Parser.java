@@ -1,5 +1,21 @@
-import commands.*;
-import exception.*;
+import commands.Command;
+import commands.CreateDeadline;
+import commands.CreateEvent;
+import commands.CreateTodo;
+import commands.DeleteTask;
+import commands.Help;
+import commands.ListTasks;
+import commands.MarkTask;
+import commands.UnmarkTask;
+
+import exception.DukeException;
+import exception.InvalidCommandException;
+import exception.InvalidDateException;
+import exception.InvalidDeadlineException;
+import exception.InvalidEventException;
+import exception.InvalidIndexException;
+import exception.InvalidTodoException;
+
 import objects.TaskList;
 import view.EncaseLines;
 
@@ -7,24 +23,23 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import static commands.Constants.DEADLINE;
+import static commands.Constants.DELETE;
+import static commands.Constants.EVENT;
+import static commands.Constants.HELP;
+import static commands.Constants.LIST;
+import static commands.Constants.MARK;
+import static commands.Constants.TODO;
+import static commands.Constants.UNMARK;
+
 import static utils.InputUtil.getCommandType;
-import static utils.InputUtil.getDetails;
 
 public class Parser {
-    public static final String LIST = "list";
-    public static final String MARK = "mark";
-    public static final String UNMARK = "unmark";
-    public static final String DELETE = "delete";
-    public static final String TODO = "todo";
-    public static final String DEADLINE = "deadline";
-    public static final String EVENT = "event";
-    public static final String HELP = "help";
-
     public static void parse(String input, TaskList tasks) {
         try {
             input = input.trim().toLowerCase();
             String commandType = getCommandType(input);
-            Command command = null;
+            Command command;
 
             switch (commandType) {
                 case LIST:
@@ -77,13 +92,21 @@ public class Parser {
 
         if (parts.length >= 2) {
             return Integer.parseInt(parts[1]) - 1;
+
         } else {
             throw new InvalidIndexException();
+
         }
     }
 
     public static String parseTodo(String input) throws InvalidTodoException, InvalidCommandException {
-        return getDetails(input);
+        String[] details = input.split(" ", 2);
+
+        if (details.length < 2) {
+            throw new InvalidCommandException();
+        }
+
+        return details[1].trim();
     }
 
     public static String[] parseDeadline(String input) throws InvalidDeadlineException, InvalidDateException {
@@ -126,6 +149,7 @@ public class Parser {
 
         } catch (ParseException e) {
             throw new InvalidDateException();
+
         }
         return inputDate;
     }

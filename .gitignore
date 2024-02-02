@@ -13,8 +13,12 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Test outputs
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
 # Classes
 *.class
+
+# Data
+/src/main/data

@@ -1,4 +1,5 @@
 import objects.TaskList;
+
 import view.Exit;
 import view.Greeting;
 
@@ -8,6 +9,7 @@ public class Duke {
     public static void main(String[] args) {
         TaskList tasks = Storage.load();
         Scanner scanner = new Scanner(System.in);
+
         Greeting.display();
 
         while (true) {

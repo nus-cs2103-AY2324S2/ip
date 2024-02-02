@@ -5,9 +5,6 @@ import objects.Task;
 import objects.TaskList;
 import objects.ToDos;
 import view.CreatedTask;
-import view.EncaseLines;
-
-import static utils.InputUtil.getDetails;
 
 public class CreateTodo implements Command{
     private final TaskList tasks;

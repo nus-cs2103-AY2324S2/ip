@@ -1,7 +1,12 @@
 import objects.TaskList;
+import view.EncaseLines;
 
-import java.io.*;
-
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.IOException;
 public class Storage {
 
     private static final String FILE_PATH = "./src/main/data/duke.txt";
@@ -18,14 +23,14 @@ public class Storage {
             objectOutput.writeObject(taskList);
 
         } catch (IOException e) {
-            System.err.println("Error saving task list: " + e.getMessage());
+            EncaseLines.display("Error saving task list: " + e.getMessage());
 
         }
     }
 
     public static TaskList load() {
         if (!fileExists()) {
-            System.out.println("Data not found, creating new file...");
+            EncaseLines.display("Data not found, creating new file...");
 
             return new TaskList();
         }
@@ -37,11 +42,11 @@ public class Storage {
             tasks = (TaskList) objectInput.readObject();
 
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Error loading data");
+            EncaseLines.display("Error loading data");
 
         }
 
-        System.out.println("Existing data found, loading...");
+        EncaseLines.display("Existing data found, loading...");
 
         return tasks;
     }
