@@ -1,11 +1,11 @@
 package duke;
 
-import duke.command.EventCommand;
-import duke.common.TaskList;
-import duke.exception.InvalidInputException;
-import duke.storage.Storage;
-import duke.task.Event;
-import duke.ui.Ui;
+import seedu.duke.command.EventCommand;
+import seedu.duke.common.TaskList;
+import seedu.duke.exception.InvalidInputException;
+import seedu.duke.storage.Storage;
+import seedu.duke.task.Event;
+import seedu.duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -31,7 +31,7 @@ public class EventTest {
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
         new EventCommand(description, startDate, endDate).execute(mockTaskList, mockUi, mockStorage);
-        verify(mockUi).showNewTask(argThat(task -> {
+        verify(mockUi).generateNewTaskResponse(argThat(task -> {
             assertTrue(task instanceof Event);
             assertEquals(task.getDescription(), description);
             assertEquals(((Event) task).getStartDate(), startDate);

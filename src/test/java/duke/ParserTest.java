@@ -1,9 +1,9 @@
 package duke;
 
-import duke.command.*;
-import duke.exception.InvalidCommandFormatException;
-import duke.exception.UnknownCommandException;
-import duke.parser.Parser;
+import seedu.duke.command.*;
+import seedu.duke.exception.InvalidCommandFormatException;
+import seedu.duke.exception.UnknownCommandException;
+import seedu.duke.parser.Parser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;

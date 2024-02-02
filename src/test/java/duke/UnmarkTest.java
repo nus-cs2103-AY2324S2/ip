@@ -1,11 +1,11 @@
 package duke;
 
-import duke.command.UnmarkCommand;
-import duke.common.TaskList;
-import duke.exception.InvalidInputException;
-import duke.storage.Storage;
-import duke.task.Task;
-import duke.ui.Ui;
+import seedu.duke.command.UnmarkCommand;
+import seedu.duke.common.TaskList;
+import seedu.duke.exception.InvalidInputException;
+import seedu.duke.storage.Storage;
+import seedu.duke.task.Task;
+import seedu.duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,7 +23,7 @@ public class UnmarkTest {
 
         new UnmarkCommand(1).execute(mockTaskList, mockUi, mockStorage);
         verify(mockTask).setHasDone(false);
-        verify(mockUi).showMarkAsNotDone(mockTask);
+        verify(mockUi).generateMarkAsNotDoneResponse(mockTask);
 
         assertThrows(InvalidInputException.class,
                 () -> new UnmarkCommand(0).execute(mockTaskList, mockUi, mockStorage));

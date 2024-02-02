@@ -1,10 +1,10 @@
 package duke;
 
-import duke.command.TodoCommand;
-import duke.common.TaskList;
-import duke.storage.Storage;
-import duke.task.Todo;
-import duke.ui.Ui;
+import seedu.duke.command.TodoCommand;
+import seedu.duke.common.TaskList;
+import seedu.duke.storage.Storage;
+import seedu.duke.task.Todo;
+import seedu.duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,7 +30,7 @@ public class TodoTest {
             return true;
         }));
 
-        verify(mockUi).showNewTask(argThat(task -> {
+        verify(mockUi).generateNewTaskResponse(argThat(task -> {
             assertTrue(task instanceof Todo);
             assertEquals(task.getDescription(), description);
             return true;

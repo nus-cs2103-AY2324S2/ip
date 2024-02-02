@@ -1,11 +1,11 @@
 package duke;
 
-import duke.command.MarkCommand;
-import duke.common.TaskList;
-import duke.exception.InvalidInputException;
-import duke.storage.Storage;
-import duke.task.Task;
-import duke.ui.Ui;
+import seedu.duke.command.MarkCommand;
+import seedu.duke.common.TaskList;
+import seedu.duke.exception.InvalidInputException;
+import seedu.duke.storage.Storage;
+import seedu.duke.task.Task;
+import seedu.duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,7 +26,7 @@ public class MarkTest {
         new MarkCommand(1).execute(mockTaskList, mockUi, mockStorage);
 
         verify(mockTask).setHasDone(true);
-        verify(mockUi).showMaskAsDone(mockTask);
+        verify(mockUi).generateMarkAsDoneResponse(mockTask);
 
         assertThrows(InvalidInputException.class, () -> new MarkCommand(0).execute(mockTaskList, mockUi, mockStorage));
     }

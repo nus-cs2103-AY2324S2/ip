@@ -1,12 +1,12 @@
 package duke;
 
-import duke.command.DeleteCommand;
-import duke.common.TaskList;
-import duke.exception.DukeException;
-import duke.exception.InvalidInputException;
-import duke.storage.Storage;
-import duke.task.Task;
-import duke.ui.Ui;
+import seedu.duke.command.DeleteCommand;
+import seedu.duke.common.TaskList;
+import seedu.duke.exception.DukeException;
+import seedu.duke.exception.InvalidInputException;
+import seedu.duke.storage.Storage;
+import seedu.duke.task.Task;
+import seedu.duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,7 +26,7 @@ public class DeleteTest {
 
         new DeleteCommand(1).execute(mockTaskList, mockUi, mockStorage);
         verify(mockTaskList).deleteTask(0);
-        verify(mockUi).showDeleteTask(mockTask, mockTaskList);
+        verify(mockUi).generateDeleteTaskResponse(mockTask, mockTaskList);
 
         assertThrows(InvalidInputException.class, () ->
                 new DeleteCommand(0).execute(mockTaskList, mockUi, mockStorage));

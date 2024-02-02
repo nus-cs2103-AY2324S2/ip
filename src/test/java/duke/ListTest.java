@@ -1,9 +1,9 @@
 package duke;
 
-import duke.command.ListCommand;
-import duke.common.TaskList;
-import duke.storage.Storage;
-import duke.ui.Ui;
+import seedu.duke.command.ListCommand;
+import seedu.duke.common.TaskList;
+import seedu.duke.storage.Storage;
+import seedu.duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.mock;
@@ -18,6 +18,6 @@ public class ListTest {
 
         new ListCommand().execute(mockTaskList, mockUi, mockStorage);
 
-        verify(mockUi).showTaskList(mockTaskList);
+        verify(mockUi).generateTaskList(mockTaskList);
     }
 }

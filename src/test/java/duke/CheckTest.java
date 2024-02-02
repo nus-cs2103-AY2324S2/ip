@@ -1,11 +1,11 @@
 package duke;
 
-import duke.command.CheckCommand;
-import duke.common.TaskList;
-import duke.exception.DukeException;
-import duke.storage.Storage;
-import duke.task.Deadline;
-import duke.ui.Ui;
+import seedu.duke.command.CheckCommand;
+import seedu.duke.common.TaskList;
+import seedu.duke.exception.DukeException;
+import seedu.duke.storage.Storage;
+import seedu.duke.task.Deadline;
+import seedu.duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -33,6 +33,6 @@ public class CheckTest {
 
         new CheckCommand(localDate).execute(mockTaskList, mockUi, mockStorage);
 
-        verify(mockUi).showDueTaskList(argThat(list -> list.contains(deadline1)), eq(localDate));
+        verify(mockUi).generateDueTaskListResponse(argThat(list -> list.contains(deadline1)), eq(localDate));
     }
 }

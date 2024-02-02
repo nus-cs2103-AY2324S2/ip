@@ -1,10 +1,10 @@
 package duke;
 
-import duke.command.ByeCommand;
-import duke.common.TaskList;
-import duke.exception.StorageOperationException;
-import duke.storage.Storage;
-import duke.ui.Ui;
+import seedu.duke.command.ByeCommand;
+import seedu.duke.common.TaskList;
+import seedu.duke.exception.StorageOperationException;
+import seedu.duke.storage.Storage;
+import seedu.duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.mock;
@@ -20,7 +20,7 @@ public class ByeTest {
         ByeCommand byeCommand = new ByeCommand();
         byeCommand.execute(mockTaskList, mockUi, mockStorage);
 
-        verify(mockUi).showGoodBye();
+        verify(mockUi).generateGoodByeMessage();
         verify(mockStorage).save(mockTaskList);
     }
 }

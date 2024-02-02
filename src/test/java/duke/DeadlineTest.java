@@ -1,10 +1,10 @@
 package duke;
 
-import duke.command.DeadlineCommand;
-import duke.common.TaskList;
-import duke.storage.Storage;
-import duke.task.Deadline;
-import duke.ui.Ui;
+import seedu.duke.command.DeadlineCommand;
+import seedu.duke.common.TaskList;
+import seedu.duke.storage.Storage;
+import seedu.duke.task.Deadline;
+import seedu.duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
