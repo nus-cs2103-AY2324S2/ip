@@ -1,6 +1,6 @@
 todo borrow book
-deadline buy phone /by Friday
-event date night /from Jan 29 7pm /to Jan 30 12am
+deadline buy phone /by 2024-02-04
+event date night /from 2024-02-05 /to 2024-02-06
 list
 mark 1
 list
