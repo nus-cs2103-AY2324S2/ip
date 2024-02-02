@@ -38,6 +38,7 @@ public class TaskList {
     }
 
     public static Task add(String taskType, String[] parameters) {
+        // TODO: Might be better to have addTodo, addDeadline and addEvent separately
         Task task;
         switch (taskType) {
             case Parser.TODO:
