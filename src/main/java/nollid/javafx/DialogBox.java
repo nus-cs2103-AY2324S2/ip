@@ -66,5 +66,9 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+
+        // Change background color to #79e8b2
+        this.dialog.setStyle(this.dialog.getStyle().replaceFirst(
+                "-fx-background-color: #(?:[A-Fa-f0-9]{3}){1,2}\\b;", "-fx-background-color: #79e8b2;"));
     }
 }
