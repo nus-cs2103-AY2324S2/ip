@@ -13,7 +13,16 @@ public class Parser {
                 ui.showList(tasks);
                 break;
             }
-
+            case "find": {
+                String keyword = keywords[1];
+                TaskList foundTasks = tasks.findTasksByKeyword(keyword);
+                if (foundTasks.taskNumber() == 0) {
+                    ui.say("No tasks found with the keyword: " + keyword);
+                } else {
+                    ui.showList(foundTasks);
+                }
+                break;
+            }
             case "mark": {
                 int taskNumber = Integer.parseInt(keywords[1]) - 1;
                 try {
