@@ -1,15 +1,23 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
 public class Ken {
     private static final int MAX_TASKS = 100;
     private static List<Task> tasks = new ArrayList<>();
+    private static final String FILE_PATH = "./data/ken.txt";
+
 
     public static void main(String[] args) throws KenException {
         //greet
         System.out.println("Hi Barbie!");
         System.out.println("I'm Ken!");
 
+        loadTasks();
         System.out.println("What would you like to beach today?\n");
 
         //create scanner
@@ -46,7 +54,7 @@ public class Ken {
             }
 
         } while (!command.equalsIgnoreCase("bye"));
-
+        saveTasks();
 
         //byee
         System.out.println("Beach off!\n");
@@ -85,6 +93,30 @@ public class Ken {
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println((i + 1) + ". " + tasks.get(i));
             }
+        }
+    }
+
+    private static void saveTasks() {
+        try (FileWriter writer = new FileWriter(FILE_PATH)) {
+            for (Task task : tasks) {
+                writer.write(task.toFileString() + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    private static void loadTasks() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = Task.parseFromFileString(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
         }
     }
 
