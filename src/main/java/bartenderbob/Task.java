@@ -24,4 +24,7 @@ public class Task {
     public String show() {
         return "";
     }
+    public String getDescription() {
+        return this.description;
+    }
 }

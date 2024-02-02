@@ -69,4 +69,7 @@ public class Ui {
         System.out.println(display);
         System.out.println("Now you have " + totalTasks + " tasks in the list.");
     }
+    public void showFindCommandHeader() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
 }
