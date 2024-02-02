@@ -12,7 +12,6 @@ import java.time.format.DateTimeFormatter;
  * The parser class which deals with all functionality related to interpreting the users command into the correct action
  */
 class Parser {
-<<<<<<< HEAD
     static final int COMMAND_LIST = 1;
     static final int TASK_TODO = 2;
     static final int TASK_DEADLINE = 3;
@@ -22,7 +21,6 @@ class Parser {
     static final int COMMAND_DELETE = 7;
     static final int COMMAND_BYE = 8;
     static final int COMMAND_FIND = 10;
-=======
 
     /**
      * The Translate method that takes in the command to be translated into an int representing the action to be carried
@@ -31,7 +29,6 @@ class Parser {
      * @return An integer representing the command to be carried out by the hirwan chatbot that is parsed into the
      * hirwan class
      */
->>>>>>> branch-A-JavaDoc
     public static int translate(String text) {
 
         if (text.equals("list")) {

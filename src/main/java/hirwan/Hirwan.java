@@ -1,17 +1,23 @@
 package hirwan;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-
+/**
+ * The chatbots main class which simulates talking to a virtual assistant
+ */
 public class Hirwan {
     static final String FILE_PATH =
             "C:\\Users\\eugen\\Documents\\National University of Singapore\\Y2S2\\CS2103T\\IP\\src\\main\\java\\data\\hirwan.txt";
 
+    /**
+     * The main method of the program. This method is the entry point
+     * when the program is executed.
+     *
+     * @param args Command-line arguments passed to the program.
+     */
     public static void main(String[] args) {
         String logo = "I'm hirwan \n"
                 + "_________________________________\n"
@@ -124,7 +130,7 @@ public class Hirwan {
                     } catch (NumberFormatException e) {
                         Ui.output("Error: Please enter a numerical index to delete!");
                     }
-                } else if (input ==9) {
+                } else if (input == 9) {
                     Ui.output("Error: I am sorry but I do not recognise this command");
                 }
             }
@@ -134,6 +140,13 @@ public class Hirwan {
         }
     }
 
+    /**
+     * Translates the string given into a LocalDateTime instance by taking in the string and formatting the date and
+     * time then return the LocalDateTime instance
+     *
+     * @param date Date to be converted into LocalDateTime instance
+     * @return The translated LocalDateTime instance
+     */
     public static LocalDateTime translateDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
