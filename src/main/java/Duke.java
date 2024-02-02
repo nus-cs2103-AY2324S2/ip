@@ -1,5 +1,10 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -141,12 +146,18 @@ public class Duke {
 
     public void saveData(List<Task> todolist) throws IOException {
         String entry;
-        java.nio.file.Path path = java.nio.file.Paths.get("data", "duke.txt");
-        FileWriter fw = new FileWriter(path.toString(), false);
-        for (Task t : todolist) {
-            entry = t.getDataString() + "\n";
-            fw.write(entry);
+        Path dirPath = java.nio.file.Paths.get("data");
+        Path fullPath = dirPath.resolve("duke.txt");
+        Files.createDirectories(dirPath);
+
+        try (FileWriter fw = new FileWriter(fullPath.toString(), false)) {
+            for (Task t : todolist) {
+                entry = t.getDataString() + "\n";
+                fw.write(entry);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            throw e;
         }
-        fw.close();
     }
 }
