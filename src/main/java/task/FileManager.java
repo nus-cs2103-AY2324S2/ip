@@ -17,7 +17,7 @@ public class FileManager {
         this.filePath = BASE_PATH + username + "/duke.txt";
     }
 
-    public List<Task> loadTasks(List<Task> tasks) {
+    public List<Task> loadTasks(List<Task> tasks) throws FileLoadException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -27,12 +27,13 @@ public class FileManager {
                 }
             }
         } catch (IOException e) {
-            System.err.println("I believe there's some issues regarding your file");
+            throw new FileLoadException.InitializationError();
         }
+
         return tasks;
     }
 
-    public void saveTasks(List<Task> tasks) {
+    public void saveTasks(List<Task> tasks) throws FileSaveException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
                 String status = task.isCompleted ? "1" : "0";
@@ -42,7 +43,7 @@ public class FileManager {
                 writer.write(taskIcon + " | " + status + " | " + taskDetails + "\n");
             }
         } catch (IOException e) {
-            System.err.println("I believe there's some issues regarding your file");
+            throw new FileSaveException.SaveError(e);
         }
     }
 
