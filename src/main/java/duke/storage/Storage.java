@@ -1,14 +1,21 @@
 package duke.storage;
 
 import duke.parser.DateParser;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
+import duke.task.*;
 import duke.core.ChatbotException;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Storage {
+    private static final String FILE_PATH = "./data/duke.txt";
+
     public static String taskToFileString(Task task) {
         StringBuilder sb = new StringBuilder();
 
@@ -90,4 +97,42 @@ public class Storage {
 
         }
     }
+
+    public static void ensureFileExists() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); // Ensure the directory exists
+                file.createNewFile(); // Create the file if it doesn't exist
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while ensuring the task file exists.");
+        }
+    }
+
+    public static void saveTasks(TaskList tasks) {
+        try (PrintWriter writer = new PrintWriter(new File(FILE_PATH))) {
+            for (Task task : tasks.tasks) {
+                writer.println(Storage.taskToFileString(task));
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred while saving tasks.");
+        }
+    }
+    public static void loadTasks(ArrayList<Task> tasks) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                tasks.add(Storage.fileStringToTask(line));
+            }
+            TaskList.tasksCount = tasks.size(); // Ensure the count reflects loaded tasks
+        } catch (FileNotFoundException e) {
+            System.out.println("duke.task.Task file not found. A new file will be created.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks.");
+        } catch (Exception e) {
+            System.out.println("duke.task.Task file is corrupted.");
+        }
+    }
+
 }

@@ -1,33 +1,18 @@
 package duke.task;
 import duke.storage.Storage;
 import duke.core.ChatbotException;
-import java.io.*;
 import java.util.ArrayList;
 
 public class TaskList {
 
-    protected ArrayList<Task> tasks;
+    public ArrayList<Task> tasks;
 
     public static int tasksCount = 0;
 
-    private static final String FILE_PATH = "./data/duke.txt";
-
     public TaskList() {
         this.tasks = new ArrayList<>();
-        ensureFileExists();
-        loadTasks();
-    }
-
-    private void ensureFileExists() {
-        try {
-            File file = new File(FILE_PATH);
-            if (!file.exists()) {
-                file.getParentFile().mkdirs(); // Ensure the directory exists
-                file.createNewFile(); // Create the file if it doesn't exist
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred while ensuring the task file exists.");
-        }
+        Storage.ensureFileExists();
+        Storage.loadTasks(tasks);
     }
 
     public boolean addTask(String input) {
@@ -79,7 +64,7 @@ public class TaskList {
 
     public void listTask() {
         for (int i = 0; i < tasksCount; i++) {
-            System.out.println((i + 1)+ ". " + tasks.get(i).getDescription());
+            System.out.println((i + 1) + ". " + tasks.get(i).getDescription());
         }
     }
 
@@ -91,28 +76,17 @@ public class TaskList {
         tasks.get(num).mark(status);
     }
 
-    public void saveTasks() {
-        try (PrintWriter writer = new PrintWriter(new File(FILE_PATH))) {
-            for (Task task : tasks) {
-                writer.println(Storage.taskToFileString(task));
+    public void findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getInitialDesc().toLowerCase().contains(keyword.toLowerCase())) {
+                foundTasks.add(task);
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred while saving tasks.");
         }
-    }
-    private void loadTasks() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                tasks.add(Storage.fileStringToTask(line));
-            }
-            tasksCount = tasks.size(); // Ensure the count reflects loaded tasks
-        } catch (FileNotFoundException e) {
-            System.out.println("duke.task.Task file not found. A new file will be created.");
-        } catch (IOException e) {
-            System.out.println("An error occurred while loading tasks.");
-        } catch (Exception e) {
-            System.out.println("duke.task.Task file is corrupted.");
+
+        for (int i = 0; i < foundTasks.size(); i++) {
+            System.out.println((i + 1) + ". " + foundTasks.get(i).getDescription());
         }
     }
 }
