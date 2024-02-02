@@ -32,6 +32,33 @@ public class IreneAI {
                 System.out.println(" Bye. Hope to see you again soon!");
                 dividingLine(LINE);
                 break;
+            } else if (userInput.startsWith("todo ")) {
+                String description = userInput.substring(5);
+                tasks.add(new ToDo(description));
+                dividingLine(LINE);
+                System.out.println("Okie. I've added this task: ");
+                System.out.println("  " + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (userInput.startsWith("deadline ")) {
+                String[] parts = userInput.split(" /by ");
+                String description = parts[0].substring(9);
+                String deadline = parts[1];
+                tasks.add(new Deadline(description, deadline));
+                dividingLine(LINE);
+                System.out.println("Okie. I've added this task: ");
+                System.out.println("  " + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (userInput.startsWith("event ")) {
+                String[] parts = userInput.split(" /from ");
+                String description = parts[0].substring(6);
+                String[] from_to = parts[1].split(" /to ");
+                String from = from_to[0];
+                String to = from_to[1];
+                tasks.add(new Event(description, from, to));
+                dividingLine(LINE);
+                System.out.println("Okie. I've added this task: ");
+                System.out.println("  " + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             } else if (userInput.equalsIgnoreCase("list")) {
                 dividingLine(LINE);
                 System.out.println("Documented tasks: ");
@@ -55,11 +82,6 @@ public class IreneAI {
                 dividingLine(LINE);
                 System.out.println("Meow ~ I've marked " + task.getDescription() + " as not done : (");
                 System.out.println("  " + task);
-                dividingLine(LINE);
-            } else {
-                tasks.add(new Task(userInput));
-                dividingLine(LINE);
-                System.out.println("added: " + userInput);
                 dividingLine(LINE);
             }
         }

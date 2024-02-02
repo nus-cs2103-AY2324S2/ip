@@ -6,7 +6,7 @@
  * @since 2024-02-01
  */
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -15,6 +15,7 @@ public class Task {
         this.isDone = false;
     }
 
+    public abstract String getTaskIcon();
     public void markAsDone() {
         isDone = true;
     }
@@ -31,6 +32,6 @@ public class Task {
     }
 
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "[" + getTaskIcon() + "]" + "[" + getStatusIcon() + "] " + description;
     }
 }
