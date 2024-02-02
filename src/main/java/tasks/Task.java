@@ -23,4 +23,8 @@ public abstract class Task {
     }
 
     public abstract String toSavedString();
+
+    public boolean has(String toFind) {
+        return this.name.contains(toFind);
+    }
 }

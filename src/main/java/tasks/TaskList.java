@@ -84,6 +84,18 @@ public class TaskList {
         }
     }
 
+    public void find(String in) {
+        System.out.println("Here are the matching tasks in your list:");
+        int number = 1;
+        String toFind = in.substring(5);
+        for (Task t : this.list) {
+            if (t.has(toFind)) {
+                System.out.printf("%d. %s", number, t);
+                number++;
+            }
+        }
+    }
+
     public List<String> taskToSavedString() {
         return list.stream()
                 .map(Task::toSavedString)
