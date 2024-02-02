@@ -1,13 +1,13 @@
-package Commands;
+package commands;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import Storages.Storage;
-import Tasks.Task;
-import Tasks.TaskList;
-import Ui.Ui;
+import storages.Storage;
+import tasks.Task;
+import tasks.TaskList;
+import ui.Ui;
 
 /**
  * Represents the different valid commands a user enters
@@ -19,7 +19,7 @@ public class Command {
         this.command = command;
     }
 
-    public String[] keyWords(String fullCommand) {
+    public String[] getKeywords(String fullCommand) {
         return fullCommand.split(" ");
     }
 
@@ -77,7 +77,10 @@ public class Command {
                 duefrom = LocalDateTime.parse(from, format);
                 dueto = LocalDateTime.parse(to, format);
                 String task = fullCommand.substring(0, fromStartIndex - 1);
-                String dueEvent = task + "(from: " + duefrom.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a")) + " to: " + dueto.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a")) + ")";
+                String dueEvent = task + "(from: "
+                        + duefrom.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a"))
+                        + " to: "
+                        + dueto.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a")) + ")";
                 Task newTask = new Task(dueEvent, symbol, false, duefrom, dueto);
                 tasks.addTask(newTask);
                 break;
@@ -105,7 +108,10 @@ public class Command {
             try {
                 time = LocalDateTime.parse(timecommand, format);
                 String task = fullCommand.substring(9, byStartIndex - 1);
-                String deadline = task + "(by: " + time.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a")) + ")";
+                String deadline = task
+                        + "(by: "
+                        + time.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a"))
+                        + ")";
                 Task newTask = new Task(deadline, symbol, false, time);
                 tasks.addTask(newTask);
                 break;
@@ -154,7 +160,10 @@ public class Command {
         } catch (IndexOutOfBoundsException var6) {
             String single = tasks.size() <= 1 ? "task" : "tasks";
             int num = tasks.size();
-            return "You only have " + num + " " + single + " currently. Type \"list\" to view all your current " + single;
+            return "You only have " + num + " "
+                    + single
+                    + " currently. Type \"list\" to view all your current "
+                    + single;
         }
     }
 
@@ -177,7 +186,7 @@ public class Command {
     }
 
     public void execute(String fullCommand, TaskList tasks, Ui ui, Storage store) {
-        String[] command = this.keyWords(fullCommand);
+        String[] command = this.getKeywords(fullCommand);
         if (command.length <= 1) {
             ui.listOfCommands();
         } else {
