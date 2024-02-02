@@ -1,3 +1,5 @@
+package ukecat;
+
 import ukecat.command.Parser;
 import ukecat.command.Ui;
 import ukecat.data.FileManager;

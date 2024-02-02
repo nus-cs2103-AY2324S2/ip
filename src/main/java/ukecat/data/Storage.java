@@ -32,26 +32,26 @@ public class Storage {
     }
 
     public static void addTask() {
-        Task t = new Task();
+        Task t = null;
         try{
             switch (words[0]) {
-                case "todo":
-                    Parser.parseToDo(input);
-                    t = new ToDo(desc);
-                    tasks.add(t);
-                    break;
+            case "todo":
+                Parser.parseToDo(input);
+                t = new ToDo(desc);
+                tasks.add(t);
+                break;
 
-                case "deadline":
-                    Parser.parseDeadline(input);
-                    t = new Deadline(desc, by);
-                    tasks.add(t);
-                    break;
+            case "deadline":
+                Parser.parseDeadline(input);
+                t = new Deadline(desc, by);
+                tasks.add(t);
+                break;
 
-                case "event":
-                    Parser.parseEvent(input);
-                    t = new Event(desc, start, end);
-                    tasks.add(t);
-                    break;
+            case "event":
+                Parser.parseEvent(input);
+                t = new Event(desc, start, end);
+                tasks.add(t);
+                break;
             }
             numT++;
             System.out.println("  I added this task: " + t);
