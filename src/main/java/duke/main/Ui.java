@@ -127,6 +127,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Finds tasks containing a given word and displays the matching tasks.
+     *
+     * @param findWord Word to search for in task list.
+     * @param tasks ArrayList of tasks to search within.
+     */
     public void findTasks(String findWord, ArrayList<Task> tasks) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
