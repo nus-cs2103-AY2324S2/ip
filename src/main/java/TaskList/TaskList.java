@@ -69,4 +69,8 @@ public class TaskList {
         this.counter += 1;
         this.task_lst.add(t);
     }
+
+    public int getCounter() {
+        return this.counter;
+    }
 }
