@@ -1,5 +1,8 @@
 package jiayou.task;
 
+/** Represents todo, a subtype of the task.
+ * @author Liu Jiayao
+ */
 public class ToDo extends Task {
     public ToDo(String description) {
         super(description);

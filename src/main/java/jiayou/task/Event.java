@@ -3,6 +3,9 @@ package jiayou.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/** Represents event, a subtype of the task, which has both a starting date and an ending date.
+ * @author Liu Jiayao
+ */
 public class Event extends Task {
     private LocalDate from;
     private LocalDate to;

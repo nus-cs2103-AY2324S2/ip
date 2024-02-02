@@ -1,10 +1,18 @@
 package jiayou.task;
 
+/** Represents a task in the task list.
+ * @author Liu Jiayao
+ */
 public class Task {
     private String description;
     private boolean isDone = false;
     private char taskType;
 
+    /**
+     * Returns a new task with the given description.
+     *
+     * @param description the description of the task.
+     */
     public Task(String description) {
         this.description = description;
     }
@@ -17,6 +25,11 @@ public class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Transforms the task in the task list to a string for storage.
+     *
+     * @return the string corresponding to the task.
+     */
     public String toStringForStore() {
         if (this.isDone) {
             return " | 1 | " + this.description;
@@ -25,6 +38,11 @@ public class Task {
         }
     }
 
+    /**
+     * Transforms the task in the task list to a string for printing in the user interface.
+     *
+     * @return the string corresponding to the task.
+     */
     @Override
     public String toString() {
         if (this.isDone) {

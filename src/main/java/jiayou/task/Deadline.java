@@ -2,8 +2,10 @@ package jiayou.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
+/** Represents deadline, a subtype of the task, which has a deadline date.
+ * @author Liu Jiayao
+ */
 public class Deadline extends Task {
     private LocalDate byTime;
 

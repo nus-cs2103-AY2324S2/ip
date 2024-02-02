@@ -5,15 +5,27 @@ import java.nio.file.*;
 import java.io.*;
 import jiayou.task.*;
 
+/** Represents the storage to link the text file with the task list of the chatbot.
+ * @author Liu Jiayao
+ */
 public class Storage {
     private TaskList taskList;
     private Path filePath;
 
+    /**
+     * Returns a new Storage instance linked with the text file and the task list.
+     *
+     * @param filePath the path of the text file to store the content of the task list.
+     * @param taskList the task list of the chatbot.
+     */
     public Storage(String filePath, TaskList taskList) {
         this.filePath = Paths.get(filePath);
         this.taskList = taskList;
     }
 
+    /**
+     * Loads the content of the text file into the task list of the chatbot.
+     */
     public void load() {
         try {
             if (!Files.exists(filePath.getParent())) {
@@ -30,6 +42,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Write the content of the task list of the chatbot back to the linked text file.
+     */
     public void save() {
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
             for (Task task : this.taskList.getList()) {
@@ -41,6 +56,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads and parses the text in the file into a task instance.
+     *
+     * @param string the string to be parsed.
+     * @return a task instance corresponding to the text content.
+     */
     public Task parseFromFile(String string) {
         String[] parts = string.split(" \\| ", 3);
         String command = parts[0];
