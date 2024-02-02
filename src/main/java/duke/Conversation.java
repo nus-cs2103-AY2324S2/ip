@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -6,22 +8,23 @@ public class Conversation {
     public static final String INDENTATION = "      ";
     public static final String LINE = "    -----------------------------------------------------------------------------------------";
 
-    private static final String CHATBOT_NAME = "Sophia";
+
     protected Hashtable<String, List<String>> dialogues;
 
-    public Conversation() {
+    public Conversation(String username) {
         dialogues = new Hashtable<>();
-        initializeDialogues();
+        initializeDialogues(username);
     }
+
+    public Conversation() {}
 
     public void addDialogue(String key, String response) {
         key = key.toLowerCase();
         dialogues.computeIfAbsent(key, k -> new ArrayList<>()).add(response);
     }
 
-    public void initializeDialogues() {
-        addDialogue("default", "Hi there! I'm " + CHATBOT_NAME + " :)\n" + INDENTATION + "I'm your AI Assistant and I'm here to help you with anything.");
-        addDialogue("username", "But first, let's start with getting to know you a little bit.\n" + INDENTATION +"So, what's your name?");
+    public void initializeDialogues(String username) {
+        addDialogue("starter", "Hello, " + username + ". Nice to meet you!\n" + Conversation.INDENTATION + "So, what can I do for you today?");
         addDialogue("bye", "Bye bye! See you later!");
         addDialogue("hello", "Hi there! How can I help you?");
         addDialogue("hello", "Greetings! What brings you here?");

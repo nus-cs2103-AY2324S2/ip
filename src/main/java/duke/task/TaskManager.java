@@ -1,6 +1,5 @@
-package task;
+package duke.task;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
@@ -12,6 +11,8 @@ public class TaskManager {
     FileManager fileManager;
 
     List<Task> taskList;
+
+    public TaskManager() {}
 
     public TaskManager(String username) {
         this.fileManager = new FileManager(username);
@@ -64,7 +65,7 @@ public class TaskManager {
         System.out.println(LINE);
         try {
             if (taskList.isEmpty()) {
-                System.out.println(INDENTATION + " No tasks to delete. Your task list is already empty.");
+                System.out.println(INDENTATION + " No tasks to delete. Your duke.task list is already empty.");
                 return;
             }
 
