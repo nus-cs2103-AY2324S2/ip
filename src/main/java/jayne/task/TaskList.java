@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jayne.Storage;
+
 import jayne.JayneException;
 
 /**
- * Class with list of task
+ * Represents a list of tasks. This class handles operations such as
+ * adding, deleting, and marking tasks as done or not done.
  */
 public class TaskList {
     private final List<Task> taskArray;
@@ -16,7 +18,9 @@ public class TaskList {
     private Storage storage;
 
     /**
-     * Constructor for TaskList
+     * Constructs a new TaskList and initializes it with tasks loaded from storage.
+     *
+     * @param storage the Storage object used for loading and saving tasks.
      */
     public TaskList(Storage storage) {
         this.taskArray = new ArrayList<>();
@@ -33,7 +37,11 @@ public class TaskList {
         return storage;
     }
     /**
-     * Delete tasks
+     * Deletes the task at the specified position in the task list.
+     *
+     * @param taskNumber the position of the task in the task list.
+     * @return the deleted task.
+     * @throws JayneException if the task number is invalid.
      */
     public Task deleteTask(int taskNumber) throws JayneException {
         if (taskNumber < 1 || taskNumber > taskArray.size()) {
@@ -44,14 +52,21 @@ public class TaskList {
         return taskArray.remove(taskNumber - 1);
     }
     /**
-     * adds tasks
+     * Adds a task to the task list and saves the updated list to storage.
+     *
+     * @param task the task to be added.
      */
     public void addTask(Task task) {
         taskArray.add(task);
         this.taskCount = taskCount + 1;
         storage.saveTasks(taskArray);
     }
-
+    /**
+     * Retrieves the task at the specified position in the task list.
+     *
+     * @param index the position of the task in the task list.
+     * @return the task at the specified position, or null if the index is invalid.
+     */
     public Task getTask(int index) {
         if (index >= 0 && index <= taskArray.size()) {
             return taskArray.get(index - 1);
@@ -60,7 +75,9 @@ public class TaskList {
         return null;
     }
     /**
-     * Mark a task as done
+     * Marks the task at the specified position in the task list as done and saves the updated list to storage.
+     *
+     * @param taskNumber the position of the task in the task list.
      */
     public void markTaskAsDone(int taskNumber) {
         if (taskNumber >= 1 && taskNumber <= taskArray.size()) {
@@ -69,7 +86,9 @@ public class TaskList {
         }
     }
     /**
-     * Mark a task as not done
+     * Marks the task at the specified position in the task list as not done and saves the updated list to storage.
+     *
+     * @param taskNumber the position of the task in the task list.
      */
     public void markTaskAsNotDone(int taskNumber) {
         if (taskNumber >= 1 && taskNumber <= taskArray.size()) {
@@ -78,7 +97,7 @@ public class TaskList {
         }
     }
     /**
-     * prints a task
+     * Displays all tasks in the task list to the user.
      */
     public void display() {
         System.out.println("Here are the tasks in your list:");

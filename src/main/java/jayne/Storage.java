@@ -7,13 +7,24 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+
 import jayne.task.Task;
+/**
+ * Handles file operations for Jayne application, including saving and loading tasks to and from a file.
+ */
 public class Storage {
     private String filepath;
+    /**
+     * Renames the file specified by the filepath if it exists.
+     * If the file exists, it is renamed with a unique name to avoid overwriting.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
     }
-
+    /**
+     * Renames the file specified by the filepath if it exists.
+     * If the file exists, it is renamed with a unique name to avoid overwriting.
+     */
     public void renameFileIfExists() {
         Path path = Paths.get(filepath);
         try {
@@ -28,7 +39,13 @@ public class Storage {
             System.out.println("An error occurred while renaming the file: " + e.getMessage());
         }
     }
-
+    /**
+     * Generates a new file name based on the original file path.
+     * It appends a counter to the file name to avoid conflicts with existing files.
+     *
+     * @param originalPath the original file path.
+     * @return a new file name that does not conflict with existing files.
+     */
     public String getNewFileName(Path originalPath) {
         int counter = 1;
         String originalFileName = originalPath.getFileName().toString();
@@ -45,7 +62,12 @@ public class Storage {
             counter++;
         }
     }
-
+    /**
+     * Saves the list of tasks to the file specified by the filepath.
+     * Each task is converted into a format suitable for file storage.
+     *
+     * @param taskArray the list of tasks to be saved.
+     */
     public void saveTasks(List<Task> taskArray) {
         try {
             Path path = Paths.get(filepath);
@@ -60,7 +82,12 @@ public class Storage {
             System.out.println("An error occurred while saving tasks to file: " + e.getMessage());
         }
     }
-
+    /**
+     * Loads tasks from the file specified by the filepath into the provided list.
+     * Each line in the file is converted back into a task object.
+     *
+     * @param taskArray the list to load the tasks into.
+     */
     public void loadTasks(List<Task> taskArray) {
         try {
             Path path = Paths.get(filepath);
@@ -83,7 +110,9 @@ public class Storage {
             System.out.println("An error occurred while loading tasks from file: " + e.getMessage());
         }
     }
-
+    /**
+     * Deletes the file specified by the filepath if it exists.
+     */
     public void deleteFile() {
         Path path = Paths.get(filepath);
         try {

@@ -3,16 +3,23 @@ package jayne;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import jayne.task.Task;
 import jayne.task.TaskList;
+
 import jayne.task.Deadline;
+
 import jayne.task.Event;
 import jayne.task.Todo;
 public class Handler {
-    /**
-     * Handles deletion of task
-     */
     private static final String dash = "___________________________________";
+    /**
+     * Handles the deletion of a task from the task list.
+     *
+     * @param parts    the array containing the input command and its parts.
+     * @param taskList the TaskList containing the list of tasks.
+     * @throws JayneException if the task number is invalid or does not exist.
+     */
     public static void handleDelete(String[] parts, TaskList taskList) throws JayneException {
         if (parts.length < 2) {
             throw JayneException.deleteEmptyException();
@@ -23,13 +30,18 @@ public class Handler {
                 throw JayneException.deleteExistException(taskNumber);
             }
             Task removedTask = taskList.deleteTask(taskNumber);
-            System.out.println(dash + "\nNoted. I've removed this task:\n  " + removedTask + "\nNow you have " + taskList.getTaskCount() + " tasks in the list.\n" + dash);
+            System.out.println(dash + "\nNoted. I've removed this task:\n  " + removedTask + "\nNow you have "
+                    + taskList.getTaskCount() + " tasks in the list.\n" + dash);
         } catch (NumberFormatException e) {
             throw JayneException.deleteInvalidException();
         }
     }
     /**
-     * Handles unmark of task
+     * Handles unmarking a task as not done.
+     *
+     * @param parts    the array containing the input command and its parts.
+     * @param taskList the TaskList containing the list of tasks.
+     * @throws JayneException if the task number is invalid or does not exist.
      */
     public static void handleUnmark(String[] parts, TaskList taskList) throws JayneException {
         if (parts.length < 2) {
@@ -41,13 +53,18 @@ public class Handler {
                 throw JayneException.unmarkTaskExistException(taskNumber);
             }
             taskList.markTaskAsNotDone(taskNumber);
-            System.out.println(dash + "\nOK, I've marked this task as not done yet:\n  " + taskList.getTask(taskNumber) + "\n" + dash);
+            System.out.println(dash + "\nOK, I've marked this task as not done yet:\n  " + taskList.getTask(taskNumber)
+                    + "\n" + dash);
         } catch (NumberFormatException e) {
             throw JayneException.unmarkException();
         }
     }
     /**
-     * Handles deadline tasks
+     * Handles creating a deadline task and adding it to the task list.
+     *
+     * @param parts the array containing the input command and its parts.
+     * @param taskList the TaskList containing the list of tasks.
+     * @throws JayneException if the deadline description or date is empty or in an invalid format.
      */
     public static void handleDeadline(String[] parts, TaskList taskList) throws JayneException {
         if (parts.length < 2 || parts[1].isEmpty()) {
@@ -70,7 +87,11 @@ public class Handler {
         System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n" + dash);
     }
     /**
-     * Handles todo task
+     * Handles creating a todo task and adding it to the task list.
+     *
+     * @param parts    the array containing the input command and its parts.
+     * @param taskList the TaskList containing the list of tasks.
+     * @throws JayneException if the todo description is empty.
      */
     public static void handleTodo(String[] parts, TaskList taskList) throws JayneException {
         if (parts.length < 2 || parts[1].isEmpty()) {
@@ -80,10 +101,15 @@ public class Handler {
         taskList.addTask(newTodo);
         System.out.println(dash + "\nGot it. I've added this task:");
         System.out.println("  " + newTodo);
-        System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n"  + dash);
+        System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n"
+                + dash);
     }
     /**
-     * Handles event task
+     * Handles creating an event task and adding it to the task list.
+     *
+     * @param parts the array containing the input command and its parts.
+     * @param taskList the TaskList containing the list of tasks.
+     * @throws JayneException if the event description or time is empty or in an invalid format.
      */
     public static void handleEvent(String[] parts, TaskList taskList) throws JayneException {
         if (parts.length < 2 || parts[1].isEmpty()) {
@@ -104,7 +130,11 @@ public class Handler {
         System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list." + "\n" + dash);
     }
     /**
-     * Handles marking of task
+     * Handles marking a task as done.
+     *
+     * @param parts the array containing the input command and its parts.
+     * @param taskList the TaskList containing the list of tasks.
+     * @throws JayneException if the task number is invalid or does not exist.
      */
     public static void handleMark(String[] parts, TaskList taskList) throws JayneException {
         if (parts.length < 2) {
@@ -116,7 +146,8 @@ public class Handler {
                 throw JayneException.markTaskExistException(taskNumber);
             }
             taskList.markTaskAsDone(taskNumber);
-            System.out.println(dash + "\nNice! I've marked this task as done:\n  " + taskList.getTask(taskNumber) + "\n" + dash);
+            System.out.println(dash + "\nNice! I've marked this task as done:\n  "
+                    + taskList.getTask(taskNumber) + "\n" + dash);
         } catch (NumberFormatException e) {
             throw JayneException.markInvalidTaskException();
         }
