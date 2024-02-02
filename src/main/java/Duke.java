@@ -157,7 +157,7 @@ public class Duke {
         updateTask();
         System.out.println("    ____________________________________________________________\n"
                 + "    Completed. I've added this task: \n    "
-                + task.toString()
+                + task
                 + "\n    Now you have " + myList.size() + " tasks in the list.\n"
                 + "    ____________________________________________________________\n");
     }
@@ -168,9 +168,9 @@ public class Duke {
         for (int i = 1; i < myList.size() + 1; i++) {
             Task task = myList.get(i-1);
             if (task.isDone()) {
-                System.out.println("    " + i + "." + task.toString());
+                System.out.println("    " + i + "." + task);
             } else {
-                System.out.println("    " + i + "." + task.toString());
+                System.out.println("    " + i + "." + task);
             }
         }
         System.out.println("    ____________________________________________________________\n");
@@ -219,6 +219,7 @@ public class Duke {
         int i = Integer.parseInt(st.nextToken());
         if ((0 < i) && (i <= myList.size())) {
             String task = myList.remove(i - 1).toString();
+            updateTask();
             System.out.println("    ____________________________________________________________\n"
                     + "    Great!, You have completed the task:\n"
                     + "      " + task
@@ -246,6 +247,7 @@ public class Duke {
             File save = new File("./data/myTask.txt");
             if (!save.exists()) {
                 System.out.println("    There was no save data.");
+                save.getParentFile().mkdirs();
                 boolean isSuccessful = save.createNewFile();
                 System.out.println(isSuccessful ? "    New save data file created." : "    Failed to create a new save data");
             } else {
@@ -268,12 +270,11 @@ public class Duke {
                         myList.add(new Event(elements[2], Boolean.parseBoolean(elements[1]), elements[3], elements[4]));
                         break;
                     default:
-                        throw new ftException("File corrupted. Please delete the File");
+                        throw new ftException("    Warning: The file is corrupted. Please delete the file");
                 }
                 s.nextLine();
             }
         } catch (IOException e) {
-            File file = new File("./data/myTask.txt");
             throw new ftException("File not found");
         }
 
