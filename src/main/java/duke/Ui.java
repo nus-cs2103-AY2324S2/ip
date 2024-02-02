@@ -52,7 +52,7 @@ public class Ui {
      */
     public void chat(TaskList tasks, Storage storage) {
         Scanner sc = new Scanner(System.in);
-        String in = null;
+        String in;
         Parser p = new Parser();
 
         while (!(tasks == null)) {
