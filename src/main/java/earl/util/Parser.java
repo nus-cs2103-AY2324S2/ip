@@ -1,3 +1,11 @@
+package earl.util;
+
+import earl.exceptions.EarlException;
+import earl.tasks.Deadline;
+import earl.tasks.Event;
+import earl.tasks.Task;
+import earl.tasks.Todo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -30,7 +38,7 @@ public class Parser {
     }
 
     public static LocalDateTime parseDateTime(String dateTime) {
-        return LocalDateTime.parse(dateTime);
+        return LocalDateTime.parse(dateTime, DATETIME_FORMAT);
     }
 
     public static int parseIndex(String index) {

@@ -1,3 +1,5 @@
+package earl.util;
+
 import java.util.Scanner;
 
 public class Ui {

@@ -1,5 +1,9 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+package earl.util;
+
+import earl.exceptions.EarlException;
+import earl.tasks.Deadline;
+import earl.tasks.Event;
+import earl.tasks.Todo;
 
 public abstract class Handler {
 
@@ -112,7 +116,7 @@ public abstract class Handler {
                     ui.makeResponse("Added new todo.",
                             "\t" + tasks.get(tasks.getSize() - 1),
                             "There are " + tasks.getSize()
-                                    + " tasks tracked.");
+                                    + " task(s) tracked.");
                 } catch (IndexOutOfBoundsException e) {
                     throw new EarlException("Error, missing task name.\n"
                             + "\tExample use:\n\ttodo <task_name>");
@@ -129,7 +133,7 @@ public abstract class Handler {
                     ui.makeResponse("Added new deadline.",
                             "\t" + tasks.get(tasks.getSize() - 1),
                             "There are " + tasks.getSize()
-                                    + " tasks tracked.");
+                                    + " earl.tasks tracked.");
                 } catch (IndexOutOfBoundsException e) {
                     throw new EarlException(
                             "Error, invalid deadline format.\n"
@@ -150,7 +154,7 @@ public abstract class Handler {
                     ui.makeResponse("Added new event.",
                             "\t" + tasks.get(tasks.getSize() - 1),
                             "There are " + tasks.getSize()
-                                    + " tasks tracked.");
+                                    + " earl.tasks tracked.");
                 } catch (IndexOutOfBoundsException e) {
                     throw new EarlException("Error, invalid event format.\n"
                             + "\tExample use:\n\t"

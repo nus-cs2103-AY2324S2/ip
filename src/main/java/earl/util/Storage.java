@@ -1,3 +1,8 @@
+package earl.util;
+
+import earl.exceptions.EarlException;
+import earl.tasks.Task;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

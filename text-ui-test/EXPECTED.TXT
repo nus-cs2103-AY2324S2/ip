@@ -5,17 +5,17 @@
     __________________________________________________
     Added new todo.
         [T][ ] wash dishes
-    There are 1 tasks tracked.
+    There are 1 earl.tasks tracked.
     __________________________________________________
     __________________________________________________
     Added new deadline.
         [D][ ] homework (by: saturday)
-    There are 2 tasks tracked.
+    There are 2 earl.tasks tracked.
     __________________________________________________
     __________________________________________________
     Added new event.
         [E][ ] sea trials (from: fri 8:45 to: fri 19:00)
-    There are 3 tasks tracked.
+    There are 3 earl.tasks tracked.
     __________________________________________________
     __________________________________________________
     1.[T][ ] wash dishes

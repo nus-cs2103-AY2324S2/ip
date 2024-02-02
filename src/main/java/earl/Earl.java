@@ -1,4 +1,11 @@
-import java.util.ArrayList;
+package earl;
+
+import earl.exceptions.EarlException;
+import earl.util.Handler;
+import earl.util.Parser;
+import earl.util.Storage;
+import earl.util.TaskList;
+import earl.util.Ui;
 
 public class Earl {
 
@@ -9,13 +16,14 @@ public class Earl {
     public Earl(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        ArrayList<Task> temp = new ArrayList<>();
+        TaskList temp;
         try {
-            temp = storage.load();
+            temp = new TaskList(storage.load());
         } catch (EarlException e) {
             ui.makeResponse(e.getMessage());
+            temp = new TaskList();
         }
-        tasks = new TaskList(temp);
+        tasks = temp;
     }
 
     public void run() {

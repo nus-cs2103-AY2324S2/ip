@@ -1,3 +1,7 @@
+package earl.util;
+
+import earl.tasks.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
