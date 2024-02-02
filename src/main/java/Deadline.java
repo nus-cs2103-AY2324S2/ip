@@ -10,11 +10,6 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by, Bob.INPUT_DATE_FORMATTER);
     }
 
-    public Deadline(String description, String by, String isDone) {
-        super(description, isDone);
-        this.by = LocalDate.parse(by, Bob.INPUT_DATE_FORMATTER);
-    }
-
     public String format() {
         return "deadline | " + super.format() + " | " + this.by.format(Bob.INPUT_DATE_FORMATTER);
     }
