@@ -12,19 +12,28 @@ public class ChatbotException {
         EVENT_CORRUPT("duke.task.Event time data is corrupted."),
         UNKNOWN_TASK("Unknown task type.");
 
-
         private final String message;
 
         ErrorType(String message) {
             this.message = message;
         }
 
+        /**
+         * Returns appropriate error messages given error type
+         *
+         * @return Error messages.
+         */
         public String getMessage() {
             return message;
         }
 
     }
 
+    /**
+     * Prints the error message
+     *
+     * @param errorType An error type encountered by the chatbot
+     */
     public static void getError(ErrorType errorType) {
         System.out.println(errorType.getMessage());
     }

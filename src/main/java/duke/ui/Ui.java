@@ -1,11 +1,9 @@
 package duke.ui;
 
 import duke.storage.Storage;
-import duke.task.Task;
 import duke.task.TaskList;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 
 public class Ui {
 

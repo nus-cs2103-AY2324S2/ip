@@ -1,8 +1,12 @@
 package duke.storage;
 
 import duke.parser.DateParser;
-import duke.task.*;
 import duke.core.ChatbotException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+import duke.task.TaskList;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +20,12 @@ import java.util.ArrayList;
 public class Storage {
     private static final String FILE_PATH = "./data/duke.txt";
 
+    /**
+     * Converts a task into appropriate string format, to be saved in duke.txt
+     *
+     * @param task Task to be converted.
+     * @return Task in string format.
+     */
     public static String taskToFileString(Task task) {
         StringBuilder sb = new StringBuilder();
 
@@ -43,7 +53,12 @@ public class Storage {
         return sb.toString();
     }
 
-
+    /**
+     * Converts a string in duke.txt to Task data type
+     *
+     * @param fileString String to be converted.
+     * @return Task object.
+     */
     public static Task fileStringToTask(String fileString) {
         String[] parts = fileString.split(" \\| ");
         if (parts.length < 3) {
@@ -80,6 +95,13 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Returns appropriate Task type given user command
+     *
+     * @param command     User commands.
+     * @param description Task description to be added.
+     * @return Task object.
+     */
     public static Task createTask(String command, String description) {
         if (command.startsWith("todo")) {
             return new ToDo(description);
@@ -98,6 +120,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks if there are any saved tasks from the previous run
+     */
     public static void ensureFileExists() {
         try {
             File file = new File(FILE_PATH);
@@ -110,6 +135,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves all tasks in the list to duke.txt
+     *
+     * @param tasks Tasklist to be saved.
+     */
     public static void saveTasks(TaskList tasks) {
         try (PrintWriter writer = new PrintWriter(new File(FILE_PATH))) {
             for (Task task : tasks.tasks) {
@@ -119,13 +149,19 @@ public class Storage {
             System.out.println("An error occurred while saving tasks.");
         }
     }
+
+    /**
+     * Loads previously saved tasks into chatbot
+     *
+     * @param tasks Tasklist from the previous run.
+     */
     public static void loadTasks(ArrayList<Task> tasks) {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 tasks.add(Storage.fileStringToTask(line));
             }
-            TaskList.tasksCount = tasks.size(); // Ensure the count reflects loaded tasks
+            TaskList.tasksCount = tasks.size();
         } catch (FileNotFoundException e) {
             System.out.println("duke.task.Task file not found. A new file will be created.");
         } catch (IOException e) {

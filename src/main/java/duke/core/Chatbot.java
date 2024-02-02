@@ -1,4 +1,5 @@
 package duke.core;
+
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -9,13 +10,19 @@ import java.util.Scanner;
 public class Chatbot {
 
     private final String name;
-    private TaskList tasklist; // Hold the list of tasks
+    private TaskList tasklist;
 
     public Chatbot(String name) {
         this.name = name;
         this.tasklist = new TaskList();
     }
 
+    /**
+     * Activates the chatbot to interact with different user commands
+     *
+     * @param in User input commands.
+     * @param out Chatbot replies.
+     */
     public void startChat(InputStream in, PrintStream out) {
         Scanner scanner = new Scanner(in);
 
