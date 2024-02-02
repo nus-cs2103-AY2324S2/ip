@@ -12,13 +12,29 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+/**
+ * Loads tasks from the file and saves tasks in the file.
+ */
 public class Storage {
     private String filePath;
 
-    Storage(String filepath) {
-        this.filePath = filepath;
+    /**
+     * Constructs a Storage instance with the given file path.
+     *
+     * @param filePath File path for storing and loading tasks.
+     */
+    Storage(String filePath) {
+        this.filePath = filePath;
     }
 
+    /**
+     * Loads the task list from the file given by the file path.
+     *
+     * @return ArrayList of Task objects loaded from the file.
+     * @throws DukeException If an error occurs during the loading
+     * process or the file has an incorrect format.
+     */
     ArrayList<Task> loadList() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -47,7 +63,6 @@ public class Storage {
                     task.markAsDone();
                 }
                 tasks.add(task);
-
             }
         } catch (IOException e) {
             throw new DukeException("\nError! An IOException occurred.\n\n");
@@ -58,10 +73,10 @@ public class Storage {
     }
     
     /**
-     * Saves the provided list of tasks to a file.
+     * Saves the given list of tasks to the file in the given filePath.
      *
-     * @param list The ArrayList of Task objects to be saved.
-     * @throws DukeException If an IOException occurs while trying to write to the file.
+     * @param list ArrayList of Task objects to be saved.
+     * @throws DukeException If an IOException occurs.
      */
     public void saveList(ArrayList<Task> list) throws DukeException {
         try {

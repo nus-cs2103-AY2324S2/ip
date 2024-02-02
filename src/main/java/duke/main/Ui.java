@@ -8,8 +8,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * Handles user interactions.
+ */
 public class Ui {
     private Scanner sc;
+
+    /**
+     * Constructs a Ui instance with a Scanner for user input.
+     */
     public Ui() {
         sc = new Scanner(System.in);
     }
@@ -22,15 +30,17 @@ public class Ui {
     }
 
     /**
-     *  Displays an exit message.
+     * Displays an exit message.
      */
     public void sayBye() {
         System.out.println("\nBye. Hope to see you again soon!");
     }
 
     /**
-     * Displays the current list of items with their respective indices.
-     * Skips null or uninitialized elements in the list.
+     * Displays the current list of items with their respective indexes,
+     * skipping null or uninitialized elements in the list.
+     *
+     * @param tasks ArrayList of tasks to be displayed.
      */
     public void displayList(ArrayList<Task> tasks) {
         System.out.println();
@@ -43,8 +53,11 @@ public class Ui {
     }
 
     /**
-     * Prints out the response, specific to the type of task, after adding the task to the list
-     * @param task the task that is added to the list.
+     * Prints out the response, specific to the type of task,
+     * after adding the task to the list
+     *
+     * @param task  Task that is added to the list.
+     * @param tasks TaskList containing the list of tasks.
      */
     public void taskResponse(Task task, TaskList tasks) {
          int numTasks = tasks.getSize();
@@ -61,9 +74,10 @@ public class Ui {
     }
 
     /**
-     * Displays the response message after deleting a task if the deletion is successful and an exception has not been thrown.
+     * Displays the response message after deleting a task if the deletion is successful.
      *
-     * @param task The task that has been deleted.
+     * @param task Task that has been deleted.
+     * @param tasks TaskList containing the list of tasks.
      */
     public void deleteResponse(Task task, TaskList tasks) {
         int numTasks = tasks.getSize();
@@ -79,7 +93,13 @@ public class Ui {
         System.out.println();
     }
 
-
+    /**
+     * Displays tasks that occur on the given target date.
+     *
+     * @param targetDate Target date to display tasks for.
+     * @param tasks ArrayList of tasks to search for tasks
+     * that occur on the given target date.
+     */
     public void displayTasksOn(LocalDate targetDate, ArrayList<Task> tasks) {
         try {
             System.out.println("\nTasks on " + targetDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
@@ -105,14 +125,29 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays an error message when there is a loading issue.
+     *
+     * @param error Error message to display.
+     */
     void showLoadingError(String error) {
         System.out.println("\nLoading error: " + error + "\n");
     }
 
+    /**
+     * Reads and returns user command input.
+     *
+     * @return User command input.
+     */
     String readCommand() {
         return sc.nextLine();
     }
 
+    /**
+     * Displays an error message.
+     *
+     * @param message Error message to display.
+     */
     void showError(String message) {
         System.out.println();
         System.out.println(message);
