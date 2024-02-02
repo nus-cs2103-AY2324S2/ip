@@ -1,33 +1,28 @@
 import yoda.YodaUI;
-import yoda.utils.Parser;
-import yoda.utils.*;
-import yoda.task.*;
-import exception.*;
+import yoda.parser.Parser;
+import yoda.storage.Storage;
+import yoda.task.TaskList;
 import java.util.Scanner;
-
+import java.io.IOException;
 
 /**
- * Main class for the Yoda chatbot application.
+ * Yoda is a chatbot that helps users to manage their tasks.
+ * It can add, delete, and list tasks, as well as mark tasks as done.
+ * Yoda can also find tasks by searching for keywords.
  */
-
-import java.io.IOException;
-import java.util.Scanner;
-
-
 public class Yoda {
-    private Storage storage;
-    private TaskList tasks;
-    private YodaUI yodaUI;
+    private final YodaUI yodaUI;
 
     public Yoda(String filePath) {
-        this.storage = new Storage(filePath);
+        Storage storage = new Storage(filePath);
+        TaskList tasks;
         try {
             // Load tasks from the storage
-            this.tasks = storage.loadTasks();
+            tasks = storage.loadTasks();
         } catch (IOException e) {
             // If there's an error loading tasks, start with an empty task list
             System.out.println("Error loading tasks: " + e.getMessage());
-            this.tasks = new TaskList(null);
+            tasks = new TaskList(null);
         }
         // Initialize YodaUI with the loaded tasks
         this.yodaUI = new YodaUI("Yoda", tasks, storage);

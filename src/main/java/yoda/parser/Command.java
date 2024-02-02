@@ -1,4 +1,4 @@
-package yoda.utils;
+package yoda.parser;
 /**
  * Enum representing the various commands that the Yoda chatbot can understand.
  */
