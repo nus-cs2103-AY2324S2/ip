@@ -1,7 +1,5 @@
 package Ping;
 import java.util.Scanner;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 public class UI {
     private Scanner sc;
