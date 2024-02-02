@@ -67,14 +67,14 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " +
-                by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
     }
 
     @Override
     public String toFileString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " +
-                by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }
 
