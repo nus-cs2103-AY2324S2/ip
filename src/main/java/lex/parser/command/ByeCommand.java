@@ -4,11 +4,21 @@ import lex.tasks.TaskList;
 import lex.storage.Storage;
 import lex.ui.Ui;
 
+/**
+ * Represents a command to exit the program.
+ */
 public class ByeCommand implements Command {
     private final TaskList tasks;
     private final Ui ui;
     private final Storage storage;
 
+    /**
+     * Constructor for ByeCommand.
+     *
+     * @param tasks The list of tasks.
+     * @param ui The user interface.
+     * @param storage The storage.
+     */
     public ByeCommand(TaskList tasks, Ui ui, Storage storage) {
         this.tasks = tasks;
         this.ui = ui;

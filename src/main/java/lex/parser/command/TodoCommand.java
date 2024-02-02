@@ -4,11 +4,21 @@ import lex.tasks.TaskList;
 import lex.tasks.Todo;
 import lex.ui.Ui;
 
+/**
+ * Represents a command to add a todo task to the task list.
+ */
 public class TodoCommand implements Command {
     private final String[] inputs;
     private final TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructor for the TodoCommand class.
+     *
+     * @param inputs The user input.
+     * @param tasks The list of tasks.
+     * @param ui The user interface.
+     */
     public TodoCommand(String[] inputs, TaskList tasks, Ui ui) {
         this.inputs = inputs;
         this.tasks = tasks;

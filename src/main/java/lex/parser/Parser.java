@@ -5,19 +5,33 @@ import lex.parser.command.*;
 import lex.storage.Storage;
 import lex.ui.Ui;
 
-
+/**
+ * Represents a parser to parse user input.
+ */
 public class Parser {
     private final TaskList tasks;
     private final Ui ui;
     private final Storage storage;
 
-
+    /**
+     * Constructor for the Parser class.
+     *
+     * @param tasks The list of tasks.
+     * @param ui The user interface.
+     * @param storage The storage.
+     */
     public Parser(TaskList tasks, Ui ui, Storage storage) {
         this.tasks = tasks;
         this.ui = ui;
         this.storage = storage;
     }
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param input The user input.
+     * @return The corresponding command.
+     */
     public Command parse(String input) {
         String[] inputs = input.split(" ", 2);
         Instruction instruction;

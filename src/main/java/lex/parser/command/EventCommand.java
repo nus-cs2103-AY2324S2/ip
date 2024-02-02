@@ -6,11 +6,21 @@ import lex.ui.Ui;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a command to add an event to the task list.
+ */
 public class EventCommand implements Command {
     private final String[] inputs;
     private final TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructor for the EventCommand class.
+     *
+     * @param inputs The user input.
+     * @param tasks The list of tasks.
+     * @param ui The user interface.
+     */
     public EventCommand(String[] inputs, TaskList tasks, Ui ui) {
         this.inputs = inputs;
         this.tasks = tasks;
