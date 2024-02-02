@@ -3,6 +3,8 @@ package hirwan;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.ArrayList;
 
 
 /**
@@ -152,5 +154,38 @@ public class Hirwan {
 
         LocalDateTime dateStored = LocalDateTime.parse(date, formatter);
         return dateStored;
+    }
+
+    /**
+     * The method to search the tasks list to check if each element contains the search word
+     *
+     * @param word The search word to be found
+     * @return the list of indexes of tasks that contain the search word
+     */
+    public static List<Integer> searchWord(String word, List<String> tasks) {
+        List<Integer> indexes = new ArrayList<>();
+        for (String element : tasks) {
+            if (element.contains(word)) {
+                indexes.add(tasks.indexOf(element));
+            }
+        }
+        return indexes;
+    }
+
+    /**
+     * The print search result method that prints the list of search results from the tasklist
+     * that match the search term
+     *
+     * @param indexes the list of indexes of items in the tasklist that having matching substrings to the search term
+     */
+    public static void printSearchResults(List<Integer> indexes, List<String> tasks) {
+        Ui.output("Here are the results of your search in the tasklist:\n");
+        if (indexes.size() == 0) {
+            Ui.output("There are no matching tasks with the search word!");
+        } else {
+            for (int index : indexes) {
+                Ui.output((index + 1) + tasks.get(index));
+            }
+        }
     }
 }
