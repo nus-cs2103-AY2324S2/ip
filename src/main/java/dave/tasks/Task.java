@@ -2,27 +2,23 @@ package dave.tasks;
 
 public class Task {
     protected String desc;
-    protected Boolean completed;
+    protected boolean isDone;
 
     public Task(String desc) {
         this.desc = desc;
-        this.completed = false;
+        this.isDone = false;
     }
 
     public String getStatusIcon() {
-        return (this.completed ? "X" : " "); // mark X if task is completed
+        return (this.isDone ? "X" : " "); // mark X if task is completed
     }
 
     public String getTaskName() {
         return this.desc;
     }
 
-    public void isCompleted() {
-        this.completed = true;
-    }
-
-    public void isNotCompleted() {
-        this.completed = false;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     @Override

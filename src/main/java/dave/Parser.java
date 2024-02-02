@@ -1,7 +1,18 @@
 package dave;
 
-import dave.commands.*;
-import dave.exceptions.*;
+import dave.commands.AddTodoCommand;
+import dave.commands.AddDeadlineCommand;
+import dave.commands.AddEventCommand;
+import dave.commands.Command;
+import dave.commands.DeleteTaskCommand;
+import dave.commands.ExitCommand;
+import dave.commands.InvalidCommand;
+import dave.commands.ListTasksCommand;
+import dave.commands.ToggleTaskDoneCommand;
+
+import dave.exceptions.ChatbotException;
+import dave.exceptions.EmptyTaskException;
+import dave.exceptions.InvalidInputException;
 
 public class Parser {
     private enum CommandType {
@@ -38,18 +49,19 @@ public class Parser {
                     }
                 case MARK:
                     int markNumber = Integer.parseInt(inputArr[1]) - 1;
-                    return new MarkTaskCommand(markNumber);
+                    return new ToggleTaskDoneCommand(markNumber, true);
                 case UNMARK:
                     int unmarkNumber = Integer.parseInt(inputArr[1]) - 1;
-                    return new UnmarkTaskCommand(unmarkNumber);
+                    return new ToggleTaskDoneCommand(unmarkNumber, false);
                 case TODO:
                     try {
                         String todoName = input.substring(5);
                         return new AddTodoCommand(todoName);
                     } catch (Exception exc) {
-                        return new InvalidCommand(new EmptyTaskException("Dave cannot record a TODO task without a name."
-                        + "\nPlease help Dave by entering your TODO name as follows:\n" +
-                        "\ntodo <name>"));
+                        return new InvalidCommand(
+                                new EmptyTaskException("Dave cannot record a TODO task without a name."
+                                        + "\nPlease help Dave by entering your TODO name as follows:\n"
+                                        + "\ntodo <name>"));
                     }
                 case DEADLINE:
                     try {
@@ -58,9 +70,11 @@ public class Parser {
                         String deadline = input.substring(idxDeadline + "/by ".length());
                         return new AddDeadlineCommand(deadlineName, deadline);
                     } catch (Exception exc) {
-                        return new InvalidCommand(new EmptyTaskException("Dave cannot record a DEADLINE task without a name/deadline."
-                        + "\nPlease help Dave by entering your DEADLINE task as follows:\n" +
-                        "\ndeadline <name> /by dd-mm-yyyy hhmm"));
+                        return new InvalidCommand(
+                                new EmptyTaskException(
+                                        "Dave cannot record a DEADLINE task without a name/deadline."
+                                        + "\nPlease help Dave by entering your DEADLINE task as follows:\n"
+                                        + "\ndeadline <name> /by dd-mm-yyyy hhmm"));
                     }
                 case EVENT:
                     try {
@@ -71,9 +85,10 @@ public class Parser {
                         String to = input.substring(idxTo + "/to ".length());
                         return new AddEventCommand(eventName, from, to);
                     } catch (Exception exc) {
-                        return new InvalidCommand(new EmptyTaskException("Dave cannot record an EVENT task without a name/duration."
-                        + "\nPlease help Dave by entering your EVENT task as follows:\n" +
-                        "\nevent <name> /from dd-mm-yyy hhmm /to dd-mm-yyyy hhmm"));
+                        return new InvalidCommand(
+                                new EmptyTaskException("Dave cannot record an EVENT task without a name/duration."
+                                        + "\nPlease help Dave by entering your EVENT task as follows:\n"
+                                        + "\nevent <name> /from dd-mm-yyy hhmm /to dd-mm-yyyy hhmm"));
                     }
                 case BYE:
                     return new ExitCommand();

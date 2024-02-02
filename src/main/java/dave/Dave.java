@@ -2,8 +2,8 @@ package dave;
 
 import java.io.IOException;
 
-import dave.exceptions.ChatbotException;
 import dave.commands.Command;
+import dave.exceptions.ChatbotException;
 
 public class Dave {
     private Storage storage;

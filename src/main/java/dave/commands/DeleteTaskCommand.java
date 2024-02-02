@@ -3,10 +3,9 @@ package dave.commands;
 import dave.Storage;
 import dave.TaskList;
 import dave.Ui;
-// import exceptions.ChatbotException;
-// import exceptions.InvalidInputException;
+
+import dave.tasks.Task;
 import dave.exceptions.UnableToFindTaskException;
-import dave.tasks.*;
 
 public class DeleteTaskCommand extends Command {
     private int taskNumber;

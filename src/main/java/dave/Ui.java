@@ -2,7 +2,7 @@ package dave;
 
 import java.util.Scanner;
 
-import dave.tasks.*;
+import dave.tasks.Task;
 
 public class Ui {
     private Scanner sc;
