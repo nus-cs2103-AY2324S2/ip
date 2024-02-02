@@ -1,17 +1,21 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import exceptions.DukeException;
 import exceptions.tasks.EmptyDescriptionException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
-/**
- * The duke class represents the entry point to the chat-bot.
- */
 public class Duke {
+    private static final Path TASKS_FILE_PATH = Paths.get(".", "data", "tasks.save");
+    private static final String ARG_DELIMITER = "\u241f";
 
     private static final String NAME = "Arctic";
     private static final Character BORDER_CHAR = '_';
@@ -47,7 +51,8 @@ public class Duke {
     private static String handleMarkUnMark(String[] args) {
         String command = args[0];
         int taskNum = Integer.parseInt(args[1]);
-        Task task = TASKS.get(taskNum - 1);
+        int taskIndex = taskNum - 1;
+        Task task = TASKS.get(taskIndex);
 
         if (command.equals("mark")) {
             task.mark();
@@ -100,27 +105,23 @@ public class Duke {
         return event;
     }
 
-    private static String handleAddTask(String[] args) {
+    private static String handleAddTask(String[] args) throws DukeException {
         String taskType = args[0];
         String[] taskArgs = Arrays.copyOfRange(args, 1, args.length);
 
         Task task;
-        try {
-            switch (taskType) {
-            case "todo":
-                task = addTodo(taskArgs);
-                break;
-            case "deadline":
-                task = addDeadline(taskArgs);
-                break;
-            case "event":
-                task = addEvent(taskArgs);
-                break;
-            default:
-                return "";
-            }
-        } catch (EmptyDescriptionException ede) {
-            return ede.toString();
+        switch (taskType) {
+        case "todo":
+            task = addTodo(taskArgs);
+            break;
+        case "deadline":
+            task = addDeadline(taskArgs);
+            break;
+        case "event":
+            task = addEvent(taskArgs);
+            break;
+        default:
+            return "";
         }
 
         return String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.",
@@ -129,8 +130,9 @@ public class Duke {
 
     private static String handleDeleteTask(String[] args) {
         int taskNum = Integer.parseInt(args[1]);
-        Task task = TASKS.get(taskNum - 1);
-        TASKS.remove(taskNum);
+        int taskIndex = taskNum - 1;
+        Task task = TASKS.get(taskIndex);
+        TASKS.remove(taskIndex);
 
         return String.format("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.",
                 task, TASKS.size());
@@ -139,43 +141,166 @@ public class Duke {
     private static void handleCommands() {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
-            String userInput = scanner.nextLine();
-            String[] args = userInput.split(" ");
-            String command = args[0];
+            String commandOutput = "";
 
-            String commandOutput;
-            switch (command) {
-            case "list":
-                commandOutput = handleList();
-                break;
-            case "bye":
-                return;
-            case "mark":
-                // Fallthrough
-            case "unmark":
-                commandOutput = handleMarkUnMark(args);
-                break;
-            case "todo":
-            case "deadline":
-            case "event":
-                commandOutput = handleAddTask(args);
-                break;
-            case "delete":
-                commandOutput = handleDeleteTask(args);
-                break;
-            default:
-                commandOutput = "OOPS!!! I don't understand that command, try again later.";
-                break;
+            try {
+                String userInput = scanner.nextLine();
+                String[] args = userInput.split(" ");
+                String command = args[0];
+
+                switch (command) {
+                case "list":
+                    commandOutput = handleList();
+                    break;
+                case "bye":
+                    return;
+                case "mark":
+                    // Fallthrough
+                case "unmark":
+                    commandOutput = handleMarkUnMark(args);
+                    break;
+                case "todo":
+                case "deadline":
+                case "event":
+                    commandOutput = handleAddTask(args);
+                    break;
+                case "delete":
+                    commandOutput = handleDeleteTask(args);
+                    break;
+                default:
+                    commandOutput = "OOPS!!! I don't understand that command, try again later.";
+                    break;
+                }
+            } catch (DukeException e) {
+                commandOutput = e.toString();
             }
 
             System.out.println(getBorder());
             System.out.println(commandOutput);
             System.out.println(getBorder());
+
+            saveTasksToFile();
         }
     }
 
-    public static void main(String[] args) {
+    private static void saveTasksToFile() {
+        try {
+            ArrayList<String> tasksData = new ArrayList<>();
+
+            Files.writeString(TASKS_FILE_PATH, "");
+
+            for (Task t : TASKS) {
+                ArrayList<String> taskArgs = new ArrayList<>();
+
+                if (t instanceof Deadline) {
+                    Deadline deadLine = (Deadline) t;
+
+                    taskArgs.add("deadline");
+                    taskArgs.add(deadLine.getDescription());
+                    taskArgs.add(deadLine.getBy());
+                } else if (t instanceof Event) {
+                    Event event = (Event) t;
+
+                    taskArgs.add("event");
+                    taskArgs.add(event.getDescription());
+                    taskArgs.add(event.getFrom());
+                    taskArgs.add(event.getTo());
+                } else if (t instanceof Todo) {
+                    Todo todo = (Todo) t;
+
+                    taskArgs.add("todo");
+                    taskArgs.add(todo.getDescription());
+                }
+
+                taskArgs.add(t.getIsDone() ? "1" : "0");
+
+                tasksData.add(String.join(ARG_DELIMITER, taskArgs));
+            }
+
+            Files.writeString(TASKS_FILE_PATH, String.join("\n", tasksData));
+        } catch (IOException ioException) {
+            System.out.println("Failed to save tasks to file.");
+        }
+    }
+
+    private static void createTasksFileIfDontExist() {
+        try {
+            // Create tasks file if it doesn't exist
+            if (!Files.exists(TASKS_FILE_PATH)) {
+                Path parentDir = TASKS_FILE_PATH.getParent();
+
+                // Create parent directory if it doesn't exist
+                if (!Files.exists(parentDir)) {
+                    Files.createDirectories(parentDir);
+                }
+
+                // Create tasks file
+                Files.createFile(TASKS_FILE_PATH);
+            }
+        } catch (IOException ioException) {
+            System.out.println("Failed to create tasks file.");
+        }
+    }
+
+    private static void loadTasksFromFile() {
+        try {
+            String fileContent = Files.readString(TASKS_FILE_PATH);
+            String[] fileContentSplit = fileContent.split("\n");
+
+            for (String taskArgsStr : fileContentSplit) {
+                String[] taskArgs = taskArgsStr.split(ARG_DELIMITER);
+                String taskType = taskArgs[0];
+
+                Task task;
+                String description;
+                String isDoneStr;
+                boolean isDone;
+
+                switch (taskType) {
+                case "deadline": {
+                    description = taskArgs[1];
+                    String by = taskArgs[2];
+                    isDoneStr = taskArgs[3];
+                    isDone = isDoneStr.equals("1");
+
+                    task = new Deadline(description, isDone, by);
+                    break;
+                }
+                case "event": {
+                    description = taskArgs[1];
+                    String from = taskArgs[2];
+                    String to = taskArgs[3];
+                    isDoneStr = taskArgs[4];
+                    isDone = isDoneStr.equals("1");
+
+                    task = new Event(description, isDone, from, to);
+                    break;
+                }
+                case "todo": {
+                    description = taskArgs[1];
+                    isDoneStr = taskArgs[2];
+                    isDone = isDoneStr.equals("1");
+
+                    task = new Todo(description, isDone);
+                    break;
+                }
+                default:
+                    continue;
+                }
+
+                TASKS.add(task);
+            }
+
+        } catch (DukeException | IOException exception) {
+            System.out.println("Failed to load tasks file.");
+        }
+    }
+
+    public static void main(String[] args) throws java.io.IOException {
         userGreeting();
+
+        createTasksFileIfDontExist();
+        loadTasksFromFile();
 
         handleCommands();
 
