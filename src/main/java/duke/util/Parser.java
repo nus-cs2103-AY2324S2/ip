@@ -53,10 +53,10 @@ public class Parser {
                     command = new ListTask(Cmd.list);
                     break;
                 case mark:
-                    command = new ToggleMarkTask(Cmd.mark, true, Integer.parseInt(cmds[1]));
+                    command = new ToggleMarkTask(Cmd.mark, Integer.parseInt(cmds[1]));
                     break;
                 case unmark:
-                    command = new ToggleMarkTask(Cmd.unmark, false, Integer.parseInt(cmds[1]));
+                    command = new ToggleMarkTask(Cmd.unmark, Integer.parseInt(cmds[1]));
                     break;
                 case todo:
                     command = new AddTodo(Cmd.todo, cmds[1]);

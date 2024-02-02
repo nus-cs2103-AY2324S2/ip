@@ -10,8 +10,9 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Storage {
-    ArrayList<String> listStates= new ArrayList<>();
+    private ArrayList<String> listStates= new ArrayList<>();
     private static String listFilePath = "./data/duke.txt";
+
     public ArrayList<Task> loadTasks(){
         ArrayList<Task> temp = new ArrayList<>();
         this.initializeListFile();

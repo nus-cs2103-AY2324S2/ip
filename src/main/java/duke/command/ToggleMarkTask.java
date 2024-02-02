@@ -4,17 +4,15 @@ import duke.util.Parser;
 import duke.util.TaskList;
 
 public class ToggleMarkTask extends Command{
-    private boolean isMarking;
     private int index;
 
-    public ToggleMarkTask(Parser.Cmd type, boolean isMarking, int index){
+    public ToggleMarkTask(Parser.Cmd type, int index){
         super(type);
-        this.isMarking = isMarking;
         this.index = index;
     }
     @Override
     public void run(TaskList taskList){
-        if (this.isMarking){
+        if (this.type == Parser.Cmd.mark){
             taskList.markList(this.index);
         } else {
             taskList.unmarkList(this.index);

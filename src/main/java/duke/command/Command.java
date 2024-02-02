@@ -4,7 +4,7 @@ import duke.util.Parser;
 import duke.util.TaskList;
 
 public abstract class Command {
-    private final Parser.Cmd type;
+    protected final Parser.Cmd type;
     protected Command(Parser.Cmd type){
         this.type = type;
     }
