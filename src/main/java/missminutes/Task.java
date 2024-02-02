@@ -18,7 +18,7 @@ public class Task implements Serializable {
      * Creates a new task with the given `description`.
      * `isDone` is set to false initially.
      *
-     * @param description
+     * @param description The description of the task
      */
     public Task(String description) {
         this.description = description;
