@@ -30,11 +30,12 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("duke.Duke")
 }
 
 shadowJar {
     archiveBaseName = "duke"
+    archiveVersion = "v0.1"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
@@ -47,6 +48,12 @@ sourceSets {
     test {
         java {
             srcDirs = ['src/test']
+        }
+    }
+
+    main {
+        java {
+            srcDirs = ['src/main']
         }
     }
 }
