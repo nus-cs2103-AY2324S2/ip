@@ -12,7 +12,7 @@ public class AddDeadline extends Command{
     @Override
     public void run(TaskList taskList){
         Deadline ddl = new Deadline(this.description, this.date);
-        String date = this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String date = this.date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
         String[] data = {this.description, date};
         taskList.addTask(ddl, "deadline", data);
     }

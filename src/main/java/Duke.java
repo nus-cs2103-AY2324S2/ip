@@ -13,17 +13,16 @@ public class Duke {
         Parser parser = new Parser();
         output.greet();
         runProgram(parser, taskList);
-        output.leave();
     }
 
     public static void runProgram(Parser parser, TaskList taskList){
         Scanner scanner = new Scanner(System.in);
         try {
-            Command command = parser.parse(scanner.nextLine());
-            while (!command.getType().equals(Parser.Cmd.bye)) {
-                command.run(taskList);
+            Command command;
+            do{
                 command = parser.parse(scanner.nextLine());
-            }
+                command.run(taskList);
+            }while(!command.getType().equals(Parser.Cmd.bye));
         }catch(IllegalArgumentException e){
             OutputMessage.informInvalidCommand();
         }

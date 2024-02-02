@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Parser {
     public enum Cmd{
-        list, todo, deadline, event, mark, unmark, delete, bye;
+        list, todo, deadline, event, mark, unmark, delete, bye, none;
     }
     public static void initializeTask(String input, ArrayList<Task> taskList) {
         String[] data = input.split(" \\| ");
@@ -14,12 +14,12 @@ public class Parser {
                 task = new Todo(data[2]);
                 break;
             case "D":
-                LocalDateTime date = LocalDateTime.parse(data[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                LocalDateTime date = LocalDateTime.parse(data[3], DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
                 task = new Deadline(data[2], date);
                 break;
             case "E":
-                LocalDateTime fromDate = LocalDateTime.parse(data[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                LocalDateTime toDate = LocalDateTime.parse(data[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                LocalDateTime fromDate = LocalDateTime.parse(data[3], DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
+                LocalDateTime toDate = LocalDateTime.parse(data[4], DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
                 task = new Event(data[2], fromDate, toDate);
                 break;
             default:
@@ -32,9 +32,9 @@ public class Parser {
         taskList.add(task);
     }
     public Command parse(String input){
-        Command command = null;
+        Command command = new NoAction(Cmd.none);
         String[] cmds = input.split(" ");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
         try {
             switch (Cmd.valueOf(cmds[0])) {
                 case bye:
@@ -67,8 +67,8 @@ public class Parser {
                 default:
                     break;
             }
-        }catch (Exception e){
-            System.out.println("Parsing Failed: " + e);
+        }catch (IllegalArgumentException e){
+            OutputMessage.informInvalidCommand();
         }
         return command;
     }

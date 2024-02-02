@@ -15,8 +15,8 @@ public class AddEvent extends Command{
     @Override
     public void run(TaskList taskList){
         Event event = new Event(this.description, this.fromDate, this.toDate);
-        String fromTime = this.fromDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        String toTime = this.toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String fromTime = this.fromDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
+        String toTime = this.toDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
         String[] data = {this.description, fromTime, toTime};
         taskList.addTask(event, "event", data);
     }

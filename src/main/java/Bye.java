@@ -5,6 +5,6 @@ public class Bye extends Command{
     }
     @Override
     public void run(TaskList taskList){
-
+        OutputMessage.leave();
     }
 }
