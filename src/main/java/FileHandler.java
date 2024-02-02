@@ -17,7 +17,7 @@ public class FileHandler {
             while (s.hasNext()) {
                 String str = s.nextLine();
                 listStates.add(str);
-                Command.initialize(str,temp);
+                Parser.initializeTask(str,temp);
             }
         }catch (FileNotFoundException e){
             System.out.println("FILE NOT FOUND");

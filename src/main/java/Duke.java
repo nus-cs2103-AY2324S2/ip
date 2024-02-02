@@ -11,7 +11,7 @@ public class Duke {
         TaskList taskList = new TaskList();
         OutputMessage output = new OutputMessage(name);
         output.greet();
-        Command.start(taskList);
+        Comman.start(taskList);
         output.leave();
     }
 }

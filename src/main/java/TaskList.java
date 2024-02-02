@@ -1,9 +1,11 @@
-import java.io.File;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 public class TaskList {
     private ArrayList<Task> listItems = new ArrayList<>();
     private FileHandler fileHandler = new FileHandler();
-    private void addTask(Task task){
+    public void addTask(Task task){
         this.listItems.add(task);
         OutputMessage.informItemAdded(task, this);
     }
@@ -31,6 +33,7 @@ public class TaskList {
             OutputMessage.informBadTodoInput();
         }
     }
+
     public void addDeadline(String cmd){
         String[] statement1 = cmd.split(" ", 2);
         try {
