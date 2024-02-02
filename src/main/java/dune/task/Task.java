@@ -14,11 +14,11 @@ public abstract class Task {
         this.isDone = done;
     }
 
-    public void complete() {
+    public void mark() {
         this.isDone = true;
     }
 
-    public void incomplete() {
+    public void unmark() {
         this.isDone = false;
     }
 

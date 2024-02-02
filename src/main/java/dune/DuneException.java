@@ -1,14 +1,13 @@
 package dune;
 
 public class DuneException extends Exception{
-    private String error;
     public DuneException(String error) {
-        this.error = error;
+        super(error);
     }
 
     @Override
     public String toString() {
-        return "OOPS! " + this.error;
+        return "OOPS! " + this.getMessage();
     }
 
 }

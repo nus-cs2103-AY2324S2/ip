@@ -12,6 +12,7 @@ public class Event extends Task {
 
     private static final DateTimePrinter dateTimePrinter = new DateTimePrinter();
 
+    // test this method
     public Event(String description, String start, String end) {
         super(description);
         this.start = LocalDateTime.parse(start);
@@ -20,6 +21,7 @@ public class Event extends Task {
             throw new DateTimeParseException("Start date must be before end date", "", 0);
         }
     }
+
 
     public Event(String description, String start, String end, boolean isDone) {
         super(description, isDone);
