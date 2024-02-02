@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.LocalDateTime;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -26,5 +28,12 @@ public class Task {
         return  "|" + getStatusIcon() + "| " + this.description;
     }
 
+    public String description() {
+        return this.description;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
 }
 

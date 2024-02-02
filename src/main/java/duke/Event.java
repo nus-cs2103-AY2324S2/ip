@@ -22,5 +22,11 @@ public class Event extends Task{
     }
 
 
+    public LocalDate getStartTime() {
+        return startTime;
+    }
 
+    public LocalDate getEndTime() {
+        return endTime;
+    }
 }

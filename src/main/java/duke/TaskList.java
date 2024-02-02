@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    private List<Task> tasks;
+    //private List<Task> tasks;
     private Storage storage;
     private Ui ui;
 
@@ -17,7 +17,7 @@ public class TaskList {
 
 
     public TaskList(Storage storage, Ui ui) throws IOException {
-        this.tasks = new ArrayList<>();
+        //this.tasks = new ArrayList<>();
         this.storage = storage;
         this.ui = ui;
         l = storage.readFromFile();
@@ -44,22 +44,22 @@ public class TaskList {
     }
 
     public void listTasks() throws IOException {
-        tasks = storage.readFromFile();
+        l = storage.readFromFile();
         ui.divider();
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            ui.showTask((i + 1) + ". " + tasks.get(i));
+        for (int i = 0; i < l.size(); i++) {
+            ui.showTask((i + 1) + ". " + l.get(i));
         }
         ui.divider();
     }
 
     public void markTask(int index) throws IOException {
-        if (index >= 0 && index < tasks.size()) {
-            Task task = tasks.get(index);
+        if (index >= 0 && index < l.size()) {
+            Task task = l.get(index);
             task.markDone();
             System.out.println("Nice! I've marked this task as done:");
             ui.showTask(task.toString());
-            storage.saveToFile(tasks);
+            storage.saveToFile(l);
         } else {
             System.out.println("Invalid task index");
         }
@@ -67,12 +67,12 @@ public class TaskList {
     }
 
     public void unmarkTask(int index) throws IOException {
-        if (index >= 0 && index < tasks.size()) {
-            Task task = tasks.get(index);
+        if (index >= 0 && index < l.size()) {
+            Task task = l.get(index);
             task.mark_not_done();
             System.out.println("OK, I've marked this task as not done yet:");
             ui.showTask(task.toString());
-            storage.saveToFile(tasks);
+            storage.saveToFile(l);
         } else {
             System.out.println("Invalid task index");
         }
@@ -80,11 +80,11 @@ public class TaskList {
     }
 
     public void addTask(Task task) throws IOException {
-        tasks.add(task);
+        l.add(task);
         System.out.println("Got it. I've added this task:");
         ui.showTask(task.toString());
-        storage.saveToFile(tasks);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        storage.saveToFile(l);
+        System.out.println("Now you have " + l.size() + " tasks in the list.");
         ui.divider();
     }
 
@@ -149,5 +149,12 @@ public class TaskList {
         System.out.println("______________________________________________________");
     }
 
+    public int getSize() {
+        return l.size();
+    }
+
+    public Object getTask(int i) {
+        return l.get(i);
+    }
 }
 

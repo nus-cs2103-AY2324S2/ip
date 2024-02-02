@@ -29,4 +29,8 @@ public class Deadline extends Task {
             return null;
         }
     }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
 }
