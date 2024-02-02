@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -103,7 +103,10 @@ class ListAdder {
                 Files.createFile(taskListPath);
             }
             
+            // Load tasks from file
             ArrayList<String> taskListFromFile = new ArrayList<>(Files.readAllLines(taskListPath));
+
+            // For each task in the file, add it to the taskList
             for (String task : taskListFromFile) {
                 String[] taskParts = task.split(" \\| ", 3);
                 String taskType = taskParts[0];
@@ -121,9 +124,10 @@ class ListAdder {
                 case "D":
                     String[] deadlineParts = taskDescription.split(" \\(by: ", 2);
                     String deadlineDescription = deadlineParts[0];
-                    String deadlineBy = deadlineParts[1].substring(0, deadlineParts[1].length() - 1);
+                    String deadlineByDateTime = deadlineParts[1].substring(0, deadlineParts[1].length() - 1);
+                    
+                    Deadline newDeadline = new Deadline (deadlineDescription, deadlineByDateTime);
 
-                    Deadline newDeadline = new Deadline (deadlineDescription, deadlineBy);
                     if (taskStatus.equals("done")) {
                         newDeadline.markDone();
                     }
@@ -261,14 +265,15 @@ class ListAdder {
         String[] deadlineDescription = task.substring(8).trim().split("/by", 2);
         if (deadlineDescription.length != 2 || deadlineDescription[0].trim().isEmpty() 
             || deadlineDescription[1].trim().isEmpty()) {
-            System.out.println("\t" + "Invalid input. Enter 'deadline <task> /by <deadline>'");
+            System.out.println("\t" + "Invalid input. Enter 'deadline <task> /by <DEADLINE>'");
         } else {
             String description = deadlineDescription[0].trim();
             String by = deadlineDescription[1].trim();
+
             Deadline newDeadline = new Deadline(description, by);
             this.taskList.add(newDeadline);
             
-            System.out.println("\t" + "Added deadline: " + description + " (by: " + by + ")");
+            System.out.println("\t" + "Added deadline: " + newDeadline.toString());
             saveTaskListToFile();
         }
     }
@@ -312,7 +317,7 @@ class ListAdder {
     private void deleteTask(int index) {
         try {
             System.out.println("\t" + "Noted. I've removed this task:" + "\n" + "\t" 
-                    + "[" + this.taskList.get(index) + "]");
+                    + "[ " + this.taskList.get(index) + " ]");
             this.taskList.remove(index);
             System.out.println("\t" + "There are " + this.taskList.size() + " tasks in your list.");
             saveTaskListToFile();
