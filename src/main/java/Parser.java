@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Parser {
-    private enum cmd{
+    public enum Cmd{
         list, todo, deadline, event, mark, unmark, delete, bye;
     }
     public static void initializeTask(String input, ArrayList<Task> taskList) {
@@ -14,10 +14,13 @@ public class Parser {
                 task = new Todo(data[2]);
                 break;
             case "D":
-                task = new Deadline(data[2], data[3]);
+                LocalDateTime date = LocalDateTime.parse(data[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                task = new Deadline(data[2], date);
                 break;
             case "E":
-                task = new Event(data[2], data[3], data[4]);
+                LocalDateTime fromDate = LocalDateTime.parse(data[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                LocalDateTime toDate = LocalDateTime.parse(data[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                task = new Event(data[2], fromDate, toDate);
                 break;
             default:
                 System.out.println("PROBLEM encountered with the saved data while loading");
@@ -32,36 +35,40 @@ public class Parser {
         Command command = null;
         String[] cmds = input.split(" ");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        switch(cmd.valueOf(cmds[0])) {
-        case list:
-            command = new ListTask();
-            break;
-        case mark:
-            command = new ToggleMarkTask(true, Integer.parseInt(cmds[1]));
-            break;
-        case unmark:
-            command = new ToggleMarkTask(false,Integer.parseInt(cmds[1]));
-            break;
-        case todo:
-            command = new AddTodo(cmds[1]);
-            break;
-        case deadline:
-            String[] data = cmds[1].split(" by ", 2);
-            LocalDateTime date = LocalDateTime.parse(data[1], formatter);
-            command = new AddDeadline(data[0], date);
-            break;
-        case event:
-            String[] eventData1 = cmds[1].split(" /from ", 2);
-            String[] eventData2 = eventData1[1].split(" /to ", 2);
-            LocalDateTime fromDate = LocalDateTime.parse(eventData2[0], formatter);
-            LocalDateTime toDate = LocalDateTime.parse(eventData2[1], formatter);
-            command = new AddEvent(eventData1[0], fromDate, toDate);
-            break;
-        case delete:
-            command = new DeleteTask(Integer.parseInt(cmds[1]));
-            break;
-        default:
-            break;
+        try {
+            switch (Cmd.valueOf(cmds[0])) {
+                case bye:
+                    command = new Bye(Cmd.bye);
+                    break;
+                case list:
+                    command = new ListTask(Cmd.list);
+                    break;
+                case mark:
+                    command = new ToggleMarkTask(Cmd.mark, true, Integer.parseInt(cmds[1]));
+                    break;
+                case unmark:
+                    command = new ToggleMarkTask(Cmd.unmark, false, Integer.parseInt(cmds[1]));
+                    break;
+                case todo:
+                    command = new AddTodo(Cmd.todo, cmds[1]);
+                    break;
+                case deadline:
+                    LocalDateTime date = LocalDateTime.parse(cmds[3] + " " + cmds[4], formatter);
+                    command = new AddDeadline(Cmd.deadline, cmds[1], date);
+                    break;
+                case event:
+                    LocalDateTime fromDate = LocalDateTime.parse(cmds[3] + " " + cmds[4], formatter);
+                    LocalDateTime toDate = LocalDateTime.parse(cmds[6] + " " + cmds[7], formatter);
+                    command = new AddEvent(Cmd.event, cmds[1], fromDate, toDate);
+                    break;
+                case delete:
+                    command = new DeleteTask(Cmd.delete, Integer.parseInt(cmds[1]));
+                    break;
+                default:
+                    break;
+            }
+        }catch (Exception e){
+            System.out.println("Parsing Failed: " + e);
         }
         return command;
     }

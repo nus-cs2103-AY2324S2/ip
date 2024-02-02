@@ -1,6 +1,7 @@
 public class DeleteTask extends Command{
     private int index;
-    public DeleteTask(int index){
+    public DeleteTask(Parser.Cmd type, int index){
+        super(type);
         this.index = index;
     }
     @Override

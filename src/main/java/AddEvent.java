@@ -1,11 +1,13 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class AddEvent extends Command{
     private String description;
     private LocalDateTime fromDate;
 
     private LocalDateTime toDate;
-    public AddEvent(String description, LocalDateTime fromDate, LocalDateTime toDate){
+    public AddEvent(Parser.Cmd type, String description, LocalDateTime fromDate, LocalDateTime toDate){
+        super(type);
         this.description = description;
         this.fromDate = fromDate;
         this.toDate = toDate;
@@ -13,6 +15,9 @@ public class AddEvent extends Command{
     @Override
     public void run(TaskList taskList){
         Event event = new Event(this.description, this.fromDate, this.toDate);
-        taskList.addTask(event);
+        String fromTime = this.fromDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String toTime = this.toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String[] data = {this.description, fromTime, toTime};
+        taskList.addTask(event, "event", data);
     }
 }

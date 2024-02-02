@@ -2,16 +2,17 @@ public class ToggleMarkTask extends Command{
     private boolean isMarking;
     private int index;
 
-    public ToggleMarkTask(boolean isMarking, int index){
+    public ToggleMarkTask(Parser.Cmd type, boolean isMarking, int index){
+        super(type);
         this.isMarking = isMarking;
         this.index = index;
     }
     @Override
     public void run(TaskList taskList){
         if (this.isMarking){
-            taskList.markList(index);
+            taskList.markList(this.index);
         } else {
-            taskList.unmarkList(index);
+            taskList.unmarkList(this.index);
         }
     }
 }

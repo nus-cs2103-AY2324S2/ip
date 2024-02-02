@@ -10,8 +10,22 @@ public class Duke {
         final String name = "Alfred";
         TaskList taskList = new TaskList();
         OutputMessage output = new OutputMessage(name);
+        Parser parser = new Parser();
         output.greet();
-        Comman.start(taskList);
+        runProgram(parser, taskList);
         output.leave();
+    }
+
+    public static void runProgram(Parser parser, TaskList taskList){
+        Scanner scanner = new Scanner(System.in);
+        try {
+            Command command = parser.parse(scanner.nextLine());
+            while (!command.getType().equals(Parser.Cmd.bye)) {
+                command.run(taskList);
+                command = parser.parse(scanner.nextLine());
+            }
+        }catch(IllegalArgumentException e){
+            OutputMessage.informInvalidCommand();
+        }
     }
 }
