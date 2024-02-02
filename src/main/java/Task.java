@@ -24,8 +24,4 @@ public class Task { //This is basically a ToDo task.
         status = isDone? "X": " ";
         return "[T]" + "[" + status + "]" + " " + this.description;
     }
-
-    public String getDescription() {
-        return this.description;
-    }
 }

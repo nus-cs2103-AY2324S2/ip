@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,14 +11,16 @@ import java.util.List;
 
 public class Storage {
     private String filePath; //eg "./data/tasks.txt"
-    private ArrayList<Task> storage;
+    private Ui ui = new Ui();
+//    private ArrayList<Task> storage;
 
     public Storage(String filePath) {
         this.filePath = filePath;
-        this.storage = new ArrayList<>();
+//        this.storage = new ArrayList<>();
     }
-    public void load() {
+    public ArrayList<Task> load() throws BartenderBobException {
         try {
+            ArrayList<Task> taskArray = new ArrayList<>();
             Path path = Paths.get(filePath); //Operating system independent
             if (Files.exists(path)) {
                 List<String> tasks = Files.readAllLines(path);
@@ -29,17 +32,17 @@ public class Storage {
                     String description = split[2];
 
                     if (taskType.equals("T")) {
-                        storage.add(new Task(description, isDone));
+                        taskArray.add(new Task(description, isDone));
                     } else if (taskType.equals("D")) {
                         String dueDate = split[3];
                         dueDate = convertDateFormat(dueDate);
-                        storage.add(new Deadline(description, dueDate, isDone));
+                        taskArray.add(new Deadline(description, dueDate, isDone));
                     } else if (taskType.equals("E")) {
                         String fromDate = split[3];
                         fromDate = convertDateFormat(fromDate);
                         String toDate = split[4];
                         toDate = convertDateFormat(toDate);
-                        storage.add(new Event(description, fromDate, toDate, isDone));
+                        taskArray.add(new Event(description, fromDate, toDate, isDone));
                     }
                 }
             } else {
@@ -50,42 +53,43 @@ public class Storage {
                 //Create tasks.txt
                 Files.createFile(path);
             }
-
+            return taskArray;
         } catch (IOException e) {
-            System.out.println("Error occurred in storage->load() method: " + e.getMessage());
+            throw new BartenderBobException();
+//            System.out.println("Error occurred in storage->load() method: " + e.getMessage());
         }
     }
-    public void addTask(Task task) {
-        //[T][X] read book = T | X | read book
-        //[D][ ] return book (by: June 6th) = D |  | return book | June 6th
-        //[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-        // = E |  | project meeting | Aug 6th 2pm | 4pm
-        storage.add(task);
-        Path path = Paths.get(filePath);
-        saveTask(task, path);
-    }
-    public void saveChanges() {
+//    public void addTask(Task task) {
+//        //[T][X] read book = T | X | read book
+//        //[D][ ] return book (by: June 6th) = D |  | return book | June 6th
+//        //[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+//        // = E |  | project meeting | Aug 6th 2pm | 4pm
+//////        storage.add(task);
+////        Path path = Paths.get(filePath);
+//        saveTask(task);
+//    }
+    public void saveChanges(ArrayList<Task> tasks) { //for marking or unmarking tasks
         try {
             Path path = Paths.get(filePath);
             Files.write(path, "".getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
-            for (Task task : storage) {
-                saveTask(task, path);
+            for (Task task : tasks) {
+                saveTask(task);
             }
         } catch (IOException e) {
-            System.out.println("Error occurred in storage-> saveChanges method: " + e.getMessage());
+            ui.showSaveChangesError();
         }
 
     }
 
-    public int getSize() {
-        return storage.size();
-    }
-    public Task getTask(int index) {
-        return storage.get(index);
-    }
-    public void removeTask(int index) {
-        storage.remove(index);
-    }
+//    public int getSize() {
+//        return storage.size();
+//    }
+//    public Task getTask(int index) {
+//        return storage.get(index);
+//    }
+//    public void removeTask(int index) {
+//        storage.remove(index);
+//    }
     private String convertDateFormat(String oldDateFormat) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
@@ -99,8 +103,9 @@ public class Storage {
         return localDate.format(outputFormatter);
     }
 
-    public void saveTask(Task task, Path path) {
+    public void saveTask(Task task) {
         try {
+            Path path = Paths.get(filePath);
             String taskString = task.show();
             String typeOfTask = taskString.substring(1, 2); //T
             String taskStatus = taskString.substring(4, 5); //X
@@ -128,7 +133,7 @@ public class Storage {
             }
             Files.write(path, (saveEntry + System.lineSeparator()).getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
-            System.out.println("Error occurred in storage-> saveTask method: " + e.getMessage());
+            ui.showSaveTasksError();
         }
     }
 }

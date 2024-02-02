@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class InputHandler {
-    public void handleInput(BartenderBob bartenderBob) {
+    public void handleInput(TaskList taskList, Ui ui) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String userInput = scanner.nextLine();
@@ -9,47 +9,47 @@ public class InputHandler {
             String firstWord = strArray[0];
             String index;
             if (firstWord.equals("bye")) {
-                bartenderBob.leave();
+                ui.leave();
                 break;
             } else {
                 try {
                     switch (firstWord) {
                     case "list":
-                        bartenderBob.list();
+                        taskList.list();
                         break;
                     case "mark":
                         index = strArray[1];
-                        bartenderBob.markDone(index);
+                        taskList.markDone(index);
                         break;
                     case "unmark":
                         index = strArray[1];
-                        bartenderBob.unmarkDone(index);
+                        taskList.unmarkDone(index);
                         break;
                     case "delete":
                         index = strArray[1];
-                        bartenderBob.delete(index);
+                        taskList.delete(index);
                         break;
                     case "todo":
                         String str = userInput.split("todo ")[1];
                         Task task = new Task(str);
-                        bartenderBob.store(task);
+                        taskList.store(task);
                         break;
                     case "deadline":
                         String[] deadlineSplit = userInput.split("deadline | /by ");
                         Deadline deadline = new Deadline(deadlineSplit[1], deadlineSplit[2]);
-                        bartenderBob.store(deadline);
+                        taskList.store(deadline);
                         break;
                     case "event":
                         String[] eventSplit = userInput.split("event | /from | /to ");
                         Event event = new Event(eventSplit[1], eventSplit[2], eventSplit[3]);
-                        bartenderBob.store(event);
+                        taskList.store(event);
                         break;
                     default:
                         BartenderBobException.invalidInput(userInput);
                     }
                 } catch (BartenderBobException e) {
-                    //This exception is when the index from user input is out of the STORAGE bounds.
-                    e.storageOutOfBounds();
+                    //This exception is when the index from user input is out of the TASKS bounds.
+                    e.tasksOutOfBounds();
                 } catch (IndexOutOfBoundsException e) {
                     //IndexOutOfBoundsException is for missing userInputs.
                     BartenderBobException error = new BartenderBobException(firstWord);
