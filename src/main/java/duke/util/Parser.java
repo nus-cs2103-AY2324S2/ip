@@ -41,7 +41,7 @@ public class Parser {
             }
             Task event = new Event(separate[0], separate[1]);
             tasklist.addTask(event);
-        } else if(inputCommand.startsWith("delete")) {
+        } else if (inputCommand.startsWith("delete")) {
             char pos = inputCommand.charAt(7);
             int index = Integer.parseInt(String.valueOf(pos));
             tasklist.deleteTask(index);
