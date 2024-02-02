@@ -1,8 +1,3 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -32,7 +27,8 @@ public class Duke {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> AL = new ArrayList<>();
-        AL = loadTasks();
+        Storage storage = new Storage("./data/duke.txt");
+        AL = Storage.loadTasks();
 
         printGreeting();
 
@@ -77,7 +73,7 @@ public class Duke {
                         System.out.println("\tNice! I've marked this task as done: ");
                         System.out.println("\t" + taskToMark);
                         printDiv();
-                        updateSaved(AL);
+                        storage.updateSaved(AL);
 
                         break;
                     case UNMARK:
@@ -97,7 +93,7 @@ public class Duke {
                         System.out.println("\tOK, I've marked this task as not done yet: ");
                         System.out.println("\t" + taskToUnmark);
                         printDiv();
-                        updateSaved(AL);
+                        storage.updateSaved(AL);
                         break;
                     case TODO:
                         if (inputs.length != 2) {
@@ -113,7 +109,7 @@ public class Duke {
                         System.out.println("\t" + todo);
                         printListCounter(AL);
                         printDiv();
-                        updateSaved(AL);
+                        storage.updateSaved(AL);
                         break;
                     case DEADLINE:
                         if (inputs.length != 2) {
@@ -139,7 +135,7 @@ public class Duke {
                         System.out.println("\t" + deadline);
                         printListCounter(AL);
                         printDiv();
-                        updateSaved(AL);
+                        storage.updateSaved(AL);
                         break;
                     case EVENT:
                         if (inputs.length != 2) {
@@ -163,7 +159,7 @@ public class Duke {
                         System.out.println("\t" + event);
                         printListCounter(AL);
                         printDiv();
-                        updateSaved(AL);
+                        storage.updateSaved(AL);
                         break;
                     case DELETE:
                         if (inputs.length != 2) {
@@ -182,7 +178,7 @@ public class Duke {
                         AL.remove(delIndex);
                         printListCounter(AL);
                         printDiv();
-                        updateSaved(AL);
+                        storage.updateSaved(AL);
                         break;
                     case BYE:
                         printMsg("Bye. Hope to see you again soon!");
@@ -229,75 +225,5 @@ public class Duke {
 
     public static void printListCounter(ArrayList<Task> AL) {
         System.out.println("\tNow you have " + AL.size() + " tasks in the list.");
-    }
-
-    public static void updateSaved(ArrayList<Task> AL) {
-        try {
-            File data = initDataFile();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(data));
-
-            for (Task t : AL) {
-                writer.write(t.savedFormat());
-                writer.newLine();
-            }
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-    }
-
-    public static ArrayList<Task> loadTasks() {
-        try {
-            File data = initDataFile();
-            ArrayList<Task> taskAL = new ArrayList<>();
-            BufferedReader reader = new BufferedReader(new FileReader(data));
-
-            String task;
-            while ((task = reader.readLine()) != null) {
-                String[] taskInfo = task.split(" \\| ");
-
-                if (taskInfo[0].equals("T")) {
-                    Todo todo = new Todo(taskInfo[2]);
-                    if (Integer.parseInt(taskInfo[1]) == 1) {
-                        todo.mark();
-                    }
-                    taskAL.add(todo);
-                } else if (taskInfo[0].equals("D")) {
-                    Deadline deadline = new Deadline(taskInfo[2], taskInfo[3]);
-                    if (Integer.parseInt(taskInfo[1]) == 1) {
-                        deadline.mark();
-                    }
-                    taskAL.add(deadline);
-                } else {
-                    Event event = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
-                    if (Integer.parseInt(taskInfo[1]) == 1) {
-                        event.mark();
-                    }
-                    taskAL.add(event);
-                }
-            }
-            
-            reader.close();
-            return taskAL;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    public static File initDataFile () throws IOException {
-        File data = new File("./data/duke.txt");
-        if (!data.getParentFile().exists()) {
-            data.getParentFile().mkdirs();
-        }
-        if (!data.exists()) {
-            data.createNewFile();
-        }
-
-        return data;
     }
 }
