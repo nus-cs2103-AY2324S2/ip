@@ -5,7 +5,7 @@ import duke.task.Task;
 import java.util.ArrayList;
 
 /**
- * The TaskList class represents a list of tasks in the Duke chatbot application.
+ * The TaskList class represents a list of tasks in the Duke chatbot.
  */
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -36,7 +36,6 @@ public class TaskList {
     public void addTask(Task task) {
         this.taskList.add(task);
     }
-
 
     /**
      * Removes a task at the specified index from the TaskList.
@@ -78,6 +77,18 @@ public class TaskList {
         return this.taskList;
     }
 
+    public TaskList searchTasks(String searchTerm, TaskList currTasks) {
+        TaskList searchResults = new TaskList();
+
+        currTasks.getTasks().forEach((task) -> {
+            if (task.getDescription().contains(searchTerm)) {
+                searchResults.addTask(task);
+            }
+        });
+
+        return searchResults;
+    }
+
     /**
      * Retrieves the size of the TaskList.
      *
@@ -90,8 +101,13 @@ public class TaskList {
     /**
      * Prints the tasks in the TaskList with their corresponding indices.
      */
-    public void printTasks() {
-        System.out.println("    Here are the items in your list: ");
+    public void printTasks(boolean isSearch) {
+        if (isSearch) {
+            System.out.println("    Here are the matching tasks in your list:");
+        } else {
+            System.out.println("    Here are the items in your list: ");
+        }
+
         for (int i = 0; i < this.taskList.size(); i++) {
             String listIdx = i + 1 + ". ";
             Task currTask = this.taskList.get(i);
