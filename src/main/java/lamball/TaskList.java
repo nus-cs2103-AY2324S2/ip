@@ -8,6 +8,12 @@ import lamball.task.ToDo;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+
+/**
+ * A class that handles the to-do list operations.
+ *
+ * @author ongzhili
+ */
 public class TaskList {
     private final String INDENT = "    ____________________________________________________________\n";
     protected ArrayList<Task> tasks;

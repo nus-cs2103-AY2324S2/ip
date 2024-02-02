@@ -4,6 +4,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
 
+
+/**
+ * Deadline class, an extension of the Task class that contains a due date.
+ *
+ * @author ongzhili
+ */
 public class Deadline extends Task {
     protected LocalDate by;
 

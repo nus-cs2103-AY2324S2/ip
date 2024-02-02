@@ -1,5 +1,11 @@
 package lamball;
 
+/**
+ * A class that primarily responsible for chatbot responses.
+ *
+ * @author ongzhili
+ */
+
 public class Ui {
     private static final String WELCOME_MESSAGE = "    lamball\n" +
             "    ____________________________________________________________\n" +

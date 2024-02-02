@@ -11,6 +11,12 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
+
+/**
+ * Contains methods that pertain to file access and modification.
+ *
+ * @author ongzhili
+ */
 public class Storage {
 
     protected String filePath = "src/main/java/data/list.txt";
