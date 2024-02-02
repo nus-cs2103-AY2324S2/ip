@@ -1,4 +1,3 @@
-import java.io.Console;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -8,21 +7,21 @@ import java.util.ArrayList;
 public class Duke {
     private List<Task> todolist = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
-    private static final String sep = "\t__________________________________________";
+    private static final String SEP = "\t__________________________________________";
     public static void main(String[] args) {
         // hi
-        System.out.println(sep);
+        System.out.println(SEP);
         System.out.println("\tHello! I'm JOSEPH JOSHTUR!!!");
         System.out.println("\tWhat can I do for you?");
-        System.out.println(sep);
+        System.out.println(SEP);
 
         Duke duke = new Duke();
         duke.handleInput();
 
         // bye
-        System.out.println(sep);
+        System.out.println(SEP);
         System.out.println("\tBye. Hope to see you again soon!");
-        System.out.println(sep);
+        System.out.println(SEP);
     }
 
     public void handleInput() {
@@ -125,9 +124,9 @@ public class Duke {
             }
 
             if (!output.isEmpty()) {
-                System.out.println(sep);
+                System.out.println(SEP);
                 System.out.println("\t" + output);
-                System.out.println(sep);
+                System.out.println(SEP);
             }
         }
     }
