@@ -119,6 +119,18 @@ public class TaskList {
                 .collect(Collectors.toList());
     }
 
+    public void find(String in) {
+        System.out.println("Here are the matching tasks in your list:");
+        int number = 1;
+        String toFind = in.substring(5);
+        for (Task t : this.list) {
+            if (t.has(toFind)) {
+                System.out.printf("%d. %s", number, t);
+                number++;
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

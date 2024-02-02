@@ -55,6 +55,10 @@ public class Parser {
             tasks.delete(in);
         }
 
+        else if (in.startsWith("find ")) {
+            tasks.find(in);
+        }
+
         else {
             try {
                 tasks = addTask(in, tasks);

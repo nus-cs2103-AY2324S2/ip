@@ -41,4 +41,8 @@ public abstract class Task {
      * @return The string of the saved object.
      */
     public abstract String toSavedString();
+
+    public boolean has(String toFind) {
+        return this.name.contains(toFind);
+    }
 }
