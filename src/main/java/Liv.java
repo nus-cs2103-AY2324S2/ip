@@ -75,16 +75,12 @@ public class Liv {
 
     private enum LivState {
         ACTIVE,
-
         INACTIVE
     }
     private static Liv instance = null;
     private LivState currentState = null;
 
     public void ToggleActiveState() {
-
-        //ui.printHorizontalLine();
-
         if (currentState != LivState.INACTIVE) {
             currentState = LivState.INACTIVE;
             return;
@@ -95,6 +91,4 @@ public class Liv {
             return;
         }
     }
-    // takes in the listed index of the task (1 larger than storage index)
-
 }
