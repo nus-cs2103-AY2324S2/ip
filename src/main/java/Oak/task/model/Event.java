@@ -5,6 +5,7 @@ import Oak.utility.DateTimeUtility;
 import java.time.LocalDateTime;
 
 public class Event extends Task {
+    /** The icon this task is represented by */
     public static String typeIcon = "E";
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;

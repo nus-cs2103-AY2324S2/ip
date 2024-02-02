@@ -1,6 +1,7 @@
 package Oak.task.model;
 
 public class Todo extends Task {
+    /** The icon this task is represented by */
     public static String typeIcon = "T";
 
     public Todo(String name) {

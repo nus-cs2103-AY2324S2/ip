@@ -1,7 +1,9 @@
 package Oak.task.model;
 
 public class Task {
-    public Boolean isCompleted = false; // Default value = false
+    /** Whether the task has been completed, Default value = false */
+    public Boolean isCompleted = false;
+    /** The name of the task */
     public String name;
 
     public Task(String name) {
