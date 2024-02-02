@@ -12,6 +12,13 @@ public class Duke {
     private static String currentWorkingDirectory = System.getProperty("user.dir");
     private static String path = "/list.txt";
 
+
+    /**
+     * Constructor for Duke
+     *
+     *
+     * @param filePath X path of the saved file.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,6 +30,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the duke program
+     *
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

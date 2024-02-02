@@ -9,6 +9,12 @@ import java.io.IOException;
 
 public class MarkCommand extends Command{
     private String com;
+
+    /**
+     * Constructor for MarkCommand.
+     *
+     * @param i command in String format.
+     */
     public MarkCommand(String i){
         super(0);
         com = i;
@@ -38,6 +44,11 @@ public class MarkCommand extends Command{
         }
     }
 
+    /**
+     * Returns command in String format.
+     *
+     * @return command in String format.
+     */
     public String getCom(){
         return com;
     }

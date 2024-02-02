@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exception.CommandInvalidException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -20,11 +21,22 @@ public class Storage {
     private static DateTimeFormatter dFormatOut = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
     private static File data;
 
+    /**
+     * Constructor for storage
+     *
+     * @param filePath path of file in string.
+     */
     public Storage(String filePath){
         path = filePath;
         data = new File(path);
     }
 
+    /**
+     * Returns an ArrayList of task from the saved file.
+     *
+     * @return an ArrayList contains Task.
+     * @throws FileNotFoundException If file is not yet made.
+     */
     public static ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> taskF = new ArrayList<>();
         if(data.exists()){
@@ -50,6 +62,12 @@ public class Storage {
         return taskF;
     }
 
+    /**
+     * Saves the given ArrayList to the file.
+     *
+     * @param task an ArrayList of task.
+     * @throws IOException If save failed.
+     */
     public static void write(ArrayList<Task> task) throws IOException {
         FileWriter rf;
         rf = new FileWriter(path);

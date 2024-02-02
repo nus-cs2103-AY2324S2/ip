@@ -1,9 +1,12 @@
 package duke.exception;
 
 public class DescriptionFormatException extends Exception{
-    public DescriptionFormatException(){
-        super();
-    }
+
+    /**
+     * Constructor for DescriptionFormatException.
+     *
+     * @param e error message.
+     */
     public DescriptionFormatException(String e){
         super(e);
     }
