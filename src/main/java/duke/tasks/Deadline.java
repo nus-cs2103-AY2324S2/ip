@@ -21,9 +21,9 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format("%s%s%s",
-         "[D]",
-         super.toString(),
-         " (by: " + by + ")");
+                "[D]",
+                super.toString(),
+                " (by: " + by + ")");
     }
     
 }
