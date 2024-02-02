@@ -28,6 +28,10 @@ public class Ui {
 
     public static final String INVALID_DATE_FORMAT = "i only understand yyyy-mm-dd bro";
 
+    public static final String LOADING_ERROR = "wait what happened i cant load any data";
+
+    public static final String SAVING_ERROR = "wait what happened i cant seem to save";
+
     public static final String EXIT = "ok";
 
     private static String indentAndBreak(String line, int indentSpaceCount) {
