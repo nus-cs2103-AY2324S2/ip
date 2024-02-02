@@ -86,4 +86,14 @@ public class TaskList {
         return task;
     }
 
+    public TaskList filter(String queryString) {
+        ArrayList<Task> newList = new ArrayList<>();
+        for (Task task : this.taskList) {
+            if (task.getDescription().contains(queryString)) {
+                newList.add(task);
+            }
+        }
+        return new TaskList(newList);
+    }
+
 }

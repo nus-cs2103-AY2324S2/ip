@@ -5,6 +5,8 @@ import tasks.TaskList;
 import main.java.Ui;
 import main.java.Storage;
 
+import java.util.ArrayList;
+
 public enum Command {
     BYE {
         @Override
@@ -77,7 +79,18 @@ public enum Command {
             ui.triggerDeleteMessage(task);
             storage.saveTasks(tasks);
         }
-    };
+    },
+    FIND {
+        @Override
+        public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
+            String[] inputs = message.split(" ");
+            String queryString = inputs[1];
+            ArrayList<Task> tempList = new ArrayList<>();
+            TaskList tempTaskList = tasks.filter(queryString);
+            tempTaskList.yapTasks();
+        }
+    }
+    ;
 
     public void execute(TaskList tasks, Ui ui, Storage storage, String message) {
         throw new UnsupportedOperationException("This command does not take any arguments.");
