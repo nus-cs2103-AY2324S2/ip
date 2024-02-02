@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
     private static final String FILE_PATH = "./src/main/java/data.txt";
@@ -94,9 +98,13 @@ public class Duke {
                         tasks.add(todo);
                         break;
                     case "D":
-                        Deadline deadline = new Deadline(parts[2], parts[3]);
-                        if (parts[1].equals("1")) deadline.mark();
-                        tasks.add(deadline);
+                        try {
+                            Deadline deadline = new Deadline(parts[2], parts[3]);
+                            if (parts[1].equals("1")) deadline.mark();
+                            tasks.add(deadline);
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Error parsing date for task '" + parts[2] + "': " + e.getMessage());
+                        }
                         break;
                     case "E":
                         Event event = new Event(parts[2], parts[3], parts[4]);
@@ -130,7 +138,8 @@ public class Duke {
         String description = task.description;
         if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            return type + " | " + status + " | " + description + " | " + deadline.by;
+            String formattedBy = deadline.by.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            return type + " | " + status + " | " + description + " | " + formattedBy;
         } else if (task instanceof Event) {
             Event event = (Event) task;
             return type + " | " + status + " | " + description + " | " + event.start + " | " + event.end;
@@ -179,16 +188,20 @@ public class Duke {
     }
 
     static class Deadline extends Task {
-        protected String by;
+        protected LocalDateTime by;
 
         public Deadline(String description, String by) {
             super(description);
-            this.by = by;
+            try {
+                this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use d/M/yyyy HHmm, e.g., 2/12/2019 1800");
+            }
         }
 
         @Override
         public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+            return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm")) + ")";
         }
     }
 
