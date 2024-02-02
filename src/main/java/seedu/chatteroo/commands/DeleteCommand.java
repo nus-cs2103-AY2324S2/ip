@@ -9,6 +9,11 @@ import seedu.chatteroo.storage.Storage;
  */
 public class DeleteCommand extends Command {
     private int taskNum;
+
+    /**
+     * Constructor for the DeleteCommand class.
+     * @param taskNum The task number.
+     */
     public DeleteCommand(int taskNum) {
         super();
         this.taskNum = taskNum;

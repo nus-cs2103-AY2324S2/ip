@@ -9,6 +9,11 @@ import seedu.chatteroo.storage.Storage;
  */
 public class MarkCommand extends Command {
     private int taskNum;
+
+    /**
+     * Constructor for the MarkCommand class.
+     * @param taskNum The task number.
+     */
     public MarkCommand(int taskNum) {
         super();
         this.taskNum = taskNum;
