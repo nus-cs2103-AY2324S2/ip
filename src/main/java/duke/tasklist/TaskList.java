@@ -24,7 +24,7 @@ public class TaskList {
 
     public String list() {
         if (list.size() == 0) {
-            return "The list is empty";
+            return "The list is empty" + System.lineSeparator();
         }
         int index = 1;
         String output = "Here are the tasks in your list" + System.lineSeparator();
