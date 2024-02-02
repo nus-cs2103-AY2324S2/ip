@@ -10,7 +10,7 @@ repositories {
 
 dependencies {
     String javaFxVersion = '17.0.7'
-    
+
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 
@@ -47,7 +47,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "checkbot.jar"
+    archiveBaseName = "checkbot"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

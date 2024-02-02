@@ -11,6 +11,7 @@ event test
 event test /from /to
 event test /from beginning of time /to
 event test /from /to end of time
+find book
 mark 1
 mark 4
 unmark 1
