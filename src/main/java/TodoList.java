@@ -17,18 +17,33 @@ public class TodoList {
     }
 
     public String[] addTodo(String description) {
-        Task task = new Todo(description);
+        Task task = new Todo(description, false);
         return add(task);
+    }
+
+    public void addTodo(String description, boolean isDone) {
+        Task task = new Todo(description, isDone);
+        add(task);
     }
 
     public String[] addDeadline(String description, String by) {
-        Task task = new Deadline(description, by);
+        Task task = new Deadline(description, by, false);
         return add(task);
     }
 
+    public void addDeadline(String description, String by, boolean isDone) {
+        Task task = new Deadline(description, by, isDone);
+        add(task);
+    }
+
     public String[] addEvent(String description, String from, String to) {
-        Task task = new Event(description, from, to);
+        Task task = new Event(description, from, to, false);
         return add(task);
+    }
+
+    public void addEvent(String description, String from, String to, boolean isDone) {
+        Task task = new Event(description, from, to, isDone);
+        add(task);
     }
 
     public String[] getList() {
