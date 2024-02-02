@@ -9,12 +9,17 @@ import task.ToDo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
     private String filePath;
     private File f;
+
+    private static final DateTimeFormatter DATETIME_PARSE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     
     public Storage(String filePath) throws DukeException {
         this.filePath = filePath;
@@ -50,12 +55,12 @@ public class Storage {
                         ToDo newToDo = new ToDo(taskDescription, isDone);
                         taskArrayList.add(newToDo);
                     } else if (taskType.equals("D")) {
-                        String deadlineBy = taskArgs[3];
+                        LocalDateTime deadlineBy = LocalDateTime.parse(taskArgs[3], DATETIME_PARSE_FORMATTER);
                         Deadline newDeadline = new Deadline(taskDescription, isDone, deadlineBy);
                         taskArrayList.add(newDeadline);
                     } else if (taskArgs[0].equals("E")) {
-                        String eventFrom = taskArgs[3];
-                        String eventTo = taskArgs[4];
+                        LocalDateTime eventFrom = LocalDateTime.parse(taskArgs[3], DATETIME_PARSE_FORMATTER);
+                        LocalDateTime eventTo = LocalDateTime.parse(taskArgs[4], DATETIME_PARSE_FORMATTER);
                         Event newEvent = new Event(taskDescription, isDone, eventFrom, eventTo);
                         taskArrayList.add(newEvent);
                     } else {
@@ -63,12 +68,15 @@ public class Storage {
                     }
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeException("Sorry, tasks seem to have missing arguments.");
+                } catch (DateTimeParseException e) {
+                    throw new DukeException("Sorry, task seems to have corrupted datetime. " +
+                            "The format should be yyyy-mm-dd hh:mm");
                 }
             }
             tasklistScanner.close();
         } catch (IOException e) {
             throw new DukeException(e.getMessage());
-        }
+        } 
         return taskArrayList;
     }
     

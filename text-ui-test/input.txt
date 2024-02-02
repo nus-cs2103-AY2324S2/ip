@@ -2,10 +2,10 @@ aaa
 todo 
 todo read book
 deadline assignment /by
-deadline assignment /by 2pm
-event dinner /from 5pm /to
+deadline assignment /by 2024-02-02 20:24
 event dinner /from 5pm /to 7pm
-event party /to 9pm /from 7pm
+event dinner /from 2024-02-02 18:00 /to 2024-02-02 20:30 
+event party /to 2024-02-02 23:59 /from 2024-02-02 21:00
 mark 2
 mark 3
 list

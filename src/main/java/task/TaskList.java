@@ -3,16 +3,20 @@ package task;
 import exception.DukeException;
 import storage.Storage;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> taskList;
     private Storage storage;
 
+    private static final DateTimeFormatter DATETIME_PARSE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     public TaskList() throws DukeException {
-        this.taskList = new ArrayList<>();
         this.storage = new Storage("./data/tasklist.txt");
-        this.taskList = this.storage.loadStorage(this.taskList);
+        this.taskList = this.storage.loadStorage(new ArrayList<>());
     }
     
     public int size() {
@@ -48,16 +52,30 @@ public class TaskList {
         printNewTask(newTask);
     }
 
-    public void addDeadlineToList(String taskDescription, String by) {
-        Task newTask = new Deadline(taskDescription, by);
-        taskList.add(newTask);
-        printNewTask(newTask);
+    public void addDeadlineToList(String taskDescription, String by) throws DukeException {
+        try {
+            LocalDateTime deadlineBy = LocalDateTime.parse(by, DATETIME_PARSE_FORMATTER);
+            Task newTask = new Deadline(taskDescription, deadlineBy);
+            taskList.add(newTask);
+            printNewTask(newTask);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Sorry, /by field datetime should use the following format: " +
+                    "[yyyy-mm-dd hh:mm].");
+        }
     }
 
-    public void addEventToList(String taskDescription, String from, String to) {
-        Task newTask = new Event(taskDescription, from, to);
-        taskList.add(newTask);
-        printNewTask(newTask);
+    public void addEventToList(String taskDescription, String from, String to) throws DukeException {
+        try {
+            LocalDateTime eventFrom = LocalDateTime.parse(from, DATETIME_PARSE_FORMATTER);
+            LocalDateTime eventTo = LocalDateTime.parse(to, DATETIME_PARSE_FORMATTER);
+            Task newTask = new Event(taskDescription, eventFrom, eventTo);
+            taskList.add(newTask);
+            printNewTask(newTask);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Sorry, /from and /to field datetime should use the following format: " +
+                    "[yyyy-mm-dd hh:mm].");
+        }
+        
     }
 
     public void printNewTask(Task newTask) {

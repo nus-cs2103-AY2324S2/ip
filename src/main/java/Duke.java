@@ -1,11 +1,15 @@
 import exception.DukeException;
 import task.TaskList;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
     private boolean isRunning;
     private TaskList taskList;
+    
+    private static final DateTimeFormatter DATE_PARSE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public static void main(String[] args) {
         Duke duke = new Duke();
@@ -28,7 +32,6 @@ public class Duke {
         try {
             this.taskList = new TaskList();
         } catch (DukeException e) {
-            printMessage(e.getMessage());
             printMessage("Exiting as tasklist.txt is corrupted.");
             this.isRunning = false;
         }
@@ -44,6 +47,12 @@ public class Duke {
                 printLine();
             }
         }
+        try {
+            taskList.saveTasks();
+        } catch (DukeException e) {
+            printMessage(e.getMessage());
+        }
+        
     }
 
     public void parseInput(String userInput) throws DukeException {
@@ -108,13 +117,16 @@ public class Duke {
     public String[] validateDeadlineInput(String deadlineInput) throws DukeException {
         String[] deadlineAttributes = deadlineInput.replace("deadline ", "")
                 .strip().split("\\s+/by\\s+");
+        
         if (deadlineAttributes.length != 2) {
-            throw new DukeException("Sorry, purr-lease use the format: deadline [description] /by [deadline].");
+            throw new DukeException("Sorry, purr-lease use the format: " +
+                    "deadline [description] /by [yyyy-mm-dd hh:mm].");
         } else if (deadlineAttributes[0].isBlank()) {
             throw new DukeException("Apurrlogies, the task description cannot be empty.");
         } else if (deadlineAttributes[1].isBlank()) {
             throw new DukeException("Apurrlogies, the /by field cannot be empty.");
         }
+        
         return deadlineAttributes;
     }
 
@@ -122,12 +134,13 @@ public class Duke {
         String[] eventAttributes = new String[3];
         String[] tempAttributes = eventInput.replace("event ", "")
                 .strip().split("\\s+/from\\s+|\\s+/to\\s+");
-
+        
         int fromIndex = eventInput.indexOf("/from");
         int toIndex = eventInput.indexOf("/to");
-
+        
         if (tempAttributes.length != 3) {
-            throw new DukeException("Sorry, purr-lease use the format: event [description] /from [datetime] /to [datetime]");
+            throw new DukeException("Sorry, purr-lease use the format: " +
+                    "event [description] /from [yyyy-mm-dd hh:mm] /to [yyyy-mm-dd hh:mm]");
         } else if (fromIndex == -1 || toIndex == -1) {
             throw new DukeException("Sorry, purr-lease remember to include the /from and /to fields.");
         } else if (tempAttributes[0].isBlank()) {
