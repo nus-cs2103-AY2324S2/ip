@@ -1,12 +1,22 @@
 package kaiyap;
 
+import java.util.ArrayList;
+
 import exceptions.AlreadyExistsException;
 import exceptions.InvalidInputException;
 import exceptions.KaiYapException;
 import exceptions.MissingInputException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
+/**
+ * Represents the main class for the KaiYap application, which is a task management system.
+ * It integrates components for user interaction, task storage, task list management, and command parsing.
+ * This class also includes the methods to start the chat interface and handle user inputs.
+ */
 public class KaiYap {
 
     private final Ui ui;
@@ -14,16 +24,37 @@ public class KaiYap {
     private final TaskList taskList;
     private final Parser parser;
 
+    /**
+     * Enumerates the types of tasks that can be managed by the KaiYap application.
+     * The task types include DEADLINE for tasks with a specific deadline,
+     * EVENT for scheduled events, and TODO for tasks without a specific time constraint.
+     */
     public enum TaskType {
-        TODO, DEADLINE, EVENT
+        DEADLINE, EVENT, TODO
     }
 
+    /**
+     * Initializes a new instance of the KaiYap application.
+     * This constructor sets up the user interface, task list, storage, and parser components,
+     * and prepares the system for user interaction.
+     * The storage path is set to the user's home directory under a specific sub-folder for data storage.
+     */
     public KaiYap() {
+        ScrollPane scrollPane = new ScrollPane();
+        VBox dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        TextField userInput = new TextField();
+        Button sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
         this.ui = new Ui();
         this.taskList = new TaskList(ui);
         this.ui.setTaskList(this.taskList);
         this.storage = new Storage(ui, taskList, System.getProperty("user.home") + "/data/", "kaiyap.txt");
         this.parser = new Parser();
+        storage.loadData();
     }
 
     /**
@@ -32,52 +63,32 @@ public class KaiYap {
      * processes it, and performs actions such as listing tasks, marking tasks as done or undone,
      * deleting tasks, or adding new tasks. The loop terminates when the user inputs "bye".
      */
-    public void startChat() {
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine().strip();
-        while (!input.equals("bye")) {
-            String action = parser.decideAction(input);
+    public String chatResponse(String input) {
+        input = input.strip();
+        if (input.equals("bye")) {
+            return ui.sayBye();
+        }
+        String action = parser.decideAction(input);
+        try {
             switch (action) {
             case "listInputs":
-                ui.listInputs();
-                break;
+                return ui.listInputs();
             case "mark":
-                try {
-                    this.markAsDone(input);
-                } catch (KaiYapException e) {
-                    ui.printError(e.getMessage());
-                }
-                break;
+                return this.markAsDone(input);
             case "unmark":
-                try {
-                    this.unmarkDone(input);
-                } catch (KaiYapException e) {
-                    ui.printError(e.getMessage());
-                }
-                break;
+                return this.unmarkDone(input);
             case "find":
-                try {
-                    this.findTasks(input);
-                } catch (KaiYapException e) {
-                    ui.printError(e.getMessage());
-                }
-                break;
+                return this.findTasks(input);
             case "delete":
-                try {
-                    this.deleteTask(input);
-                } catch (KaiYapException e) {
-                    ui.printError(e.getMessage());
-                }
-                break;
+                return this.deleteTask(input);
             default:
                 Task task = taskList.taskCreator(input);
-                if (task != null) {
-                    this.taskList.add(task);
-                    this.echo(task);
-                    storage.saveData();
-                }
+                this.taskList.add(task);
+                storage.saveData();
+                return this.ui.echo(task);
             }
-            input = sc.nextLine().strip();
+        } catch (KaiYapException e) {
+            return this.ui.printError(e.getMessage());
         }
     }
 
@@ -88,9 +99,11 @@ public class KaiYap {
      * @param input A string containing the command and index of the task to be deleted.
      * @throws KaiYapException If the input is missing, invalid, or if the task does not exist.
      */
-    void findTasks(String input) throws KaiYapException {
+    public String findTasks(String input) throws KaiYapException {
         if (input.length() <= 5) {
-            throw new MissingInputException("\tSorry, it seems like there is some missing input. Please try again! UwU :3");
+            throw new MissingInputException(
+                    "\tSorry, it seems like there is some missing input. Please try again! UwU :3"
+            );
         }
         String searchPhrase = input.substring(5).toUpperCase();
         ArrayList<Task> tasksFound = new ArrayList<>();
@@ -102,7 +115,7 @@ public class KaiYap {
         if (tasksFound.isEmpty()) {
             throw new InvalidInputException("\tSorry, no such tasks exist. Please try again! UwU :3");
         } else {
-            ui.printTasksFound(tasksFound);
+            return ui.printTasksFound(tasksFound);
         }
     }
 
@@ -113,31 +126,20 @@ public class KaiYap {
      * @param input A string containing the command and index of the task to be deleted.
      * @throws KaiYapException If the input is missing, invalid, or if the task does not exist.
      */
-    void deleteTask(String input) throws KaiYapException {
+    public String deleteTask(String input) throws KaiYapException {
         if (input.length() <= 7) {
-            throw new MissingInputException("\tSorry, it seems like there is some missing input. Please try again! UwU :3");
+            throw new MissingInputException(
+                    "\tSorry, it seems like there is some missing input. Please try again! UwU :3"
+            );
         }
         int numericIndex = Integer.parseInt(input.substring(7).strip()) - 1;
         if (numericIndex >= this.taskList.size()) {
             throw new InvalidInputException("\tSorry, this task does not exist. Please try again! UwU :3");
         } else {
-            ui.printTaskRemoved(taskList.get(numericIndex), taskList.size() - 1);
+            String output = ui.printTaskRemoved(taskList.get(numericIndex), taskList.size() - 1);
             taskList.remove(numericIndex);
+            return output;
         }
-    }
-
-    /**
-     * Displays the information about a newly added task.
-     * It prints a message confirming that the task has been added to the list
-     * and shows the total number of tasks currently in the list.
-     *
-     * @param task The task that has been added to the task list.
-     */
-    public void echo(Task task) {
-        System.out.println("\t____________________________________________________________\n" +
-                "\tGot it. I've added this task:\n\t\t" + task.toString() +
-                "\n\tYou now have " + this.taskList.size() + (this.taskList.size() == 1 ? " task" : " tasks") + " in the list.\n" +
-                "\t____________________________________________________________\n");
     }
 
     /**
@@ -148,9 +150,11 @@ public class KaiYap {
      * @param index A string containing the command and index of the task to be marked as done.
      * @throws KaiYapException If the input is missing, invalid, or if the task is already marked as done.
      */
-    public void markAsDone(String index) throws KaiYapException {
+    public String markAsDone(String index) throws KaiYapException {
         if (index.length() <= 5) {
-            throw new MissingInputException("\tSorry, it seems like there is some missing input. Please try again! UwU :3");
+            throw new MissingInputException(
+                    "\tSorry, it seems like there is some missing input. Please try again! UwU :3"
+            );
         }
         int numericIndex = Integer.parseInt(index.substring(5).strip()) - 1;
         if (numericIndex >= this.taskList.size()) {
@@ -159,13 +163,13 @@ public class KaiYap {
             throw new AlreadyExistsException("\tThis task has already been marked as done. Great job!");
         } else {
             taskList.get(numericIndex).setTaskDone(true);
-            System.out.println(
-                    "\t____________________________________________________________\n" +
-                            "\tNice! I've marked this task as done:\n" +
-                            "\t\t" + taskList.get(numericIndex).toString() +
-                            "\n\t____________________________________________________________"
-            );
             storage.saveData();
+            return (
+                    "\t____________________________________________________________\n"
+                            + "\tNice! I've marked this task as done:\n"
+                            + "\t\t" + taskList.get(numericIndex).toString()
+                            + "\n\t____________________________________________________________"
+                );
         }
     }
 
@@ -177,9 +181,11 @@ public class KaiYap {
      * @param index A string containing the command and index of the task to be marked as not done.
      * @throws KaiYapException If the input is missing, invalid, or if the task is already marked as not done.
      */
-    public void unmarkDone(String index) throws KaiYapException {
+    public String unmarkDone(String index) throws KaiYapException {
         if (index.length() <= 7) {
-            throw new MissingInputException("\tSorry, it seems like there is some missing input. Please try again! UwU :3");
+            throw new MissingInputException(
+                    "\tSorry, it seems like there is some missing input. Please try again! UwU :3"
+            );
         }
         int numericIndex = Integer.parseInt(index.substring(7).strip()) - 1;
         if (numericIndex >= taskList.size()) {
@@ -188,27 +194,13 @@ public class KaiYap {
             throw new AlreadyExistsException("\tThis task has already been marked as undone. Good luck!");
         } else {
             taskList.get(numericIndex).setTaskDone(false);
-            System.out.println(
-                    "\t____________________________________________________________\n" +
-                            "\tOK, I've marked this task as not done yet:\n" +
-                            "\t\t" + taskList.get(numericIndex).toString() +
-                            "\n\t____________________________________________________________"
-            );
             storage.saveData();
+            return (
+                    "\t____________________________________________________________\n"
+                            + "\tOK, I've marked this task as not done yet:\n"
+                            + "\t\t" + taskList.get(numericIndex).toString()
+                            + "\n\t____________________________________________________________"
+                );
         }
-    }
-
-    /**
-     * The main method to start the KaiYap application.
-     * It creates an instance of KaiYap, loads data, starts the chat interface, and handles the exit process.
-     *
-     * @param args Command line arguments (not used in this application).
-     */
-    public static void main(String[] args) {
-        KaiYap yap = new KaiYap();
-        yap.ui.sayHello();
-        yap.storage.loadData();
-        yap.startChat();
-        yap.ui.sayBye();
     }
 }

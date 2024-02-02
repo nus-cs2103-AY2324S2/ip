@@ -1,13 +1,20 @@
 package kaiyap;
 
-import java.io.File;
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import exceptions.KaiYapException;
+
+/**
+ * The Storage class handles the loading and saving of task data to and from a file for the KaiYap application.
+ * It works with a specified file path and file name to persist task information,
+ * allowing the application to maintain state between sessions.
+ */
 public class Storage {
     private final Ui ui;
     private final TaskList taskList;
@@ -44,13 +51,19 @@ public class Storage {
                     boolean isTaskDone;
                     isTaskDone = !line.substring(line.lastIndexOf(' ') + 1).equals("incomplete");
                     line = line.substring(0, line.lastIndexOf(' '));
-                    Task task = taskList.taskCreator(line);
-                    task.setTaskDone(isTaskDone);
-                    this.taskList.add(task);
+                    try {
+                        Task task = taskList.taskCreator(line);
+                        task.setTaskDone(isTaskDone);
+                        this.taskList.add(task);
+                    } catch (KaiYapException e) {
+                        //noinspection CallToPrintStackTrace
+                        e.printStackTrace();
+                    }
                 }
             }
         } catch (IOException e) {
-            ui.printError("\tUnfortunately, an error occurred. Please try again! We try our utmost best to satisfy you. UwU :3");
+            ui.printError("\tUnfortunately, an error occurred. Please try again! "
+                    + "We try our utmost best to satisfy you. UwU :3");
         }
     }
 
@@ -62,11 +75,12 @@ public class Storage {
         try {
             PrintWriter writer = new PrintWriter(dataPath + fileName);
             for (int i = 0; i < taskList.size(); i++) {
-                writer.println(taskList.get(i).getInputItem() + taskList.get(i).isTaskDone());
+                writer.println(taskList.get(i).getInputItem() + " " + taskList.get(i).isTaskDone());
             }
             writer.close();
         } catch (IOException e) {
-            ui.printError("\tUnfortunately, an error occurred. Please try again! We try our utmost best to satisfy you. UwU :3");
+            ui.printError("\tUnfortunately, an error occurred. Please try again! "
+                    + "We try our utmost best to satisfy you. UwU :3");
         }
     }
 }
