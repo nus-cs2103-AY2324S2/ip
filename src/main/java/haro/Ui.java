@@ -1,3 +1,6 @@
+package haro;
+
+import haro.task.Task;
 import java.util.Scanner;
 
 public class Ui {

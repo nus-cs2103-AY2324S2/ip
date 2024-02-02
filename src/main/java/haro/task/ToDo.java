@@ -1,3 +1,7 @@
+package haro.task;
+
+import haro.task.Task;
+
 public class ToDo extends Task {
     public ToDo(String task) {
         super(task);

@@ -1,3 +1,8 @@
+package haro.command;
+
+import haro.Storage;
+import haro.TaskList;
+import haro.Ui;
 public abstract class Command {
     protected boolean isDone;
     public Command(boolean isDone) {
