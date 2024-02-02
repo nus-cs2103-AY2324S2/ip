@@ -11,15 +11,14 @@ import java.io.File;
 public class TaskDao {
 
     /**
-     *
-     * @param id the id of the task
+     * @param id   the id of the task
      * @param NAME the file name of the object to update. e.g. if marking a todo, then it should be value of
      *             TodoDao NAME
      * @param task The task to modify and update
      * @param done Whether it should be marked as done or not
      * @return
      */
-    public static Task mark(long id, String NAME, Task task, boolean done) {
+    public static Task mark (long id, String NAME, Task task, boolean done) {
         File table = Database.getTable(NAME);
         task.setDone(done);
         String data = task.toDataString();
@@ -27,14 +26,14 @@ public class TaskDao {
         return task;
     }
 
-    public static void add(String NAME, Task task) {
+    public static void add (String NAME, Task task) {
         File table = Database.getTable(NAME);
         String data = task.toDataString();
         long id = Database.create(table.toPath(), data);
         task.setId(id);
     }
 
-    public static void delete(String NAME, long id) {
+    public static void delete (String NAME, long id) {
         File table = Database.getTable(NAME);
         Database.delete(table.toPath(), id);
     }

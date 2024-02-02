@@ -3,15 +3,19 @@ package baron.Database;
 import baron.Utils.FileUtils;
 import baron.Utils.StringUtils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
 public class Database {
-    private static final String FILE_PATH = "database.db";
     public static final String BASE_DIR = System.getProperty("user.dir");
-    public static File getTable(String fileName) {
+    private static final String FILE_PATH = "database.db";
+
+    public static File getTable (String fileName) {
         try {
             String filePath = BASE_DIR + "/" + fileName + ".txt";
             File db = new File(filePath);
@@ -25,7 +29,7 @@ public class Database {
         return null;
     }
 
-    public static long create(Path filePath, String line) {
+    public static long create (Path filePath, String line) {
         try {
             long count = Files.lines(filePath).count();
             long id = count;
@@ -43,7 +47,7 @@ public class Database {
         return -1; // -1 indicates error
     }
 
-    public static String findById(String filePath, int id) {
+    public static String findById (String filePath, int id) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line = reader.readLine();
@@ -60,7 +64,12 @@ public class Database {
         }
     }
 
-    public static void updateById(Path filePath, long id, String newLine) {
+    private static int findId (String line) {
+        String[] segments = StringUtils.splitDataString(line);
+        return Integer.parseInt(segments[0]);
+    }
+
+    public static void updateById (Path filePath, long id, String newLine) {
         newLine = id + " | " + newLine;
         List<String> lines = FileUtils.read(filePath);
         for (int i = 0; i < lines.size(); i++) {
@@ -73,7 +82,7 @@ public class Database {
         FileUtils.write(filePath, lines);
     }
 
-    public static void delete(Path filePath, long id) {
+    public static void delete (Path filePath, long id) {
         List<String> lines = FileUtils.read(filePath);
         int idToDelete = -1;
         for (int i = 0; i < lines.size(); i++) {
@@ -87,10 +96,5 @@ public class Database {
         }
         lines.remove(idToDelete);
         FileUtils.write(filePath, lines);
-    }
-
-    private static int findId(String line) {
-        String[] segments = StringUtils.splitDataString(line);
-        return Integer.parseInt(segments[0]);
     }
 }

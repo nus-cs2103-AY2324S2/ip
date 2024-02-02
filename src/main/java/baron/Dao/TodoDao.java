@@ -12,23 +12,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TodoDao extends TaskDao {
-  public static final String NAME = TaskType.TODO.getCommand();
-  public static Todo getFrom(String input) {
-    String value = StringUtils.getValueOfCommand(input, TodoDao.NAME, null);
-    return new Todo(value);
-  }
+    public static final String NAME = TaskType.TODO.getCommand();
 
-  public static List<Todo> getTodos() {
-    File table = Database.getTable(NAME);
-    List<Todo> todos = new ArrayList<>();
-    try {
-      Files.lines(table.toPath()).forEach(line -> {
-        Todo todo = Todo.fromDataString(line);
-        todos.add(todo);
-      });
-    } catch (IOException ex) {
-      ex.printStackTrace();
+    public static Todo getFrom (String input) {
+        String value = StringUtils.getValueOfCommand(input, TodoDao.NAME, null);
+        return new Todo(value);
     }
-    return todos;
-  }
+
+    public static List<Todo> getTodos () {
+        File table = Database.getTable(NAME);
+        List<Todo> todos = new ArrayList<>();
+        try {
+            Files.lines(table.toPath()).forEach(line -> {
+                Todo todo = Todo.fromDataString(line);
+                todos.add(todo);
+            });
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return todos;
+    }
 }

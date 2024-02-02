@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FileUtils {
 
-    public static List<String> read(Path filePath) {
+    public static List<String> read (Path filePath) {
         List<String> lines = new ArrayList<>();
         try {
             lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
@@ -19,7 +19,7 @@ public class FileUtils {
         return lines;
     }
 
-    public static void write(Path filePath, List<String> lines) {
+    public static void write (Path filePath, List<String> lines) {
         try {
             Files.write(filePath, lines, StandardCharsets.UTF_8);
         } catch (IOException ex) {
