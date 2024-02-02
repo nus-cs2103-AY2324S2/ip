@@ -34,6 +34,8 @@ public class Parser {
                 return parseDeadlineCommand(parts);
             case "event":
                 return parseEventCommand(parts);
+            case "find":
+                return new FindCommand(parts[1]);
             default:
                 throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
