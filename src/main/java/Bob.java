@@ -1,11 +1,9 @@
-import java.io.File;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bob {
-    private static final Scanner SCANNER = new Scanner(System.in);
 
     private static final ArrayList<Task> TASKS = new ArrayList<>();
 
@@ -49,10 +47,10 @@ public class Bob {
     public static Task addTask(String taskType, String[] parameters) {
         Task task;
         switch (taskType) {
-            case Commands.TODO:
+            case Parser.TODO:
                 task = new Todo(parameters[0]);
                 break;
-            case Commands.DEADLINE:
+            case Parser.DEADLINE:
                 task = new Deadline(parameters[0], parameters[1]);
                 break;
             default:
@@ -80,16 +78,9 @@ public class Bob {
         Storage.load();
         Ui.print(Ui.GREET);
 
-        while (true) {
-            String command = SCANNER.nextLine();
-            String[] commandArgs = command.split(" ", 2);
-
-            if (commandArgs[0].equals(Commands.EXIT)) {
-                Ui.print(Ui.EXIT);
-                break;
-            }
-
-            Commands.processCommands(commandArgs);
+        boolean isNotExit = true;
+        while (isNotExit) {
+            isNotExit = Parser.listen();
         }
     }
 }

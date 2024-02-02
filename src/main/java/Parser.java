@@ -1,4 +1,7 @@
-public class Commands {
+import java.util.Scanner;
+
+public class Parser {
+    private static final Scanner SCANNER = new Scanner(System.in);
     public static final String EXIT = "exit";
     public static final String LIST = "list";
     public static final String MARK = "mark";
@@ -19,8 +22,8 @@ public class Commands {
             splitString = splitString[0].split(" /" + parameters[i] + ' ', 2);
             if (splitString.length == 1) {
                 // This implies the last missing parameter will be displayed, rather than the first
-                // "deadline /by 11/10/2019 5pm" will trigger parameter "by" not found
-                // "event /from 2/10/2019 2pm /to 4pm" will trigger parameter "from" not found
+                // "deadline /by 2019-10-11" will trigger parameter "by" not found
+                // "event /from 2019-10-02 /to 2019-10-02" will trigger parameter "from" not found
                 throw new ParameterNotFoundException(parameters[i]);
             }
             result[i + 1] = splitString[1];
@@ -34,10 +37,10 @@ public class Commands {
     public static void processDeleteOrMarkCommands(String[] commandArgs) throws NumberFormatException,
             InvalidTaskIndexException, ArrayIndexOutOfBoundsException {
         int taskIndex = Integer.parseInt(commandArgs[1]) - 1;
-        if (commandArgs[0].equals(Commands.DELETE)) {
+        if (commandArgs[0].equals(Parser.DELETE)) {
             Bob.handleDelete(taskIndex);
         } else {
-            Bob.handleMark(taskIndex, commandArgs[0].equals(Commands.MARK));
+            Bob.handleMark(taskIndex, commandArgs[0].equals(Parser.MARK));
         }
     }
 
@@ -48,20 +51,20 @@ public class Commands {
 
         // TODO: map each task type to a list of parameters
         // Undefined behaviour when there are multiple instances of the same parameter
-        // e.g. event project meeting /from 2/10/2019 2pm /to 4pm /from 4/10/2019 /to 11/10/2019
+        // e.g. event project meeting /from 2019-10-02 /to 2019-10-02 /from 2019-10-04 /to 2019-10-04
         try {
             String[] parameters;
             switch (commandArgs[0]) {
-                case Commands.TODO:
-                    parameters = Commands.extractParameters(commandArgs[1], new String[]{});
+                case Parser.TODO:
+                    parameters = Parser.extractParameters(commandArgs[1], new String[]{});
                     Bob.handleAdd(commandArgs[0], parameters);
                     break;
-                case Commands.DEADLINE:
-                    parameters = Commands.extractParameters(commandArgs[1], new String[]{ "by" });
+                case Parser.DEADLINE:
+                    parameters = Parser.extractParameters(commandArgs[1], new String[]{ "by" });
                     Bob.handleAdd(commandArgs[0], parameters);
                     break;
                 default:
-                    parameters = Commands.extractParameters(commandArgs[1], new String[] { "from", "to" });
+                    parameters = Parser.extractParameters(commandArgs[1], new String[] { "from", "to" });
                     Bob.handleAdd(commandArgs[0], parameters);
             }
         } catch (ParameterNotFoundException e) {
@@ -69,16 +72,24 @@ public class Commands {
         }
     }
 
-    public static void processCommands(String[] commandArgs) {
+    public static boolean listen() {
+        String command = SCANNER.nextLine();
+        String[] commandArgs = command.split(" ", 2);
+
+        if (commandArgs[0].equals(Parser.EXIT)) {
+            Ui.print(Ui.EXIT);
+            return false;
+        }
+
         switch (commandArgs[0]) {
-        case Commands.LIST:
+        case Parser.LIST:
             Bob.handleList();
             break;
-        case Commands.DELETE:
+        case Parser.DELETE:
             // Fallthrough
-        case Commands.UNMARK:
+        case Parser.UNMARK:
             // Fallthrough
-        case Commands.MARK:
+        case Parser.MARK:
             try {
                 processDeleteOrMarkCommands(commandArgs);
             } catch (NumberFormatException e) {
@@ -91,11 +102,11 @@ public class Commands {
                 Ui.print(String.format(Ui.EMPTY_DESCRIPTION, commandArgs[0]));
             }
             break;
-        case Commands.TODO:
+        case Parser.TODO:
             // Fallthrough
-        case Commands.DEADLINE:
+        case Parser.DEADLINE:
             // Fallthrough
-        case Commands.EVENT:
+        case Parser.EVENT:
             try {
                 processAddCommands(commandArgs);
             } catch (EmptyDescriptionException e) {
@@ -109,5 +120,7 @@ public class Commands {
                 Ui.print(e.getMessage());
             }
         }
+
+        return true;
     }
 }
