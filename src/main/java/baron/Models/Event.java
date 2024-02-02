@@ -1,5 +1,5 @@
-package Models;
-public class Event extends Task {
+package baron.Models;
+public class Event extends baron.Models.Task {
 
   private String startDate;
   private String endDate;

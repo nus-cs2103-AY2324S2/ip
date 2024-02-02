@@ -1,4 +1,4 @@
-package Utils;
+package baron.Utils;
 public class StringUtils {
 
   /**

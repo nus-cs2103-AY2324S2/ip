@@ -1,16 +1,11 @@
-import java.time.LocalDateTime;
+package baron;
+
 import java.util.Scanner;
 
-import Managers.TaskManager;
+import baron.Managers.TaskManager;
 
-public class Duke {
+public class Baron {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
         System.out.println("Hello, I'm Baron. What can I do for you?");
         Scanner scanner = new Scanner(System.in);
 

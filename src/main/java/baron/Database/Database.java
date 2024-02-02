@@ -1,7 +1,7 @@
-package Database;
+package baron.Database;
 
-import Utils.FileUtils;
-import Utils.StringUtils;
+import baron.Utils.FileUtils;
+import baron.Utils.StringUtils;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Database {
     private static final String FILE_PATH = "database.db";
-    public static final String BASE_DIR = System.getProperty("user.dir") + "/src/main/java/Database";
+    public static final String BASE_DIR = System.getProperty("user.dir") + "/src/main/java/baron/Database";
     public static File getTable(String fileName) {
 
         try {

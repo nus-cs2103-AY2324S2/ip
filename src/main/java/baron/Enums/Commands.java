@@ -1,4 +1,4 @@
-package Enums;
+package baron.Enums;
 
 public enum Commands {
   LIST("list"),

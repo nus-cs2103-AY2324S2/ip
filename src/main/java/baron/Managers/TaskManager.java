@@ -1,18 +1,18 @@
-package Managers;
+package baron.Managers;
 import java.util.ArrayList;
 import java.util.List;
 
-import Dao.DeadlineDao;
-import Dao.EventDao;
-import Dao.TaskDao;
-import Dao.TodoDao;
-import Enums.Commands;
-import Enums.TaskType;
-import Models.Deadline;
-import Models.Event;
-import Models.Task;
-import Models.Todo;
-import Utils.StringUtils;
+import baron.Dao.DeadlineDao;
+import baron.Dao.EventDao;
+import baron.Dao.TaskDao;
+import baron.Dao.TodoDao;
+import baron.Enums.Commands;
+import baron.Enums.TaskType;
+import baron.Models.Deadline;
+import baron.Models.Event;
+import baron.Models.Task;
+import baron.Models.Todo;
+import baron.Utils.StringUtils;
 
 // TODO: Stretch goal: add exceptions for marking and listing non-existent indexes
 public class TaskManager {
