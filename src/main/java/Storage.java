@@ -25,10 +25,6 @@ public class Storage {
     public ArrayList<Task> load() throws ZackException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
         File file = new File(filePath);
-        if (!file.exists()) {
-            throw new ZackException("Task file not found.");
-        }
-
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
@@ -38,7 +34,7 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new ZackException("Error loading tasks: " + e.getMessage());
+            throw new ZackException("Task file not found. A new file will be created upon adding to task list.");
         }
         return loadedTasks;
     }
