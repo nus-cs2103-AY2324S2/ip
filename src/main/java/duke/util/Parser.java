@@ -51,6 +51,9 @@ public class Parser {
             char pos = inputCommand.charAt(7);
             int index = Integer.parseInt(String.valueOf(pos));
             tasklist.deleteTask(index);
+        } else if (inputCommand.startsWith("find")) {
+            String keyword = inputCommand.substring(5);
+            tasklist.findTask(keyword);
         } else {
             System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
