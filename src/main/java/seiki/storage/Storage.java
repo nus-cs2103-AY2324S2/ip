@@ -20,6 +20,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the {@code TaskList} data from this storage file, and then returns it.
+     * Returns an empty {@code TaskList} if the file does not exist, or is not a regular file.
+     * @throws SeikiException if there were errors reading and/or converting data from file.
+     */
     public TaskList load() throws SeikiException {
 
         try {
@@ -43,6 +48,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the {@code taskList} data to the storage file.
+     * @param taskList
+     * @throws SeikiException if there were errors converting and/or storing data to file.
+     */
     public void save(TaskList taskList) throws SeikiException {
         try {
             ArrayList<String> encodedTaskList = TaskListEncoder.encodeTaskList(taskList);

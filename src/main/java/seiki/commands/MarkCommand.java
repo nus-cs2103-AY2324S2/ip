@@ -8,6 +8,9 @@ import seiki.data.task.Task;
 import seiki.storage.Storage;
 import seiki.ui.Ui;
 
+/**
+ * Represents the 'mark' command.
+ */
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
     private ArrayList<String> args;

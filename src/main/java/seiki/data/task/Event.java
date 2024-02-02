@@ -3,16 +3,32 @@ package seiki.data.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an Event.
+ */
 public class Event extends Task {
     protected LocalDateTime startDateTime;
     protected LocalDateTime endDateTime;
 
+    /**
+     * Constructor of the Event.
+     * @param taskName      the title of the task.
+     * @param startDateTime the start date & time of the task.
+     * @param endDateTime   the end date & time of the task.
+     */
     public Event(String taskName, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         super(taskName);
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
     }
 
+    /**
+     * Constructor of the Event with status set.
+     * @param taskName      the title of the task.
+     * @param startDateTime the start date & time of the task.
+     * @param endDateTime   the end date & time of the task.
+     * @param isDone        the status of the task.
+     */
     public Event(String taskName, LocalDateTime startDateTime, LocalDateTime endDateTime, boolean isDone) {
         super(taskName, isDone);
         this.startDateTime = startDateTime;

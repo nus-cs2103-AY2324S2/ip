@@ -8,6 +8,9 @@ import seiki.data.task.ToDo;
 import seiki.storage.Storage;
 import seiki.ui.Ui;
 
+/**
+ * Represents the 'todo' command.
+ */
 public class ToDoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
     private ArrayList<String> args;

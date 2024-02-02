@@ -5,6 +5,9 @@ import seiki.data.exception.SeikiException;
 import seiki.storage.Storage;
 import seiki.ui.Ui;
 
+/**
+ * Represents the 'bye' command.
+ */
 public class ByeCommand extends Command {
     public static final String COMMAND_WORD = "bye";
 
