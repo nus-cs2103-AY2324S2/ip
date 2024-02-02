@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DateUtilsTest {
     @Test
-    public void parseDateString_correctDateFormat_dateReturned () {
+    public void parseDateString_correctDateFormat_dateReturned() {
         String dateString = "9/10/1999 1600";
         LocalDateTime actual = DateUtils.parseDate(dateString);
         LocalDateTime expected = LocalDateTime.of(1999, 10, 9, 16, 0, 0);
@@ -17,7 +17,7 @@ public class DateUtilsTest {
     }
 
     @Test
-    public void parseDateString_incorrectDateFormat_dateReturned () {
+    public void parseDateString_incorrectDateFormat_dateReturned() {
         // Invalid day
         assertThrows(IllegalArgumentException.class, () -> {
             String dateString = "32/10/1999 1600";
@@ -38,7 +38,7 @@ public class DateUtilsTest {
     }
 
     @Test
-    public void parseDateString_missingValues_dateReturned () {
+    public void parseDateString_missingValues_dateReturned() {
         // No time
         assertThrows(IllegalArgumentException.class, () -> {
             String dateString = "32/10/1999";
@@ -53,7 +53,7 @@ public class DateUtilsTest {
     }
 
     @Test()
-    public void formatDate_dateStringReturned () {
+    public void formatDate_dateStringReturned() {
         LocalDateTime input = LocalDateTime.of(1999, 10, 9, 16, 0, 0);
         String actual = DateUtils.formatDate(input);
         String expected = "9/10/1999, 4PM";

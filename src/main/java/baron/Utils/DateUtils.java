@@ -13,7 +13,7 @@ public class DateUtils {
     public static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     public static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("d/MM/yyyy, ha");
 
-    public static LocalDateTime parseDate (String dateString) {
+    public static LocalDateTime parseDate(String dateString) {
         try {
             return LocalDateTime.parse(dateString, INPUT_FORMATTER);
         } catch (DateTimeParseException ex) {
@@ -28,7 +28,7 @@ public class DateUtils {
      * @param dateTime date time to format to string
      * @return returns in format of d/MM/yyyy, ha (e.g. /12/1999, 4PM)
      */
-    public static String formatDate (LocalDateTime dateTime) {
+    public static String formatDate(LocalDateTime dateTime) {
         try {
             return dateTime.format(OUTPUT_FORMATTER);
         } catch (DateTimeParseException ex) {

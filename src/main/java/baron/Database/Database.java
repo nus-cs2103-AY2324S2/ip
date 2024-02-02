@@ -22,6 +22,7 @@ public class Database {
     /**
      * Gets the File object from the BASE_DIR with the specified fileName.
      * Creates the file if it doesn't exist
+     *
      * @param fileName File name of the file to read from
      * @return the file object of the table
      */
@@ -41,8 +42,9 @@ public class Database {
 
     /**
      * Appends a new line to the end of the file
+     *
      * @param filePath Filepath to write
-     * @param line Line to append to the end of file
+     * @param line     Line to append to the end of file
      * @return the id of the newly appended line, which is actually just lineNumber - 1
      */
     public static long create(Path filePath, String line) {
@@ -65,8 +67,9 @@ public class Database {
 
     /**
      * TODO: Currenlty unused, but will be used in Level-9
+     *
      * @param filePath file name of the file
-     * @param id the id to find. Does not refer to line number, but the actual id, which is the first number of each line
+     * @param id       the id to find. Does not refer to line number, but the actual id, which is the first number of each line
      * @return Returns the line if it exists, or null otherwise
      */
     public static String findById(String filePath, int id) {
@@ -87,10 +90,22 @@ public class Database {
     }
 
     /**
+     * This just extracts the ID from the given line
+     *
+     * @param line line to extract id from
+     * @return the id, if it exists
+     */
+    private static int findId(String line) {
+        String[] segments = StringUtils.splitDataString(line);
+        return Integer.parseInt(segments[0]);
+    }
+
+    /**
      * Finds the line with the given ID and updates it
+     *
      * @param filePath fulle file path of the file to update
-     * @param id id of the line
-     * @param newLine the new line data to update
+     * @param id       id of the line
+     * @param newLine  the new line data to update
      */
     public static void updateById(Path filePath, long id, String newLine) {
         newLine = id + " | " + newLine;
@@ -108,8 +123,9 @@ public class Database {
     /**
      * Deletes a line with the specified. In case the line doesn't exist, it will just throw an
      * index out of bounds execption for now
+     *
      * @param filePath full path of file to perofrm IO on
-     * @param id id of line to delete
+     * @param id       id of line to delete
      */
     public static void delete(Path filePath, long id) {
         List<String> lines = FileUtils.read(filePath);
@@ -125,15 +141,5 @@ public class Database {
         }
         lines.remove(idToDelete);
         FileUtils.write(filePath, lines);
-    }
-
-    /**
-     * This just extracts the ID from the given line
-     * @param line line to extract id from
-     * @return the id, if it exists
-     */
-    private static int findId(String line) {
-        String[] segments = StringUtils.splitDataString(line);
-        return Integer.parseInt(segments[0]);
     }
 }

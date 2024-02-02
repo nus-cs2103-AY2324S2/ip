@@ -12,14 +12,15 @@ public class TaskDao {
 
     /**
      * Finds a line with the given id and the task file name to mark as done/undone
-     * @param id the id of the task
+     *
+     * @param id   the id of the task
      * @param NAME the file name of the object to update. e.g. if marking a todo, then it should be value of
      *             TodoDao NAME
      * @param task The task to modify and update
      * @param done Whether it should be marked as done or not
      * @return Task wit hthe updated values
      */
-    public static Task mark (long id, String NAME, Task task, boolean done) {
+    public static Task mark(long id, String NAME, Task task, boolean done) {
         File table = Database.getTable(NAME);
         task.setDone(done);
         String data = task.toDataString();
@@ -30,6 +31,7 @@ public class TaskDao {
     /**
      * Creates a new task object with a specified file name. Shared with other files like
      * Event, Todo and Deadline
+     *
      * @param NAME Name of the file to create
      * @param task Task object to add
      */
@@ -42,8 +44,9 @@ public class TaskDao {
 
     /**
      * Deletes a line wit hthe specified line from the a specific file
+     *
      * @param NAME Name of the file
-     * @param id id of the line to delete
+     * @param id   id of the line to delete
      */
     public static void delete(String NAME, long id) {
         File table = Database.getTable(NAME);

@@ -15,7 +15,7 @@ public class StringUtils {
      *                 will not be the value of the command. Search index is offset by -1 to avoid collecting the stopwrod too
      * @return
      */
-    public static String getValueOfCommand (String input, String command, String stopWord) {
+    public static String getValueOfCommand(String input, String command, String stopWord) {
         int commandIndex = getIndexOf(input, command, 0);
         // Validates against command that is at the end of the string
         if (commandIndex + command.length() >= input.length())
@@ -41,7 +41,7 @@ public class StringUtils {
      * @param offset The offset to move from the initial toFind String
      * @return The index of toFind in the position. Or throws an illegal argument exception if it doesn't exist
      */
-    public static int getIndexOf (String input, String toFind, int offset) {
+    public static int getIndexOf(String input, String toFind, int offset) {
         int index = input.indexOf(toFind) + offset;
         if (index < 0 || index >= input.length()) throw new IllegalArgumentException("No " + toFind + " specified");
         return index;
@@ -53,7 +53,7 @@ public class StringUtils {
      * @param data data to split by |
      * @return a array of the split up strings
      */
-    public static String[] splitDataString (String data) {
+    public static String[] splitDataString(String data) {
         String[] segments = data.trim().split("\\s*\\|\\s*");
         return segments;
     }

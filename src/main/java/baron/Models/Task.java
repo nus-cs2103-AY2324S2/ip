@@ -2,58 +2,59 @@ package baron.Models;
 
 public class Task {
 
-    private long id;
     private final String name;
+    private long id;
     private boolean isDone;
 
-    public Task (String name) {
+    public Task(String name) {
         this.name = name;
         this.isDone = false;
     }
 
-    public Task (String name, boolean isDone) {
+    public Task(String name, boolean isDone) {
         this.name = name;
         this.isDone = isDone;
     }
 
-    public Task (int id, String name, boolean isDone) {
+    public Task(int id, String name, boolean isDone) {
         this.id = id;
         this.name = name;
         this.isDone = isDone;
     }
 
-    public long getId () {
+    public long getId() {
         return this.id;
     }
 
-    public void setId (long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     @Override
-    public String toString () {
+    public String toString() {
         String done = isDone ? "X" : " ";
         return "[" + done + "] " + name;
     }
 
-    public boolean isDone () {
+    /**
+     * Converts object to its data representation format
+     *
+     * @return Data String representation format
+     */
+    public String toDataString() {
+        String done = this.isDone() ? "1" : "0";
+        return done + " | " + this.getName();
+    }
+
+    public boolean isDone() {
         return isDone;
     }
 
-  /**
-   * Converts object to its data representation format
-   * @return Data String representation format
-   */
-  public String toDataString() {
-    String done = this.isDone() ? "1" : "0";
-    return done + " | " + this.getName();
-  }
-
-    public String getName () {
+    public String getName() {
         return name;
     }
 
-    public void setDone (boolean isDone) {
+    public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
 }

@@ -8,11 +8,11 @@ public enum TaskType {
 
     private final String command;
 
-    TaskType (String command) {
+    TaskType(String command) {
         this.command = command;
     }
 
-    public String getCommand () {
+    public String getCommand() {
         return command;
     }
 }

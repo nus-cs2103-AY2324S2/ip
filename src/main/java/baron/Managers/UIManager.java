@@ -6,15 +6,9 @@ import java.util.List;
 
 public class UIManager {
     /**
-     * Prints a simple separator for UI pruposes only
-     */
-    public static void printSeparator() {
-        System.out.println("--------------------");
-    }
-
-    /**
      * Informs user of added content but does not add anything itself
-     * @param task Task added
+     *
+     * @param task  Task added
      * @param count count of tasks currently in list after modification
      */
     public static void add(Task task, int count) {
@@ -25,8 +19,16 @@ public class UIManager {
     }
 
     /**
+     * Prints a simple separator for UI pruposes only
+     */
+    public static void printSeparator() {
+        System.out.println("--------------------");
+    }
+
+    /**
      * Informs user of deleted content
-     * @param task Task added
+     *
+     * @param task  Task added
      * @param count count of tasks currently in list after modification
      */
     public static void delete(Task task, int count) {
@@ -49,7 +51,7 @@ public class UIManager {
 
     /**
      * Prints output for when user finds tasks
-     * 
+     *
      * @param tasks tasks to print out
      */
     public static void find(List<Task> tasks) {
@@ -63,7 +65,8 @@ public class UIManager {
 
     /**
      * Marks the specified task
-     * @param task Task to mark
+     *
+     * @param task   Task to mark
      * @param isDone mark whether task is done or not
      */
     public static void mark(Task task, boolean isDone) {

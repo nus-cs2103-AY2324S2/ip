@@ -5,7 +5,7 @@ import baron.Managers.TaskManager;
 import java.util.Scanner;
 
 public class Baron {
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         System.out.println("Hello, I'm Baron. What can I do for you?");
         Scanner scanner = new Scanner(System.in);
 
