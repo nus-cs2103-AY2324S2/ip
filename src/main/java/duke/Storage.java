@@ -54,6 +54,8 @@ public class Storage {
                 Task newEvent = Event.fromSaveFormat(taskArr);
                 loadedLst.add(newEvent);
                 break;
+            default:
+                throw new DukeException("Sorry, I can't understand the file format");
             }
         }
         return loadedLst;
@@ -66,7 +68,7 @@ public class Storage {
      * @param tl The TaskList containing the tasks to be saved.
      * @throws IOException If an I/O error occurs during writing to the file.
      */
-    public void save(TaskList tl) throws IOException{
+    public void save(TaskList tl) throws IOException {
         f.getParentFile().mkdirs();
         FileWriter cfw = new FileWriter(f);
         for (Task t : tl.getLst()) {

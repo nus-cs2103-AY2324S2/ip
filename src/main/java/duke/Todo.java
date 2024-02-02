@@ -47,7 +47,7 @@ public class Todo extends Task {
      * @return A Todo task reconstructed from the saved data.
      */
     public static Todo fromSaveFormat(String[] info) {
-        Todo loadedTask =  new Todo(info[2]);
+        Todo loadedTask = new Todo(info[2]);
         if (info[1].equals("1")) {
             loadedTask.markAsDone();
         }

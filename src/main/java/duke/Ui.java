@@ -5,9 +5,10 @@ package duke;
  * of the application, such as greeting users, displaying messages, and showing errors.
  * It provides methods to print various types of messages to the console.
  */
-public class Ui{
+public class Ui {
 
-    private static final String LINEBREAK = "_______________________________________________________________________________";
+    private static final String LINEBREAK =
+            "_______________________________________________________________________________";
 
     /**
      * Displays a greeting message to the user.
@@ -15,16 +16,16 @@ public class Ui{
      */
     public void greet() {
         String snowBoyAscii =
-                "      *      \n" +
-                        "     ***     \n" +
-                        "   *******   \n" +
-                        "  *  o o  *  \n" +
-                        " *    >    * \n" +
-                        " *  \\___/  * \n" +
-                        "  *       *  \n" +
-                        "   *******   \n" +
-                        "     ***     \n" +
-                        "      *      ";
+                "      *      \n"
+                        + "     ***     \n"
+                        + "   *******   \n"
+                        + "  *  o o  *  \n"
+                        + " *    >    * \n"
+                        + " *  \\___/  * \n"
+                        + "  *       *  \n"
+                        + "   *******   \n"
+                        + "     ***     \n"
+                        + "      *      ";
         String toPrint = snowBoyAscii + "\n";
         toPrint += " Hello! I'm SnowBoy\n" + " What can I do for you?";
         Ui.beautify(toPrint);
