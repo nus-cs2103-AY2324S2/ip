@@ -1,5 +1,19 @@
 package aurora.parser;
 
+import aurora.command.ByeCommand;
+import aurora.command.Command;
+import aurora.command.DeadlineCommand;
+import aurora.command.DeleteCommand;
+import aurora.command.EventCommand;
+import aurora.command.FindCommand;
+import aurora.command.InvalidCommand;
+import aurora.command.ListCommand;
+import aurora.command.MarkCommand;
+import aurora.command.TodoCommand;
+import aurora.command.UnmarkCommand;
+import aurora.storage.Storage;
+import aurora.tasklist.TaskList;
+import aurora.ui.Ui;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,12 +24,73 @@ import java.time.format.DateTimeParseException;
  */
 public class Parser {
 
+    /** TaskList to interact with. */
+    private TaskList taskList;
+
+    /** Ui to interact with. */
+    private Ui ui;
+
+    /** Storage to interact with. */
+    private Storage storage;
+
+
     /**
      * Constructor for a Parser.
+     *
+     * @param taskList TaskList to interact with
+     * @param storage Storage to interact with
+     * @param ui Ui to interact with
      */
-    public Parser() {
-
+    public Parser(TaskList taskList, Storage storage, Ui ui) {
+        this.taskList = taskList;
+        this.storage = storage;
+        this.ui = ui;
     }
+
+    /**
+     * Parses a command and returns an appropriate Command object
+     *
+     * @params command Full command in String format
+     */
+    public Command parseCommand(String command) {
+        String[] splitCommands = Parser.splitAtAllBlanks(command);
+        String mainC = splitCommands[0];
+        if (mainC.equalsIgnoreCase("bye")) {
+            ByeCommand byeCommand = new ByeCommand(this.taskList, this.ui, this.storage);
+            return byeCommand;
+        } else if (mainC.equalsIgnoreCase("list")) {
+            ListCommand listCommand = new ListCommand(this.taskList, this.ui, this.storage);
+            return listCommand;
+        } else if (mainC.equalsIgnoreCase("mark")) {
+            MarkCommand markCommand = new MarkCommand(this.taskList, this.ui, this.storage, splitCommands);
+            return markCommand;
+        } else if (mainC.equalsIgnoreCase("unmark")) {
+            UnmarkCommand unmarkCommand = new UnmarkCommand(this.taskList, this.ui, this.storage,
+                    splitCommands);
+            return unmarkCommand;
+        } else if (mainC.equalsIgnoreCase("todo")) {
+            TodoCommand todoCommand = new TodoCommand(this.taskList, this.ui, this.storage, command);
+            return todoCommand;
+        } else if (mainC.equalsIgnoreCase("deadline")) {
+            DeadlineCommand deadlineCommand = new DeadlineCommand(this.taskList, this.ui, this.storage,
+                    command);
+            return deadlineCommand;
+        } else if (mainC.equalsIgnoreCase("event")) {
+            EventCommand eventCommand = new EventCommand(this.taskList, this.ui, this.storage, command);
+            return eventCommand;
+        } else if (mainC.equalsIgnoreCase("delete")) {
+            DeleteCommand deleteCommand = new DeleteCommand(this.taskList, this.ui, this.storage,
+                    splitCommands);
+            return deleteCommand;
+        } else if (mainC.equalsIgnoreCase("find")) {
+            FindCommand findCommand = new FindCommand(this.taskList, this.ui, this.storage, splitCommands);
+            return findCommand;
+        } else {
+            InvalidCommand invalidCommand = new InvalidCommand();
+            return invalidCommand;
+        }
+    }
+
 
     /**
      * Splits a command string at all spaces

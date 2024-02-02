@@ -1,6 +1,7 @@
 package aurora;
 
 import aurora.command.ByeCommand;
+import aurora.command.Command;
 import aurora.command.DeadlineCommand;
 import aurora.command.DeleteCommand;
 import aurora.command.EventCommand;
@@ -46,6 +47,11 @@ public class Duke {
     private Storage storage;
 
     /**
+     * Parser for commands.
+     */
+    private Parser parser;
+
+    /**
      * Constructor for the Duke class
      */
     private Duke() {
@@ -66,7 +72,9 @@ public class Duke {
             ArrayList<Task> emptyTaskList = new ArrayList<>();
             this.taskList = new TaskList(emptyTaskList);
         }
+        this.parser = new Parser(this.taskList, this.storage, this.ui);
     }
+
     public static void main(String[] args) {
         Duke aurora1 = new Duke();
         aurora1.exeAurora();
@@ -77,47 +85,20 @@ public class Duke {
      */
     public void exeAurora() {
         this.ui.printOpeningMessage();
-        boolean isExit = false;
-        while(!isExit) {
-            String command = this.ui.nextCommand();
-            String[] splitCommands = Parser.splitAtAllBlanks(command);
-            String mainC = splitCommands[0];
+        executionLoop();
+    }
+
+    /**
+     * Execution loop for commands.
+     */
+    public void executionLoop() {
+        boolean isBye = false;
+        while (!isBye) {
             try {
-                if (mainC.equalsIgnoreCase("bye")) {
-                    ByeCommand byeCommand = new ByeCommand(this.taskList, this.ui, this.storage);
-                    isExit = byeCommand.isBye();
-                    byeCommand.handle();
-                } else if (mainC.equalsIgnoreCase("list")) {
-                    ListCommand listCommand = new ListCommand(this.taskList, this.ui, this.storage);
-                    listCommand.handle();
-                } else if (mainC.equalsIgnoreCase("mark")) {
-                    MarkCommand markCommand = new MarkCommand(this.taskList, this.ui, this.storage, splitCommands);
-                    markCommand.handle();
-                } else if (mainC.equalsIgnoreCase("unmark")) {
-                    UnmarkCommand unmarkCommand = new UnmarkCommand(this.taskList, this.ui, this.storage,
-                            splitCommands);
-                    unmarkCommand.handle();
-                } else if (mainC.equalsIgnoreCase("todo")) {
-                    TodoCommand todoCommand = new TodoCommand(this.taskList, this.ui, this.storage, command);
-                    todoCommand.handle();
-                } else if (mainC.equalsIgnoreCase("deadline")) {
-                    DeadlineCommand deadlineCommand = new DeadlineCommand(this.taskList, this.ui, this.storage,
-                            command);
-                    deadlineCommand.handle();
-                } else if (mainC.equalsIgnoreCase("event")) {
-                    EventCommand eventCommand = new EventCommand(this.taskList, this.ui, this.storage, command);
-                    eventCommand.handle();
-                } else if (mainC.equalsIgnoreCase("delete")) {
-                    DeleteCommand deleteCommand = new DeleteCommand(this.taskList, this.ui, this.storage,
-                            splitCommands);
-                    deleteCommand.handle();
-                } else if (mainC.equalsIgnoreCase("find")) {
-                    FindCommand findCommand = new FindCommand(this.taskList, this.ui, this.storage, splitCommands);
-                    findCommand.handle();
-                } else {
-                    InvalidCommand invalidCommand = new InvalidCommand();
-                    invalidCommand.handle();
-                }
+                String command = this.ui.nextCommand();
+                Command commandObj = this.parser.parseCommand(command);
+                commandObj.handle();
+                isBye = commandObj.isBye();
             } catch (DukeException exception) {
                 String exceptionMessage = exception.getExceptionMessage();
                 this.ui.printALine();
