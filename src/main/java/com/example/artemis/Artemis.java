@@ -1,12 +1,17 @@
 package com.example.artemis;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 import java.util.Scanner;
 
 /**
  * Artemis is a simple task management application.
  * It allows users to add, list, mark as done, and delete tasks.
  */
-public class Artemis {
+public class Artemis extends Application {
     // File path for storing tasks data
     private static final String FILE_PATH = "./data/artemis.txt";
 
@@ -53,6 +58,15 @@ public class Artemis {
             }
         }
         sc.close();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
     /**
