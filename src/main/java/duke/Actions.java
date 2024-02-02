@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ *  Actions that can be used.
+ */
 public enum Actions {
     BYE,
     LIST,
@@ -8,5 +11,6 @@ public enum Actions {
     TODO,
     DEADLINE,
     EVENT,
-    DELETE;
+    DELETE,
+    FIND;
 }

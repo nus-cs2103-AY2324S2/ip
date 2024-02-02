@@ -12,11 +12,24 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Command to add a deadline into the task list.
+ */
 public class deadlineCommand extends Command {
 
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * The constructor of deadlineCommand.
+     *
+     * @param taskList The task list which the command will modify.
+     * @param ui The ui to get the input of the user.
+     * @throws EmptyInputException If user did not input description.
+     * @throws EmptyTimeException If user did not input time.
+     * @throws InvalidFormatException If user's input invalid format.
+     * @throws InvalidDateTimeException If user input invalid date/time format.
+     */
     public deadlineCommand(TaskList taskList, Ui ui) {
         super(taskList, ui);
     }
@@ -27,7 +40,7 @@ public class deadlineCommand extends Command {
         String input = ui.getInput();
         if (input.split(" ").length == 1) {
             throw new EmptyInputException("deadline");
-        }  else if (!input.contains("/by")) {
+        } else if (!input.contains("/by")) {
             throw new InvalidFormatException("deadline", "/by");
         } else {
             input = input.substring(8);
@@ -47,7 +60,6 @@ public class deadlineCommand extends Command {
                 }
             }
         }
-
     }
 
     @Override
