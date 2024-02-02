@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
  * The duke.task.Event class represents a task that occurs within a specified time range.
  */
 public class Event extends Task {
+
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 

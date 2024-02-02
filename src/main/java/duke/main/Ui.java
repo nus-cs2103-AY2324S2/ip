@@ -1,4 +1,5 @@
 package duke.main;
+
 import duke.task.Event;
 import duke.task.Deadline;
 import duke.task.Task;
@@ -8,8 +9,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Ui {
+
     private Scanner sc;
+
     public Ui() {
         sc = new Scanner(System.in);
     }
@@ -79,7 +83,6 @@ public class Ui {
         System.out.println();
     }
 
-
     public void displayTasksOn(LocalDate targetDate, ArrayList<Task> tasks) {
         try {
             System.out.println("\nTasks on " + targetDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
@@ -91,10 +94,10 @@ public class Ui {
                     }
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
-                    if (event.getStartTime().toLocalDate().equals(targetDate) ||
-                            event.getEndTime().toLocalDate().equals(targetDate) ||
-                            (targetDate.isAfter(event.getStartTime().toLocalDate()) &&
-                                    targetDate.isBefore(event.getEndTime().toLocalDate()))) {
+                    if (event.getStartTime().toLocalDate().equals(targetDate)
+                            || event.getEndTime().toLocalDate().equals(targetDate)
+                            || (targetDate.isAfter(event.getStartTime().toLocalDate())
+                            && targetDate.isBefore(event.getEndTime().toLocalDate()))) {
                         System.out.println(event);
                     }
                 }

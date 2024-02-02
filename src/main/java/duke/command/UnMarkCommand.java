@@ -3,7 +3,9 @@ import duke.exception.DukeException;
 import duke.main.Storage;
 import duke.main.TaskList;
 import duke.main.Ui;
+
 public class UnMarkCommand extends Command {
+
     private int zeroItem;
 
     public UnMarkCommand(int oneItem) {

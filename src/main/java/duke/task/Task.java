@@ -1,8 +1,10 @@
 package duke.task;
+
 /**
  * The duke.task.Task class represents a task with a description and completion status.
  */
 public class Task {
+
     protected String description;
     protected boolean isDone;
 
@@ -22,7 +24,7 @@ public class Task {
      * @return The status icon ("X" if done, " " if not done).
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     /**
@@ -55,6 +57,5 @@ public class Task {
     public String toFileString() {
         return String.format("duke.task.Task | %d | %s", isDone ? 1 : 0, description);
     }
-
 }
 

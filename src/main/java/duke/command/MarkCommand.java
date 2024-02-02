@@ -5,6 +5,7 @@ import duke.main.TaskList;
 import duke.main.Ui;
 
 public class MarkCommand extends Command {
+
     private int zeroItem;
 
     public MarkCommand(int oneItem) {

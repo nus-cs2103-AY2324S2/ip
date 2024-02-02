@@ -3,6 +3,7 @@ package duke.task;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
 /**
  * The duke.task.Deadline class represents a task with a specific deadline.
  */
@@ -14,7 +15,7 @@ public class Deadline extends Task {
      * Constructs a duke.task.Deadline object with the given description and deadline.
      *
      * @param description Description of the task.
-     * @param by           duke.task.Deadline of the task.
+     * @param by duke.task.Deadline of the task.
      */
     public Deadline(String description, String by) {
         super(description);
@@ -48,7 +49,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 
     /**
@@ -57,6 +59,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("D | %d | %s | %s", isDone ? 1 : 0, description, by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
+        return String.format("D | %d | %s | %s", isDone ? 1 : 0, description,
+                by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
     }
 }

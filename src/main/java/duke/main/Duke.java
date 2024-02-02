@@ -1,15 +1,17 @@
 package duke.main;
 import duke.command.Command;
 import duke.exception.DukeException;
+
 /**
  * This class represents a chat application.
  */
 
-//modify to fit coding standard
 public class Duke {
+
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
     public static void main(String[] args) {
         Duke duke = new Duke("data/duke.txt");
         duke.startChat();
@@ -50,6 +52,4 @@ public class Duke {
             }
         }
     }
-
-
 }

@@ -11,8 +11,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
+
 public class Storage {
+
     private String filePath;
 
     Storage(String filepath) {
@@ -26,13 +29,10 @@ public class Storage {
             if (!file.exists()) {
                 return tasks;
             }
-
             BufferedReader br = new BufferedReader(new FileReader(file));
-
             String input;
             while ((input = br.readLine()) != null) {
                 String[] splitInput = input.split(" \\| ");
-
                 Task task;
                 if (splitInput[0].equals("T")) {
                     task = new Todo(splitInput[2]);
@@ -47,7 +47,6 @@ public class Storage {
                     task.markAsDone();
                 }
                 tasks.add(task);
-
             }
         } catch (IOException e) {
             throw new DukeException("\nError! An IOException occurred.\n\n");
@@ -57,12 +56,10 @@ public class Storage {
         return tasks;
     }
 
-
     public void saveList(ArrayList<Task> list) throws DukeException {
         try {
             File file = new File(filePath);
             file.getParentFile().mkdirs();
-
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
             for (Task l : list) {
                 bw.append(l.toFileString()).append("\n");

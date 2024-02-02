@@ -24,5 +24,4 @@ public class DeleteCommand extends Command {
         ui.deleteResponse(description, tasks);
         storage.saveList(tasks.getTasks());
     }
-
 }

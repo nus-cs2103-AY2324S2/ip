@@ -12,6 +12,7 @@ public class OnCommand extends Command {
     public OnCommand(LocalDate targetDate) {
         this.targetDate = targetDate;
     }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.displayTasksOn(targetDate, tasks.getTasks());
