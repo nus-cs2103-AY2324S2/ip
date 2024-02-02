@@ -1,8 +1,12 @@
 package lamball;
 
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Main chat bot class that is tasked with initializing and relaying user inputs to the various classes.
+ *
+ * @author ongzhili
+ */
 public class Lamball {
     public static String indent = "    ____________________________________________________________\n";
     private TaskList tasks;

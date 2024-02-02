@@ -1,5 +1,10 @@
 package lamball.task;
 
+/**
+ * Task class, the base unit of the task list.
+ *
+ * @author ongzhili
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

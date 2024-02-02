@@ -1,7 +1,10 @@
 package lamball;
 
-import java.time.format.DateTimeParseException;
-
+/**
+ *  Contains methods related to parsing user's inputs.
+ *
+ * @author ongzhili
+ */
 public class Parser {
 
     /**

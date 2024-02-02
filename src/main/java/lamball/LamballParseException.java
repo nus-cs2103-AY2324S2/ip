@@ -1,7 +1,10 @@
 package lamball;
 
-import java.time.format.DateTimeParseException;
-
+/**
+ * An exception that is thrown when the user inputs invalid commands.
+ *
+ * @author ongzhili
+ */
 public class LamballParseException extends Exception {
     /**
      * Constructor for Lamball parse exception.

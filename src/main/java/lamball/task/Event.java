@@ -3,6 +3,13 @@ package lamball.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * Event class, an extension of the Task class that has a duration, represented by
+ * from and to.
+ *
+ * @author ongzhili
+ */
 public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;

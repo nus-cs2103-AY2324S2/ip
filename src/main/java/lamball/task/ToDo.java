@@ -1,7 +1,10 @@
 package lamball.task;
 
-import java.time.format.DateTimeParseException;
-
+/**
+ * ToDo class, an extension of the Task class.
+ *
+ * @author ongzhili
+ */
 public class ToDo extends Task {
 
     /**
