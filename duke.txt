@@ -1,4 +1,0 @@
-T | 0 | eat lunch
-D | 0 | assignment | 1999-10-10
-E | 0 | bday | 2020-12-01 | 2020-12-01
-D | 0 | assignemnt 2 | 1222-01-01

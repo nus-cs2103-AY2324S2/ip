@@ -7,15 +7,15 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.nio.file.Paths;
 import java.io.File;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import java.time.LocalDateTime;
 public class Duke {
     private static final String FILE_NAME = "duke.txt";
     private static final String FILE_PATH = Paths.get(".", FILE_NAME).toString();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> list = loadFile();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-dd-MM HHmm");
 
         System.out.println("\t\tHello, my name is Xilef.\n\t\tHow may I help you today??\n");
 
@@ -67,14 +67,15 @@ public class Duke {
                 String[] newArr = s.split(" /");
                 try {
                     if (arr[0].equals("deadline")) {
-                        LocalDate deadline = null;
+                        LocalDateTime deadline = null;
                         if (newArr.length < 2) {
                             throw new DukeException("Incomplete deadline information");
                         }
                         try {
-                            deadline = LocalDate.parse(newArr[1].split("by")[1].trim());
+                            deadline = LocalDateTime.parse(newArr[1].split("by")[1].trim(), formatter);
+
                         } catch (DateTimeParseException e) {
-                            throw new DukeException("Invalid date");
+                            throw new DukeException("Invalid date/time");
                         }
                         System.out.println("\t\tAdded a new task to the list!");
                         Deadline d = new Deadline(newArr[0], deadline);
@@ -89,13 +90,14 @@ public class Duke {
                         if (newArr.length < 3) {
                             throw new DukeException("Incomplete event information");
                         }
-                        LocalDate from = null;
-                        LocalDate to = null;
+                        LocalDateTime from = null;
+                        LocalDateTime to = null;
                         try {
-                            from = LocalDate.parse(newArr[1].split("from")[1].trim());
-                            to = LocalDate.parse(newArr[2].split("to")[1].trim());
+                            from = LocalDateTime.parse(newArr[1].split("from")[1].trim(), formatter);
+                            to = LocalDateTime.parse(newArr[2].split("to")[1].trim(), formatter);
+
                         } catch (DateTimeParseException e) {
-                            throw new DukeException("Invalid date");
+                            throw new DukeException("Invalid date/time");
                         }
                         System.out.println("\t\tAdded a new task to the list!");
 
@@ -174,12 +176,12 @@ public class Duke {
                 break;
             case "D":
                 String taskBy = parts[3].trim();
-                LocalDate taskDeadline = LocalDate.parse((taskBy));
+                LocalDateTime taskDeadline = LocalDateTime.parse((taskBy));
                 t = new Deadline(taskDescription, taskDeadline);
                 break;
             case "E":
-                LocalDate taskFrom = LocalDate.parse(parts[3].trim());
-                LocalDate taskTo = LocalDate.parse(parts[4].trim());
+                LocalDateTime taskFrom = LocalDateTime.parse(parts[3].trim());
+                LocalDateTime taskTo = LocalDateTime.parse(parts[4].trim());
                 t = new Event(taskDescription, taskTo,  taskFrom);
                 break;
             default:
