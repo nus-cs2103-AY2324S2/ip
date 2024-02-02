@@ -260,7 +260,7 @@ public class Parser {
         if (toDelete > tl.size()) {
             throw new DukeException(" Sorry, please input a valid list index for me to delete");
         }
-        String toPrint =  " Noted. I've removed this task\n";
+        String toPrint = " Noted. I've removed this task\n";
         toPrint += "   " + tl.get(toDelete - 1).toString() + "\n";
         tl.deleteTask(toDelete - 1);
         toPrint += " Now you have " + tl.size() + " tasks in the list.";

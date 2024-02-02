@@ -48,7 +48,7 @@ public class Duke {
         while (!(command = br.readLine()).equals("bye")) {
             try {
                 Parser.checkCmd(this.tasks, command);
-            } catch (DukeException de){
+            } catch (DukeException de) {
                 Ui.beautify(de.getMessage());
             }
         }
