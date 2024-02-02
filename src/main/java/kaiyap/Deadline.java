@@ -20,7 +20,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" +
-                (this.taskDone ? "[X] " : "[ ] ") +
+                (this.completedTask ? "[X] " : "[ ] ") +
                 this.listItem +
                 " (by: " +
                 this.deadline + ")"
