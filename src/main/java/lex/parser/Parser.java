@@ -20,7 +20,13 @@ public class Parser {
 
     public Command parse(String input) {
         String[] inputs = input.split(" ", 2);
-        Instruction instruction = Instruction.valueOf(inputs[0].toUpperCase());
+        Instruction instruction;
+
+        try {
+            instruction = Instruction.valueOf(inputs[0].toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return new UnknownCommand(ui);
+        }
 
         switch (instruction) {
             case LIST:
