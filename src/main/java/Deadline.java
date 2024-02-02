@@ -13,6 +13,6 @@ public class Deadline extends Task {
 
     @Override
     public String getDataString() {
-        return "D | " + isDone + " | " + super.toString() +  " | " + by;
+        return "D | " + (isDone? "1" : "0") + " | " + super.toString() +  " | " + by;
     }
 }
