@@ -5,8 +5,6 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +25,6 @@ public class Save {
                 } else {
                     isDone = "0";
                 }
-                System.out.println(t.toString());
                 String taskType = t.toString().split("")[1];
                 if (taskType.equals("T")) {
                     String line = "T" + " | " + isDone + " | " + desc;
@@ -47,7 +44,6 @@ public class Save {
                 } else if (taskType.equals("E")) {
                     String str = t.toString();
                     String insideParenthesis = str.substring(str.indexOf("(")+1, str.indexOf(")"));
-                    System.out.println(insideParenthesis);
                     String[] subString = insideParenthesis.split(" ");
                     List<String> arrayList = new ArrayList<>(Arrays.asList(subString));
                     int index1 = arrayList.indexOf("to:");
