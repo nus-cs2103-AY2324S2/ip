@@ -1,6 +1,9 @@
 public class DukeException extends Exception {
     public static final String INVALID_TASK_INDEX = "Invalid task index!";
     public static final String EXECUTE_EXIT_COMMAND = "Exit command can't be executed!";
+    public static final String CONNECT_FILE_EXCEPTION = "Error occurred when connecting the bot with the file!";
+    public static final String READ_IO_EXCEPTION = "Error occurred when reading from the file!";
+    public static final String WRITE_IO_EXCEPTION = "Error occurred when writing to the file!";
     public DukeException(String message) {
         super(message);
     }

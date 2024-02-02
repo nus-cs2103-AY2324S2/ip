@@ -34,6 +34,7 @@ public class Event extends Task {
     }
     @Override
     public String toFileFormat() {
-        return String.format("E %s %s %s", super.toFileFormat(), this.from, this.to);
+        return String.format("E |&| %s |&| %s |&| %s", super.toFileFormat(),
+                this.from.format(this.inputFormat), this.to.format(this.inputFormat));
     }
 }

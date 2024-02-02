@@ -33,6 +33,6 @@ public class Deadline extends Task {
     }
     @Override
     public String toFileFormat() {
-        return String.format("D %s %s", super.toFileFormat(), this.deadline);
+        return String.format("D |&| %s |&| %s", super.toFileFormat(), this.deadline.format(this.inputFormat));
     }
 }

@@ -4,8 +4,9 @@ public class AddCommand extends Command {
         this.toAdd = toAdd;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.addTask(this.toAdd);
         ui.showAddOutput(tasks, this.toAdd);
+        storage.write(tasks.toFileFormat());
     }
 }

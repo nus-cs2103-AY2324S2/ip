@@ -31,7 +31,7 @@ public class Task implements FileFormattable {
         return this.description;
     }
     public String toFileFormat() {
-        return String.format("%d %s", this.isDone ? 1 : 0, this.description);
+        return String.format("%d |&| %s", this.isDone ? 1 : 0, this.description);
     }
     @Override
     public String toString() {
