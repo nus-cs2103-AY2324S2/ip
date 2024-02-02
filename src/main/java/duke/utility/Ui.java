@@ -103,10 +103,17 @@ public class Ui {
                 + "―――――――――――――――――――――――――――――――――――", taskStoreSize));
     }
 
+    /**
+     * Prints out the tasks that contains the keyword.
+     *
+     * @param filteredList ArrayList of the Tasks that contain the keyword.
+     * @param keyword String containing the keyword that was used to search within the TaskList.
+     */
     public void showFilteredTask(ArrayList<Task> filteredList, String keyword) {
         if (filteredList.size() == 0) {
             System.out.println(String.format("*Honk! no tasks with %s keyword found! "
                     + "Maybe try looking at the list command", keyword));
+            this.showLine();
         } else {
             System.out.println(String.format("*Honk! Pengu has found the following tasks containing "
                     + "the %s keyword:", keyword));

@@ -88,7 +88,7 @@ public class TaskList {
     public ArrayList<Task> findTask(String keyword) {
         ArrayList<Task> filterList = new ArrayList<>();
         for (int k = 0; k < this.listSize(); k++) {
-            if (this.taskStore.get(k).getDescription().contains(keyword)) {
+            if (this.taskStore.get(k).getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 filterList.add(this.taskStore.get(k));
             }
         }
