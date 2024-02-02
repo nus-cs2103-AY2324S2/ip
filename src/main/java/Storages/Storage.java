@@ -19,7 +19,14 @@ public class Storage {
         this.file = new File(filename);
     }
 
-    public ArrayList<Task> loadFile() throws FileNotFoundException, IOException {
+    /**
+     * Returns an ArrayList of Task based on the data
+     * stored in the Fredricksen.txt file.
+     *
+     * @return an ArrayList of Task
+     * @throws IOException if file cannot be opened or read.
+     */
+    public ArrayList<Task> loadFile() throws IOException {
         ArrayList<Task> list = new ArrayList();
         BufferedReader br = new BufferedReader(new FileReader(this.file));
 

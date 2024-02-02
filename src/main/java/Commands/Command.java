@@ -1,14 +1,17 @@
 package Commands;
 
-import Tasks.TaskList;
-import Tasks.Task;
-import Ui.Ui;
-import Storages.Storage;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import Storages.Storage;
+import Tasks.Task;
+import Tasks.TaskList;
+import Ui.Ui;
+
+/**
+ * Represents the different valid commands a user enters
+ */
 public class Command {
     private String command;
 
@@ -23,18 +26,27 @@ public class Command {
     public String getTaskSymbol(String command) {
         String res = "";
         switch (command) {
-            case "todo":
-                res = "T";
-                break;
-            case "event":
-                res = "E";
-                break;
-            case "deadline":
-                res = "D";
+        case "todo":
+            res = "T";
+            break;
+        case "event":
+            res = "E";
+            break;
+        case "deadline":
+            res = "D";
+            break;
+        default:
+            break;
         }
         return res;
     }
 
+    /**
+     * Returns an array of possible DateTime patterns
+     * that the user can enter and the system can accept.
+     *
+     * @return an Array of DateTimeFormatter date time patterns.
+     */
     public DateTimeFormatter[] formatDateTime() {
         return new DateTimeFormatter[]{
                 DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
@@ -43,12 +55,21 @@ public class Command {
         };
     }
 
+    /**
+     * Prints to the console details the tasks and
+     * its from and to dates and time based on user's input.
+     *
+     * @param fullCommand The full command as typed into the CLI by the user.
+     * @param fromStartIndex The start index of /from in the fullCommand string.
+     * @param symbol The alphabet letter that represents the type of task.
+     * @param tasks The arraylist of tasks that the user currently has.
+     */
     public void fromCommand(String fullCommand, int fromStartIndex, String symbol, TaskList tasks) {
         int toStartIndex = fullCommand.indexOf("/to");
         String to = fullCommand.substring(toStartIndex + 4);
         String from = fullCommand.substring(fromStartIndex + 6, toStartIndex - 1);
-        LocalDateTime duefrom = null;
-        LocalDateTime dueto = null;
+        LocalDateTime duefrom;
+        LocalDateTime dueto;
         DateTimeFormatter[] formats = this.formatDateTime();
 
         for (DateTimeFormatter format : formats) {
@@ -67,6 +88,15 @@ public class Command {
 
     }
 
+    /**
+     * Prints to the console details the tasks and the
+     * task's deadline date and time based on user's input.
+     *
+     * @param fullCommand The full command as typed into the CLI by the user.
+     * @param byStartIndex The start index of /by in the fullCommand string.
+     * @param symbol The alphabet letter that represents the type of task.
+     * @param tasks The arraylist of tasks that the user currently has.
+     */
     public void byCommand(String fullCommand, int byStartIndex, String symbol, TaskList tasks) {
         String timecommand = fullCommand.substring(byStartIndex + 4);
         LocalDateTime time = null;
@@ -86,13 +116,20 @@ public class Command {
 
     }
 
+    /**
+     * Returns a String with the details of the tasks and
+     * the tasks being marked with an 'X' as done.
+     *
+     * @param tasks The full command as typed into the CLI by the user.
+     * @param fullCommand The full command as typed into the CLI by the user.
+     */
     public String mark(TaskList tasks, String fullCommand) {
         String[] command = fullCommand.split(" ");
         try {
             Task currTask = tasks.getTask(Integer.parseInt(command[1]) - 1);
             System.out.println("Nice! I've marked this task as done:");
             currTask.setDone();
-            return "    " + currTask.toString();
+            return "    " + currTask;
         } catch (IndexOutOfBoundsException err) {
             String single = tasks.size() <= 1 ? "task" : "tasks";
             int num = tasks.size();
@@ -100,13 +137,20 @@ public class Command {
         }
     }
 
+    /**
+     * Returns a String with the details of the tasks and
+     * the tasks being unmarked and the 'X' removed.
+     *
+     * @param tasks The full command as typed into the CLI by the user.
+     * @param fullCommand The full command as typed into the CLI by the user.
+     */
     public String unmark(TaskList tasks, String fullCommand) {
         String[] command = fullCommand.split(" ");
         try {
             Task currTask = tasks.getTask(Integer.parseInt(command[1]) - 1);
             System.out.println("OK, I've marked this task as not done yet:");
             currTask.setUndone();
-            return "    " + currTask.toString();
+            return "    " + currTask;
         } catch (IndexOutOfBoundsException var6) {
             String single = tasks.size() <= 1 ? "task" : "tasks";
             int num = tasks.size();
