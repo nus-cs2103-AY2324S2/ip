@@ -22,6 +22,7 @@ Features:
 - [ ] Reminders (coming soon)
 <br/>
 If you are a Java programmer, you can use it to practice Java too. Here's the `main` method:
+
 ```
 public class Main {
     public static void main(String[] args) {
