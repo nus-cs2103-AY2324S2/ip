@@ -1,36 +1,40 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class TaskManager {
     private ArrayList<Task> items;
+    private boolean hasChanged = false;
 
     private static final String listingResponse = "Here are the tasks in your list:";
+
 
     TaskManager() {
         this.items = new ArrayList<>();
     }
 
-    public Task addTask(Tasks options, String instructions) throws DukeException {
+    public Task addTask(Tasks options, String instruction) throws DukeException {
         Task item;
         String name;
         String by;
         String from;
         switch (options) {
             case TODO:
-                //Add the todo task
-                name = instructions.replaceAll("todo", "").trim();
+                name = instruction.replaceAll("todo", "").trim();
                 if (name.isBlank()) {
                     throw new DukeException("description");
                 }
                 item = new Todo(name);
-                items.add(item);
-                return item;
+                break;
             case DEADLINE:
                 //add the deadline task
-                if (!instructions.contains("/") || !instructions.contains("by")) {
+                if (!instruction.contains("/") || !instruction.contains("by")) {
                     throw new DukeException("dateError");
                 }
-                by = instructions.split("/")[1].replaceAll("by", "").trim();
-                name = instructions.split("/")[0].replaceAll("deadline", "").trim();
+                by = instruction.split("/")[1].replaceAll("by", "").trim();
+                name = instruction.split("/")[0].replaceAll("deadline", "").trim();
                 if (by.isBlank()) {
                     throw new DukeException("by");
                 } else if (name.isBlank()) {
@@ -38,15 +42,14 @@ public class TaskManager {
                 }
 
                 item = new Deadline(name, by);
-                items.add(item);
-                return item;
+                break;
             case EVENT:
-                if (!instructions.contains("/") || !(instructions.contains("by") && instructions.contains("from"))) {
+                if (!instruction.contains("/") || !(instruction.contains("by") && instruction.contains("from"))) {
                     throw new DukeException("dateError");
                 }
-                from = instructions.split("/")[1].replaceAll("from", "").trim();
-                by = instructions.split("/")[2].replaceAll("to", "").trim();
-                name = instructions.split("/")[0].replaceAll("event", "").trim();
+                from = instruction.split("/")[1].replaceAll("from", "").trim();
+                by = instruction.split("/")[2].replaceAll("to", "").trim();
+                name = instruction.split("/")[0].replaceAll("event", "").trim();
                 if (from.isBlank()) {
                     throw new DukeException("from");
                 } else if (by.isBlank()) {
@@ -55,17 +58,18 @@ public class TaskManager {
                     throw new DukeException("description");
                 }
                 item = new Event(name, from, by);
-                items.add(item);
-                return item;
+                break;
             default:
-                //old code
                 throw new DukeException("Invalid");
         }
+        hasChanged = true;
+        items.add(item);
+        return item;
 
     }
 
-    public Task mangeTask(Actions act, String instructions) throws DukeException {
-        String[] getNumber = instructions.split(" ");
+    public Task mangeTask(Actions act, String instruction) throws DukeException {
+        String[] getNumber = instruction.split(" ");
         if (items.isEmpty()) {
             throw new DukeException("empty");
         }
@@ -80,28 +84,40 @@ public class TaskManager {
         switch (act) {
             case UNMARK:
                 item.unmark();
-                return item;
+                break;
             case MARK:
                 item.markAsDone();
-                return item;
+                break;
             case DELETE:
                 items.remove(id);
-                return item;
+                break;
             default:
                 //This does nothing
-                return item;
+                break;
         }
+        hasChanged = true;
+        return item;
     }
 
     public String numOfTask() {
         return "Now you have " + items.size() + " tasks in the list.";
     }
 
+
+    public String getTasksSave() {
+        StringBuilder returnBuilder = new StringBuilder();
+        for (Task item : items) {
+            returnBuilder.append(item.saveFile()); //build the save here
+            returnBuilder.append("\n");
+        }
+        return returnBuilder.toString();
+    }
+
     public ArrayList<String> ListItems() {
 
         int i = 1;
         ArrayList<String> ret = new ArrayList<>();
-        if(items.isEmpty()) {
+        if (items.isEmpty()) {
             ret.add("Your list is empty!!!!Add something! ");
             return ret;
         }
@@ -111,6 +127,65 @@ public class TaskManager {
             i++;
         }
         return ret;
+    }
+
+    public void setUpdate(boolean hasChanged) {
+        this.hasChanged = hasChanged;
+    }
+
+    public boolean getUpdate() {
+        return hasChanged;
+    }
+
+    private Task determineTask(String task) {
+        String[] data = task.split("\\|");
+        String type = data[0];
+        Task item;
+        String name;
+        String by;
+        String from;
+        switch (type) {
+            case "D":
+                name = data[2];
+                by = data[3];
+                item = new Deadline(name, by);
+                break;
+            case "E":
+                name = data[2];
+                by = data[3];
+                from = data[4];
+                item = new Event(name, by, from);
+                break;
+            case "T":
+                name = data[2];
+                item = new Todo(name);
+                break;
+            default:
+                item = new Task(data[2]);
+                break;
+        }
+        String isDone = data[1];
+        if (isDone.equals("x")) {
+            item.markAsDone();
+        }
+        return item;
+
+    }
+
+    public void loadTasksFromFile(File file) {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String next;
+            while ((next = br.readLine()) != null) {
+                if (!next.isBlank()) {
+                    //Read task file
+                    Task item = determineTask(next);
+                    items.add(item);
+                }
+
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 

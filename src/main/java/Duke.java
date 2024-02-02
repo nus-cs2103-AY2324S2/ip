@@ -1,8 +1,8 @@
 import javax.swing.plaf.TableHeaderUI;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Duke {
     //Initialise variables for the programs
@@ -22,8 +22,11 @@ public class Duke {
     private static final String addTask = "Got it. I've added this task:";
     private static final String removeTask = "Noted. I've removed this task";
 
+    //Variables for file writing stuff
+    private static final String FILE_PATH = "data/duke.txt";
 
-    private static String manHandleUser(String msg) {
+
+    private static String handleException(String msg) {
         //Used when your user does not know how to use the application
         switch (msg) {
             case "description":
@@ -48,7 +51,7 @@ public class Duke {
     }
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         TaskManager manager = new TaskManager();
         //Greet first
         String indent = "   ";
@@ -56,13 +59,55 @@ public class Duke {
             System.out.println(indent + l);
         }
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-        boolean exit = false;
+
+        //Try to load the task
+        //And get the items
+
+        File directory = new File("data");
+        if (!directory.exists()) {
+            directory.mkdir();
+        } else {
+            //Load from file
+            File storage = new File(FILE_PATH);
+            if (!storage.createNewFile()) {
+                //Load data if the file is not created
+                manager.loadTasksFromFile(new File(FILE_PATH));
+            }
+
+        }
+
+        //Update periodically for saving
+        Timer save = new Timer();
+        TimerTask savingTask = new TimerTask() {
+            @Override
+            public void run() {
+
+                if (manager.getUpdate()) {
+                    try (FileWriter fw = new FileWriter(FILE_PATH)) {
+                        fw.write(manager.getTasksSave());
+                        manager.setUpdate(false);
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                }
+            }
+
+        };
+
+        save.scheduleAtFixedRate(savingTask, 0, 1000);
 
         while (true) {
-
             String next = input.readLine();
             if (next.equals("bye")) {
-                //Goodbye
+                //Save the application again and exit
+                try (FileWriter fw = new FileWriter(FILE_PATH)) {
+                    fw.write(manager.getTasksSave());
+                    manager.setUpdate(false);//reset the change here
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
                 for (String l : bye) {
                     System.out.println(indent + l);
                 }
@@ -111,14 +156,14 @@ public class Duke {
                         output.add(removeTask);
                         output.add(indent + item);
                         output.add(manager.numOfTask());
+                    } else if (next.contains("update")) {
+                        System.out.println(manager.getUpdate());
                     } else {
-                        //At this point this doest not really makes sense but will still be here
-                        //For error handling here
                         throw new DukeException("invalid");
                     }
                 }
             } catch (DukeException e) {
-                output.add(indent + manHandleUser(e.getMessage()));
+                output.add(indent + handleException(e.getMessage()));
             } catch (NumberFormatException e) {
                 output.add(indent + " OPPPS!!!!That is not a number!!!!!!!!!!");
             }
