@@ -16,22 +16,18 @@ public class Artemis extends Application {
     private static final String FILE_PATH = "./data/artemis.txt";
 
     // Components of Artemis
-    private Storage storage;
+    private static final Storage STORAGE = new Storage(FILE_PATH);
+    private final static Ui UI = new Ui();
     private TaskList tasks;
-    private Ui ui;
 
     /**
      * Constructor for Artemis class.
-     *
-     * @param filepath The file path for storing tasks data.
      */
-    public Artemis(String filepath) {
-        ui = new Ui();
-        storage = new Storage(filepath);
+    public Artemis() {
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(STORAGE.load());
         } catch (ArtemisException e) {
-            ui.showLoadingError();
+            UI.showLoadingError();
             tasks = new TaskList();
         }
     }
@@ -42,15 +38,15 @@ public class Artemis extends Application {
     public void run() {
         Scanner sc = new Scanner(System.in);
 
-        ui.showWelcomeMessage();
+        UI.showWelcomeMessage();
 
         while (true) {
             String input = sc.nextLine();
             try {
                 // Parse user input and perform corresponding actions
-                Parser.parseInput(input, tasks, ui, storage);
+                Parser.parseInput(input, tasks, UI, STORAGE);
             } catch (ArtemisException e) {
-                ui.showError("Oops, there might be invalid input..");
+                UI.showError("Oops, there might be invalid input..");
             }
             // Check if the user entered "bye" to exit the application
             if (input.contains("bye")) {
@@ -75,6 +71,6 @@ public class Artemis extends Application {
      * @param args Command-line arguments (not used in this application).
      */
     public static void main(String[] args) {
-        new Artemis(FILE_PATH).run();
+        new Artemis().run();
     }
 }
