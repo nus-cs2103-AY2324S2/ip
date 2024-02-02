@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 
 public class Duke {
     private static final String logo = " ____        _        \n"
@@ -125,8 +126,88 @@ public class Duke {
         }
     }
 
+    private void createDataFile() {
+        try {
+            File file = new File("data");
+            if (!file.exists()) {
+                file.mkdir();
+            }
+            file = new File("data/duke.txt");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    private void loadData() {
+        File file = new File("data/duke.txt");
+        if (!file.exists()) {
+            createDataFile();
+            return;
+        }
+        try {
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                String[] input = sc.nextLine().split(" \\| ");
+                String type = input[0];
+                boolean isDone = input[1].equals("1");
+                String description = input[2];
+                switch (type) {
+                    case "T":
+                        this.list.add(new Todo(description, isDone));
+                        break;
+                    case "D":
+                        this.list.add(new Deadline(description, input[3], isDone));
+                        break;
+                    case "E":
+                        this.list.add(new Event(description, input[3], input[4], isDone));
+                        break;
+                }
+            }
+            sc.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    private void saveData() {
+        try {
+            File file = new File("data/duke.txt");
+            file.delete();
+            file.createNewFile();
+            java.io.FileWriter fw = new java.io.FileWriter(file);
+            for (Task task : this.list) {
+                String type = "";
+                String description = task.getDescription();
+                String isDone = task.getIsDone() ? "1" : "0";
+                String by = "";
+                String start = "";
+                String end = "";
+                if (task instanceof Todo) {
+                    type = "T";
+                    fw.write(type + " | " + isDone + " | " + description + "\n");
+                } else if (task instanceof Deadline) {
+                    type = "D";
+                    by = ((Deadline) task).getBy();
+                    fw.write(type + " | " + isDone + " | " + description + " | " + by + "\n");
+                } else if (task instanceof Event) {
+                    type = "E";
+                    start = ((Event) task).getStart();
+                    end = ((Event) task).getEnd();
+                    fw.write(type + " | " + isDone + " | " + description + " | " + start + " | " + end + "\n");
+                }
+            }
+            fw.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     public static void main(String[] args) {
         Duke duke = new Duke();
+        duke.loadData();
         duke.sayGreetings();
 
         while (true) {
@@ -138,6 +219,7 @@ public class Duke {
                 switch (Command.valueOf(action)) {
                     case BYE:
                         duke.sayBye();
+                        duke.saveData();
                         return;
                     case LIST:
                         duke.list();
