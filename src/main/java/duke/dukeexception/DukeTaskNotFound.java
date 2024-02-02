@@ -1,0 +1,13 @@
+package duke.dukeexception;
+
+public class DukeTaskNotFound extends DukeException{
+
+    int index;
+    public DukeTaskNotFound(int index) {
+        this.index = index;
+    }
+    @Override
+    public String toString() {
+        return String.format("%s duke.task.Task No. %d cannot be found!",super.toString(), this.index);
+    }
+}
