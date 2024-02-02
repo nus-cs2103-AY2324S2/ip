@@ -4,24 +4,47 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * The TaskList class represents a list of tasks in the Duke chatbot application.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
 
-    // new tasklist
+    /**
+     * Constructs a new TaskList with an empty list of tasks.
+     */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
-    // existing tasklist
+    /**
+     * Constructs a TaskList with tasks from an existing TaskList.
+     *
+     * @param existing The existing TaskList to copy tasks from.
+     */
     public TaskList(TaskList existing) {
         this.taskList = existing.taskList;
     }
 
     // duke.TaskList actions
+
+    /**
+     * Adds a task to the TaskList.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         this.taskList.add(task);
     }
 
+
+    /**
+     * Removes a task at the specified index from the TaskList.
+     *
+     * @param idx The index of the task to be removed.
+     * @return The removed task.
+     * @throws DukeException If the specified index is out of bounds.
+     */
     public Task rmvTask(int idx) {
         try {
             return this.taskList.remove(idx);
@@ -31,6 +54,13 @@ public class TaskList {
 
     }
 
+    /**
+     * Retrieves a task at the specified index from the TaskList.
+     *
+     * @param idx The index of the task to be retrieved.
+     * @return The retrieved task.
+     * @throws DukeException If the specified index is out of bounds.
+     */
     public Task getTask(int idx) {
         try {
             return this.taskList.get(idx);
@@ -39,14 +69,27 @@ public class TaskList {
         }
     }
 
+    /**
+     * Retrieves the entire list of tasks from the TaskList in ArrayList form.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return this.taskList;
     }
 
+    /**
+     * Retrieves the size of the TaskList.
+     *
+     * @return The size of the TaskList.
+     */
     public int getSize() {
         return taskList.size();
     }
 
+    /**
+     * Prints the tasks in the TaskList with their corresponding indices.
+     */
     public void printTasks() {
         System.out.println("    Here are the items in your list: ");
         for (int i = 0; i < this.taskList.size(); i++) {

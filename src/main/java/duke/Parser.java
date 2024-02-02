@@ -6,9 +6,23 @@ import duke.task.Task;
 import duke.task.Todo;
 import duke.utils.Ui;
 
+/**
+ * The Parser class handles parsing of user input for Duke chatbot.
+ * It interprets user commands and executes corresponding actions.
+ */
 public class Parser {
+
+    /**
+     * Default constructor for the Parser class.
+     */
     public Parser() {}
 
+    /**
+     * Parses the user input and executes the corresponding actions.
+     *
+     * @param userTasks The TaskList containing the user's tasks.
+     * @param currInput The current user input.
+     */
     public static void parse(TaskList userTasks, String[] currInput) {
         try {
             String cmd = currInput[0];
