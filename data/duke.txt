@@ -1,2 +1,0 @@
-T | 0 | read book
-D | 0 | deadline | 5pm

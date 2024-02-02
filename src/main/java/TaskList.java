@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class TaskList extends ArrayList<Task>{
+public class TaskList extends ArrayList<Task> {
 
     /**
      * Constructs a task list with the given file contents.
@@ -8,6 +8,9 @@ public class TaskList extends ArrayList<Task>{
      * @param fileContents The contents of the file.
      */
     public TaskList(String fileContents) {
+        if (fileContents.isEmpty()) {
+            return;
+        }
         String[] tasks = fileContents.split("\n");
         for (String task : tasks) {
             String[] taskDetails = task.split(" \\| ");
