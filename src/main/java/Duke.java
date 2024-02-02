@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -7,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 
 public class Duke {
 
-    protected static ArrayList<Task> lst = new ArrayList<>();
+    protected static TaskList lst = new TaskList();
     protected static String dataPath = "./data/duke.txt";
     private enum Command {
         LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
@@ -121,21 +120,18 @@ public class Duke {
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
     }
 
-    private static ArrayList<Task> loadTasks() {
+    private static TaskList loadTasks() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dataPath))) {
-            return (ArrayList<Task>) ois.readObject();
+            return (TaskList) ois.readObject();
         } catch (IOException | ClassCastException | ClassNotFoundException e) {
-
-            System.out.println(new File(".").getAbsolutePath());
-            System.out.println(e);
+            // do nothing
         }
-        return new ArrayList<>();
+        return new TaskList();
     }
 
     private static void saveTasks() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(dataPath))) {
             oos.writeObject(lst);
-            System.out.println("Success!");
         } catch (IOException e) {
             e.printStackTrace();
         }
