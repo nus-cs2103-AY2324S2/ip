@@ -8,9 +8,6 @@ import java.util.Scanner;
 
 /**
  * A class that interacts with user's input and output.
- *
- * @author gosongying
- * @version CS2103T AY23/24 Sem 2
  */
 public class Ui {
     private final Scanner scanner = new Scanner(System.in);
@@ -92,8 +89,7 @@ public class Ui {
         int taskListSize = taskList.size();
         System.out.println("\nOk! I've removed this task for you:\n"
                 + task.toString() + "\n"
-                + "Now you have " + taskListSize + (taskListSize > 1 ? " tasks " : " task ")
-                + "in the list.\n");
+                + "Now you have " + taskListSize + (taskListSize > 1 ? " tasks " : " task ") + "in the list.\n");
     }
 
     /**
@@ -114,12 +110,10 @@ public class Ui {
     public void printSuccessfulMark(Task task, boolean isMarked) {
         if (isMarked) {
             System.out.println("\nNice! I've marked this task as done:\n"
-                    + task.toString()
-                    + "\n");
+                    + task.toString() + "\n");
         } else {
             System.out.println("\nOK, I've marked this task as not done yet:\n"
-                    + task.toString()
-                    + "\n");
+                    + task.toString() + "\n");
         }
     }
 }
