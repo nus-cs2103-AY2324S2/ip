@@ -33,10 +33,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(
-                DialogBox.getNollidDialog("Hello! I'm Nollid.\n"
-                        + "What can I do for you?", nollidImage)
-        );
+        makeNollidSay("Hello! I'm Nollid.\n" + "What can I do for you?");
     }
 
     /**
@@ -59,5 +56,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getNollidDialog(response, nollidImage)
         );
         userInput.clear();
+    }
+
+    public void makeNollidSay(String message) {
+        dialogContainer.getChildren().add(DialogBox.getNollidDialog(message, nollidImage));
     }
 }
