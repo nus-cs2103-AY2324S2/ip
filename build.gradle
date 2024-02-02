@@ -32,8 +32,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "jiayao"
-    archiveClassifier = null
+    archiveBaseName = "jiayou"
+    archiveClassifier = "0.3"
     dependsOn("distZip", "distTar")
 }
 
