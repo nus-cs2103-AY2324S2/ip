@@ -1,7 +1,7 @@
 package huyang;
 
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Ui class responsible for handling user interaction and displaying messages.

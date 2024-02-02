@@ -42,21 +42,25 @@ public class TaskList {
     public boolean addTask(String input, Parser.CommandType commandType, Ui ui) throws TaskException {
         Task task;
         switch (commandType) {
-            case TODO:
-                task = createTodoTask(input);
-                break;
-            case DEADLINE:
-                task = createDeadlineTask(input);
-                break;
-            case EVENT:
-                task = createEventTask(input);
-                break;
-            default:
-                return false;
+        case TODO:
+            task = createTodoTask(input);
+            break;
+        case DEADLINE:
+            task = createDeadlineTask(input);
+            break;
+        case EVENT:
+            task = createEventTask(input);
+            break;
+        default:
+            return false;
         }
         addTask(task);
         ui.printAddedTask(task, tasks.size());
         return true;
+    }
+
+    private void addTask(Task task) {
+        tasks.add(task);
     }
 
     /**
@@ -165,9 +169,5 @@ public class TaskList {
         return tasks.stream()
                 .filter(task -> task.getTaskName().toLowerCase().contains(keyword))
                 .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    private void addTask(Task task) {
-        tasks.add(task);
     }
 }

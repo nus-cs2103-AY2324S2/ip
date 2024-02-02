@@ -54,7 +54,8 @@ public class Event extends Task {
     @Override
     public String toFileFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        return "E | " + (isDone ? "1" : "0") + " | " + taskName + " | " + start.format(formatter) + " to " + end.format(formatter);
+        return "E | " + (isDone ? "1" : "0") + " | " + taskName + " | "
+                + start.format(formatter) + " to " + end.format(formatter);
     }
 
     /**
@@ -90,7 +91,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-        return getTypeIcon() + super.getStatusIcon() + " " + taskName +
-                " (from: " + start.format(formatter) + " to: " + end.format(formatter) + ")";
+        return getTypeIcon() + super.getStatusIcon() + " " + taskName
+                + " (from: " + start.format(formatter) + " to: " + end.format(formatter) + ")";
     }
 }
