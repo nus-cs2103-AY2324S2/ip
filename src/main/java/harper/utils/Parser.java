@@ -1,11 +1,6 @@
 package harper.utils;
 
-import harper.commands.DeleteCommand;
-import harper.commands.MarkCommand;
-import harper.commands.ExitCommand;
-import harper.commands.AddCommand;
-import harper.commands.Command;
-import harper.commands.ListCommand;
+import harper.commands.*;
 
 import harper.exceptions.HarperInvalidCommandException;
 import harper.exceptions.HarperInvalidIndexException;
@@ -47,6 +42,8 @@ public class Parser {
             return handleDelete(command);
         } else if (command.startsWith("mark ") || command.startsWith("unmark ")) {
             return handleMark(command);
+        } else if (command.startsWith("find ")) {
+            return handleFind(command);
         } else {
             throw new HarperInvalidCommandException();
         }
@@ -153,5 +150,16 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new HarperInvalidIndexException();
         }
+    }
+
+    /**
+     * Parses the find command.
+     *
+     * @param command Find command entered by user.
+     * @return commands.FindCommand that finds the matching tasks.
+     */
+    public static Command handleFind(String command) {
+        String[] commands = command.split(" ", 2);
+        return new FindCommand(commands[1].trim());
     }
 }

@@ -11,34 +11,42 @@ T | 0 | read book
 Now you have 1 task in the list.
 
 
-Date time should follow this format:
-d/M/yyyy HH:mm (e.g., 15/9/2024 16:25)
+Got it. I've added this task into your list:
+D | 0 | return book | 12 Dec 1001 12:12
+Now you have 2 tasks in the list.
 
 
-Date time should follow this format:
-d/M/yyyy HH:mm (e.g., 15/9/2024 16:25)
+Got it. I've added this task into your list:
+E | 0 | math class | 12 Dec 1212 12:12 - 12 Dec 1212 12:12
+Now you have 3 tasks in the list.
 
 
 Here are the tasks in your list:
 1. T | 0 | read book
+2. D | 0 | return book | 12 Dec 1001 12:12
+3. E | 0 | math class | 12 Dec 1212 12:12 - 12 Dec 1212 12:12
 
 
 Nice! I've marked this task as done:
 T | 1 | read book
 
 
-Please make sure u have entered a valid index!
+Nice! I've marked this task as done:
+E | 1 | math class | 12 Dec 1212 12:12 - 12 Dec 1212 12:12
 
 
 OK, I've marked this task as not done yet:
 T | 0 | read book
 
 
-Please make sure u have entered a valid index!
+Ok! I've removed this task for you:
+D | 0 | return book | 12 Dec 1001 12:12
+Now you have 2 tasks in the list.
 
 
 Here are the tasks in your list:
 1. T | 0 | read book
+2. E | 1 | math class | 12 Dec 1212 12:12 - 12 Dec 1212 12:12
 
 
 Please make sure u have entered a valid index!
