@@ -1,7 +1,8 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) throws DukeException{
+    public static void main(String[] args) {
         System.out.println("____________________________________________________________\n" +
                 " Hello! I'm Your Only Friend\n" +
                 " What can I do for you?\n" +
@@ -17,8 +18,8 @@ public class Duke {
                 if ((whatToDoCall.equals("list") | whatToDoCall.equals("List") | whatToDoCall.equals("LIST"))) {
                     System.out.println("____________________________________________________________\n");
                     System.out.println("Here are the tasks in your list:\n");
-                    for (Integer i = 1; i <= listOfTasks.size(); i++) {
-                        System.out.println(i.toString() + "." + listOfTasks.get(i - 1).toString());
+                    for (int i = 1; i <= listOfTasks.size(); i++) {
+                        System.out.println(i + "." + listOfTasks.get(i - 1).toString());
                     }
                     System.out.println("____________________________________________________________\n");
                 } else if (command[0].equals("mark")) {
@@ -36,13 +37,22 @@ public class Duke {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(listOfTasks.get(indexToUnmark).toString());
                     System.out.println("____________________________________________________________\n");
+                } else if (command[0].equals("delete")) {
+                    int indexToDelete = Integer.parseInt(command[1]) - 1;
+                    String str = listOfTasks.get(indexToDelete).toString();
+                    listOfTasks.remove(indexToDelete);
+
+                    System.out.println("____________________________________________________________\n"
+                            + "Noted. I've removed this task:\n"
+                            + str + "\n"
+                            + "Now you have " + listOfTasks.size() + (listOfTasks.size() <= 1 ? " task in the list." : " tasks in the list.")
+                            + "\n____________________________________________________________\n");
+
+
+
                 } else {
-                    if (!command[0].equals("todo") && !command[0].equals("deadline") && !command[0].equals("event")) {
-                        throw new DukeException("____________________________________________________________\n" +
-                                "OOPS! Turns out Your Only Friend does not know what that is :(\n" +
-                                "____________________________________________________________\n");
-                    }
-                    Task task = null;
+
+                    Task task;
                     if (command.length <= 1) {
                         throw new DukeException("____________________________________________________________\n" +
                                 "OOPS! Your Only Friend cannot take in an empty " + command[0] +
@@ -56,8 +66,10 @@ public class Duke {
                     } else if (command[0].equals("event")) {
                         task = new Event(command[1]);
                     } else {
-                        System.out.println("Invalid Input!");
-                        break;
+                        throw new DukeException("____________________________________________________________\n" +
+                                "OOPS! Turns out Your Only Friend does not know what that is :(\n" +
+                                "____________________________________________________________\n");
+
                     }
 
                     listOfTasks.add(task);
