@@ -10,20 +10,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 class Storage {
-    static List<String> List = new ArrayList<>();
-    static String FILE_PATH = "C:\\Users\\eugen\\Documents\\National University of Singapore\\Y2S2\\CS2103T\\IP\\src\\main\\java\\data\\hirwan.txt";
+    static List<String> tasks = new ArrayList<>();
+    static String FILE_PATH =
+            "C:\\Users\\eugen\\Documents\\National University of Singapore\\Y2S2\\CS2103T\\IP\\src\\main\\java\\data\\hirwan.txt";
 
     public static List<String> read() {
         try {
             File filePath = new File(FILE_PATH);
             Scanner scan = new Scanner(filePath);
             while (scan.hasNext()) {
-                List.add(scan.nextLine());
+                tasks.add(scan.nextLine());
             }
         } catch (FileNotFoundException e) {
             Ui.output("Error: file to read data from cannot be found!");
         }
-        return List;
+        return tasks;
     }
 
     public static void writeTask(List<String> List) {

@@ -9,24 +9,32 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 class Parser {
+    static final int COMMAND_LIST = 1;
+    static final int TASK_TODO = 2;
+    static final int TASK_DEADLINE = 3;
+    static final int TASK_EVENT  = 4;
+    static final int COMMAND_MARK = 5;
+    static final int COMMAND_UNMARK = 6;
+    static final int COMMAND_DELETE = 7;
+    static final int COMMAND_BYE = 8;
     public static int translate(String text) {
 
         if (text.equals("list")) {
-            return 1;
+            return COMMAND_LIST;
         } else if (text.startsWith("todo")) {
-            return 2;
+            return TASK_TODO;
         } else if (text.startsWith("deadline")) {
-            return 3;
+            return TASK_DEADLINE;
         } else if (text.startsWith("event")) {
-            return 4;
+            return TASK_EVENT;
         } else if (text.startsWith("mark")) {
-            return 5;
+            return COMMAND_MARK;
         } else if (text.startsWith("unmark")) {
-            return 6;
+            return COMMAND_UNMARK;
         } else if (text.startsWith("delete")) {
-            return 7;
+            return COMMAND_DELETE;
         } else if (text.equals("bye")) {
-            return 8;
+            return COMMAND_BYE;
         } else {
             return 9;
         }
