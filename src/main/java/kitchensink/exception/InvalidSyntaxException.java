@@ -29,6 +29,8 @@ public class InvalidSyntaxException extends Throwable {
             syntax = "event [task description] /from [start date] /to [end date]";
             break;
         case "delete": syntax = "delete [task number]";
+            break;
+        default:
         }
     }
     @Override

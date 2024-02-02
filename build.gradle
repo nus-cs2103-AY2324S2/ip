@@ -2,6 +2,11 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
 
 repositories {
@@ -28,7 +33,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("kitchensink.KitchenSink")
 }
 
 shadowJar {
@@ -39,4 +44,8 @@ shadowJar {
 
 run{
     standardInput = System.in
+}
+
+run {
+    enableAssertions = true
 }

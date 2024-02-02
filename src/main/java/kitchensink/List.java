@@ -2,6 +2,7 @@ package kitchensink;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 import kitchensink.task.Task;
 
 public class List {
@@ -13,11 +14,11 @@ public class List {
 
     public void addTask(Task task, Storage storage) throws IOException {
         tasks.add(task);
-        String task_s = tasks.size() == 1 ? " task " : " tasks ";
+        String taskOrTasks = tasks.size() == 1 ? " task " : " tasks ";
         System.out.println(Ui.LINE
                 + "Got it. I've added this task:\n"
                 + task.toString()
-                + "\nNow you have " + tasks.size() + task_s + "in the list.\n"
+                + "\nNow you have " + tasks.size() + taskOrTasks + "in the list.\n"
                 + Ui.LINE);
         storage.saveTasks(this);
     }
@@ -31,11 +32,11 @@ public class List {
     }
 
     public void deleteTask(int taskNum, Storage storage) throws IOException {
-        String task_s = tasks.size() - 1 == 1 ? " task " : " tasks ";
+        String taskOrTasks = tasks.size() - 1 == 1 ? " task " : " tasks ";
         System.out.println(Ui.LINE
                 + "Noted. I've removed this task:\n"
                 + tasks.get(taskNum).toString()
-                + "\nNow you have " + (tasks.size() - 1) + task_s + "in the list.\n"
+                + "\nNow you have " + (tasks.size() - 1) + taskOrTasks + "in the list.\n"
                 + Ui.LINE);
         storage.saveTasks(this);
     }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
+
 import kitchensink.exception.InvalidDateTimeException;
 import kitchensink.exception.InvalidSyntaxException;
 import kitchensink.exception.TaskNotFoundException;
@@ -71,8 +72,8 @@ public class Parser {
             taskList.addTask(new ToDo(input.substring(5)), storage);
             break;
         case "deadline": {
-            if (!Pattern.matches("deadline .+ /by .+", input) ||
-                    input.split("/by").length != 2) {
+            if (!Pattern.matches("deadline .+ /by .+", input)
+                    || input.split("/by").length != 2) {
                 throw new InvalidSyntaxException("deadline");
             }
             try {
@@ -86,9 +87,9 @@ public class Parser {
             break;
         }
         case "event":
-            if (!Pattern.matches("event .+ /from .+ /to .+", input) ||
-                    input.split("/from").length != 2 ||
-                    input.split("/to").length != 2) {
+            if (!Pattern.matches("event .+ /from .+ /to .+", input)
+                    || input.split("/from").length != 2
+                    || input.split("/to").length != 2) {
                 throw new InvalidSyntaxException("event");
             }
             try {

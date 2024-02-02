@@ -1,11 +1,11 @@
 package kitchensink;
 
+import java.io.IOException;
+
 import kitchensink.exception.InvalidDateTimeException;
 import kitchensink.exception.InvalidSyntaxException;
 import kitchensink.exception.TaskNotFoundException;
 import kitchensink.exception.UnknownCommandException;
-
-import java.io.IOException;
 
 public class KitchenSink {
     public static void main(String[] args) throws IOException, TaskNotFoundException, UnknownCommandException,
