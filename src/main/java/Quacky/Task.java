@@ -1,14 +1,29 @@
 package Quacky;
 
+/**
+ * Represents an abstract task in the Quacky application. This class provides
+ * the common structure for tasks, including their description and completion status.
+ */
 public abstract class Task {
     protected final String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a new Task with the specified description. By default, the task is not completed.
+     *
+     * @param description The textual description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Returns the status icon of the task. An "X" represents a completed task,
+     * while a space (" ") indicates an incomplete task.
+     *
+     * @return A string representing the completion status of the task.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
@@ -26,6 +41,9 @@ public abstract class Task {
         return String.format("[%s] %s",this.getStatusIcon(), description);
     }
 
+    /**
+     * Marks the task as completed by setting its completion status to {@code true}.
+     */
     public void markDone() {
         isDone = true;
     }
