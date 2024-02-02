@@ -41,4 +41,14 @@ public class TaskList {
     public int getSize() {
         return tasks.size();
     }
+
+    public TaskList findTasksByKeyword(String keyword) {
+        TaskList foundTasks = new TaskList();
+        for (Task task : this.tasks) {
+            if (task.getDescription().contains(keyword)) {
+                foundTasks.addTask(task);
+            }
+        }
+        return foundTasks;
+    }
 }

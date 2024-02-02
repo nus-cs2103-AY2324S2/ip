@@ -27,7 +27,7 @@ public class Zack {
     }
 
     public enum TaskType {
-        BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE, DATE
+        BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE, DATE, FIND
     }
 
     public void run() {
