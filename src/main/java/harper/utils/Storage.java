@@ -21,6 +21,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles all interactions with the hard disk, including loading from
+ * and storing into hard disk.
+ */
 public class Storage {
     private File file;
     private static final String PROJECT_DIR = System.getProperty("user.dir");

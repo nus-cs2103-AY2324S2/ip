@@ -1,5 +1,8 @@
 package harper.exceptions;
 
+/**
+ * Exception that indicates the format of command to add deadline is incorrect.
+ */
 public class HarperInvalidDeadlineException extends HarperException {
     public HarperInvalidDeadlineException() {
         super("Please follow the format: \"deadline [description] /by [deadline]\"\n"

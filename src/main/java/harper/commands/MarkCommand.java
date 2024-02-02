@@ -6,6 +6,9 @@ import harper.utils.Storage;
 
 import harper.tasks.Task;
 
+/**
+ * Represents a mark or unmark command.
+ */
 public class MarkCommand extends Command {
     private int taskIndex;
     private boolean isMarked;

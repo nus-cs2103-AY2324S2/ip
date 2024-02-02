@@ -22,6 +22,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class is responsible for interpreting user's into corresponding command.
+ * There are different methods that handle different types of input and convert them
+ * into Command object.
+ */
 public class Parser {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy H:mm");
