@@ -15,6 +15,11 @@ public class EventDao extends TaskDao {
   public static final String NAME = TaskType.EVENT.getCommand();
   private static final String FROM_STRING = "/from";
   private static final String TO_STRING = "/to";
+  /**
+   * Creates a event object from the given input string
+   * @param input input string with the format event EVENT NAME /from FROM DATE /by BY DATE
+   * @return Created event object
+   */
   public static Event getFrom(String input) {
     String name = getEventName(input);
     String startDate = getEventFrom(input);
@@ -23,6 +28,10 @@ public class EventDao extends TaskDao {
     return event;
   }
 
+  /**
+   * Gets all deadlines from the deadline.txt file
+   * @return Returns a list of deadlines that was parsed
+   */
   public static List<Event> getEvents() {
     File table = Database.getTable(NAME);
     List<Event> events = new ArrayList<>();

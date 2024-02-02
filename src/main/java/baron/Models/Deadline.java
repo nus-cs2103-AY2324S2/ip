@@ -22,10 +22,16 @@ public class Deadline extends Task {
     return "[D]" + super.toString() + " (by: " + DateUtils.formatDate(deadline) + ")";
   }
 
+  @Override
   public String toDataString() {
     return super.toDataString() + " | "  + this.deadline.format(DateUtils.INPUT_FORMATTER);
   }
 
+  /**
+   * Parses data string to create a deadline object.
+   * @param data deadline
+   * @return Created Deadline object
+   */
   public static Deadline fromDataString(String data) {
     String[] segments = data.split("\\s*\\|\\s*");
     int id = Integer.parseInt(segments[0]);

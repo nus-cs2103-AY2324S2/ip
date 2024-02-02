@@ -19,6 +19,9 @@ public class TaskManager {
 
   private List<Task> tasks = new ArrayList<>();
 
+  /**
+   * Initialises data from the different files so that it's all shown in 1 task list
+   */
   public TaskManager() {
     List<Todo> todos = TodoDao.getTodos();
     tasks.addAll(todos);
@@ -54,6 +57,10 @@ public class TaskManager {
     return input.split(" ")[1];
   }
 
+  /**
+   * Handles user input
+   * @param input Input given by user
+   */
   public void handleInput(String input) {
     try {
       input = input.trim();

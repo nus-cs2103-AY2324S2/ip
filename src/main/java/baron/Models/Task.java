@@ -47,6 +47,10 @@ public class Task {
     return "[" + done + "] " + name;
   }
 
+  /**
+   * Converts object to its data representation format
+   * @return Data String representation format
+   */
   public String toDataString() {
     String done = this.isDone() ? "1" : "0";
     return done + " | " + this.getName();
