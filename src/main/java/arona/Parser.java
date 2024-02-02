@@ -22,6 +22,8 @@ public class Parser {
             case "delete":
                 if (fullCommand.split(" ", 0).length == 1) throw new AronaException("Sensei! Please provide a task number!");
                 return new DeleteTask(fullCommand);
+            case "find":
+                return new FindTask(fullCommand);
             default:
                 return new AddTask(fullCommand);
         }
@@ -62,5 +64,10 @@ public class Parser {
         String taskStatus = input.split("\\|", 0)[1];
         boolean isTaskDone = taskStatus.trim().equals("1") ? true : false;
         return isTaskDone;
+    }
+
+    public static String ExtractDescription(String input) {
+        String description = input.split(" ")[1];
+        return description;
     }
 }

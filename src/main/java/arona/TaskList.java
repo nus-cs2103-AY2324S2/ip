@@ -104,6 +104,20 @@ public class TaskList {
         System.out.println(task.toString());
     }
 
+    public void findTasks(String fullCommand) {
+        ArrayList<Task> newTasksList = new ArrayList<>();
+        String keyword = Parser.ExtractDescription(fullCommand);
+        System.out.println(keyword);
+        for (Task task : tasks) {
+            String description = task.getDescription();
+            boolean contains = description.contains(keyword);
+            if (contains) {
+                newTasksList.add(task);
+            }
+        }
+        ui.printTasks(newTasksList);
+    }
+
     private static <E extends Enum<E>> boolean containsEnumValue(Class<E> enumClass, String value) {
         for (Enum<E> enumConstant : enumClass.getEnumConstants()) {
             if (enumConstant.name().equalsIgnoreCase(value)) {
