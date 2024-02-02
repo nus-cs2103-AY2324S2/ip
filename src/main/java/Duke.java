@@ -15,29 +15,29 @@ public class Duke {
                 String taskDetail = Parser.parseTaskDetail(s);
                 switch (command) {
                     case LIST:
-                        displayList();
+                        lst.displayList();
                         break;
                     case BYE:
                         exit();
                         Storage.saveTasks();
                         return;
                     case MARK:
-                        markComplete(Integer.parseInt(taskDetail.trim()));
+                        lst.markComplete(Integer.parseInt(taskDetail.trim()));
                         break;
                     case UNMARK:
-                        unmarkComplete(Integer.parseInt(taskDetail.trim()));
+                        lst.unmarkComplete(Integer.parseInt(taskDetail.trim()));
                         break;
                     case TODO:
-                        addToList(new Todo(taskDetail));
+                        lst.addToList(new Todo(taskDetail));
                         break;
                     case DEADLINE:
-                        addToList(new Deadline(taskDetail));
+                        lst.addToList(new Deadline(taskDetail));
                         break;
                     case EVENT:
-                        addToList(new Event(taskDetail));
+                        lst.addToList(new Event(taskDetail));
                         break;
                     case DELETE:
-                        deleteTask(Integer.parseInt(taskDetail.trim()));
+                        lst.deleteTask(Integer.parseInt(taskDetail.trim()));
                         break;
                     case UNKNOWN:
                         throw new AllyException();
@@ -63,45 +63,5 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    private static void addToList(String s) {
-        lst.add(new Task(s));
-        System.out.println("added: " + s);
-    }
 
-    private static void addToList(Task t) {
-        lst.add(t);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(t);
-        countTasks();
-    }
-
-    private static void displayList() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < lst.size(); i++) {
-            System.out.println(i+1 + ":" + lst.get(i));
-        }
-    }
-
-    private static void markComplete(int i) {
-        System.out.println("Nice! I've marked this task as done:");
-        lst.get(i-1).markComplete();
-        System.out.println(lst.get(i-1));
-    }
-
-    private static void unmarkComplete(int i) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        lst.get(i-1).unmarkComplete();
-        System.out.println(lst.get(i-1));
-    }
-
-    private static void deleteTask(int i) {
-        Task t = lst.remove(i-1);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(t);
-        countTasks();
-    }
-
-    private static void countTasks() {
-        System.out.println("Now you have " + lst.size() + " tasks in the list.");
-    }
 }
