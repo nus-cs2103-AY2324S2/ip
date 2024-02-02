@@ -20,5 +20,7 @@ public class OedipusRex {
                 System.out.println(command);
             }
         }
+
+        int i = 1;
     }
 }
