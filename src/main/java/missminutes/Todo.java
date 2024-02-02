@@ -36,6 +36,6 @@ public class Todo extends Task implements Serializable {
      */
     @Override
     public String toString() {
-        return  "[T]" + super.toString();
+        return "[T]" + super.toString();
     }
 }

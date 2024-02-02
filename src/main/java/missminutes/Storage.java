@@ -2,9 +2,9 @@ package missminutes;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.IOException;
 
 /**
  * Storage class to store and persist the TaskList class in disk.
@@ -55,7 +55,7 @@ public class Storage {
             out.close();
             fileIn.close();
             return tasks;
-        } catch (Exception err) { // Not just IOException and ClassNotFound, as MissMinutes.Task definition might've changed
+        } catch (Exception err) {
             throw new MissMinutesException("Failed to load storage from " + filePath);
         }
     }

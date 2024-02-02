@@ -1,6 +1,5 @@
 package missminutes;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -10,13 +9,13 @@ public class Ui {
     private static final String SEPARATOR = "-".repeat(60);
 
     private static final String MISS_MINUTES_LOGO =
-            " __  __ _           __  __ _             _                  \n" +
-            " |  \\/  (_)         |  \\/  (_)           | |              \n" +
-            " | \\  / |_ ___ ___  | \\  / |_ _ __  _   _| |_ ___  ___    \n" +
-            " | |\\/| | / __/ __| | |\\/| | | '_ \\| | | | __/ _ \\/ __| \n" +
-            " | |  | | \\__ \\__ \\ | |  | | | | | | |_| | ||  __/\\__ \\\n" +
-            " |_|  |_|_|___/___/ |_|  |_|_|_| |_|\\__,_|\\__\\___||___/  \n" +
-            "                                                            \n";
+              " __  __ _           __  __ _             _                  \n"
+            + " |  \\/  (_)         |  \\/  (_)           | |              \n"
+            + " | \\  / |_ ___ ___  | \\  / |_ _ __  _   _| |_ ___  ___    \n"
+            + " | |\\/| | / __/ __| | |\\/| | | '_ \\| | | | __/ _ \\/ __| \n"
+            + " | |  | | \\__ \\__ \\ | |  | | | | | | |_| | ||  __/\\__ \\\n"
+            + " |_|  |_|_|___/___/ |_|  |_|_|_| |_|\\__,_|\\__\\___||___/  \n"
+            + "                                                            \n";
 
     private static final Scanner stdin = new Scanner(System.in);
 
@@ -47,7 +46,7 @@ public class Ui {
 
     /**
      * Prints the given message to the command line
-     * 
+     *
      * @param body The message to be printed
      */
     public static void sendMsg(String body) {

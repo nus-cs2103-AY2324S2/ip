@@ -1,11 +1,12 @@
 package missminutes;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     @Test
-    public void testParseCommand_ByeCommand_ReturnsByeCommandType() {
+    public void testParseCommand_byeCommand_returnsByeCommandType() {
         String command = "bye";
         Parser.CommandType commandType = Parser.parseCommand(command);
 
@@ -13,7 +14,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseCommand_ListCommand_ReturnsListCommandType() {
+    public void testParseCommand_listCommand_returnsListCommandType() {
         String command = "list";
         Parser.CommandType commandType = Parser.parseCommand(command);
 
@@ -21,7 +22,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseCommand_MarkCommand_ReturnsMarkCommandType() {
+    public void testParseCommand_markCommand_returnsMarkCommandType() {
         String command1 = "mark 1";
         Parser.CommandType commandType1 = Parser.parseCommand(command1);
         assertEquals(Parser.CommandType.MARK, commandType1);
@@ -32,7 +33,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseCommand_UnmarkCommand_ReturnsUnmarkCommandType() {
+    public void testParseCommand_unmarkCommand_returnsUnmarkCommandType() {
         String command1 = "unmark 1";
         Parser.CommandType commandType1 = Parser.parseCommand(command1);
         assertEquals(Parser.CommandType.UNMARK, commandType1);
@@ -43,7 +44,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseCommand_UnknownCommand_ReturnsUnknownCommandType() {
+    public void testParseCommand_unknownCommand_returnsUnknownCommandType() {
         String command1 = "randomcommand";
         Parser.CommandType commandType1 = Parser.parseCommand(command1);
         assertEquals(Parser.CommandType.UNKNOWN, commandType1);

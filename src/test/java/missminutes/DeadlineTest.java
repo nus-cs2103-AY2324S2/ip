@@ -1,13 +1,15 @@
 package missminutes;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
     @Test
-    public void testFromStr_ValidInput_ReturnsDeadline() throws MissMinutesException {
+    public void testFromStr_validInput_returnsDeadline() throws MissMinutesException {
         String input = "Finish assignment /by 2024-01-31 1800";
         Deadline deadline = Deadline.fromStr(input);
 
@@ -16,7 +18,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void testFromStr_InvalidDateTimeFormat_ThrowsMissMinutesException() {
+    public void testFromStr_invalidDateTimeFormat_throwsMissMinutesException() {
         String input1 = "Finish assignment /by 2024-01-31 18:00"; // Invalid time
         assertThrows(MissMinutesException.class, () -> Deadline.fromStr(input1));
 
@@ -28,7 +30,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void testFromStr_InvalidInputFormat_ThrowsMissMinutesException() {
+    public void testFromStr_invalidInputFormat_throwsMissMinutesException() {
         String input1 = "assignment by 2024-01-31 1800"; // missing /by
         assertThrows(MissMinutesException.class, () -> Deadline.fromStr(input1));
 
@@ -37,7 +39,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void testToString_ReturnsFormattedString() {
+    public void testToString_returnsFormattedString() {
         LocalDateTime by = LocalDateTime.of(2024, 1, 31, 18, 0);
         Deadline deadline = new Deadline("Finish assignment", by);
 

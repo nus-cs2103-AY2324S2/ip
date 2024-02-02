@@ -50,8 +50,8 @@ public class TaskList implements Serializable {
      */
     public void addTask(Task task) {
         this.tasks.add(task);
-        String reply = "Got it. I've added this task: \n" + task + "\n" +
-                "Now you have " + tasks.size() + " tasks in the list.";
+        String reply = "Got it. I've added this task: \n" + task + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.";
         Ui.sendMsg(reply);
     }
 

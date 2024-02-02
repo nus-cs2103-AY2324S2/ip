@@ -1,19 +1,18 @@
 package missminutes;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.time.LocalDateTime;
 
 /**
  * Represents a more specific task, with a deadline (stored as a LocalDateTime)
- *
- * @implements Serializable to be stored in binary format files for persistence
+ * Implements Serializable to be stored in binary format files for persistence
  */
 public class Deadline extends Task implements Serializable {
+    protected static final Pattern FORMATTER = Pattern.compile("(.+) /by (.+)");
     protected final LocalDateTime by;
-    protected final static Pattern FORMATTER = Pattern.compile("(.+) /by (.+)");
 
     /**
      * Creates a new Deadline object with the given name and deadline
@@ -47,7 +46,9 @@ public class Deadline extends Task implements Serializable {
                 throw new MissMinutesException("Please enter a valid date time format. For example, 2019-12-31 1800");
             }
         } else {
-            throw new MissMinutesException("Deadlines have to be created with the following format: deadline <desc> /by <end>");
+            throw new MissMinutesException(
+                    "Deadlines have to be created with the following format: deadline <desc> /by <end>"
+            );
         }
     }
 

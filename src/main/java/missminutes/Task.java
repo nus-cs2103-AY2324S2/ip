@@ -5,15 +5,14 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task that can be marked or unmarked.
- *
- * @implements Serializable to be stored in binary format files for persistence
+ * Implements Serializable to be stored in binary format files for persistence
  */
 public class Task implements Serializable {
+    protected static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    protected static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy ha");
     protected String description;
     protected boolean isDone;
 
-    protected static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    protected static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy ha");
 
     /**
      * Creates a new task with the given `description`.

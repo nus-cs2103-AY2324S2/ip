@@ -1,20 +1,19 @@
 package missminutes;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.time.LocalDateTime;
 
 /**
  * Represents a specialised task called Event with a start time and end time
- *
- * @implements Serializable to be stored in binary format files for persistence
+ * Implements Serializable to be stored in binary format files for persistence
  */
 public class Event extends Task implements Serializable {
+    protected static final Pattern FORMATTER = Pattern.compile("(.+) /from (.+) /to (.+)");
     protected final LocalDateTime startTime;
     protected final LocalDateTime endTime;
-    protected static final Pattern FORMATTER = Pattern.compile("(.+) /from (.+) /to (.+)");
 
     /**
      * Creates a Event object with a given name, start time and end time
@@ -43,7 +42,8 @@ public class Event extends Task implements Serializable {
             String startTimeStr = matcher.group(2);
             String endTimeStr = matcher.group(3);
 
-            LocalDateTime startTime, endTime;
+            LocalDateTime startTime;
+            LocalDateTime endTime;
             try {
                 startTime = LocalDateTime.parse(startTimeStr, Task.INPUT_DATE_FORMAT);
                 endTime = LocalDateTime.parse(endTimeStr, Task.INPUT_DATE_FORMAT);
@@ -53,7 +53,9 @@ public class Event extends Task implements Serializable {
 
             return new Event(name, startTime, endTime);
         } else {
-            throw new MissMinutesException("Events have to be created with the following format: event <desc> /from <start> /to <end>");
+            throw new MissMinutesException(
+                    "Events have to be created with the following format: event <desc> /from <start> /to <end>"
+            );
         }
     }
 

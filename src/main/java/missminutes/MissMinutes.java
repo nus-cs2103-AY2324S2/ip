@@ -22,6 +22,9 @@ public class MissMinutes {
         }
     }
 
+    /**
+     * Runs the Miss Minutes chatbot while loop and handles the user input
+     */
     public void run() {
         Ui.sayHello();
 
@@ -72,7 +75,11 @@ public class MissMinutes {
                     tasks.findTask(request);
                     break;
                 case UNKNOWN:
-                        throw new MissMinutesException("Oh, I'm sowwy, I didn't undewstand dat. (>_<) Can I hewp wif sumthin' else, pwease? UwU");
+                    // Fallthrough
+                default:
+                    throw new MissMinutesException(
+                            "Oh, I'm sowwy, I didn't undewstand dat. (>_<) Can I hewp wif sumthin' else, pwease? UwU"
+                    );
                 }
             } catch (MissMinutesException err) {
                 Ui.sendMsg(err.getMessage());
