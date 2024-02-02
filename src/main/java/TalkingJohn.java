@@ -23,6 +23,7 @@ public class TalkingJohn {
             for (Task task : taskArr) {
                 writer.write(task.toString() + "\n");
             }
+
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
@@ -199,4 +200,3 @@ public class TalkingJohn {
         chatBot.run();
     }
 }
-
