@@ -31,4 +31,13 @@ public class Task {
         return this.isDone ? 1 : 0;
     }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @return Description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
 }

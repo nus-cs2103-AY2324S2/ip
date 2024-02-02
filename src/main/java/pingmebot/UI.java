@@ -24,6 +24,14 @@ public class UI {
         System.out.println("Here are the tasks in your list:");
     }
 
+    /**
+     * Prints an overview text of matching tasks found in the tasklist.
+     */
+    public void listMatchingText() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
+
+
     public String readCommand() {
         return this.sc.nextLine();
     }

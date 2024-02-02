@@ -3,6 +3,7 @@ package pingmebot;
 import pingmebot.task.Task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
     ArrayList<Task> tasks;
@@ -56,6 +57,28 @@ public class TaskList {
             }
             int taskNumber = i + 1;
             System.out.println(taskNumber + "." + tasks.get(i).toString());
+        }
+    }
+
+    /**
+     * Returns a list of matching task according to the specified keyword.
+     *
+     * @param keyword Keyword specified by the user to find.
+     * @return A list of matching task lists, can be empty as well.
+     */
+    public ArrayList<Task> findMatchingTask(String keyword) {
+        return this.tasks.stream().filter(task
+                -> task.getDescription().contains(keyword)).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * Prints out the list of matching task, if any, with a 1-based index.
+     *
+     * @param tasks The list of matching tasks, if any.
+     */
+    public void listMatchingTask(ArrayList<Task> tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i).toString());
         }
     }
 }

@@ -181,5 +181,21 @@ public class Parser {
         }
     }
 
-
+    /**
+     * Returns the keyword of what the user is trying to find in his/her tasklist.
+     *
+     * @return Keyword specified by the user.
+     * @throws myBotException If the user forgets to input keyword to find.
+     */
+    public String parseFindCommand() throws  myBotException {
+        try {
+            if (!this.words.get(1).isEmpty()) {
+                return this.words.get(1);
+            } else {
+                throw new IndexOutOfBoundsException();
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new myBotException("I'm not sure what you are trying to find. Please specify a keyword and try again!");
+        }
+    }
 }
