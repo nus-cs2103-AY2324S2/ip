@@ -1,4 +1,4 @@
-package BartenderBob;
+package bartenderbob;
 public class BartenderBobException extends Exception{
     private String firstWord;
     private static final Ui UI = new Ui();

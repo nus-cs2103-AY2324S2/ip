@@ -1,6 +1,6 @@
-package BartenderBob;
+package bartenderbob;
 public class BartenderBob {
-    private static final String NAME = "BartenderBob";
+    private static final String NAME = "bartenderbob";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;

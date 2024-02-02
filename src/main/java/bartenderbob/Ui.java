@@ -1,4 +1,4 @@
-package BartenderBob;
+package bartenderbob;
 import java.util.ArrayList;
 
 public class Ui {
