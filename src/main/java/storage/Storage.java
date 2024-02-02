@@ -16,18 +16,22 @@ import task.ToDo;
 
 public class Storage {
 
+  public static final String BASE_PATH = System.getProperty("user.dir");
+
   String filePath;
 
-  public Storage(String filePath) {
-    this.filePath = filePath;
-  }
-
-  public String getFilePath() {
-    return this.filePath;
-  }
-
-  public void setFilePath(String filePath) {
-    this.filePath = filePath;
+  public Storage(String fileName) throws FileNotFoundException, IOException {
+    try {
+      this.filePath = BASE_PATH + "/" + fileName;
+      File file = new File(this.filePath);
+      if (!file.exists()) {
+        file.createNewFile();
+      }
+    } catch (FileNotFoundException e) {
+      throw new FileNotFoundException();
+    } catch (IOException e) {
+      throw new IOException();
+    }
   }
 
   public ArrayList<Task> loadTaskList() throws FileNotFoundException, DukeException, IOException {
@@ -67,16 +71,13 @@ public class Storage {
    * Save task list to hard disk
    */
   public void saveTaskList(ArrayList<Task> inputList) throws DukeException {
-    try {
-      File file = new File(this.filePath);
+    File file = new File(this.filePath);
 
-      try (FileWriter fw = new FileWriter(file)) {
-        for (Task task : inputList) {
-          fw.write(task.toFileString() + System.lineSeparator());
-        }
+    try (FileWriter fw = new FileWriter(file)) {
+      for (Task task : inputList) {
+        fw.write(task.toFileString() + System.lineSeparator());
       }
     } catch (IOException e) {
-      System.out.println(e.getMessage());
       throw new DukeException("Error saving the task list file.");
     }
   }
