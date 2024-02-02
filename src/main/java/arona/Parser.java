@@ -31,6 +31,9 @@ public class Parser {
         case "delete":
             if (fullCommand.split(" ", 0).length == 1) throw new AronaException("Sensei! Please provide a task number!");
             return new DeleteTask(fullCommand);
+        case "find":
+            if (fullCommand.split(" ", 0).length == 1) throw new AronaException("Sensei! Please provide a task number!");
+            return new FindTask(fullCommand);
         default:
             return new AddTask(fullCommand);
         }
