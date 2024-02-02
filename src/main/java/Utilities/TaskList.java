@@ -69,4 +69,14 @@ public class TaskList {
                             " tasks, enter any number from 1 to " + tasks.size()));
         }
     }
+
+    public ArrayList<Task> findTask(String string) {
+        ArrayList<Task> ans = new ArrayList<>();
+        for (Task t : tasks) {
+            if (t.getName().contains(string)) {
+                ans.add(t);
+            }
+        }
+        return ans;
+    }
 }

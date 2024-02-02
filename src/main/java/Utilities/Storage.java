@@ -73,7 +73,7 @@ public class Storage {
      * @return the list of tasks loaded from the file
      * @throws YpxmmException if an I/O error occurs or if the file is corrupted
      */
-    public ArrayList<Task> load() throws YpxmmException {
+    public ArrayList<Task> loadTasksIntoTaskList() throws YpxmmException {
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
         try {

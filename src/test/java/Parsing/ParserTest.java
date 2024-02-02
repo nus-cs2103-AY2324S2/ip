@@ -101,4 +101,16 @@ public class ParserTest {
         assertEquals("You tell me now what task am I supposed to delete if you don't provide me with a number?",
                 new ParserStub().parseStub("delete cc"));
     }
+
+    /**
+     * Tests the parsing of the "find" command.
+     * Checks if the parser correctly handles input with and without additional keywords.
+     */
+    @Test
+    public void parseFindTest() {
+        // Tests parsing when additional keywords are provided
+        assertEquals("find time", new ParserStub().parseStub("find time"));
+        // Tests parsing when no additional keywords are provided
+        assertEquals("What u want me to find??", new ParserStub().parseStub("find"));
+    }
 }

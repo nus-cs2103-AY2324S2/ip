@@ -50,7 +50,8 @@ public class Ui {
                 "  todo <task> - adds todo\n  deadline <task>/<by when> - adds deadline\n" +
                 "  event <task>/<from when>/<to when> - adds event\n  list - lists out all tasks\n" +
                 "  mark <x> - marks task x as done\n  unmark <x> - unmarks task x as undone\n" +
-                "  delete <x> - deletes task x from the list\n" +  "  bye - exit");
+                "  delete <x> - deletes task x from the list\n" +  "  find <thing to search> - searches for tasks with the input word or phrase\n" +
+                "  bye - exit");
     }
 
     /**
@@ -111,6 +112,25 @@ public class Ui {
     public void unmarkMessage(Task task) {
         System.out.println("Eh wake up your idea, faster finish can or not?? Unmark for you already la!");
         System.out.println(task.toString());
+    }
+
+    /**
+     * Prints the tasks found with the specified keyword in its name.
+     * If no tasks are found, prints a message indicating so.
+     *
+     * @param tasks The list of tasks the user currently has.
+     */
+    public void findMessage(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks with that name la");
+        } else {
+            System.out.println("Ok ah, this is what I found");
+            int count = 1;
+            for (Task t : tasks) {
+                System.out.println(count + ". " + t.toString());
+                count++;
+            }
+        }
     }
 
     /**

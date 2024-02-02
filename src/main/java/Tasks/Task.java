@@ -49,6 +49,15 @@ public class Task {
     }
 
     /**
+     * Returns the name of the task.
+     *
+     * @return a string containing the name of the task
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
      * Converts the task to a string formatted for writing to file.
      *
      * @return a string containing the status and name of the task

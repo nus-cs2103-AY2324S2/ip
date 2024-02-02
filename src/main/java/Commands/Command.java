@@ -39,6 +39,25 @@ public enum Command {
     },
 
     /**
+     * Command to find tasks with a certain keyword or keywords.
+     */
+    FIND {
+        /**
+         * Executes the command to find tasks with a certain keyword or keywords.
+         *
+         * @param tasklist the list of tasks
+         * @param ui the user interface
+         * @param storage the storage utility
+         * @param parsed the parsed command arguments
+         * @throws YpxmmException if an error occurs during execution
+         */
+        @Override
+        public void execute(TaskList tasklist, Ui ui, Storage storage, ArrayList<String> parsed) {
+            ui.findMessage(tasklist.findTask(parsed.get(1)));
+        }
+    },
+
+    /**
      * Command to mark a task as done.
      */
     MARK {

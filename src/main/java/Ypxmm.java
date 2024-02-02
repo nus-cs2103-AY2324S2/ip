@@ -30,7 +30,7 @@ public class Ypxmm {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.loadTasksIntoTaskList());
         } catch (YpxmmException y) {
             System.out.println(y.getMessage());
         }
