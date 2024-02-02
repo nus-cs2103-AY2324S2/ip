@@ -8,9 +8,20 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+/**
+ * Handles CRUD operations for a given file path, create, read, update and delete
+ */
 public class Database {
-    private static final String FILE_PATH = "database.db";
+
+    // Base directory for the files to be read from. Defaults to root directory
     public static final String BASE_DIR = System.getProperty("user.dir");
+
+    /**
+     * Gets the File object from the BASE_DIR with the specified fileName.
+     * Creates the file if it doesn't exist
+     * @param fileName File name of the file to read from
+     * @return the file object of the table
+     */
     public static File getTable(String fileName) {
         try {
             String filePath = BASE_DIR + "/" + fileName + ".txt";
@@ -25,6 +36,12 @@ public class Database {
         return null;
     }
 
+    /**
+     * Appends a new line to the end of the file
+     * @param filePath Filepath to write
+     * @param line Line to append to the end of file
+     * @return the id of the newly appended line, which is actually just lineNumber - 1
+     */
     public static long create(Path filePath, String line) {
         try {
             long count = Files.lines(filePath).count();
@@ -43,6 +60,12 @@ public class Database {
         return -1; // -1 indicates error
     }
 
+    /**
+     * TODO: Currenlty unused, but will be used in Level-9
+     * @param filePath file name of the file
+     * @param id the id to find. Does not refer to line number, but the actual id, which is the first number of each line
+     * @return Returns the line if it exists, or null otherwise
+     */
     public static String findById(String filePath, int id) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
@@ -60,6 +83,12 @@ public class Database {
         }
     }
 
+    /**
+     * Finds the line with the given ID and updates it
+     * @param filePath fulle file path of the file to update
+     * @param id id of the line
+     * @param newLine the new line data to update
+     */
     public static void updateById(Path filePath, long id, String newLine) {
         newLine = id + " | " + newLine;
         List<String> lines = FileUtils.read(filePath);
@@ -73,6 +102,12 @@ public class Database {
         FileUtils.write(filePath, lines);
     }
 
+    /**
+     * Deletes a line with the specified. In case the line doesn't exist, it will just throw an
+     * index out of bounds execption for now
+     * @param filePath full path of file to perofrm IO on
+     * @param id id of line to delete
+     */
     public static void delete(Path filePath, long id) {
         List<String> lines = FileUtils.read(filePath);
         int idToDelete = -1;
@@ -89,6 +124,11 @@ public class Database {
         FileUtils.write(filePath, lines);
     }
 
+    /**
+     * This just extracts the ID from the given line
+     * @param line line to extract id from
+     * @return the id, if it exists
+     */
     private static int findId(String line) {
         String[] segments = StringUtils.splitDataString(line);
         return Integer.parseInt(segments[0]);

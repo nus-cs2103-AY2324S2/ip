@@ -17,6 +17,11 @@ public class DeadlineDao extends TaskDao {
   public static final String NAME = TaskType.DEADLINE.getCommand();
   private static final String byString = "/by";
 
+  /**
+   * Creates a deadline object from the given input string
+   * @param input input string with the format deadline deadline_name /by arbitrary_date
+   * @return Created deadline object
+   */
   public static Deadline getFrom(String input) {
     String name = getName(input);
     LocalDateTime deadline = getDeadline(input);
@@ -35,6 +40,10 @@ public class DeadlineDao extends TaskDao {
     return deadline;
   }
 
+  /**
+   * Gets all deadlines from the deadline.txt file
+   * @return Returns a list of deadlines that was parsed
+   */
   public static List<Deadline> getDeadlines() {
     File table = Database.getTable(NAME);
     List<Deadline> deadlines = new ArrayList<>();

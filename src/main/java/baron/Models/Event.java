@@ -36,11 +36,16 @@ public class Event extends baron.Models.Task {
     return "[E]" + super.toString() + " (from: " + startDate + " to: " + endDate + ")";
   }
 
+  @Override
   public String toDataString() {
-
     return super.toDataString() + " | " + this.startDate + " | " + this.endDate;
   }
 
+  /**
+   * Parses data string to create an event object.
+   * @param data line
+   * @return Created Event object
+   */
   public static Event fromDataString(String data) {
     String[] segments = data.split("\\s*\\|\\s*");
     int id = Integer.parseInt(segments[0]);

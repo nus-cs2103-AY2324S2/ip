@@ -15,10 +15,16 @@ public class Todo extends Task {
   }
 
 
+  @Override
   public String toDataString() {
     return super.toDataString();
   }
 
+  /**
+   * Parses data string to create a todo object.
+   * @param data Todo line
+   * @return Created Todo object
+   */
   public static Todo fromDataString(String data) {
     String[] segments = data.split("\\s*\\|\\s*");
     int id = Integer.parseInt(segments[0]);

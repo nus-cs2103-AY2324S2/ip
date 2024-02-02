@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Manages parsing and formatting of dates
+ */
 public class DateUtils {
 
     // 03/21/1999 1600
