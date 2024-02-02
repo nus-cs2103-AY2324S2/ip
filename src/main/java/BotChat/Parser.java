@@ -32,25 +32,25 @@ public class Parser {
         Task task;
 
         switch (taskType) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                int byIndex = line.indexOf("(by: ");
-                int endIndex = line.indexOf(")");
-                String by = line.substring(byIndex + 5, endIndex);
-                task = new Deadline(description, by);
-                break;
-            case "E":
-                int fromIndex = line.indexOf("(from: ");
-                int toIndex = line.indexOf(" to: ");
-                int end = line.indexOf(")");
-                String from = line.substring(fromIndex + 7, toIndex);
-                String to = line.substring(toIndex + 5, end);
-                task = new Event(description, from, to);
-                break;
-            default:
-                return null;
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            int byIndex = line.indexOf("(by: ");
+            int endIndex = line.indexOf(")");
+            String by = line.substring(byIndex + 5, endIndex);
+            task = new Deadline(description, by);
+            break;
+        case "E":
+            int fromIndex = line.indexOf("(from: ");
+            int toIndex = line.indexOf(" to: ");
+            int end = line.indexOf(")");
+            String from = line.substring(fromIndex + 7, toIndex);
+            String to = line.substring(toIndex + 5, end);
+            task = new Event(description, from, to);
+            break;
+        default:
+            return null;
         }
 
         if (isDone) {

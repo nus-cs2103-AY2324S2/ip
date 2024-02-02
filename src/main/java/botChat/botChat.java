@@ -41,33 +41,33 @@ public class BotChat {
     private void handleInput(String input) throws BotChatException {
         Command command = Parser.getCommand(input.split(" ")[0]);
         switch (command) {
-            case BYE:
-                ui.showGoodbyeMessage();
-                System.exit(0);
-                break;
-            case LIST:
-                tasks.listTasks();
-                break;
-            case MARK:
-                tasks.markTask(input);
-                break;
-            case UNMARK:
-                tasks.unmarkTask(input);
-                break;
-            case EVENT:
-                tasks.addEventTask(input);
-                break;
-            case DEADLINE:
-                tasks.addDeadlineTask(input);
-                break;
-            case TODO:
-                tasks.addTodoTask(input);
-                break;
-            case DELETE:
-                tasks.deleteTask(input);
-                break;
-            case UNKNOWN:
-                throw new BotChatException("Sorry, I do not understand that command. Please try again.");
+        case BYE:
+            ui.showGoodbyeMessage();
+            System.exit(0);
+            break;
+        case LIST:
+            tasks.listTasks();
+            break;
+        case MARK:
+            tasks.markTask(input);
+            break;
+        case UNMARK:
+            tasks.unmarkTask(input);
+            break;
+        case EVENT:
+            tasks.addEventTask(input);
+            break;
+        case DEADLINE:
+            tasks.addDeadlineTask(input);
+            break;
+        case TODO:
+            tasks.addTodoTask(input);
+            break;
+        case DELETE:
+            tasks.deleteTask(input);
+            break;
+        case UNKNOWN:
+            throw new BotChatException("Sorry, I do not understand that command. Please try again.");
         }
     }
 
