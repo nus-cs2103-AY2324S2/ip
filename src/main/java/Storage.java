@@ -14,7 +14,7 @@ public class Storage {
         this("./duke.txt");
     }
 
-    public ArrayList<Task> load() {
+    public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             File file = new File(this.filepath);
@@ -44,12 +44,12 @@ public class Storage {
             }
             fileScanner.close();
         } catch (IOException e) {
-            System.out.println(e);
+            throw new DukeException("Unable to load file");
         }
         return tasks;
     }
 
-    public void save(TaskList tasklist) {
+    public void save(TaskList tasklist) throws DukeException {
         try {
             ArrayList<Task> tasks = tasklist.getTasks();
             File file = new File(this.filepath);
@@ -63,7 +63,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println(e);
+            throw new DukeException("Unable to save file");
         }
     }
 }

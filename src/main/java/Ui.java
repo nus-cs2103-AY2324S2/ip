@@ -11,13 +11,17 @@ public class Ui {
                 "Hello! I'm Bob\n" +
                 "What can I do for you?");
     }
-    public void readCommand() {
-        String command = scanner.nextLine();
+    public String readCommand() {
+        return scanner.nextLine();
     }
     public void showResult(String result) {
         System.out.println(result);
     }
     public void showBye() {
         System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    public void showError(String errorMessage) {
+        System.out.println(errorMessage);
     }
 }

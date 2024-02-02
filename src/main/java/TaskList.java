@@ -11,9 +11,6 @@ public class TaskList {
 
     public void add(Task task) {
         tasks.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
     }
 
     public String delete(int taskNumber) throws DukeException {
