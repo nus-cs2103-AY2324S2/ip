@@ -1,6 +1,7 @@
 package UI;
 
 import Tasks.Task;
+import TasksStorage.TaskList;
 
 public class Ui {
 
@@ -29,26 +30,10 @@ public class Ui {
         System.out.println(exit);
     }
 
-    public void markMessage(Task t) {
-        System.out.printf("    Great job completing your task!\n      %s\n\n", t.toString());
-
-    }
-    public void unmarkMessage(Task t) {
-        System.out.printf("    Don't forget to complete your task soon...\n      %s\n\n", t.toString());
-    }
-
-    public void deleteMessage(Task t, int size) {
-        System.out.printf("    Ok, I have removed your task:\n    %s\n    You have %d task(s) in the " +
-                "list now.\n\n", t.toString(), size);;
-    }
-
-    public void addMessage(Task t, int size) {
-        System.out.printf("    Ok! I have added your task:\n      %s\n    You have %d task(s) in the " +
-                "list now.\n\n", t.toString(), size);
-    }
 
     public void dateFormatInstructions() {
         System.out.printf("    Your date should be in this format:\n    <YYYY-MM-DD HH:mm> e.g. 2024-02-03 15:25\n");
     }
+
 
 }

@@ -6,7 +6,6 @@ import Tasks.Task;
 import Tasks.ToDo;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,25 +25,21 @@ public class Storage {
         }
     }
 
-    public void save(ArrayList<Task> tasks) {
+    public void save(TaskList tasks) {
         try {
-            FileWriter fw = new FileWriter(this.file);
-            for (Task task : tasks) {
-                fw.write(task.saveFormat());
-            }
-            fw.close();
+            tasks.writeToFile(this.file);
         } catch (IOException ioException) {
             System.out.println(ioException.getMessage());
         }
     }
 
-    public void load(ArrayList<Task> tasks) {
+    public void load(TaskList tasks) {
         try {
             Scanner sc = new Scanner(this.file);
             while(sc.hasNext()) {
                 String s = sc.nextLine();
                 String[] task = s.split(" \\| ");
-                Task t = null;
+                Task t;
                 switch(task[0]) {
                     case "T":
                         t = new ToDo(task[2]);
@@ -58,12 +53,10 @@ public class Storage {
                 if (task[1].equals("1")) {
                     t.markTask();
                 }
-                tasks.add(t);
+                tasks.addTask(t);
             }
             FileWriter fw = new FileWriter(this.file);
             fw.close();
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

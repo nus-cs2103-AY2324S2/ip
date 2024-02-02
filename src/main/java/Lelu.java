@@ -1,4 +1,5 @@
 import TasksStorage.Storage;
+import TasksStorage.TaskList;
 import UI.Ui;
 import Exceptions.*;
 import Tasks.Task;
@@ -13,13 +14,13 @@ import java.util.Scanner;
 
 public class Lelu {
 
-    public static ArrayList<Task> tasks;
+    private static TaskList tasks;
 
 
     private Lelu(String filePath) {
         Ui ui = new Ui();
         ui.greet();
-        Lelu.tasks = new ArrayList<>();
+        Lelu.tasks = new TaskList();
 
         Storage store = new Storage(filePath);
         while (true) {
