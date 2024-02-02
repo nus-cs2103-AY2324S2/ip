@@ -6,15 +6,33 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.time.format.DateTimeParseException;
 
+
+/**
+ * Represents a task with a deadline.
+ */
 public class DeadlineTask extends Task {
     private final LocalDateTime deadline;
     int check = 0;
 
+    /**
+     * Constructs a DeadlineTask object with the given description and deadline string.
+     *
+     * @param description The description of the task.
+     * @param deadlineStr The deadline string in various formats.
+     */
     public DeadlineTask(String description, String deadlineStr) {
         super(description);
         this.deadline = parseDateTime(deadlineStr);
     }
 
+
+    /**
+     * Parses the deadline string into a LocalDateTime object.
+     *
+     * @param time The deadline string in various formats.
+     * @return The LocalDateTime object representing the deadline.
+     * @throws DateTimeParseException If the deadline string cannot be parsed.
+     */
     private LocalDateTime parseDateTime(String time) throws DateTimeParseException {
         LocalDateTime dateTime = null;
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -55,7 +73,14 @@ public class DeadlineTask extends Task {
         return dateTime;
     }
 
-    private String formatDateTime(LocalDateTime dateTime) {
+
+    /**
+     * Formats the deadline date and time into a string.
+     *
+     * @param dateTime The LocalDateTime object representing the deadline.
+     * @return The formatted string representing the deadline.
+     */
+    String formatDateTime(LocalDateTime dateTime) {
         DateTimeFormatter formatter;
         if (check == 1 || check == 2) {
             formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);
@@ -66,6 +91,13 @@ public class DeadlineTask extends Task {
         return dateTime.format(formatter);
     }
 
+
+
+    /**
+     * Gets the formatted deadline date and time string.
+     *
+     * @return The formatted deadline date and time string.
+     */
     public String getDateTime() {
         return formatDateTime(deadline);
     }

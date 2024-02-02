@@ -4,16 +4,33 @@ import duke.Tasks.Task;
 import duke.Tasks.TaskList;
 
 import java.util.Scanner;
+
+
+/**
+ * Handles user interaction, including input and output.
+ */
 public class Ui {
     private Scanner scanner;
 
+    /**
+     * Constructs a Ui object with a Scanner for user input.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
+
+    /**
+     * Reads a command entered by the user.
+     *
+     * @return The command entered by the user.
+     */
     public String readCommand() {
         return scanner.nextLine().trim();
     }
 
+    /**
+     * Displays a welcome message when the program starts.
+     */
     public void showWelcome() {
         System.out.println("   ____________________________________________________________");
         System.out.println("    Hello! I'm BotYue");
@@ -21,6 +38,12 @@ public class Ui {
         System.out.println("   ____________________________________________________________");
     }
 
+
+    /**
+     * Displays the list of tasks.
+     *
+     * @param tasks The list of tasks to display.
+     */
     public void showTaskList(TaskList tasks) {
         System.out.println("   ____________________________________________________________");
         System.out.println("    Here are the tasks in your list:");
@@ -32,6 +55,13 @@ public class Ui {
         System.out.println("   ____________________________________________________________");
     }
 
+
+
+    /**
+     * Displays a message confirming that a task has been marked as done.
+     *
+     * @param task The task that has been marked as done.
+     */
     public void showMarkedMessage(Task task) {
         System.out.println("   ____________________________________________________________");
         System.out.println("    Nice! I've marked this task as done:");
@@ -39,6 +69,12 @@ public class Ui {
         System.out.println("   ____________________________________________________________");
     }
 
+
+    /**
+     * Displays a message confirming that a task has been marked as not done.
+     *
+     * @param task The task that has been marked as not done.
+     */
     public void showUnmarkedMessage(Task task) {
         System.out.println("   ____________________________________________________________");
         System.out.println("    OK, I've marked this task as not done yet:");
@@ -46,6 +82,13 @@ public class Ui {
         System.out.println("   ____________________________________________________________");
     }
 
+
+    /**
+     * Displays a message confirming that a task has been deleted.
+     *
+     * @param task  The task that has been deleted.
+     * @param count The updated number of tasks in the list.
+     */
     public static void showDeletedMessage(Task task, int count) {
         System.out.println("   ____________________________________________________________");
         System.out.println("    Noted. I've removed this task:");
@@ -54,6 +97,10 @@ public class Ui {
         System.out.println("    Now you have " + count + " tasks in the list.");
         System.out.println("   ____________________________________________________________");
     }
+
+    /**
+     * Displays a goodbye message when the user exits the program.
+     */
     public static void showGoodbyeMessage() {
         System.out.println("   ____________________________________________________________");
         System.out.println("    Bye. Hope to see you again soon!");
@@ -61,6 +108,12 @@ public class Ui {
     }
 
 
+    /**
+     * Displays a message confirming that a task has been added.
+     *
+     * @param task  The task that has been added.
+     * @param count The updated number of tasks in the list.
+     */
     public void showAddedMessage(Task task, int count) {
         System.out.println("   ____________________________________________________________");
         System.out.println("    Got it. I've added this task:");
@@ -69,6 +122,12 @@ public class Ui {
         System.out.println("   ____________________________________________________________");
     }
 
+
+    /**
+     * Displays an error message.
+     *
+     * @param message The error message to display.
+     */
     public void showError(String message) {
 
         System.out.println("   ____________________________________________________________");
@@ -76,6 +135,9 @@ public class Ui {
         System.out.println("   ____________________________________________________________");
     }
 
+    /**
+     * Displays an error message when tasks fail to load from file.
+     */
     public void showLoadingError() {
         System.out.println("Error loading tasks from file.");
     }

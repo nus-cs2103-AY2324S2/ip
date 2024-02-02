@@ -13,6 +13,11 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Duke object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,6 +29,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the chatbot, displaying welcome message and processing user commands.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

@@ -7,17 +7,36 @@ import java.util.Locale;
 import java.time.LocalDate;
 
 
+/**
+ * Represents a task with an event duration.
+ */
 public class EventTask extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     int check = 0;
 
+
+    /**
+     * Constructs an EventTask object with the given description, start time string, and end time string.
+     *
+     * @param description     The description of the event task.
+     * @param startTimeString The start time string in various formats.
+     * @param endTimeString   The end time string in various formats.
+     */
     public EventTask(String description, String startTimeString, String endTimeString) {
         super(description);
         this.startTime = parseDateTime(startTimeString);
         this.endTime = parseDateTime(endTimeString);
     }
 
+
+    /**
+     * Parses the time string into a LocalDateTime object.
+     *
+     * @param time The time string in various formats.
+     * @return The LocalDateTime object representing the time.
+     * @throws DateTimeParseException If the time string cannot be parsed.
+     */
     private LocalDateTime parseDateTime(String time) throws DateTimeParseException {
         LocalDateTime dateTime = null;
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -59,6 +78,13 @@ public class EventTask extends Task {
         return dateTime;
     }
 
+
+    /**
+     * Formats the date and time into a string.
+     *
+     * @param dateTime The LocalDateTime object representing the date and time.
+     * @return The formatted string representing the date and time.
+     */
     private String formatDateTime(LocalDateTime dateTime) {
         DateTimeFormatter formatter;
         if (check == 1 || check == 2) {
@@ -70,16 +96,32 @@ public class EventTask extends Task {
         return dateTime.format(formatter);
     }
 
+    /**
+     * Gets the formatted start time string.
+     *
+     * @return The formatted start time string.
+     */
     public String getStartTime() {
         String time = formatDateTime(startTime);
         return time;
     }
 
+    /**
+     * Gets the formatted end time string.
+     *
+     * @return The formatted end time string.
+     */
     public String getEndTime() {
         String time = formatDateTime(endTime);
         return time;
     }
 
+
+    /**
+     * Gets the formatted event duration string.
+     *
+     * @return The formatted event duration string.
+     */
     public String getDateTime() {
         return getStartTime() + "-" + getEndTime();
     }

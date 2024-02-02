@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.FileWriter;
 
+/**
+ * The Storage class handles the loading and saving of tasks to a file.
+ */
 public class Storage {
     private String filePath;
 
@@ -17,6 +20,13 @@ public class Storage {
         this.filePath = filePath;
     }
 
+
+    /**
+     * Loads tasks from the file and returns them as a list.
+     *
+     * @return The list of tasks loaded from the file.
+     * @throws DukeException If there is an error loading tasks from the file.
+     */
     public List<Task> load() throws DukeException {
         List<Task> tasks = new ArrayList<>();
 
@@ -65,7 +75,12 @@ public class Storage {
     }
 
 
-
+    /**
+     * Saves the given list of tasks to the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws DukeException If there is an error saving tasks to the file.
+     */
     public void save(List<Task> tasks) throws DukeException {
         try {
             File file = new File(filePath);

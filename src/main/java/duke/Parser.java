@@ -5,6 +5,13 @@ import duke.Command.*;
 
 import java.util.Arrays;
 public class Parser {
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param input The user input to be parsed.
+     * @return The command corresponding to the user input.
+     * @throws DukeException If the input cannot be parsed or an invalid command is entered.
+     */
     public static Command parse(String input) throws DukeException {
         String[] parts = input.split(" ", 2);
 
@@ -32,6 +39,15 @@ public class Parser {
         }
     }
 
+
+
+    /**
+     * Parses the user input to create a MarkCommand.
+     *
+     * @param parts The input split into parts.
+     * @return The MarkCommand corresponding to the user input.
+     * @throws DukeException If the input cannot be parsed or an invalid command is entered.
+     */
     private static Command parseMarkCommand(String[] parts) throws DukeException {
         if (parts.length < 2) {
             throw new DukeException("OOPS!!! Please specify the task index to mark as done.");
@@ -45,7 +61,13 @@ public class Parser {
         }
     }
 
-
+    /**
+     * Parses the user input to create an UnmarkCommand.
+     *
+     * @param parts The input split into parts.
+     * @return The UnmarkCommand corresponding to the user input.
+     * @throws DukeException If the input cannot be parsed or an invalid command is entered.
+     */
     private static Command parseUnmarkCommand(String[] parts) throws DukeException {
         if (parts.length < 2) {
             throw new DukeException("OOPS!!! Please specify the task index to mark as not done.");
@@ -60,6 +82,13 @@ public class Parser {
     }
 
 
+    /**
+     * Parses the user input to create a DeleteCommand.
+     *
+     * @param parts The input split into parts.
+     * @return The DeleteCommand corresponding to the user input.
+     * @throws DukeException If the input cannot be parsed or an invalid command is entered.
+     */
     private static Command parseDeleteCommand(String[] parts) throws DukeException {
         if (parts.length < 2) {
             throw new DukeException("OOPS!!! Please specify the task index to delete.");
@@ -74,6 +103,13 @@ public class Parser {
     }
 
 
+    /**
+     * Parses the user input to create a TodoCommand.
+     *
+     * @param parts The input split into parts.
+     * @return The TodoCommand corresponding to the user input.
+     * @throws DukeException If the input cannot be parsed or an invalid command is entered.
+     */
     private static Command parseTodoCommand(String[] parts) throws DukeException {
         if (parts.length < 2) {
             throw new DukeException("OOPS!!! The description of a todo task cannot be empty.");
@@ -84,6 +120,13 @@ public class Parser {
     }
 
 
+    /**
+     * Parses the user input to create a DeadlineCommand.
+     *
+     * @param parts The input split into parts.
+     * @return The DeadlineCommand corresponding to the user input.
+     * @throws DukeException If the input cannot be parsed or an invalid command is entered.
+     */
     private static Command parseDeadlineCommand(String[] parts) throws DukeException {
         String task = null;
         String by = null;
@@ -107,6 +150,13 @@ public class Parser {
     }
 
 
+    /**
+     * Parses the user input to create an EventCommand.
+     *
+     * @param parts The input split into parts.
+     * @return The EventCommand corresponding to the user input.
+     * @throws DukeException If the input cannot be parsed or an invalid command is entered.
+     */
     private static Command parseEventCommand(String[] parts) throws DukeException {
         String task = null;
         String from = null;
