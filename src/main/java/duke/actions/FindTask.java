@@ -31,17 +31,17 @@ public class FindTask extends Command {
      */
     @Override
     public String execute() {
-        ArrayList<Task> found = new ArrayList<>();
+        ArrayList<Task> tasksFound = new ArrayList<>();
         for (Task t : TaskManager.getTasks()) {
             if (t.find(key)) {
-                found.add(t);
+                tasksFound.add(t);
             }
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append("Here are the matching tasks in your list:\n");
-        for (int i = 0; i < found.size(); i++) {
-            sb.append((i + 1)).append(". ").append(found.get(i)).append("\n");
+        StringBuilder response = new StringBuilder();
+        response.append("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < tasksFound.size(); i++) {
+            response.append((i + 1)).append(". ").append(tasksFound.get(i)).append("\n");
         }
-        return sb.toString();
+        return response.toString();
     }
 }

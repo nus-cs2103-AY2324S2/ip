@@ -37,10 +37,10 @@ public class MarkTask extends Command {
      */
     public String execute() throws IndexOutOfBoundsException, IOException {
         try {
-            Task t = TaskManager.getTasks().get(index); // may throw IndexOutOfBoundsException
-            t.setCompleted();
+            Task taskToMark = TaskManager.getTasks().get(index); // may throw IndexOutOfBoundsException
+            taskToMark.setCompleted();
             TaskFileManager.saveTasksToFile(TaskManager.getTasks()); // may throw IOException
-            return ("Nice! I've marked this task as done:\n" + t);
+            return ("Nice! I've marked this task as done:\n" + taskToMark);
         } catch (IndexOutOfBoundsException e) {
             return (e.getMessage());
         } catch (IOException e) {

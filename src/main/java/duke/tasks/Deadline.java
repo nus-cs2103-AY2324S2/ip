@@ -19,30 +19,30 @@ public class Deadline extends Task {
     /** Output date format. */
     private static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern("MMM-d-yyyy");
 
-    /** A LocalDataTime value that represents the time of deadline. */
-    private LocalDate endTime;
+    /** A LocalDataTime value that represents the date of deadline. */
+    private LocalDate endDate;
 
     /**
      * Constructor for the ToDo.
      * 
-     * @param name A String value that states the name of the Task.
-     * @param endTime A LocalDateTime to state the date of deadline.
+     * @param name    A String value that states the name of the Task.
+     * @param endTime A LocalDate to state the date of deadline.
      */
-    public Deadline(String name, LocalDate endTime) {
+    public Deadline(String name, LocalDate endDate) {
         super(name, TYPE, false);
-        this.endTime = endTime;
+        this.endDate = endDate;
     }
 
     /**
      * Constuctor used when we are loading from storage.
      * 
      * @param name      A String value that states the name of the Task.
-     * @param endTime   LocalTime of when the deadline is.
+     * @param endDate   LocalDate of when the deadline is.
      * @param completed Boolean of whether Task is completed.
      */
-    public Deadline(String name, LocalDate endTime, boolean completed) {
-        super(name, TYPE, completed);
-        this.endTime = endTime;
+    public Deadline(String name, LocalDate endDate, boolean IsCompleted) {
+        super(name, TYPE, IsCompleted);
+        this.endDate = endDate;
     }
 
     /**
@@ -62,7 +62,7 @@ public class Deadline extends Task {
      */
     @Override
     public String convertToStorageFormat() {
-        return super.convertToStorageFormat() + " | " + this.endTime.format(STORAGEFORMAT);
+        return super.convertToStorageFormat() + " | " + this.endDate.format(STORAGEFORMAT);
     }
 
     /**
@@ -72,8 +72,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String formattedDeadline = this.endTime.format(PRINTFORMAT);
+        // [T][X] name (by: time)
+        String formattedDeadline = this.endDate.format(PRINTFORMAT);
         return super.toString() + " (by: " + formattedDeadline + ")"; // [T][X] name (by: time)
-
     }
 }

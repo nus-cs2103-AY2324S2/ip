@@ -25,7 +25,7 @@ public class TaskManager {
     /**
      * Checks if there is local save and load it into system if there exist.
      */
-    public static void loadLocal() {
+    public static void loadLocalSavedTasks() {
         try {
             TASKS = TaskFileManager.loadTasksFromFile();
         } catch (FileNotFoundException e) {
@@ -38,7 +38,7 @@ public class TaskManager {
     /**
      * Saves the data in the Tasks ArrayList onto a local file.
      */
-    public static void saveLocal() {
+    public static void saveToLocalStorage() {
         try {
             TaskFileManager.saveTasksToFile(TASKS);
         } catch (IOException e) {

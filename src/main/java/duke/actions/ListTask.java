@@ -25,12 +25,12 @@ public class ListTask extends Command {
         if (TaskManager.getTasks().size() == 0) {
             return ("There are no tasks here. Please add a task!");
         } else {
-            StringBuilder sb = new StringBuilder();
-            sb.append("Here are the tasks in your list:\n");
+            StringBuilder response = new StringBuilder();
+            response.append("Here are the tasks in your list:\n");
             for (int i = 0; i < TaskManager.getTasks().size(); i++) {
-                sb.append((i + 1)).append(". ").append(TaskManager.getTasks().get(i)).append("\n");
+                response.append((i + 1)).append(". ").append(TaskManager.getTasks().get(i)).append("\n");
             }
-            return sb.toString();
+            return response.toString();
         }
     }
 }
