@@ -3,6 +3,7 @@ package duke;
 import duke.Tasks.Task;
 import duke.Tasks.TaskList;
 import java.util.Scanner;
+import java.util.List;
 
 
 /**
@@ -120,6 +121,21 @@ public class Ui {
         System.out.println("    Now you have " + count + " tasks in the list.");
         System.out.println("   ____________________________________________________________");
     }
+
+    /**
+     * Displays the tasks that match the given keyword in the task list.
+     *
+     * @param matchingTasks   The task list containing tasks to search within.
+     */
+    public void showMatchingTasks(List<Task> matchingTasks) {
+        System.out.println("   ____________________________________________________________");
+        System.out.println("    Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println("    " + (i + 1) + ". " + matchingTasks.get(i));
+        }
+        System.out.println("   ____________________________________________________________");
+    }
+
 
 
     /**

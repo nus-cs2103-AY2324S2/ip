@@ -1,17 +1,12 @@
 package duke.Command;
 
-<<<<<<< HEAD
 
-=======
 import duke.Ui;
 import duke.Storage;
 import duke.DukeException;
->>>>>>> branch-A-CodingStandard
 import duke.Tasks.Task;
 import duke.Tasks.TaskList;
-import duke.Ui;
-import duke.Storage;
-import duke.DukeException;
+
 
 
 

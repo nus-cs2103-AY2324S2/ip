@@ -8,6 +8,7 @@ import duke.Command.MarkCommand;
 import duke.Command.UnmarkCommand;
 import duke.Command.DeleteCommand;
 import duke.Command.DeadlineCommand;
+import duke.Command.FindCommand;
 
 
 
