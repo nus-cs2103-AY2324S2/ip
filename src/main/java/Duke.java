@@ -5,12 +5,22 @@ import tasks.TaskList;
 import main.java.Ui;
 import main.java.Storage;
 
+/**
+ * Duke is the main class for the task management application.
+ * It initializes the application and starts the interaction loop with the user.
+ */
 public class Duke {
 
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
 
+    /**
+     * Constructs a new Duke object.
+     * Initializes the UI, storage, and task list components of the application.
+     *
+     * @param filePath The path to the file where tasks are saved and loaded from.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -19,8 +29,12 @@ public class Duke {
 
     }
 
+    /**
+     * Starts the application and enters the command processing loop.
+     * The loop reads commands from the user, parses them, and executes them
+     * until the user issues the bye command.
+     */
     public void run() {
-        ui.greet();
         boolean isRunning = true;
         while (isRunning) {
             String userInput = ui.readCommand();
@@ -40,6 +54,13 @@ public class Duke {
         }
         ui.exit();
     }
+
+    /**
+     * The main entry point for the application.
+     * Creates a new Duke instance and starts the application.
+     *
+     * @param args Command line arguments, not used in this application.
+     */
     public static void main(String[] args) {
         new Duke("./data/taskyapper.txt");
     }
