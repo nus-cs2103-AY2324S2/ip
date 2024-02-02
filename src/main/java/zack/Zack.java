@@ -1,3 +1,11 @@
+package zack;
+
+import zack.commands.Command;
+import zack.util.Parser;
+import zack.util.Storage;
+import zack.util.TaskList;
+import zack.util.Ui;
+
 import java.io.IOException;
 
 public class Zack {

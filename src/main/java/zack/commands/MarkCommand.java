@@ -1,5 +1,6 @@
+package zack.commands;
+
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class MarkCommand extends Command {
     private int index;

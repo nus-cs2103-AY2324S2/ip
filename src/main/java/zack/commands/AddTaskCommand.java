@@ -1,5 +1,16 @@
+package zack.commands;
+
+import zack.Zack;
+import zack.ZackException;
+import zack.tasks.Deadline;
+import zack.tasks.Event;
+import zack.tasks.Task;
+import zack.tasks.Todo;
+import zack.util.Storage;
+import zack.util.TaskList;
+import zack.util.Ui;
+
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class AddTaskCommand extends Command {
     private Zack.TaskType taskType;
