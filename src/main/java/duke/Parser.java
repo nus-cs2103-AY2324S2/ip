@@ -65,8 +65,18 @@ public class Parser {
             return new Command(Command.CommandType.MARK, input.substring(5).trim());
         } else if (input.startsWith("unmark")) {
             return new Command(Command.CommandType.UNMARK, input.substring(7).trim());
+        } else if (input.startsWith("find")) {
+        return parseFindCommand(input);
         } else {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    private Command parseFindCommand(String input) throws DukeException {
+        String keyword = input.substring(4).trim();
+        if (keyword.isEmpty()) {
+            throw new DukeException("OOPS!!! The keyword for find cannot be empty.");
+        }
+        return new Command(Command.CommandType.FIND, keyword);
     }
 }

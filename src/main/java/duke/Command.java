@@ -1,8 +1,10 @@
 package duke;
+import java.util.List;
 
 public class Command {
     public enum CommandType {
-        BYE, LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, INVALID
+        BYE, LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, FIND, INVALID
+
     }
 
     private CommandType type;
@@ -74,6 +76,11 @@ public class Command {
                 } else {
                     ui.showInvalidTaskIndex();
                 }
+                break;
+            case FIND:
+                // Handle FIND command
+                List<Task> matchingTasks = tasks.findTasksByKeyword(argument);
+                ui.showMatchingTasks(matchingTasks);
                 break;
             case INVALID:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");

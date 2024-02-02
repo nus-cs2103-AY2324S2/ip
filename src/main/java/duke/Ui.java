@@ -62,6 +62,18 @@ public class Ui {
         System.out.println("  " + unmarkedTask);
         System.out.println("_____________________________");
     }
+
+    public void showMatchingTasks(List<Task> matchingTasks) {
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + "." + matchingTasks.get(i));
+            }
+        }
+        System.out.println("_____________________________");
+    }
     public void showGoodbye() {
         System.out.println("Goodbye. Hope to see you again soon!");
         System.out.println("_____________________________");
