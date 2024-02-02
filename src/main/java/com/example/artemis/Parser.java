@@ -122,8 +122,8 @@ public class Parser {
         try {
             String[] tokens = input.split("/by");
             if (tokens.length < 2) {
-                throw new ArtemisException("Invalid deadline format. " +
-                        "Please use: deadline [description] /by [dd-mm-yyyy hhmm]");
+                throw new ArtemisException("Invalid deadline format. "
+                        + "Please use: deadline [description] /by [dd-mm-yyyy hhmm]");
             }
 
             String description = tokens[0].replace("deadline ", "").trim();
@@ -146,15 +146,15 @@ public class Parser {
         try {
             String[] tokens = input.split("/from");
             if (tokens.length < 2) {
-                throw new ArtemisException("Invalid event format. " +
-                        "Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
+                throw new ArtemisException("Invalid event format. "
+                        + "Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
             }
 
             String description = tokens[0].replace("event ", "").trim();
             String[] fromTo = tokens[1].split("/to");
             if (fromTo.length < 2) {
-                throw new ArtemisException("Invalid event format. " +
-                        "Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
+                throw new ArtemisException("Invalid event format. "
+                        + "Please use: event [description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
             }
 
             String from = fromTo[0].trim();

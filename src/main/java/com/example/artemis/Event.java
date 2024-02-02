@@ -42,9 +42,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " +
-                fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")) +
-                " to: " + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")) + ")";
+        return "[E]" + super.toString() + " (from: "
+                + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")) + " to: "
+                + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")) + ")";
     }
 
     /**
@@ -54,8 +54,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " +
-                fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")) + " - " +
-                toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma"));
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")) + " - "
+                + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma"));
     }
 }
