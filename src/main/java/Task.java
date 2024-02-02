@@ -3,7 +3,6 @@ import java.io.Serializable;
 abstract public class Task implements Serializable {
     protected final String desc;
     private boolean isCompleted;
-
     public abstract String toFileString();
 
     /**
