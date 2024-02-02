@@ -1,3 +1,5 @@
+package duchess;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -15,7 +17,7 @@ public class Ui {
         printHorizontalLine();
         System.out.println(logo);
         printHorizontalLine();
-        System.out.println("Hello! I'm Duchess.");
+        System.out.println("Hello! I'm Duchess.Duchess.");
         System.out.println("What can I do for you today?");
         printHorizontalLine();
     }

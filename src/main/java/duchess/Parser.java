@@ -1,3 +1,9 @@
+package duchess;
+
+import duchess.task.Task;
+import duchess.task.Event;
+import duchess.task.ToDo;
+import duchess.task.Deadline;
 
 public class Parser {
     // Method to parse task from a line read from file

@@ -1,4 +1,4 @@
-
+package duchess.task;
 
 public class Task {
     protected String description;
@@ -9,7 +9,7 @@ public class Task {
         this.isDone = false;
     }
 
-    //Task that already has isDone state
+    //duchess.task.Task that already has isDone state
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
@@ -31,5 +31,5 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
-    public String toFileString() { return "Task |" + (isDone ? "1" : "0") + " | " + description; }
+    public String toFileString() { return "duchess.task.Task |" + (isDone ? "1" : "0") + " | " + description; }
 }
