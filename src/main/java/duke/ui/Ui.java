@@ -1,4 +1,6 @@
-package duke;
+package duke.ui;
+
+import duke.conversation.Conversation;
 
 import java.util.Arrays;
 import java.util.List;

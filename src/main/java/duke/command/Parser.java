@@ -1,5 +1,6 @@
-package duke;
+package duke.command;
 
+import duke.conversation.Conversation;
 import duke.task.TaskManager;
 import duke.task.TaskType;
 
