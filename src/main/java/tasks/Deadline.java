@@ -3,7 +3,13 @@ package tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * An encapsulation of a deadline type task.
+ *
+ * @author Lim Zi Jia
+ */
 public class Deadline extends Task {
+    /** The time of the deadline. */
     private LocalDate time;
 
     public Deadline(boolean done, String name, String time) {
@@ -15,7 +21,6 @@ public class Deadline extends Task {
         super(name);
         this.time = LocalDate.parse(time);
     }
-
 
     @Override
     public String toSavedString() {

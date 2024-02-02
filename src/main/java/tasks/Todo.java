@@ -1,5 +1,10 @@
 package tasks;
 
+/**
+ * An encapsulation of a todo type task.
+ *
+ * @author Lim Zi Jia 
+ */
 public class Todo extends Task{
     public Todo(boolean done, String name){
         super(done, name);

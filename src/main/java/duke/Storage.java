@@ -10,9 +10,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The storage class contains the file paths and methods to load and save task lists.
+ *
+ * @author Lim Zi Jia
+ */
 public class Storage {
-
+    /** The path to the saved file's directory. */
     private static Path PATH_DIR;
+    /** The path to the saved file. */
     private static Path PATH_FILE;
 
     public Storage() {}
@@ -23,6 +29,11 @@ public class Storage {
         PATH_FILE = Paths.get(userDir + dir + name);
     }
 
+    /**
+     * Loads the saved file if there is one.
+     *
+     * @return The saved TaskList if it exists or an empty one if there is none.
+     */
     public TaskList load() {
         try {
             List<String> read = Files.readAllLines(PATH_FILE);
@@ -41,6 +52,12 @@ public class Storage {
         return new TaskList();
     }
 
+    /**
+     * Converts strings in the saved file into Tasks.
+     *
+     * @param s Line from the saved file representing a Task.
+     * @return Task that is derived from the saved string representation.
+     */
     private Task stringToTask(String s) {
         List<String> taskLst = Arrays.asList(s.split(","));
         Task t = null;
@@ -59,11 +76,24 @@ public class Storage {
         return t;
     }
 
+    /**
+     * Writes the saved content to the directory and file paths indicated in the private fields.
+     *
+     * @param f The path of the file that should be written to.
+     * @param tl The task list to be saved.
+     * @throws IOException If file at the path does not exist.
+     */
     private void writeToFile(Path f, TaskList tl) throws IOException {
         List<String> lines = tl.taskToSavedString();
         Files.write(f, lines);
     }
 
+    /**
+     * Saves desired TaskList to memory.
+     *
+     * @param tl The TaskList to be saved.
+     * @throws IOException If directory or file at the paths do not exist.
+     */
     public void save(TaskList tl) throws IOException {
         // Check if the directory exists
         if (!Files.exists(PATH_DIR)) {

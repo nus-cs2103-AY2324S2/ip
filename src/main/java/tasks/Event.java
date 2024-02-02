@@ -3,8 +3,15 @@ package tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * An encapsulation of an event type task.
+ *
+ * @author Lim Zi Jia
+ */
 public class Event extends Task {
+    /** The time of the start of the event. */
     private final LocalDate from;
+    /** The time of the end of the event. */
     private final LocalDate to;
 
     public Event(boolean done, String name, String from, String to) {
@@ -18,6 +25,11 @@ public class Event extends Task {
         this.to = LocalDate.parse(to);
     }
 
+    /**
+     * Checks if from < to.
+     *
+     * @return True if the dates are in the correct order.
+     */
     public boolean isCorrectOrder() {
         return this.to.isAfter(this.from) | this.to.isEqual(this.from);
     }

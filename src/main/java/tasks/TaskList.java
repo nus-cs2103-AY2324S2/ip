@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * An encapsulation of a task list.
+ *
+ * @author Lim Zi Jia
+ */
 public class TaskList {
+    /** List of tasks. */
     private List<Task> list;
 
     public TaskList() {
@@ -15,6 +21,9 @@ public class TaskList {
         this.list = list;
     }
 
+    /**
+     * Prints a list containing the current tasks.
+     */
     public void printList() {
         System.out.println("Here are the tasks in your list:");
         int number = 1;
@@ -36,6 +45,11 @@ public class TaskList {
         return this.list.size();
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param in The index of the task that should be marked as done.
+     */
     public void mark(String in) {
         int i;
         try {
@@ -53,6 +67,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as not done.
+     *
+     * @param in The index of the task that should be marked as not done.
+     */
     public void unmark(String in) {
         try {
             int i = Integer.parseInt(in.substring(7));
@@ -69,6 +88,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the list.
+     *
+     * @param in The index of the task that should be deleted.
+     */
     public void delete(String in) {
         try {
             int i = Integer.parseInt(in.substring(7));
@@ -84,6 +108,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Converts a list of tasks to a list of strings that are in the format used for saving.
+     *
+     * @return A list of strings that will be used for saving.
+     */
     public List<String> taskToSavedString() {
         return list.stream()
                 .map(Task::toSavedString)

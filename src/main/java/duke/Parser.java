@@ -12,7 +12,20 @@ import tasks.Todo;
 import java.io.IOException;
 import java.time.DateTimeException;
 
+/**
+ * This class helps the chatbot to parse inputs in order to execute the reactions that the user wants.
+ *
+ * @author Lim Zi Jia
+ */
 public class Parser {
+    /**
+     * The main parsing logic. Takes the input and calls the relevant functions for the desired outputs.
+     *
+     * @param in The string input that the user has passed into the program.
+     * @param tasks A list of the current tasks that maybe needed to modify.
+     * @param storage The place where the task list might be needed to be stored.
+     * @return A TaskList that has been altered if there is a need to. The value is null if the command is 'bye'
+     */
     public TaskList parse(String in, TaskList tasks, Storage storage) {
         if (in.equals("bye")) {
             return null;
@@ -61,6 +74,13 @@ public class Parser {
         return tasks;
     }
 
+    /**
+     * A helper function that is dedicated to adding tasks.
+     *
+     * @param s String of input to be parsed.
+     * @param tasks The original task list to be added onto.
+     * @return The edited task list.
+     */
     public TaskList addTask(String s, TaskList tasks) {
         // Todo_
         if (s.startsWith("todo ")) {
