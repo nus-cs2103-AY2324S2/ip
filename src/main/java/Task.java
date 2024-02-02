@@ -15,6 +15,12 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Task(String description, String taskCode, boolean isDone) {
+        this.description = description;
+        this.taskCode = taskCode;
+        this.isDone = isDone;
+    }
+
     public String getDescription() {
         return this.description;
     }
@@ -25,6 +31,10 @@ public abstract class Task {
 
     public String getTaskCode() { return this.taskCode; }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     public abstract String getTaskDetails();
 
     public void markDone() {
@@ -34,4 +44,8 @@ public abstract class Task {
     public void markUndone() {
         this.isDone = false;
     }
+
+    public abstract Task convertSaveToTask(String saveDetails);
+
+    public abstract String convertTaskToSave();
 }
