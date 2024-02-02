@@ -1,20 +1,25 @@
 package duke;
 
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.ByeCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.Command;
+import duke.command.UnmarkCommand;
+import duke.command.DeleteCommand;
 import duke.exception.CommandInvalidException;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
-    String dummyCommandA = "todo return book";
-    String dummyCommandB = "list";
-    String dummyCommandC = "mark 1";
-    String dummyCommandD = "unmark 1";
-    String dummyCommandE = "delete 1";
-    String dummyCommandF = "bye";
-    String dummyCommandG = "bwah";
+    private String dummyCommandA = "todo return book";
+    private String dummyCommandB = "list";
+    private String dummyCommandC = "mark 1";
+    private String dummyCommandD = "unmark 1";
+    private String dummyCommandE = "delete 1";
+    private String dummyCommandF = "bye";
+    private String dummyCommandG = "bwah";
 
 
     /**
@@ -62,11 +67,11 @@ public class ParserTest {
      *
      */
     @Test
-    public void parse_exception(){
-        try{
+    public void parse_exception() {
+        try {
             assertEquals(new ListCommand(), Parser.parse(dummyCommandG));
             fail();
-        } catch (CommandInvalidException e){
+        } catch (CommandInvalidException e) {
             assertEquals("Invalid command -_-, please use the available commands!!",e.getMessage());
         }
     }

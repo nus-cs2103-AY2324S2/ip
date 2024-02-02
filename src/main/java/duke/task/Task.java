@@ -19,15 +19,15 @@ public class Task {
      *
      * @return mark status
      */
-    public String getStatusIcon() { //method to get the mark status of task
-        return (isDone ? "X" : " "); // mark done task with X
+    public String getStatusIcon() {
+        return (isDone ? "X" : " ");
     }
 
     /**
      * Marks the mark status.
      *
      */
-    public void mark() { //method to mark the status
+    public void setMark() {
         isDone = true;
     }
 
@@ -35,7 +35,7 @@ public class Task {
      * Unmarks the mark status.
      *
      */
-    public void unMark() { //method to unmark the status
+    public void setUnMark() {
         isDone = false;
     }
 
@@ -47,7 +47,7 @@ public class Task {
      * @return String representative of Task.
      */
     @Override
-    public String toString(){ //method to get the string representation of task
+    public String toString() {
         String s = "[" + this.getStatusIcon() + "] " + this.description;
         return s;
     }
@@ -59,7 +59,7 @@ public class Task {
      *
      * @return String representative of Task.
      */
-    public String toWrite(){ //method to get the string representation of task
+    public String toWrite() {
         String s = this.getStatusIcon() + " | " + this.description;
         return s;
     }

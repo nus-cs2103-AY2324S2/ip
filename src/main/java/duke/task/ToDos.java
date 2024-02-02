@@ -2,7 +2,7 @@ package duke.task;
 
 public class ToDos extends Task{
 
-    private static final String symbol = "T";
+    private static final String SYMBOL = "T";
 
     /**
      * Constructor for ToDos.
@@ -11,9 +11,10 @@ public class ToDos extends Task{
      *
      * @param des description for the task.
      */
-    public ToDos(String des){
+    public ToDos(String des) {
         super(des);
     }
+
 
     /**
      * Constructor for ToDos.
@@ -23,12 +24,12 @@ public class ToDos extends Task{
      * @param st mark status
      * @param des description for the task.
      */
-    public ToDos(String st, String des){
+    public ToDos(String st, String des) {
         super(des);
-        if (st.equals("true")){
-            mark();
+        if (st.equals("true")) {
+            setMark();
         } else {
-            unMark();
+            setUnMark();
         }
     }
 
@@ -38,7 +39,7 @@ public class ToDos extends Task{
      * @return symbol for ToDos.
      */
     public String getSymbol() { //method to get symbol
-        return symbol;
+        return SYMBOL;
     }
 
     /**
@@ -49,7 +50,7 @@ public class ToDos extends Task{
      * @return String representative of Deadline.
      */
     @Override
-    public String toString() { //method to get the string representation of Duke.ToDos
+    public String toString() {
         String s = "[" + this.getSymbol() + "][" + this.getStatusIcon() + "] " + this.description;
         return s;
     }
@@ -61,7 +62,7 @@ public class ToDos extends Task{
      *
      * @return String representative of Deadline.
      */
-    public String toWrite() { //method to get the string representation of Duke.ToDos
+    public String toWrite() {
         String s = this.getSymbol() + "/" + this.isDone + "/" + this.description;
         return s;
     }

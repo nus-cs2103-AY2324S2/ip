@@ -5,11 +5,11 @@ import java.time.format.DateTimeFormatter;
 
 public class Event extends Task{
 
-    private static DateTimeFormatter dFormatInp = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm");
-    private static DateTimeFormatter dFormatOut = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter DATE_FORMAT_INP = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm");
+    private static final DateTimeFormatter DATE_FORMAT_OUT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
     private LocalDateTime from;
     private LocalDateTime to;
-    private static final String symbol = "E";
+    private static final String SYMBOL = "E";
 
     /**
      * Constructor for Event.
@@ -21,7 +21,7 @@ public class Event extends Task{
      * @param f starting time.
      * @param t finishing time
      */
-    public Event(String des, LocalDateTime f, LocalDateTime t){
+    public Event(String des, LocalDateTime f, LocalDateTime t) {
         super(des);
         from = f;
         to = t;
@@ -38,14 +38,14 @@ public class Event extends Task{
      * @param f starting time.
      * @param t finishing time
      */
-    public Event(String st, String des, LocalDateTime f, LocalDateTime t){
+    public Event(String st, String des, LocalDateTime f, LocalDateTime t) {
         super(des);
         from = f;
         to = t;
-        if (st.equals("true")){
-            mark();
+        if (st.equals("true")) {
+            setMark();
         } else {
-            unMark();
+            setUnMark();
         }
     }
 
@@ -54,8 +54,8 @@ public class Event extends Task{
      *
      * @return symbol for Event.
      */
-    public String getSymbol() { //method to get symbol
-        return symbol;
+    public String getSymbol() {
+        return SYMBOL;
     }
 
     /**
@@ -66,9 +66,9 @@ public class Event extends Task{
      * @return String representative of Deadline.
      */
     @Override
-    public String toString() { //method to get the string representation of Duke.Event
+    public String toString() {
         String s = "[" + this.getSymbol() + "][" + this.getStatusIcon() + "] " + this.description
-                + " (from: " + this.from.format(dFormatOut) + " to: " + this.to.format(dFormatOut) + ")";
+                + " (from: " + this.from.format(DATE_FORMAT_OUT) + " to: " + this.to.format(DATE_FORMAT_OUT) + ")";
         return s;
     }
 
@@ -79,9 +79,9 @@ public class Event extends Task{
      *
      * @return String representative of Deadline.
      */
-    public String toWrite() { //method to get the string representation of Duke.Event
+    public String toWrite() {
         String s = this.getSymbol() + "/" + this.isDone + "/" + this.description
-                + "/" + this.from.format(dFormatInp) + "/" + this.to.format(dFormatInp);
+                + "/" + this.from.format(DATE_FORMAT_INP) + "/" + this.to.format(DATE_FORMAT_INP);
         return s;
     }
 

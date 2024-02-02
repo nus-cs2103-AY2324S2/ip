@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Ui {
     private static String name = "GanAnWo";
 
-    private static Scanner sc;
+    private Scanner sc;
 
     /**
      * Constructor for Ui.
@@ -19,7 +19,7 @@ public class Ui {
      * Prints a welcome message.
      *
      */
-    public void showWelcome(){
+    public void showWelcome() {
         System.out.println("Hello! I'm " + name + "\n"
                 + "What can I do for you?");
     }

@@ -9,8 +9,8 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private static String currentWorkingDirectory = System.getProperty("user.dir");
-    private static String path = "/list.txt";
+    private static final String CURRENT_WORKING_DIRECTORY = System.getProperty("user.dir");
+    private static final String PATH = "/list.txt";
 
 
     /**
@@ -50,6 +50,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke(currentWorkingDirectory + path).run();
+        new Duke(CURRENT_WORKING_DIRECTORY + PATH).run();
     }
 }

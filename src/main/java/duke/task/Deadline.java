@@ -5,11 +5,11 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
 
-    private static DateTimeFormatter dFormatInp = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm");
-    private static DateTimeFormatter dFormatOut = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter DATE_FORMAT_INP = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm");
+    private static final DateTimeFormatter DATE_FORMAT_OUT = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
     private LocalDateTime deadline;
 
-    private static final String symbol = "D";
+    private static final String SYMBOL = "D";
 
     /**
      * Constructor for Deadline.
@@ -19,7 +19,7 @@ public class Deadline extends Task{
      * @param des description for the task.
      * @param dl deadline date.
      */
-    public Deadline(String des, LocalDateTime dl){
+    public Deadline(String des, LocalDateTime dl) {
         super(des);
         deadline = dl;
     }
@@ -33,13 +33,13 @@ public class Deadline extends Task{
      * @param des description for the task.
      * @param dl deadline date.
      */
-    public Deadline(String st, String des, LocalDateTime dl){
+public Deadline(String st, String des, LocalDateTime dl) {
         super(des);
         deadline = dl;
-        if (st.equals("true")){
-            mark();
+        if (st.equals("true")) {
+            setMark();
         } else {
-            unMark();
+            setUnMark();
         }
     }
 
@@ -49,7 +49,7 @@ public class Deadline extends Task{
      * @return symbol for Deadline.
      */
     public String getSymbol() { //method to get symbol
-        return symbol;
+        return SYMBOL;
     }
 
     /**
@@ -60,9 +60,9 @@ public class Deadline extends Task{
      * @return String representative of Deadline.
      */
     @Override
-    public String toString() { //method to get the string representation of Duke.Deadline
+    public String toString() {
         String s = "[" + this.getSymbol() + "][" + this.getStatusIcon() + "] " + this.description
-                + " (by: " + this.deadline.format(dFormatOut) + ")";
+                + " (by: " + this.deadline.format(DATE_FORMAT_OUT) + ")";
         return s;
     }
 
@@ -73,9 +73,9 @@ public class Deadline extends Task{
      *
      * @return String representative of Deadline in write format.
      */
-    public String toWrite() { //method to get the string representation of Duke.Deadline
+    public String toWrite() {
         String s = this.getSymbol() + "/" + this.isDone + "/" + this.description
-                + "/" + this.deadline.format(dFormatInp);
+                + "/" + this.deadline.format(DATE_FORMAT_INP);
         return s;
     }
 

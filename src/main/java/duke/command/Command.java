@@ -7,13 +7,12 @@ import duke.Ui;
 public abstract class Command {
 
     private boolean isExit;
-
     /**
      * Constructor for Command.
      *
      * @param i exit status in int format.
      */
-    public Command(int i){
+    public Command(int i) {
         if(i == 1) {
             isExit = true;
         } else {
@@ -29,7 +28,7 @@ public abstract class Command {
      * @param ui Ui for printing string.
      * @param st Storage for saving/loading in file.
      */
-    public abstract void execute(TaskList tl, Ui ui, Storage st);
+    public abstract void execute(TaskList tL, Ui ui, Storage st);
 
     /**
      * Returns exit status in boolean format.

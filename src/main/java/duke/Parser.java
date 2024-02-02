@@ -1,6 +1,13 @@
 package duke;
 
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.Commands;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+import duke.command.ListCommand;
+import duke.command.DeleteCommand;
+import duke.command.ByeCommand;
 import duke.exception.CommandInvalidException;
 
 public class Parser {
@@ -10,12 +17,12 @@ public class Parser {
      * If the command is valid, return true.
      * If the command is invalid, return false.
      *
-     * @param n given command.
+     * @param no given command.
      * @return validity of the command.
      *
      */
-    public static boolean valid(String n){ //check if the given command is valid //throw something
-        String[] inputs = n.split(" ");
+    public static boolean isValid(String no) { //check if the given command is valid //throw something
+        String[] inputs = no.split(" ");
         for (Commands com : Commands.values()) {
             if (com.name().equalsIgnoreCase(inputs[0])) {
                 return true;
@@ -32,7 +39,7 @@ public class Parser {
      * @throws CommandInvalidException If command is invalid.
      */
     public static Command parse(String command) throws CommandInvalidException {
-        if (valid(command)) {
+        if (isValid(command)) {
             String[] inputs = command.split(" ");
             if (command.equals("bye")) { //if the user use bye command
                 return new ByeCommand();
