@@ -24,6 +24,7 @@ public class Ui {
             + "\"list\": I will display the latest task list.\n"
             + "\"mark/unmark + number\": I will mark/unmark task in the list!\n"
             + "\"delete + number\": I will remove task from the list.\n"
+            + "\"find + keyword\": I will search for relevant tasks recorded!\n"
             + "\"bye\": this program will be closed.\n"
             + emptyLine;
 
