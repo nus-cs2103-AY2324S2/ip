@@ -1,5 +1,6 @@
 package dune;// deals with loading tasks from the file and saving tasks in the file
 import dune.task.*;
+import dune.DuneException;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,6 +36,10 @@ public class Storage {
                 }
             } catch (IOException i) {
                 System.out.println("Error reading from file");
+            } catch (DuneException d) {
+                System.out.println(d.getMessage());
+            } catch (IndexOutOfBoundsException i) {
+                System.out.println("Event was formatted incorrectly in file");
             }
         } else {
             createFile(this.filePath);
@@ -43,7 +48,7 @@ public class Storage {
     }
 
     // Dates are in the format yyyy-mm-ddTHH:MM, unlike what's printed
-    public Task convertLineToTask(String s) {
+    public Task convertLineToTask(String s) throws DuneException {
         // components = [type, T/F, task] for todo
         // [type, T/F, task, deadline] for deadline, [type, T/F, task, start, end] for event
         String[] components = s.split("\\|");
@@ -58,13 +63,13 @@ public class Storage {
         } else if (eventType.equals("E")) {
             return new Event(components[2], components[3], components[4], isDone);
         } else {
-            // kinda sus
-            return null;
+            // System.out.println("Dune exception!");
+            throw new DuneException("Invalid task type");
         }
     }
 
     // Dates are in the format yyyy-mm-ddTHH:MM, unlike what's printed
-    public String convertTaskToLine(Task t) {
+    public String convertTaskToLine(Task t) throws DuneException {
         String ans = "";
         if (t instanceof ToDo) {
             ans = "T|" + (t.getIsDone() ? "1" : "0") + "|" + t.getDescription();
@@ -77,10 +82,8 @@ public class Storage {
             ans = "E|" + (t.getIsDone() ? "1" : "0") + "|" + t.getDescription() + "|"
                     + e.getStart() + "|" + e.getEnd();
         } else {
-            // kinda sus
-            return null;
+            throw new DuneException("Invalid task type");
         }
-        // System.out.println(ans);
         return ans;
     }
 
@@ -99,6 +102,8 @@ public class Storage {
             writer.close();
         } catch (IOException i) {
             System.out.println("Error writing to file");
+        } catch (DuneException d) {
+            System.out.println(d.getMessage());
         }
     }
 

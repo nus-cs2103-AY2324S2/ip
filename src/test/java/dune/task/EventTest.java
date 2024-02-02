@@ -12,9 +12,9 @@ public class EventTest {
         assertEquals("2001-09-11T07:59", event.getStart().toString());
         assertEquals("2001-09-11T17:20", event.getEnd().toString());
         assertEquals("[E][ ] 7-Eleven (from: 11 Sep 2001 7:59 AM to: 11 Sep 2001 5:20 PM)", event.toString());
-        event.complete();
+        event.mark();
         assertEquals("[E][X] 7-Eleven (from: 11 Sep 2001 7:59 AM to: 11 Sep 2001 5:20 PM)", event.toString());
-        event.incomplete();
+        event.unmark();
         assertEquals("[E][ ] 7-Eleven (from: 11 Sep 2001 7:59 AM to: 11 Sep 2001 5:20 PM)", event.toString());
     }
 
