@@ -163,7 +163,7 @@ public class Ui {
         taskList.delete(i);
     }
 
-    public void badInput() {
+    public void informBadInput() {
         System.out.println("I don't understand what you just said bruh \n");
     }
 

@@ -54,8 +54,7 @@ public class GrumbleBug {
             } else if (input1.equals("delete")) {
                 ui.delete(taskList);
             } else {
-                // error, cannot understand
-                ui.badInput();
+                ui.informBadInput(); // UI informs user of error, cannot understand
             }
             this.storage.writeToFile(filePath, taskList);
         }
