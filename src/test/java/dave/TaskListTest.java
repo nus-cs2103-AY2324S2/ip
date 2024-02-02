@@ -2,10 +2,7 @@ package dave;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
-import tasks.Todo;
-import tasks.Task;
+import dave.tasks.Todo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

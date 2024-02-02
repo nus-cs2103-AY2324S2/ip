@@ -1,11 +1,11 @@
-package commands;
+package dave.commands;
 
 import java.io.IOException;
 
 import dave.Storage;
 import dave.TaskList;
 import dave.Ui;
-import tasks.Deadline;
+import dave.tasks.Deadline;
 
 public class AddDeadlineCommand extends Command {
     private Deadline toAdd;

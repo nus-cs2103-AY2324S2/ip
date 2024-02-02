@@ -1,7 +1,7 @@
 package dave;
 
-import commands.*;
-import exceptions.*;
+import dave.commands.*;
+import dave.exceptions.*;
 
 public class Parser {
     private enum CommandType {

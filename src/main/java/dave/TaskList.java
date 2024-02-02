@@ -2,7 +2,7 @@ package dave;
 
 import java.util.ArrayList;
 
-import tasks.*;
+import dave.tasks.*;
 
 public class TaskList {
     private ArrayList<Task> taskList;

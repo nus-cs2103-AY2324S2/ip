@@ -8,10 +8,10 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import dave.tasks.Deadline;
+import dave.tasks.Event;
+import dave.tasks.Task;
+import dave.tasks.Todo;
 
 public class Storage {
     private String storageFilepath;

@@ -1,18 +1,16 @@
+package dave;
+
 import java.io.IOException;
 
-import exceptions.ChatbotException;
-import commands.Command;
-import dave.Ui;
-import dave.Parser;
-import dave.Storage;
-import dave.TaskList;
+import dave.exceptions.ChatbotException;
+import dave.commands.Command;
 
-public class Duke {
+public class Dave {
     private Storage storage;
     private TaskList taskList;
     private Ui dave;
 
-    public Duke(String filepath) {
+    public Dave(String filepath) {
         dave = new Ui();
         storage = new Storage(filepath);
         try {
@@ -43,6 +41,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        new Dave("data/tasks.txt").run();
     }
 }

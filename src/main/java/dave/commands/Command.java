@@ -1,8 +1,8 @@
-package commands;
+package dave.commands;
 
 import dave.TaskList;
 import dave.Ui;
-import exceptions.ChatbotException;
+import dave.exceptions.ChatbotException;
 import dave.Storage;
 
 public abstract class Command {

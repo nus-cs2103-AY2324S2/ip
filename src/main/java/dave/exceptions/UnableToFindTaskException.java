@@ -1,4 +1,4 @@
-package exceptions;
+package dave.exceptions;
 
 import dave.TaskList;
 

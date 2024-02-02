@@ -1,17 +1,17 @@
-package commands;
+package dave.commands;
 
 import java.io.IOException;
 
 import dave.Storage;
 import dave.TaskList;
 import dave.Ui;
-import tasks.Event;
+import dave.tasks.Todo;
 
-public class AddEventCommand extends Command {
-    private Event toAdd;
+public class AddTodoCommand extends Command {
+    private Todo toAdd;
 
-    public AddEventCommand(String taskName, String from, String to) {
-        this.toAdd = new Event(taskName, from, to);
+    public AddTodoCommand(String taskName) {
+        this.toAdd = new Todo(taskName);
     }
 
     @Override

@@ -2,7 +2,7 @@ package dave;
 
 import org.junit.jupiter.api.Test;
 
-import exceptions.ChatbotException;
+import dave.exceptions.ChatbotException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

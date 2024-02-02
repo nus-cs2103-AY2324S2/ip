@@ -1,4 +1,4 @@
-package exceptions;
+package dave.exceptions;
 public class InvalidInputException extends ChatbotException {
     public InvalidInputException() {
         super("Dave does not know what to do." +

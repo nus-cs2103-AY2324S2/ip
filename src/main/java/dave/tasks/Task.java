@@ -1,4 +1,4 @@
-package tasks;
+package dave.tasks;
 
 public class Task {
     protected String desc;
