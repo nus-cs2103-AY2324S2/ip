@@ -121,8 +121,6 @@ public class Duke {
                 ui.print(String.format("Ok, I've added a new todo...\n  %s", t.describe()));
                 tasks.add(t);
                 Duke.st.writeTasks(tasks);
-            } catch (DukeOptionParsingException e) {
-                ui.print("OH NYO ERROR!!!!!!!!!!!!! failed to specify a task to do");
             } catch (DukeException e) {
                 ui.print("OH NYO ERROR!!!!!!!!!!!!! " + e.getMessage());
             }
