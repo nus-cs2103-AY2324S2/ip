@@ -1,13 +1,16 @@
 package storage;
 
-import exception.GeePeeTeeException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import exception.GeePeeTeeException;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -29,14 +32,14 @@ public class Storage {
     private String filePath;
 
     /**
-   * Constructs a new {@code Storage} instance with the specified file name.
-   *
-   * @param fileName The name of the file to be associated with the storage.
-   * @throws FileNotFoundException If the file specified by the file name does not
-   *                               exist and cannot be created.
-   * @throws IOException           If an I/O error occurs while creating the file.
-   */
-  public Storage(String fileName) throws FileNotFoundException, IOException {
+     * Constructs a new {@code Storage} instance with the specified file name.
+     *
+     * @param fileName The name of the file to be associated with the storage.
+     * @throws FileNotFoundException If the file specified by the file name does not
+     *                               exist and cannot be created.
+     * @throws IOException           If an I/O error occurs while creating the file.
+     */
+    public Storage(String fileName) throws FileNotFoundException, IOException {
         try {
             this.filePath = BASE_PATH + "/" + fileName;
             File file = new File(this.filePath);
@@ -51,15 +54,15 @@ public class Storage {
     }
 
     /**
-   * Loads the task list from the hard disk.
-   *
-   * @return The task list loaded from the hard disk.
-   * @throws FileNotFoundException If the file specified by the file name does not
-   *                               exist and cannot be created.
-   * @throws GeePeeTeeException    If the file contains an invalid task type.
-   * @throws IOException           If an I/O error occurs while reading the file.
-   */
-  public ArrayList<Task> loadTaskList() throws FileNotFoundException, GeePeeTeeException, IOException {
+     * Loads the task list from the hard disk.
+     *
+     * @return The task list loaded from the hard disk.
+     * @throws FileNotFoundException If the file specified by the file name does not
+     *                               exist and cannot be created.
+     * @throws GeePeeTeeException    If the file contains an invalid task type.
+     * @throws IOException           If an I/O error occurs while reading the file.
+     */
+    public ArrayList<Task> loadTaskList() throws FileNotFoundException, GeePeeTeeException, IOException {
         ArrayList<Task> result = new ArrayList<Task>();
         File f = new File(filePath);
         Scanner s = new Scanner(f);
@@ -94,11 +97,11 @@ public class Storage {
 
     /**
      * Saves the task list to the hard disk.
-   *
-   * @param inputList The task list to be saved to the hard disk.
-   * @throws GeePeeTeeException If an error occurs while saving the task list to
-   *                            the
-   *                            hard disk.
+     *
+     * @param inputList The task list to be saved to the hard disk.
+     * @throws GeePeeTeeException If an error occurs while saving the task list to
+     *                            the
+     *                            hard disk.
      */
     public void saveTaskList(ArrayList<Task> inputList) throws GeePeeTeeException {
         File file = new File(filePath);

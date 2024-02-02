@@ -2,9 +2,11 @@ package ui;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import task.Task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,11 +29,11 @@ public class UiTest {
     }
 
     /*
-   * Tests the display of the welcome message.
-   * <p>
-   * The welcome message is displayed correctly.
-   */
-  @Test
+     * Tests the display of the welcome message.
+     * <p>
+     * The welcome message is displayed correctly.
+     */
+    @Test
     public void showWelcomeMessage_correctOutput() {
         Ui ui = new Ui();
         ui.showWelcomeMessage();
@@ -39,11 +41,11 @@ public class UiTest {
     }
 
     /*
-   * Tests the display of an error message.
-   * <p>
-   * The error message is displayed correctly.
-   */
-  @Test
+     * Tests the display of an error message.
+     * <p>
+     * The error message is displayed correctly.
+     */
+    @Test
     public void showErrorMessage_correctOutput() {
         Ui ui = new Ui();
         ui.showErrorMessage("Test error message");
@@ -51,11 +53,11 @@ public class UiTest {
     }
 
     /*
-   * Tests the display of a task message.
-   * <p>
-   * A task message is displayed correctly.
-   */
-  @Test
+     * Tests the display of a task message.
+     * <p>
+     * A task message is displayed correctly.
+     */
+    @Test
     public void showTaskMessage_correctOutput() {
         Ui ui = new Ui();
         Task task = new Task("Test task");

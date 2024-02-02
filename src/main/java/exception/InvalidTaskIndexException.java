@@ -18,21 +18,21 @@ package exception;
  */
 public class InvalidTaskIndexException extends Exception {
     /**
-   * Constructs a new {@code InvalidTaskIndexException} instance with the
-   * specified error message.
-   *
-   * @param message The error message to be associated with the exception.
-   */
-  public InvalidTaskIndexException(String message) {
+     * Constructs a new {@code InvalidTaskIndexException} instance with the
+     * specified error message.
+     *
+     * @param message The error message to be associated with the exception.
+     */
+    public InvalidTaskIndexException(String message) {
         super(message);
     }
 
     /**
-   * Returns the error message associated with the exception.
-   *
-   * @return The error message associated with the exception.
-   */
-  public String getErrorMessage() {
+     * Returns the error message associated with the exception.
+     *
+     * @return The error message associated with the exception.
+     */
+    public String getErrorMessage() {
         return super.getMessage();
     }
 }

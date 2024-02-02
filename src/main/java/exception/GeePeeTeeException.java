@@ -12,22 +12,22 @@ package exception;
  * </p>
  */
 public class GeePeeTeeException extends Exception {
-  /**
-   * Constructs a new {@code GeePeeTeeException} instance with the specified
-   * error message.
-   *
-   * @param message The error message to be associated with the exception.
-   */
-  public GeePeeTeeException(String message) {
-    super(message);
-  }
+    /**
+     * Constructs a new {@code GeePeeTeeException} instance with the specified
+     * error message.
+     *
+     * @param message The error message to be associated with the exception.
+     */
+    public GeePeeTeeException(String message) {
+        super(message);
+    }
 
-  /**
-   * Returns the error message associated with the exception.
-   *
-   * @return The error message associated with the exception.
-   */
-  public String getErrorMessage() {
-    return super.getMessage();
-  }
+    /**
+     * Returns the error message associated with the exception.
+     *
+     * @return The error message associated with the exception.
+     */
+    public String getErrorMessage() {
+        return super.getMessage();
+    }
 }

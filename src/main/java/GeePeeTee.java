@@ -25,11 +25,11 @@ public class GeePeeTee {
     private Ui ui;
 
     /**
-   * Constructs a new {@code GeePeeTee} instance with the specified file path.
-   *
-   * @param filePath The file path to be associated with the application.
-   */
-  public GeePeeTee(String filePath) {
+     * Constructs a new {@code GeePeeTee} instance with the specified file path.
+     *
+     * @param filePath The file path to be associated with the application.
+     */
+    public GeePeeTee(String filePath) {
         ui = new Ui();
         try {
             storage = new Storage("GeePeeTee.txt");
@@ -44,10 +44,10 @@ public class GeePeeTee {
     }
 
     /**
-   * Runs the main loop of the application, processing user input and executing
-   * the corresponding commands.
-   */
-  public void run() {
+     * Runs the main loop of the application, processing user input and executing
+     * the corresponding commands.
+     */
+    public void run() {
         String input = "";
         ui.showWelcomeMessage();
         Scanner scanner = new Scanner(System.in);
