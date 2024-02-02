@@ -31,9 +31,6 @@ public class TaskFileManager {
     /** Storage format for date. */
     private static final DateTimeFormatter STORAGEFORMAT = DateTimeFormatter.ofPattern("d-M-yy");
 
-    /** Printing format for date. */
-    private static final DateTimeFormatter PRINTFORMAT = DateTimeFormatter.ofPattern("d-M-yy");
-
     /**
      * Constructor for TaskFileManager.
      */
