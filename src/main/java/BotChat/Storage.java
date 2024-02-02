@@ -1,4 +1,4 @@
-package botChat;
+package BotChat;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,7 +30,7 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
-        } catch (botChatException e) {
+        } catch (BotChatException e) {
             throw new RuntimeException(e);
         }
         return tasks;

@@ -1,4 +1,4 @@
-package botChat;
+package BotChat;
 
 public enum Command {
     BYE,

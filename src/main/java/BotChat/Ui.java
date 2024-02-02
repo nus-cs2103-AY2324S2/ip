@@ -1,4 +1,4 @@
-package botChat;
+package BotChat;
 
 public class Ui {
     public void showWelcomeMessage() {

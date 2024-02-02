@@ -1,14 +1,14 @@
-package botChat;
+package BotChat;
 
 import java.util.Scanner;
 
-public class botChat {
+public class BotChat {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     private static final String FILE_PATH = "./botChat.txt";
 
-    public botChat(String filePath) {
+    public BotChat(String filePath) {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
     }
@@ -27,7 +27,7 @@ public class botChat {
                 String input = scanner.nextLine();
                 try {
                     handleInput(input);
-                } catch (botChatException e) {
+                } catch (BotChatException e) {
                     ui.showErrorMessage(e.getMessage());
                 }
                 Storage.saveTaskToHardDisk(tasks.getTasks());
@@ -38,7 +38,7 @@ public class botChat {
     }
 
     //Method to handle inputs
-    private void handleInput(String input) throws botChatException {
+    private void handleInput(String input) throws BotChatException {
         Command command = Parser.getCommand(input.split(" ")[0]);
         switch (command) {
             case BYE:
@@ -67,11 +67,11 @@ public class botChat {
                 tasks.deleteTask(input);
                 break;
             case UNKNOWN:
-                throw new botChatException("Sorry, I do not understand that command. Please try again.");
+                throw new BotChatException("Sorry, I do not understand that command. Please try again.");
         }
     }
 
     public static void main(String[] args) {
-        new botChat(FILE_PATH).run();
+        new BotChat(FILE_PATH).run();
     }
 }

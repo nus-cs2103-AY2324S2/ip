@@ -1,7 +1,7 @@
-package botChat;
+package BotChat;
 
-public class botChatException extends Exception {
-    public botChatException(String message) {
+public class BotChatException extends Exception {
+    public BotChatException(String message) {
         super(message);
     }
 }

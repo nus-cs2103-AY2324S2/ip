@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("botChat.botChat")
+    mainClass.set("BotChat.BotChat")
 }
 
 shadowJar {

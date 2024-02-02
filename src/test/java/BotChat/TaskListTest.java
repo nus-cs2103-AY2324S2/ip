@@ -1,4 +1,4 @@
-package botChat;
+package BotChat;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TaskListTest {
     @Test
-    public void testAddTask() throws botChatException {
+    public void testAddTask() throws BotChatException {
         TaskList taskList = new TaskList();
         Task task = new Todo("Test Todo");
         taskList.addTask(task);
@@ -16,16 +16,16 @@ public class TaskListTest {
     }
 
     @Test
-    public void testAddTaskLimitExceeded() throws botChatException {
+    public void testAddTaskLimitExceeded() throws BotChatException {
         TaskList taskList = new TaskList();
         for (int i = 0; i < 100; i++) {
             taskList.addTask(new Todo("Task " + i));
         }
-        assertThrows(botChatException.class, () -> taskList.addTask(new Todo("Task 100")));
+        assertThrows(BotChatException.class, () -> taskList.addTask(new Todo("Task 100")));
     }
 
     @Test
-    public void testDeleteTask() throws botChatException {
+    public void testDeleteTask() throws BotChatException {
         TaskList taskList = new TaskList();
         Task task = new Todo("Test Todo");
         taskList.addTask(task);
@@ -36,23 +36,23 @@ public class TaskListTest {
     @Test
     public void testDeleteInvalidTaskIndex() {
         TaskList taskList = new TaskList();
-        assertThrows(botChatException.class, () -> taskList.deleteTask("delete 1"));
+        assertThrows(BotChatException.class, () -> taskList.deleteTask("delete 1"));
     }
 
     @Test
     public void testMarkInvalidTaskIndex() {
         TaskList taskList = new TaskList();
-        assertThrows(botChatException.class, () -> taskList.markTask("done 1"));
+        assertThrows(BotChatException.class, () -> taskList.markTask("done 1"));
     }
 
     @Test
     public void testUnmarkInvalidTaskIndex() {
         TaskList taskList = new TaskList();
-        assertThrows(botChatException.class, () -> taskList.unmarkTask("undone 1"));
+        assertThrows(BotChatException.class, () -> taskList.unmarkTask("undone 1"));
     }
 
     @Test
-    public void testAddEventTask() throws botChatException {
+    public void testAddEventTask() throws BotChatException {
         TaskList taskList = new TaskList();
         taskList.addEventTask("event Meeting /from 2024-01-01 /to 2024-01-02");
         assertEquals(1, taskList.getTasks().size());
@@ -62,12 +62,12 @@ public class TaskListTest {
     @Test
     public void testAddInvalidEventTask() {
         TaskList taskList = new TaskList();
-        assertThrows(botChatException.class,
+        assertThrows(BotChatException.class,
                 () -> taskList.addEventTask("event"));
     }
 
     @Test
-    public void testAddDeadlineTask() throws botChatException {
+    public void testAddDeadlineTask() throws BotChatException {
         TaskList taskList = new TaskList();
         taskList.addDeadlineTask("deadline Project /by 2024-01-15");
         assertEquals(1, taskList.getTasks().size());
@@ -77,11 +77,11 @@ public class TaskListTest {
     @Test
     public void testAddInvalidDeadlineTask() {
         TaskList taskList = new TaskList();
-        assertThrows(botChatException.class, () -> taskList.addDeadlineTask("deadline InvalidDeadlineTask /by invalid-date"));
+        assertThrows(BotChatException.class, () -> taskList.addDeadlineTask("deadline InvalidDeadlineTask /by invalid-date"));
     }
 
     @Test
-    public void testAddTodoTask() throws botChatException {
+    public void testAddTodoTask() throws BotChatException {
         TaskList taskList = new TaskList();
         taskList.addTodoTask("todo New Task");
         assertEquals(1, taskList.getTasks().size());
@@ -91,6 +91,6 @@ public class TaskListTest {
     @Test
     public void testAddInvalidTodoTask() {
         TaskList taskList = new TaskList();
-        assertThrows(botChatException.class, () -> taskList.addTodoTask("todo"));
+        assertThrows(BotChatException.class, () -> taskList.addTodoTask("todo"));
     }
 }
