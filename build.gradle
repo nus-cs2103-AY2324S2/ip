@@ -44,11 +44,11 @@ test {
 }
 
 application {
-    mainClass.set("nollid.Nollid")
+    mainClass.set("nollid.javafx.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "nollid"
+    archiveBaseName = "Nollid"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
