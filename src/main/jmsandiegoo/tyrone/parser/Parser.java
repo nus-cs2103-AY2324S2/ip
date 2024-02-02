@@ -19,6 +19,7 @@ public class Parser {
     private static final Pattern EVENT_ARGS_FORMAT = Pattern.compile(
             "(?<description>[^/]+)\\s+/from\\s+(?<fromDateTime>[^/]+)\\s+/to\\s+(?<toDateTime>[^/]+)");
     private static final Pattern INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)");
+    private static final Pattern FIND_ARGS_FORMAT = Pattern.compile("(?<keyword>.+)");
 
     public Command parseRawUserCommand(String rawUserInput) throws IncorrectCommandException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(rawUserInput.trim());
@@ -54,6 +55,9 @@ public class Parser {
             break;
         case DeleteCommand.COMMAND_WORD:
             command = parseDeleteCommandArgs(arguments);
+            break;
+        case FindCommand.COMMAND_WORD:
+            command = parseFindCommandArgs(arguments);
             break;
         default:
             throw new IncorrectCommandException(Messages.MESSAGE_NOT_EXIST_CMD);
@@ -93,6 +97,7 @@ public class Parser {
                     String.format(Messages.MESSAGE_INCORRECT_COMMAND_FORMAT, "todo", "todo <description>"));
         }
     }
+
     private Command parseDeadlineCommandArgs(String arguments) throws IncorrectCommandException {
         final Matcher matcher = DEADLINE_ARGS_FORMAT.matcher(arguments.trim());
 
@@ -173,6 +178,19 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(matcher.group("targetIndex")) - 1);
         } catch (IllegalArgumentException e) {
             throw new IncorrectCommandException(MESSAGE_INCORRECT_DELETE_INDEX);
+        }
+    }
+
+    private Command parseFindCommandArgs(String arguments) throws IncorrectCommandException {
+        final Matcher matcher = FIND_ARGS_FORMAT.matcher(arguments.trim());
+        if (!matcher.matches()) {
+            throw new IncorrectCommandException(Messages.MESSAGE_FIND_INCORRECT);
+        }
+
+        try {
+            return new FindCommand(matcher.group("keyword"));
+        } catch(IllegalArgumentException e) {
+            throw new IncorrectCommandException(Messages.MESSAGE_FIND_INCORRECT);
         }
     }
 }

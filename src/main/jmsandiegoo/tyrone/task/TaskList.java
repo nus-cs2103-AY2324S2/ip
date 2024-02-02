@@ -98,12 +98,26 @@ public class TaskList {
         return this.items.remove(index);
     }
 
+    public String findItemsByKeyword(String keyword) {
+        TaskList findTaskList = new TaskList();
+        for (Task item : this.items) {
+            if (item.hasKeyword(keyword)) {
+                findTaskList.addItem(item);
+            }
+        }
+
+        System.out.println(findTaskList.getListSize());
+        return findTaskList.getListSize() > 0
+                ? findTaskList.toString()
+                : "No items found with the specified keyword";
+    }
+
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
-        for (int i = 0; i < items.size(); ++i) {
-            output.append(i + 1).append(".  ").append(items.get(i).toString());
-            if (i < items.size() - 1) output.append("\n");
+        for (int i = 0; i < this.items.size(); ++i) {
+            output.append(i + 1).append(".  ").append(this.items.get(i).toString());
+            if (i < this.items.size() - 1) output.append("\n");
         }
         return output.toString();
     }
