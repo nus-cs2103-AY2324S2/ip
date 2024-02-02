@@ -1,14 +1,15 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Storage {
     private  ArrayList<Task> tasks;
     private static final String FILE_PATH = "./data/Tes.txt";
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private static final DateTimeFormatter FORMATTER_RECEIVE = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter FORMATTER_STORE = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
     public Storage() {
         this.tasks = new ArrayList<>(); // assume maximum size of task list to be 100
@@ -27,15 +28,15 @@ public class Storage {
     }
 
     public void storeDeadline(String task, String by) {
-        LocalDate by1 = LocalDate.parse(by);
+        LocalDateTime by1 = LocalDateTime.parse(by, FORMATTER_RECEIVE);
         Deadline newDeadline = new Deadline(task, by1);
         this.tasks.add(newDeadline);
         this.saveToFile();
     }
 
     public void storeEvent(String task, String from, String to) {
-        LocalDate from1 = LocalDate.parse(from);
-        LocalDate to1 = LocalDate.parse(to);
+        LocalDateTime from1 = LocalDateTime.parse(from, FORMATTER_RECEIVE);
+        LocalDateTime to1 = LocalDateTime.parse(to, FORMATTER_RECEIVE);
         Event newEvent = new Event(task, from1, to1);
         this.tasks.add(newEvent);
         this.saveToFile();
@@ -122,17 +123,17 @@ public class Storage {
                         String[] time = temp.split(" to: ");
                         String from = time[0];
                         String to = time[1];
-                        LocalDate from1 = LocalDate.parse(from, formatter);
-                        LocalDate to1 = LocalDate.parse(to, formatter);
-                        this.storeEvent(split[2], from1.toString(), to1.toString());
+                        String from1 = LocalDateTime.parse(from, FORMATTER_STORE).format(FORMATTER_RECEIVE);
+                        String to1 = LocalDateTime.parse(to, FORMATTER_STORE).format(FORMATTER_RECEIVE);
+                        this.storeEvent(split[2], from1, to1);
                         if (split[1].equals("X")) {
                             this.mark(this.tasks.size() - 1);
                         }
                     } else if (line.contains("by:")) {
                         String[] split = line.split(" \\| ");
                         String by = split[3].substring(4);
-                        LocalDate by1 = LocalDate.parse(by, formatter);
-                        this.storeDeadline(split[2], by1.toString());
+                        String by1 = LocalDateTime.parse(by, FORMATTER_STORE).format(FORMATTER_RECEIVE);
+                        this.storeDeadline(split[2], by1);
                         if (split[1].equals("X")) {
                             this.mark(this.tasks.size() - 1);
                         }
