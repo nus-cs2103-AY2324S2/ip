@@ -27,12 +27,15 @@ test {
     }
 }
 
+mainClassName = "knight.Knight";
+
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("knight.Knight")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Knight"
+    archiveFileName = "Knight.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

@@ -10,6 +10,10 @@ public class TaskList {
     public TaskList() {
     }
 
+    public TaskList(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     void executeCommand(Command commandType, String message) {
         if (commandType == Command.LIST) {
             if (tasks.isEmpty()) {
