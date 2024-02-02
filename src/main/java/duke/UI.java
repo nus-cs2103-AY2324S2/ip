@@ -1,3 +1,5 @@
+package duke;
+
 public class UI {
     private final String LINE = "______________________________________________________\n";
 

@@ -1,3 +1,5 @@
+package duke;
+
 public class EmptyTaskException extends DukeExceptions{
     public String msg = "You can't do nothing!";
     public EmptyTaskException() {

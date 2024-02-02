@@ -1,3 +1,5 @@
+package duke;
+
 public class NewDuke {
     private Storage storage;
     private UI ui;
