@@ -2,7 +2,6 @@ package raphael.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import raphael.exception.DukeException;
 
 public class Event extends Task {
     private final LocalDateTime from;
@@ -10,22 +9,22 @@ public class Event extends Task {
     private final DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
 
-    public Event(String description, String from, String to) throws DukeException {
+    public Event(String description, String from, String to) throws raphael.exception.RaphaelException {
         super(description);
         try {
             this.from = LocalDateTime.parse(from, this.inputFormat);
             this.to = LocalDateTime.parse(to, this.inputFormat);
         } catch (DateTimeParseException e) {
-            throw new DukeException(DukeException.invalidFormat("EVENT"));
+            throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.invalidFormat("EVENT"));
         }
     }
-    public Event(String description, String from, String to, boolean isDone) throws DukeException {
+    public Event(String description, String from, String to, boolean isDone) throws raphael.exception.RaphaelException {
         super(description, isDone);
         try {
             this.from = LocalDateTime.parse(from, this.inputFormat);
             this.to = LocalDateTime.parse(to, this.inputFormat);
         } catch (DateTimeParseException e) {
-            throw new DukeException(DukeException.invalidFormat("EVENT"));
+            throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.invalidFormat("EVENT"));
         }
     }
 

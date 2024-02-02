@@ -2,25 +2,25 @@ package raphael.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import raphael.exception.DukeException;
+
 public class Deadline extends Task {
     private final LocalDateTime deadline;
     private final DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
-    public Deadline(String description, String deadline) throws DukeException {
+    public Deadline(String description, String deadline) throws raphael.exception.RaphaelException {
         super(description);
         try {
             this.deadline = LocalDateTime.parse(deadline, this.inputFormat);
         } catch (DateTimeParseException e) {
-            throw new DukeException(DukeException.invalidFormat("Deadline"));
+            throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.invalidFormat("Deadline"));
         }
     }
-    public Deadline(String description, String deadline, boolean isDone) throws DukeException {
+    public Deadline(String description, String deadline, boolean isDone) throws raphael.exception.RaphaelException {
         super(description, isDone);
         try {
             this.deadline = LocalDateTime.parse(deadline, this.inputFormat);
         } catch (DateTimeParseException e) {
-            throw new DukeException(DukeException.invalidFormat("Deadline"));
+            throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.invalidFormat("Deadline"));
         }
     }
     public void isDueBy(String date) {

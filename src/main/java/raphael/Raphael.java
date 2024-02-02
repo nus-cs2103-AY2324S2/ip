@@ -3,7 +3,6 @@ import raphael.parser.Parser;
 import raphael.storage.Storage;
 import raphael.task.TaskList;
 import raphael.ui.Ui;
-import raphael.exception.DukeException;
 import raphael.command.Command;
 public class Raphael {
     public static final String LOGO = "\n"
@@ -24,7 +23,7 @@ public class Raphael {
         this.storage = new Storage(filePath);
         try {
             this.tasks = new TaskList(this.storage.load());
-        } catch (DukeException e) {
+        } catch (raphael.exception.RaphaelException e) {
             ui.showLoadingError();
             this.tasks = new TaskList();
         }
@@ -39,7 +38,7 @@ public class Raphael {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (raphael.exception.RaphaelException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();

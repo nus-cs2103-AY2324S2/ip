@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import raphael.exception.DukeException;
+
 public class Storage {
     private final Path filePath;
     public Storage(String filePath) {
@@ -17,7 +17,7 @@ public class Storage {
 //            throw new DukeException(DukeException.CONNECT_FILE_EXCEPTION);
         }
     }
-    public String load() throws DukeException {
+    public String load() throws raphael.exception.RaphaelException {
         try {
             BufferedReader br = Files.newBufferedReader(this.filePath);
             String line;
@@ -28,17 +28,17 @@ public class Storage {
             br.close();
             return tasks.toString();
         } catch (IOException e) {
-            throw new DukeException(DukeException.READ_IO_EXCEPTION);
+            throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.READ_IO_EXCEPTION);
         }
     }
 
-    public void write(String content) throws DukeException {
+    public void write(String content) throws raphael.exception.RaphaelException {
         try {
             BufferedWriter bw = Files.newBufferedWriter(this.filePath);
             bw.write(content);
             bw.close();
         } catch (IOException e) {
-            throw new DukeException(DukeException.WRITE_IO_EXCEPTION);
+            throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.WRITE_IO_EXCEPTION);
         }
     }
 }

@@ -3,7 +3,6 @@ import raphael.task.Task;
 import raphael.task.TaskList;
 import raphael.ui.Ui;
 import raphael.storage.Storage;
-import raphael.exception.DukeException;
 
 public class AddCommand extends Command {
     private final Task toAdd;
@@ -11,7 +10,7 @@ public class AddCommand extends Command {
         this.toAdd = toAdd;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws raphael.exception.RaphaelException {
         tasks.addTask(this.toAdd);
         ui.showAddOutput(tasks, this.toAdd);
         storage.write(tasks.toFileFormat());
