@@ -2,16 +2,23 @@ package duke.task;
 
 import java.time.LocalDate;
 
+/**
+ * Subclass of task that represents events.
+ */
 public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
-    public Event(String name, LocalDate from, LocalDate to) {
-        super(name);
-        this.from = from;
-        this.to = to;
-    }
-    public Event(String name, boolean isDone, LocalDate from, LocalDate to) {
-        super(name, isDone);
+
+    /**
+     * Constructs Event object.
+     *
+     * @param description Description of event.
+     * @param isDone Boolean value symbolizing completion status.
+     * @param from Starting date of event. LocalDate object.
+     * @param to End date of event. LocalDate object.
+     */
+    public Event(String description, boolean isDone, LocalDate from, LocalDate to) {
+        super(description, isDone);
         this.from = from;
         this.to = to;
     }

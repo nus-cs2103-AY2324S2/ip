@@ -2,22 +2,21 @@ package duke.task;
 
 import java.time.LocalDate;
 
+/**
+ * Subclass of task that represents deadlines.
+ */
 public class Deadline extends Task {
     private LocalDate by;
 
     /**
-     * Contructs new deadlibe object with a description and a due date.
+     * Constructs deadline object.
      *
-     * @param description Brief description of duke.command.task.
-     * @param by LocalDateTine object
+     * @param description Description of task.
+     * @param isDone Boolean value representing completion status.
+     * @param by Due date of task. LocalDate object.
      */
-    public Deadline(String description, LocalDate by) {
-        super(description);
-        this.by = by;
-    }
-
-    public Deadline(String name, boolean isDone, LocalDate by) {
-        super(name, isDone);
+    public Deadline(String description, boolean isDone, LocalDate by) {
+        super(description, isDone);
         this.by = by;
     }
 

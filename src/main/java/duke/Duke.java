@@ -6,12 +6,19 @@ import duke.exceptions.DukeException;
 import duke.exceptions.StorageException;
 import duke.task.TaskList;
 
-//main class for the bot
+/**
+ * Driver code for chatbot.
+ */
 public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Constructs a Duke object with a given datapath.
+     *
+     * @param filePath Filepath of the datafile.
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -23,6 +30,7 @@ public class Duke {
         }
     }
 
+    /** Initializes and runs the chatbot program */
     public void run() {
         ui.showWelcome();
         ui.showLine();
@@ -44,6 +52,7 @@ public class Duke {
         }
     }
 
+    /** Main method */
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }
