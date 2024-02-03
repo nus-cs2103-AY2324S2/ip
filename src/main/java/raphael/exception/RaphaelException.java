@@ -8,6 +8,13 @@ public class RaphaelException extends Exception {
     public RaphaelException(String message) {
         super(message);
     }
+
+    /**
+     * Returns the corresponding error message for different type of error that cause this exception to be thrown.
+     *
+     * @param s the string indicating which type of error it is
+     * @return the error message
+     */
     public static String invalidFormat(String s) {
         final String TODO_FORMAT = "todo [task]";
         final String DEADLINE_FORMAT = "deadline [task] /by [datetime]";

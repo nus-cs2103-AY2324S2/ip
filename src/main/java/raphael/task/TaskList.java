@@ -26,9 +26,22 @@ public class TaskList implements FileFormattable {
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
+
+    /**
+     *
+     * @return the formatted string used to output the number of tasks in the current task list.
+     */
     public String getSize() {
         return String.format("You now have %d tasks in your list!", this.tasks.size());
     }
+
+    /**
+     * Marks the task indicated by idx and returns 0 if the operation is successful; -1 otherwise.
+     *
+     * @param idx the index of the task that need to be mark as done.
+     * @return 0 if the operation is successful, -1 otherwise.
+     * @throws raphael.exception.RaphaelException exception exclusive to Raphael.
+     */
     public int checkTask(int idx) throws raphael.exception.RaphaelException {
         if (idx < 0 || idx >= this.tasks.size()) {
             throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.INVALID_TASK_INDEX);
@@ -44,6 +57,14 @@ public class TaskList implements FileFormattable {
             }
         }
     }
+
+    /**
+     * Unmarks the task indicated by idx and returns 0 if the operation is successful; -1 otherwise.
+     *
+     * @param idx the index of the task that need to be unmark as done.
+     * @return 0 if the operation is successful, -1 otherwise.
+     * @throws raphael.exception.RaphaelException exception exclusive to Raphael.
+     */
     public int uncheckTask(int idx) throws raphael.exception.RaphaelException {
         if (idx < 0 || idx >= this.tasks.size()) {
             throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.INVALID_TASK_INDEX);
@@ -60,9 +81,24 @@ public class TaskList implements FileFormattable {
         }
     }
 
+    /**
+     * Adds the given task into the current task list.
+     *
+     * @param t the task that is needed tobe added.
+     */
+
     public void addTask(Task t) {
         this.tasks.add(t);
     }
+
+    /**
+     * Deletes the task indicated by idx from the task list. Upon successful deletion, the method will return 0; -1
+     * otherwise.
+     *
+     * @param idx the index of task that has to be deleted.
+     * @return 0 if the deletion is successful; -1 otherwise.
+     * @throws raphael.exception.RaphaelException exception exclusive to Raphael.
+     */
     public int deleteTask(int idx) throws raphael.exception.RaphaelException {
         if (idx < 0 || idx >= this.tasks.size()) {
             throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.INVALID_TASK_INDEX);
@@ -75,6 +111,10 @@ public class TaskList implements FileFormattable {
             return 0;
         }
     }
+
+    /**
+     * Lists all the task in the current task list.
+     */
     public void listTasks() {
         if (this.tasks.isEmpty()) {
             System.out.println("YAY! You have no tasks ongoing ^_^");
