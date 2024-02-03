@@ -39,16 +39,23 @@ public class Ui {
         } else if (echo.matches("unmark -?[0-9]*")) {
             results[0] = 4;
             results[1] = parser.digOutInt(echo);
-        } else if (echo.matches("delete -?[0-9]*")) {
+        } else if (echo.matches("delete -?[0-9]*")){
             results[0] = 5;
             results[1] = parser.digOutInt(echo);
-        } else {
+        } else if (echo.matches("find [a-zA-Z0-9]*")) {
             results[0] = 6;
+        } else {
+            results[0] = 7;
         }
 
         return results;
     }
 
+
+
+    public String analyseFind(String echo) throws DukeException {
+        return parser.digOutSearch(echo);
+    }
     /**
      * Converts the input of the user into a Task to be added to the taskList
      *

@@ -108,7 +108,37 @@ public class TaskList {
 
     }
 
+    /**
+     * Finds Tasks with keyword in the taskList as requested by the user
+     *
+     * @param keyword word that Task should contain
+     * @return an ArrayList<Task> of the matching Tasks
+     * @throws DukeException when current taskList is empty
+     */
+    public ArrayList<Task> findMechanism(String keyword) throws DukeException {
+        ArrayList<Task> searchResults = new ArrayList<Task>();
+        if(tasks.size() == 0){
+            throw new DukeException("Add tasks to list first before finding tasks\n");
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                if(tasks.get(i).getDescription().contains(keyword)) {
+                    searchResults.add(tasks.get(i));
+                }
+            }
 
+            if(searchResults.size() == 0) {
+                System.out.println("Unfortunately, there are no keywords matching your search.\n");
+                return searchResults;
+            }
+
+            System.out.println("Here are the tasks matching your keyword:\n");
+            for (int i = 0; i < searchResults.size(); i++) {
+                System.out.println(i+1 + "." + searchResults.get(i).toString());
+                System.out.println();
+            }
+        }
+        return searchResults;
+    }
 
     /**
      * Deletes a Task in the Task Arraylist as requested by the user

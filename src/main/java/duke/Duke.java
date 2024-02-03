@@ -100,6 +100,10 @@ public class Duke {
                     }
                     break;
                 case 6:
+                    String keywordToFind = ui.analyseFind(echo);
+                    tasks.findMechanism(keywordToFind);
+                    break;
+                case 7:
                     //tell ui to parse and return task to make
                     //pass to tasklist to add the task only, no other computation needed
                     Task taskToAdd = ui.analyseTask(echo);

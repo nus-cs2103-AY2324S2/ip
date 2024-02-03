@@ -36,6 +36,10 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public String getDescription(){
+        return this.description;
+    }
+
     /**
      * Prints Task description in Task Array
      *
