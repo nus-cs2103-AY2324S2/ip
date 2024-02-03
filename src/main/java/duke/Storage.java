@@ -73,9 +73,9 @@ public class Storage {
     }
 
     /**
-     * Creates a formatted string representing the list of tasks in the storage.
+     * Prints the tasks matching a search query, surrounded by a separator line.
      *
-     * @return The formatted string representing the list of tasks.
+     * @param s The string representing the matching tasks.
      */
     public String find(String s) throws DukeExceptions {
         String output = "";
@@ -94,6 +94,11 @@ public class Storage {
         return output;
     }
 
+    /**
+     * Creates a formatted string representing the list of tasks in the storage.
+     *
+     * @return The formatted string representing the list of tasks.
+     */
     public String printList() {
         String output = "";
         for (int i=0; i<this.storage.size(); i++) {
