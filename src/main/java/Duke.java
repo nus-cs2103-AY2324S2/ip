@@ -21,7 +21,7 @@ public class Duke {
         String input, task_name, start, end, first_string, second_string, third_string; // for easy processing
         Task task;
         int idx;
-        // User input
+        // User input for task handling
         while (scanner.hasNext()) {
             try {
                 input = scanner.nextLine();
