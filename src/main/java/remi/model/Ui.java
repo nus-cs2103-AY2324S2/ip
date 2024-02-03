@@ -22,7 +22,9 @@ public class Ui {
         this.parser = new Parser(this.commandList);
     }
 
-
+    /**
+     * Initializes the io loop of the chatbot. This includes loading the storage and running the message event loop.
+     */
     public void ioLoop() {
         Outputter.outputMessage(new Message("Hello! I'm Remi\n" + "What can I do for you?"));
         Storage.get();
