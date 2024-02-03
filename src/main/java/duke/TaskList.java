@@ -92,7 +92,7 @@ public class TaskList {
         String found = "";
         int i = 1;
         for (Task t : this.taskList) {
-            if (t.toString().contains(text)) { // TODO check only task name!
+            if (t.getDescription().contains(text)) {
                 found = found + "\t" + i + "." + t + "\n";
                 i += 1;
             }
@@ -100,7 +100,7 @@ public class TaskList {
         if (i != 1) {
             return found;
         } else {
-            return "\tNo tasks matching " + text + " found!";
+            return "\tNo tasks matching \"" + text + "\" found!\n";
         }
     }
 
