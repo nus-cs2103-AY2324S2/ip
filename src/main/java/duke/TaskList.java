@@ -62,11 +62,36 @@ public class TaskList {
      * Prints all tasks in the list to the console.
      * Each task is printed with its list index.
      */
-    public void list() {
+    public void listTasks() {
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < TaskList.storageFill; i++) {
             String formattedOutput = String.format("\t%d. %s", (i + 1), this.tasks.get(i));
             System.out.println(formattedOutput);
+        }
+    }
+
+    /**
+     * Prints matching tasks in the list to the console.
+     * Each task is printed with its list index. A task matches if its description
+     * contains the findString.
+     *
+     * @param findString The string to search for within each task's description.
+     */
+    public void findTasks(String findString) {
+        System.out.println("\tHere are the matching tasks in your list:");
+        boolean found = false;
+
+        for (int i = 0; i < TaskList.storageFill; i++) {
+            Task currTask = this.tasks.get(i);
+            if (currTask.getDetails().toLowerCase().contains(findString.toLowerCase())) {
+                String formattedOutput = String.format("\t%d. %s", (i + 1), currTask);
+                System.out.println(formattedOutput);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("\tNo tasks match your search criteria.");
         }
     }
 

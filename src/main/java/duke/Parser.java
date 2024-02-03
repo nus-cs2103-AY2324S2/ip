@@ -45,6 +45,12 @@ public class Parser {
                 System.out.println("Invalid task number!");
                 return new ParsedCommand(CommandType.INVALID, -1); // Indicate invalid task number
             }
+        } else if (commandType == CommandType.FIND) {
+            if (parts[1].replaceAll("\\s", "").equals("")) {
+                System.out.println("\tTask name should not be empty!");
+                return new ParsedCommand(CommandType.INVALID, -1);
+            }
+            return new ParsedCommand(CommandType.FIND, parts[1]); // parts[1] is the search target
         } else {
             return new ParsedCommand(commandType, input); // success
         }
@@ -186,7 +192,6 @@ public class Parser {
             }
             break;
         default:
-            System.out.println("Default case");
             break;
         }
         return newTask;

@@ -77,7 +77,7 @@ public class Ui {
                 return;
             case LIST:
                 // handle LIST
-                this.taskList.list();
+                this.taskList.listTasks();
                 break;
             case MARK:
                 this.taskList.getTask(taskIndex).markComplete();
@@ -90,6 +90,8 @@ public class Ui {
                 this.taskList.deleteTask(taskIndex);
                 System.out.println("\tNoted. I've removed this task:\n\t" + deletedTask);
                 break;
+            case FIND:
+                this.taskList.findTasks(parsedCommand.getInput());
             case EVENT:
             case TODO:
             case DEADLINE:
@@ -112,8 +114,13 @@ public class Ui {
      * Prints a message indicating the user has entered an invalid command.
      */
     public static void printInvalid() {
-        System.out.println("\tOOPS!!! That is not a valid command! "
-                + "Try the following: \n"
+        System.out.println("\tOOPS!!! That is not a valid command!\n"
+                + "\tTry the following: \n"
+                + "\tlist\n"
+                + "\tmark x\n"
+                + "\tunmark x\n"
+                + "\tdelete x\n"
+                + "\tfind xxx\n"
                 + "\ttodo xxx\n"
                 + "\tdeadline xxx /by xxx\n"
                 + "\tevent xxx /from xxx /to xxx");
