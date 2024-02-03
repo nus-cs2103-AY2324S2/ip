@@ -1,0 +1,5 @@
+E |   | birthday | 4pm-6pm
+T |   | eat
+D |   | read book | 6pm
+T | X | drink
+T |   | drive

@@ -20,9 +20,9 @@ public abstract class Task {
     @Override
     public String toString() {
         if (this.completed) {
-            return "[X] " + this.task;
+            return " | X | " + this.task;
         } else {
-            return "[ ] " + this.task;
+            return " |   | " + this.task;
         }
     }
 }
@@ -34,7 +34,7 @@ class ToDo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "T" + super.toString();
     }
 }
 
@@ -47,7 +47,7 @@ class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "D" + super.toString() + " | " + this.by;
     }
 }
 
@@ -62,6 +62,6 @@ class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "E" + super.toString() + " | " + this.from + "-" + this.to;
     }
 }
