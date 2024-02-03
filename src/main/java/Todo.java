@@ -21,9 +21,9 @@ public class Todo extends Task {
 
     public String toString() {
         if (this.isComplete) {
-            return String.format("[T][X] %s", this.content);
+            return String.format("T|X|%s", this.content);
         } else {
-            return String.format("[T][ ] %s", this.content);
+            return String.format("T| |%s", this.content);
         }
     }
 }

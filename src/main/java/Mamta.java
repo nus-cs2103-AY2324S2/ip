@@ -1,11 +1,16 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 public class Mamta {
     private static final ArrayList<Task> history = new ArrayList<Task>();
-
 
     public static String greet() {
         return "Hello! I'm Mamta\nWhat can I do for you?";
@@ -78,6 +83,59 @@ public class Mamta {
 
     }
 
+    public static void loadTaskData(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] splitOutput = line.split("\\|");
+                System.out.println(splitOutput[0]);
+                System.out.println(splitOutput[1]);
+                System.out.println(splitOutput[2]);
+                switch (splitOutput[0]) {
+                    case "T":
+                        if (splitOutput[1].equals("X")) {
+                            history.add(new Todo(true, splitOutput[2]));
+                        } else {
+                            history.add(new Todo(false, splitOutput[2]));
+                        }
+                        break;
+                    case "D":
+                        if (splitOutput[1].equals("X")) {
+                            history.add(new Deadline(true, splitOutput[2],splitOutput[3]));
+                        } else {
+                            history.add(new Deadline(false, splitOutput[2], splitOutput[3]));
+                        }
+                        break;
+                    case "E":
+                        if (splitOutput[1].equals("X")) {
+                            history.add(new Event(true, splitOutput[2],splitOutput[3], splitOutput[4]));
+                        } else {
+                            history.add(new Event(false, splitOutput[2], splitOutput[3], splitOutput[4]));
+                        }
+                        break;
+                }
+            }
+            System.out.println(history);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveTasks(String filePath) {
+        //prepare the output to be saved first
+        StringBuilder output = new StringBuilder();
+        for (Task task: history) {
+            output.append(task.toString()).append("\n");
+        }
+        //save the output
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            writer.write(String.valueOf(output));
+            System.out.println("String has been successfully saved to the file.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
 
@@ -88,6 +146,10 @@ public class Mamta {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
+
+        String relativeFilePath = "./data/mamtainput.txt";
+        Mamta.loadTaskData(relativeFilePath); //loads tasks from file
+
         try (Scanner scanner = new Scanner(new File("./text-ui-test/input.txt"))) {
             while (scanner.hasNextLine()) {
                 String userOutput = scanner.nextLine();
@@ -121,13 +183,23 @@ public class Mamta {
                         StringBuilder endTime = new StringBuilder();
                         boolean reachedBy = false;
                         boolean reachedTo = false;
+
+                        //string splitting logic for parsing tasks
                         for (int i = 1; i < splitOutput.length; i++) {
                             if ((!reachedBy && !reachedTo) && (!splitOutput[i].equals("/by") && !splitOutput[i].equals("/from"))) {
-                                task.append(splitOutput[i]).append(" ");
+                                if (splitOutput[i+1].equals("/by") || splitOutput[i+1].equals("/from")) {
+                                    task.append(splitOutput[i]);
+                                } else {
+                                    task.append(splitOutput[i]).append(" ");
+                                }
                             } else if (!reachedTo && (splitOutput[i].equals("/by") || splitOutput[i].equals("/from"))) {
                                 reachedBy = true;
                             } else if (reachedBy && (!splitOutput[i].equals("/to"))) {
-                                deadline.append(i + 1 == splitOutput.length ? splitOutput[i] : splitOutput[i] + " ");
+                                if (i+1 == splitOutput.length ||  (i+1 != splitOutput.length && splitOutput[i+1].equals("/to"))) {
+                                    deadline.append(splitOutput[i]);
+                                } else {
+                                    deadline.append(splitOutput[i]).append(" ");
+                                }
                             } else if (splitOutput[i].equals("/to")) {
                                 reachedTo = true;
                                 reachedBy = false;
@@ -144,6 +216,10 @@ public class Mamta {
                         break;
                 }
             }
+
+            Mamta.saveTasks(relativeFilePath);
+
+
 
             // At this point, the loop exits because there is no next line, indicating the end of the file
         } catch (FileNotFoundException e) {
