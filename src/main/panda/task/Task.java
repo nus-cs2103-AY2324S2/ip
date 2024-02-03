@@ -1,3 +1,4 @@
+package panda.task;
 public class Task {
     private final String desc;
     private boolean isDone;
@@ -10,7 +11,7 @@ public class Task {
         isDone = false;
     }
     
-    Task(String desc) {
+    public Task(String desc) {
         this.desc = desc;
         isDone = false;
     }

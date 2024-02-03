@@ -1,5 +1,6 @@
+package panda.task;
 public class Todo extends Task {
-    Todo(String desc) {
+    public Todo(String desc) {
         super(desc);
     }
 

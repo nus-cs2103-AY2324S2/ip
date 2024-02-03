@@ -1,3 +1,4 @@
+package panda.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -6,7 +7,7 @@ import java.util.Locale;
 public class Deadline extends Task {
     private LocalDateTime date;
 
-    Deadline(String desc, String datestr) {
+    public Deadline(String desc, String datestr) {
         super(desc);
         DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder();
         builder.parseCaseInsensitive()

@@ -1,7 +1,18 @@
+package panda.component;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import panda.command.AlterMarkCommand;
+import panda.command.Command;
+import panda.command.NewTaskCommand;
+import panda.exception.CorruptedFileException;
+import panda.exception.PandaException;
+import panda.task.Deadline;
+import panda.task.Event;
+import panda.task.Todo;
+
 import java.util.ArrayList;
 
 public class Storage {

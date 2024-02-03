@@ -1,3 +1,7 @@
+package panda.command;
+import panda.exception.PandaException;
+import panda.exception.OutOfBoundsException;
+import panda.component.*;
 public class AlterMarkCommand extends Command {
     private int idx;
     private boolean marked;

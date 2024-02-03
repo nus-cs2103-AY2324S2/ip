@@ -1,3 +1,6 @@
+package panda.command;
+import panda.component.*;
+import panda.task.Task;
 public class NewTaskCommand extends Command {
     private Task task;
 
