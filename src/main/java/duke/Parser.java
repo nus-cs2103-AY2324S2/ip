@@ -1,3 +1,4 @@
+package duke;
 
 /**
  * This class is responsible for making sense of the user input

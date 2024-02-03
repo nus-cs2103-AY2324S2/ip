@@ -1,9 +1,10 @@
+package duke;
 import java.util.ArrayList;
 
 /**
  * Main class
  */
-public class Main {
+public class Duke {
     private Storage storage;
     private ArrayList<Task> taskList = new ArrayList<>();
     private TaskList tasks;
@@ -11,7 +12,7 @@ public class Main {
     private Ui ui;
     
 
-    public Main() {
+    public Duke() {
         this.ui = new Ui();
         this.storage = new Storage(taskList);
         this.tasks = new TaskList(storage);
@@ -44,7 +45,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Main mainApp = new Main();
+        Duke mainApp = new Duke();
         mainApp.start();
     }    
 }
