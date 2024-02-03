@@ -161,7 +161,15 @@ public class Parser {
         return end;
     }
 
-
-
+    /**
+     * Gets the keyword that user wants to look for in tasks.
+     *
+     * @return The keyword.
+     * @throws IndexOutOfBoundsException If find command does not contain a keyword.
+     */
+    public String getFindKeyword() throws IndexOutOfBoundsException {
+        String keyword = this.input.split("\\s+", 2)[1].trim();
+        return keyword;
+    }
 }
 

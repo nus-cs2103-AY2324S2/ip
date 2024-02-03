@@ -200,6 +200,14 @@ public class Scribbles {
                 ui.fileNotFoundMessage();
             }
             break;
+        case "find":
+            try {
+                String keyword = parsedInput.getFindKeyword();
+                ui.tasksWithKeyword(keyword, taskList);
+            } catch (IndexOutOfBoundsException e) {
+                ui.missingKeywordMessage();
+            }
+            break;
         default:
             ui.invalidInputMessage();
         }
