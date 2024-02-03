@@ -47,6 +47,34 @@ public class FileUtility {
     }
 
     /**
+     * Updates the file contents by replacing the line matching `originalData` with `newData`
+     *
+     * @param filename
+     * @param originalData
+     * @param newData
+     * @throws IOException
+     */
+    public void updateFile(String filename, String originalData, String newData) throws IOException {
+        File file = new File(System.getProperty("user.dir") + filename);
+        File tempFile = new File(System.getProperty("user.dir") + "temp");
+        FileWriter fw = new FileWriter(tempFile, true);
+
+        ArrayList<String> originalFileData = this.loadFile(filename);
+        for (String line : originalFileData) {
+            if (line.equals(originalData)) {
+                fw.write("\n" + newData);
+            }
+            else {
+                fw.write("\n" + line);
+            }
+        }
+
+        fw.close();
+        file.delete();
+        tempFile.renameTo(new File(System.getProperty("user.dir") + filename));
+    }
+
+    /**
      * Remove line from file.
      *
      * @param filename the filename

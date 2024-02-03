@@ -167,9 +167,12 @@ public class TaskService {
      * @param taskId the task id
      * @return the string
      */
-    public String markTaskCompleted(int taskId) {
+    public String markTaskCompleted(int taskId) throws IOException {
+        // TODO: Exception handling for if task does not exist
         // TODO: Fix, should also update tasklist.txt
+        String originalTaskString = this.tasks.get(taskId).toTaskListStringFormat();
         this.tasks.get(taskId).markTaskCompleted();
+        this.fileUtility.updateFile(this.tasklistFilePath, originalTaskString, this.tasks.get(taskId).toTaskListStringFormat());
 
         return "Ok! I've marked Task " + (taskId + 1) + " as completed!";
     }
@@ -180,10 +183,11 @@ public class TaskService {
      * @param taskId the task id
      * @return the string
      */
-    public String markTaskUncompleted(int taskId) {
+    public String markTaskUncompleted(int taskId) throws IOException {
         // TODO: Exception handling for if task does not exist
-        // TODO: Fix, should also update tasklist.txt
+        String originalTaskString = this.tasks.get(taskId).toTaskListStringFormat();
         this.tasks.get(taskId).markTaskNotCompleted();
+        this.fileUtility.updateFile(this.tasklistFilePath, originalTaskString, this.tasks.get(taskId).toTaskListStringFormat());
 
         return "Hmmm, were you teasing me?\n" +
                 "Well, I've marked Task " + (taskId + 1) +  " as uncompleted,\n" +
