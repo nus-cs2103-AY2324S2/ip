@@ -38,7 +38,7 @@ public class Unmark extends Command {
             Task task = tasks.get(index);
             task.unMark();
             storage.saveTasks(tasks);
-            ui.showMarked(task);
+            ui.showUnMarked(task);
         } else {
             throw new KleeException("We do not have that many tasks on the list!");
         }
