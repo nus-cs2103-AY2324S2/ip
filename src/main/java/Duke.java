@@ -158,6 +158,10 @@ public class Duke {
                         output.add(manager.numOfTask());
                     } else if (next.contains("update")) {
                         System.out.println(manager.getUpdate());
+                    } else if (next.contains("date")) {
+                        manager.testDate("12/04/2022");
+                    } else if (next.contains("time")) {
+                        manager.testTime("13 00");
                     } else {
                         throw new DukeException("invalid");
                     }

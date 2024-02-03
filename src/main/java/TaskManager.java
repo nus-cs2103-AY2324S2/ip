@@ -2,7 +2,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class TaskManager {
     private ArrayList<Task> items;
@@ -170,6 +173,23 @@ public class TaskManager {
         }
         return item;
 
+    }
+    public void testDate(String date) throws DukeException {
+        Optional<LocalDate> print = DateHandler.checkDate(date,1);
+        if(print.isPresent()) {
+            System.out.println(print.get());
+        } else {
+            System.out.println("Invalid date");
+        }
+    }
+
+    public void testTime(String time) throws DukeException {
+        Optional<LocalTime> print = DateHandler.checkTime(time);
+        if(print.isPresent()) {
+            System.out.println(print.get());
+        } else {
+            System.out.println("Invalid time");
+        }
     }
 
     public void loadTasksFromFile(File file) {
