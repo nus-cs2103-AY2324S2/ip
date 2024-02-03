@@ -2,6 +2,8 @@ import java.util.ArrayList;
 public class Tasklist {
     private ArrayList<Task> taskList = new ArrayList<>();
     private Ui UI;
+
+
     public Tasklist(Ui UI) {
         this.UI = UI;
     }
@@ -124,4 +126,9 @@ public class Tasklist {
             UI.handleErrorMessage("absent");
         }
     }
+
+    public void  addFromStorage(Task task) {
+        taskList.add(task);
+    }
+
 }
