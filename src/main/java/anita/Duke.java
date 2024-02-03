@@ -35,26 +35,26 @@ public class Duke {
             ui.line();
             try {
                 switch (command) {
-                    case "bye":
-                        isRunning = false;
-                        ui.bye();
-                        break;
-                    case "list":
-                        taskList.listTask();
-                        break;
-                    case "mark":
-                        taskList.setDone(parser.indexParser(description));
-                        break;
-                    case "unmark":
-                        taskList.setNotDone(parser.indexParser(description));
-                        break;
-                    case "delete":
-                        taskList.removeTask(description);
-                        break;
-                    default:
-                        addingTask(command, description);
-                        break;
-                    }
+                case "bye":
+                    isRunning = false;
+                    ui.bye();
+                    break;
+                case "list":
+                    taskList.listTask();
+                    break;
+                case "mark":
+                    taskList.setDone(parser.indexParser(description));
+                    break;
+                case "unmark":
+                    taskList.setNotDone(parser.indexParser(description));
+                    break;
+                case "delete":
+                    taskList.removeTask(description);
+                    break;
+                default:
+                    addingTask(command, description);
+                    break;
+                }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -66,23 +66,23 @@ public class Duke {
     public void addingTask(String command, String description) throws Exception {
         Parser parser = new Parser();
         switch (command) {
-            case "todo":
-                String[] parsedTodo = parser.todoParser(description);
-                database.writeFile(description);
-                taskList.addTask(new Todo(parsedTodo[0]));
-                break;
-            case "deadline":
-                String[] parsedDeadline = parser.deadlineParser(description);
-                database.writeFile(description);
-                taskList.addTask(new Deadline(parsedDeadline[0], parsedDeadline[1]));
-                break;
-            case "event":
-                String[] parsedEvent = parser.eventParser(description);
-                database.writeFile(description);
-                taskList.addTask(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
-                break;
-            default:
-                throw new IllegalArgumentException("Please enter a valid command.");
+        case "todo":
+            String[] parsedTodo = parser.todoParser(description);
+            database.writeFile(description);
+            taskList.addTask(new Todo(parsedTodo[0]));
+            break;
+        case "deadline":
+            String[] parsedDeadline = parser.deadlineParser(description);
+            database.writeFile(description);
+            taskList.addTask(new Deadline(parsedDeadline[0], parsedDeadline[1]));
+            break;
+        case "event":
+            String[] parsedEvent = parser.eventParser(description);
+            database.writeFile(description);
+            taskList.addTask(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
+            break;
+        default:
+            throw new IllegalArgumentException("Please enter a valid command.");
         }
 
     }

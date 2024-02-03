@@ -18,13 +18,13 @@ public class TaskList {
     }
 
     public void setDone(int index) {
-        Task curr = taskList.get(index);
+        Task curr = this.get(index);
         curr.isDone = true;
         ui.setDoneMessage(curr);
     }
 
     public void setNotDone(int index) {
-        Task curr = taskList.get(index);
+        Task curr = this.get(index);
         curr.isDone = false;
         ui.setNotDoneMessage(curr);
     }
