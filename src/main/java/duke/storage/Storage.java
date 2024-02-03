@@ -1,10 +1,10 @@
-package storage;
+package duke.storage;
 
-import exception.DukeException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -65,12 +65,12 @@ public class Storage {
                         Event newEvent = new Event(taskDescription, isDone, eventFrom, eventTo);
                         taskArrayList.add(newEvent);
                     } else {
-                        throw new DukeException("Sorry, tasklist.txt seems to contain a corrupted task type.");
+                        throw new DukeException("Sorry, tasklist.txt seems to contain a corrupted duke.task type.");
                     }
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeException("Sorry, tasks seem to have missing arguments.");
                 } catch (DateTimeParseException e) {
-                    throw new DukeException("Sorry, task seems to have corrupted datetime. " +
+                    throw new DukeException("Sorry, duke.task seems to have corrupted datetime. " +
                             "The format should be yyyy-mm-dd hh:mm");
                 }
             }
@@ -88,7 +88,7 @@ public class Storage {
                 fw.write(t.toStorageString() + System.lineSeparator());
             }
             fw.close();
-            System.out.println("\tSuccessfully saved task data to tasklist.txt.");
+            System.out.println("\tSuccessfully saved duke.task data to tasklist.txt.");
         } catch (IOException e) {
             throw new DukeException("Sorry, saving to tasklist.txt failed.");
         }

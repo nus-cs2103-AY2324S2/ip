@@ -1,4 +1,4 @@
-package task;
+package duke.task;
 
 public abstract class Task {
     private String description;
@@ -19,7 +19,7 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        return (this.isDone ? "X" : " "); // mark done task with X
+        return (this.isDone ? "X" : " "); // mark done duke.task with X
     }
     
     public String getStatusBinary() { return (this.isDone ? "1" : "0"); }
