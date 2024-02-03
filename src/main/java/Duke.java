@@ -3,18 +3,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 enum Command {
     BYE, LIST, MARK, UNMARK, DEADLINE, EVENT, TODO, DELETE, DEFAULT
-}
-
-class DukeException extends Exception {
-    public DukeException(String errorMessage) {
-        super("OOPS!!! " + errorMessage);
-    }
 }
 
 class Duke {
@@ -136,7 +131,8 @@ class Duke {
             String deadlineDescription = scanner.nextLine();
             String[] deadlineDescriptionArray = deadlineDescription.split(" /by ");
             if (deadlineDescriptionArray.length != 2) {
-                throw new DukeException("Invalid deadline format. Please provide a description followed by '/by' and the deadline.");
+                throw new DukeException("Invalid deadline format. " +
+                                        "Please provide a description followed by '/by' and the deadline.");
             }
             Task deadlineTask = new Deadline(deadlineDescriptionArray[0], deadlineDescriptionArray[1]);
             userInputLog.add(deadlineTask);
@@ -144,21 +140,33 @@ class Duke {
             System.out.println(deadlineTask);
             System.out.println("Now you have " + userInputLog.size() + " tasks in the list.");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Invalid deadline format. Please provide a description followed by '/by' and the deadline.");
+            throw new DukeException("Invalid deadline format. " +
+                                    "Please provide a description followed by '/by' and the deadline.");
         }
     }
 
+    /*
+        * Handles the event command. It takes in a scanner object and parses the input to create an event task.
+        * The event task is then added to the user input log.
+        *
+        * @param scanner The scanner object to parse the user input.
+        * @throws DukeException If the user input is invalid.
+     */
     private void handleEvent(Scanner scanner) throws DukeException {
         try {
             String eventDescription = scanner.nextLine();
             String[] eventDescriptionArray = eventDescription.split(" /from ");
             if (eventDescriptionArray.length != 2) {
-                throw new DukeException("Invalid event format. Please provide a description followed by '/from' and the start time '/to' and the end time.");
+                throw new DukeException("Invalid event format. " +
+                                        "Please provide a description followed by '/from' " +
+                                        "and the start time '/to' and the end time.");
             }
             String eventTitle = eventDescriptionArray[0];
             eventDescriptionArray = eventDescriptionArray[1].split(" /to ");
             if (eventDescriptionArray.length != 2) {
-                throw new DukeException("Invalid event format. Please provide a description followed by '/from' and the start time '/to' and the end time.");
+                throw new DukeException("Invalid event format. " +
+                                        "Please provide a description followed by '/from' " +
+                                        "and the start time '/to' and the end time.");
             }
             Task eventTask = new Event(eventTitle, eventDescriptionArray[0], eventDescriptionArray[1]);
             userInputLog.add(eventTask);
@@ -166,7 +174,9 @@ class Duke {
             System.out.println(eventTask);
             System.out.println("Now you have " + userInputLog.size() + " tasks in the list.");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Invalid event format. Please provide a description followed by '/from' and the start time '/to' and the end time.");
+            throw new DukeException("Invalid event format. " +
+                                    "Please provide a description followed by '/from' " +
+                                    "and the start time '/to' and the end time.");
         }
     }
 
