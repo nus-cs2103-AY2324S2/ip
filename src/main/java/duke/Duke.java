@@ -32,11 +32,9 @@ public class Duke {
         try {
             this.taskList = new TaskList(storage.loadFile());
         } catch (FileNotFoundException e) {
-            this.ui.sendSystemMessage("There is no saved data in the system\n" + TextTemplate.LINE_BREAK);
             this.taskList = new TaskList();
         } catch (StorageException e) {
-            this.ui.sendSystemMessage("Saved data is corrupted. Please delete/resolve file at: " + filePath);
-            this.ready = false;
+            this.taskList = new TaskList();
         }
     }
 
@@ -45,6 +43,7 @@ public class Duke {
      * Runs the Duke application, continuously accepting user input and processing commands until
      * the application is exited.
      * Handles user input, processes commands, and saves data to storage.
+     * This is only applicable for a text user interface.
      */
     public void run() {
         while (this.ui.isActive()) {
@@ -67,12 +66,21 @@ public class Duke {
         }
     }
 
-    /**
-     * The main entry point for the Duke application.
-     * Creates a Duke object and starts the application if it is ready.
-     *
-     * @param args the command-line arguments
-     */
+    public String getResponse(String input) {
+        try {
+            String response = inputParser.processCommand(input, this.taskList);
+            if (response.equals("exit")) {
+                this.storage.saveData(this.taskList);
+                System.exit(0);
+            }
+            return response;
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        } catch (IOException e) {
+            return e.getMessage();
+        }
+    }
+
     public static void main(String[] args) {
         Duke duke = new Duke();
         if (duke.ready) {

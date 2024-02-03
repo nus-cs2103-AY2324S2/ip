@@ -52,7 +52,7 @@ public class InputParser {
             throw new InvalidInputException(TextTemplate.TASK_DOES_NOT_EXIST);
         }
         Task t = tasks.markTask(taskNum);
-        return TextTemplate.MARK_TASK + "\n" + t.toString() + "\n" + TextTemplate.LINE_BREAK;
+        return TextTemplate.MARK_TASK + "\n" + t.toString();
     }
 
     private String unmarkTask(String input, TaskList tasks) throws InvalidInputException {
@@ -62,7 +62,7 @@ public class InputParser {
             throw new InvalidInputException(TextTemplate.TASK_DOES_NOT_EXIST);
         }
         Task t = tasks.unmarkTask(taskNum);
-        return TextTemplate.UNMARK_TASK + "\n" + t.toString() + "\n" + TextTemplate.LINE_BREAK;
+        return TextTemplate.UNMARK_TASK + "\n" + t.toString();
     }
 
     private String deleteTask(String input, TaskList tasks) throws InvalidInputException {
@@ -72,7 +72,7 @@ public class InputParser {
             throw new InvalidInputException(TextTemplate.TASK_DOES_NOT_EXIST);
         }
         Task t = tasks.remove(taskNum);
-        return TextTemplate.DELETE_TASK + "\n" + t.toString() + "\n" + TextTemplate.LINE_BREAK;
+        return TextTemplate.DELETE_TASK + "\n" + t.toString();
     }
 
     private String addTodo(String input, TaskList tasks) {
@@ -81,7 +81,7 @@ public class InputParser {
         tasks.add(todo);
 
         String taskCounterMsg = String.format(TextTemplate.TASK_COUNT, tasks.size());
-        return TextTemplate.ADD_TASK + "\n" + todo.toString() + "\n" + taskCounterMsg + "\n" + TextTemplate.LINE_BREAK;
+        return TextTemplate.ADD_TASK + "\n" + todo.toString() + "\n" + taskCounterMsg;
     }
 
     private String addEvent(String input, TaskList tasks) {
@@ -95,14 +95,14 @@ public class InputParser {
             start = parseDateTime(duration[0]);
             end = parseDateTime(duration[1]);
         } catch (InvalidDateFormException e) {
-            return e.getMessage() + "\n" + TextTemplate.LINE_BREAK;
+            return e.getMessage();
         }
 
         EventTask event = new EventTask(desc, start, end);
         tasks.add(event);
 
         String taskCounterMsg = String.format(TextTemplate.TASK_COUNT, tasks.size());
-        return TextTemplate.ADD_TASK + "\n" + event.toString() + "\n" + taskCounterMsg + "\n" + TextTemplate.LINE_BREAK;
+        return TextTemplate.ADD_TASK + "\n" + event.toString() + "\n" + taskCounterMsg;
     }
 
     private String addDeadline(String s, TaskList tasks) {
@@ -122,8 +122,7 @@ public class InputParser {
         tasks.add(deadline);
 
         String taskCounterMsg = String.format(TextTemplate.TASK_COUNT, tasks.size());
-        return TextTemplate.ADD_TASK + "\n" + deadline.toString() + "\n" + taskCounterMsg
-                + "\n" + TextTemplate.LINE_BREAK;
+        return deadline.toString() + "\n" + taskCounterMsg;
     }
 
     private String matchKeyword(String input, TaskList tasks) {
@@ -198,7 +197,7 @@ public class InputParser {
         switch (act) {
         case BYE:
             this.exit();
-            return TextTemplate.EXIT + "\n" + TextTemplate.LINE_BREAK;
+            return "exit";
         case LIST:
             return this.listTasks(tasks);
         case MARK:
