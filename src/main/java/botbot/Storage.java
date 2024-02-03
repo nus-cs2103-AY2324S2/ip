@@ -17,6 +17,12 @@ public class Storage {
         this.file = new File(path);
     }
 
+    /**
+     * Loads the tasks in storage to the list
+     * @param list
+     * @throws IOException
+     * @throws InvalidDateException
+     */
     public void load(TaskList list) throws IOException, InvalidDateException {
         boolean listCreated = file.createNewFile();
         if (!listCreated) {
@@ -28,6 +34,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks in list to storage
+     * @param list
+     * @throws IOException
+     */
     public void save(TaskList list) throws IOException {
         if (file.delete()) {
             file.createNewFile();

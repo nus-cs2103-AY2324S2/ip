@@ -7,6 +7,12 @@ import botbot.task.TaskList;
 import java.util.Scanner;
 
 public class Ui {
+    /**
+     * User interface loop to get user input
+     * @param list
+     * @param storage
+     * @throws BotBotException
+     */
     public void run(TaskList list, Storage storage) throws BotBotException {
         greet();
         Scanner scanner = new Scanner(System.in);
@@ -45,11 +51,19 @@ public class Ui {
     private void divider() {
         print("########################################");
     }
+
+    /**
+     * Prints the startup message
+     */
     public void greet() {
         divider();
         print("I am BotBot!\nWhat can I do for you?");
         divider();
     }
+
+    /**
+     * prints the exit message
+     */
     public void exit() {
         print("Goodbye! See you soon!");
         divider();

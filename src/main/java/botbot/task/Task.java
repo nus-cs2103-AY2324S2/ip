@@ -19,14 +19,31 @@ public class Task {
         this.done = true;
     }
     public void unmark() { this.done = false; }
+
+    /**
+     * Returns string format of a task
+     * @return String rep
+     */
     public String getRep() {
         // Returns representation of the task (including done)
         String doneChar = (this.done) ? "X" : " ";
         return String.format("[%s] %s", doneChar, this.taskName);
     }
+
+    /**
+     * Returns format for saving into file
+     * @return Save rep
+     */
     public String fileRep() {
         return String.format("%s|%d", taskName, done ? 1 : 0);
     }
+
+    /**
+     * Reads file rep of a task and converts to Task obj
+     * @param s File rep of task
+     * @return Task object
+     * @throws InvalidDateException
+     */
     public static Task parseTask(String s) throws InvalidDateException {
         String[] arr = s.split("\\|", 3);
         Task task = EMPTY_TASK;
