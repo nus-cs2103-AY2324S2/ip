@@ -3,22 +3,27 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class FileOperations {
-    private FileOperations() {}
+public class Storage {
+    private String filePath;
 
-    public static File loadFile() throws IOException {
-        File data = new File("./data/data.txt");
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public File loadFile() throws IOException {
+        File data = new File(filePath);
         data.getParentFile().mkdirs();
         data.createNewFile();
         return data;
     }
 
-    public static ChatSession createChatSession(File file) throws FileCorruptionException {
+    public TaskList createTaskList() throws FileCorruptionException, IOException {
+        File file = this.loadFile();
         TaskList taskList = new TaskList(file);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String taskData = scanner.nextLine();
-                Task task = FileOperations.parseTaskData(taskData);
+                Task task = Storage.parseTaskData(taskData);
                 taskList.add(task);
             }
         } catch (FileNotFoundException e) {
@@ -27,7 +32,7 @@ public class FileOperations {
             e.printStackTrace();
             throw new FileCorruptionException("Unable to read file");
         }
-        return new ChatSession(taskList);
+        return taskList;
     }
 
     private static Task parseTaskData(String data) throws Exception {
@@ -36,13 +41,13 @@ public class FileOperations {
 
         switch (fields[0]) {
         case "T":
-            t = FileOperations.parseTodoData(fields);
+            t = Storage.parseTodoData(fields);
             break;
         case "D":
-            t = FileOperations.parseDeadlineData(fields);
+            t = Storage.parseDeadlineData(fields);
             break;
         case "E":
-            t = FileOperations.parseEventData(fields);
+            t = Storage.parseEventData(fields);
             break;
         default:
             throw new Exception();

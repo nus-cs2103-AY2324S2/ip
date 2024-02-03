@@ -4,20 +4,20 @@ import java.util.Scanner;
 
 public class GoldBot {
     public static void main(String[] args) {
-        File data;
+        System.out.println("test");
+        Storage storage = new Storage("./data/data.txt");
+        TaskList taskList;
         try {
-            data = FileOperations.loadFile();
+            taskList = storage.createTaskList();
         } catch (IOException e) {
             System.out.println("Unexpected error occured.");
             return;
-        }
-        ChatSession session;
-        try {
-            session = FileOperations.createChatSession(data);
         } catch (FileCorruptionException e) {
             System.out.println("File corrupted.");
             return;
         }
+        ChatSession session = new ChatSession(taskList);
+        session.initChat();
         
         Scanner scanner = new Scanner(System.in);
 
