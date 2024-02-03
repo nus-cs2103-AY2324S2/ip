@@ -19,13 +19,13 @@ public class Ui {
         System.out.println("Error! Something went wrong while creating your file!");
     }
 
-    public void listOut(ArrayList<Task> list) {
+    public void listOut(Tasklist tasklist) {
         System.out.println("Sure! Here is the list:\n");
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i) == null) {
+        for (int i = 0; i < tasklist.getSize(); i++) {
+            if (tasklist.getTask(i) == null) {
                 break;
             }
-            System.out.println((i + 1) + "." + list.get(i).toString());
+            System.out.println((i + 1) + "." + tasklist.getTask(i).toString());
         }
     }
 

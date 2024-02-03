@@ -13,10 +13,12 @@ public class Bit {
 
 
 
+
     private static  String fileName = "./data/bit.txt";
     public static void main(String[] args) {
 
         UI.greet();
+        Tasklist tasklist = new Tasklist(UI);
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
 
@@ -35,24 +37,24 @@ public class Bit {
             if (input.equals("bye")) {
                 break;
             } else if (input.equals("list")) {
-                UI.listOut(list);
+                UI.listOut(tasklist);
             } else if (input.contains("mark ")) {
                 String[] parts = input.split(" ");
                 try {
                     int i = Integer.parseInt(parts[1]);
                     if (parts[0].equals("mark")) {
-                        mark(i, list);
+                        tasklist.mark(i);
                     } else if (parts[0].equals("unmark")) {
-                        unmark(i, list);
+                        tasklist.unmark(i);
                     } else {
-                        try{addTo(list, input);} catch(DukeException e) {System.out.println(e.getMessage());}
+                        try{tasklist.addTo(input);} catch(DukeException e) {System.out.println(e.getMessage());}
 
 
                     }
 
                 } catch (NumberFormatException e) {
                     try{
-                        addTo(list, input);
+                        tasklist.addTo(input);
                     } catch(DukeException x) {
                         System.out.println(x.getMessage());}
                 }
@@ -60,7 +62,7 @@ public class Bit {
                 try {
                     String[] strings = input.split(" ", 2);
                     int i = Integer.parseInt(strings[1]);
-                    delete(i, list);
+                    tasklist.delete(i);
                 } catch (NumberFormatException x) {
                     UI.handleErrorMessage("Not a number");
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -68,11 +70,10 @@ public class Bit {
                 }
             } else {
                 try{
-                    addTo(list, input);}
-                catch(DukeException e) {
+                    tasklist.addTo(input);
+                } catch(DukeException e) {
                     System.out.println(e.getMessage());
                 }
-
             }
 
 
@@ -83,114 +84,6 @@ public class Bit {
 
     }
 
-    public static void addTo(ArrayList<Task> list, String input) throws DukeException{
-        if(input.startsWith("todo")) {
-            try {
-                String[] parts = input.split(" ", 2);
-                if (!parts[0].equals("todo")) {
-                    throw new DukeException("I have no idea what that means!");
-                }
-                if (parts[1].trim().isEmpty()) {
-                    throw new DukeException("Hmmm, that todo is empty!");
-                }
-                list.add(new Todo(parts[1]));
-                int i = list.size();
-                Task t = list.get(i - 1);
-                UI.sayAdded(i,"todo", t);
-
-
-            } catch(ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("Hmmm, that todo is empty!");
-            }
-
-
-        } else if (input.contains("event ")) {
-            try {
-                String[] parts = input.split(" ", 2);
-                if (!parts[0].equals("event")) {
-                    throw new DukeException("What is that?");
-                }
-                String[] components = parts[1].split("/to");
-                String end = components[1];
-                String[] compo = components[0].split("/from");
-                String start = compo[1];
-                if (compo[0].trim().isEmpty() || compo[1].trim().isEmpty() || end.trim().isEmpty()) {
-                    throw new DukeException("Missing something?");
-                }
-                list.add(new Event(compo[0], start, end));
-                int i = list.size();
-                UI.sayAdded(i, "event", list.get(i - 1));
-
-
-
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("Did you make a mistake?");
-
-            }
-
-        } else if (input.startsWith("deadline")) {
-            try {
-                String[] parts = input.split(" ", 2);
-                if (!(parts[0].equals("deadline"))) {
-                    throw new DukeException("Is that a typo I see?");
-                }
-                if (parts[0].equals("deadline")) {
-                    String[] compo = parts[1].split("/by");
-                    if (compo[0].trim().isEmpty() || compo[1].trim().isEmpty()) {
-                        throw new DukeException("Did you miss something?");
-                    }
-                    Deadline d = new Deadline(compo[0], compo[1]);
-                    if (!d.getValid()) {
-                        UI.handleErrorMessage("NotaDate");
-                        return;
-                    }
-                    list.add(d);
-                    int i = list.size();
-                    UI.sayAdded(i, "deadline", list.get(i - 1));
-                }
-            } catch (ArrayIndexOutOfBoundsException x) {
-                throw new DukeException("Did you miss something?");
-            }
-
-        } else {
-            UI.handleErrorMessage("");
-            return;
-        }
-
-
-
-
-    }
-    public static void mark(int i, ArrayList<Task> list) {
-        i -= 1;
-        try {
-            list.get(i).complete();
-            UI.sayMarked(list.get(i));
-        } catch (IndexOutOfBoundsException x) {
-            UI.handleErrorMessage("absent");
-        }
-    }
-
-    public static void unmark(int i, ArrayList<Task> list) {
-        i -= 1;
-        try {
-            list.get(i).incomplete();
-            UI.sayUnmarked(list.get(i));
-        } catch (IndexOutOfBoundsException x) {
-            UI.handleErrorMessage("absent");
-        }
-    }
-
-    public static void delete(int i, ArrayList<Task> list) {
-        try {
-            i -= 1;
-            String s = list.get(i).toString();
-            list.remove(i);
-            UI.sayDeleted(s);
-        } catch (IndexOutOfBoundsException x) {
-            UI.handleErrorMessage("absent");
-        }
-    }
 
     public static boolean createFile(File myFile) {
         try {
