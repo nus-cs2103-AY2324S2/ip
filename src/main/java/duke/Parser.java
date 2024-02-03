@@ -3,24 +3,44 @@ package duke;
 import duke.commands.*;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Parser {
 
     public static HashMap<String, String> splitInput(String input) {
         HashMap<String, String> res = new HashMap<>();
+        String argRegex = "(?<=/%s\\s)(.*?)(?=\\s/|$)";
 
-        String[] splitInput = input.split(" ");
+
+        String[] splitInput = input.split(" ", 2);
 
         res.put("command", input.split(" ", 2)[0]);
-        res.put("content", splitInput.length > 1 ? splitInput[1] : "");
-        for (String s : splitInput) {
-            if (s.startsWith("/by")) {
-                res.put("by", s.substring(4));
-            } else if (s.startsWith("/from")) {
-                res.put("from", s.substring(6));
-            } else if (s.startsWith("/to")) {
-                res.put("to", s.substring(4));
-            }
+
+        if (splitInput.length == 1) {
+            return res;
+        }
+
+        res.put("content", splitInput[1].split(" /")[0]);
+
+        Pattern byPattern = Pattern.compile(String.format(argRegex, "by"));
+        Pattern fromPattern = Pattern.compile(String.format(argRegex, "from"));
+        Pattern toPattern = Pattern.compile(String.format(argRegex, "to"));
+
+        Matcher byMatcher = byPattern.matcher(input);
+        Matcher fromMatcher = fromPattern.matcher(input);
+        Matcher toMatcher = toPattern.matcher(input);
+
+        if (byMatcher.find()) {
+            res.put("by", byMatcher.group());
+        }
+
+        if (fromMatcher.find()) {
+            res.put("from", fromMatcher.group());
+        }
+
+        if (toMatcher.find()) {
+            res.put("to", toMatcher.group());
         }
 
         return res;
@@ -53,6 +73,8 @@ public class Parser {
             return new DeadlineCommand(inputs.get("content"), inputs.get("by"));
         case EventCommand.COMMAND_WORD:
             return new EventCommand(inputs.get("content"), inputs.get("from"), inputs.get("to"));
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand(inputs.get("content"));
         default:
             return new DefaultCommand();
         }

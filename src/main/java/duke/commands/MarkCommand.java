@@ -21,7 +21,7 @@ public class MarkCommand extends Command {
             int index = Integer.parseInt(this.index);
             Task task = tasks.get(index - 1);
             task.markDone(true);
-            ui.print(String.format(MESSAGE, tasks.get(index)));
+            ui.print(String.format(MESSAGE, tasks.get(index - 1)));
         } catch (NumberFormatException e) {
             ui.print(ERROR_MESSAGE);
         }

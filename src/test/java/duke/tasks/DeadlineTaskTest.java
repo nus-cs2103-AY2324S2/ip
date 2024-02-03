@@ -1,4 +1,4 @@
-package duke;
+package duke.tasks;
 
 import duke.exceptions.InvalidArgumentException;
 import duke.tasks.DeadlineTask;
