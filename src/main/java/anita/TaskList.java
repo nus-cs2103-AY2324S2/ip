@@ -29,7 +29,7 @@ public class TaskList {
      * @param index Index of the task to be set to "done".
      */
     public void setDone(int index) {
-        Task curr = this.get(index);
+        Task curr = taskList.get(index);
         curr.isDone = true;
         ui.setDoneMessage(curr);
     }
@@ -40,7 +40,7 @@ public class TaskList {
      * @param index Index of the task to be set to not "done".
      */
     public void setNotDone(int index) {
-        Task curr = this.get(index);
+        Task curr = taskList.get(index);
         curr.isDone = false;
         ui.setNotDoneMessage(curr);
     }
