@@ -13,7 +13,7 @@ public class Printer {
         System.out.println("       " + string);
     }
 
-    public static void printActionAttach(Action action, Task task, int taskCount) {
+    public static void printActionAttach(Action action, Task task, TaskList tasks) {
         switch (action) {
             case ADD_TODO:
             case ADD_DEADLINE:
@@ -21,14 +21,14 @@ public class Printer {
                 printDecorator();
                 Printer.println("Got it. I've added this task:");
                 Printer.printlnFurtherIndent(task.toString());
-                Printer.println("Now you have " + taskCount + " tasks in the list.");
+                tasks.printTaskCount();
                 printDecorator();
                 break;
             case DELETE:
                 printDecorator();
                 Printer.println("Noted. I've removed this task:");
                 Printer.printlnFurtherIndent(task.toString());
-                Printer.println("Now you have " + taskCount + " tasks in the list.");
+                tasks.printTaskCount();
                 printDecorator();
                 break;
             default:
@@ -73,13 +73,11 @@ public class Printer {
         }
     }
 
-    public static void printActionAttach(Action action, ArrayList<Task> tasks, int taskCount) {
+    public static void printActionAttach(Action action, TaskList tasks) {
         if (action == Action.LIST) {
             printDecorator();
             Printer.println("Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i++) {
-                Printer.println((i + 1) + "." + tasks.get(i).toString());
-            }
+            tasks.print();
             printDecorator();
         } else {
             throw new IllegalArgumentException("Illegal action argument provided.\n");

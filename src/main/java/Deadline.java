@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
@@ -13,13 +14,12 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         // Format: Oct 15 2019, 1800
-        return String.format("[D]%s (by: %s %d %d, %d:%d)",
+        return String.format("[D]%s (by: %s %d %d, %s)",
                 super.toString(),
                 time.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH).toUpperCase(),
                 time.getDayOfMonth(),
                 time.getYear(),
-                time.getHour(),
-                time.getMinute());
+                LocalTime.of(time.getHour(), time.getMinute()));
     }
 
     @Override

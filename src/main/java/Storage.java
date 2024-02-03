@@ -1,11 +1,16 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
-public class FileManager extends Parser {
+public class Storage extends Parser {
     private static final String PATH = "data/tasks.txt";
 
-    public static void saveTasks(ArrayList<Task> tasks) {
+    public static void saveTasks(TaskList tasks) {
         try {
             File file = new File(PATH);
             if (!file.exists()) {
@@ -14,10 +19,7 @@ public class FileManager extends Parser {
 
             FileWriter fileWriter = new FileWriter(file, false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-            for (Task task : tasks) {
-                bufferedWriter.write(task.toSavedString());
-            }
+            tasks.save(bufferedWriter);
             bufferedWriter.close();
 
         } catch (IOException e) {

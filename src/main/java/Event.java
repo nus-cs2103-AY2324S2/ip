@@ -1,3 +1,4 @@
+import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.Locale;
 import java.time.LocalDateTime;
@@ -13,18 +14,16 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s %d %d, %d:%d to: %s %d %d, %d:%d)",
+        return String.format("[E]%s (from: %s %d %d, %s to: %s %d %d, %s)",
                 super.toString(),
                 beginTime.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH).toUpperCase(),
                 beginTime.getDayOfMonth(),
                 beginTime.getYear(),
-                beginTime.getHour(),
-                beginTime.getMinute(),
+                LocalTime.of(beginTime.getHour(), beginTime.getMinute()),
                 endTime.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH).toUpperCase(),
                 endTime.getDayOfMonth(),
                 endTime.getYear(),
-                endTime.getHour(),
-                endTime.getMinute());
+                LocalTime.of(endTime.getHour(), endTime.getMinute()));
     }
 
     @Override

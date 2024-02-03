@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.util.InputMismatchException;
 
 public class WisException {
@@ -63,6 +64,15 @@ public class WisException {
         Printer.printDecorator();
         Printer.println("Failed to load tasks from local.");
         Printer.println("Local data file might be corrupted.");
+        Printer.printDecorator();
+    }
+
+    public static void DateTimeExceptionHandler(Exception e) {
+        Printer.printDecorator();
+        Printer.println(e.getMessage());
+        Printer.println("Please use this format for time:");
+        Printer.println("yyyy-mm-dd hh:mm");
+        Printer.println("For example: 2024-03-03 23:59");
         Printer.printDecorator();
     }
 }

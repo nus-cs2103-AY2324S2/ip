@@ -22,7 +22,6 @@ public class Task {
                 this.description);
     }
 
-    // TODO: override this in the 3 task methods to add type
     public String toSavedString() {
         return String.format("%d#!#%s",
                 this.isDone? 1 : 0,
