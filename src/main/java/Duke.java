@@ -2,12 +2,15 @@ import java.util.*;
 import java.io.*;
 
 public class Duke {
+    private static final String FILE_PATH = "./data/duke.txt";
     public static void main(String[] args) throws Exception {
         System.out.println("    ____________________________________________________________");
         System.out.println("    Hello! I'm Yappy\n    What can I do for you?");
         System.out.println("    ____________________________________________________________");
 
         ArrayList<Task> AL = new ArrayList<>();
+
+        loadTasksFromFile(AL, FILE_PATH);
 
         while(true) {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -16,7 +19,7 @@ public class Duke {
 
             if (input.equals("bye")) {
                 break;
-            } else if (input.equals("blah")) {
+            } else if (token.length == 1 && !input.equals("list")) {
                 throw new DukeException("SOMETHING WENT WRONG!! Invalid input.");
             } else if (input.equals("list")) {
                 System.out.println("    ____________________________________________________________");
@@ -81,10 +84,80 @@ public class Duke {
                 System.out.println("    added: " + input);
                 System.out.println("    ____________________________________________________________");
             }
+            saveTasksToFile(AL, FILE_PATH);
         }
 
         System.out.println("    ____________________________________________________________");
         System.out.println("    Bye. Hope to see you again soon!");
         System.out.println("    ____________________________________________________________");
+    }
+    public static void saveTasksToFile(ArrayList<Task> taskList, String filePath) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filePath))) {
+            for (Task task : taskList) {
+                bufferedWriter.write(task.toFileString());
+                bufferedWriter.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadTasksFromFile(ArrayList<Task> taskList, String filePath) {
+        try {
+            FileReader fileReader = new FileReader(filePath);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                Task task = createTaskFromLine(line);
+                taskList.add(task);
+            }
+
+            bufferedReader.close();
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static Task createTaskFromLine(String line) {
+        String[] parts = line.split(" \\| ");
+
+        String type = parts[0];
+        String status = parts[1];
+        String description = parts[2];
+
+        Task task;
+
+        switch (type) {
+            case "T":
+                task = new Todos(description);
+                break;
+            case "D":
+                if (parts.length >= 4) {
+                    String by = parts[3];
+                    task = new Deadline(description, by);
+                } else {
+                    task = new Task(description);
+                }
+                break;
+            case "E":
+                if (parts.length >= 5) {
+                    String from = parts[3];
+                    String to = parts[4];
+                    task = new Events(description, from, to);
+                } else {
+                    task = new Task(description);
+                }
+                break;
+            default:
+                task = new Task(description);
+        }
+
+        if (status.equals("1")) {
+            task.markAsDone();
+        }
+
+        return task;
     }
 }
