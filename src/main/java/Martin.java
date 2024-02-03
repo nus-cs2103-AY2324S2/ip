@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.Scanner;
 
 public class Martin {
     private static String NAME = "Martin";
@@ -110,9 +109,6 @@ public class Martin {
 
     public static void handleCommand(ChatbotKeyword command, String inputs) throws IllegalArgumentException, IOException {
         String[] inputsArray = inputs.split(" "); // second param as -1 might be a soln to bug
-        // System.out.println("inputs: " + inputs);
-        // System.out.println("inputsArray: " + Arrays.toString(inputsArray));
-        // System.out.println(inputsArray.length);
         switch (command) {
             case BYE:
                 sayBye();
