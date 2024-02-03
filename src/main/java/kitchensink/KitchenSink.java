@@ -7,6 +7,9 @@ import kitchensink.exception.InvalidSyntaxException;
 import kitchensink.exception.TaskNotFoundException;
 import kitchensink.exception.UnknownCommandException;
 
+/**
+ * The entry point of the app.
+ */
 public class KitchenSink {
     public static void main(String[] args) throws IOException, TaskNotFoundException, UnknownCommandException,
             InvalidSyntaxException, InvalidDateTimeException {

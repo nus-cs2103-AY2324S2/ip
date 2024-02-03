@@ -1,5 +1,8 @@
 package kitchensink.exception;
 
+/**
+ * Thrown when the first word in the user input is not one of the recognised commands.
+ */
 public class UnknownCommandException extends Throwable {
     @Override
     public String toString() {

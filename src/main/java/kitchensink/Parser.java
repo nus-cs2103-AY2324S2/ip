@@ -13,10 +13,32 @@ import kitchensink.task.Deadline;
 import kitchensink.task.Event;
 import kitchensink.task.ToDo;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
+    /**
+     * Converts a String to LocalDateTime, if it is in "yyyy-MM-dd HH:mm" format.
+     * @param date The Date (in String type) that the user inputted.
+     * @return Date in LocalDateTime type.
+     */
     public LocalDateTime toLocalDateTime(String date) {
         return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
+
+    /**
+     * Parses the user input - if it is valid, executes it; otherwise, throws an exception.
+     * @param input User input.
+     * @param taskList The list that contains the user's tasks. User can manipulate the tasks it contains.
+     * @param ui The ui that confirms the user's action.
+     * @param storage The storage that saves any change to the save file.
+     * @return Whether the program should exit; true if the command is "bye", false otherwise.
+     * @throws UnknownCommandException If the first word is not a valid command.
+     * @throws TaskNotFoundException If the task is not found, as the task number is out of bounds.
+     * @throws IOException As storage reads/writes save file.
+     * @throws InvalidSyntaxException If the command is valid, but not in the correct format.
+     * @throws InvalidDateTimeException If the date/time given is not in the correct format.
+     */
     public boolean parse(String input, List taskList, Ui ui, Storage storage) throws UnknownCommandException,
             TaskNotFoundException, IOException, InvalidSyntaxException, InvalidDateTimeException {
         String command = input.split(" ")[0].toLowerCase();

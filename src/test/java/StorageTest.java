@@ -1,3 +1,15 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import kitchensink.List;
 import kitchensink.Parser;
 import kitchensink.Storage;
@@ -5,12 +17,6 @@ import kitchensink.Ui;
 import kitchensink.task.Deadline;
 import kitchensink.task.Event;
 import kitchensink.task.ToDo;
-import org.junit.jupiter.api.Test;
-
-import java.io.*;
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
     private String path = "./testStorage/data.txt";
