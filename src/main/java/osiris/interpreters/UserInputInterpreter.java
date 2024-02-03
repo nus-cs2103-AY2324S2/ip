@@ -12,7 +12,7 @@ import osiris.commands.MarkTaskCompleteCommand;
 import osiris.commands.MarkTaskIncompleteCommand;
 import osiris.commands.NoCommand;
 import osiris.commands.PrintUserTasksCommand;
-import osiris.commands.RemoveTaskCommand;
+import osiris.commands.DeleteTaskCommand;
 import osiris.commands.TerminateChatCommand;
 import osiris.commands.UnsupportedCommand;
 import osiris.formatters.DateTimeFormatters;
@@ -78,12 +78,12 @@ public class UserInputInterpreter {
             }
             break;
 
-        case RemoveTaskCommand.COMMAND:
+        case DeleteTaskCommand.COMMAND:
             isValid = InputsValidator.getInstance().isDeleteTaskInputValid(userInput);
             if (isValid) {
                 String taskIndexString = inputtedWords[1];
                 int taskIndex = Integer.parseInt(taskIndexString);
-                return new RemoveTaskCommand(taskIndex);
+                return new DeleteTaskCommand(taskIndex);
             }
             break;
 
@@ -117,7 +117,7 @@ public class UserInputInterpreter {
                 String startDateTimeStr = userInput.substring(fromIndex + "/from".length(), toIndex - 1).trim();
                 String endDateTimeStr = userInput.substring(toIndex + "/to".length()).trim();
                 LocalDateTime[] dateTimeRange = DateTimeFormatters.getInstance()
-                        .formateUserInputDateTimeRange(startDateTimeStr, endDateTimeStr);
+                        .formatUserInputDateTimeRange(startDateTimeStr, endDateTimeStr);
                 if (dateTimeRange != null) {
                     return new AddEventTaskCommand(taskName, dateTimeRange[0], dateTimeRange[1]);
                 }

@@ -7,19 +7,20 @@ import osiris.ui.Ui;
 /**
  * Command class representing the "delete" command to remove a task.
  */
-public class RemoveTaskCommand extends Command {
+public class DeleteTaskCommand extends Command {
 
     /** Keyword used to identify the command. */
     public static final String COMMAND = "delete";
 
-    private int taskIndex;
+    /** Index to delete. */
+    private final int taskIndex;
 
     /**
-     * Constructs a RemoveTaskCommand with the specified task index.
+     * Constructs a DeleteTaskCommand with the specified task index.
      *
      * @param taskIndex The index of the task to be removed.
      */
-    public RemoveTaskCommand(int taskIndex) {
+    public DeleteTaskCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 
@@ -32,9 +33,9 @@ public class RemoveTaskCommand extends Command {
      */
     @Override
     public boolean execute(TaskManager taskManager, Ui userInterface) {
-        Task removedTask = taskManager.deleteTask(taskIndex - 1);
-        if (removedTask != null) {
-            userInterface.displayDeleteTaskNotification(removedTask.toString(), taskManager.getTotalTaskCount());
+        Task deletedTask = taskManager.deleteTask(taskIndex - 1);
+        if (deletedTask != null) {
+            userInterface.displayDeleteTaskNotification(deletedTask.toString(), taskManager.getTotalTaskCount());
         }
         return true;
     }

@@ -107,9 +107,9 @@ public class TaskManager {
      */
     public Task deleteTask(int index) {
         try {
-            Task removedTask = userTasks.get(index);
+            Task deletedTask = userTasks.get(index);
             userTasks.remove(index);
-            return removedTask;
+            return deletedTask;
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No task with index " + (index + 1) + ". Enter 'list' to view tasks.");
             return null;

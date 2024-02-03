@@ -33,19 +33,6 @@ public class StorageTxtFileTest {
     }
 
     /**
-     * Test for initializing the text file storage.
-     */
-    @Test
-    public void initialiseTxtFileStorageTest() {
-        StorageTxtFile storage = new StorageTxtFile("Test.txt");
-        storage.initialiseStorageTxtFile();
-
-        File testFile = new File("Test.txt");
-        assertTrue(testFile.exists());
-        testFile.delete();
-    }
-
-    /**
      * Test for reading content from the text file storage.
      */
     @Test

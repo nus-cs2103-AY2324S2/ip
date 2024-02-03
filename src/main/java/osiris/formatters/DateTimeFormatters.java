@@ -71,7 +71,7 @@ public class DateTimeFormatters {
      * @param toDateTimeStr       The ending date and time string.
      * @return An array of LocalDateTime objects representing the date time range.
      */
-    public LocalDateTime[] formateUserInputDateTimeRange(String fromDateTimeStr, String toDateTimeStr) {
+    public LocalDateTime[] formatUserInputDateTimeRange(String fromDateTimeStr, String toDateTimeStr) {
         DateTimeFormatter startDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         DateTimeFormatter endDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 

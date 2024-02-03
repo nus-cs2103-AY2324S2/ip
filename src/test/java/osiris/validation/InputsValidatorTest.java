@@ -11,73 +11,93 @@ import org.junit.jupiter.api.Test;
 public class InputsValidatorTest {
 
     /**
-     * Test for validating mark task completed input.
+     * Tests the validity of input for marking a task as complete.
      */
     @Test
-    public void validateMarkTaskCompletedInputTest() {
-        // Tests for valid input
+    public void isMarkTaskCompleteInputValid_validInput_trueReturned() {
         assertTrue(InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark 1"));
+    }
 
-        // Tests for invalid inputs
+    /**
+     * Tests invalid inputs for marking a task as complete.
+     */
+    @Test
+    public void isMarkTaskCompleteInputValid_invalidInputs_falseReturned() {
         assertFalse(InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark "));
         assertFalse(InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark 1.5"));
         assertFalse(InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark a"));
     }
 
     /**
-     * Test for validating mark task incomplete input.
+     * Tests the validity of input for marking a task as incomplete.
      */
     @Test
-    public void validateMarkTaskIncompleteInputTest() {
-        // Tests for valid input
+    public void isMarkTaskIncompleteInputValid_validInput_trueReturned() {
         assertTrue(InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark 1"));
+    }
 
-        // Tests for invalid inputs
+    /**
+     * Tests the validity of input for marking a task as incomplete.
+     */
+    @Test
+    public void isMarkTaskIncompleteInputValid_invalidInput_falseReturned() {
         assertFalse(InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark "));
         assertFalse(InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark 1.5"));
         assertFalse(InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark a"));
     }
 
     /**
-     * Test for validating remove task input.
+     * Tests the validity of input for deleting a task.
      */
     @Test
-    public void validateRemoveTaskInputTest() {
-        // Tests for valid input
+    public void isDeleteTaskInputValid_validInput_trueReturned() {
         assertTrue(InputsValidator.getInstance().isDeleteTaskInputValid("delete 1"));
+    }
 
-        // Tests for invalid inputs
+    /**
+     * Tests invalid input for deleting a task.
+     */
+    @Test
+    public void isDeleteTaskInputValid_invalidInput_falseReturned() {
         assertFalse(InputsValidator.getInstance().isDeleteTaskInputValid("delete "));
         assertFalse(InputsValidator.getInstance().isDeleteTaskInputValid("delete 1.5"));
         assertFalse(InputsValidator.getInstance().isDeleteTaskInputValid("delete a"));
     }
 
     /**
-     * Test for validating add to-do task input.
+     * Tests the validity of input for adding a ToDo task.
      */
     @Test
-    public void validateAddToDoTaskInputTest() {
-        // Tests for valid input
+    public void isAddToDoTaskInputValid_validInput_trueReturned() {
         assertTrue(InputsValidator.getInstance().isAddToDoTaskInputValid("todo 1"));
         assertTrue(InputsValidator.getInstance().isAddToDoTaskInputValid("todo Task 1"));
         assertTrue(InputsValidator.getInstance().isAddToDoTaskInputValid("todo Valid Task 1"));
+    }
 
-        // Tests for invalid inputs
+    /**
+     * Tests invalid input for adding a ToDo task.
+     */
+    @Test
+    public void isAddToDoTaskInputValid_invalidInput_falseReturned() {
         assertFalse(InputsValidator.getInstance().isAddToDoTaskInputValid("todo"));
         assertFalse(InputsValidator.getInstance().isDeleteTaskInputValid("todo "));
     }
 
     /**
-     * Test for validating add deadline task input.
+     * Tests the validity of input for adding a deadline task.
      */
     @Test
-    public void validateAddDeadlineTaskInputTest() {
-        // Tests for valid input
+    public void isAddDeadlineTaskInputValid_validInput_trueReturned() {
         assertTrue(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline 1 /by 01-01-2024"));
         assertTrue(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 01-01-2024"));
         assertTrue(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task 1 /by 01-01-2024"));
+    }
 
-        // Tests for invalid inputs
+    /**
+     * Tests invalid input for adding a deadline task.
+     */
+    @Test
+    public void isAddDeadlineTaskInputValid_invalidInput_falseReturned() {
         assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task"));
         assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 01/01/2024"));
         assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline /by 01-01-2024"));
@@ -92,17 +112,21 @@ public class InputsValidatorTest {
     }
 
     /**
-     * Test for validating add event task input.
+     * Tests the validity of input for adding an event task.
      */
     @Test
-    public void validateAddEventTaskInputTest() {
-        // Tests for valid input
+    public void isAddEventTaskInputValid_validInput_trueReturned() {
         assertTrue(InputsValidator.getInstance()
                 .isAddEventTaskInputValid("event 2 /from 01-01-2024 1200 /to 01-01-2024 1300"));
         assertTrue(InputsValidator.getInstance()
                 .isAddEventTaskInputValid("event School Meeting /from 01-01-2024 1200 /to 01-01-2024 1300"));
+    }
 
-        // Tests for invalid inputs
+    /**
+     * Tests invalid input for adding an event task.
+     */
+    @Test
+    public void isAddEventTaskInputValid_invalidInput_falseReturned() {
         assertFalse(InputsValidator.getInstance()
                 .isAddEventTaskInputValid("event /from 01-01-2024 1200 /to 01-01-2024 1300"));
         assertFalse(InputsValidator.getInstance()
@@ -118,8 +142,4 @@ public class InputsValidatorTest {
         assertFalse(InputsValidator.getInstance()
                 .isAddEventTaskInputValid("event School Meeting /from 01-13-2024 1200 /to 01-13-2024 1300"));
     }
-
-    //
-    // And more...
-    //
 }
