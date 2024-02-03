@@ -1,21 +1,40 @@
 package leto.tasklist;
 
-public class Deadline extends Task {
-    private String deadline;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-    private Deadline(Boolean completed, String TaskString, String DeadlineString) {
+public class Deadline extends Task {
+    private LocalDate deadline;
+
+    private Deadline(Boolean completed, String TaskString, LocalDate deadline) {
         // Call to 'super()' must be first statement in constructor body
         super(completed, TaskString);
-        this.deadline = DeadlineString;
+        this.deadline = deadline;
     }
 
-    public static Deadline DeadlineFactory(String message) throws InvalidTaskException {
-        message = message.replaceFirst("deadline ", "");
-        String[] messageParts = message.split(" /by ");
-        if (messageParts.length < 2) {
-            throw new InvalidTaskException("Task need to follow\n   `deadline _task_ /by _time_` format");
+    public static Deadline DeadlineFromCMD(String input) throws InvalidTaskException {
+        String regex = "(?i)deadline ([^,]+) /by (\\d{4}-\\d{2}-\\d{2})";
+        Matcher matcher = Pattern.compile(regex).matcher(input);
+        if (!matcher.matches()) {
+            throw new InvalidTaskException("deadline <description> /by <date>,"
+                    + " <date> should be in the format YYYY-MM-DD.");
         }
-        return new Deadline(false, messageParts[0], messageParts[1]);
+        LocalDate deadline = LocalDate.parse(matcher.group(2).trim());
+        return new Deadline(false, matcher.group(1).trim(), deadline);
+    }
+
+    private String remainingDaysMessage() {
+        long remainingDays = ChronoUnit.DAYS.between(LocalDate.now(), this.deadline);
+        if (remainingDays == 0) {
+            return "due today";
+        } else if (remainingDays < 0) {
+            return Math.abs(remainingDays) + " days past deadline";
+        } else {
+            return remainingDays + " days remaining";
+        }
     }
 
     /**
@@ -23,17 +42,22 @@ public class Deadline extends Task {
      * @param entry text string containing the row in the csv
      * @return a Deadline task
      */
-    public static Deadline DeadlineFromCSV(String entry) {
-        String[] parts = entry.split(",");
-        Boolean completed = parts[1].equals("Y");
-        String message = parts[2];
-        String deadlineString = parts[3];
-        return new Deadline(completed, message, deadlineString);
+    public static Deadline DeadlineFromCSV(String entry) throws InvalidTaskException {
+        String regex = "([DTE]),([YN]),([^,]*),([^,]*),([^,]*),([^,]*)(\\n?)";
+        Matcher matcher = Pattern.compile(regex).matcher(entry);
+        if (!matcher.matches()) {
+            throw new InvalidTaskException("Cannot match " + entry + " with regex");
+        }
+        Boolean completed = matcher.group(2).equals("Y");
+        String message = matcher.group(3);
+        LocalDate deadline = LocalDate.parse(matcher.group(4));
+        return new Deadline(completed, message, deadline);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        return "[D]" + super.toString() + " (by: " + this.deadline.toString() + ")"
+                + " " + this.remainingDaysMessage();
     }
 
     /**
@@ -42,6 +66,6 @@ public class Deadline extends Task {
      * @return String in csv format
      */
     public String toCSVString() {
-        return "D," + super.toCSVString() + "," + this.deadline + ",,";
+        return "D," + super.toCSVString() + "," + this.deadline.toString() + ",,";
     }
 }

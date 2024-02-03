@@ -1,8 +1,10 @@
 package leto;
 
-import leto.tasklist.TaskListCommands;
+import leto.tasklist.TaskList;
 
 import java.util.Scanner;
+
+import static leto.ui.Ui.letoHelp;
 
 enum Commands {
     BYE,
@@ -25,7 +27,7 @@ public class CommandExecutor {
     }
 
     public static void readCommandAndExecute() {
-        TaskListCommands.initFromFile();
+        TaskList.initFromFile();
 
         boolean bye = false;
 
@@ -42,46 +44,34 @@ public class CommandExecutor {
 
 
             switch (cmd) {
-                case BYE:
-                    bye = true;
-                    TaskListCommands.saveTasks();
-                    break;
-                case LIST:
-                    System.out.println();
-                    TaskListCommands.printList();
-                    System.out.println();
-                    break;
-                case MARK:
-                    TaskListCommands.markTaskCompleted(inputs);
-                    break;
-                case UNMARK:
-                    TaskListCommands.markTaskUncompleted(inputs);
-                    break;
-                case TODO:
-                case EVENT:
-                case DEADLINE:
-                    TaskListCommands.addToList(inputs);
-                    break;
-                case DELETE:
-                    TaskListCommands.deleteTask(inputs);
-                    break;
-                case SAVE:
-                    TaskListCommands.saveTasks();
-                    break;
-                default:
-                    System.out.println("  <<Duke Leto>>\n   >> Supported commands:\n" +
-                            "  list     -  list all tasks\n" +
-                            "  mark     -  mark task as done\n" +
-                            "                usage: mark <index>\n" +
-                            "  unmark   -  unmark task as done, :(\n" +
-                            "                usage: unmark <index>\n" +
-                            "  todo     -  create a task of type todo \n" +
-                            "                usage: todo <details>\n" +
-                            "  deadline -  create a task of type deadline\n" +
-                            "                usage: event <details> /by <end_time>\n" +
-                            "  event    -  create a task of type event    \n" +
-                            "                usage: event <details> /from <start_time> /to <end_time>\n" +
-                            "  bye      -  exit");
+            case BYE:
+                bye = true;
+                TaskList.saveTasks();
+                break;
+            case LIST:
+                System.out.println();
+                TaskList.printList();
+                System.out.println();
+                break;
+            case MARK:
+                TaskList.markTaskCompleted(inputs);
+                break;
+            case UNMARK:
+                TaskList.markTaskUncompleted(inputs);
+                break;
+            case TODO:
+            case EVENT:
+            case DEADLINE:
+                TaskList.addToList(inputs);
+                break;
+            case DELETE:
+                TaskList.deleteTask(inputs);
+                break;
+            case SAVE:
+                TaskList.saveTasks();
+                break;
+            default:
+                letoHelp();
 
             } // End switch
 
