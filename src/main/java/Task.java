@@ -1,27 +1,27 @@
 public class Task {
     private String taskName;
-    private boolean done;
+    private boolean isDone;
 
-    public Task(String taskName, boolean done) {
+    public Task(String taskName, boolean isDone) {
         this.taskName = taskName;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public String storeData() {
-        return this.taskName + " " + this.done;
+        return this.taskName + "|" + this.isDone;
     }
 
     @Override
     public String toString() {
-        return this.done
+        return this.isDone
             ? "[X] " + this.taskName
             : "[ ] " + this.taskName;
     }
