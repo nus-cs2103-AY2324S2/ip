@@ -32,12 +32,17 @@ public class TaskList {
 
     /**
      * Prints out the tasks in the instruction list.
+     *
+     * @return A string that represents the results of instruction.
      */
-    public void listOut() {
-        System.out.println("Here are the tasks in your list:");
+    public String listOut() {
+        String res = "Here are the tasks in your list:";
         for (int i = 0; i < this.instrList.size(); i++) {
             System.out.println(i + 1 + "." + this.instrList.get(i).toString());
+            String temp = i + 1 + "." + this.instrList.get(i).toString();
+            res += "\n" + temp;
         }
+        return res;
     }
 
 
@@ -48,17 +53,21 @@ public class TaskList {
      * @param instr The string with the task information.
      * @param thisStorage Local file access management.
      *
+     * @return A string that represents the results of instruction.
+     *
      * @throws DukeException When there is inappropriate input.
      */
-    public void addTask(TaskCommand cmd, String instr, Storage thisStorage) throws DukeException {
+    public String addTask(TaskCommand cmd, String instr, Storage thisStorage) throws DukeException {
+        String res = "";
         switch (cmd) {
         case TODO:
             try {
                 Todo taskTodo = new Todo(instr.split("todo ")[1]);
                 this.instrList.add(taskTodo);
                 thisStorage.saveTaskList(this.instrList);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(taskTodo.toString());
+                res = "Got it. I've added this task: \n "
+                    + taskTodo.toString();
+                System.out.println(res);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("OOPS!!! The description of a todo cannot be empty. \nTry again!");
             }
@@ -70,8 +79,9 @@ public class TaskList {
                 Deadline taskDeadline = new Deadline(tskNames[0], tskNames[1]);
                 this.instrList.add(taskDeadline);
                 thisStorage.saveTaskList(this.instrList);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(taskDeadline.toString());
+                res = "Got it. I've added this task: \n "
+                    + taskDeadline.toString();
+                System.out.println(res);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new DukeException("OOPS!!! You cannot leave the description"
                     + " of a deadline to be empty. \nTry again!");
@@ -88,8 +98,9 @@ public class TaskList {
                 Event taskEvent = new Event(name, startAndEnd[0], startAndEnd[1]);
                 this.instrList.add(taskEvent);
                 thisStorage.saveTaskList(this.instrList);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(taskEvent.toString());
+                res = "Got it. I've added this task: \n "
+                    + taskEvent.toString();
+                System.out.println(res);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new DukeException("OOPS!!! You cannot leave the"
                     + " description of an event to be empty. \nTry again!");
@@ -101,7 +112,9 @@ public class TaskList {
             throw new DukeException("OOPS!!! What is that? I'm sorry,"
                 + " but I don't recognise this command :-( \nTry another command!");
         }
-        System.out.println("Now you have " + this.instrList.size() + " tasks in the list.");
+        res = res + "\n" + "Now you have " + this.instrList.size() + " tasks in the list.";
+        System.out.println(res);
+        return res;
     }
 
     /**
@@ -109,20 +122,24 @@ public class TaskList {
      *
      * @param instr The string with the task information.
      * @param thisStorage Local file access management.
+     * @return A string that represents the results of instruction.
      * @throws DukeException When there is inappropriate input.
      */
-    public void mark(String instr, Storage thisStorage) throws DukeException {
+    public String mark(String instr, Storage thisStorage) throws DukeException {
+        String res = "";
         try {
             int instrNum = Integer.valueOf(instr.split(" ")[1]) - 1;
-            String res = this.instrList.get(instrNum).markAsDone();
+            res = this.instrList.get(instrNum).markAsDone();
             thisStorage.saveTaskList(this.instrList);
-            System.out.println("Nice! I've marked this task as done:" + "\n" + res);
+            res = "Nice! I've marked this task as done:" + "\n" + res;
+            System.out.println(res);
         } catch (NullPointerException e) {
             throw new DukeException("OOPS!! You have inputted an invalid task number."
                 + " \nTry again with a different task number!");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("OOOPS!!! You missed out the task number.");
         }
+        return res;
     }
 
     /**
@@ -130,20 +147,24 @@ public class TaskList {
      *
      * @param instr The string with the task information.
      * @param thisStorage Local file access management.
+     * @return A string that represents the results of instruction.
      * @throws DukeException When there is inappropriate input.
      */
-    public void unmark(String instr, Storage thisStorage) throws DukeException {
+    public String unmark(String instr, Storage thisStorage) throws DukeException {
+        String res = "";
         try {
             int instrNum = Integer.valueOf(instr.split(" ")[1]) - 1;
-            String res = this.instrList.get(instrNum).markAsUndone();
+            res = this.instrList.get(instrNum).markAsUndone();
             thisStorage.saveTaskList(this.instrList);
-            System.out.println("OK, I've marked this task as not done yet:" + "\n" + res);
+            res = "OK, I've marked this task as not done yet:" + "\n" + res;
+            System.out.println(res);
         } catch (NullPointerException e) {
             throw new DukeException("OOPS!! You have inputted an invalid task number."
                 + " \nTry again with a different task number!");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("OOOPS!!! You missed out the task number.");
         }
+        return res;
     }
 
     /**
@@ -151,42 +172,51 @@ public class TaskList {
      *
      * @param instr The string with the task information.
      * @param thisStorage Local file access management.
+     * @return A string that represents the results of instruction.
      * @throws DukeException When there is inappropriate input.
      */
-    public void delete(String instr, Storage thisStorage) throws DukeException {
+    public String delete(String instr, Storage thisStorage) throws DukeException {
+        String res = "";
         try {
             int ptr = Integer.valueOf(instr.split(" ")[1]) - 1;
             Task str = this.instrList.get(ptr);
             this.instrList.remove(ptr);
             thisStorage.saveTaskList(this.instrList);
-            System.out.println("Noted. I've removed this task: \n" + str.toString()
-                + "\nNow you have " + this.instrList.size() + " tasks in the list.");
+            res = "Noted. I've removed this task: \n" + str.toString()
+                + "\nNow you have " + this.instrList.size() + " tasks in the list.";
+            System.out.println(res);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("OOOPS!!! You missed out the task number.");
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("OOPS!! You have inputted an invalid task number."
                 + " \nTry again with a different task number!");
         }
+        return res;
     }
 
     /**
      * Finds the list of task that matches the key words.
      *
      * @param instr The string with the task information.
+     * @return A string that represents the results of instruction.
      * @throws DukeException When there is inappropriate input.
      */
-    public void find(String instr) throws DukeException {
+    public String find(String instr) throws DukeException {
+        String res = "";
         try {
             String taskKeyword = instr.split(" ")[1];
-            System.out.println("Here are the matching tasks in your list:");
+            res = "Here are the matching tasks in your list:";
+            System.out.println(res);
             int ctr = 1;
             for (int i = 0; i < this.instrList.size(); i++) {
                 if (this.instrList.get(i).description.contains(taskKeyword)) {
                     System.out.println(ctr + 1 + "." + this.instrList.get(i).toString());
+                    res += ctr + 1 + "." + this.instrList.get(i).toString();
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("OOOPS!!! You missed out the task to search for.");
         }
+        return res;
     }
 }
