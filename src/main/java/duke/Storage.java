@@ -26,7 +26,7 @@ public class Storage {
      *
      * @param taskList List of tasks to save.
      */
-    public void save(List<Task> taskList) throws IOException {
+    public String save(List<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(f, false); // create a new file
         String text = "";
 
@@ -37,11 +37,7 @@ public class Storage {
         fw.write(text);
         fw.close();
 
-        String output = "\t____________________________________________________________\n"
-                + "\tSuccessfully saved!\n"
-                + "\t____________________________________________________________\n";
-
-        System.out.println(output);
+        return "\tSuccessfully saved!\n";
     }
 
     /**

@@ -17,117 +17,106 @@ public class TaskList {
 
     /**
      * Lists all current tasks
+     * @return String of output to be used if needed.
      */
-    public void list() {
-        String text;
-        System.out.println("\t____________________________________________________________");
+    public String list() {
+        String text = "";
         for (int i = 0; i < this.taskList.size(); i++) {
-            text = "\t" + (i + 1) + "." + this.taskList.get(i).toString();
-            System.out.println(text);
+            text += "\t" + (i + 1) + "." + this.taskList.get(i).toString() + "\n";
         }
-        System.out.println("\t____________________________________________________________\n");
+        return text;
     }
 
     /**
      * Marks a specified task as done.
-     *
      * @param num Number of task to mark.
+     * @return String of output to be used if needed.
      */
-    public void mark(int num) {
+    public String mark(int num) {
         Task curr = this.taskList.get(num - 1);
         curr.mark();
 
-        String text = "\t____________________________________________________________\n"
-                + "\tNice! I've marked this task as done:\n"
-                + "\t" + curr + "\n"
-                + "\t____________________________________________________________\n";
-
-        System.out.println(text);
+        return "\tNice! I've marked this task as done:\n"
+                + "\t" + curr + "\n";
     }
 
     /**
      * Unmarks a specified task.
-     *
      * @param num Number of task to unmark.
+     * @return String of output to be used if needed.
      */
-    public void unmark(int num) {
+    public String unmark(int num) {
         Task curr = this.taskList.get(num - 1);
         curr.unmark();
 
-        String text = "\t____________________________________________________________\n"
-                + "\tOK, I've marked this task as not done yet:\n"
-                + "\t" + curr + "\n"
-                + "\t____________________________________________________________\n";
-
-        System.out.println(text);
+        return "\tOK, I've marked this task as not done yet:\n"
+                + "\t" + curr + "\n";
     }
 
     /**
      * Adds a new task.
-     *
      * @param add Task to add.
+     * @return String of output to be used if needed.
      */
-    public void add(Task add) {
+    public String add(Task add) {
         this.taskList.add(add);
         String word = " task";
         if (this.taskList.size() != 1) {
             word += "s";
         }
 
-        String text = "\t____________________________________________________________\n"
-                + "\tGot it. I've added this task:\n"
+        return "\tGot it. I've added this task:\n"
                 + "\t  " + add.toString() + "\n"
-                + "\tNow you have " + this.taskList.size() + word + " in the list.\n"
-                + "\t____________________________________________________________\n";
-
-        System.out.println(text);
+                + "\tNow you have " + this.taskList.size() + word + " in the list.\n";
     }
 
     /**
      * Deletes a specified task.
-     *
      * @param num Number of task to delete.
+     * @return String of output to be used if needed.
      */
-    public void delete(int num) {
+    public String delete(int num) {
         Task curr = this.taskList.get(num - 1);
         this.taskList.remove(curr);
 
-        String text = "\t____________________________________________________________\n"
-                + "\tOK, I've deleted this task:\n"
-                + "\t  " + curr.toString() + "\n"
-                + "\t____________________________________________________________\n";
-
-        System.out.println(text);
+        return "\tOK, I've deleted this task:\n"
+                + "\t  " + curr.toString() + "\n";
     }
 
     /**
-     * Prints all task with given text
-     *
-     * @param text Text to search for
+     * Prints all task with given text.
+     * @param text Text to search for.
+     * @return String of output to be used if needed.
      */
-    public void find(String text) {
+    public String find(String text) {
         String found = "";
         int i = 1;
-        System.out.println("\t____________________________________________________________");
         for (Task t : this.taskList) {
-            if (t.toString().contains(text)) {
+            if (t.toString().contains(text)) { // TODO check only task name!
                 found = found + "\t" + i + "." + t + "\n";
                 i += 1;
             }
         }
         if (i != 1) {
-            System.out.print(found);
+            return found;
         } else {
-            System.out.println("\tNo tasks matching " + text + " found!");
+            return "\tNo tasks matching " + text + " found!";
         }
-        System.out.println("\t____________________________________________________________\n");
     }
 
-    public int size() {
+    /**
+     * Gets the number of tasks.
+     * @return total number of tasks.
+     */
+    protected int size() {
         return this.taskList.size();
     }
 
-    public List<Task> getTaskList() {
+    /**
+     * Gets the list of tasks.
+     * @return taskList
+     */
+    protected List<Task> getTaskList() {
         return this.taskList;
     }
 }
