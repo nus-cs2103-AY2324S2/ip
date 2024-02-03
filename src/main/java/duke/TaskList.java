@@ -1,10 +1,9 @@
 package duke;
 
-import duke.task.Task;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+
+import duke.task.Task;
 
 /**
  * The list of tasks in the program.

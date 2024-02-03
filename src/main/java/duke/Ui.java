@@ -1,8 +1,8 @@
 package duke;
 
-import duke.task.Task;
-
 import java.util.Scanner;
+
+import duke.task.Task;
 
 /**
  * The user interface management class. This class is the centralized interface for input and output to the program.
@@ -14,12 +14,18 @@ public class Ui {
         scanner = new Scanner(System.in);
     }
 
+    /**
+     * Prints the mascot.
+     */
     public void showCat() {
         System.out.println(" |\\ /| ");
         System.out.println("=(O O)=");
         System.out.println(" /   \\ ");
     }
 
+    /**
+     * Shows the greeting message.
+     */
     public void showWelcome() {
         showLine();
         showCat();
@@ -28,10 +34,16 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Shows the ending message.
+     */
     public void showBye() {
         System.out.println("The cat recedes into the wall with a bored look on its face");
     }
 
+    /**
+     * Prints a horizontal line on the screen. Used to visually separate sections apart.
+     */
     public void showLine() {
         for (int i = 0; i < 72; i++) {
             System.out.print('─');
