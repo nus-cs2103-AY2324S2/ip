@@ -1,9 +1,17 @@
 package ezra;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
+/**
+ * Tests for the {@link Deadline} class.
+ */
 public class DeadlineTest {
+
+    /**
+     * Test cases for the {@link Deadline#toString()} method.
+     */
     @Test
     public void testToString() {
         Deadline deadline1 = new Deadline("Return book", "29/01/2024 1800");
@@ -15,6 +23,9 @@ public class DeadlineTest {
         assertEquals(expectedString2, deadline2.toString());
     }
 
+    /**
+     * Test cases for the {@link Deadline#toStorageString()} method.
+     */
     @Test
     public void testToStorageString() {
         Deadline deadline1 = new Deadline("Return book", "29/01/2024 1800");

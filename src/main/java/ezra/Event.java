@@ -51,8 +51,7 @@ public class Event extends Task {
     /**
      * Returns a formatted string representation of the Event object for storage purposes.
      *
-     * @return A formatted string suitable for storage, including task type, status, description, start time,
-     * and end time.
+     * @return A formatted string suitable for storage, including task type, status, description, start and end time.
      */
     public String toStorageString() {
         return String.format("E | %d | %s | %s | %s", this.isDone ? 1 : 0,

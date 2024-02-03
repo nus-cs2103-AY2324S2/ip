@@ -1,12 +1,22 @@
 package ezra;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TestParser {
+import org.junit.jupiter.api.Test;
+
+/**
+ * Tests for the {@link Parser} class.
+ */
+public class ParserTest {
+
+    /**
+     * Test cases for the {@link Parser#parseDeadline(String)} method.
+     *
+     * @throws WrongFormatException if the input has an unexpected format
+     */
     @Test
-    public void TestParseDeadline() throws WrongFormatException {
+    public void testParseDeadline() throws WrongFormatException {
         assertThrows(WrongFormatException.class, () ->
                 Parser.parseDeadline("deadline return books"));
         assertThrows(WrongFormatException.class, () ->
@@ -19,8 +29,13 @@ public class TestParser {
                 Parser.parseDeadline("deadline return books /by 29/01/2024 1800"));
     }
 
+    /**
+     * Test cases for the {@link Parser#parseDelete(String)} method.
+     *
+     * @throws WrongFormatException if the input has an unexpected format
+     */
     @Test
-    public void TestParseDelete() throws WrongFormatException {
+    public void testParseDelete() throws WrongFormatException {
         assertEquals(0, Parser.parseDelete("delete 1"));
         assertEquals(9, Parser.parseDelete("delete 10"));
         assertThrows(WrongFormatException.class, () ->
