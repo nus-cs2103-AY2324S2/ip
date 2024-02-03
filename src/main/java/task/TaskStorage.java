@@ -7,6 +7,8 @@ package task;
 
 import java.util.ArrayList;
 
+import util.Messages;
+
 public class TaskStorage {
     public ArrayList<Task> sl;
 
@@ -41,7 +43,12 @@ public class TaskStorage {
      * @param id The id number of element to be removed from the ArrayList.
      */
     public String removeTask(int id) {
-        Task t = this.sl.get(id - 1);
+        Task t;
+        try {
+            t = this.sl.get(id - 1);
+        } catch (IndexOutOfBoundsException e) {
+            return Messages.MESSAGE_NO_SUCH_ELEMENTS;
+        }
         this.sl.remove(id - 1);
         return t.toString();
     }
@@ -53,7 +60,12 @@ public class TaskStorage {
      * @param mark To mark as complete or to unmark.
      */
     public String markTask(int id, boolean mark) {
-        Task t = this.sl.get(id - 1);
+        Task t;
+        try {
+            t = this.sl.get(id - 1);
+        } catch (IndexOutOfBoundsException e) {
+            return Messages.MESSAGE_NO_SUCH_ELEMENTS;
+        }
         if (mark) {
             t.mark();
         }
@@ -80,9 +92,10 @@ public class TaskStorage {
         String totalAns = "";
         for (int i = 0; i < sl.size(); i ++) {
             totalAns += (i + 1) + "." + sl.get(i);
-            totalAns += "\n";
+            if (i != sl.size() - 1) {
+                totalAns += "\n";
+            }
         }
-        totalAns += "______________________________________";
         return totalAns;
     }
 }

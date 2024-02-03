@@ -9,12 +9,13 @@ package task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Events extends Task {
+public class Event extends Task {
     private String from;
     private String to;
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
     final static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    public static final String TASK_TYPE = "event";
 
 
     /**
@@ -25,12 +26,23 @@ public class Events extends Task {
      * @param from The start of the event.
      * @param to The end of the event.
      */
-    public Events(String c, String from, String to) {
+    public Event(String c, String from, String to) {
         super(c);
         this.from = from.split("from ")[1];
         this.to = to.split("to ")[1];
         this.fromDateTime = LocalDateTime.parse(from.split("from ")[1].trim(), DATE_FORMAT);
         this.toDateTime = LocalDateTime.parse(to.split("to ")[1].trim(), DATE_FORMAT);
+    }
+
+    public Event(String c, String from, String to, String mark) {
+        super(c);
+        this.from = from.split("from ")[1];
+        this.to = to.split("to ")[1];
+        this.fromDateTime = LocalDateTime.parse(from.split("from ")[1].trim(), DATE_FORMAT);
+        this.toDateTime = LocalDateTime.parse(to.split("to ")[1].trim(), DATE_FORMAT);
+        if (mark.equals("1")) {
+            super.mark();
+        }
     }
 
     /**
@@ -41,7 +53,7 @@ public class Events extends Task {
      */
     @Override
     public String formatDataLine() {
-        return "Events|" + super.command + "|from " + this.from + "|to " + this.to;
+        return "Events|" + super.getCompleted() + "|" + super.command + "|from " + this.from + "|to " + this.to ;
     }
 
     /**
@@ -54,5 +66,20 @@ public class Events extends Task {
     public String toString() {
         String s = "[E]" + super.toString() + "(from: " + this.fromDateTime.format(DATE_FORMAT) + " to: " + this.toDateTime.format(DATE_FORMAT) + ")";
         return s;
+    }
+
+    /**
+     * Executes the necessary action created from the parsed results. 
+     * In this case, will add the Event object to the TaskStorage of the application.
+     * 
+     * @param taskStorage The storage space where the action will take place.
+     */
+    @Override
+    public String execute(TaskStorage taskStorage) {
+        taskStorage.addTask(this);
+        String printMessage = "Gotchu! I've added this task:";
+        printMessage += "\n" + this + "\n";
+        printMessage += "You now have " + taskStorage.size() + " tasks in the list.";
+        return printMessage;
     }
 }
