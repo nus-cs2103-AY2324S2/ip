@@ -1,4 +1,6 @@
-class Task {
+package duke.task;
+
+public class Task {
   protected String description;
   protected boolean isDone;
 
@@ -25,7 +27,7 @@ class Task {
 
   public String toFileString() {
       // Format: [TaskType] | [Status] | [Description]
-      return ""; // Implement this in each subclass (Todo, Deadline, Event)
+      return ""; // Implement this in each subclass (duke.task.Todo, duke.task.Deadline, duke.task.Event)
   }
   
   @Override

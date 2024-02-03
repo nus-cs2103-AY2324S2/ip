@@ -1,3 +1,10 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -120,8 +127,6 @@ public class Parser {
             throw new DukeException("Invalid date/time format. Please use 'yyyy/MM/dd HHmm', 'yyyy/MM/dd', 'today', or 'tomorrow'.");
         }
     }
-
-    
     public static int extractTaskIndex(String userInput) throws DukeException {
         try {
             return Integer.parseInt(userInput.split("\\s+")[1]);
