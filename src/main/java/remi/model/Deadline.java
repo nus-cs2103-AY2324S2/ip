@@ -4,8 +4,10 @@ public class Deadline extends Task{
     private String by;
 
     /**
+     * Simple constructor for the deadline. Formats the dates according to the formatDate() method.
+     * Works with dates only, not time.
      *
-     * @param label starting time
+     * @param label name of the task
      * @param by ending time
      */
     public Deadline(String label, String by) {
