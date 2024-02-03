@@ -7,13 +7,12 @@ import java.util.Scanner;
 
 
 public class Duke {
-
+    public static File TASKS_FILE = new File("./data/tasks.txt");
     public static String HORIZONTAL_LINE = "_________________________________________________________________________\n";
 
     public static void initialise() {
         try {
-            File tasks = new File("./data/tasks.txt");
-            Scanner sc = new Scanner(tasks);
+            Scanner sc = new Scanner(TASKS_FILE);
             int index = 0;
             while (sc.hasNextLine()) {
                 String[] task = sc.nextLine().split(" \\| ", 5);
@@ -33,10 +32,34 @@ public class Duke {
                 index++;
             }
         } catch (FileNotFoundException e) {
-            System.out.println(HORIZONTAL_LINE
-                    + "I'm afraid I've encountered an error while reading your tasks, my dear FML.\n"
-                    + HORIZONTAL_LINE);
+            File parentDir = TASKS_FILE.getParentFile();
+            if (!parentDir.exists()) {
+                if (parentDir.mkdir()) {
+                    System.out.println(HORIZONTAL_LINE
+                            + "I've created a new directory for your tasks, my dear.\n"
+                            + HORIZONTAL_LINE);
+                } else {
+                    System.out.println(HORIZONTAL_LINE
+                            + "I'm afraid I've encountered an error while creating a directory for your tasks, my dear.\n"
+                            + HORIZONTAL_LINE);
+                }
             }
+            try {
+                if (TASKS_FILE.createNewFile()) {
+                    System.out.println(HORIZONTAL_LINE
+                            + "I've created a new file for your tasks, my dear.\n"
+                            + HORIZONTAL_LINE);
+                } else {
+                    System.out.println(HORIZONTAL_LINE
+                            + "I'm afraid I've encountered an error while creating a file for your tasks, my dear.\n"
+                            + HORIZONTAL_LINE);
+                }
+            } catch (IOException newException) {
+                System.out.println(HORIZONTAL_LINE
+                        + "I'm afraid I've encountered an error while creating a file for your tasks, my dear.\n"
+                        + HORIZONTAL_LINE);
+            }
+        }
     }
 
     public static String greet() {
@@ -154,8 +177,7 @@ public class Duke {
         list.add(task);
 
         try {
-            File tasks = new File("./data/tasks.txt");
-            FileWriter writer = new FileWriter(tasks, true);
+            FileWriter writer = new FileWriter(TASKS_FILE, true);
             writer.write("\n" + type + " | " + (task.isDone ? "1" : "0") + " | " + task.description);
             if (type == 'D') {
                 writer.write("|" + ((Deadline) task).by);
@@ -195,8 +217,7 @@ public class Duke {
 
     public static void editWrite() {
         try {
-            File tasks = new File("./data/tasks.txt");
-            FileWriter writer = new FileWriter(tasks);
+            FileWriter writer = new FileWriter(TASKS_FILE);
             for (Task task : list) {
                 char type = 'T';
                 if (task instanceof Deadline) {
