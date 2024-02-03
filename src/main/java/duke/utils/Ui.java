@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * This class implements the User Interface of the bot.
- * 
+ *
  * @author delishad21
  */
 public class Ui {
@@ -21,7 +21,7 @@ public class Ui {
 
     /**
      * Retrieves user input.
-     * 
+     *
      * @return User input as string.
      */
     public String nextCommand() {
@@ -40,7 +40,7 @@ public class Ui {
      */
     public void startupMessage() {
         String name = "CBBW";
-        botPrint("Hello! I'm " + name 
+        botPrint("Hello! I'm " + name
                            + "\nWhat can I do for you?");
     }
 
@@ -53,7 +53,7 @@ public class Ui {
 
     /**
      * Displays message to user with indent and seperating lines.
-     * 
+     *
      * @param s String to be displayed to user
      */
     public void botPrint(String s) {
