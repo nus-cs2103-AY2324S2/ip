@@ -1,5 +1,9 @@
 package zoe;
 
+/**
+ * Subclass of task
+ * Creates an event when keyed in the form: event XYZ /from 123 /to 123
+ */
 public class Event extends Task {
     protected String from;
     protected String to;
