@@ -19,6 +19,7 @@ public class Storage {
     public List<String> load() throws IOException {
         // Read all lines from the file as a List
         this.storageArray = Files.readAllLines(Paths.get(filePath));
+        System.out.println(this.storageArray);
         return this.storageArray;
     }
 
