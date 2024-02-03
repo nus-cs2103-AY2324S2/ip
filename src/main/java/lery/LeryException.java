@@ -1,4 +1,4 @@
-package Lery;
+package lery;
 
 /**
  * Custom exception class for Lery chatbot application.
@@ -9,7 +9,7 @@ package Lery;
  * The class extends the {@code Exception} class and provides two constructors:
  * one without a message and another with a customizable error message.
  */
-public class LeryException extends Exception  {
+public class LeryException extends Exception {
     public LeryException() {
         super();
     }

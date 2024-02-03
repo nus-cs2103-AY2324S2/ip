@@ -1,4 +1,4 @@
-package Lery.task;
+package lery.task;
 
 /**
  * Represents a Task.

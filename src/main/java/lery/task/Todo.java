@@ -1,4 +1,4 @@
-package Lery.task;
+package lery.task;
 
 /**
  * Represents a todo task in the Lery chatbot application,
@@ -12,7 +12,7 @@ package Lery.task;
  */
 public class Todo extends Task {
 
-    private final String TYPE = "T";
+    private static final String TYPE = "T";
 
     /**
      * Constructs a Todo object with the specified description.

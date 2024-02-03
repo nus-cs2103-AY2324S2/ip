@@ -1,21 +1,20 @@
-package Lery.task;  //same package as the class being tested
+package lery.task;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class TodoTest {
     @Test
-    public void testGetType(){
+    public void testGetType() {
         assertEquals("T", new Todo("read book").getType());
     }
 
     @Test
-    public void testGetExtraInfo(){
+    public void testGetExtraInfo() {
         assertEquals("", new Todo("read book").getExtraInfo());
     }
     @Test
-    public void testGetExtraInfoShortened(){
+    public void testGetExtraInfoShortened() {
         assertEquals("", new Todo("read book").getExtraInfoShortened());
     }
 }

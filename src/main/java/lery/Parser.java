@@ -1,6 +1,10 @@
-package Lery;
+package lery;
+import lery.task.Deadline;
+import lery.task.Event;
+import lery.task.Task;
+import lery.task.TaskList;
+import lery.task.Todo;
 
-import Lery.task.*;
 
 /**
  * Represents a Parser.
@@ -87,7 +91,7 @@ public class Parser {
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 throw new LeryException("Erm... Please provide event name.");
             }
-        } else if (command.startsWith("deadline")){
+        } else if (command.startsWith("deadline")) {
             try {
                 String[] taskDesc = command.substring(9).split("/by ");
                 this.storage.checkDateFormat(taskDesc[1]);
@@ -129,7 +133,12 @@ public class Parser {
                 + Integer.toString(this.storage.getSize()) + " tasks in the list.\n";
         return msg;
     }
-
+    /**
+     * Parses the command and finds the specified task from the task list.
+     *
+     * @param d the command to be parsed.
+     * @return a string containing the result or feedback of the command execution.
+     */
     public String parseFindTaskCommand(String d) {
         TaskList t = this.storage.getTaskList();
         TaskList findList = new TaskList();

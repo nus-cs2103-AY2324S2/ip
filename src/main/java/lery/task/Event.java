@@ -1,4 +1,4 @@
-package Lery.task;
+package lery.task;
 
 /**
  * Represents an event task in the Lery chatbot application,
@@ -10,7 +10,7 @@ package Lery.task;
  * for an event task.
  */
 public class Event extends Task {
-    private final String TYPE = "E";
+    private static final String TYPE = "E";
     private String start;
     private String end;
 
@@ -25,7 +25,7 @@ public class Event extends Task {
         int fromId = description.indexOf("/from");
         int toId = description.indexOf("/to");
         this.start = description.substring(fromId + 6, toId - 1);
-        this.end  = description.substring(toId + 4);
+        this.end = description.substring(toId + 4);
     }
 
     /**
