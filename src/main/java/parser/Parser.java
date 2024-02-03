@@ -3,8 +3,17 @@ package parser;
 import commands.*;
 import excceptions.WeiException;
 
+/**
+ * Processes the commands inserted by the user.
+ */
 public class Parser {
-
+    /**
+     * Interprets the user command.
+     *
+     * @param input User command.
+     * @return An object of the command type.
+     * @throws WeiException If the command cannot be understood.
+     */
     public Command parse(String input) throws WeiException {
         if (input.equals("bye")) {
             return new ExitCommand();

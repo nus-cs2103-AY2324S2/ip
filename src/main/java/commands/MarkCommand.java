@@ -4,13 +4,28 @@ import excceptions.WeiException;
 import taskList.TaskList;
 import ui.Ui;
 
+/**
+ * Marks the task as complete.
+ */
 public class MarkCommand extends Command {
     private String input;
 
+    /**
+     * Creates a MarkCommand object.
+     *
+     * @param input the order of the task to be marked.
+     */
     public MarkCommand(String input) {
         this.input = input;
     }
 
+    /**
+     * Marks the task in the TaskList and inform the user.
+     *
+     * @param tasks All the tasks of the user.
+     * @param ui Gives reply to the user.
+     * @throws WeiException If the command is incomplete.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws WeiException {
         try {
@@ -22,6 +37,11 @@ public class MarkCommand extends Command {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return false.
+     */
     @Override
     public boolean isExit() {
         return false;

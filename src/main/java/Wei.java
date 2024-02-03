@@ -8,6 +8,9 @@ import ui.Ui;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents a chatbot that can keep track of your tasks.
+ */
 public class Wei {
     private Ui ui;
     private Storage storage;
@@ -50,6 +53,11 @@ public class Wei {
         ui.exit();
     }
 
+    /**
+     * Creates and runs the chatbot.
+     *
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         new Wei("./data/history.txt").run();
     }
