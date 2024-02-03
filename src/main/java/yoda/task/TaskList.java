@@ -16,7 +16,22 @@ public class TaskList {
         }
     }
 
-
+    public void findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println(i + 1 + "." + matchingTasks.get(i));
+            }
+        }
+    }
     public void deleteTask(int taskNumber) throws Exception {
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
             throw new Exception("Valid task number, provide you must.");
