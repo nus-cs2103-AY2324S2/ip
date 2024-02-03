@@ -57,12 +57,12 @@ public class ActionTask implements ParseExecutionable {
     public String execute(TaskStorage taskStorage) {
         String printMessage = "";
         switch (this.action) {
-            case ActionTask.ActionType.LIST:
+            case LIST:
                 if (taskStorage.size() > 0) {
                     return taskStorage.toString();
                 }
                 return Messages.MESSAGE_EMPTY_LIST;
-            case ActionTask.ActionType.MARK:
+            case MARK:
                 printMessage += "Nicely done! I've marked this task as done: \n";
                 String resultMessage = taskStorage.markTask(this.taskId, true);
                 if (resultMessage.equals(Messages.MESSAGE_NO_SUCH_ELEMENTS)) {
@@ -70,7 +70,7 @@ public class ActionTask implements ParseExecutionable {
                 }
                 printMessage += resultMessage;
                 return printMessage;
-            case ActionTask.ActionType.UNMARK:
+            case UNMARK:
                 printMessage += "Hey you! I've marked this task as not done, yet: \n";
                 resultMessage = taskStorage.markTask(this.taskId, false);
                 if (resultMessage.equals(Messages.MESSAGE_NO_SUCH_ELEMENTS)) {
@@ -78,7 +78,7 @@ public class ActionTask implements ParseExecutionable {
                 }
                 printMessage += resultMessage;
                 return printMessage;
-            case ActionTask.ActionType.DELETE:
+            case DELETE:
                 printMessage += "Alright-o, I have deleted the following task: \n";
                 resultMessage = taskStorage.removeTask(this.taskId);
                 if (resultMessage.equals(Messages.MESSAGE_NO_SUCH_ELEMENTS)) {
@@ -86,11 +86,11 @@ public class ActionTask implements ParseExecutionable {
                 }
                 printMessage += resultMessage;
                 return printMessage;
-            case ActionTask.ActionType.BYE:
+            case BYE:
                 this.isExit = true;
                 printMessage = "Bye, hope to see you again soon!";
                 return printMessage;
-            case ActionTask.ActionType.UNRECOGNIZED:
+            case UNRECOGNIZED:
                 return "Unrecognized command";
         }
         return printMessage;
