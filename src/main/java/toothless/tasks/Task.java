@@ -36,5 +36,9 @@ public abstract class Task {
         return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
     }
 
+    public boolean contains(String keyword){
+        return description.contains(keyword);
+    }
+
     public abstract String getTaskIcon();
 }
