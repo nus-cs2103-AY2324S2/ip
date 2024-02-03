@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
@@ -15,7 +16,7 @@ import wis.util.WisException;
 import wis.util.FileDataParser;
 
 public class Storage {
-    private static final String PATH = "data/tasks.txt";
+    private static final String PATH = "./tasks.txt";
 
     public static void saveTasks(TaskList tasks) {
         try {
