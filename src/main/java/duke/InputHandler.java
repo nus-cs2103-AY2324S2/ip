@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.LocalDate;
 public class InputHandler {
     public LocalDate formatDeadline(String[] data) throws ArrayIndexOutOfBoundsException{

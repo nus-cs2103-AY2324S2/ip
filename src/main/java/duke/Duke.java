@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -41,7 +43,7 @@ public class Duke {
             System.out.println("Error " + e.getMessage());
         }
 
-        //List<Task> list = new ArrayList<>();
+        //List<duke.Task> list = new ArrayList<>();
 
         try {
             list = retrieveData(f);
