@@ -26,18 +26,24 @@ public class Task {
 
     /**
      * Marks the task as done and prints the status icon and description.
+     *
+     * @return String representation.
      */
-    public void markAsDone() {
+    public String markAsDone() {
         this.isDone = true;
-        System.out.println(getStatusIcon() + " | " + description);
+        return "Good job on completing the task! I have checked it off the list.\n"
+                + getStatusIcon() + " | " + description + "\n";
     }
 
     /**
      * Marks the task as undone and prints the status icon and description.
+     *
+     * @return String representation.
      */
-    public void markAsUndone() {
+    public String markAsUndone() {
         this.isDone = false;
-        System.out.println(getStatusIcon() + " | " + description);
+        return "Ah, I will mark it as undone. Remember to do it asap!\n"
+                + getStatusIcon() + " | " + description + "\n";
     }
 
     /**

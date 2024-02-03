@@ -2,8 +2,16 @@ package dino.command;
 
 import java.util.Scanner;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 /** The main class for the Dino application. */
-public class Dino {
+public class Dino extends Application {
     private static final String FILE_PATH = "./data/duke.txt";
     private Ui ui;
     private Storage storage;
@@ -21,33 +29,56 @@ public class Dino {
 
     /**
      * Constructs a new Dino instance with the specified file path.
-     *
-     * @param filePath The file path for storing tasks data.
      */
-    public Dino(String filePath) {
+    public Dino() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         tasks = storage.loadTasksFromFile();
 
     }
 
-    /** Runs the Dino application, handling user input and executing commands. */
-    public void run() {
-        ui.welcome();
+    @Override
+    public void start(Stage stage) {
+        TextArea chatArea = new TextArea();
+        TextField userInputField = new TextField();
+        Button submitButton = new Button("Submit");
 
+        submitButton.setOnAction(e -> {
+            String userCommand = userInputField.getText();
+            String response = processUserInput(userCommand);
+            appendToChat(chatArea, "User: " + userCommand);
+            appendToChat(chatArea, "Dino: " + response);
+            userInputField.clear();
+        });
+
+        VBox root = new VBox(10); // Vertical box layout
+        root.getChildren().addAll(chatArea, userInputField, submitButton);
+
+        Scene scene = new Scene(root, 400, 300);
+
+        stage.setTitle("Dino Chatbot");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
+    private String processUserInput(String command) {
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser(tasks, ui, sc);
 
-        while (true) {
-            String command = sc.next();
-            if (command.equals("bye")) {
-                storage.saveTasksToFile(tasks.getTaskList());
-                ui.goodbye();
-                sc.close();
-                break;
-            }
-            parser.parseCommand(command);
+        if (command.equals("bye")) {
+            storage.saveTasksToFile(tasks.getTaskList());
+            ui.goodbye();
+            sc.close();
+            System.exit(0);
+        } else {
+            return parser.parseCommand(command);
         }
+        return null;
+    }
+
+    private void appendToChat(TextArea chatArea, String message) {
+        chatArea.appendText(message + "\n");
     }
 
     /**
@@ -56,6 +87,6 @@ public class Dino {
      * @param args arguments.
      */
     public static void main(String[] args) {
-        new Dino(FILE_PATH).run();
+        launch(args);
     }
 }
