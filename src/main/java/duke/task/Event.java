@@ -1,15 +1,15 @@
-/**
- * The Event class represents a task that spans a specific time period.
- * It is a subclass of the Task class.
- */
 package duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Event class represents a task that spans a specific time period.
+ * It is a subclass of the Task class.
+ */
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     /**
      * Constructs an Event object with a description, start time, and end time.
@@ -31,10 +31,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        // Format: E | [Status] | [Description] | [Start Time] - [End Time]
         return "E | " + getStatusNumber() + " | " + description + " | " +
-                from.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")) +
-                " - " +
+                from.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")) + " - " +
                 to.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
     }
 
@@ -46,7 +44,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("[E]").append(super.toString()).append(" (from: ").append(from.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        builder.append("[E]").append(super.toString()).append(" (from: ")
+                .append(from.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
 
         if (from.toLocalTime().getHour() != 0 || from.toLocalTime().getMinute() != 0) {
             builder.append(" at ").append(from.format(DateTimeFormatter.ofPattern("hh:mm a")));

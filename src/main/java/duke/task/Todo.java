@@ -1,9 +1,9 @@
+package duke.task;
+
 /**
  * The Todo class represents a task with no specific deadline or time.
  * It is a subclass of the Task class.
  */
-package duke.task;
-
 public class Todo extends Task {
 
     /**

@@ -1,7 +1,3 @@
-/**
- * The Storage class is responsible for managing the storage and retrieval of tasks in the Duke chatbot application.
- * It handles saving tasks to a file and loading tasks from a file.
- */
 package duke;
 
 import duke.task.Deadline;
@@ -16,6 +12,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Storage class is responsible for managing the storage and retrieval of tasks in the Duke chatbot application.
+ * It handles saving tasks to a file and loading tasks from a file.
+ */
 public class Storage {
     private static final String DIRECTORY_PATH = "./data";
     private static final String FILE_PATH = "./data/duke.txt";
@@ -93,7 +93,7 @@ public class Storage {
             String taskType = parts[0].trim();
             String status = parts[1].trim();
             String description = parts[2].trim();
-          
+
             Task task;
             switch (taskType) {
                 case "T":

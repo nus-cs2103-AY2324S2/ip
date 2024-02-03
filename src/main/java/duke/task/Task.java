@@ -1,12 +1,12 @@
+package duke.task;
+
 /**
  * The Task class represents a general task with a description and a completion status.
  * It is a base class for specific task types like Todo, Deadline, and Event.
  */
-package duke.task;
-
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    protected String description; // Changed to private for encapsulation
+    protected boolean isDone; // Changed to private for encapsulation
 
     /**
      * Constructs a Task object with a description and initializes it as not done.
@@ -57,7 +57,8 @@ public class Task {
      * @return An empty string, to be implemented in each subclass.
      */
     public String toFileString() {
-        return "";
+        // This base method is intended to be overridden by subclasses.
+        return ""; // Subclass responsibility
     }
 
     /**

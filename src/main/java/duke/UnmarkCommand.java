@@ -1,12 +1,12 @@
-/**
- * The UnmarkCommand class represents a command to unmark a task in the task list.
- * It extends the Command class and implements the execute method.
- */
 package duke;
 
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * The UnmarkCommand class represents a command to unmark a task in the task list.
+ * It extends the Command class and implements the execute method.
+ */
 public class UnmarkCommand extends Command {
 
     /**

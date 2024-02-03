@@ -1,7 +1,3 @@
-/**
- * The Parser class is responsible for parsing user input and generating appropriate commands and tasks.
- * It provides methods for parsing commands, creating commands, and parsing task details.
- */
 package duke;
 
 import duke.task.Deadline;
@@ -14,6 +10,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Handles parsing of user input into commands, tasks, and task details for the Duke application.
+ * Provides utility methods to interpret user commands and to extract relevant details for task creation.
+ */
 public class Parser {
 
     /**

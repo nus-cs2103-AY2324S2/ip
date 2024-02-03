@@ -1,25 +1,32 @@
-/**
- * The ExitCommand class represents a command to exit.
- * It is a subclass of the Command class.
- */
 package duke;
 
 import duke.task.TaskList;
 
+/**
+ * Represents a command to exit the Duke application. This command handles any necessary
+ * finalization before the application shuts down, such as saving the current state of the task list.
+ */
 public class ExitCommand extends Command {
 
     /**
-     * Executes the exit command, closing the application and saving tasks if necessary.
+     * Executes the exit command by performing necessary cleanup actions such as saving tasks
+     * and displaying a goodbye message. This method ensures the application is closed gracefully.
      *
-     * @param taskList   The task list (not used in this command).
-     * @param ui         The user interface for displaying messages.
-     * @param userInput  The user input specifying the exit command.
-     * @throws DukeException If there is an issue executing the command.
+     * @param taskList  The task list, which may be saved to persistent storage as part of exit processing.
+     * @param ui        The user interface for displaying the goodbye message and closing any resources.
+     * @param userInput The user input leading to the execution of this command (not directly used here).
+     * @throws DukeException If there is an issue during the execution of the command, such as an error
+     *                       saving tasks to storage.
      */
     @Override
     public void execute(TaskList taskList, Ui ui, String userInput) throws DukeException {
-        ui.showGoodbye();
-        Storage.saveTasks(taskList.getTasks());
-        ui.closeScanner();
+        try {
+            Storage.saveTasks(taskList.getTasks());
+            ui.showGoodbye();
+        } catch (Exception e) {
+            throw new DukeException("Failed to save tasks before exiting: " + e.getMessage());
+        } finally {
+            ui.closeScanner();
+        }
     }
 }

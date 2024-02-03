@@ -1,20 +1,20 @@
-/**
- * The TaskList class represents a list of tasks that can be managed and manipulated.
- * It provides methods for adding, retrieving, marking as done, unmarking, and deleting tasks.
- */
 package duke.task;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The TaskList class represents a list of tasks that can be managed and manipulated.
+ * It provides methods for adding, retrieving, marking as done, unmarking, and deleting tasks.
+ */
 public class TaskList {
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
     /**
      * Constructs an empty TaskList.
      */
     public TaskList() {
-        tasks = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -23,7 +23,7 @@ public class TaskList {
      * @return A list of tasks.
      */
     public List<Task> getTasks() {
-        return tasks;
+        return new ArrayList<>(this.tasks); // Encapsulation: Return a copy to prevent external modifications
     }
 
     /**
@@ -32,7 +32,7 @@ public class TaskList {
      * @return The number of tasks in the TaskList.
      */
     public int getSize() {
-        return tasks.size();
+        return this.tasks.size();
     }
 
     /**
@@ -41,31 +41,18 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
-        tasks.add(task);
-    }
-
-    /**
-     * Retrieves a task from the TaskList by its index.
-     *
-     * @param index The index of the task to be retrieved.
-     * @return The task at the specified index, or null if the index is invalid.
-     */
-    public Task getTask(int index) {
-        if (isValidIndex(index)) {
-            return tasks.get(index - 1);
-        }
-        return null;
+        this.tasks.add(task);
     }
 
     /**
      * Marks a task as done in the TaskList by its index.
      *
-     * @param index The index of the task to be marked as done.
+     * @param index The index of the task to be marked as done, 1-based.
      * @return The task that was marked as done, or null if the index is invalid.
      */
     public Task markTaskAsDone(int index) {
         if (isValidIndex(index)) {
-            Task task = tasks.get(index - 1);
+            Task task = this.tasks.get(index - 1); // Adjust for 0-based indexing
             task.markAsDone();
             return task;
         }
@@ -75,12 +62,12 @@ public class TaskList {
     /**
      * Unmarks a task as done in the TaskList by its index.
      *
-     * @param index The index of the task to be unmarked.
+     * @param index The index of the task to be unmarked, 1-based.
      * @return The task that was unmarked, or null if the index is invalid.
      */
     public Task unmarkTask(int index) {
         if (isValidIndex(index)) {
-            Task task = tasks.get(index - 1);
+            Task task = this.tasks.get(index - 1); // Adjust for 0-based indexing
             task.unmarkAsDone();
             return task;
         }
@@ -90,12 +77,12 @@ public class TaskList {
     /**
      * Deletes a task from the TaskList by its index.
      *
-     * @param index The index of the task to be deleted.
+     * @param index The index of the task to be deleted, 1-based.
      * @return The task that was deleted, or null if the index is invalid.
      */
     public Task deleteTask(int index) {
         if (isValidIndex(index)) {
-            return tasks.remove(index - 1);
+            return this.tasks.remove(index - 1); // Adjust for 0-based indexing
         }
         return null;
     }
@@ -103,10 +90,10 @@ public class TaskList {
     /**
      * Checks if the given index is a valid index for accessing tasks in the TaskList.
      *
-     * @param index The index to be validated.
+     * @param index The index to be validated, 1-based.
      * @return True if the index is valid, false otherwise.
      */
     private boolean isValidIndex(int index) {
-        return index >= 1 && index <= tasks.size();
+        return index >= 1 && index <= this.tasks.size();
     }
 }

@@ -5,54 +5,41 @@ import duke.task.TaskList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * The `FindCommand` class represents a command in a task management application
- * that allows users to search for tasks based on a provided keyword or query.
- * It extends the abstract `Command` class.
+ * Represents a command to search for tasks based on a provided keyword or query.
+ * This class extends the abstract Command class and implements the search functionality
+ * to find and display tasks that contain the query within their description.
  */
 public class FindCommand extends Command {
 
     /**
-     * Executes the "find" command to search for tasks in the provided `TaskList`
-     * based on the user's input query. It searches for tasks that contain the
-     * query in their `toString()` representation.
+     * Executes the "find" command to search for tasks in the given TaskList
+     * based on the user's input query. It identifies tasks that contain the
+     * query string in their description as represented by their toString() method.
      *
-     * @param taskList   The `TaskList` object containing the list of tasks to search through.
-     * @param ui         The `Ui` object used to display messages to the user.
-     * @param userInput  The user's input command, including the "find" keyword and search query.
-     * @throws DukeException If there is an error during command execution.
+     * @param taskList  The TaskList containing the tasks to be searched.
+     * @param ui        The Ui interface to interact with the user.
+     * @param userInput The complete user input string including the command and the search query.
+     * @throws DukeException If the search query is not provided or an error occurs during execution.
      */
     @Override
     public void execute(TaskList taskList, Ui ui, String userInput) throws DukeException {
-
-        // Split user input to separate the command keyword from the search query
-        String[] parts = userInput.split("\\s+", 2);
-        String findTask = parts[1].toLowerCase();
-
-        // Get the list of tasks from the TaskList
-        List<Task> tasks = taskList.getTasks();
-
-        // Initialize a list to store matching tasks
-        List<Task> filteredList = new ArrayList<>();
-
-        // Check if the task list is empty
-        if (tasks.isEmpty()) {
-            ui.showNoTask();
+        if (userInput.trim().equals("find")) {
+            throw new DukeException("Please enter a search query after 'find'.");
         }
 
-        // Iterate through the tasks and add matching tasks to the filtered list
-        for (Task task : tasks) {
-            if (task.toString().contains(findTask)) {
-                filteredList.add(task);
-            }
-        }
+        String query = userInput.substring(5).trim().toLowerCase();
 
-        // Display the matching tasks or a message if none are found
-        if (filteredList.isEmpty()) {
+        List<Task> matchingTasks = taskList.getTasks().stream()
+                .filter(task -> task.toString().toLowerCase().contains(query))
+                .collect(Collectors.toList());
+
+        if (matchingTasks.isEmpty()) {
             ui.showNoTask();
         } else {
-            ui.showTasks(filteredList);
+            ui.showTasks(matchingTasks);
         }
     }
 }

@@ -1,25 +1,29 @@
-/**
- * The ListCommand class represents a command to list all tasks in the task list.
- * It is a subclass of the Command class.
- */
 package duke;
 
-import duke.task.Task;
 import duke.task.TaskList;
-import java.util.List;
 
+/**
+ * Represents a command to list all tasks currently stored in the task list.
+ * This class extends the Command class, providing specific behavior to enumerate
+ * all tasks and display them to the user through the provided UI interface.
+ */
 public class ListCommand extends Command {
 
     /**
-     * Executes the list command to display all tasks in the task list.
+     * Executes the list command, retrieving all tasks from the provided TaskList
+     * and displaying them via the UI interface. This method allows users to view
+     * a summary of all tasks currently tracked by the application.
      *
-     * @param taskList   The task list to retrieve tasks from.
-     * @param ui         The user interface for displaying messages.
-     * @param userInput  The user input specifying the list command.
+     * @param taskList  The TaskList from which to retrieve and display tasks.
+     * @param ui        The Ui interface used for displaying the list of tasks to the user.
+     * @param userInput The user input that triggered this command (not used here, but required by the method signature).
      */
     @Override
     public void execute(TaskList taskList, Ui ui, String userInput) {
-        List<Task> tasks = taskList.getTasks();
-        ui.showTasks(tasks);
+        if (taskList.getSize() == 0) {
+            ui.showNoTask();
+        } else {
+            ui.showTasks(taskList.getTasks());
+        }
     }
 }

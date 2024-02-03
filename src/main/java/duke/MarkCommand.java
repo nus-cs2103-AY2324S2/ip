@@ -1,12 +1,12 @@
-/**
- * The MarkCommand class represents a command to mark a task as done in the task list.
- * It is a subclass of the Command class.
- */
 package duke;
 
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * The MarkCommand class represents a command to mark a task as done in the task list.
+ * It is a subclass of the Command class.
+ */
 public class MarkCommand extends Command {
 
     /**
@@ -28,3 +28,5 @@ public class MarkCommand extends Command {
         }
     }
 }
+
+
