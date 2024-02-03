@@ -59,6 +59,18 @@ public class Parser {
             Event e = new Event(commandDescription);
             tl.add(e);
 
+        } else if (command.equals("find")) {
+            int counter = 0;
+            for (Task t: tl.getTasks()) {
+                if (t.getStatus().contains(commandDescription)) {
+                    counter++;
+                    System.out.println(String.format("%d.%s", counter, t.getStatus()));
+                }
+            }
+
+            if (counter == 0) {
+                ui.taskDoesNotExist();
+            }
         } else if (tl.isValid(Integer.parseInt(commandDescription))) {
             int i = Integer.parseInt(commandDescription);
 

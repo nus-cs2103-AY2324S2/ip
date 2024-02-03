@@ -49,4 +49,8 @@ public class Ui {
                 "Input a positive number among tasks in list starting from 1 to " + i);
     }
 
+    public void taskDoesNotExist() {
+        System.out.println("Sorry, I can't find the task you have keyed in");
+    }
+
 }
