@@ -1,12 +1,13 @@
-package Duke.Command;
+package duke.command;
 
-import Duke.Exception.*;
-import Duke.Task.TaskList;
-import Duke.Task.Task;
-import Duke.Task.Todo;
-import Duke.Ui;
-import Duke.Storage;
-import Duke.Exception.InvalidArgumentException;
+import duke.Ui;
+import duke.Storage;
+
+import duke.task.TaskList;
+import duke.task.Task;
+import duke.task.Todo;
+
+import duke.exception.InvalidArgumentException;
 
 public class AddTodoCommand extends Command {
     String description;
@@ -25,6 +26,5 @@ public class AddTodoCommand extends Command {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("TODO");
         }
-
     }
 }

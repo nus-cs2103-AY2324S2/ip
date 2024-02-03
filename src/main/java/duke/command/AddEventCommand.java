@@ -1,12 +1,15 @@
-package Duke.Command;
+package duke.command;
 
-import Duke.Exception.InvalidArgumentException;
-import Duke.Storage;
-import Duke.Task.Event;
-import Duke.Task.Task;
-import Duke.Task.TaskList;
-import Duke.Ui;
-import Duke.Parser;
+import duke.Ui;
+import duke.Parser;
+import duke.Storage;
+
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+
+
+import duke.exception.InvalidArgumentException;
 public class AddEventCommand extends Command {
     String description;
 
@@ -37,8 +40,5 @@ public class AddEventCommand extends Command {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InvalidArgumentException("EVENT");
         }
-
     }
-
-
 }

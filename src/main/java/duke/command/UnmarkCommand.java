@@ -1,9 +1,11 @@
-package Duke.Command;
+package duke.command;
 
-import Duke.Exception.InvalidArgumentException;
-import Duke.Storage;
-import Duke.Task.TaskList;
-import Duke.Ui;
+import duke.Storage;
+import duke.Ui;
+
+import duke.task.TaskList;
+
+import duke.exception.InvalidArgumentException;
 
 public class UnmarkCommand extends Command {
     int positionToUnmark;

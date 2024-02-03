@@ -1,26 +1,24 @@
-package Duke;
+package duke;
 
-import Duke.Command.AddDeadlineCommand;
-import Duke.Command.AddEventCommand;
-import Duke.Command.AddTodoCommand;
-import Duke.Command.ListCommand;
-import Duke.Command.ByeCommand;
-import Duke.Command.DeleteCommand;
-import Duke.Command.MarkCommand;
-import Duke.Command.UnmarkCommand;
-
-
-import Duke.Command.Command;
-import Duke.Exception.DukeException;
-import Duke.Exception.InvalidArgumentException;
-import Duke.Exception.InvalidCommandException;
-import Duke.Ui;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
+
+import duke.command.AddDeadlineCommand;
+import duke.command.AddEventCommand;
+import duke.command.AddTodoCommand;
+import duke.command.ListCommand;
+import duke.command.ByeCommand;
+import duke.command.DeleteCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+import duke.command.Command;
+
+import duke.exception.InvalidArgumentException;
+import duke.exception.InvalidCommandException;
 
 public class Parser {
     public enum CommandType {

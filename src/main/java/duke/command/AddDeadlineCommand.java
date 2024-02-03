@@ -1,12 +1,16 @@
-package Duke.Command;
+package duke.command;
 
-import Duke.Exception.InvalidArgumentException;
-import Duke.Task.Deadline;
-import Duke.Task.Task;
-import Duke.Task.TaskList;
-import Duke.Storage;
-import Duke.Ui;
-import Duke.Parser;
+import duke.Storage;
+import duke.Ui;
+import duke.Parser;
+
+import duke.task.Deadline;
+import duke.task.Task;
+import duke.task.TaskList;
+
+import duke.exception.InvalidArgumentException;
+
+
 public class AddDeadlineCommand extends Command {
     String description;
 

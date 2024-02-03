@@ -1,6 +1,7 @@
-package Duke.Task;
+package duke.task;
 public class Deadline extends Task {
     protected String by;
+
     public Deadline(String description) {
         super(description);
     }

@@ -1,4 +1,4 @@
-package Duke.Task;
+package duke.task;
 
 abstract public class Task {
     protected String description;
@@ -8,10 +8,12 @@ abstract public class Task {
         this.description = description;
         this.isDone = false;
     }
+
     public Task(String description, Boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }
+
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
@@ -32,9 +34,9 @@ abstract public class Task {
                 return new Event(description, isDone);
             default:
                 return null;
-
         }
     }
+
     public static boolean checkStatus(String statusIcon) {
         if (statusIcon.equals("X")) {
             return true;
