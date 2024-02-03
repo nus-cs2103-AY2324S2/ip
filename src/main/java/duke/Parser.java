@@ -1,23 +1,27 @@
 package duke;
 
-import duke.exceptions.InvalidCmdException;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import duke.exceptions.InvalidCmdException;
+
+/**
+ * Interprets a <code>String</code> input from the command-line and formats the main command
+ *     and arguments.
+ */
 public class Parser {
     private static final HashMap<String, List<String>> CMD_LIST = new HashMap<>() {{
-        put("todo", Arrays.asList("todo"));
-        put("deadline", Arrays.asList("deadline", "/by"));
-        put("event", Arrays.asList("event", "/from", "/to"));
-        put("list", null);
-        put("mark", Arrays.asList("mark"));
-        put("unmark", Arrays.asList("unmark"));
-        put("delete", Arrays.asList("delete"));
-        put("find", Arrays.asList("find"));
-        put("bye", null);
-    }};
+            put("todo", Arrays.asList("todo"));
+            put("deadline", Arrays.asList("deadline", "/by"));
+            put("event", Arrays.asList("event", "/from", "/to"));
+            put("list", null);
+            put("mark", Arrays.asList("mark"));
+            put("unmark", Arrays.asList("unmark"));
+            put("delete", Arrays.asList("delete"));
+            put("find", Arrays.asList("find"));
+            put("bye", null);
+        }};
 
     /**
      * Returns a Command class for execution after parsing the command
@@ -26,7 +30,7 @@ public class Parser {
      * @param cmd Command String to parse.
      * @return Command class for execution.
      * @throws InvalidCmdException If command is unknown, or if parameters / arguments are
-     * missing.
+     *     missing.
      */
     protected static Command parse(String cmd) throws InvalidCmdException {
         String[] token = cmd.split(" ");

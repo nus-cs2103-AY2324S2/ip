@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+ * Subclass of <code>Task</code> that specifies when the event starts and ends.
+ */
 public class Event extends Task {
     protected String from;
     protected String to;

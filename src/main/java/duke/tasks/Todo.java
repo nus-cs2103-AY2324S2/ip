@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+ * Subclass of <code>Task</code> that has a different <code>toString()</code>.
+ */
 public class Todo extends Task {
     /**
      * {@inheritDoc}

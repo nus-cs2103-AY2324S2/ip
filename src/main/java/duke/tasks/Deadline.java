@@ -3,6 +3,9 @@ package duke.tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Subclass of <code>Task</code> that has an extra parameter for due date.
+ */
 public class Deadline extends Task {
     protected LocalDate by;
 

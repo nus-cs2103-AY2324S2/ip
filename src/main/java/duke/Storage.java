@@ -1,10 +1,5 @@
 package duke;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,6 +8,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+
+/**
+ * Handles data storage using file IO.
+ */
 public class Storage {
     private String filePath = "./data/duke.txt";
     private FileWriter data;
@@ -69,8 +72,9 @@ public class Storage {
                         this.data.write(String.format("T|%s|%s\n", t.getTaskName(), t.isDone()));
                     } else if (t instanceof Deadline) {
                         this.data.write(String.format("D|%s|%s|%s\n",
-                                t.getTaskName(), t.isDone(),
-                                ((Deadline) t).getBy().format(DateTimeFormatter.ISO_LOCAL_DATE))
+                                t.getTaskName(), t.isDone(), (
+                                        (Deadline) t).getBy().format(DateTimeFormatter.ISO_LOCAL_DATE)
+                                )
                         );
                     } else if (t instanceof Event) {
                         this.data.write(String.format("E|%s|%s|%s|%s\n",

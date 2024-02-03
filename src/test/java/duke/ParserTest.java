@@ -1,10 +1,11 @@
 package duke;
 
-import duke.exceptions.InvalidCmdException;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import duke.exceptions.InvalidCmdException;
 
 public class ParserTest {
     @Test
@@ -18,7 +19,7 @@ public class ParserTest {
     }
 
     @Test
-    void parse_command_with_differentParameters() {
+    void parse_commandWithDifferentParameters() {
         try {
             Parser.parse("event project meeting /by Aug 6th /to Aug 7th");
             fail();

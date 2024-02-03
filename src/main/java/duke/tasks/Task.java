@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+ * Bare task that has a task name and a boolean condition on whether the task is done.
+ */
 public class Task {
     protected String taskName;
     protected boolean isDone;
