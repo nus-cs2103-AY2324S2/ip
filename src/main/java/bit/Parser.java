@@ -79,6 +79,10 @@ public class Parser {
         return "";
     }
 
+    /**
+     * Get string stored in this object. This is used with find command.
+     * @return string stored in object.
+     */
     public String getWord() {
         return word;
     }

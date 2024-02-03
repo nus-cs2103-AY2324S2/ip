@@ -37,7 +37,7 @@ public class Task {
         }
     }
     public boolean containsKeyword(String key) {
-        return description.contains(key);
+        return DESCRIPTION.contains(key);
     }
 
 }

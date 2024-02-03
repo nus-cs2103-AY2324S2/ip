@@ -108,6 +108,11 @@ public class Ui {
         System.out.println(e.getMessage());
     }
 
+    /**
+     * List all items in tasklist containing the keyword.
+     * @param key the keyword for the search.
+     * @param tasklist the tasklist being searched.
+     */
     public void listHits(String key, Tasklist tasklist) {
         System.out.println("Sure! Here are the matches:\n");
         int j = 1;
