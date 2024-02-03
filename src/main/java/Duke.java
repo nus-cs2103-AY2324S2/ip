@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,8 +76,9 @@ public class Duke {
                         task_name = String.join(" ", Arrays.copyOfRange(first_string.split(" "), 1, first_string.split(" ").length));
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
                         end = String.join(" ", Arrays.copyOfRange(second_string.split("by "), 1, second_string.split("by ").length));
-                        LocalDateTime end_time = LocalDateTime.parse(end, formatter);
+
                         try {
+                            LocalDateTime end_time = LocalDateTime.parse(end, formatter);
                             task = new DeadlineTask(task_name, end_time, input);
                             todo.add(task);
                             System.out.println("\tGot it. I've added this task:");
@@ -86,6 +88,9 @@ public class Duke {
                             break;
                         } catch (DukeException err) {
                             System.out.println(err.getMessage());
+                            break;
+                        } catch (DateTimeParseException err) {
+                            System.out.println("Please write your data in d/m/yyyy T format");
                             break;
                         }
                     case ("event"):
