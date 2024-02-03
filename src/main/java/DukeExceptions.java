@@ -7,7 +7,7 @@ public class DukeExceptions extends Exception {
 
     public static void checkListNotEmpty (ArrayList<Task> lst) throws DukeExceptions {
         if (lst.size() == 0) {
-            throw new DukeExceptions("OOPS!!! The list is empty. There is nothing to delete.");
+            throw new DukeExceptions("OOPS!!! The list is empty.");
         }
     }
 
