@@ -30,7 +30,7 @@ public class TaskList {
         }
         return null;
     }
-    public int length() {
+    public int getLength() {
         return length;
     }
 }

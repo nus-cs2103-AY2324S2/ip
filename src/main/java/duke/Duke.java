@@ -8,7 +8,8 @@ public class Duke {
     public void run() {
         parser.display("Hello! I'm Dukey.");
         parser.display("What can I do for you?");
-        while (!parser.isEnded()) {
+
+        while (!parser.getIsEnded()) {
             parser.interpret();
         }
     }
