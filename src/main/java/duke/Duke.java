@@ -5,11 +5,22 @@ import duke.command.Command;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * The Duke program implements an application that
+ * manages a list of tasks. It allows adding, deleting,
+ * and completing tasks, as well as listing all the current tasks.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a new Duke object.
+     * Initializes the user interface, storage, and task list.
+     *
+     * @param filePath The file path to load and save tasks.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         try {
@@ -22,8 +33,13 @@ public class Duke {
         }
     }
 
-
-    public void run() throws IOException{
+    /**
+     * Runs the main loop of the application.
+     * Reads user input and executes commands until the user exits.
+     *
+     * @throws IOException If an I/O error occurs.
+     */
+    public void run() throws IOException {
         ui.showWelcome();
         Scanner scanner = new Scanner(System.in);
         boolean isExit = false;
@@ -41,6 +57,12 @@ public class Duke {
         scanner.close();
     }
 
+    /**
+     * The entry point of the application.
+     *
+     * @param args The command-line arguments.
+     * @throws IOException If an I/O error occurs during the run.
+     */
     public static void main(String[] args) throws IOException {
         new Duke("data/Jamie.txt").run();
     }

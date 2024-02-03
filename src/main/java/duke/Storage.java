@@ -7,16 +7,34 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
 
+/**
+ * Handles the storage of task data to and from a file.
+ * This includes loading tasks from a file when the program starts
+ * and saving tasks to the file when they are added, deleted, or modified.
+ */
 public class Storage {
 
     private final String file;
     private static final String FILE_PATH = "./data/jamie.txt";
 
+    /**
+     * Constructs a new Storage object.
+     *
+     * @param file The path of the file where tasks are stored.
+     */
     public Storage(String file) {
         this.file = file;
     }
 
 
+    /**
+     * Loads tasks from the specified file into an ArrayList.
+     * If the file does not exist, an empty list is returned.
+     *
+     * @return An ArrayList containing the loaded Task objects.
+     * @throws FileNotFoundException If the specified file does not exist.
+     * @throws JamieException If an error occurs while parsing the file data.
+     */
     public ArrayList<Task> load() throws FileNotFoundException, JamieException {
         File file = new File(this.file);
         ArrayList<Task> loadedTasks = new ArrayList<>();
@@ -59,6 +77,13 @@ public class Storage {
         return loadedTasks;
     }
 
+    /**
+     * Saves the current list of tasks to the file.
+     * The tasks are converted into a specific string format before being written to the file.
+     *
+     * @param tasks The TaskList containing the tasks to be saved.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void save(TaskList tasks) throws IOException {
         FileWriter writer = new FileWriter(FILE_PATH);
         String textToAdd = convertToString((tasks.getTasks()));
@@ -66,6 +91,12 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Converts a list of tasks into a string format suitable for file storage.
+     *
+     * @param taskList The list of Task objects to be converted.
+     * @return A string representation of the task list for file storage.
+     */
     public String convertToString(ArrayList<Task> taskList) {
         StringBuilder textToAdd = new StringBuilder();
         for (Task curr : taskList) {
@@ -75,32 +106,4 @@ public class Storage {
         }
         return textToAdd.toString();
     }
-
-    public String caseTodo(ToDo todo) {
-        String toReturn = "";
-        toReturn += "T ";
-        toReturn += todo.getIsDone() ? "1 " : "0 ";
-        toReturn += todo.getDescription() + "\n";
-        return toReturn;
-    }
-
-    public String caseDeadline(Deadline deadline) {
-        String toReturn = "";
-        toReturn += "D ";
-        toReturn += deadline.getIsDone() ? "1 " : "0 ";
-        toReturn += deadline.getDescription() + "\n";
-        toReturn += deadline.getBy() + "\n";
-        return toReturn;
-    }
-
-    public String caseEvent(Event event) {
-        String toReturn = "";
-        toReturn += "E ";
-        toReturn += event.getIsDone() ? "1 " : "0 ";
-        toReturn += event.getIsDone() + "\n";
-        toReturn += event.getTo() + "\n";
-        toReturn += event.getFrom() + "\n";
-        return toReturn;
-    }
-
 }

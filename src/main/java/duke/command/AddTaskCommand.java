@@ -7,18 +7,34 @@ import duke.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to add a task to the task list.
+ */
 public class AddTaskCommand extends Command {
     private final Task taskToAdd;
 
+    /**
+     * Constructs an AddTaskCommand with the specified task to add.
+     *
+     * @param taskToAdd The task to add.
+     */
     public AddTaskCommand(Task taskToAdd) {
         this.taskToAdd = taskToAdd;
     }
 
+    /**
+     * Executes the command by adding the task to the task list, saving it to storage,
+     * and displaying a message to indicate the task has been added.
+     *
+     * @param tasks   The task list.
+     * @param ui      The user interface for displaying messages.
+     * @param storage The storage for saving the task list.
+     * @throws IOException If there is an error while saving the task list.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         tasks.addTask(taskToAdd);
         storage.save(tasks);
         ui.showAddTaskMessage(taskToAdd, tasks);
     }
-
 }
