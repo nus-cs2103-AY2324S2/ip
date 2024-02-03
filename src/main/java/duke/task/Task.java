@@ -2,6 +2,10 @@ package duke.task;
 
 import java.io.Serializable;
 
+/**
+ * Abstraction of Tasks.
+ * Inherits from Serializable to store tasks into binary files.
+ */
 public class Task implements Serializable {
     protected String description;
     protected boolean isDone;

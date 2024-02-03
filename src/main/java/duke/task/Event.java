@@ -2,6 +2,10 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Abstraction of Event Tasks.
+ * Child class of Task.
+ */
 public class Event extends Task {
 
     protected LocalDate from;

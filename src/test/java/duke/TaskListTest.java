@@ -10,6 +10,9 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test for Storage class used in Duke.
+ */
 public class TaskListTest {
 
     private final PrintStream standardOut = System.out;

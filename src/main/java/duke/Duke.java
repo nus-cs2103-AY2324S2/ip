@@ -7,6 +7,11 @@ import duke.exception.AllyException;
 import duke.task.Todo;
 import duke.task.Event;
 import duke.task.Deadline;
+
+/**
+ * Chatbot to help users manage their tasks.
+ * Supports Todos, Deadline and Event tasks.
+ */
 public class Duke {
 
     protected static TaskList lst = new TaskList();

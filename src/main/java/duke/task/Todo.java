@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * Abstraction of Todo Tasks.
+ * Child class of Task.
+ */
 public class Todo extends Task {
 
     public Todo(String description) {

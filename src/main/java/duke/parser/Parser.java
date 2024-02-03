@@ -1,5 +1,9 @@
 package duke.parser;
 
+/**
+ * Abstraction of String parsing.
+ * Receives String input from user, and parses to the accurate task.
+ */
 public class Parser {
 
     public enum Command {

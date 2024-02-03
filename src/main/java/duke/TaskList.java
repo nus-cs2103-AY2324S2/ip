@@ -3,6 +3,10 @@ package duke;
 import duke.task.Task;
 
 import java.util.ArrayList;
+/**
+ * Abstraction of tasks lists.
+ * Inherits from ArrayList<Tasks>.
+ */
 public class TaskList extends ArrayList<Task> {
     void addToList(String s) {
         this.add(new Task(s));

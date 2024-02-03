@@ -11,7 +11,9 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+/**
+ * Test for Storage class used in Duke.
+ */
 class StorageTest {
     @TempDir
     static Path tempDir;

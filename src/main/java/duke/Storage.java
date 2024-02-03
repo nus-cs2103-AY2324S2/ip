@@ -1,6 +1,11 @@
 package duke;
 
 import java.io.*;
+
+/**
+ * Abstraction of Task Storage by Duke.
+ * Stores Tasks into files
+ */
 public class Storage {
     protected static String dataPath = "./data/duke.txt";
     protected static TaskList loadTasks() {
