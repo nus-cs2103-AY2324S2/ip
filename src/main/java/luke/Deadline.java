@@ -20,4 +20,13 @@ public class Deadline extends Task {
         }
         return checkbox + name + " (by: " + by + ")";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Deadline deadline = (Deadline) obj;
+        if (deadline.name.equals(this.name) && deadline.by.equals(this.by) && (deadline.isDone == this.isDone)) {
+            return true;
+        }
+        return false;
+    }
 }
