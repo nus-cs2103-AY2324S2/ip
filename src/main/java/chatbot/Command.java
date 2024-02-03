@@ -17,8 +17,8 @@ public enum Command {
     EVENT("event");
 
     private final String rep;
-    private String args = "";
     private final boolean isBreaking;
+    private String args = "";
 
 
     Command(String cmd) {
@@ -41,19 +41,19 @@ public enum Command {
 
     public void execute(Ui view, TaskList tl) throws DukeException {
         switch (this) {
-            case LIST:
-                view.displayList(tl);
-                break;
-            case TODO:
-            case DEADLINE:
-            case EVENT:
-                executeFlagged(view, tl);
-                break;
-            case MARK:
-            case UNMARK:
-            case DELETE:
-                executeIndexing(view, tl);
-                break;
+        case LIST:
+            view.displayList(tl);
+            break;
+        case TODO:
+        case DEADLINE:
+        case EVENT:
+            executeFlagged(view, tl);
+            break;
+        case MARK:
+        case UNMARK:
+        case DELETE:
+            executeIndexing(view, tl);
+            break;
         }
     }
 
@@ -62,27 +62,27 @@ public enum Command {
         Pattern pattern;
         Matcher matcher;
         switch (this) {
-            case TODO:
-                t = new TodoTask(args.strip());
-                break;
-            case DEADLINE:
-                pattern = Pattern.compile("(.+?)\\s+/by\\s+(.+)");
-                matcher = pattern.matcher(args);
+        case TODO:
+            t = new TodoTask(args.strip());
+            break;
+        case DEADLINE:
+            pattern = Pattern.compile("(.+?)\\s+/by\\s+(.+)");
+            matcher = pattern.matcher(args);
 
-                if (!matcher.find()) {
-                    throw new InvalidArgumentException();
-                }
-                t = new DeadlineTask(matcher.group(1).strip(), matcher.group(2).strip());
-                break;
-            case EVENT:
-                pattern = Pattern.compile("(.+?)\\s+/from\\s+(.+?)\\s+/to\\s+(.+)");
-                matcher = pattern.matcher(args);
+            if (!matcher.find()) {
+                throw new InvalidArgumentException();
+            }
+            t = new DeadlineTask(matcher.group(1).strip(), matcher.group(2).strip());
+            break;
+        case EVENT:
+            pattern = Pattern.compile("(.+?)\\s+/from\\s+(.+?)\\s+/to\\s+(.+)");
+            matcher = pattern.matcher(args);
 
-                if (!matcher.find()) {
-                    throw new InvalidArgumentException();
-                }
-                t = new EventTask(matcher.group(1).strip(), matcher.group(2).strip(), matcher.group(3).strip());
-                break;
+            if (!matcher.find()) {
+                throw new InvalidArgumentException();
+            }
+            t = new EventTask(matcher.group(1).strip(), matcher.group(2).strip(), matcher.group(3).strip());
+            break;
         }
         tl.addTask(t);
         view.displayAdd(tl, t);
@@ -99,18 +99,18 @@ public enum Command {
         if (i < 1 || i > tl.getSize()) throw new InvalidArgumentException();
 
         switch (this) {
-            case MARK:
-                tl.markTask(i - 1);
-                view.displayMark(i);
-                break;
-            case UNMARK:
-                tl.unmarkTask(i - 1);
-                view.displayUnmark(i);
-                break;
-            case DELETE:
-                Task removed = tl.removeTask(i - 1);
-                view.displayDelete(tl, removed);
-                break;
+        case MARK:
+            tl.markTask(i - 1);
+            view.displayMark(i);
+            break;
+        case UNMARK:
+            tl.unmarkTask(i - 1);
+            view.displayUnmark(i);
+            break;
+        case DELETE:
+            Task removed = tl.removeTask(i - 1);
+            view.displayDelete(tl, removed);
+            break;
         }
     }
 }
