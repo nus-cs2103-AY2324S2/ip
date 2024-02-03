@@ -1,8 +1,13 @@
+package academicweapon.parser;
+
+import academicweapon.action.Action;
+import academicweapon.exceptions.DukeExceptions;
+
 import java.util.ArrayList;
 
 public class Parser {
 
-    public static ArrayList<String> parse(String fullCommand) throws DukeExceptions{
+    public static ArrayList<String> parse(String fullCommand) throws DukeExceptions {
         Action action;
         String parameters;
         String[] inputParts = fullCommand.split(" ", 2);
@@ -14,7 +19,7 @@ public class Parser {
             System.out.println(action);
             lst.add(str);
         } catch (IllegalArgumentException e) {
-            throw new DukeExceptions("Invalid Action. Please enter a valid command.");
+            throw new DukeExceptions("Invalid AcademicWeapon.Action. Please enter a valid command.");
         }
 
         if (inputParts.length == 2) {
@@ -63,7 +68,7 @@ public class Parser {
                 lst.add(index);
                 break;
             default:
-                throw new DukeExceptions("Invalid Action. Please enter a valid command.");
+                throw new DukeExceptions("Invalid AcademicWeapon.Action. Please enter a valid command.");
         }
 
         return lst;

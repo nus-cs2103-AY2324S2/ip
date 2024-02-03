@@ -1,3 +1,7 @@
+package academicweapon.exceptions;
+
+import academicweapon.task.Task;
+
 import java.util.ArrayList;
 
 public class DukeExceptions extends Exception {
