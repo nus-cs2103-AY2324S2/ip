@@ -2,9 +2,18 @@ package kitchensink.task;
 
 import java.time.LocalDateTime;
 
+/**
+ * A task that should be completed before its dueDate.
+ */
 public class Deadline extends Task {
     private LocalDateTime dueDate;
 
+    /**
+     * Constructor of Deadline.
+     * Uses the constructor of Task.
+     * @param description The description of the task.
+     * @param dueDate The date that the task should be completed before.
+     */
     public Deadline(String description, LocalDateTime dueDate) {
         super(description);
         this.dueDate = dueDate;

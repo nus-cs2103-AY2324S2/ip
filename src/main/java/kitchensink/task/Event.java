@@ -1,10 +1,20 @@
 package kitchensink.task;
 import java.time.LocalDateTime;
 
+/**
+ * A task that takes place over a time period, from startDate to endDate.
+ */
 public class Event extends Task {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
+    /**
+     * Constructor of Event.
+     * Uses the constructor of Task.
+     * @param description The description of the task.
+     * @param startDate The date that the task starts.
+     * @param endDate The date that the task ends.
+     */
     public Event(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description);
         this.startDate = startDate;

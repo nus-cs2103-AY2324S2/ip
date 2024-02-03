@@ -1,5 +1,8 @@
 package kitchensink.exception;
 
+/**
+ * Thrown when the date given by the user is not in "yyyy-MM-dd HH:mm" format.
+ */
 public class InvalidDateTimeException extends Throwable {
     @Override
     public String toString() {

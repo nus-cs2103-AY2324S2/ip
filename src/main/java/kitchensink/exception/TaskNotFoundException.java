@@ -2,6 +2,9 @@ package kitchensink.exception;
 
 import kitchensink.List;
 
+/**
+ * Thrown when the task specified cannot be found in the taskList.
+ */
 public class TaskNotFoundException extends Throwable {
     private List taskList;
 

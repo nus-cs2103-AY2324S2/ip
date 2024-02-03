@@ -1,3 +1,10 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import kitchensink.List;
 import kitchensink.Parser;
 import kitchensink.Storage;
@@ -5,14 +12,6 @@ import kitchensink.Ui;
 import kitchensink.task.Deadline;
 import kitchensink.task.Event;
 import kitchensink.task.ToDo;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ListTest {
     private Ui ui = new Ui();

@@ -1,9 +1,17 @@
 package kitchensink.exception;
 
+/**
+ * Thrown when the first word in the user input is valid, but the input is not in the correct format
+ * (based on the first word).
+ */
 public class InvalidSyntaxException extends Throwable {
     private String command;
     private String syntax;
 
+    /**
+     * Gives a certain syntax based on the command given.
+     * @param command The first word in the user input.
+     */
     public InvalidSyntaxException(String command) {
         this.command = command;
         switch (command) {
