@@ -19,14 +19,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The `Storage` class represents a tool to store tasks in file and read from file.
+ * It provides methods to store tasks in file and read from file.
+ */
 public class Storage {
 
     private final String filePath;
 
+    /**
+     * Constructor of a storage that stores items at a specified file path.
+     *
+     * @param filePath File path to store items.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads stored tasks from the specified file path.
+     *
+     * @return A list of tasks stored in the specified file path.
+     * @throws IllegalArgumentException If error in accessing file to retrieve tasks.
+     */
     public List<Task> load() throws DukeException {
         List<Task> items = new ArrayList<>();
         String home = System.getProperty("user.dir");
@@ -165,8 +180,12 @@ public class Storage {
         return items;
     }
 
-    // Return 0 for success
-    // Return 1 for error
+    /**
+     * Store tasks to the specified file path.
+     *
+     * @param tasks A list of existing tasks.
+     * @throws IllegalArgumentException If error in accessing file to store tasks.
+     */
     public void saveChanges(TaskList tasks) throws DukeException{
         String home = System.getProperty("user.dir");
         Path filePath = Paths.get(home, this.filePath);

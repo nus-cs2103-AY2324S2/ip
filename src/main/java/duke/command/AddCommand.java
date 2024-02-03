@@ -10,30 +10,45 @@ import duke.task.Todo;
 import duke.TaskList;
 import duke.Ui;
 
+import java.lang.annotation.Inherited;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The `AddCommand` class represents a command that adds task to the task list.
+ * It provides methods to adds task to the task list, and to decide whether the program should continue.
+ * It extends the `Command` class.
+ */
 public class AddCommand extends Command{
 
     private final Parser.TaskType type;
-
     private String task;
-
     private String[] splitedDateTime;
     private String deadline;
     private String content;
-
     private String[] splitedFromDateTime;
     private String[] splitedToDateTime;
     private String from;
     private String to;
 
+    /**
+     * Creates a command that creates `Todo` task when executed.
+     *
+     * @param task The full user input.
+     */
     public AddCommand(String task) {
         this.task = task;
         this.type = Parser.TaskType.TODO;
     }
 
+    /**
+     * Creates a command that creates `Deadline` task when executed.
+     *
+     * @param splitedDateTime The splited date (and time) of the deadline.
+     * @param deadline The full date (and time) of the deadline.
+     * @param content The description of task.
+     */
     public AddCommand(String[] splitedDateTime, String deadline, String content) {
         this.type = Parser.TaskType.DEADLINE;
         this.splitedDateTime = splitedDateTime;
@@ -41,6 +56,15 @@ public class AddCommand extends Command{
         this.content = content;
     }
 
+    /**
+     * Creates a command that creates `Event` task when executed.
+     *
+     * @param splitedFromDateTime The splited date (and time) of the start of event.
+     * @param splitedToDateTime The splited date (and time) of the end of event.
+     * @param from The full date (and time) of the start of event.
+     * @param to The full date (and time) of the end of event.
+     * @param content The description of task.
+     */
     public AddCommand(String[] splitedFromDateTime, String[] splitedToDateTime, String from, String to, String content) {
         this.type = Parser.TaskType.EVENT;
         this.splitedFromDateTime = splitedFromDateTime;
@@ -50,6 +74,14 @@ public class AddCommand extends Command{
         this.content = content;
     }
 
+    /**
+     * Executes the command.
+     *
+     * @param tasks Existing tasks.
+     * @param ui The Ui of the program.
+     * @param storage The storage of the program.
+     * @throws DukeException For any error.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         switch (type) {
@@ -128,6 +160,11 @@ public class AddCommand extends Command{
         storage.saveChanges(tasks);
     }
 
+    /**
+     * Returns False.
+
+     * @return False.
+     */
     @Override
     public boolean isExit() {
         return false;

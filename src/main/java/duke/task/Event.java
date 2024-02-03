@@ -3,6 +3,11 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * The `Event` class represents a task that have a start date time and an end date time.
+ * It provides methods to create strings related to task's details.
+ * It extends the `Task` class.
+ */
 public class Event extends Task {
 
     protected LocalDate fromDate;
@@ -11,6 +16,13 @@ public class Event extends Task {
     protected LocalDate toDate;
     protected LocalDateTime toDateTime;
 
+    /**
+     * Creates a `Event` task with description and due date.
+     *
+     * @param description The task's description.
+     * @param fromDate The task's start date.
+     * @param toDate The task's end date.
+     */
     public Event(String description, LocalDate fromDate, LocalDate toDate) {
         super(description);
         this.fromDate = fromDate;
@@ -19,6 +31,13 @@ public class Event extends Task {
         this.toDateTime = null;
     }
 
+    /**
+     * Creates a `Event` task with description and due date.
+     *
+     * @param description The task's description.
+     * @param fromDateTime The task's start date and time.
+     * @param toDate The task's end date.
+     */
     public Event(String description, LocalDateTime fromDateTime, LocalDate toDate) {
         super(description);
         this.fromDate = null;
@@ -27,6 +46,13 @@ public class Event extends Task {
         this.toDateTime = null;
     }
 
+    /**
+     * Creates a `Event` task with description and due date.
+     *
+     * @param description The task's description.
+     * @param fromDate The task's start date.
+     * @param toDateTime The task's end date and time.
+     */
     public Event(String description, LocalDate fromDate, LocalDateTime toDateTime) {
         super(description);
         this.fromDate = fromDate;
@@ -35,6 +61,13 @@ public class Event extends Task {
         this.toDateTime = toDateTime;
     }
 
+    /**
+     * Creates a `Event` task with description and due date.
+     *
+     * @param description The task's description.
+     * @param fromDateTime The task's start date and time.
+     * @param toDateTime The task's end date and time.
+     */
     public Event(String description, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
         super(description);
         this.fromDate = null;
@@ -43,6 +76,14 @@ public class Event extends Task {
         this.toDateTime = toDateTime;
     }
 
+    /**
+     * Creates a `Event` task with description and due date.
+     *
+     * @param description The task's description.
+     * @param isDone The task's done status.
+     * @param fromDate The task's start date.
+     * @param toDate The task's end date.
+     */
     public Event(String description, boolean isDone, LocalDate fromDate, LocalDate toDate) {
         super(description, isDone);
         this.fromDate = fromDate;
@@ -51,6 +92,14 @@ public class Event extends Task {
         this.toDateTime = null;
     }
 
+    /**
+     * Creates a `Event` task with description and due date.
+     *
+     * @param description The task's description.
+     * @param isDone The task's done status.
+     * @param fromDateTime The task's start date and time.
+     * @param toDate The task's end date.
+     */
     public Event(String description, boolean isDone, LocalDateTime fromDateTime, LocalDate toDate) {
         super(description, isDone);
         this.fromDate = null;
@@ -59,6 +108,14 @@ public class Event extends Task {
         this.toDateTime = null;
     }
 
+    /**
+     * Creates a `Event` task with description and due date.
+     *
+     * @param description The task's description.
+     * @param isDone The task's done status.
+     * @param fromDate The task's start date.
+     * @param toDateTime The task's end date and time.
+     */
     public Event(String description, boolean isDone, LocalDate fromDate, LocalDateTime toDateTime) {
         super(description, isDone);
         this.fromDate = fromDate;
@@ -67,6 +124,14 @@ public class Event extends Task {
         this.toDateTime = toDateTime;
     }
 
+    /**
+     * Creates a `Event` task with description and due date.
+     *
+     * @param description The task's description.
+     * @param isDone The task's done status.
+     * @param fromDateTime The task's start date and time.
+     * @param toDateTime The task's end date and time.
+     */
     public Event(String description, boolean isDone, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
         super(description, isDone);
         this.fromDate = null;
@@ -75,6 +140,12 @@ public class Event extends Task {
         this.toDateTime = toDateTime;
     }
 
+    /**
+     * Creates a string representing a number with at least two digits.
+     *
+     * @param s The input number
+     * @return String representing the input number with at least two digits.
+     */
     private String padZero(int s) {
         if (s < 10) {
             return "0" + s;
@@ -82,6 +153,11 @@ public class Event extends Task {
         return Integer.toString(s);
     }
 
+    /**
+     * Creates a formatted string to store the start date and time.
+     *
+     * @return The formatted string to store the start date and time.
+     */
     public String getEventFromForSave() {
         return this.fromDate == null
                 ? (this.fromDateTime.getYear() + "-" + padZero(this.fromDateTime.getMonthValue())
@@ -91,6 +167,11 @@ public class Event extends Task {
                 + "-" + padZero(this.fromDate.getDayOfMonth()));
     }
 
+    /**
+     * Creates a formatted string to store the end date and time.
+     *
+     * @return The formatted string to store the end date and time.
+     */
     public String getEventToForSave() {
         return this.toDate == null
                 ? (this.toDateTime.getYear() + "-" + padZero(this.toDateTime.getMonthValue())
@@ -100,6 +181,11 @@ public class Event extends Task {
                 + "-" + padZero(this.toDate.getDayOfMonth()));
     }
 
+    /**
+     * Creates a formatted string to display the start date and time.
+     *
+     * @return The formatted string to display the start date and time.
+     */
     public String getEventFromForDisplay() {
         return this.fromDate == null
                 ? (this.fromDateTime.getMonth() + " " + padZero(this.fromDateTime.getDayOfMonth())
@@ -110,6 +196,11 @@ public class Event extends Task {
                 + " " + this.fromDate.getYear());
     }
 
+    /**
+     * Creates a formatted string to display the end date and time.
+     *
+     * @return The formatted string to display the end date and time.
+     */
     public String getEventToForDisplay() {
         return this.toDate == null
                 ? (this.toDateTime.getMonth() + " " + padZero(this.toDateTime.getDayOfMonth())
@@ -120,12 +211,22 @@ public class Event extends Task {
                 + " " + this.toDate.getYear());
     }
 
+    /**
+     * Returns the formatted string containing done status and description of the task.
+     *
+     * @return The formatted string containing done status and description of the task.
+     */
     @Override
     public String getDescriptionStatus() {
         return "[E]" + (isDone ? "[X] " : "[ ] ") + this.description + " (from: " + this.getEventFromForDisplay()
                 + " to: " + this.getEventToForDisplay() + ")";
     }
 
+    /**
+     * Returns various fields of the task.
+     *
+     * @return A string array containing the description, done status, and formatted due date and time of a task.
+     */
     @Override
     public String[] getFields() {
         String[] result = new String[4];

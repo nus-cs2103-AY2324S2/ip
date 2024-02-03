@@ -7,11 +7,24 @@ import duke.command.EditCommand;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
 
+/**
+ * The `Parser` class represents a tool to make sense of user input.
+ * It provides methods to verify and understand user input, then create respective commands.
+ */
 public class Parser {
 
     public enum TaskType {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
     }
+
+    /**
+     * Returns a command after parsing user input.
+     * If the user input does not match any command, or any syntax error exists, throw exception.
+     *
+     * @param fullCommand User input.
+     * @return A command object to be executed.
+     * @throws IllegalArgumentException If the user input does not match any command, or any syntax error exists.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String[] splitedTask = fullCommand.split(" ");
         Parser.TaskType taskType = Parser.TaskType.UNKNOWN;
@@ -56,6 +69,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a `ExitCommand` after parsing user input.
+     * If any syntax error exists, throw exception.
+     *
+     * @param splitedTask Splited texts of the user input.
+     * @return A command object to be executed.
+     * @throws IllegalArgumentException If any syntax error exists.
+     */
     public static Command handleTaskBye(String[] splitedTask) throws DukeException {
         // Incorrect command syntax handler
         if (splitedTask.length > 1) {
@@ -64,6 +85,14 @@ public class Parser {
         return new ExitCommand();
     }
 
+    /**
+     * Returns a `ListCommand` after parsing user input.
+     * If any syntax error exists, throw exception.
+     *
+     * @param splitedTask Splited texts of the user input.
+     * @return A command object to be executed.
+     * @throws IllegalArgumentException If any syntax error exists.
+     */
     public static Command handleTaskList(String[] splitedTask) throws DukeException {
         // Incorrect command syntax handler
         if (splitedTask.length > 1) {
@@ -72,6 +101,14 @@ public class Parser {
         return new ListCommand();
     }
 
+    /**
+     * Returns a `EditCommand` about mark after parsing user input.
+     * If any syntax error exists, throw exception.
+     *
+     * @param splitedTask Splited texts of the user input.
+     * @return A command object to be executed.
+     * @throws IllegalArgumentException If any syntax error exists.
+     */
     public static Command handleTaskMark(String[] splitedTask) throws DukeException {
 
         // Incorrect command syntax handler
@@ -91,6 +128,14 @@ public class Parser {
         return new EditCommand(true, index);
     }
 
+    /**
+     * Returns a `EditCommand` about unmark after parsing user input.
+     * If any syntax error exists, throw exception.
+     *
+     * @param splitedTask Splited texts of the user input.
+     * @return A command object to be executed.
+     * @throws IllegalArgumentException If any syntax error exists.
+     */
     public static Command handleTaskUnmark(String[] splitedTask) throws DukeException {
 
         // Incorrect command syntax handler
@@ -109,6 +154,15 @@ public class Parser {
         return new EditCommand(false, index);
     }
 
+    /**
+     * Returns a `AddCommand` about `Todo` after parsing user input.
+     * If any syntax error exists, throw exception.
+     *
+     * @param task User input.
+     * @param splitedTask Splited texts of the user input.
+     * @return A command object to be executed.
+     * @throws IllegalArgumentException If any syntax error exists.
+     */
     public static Command handleTaskTodo(String task, String[] splitedTask) throws DukeException {
 
         // Incorrect command syntax handler
@@ -120,6 +174,15 @@ public class Parser {
         return new AddCommand(task);
     }
 
+    /**
+     * Returns a `AddCommand` about `Deadline` after parsing user input.
+     * If any syntax error exists, throw exception.
+     *
+     * @param task User input.
+     * @param splitedTask Splited texts of the user input.
+     * @return A command object to be executed.
+     * @throws IllegalArgumentException If any syntax error exists.
+     */
     public static Command handleTaskDeadline(String task, String[] splitedTask) throws DukeException {
 
         // Incorrect syntax: No content, no deadline
@@ -160,6 +223,15 @@ public class Parser {
         return new AddCommand(splitedDateTime, deadline, content);
     }
 
+    /**
+     * Returns a `AddCommand` about `Event` after parsing user input.
+     * If any syntax error exists, throw exception.
+     *
+     * @param task User input.
+     * @param splitedTask Splited texts of the user input.
+     * @return A command object to be executed.
+     * @throws IllegalArgumentException If any syntax error exists.
+     */
     public static Command handleTaskEvent(String task, String[] splitedTask) throws DukeException {
 
         // Incorrect syntax: No content, no from, no to
@@ -226,6 +298,14 @@ public class Parser {
         return new AddCommand(splitedFromDateTime, splitedToDateTime, from, to, content);
     }
 
+    /**
+     * Returns a `DeleteCommand` after parsing user input.
+     * If any syntax error exists, throw exception.
+     *
+     * @param splitedTask Splited texts of the user input.
+     * @return A command object to be executed.
+     * @throws IllegalArgumentException If any syntax error exists.
+     */
     public static Command handleTaskDelete(String[] splitedTask) throws DukeException {
 
         // Incorrect command syntax handler

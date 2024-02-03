@@ -2,12 +2,21 @@ package duke;
 
 import duke.command.Command;
 
+/**
+ * The `Duke` class is the entrance of the program.
+ * It provides methods to run the program as a chatbot.
+ */
 public class Duke {
 
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Initializes a Duke program.
+     *
+     * @param filePath A string representing the file path.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -19,6 +28,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs a Duke program.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -37,6 +49,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Entry function of the Duke program.
+     */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }
