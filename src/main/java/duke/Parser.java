@@ -6,11 +6,12 @@ import duke.command.DeleteCommand;
 import duke.command.EditCommand;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
+import duke.command.FindCommand;
 
 public class Parser {
 
     public enum TaskType {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, UNKNOWN
     }
     public static Command parse(String fullCommand) throws DukeException {
         String[] splitedTask = fullCommand.split(" ");
@@ -49,6 +50,9 @@ public class Parser {
             }
             case DELETE: {
                 return handleTaskDelete(splitedTask);
+            }
+            case FIND: {
+                return handleTaskFind(fullCommand, splitedTask);
             }
             default: {
                 throw new DukeException("Syntax error, unknown command.");
@@ -242,5 +246,15 @@ public class Parser {
         }
 
         return new DeleteCommand(index);
+    }
+
+    public static Command handleTaskFind(String task, String[] splitedTask) throws DukeException {
+        // Incorrect command syntax handler
+        if (splitedTask.length == 1) {
+            throw new DukeException("Syntax of find: find {keyword}\n"
+                    + "E.g. find book");
+        }
+
+        return new FindCommand(task);
     }
 }
