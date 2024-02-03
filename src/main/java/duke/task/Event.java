@@ -40,8 +40,8 @@ public class Event extends Task {
      */
     @Override
     public String getTaskInformation() {
-        return "[E]" + super.getTaskInformation() + " (from: " + this.from.format(Task.OUTPUT_DATETIME_FORMAT)
-                + " to: " + this.to.format(Task.OUTPUT_DATETIME_FORMAT) + ")";
+        return "[E]" + super.getTaskInformation() + "\n    (" + this.from.format(Task.OUTPUT_DATETIME_FORMAT)
+                + " to " + this.to.format(Task.OUTPUT_DATETIME_FORMAT) + ")";
     }
 
     /**
