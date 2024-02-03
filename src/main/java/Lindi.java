@@ -98,12 +98,14 @@ public class Lindi {
                     dataFile.createNewFile();
 
                     FileWriter fileWriter = new FileWriter(dataFile);
-                    fileWriter.write("Sample write");
+
+                    // Loops through taskList, writes them to the file with the specified format
+
+                    for (Task task: taskList) {
+                        String parsedTask = task.parsedFormatToSave();
+                        fileWriter.write(parsedTask + '\n');
+                    }
                     fileWriter.close();
-//                    System.out.println(dataFile.createNewFile());
-//                    System.out.println(dataFile);
-//                    System.out.println(dataFile.exists());
-//                    System.out.println(dataFile.isFile());
                 } catch (NullPointerException e) {
                     System.out.println(e);
                 } catch (IOException e) {
