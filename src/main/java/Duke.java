@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -46,8 +47,9 @@ public class Duke {
     public Duke() {
         this.scanner = new Scanner(System.in);
         this.tasks = new ArrayList<>();
-        this.counter = 0;
         loadSavedTasks();
+        checkReminder();
+        this.counter = tasks.size();
     }
 
     /**
@@ -99,14 +101,26 @@ public class Duke {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     Task task = Task.fromString(line);
-                    addTasks(task);
+                    tasks.add(task);
                 }
-                System.out.println("Tasks loaded successfully.");
             } catch (IOException e) {
                 System.out.println("Error loading tasks: " + e.getMessage());
             }
         }
     }
+
+    /**
+     * Reminder for task that is going to due soon.
+     */
+    public void checkReminder() {
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                System.out.println("Reminder: ");
+                ((Deadline) task).reminder();
+            }
+        }
+    }
+
 
     /**
      * Runs the program, processing user commands until the "bye" command is entered.
@@ -174,14 +188,18 @@ public class Duke {
      * Delete a task from the list.
      * @param input A string array containing the command and index number of a task.
      */
-    public void delete(String[] input) {
+    public void delete(String[] input) throws DukeException {
+        if (input.length == 1) {
+            throw new DukeException("Please indicate the index of task you want to delete.\n" +
+                    "Please enter 'help' command to find out more.");
+        }
         int index = Integer.parseInt(input[1]) - 1;
         Task deletedTask = tasks.remove(index);
         counter--;
         System.out.println("Noted. I've removed this task:\n" +
                 deletedTask);
         System.out.format("Now you have %d tasks in the list.\n", counter);
-
+        saveTasks();
     }
 
     /**
@@ -211,7 +229,7 @@ public class Duke {
             throw new DukeException("OOPS! The date/time for the deadline cannot be left blank.\n" +
                     "Please enter 'help' command to find out more.");
         }
-        String[] description = input[1].split("/by");
+        String[] description = input[1].split("/by ");
         Deadline dd = new Deadline(description[0], description[1]);
         addTasks(dd);
     }
@@ -244,6 +262,7 @@ public class Duke {
         tasks.get(index - 1).markAsDone();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(tasks.get(index - 1).toString());
+        saveTasks();
     }
 
     /**
@@ -256,6 +275,7 @@ public class Duke {
         tasks.get(index - 1).markAsUndone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(tasks.get(index - 1).toString());
+        saveTasks();
     }
 
     /**
@@ -268,6 +288,7 @@ public class Duke {
         counter++;
         System.out.println("Got it. I've added this task: \n" + task);
         System.out.format("Now you have %d tasks in the list.\n", counter);
+        saveTasks();
     }
 
     /**
@@ -275,7 +296,7 @@ public class Duke {
      */
     public void listTasks() {
         System.out.println("Here are the tasks in your list:");
-        for(int i = 0; i < counter; i++) {
+        for(int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i));
         }
     }
@@ -284,7 +305,6 @@ public class Duke {
      * Saves the changes and terminates the program.
      */
     public void exit() {
-        saveTasks();
         System.out.println("Goodbye. Have a great day ahead!");
         System.exit(0);
     }

@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -27,7 +30,7 @@ public class Task {
         String type = inputs[0];
         String status = inputs[1];
         String description = inputs[2];
-        String date = null;
+        String date = "";
         if (inputs.length > 3) {
             date = inputs[3];
         }
@@ -41,7 +44,11 @@ public class Task {
                 }
                 return todo;
             case "D":
-                Deadline dl = new Deadline(description, date);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy 'at' hh:mma");
+                LocalDateTime d = LocalDateTime.parse(date, formatter);
+                DateTimeFormatter customFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mma");
+                String formatted = customFormat.format(d);
+                Deadline dl = new Deadline(description, formatted);
                 if (status.equals("X")) {
                     dl.markAsDone();
                 }
