@@ -1,12 +1,15 @@
 package task;
 
+/**
+ * This class represents a task.
+ */
 public class Task {
-    protected String description; // task description
-    protected boolean completed; // true is task is completed
+    protected String description;
+    protected boolean isCompleted;
 
-    public Task(String description, boolean completed) {
+    public Task(String description, boolean isCompleted) {
         this.description = description;
-        this.completed = completed;
+        this.isCompleted = isCompleted;
     }
 
     public String getDescription() {
@@ -14,19 +17,30 @@ public class Task {
     }
 
     public boolean isCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
 
+    /**
+     * Marks the task as completed.
+     */
     public void markComplete() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
+    /**
+     * Marks the class as incompleted.
+     */
     public void markIncomplete() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
+    /**
+     * Returns the String format of how tasks are listed in the list of task.
+     *
+     * @return User-readable task in String format
+     */
     public String toString() {
-        if (this.completed) {
+        if (this.isCompleted) {
             return "[X] " + this.description;
         }
         return "[ ] " + this.description;

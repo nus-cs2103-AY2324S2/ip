@@ -8,7 +8,9 @@ import task.Todo;
 import tasklist.TaskList;
 import ui.Ui;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -65,6 +67,9 @@ public class Scribbles {
 
     }
 
+    /**
+     * Executes the chatbot Scribbles.
+     */
     public void run() {
         // load file for Scribbles
         loadFileScribbles();
@@ -91,6 +96,12 @@ public class Scribbles {
         ui.exit();
     }
 
+    /**
+     * Takes the input of user as command and executes the list of actions that should follow the given command.
+     *
+     * @param input The command input by user.
+     * @return false if command is "bye", true otherwise.
+     */
     public boolean parseInput(String input) {
         Parser parsedInput = new Parser(input);
         String command = parsedInput.getCommand();
