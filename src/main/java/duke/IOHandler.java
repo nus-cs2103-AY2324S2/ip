@@ -2,6 +2,7 @@ package duke;
 
 import duke.task.*;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * Responsible for handling Input Output tasks in the application.
@@ -15,6 +16,16 @@ public class IOHandler {
      */
     public IOHandler()  {
     }
+
+    public void displaySearchResults(ArrayList<Task> list) {
+        divider();
+        System.out.println("Here are the matching tasks in your list: ");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(i+1 + "." + list.get(i));
+        }
+        divider();
+    }
+
 
     /**
      * Displays welcome Message.

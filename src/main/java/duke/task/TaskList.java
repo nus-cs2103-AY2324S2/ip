@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 /**
  * Manages all the operations of tasks on the list.
@@ -138,6 +139,15 @@ public class TaskList {
         } else {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
+    }
+    public ArrayList<Task> find(String command) {
+        ArrayList<Task> searchedTasks = new ArrayList<>();
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            if (listOfTasks.get(i).getDescription().contains(command)) {
+                searchedTasks.add(listOfTasks.get(i));
+            }
+        }
+        return searchedTasks;
     }
 
 }

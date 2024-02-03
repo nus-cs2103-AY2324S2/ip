@@ -2,6 +2,7 @@ package duke;
 
 import duke.exceptions.*;
 import duke.task.*;
+import java.util.ArrayList;
 
 
 import java.time.LocalDateTime;
@@ -83,6 +84,10 @@ public class Parser {
                 case "bye":
                     io.exit();
                     return false;
+                case "find":
+                    ArrayList<Task> temp = taskList.find(str.substring(5));
+                    io.displaySearchResults(temp);
+                    return true;
                 default:
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
