@@ -10,6 +10,10 @@ import duke.action.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses user commands and performs corresponding actions in the Duke application.
+ */
+
 public class CommandParser {
     public static Action parseCommand(String command, TaskList taskList) throws
             EmptyDescriptionException, NoIndexException, UnknownCommandException,

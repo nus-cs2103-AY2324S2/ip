@@ -1,18 +1,32 @@
 package duke.action;
 
-import duke.action.Action;
-
 import duke.task.Task;
-
 import java.util.List;
 
+/**
+ * Represents an action to display the list of tasks.
+ */
 public class MyList implements Action {
+
+    /**
+     * The task list to be displayed.
+     */
     private final TaskList mylist;
 
+    /**
+     * Constructs a MyList action with the specified task list.
+     *
+     * @param mylist The task list to be displayed.
+     */
     public MyList(TaskList mylist) {
         this.mylist = mylist;
     }
 
+    /**
+     * Gets the response message containing the list of tasks.
+     *
+     * @return A string representing the response message.
+     */
     @Override
     public String response() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -25,6 +39,5 @@ public class MyList implements Action {
 
         return stringBuilder.toString();
     }
-
 }
 
