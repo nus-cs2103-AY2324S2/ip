@@ -40,10 +40,10 @@ public class FindAction extends Action {
         String pattern = findDefaultArgument().toString();
 
         // Perform behaviour
-        int[] matchingTasks = taskList.findMatchingTasks(pattern);
+        int[] matchingTaskIndices = taskList.findMatchingTasks(pattern);
         Printer.printMessages(
                 "Here are the matching tasks in your list: ",
-                taskList.toString(matchingTasks)
+                taskList.toString(matchingTaskIndices)
         );
     }
 
