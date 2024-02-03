@@ -1,11 +1,14 @@
 package tiny;
 
-import tiny.exceptions.TinyException;
-
 import java.io.IOException;
 
-public class Tiny {
+import tiny.exceptions.TinyException;
 
+/**
+ * Represents the class of our program.
+ */
+public class Tiny {
+    private static final String FILE_PATH = "../../../data/tasks.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -13,12 +16,10 @@ public class Tiny {
 
     /**
      * Initializes Tiny.
-     *
-     * @param filePath The file path to the file where the data is saved.
      */
-    public Tiny(String filePath) {
+    public Tiny() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load());
         } catch (TinyException e) {
@@ -29,7 +30,7 @@ public class Tiny {
 
     /**
      * Runs Tiny to receive user input and prints the appropriate output.
-     * 
+     *
      * @throws IOException If there are exception reading.
      */
     public void run() throws IOException {
@@ -53,19 +54,19 @@ public class Tiny {
      * @param args Arguments that the user pass in.
      */
     public static void main(String[] args) throws IOException {
-        new Tiny("../../../data/tasks.txt").run();
+        new Tiny().run();
     }
 
     // Printing Methods
-    public static void tabPrint(String input) {
+    private static void tabPrint(String input) {
         System.out.println("   " + input);
     }
 
-    public static void printLine() {
+    private static void printLine() {
         tabPrint("____________________________________________________________\n");
     }
 
-    public static void printContent(String input) {
+    private static void printContent(String input) {
         printLine();
         tabPrint(input);
         printLine();

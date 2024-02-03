@@ -1,5 +1,8 @@
 package tiny.exceptions;
 
+/**
+ * Represents the custom exception for this program.
+*/
 public class TinyException extends Exception {
 
     /**

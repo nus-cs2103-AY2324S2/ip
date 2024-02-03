@@ -1,5 +1,8 @@
 package tiny.tasks;
 
+/**
+ * Represents an general task class.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -51,7 +54,7 @@ public class Task {
      */
     public boolean descriptionSearch(String keyword) {
         return description.contains(keyword);
-    }        
+    }
 
     /**
      * Formats the task into the correct format to save.

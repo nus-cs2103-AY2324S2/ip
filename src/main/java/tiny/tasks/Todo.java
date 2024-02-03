@@ -1,5 +1,8 @@
 package tiny.tasks;
 
+/**
+ * Represents a todo class.
+*/
 public class Todo extends Task {
 
     /**

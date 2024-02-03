@@ -1,10 +1,13 @@
 package tiny.tasks;
 
-import tiny.exceptions.TinyException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import tiny.exceptions.TinyException;
+
+/**
+ * Represents a deadline task.
+*/
 public class Deadline extends Task {
     protected LocalDateTime endDatetime;
 

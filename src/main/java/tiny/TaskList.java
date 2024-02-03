@@ -1,13 +1,16 @@
 package tiny;
 
+import java.util.ArrayList;
+
 import tiny.exceptions.TinyException;
 import tiny.tasks.Deadline;
 import tiny.tasks.Event;
 import tiny.tasks.Task;
 import tiny.tasks.Todo;
 
-import java.util.ArrayList;
-
+/**
+ * Represents the tasklist to manage all the tasks.
+ */
 public class TaskList {
     protected ArrayList<Task> tasks = new ArrayList<>();
 
@@ -38,7 +41,7 @@ public class TaskList {
             }
         }
     }
-    
+
     public void add(Task task) {
         tasks.add(task);
     }
@@ -55,21 +58,20 @@ public class TaskList {
         return tasks.size();
     }
 
-
     /**
      * Finds all macthing tasks in the task list.
      *
-     * @param input Keyword to search for.
+     * @param keyword Keyword to search for.
      * @return String of all of the tasks.
-     */    
+     */
     public String find(String keyword) {
-        int index = 1;  
+        int index = 1;
         String output = "Here are the matching tasks in your list:";
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).descriptionSearch(keyword)) {
                 output += "\n     ";
                 output += index + ". " + tasks.get(i);
-                index++;                
+                index++;
             }
         }
 
@@ -78,7 +80,7 @@ public class TaskList {
         }
 
         return output;
-    }    
+    }
 
     /**
      * Lists out all the tasks in the task list.
