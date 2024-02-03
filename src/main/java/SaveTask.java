@@ -10,10 +10,10 @@ import java.util.List;
 
 public class SaveTask {
 
-    private static final String FILE_PATH = "src/main/java/duke.txt";
+    private static final String FILE_PATH = "./data/duke.txt";
 
     private static void ensureFolderAndFileExists() {
-        File folder = new File("src/main/java");
+        File folder = new File("./data");
         File file = new File(folder, "duke.txt");
 
         if(!folder.exists()) {
