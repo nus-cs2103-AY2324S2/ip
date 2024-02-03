@@ -1,10 +1,10 @@
-package task;
+package atsisbot.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents an event task.
+ * Represents an event atsisbot.task.
  * Inherits from the Task class.
  */
 public class Event extends Task {

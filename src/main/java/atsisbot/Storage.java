@@ -1,3 +1,5 @@
+package atsisbot;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -6,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import task.*;
+import atsisbot.task.*;
 
 public class Storage {
 
@@ -23,7 +25,7 @@ public class Storage {
             bw.write(list.getSavedList());
             bw.close();
         } catch (IOException e) {
-            System.out.println("Error saving the task list: " + e.getMessage());
+            System.out.println("Error saving the atsisbot.task list: " + e.getMessage());
         }
     }
 
@@ -38,7 +40,7 @@ public class Storage {
             }
             br.close();
         } catch (IOException e) {
-            System.out.println("Error loading the task list: " + e.getMessage());
+            System.out.println("Error loading the atsisbot.task list: " + e.getMessage());
         }
         return list;
     }
@@ -55,7 +57,7 @@ public class Storage {
                     LocalDateTime deadline = LocalDateTime.parse(taskInfo[3], Task.formatter);
                     task = new Deadline(taskInfo[2], deadline);
                 } catch (DateTimeParseException e) {
-                    System.out.println("Invalid deadline format in the task list: " + e.getMessage());
+                    System.out.println("Invalid deadline format in the atsisbot.task list: " + e.getMessage());
                 }
                 break;
             case "E":
@@ -64,7 +66,7 @@ public class Storage {
                     LocalDateTime endDateTime = LocalDateTime.parse(taskInfo[4], Task.formatter);
                     task = new Event(taskInfo[2], startDateTime, endDateTime);
                 } catch (DateTimeParseException e) {
-                    System.out.println("Invalid event format in the task list: " + e.getMessage());
+                    System.out.println("Invalid event format in the atsisbot.task list: " + e.getMessage());
                 }
                 break;
             default:
