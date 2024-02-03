@@ -55,13 +55,11 @@ public class Storage {
                     break;
                 }
                 case "E": {
-                    // Assuming splits[2] is the description, splits[3] is the fromDateTime, and splits[4] is the toDateTime
                     Task toAdd = new Event(splits[2], splits[3], splits[4], splits[1].equals("1"));
                     loadedTasks.add(toAdd);
                     break;
                 }
                 case "D": {
-                    // Assuming splits[2] is the description and splits[3] is the byDateTime
                     Task toAdd = new Deadline(splits[2], splits[3], splits[1].equals("1"));
                     loadedTasks.add(toAdd);
                     break;
