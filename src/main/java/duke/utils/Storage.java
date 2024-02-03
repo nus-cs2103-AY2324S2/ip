@@ -60,20 +60,17 @@ public class Storage {
      * @return TaskList read from save data.
      * @throws FileNotFoundException
      */
-    public TaskList readSaveData(Ui ui) throws FileNotFoundException {
+    public TaskList readSaveData() throws FileNotFoundException {
         TaskList taskList = new TaskList();
 
         Scanner s = new Scanner(f);
-        int count = 0;
         while (s.hasNext()) {
             try {
                 taskList.add(parseTaskFromSave(s.nextLine()));
-                count++;
             } catch (TaskCreationException e) {
                 System.out.println("Error in reading task: " + e.getMessage());
             }
         }
-        ui.botPrint(count + " tasks loaded from save");
         s.close();
 
         return taskList;
@@ -87,7 +84,7 @@ public class Storage {
      * @param ui Used for printing information.
      * @throws IOException
      */
-    public void saveTodoData(TaskList data, Ui ui) throws IOException {
+    public String saveTodoData(TaskList data) throws IOException {
         this.checkAndCreateFile();
 
         FileWriter fw = new FileWriter(f);
@@ -101,7 +98,7 @@ public class Storage {
         fw.write(dataString);
         fw.close();
 
-        ui.botPrint(data.size() + " tasks saved");
+        return data.size() + " tasks saved";
     }
 
     /**

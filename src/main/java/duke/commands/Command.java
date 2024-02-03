@@ -7,7 +7,7 @@ import duke.exceptions.TaskCreationException;
 import duke.exceptions.TaskModificationException;
 import duke.utils.Storage;
 import duke.utils.TaskList;
-import duke.utils.Ui;
+import duke.utils.Storage;
 
 /**
  * Abstact class that implements commands, used for the control flow of the bot.
@@ -20,6 +20,7 @@ public abstract class Command {
 
     /**
      * Creates a command object.
+     *
      *
      * @param isExit for determining if the command leads to an exit.
      */
@@ -39,8 +40,8 @@ public abstract class Command {
     /**
      * Executes command, left as abstract for inheriting classes to implement.
      *
-     * @param tasks the current list of tasks.
-     * @param ui Ui object used by bot for printing information.
+     * @param tasks the current list of tasks
+     * @param ui Ui object used by bot for printing information
      * @param storage Storage object with save file.
      * @throws TaskCreationException
      * @throws DateTimeParseException
@@ -49,8 +50,8 @@ public abstract class Command {
      * @throws NumberFormatException
      * @throws IOException
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage)
-            throws TaskCreationException, DateTimeParseException, IndexOutOfBoundsException,
-            TaskModificationException, NumberFormatException, IOException;
+    public abstract String execute(TaskList tasks, Storage storage)
+    throws TaskCreationException, DateTimeParseException, IndexOutOfBoundsException,
+    TaskModificationException, NumberFormatException, IOException;
 
 }

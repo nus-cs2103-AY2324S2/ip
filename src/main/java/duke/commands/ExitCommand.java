@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import duke.utils.Storage;
 import duke.utils.TaskList;
-import duke.utils.Ui;
 
 /**
  * This class implements the exit command that leads to the exit of the bot when executed.
@@ -21,6 +20,7 @@ public class ExitCommand extends Command {
     }
 
 
+
     /**
      * Executes exit command, saves data into save file using storage object.
      *
@@ -29,11 +29,14 @@ public class ExitCommand extends Command {
      * @param storage Storage object with save file.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         try {
-            storage.saveTodoData(tasks, ui);
+            if (storage == null) {
+                return "Data not saved: Storage initialisation not sucessful";
+            }
+            return storage.saveTodoData(tasks);
         } catch (IOException e) {
-            System.out.println("Data not saved: " + e.getMessage());
+            return "Data not saved: " + e.getMessage();
         }
     }
 }

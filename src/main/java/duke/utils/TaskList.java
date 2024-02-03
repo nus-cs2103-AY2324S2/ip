@@ -24,12 +24,14 @@ public class TaskList {
      *
      * @param ui Used for printing.
      */
-    public void printList(Ui ui) {
+
+    @Override
+    public String toString() {
         String tasklistString = "";
         for (int i = 1; i <= toDoList.size(); i++) {
             tasklistString += i + "." + toDoList.get(i - 1) + "\n";
         }
-        ui.botPrint(tasklistString);
+        return tasklistString;
     }
 
     /**

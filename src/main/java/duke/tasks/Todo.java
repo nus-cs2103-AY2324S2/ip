@@ -28,12 +28,12 @@ public class Todo extends Task {
      * @throws TaskCreationException
      */
     public static Todo todoParse(boolean isDone, String input) throws TaskCreationException {
-        String description = input.split(" ", 2)[1];
-        if (description.equals("")) {
-            throw new TaskCreationException("Missing Information: \"description\"");
+        String[] stringSplit = input.split(" ", 2);
+        if (stringSplit.length == 1 || stringSplit[1].equals("")) {
+            throw new TaskCreationException("Missing Information: \"description\"" );
         }
 
-        Todo t = new Todo(false, description);
+        Todo t = new Todo(false, stringSplit[1]);
         return t;
     }
 

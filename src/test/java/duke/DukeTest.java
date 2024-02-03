@@ -8,10 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class DukeTest {
     @Test
     public void FileGenerationTest() {
+        String filePath = "data/help.txt";
         File file = new File("data/help.txt");
         file.delete();
-        Duke duke = new Duke("data/help.txt");
-        assertTrue(file.exists()); 
+        Duke duke = new Duke();
+        duke.loadSave(filePath);
+        assertTrue(file.exists());
         file.delete();
     }
 }

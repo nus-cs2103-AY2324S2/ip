@@ -32,13 +32,11 @@ public class Parser {
      */
     public static Command parse(String input) throws NoSuchCommandException {
 
-        if (input.equals("bye")) {
-            return new ExitCommand();
-        }
-
         String action = input.split(" ")[0].toLowerCase();
 
         switch (action) {
+        case "bye":
+            return new ExitCommand();
         case "list":
             return new ListTaskCommand();
         case "find":
