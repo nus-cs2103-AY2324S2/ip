@@ -11,9 +11,9 @@ public class DateHandler {
 
     //Inspired from: https://www.baeldung.com/java-date-regular-expressions
     private static final Pattern PATTERN_DATE =
-            Pattern.compile("(.+)?\\s?(?<d>\\d{2})[-/](?<m>\\d{1,2})[-/](?<y>\\d{2,4})\\s?(.+)?");
+            Pattern.compile("([a-zA-Z]+)?\\s?(?<d>\\d{2})[-/](?<m>\\d{1,2})[-/](?<y>\\d{2,4})\\s?([a-zA-Z]+)?");
     private static final Pattern TIME_PATTERN =
-            Pattern.compile("(.+)?(?<time>(\\d{2}:?\\d{2}))(?<indicator>(?i)\\s?[ap]m)?(.+)?");
+            Pattern.compile("(.+)?\\s?(?<time>(\\d{2}:?\\d{2}))(?<indicator>(?i)\\s?[ap]m)?\\s?(.+)?");
 
     //For formatting of the date
     private static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");

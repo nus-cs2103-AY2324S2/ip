@@ -59,9 +59,9 @@ public class TaskManager {
                     throw new DukeException("by");
                 }
                 Optional<LocalDate> testDate = DateHandler.checkDate(by);
-                LocalTime testTime = DateHandler.checkTime(by).orElse(LocalTime.of(0, 0));
-                item = testDate.map(localDate -> new Deadline(description, LocalDateTime.of(localDate, testTime)))
-                        .orElseGet(() -> new Deadline(description, by));
+                item = testDate.map(localDate -> new Deadline(description, LocalDateTime.of(localDate,
+                                        DateHandler.checkTime(by).orElse(LocalTime.of(0, 0)))))
+                                            .orElseGet(() -> new Deadline(description, by));
                 break;
             case EVENT:
                 Matcher eventMatch = eventFormat.matcher(instruction);
@@ -81,10 +81,10 @@ public class TaskManager {
                 }
                 Optional<LocalDate> testByDate = DateHandler.checkDate(by);
                 Optional<LocalDate> testFromDate = DateHandler.checkDate(from);
-                LocalTime testByTime = DateHandler.checkTime(by).orElse(LocalTime.of(0, 0));
-                LocalTime testFromTime = DateHandler.checkTime(from).orElse(LocalTime.of(0, 0));
-
                 if (testByDate.isPresent() && testFromDate.isPresent()) {
+                    LocalTime testByTime = DateHandler.checkTime(by).orElse(LocalTime.of(0, 0));
+                    LocalTime testFromTime = DateHandler.checkTime(from).orElse(LocalTime.of(0, 0));
+
                     item = new Event(description, LocalDateTime.of(testFromDate.get(), testFromTime),
                             LocalDateTime.of(testByDate.get(), testByTime));
                 } else {
@@ -182,18 +182,32 @@ public class TaskManager {
         Task item;
         String name;
         String by;
+        LocalDateTime byDateTime;
+        LocalDateTime fromDateTime;
         String from;
         switch (type) {
             case "D":
                 name = data[2];
                 by = data[3];
-                item = new Deadline(name, by);
+                String temp = data[4];
+                if (!temp.equals("null")) {
+                    item = new Deadline(name, LocalDateTime.parse(temp.trim()));
+                } else {
+                    item = new Deadline(name, by);
+                }
                 break;
             case "E":
                 name = data[2];
                 by = data[3];
                 from = data[4];
-                item = new Event(name, by, from);
+                String tempBy = data[5];
+                String tempFrom = data[6];
+                if (!(tempBy.equals("null") || tempFrom.equals("null"))) {
+                    item = new Event(name, LocalDateTime.parse(tempFrom.trim()), LocalDateTime.parse(tempBy.trim()));
+                } else {
+                    item = new Event(name, by, from);
+                }
+
                 break;
             case "T":
                 name = data[2];
