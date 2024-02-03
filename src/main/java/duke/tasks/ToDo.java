@@ -1,4 +1,4 @@
-package tasks;
+package duke.tasks;
 import java.time.LocalDate;
 
 public class ToDo extends Task {

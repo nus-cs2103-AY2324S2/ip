@@ -1,7 +1,7 @@
-package actions;
+package duke.actions;
 
-import tasks.Task;
-import storage.Storage;
+import duke.tasks.Task;
+import duke.storage.Storage;
 
 public class AddTask {
     private Storage storage;

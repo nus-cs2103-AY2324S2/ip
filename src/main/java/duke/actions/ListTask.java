@@ -1,7 +1,7 @@
-package actions;
+package duke.actions;
 
-import storage.Storage;
-import tasks.Task;
+import duke.storage.Storage;
+import duke.tasks.Task;
 
 public class ListTask {
     private Storage storage;

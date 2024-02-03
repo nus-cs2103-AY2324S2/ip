@@ -1,10 +1,10 @@
-package storage;
+package duke.storage;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import tasks.Task;
+import duke.tasks.Task;
 
 
 

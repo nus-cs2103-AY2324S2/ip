@@ -1,7 +1,7 @@
-package ui;
+package duke.ui;
 import java.util.ArrayList;
-import parser.Parser;
-import storage.Storage;
+import duke.parser.Parser;
+import duke.storage.Storage;
 
 public class Output {
     private Parser parser;
