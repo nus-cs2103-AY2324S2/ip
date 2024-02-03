@@ -1,8 +1,11 @@
 package duke.action;
 
+<<<<<<< HEAD
 /**
  * Represents an action to bid farewell to the user.
  */
+=======
+>>>>>>> A-CodingStandard
 public class Farewell implements Action {
 
     /**

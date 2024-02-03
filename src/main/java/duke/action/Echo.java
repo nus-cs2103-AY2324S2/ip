@@ -1,8 +1,11 @@
 package duke.action;
 
+<<<<<<< HEAD
 /**
  * Represents an action to echo a response message.
  */
+=======
+>>>>>>> A-CodingStandard
 public class Echo implements Action {
 
     /**

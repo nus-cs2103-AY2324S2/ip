@@ -1,13 +1,17 @@
 package duke.action;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
+<<<<<<< HEAD
 /**
  * Represents a list of tasks in the Duke application.
  */
+=======
+import duke.task.Task;
+
+
+>>>>>>> A-CodingStandard
 public class TaskList implements Iterable<Task> {
 
     /**
@@ -52,8 +56,13 @@ public class TaskList implements Iterable<Task> {
      */
     public Task deleteTask(int index) {
         if (index >= 0 && index < mylist.size()) {
+<<<<<<< HEAD
             System.out.println("Noted. I've removed this task:\n" + mylist.get(index).toString() +
                     "\nNow you have " + (mylist.size() - 1) + " tasks in the list.");
+=======
+            System.out.println("Noted. I've removed this task:\n" + mylist.get(index).toString()
+                    + "\nNow you have " + (mylist.size() - 1) + " tasks in the list.");
+>>>>>>> A-CodingStandard
             return mylist.remove(index);
         } else {
             return null;

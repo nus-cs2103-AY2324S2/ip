@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.task.Task;
-
 import java.time.LocalDate;
 
 /**
@@ -67,7 +65,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from.getDayOfMonth()
-                + " " +  from.getMonth() + " " + from.getYear() + " to: " + to.getDayOfMonth()
-                + " " +  to.getMonth() + " " + to.getYear() + ")" ;
+                + " " + from.getMonth() + " " + from.getYear() + " to: " + to.getDayOfMonth()
+                + " " + to.getMonth() + " " + to.getYear() + ")";
     }
 }
