@@ -1,7 +1,7 @@
 package duke.dukeexception;
 
-public class DukeInvalidArgument extends DukeException{
-    String args;
+public class DukeInvalidArgument extends DukeException {
+    private String args;
     public DukeInvalidArgument(String args) {
         args = args;
     }

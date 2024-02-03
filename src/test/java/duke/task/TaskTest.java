@@ -1,12 +1,13 @@
 package duke.task;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Test;
+
 public class TaskTest {
-    Task testUnmarked = new Task("Test1", false);
-    Task testMarked = new Task("Test2", true);
+    private Task testUnmarked = new Task("Test1", false);
+    private Task testMarked = new Task("Test2", true);
     @Test
     public void testTaskInfo_unmarked() {
         assertEquals(testUnmarked.taskInfo(), "[ ] Test1");
@@ -35,7 +36,7 @@ public class TaskTest {
         }
     }
 
-        @Test
+    @Test
     public void mark_unmarked_success() {
         try {
             assertEquals(testUnmarked.mark(), "Nice! I've marked this task as done:" + testUnmarked.taskInfo());

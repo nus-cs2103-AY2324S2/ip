@@ -1,13 +1,5 @@
 package duke.storage;
 
-import duke.tasklist.TaskList;
-import duke.dukeexception.DukeNoSaveFile;
-import duke.dukeexception.DukeSaveError;
-import duke.task.Deadlines;
-import duke.task.Events;
-import duke.task.Task;
-import duke.task.ToDos;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,6 +7,14 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.dukeexception.DukeNoSaveFile;
+import duke.dukeexception.DukeSaveError;
+import duke.task.Deadlines;
+import duke.task.Events;
+import duke.task.Task;
+import duke.task.ToDos;
+import duke.tasklist.TaskList;
 
 public class Storage {
     private final File filePath;
@@ -42,9 +42,11 @@ public class Storage {
                     break;
                 case "E":
                     String[] time = inputs[3].split("/");
-                    task = new Events(inputs[2], LocalDateTime.parse(time[0])
-                            , LocalDateTime.parse(time[1]), isDone);
+                    task = new Events(inputs[2], LocalDateTime.parse(time[0]),
+                            LocalDateTime.parse(time[1]), isDone);
                     saveFile.add(task);
+                    break;
+                default:
                     break;
                 }
             }

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Events extends Task{
+public class Events extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
     public Events(String name, LocalDateTime from, LocalDateTime to, Boolean status) {

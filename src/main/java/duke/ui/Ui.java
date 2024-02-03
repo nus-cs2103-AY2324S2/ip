@@ -1,9 +1,9 @@
 package duke.ui;
 
-import duke.dukeexception.DukeException;
-
 import java.io.PrintStream;
 import java.util.Scanner;
+
+import duke.dukeexception.DukeException;
 
 public class Ui {
     private final Scanner in;

@@ -1,10 +1,11 @@
 package duke.task;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
 public class ToDosTest {
-    ToDos test = new ToDos("Test", false);
+    private ToDos test = new ToDos("Test", false);
 
     @Test
     public void testSaveOutput() {

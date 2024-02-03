@@ -1,15 +1,15 @@
 package duke.task;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class DeadlinesTest {
-    LocalDateTime by = LocalDateTime.of(2024,1,1,0,0);
-    Deadlines test = new Deadlines("Test", by, false);
+    private LocalDateTime by = LocalDateTime.of(2024, 1, 1, 0, 0);
+    private Deadlines test = new Deadlines("Test", by, false);
 
     @Test
     public void testSaveOutput() {
