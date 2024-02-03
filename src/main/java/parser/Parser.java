@@ -171,7 +171,7 @@ public class Parser {
      * @param input The user input containing the search query.
      * @return A {@code QueryCommand} object with the search query and type.
      * @throws InvalidCommandException If the input command is invalid.
-     * @throws LuluException           If there is an exception specific to the Lulu application.
+     * @throws LuluException           If there is an exception specific to the lulu.Lulu application.
      */
     public Command find(String input) throws LuluException {
         String[] words = input.split(" ");

@@ -19,7 +19,7 @@ public class UI {
     }
 
     /**
-     * Initiates the Lulu application.
+     * Initiates the lulu.Lulu application.
      * Prints a welcome message to the user.
      */
     public static void start() {
@@ -27,7 +27,7 @@ public class UI {
     }
 
     /**
-     * Exits the Lulu application.
+     * Exits the lulu.Lulu application.
      * Prints a goodbye message to the user.
      */
     public static void exit() {
