@@ -6,9 +6,11 @@
  */
 package task;
 
-public abstract class Task {
+import parser.ParseExecutionable;
+
+public abstract class Task implements ParseExecutionable{
     String command;
-    private boolean completed;
+    boolean completed;
     /**
      * Returns a string representation of this Task for storage in DataWriter.
      * This includes the formating required for the reader to split and read it.
@@ -46,6 +48,13 @@ public abstract class Task {
      */
     public void unmark() {
         this.completed = false;
+    }
+
+    public String getCompleted() {
+        if (this.completed) {
+            return "1";
+        }
+        return "0";
     }
 
     /**

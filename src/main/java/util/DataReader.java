@@ -8,24 +8,28 @@ package util;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import task.Deadlines;
+import task.Deadline;
 import task.Task;
 import task.TaskStorage;
-import task.Events;
+import task.Event;
 import task.ToDo;
 
 public class DataReader {
     private static final String SAVED_DATA_FILE = "data.txt";
     private static final String SAVED_DATA_DIRECTORY = "data";
+    final static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
     /**
      * Reads the file line-by-line to create an ArrayList of Task and TaskStorage object.
      * Uses the convertDataFile to help convert each String line to it's corresponding Task.
      *
      * @return A TaskStorage object with the saved tasks in it.
      */
-    public TaskStorage readDataFile() {
+    public TaskStorage readDataFile(TextUi textUi) {
         String currentDirectory = System.getProperty("user.dir");
         java.nio.file.Path path = java.nio.file.Paths.get(currentDirectory, SAVED_DATA_DIRECTORY, SAVED_DATA_FILE);
         
@@ -46,19 +50,17 @@ public class DataReader {
             try {
                 taskList = convertDataFile(fileLines);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Saved data corrupted, will begin anew");
-                System.out.println("______________________________________");
+                textUi.printMessage(Messages.MESSAGE_SAVE_CORRUPTED);
                 return new TaskStorage();
             }
             if (taskList == null) {
-                System.out.println("Saved data corrupted, will begin anew");
-                System.out.println("______________________________________");
+                textUi.printMessage(Messages.MESSAGE_SAVE_CORRUPTED);
                 return new TaskStorage();
             }
             TaskStorage taskStorage = new TaskStorage(taskList);
             if (taskStorage.size() != 0) {
-                System.out.println("Saved data found:");
-                System.out.println(taskStorage);
+                String message = Messages.MESSAGE_SAVE_FOUND + "\n";
+                textUi.printMessage(message + taskStorage);
             }
             return taskStorage;
         }
@@ -79,13 +81,13 @@ public class DataReader {
             Task task;
             String[] splitLines = line.split("\\|");
             if (splitLines[0].equals("ToDo")) {
-                task = new ToDo(splitLines[1]);
+                task = new ToDo(splitLines[2], splitLines[1]);
             }
             else if (splitLines[0].equals("Deadlines")) {
-                task = new Deadlines(splitLines[1], splitLines[2]);
+                task = new Deadline(splitLines[2], splitLines[3], splitLines[1]);
             }
             else if (splitLines[0].equals("Events")) {
-                task = new Events(splitLines[1], splitLines[2], splitLines[3]);
+                task = new Event(splitLines[2], splitLines[3], splitLines[4], splitLines[1]);
             }
             else {
                 return null;
@@ -94,4 +96,14 @@ public class DataReader {
         }
         return taskList;
     }
+
+    /**
+     * Parses a string into a LocalDateTime object.
+     * 
+     * @param the String to be converted.
+     * @return the corrsponding LocalDateTime object created.
+     */
+    public LocalDateTime parseDate(String dateString) {
+        return LocalDateTime.parse(dateString, DATE_FORMAT);
+    } 
 }
