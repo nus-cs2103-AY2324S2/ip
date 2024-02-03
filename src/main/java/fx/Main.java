@@ -10,12 +10,17 @@ import javafx.stage.Stage;
 import numerator.Numerator;
 
 /**
- * A GUI for Duke using FXML.
+ * Provides a GUI for Duke using FXML.
  */
 public class Main extends Application {
 
     private final Numerator numerator = new Numerator();
 
+    /**
+     * Runs the application
+     *
+     * @param stage the primary stage for this application
+     */
     @Override
     public void start(Stage stage) {
         try {

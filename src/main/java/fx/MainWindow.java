@@ -12,11 +12,13 @@ import javafx.scene.layout.VBox;
 import numerator.Numerator;
 
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Provides a controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
-    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
+    private final Image userImage = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/img1.jpg")));
+    private final Image dukeImage = new Image(
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/img2.jpg")));
     @FXML
     private ScrollPane scrollPane;
     @FXML
