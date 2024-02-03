@@ -1,9 +1,18 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import java.util.Locale;
+
 /**
  * Task class
  */
 public class Task {
     protected String task;
     protected boolean isDone;
+    protected DateTimeFormatter f1 = DateTimeFormatter.ofPattern("d/M/yyyy", Locale.ENGLISH);
+    protected DateTimeFormatter f2 = DateTimeFormatter.ofPattern("yyyy-M-d", Locale.ENGLISH);
+    protected DateTimeFormatter f3 = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH);
+    protected DateTimeFormatter f4 = DateTimeFormatter.ofPattern("d-M-yyyy", Locale.ENGLISH);
 
     /**
      * Constructor for Task
@@ -52,6 +61,27 @@ public class Task {
      */
     public String taskStatus() {
         return this.isDone ? "done" : "not done";
+    }
+
+    /** 
+     * Parse the date string and return a LocalDate object
+     * 
+     * @param by
+     * @param formatters
+     * @return LocalDate
+     * @throws IllegalArgumentException
+     * @throws Exception
+     */
+    protected static LocalDate parseDate(String by, DateTimeFormatter... formatters) {
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                return LocalDate.parse(by, formatter);
+            } catch (Exception e) {
+                // Try the next format
+            }
+        }
+        // If none of the formats match, you may want to handle this case
+        throw new IllegalArgumentException("Date could not be parsed with any of the provided formats");
     }
 
     /**

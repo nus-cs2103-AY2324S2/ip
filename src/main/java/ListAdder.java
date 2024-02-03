@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -427,12 +427,12 @@ class ListAdder {
 
         String[] instructions = {
             "DISPLAY LIST: list",
-            "ADD TODO: todo <task>",
-            "ADD DEADLINE: deadline <task> /by <deadline>",
-            "ADD EVENT: event <task> /from <start time> /to <end time>",
-            "MARK DONE: mark done <task index>",
-            "MARK UNDONE: mark undone <task index>",
-            "DELETE TASK: delete <task index>",
+            "ADD TODO: todo <TASK NAME>",
+            "ADD DEADLINE: deadline <TASK NAME> /by <DD/MM/YYYY>",
+            "ADD EVENT: event <TASK NAME> /from <DD/MM/YYYY> /to <DD/MM/YYYY>",
+            "MARK DONE: mark done <INDEX>",
+            "MARK UNDONE: mark undone <INDEX>",
+            "DELETE TASK: delete <INDEX>",
             "EXIT: bye"
         };
         for (int i = 0; i < instructions.length; i++) {
