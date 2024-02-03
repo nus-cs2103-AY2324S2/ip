@@ -1,8 +1,8 @@
 package duke;
 
-import duke.commands.Command;
-
 import java.util.Scanner;
+
+import duke.commands.Command;
 
 /**
  * Duke is a chatbot that helps you keep track of your tasks.
@@ -28,7 +28,10 @@ public class Duke {
             String input = scanner.nextLine();
             Command command = Parser.handleInput(input, ui, taskList);
             command.execute(taskList, ui);
-            if (command.isExit()) break;
+
+            if (command.isExit()) {
+                break;
+            }
         }
     }
 

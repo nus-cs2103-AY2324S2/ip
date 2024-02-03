@@ -1,8 +1,8 @@
 package duke.commands;
 
-import duke.tasks.Task;
 import duke.TaskList;
 import duke.Ui;
+import duke.tasks.Task;
 
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";

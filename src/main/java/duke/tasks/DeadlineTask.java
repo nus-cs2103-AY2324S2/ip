@@ -1,10 +1,10 @@
 package duke.tasks;
 
-import duke.exceptions.InvalidArgumentException;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import duke.exceptions.InvalidArgumentException;
 
 public class DeadlineTask extends Task {
     private static final String INVALID_DATE_FORMAT = "eh the date/time format is wrong la, must be yyyy-mm-dd";
@@ -15,13 +15,14 @@ public class DeadlineTask extends Task {
     /**
      * Constructs a deadline task with the given name, deadline, and done status.
      *
-     * @param name The name of the task.
+     * @param name     The name of the task.
      * @param deadline The deadline of the task.
-     * @param isDone The done status of the task.
-     * @throws DateTimeException If the date format is invalid.
+     * @param isDone   The done status of the task.
+     * @throws DateTimeException        If the date format is invalid.
      * @throws InvalidArgumentException If the name or deadline is empty.
      */
-    public DeadlineTask(String name, String deadline, boolean isDone) throws DateTimeException, InvalidArgumentException {
+    public DeadlineTask(String name, String deadline, boolean isDone)
+            throws DateTimeException, InvalidArgumentException {
         super(name, isDone);
         if (name.isEmpty()) {
             throw new InvalidArgumentException(INVALID_NAME);
@@ -41,9 +42,9 @@ public class DeadlineTask extends Task {
     /**
      * Constructs a deadline task with the given name and deadline.
      *
-     * @param name The name of the task.
+     * @param name     The name of the task.
      * @param deadline The deadline of the task.
-     * @throws DateTimeException If the date format is invalid.
+     * @throws DateTimeException        If the date format is invalid.
      * @throws InvalidArgumentException If the name or deadline is empty.
      */
     public DeadlineTask(String name, String deadline) throws DateTimeException, InvalidArgumentException {
