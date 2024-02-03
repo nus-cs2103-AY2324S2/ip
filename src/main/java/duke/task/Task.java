@@ -45,11 +45,8 @@ public abstract class Task {
         } else if (type.equals("event")) {
             return new Event(input);
         }
-
         return null;
     }
-
-
 
     public Task(TaskType type) {
         this.type = type;
