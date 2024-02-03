@@ -1,5 +1,16 @@
 # User Guide
 
+## Structure
+src
+
+└── main 
+└── java
+└── duke
+├── command
+├── exception
+├── task
+└── ui
+
 ## Features 
 
 ### Feature-ABC

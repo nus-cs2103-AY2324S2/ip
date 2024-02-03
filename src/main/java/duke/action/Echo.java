@@ -1,3 +1,6 @@
+package duke.action;
+
+import duke.action.Action;
 public class Echo implements Action {
     private final String stuff;
     public Echo(String stuff) {

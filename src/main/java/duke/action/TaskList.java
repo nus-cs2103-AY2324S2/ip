@@ -1,3 +1,9 @@
+package duke.action;
+
+import duke.action.Action;
+
+import duke.task.Task;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -52,7 +58,7 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
-    public void listTasks() {
+    public void displayTasks() {
         System.out.print("");
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < mylist.size(); i++) {

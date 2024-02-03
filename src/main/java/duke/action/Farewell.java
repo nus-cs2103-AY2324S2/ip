@@ -1,3 +1,6 @@
+package duke.action;
+
+import duke.action.Action;
 public class Farewell implements Action {
     @Override
     public String response() {
@@ -7,5 +10,4 @@ public class Farewell implements Action {
     public boolean isExit() {
         return true;
     }
-
 }

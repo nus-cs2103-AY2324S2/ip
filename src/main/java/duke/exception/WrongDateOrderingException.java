@@ -1,3 +1,6 @@
+package duke.exception;
+
+import duke.exception.DukeException;
 public class WrongDateOrderingException extends DukeException{
 
         public WrongDateOrderingException() {

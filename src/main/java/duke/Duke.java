@@ -1,3 +1,9 @@
+package duke;
+
+import duke.exception.DukeException;
+
+import duke.action.*;
+
 import java.io.IOException;
 
 public class Duke {

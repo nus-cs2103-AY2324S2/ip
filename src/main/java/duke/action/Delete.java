@@ -1,3 +1,10 @@
+package duke.action;
+
+import duke.action.Action;
+
+import duke.task.Task;
+
+
 public class Delete implements Action {
     public Task deletedTask;
 

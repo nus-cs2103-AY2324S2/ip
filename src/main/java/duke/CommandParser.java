@@ -1,10 +1,19 @@
+package duke;
+
+
+import duke.exception.*;
+
+import duke.task.*;
+
+import duke.action.*;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class CommandParser {
     public static Action parseCommand(String command, TaskList taskList) throws
             EmptyDescriptionException, NoIndexException, UnknownCommandException,
-            WrongDateFormatException, WrongDateOrderingException{
+            WrongDateFormatException, WrongDateOrderingException {
         try {
             String[] words = command.split(" ");
 
@@ -13,8 +22,9 @@ public class CommandParser {
                 taskList.goodBye();
                 return new Farewell();
             case "list":
-                taskList.listTasks();
-                return new MyList(taskList);
+                taskList.displayTasks();
+                MyList myList = new MyList(taskList);
+                return myList;
             case "mark":
                 if (words.length > 1) {
                     int index = Integer.parseInt(words[1]) - 1;

@@ -1,3 +1,5 @@
+package duke.action;
+
 public interface Action {
     public String response();
 
