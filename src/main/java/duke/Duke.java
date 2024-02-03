@@ -16,28 +16,23 @@ import java.io.FileNotFoundException;
 
 // name of the chat bot
 public class Duke {
+    private Ui ui = null;
+    private Parser parser = null;
+    private TaskList taskList = null;
+    private Storage storage = null;
+    private enum LivState {
+        ACTIVE,
+        INACTIVE
+    }
+    private static Duke instance = null;
+    private LivState currentState = null;
+
     private Duke() {
         // break the initialisation into the initialization function of different classes
         currentState = LivState.INACTIVE;
     }
 
-    public static Duke getInstance() {
-        if (instance == null) {
-            instance = new Duke();
-        }
-        return instance;
-    }
-    public static void main(String[] args) {
-        getInstance().Start();
-    }
-
-    private Ui ui = null;
-    private Parser parser = null;
-    private TaskList taskList = null;
-
-    private Storage storage = null;
     private void Start() {
-
         // initialize duke.ui.Ui
         ui = Ui.getInstance();
         ui.initUi();
@@ -73,16 +68,9 @@ public class Duke {
         }
     }
 
-    private boolean isActive() {
+    boolean isActive() {
         return currentState == LivState.ACTIVE;
     }
-
-    private enum LivState {
-        ACTIVE,
-        INACTIVE
-    }
-    private static Duke instance = null;
-    private LivState currentState = null;
 
     public void ToggleActiveState() {
         if (currentState != LivState.INACTIVE) {
@@ -94,5 +82,15 @@ public class Duke {
             currentState = LivState.ACTIVE;
             return;
         }
+    }
+
+    public static Duke getInstance() {
+        if (instance == null) {
+            instance = new Duke();
+        }
+        return instance;
+    }
+    public static void main(String[] args) {
+        getInstance().Start();
     }
 }
