@@ -82,4 +82,20 @@ public class Ui {
     public void printException(Exception e) {
         System.out.println(e.getMessage());
     }
+
+    public void listHits(String key, Tasklist tasklist) {
+        System.out.println("Sure! Here are the matches:\n");
+        int j = 1;
+        for (int i = 0; i < tasklist.getSize(); i++) {
+            if (tasklist.getTask(i) == null) {
+                break;
+            }
+            Task task = tasklist.getTask(i);
+            if (task.containsKeyword(key)) {
+                System.out.println((j) + "." + tasklist.getTask(i).toString());
+                j++;
+            }
+
+        }
+    }
 }

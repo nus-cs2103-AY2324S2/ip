@@ -23,4 +23,8 @@ public class Task {
             return "[ ] " + description;
         }
     }
+    public boolean containsKeyword(String key) {
+        return description.contains(key);
+    }
+
 }

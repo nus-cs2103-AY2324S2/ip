@@ -32,6 +32,8 @@ public class Bit {
                 tasklist.unmark(parser.getIndex());
             } else if (s.equals("delete")) {
                 tasklist.delete(parser.getIndex());
+            } else if (s.equals("find")) {
+                UI.listHits(parser.getWord(), tasklist);
             } else if (s.equals("add")){
                 try{
                     tasklist.addTo(input);

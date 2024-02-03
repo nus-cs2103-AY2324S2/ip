@@ -9,6 +9,7 @@ public class Parser {
 
     private int index = 0;
 
+    private String word = "";
     private Ui UI = new Ui();
 
     public Parser() {
@@ -53,11 +54,21 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 UI.handleErrorMessage("forget");
             }
+        } else if (input.startsWith("find ")) {
+            if (input.trim().equals("find")) {
+                UI.handleErrorMessage("forget");
+            } else {
+                String[] parts = input.split(" ", 2);
+                word = parts[1];
+                return "find";
+            }
         } else {
             return "add";
         }
         return "";
+    }
 
-
+    public String getWord() {
+        return word;
     }
 }
