@@ -1,15 +1,15 @@
-/**
- * The Deadline class represents a task with a specific deadline date and time.
- * It is a subclass of the Task class.
- */
 package duke.task;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Deadline class represents a task with a specific deadline date and time.
+ * It is a subclass of the Task class.
+ */
 public class Deadline extends Task {
-    protected LocalDateTime byDateTime;
+    private final LocalDateTime byDateTime; // Consider changing to private if no outside access is required
 
     /**
      * Constructs a Deadline object with a description and a specific deadline date and time.
@@ -40,8 +40,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        // Format: D | [Status] | [Description] | [Due Date]
-        return "D | " + getStatusNumber() + " | " + description + " | " + byDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "D | " + getStatusNumber() + " | " + description + " | "
+                + byDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
@@ -52,7 +52,8 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("[D]").append(super.toString()).append(" (by: ").append(byDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        builder.append("[D]").append(super.toString()).append(" (by: ")
+                .append(byDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
 
         if (byDateTime.toLocalTime().getHour() != 0 || byDateTime.toLocalTime().getMinute() != 0) {
             builder.append(" at ").append(byDateTime.format(DateTimeFormatter.ofPattern("hh:mm a")));
