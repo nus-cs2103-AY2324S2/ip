@@ -1,3 +1,5 @@
+package demon;
+
 import java.nio.file.NoSuchFileException;
 import java.util.Scanner;
 import java.io.IOException;
@@ -10,9 +12,9 @@ public class Demon {
 
     public Demon(String filePath) {
         ui = new Ui();
-        final Storage storage = new Storage(filePath);
+        final Storage STORAGE = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(STORAGE.load());
         } catch (NoSuchFileException e) {
             tasks = new TaskList();
             ui.showLoadingError();
