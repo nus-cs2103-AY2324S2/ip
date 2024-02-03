@@ -56,6 +56,7 @@ class ActivityList {
         }
     }
 
+
     public void addActivity(String type, String input) {
         Activity activity;
         if (type.equals("todo")) {
