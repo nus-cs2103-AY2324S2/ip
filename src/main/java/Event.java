@@ -14,8 +14,13 @@ public class Event extends Task{
 
     @Override
     public String print() {
-        String str = "[E]" + "[" + super.getStatusIcon() + "] " + super.description + "(" + "from: " +
+        String str = "[E]" + super.print() + "(from: " +
                 this.startTime + "to: " + this.endTime + ")";
+        return str;
+    }
+    @Override
+    public String getDescription() {
+        String str = "[E] " + super.getDescription() + " " + this.startTime + " " + this.endTime;
         return str;
     }
 }

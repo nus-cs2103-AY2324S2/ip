@@ -12,8 +12,13 @@ public class Deadline extends Task{
 
     @Override
     public String print() {
-        String str = "[D]" + "[" + super.getStatusIcon() + "] " + super.description + "(" + "by: " +
+        String str = "[D]" + super.print() + "(by: " +
                 this.dueDate + ")";
+        return str;
+    }
+    @Override
+    public String getDescription() {
+        String str = "[E] " + super.getDescription() + " " + this.dueDate;
         return str;
     }
 }

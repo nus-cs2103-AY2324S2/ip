@@ -24,7 +24,7 @@ public class Task {
     }
 
     public String print() {
-        String str = "";
+        String str = "[" + this.getStatusIcon() + "] " + this.description;
         return str;
     }
 }

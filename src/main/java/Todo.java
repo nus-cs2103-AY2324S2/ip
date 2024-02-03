@@ -6,7 +6,13 @@ public class Todo extends Task{
 
     @Override
     public String print() {
-        String str = "[T]" + "[" + super.getStatusIcon() + "] " + super.description;
+        String str = "[T]" + super.print();
+        return str;
+    }
+
+    @Override
+    public String getDescription() {
+        String str = "[T] " + super.getDescription();
         return str;
     }
 }
