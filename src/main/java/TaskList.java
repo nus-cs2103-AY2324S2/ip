@@ -1,25 +1,39 @@
 import java.util.ArrayList;
 
 public class TaskList {
-    private static ArrayList<String> taskList = new ArrayList<String>();
+    private static ArrayList<Task> taskList = new ArrayList<Task>();
     String indent = "    ";
 
-    public void addTask(String task) {
+    public void addTask(Task task) {
         taskList.add(task);
     }
 
     public String showNewest() {
         int length = taskList.size();
-        return taskList.get(length - 1);
+        Task task = taskList.get(length - 1);
+        return task.getName();
     }
 
     public String showList() {
-        String task;
+        Task task;
+        String status;
         String finalOutput = new String("");
         for (int i = 0; i < taskList.size(); i++) {
             task = taskList.get(i);
-            finalOutput = finalOutput + indent + Integer.toString(i + 1) + "." + task + "\n";
+            status = task.checkStatus();
+            finalOutput = finalOutput + indent + Integer.toString(i + 1) + "." + status + "\n";
         }
         return finalOutput;
     }
+
+    public void markTask(int idx) {
+        Task task = taskList.get(idx - 1);
+        task.completeTask();
+    }
+
+    public void unmarkTask(int idx) {
+        Task task = taskList.get(idx - 1);
+        task.revertStatus();
+    }
+
 }

@@ -14,8 +14,9 @@ public class Duke {
         System.out.println(newLine + greeting);
 
         Scanner reader = new Scanner(System.in);
-        String input = reader.next();
+        String input = reader.nextLine();
         TaskList taskList = new TaskList();
+        int idx;
 
         // if (input == "bye") {
         //     String goodbye = indent + "It has been a pleasure! I do hope to see you again!\n";
@@ -29,11 +30,21 @@ public class Duke {
         while (input.contains("bye") == false) {
             if (input.equals("list")) {
                 System.out.println(newLine + taskList.showList() + newLine);
+            } else if (input.contains("unmark")){
+                idx = Integer.valueOf(input.substring(7));
+                taskList.unmarkTask(idx);
+                System.out.println(newLine + "Don't fret sir! You'll get it soon. \n" + newLine);
+            } else if (input.contains("mark")) {
+                idx = Integer.valueOf(input.substring(5));
+                taskList.markTask(idx);
+                System.out.println(newLine + "A job well done sir! \n" + newLine);
+
             } else {
-                taskList.addTask(input);
+                Task task = new Task(input);
+                taskList.addTask(task);
                 System.out.println(newLine + indent + input + "\n" + newLine);
             }
-            input = reader.next();
+            input = reader.nextLine();
         }
         String goodbye = indent + "It has been a pleasure! I do hope to see you again!\n";
         System.out.println(newLine + goodbye + newLine);
