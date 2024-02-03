@@ -27,9 +27,31 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks that contain the given string.
+     *
+     * @param string The string to search for.
+     */
+    public void find(String string) {
+        List<Task> found = new ArrayList<>();
+        for (Task t : this.tasks) {
+            if (t.getDescription().contains(string)) {
+                found.add(t);
+            }
+        }
+        if (found.size() == 0) {
+            System.out.println("No tasks found with that description");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < found.size(); i++) {
+                System.out.println(i + 1 + "." + found.get(i));
+            }
+        }
+    }
+
+    /**
      * Adds task to list of tasks.
      *
-     * @param task Task to be added.
+     * @param task
      */
     public void addTask(Task task) {
         this.tasks.add(task);

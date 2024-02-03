@@ -58,6 +58,9 @@ public class Parser {
             } finally {
                 return true;
             }
+        } else if (text.startsWith("find")) {
+            taskList.find(text.substring(4).trim());
+            return true;
         }
 
         createNewTaskAttempt(text, taskList, storage);
