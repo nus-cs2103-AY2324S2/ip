@@ -9,13 +9,15 @@ import java.util.regex.Pattern;
 
 // deals with loading tasks from the file and saving tasks in the file
 public class Storage {
-    private final String filePath;
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    private final String FILE_PATH;
+    private final Ui ui;
+    public Storage(String FILE_PATH, Ui ui) {
+        this.FILE_PATH = FILE_PATH;
+        this.ui = ui;
     }
 
     public ArrayList<Task> loadDataFromFile() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
         String nextLine;
         ArrayList<Task> res = new ArrayList<>();
         try {
@@ -23,14 +25,16 @@ public class Storage {
                 String[] tokens = nextLine.split(Pattern.quote(" | "));
                 Task curr;
                 if (tokens[0].equals("T")) {
-                    curr = new TodoTask("T", tokens[2]);
+                    curr = new TodoTask(tokens[2]);
                 } else if (tokens[0].equals("D")) {
-                    curr = new DeadlineTask("D", tokens[2], ConvertStringToDateTime(tokens[3]));
+                    curr = new DeadlineTask(tokens[2], convertStringToDateTime(tokens[3]));
                 } else {
-                    curr = new EventTask("E", tokens[2], ConvertStringToDateTime(tokens[3]),
-                            ConvertStringToDateTime(tokens[4]));
+                    curr = new EventTask(tokens[2], convertStringToDateTime(tokens[3]),
+                            convertStringToDateTime(tokens[4]));
                 }
-                curr.completed = tokens[1].equals("true");
+                if (tokens[1].equals("true")) {
+                    curr.mark();
+                }
                 res.add(curr);
             }
         } catch (IOException e) {
@@ -41,17 +45,17 @@ public class Storage {
 
     public void saveDataToFile(TaskList tl) throws IOException {
         ArrayList<Task> tasks = tl.getTasks();
-        File newFile = new File(filePath);
+        File newFile = new File(FILE_PATH);
         newFile.getParentFile().mkdirs();
         newFile.createNewFile();
 
-        FileWriter writer = new FileWriter(filePath);
+        FileWriter writer = new FileWriter(FILE_PATH);
         for (Task t : tasks) {
             String data = "";
-            data += t.type + " | " + t.completed + " | " + t.desc;
-            if (t.type.equals("D")) {
+            data += t.getType() + " | " + t.isCompleted() + " | " + t.getDesc();
+            if (t.getType().equals("D")) {
                 data += " | " + ((DeadlineTask) t).deadline;
-            } else if (t.type.equals("E")) {
+            } else if (t.getType().equals("E")) {
                 data += " | " + ((EventTask) t).from + " | " + ((EventTask) t).to;
             }
             writer.write(data);
@@ -61,8 +65,8 @@ public class Storage {
     }
 
 
-    public static LocalDateTime ConvertStringToDateTime(String input) throws DateTimeParseException {
-        LocalDateTime deadline = null;
+    public static LocalDateTime convertStringToDateTime(String input) throws DateTimeParseException {
+        LocalDateTime deadline;
         if (input.length() < 11) {
             deadline = LocalDate.parse(input).atStartOfDay();
         } else {
