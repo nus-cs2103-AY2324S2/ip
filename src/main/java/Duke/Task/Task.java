@@ -1,4 +1,7 @@
-abstract public class Task {
+package Duke.Task;
+
+abstract public class
+Task {
     protected String description;
     protected boolean isDone;
 
@@ -17,7 +20,8 @@ abstract public class Task {
     public static Task parseFromFileString(String string) {
         String[] components = string.split("\\]");
         String type = components[0].substring(1);
-        boolean isDone = Boolean.parseBoolean(components[1]);
+        String statusIcon = components[1].substring(1);
+        boolean isDone = checkStatus(statusIcon);
         String description = components[2];
 
         switch (type) {
@@ -31,6 +35,17 @@ abstract public class Task {
                 return null;
 
         }
+    }
+    public static boolean checkStatus(String statusIcon) {
+        if (statusIcon.equals("X")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void setIsDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public abstract String toString();
