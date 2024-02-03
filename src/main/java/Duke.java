@@ -1,11 +1,13 @@
-import javax.swing.plaf.TableHeaderUI;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Duke {
     //Initialise variables for the programs
+    private static final String INDENT = "   ";
     private static final String bar = "____________________________________________________________";
     private static final String first = " Hello! I'm Pluiexo";
     private static final String second = " What can I do for you?";
@@ -13,14 +15,6 @@ public class Duke {
     private static final String[] greet = new String[]{bar, first, second, bar};
     private static final String[] bye = new String[]{bar, third, bar};
 
-
-    //Strings for marking and unmarking
-    private static final String markResponse = "Nice! I've marked this task as done:";
-    private static final String unmarkResponse = "OK, I've marked this task as not done yet:";
-
-    //String and variables for task
-    private static final String addTask = "Got it. I've added this task:";
-    private static final String removeTask = "Noted. I've removed this task";
 
     //Variables for file writing stuff
     private static final String FILE_PATH = "data/duke.txt";
@@ -34,9 +28,9 @@ public class Duke {
             case "from":
                 return " OOPS!!! the from date .";
             case "by":
-                return " OOPS!!! the end date cannot be empty.";
+                return " OOPS!!! the by date cannot be empty.";
             case "dateError":
-                return "OOPS!!! Missing or invalid format of the date command";
+                return "OOPS!!! Incorrect date format!!!";
             case "number":
                 return "OOPS!!! This is missing your index number";
             case "outOfRange":
@@ -44,7 +38,7 @@ public class Duke {
             case "empty":
                 return "Opps!!!!! Your list is empty!!!You can't do any of these actions yet!";
             case "invalid":
-                return "OOPS!!! I'm sorry, but I don't know what that means Maybe learn how to spell :(";
+                return "OOPS!!! I'm sorry, incorrect command or input";
             default:
                 return "invalid application commence self-destruct";
         }
@@ -54,9 +48,9 @@ public class Duke {
     public static void main(String[] args) throws Exception {
         TaskManager manager = new TaskManager();
         //Greet first
-        String indent = "   ";
+
         for (String l : greet) {
-            System.out.println(indent + l);
+            System.out.println(INDENT + l);
         }
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
@@ -109,7 +103,7 @@ public class Duke {
                 }
 
                 for (String l : bye) {
-                    System.out.println(indent + l);
+                    System.out.println(INDENT + l);
                 }
                 break;
             }
@@ -117,63 +111,32 @@ public class Duke {
             ArrayList<String> output = new ArrayList<>();
             output.add(bar);
             try {
-                if (next.equals("list")) {
+                //Change to support regex instead to make things neater
+                final Pattern PATTERN_MANAGE = Pattern.compile("((?i)unmark|mark|delete) (\\d+)");
+                final Pattern PATTERN_ACTIONS = Pattern.compile("((?i)todo|deadline|event) (.+)");
+                Matcher manageMatch = PATTERN_MANAGE.matcher(next);
+                Matcher actionMatch = PATTERN_ACTIONS.matcher(next);
+                if (next.matches("((?i)list)")) {
                     output.addAll(manager.ListItems());
                 } else {
-                    //Switch statements does not support contains methods :(
-                    //unmark has to come first because unmark contains mark
-                    //BufferedReader is supports reading line only unlike Scanner class
-                    Task item;
-                    if (next.contains("unmark")) {
-                        item = manager.mangeTask(Actions.UNMARK, next);
-                        output.add(unmarkResponse);
-                        output.add(indent + item);
-                    } else if (next.contains("mark")) {
-                        item = manager.mangeTask(Actions.MARK, next);
-                        output.add(markResponse);
-                        output.add(indent + item);
-
-                    } else if (next.contains("todo")) {
-                        item = manager.addTask(Tasks.TODO, next);
-                        output.add(addTask); // This is the first line
-                        output.add(indent + item);
-                        output.add(manager.numOfTask());
-
-                    } else if (next.contains("deadline")) {
-                        item = manager.addTask(Tasks.DEADLINE, next);
-                        output.add(addTask);
-                        output.add(indent + item);
-                        output.add(manager.numOfTask());
-
-                    } else if (next.contains("event")) {
-                        item = manager.addTask(Tasks.EVENT, next);
-                        output.add(addTask);
-                        output.add(indent + item);
-                        output.add(manager.numOfTask());
-
-                    } else if (next.contains("delete")) {
-                        item = manager.mangeTask(Actions.DELETE, next);
-                        output.add(removeTask);
-                        output.add(indent + item);
-                        output.add(manager.numOfTask());
-                    } else if (next.contains("update")) {
-                        System.out.println(manager.getUpdate());
-                    } else if (next.contains("date")) {
-                        manager.testDate("12/04/2022");
-                    } else if (next.contains("time")) {
-                        manager.testTime("13 00");
+                    if (manageMatch.matches()) {
+                        Manage act = Manage.valueOf(manageMatch.group(1).toUpperCase());
+                        output.add(manager.manageTask(act, manageMatch.group(2)));
+                    } else if (actionMatch.matches()) {
+                        Actions act = Actions.valueOf(actionMatch.group(1).toUpperCase());
+                        output.add(manager.addTask(act, actionMatch.group(2)));
                     } else {
                         throw new DukeException("invalid");
                     }
                 }
             } catch (DukeException e) {
-                output.add(indent + handleException(e.getMessage()));
+                output.add(INDENT + handleException(e.getMessage()));
             } catch (NumberFormatException e) {
-                output.add(indent + " OPPPS!!!!That is not a number!!!!!!!!!!");
+                output.add(INDENT + " OPPPS!!!!That is not a number!!!!!!!!!!");
             }
             output.add(bar);
             for (String l : output) {
-                System.out.println(indent + l);
+                System.out.println(INDENT + l);
             }
             System.out.println();
         }

@@ -1,28 +1,35 @@
-import javax.swing.text.html.Option;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/*
-   Singleton class to handle the format of date and time
- */
+
 public class DateHandler {
 
     //Inspired from: https://www.baeldung.com/java-date-regular-expressions
-    private static final Pattern DATE_PATTERN = Pattern.compile("(\\d{1,2}[-/]\\d{1,2}[-/]\\d{2,4})");
-    private static final Pattern TIME_PATTERN = Pattern.compile("(\\d{2}[ :]?\\d{2}?)((?i)\\s?[ap]m)?");
+    private static final Pattern PATTERN_DATE =
+            Pattern.compile("(.+)?\\s?(?<d>\\d{2})[-/](?<m>\\d{1,2})[-/](?<y>\\d{2,4})\\s?(.+)?");
+    private static final Pattern TIME_PATTERN =
+            Pattern.compile("(.+)?(?<time>(\\d{2}:?\\d{2}))(?<indicator>(?i)\\s?[ap]m)?(.+)?");
 
-    public static Optional<LocalDate> checkDate(String testDate, int count) throws DukeException {
+    //For formatting of the date
+    private static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
-        Matcher match = DATE_PATTERN.matcher(testDate);
-        if (match.groupCount() > count) {
-            throw new DukeException("TooManyDates");
-        }
+    public static Optional<LocalDate> checkDate(String testDate) throws DukeException {
+        Matcher match = PATTERN_DATE.matcher(testDate);
         if (match.find()) {
-            String[] data = match.group().split("[-/]");
-            LocalDate convert = LocalDate.parse(data[2] + "-" + data[1] + "-" + data[0]);
+            String d = match.group("d");
+            String m = match.group("m");
+            String y = match.group("y");
+            if (y.length() == 3) {
+                throw new DukeException("dateError");
+            } else if (y.length() == 2) {
+                y = "20" + y; //assume it is in the 2000
+            }
+            LocalDate convert = LocalDate.parse(y + "-" + m + "-" + d);
             return Optional.of(convert);
 
         } else {
@@ -33,37 +40,30 @@ public class DateHandler {
     public static Optional<LocalTime> checkTime(String testTime) {
 
         Matcher match = TIME_PATTERN.matcher(testTime);
-        if (match.find()) {
-            String capture = match.group();
-            Matcher meridiemMatch = Pattern.compile("[ap]m").matcher(capture);
-            if (meridiemMatch.find()) {
+        Matcher am = Pattern.compile("(?i)[ap]m").matcher(testTime);
+        if (match.matches()) {
+            String time = match.group("time");
+            String[] data = time.replaceAll("[ :]", "").split("(?<=\\G\\d{2})");
+            int hour = Integer.parseInt(data[0]);
+            int minutes = Integer.parseInt(data[1]);
+            if (am.find()) {
                 //12 hour time format
-                String meridiem = meridiemMatch.group().toLowerCase();
-                System.out.println("Using 12 hour time format ");
-                capture = capture.replaceAll("[ap]m", "");
-                capture = capture.replaceAll("[ :]", "");//remove the blank spaces
-                //Split it into groups of two digits
-                String[] data = capture.split("(?<=\\G\\d{2})");
-                int hour = Integer.parseInt(data[0]);
-                int minutes = Integer.parseInt(data[1]);
-                if (meridiem.equals("pm")) {
-
+                String indicator = match.group("indicator").toLowerCase();
+                if (indicator.equals("pm")) {
                     hour += 12;
                 }
                 return Optional.of(LocalTime.of(hour, minutes));
-
             } else {
                 //treat it as a 24 hour time format
-                capture = capture.replaceAll("[ :]", "");//remove the blank spaces
-                System.out.println("Printing array");
-                String[] data = capture.split("(?<=\\G\\d{2})");
-                int hour = Integer.parseInt(data[0]);
-                int minutes = Integer.parseInt(data[1]);
                 return Optional.of(LocalTime.of(hour, minutes));
             }
 
         }
         return Optional.empty();
+    }
+
+    public static String formatDate(LocalDateTime date) {
+        return date.format(FORMAT_DATE);
     }
 
 
