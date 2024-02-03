@@ -1,3 +1,5 @@
+package task;
+
 /**
  * Represents the status of a task.
  */
@@ -9,6 +11,7 @@ enum TaskStatus {
 
   /**
    * Constructs a TaskStatus with the specified status icon.
+   * 
    * @param statusIcon the status icon associated with the task status
    */
   TaskStatus(String statusIcon) {
@@ -17,6 +20,7 @@ enum TaskStatus {
 
   /**
    * Gets the status icon associated with the task status.
+   * 
    * @return the status icon
    */
   public String getStatusIcon() {
