@@ -62,17 +62,16 @@ public class Luke {
 
         Parser parser = new Parser(storage, historyFile);
         Scanner sc = new Scanner(System.in);
-
         boolean isFinished = false;
+
+        //main loop
         while (!isFinished) {
-            //task mode
-            //first, determine the type of input.
             String input = sc.nextLine().trim(); //trim removes preceding and trailing whitespace.
             isFinished = parser.parseCommand(input);
         }
 
+        //goodbye message
         ui.bye();
-
     }
 }
 

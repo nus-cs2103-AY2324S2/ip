@@ -1,7 +1,11 @@
 package luke;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.io.IOException;
 
 public class Storage implements Serializable {
 
@@ -32,6 +36,4 @@ public class Storage implements Serializable {
     public ArrayList<Task> getHistory() {
         return history;
     }
-
-    //TODO: is loading history done by history class itself?
 }
