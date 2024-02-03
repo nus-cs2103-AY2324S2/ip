@@ -86,6 +86,20 @@ public class Parser {
         }
     }
 
+        public String parseFind(String order) throws DukeException {
+            try { 
+                String[] actions = order.split(" "); 
+                String word = actions[1];
+                if (actions[1].isEmpty()) {
+                    throw new IndexOutOfBoundsException();
+                } else {
+                    return word;
+                }
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("write in valid/correct format: find + [keyword]");
+            }
+        }
+
     /**
      * Parses the todo command from the user.
      *

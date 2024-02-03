@@ -93,4 +93,16 @@ public class TaskList {
         t.markAsDone();
     } 
 
+    public List<Task> findTasks(String word) {
+        List<Task> foundTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.toString().contains(word)) {
+                foundTasks.add(task);
+            }
+        }
+    
+        return foundTasks;
+    }
+
 }
