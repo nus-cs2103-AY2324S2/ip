@@ -12,7 +12,7 @@ public class MessagePrinter {
     /**
      * The message to be printed or stored.
      */
-    public String message;
+    private String message;
 
     /**
      * Constructs a MessagePrinter with the given message.
@@ -165,7 +165,7 @@ public class MessagePrinter {
         } else {
             System.out.println("Found! Here they are!");
             for (int i = 0; i < listOfFoundTasks.size(); i += 1) {
-                System.out.println(i+1 + "." + listOfFoundTasks.get(i));
+                System.out.println(i + 1 + "." + listOfFoundTasks.get(i));
             }
         }
         MessagePrinter.printLine();

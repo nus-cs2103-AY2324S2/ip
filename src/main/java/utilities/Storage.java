@@ -51,7 +51,8 @@ public class Storage {
 
 
         Scanner s = new Scanner(file);
-        String patternString = "^\\s*(\\w+)\\s*\\|\\s*(\\d+)\\s*\\|\\s*(\\S+)\\s*\\|\\s*(\\S+)\\s*\\|\\s*(\\S+)\\s*\\|\\"
+        String patternString = "^\\s*(\\w+)\\s*\\|\\s*(\\d+)\\s*\\|\\s*(\\S+)\\s*\\|\\s*(\\S+)\\s*"
+                + "\\|\\s*(\\S+)\\s*\\|\\"
                 + "s*(\\S+)\\s*\\|\\s*(\\S+)\\s*$";
         //Format is "T | 0 | lol | dateFrom | timeFrom | dateTo | timeTo";
         ArrayList<Task> listOfTasks = new ArrayList<>();
@@ -82,6 +83,8 @@ public class Storage {
                 case "E":
                     listOfTasks.add(new Events(taskDescription, dateFrom, timeFrom, dateTo, timeTo, isTaskDone));
                     break;
+                default:
+
                 }
             }
         }

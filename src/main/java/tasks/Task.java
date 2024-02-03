@@ -33,7 +33,9 @@ public class Task {
      *
      * @return The type of the task.
      */
-    public String getTaskType() { return this.typeOfTask; }
+    public String getTaskType() {
+        return this.typeOfTask;
+    }
 
     /**
      * Checks if the task is marked as done.

@@ -34,7 +34,8 @@ public class Events extends Task {
     }
 
     /**
-     * Constructs an Events task with the specified task name, start date, start time, end date, end time, and task status.
+     * Constructs an Events task with the specified task name, start date, start time,
+     * end date, end time, and task status.
      *
      * @param taskName   The name of the task.
      * @param dateFrom   The start date of the event in the "yyyy-MM-dd" format.

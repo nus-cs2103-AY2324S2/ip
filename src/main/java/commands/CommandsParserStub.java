@@ -59,8 +59,7 @@ public class CommandsParserStub {
         } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.delete))) {
             //taskList.removeIndex(Integer.parseInt(taskSplit[1])-1);
             //taskList.writeToFile(taskLoader);
-        }
-        else {
+        } else {
             throw new RyanGoslingException("I was created in a few hours so "
                     + "I don't know what that means :(");
         }
@@ -86,7 +85,7 @@ public class CommandsParserStub {
             if (matcher.matches()) {
                 //taskList.add(new Todo(matcher.group(1)));
                 //taskList.writeToFile(taskLoader);
-                return(task);
+                return task;
             } else {
                 throw new RyanGoslingException("Incomplete todo command, todo <event>");
             }
@@ -97,7 +96,7 @@ public class CommandsParserStub {
             if (matcher.matches()) {
                 //taskList.add(new Deadline(matcher.group(1), matcher.group(2)));
                 //taskList.writeToFile(taskLoader);
-                return(task);
+                return task;
             } else {
                 throw new RyanGoslingException("Incomplete deadline command, "
                         + "deadline <event> /by <time>");
@@ -111,7 +110,7 @@ public class CommandsParserStub {
                 //System.out.println(matcher.group(3));
                 //taskList.add(new Events(matcher.group(1), matcher.group(2), matcher.group(3)));
                 //taskList.writeToFile(taskLoader);
-                return(task);
+                return task;
             } else {
                 throw new RyanGoslingException("Incomplete event command, "
                         + "event <event> /from <time> /to <time>");
@@ -119,8 +118,7 @@ public class CommandsParserStub {
         } else if (taskSplit[0].equals(String.valueOf(CommandsEnum.delete))) {
             //taskList.removeIndex(Integer.parseInt(taskSplit[1])-1);
             //taskList.writeToFile(taskLoader);
-        }
-        else {
+        } else {
             throw new RyanGoslingException("I was created in a few hours so "
                     + "I don't know what that means :(");
         }
