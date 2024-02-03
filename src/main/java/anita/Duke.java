@@ -1,6 +1,8 @@
-import javax.swing.*;
-import javax.swing.plaf.synth.SynthSpinnerUI;
-import java.io.*;
+package anita;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
 
 public class Duke {
     protected static boolean initialize = true;
