@@ -4,7 +4,7 @@ import duke.command.Command;
 import duke.exception.DukeException;
 
 /**
- * Represents the Duke Chatbot object.
+ * Represents the Chatbot object.
  */
 
 public class Duke {
@@ -12,7 +12,6 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
 
     /**
      * Constructor for Duke.
@@ -31,7 +30,6 @@ public class Duke {
         }
     }
 
-
     private void run() {
         this.ui.greet();
         boolean isExit = false;
@@ -48,7 +46,6 @@ public class Duke {
             }
         }
     }
-
 
     public static void main(String[] args) {
         new Duke("./data/duke.txt").run();
