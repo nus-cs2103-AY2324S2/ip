@@ -1,6 +1,10 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Collections.*;
+
+import java.io.File;
+import java.io.FileWriter;
+
 public class Lindi {
     private final static ArrayList<Task> taskList = new ArrayList<>(10);
 //    private final static Task[] taskList = new Task[100];
@@ -77,6 +81,35 @@ public class Lindi {
                             "there shouldn't be any characters!! :(");
                 }
             }
+
+            /**
+             * Saves the current task list to the designated text file for storing data for the program.
+             * Creates one if it does not exist yet.
+             */
+            void saveToFile() {
+                try {
+                    // Creates the directory if it does not exist yet. No effect if it exists.
+                    String dataDir = "./.data";
+                    File dir = new File(dataDir);
+                    dir.mkdir();
+
+                    // Creates the file if it does not exist yet. No effect if it exists.
+                    File dataFile = new File(dir, "LindiData.txt");
+                    dataFile.createNewFile();
+
+                    FileWriter fileWriter = new FileWriter(dataFile);
+                    fileWriter.write("Sample write");
+                    fileWriter.close();
+//                    System.out.println(dataFile.createNewFile());
+//                    System.out.println(dataFile);
+//                    System.out.println(dataFile.exists());
+//                    System.out.println(dataFile.isFile());
+                } catch (NullPointerException e) {
+                    System.out.println(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
         // if command called, will be index 0, rest of string in index 1
         String[] userInputTokens = userInput.split(" ", 2); 
@@ -96,9 +129,11 @@ public class Lindi {
             case "deadline":
                 lf.executeCreateTask(userInput);
                 break;
-
             case "bye":
                 lf.goodByeAndExit();
+                break;
+            case "save":
+                lf.saveToFile();
                 break;
             default:
                 System.out.println("Uhh, English please? Haha, just kidding...\n" +
