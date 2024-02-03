@@ -11,11 +11,25 @@ public class Deadline extends Task {
     private LocalDateTime dueTime;
     private LocalDate dueDate;
 
+    /**
+     * Constructor for deadline object.
+     *
+     * @param taskName Name of task.
+     * @param isDone Completion of task.
+     * @param dueTime LocalDateTime representing due time of task.
+     */
     public Deadline(String taskName, boolean isDone, LocalDateTime dueTime) {
         super(taskName, isDone);
         this.dueTime = dueTime;
     }
 
+    /**
+     * Constructor for deadline object.
+     *
+     * @param taskName Name of task.
+     * @param isDone Completion of task.
+     * @param dueDate LocalDate representing due date of task.
+     */
     public Deadline(String taskName, boolean isDone, LocalDate dueDate) {
         super(taskName, isDone);
         this.dueDate = dueDate;

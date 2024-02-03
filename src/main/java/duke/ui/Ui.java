@@ -15,6 +15,11 @@ public class Ui {
     private static final String LINE = "    ____________________________________________________________";
     private static final String TAB = "  ";
 
+    /**
+     * Constructor of UI object.
+     *
+     * @param in InputStream to read input from.
+     */
     public Ui(InputStream in) {
         this.in = new Scanner(in);
     }

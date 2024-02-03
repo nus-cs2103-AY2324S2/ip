@@ -7,6 +7,14 @@ public class Event extends Task {
     private String start;
     private String end;
 
+    /**
+     * Constructor of event object.
+     *
+     * @param taskName Name of event.
+     * @param isDone Completion of event.
+     * @param start Start of event.
+     * @param end End of event.
+     */
     public Event(String taskName, boolean isDone, String start, String end) {
         super(taskName, isDone);
         this.start = start;
@@ -15,7 +23,6 @@ public class Event extends Task {
 
     @Override
     public String storeData() {
-
         return "event|" +super.storeData() + "|" + this.start + "|" + this.end;
     }
 
