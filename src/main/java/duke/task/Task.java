@@ -21,6 +21,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean canFind(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     public String toFileString() {
         return (this.isDone ? "1" : "0") + "," + this.description;
     }
