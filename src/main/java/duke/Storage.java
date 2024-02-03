@@ -5,10 +5,12 @@ import duke.task.ToDo;
 import duke.task.Deadline;
 import duke.task.Event;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 /**
  * Handles the storage of task data to and from a file.

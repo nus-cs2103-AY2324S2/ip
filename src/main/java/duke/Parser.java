@@ -41,21 +41,25 @@ public class Parser {
         switch (command) {
             case "bye":
                 return new ExitTaskCommand();
-
+                //fall through
             case "list":
                 return new ListTasksCommand();
+                //fall through
 
             case "done":
                 return new CompleteTaskCommand(Integer.parseInt(details));
+                //fall through
 
             case "delete":
                 return new DeleteTaskCommand(Integer.parseInt(details));
+                //fall through
 
             case "todo":
                 if (details.trim().isEmpty()) {
                     throw new JamieException("OOPS!!! The description of a todo cannot be empty.");
                 }
                 return new AddTaskCommand(new ToDo(details));
+                //fall through
 
             case "deadline":
                 String[] deadlineDetails = details.split(" /by ");
@@ -65,6 +69,7 @@ public class Parser {
                             + "Please use: deadline <description> /by <date>");
                 }
                 return new AddTaskCommand(new Deadline(deadlineDetails[0], deadlineDetails[1]));
+                //fall through
 
             case "event":
                 String[] eventDetails = details.split(" /from ");
@@ -78,12 +83,15 @@ public class Parser {
                             + "Please use: event <description> /from <start> /to <end>");
                 }
                 return new AddTaskCommand(new Event(eventDetails[0], eventTiming[0], eventTiming[1]));
+                //fall through
 
             case "find":
                 return new FindTaskCommand(details);
+                //fall through
 
-                default:
-                    throw new JamieException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            default:
+                throw new JamieException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                //fall through
         }
     }
 }
