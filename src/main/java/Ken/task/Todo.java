@@ -1,6 +1,4 @@
-package Ken.task;
-
-import Ken.task.Task;
+package ken.task;
 
 public class Todo extends Task {
     public Todo(String description) {

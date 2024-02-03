@@ -1,8 +1,8 @@
-package Ken.parser;
+package ken.parser;
 
-import Ken.KenException;
-import Ken.TaskList;
-import Ken.storage.Storage;
+import ken.exception.KenException;
+import ken.task.TaskList;
+import ken.storage.Storage;
 
 import java.util.Scanner;
 

@@ -1,7 +1,9 @@
-package Ken;
-import Ken.parser.Parser;
-import Ken.storage.Storage;
-import Ken.ui.Ui;
+package ken;
+import ken.exception.KenException;
+import ken.parser.Parser;
+import ken.storage.Storage;
+import ken.task.TaskList;
+import ken.ui.Ui;
 
 public class Ken {
     private static final String FILE_PATH = "./data/ken.txt";

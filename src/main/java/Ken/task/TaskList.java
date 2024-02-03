@@ -1,8 +1,6 @@
-package Ken;
-import Ken.task.Deadline;
-import Ken.task.Event;
-import Ken.task.Task;
-import Ken.task.Todo;
+package ken.task;
+import ken.exception.KenException;
+
 import java.util.ArrayList;
 import java.util.List;
 public class TaskList {

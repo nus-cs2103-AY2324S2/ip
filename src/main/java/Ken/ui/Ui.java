@@ -1,4 +1,4 @@
-package Ken.ui;
+package ken.ui;
 
 public class Ui {
     public void welcomeMessage() {
