@@ -32,7 +32,7 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         // Format: E | [Status] | [Description] | [Start Time] - [End Time]
-        return "E | " + getStatusnumber() + " | " + description + " | " +
+        return "E | " + getStatusNumber() + " | " + description + " | " +
                 from.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")) +
                 " - " +
                 to.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));

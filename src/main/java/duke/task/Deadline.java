@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    protected LocalDateTime byDateTime; // Store the deadline date and time
+    protected LocalDateTime byDateTime;
 
     /**
      * Constructs a Deadline object with a description and a specific deadline date and time.
@@ -41,7 +41,7 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         // Format: D | [Status] | [Description] | [Due Date]
-        return "D | " + getStatusnumber() + " | " + description + " | " + byDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return "D | " + getStatusNumber() + " | " + description + " | " + byDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**

@@ -37,7 +37,7 @@ public class Task {
      *
      * @return A string representing the task's completion status.
      */
-    public String getStatusnumber() {
+    public String getStatusNumber() {
         return (isDone ? "1" : "0"); // Use "1" for done, "0" for not done
     }
 
