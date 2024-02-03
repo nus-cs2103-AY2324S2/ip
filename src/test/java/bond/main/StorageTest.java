@@ -1,0 +1,104 @@
+package bond.main;
+
+import bond.main.Storage;
+import bond.task.DeadlineTask;
+import bond.task.EventTask;
+import bond.task.Task;
+import bond.task.ToDoTask;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+public class StorageTest {
+
+    @Test
+    public void parseAndAddTask_invalidDateFormatDeadline_exceptionThrown() {
+        String taskFromFile = "[D] [ ] sleep (by: 29 Feb 2024 10pm)";
+        ArrayList<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage(System.getProperty("user.home") + "/data/Bond.txt");
+
+        try {
+            storage.parseAndAddTask(taskFromFile, tasks);
+            assert false;
+        } catch (BondException e) {
+            assertEquals("Give the DATE(s) in the CORRECT FORMAT!!!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseAndAddTask_invalidDateFormatEvent_exceptionThrown() {
+        String taskFromFile = "[E] [ ] sleep (from: 29 Feb 2024 10pm to: Mar 01 2024 10am)";
+        ArrayList<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage(System.getProperty("user.home") + "/data/Bond.txt");
+
+        try {
+            storage.parseAndAddTask(taskFromFile, tasks);
+            assert false;
+        } catch (BondException e) {
+            assertEquals("Give the DATE(s) in the CORRECT FORMAT!!!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseAndAddTask_invalidTask_exceptionThrown() {
+        String taskFromFile = "[A] [ ] sleep (from: 29 Feb 2024 10pm to: Mar 01 2024 10am)";
+        ArrayList<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage(System.getProperty("user.home") + "/data/Bond.txt");
+
+        try {
+            storage.parseAndAddTask(taskFromFile, tasks);
+            assert false;
+        } catch (BondException e) {
+            assertEquals("I COULD NOT LOAD your tasks!!!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseAndAddTask_todo_success() {
+        String taskFromFile = "[T] [ ] task 1";
+        ArrayList<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage(System.getProperty("user.home") + "/data/Bond.txt");
+
+        try {
+            storage.parseAndAddTask(taskFromFile, tasks);
+            ToDoTask task = (ToDoTask) tasks.get(0);
+            assertEquals(task.toString(), taskFromFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
+        }
+    }
+
+    @Test
+    public void parseAndAddTask_deadline_success() {
+        String taskFromFile = "[D] [ ] sleep (by: Feb 29 2024 10pm)";
+        ArrayList<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage(System.getProperty("user.home") + "/data/Bond.txt");
+
+        try {
+            storage.parseAndAddTask(taskFromFile, tasks);
+            DeadlineTask task = (DeadlineTask) tasks.get(0);
+            assertEquals(task.toString(), taskFromFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
+        }
+    }
+
+    @Test
+    public void parseAndAddTask_event_success() {
+        String taskFromFile = "[E] [ ] sleep (from: Feb 29 2024 10pm to: Mar 01 2024 10am)";
+        ArrayList<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage(System.getProperty("user.home") + "/data/Bond.txt");
+
+        try {
+            storage.parseAndAddTask(taskFromFile, tasks);
+            EventTask task = (EventTask) tasks.get(0);
+            assertEquals(task.toString(), taskFromFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false;
+        }
+    }
+}

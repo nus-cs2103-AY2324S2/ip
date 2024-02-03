@@ -1,9 +1,10 @@
-package bond;
+package bond.main;
 
 import java.util.ListIterator;
 import java.util.Scanner;
-import task.Task;
-import task.TaskList;
+
+import bond.task.Task;
+import bond.task.TaskList;
 
 public class Ui {
 
@@ -31,7 +32,11 @@ public class Ui {
 
     public String readCommand() {
         String userInput = "";
-        userInput = sc.nextLine();
+
+        if (sc.hasNextLine()) {
+            userInput = sc.nextLine();
+        }
+
         return userInput;
     }
 

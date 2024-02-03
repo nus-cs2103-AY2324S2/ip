@@ -1,4 +1,4 @@
-package task;
+package bond.task;
 
 public abstract class Task {
 

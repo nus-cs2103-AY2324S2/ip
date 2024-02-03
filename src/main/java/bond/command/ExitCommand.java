@@ -1,13 +1,13 @@
-package command;
+package bond.command;
 
-import bond.Storage;
-import bond.Ui;
-import task.TaskList;
+import bond.main.Storage;
+import bond.main.Ui;
+import bond.task.TaskList;
 
 public class ExitCommand extends Command {
 
     public ExitCommand() {
-        super("exit");
+        super("bye");
         super.isExit = true;
     }
 

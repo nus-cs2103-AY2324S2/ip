@@ -1,4 +1,4 @@
-package command;
+package bond.command;
 
 public abstract class AddCommand extends Command {
 

@@ -1,4 +1,4 @@
-package bond;
+package bond.main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Scanner;
-import task.*;
+
+import bond.task.*;
 
 public class Storage {
 
@@ -17,7 +18,7 @@ public class Storage {
         this.pathToFile = filePath;
     }
 
-    private void parseAndAddTask(String task, ArrayList<Task> tasks) throws BondException {
+    public void parseAndAddTask(String task, ArrayList<Task> tasks) throws BondException {
         // System.out.println(task);
         String remainder = task.substring(4);
         String taskName = "";
@@ -71,7 +72,10 @@ public class Storage {
                     }
 
                 } else if (components[i].equals("to:")) {
-                    end = components[i + 1];
+
+                    for (int k = i + 1; k < components.length; k++) {
+                        end += components[k] + " ";
+                    }
                 }
             }
 

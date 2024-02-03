@@ -9,7 +9,7 @@ import bond.task.TaskList;
 
 public abstract class Command {
 
-    public static final ArrayList<String> COMMANDS = new ArrayList<>() {
+    public static final ArrayList<String> Commands = new ArrayList<>() {
         {
             add("todo");
             add("deadline");

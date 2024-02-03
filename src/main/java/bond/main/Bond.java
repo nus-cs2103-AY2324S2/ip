@@ -1,7 +1,7 @@
-package bond;
+package bond.main;
 
-import command.Command;
-import task.TaskList;
+import bond.command.Command;
+import bond.task.TaskList;
 
 public final class Bond {
 

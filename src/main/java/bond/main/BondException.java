@@ -1,4 +1,4 @@
-package bond;
+package bond.main;
 
 public class BondException extends Exception {
 

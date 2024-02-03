@@ -1,11 +1,11 @@
-package bond;
+package bond.main;
 
-import command.*;
+import bond.command.*;
 
 public abstract class Parser {
 
     public static boolean isValidCommand(String input) {
-        return Command.COMMANDS.contains(input.toLowerCase());
+        return Command.Commands.contains(input.toLowerCase());
     }
 
     public static boolean isNumber(String input) {
