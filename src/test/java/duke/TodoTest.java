@@ -6,9 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoTest {
     @Test
-    public void dummyTest(){
-        String order = "writing"
-        Todo todo = new Todo("writing")
-        assertEquals("writing", todo.toString());
+    public void toStringTest(){
+        Todo todo = new Todo("read");
+        assertEquals("[T][ ] read", todo.toString());
     }
 }

@@ -22,6 +22,7 @@ public class Duke {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+        parser = new Parser();
     }
 
     public void run() {

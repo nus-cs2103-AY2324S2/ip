@@ -5,6 +5,9 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
 
+    public Parser() {
+    }
+
     public int parseMark(String order, int totalnum) throws DukeException {
         try { 
             String[] actions = order.split(" "); 
