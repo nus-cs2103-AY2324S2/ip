@@ -3,7 +3,7 @@ import java.sql.SQLException;
 import config.Config;
 import database.Database;
 import javafx.application.Application;
-import view.App;
+import view.ViewPort;
 
 /**
  * The main class of the application.
@@ -24,7 +24,7 @@ public class Main {
             throw new RuntimeException(e.getMessage()); // we should not continue if we cannot connect to the database
         }
 
-        Application.launch(App.class, args);
+        Application.launch(ViewPort.class, args);
 
         try {
             db.disconnect();

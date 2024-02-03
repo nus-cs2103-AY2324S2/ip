@@ -15,15 +15,14 @@ import javafx.stage.Stage;
  * The main class of the application.
  * This class is responsible for starting the gui application.
  */
-public class App extends Application {
-
+public class ViewPort extends Application {
     private Duke duke = new Duke();
     @Override
     public void start(Stage stage) {
 
         try {
             stage.setTitle(Config.getConfig().appName);
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(ViewPort.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
