@@ -16,7 +16,8 @@ public class Mike {
     /**
      * Constructor.
      */
-    Mike() {
+    public Mike() {
+        // Referenced from https://nus-cs2103-ay2324s2.github.io/website/schedule/week3/project.html#a-moreoop
         this.ui = new Ui();
         this.storage = new Storage(FILE_PATH);
         this.taskList = storage.load();
@@ -30,6 +31,7 @@ public class Mike {
 
         boolean exitSeen = false;
 
+        // Referenced from https://nus-cs2103-ay2324s2.github.io/website/schedule/week3/project.html#a-moreoop
         while (!exitSeen) {
             try {
                 String userInput = ui.scanInput();
@@ -56,12 +58,7 @@ public class Mike {
         Ui.display("Session terminated: data saved successfully.");
     }
 
-    /**
-     * Main method that runs the program.
-     * @param args
-     */
-    public static void main(String[] args) {
-        Mike mike = new Mike();
-        mike.run();
+    public void end() {
+        ui.close();
     }
 }

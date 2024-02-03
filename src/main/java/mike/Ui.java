@@ -96,4 +96,8 @@ public class Ui {
         display(horizontalLine);
     }
 
+    public void close() {
+        scanner.close();
+    }
+
 }
