@@ -8,6 +8,7 @@ public class ToDo extends Task {
         super(name);
     }
 
+    @Override
     String getCommand() {
         return "todo " + name;
     }
