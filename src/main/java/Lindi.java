@@ -1,6 +1,10 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Collections.*;
+
+import java.io.File;
+import java.io.FileWriter;
+
 public class Lindi {
     private final static ArrayList<Task> taskList = new ArrayList<>(10);
 //    private final static Task[] taskList = new Task[100];
@@ -26,6 +30,7 @@ public class Lindi {
                 taskList.add(task);
                 System.out.println("Got it. I've added this task:\n\t" + task +
                                    "\nNow you have " + taskList.size() + " tasks in the list.");
+                saveToFile();
             }
 
             /**
@@ -76,6 +81,37 @@ public class Lindi {
                     System.out.println("I'm pretty sure I gave you the indexes in base 10...\n" +
                             "there shouldn't be any characters!! :(");
                 }
+                saveToFile();
+            }
+
+            /**
+             * Saves the current task list to the designated text file for storing data for the program.
+             * Creates one if it does not exist yet.
+             */
+            void saveToFile() {
+                try {
+                    // Creates the directory if it does not exist yet. No effect if it exists.
+                    String dataDir = "./.data";
+                    File dir = new File(dataDir);
+                    dir.mkdir();
+
+                    // Creates the file if it does not exist yet. No effect if it exists.
+                    File dataFile = new File(dir, "LindiData.txt");
+                    dataFile.createNewFile();
+
+                    FileWriter fileWriter = new FileWriter(dataFile);
+
+                    // Loops through taskList, writes them to the file with the specified format
+                    for (Task task: taskList) {
+                        String parsedTask = task.parsedFormatToSave();
+                        fileWriter.write(parsedTask + '\n');
+                    }
+                    fileWriter.close();
+                } catch (NullPointerException e) {
+                    System.out.println(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         // if command called, will be index 0, rest of string in index 1
@@ -96,7 +132,6 @@ public class Lindi {
             case "deadline":
                 lf.executeCreateTask(userInput);
                 break;
-
             case "bye":
                 lf.goodByeAndExit();
                 break;
@@ -127,7 +162,41 @@ public class Lindi {
         printSeparator();
     }
 
+    /**
+     * Loads the taskList from the data file for this session
+     */
+    private static void loadFromFile() {
+        try {
+            // Creates the directory if it does not exist yet. No effect if it exists.
+            String dataDir = "./.data";
+            File dir = new File(dataDir);
+            dir.mkdir();
 
+            // Creates the file if it does not exist yet. No effect if it exists.
+            File dataFile = new File(dir, "LindiData.txt");
+            Boolean fileJustCreated = dataFile.createNewFile();
+
+            if (fileJustCreated) {
+                // No data to read from to load into taskList
+                return;
+            }
+
+            // Data file exist in folder, load it into our taskList
+            Scanner fileScanner = new Scanner(dataFile);
+            while (fileScanner.hasNextLine()) {
+                String parsedString = fileScanner.nextLine();
+                Task task = Task.createFromParsedString(parsedString);
+                taskList.add(task);
+            }
+        } catch (NullPointerException e) {
+            System.out.println(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (CreateTaskException e) {
+            System.out.println("Error loading tasks from save file. Might be corrupted...");
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 
     private static void chatLoop() {
         Scanner scanner = new Scanner(System.in);
@@ -152,6 +221,7 @@ public class Lindi {
     }
     public static void main(String[] args) {
         greeting();
+        loadFromFile();
         chatLoop();
     }
 }

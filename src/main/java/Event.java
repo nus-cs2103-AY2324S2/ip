@@ -12,4 +12,10 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public String parsedFormatToSave() {
+        return String.format("E | %c | %s | %s | %s",
+                this.isDone ? 'y' : 'n', this.description, this.from, this.to);
+    }
 }
