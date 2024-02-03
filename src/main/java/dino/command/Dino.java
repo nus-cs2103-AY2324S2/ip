@@ -4,17 +4,20 @@ import java.util.Scanner;
 
 /** The main class for the Dino application. */
 public class Dino {
+    private static final String FILE_PATH = "./data/duke.txt";
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Enumeration representing the types of tasks in the Dino application.
+     * Tasks can be of type TODO, DEADLINE, or EVENT.
+     */
     public enum TaskType {
         TODO,
         DEADLINE,
         EVENT
     }
-
-    private static final String FILE_PATH = "./data/duke.txt";
 
     /**
      * Constructs a new Dino instance with the specified file path.

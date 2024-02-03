@@ -1,8 +1,8 @@
 package dino.command;
 
-import dino.task.Task;
-
 import java.util.ArrayList;
+
+import dino.task.Task;
 
 /** Represents an ArrayList of Task. */
 public class TaskList {
@@ -60,7 +60,7 @@ public class TaskList {
     /**
      * Gets the taskList.
      *
-     * @return taskList of type ArrayList<Task>.
+     * @return taskList of type ArrayList.
      */
     public ArrayList<Task> getTaskList() {
         return taskList;

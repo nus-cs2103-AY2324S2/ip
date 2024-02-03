@@ -1,15 +1,15 @@
 package dino.command;
 
-import dino.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import dino.task.Task;
+
 
 /**
  * Handles the loading and saving of tasks from/to a file.
@@ -57,8 +57,8 @@ public class Storage {
                         break;
                     case "E":
                         String[] eventParts = parts[3].split("from:|to:");
-                        String eventDetails = parts[2].trim() + " /from " + parser.parseStringToNum(eventParts[1]) +
-                                " /to " + parser.parseStringToNum(eventParts[2]);
+                        String eventDetails = parts[2].trim() + " /from " + parser.parseStringToNum(eventParts[1])
+                                + " /to " + parser.parseStringToNum(eventParts[2]);
                         task = parser.createTaskFromInput(Dino.TaskType.EVENT, eventDetails);
                         break;
                     default:

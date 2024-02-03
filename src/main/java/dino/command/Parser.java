@@ -1,19 +1,18 @@
 package dino.command;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Scanner;
+
 import dino.task.Deadline;
 import dino.task.Event;
 import dino.task.Task;
 import dino.task.ToDo;
-
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Scanner;
 
 /**
  * Handles the parsing of user commands and creating tasks based on the input.
@@ -165,7 +164,8 @@ public class Parser {
         case DEADLINE:
             String[] deadlineParts = taskDetails.split("/by");
             if (deadlineParts.length != 2) {
-                throw new DinoException("Invalid input format for deadline. Please use: deadline <deadline name> /by <time>");
+                throw new DinoException("Invalid input format for deadline. "
+                        + "Please use: deadline <deadline name> /by <time>");
             }
             String deadlineName = deadlineParts[0].trim();
             String deadlineTimeString = deadlineParts[1].trim();
@@ -182,7 +182,8 @@ public class Parser {
         case EVENT:
             String[] eventParts = taskDetails.split("/from|/to");
             if (eventParts.length != 3) {
-                throw new DinoException("Invalid input format for event. Please use: event <event name> /from <time> /to <time>");
+                throw new DinoException("Invalid input format for event. "
+                        + "Please use: event <event name> /from <time> /to <time>");
             }
             String eventName = eventParts[0].trim();
             String startTimeString = eventParts[1].trim();
@@ -274,7 +275,8 @@ public class Parser {
             tasks.getTaskList().stream()
                     .filter(task -> task instanceof Event)
                     .map(task -> (Event) task)
-                    .filter(event -> event.getStartTime().toLocalDate().equals(date) || event.getEndTime().toLocalDate().equals(date))
+                    .filter(event -> event.getStartTime().toLocalDate().equals(date)
+                            || event.getEndTime().toLocalDate().equals(date))
                     .forEach(System.out::println);
 
         } catch (DateTimeParseException e) {

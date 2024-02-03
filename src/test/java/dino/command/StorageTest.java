@@ -1,18 +1,19 @@
 package dino.command;
 
-import dino.task.Deadline;
-import dino.task.Event;
-import dino.task.ToDo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.io.FileOutputStream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import dino.task.Deadline;
+import dino.task.Event;
+import dino.task.ToDo;
 
 public class StorageTest {
 
