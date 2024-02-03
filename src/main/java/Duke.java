@@ -1,8 +1,19 @@
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 public class Duke {
-    public static void main(String[] args) throws DukeException{
+
+    static FileHandler fh = new FileHandler();
+
+    public static void main(String[] args) throws IOException, DukeException {
         Scanner scanner = new Scanner(System.in);
-        List<Task> todo = new ArrayList<>();
+        List<Task> todo = fh.readFile();
+
         String divider = "---------------------------------------------------------------";
         String chat_name = "Dwight Schrute";
         System.out.printf("%s\nHello! I'm %s\nWhat Can I do for you?\n%s\n"
@@ -30,22 +41,25 @@ public class Duke {
                         todo.get(idx - 1).mark();
                         System.out.println("\tNice! I've marked this task as done:");
                         System.out.printf("\t\t%s\n", todo.get(idx - 1));
+
                         break;
                     case ("unmark"):
                         idx = Integer.parseInt(input.split(" ")[1]);
                         todo.get(idx - 1).unmark();
                         System.out.println("\tOK, I've marked this task as not done yet:");
                         System.out.printf("\t\t%s\n", todo.get(idx - 1));
+
                         break;
                     case ("todo"):
                         task_name = String.join(" ", Arrays.copyOfRange(input.split(" "), 1, input.split(" ").length));
                         try {
                             // calling the method
-                            task = new TodoTask(task_name);
+                            task = new TodoTask(task_name, input);
                             todo.add(task);
                             System.out.println("\tGot it. I've added this task:");
                             System.out.printf("\t\t%s\n", task);
                             System.out.printf("\tNow you have %d tasks in the list.\n", todo.size());
+
                             break;
                         } catch (DukeException err) {
                             System.out.println(err.getMessage());
@@ -59,11 +73,12 @@ public class Duke {
                         task_name = String.join(" ", Arrays.copyOfRange(first_string.split(" "), 1, first_string.split(" ").length));
                         end = String.join(" ", Arrays.copyOfRange(second_string.split(" "), 1, second_string.split(" ").length));
                         try {
-                            task = new DeadlineTask(task_name, end);
+                            task = new DeadlineTask(task_name, end, input);
                             todo.add(task);
                             System.out.println("\tGot it. I've added this task:");
                             System.out.printf("\t\t%s\n", task);
                             System.out.printf("\tNow you have %d tasks in the list.\n", todo.size());
+
                             break;
                         } catch (DukeException err) {
                             System.out.println(err.getMessage());
@@ -77,11 +92,12 @@ public class Duke {
                         start = String.join(" ", Arrays.copyOfRange(second_string.split(" "), 1, second_string.split(" ").length));
                         end = String.join(" ", Arrays.copyOfRange(third_string.split(" "), 1, third_string.split(" ").length));
                         try {
-                            task = new EventTask(task_name, start, end);
+                            task = new EventTask(task_name, start, end, input);
                             todo.add(task);
                             System.out.println("\tGot it. I've added this task:");
                             System.out.printf("\t\t%s\n", task);
                             System.out.printf("\tNow you have %d tasks in the list.\n", todo.size());
+
                             break;
                         } catch (DukeException err) {
                             System.out.println(err.getMessage());
@@ -101,6 +117,7 @@ public class Duke {
 
                 }
                 System.out.printf("\t%s\n", divider);
+                fh.writeFile(todo);
             } catch (DukeException err) {
                 System.out.println(err.getMessage());
                 System.out.printf("\t%s\n", divider);

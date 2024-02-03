@@ -1,8 +1,8 @@
 public class DeadlineTask extends Task {
 
     protected String end_time;
-    DeadlineTask(String name, String end_time) throws DukeException{
-        super(name, Type.D);
+    DeadlineTask(String name, String end_time, String file_format) throws DukeException{
+        super(name, Type.D, file_format);
         this.end_time = end_time;
 
         if (this.name.isBlank() || this.end_time.isBlank()) {

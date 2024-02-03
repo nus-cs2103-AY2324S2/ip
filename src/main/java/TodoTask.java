@@ -1,8 +1,8 @@
 public class TodoTask extends Task {
 
-    TodoTask(String name) throws DukeException{
+    TodoTask(String name, String file_format) throws DukeException{
 
-        super(name, Type.T);
+        super(name, Type.T, file_format);
         if (this.name.isBlank()) {
             String error_message = "\tTodo description cannot be empty!\n\tEx: todo return book\n";
             throw new DukeException(error_message);
@@ -19,6 +19,8 @@ public class TodoTask extends Task {
         }
         return output;
     }
+
+
 
 
 }
