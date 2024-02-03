@@ -1,9 +1,14 @@
 package Duke;
 
 import Duke.Commands.*;
-import Duke.Tasks.Task;
 
+/**
+ * Represent a parser class that handles user commands.
+ */
 public class Parser {
+    /**
+     * An enum to store the specific commands which the user can use.
+     */
     enum CommandWords {
         TODO,
         DEADLINE,
@@ -15,6 +20,15 @@ public class Parser {
         UNMARK
     }
 
+    /**
+     * Read user input to return a command to be executed.
+     *
+     * @param input Input by the user.
+     * @param ui Ui object to interact with user.
+     * @param taskList TaskList object that records the task.
+     * @param storage Storage object that saves and loads information.
+     * @return Command A specific command to execute a certain action.
+     */
     public static Command parse(String input, Ui ui, TaskList taskList, Storage storage) throws DukeException {
         try {
             String[] inputs = input.split(" ");
