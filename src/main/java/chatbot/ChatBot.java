@@ -9,7 +9,7 @@ import chatbot.parse.InputParser;
 import chatbot.storage.LocalStorage;
 import chatbot.task.TaskList;
 import chatbot.ui.DialogBox;
-import chatbot.ui.Printer;
+import chatbot.ui.PrintFormatter;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -132,16 +132,24 @@ public class ChatBot extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      * Reused from https://se-education.org/guides/tutorials/javaFx.html.
+     *
+     * @param input the command line input
+     * @return the response message
      */
     private String getResponse(String input) {
-        return "Duke heard: " + input;
+        try {
+            Action userAction = InputParser.getParsedInput(input);
+            return userAction.execute(USER_TASK_LIST);
+        } catch (ActionException e) {
+            return PrintFormatter.formatMessages(e.getMessage());
+        }
     }
 
     /**
      * Greets the user when entering a session with this {@link ChatBot}.
      */
     private void greet() {
-        Printer.printMessages(
+        PrintFormatter.formatMessages(
                 "Hello! I'm " + CHATBOT_NAME + "!",
                 "What can I do for you?"
         );
@@ -159,7 +167,7 @@ public class ChatBot extends Application {
                 userAction = InputParser.getParsedInput(SCANNER.nextLine());
                 userAction.execute(USER_TASK_LIST);
             } catch (ActionException e) {
-                Printer.printMessages(e.getMessage());
+                PrintFormatter.formatMessages(e.getMessage());
             }
         } while (!(userAction instanceof ByeAction));
     }

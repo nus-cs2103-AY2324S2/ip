@@ -6,7 +6,7 @@ import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
 import chatbot.task.TaskList;
-import chatbot.ui.Printer;
+import chatbot.ui.PrintFormatter;
 
 /**
  * This encapsulates the behaviour when ending the chat.
@@ -33,11 +33,12 @@ public final class ByeAction extends Action {
      * Greets the user when exiting the application.
      *
      * @param taskList the {@link TaskList} that is used with the {@link ChatBot}
+     * @return the success message from performing the action
      */
     @Override
-    public void execute(TaskList taskList) {
+    public String execute(TaskList taskList) {
         // Perform behaviour
-        Printer.printMessages("Bye! Hope to see you again soon!");
+        return PrintFormatter.formatMessages("Bye! Hope to see you again soon!");
     }
 
     public static String getName() {

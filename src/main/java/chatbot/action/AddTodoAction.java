@@ -7,7 +7,7 @@ import chatbot.action.util.ExpectedArgument;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.task.ToDo;
-import chatbot.ui.Printer;
+import chatbot.ui.PrintFormatter;
 
 /**
  * This encapsulates the behaviour of adding a {@link ToDo}.
@@ -34,14 +34,15 @@ public final class AddTodoAction extends Action {
      * Add a {@link ToDo} to the user's list.
      *
      * @param taskList the {@link TaskList} to modify
+     * @return the success message from performing the action
      */
     @Override
-    public void execute(TaskList taskList) {
+    public String execute(TaskList taskList) {
         String name = findDefaultArgument().toString();
 
         // Perform behaviour
         Task task = taskList.addTodo(name);
-        Printer.printMessages(
+        return PrintFormatter.formatMessages(
                 "Got it. I've added this to-do:",
                 "    " + task,
                 taskList.getSizeMessage()
