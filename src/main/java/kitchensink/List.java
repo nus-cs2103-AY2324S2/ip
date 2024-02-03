@@ -75,6 +75,21 @@ public class List {
         storage.saveTasks(this);
     }
 
+    /**
+     * Finds tasks that contain the keyword(s).
+     * @param keywords The words that the tasks in the resulting list should contain.
+     * @param ui The ui that displays the resulting list.
+     */
+    public void findTasks(String keywords, Ui ui) {
+        List results = new List(new ArrayList<>());
+        for (Task task : tasks) {
+            if (task.hasKeywords(keywords)) {
+                results.tasks.add(task);
+            }
+        }
+        ui.displayResults(results);
+    }
+
     public int getListSize() {
         return tasks.size();
     }
