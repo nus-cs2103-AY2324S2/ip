@@ -6,6 +6,7 @@ import Duke.Task.Event;
 import Duke.Task.Task;
 import Duke.Task.TaskList;
 import Duke.Ui;
+import Duke.Parser;
 public class AddEventCommand extends Command {
     String description;
 
@@ -23,8 +24,8 @@ public class AddEventCommand extends Command {
             String toDate = components[2];
 
             // format the dates
-            String formattedFromDate = formatDate(fromDate);
-            String formattedToDate = formatDate(toDate);
+            String formattedFromDate = Parser.formatDate(fromDate);
+            String formattedToDate = Parser.formatDate(toDate);
 
             // instantiate event
             String formattedDescription = eventDetails + " (from: " + formattedFromDate + " to: " + formattedToDate + ")";

@@ -6,7 +6,7 @@ import Duke.Task.Task;
 import Duke.Task.TaskList;
 import Duke.Storage;
 import Duke.Ui;
-
+import Duke.Parser;
 public class AddDeadlineCommand extends Command {
     String description;
 
@@ -20,7 +20,7 @@ public class AddDeadlineCommand extends Command {
             String deadlineDetails = components[0];
             String byDate = components[1];
 
-            String formattedByDate = formatDate(byDate);
+            String formattedByDate = Parser.formatDate(byDate);
             String formattedDescription = deadlineDetails + " (by: " + formattedByDate + ")";
             Task deadline = new Deadline(formattedDescription);
 
