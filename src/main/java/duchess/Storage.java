@@ -20,6 +20,7 @@ public class Storage {
     /**
      * Constructs a Storage object with the specified file path.
      * Initializes the file path and creates a Parser instance.
+     *
      * @param filePath the file path to store tasks
      */
     public Storage(String filePath) {
@@ -30,6 +31,7 @@ public class Storage {
     /**
      * Loads tasks from the file specified in the constructor.
      * Parses each line of the file into Task objects and returns them as a list.
+     *
      * @return the list of tasks loaded from the file
      * @throws DuchessException if an error occurs during file reading or parsing
      */
@@ -61,6 +63,7 @@ public class Storage {
     /**
      * Saves the given list of tasks to the file specified in the constructor.
      * Each task is written as a line in the file.
+     *
      * @param taskList the list of tasks to be saved
      */
     public void saveData(TaskList taskList) {

@@ -10,6 +10,7 @@ public class Task {
 
     /**
      * Constructs a Task object with the given description and sets its completion status to false.
+     *
      * @param description the description of the task
      */
     public Task(String description) {
@@ -19,6 +20,7 @@ public class Task {
 
     /**
      * Constructs a Task object with the given description and completion status.
+     *
      * @param description the description of the task
      * @param isDone true if the task is completed, false otherwise
      */
@@ -29,6 +31,7 @@ public class Task {
 
     /**
      * Returns the status icon representing whether the task is done or not.
+     *
      * @return "X" if the task is done, " " (space) otherwise
      */
     public String getStatusIcon() {
@@ -51,6 +54,7 @@ public class Task {
 
     /**
      * Returns a string representation of the task.
+     *
      * @return a string representing the task's completion status and description
      */
     public String toString() {
@@ -59,6 +63,7 @@ public class Task {
 
     /**
      * Returns a string representation of the task in file format.
+     *
      * @return a string representing the task's type, completion status, and description for file storage
      */
     public String toFileString() {

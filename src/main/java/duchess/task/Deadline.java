@@ -15,6 +15,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a Deadline object with the given description and deadline.
+     *
      * @param description the description of the deadline task
      * @param by the deadline of the task in the format "dd-MM-yyyy HHmm"
      * @throws DuchessException if there is an error parsing the deadline string
@@ -30,6 +31,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a Deadline object with the given description, completion status, and deadline.
+     *
      * @param description the description of the deadline task
      * @param isDone true if the task is completed, false otherwise
      * @param by the deadline of the task in the format "MMM dd yyyy hh:mm a"
@@ -46,6 +48,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a string representation of the Deadline task.
+     *
      * @return a string representing the Deadline task including its type, completion status, description, and deadline
      */
     @Override
@@ -55,6 +58,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a string representation of the Deadline task in file format.
+     * 
      * @return a string representing the Deadline task including its type, completion status, description, and deadline for file storage
      */
     @Override

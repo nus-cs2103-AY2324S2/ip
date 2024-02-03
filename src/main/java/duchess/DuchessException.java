@@ -7,6 +7,7 @@ package duchess;
 public class DuchessException extends Exception {
     /**
      * Constructs a DuchessException with the specified detail message.
+     *
      * @param message the detail message
      */
     public DuchessException(String message) {

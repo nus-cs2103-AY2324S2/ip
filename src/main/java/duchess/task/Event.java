@@ -11,6 +11,7 @@ public class Event extends Task {
 
     /**
      * Constructs an Event object with the given description, start, and end.
+     *
      * @param description the description of the event task
      * @param start the start time or date of the event
      * @param end the end time or date of the event
@@ -23,6 +24,7 @@ public class Event extends Task {
 
     /**
      * Constructs an Event object with the given description, completion status, start, and end.
+     *
      * @param description the description of the event task
      * @param isDone true if the task is completed, false otherwise
      * @param start the start time or date of the event
@@ -36,6 +38,7 @@ public class Event extends Task {
 
     /**
      * Returns a string representation of the Event task.
+     *
      * @return a string representing the Event task including its type, completion status, description, start, and end
      */
     @Override
@@ -45,6 +48,7 @@ public class Event extends Task {
 
     /**
      * Returns a string representation of the Event task in file format.
+     *
      * @return a string representing the Event task including its type, completion status, description, start, and end for file storage
      */
     @Override

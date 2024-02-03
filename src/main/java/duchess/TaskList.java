@@ -27,6 +27,7 @@ public class TaskList {
 
     /**
      * Constructs a TaskList object with the given list of tasks.
+     *
      * @param tasks the list of tasks to initialize the TaskList with
      */
     public TaskList(ArrayList<Task> tasks) {
@@ -36,6 +37,7 @@ public class TaskList {
 
     /**
      * Adds a ToDo task to the task list.
+     *
      * @param userInput the user input containing task details
      * @throws DuchessException if an error occurs while adding the task
      */
@@ -52,6 +54,7 @@ public class TaskList {
 
     /**
      * Adds a Deadline task to the task list.
+     *
      * @param userInput the user input containing task details
      * @throws DuchessException if an error occurs while adding the task
      */
@@ -77,6 +80,7 @@ public class TaskList {
 
     /**
      * Adds an Event task to the task list.
+     *
      * @param userInput the user input containing task details
      * @throws DuchessException if an error occurs while adding the task
      */
@@ -120,6 +124,7 @@ public class TaskList {
 
     /**
      * Adds a task to the task list.
+     *
      * @param task the task to be added
      * @param taskType the type of the task (ToDo, Deadline, or Event)
      * @throws DuchessException if an error occurs while adding the task
@@ -141,6 +146,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the task list.
+     *
      * @param taskIndex the index of the task to be deleted
      * @throws DuchessException if the task index is invalid
      */
@@ -161,6 +167,7 @@ public class TaskList {
 
     /**
      * Marks a task as done.
+     *
      * @param taskIndex the index of the task to be marked as done
      * @throws DuchessException if the task index is invalid
      */
@@ -178,6 +185,7 @@ public class TaskList {
 
     /**
      * Unmarks a task as done.
+     *
      * @param taskIndex the index of the task to be unmarked
      * @throws DuchessException if the task index is invalid
      */
@@ -195,6 +203,7 @@ public class TaskList {
 
     /**
      * Checks if the task index is valid.
+     *
      * @param taskIndex the index of the task to be checked
      * @return true if the task index is valid, false otherwise
      */
@@ -204,6 +213,7 @@ public class TaskList {
 
     /**
      * Gets the list of tasks.
+     * 
      * @return the list of tasks
      */
     public ArrayList<Task> getTasks() {

@@ -13,6 +13,7 @@ public class Parser {
 
     /**
      * Parses a task from a line read from a file.
+     *
      * @param line the line read from the file
      * @return the Task object parsed from the line
      * @throws DuchessException if an error occurs during parsing

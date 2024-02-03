@@ -18,6 +18,7 @@ public class Duchess {
     /**
      * Constructs a Duchess object.
      * Initializes storage, task list, and user interface components.
+     *
      * @throws DuchessException if an error occurs during initialization
      */
     public Duchess() throws DuchessException {
@@ -32,6 +33,7 @@ public class Duchess {
 
     /**
      * Main method to start the Duchess program.
+     *
      * @param args command-line arguments (not used)
      */
     public static void main(String[] args) {

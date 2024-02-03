@@ -9,6 +9,7 @@ import duchess.task.Task;
 public class ToDo extends Task {
     /**
      * Constructs a ToDo object with the given description.
+     *
      * @param description the description of the ToDo task
      */
     public ToDo(String description) {
@@ -17,6 +18,7 @@ public class ToDo extends Task {
 
     /**
      * Constructs a ToDo object with the given description and completion status.
+     *
      * @param description the description of the ToDo task
      * @param isDone true if the task is completed, false otherwise
      */
@@ -26,6 +28,7 @@ public class ToDo extends Task {
 
     /**
      * Returns a string representation of the ToDo task.
+     *
      * @return a string representation of the ToDo task
      */
     @Override
@@ -35,6 +38,7 @@ public class ToDo extends Task {
 
     /**
      * Returns a string representation of the ToDo task in file format.
+     *
      * @return a string representation of the ToDo task for file storage
      */
     @Override
