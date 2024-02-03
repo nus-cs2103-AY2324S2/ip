@@ -5,6 +5,12 @@ public class Duke {
     private static final int TASKS_MAX = 100;
     private static final ArrayList<Task> tasks = new ArrayList<>(TASKS_MAX);
     private static int taskCount = 0;
+
+    /**
+     * Main loop for the chatbot.
+     * Waits for command line input and passes arguments to the handleInput method.
+     * @param args The command line input.
+     */
     public static void main(String[] args) {
         String logo = " _  _   __    ____  ____ \n" +
                 "( \\/ ) /__\\  (  _ \\(  _ \\\n" +
@@ -33,6 +39,10 @@ public class Duke {
         }
 
     }
+
+    /**
+     * Method to print section dividers to the console.
+     */
     private static void printDivider(){
         int length = 90;
         char divider = 0x2500 ;
@@ -42,13 +52,18 @@ public class Duke {
         System.out.println();
     }
 
-    // Solution below adapted from https://www.geeksforgeeks.org/ways-to-read-input-from-console-in-java/
+    /**
+     * Solution below adapted from https://www.geeksforgeeks.org/ways-to-read-input-from-console-in-java/
+     * Takes command line input and edits the task list or prints to console as required.
+     * @throws IllegalArgumentException if the command is not recognised.
+     */
     private static void handleInput(Scanner scanner) {
         String input = scanner.nextLine();
         String[] wordArray = input.split(" ", 0);
         // Handle inputs
         if (input.equals("bye")) {
-            throw new ExitProgramException("Fair winds to ye, me hearty! May the tide carry ye safely until our paths cross again.");
+            throw new ExitProgramException("Fair winds to ye, me hearty! " +
+                    "May the tide carry ye safely until our paths cross again.");
         } else if (input.equals("list")) {
             printDivider();
             System.out.println("Behold, yer roster of endeavors!");
@@ -64,7 +79,8 @@ public class Duke {
                 try {
                     int tempIndex = Integer.parseInt(wordArray[1]);
                     if (tempIndex > taskCount || tempIndex < 1) {
-                        throw new IllegalArgumentException("Blunder! Ye only be havin' " + taskCount + " tasks on the chart, matey!");
+                        throw new IllegalArgumentException("Blunder! Ye only be havin' " + taskCount
+                                + " tasks on the chart, matey!");
                     } else {
                         printDivider();
                         if (wordArray[0].equals("mark")) {
@@ -73,7 +89,8 @@ public class Duke {
                             System.out.println(tasks.get(tempIndex - 1).toString());
                         } else if (wordArray[0].equals("unmark")) {
                             tasks.get(tempIndex - 1).markAsNotDone();
-                            System.out.println("The winds be shiftin', and I be lettin' this task sail with the breeze unmarked.");
+                            System.out.println("The winds be shiftin', " +
+                                    "and I be lettin' this task sail with the breeze unmarked.");
                             System.out.println(tasks.get(tempIndex - 1).toString());
                         } else {
                             System.out.println("As ye command, this one has walked the plank:");
@@ -85,7 +102,8 @@ public class Duke {
                         printDivider();
                     }
                 } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("Blunder! I be searchin' the seas but couldn't spy the task ye named, me heartie!");
+                    throw new IllegalArgumentException("Blunder! " +
+                            "I be searchin' the seas but couldn't spy the task ye named, me heartie!");
                 }
             }
         }
@@ -103,7 +121,8 @@ public class Duke {
             String tempString = input.substring(9).trim();
             String[] tempArray = tempString.split("/by", 0);
             if (tempArray.length == 1) {
-                throw new IllegalArgumentException("Blunder! Declare yer deadline as such: 'deadline * /by *', ye scurvy dog!");
+                throw new IllegalArgumentException("Blunder! " +
+                        "Declare yer deadline as such: 'deadline * /by *', ye scurvy dog!");
             }
             String description = tempArray[0].trim();
             String by = tempArray[1].trim();
@@ -116,13 +135,15 @@ public class Duke {
             String tempString = input.substring(6).trim();
             String[] tempArray = tempString.split("/from", 0);
             if (tempArray.length == 1) {
-                throw new IllegalArgumentException("Blunder! Declare yer event as such: 'deadline * /from * /to *', ye scurvy dog!");
+                throw new IllegalArgumentException("Blunder! " +
+                        "Declare yer event as such: 'deadline * /from * /to *', ye scurvy dog!");
             }
             String description = tempArray[0].trim();
             tempString = tempArray[1].trim();
             tempArray = tempString.split("/to", 0);
             if (tempArray.length == 1) {
-                throw new IllegalArgumentException("Blunder! Declare yer event as such: 'deadline * /from * /to *', ye scurvy dog!");
+                throw new IllegalArgumentException("Blunder! " +
+                        "Declare yer event as such: 'deadline * /from * /to *', ye scurvy dog!");
             }
             String from = tempArray[0].trim();
             String to = tempArray[1].trim();
@@ -137,7 +158,6 @@ public class Duke {
     }
 }
 
-// Custom Exit Loop Exception class
 class ExitProgramException extends RuntimeException {
     public ExitProgramException(String message) {
         super(message);
