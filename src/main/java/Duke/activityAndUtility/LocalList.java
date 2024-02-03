@@ -38,7 +38,7 @@ public class LocalList {
             }
             scanner.close();
         } catch (IOException e) {
-            System.out.println("An error occurred while loading the activities.");
+            System.out.println("File is not there or has been corrupted");
         }
         return loadedActivities;
     }
