@@ -8,17 +8,36 @@ public class Parser {
         ui = new Ui();
     }
 
+    /**
+     * Takes in the raw user input and returns the command.
+     *
+     * @param description The raw user input.
+     * @return Command or action to be done.
+     */
     public String parseCommand(String description) {
         String[] tokens = description.split("/", 2);
         String command = tokens[0].split(" ")[0];
         return command;
     }
 
+    /**
+     * Used for specific commands where an index is expected.
+     * Parses the String input into an int and returns it.
+     *
+     * @param description The raw user input.
+     * @return Index specified by the user.
+     */
     public int indexParser(String description) {
         String[] tokens = description.split("/", 2);
         return Integer.parseInt(tokens[0].split(" ")[1]);
     }
 
+    /**
+     * Custom parser for the Todo task.
+     *
+     * @param description The raw user input.
+     * @return A String[] containing parts of the user input to be used for instantiation.
+     */
     public String[] todoParser(String description) {
         String[] tokens = description.split(" ");
         String[] res = new String[1];
@@ -32,7 +51,12 @@ public class Parser {
         res[0] = taskName;
         return res;
     }
-
+    /**
+     * Custom parser for the Deadline task.
+     *
+     * @param description The raw user input.
+     * @return A String[] containing parts of the user input to be used for instantiation.
+     */
     public String[] deadlineParser(String description) {
         String[] tokens = description.split("/", 2);
         String[] tokens2 = tokens[0].split(" ", 2);
@@ -49,6 +73,12 @@ public class Parser {
         return res;
     }
 
+    /**
+     * Custom parser for the Event task.
+     *
+     * @param description The raw user input.
+     * @return A String[] containing parts of the user input to be used for instantiation.
+     */
     public String[] eventParser(String description) {
         String[] tokens = description.split("/", 3);
         String[] tokens2 = tokens[0].split(" ", 2);

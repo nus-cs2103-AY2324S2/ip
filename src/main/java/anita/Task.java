@@ -9,8 +9,13 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Checks if the task is completed and returns an icon representing the state.
+     *
+     * @return 'X' if task is completed else " ".
+     */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     @Override

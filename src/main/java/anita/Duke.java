@@ -20,6 +20,12 @@ public class Duke {
         initialize = false;
     }
 
+    /**
+     * Main driver code for executing commands.
+     * If user command is not valid, throws the respective exception.
+     *
+     * @throws IOException
+     */
     public void run() throws IOException {
         ui.greet();
         taskList.listTask();
@@ -62,7 +68,14 @@ public class Duke {
         }
     }
 
-
+    /**
+     * Checks for the type of task to be added to the task list.
+     * Runs the correct parser and add task function.
+     *
+     * @param command Command representing the type of task to be added.
+     * @param description The details of the task.
+     * @throws Exception If command is not valid.
+     */
     public void addingTask(String command, String description) throws Exception {
         Parser parser = new Parser();
         switch (command) {
