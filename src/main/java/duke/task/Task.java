@@ -42,6 +42,16 @@ public class Task {
     }
 
     /**
+     * Returns whether if the description field contains the given keyword.
+     *
+     * @param keyword the keyword to be seached for in the description field.
+     * @return boolean value of if the description contains the keyword.
+     */
+    public boolean contains(String keyword) {
+        return this.description.contains(keyword);
+    }
+
+    /**
      * Changes the String representation of the task to displaying its status icon and its description.
      * @return the specified string representation of the task.
      */

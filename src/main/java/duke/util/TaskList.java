@@ -90,6 +90,21 @@ public class TaskList {
     }
 
     /**
+     * Search for the tasks that has the given keyword in the description and display them.
+     *
+     * @param keyword the keyword to be searched.
+     */
+    public void searchAndDisplay(String keyword) {
+        ArrayList<Task> searchResult = new ArrayList<>();
+        for(Task t : this.listItems){
+            if(t.contains(keyword)){
+                searchResult.add(t);
+            }
+        }
+        Ui.displaySelectedList(searchResult);
+    }
+
+    /**
      * Changes the String representation TaskList into showing the number of tasks in the list.
      */
     @Override

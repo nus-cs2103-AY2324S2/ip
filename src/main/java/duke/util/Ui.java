@@ -2,6 +2,8 @@ package duke.util;
 
 import duke.task.Task;
 
+import java.util.ArrayList;
+
 /**
  * Represents the User Interface.
  * Messages are displayed to inform users of the effects of their command.
@@ -44,7 +46,7 @@ public class Ui {
 
     /**
      * Displays a message to inform user of invalid command and,
-     * shows the details of valid commands..
+     * shows the details of valid commands.
      */
     public static void informInvalidCommand() {
         String message = "I regret to inform you that I currently lack an understanding of the intended meaning behind"
@@ -127,6 +129,14 @@ public class Ui {
         printMessageWithLines(message);
     }
 
+    public static void displaySelectedList(ArrayList<Task> taskList) {
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\tHere are the corresponding tasks that align with your criteria:");
+        for(Task t: taskList){
+            System.out.println("\t" + t);
+        }
+        System.out.println("\t____________________________________________________________\n" );
+    }
     /**
      * Informs the user of the correct format to enter a date and time.
      */
@@ -141,16 +151,17 @@ public class Ui {
      */
     public static void informWrongInputFormat() {
         String message = "Please follow the correct format for adding tasks:\n" +
-                "\t\tTo add todos: todo <Taskname>\n" +
-                "\t\tTo add deadlines: deadline <Taskname> /by <deadline in yyyy-mm-dd HHmm format>\n"+
-                "\t\tTo add events: event <Taskname> /from <start time in yyyy-mm-dd HHmm format> " +
+                "\t\tTo add todos: todo <Task name>\n" +
+                "\t\tTo add deadlines: deadline <Task name> /by <deadline in yyyy-mm-dd HHmm format>\n"+
+                "\t\tTo add events: event <Task name> /from <start time in yyyy-mm-dd HHmm format> " +
                 "/to <end time in yyyy-mm-dd HHmm format>\n" +
                 "\tOther commands: \n" +
                 "\t\tlist : to list the full list\n" +
                 "\t\tmark <index>: to mark the task at index no <index> in the list as complete\n" +
                 "\t\tunmark <index>: to mark the task at index no <index> in the last as incomplete\n" +
                 "\t\tdelete <index>: to remove the taks at index no <index> in the last\n" +
-                "\t\tbye: to leave the program";
+                "\t\tbye: to leave the program\n" +
+                "\t\tfind <keyword>: to find tasks with description that contains the keyword";
         printMessageWithLines(message);
     }
 

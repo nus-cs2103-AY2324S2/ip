@@ -15,8 +15,8 @@ import java.util.ArrayList;
  *  Represents the parser of the program that converts user inputs into Commands.
  */
 public class Parser {
-    public enum Cmd {
-        list, todo, deadline, event, mark, unmark, delete, bye, none;
+    public enum Cmd{
+        list, todo, deadline, event, mark, unmark, delete, find, bye, none;
     }
     /**
      * Initializes the given Task ArrayList with given input,
@@ -100,6 +100,9 @@ public class Parser {
                     LocalDateTime fromDate = LocalDateTime.parse(eventData2[0], formatter);
                     LocalDateTime toDate = LocalDateTime.parse(eventData2[1], formatter);
                     command = new AddEventCommand(Cmd.event, eventData[0], fromDate, toDate);
+                    break;
+                case find:
+                    command = new FindCommand(Cmd.find, cmds[1]);
                     break;
                 case delete:
                     command = new DeleteTaskCommand(Cmd.delete, Integer.parseInt(cmds[1]));
