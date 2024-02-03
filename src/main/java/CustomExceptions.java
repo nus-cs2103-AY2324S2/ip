@@ -32,4 +32,16 @@ public class CustomExceptions extends Exception{
             super(errorMessage);
         }
     }
+
+    public static class unrecognizableDateException extends CustomExceptions {
+        public unrecognizableDateException(String errorMessage) {
+            super(errorMessage);
+        }
+    }
+
+    public static class deadlineExceptionBy extends CustomExceptions {
+        public deadlineExceptionBy(String errorMessage) {
+            super(errorMessage);
+        }
+    }
 }

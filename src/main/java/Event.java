@@ -1,10 +1,14 @@
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.FormatStyle;
 
 public class Event implements Item, Serializable {
     private boolean isDone = false;
     private String name = "";
-    private String start = "";
-    private String end = "";
+    private LocalDateTime start = LocalDateTime.now();
+    private LocalDateTime end = LocalDateTime.now();
     public Event(String[] info) throws CustomExceptions {
         int index = 1;
         String s = "";
@@ -20,16 +24,16 @@ public class Event implements Item, Serializable {
                 s += info[i] + " ";
             }
             try {
-                this.start = s.split("/from|/to")[1];
-                this.end = s.split("/from|/to")[2];
+                this.start = Parser.parseDTString(s.split("/from|/to")[1].trim());
+                this.end = Parser.parseDTString(s.split("/from|/to")[2].trim());
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new CustomExceptions.eventExceptionForFromTo("Unable to parse /from /to strings");
+            } catch (DateTimeParseException e) {
+                throw new CustomExceptions.unrecognizableDateException("Date format is unrecognizable, try dd/mm/yy hhmm");
             }
         }
 
         this.name = this.name.trim();
-        this.start = this.start.trim();
-        this.end = this.end.trim();
 
         if (this.name.equals("")) {
             throw new CustomExceptions.namelessTaskException("Missing Event Name");
@@ -80,6 +84,8 @@ public class Event implements Item, Serializable {
     @Override
     public String toString() {
         return "[E]["
-                + printChecked(this.isDone) + "] " + this.name + " " + "(from: " + this.start + " to: " + this.end+ ")";
+                + printChecked(this.isDone) + "] " + this.name + " " + "(from: " +
+                this.start.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)) + " to: " +
+                this.end.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)) + ")";
     }
 }

@@ -1,7 +1,11 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
+//        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)));
         System.out.println(Greet.logo);
         System.out.println(FormatOutput.format(Greet.greet));
         ItemList itemList = Storage.readFromFile();
@@ -82,7 +86,7 @@ public class Duke {
                     } catch (CustomExceptions.namelessTaskException e) {
                         System.out.println(FormatOutput.format("Please re-enter Deadline with a valid name"));
                     }  catch (CustomExceptions e) {
-                        System.out.println(FormatOutput.format("Could not parse command: " + command));
+                        System.out.println(FormatOutput.format(e.getMessage()));
                     }
                 }
             } else if (splitted[0].equals("event")) {
@@ -98,7 +102,7 @@ public class Duke {
                     } catch (CustomExceptions.namelessTaskException e) {
                         System.out.println(FormatOutput.format("Please re-enter Event with a valid name"));
                     } catch (CustomExceptions e) {
-                        System.out.println(FormatOutput.format("Could not parse command: " + command));
+                        System.out.println(e.getMessage());
                     }
                 }
             } else if (command.equals("list")) {
