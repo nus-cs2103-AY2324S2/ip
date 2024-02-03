@@ -11,7 +11,12 @@ import chatbot.action.util.Command;
 public final class InvalidArgumentValueException extends ActionException {
     /** Stores the associated command. */
     private final Command command;
-    private final String invalidArg, reason;
+
+    /** Stores the invalid argument. */
+    private final String invalidArg;
+
+    /** Stores the reason for the invalid value. */
+    private final String reason;
 
     /**
      * Constructor for this {@link ActionException} with an invalid {@link Argument} value.

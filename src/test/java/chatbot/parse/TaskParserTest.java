@@ -1,13 +1,14 @@
 package chatbot.parse;
 
-import chatbot.task.Task;
-import chatbot.task.exception.InvalidTaskStringException;
-import org.junit.jupiter.api.Test;
-
 import static chatbot.parse.TaskParser.parseTaskListItem;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import chatbot.task.Task;
+import chatbot.task.exception.InvalidTaskStringException;
 
 public class TaskParserTest {
     @Test
@@ -64,44 +65,28 @@ public class TaskParserTest {
 
     @Test
     public void parseTaskListItem_invalidFormat_exceptionThrown() {
-        assertThrows(
-                InvalidTaskStringException.class,
-                () -> parseTaskListItem("1) [T][ ] todo")
-        );
+        assertThrows(InvalidTaskStringException.class, () ->
+                parseTaskListItem("1) [T][ ] todo"));
 
-        assertThrows(
-                InvalidTaskStringException.class,
-                () -> parseTaskListItem("1. [?][ ] todo")
-        );
+        assertThrows(InvalidTaskStringException.class, () ->
+                parseTaskListItem("1. [?][ ] todo"));
 
-        assertThrows(
-                InvalidTaskStringException.class,
-                () -> parseTaskListItem("[T][ ] todo")
-        );
+        assertThrows(InvalidTaskStringException.class, () ->
+                parseTaskListItem("[T][ ] todo"));
 
-        assertThrows(
-                InvalidTaskStringException.class,
-                () -> parseTaskListItem(". [T][ ] todo")
-        );
+        assertThrows(InvalidTaskStringException.class, () ->
+                parseTaskListItem(". [T][ ] todo"));
 
-        assertThrows(
-                InvalidTaskStringException.class,
-                () -> parseTaskListItem("1. [D][ ] deadline")
-        );
+        assertThrows(InvalidTaskStringException.class, () ->
+                parseTaskListItem("1. [D][ ] deadline"));
 
-        assertThrows(
-                InvalidTaskStringException.class,
-                () -> parseTaskListItem("1. [D][ ] deadline (from: today)")
-        );
+        assertThrows(InvalidTaskStringException.class, () ->
+                parseTaskListItem("1. [D][ ] deadline (from: today)"));
 
-        assertThrows(
-                InvalidTaskStringException.class,
-                () -> parseTaskListItem("1. [E][ ] event")
-        );
+        assertThrows(InvalidTaskStringException.class, () ->
+                parseTaskListItem("1. [E][ ] event"));
 
-        assertThrows(
-                InvalidTaskStringException.class,
-                () -> parseTaskListItem("")
-        );
+        assertThrows(InvalidTaskStringException.class, () ->
+                parseTaskListItem(""));
     }
 }

@@ -24,7 +24,7 @@ public final class IntegerStringValue extends StringValue {
         Integer i = null;
         try {
             i = Integer.parseInt(super.toString());
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             // invalid integer
             throw new InvalidValueTypeException("integer", value);
         } finally {

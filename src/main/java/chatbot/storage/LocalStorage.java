@@ -1,11 +1,5 @@
 package chatbot.storage;
 
-import chatbot.parse.TaskParser;
-import chatbot.ui.Printer;
-import chatbot.task.TaskList;
-import chatbot.task.Deadline;
-import chatbot.task.exception.InvalidTaskStringException;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
@@ -13,6 +7,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import chatbot.parse.TaskParser;
+import chatbot.task.Deadline;
+import chatbot.task.TaskList;
+import chatbot.task.exception.InvalidTaskStringException;
+import chatbot.ui.Printer;
 
 /**
  * This saves the {@link TaskList} into local storage in the directory {@value RELATIVE_PATH}
@@ -33,10 +33,10 @@ import java.nio.file.Paths;
  */
 public final class LocalStorage {
     /** The relative path from the project root where the save file is stored. */
-    public static String RELATIVE_PATH = "data/";
+    public static final String RELATIVE_PATH = "data/";
 
     /** The name and format of the save file stored. */
-    public static String SAVE_FILE_NAME = "save.txt";
+    public static final String SAVE_FILE_NAME = "save.txt";
 
     /**
      * Tries to save the task list into local storage,
@@ -96,7 +96,7 @@ public final class LocalStorage {
      * @return the task list stored in local storage
      */
     private static TaskList readSaveFile() {
-        TaskList taskList =  new TaskList();
+        TaskList taskList = new TaskList();
         Path path = Paths.get(RELATIVE_PATH, SAVE_FILE_NAME);
         try (BufferedReader br = Files.newBufferedReader(path)) {
             String line;

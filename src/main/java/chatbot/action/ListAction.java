@@ -14,7 +14,7 @@ import chatbot.ui.Printer;
  *
  * @author Titus Chew
  */
-public final class ListAction extends Action{
+public final class ListAction extends Action {
     /** The {@link Command} for listing stored {@link Task}(s). */
     private static final Command COMMAND = new Command(
             new ExpectedArgument("list")

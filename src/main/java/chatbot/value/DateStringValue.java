@@ -17,9 +17,6 @@ import java.util.Locale;
  * @author Titus Chew
  */
 public final class DateStringValue extends StringValue {
-    /** The {@link LocalDate} value stored. */
-    private final LocalDate dateValue;
-
     /** The {@link String} pattern for displaying dates. */
     private static final String DISPLAY_PATTERN = "MMM d yyyy";
 
@@ -33,6 +30,9 @@ public final class DateStringValue extends StringValue {
             .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH))
             .toFormatter();
 
+    /** The {@link LocalDate} value stored. */
+    private final LocalDate dateValue;
+
     /**
      * Takes in a string, but tries to convert it to a {@link LocalDate}.
      *
@@ -44,7 +44,7 @@ public final class DateStringValue extends StringValue {
         LocalDate date = null;
         try {
             date = LocalDate.parse(super.toString(), DATE_TIME_FORMATTER);
-        } catch(DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             // invalid date
         } finally {
             this.dateValue = date;

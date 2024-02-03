@@ -1,5 +1,11 @@
 package chatbot.parse;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
 import chatbot.action.Action;
 import chatbot.action.AddDeadlineAction;
 import chatbot.action.AddEventAction;
@@ -16,19 +22,12 @@ import chatbot.action.exception.MissingArgumentValueException;
 import chatbot.action.exception.UnexpectedArgumentValueException;
 import chatbot.action.exception.UnrecognizedArgumentException;
 import chatbot.action.exception.UnrecognizedCommandException;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class InputParserTest {
     @Test
     public void getParsedInput_empty_exceptionThrown() {
-        assertThrows(
-                UnrecognizedCommandException.class,
-                () -> InputParser.getParsedInput("")
-        );
+        assertThrows(UnrecognizedCommandException.class, () ->
+                InputParser.getParsedInput(""));
     }
 
     @Test()
@@ -99,53 +98,37 @@ public class InputParserTest {
 
     @Test()
     public void getParsedInput_unexpectedArgument_exceptionThrown() {
-        assertThrows(
-                UnexpectedArgumentValueException.class,
-                () -> InputParser.getParsedInput("list 10")
-        );
+        assertThrows(UnexpectedArgumentValueException.class, () ->
+                InputParser.getParsedInput("list 10"));
     }
 
     @Test()
     public void getParsedInput_unrecognizedArgument_exceptionThrown() {
-        assertThrows(
-                UnrecognizedArgumentException.class,
-                () -> InputParser.getParsedInput("todo work /by 10pm")
-        );
+        assertThrows(UnrecognizedArgumentException.class, () ->
+                InputParser.getParsedInput("todo work /by 10pm"));
 
-        assertThrows(
-                UnrecognizedArgumentException.class,
-                () -> InputParser.getParsedInput("deadline work /from 10pm")
-        );
+        assertThrows(UnrecognizedArgumentException.class, () ->
+                InputParser.getParsedInput("deadline work /from 10pm"));
     }
 
     @Test()
     public void getParsedInput_missingArgument_exceptionThrown() {
-        assertThrows(
-                MissingArgumentException.class,
-                () -> InputParser.getParsedInput("event work")
-        );
+        assertThrows(MissingArgumentException.class, () ->
+                InputParser.getParsedInput("event work"));
 
-        assertThrows(
-                MissingArgumentException.class,
-                () -> InputParser.getParsedInput("deadline work")
-        );
+        assertThrows(MissingArgumentException.class, () ->
+                InputParser.getParsedInput("deadline work"));
     }
 
     @Test()
     public void getParsedInput_missingArgumentValue_exceptionThrown() {
-        assertThrows(
-                MissingArgumentValueException.class,
-                () -> InputParser.getParsedInput("event work /from /to 4pm")
-        );
+        assertThrows(MissingArgumentValueException.class, () ->
+                InputParser.getParsedInput("event work /from /to 4pm"));
 
-        assertThrows(
-                MissingArgumentValueException.class,
-                () -> InputParser.getParsedInput("deadline /by today")
-        );
+        assertThrows(MissingArgumentValueException.class, () ->
+                InputParser.getParsedInput("deadline /by today"));
 
-        assertThrows(
-                MissingArgumentValueException.class,
-                () -> InputParser.getParsedInput("deadline homework /by ")
-        );
+        assertThrows(MissingArgumentValueException.class, () ->
+                InputParser.getParsedInput("deadline homework /by "));
     }
 }

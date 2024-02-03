@@ -1,6 +1,8 @@
 package chatbot.ui;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * This encapsulates interactions with the user by printing to the console. (System.out)

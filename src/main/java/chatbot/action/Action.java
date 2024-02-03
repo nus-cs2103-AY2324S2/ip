@@ -10,7 +10,6 @@ import chatbot.value.StringValue;
 
 /**
  * An Action encapsulates the behaviour of a {@link Command} and it's {@link Argument}(s).
- * <ul>
  * <li>An action may be invalid.
  * <li>An action can be executed, with validation checks.
  *

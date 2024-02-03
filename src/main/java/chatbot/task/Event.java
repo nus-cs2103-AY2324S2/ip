@@ -1,10 +1,10 @@
 package chatbot.task;
 
-import chatbot.task.exception.InvalidTaskStringException;
-import chatbot.value.DateStringValue;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import chatbot.task.exception.InvalidTaskStringException;
+import chatbot.value.DateStringValue;
 
 /**
  * This encapsulates tasks that start at a specific date/time and ends at a specific data/time.
@@ -12,11 +12,6 @@ import java.util.regex.Pattern;
  * @author Titus Chew
  */
 public final class Event extends Task {
-    /** Stores the start time of this. */
-    private final DateStringValue startDateTime;
-    /** Stores the end time of this. */
-    private final DateStringValue endDateTime;
-
     /** The icon for the task type. */
     private static final String TASK_TYPE_ICON = "E";
 
@@ -26,6 +21,12 @@ public final class Event extends Task {
     /** The regex pattern that a {@link Event} takes. */
     private static final Pattern REGEX_PATTERN = Pattern.compile(
             String.format("\\[%s\\](?<task>.*)\\(from:(?<from>.*)to:(?<to>.*)\\)", TASK_TYPE_ICON));
+
+    /** Stores the start time of this. */
+    private final DateStringValue startDateTime;
+
+    /** Stores the end time of this. */
+    private final DateStringValue endDateTime;
 
     /**
      * Constructor for this event.

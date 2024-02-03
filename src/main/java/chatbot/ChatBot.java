@@ -1,17 +1,17 @@
 package chatbot;
 
+import java.util.Scanner;
+
 import chatbot.action.Action;
 import chatbot.action.ByeAction;
 import chatbot.action.exception.ActionException;
 import chatbot.parse.InputParser;
-import chatbot.ui.Printer;
 import chatbot.storage.LocalStorage;
 import chatbot.task.TaskList;
-
-import java.util.Scanner;
+import chatbot.ui.Printer;
 
 /**
- * This encapsulates the behaviour of a chat-bot,
+ * This encapsulates the behaviour of a chatbot,
  * which is the handling of the message content and executing commands.
  *
  * @author Titus Chew
@@ -26,11 +26,6 @@ public class ChatBot {
     /** Stores the user's tasks. */
     private final TaskList userList;
 
-    public static void main(String[] args) {
-        ChatBot chatBot = new ChatBot("Stratify");
-        chatBot.run();
-    }
-
     /**
      * Class constructor.
      *
@@ -39,6 +34,11 @@ public class ChatBot {
     public ChatBot(String chatBotName) {
         this.chatBotName = chatBotName;
         userList = LocalStorage.loadTaskList();
+    }
+
+    public static void main(String[] args) {
+        ChatBot chatBot = new ChatBot("Stratify");
+        chatBot.run();
     }
 
     /**
@@ -52,7 +52,7 @@ public class ChatBot {
     }
 
     /**
-     * Runs the chat bot main loop.
+     * Runs the chatbot main loop.
      */
     public void run() {
         greet();
@@ -60,7 +60,7 @@ public class ChatBot {
         Action userAction = null;
         do {
             try {
-                userAction = InputParser.getParsedInput( SCANNER.nextLine());
+                userAction = InputParser.getParsedInput(SCANNER.nextLine());
                 userAction.execute(userList);
             } catch (ActionException e) {
                 Printer.printMessages(e.getMessage());

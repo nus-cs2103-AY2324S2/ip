@@ -1,9 +1,9 @@
 package chatbot.task;
 
-import chatbot.task.exception.InvalidTaskStringException;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import chatbot.task.exception.InvalidTaskStringException;
 
 /**
  * Encapsulates the behaviour of a task.
@@ -11,12 +11,6 @@ import java.util.regex.Pattern;
  * @author Titus Chew
  */
 public abstract class Task {
-    /** The name of this task.*/
-    private final String name;
-
-    /** Whether this task is completed. */
-    private boolean isCompleted = false;
-
     /** The format that a {@link Task} takes. */
     private static final String FORMAT = "[%s] %s";
 
@@ -27,6 +21,12 @@ public abstract class Task {
 
     /** The text icon to indicate that a task is completed. */
     private static final String COMPLETED_ICON = "X";
+
+    /** The name of this task.*/
+    private final String name;
+
+    /** Whether this task is completed. */
+    private boolean isCompleted = false;
 
     /**
      * Constructor for this task.

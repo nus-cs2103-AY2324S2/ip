@@ -1,14 +1,14 @@
 package chatbot.parse;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import chatbot.task.Deadline;
 import chatbot.task.Event;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.task.ToDo;
 import chatbot.task.exception.InvalidTaskStringException;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Parses the stored input line into a {@link Task}.
@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  */
 public final class TaskParser {
     /** Stores the pattern to match a {@link TaskList} item. */
-    public static Pattern TASK_ITEM_PATTERN = Pattern.compile("\\d+\\.(?<task>.*)");
+    public static final Pattern TASK_ITEM_PATTERN = Pattern.compile("\\d+\\.(?<task>.*)");
 
     /**
      * Parses a {@link TaskList} item from a human-readable string.

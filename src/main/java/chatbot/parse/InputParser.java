@@ -1,14 +1,15 @@
 package chatbot.parse;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import chatbot.ChatBot;
 import chatbot.action.Action;
 import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 
-import java.lang.StringBuilder;
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Parses the input of a {@link ChatBot} into {@link Argument} list.
@@ -22,7 +23,7 @@ public final class InputParser {
      * @param input the input string
      * @return an {@link Action} containing the {@link Command} and it's {@link Argument}(S)
      * @throws ActionException If invalid input is provided that results in
-     * an invalid {@link Command} or {@link Argument}(s).
+     *     an invalid {@link Command} or {@link Argument}(s).
      */
     public static Action getParsedInput(String input) throws ActionException {
         // command is always the first word in the input
@@ -33,7 +34,6 @@ public final class InputParser {
 
     /**
      * Parses the {@link Argument}(s) from an input string.
-     * <ul>
      * <li>"/" is a special character, when at the start of a word, it denotes the start of an {@link Argument}.
      * <li>"/" not at the start of a word, will not be recognized as a special character.
      *
