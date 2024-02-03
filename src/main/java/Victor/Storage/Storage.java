@@ -1,4 +1,4 @@
-package Storage;
+package Victor.Storage;
 public class Storage {
 
 }

@@ -1,3 +1,3 @@
-package TaskList;
+package Victor.TaskList;
 public class TaskList {
 }

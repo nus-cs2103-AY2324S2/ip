@@ -1,3 +1,3 @@
-package Ui;
+package Victor.Ui;
 public class Ui {
 }
