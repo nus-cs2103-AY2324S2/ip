@@ -91,10 +91,11 @@ public class Ui {
             return new Delete(taskList, idx);
         case "find":
             try {
-                return new Find(Parser.parseDescription(restOfLine));
+                tokens = Parser.parseDescription(restOfLine).split(" ");
             } catch (NarutoException e) {
                 return new HandleError(e);
             }
+            return new Find(tokens);
         default:
             return new HandleError(NarutoException.createInvalidCommandException());
         }
