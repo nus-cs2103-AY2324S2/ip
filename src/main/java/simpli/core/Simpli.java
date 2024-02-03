@@ -14,6 +14,7 @@ import simpli.tasks.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -45,9 +46,8 @@ public class Simpli {
 
         // Performing actions from user input
         while (!userIn.equals("bye")) {
-            String[] tokens = parser.parseCommand(userIn);
-
             try {
+                String[] tokens = parser.parseCommand(userIn);
                 intrpr.interpret(tokens);
             } catch (TaskException e) {
                 respond("Invalid task parameters, cannot simp :(");
@@ -145,8 +145,8 @@ public class Simpli {
         );
     }
 
-    public void addDeadline(String[] tokens) {
-        Deadline deadline = new Deadline(tokens[1].equals("1"), tokens[2], tokens[4]);
+    public void addDeadline(String[] tokens, LocalDateTime[] dateTimes) {
+        Deadline deadline = new Deadline(tokens[1].equals("1"), tokens[2], dateTimes[0]);
         tasks.add(deadline);
         respond(
                 "Got it. I've added this task:\n\t" +
@@ -155,8 +155,8 @@ public class Simpli {
         );
     }
 
-    public void addEvent(String[] tokens) {
-        Event event = new Event(tokens[1].equals("1"), tokens[2], tokens[4], tokens[6]);
+    public void addEvent(String[] tokens, LocalDateTime[] dateTimes) {
+        Event event = new Event(tokens[1].equals("1"), tokens[2], dateTimes[0], dateTimes[1]);
         tasks.add(event);
         respond(
                 "Got it. I've added this task:\n\t" +

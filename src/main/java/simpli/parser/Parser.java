@@ -1,38 +1,69 @@
 package simpli.parser;
 
 import simpli.actions.Action;
+import simpli.exceptions.TaskException;
 
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 public final class Parser {
     /* tokens index information
      * 0 - command
      * 1 - isDone
-     * 2 - taskName
-     * 3 - "by" or "from" (Deadline or Event task)
-     * 4 - dueDate or fromDate (Deadline or Event task)
-     * 5 - "to" (Event task)
-     * 6 - toDate (Event task) */
-    private static final int MAX_TOKENS = 7;
+     * 2 - taskName or taskNum (Mark, Unmark, Delete or Todo, Deadline, Event)
+     * 3 - dueDate or fromDate (Deadline or Event task)
+     * 4 - toDate (Event task) */
+    private static final int MAX_TOKENS = 5;
 
-    public String[] parseCommand(String content) {
+    public String[] parseCommand(String content) throws TaskException{
         String[] parsedTokens = new String[MAX_TOKENS];
         Arrays.fill(parsedTokens, "");
 
-        String[] tokens = content.split(" ");
+        String[] tokens = content.split(" /[a-zA-Z]* ");  // 1:
+        String[] taskInfo = tokens[0].split(" ", 2);
 
-        parsedTokens[0] = tokens[0];  // command
-        parsedTokens[1] = "0";      // isDone
-        int index = 2;
-        for (int i = 1; i < tokens.length; i++) {
-            if (!tokens[i].contains("/")) {
-                parsedTokens[index] += parsedTokens[index].isEmpty() ? "" : " ";
-                parsedTokens[index] += tokens[i];
-            } else {
-                index++;
-                parsedTokens[index] = tokens[i].substring(1);
-                index++;
+        parsedTokens[0] = taskInfo[0];
+        parsedTokens[1] = "0";
+
+        Action actionType = Action.valueOf(taskInfo[0].toUpperCase());
+        switch (actionType) {
+        case Action.LIST:
+            break;
+        case Action.MARK: {
+            parsedTokens[2] = taskInfo[1];
+            break;
+        }
+        case Action.UNMARK: {
+            parsedTokens[2] = taskInfo[1];
+            break;
+        }
+        case Action.DELETE: {
+            parsedTokens[2] = taskInfo[1];
+            break;
+        }
+        case Action.TODO: {
+            parsedTokens[2] = taskInfo[1];
+            break;
+        }
+        case Action.DEADLINE: {
+            if (!content.contains("/by")) {
+                throw new TaskException();
             }
+            parsedTokens[2] = taskInfo[1];
+            parsedTokens[3] = tokens[1];
+            parsedTokens[4] = tokens[2];
+        }
+        case Action.EVENT: {
+            if (!content.contains("/from") || !content.contains("/to")) {
+                throw new TaskException();
+            }
+            parsedTokens[2] = taskInfo[1];
+            parsedTokens[3] = tokens[1];
+            parsedTokens[4] = tokens[2];
+        }
         }
 
         return parsedTokens;
@@ -40,6 +71,7 @@ public final class Parser {
 
     public String[] parseCsv(String csv) {
         String[] parsedTokens = new String[MAX_TOKENS];
+        Arrays.fill(parsedTokens, "");
         String[] fields = csv.split(",");
 
         parsedTokens[0] = fields[0];
@@ -51,15 +83,12 @@ public final class Parser {
             break;
         }
         case Action.DEADLINE: {
-            parsedTokens[3] = "by";
-            parsedTokens[4] = fields[3];
+            parsedTokens[3] = fields[3];
             break;
         }
         case Action.EVENT: {
-            parsedTokens[3] = "from";
-            parsedTokens[4] = fields[3];
-            parsedTokens[5] = "to";
-            parsedTokens[6] = fields[4];
+            parsedTokens[3] = fields[3];
+            parsedTokens[4] = fields[4];
             break;
         }
         }
