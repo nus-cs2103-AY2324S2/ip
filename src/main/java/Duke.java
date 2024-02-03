@@ -98,8 +98,8 @@ public class Duke {
                 Task deadline;
                 try {
                     String[] d = details.split("/by");
-                    if (d.length == 1) {
-                        throw new DukeException("Invalid deadline task!");
+                    if (d.length <= 1) {
+                        throw new DukeException("Invalid deadline task!\n\tFormat: 'deadline [deadline name] /by yyyy-mm-dd'");
                     }
                     deadlineName = d[0].trim();
                     by = LocalDate.parse(d[1].trim());
