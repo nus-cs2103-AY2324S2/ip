@@ -111,7 +111,7 @@ public class Parser {
             throw new GgException("OOPS!!! The description of a deadline cannot be empty.");
         }
 
-        try{
+        try {
             String[] splittedCommand = input.split(" /by ");
             String task = splittedCommand[0].substring(9);
             String by = splittedCommand[1];
