@@ -9,6 +9,10 @@ import chatbot.parse.InputParser;
 import chatbot.storage.LocalStorage;
 import chatbot.task.TaskList;
 import chatbot.ui.Printer;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * This encapsulates the behaviour of a chatbot,
@@ -16,29 +20,30 @@ import chatbot.ui.Printer;
  *
  * @author Titus Chew
  */
-public class ChatBot {
+public class ChatBot extends Application {
     /** Stores the scanner instance used to get the console input stream. */
     private static final Scanner SCANNER = new Scanner(System.in);
 
     /** Stores the name of this. */
-    private final String chatBotName;
+    private static final String CHATBOT_NAME = "Stratify";
 
     /** Stores the user's tasks. */
-    private final TaskList userList;
+    private static final TaskList USER_TASK_LIST = LocalStorage.loadTaskList();
 
     /**
-     * Class constructor.
-     *
-     * @param chatBotName the name of this chatbot.
+     * Creates the JavaFX Application instance by calling the no-argument class constructor.
      */
-    public ChatBot(String chatBotName) {
-        this.chatBotName = chatBotName;
-        userList = LocalStorage.loadTaskList();
+    public ChatBot() {
+        run();
     }
 
-    public static void main(String[] args) {
-        ChatBot chatBot = new ChatBot("Stratify");
-        chatBot.run();
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
     /**
@@ -46,7 +51,7 @@ public class ChatBot {
      */
     private void greet() {
         Printer.printMessages(
-                "Hello! I'm " + chatBotName + "!",
+                "Hello! I'm " + CHATBOT_NAME + "!",
                 "What can I do for you?"
         );
     }
@@ -61,7 +66,7 @@ public class ChatBot {
         do {
             try {
                 userAction = InputParser.getParsedInput(SCANNER.nextLine());
-                userAction.execute(userList);
+                userAction.execute(USER_TASK_LIST);
             } catch (ActionException e) {
                 Printer.printMessages(e.getMessage());
             }
