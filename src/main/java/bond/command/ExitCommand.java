@@ -1,3 +1,9 @@
+package command;
+
+import bond.Storage;
+import bond.Ui;
+import task.TaskList;
+
 public class ExitCommand extends Command {
 
     public ExitCommand() {

@@ -1,3 +1,5 @@
+package command;
+
 public abstract class AddCommand extends Command {
 
     public String taskName;

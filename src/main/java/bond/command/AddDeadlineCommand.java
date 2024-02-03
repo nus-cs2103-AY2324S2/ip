@@ -1,3 +1,12 @@
+package command;
+
+import bond.BondException;
+import bond.Storage;
+import bond.Ui;
+import task.DeadlineTask;
+import task.Task;
+import task.TaskList;
+
 public class AddDeadlineCommand extends AddCommand {
 
     private String deadline;

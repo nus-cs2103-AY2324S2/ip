@@ -1,3 +1,12 @@
+package command;
+
+import bond.BondException;
+import bond.Storage;
+import bond.Ui;
+import task.EventTask;
+import task.Task;
+import task.TaskList;
+
 public class AddEventCommand extends AddCommand {
 
     private String start;

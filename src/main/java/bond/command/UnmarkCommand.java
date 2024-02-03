@@ -1,9 +1,17 @@
-public class MarkCommand extends Command {
+package command;
+
+import bond.BondException;
+import bond.Storage;
+import bond.Ui;
+import task.Task;
+import task.TaskList;
+
+public class UnmarkCommand extends Command {
 
     private int index;
 
-    public MarkCommand(int index) {
-        super("mark");
+    public UnmarkCommand(int index) {
+        super("unmark");
         this.index = index;
     }
 
@@ -13,8 +21,8 @@ public class MarkCommand extends Command {
             BondException.raiseException("delete", "INVALID_INDEX");
         }
         Task markedTask = tasks.getTask(index);
-        markedTask.markAsComplete();
-        ui.taskMarked(markedTask, tasks);
+        markedTask.markAsIncomplete();
+        ui.taskUnmarked(markedTask, tasks);
         storage.overwritePreviousSave(tasks);
     }
 

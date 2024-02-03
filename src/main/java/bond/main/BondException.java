@@ -1,3 +1,5 @@
+package bond;
+
 public class BondException extends Exception {
 
     private enum ExceptionType {

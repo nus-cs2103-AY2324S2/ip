@@ -1,3 +1,8 @@
+package bond;
+
+import command.Command;
+import task.TaskList;
+
 public final class Bond {
 
     private Ui ui;
