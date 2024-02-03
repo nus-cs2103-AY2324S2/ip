@@ -41,7 +41,7 @@ public class ToDo extends Task {
         }
         ToDo todo = new ToDo(parts[2]);
         if (parts[1].equals("1")) {
-            todo.check();
+            todo.setDone(true);
         }
         return todo;
     }

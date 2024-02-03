@@ -60,6 +60,8 @@ public class Storage {
                 bw.write(task.toFileFormat());
                 bw.newLine();
             }
+        } catch (IOException e) {
+            throw new IOException("Failed to save tasks: " + e.getMessage());
         }
     }
 

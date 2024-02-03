@@ -75,7 +75,7 @@ public class Event extends Task {
             LocalDateTime end = LocalDateTime.parse(times[1], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             Event event = new Event(description, start, end);
             if (parts[1].equals("1")) {
-                event.check();
+                event.setDone(true);
             }
             return event;
         } catch (DateTimeParseException e) {

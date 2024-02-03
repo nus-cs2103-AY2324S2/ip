@@ -1,173 +1,113 @@
 package huyang;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 /**
- * TaskList class representing a list of tasks and providing operations to manipulate the tasks.
+ * Represents a collection of tasks in a task list.
  */
 public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
-     * Constructor for the TaskList class.
+     * Constructs a TaskList with the given list of tasks.
      *
-     * @param tasks An ArrayList of tasks to initialize the task list.
+     * @param tasks The list of tasks to initialize the TaskList with.
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
     /**
-     * Gets the list of tasks.
+     * Retrieves the list of tasks stored in this TaskList.
      *
-     * @return An ArrayList containing the tasks.
+     * @return An ArrayList containing the tasks in the TaskList.
      */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
     /**
-     * Adds a task to the task list based on the given command type and input.
+     * Gets the number of tasks in the TaskList.
      *
-     * @param input       The user input command.
-     * @param commandType The command type to determine the task type.
-     * @param ui          The user interface for printing messages.
-     * @return True if the task was added successfully, false otherwise.
-     * @throws TaskException If there is an issue adding the task.
+     * @return The number of tasks in the TaskList.
      */
-    public boolean addTask(String input, Parser.CommandType commandType, Ui ui) throws TaskException {
-        Task task;
-        switch (commandType) {
-        case TODO:
-            task = createTodoTask(input);
-            break;
-        case DEADLINE:
-            task = createDeadlineTask(input);
-            break;
-        case EVENT:
-            task = createEventTask(input);
-            break;
-        default:
-            return false;
-        }
-        addTask(task);
-        ui.printAddedTask(task, tasks.size());
-        return true;
-    }
-
-    private void addTask(Task task) {
-        tasks.add(task);
+    public int getSize() {
+        return tasks.size();
     }
 
     /**
-     * Marks or unmarks a task in the task list based on the given command type and input.
+     * Gets a task at the specified index in the TaskList.
      *
-     * @param input       The user input command.
-     * @param commandType The command type to determine whether to mark or unmark the task.
-     * @param ui          The user interface for printing messages.
-     * @return True if the task was marked or unmarked successfully, false otherwise.
+     * @param index The index of the task to retrieve.
+     * @return The task at the specified index.
+     */
+    public Task getTask(int index) {
+        return tasks.get(index);
+    }
+
+    /**
+     * Adds a new task to the TaskList based on the input command and type.
+     *
+     * @param input       The input string describing the task.
+     * @param commandType The type of command associated with the input.
+     * @return The added task.
+     * @throws TaskException If there is an issue creating or adding the task.
+     */
+    public Task addTask(String input, Parser.CommandType commandType) throws TaskException {
+        Task task = TaskFactory.createTask(input, commandType);
+        tasks.add(task);
+        return task;
+    }
+
+    /**
+     * Marks or unmarks a task in the TaskList as done based on the input.
+     *
+     * @param input  The input string specifying the task.
+     * @param isDone A boolean indicating whether the task should be marked as done or not.
+     * @return The modified task.
      * @throws TaskException If there is an issue marking or unmarking the task.
      */
-    public boolean markOrUnmarkTask(String input, Parser.CommandType commandType, Ui ui) throws TaskException {
-        int taskNumber = parseTaskNumber(input);
-        Task task = tasks.get(taskNumber - 1);
-
-        if (commandType == Parser.CommandType.MARK) {
-            task.check();
-            ui.printMarkedTask(task);
-        } else { // Unmark
-            task.uncheck();
-            ui.printUnmarkedTask(task);
-        }
-        return true;
+    public Task markOrUnmarkTask(String input, boolean isDone) throws TaskException {
+        Task task = getTaskByNumber(input);
+        task.setDone(isDone);
+        return task;
     }
 
     /**
-     * Deletes a task from the task list based on the given input.
+     * Deletes a task from the TaskList based on the input.
      *
-     * @param input The user input command.
-     * @param ui    The user interface for printing messages.
-     * @return True if the task was deleted successfully, false otherwise.
+     * @param input The input string specifying the task to delete.
+     * @return The deleted task.
      * @throws TaskException If there is an issue deleting the task.
      */
-    public boolean deleteTask(String input, Ui ui) throws TaskException {
-        int taskNumber = parseTaskNumber(input);
-        Task removedTask = tasks.remove(taskNumber - 1);
-        ui.printDeletedTask(removedTask, tasks.size());
-        return true;
-    }
-
-    private int parseTaskNumber(String input) throws TaskException {
-        try {
-            int taskNumber = Integer.parseInt(input.split(" ")[1]);
-            if (taskNumber < 1 || taskNumber > tasks.size()) {
-                throw new TaskException("Invalid task number. Please check and try again.");
-            }
-            return taskNumber;
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new TaskException("Invalid task number format. Please enter a valid number.");
-        }
-    }
-
-    private ToDo createTodoTask(String input) throws TaskException {
-        if (input.strip().length() <= 5) {
-            throw TaskException.forEmptyTaskDescription();
-        }
-        return new ToDo(input.substring(5).trim());
-    }
-
-    private Deadline createDeadlineTask(String input) throws TaskException {
-        if (input.strip().length() <= 9) {
-            throw TaskException.forEmptyTaskDescription();
-        }
-        int byIndex = input.indexOf("/by");
-        if (byIndex == -1) {
-            throw TaskException.forInvalidTaskFormat("deadline");
-        }
-        try {
-            String description = input.substring(9, byIndex).trim();
-            String by = input.substring(byIndex + 4).trim();
-            LocalDateTime byTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-            return new Deadline(description, byTime);
-        } catch (DateTimeParseException e) {
-            throw new TaskException("Invalid date format. Please use YYYY-MM-DD HHMM, e.g., 2020-12-02 1800.");
-        }
-    }
-
-    private Event createEventTask(String input) throws TaskException {
-        if (input.strip().length() <= 6) {
-            throw TaskException.forEmptyTaskDescription();
-        }
-        int fromIndex = input.indexOf("/from");
-        int toIndex = input.indexOf("/to");
-        if (fromIndex == -1 || toIndex == -1) {
-            throw TaskException.forInvalidTaskFormat("event");
-        }
-        try {
-            String description = input.substring(6, fromIndex).trim();
-            String start = input.substring(fromIndex + 6, toIndex).trim();
-            String end = input.substring(toIndex + 4).trim();
-            LocalDateTime startTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-            LocalDateTime endTime = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-            return new Event(description, startTime, endTime);
-        } catch (DateTimeParseException e) {
-            throw new TaskException("Invalid date format. Please use YYYY-MM-DD HHMM, e.g., 2020-12-02 1800.");
-        }
+    public Task deleteTask(String input) throws TaskException {
+        Task task = getTaskByNumber(input);
+        tasks.remove(task);
+        return task;
     }
 
     /**
-     * Finds tasks that contain the given keyword in their task names.
+     * Finds tasks in the TaskList that contain the specified keyword.
      *
-     * @param keyword The keyword to search for in task names (case-insensitive).
-     * @return An ArrayList of tasks that contain the keyword in their names.
+     * @param keyword The keyword to search for in task names.
+     * @return An ArrayList of tasks matching the keyword.
      */
     public ArrayList<Task> findTasks(String keyword) {
         return tasks.stream()
-                .filter(task -> task.getTaskName().toLowerCase().contains(keyword))
+                .filter(task -> task.getTaskName().toLowerCase().contains(keyword.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    private Task getTaskByNumber(String input) throws TaskException {
+        try {
+            int taskNumber = Integer.parseInt(input.split(" ")[1]);
+            if (taskNumber < 1 || taskNumber > tasks.size()) {
+                throw TaskException.forInvalidTaskNumber();
+            }
+            return tasks.get(taskNumber - 1);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw TaskException.forInvalidTaskNumber();
+        }
     }
 }

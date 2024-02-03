@@ -17,18 +17,8 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    /**
-     * Marks the task as done.
-     */
-    public void check() {
-        this.isDone = true;
-    }
-
-    /**
-     * Marks the task as not done.
-     */
-    public void uncheck() {
-        this.isDone = false;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     /**

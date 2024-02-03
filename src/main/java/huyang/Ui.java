@@ -1,134 +1,107 @@
 package huyang;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Ui class responsible for handling user interaction and displaying messages.
  */
 public class Ui {
-    private Scanner scanner;
 
     /**
-     * Constructor for the Ui class.
+     * Returns a greeting message.
      */
-    public Ui() {
-        scanner = new Scanner(System.in);
+    public String getGreetingMessage() {
+        return "Hello! I'm Huyang\nWhat can I do for you?";
     }
 
     /**
-     * Displays a greeting message.
-     */
-    public void greet() {
-        System.out.println("Hello! I'm Huyang");
-        System.out.println("What can I do for you?");
-    }
-
-    /**
-     * Reads and returns user input as a string.
+     * Returns an error message.
      *
-     * @return The user input as a string.
+     * @param message The error message to be returned.
      */
-    public String readCommand() {
-        return scanner.nextLine();
+    public String getErrorMessage(String message) {
+        return "Error: " + message;
     }
 
     /**
-     * Prints an error message.
+     * Returns a message for an unknown command.
+     */
+    public String getUnknownCommandMessage() {
+        return "I'm sorry, but I don't know what that means :-(";
+    }
+
+    /**
+     * Returns a farewell message.
+     */
+    public String getFarewellMessage() {
+        return "Bye. Hope to see you again soon!";
+    }
+
+    /**
+     * Returns a message for an added task and the current task count.
      *
-     * @param message The error message to be displayed.
+     * @param task The added task to be displayed.
      */
-    public void printErrorMessage(String message) {
-        System.err.println("Error: " + message);
+    public String getAddTaskMessage(Task task, int taskCount) {
+        return "Got it. I've added this task:\n  " + task
+                + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
     /**
-     * Prints a message for an unknown command.
-     */
-    public void printUnknownCommandMessage() {
-        System.out.println("I'm sorry, but I don't know what that means :-(");
-    }
-
-    /**
-     * Displays a farewell message.
-     */
-    public void farewell() {
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    /**
-     * Prints a message for an added task and the current task count.
+     * Returns a message for a marked task as done or not done yet.
      *
-     * @param task      The added task to be displayed.
+     * @param input The user input.
+     * @param isMarked Whether the task is marked as done.
+     */
+    public String getMarkOrUnmarkMessage(Task task, boolean isMarked) {
+        String status = isMarked ? "done" : "not done yet";
+        return "Nice! I've marked this task as " + status + ":\n  " + task;
+    }
+
+    /**
+     * Returns a message for a deleted task and the current task count.
+     *
+     * @param task The deleted task to be displayed.
      * @param taskCount The current task count to be displayed.
      */
-    public void printAddedTask(Task task, int taskCount) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    public String getDeleteTaskMessage(Task task, int taskCount) {
+        return "Noted. I've removed this task:\n  " + task
+                + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
     /**
-     * Prints a message for a marked task as done.
-     *
-     * @param task The task marked as done to be displayed.
-     */
-    public void printMarkedTask(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task);
-    }
-
-    /**
-     * Prints a message for a marked task as not done yet.
-     *
-     * @param task The task marked as not done yet to be displayed.
-     */
-    public void printUnmarkedTask(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + task);
-    }
-
-    /**
-     * Prints a message for a deleted task and the current task count.
-     *
-     * @param task      The deleted task to be displayed.
-     * @param taskCount The current task count to be displayed.
-     */
-    public void printDeletedTask(Task task, int taskCount) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-    }
-
-    /**
-     * Displays the list of tasks.
+     * Returns the list of tasks.
      *
      * @param tasks An ArrayList of tasks to be displayed.
      */
-    public void showTasks(ArrayList<Task> tasks) {
+    public String getTasksMessage(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("You have no tasks in your list.");
-            return;
+            return "You have no tasks in your list.";
         }
-        System.out.println("Here are the tasks in your list:");
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            sb.append("\n" + (i + 1) + ". " + tasks.get(i));
         }
+        return sb.toString();
     }
 
     /**
-     * Displays a list of found tasks based on a keyword search.
+     * Returns a list of found tasks based on a keyword search.
      *
      * @param tasks An ArrayList of tasks containing the tasks found with the given keyword.
      */
-    public void showFoundTasks(ArrayList<Task> tasks) {
+    public String getFoundTasksMessage(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("No tasks found with the given keyword.");
-        } else {
-            System.out.println("Here are the matching tasks in your list:");
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
-            }
+            return "No tasks found with the given keyword.";
         }
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append((i + 1) + "." + tasks.get(i) + "\n");
+        }
+        return sb.toString();
+    }
+
+    public void print(String s) {
+        System.out.println(s);
     }
 }

@@ -59,7 +59,7 @@ public class Deadline extends Task {
         LocalDateTime byTime = LocalDateTime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         Deadline deadline = new Deadline(parts[2], byTime);
         if (parts[1].equals("1")) {
-            deadline.check();
+            deadline.setDone(true);
         }
         return deadline;
     }
