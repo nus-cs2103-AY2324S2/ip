@@ -6,17 +6,28 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The Parser class handles parsing user input and executing corresponding actions.
+ */
 public class Parser {
     private Scanner sc;
     public UI ui;
     public Storage storage;
 
+    /**
+     * Constructs a new Parser instance.
+     *
+     * @param store The storage object to interact with task storage.
+     */
     public Parser(Storage store) {
         sc = new Scanner(System.in);
         ui = new UI();
         storage = store;
     }
 
+    /**
+     * Runs the main loop for processing user input and executing commands.
+     */
     public void run() {
         boolean stop = false;
         while (!stop) {

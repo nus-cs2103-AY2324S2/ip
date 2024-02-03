@@ -9,12 +9,31 @@ import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * The Save class manages the saving and loading of task data to and from a file.
+ */
 public class Save {
+
+    /**
+     * The file path for saving and loading data.
+     */
     public String filePath = "data/duke.txt";
 
+    /**
+     * Constructs a new Save instance with a specified file path.
+     *
+     * @param f The file path.
+     */
     public Save(String f) {
         this.filePath = f;
     }
+
+    /**
+     * Saves the data from the given storage to the specified file path.
+     *
+     * @param s The storage containing tasks to be saved.
+     */
     public void saveData(Storage s) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (int i=0; i<s.size(); i++) {
@@ -70,6 +89,11 @@ public class Save {
         }
     }
 
+    /**
+     * Loads data from the specified file path into the given storage.
+     *
+     * @param s The storage where tasks will be loaded.
+     */
     public void loadData(Storage s) {
         try(FileInputStream fis = new FileInputStream(filePath)) {
             byte[] buffer = new byte[1024]; // You can adjust the buffer size according to your needs
