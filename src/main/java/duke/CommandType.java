@@ -6,7 +6,7 @@ package duke;
  * CommandType.
  */
 public enum CommandType {
-    TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BYE, LIST, INVALID;
+    TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BYE, LIST, FIND, INVALID;
 
     /**
      * Converts a string to a CommandType.
