@@ -13,6 +13,11 @@ import java.util.Scanner;
  */
 
 public class Duke {
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
     public static void main(String[] args) {
 
         // Displaying Duke logo and initial message
@@ -22,7 +27,7 @@ public class Duke {
 
         // Create an ArrayList to store tasks
         //ArrayList<Task> myList = new ArrayList<>();
-        ArrayList<Task> myList = SaveTask.loadTasks();
+        ArrayList<Task> myList = updateFile.loadTasks();
         
         if (myList == null) {
             myList = new ArrayList<>();

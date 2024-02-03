@@ -10,10 +10,10 @@ import java.util.List;
 
 public class SaveTask {
 
-    private static final String FILE_PATH = "src/main/java/duke.txt";
+    private static final String FILE_PATH = "./data/duke.txt";
 
     private static void ensureFolderAndFileExists() {
-        File folder = new File("src/main/java");
+        File folder = new File("./data");
         File file = new File(folder, "duke.txt");
 
         if(!folder.exists()) {
@@ -33,7 +33,7 @@ public class SaveTask {
     }
 
     
-    public static void saveTasks(ArrayList<Task> tasks) {
+    public static void updateFile(ArrayList<Task> tasks) {
         ensureFolderAndFileExists();
         // OOS writes primitive data types and graphs of Java objects to an OutputStream
         // Both FileInputStream and FileOutputStream create byte streams linked to files
@@ -45,6 +45,10 @@ public class SaveTask {
             // Catch any IOException that might occur during the file writing process
             System.err.println("Error saving tasks:" + e.getMessage());
         }
+    }
+
+    public static void saveTasks (ArrayList<Task> tasks) {
+        updateFile(tasks);
     }
 
     @SuppressWarnings("unchecked")
@@ -62,6 +66,12 @@ public class SaveTask {
         }
 
         return tasks;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Task> myList = loadTasks();
+
+        saveTasks(myList);
     }
 
 }
