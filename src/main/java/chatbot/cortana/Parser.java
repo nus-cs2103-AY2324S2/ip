@@ -14,11 +14,14 @@ import chatbot.task.TodoTask;
  * Parser class to parse user input and validate input
  */
 public class Parser {
-    
+
+    /**
+     * Check if the string is numeric
+     */
     public static boolean isNumeric(String str) {
         Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
         Matcher matcher = pattern.matcher(str);
-        return matcher.matches(); 
+        return matcher.matches();
     }
 
     /**
@@ -32,7 +35,7 @@ public class Parser {
         String[] arr = timeString.split(" ");
         String time = arr[1].trim();
         String hour = time.substring(0, 2);
-        String minute = time.substring(2, 4); 
+        String minute = time.substring(2, 4);
         return arr[0] + "T" + hour + ":" + minute + ":" + "00";
     }
 
@@ -55,25 +58,26 @@ public class Parser {
     public static void validateInput(Command command, String input, TaskList taskList) throws InvalidInputException {
         if (command == Command.TODO) {
             if (input.length() <= 4) {
-                throw new InvalidInputException("Please enter a valid todo! " 
+                throw new InvalidInputException("Please enter a valid todo! "
                                                 + "Tip: todo <description> \nMissing description");
             }
         } else if (command == Command.DEADLINE) {
             if (input.length() > 8) {
                 String[] arr = input.substring(9).split("/by");
                 if (arr.length != 2) {
-                    throw new InvalidInputException("Please enter a valid deadline! " 
+                    throw new InvalidInputException("Please enter a valid deadline! "
                                                     + "Tip: deadline <description> /by <deadline> \nMissing /by");
                 } else {
                     try {
                         LocalDateTime.parse(formatDateTimeString(arr[1]));
                     } catch (Exception e) {
-                        throw new InvalidInputException("Please enter a valid deadline! " 
-                                                        + "Tip: deadline <description> /by <deadline> \nInvalid deadline");
+                        throw new InvalidInputException("Please enter a valid deadline! "
+                                                        + "Tip: deadline <description> /by <deadline>"
+                                                        + "\nInvalid deadline");
                     }
                 }
             } else {
-                throw new InvalidInputException("Please enter a valid deadline! " 
+                throw new InvalidInputException("Please enter a valid deadline! "
                                                 + "Tip: deadline <description> /by <deadline> \nMissing description");
             }
         } else if (command == Command.EVENT) {
@@ -82,24 +86,28 @@ public class Parser {
                 if (arr.length == 2) {
                     String[] arr2 = arr[1].split("/to");
                     if (arr2.length != 2) {
-                        throw new InvalidInputException("Please enter a valid event! " 
-                                                        + "Tip: event <description> /from <start> /to <end> \nMissing /to");
+                        throw new InvalidInputException("Please enter a valid event! "
+                                                        + "Tip: event <description> /from <start> /to <end>"
+                                                        + "\nMissing /to");
                     } else {
                         try {
                             LocalDateTime.parse(formatDateTimeString(arr2[0].trim()));
                             LocalDateTime.parse(formatDateTimeString(arr2[1].trim()));
                         } catch (Exception e) {
                             throw new InvalidInputException("Please enter a valid event! "
-                                                            + "Tip: event <description> /from <start> /to <end> \nInvalid start or end time");
+                                                            + "Tip: event <description> /from <start> /to <end>"
+                                                            + "\nInvalid start or end time");
                         }
-                    } 
+                    }
                 } else {
                     throw new InvalidInputException("Please enter a valid event! "
-                                                    + "Tip: event <description> /from <start> /to <end> \nMissing /from");
+                                                    + "Tip: event <description> /from <start> /to <end>"
+                                                    + "\nMissing /from");
                 }
             } else {
                 throw new InvalidInputException("Please enter a valid event! "
-                                                + "Tip: event <description> /from <start> /to <end> \nMissing description");
+                                                + "Tip: event <description> /from <start> /to <end>"
+                                                + "\nMissing description");
             }
         } else if (command == Command.MARK) {
             if (input.length() > 4) {
@@ -107,15 +115,15 @@ public class Parser {
                 if (isNumeric(suffix)) {
                     int index = Integer.parseInt(suffix) - 1;
                     if (taskList.getNumTasks() <= index) {
-                        throw new InvalidInputException("Please enter a valid number! " 
+                        throw new InvalidInputException("Please enter a valid number!"
                                                         + "Tip: mark <number> \nNumber out of range");
                     }
                 } else {
-                    throw new InvalidInputException("Please enter a valid number! " 
+                    throw new InvalidInputException("Please enter a valid number!"
                                                     + "Tip: mark <number> \nMissing number");
                 }
             } else {
-                throw new InvalidInputException("Please enter a valid number! "
+                throw new InvalidInputException("Please enter a valid number!"
                                                 + "Tip: mark <number> \nMissing number");
             }
         } else if (command == Command.UNMARK) {
@@ -141,21 +149,21 @@ public class Parser {
                 if (isNumeric(suffix)) {
                     int index = Integer.parseInt(suffix) - 1;
                     if (taskList.getNumTasks() <= index) {
-                        throw new InvalidInputException("Please enter a valid number! " 
+                        throw new InvalidInputException("Please enter a valid number!"
                                                         + "Tip: delete <number> \nNumber out of range");
                     }
                 } else {
-                    throw new InvalidInputException("Please enter a valid number! " 
+                    throw new InvalidInputException("Please enter a valid number!"
                                                     + "Tip: delete <number> \nMissing number");
                 }
             } else {
-                throw new InvalidInputException("Please enter a valid number! " 
+                throw new InvalidInputException("Please enter a valid number!"
                                                 + "Tip: delete <number> \nMissing number");
             }
         } else if (command == Command.FIND) {
             if (input.length() <= 4) {
-                throw new InvalidInputException("Please enter a valid keyword! " 
-                                                +  "Tip: find <keyword> \nMissing keyword");
+                throw new InvalidInputException("Please enter a valid keyword!"
+                                                + "Tip: find <keyword> \nMissing keyword");
             }
         }
     }

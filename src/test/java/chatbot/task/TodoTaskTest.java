@@ -1,11 +1,11 @@
 package chatbot.task;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
 public class TodoTaskTest {
-    
+
     @Test
     public void checkInstantiation() {
         TodoTask todo = new TodoTask("read book");
@@ -13,7 +13,7 @@ public class TodoTaskTest {
         assertEquals(expectedString, todo.toString());
     }
 
-    @Test 
+    @Test
     public void checkMark() {
         TodoTask todo = new TodoTask("read book");
         todo.mark();

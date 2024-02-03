@@ -1,13 +1,16 @@
 package chatbot.ui;
 
 import java.util.ArrayList;
+
 import chatbot.task.Task;
 
+/**
+ * Ui class handles the user interface of the chatbot.
+ */
 public class Ui {
 
     /**
      * Greets the user.
-     * 
      * @param name The name of the user.
      */
     public static void greet(String name) {
@@ -23,7 +26,6 @@ public class Ui {
 
     /**
      * Returns string for successfully adding a task.
-     * 
      * @param task The task that was added.
      * @param numTasks The number of tasks in the list.
      */
@@ -37,7 +39,6 @@ public class Ui {
 
     /**
      * Returns string for successfully marking a task as done.
-     * 
      * @param task The task that was marked as done.
      */
     public static String markTask(Task task) {
@@ -49,7 +50,6 @@ public class Ui {
 
     /**
      * Returns string for successfully marking a task as not done.
-     * 
      * @param task The task that was marked as not done.
      */
     public static String unmarkTask(Task task) {
@@ -61,7 +61,6 @@ public class Ui {
 
     /**
      * Returns string for listing all tasks.
-     * 
      * @param tasks The list of tasks.
      * @param numTasks The number of tasks in the list.
      */
@@ -74,6 +73,11 @@ public class Ui {
         return sb.toString();
     }
 
+    /**
+     * Returns string for listing all tasks that match the keyword.
+     * @param tasks The list of tasks.
+     * @param numTasks The number of tasks in the list.
+     */
     public static String listFindTasks(ArrayList<Task> tasks, int numTasks) {
         StringBuilder sb = new StringBuilder();
         String task = numTasks == 1 ? "task" : "tasks";
@@ -84,10 +88,9 @@ public class Ui {
         }
         return sb.toString();
     }
-    
+
     /**
      * Returns string for successfully deleting a task.
-     * 
      * @param task The task that was deleted.
      * @param numTasks The number of tasks in the list.
      */
@@ -99,10 +102,16 @@ public class Ui {
         return sb.toString();
     }
 
+    /**
+     * Indents the output.
+     */
     public static void indent() {
         System.out.print("    ");
     }
 
+    /**
+     * Draws a line.
+     */
     public static void drawLine() {
         indent();
         System.out.println("____________________________________________________________________________");
@@ -110,7 +119,6 @@ public class Ui {
 
     /**
      * Outputs the given sentences with a line above and below.
-     * 
      * @param sentences The sentences to be output.
      */
     public static void output(String sentences) {
