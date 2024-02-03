@@ -86,6 +86,9 @@ public class Parser {
         } else if (user_word.contains("delete")) {
             int deleted_index = Integer.parseInt(user_word.split(" ")[1]);
             taskList.deleteTask(deleted_index);
+        } else if (user_word.startsWith("find")) {
+            String keyword = user_word.substring(5);
+            taskList.findTask(keyword);
         } else {
             ui.divider();
             throw new DukeException("ERROR!! I can't understand what you mean by that\n______________________________________________________");
