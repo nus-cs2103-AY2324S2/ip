@@ -60,14 +60,15 @@ public class BobTaskList {
      *
      * @param input User input when calling the command.
      */
-    public void handleTaskMarking(String input) throws BobException {
+    public String handleTaskMarking(String input) throws BobException {
+
+        String response = "";
 
         String[] args = input.split("\\s+");
         if (args.length < 2) {
             throw new BobException("The command " + args[0] + " requires a task ID.");
         }
 
-        this.ui.printLine();
         int taskId = Integer.parseInt(args[1]) - 1;
 
         if (!(taskId < this.list.size()) || taskId < 0) {
@@ -78,14 +79,16 @@ public class BobTaskList {
 
         if (userCommand.equals(BobParser.MARK_COMMAND)) {
             this.markDone(taskId);
-            this.ui.printTaskDone();
+            response += this.ui.getTaskDoneText() + "\r\n";
         } else {
             this.markUndone(taskId);
-            this.ui.printTaskUndone();
+            response += this.ui.getTaskUndoneText() + "\r\n";
         }
 
         Task task = this.list.get(taskId);
-        this.ui.printTaskMarkMessage(task);
+        response += this.ui.getTaskMarkText(task);
+
+        return response;
     }
 
     /**
@@ -93,7 +96,7 @@ public class BobTaskList {
      *
      * @param input User input when calling the task creation command.
      */
-    public void handleTaskCreation(String input) throws BobException {
+    public String handleTaskCreation(String input) throws BobException {
 
         Task t = null;
 
@@ -161,9 +164,7 @@ public class BobTaskList {
             throw new BobException("Incorrect usage of command.");
         }
 
-        if (t != null) {
-            this.ui.printTaskAddMessage(t, this.list);
-        }
+        return this.ui.getTaskAddText(t, this.list);
     }
 
     /**
@@ -171,13 +172,12 @@ public class BobTaskList {
      *
      * @param input User input when calling the command.
      */
-    public void handleTaskDeletion(String input) throws BobException {
+    public String handleTaskDeletion(String input) throws BobException {
         String[] args = input.split("\\s+");
         if (args.length < 2) {
             throw new BobException("The command " + args[0] + " requires a task ID.");
         }
 
-        this.ui.printLine();
         int taskId = Integer.parseInt(args[1]) - 1;
 
         if (!(taskId < this.list.size()) || taskId < 0) {
@@ -187,7 +187,7 @@ public class BobTaskList {
         Task t = this.list.get(taskId);
 
         this.deleteTask(taskId);
-        this.ui.printTaskDeletionMessage(t, this.list);
+        return this.ui.getTaskDeletionText(t, this.list);
     }
 
     /**
@@ -195,10 +195,11 @@ public class BobTaskList {
      *
      * @param input User input when calling the command.
      */
-    public void handleFindTask(String input) throws BobException {
+    public String handleFindTask(String input) throws BobException {
 
-        this.ui.printLine();
-        System.out.println("    Here are the matching tasks in your list:");
+        String response = "";
+
+        response += this.ui.getFindCommandText() + "\r\n";
         input = input.substring(BobParser.FIND_COMMAND.length() + 1);
 
         int seq = 0;
@@ -206,12 +207,12 @@ public class BobTaskList {
         for (int i = 0; i < this.list.size(); i++) {
             if (this.list.get(i).description.contains(input)) {
                 Task task = this.list.get(i);
-                System.out.println("    " + (seq + 1) + "." + task.getType()
-                        + task.getStatus() + " " + task);
+                response += (seq + 1) + "." + task.getType()
+                        + task.getStatus() + " " + task + "\r\n";
                 seq++;
             }
         }
-        this.ui.printLine();
 
+        return response;
     }
 }

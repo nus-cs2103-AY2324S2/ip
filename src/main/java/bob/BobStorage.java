@@ -52,7 +52,7 @@ public class BobStorage {
             fileWriter.close();
 
         } catch (Exception e) {
-            this.ui.printError(
+            this.ui.getErrorText(
                     new BobException.FileAccessError("An error occurred when trying to access the save file."));
         }
     }
@@ -136,12 +136,12 @@ public class BobStorage {
                         }
 
                     } catch (BobException e) {
-                        this.ui.printError(e);
+                        this.ui.getErrorText(e);
                     }
                 }
             }
         } catch (BobException.FileAccessError e) {
-            this.ui.printError(e);
+            this.ui.getErrorText(e);
         } catch (IOException e) {
             throw new BobException
                     .FileAccessError("An error occurred when trying to access the save file. "

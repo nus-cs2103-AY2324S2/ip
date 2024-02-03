@@ -5,8 +5,6 @@ package bob;
  */
 public class BobParser {
 
-    public static final String TERMINATE_COMMAND = "bye";
-
     public static final String LIST_COMMAND = "list";
     public static final String MARK_COMMAND = "mark";
     public static final String UNMARK_COMMAND = "unmark";
@@ -41,39 +39,30 @@ public class BobParser {
      *
      * @param input User input in plain text.
      */
-    public void processInput(String input) {
+    public String processInput(String input) {
 
         String command = input.split("\\s+")[0];
 
         try {
             switch (command) {
-            case BobParser.TERMINATE_COMMAND:
-                this.ui.terminate();
-                System.exit(0);
-                break;
             case BobParser.LIST_COMMAND:
-                this.ui.printList(false, this.taskList.getList());
-                break;
+                return this.ui.getTaskListText(false, this.taskList.getList());
             case BobParser.MARK_COMMAND:
             case BobParser.UNMARK_COMMAND:
-                this.taskList.handleTaskMarking(input);
-                break;
+                return this.taskList.handleTaskMarking(input);
             case BobParser.TODO_COMMAND:
             case BobParser.DEADLINE_COMMAND:
             case BobParser.EVENT_COMMAND:
-                this.taskList.handleTaskCreation(input);
-                break;
+                return this.taskList.handleTaskCreation(input);
             case BobParser.DELETE_COMMAND:
-                this.taskList.handleTaskDeletion(input);
-                break;
+                return this.taskList.handleTaskDeletion(input);
             case BobParser.FIND_COMMAND:
-                this.taskList.handleFindTask(input);
-                break;
+                return this.taskList.handleFindTask(input);
             default:
                 throw new BobException.InvalidCommand("Sorry, I'm not sure what command that is.");
             }
         } catch (BobException e) {
-            this.ui.printError(e);
+            return this.ui.getErrorText(e);
         }
     }
 }

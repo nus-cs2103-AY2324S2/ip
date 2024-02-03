@@ -14,69 +14,31 @@ public class BobUI {
         this.scanner = scanner;
     }
 
-    public boolean acceptingInput() {
-        return this.scanner.hasNextLine();
-    }
-
-    /**
-     * Method for getting user input.
-     *
-     * @return user input as String.
-     */
-    public String getUserInput() {
-        return this.scanner.nextLine();
-    }
-
-    /**
-     * Utility function to print dividers.
-     */
-    public void printLine() {
-        System.out.println("    +----------------------------------------------------------+");
-    }
-
-    /**
-     * Method for greeting the user.
-     */
-    public void greet() {
-        this.printLine();
-        System.out.println("    Hello! I'm Bob, a personal assistant.");
-        System.out.println("    How can I help you?");
-        this.printLine();
-    }
-
-    /**
-     * Method for ending the conversation.
-     */
-    public void terminate() {
-        this.printLine();
-        System.out.println("    Until next time! Goodbye!");
-        this.printLine();
-    }
-
     /**
      * List items in list.
      *
      * @param summarized To print a summarized version or detailed version.
      * @param list The bot's task list.
      */
-    public void printList(boolean summarized, ArrayList<Task> list) {
+    public String getTaskListText(boolean summarized, ArrayList<Task> list) {
+
+        String listTexts = "";
 
         if (!summarized) {
 
-            this.printLine();
-
-            System.out.println("    Here are the tasks in your list:");
+            listTexts += "Here ere are the tasks in your list:\r\n";
 
             for (int i = 0; i < list.size(); i++) {
                 Task task = list.get(i);
-                System.out.println("    " + (i + 1) + "." + task.getType()
-                        + task.getStatus() + " " + task);
+                listTexts += (i + 1) + "." + task.getType()
+                        + task.getStatus() + " " + task + "\r\n";
             }
-            this.printLine();
         } else {
-            System.out.println("    You have " + list.size()
-                    + " tasks in your list.");
+            listTexts = "You have " + list.size()
+                    + " tasks in your list.";
         }
+
+        return listTexts;
     }
 
     /**
@@ -84,8 +46,8 @@ public class BobUI {
      *
      * @param e The exception object
      */
-    public void printError(Exception e) {
-        System.out.println(e.getMessage());
+    public String getErrorText(Exception e) {
+        return e.getMessage();
     }
 
     /**
@@ -94,12 +56,14 @@ public class BobUI {
      * @param t The new task that has been added.
      * @param list The bot's task list.
      */
-    public void printTaskAddMessage(Task t, ArrayList<Task> list) {
-        this.printLine();
-        System.out.println("    Here is your newly added task:");
-        System.out.println("        " + t.getType() + t.getStatus() + " " + t);
-        this.printList(true, list);
-        this.printLine();
+    public String getTaskAddText(Task t, ArrayList<Task> list) {
+
+        String response = "";
+        response += "Here is your newly added task:";
+        response += t.getType() + t.getStatus() + " " + t + "\r\n";
+        response += this.getTaskListText(true, list);
+
+        return response;
     }
 
     /**
@@ -108,11 +72,14 @@ public class BobUI {
      * @param t The task that was deleted.
      * @param list Task list.
      */
-    public void printTaskDeletionMessage(Task t, ArrayList<Task> list) {
-        System.out.println("    You have removed the current task:");
-        System.out.println("        " + t.getType() + t.getStatus() + " " + t);
-        this.printList(true, list);
-        this.printLine();
+    public String getTaskDeletionText(Task t, ArrayList<Task> list) {
+
+        String response = "";
+        response += "You have removed the current task:";
+        response += t.getType() + t.getStatus() + " " + t + "\r\n";
+        response += this.getTaskListText(true, list);
+
+        return response;
     }
 
     /**
@@ -120,16 +87,19 @@ public class BobUI {
      *
      * @param t The task that was done/undone.
      */
-    public void printTaskMarkMessage(Task t) {
-        System.out.println("    " + t.getType() + t.getStatus() + " " + t);
-        this.printLine();
+    public String getTaskMarkText(Task t) {
+        return t.getType() + t.getStatus() + " " + t;
     }
 
-    public void printTaskDone() {
-        System.out.println("    You have marked task as done:");
+    public String getTaskDoneText() {
+        return "You have marked task as done:";
     }
 
-    public void printTaskUndone() {
-        System.out.println("    You have marked task as undone:");
+    public String getTaskUndoneText() {
+        return "You have marked task as undone:";
+    }
+
+    public String getFindCommandText() {
+        return "Here are the matching tasks in your list:";
     }
 }
