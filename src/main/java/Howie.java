@@ -19,14 +19,6 @@ public class Howie {
     private static Storage storage;
 
     /**
-     * Prints a message when an invalid format has been entered.
-     */
-    public static void invalidFormat() throws DukeException {
-        Ui.printVLine();
-        throw new DukeException("I see you've entered an invalid format. Type 'help' if you're unsure :)");
-    }
-
-    /**
      * Initialises the program.
      * @param args Input arguments.
      * @throws Exception Throws DukeException and IOException when invalid commands are entered
