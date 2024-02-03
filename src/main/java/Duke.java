@@ -12,33 +12,22 @@ import java.io.IOException;
 
 public class Duke {
     private static List<String> validCommands = new ArrayList<>(List.of("todo", "deadline", "event"));
-    private static String storePath = "./data/storage.txt";
-    public static void echoText(String text) {
-        System.out.println("    ____________________________________________________________");
-        System.out.printf("      %s\n", text);
-        System.out.println("    ____________________________________________________________");
-    }
+    private String storePath;
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
 
-    public static void addList(Task task, ArrayList<Task> list) {
-        list.add(task);
-        System.out.println("    ____________________________________________________________");
-        System.out.println("      Got it! I added:");
-        System.out.printf("        %s\n", task.toString());
-        System.out.printf("      You now have %d tasks in your list :D\n", list.size());
-        System.out.println("    ____________________________________________________________");
-    }
+    public Duke(String filePath) {
+        this.storePath = filePath;
+        this.storage = new Storage(filePath);
+        this.ui = new Ui();
+        try {
+            this.taskList = storage.load();
+        } catch (DukeException e) {
+            ui.printError(e);
+            this.taskList = new TaskList();
+        }
 
-    public static void printList(ArrayList<Task> list) {
-        int count = 1;
-        System.out.println("    ____________________________________________________________");
-        if (list.size() == 0) {
-            System.out.println("      Nothing added to list yet!");
-        }
-        for (Task task : list) {
-            System.out.printf("      %d. %s\n", count, task.toString());
-            count++;
-        }
-        System.out.println("    ____________________________________________________________");
     }
 
     private static void markTask(String[] split, ArrayList<Task> list) throws InvalidCommandException {
@@ -96,7 +85,7 @@ public class Duke {
         }
     }
 
-    private static void createTask(String[] split, ArrayList<Task> list) throws InvalidCommandException {
+    private void createTask(String[] split, ArrayList<Task> list) throws InvalidCommandException {
         Task newTask;
         if (!validCommands.contains(split[0].toLowerCase())) {
             throw new InvalidCommandException("I don't quite understand that command :'( Sorry...");
@@ -132,34 +121,7 @@ public class Duke {
             String to = toSplit[1].trim();
             newTask = new Event(eventName, from, to);
         }
-        addList(newTask, list);
-    }
-
-    private static void loadTasks(Scanner scanner, ArrayList<Task> list) throws InvalidCommandException{
-        while (scanner.hasNext()) {
-            String currentTask = scanner.nextLine();
-            String[] taskDetails = currentTask.split("\\|");
-            Task newTask = null;
-            switch (taskDetails[0]) {
-            case "T":
-                newTask = new ToDo(taskDetails[2]);
-                break;
-            case "D":
-                newTask = new Deadline(taskDetails[2], taskDetails[3]);
-                break;
-            case "E":
-                newTask = new Event(taskDetails[2], taskDetails[3], taskDetails[4]);
-                break;
-            }
-            if (newTask != null) {
-                if (taskDetails[1].equals("true")) {
-                    newTask.markDone();
-                } else {
-                    newTask.markNotDone();
-                }
-                list.add(newTask);
-            }
-        }
+        this.taskList.addNewTask(newTask);
     }
 
     private static void resetSave() {
@@ -178,87 +140,37 @@ public class Duke {
             }
         }
     }
-    public static void main(String[] args) {
+    public void greet() {
         String name = "Yippee";
-        ArrayList<Task> list = new ArrayList<>();
-
-        //load previous tasks
-        File directory = new File("./data");
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-        File file = new File(storePath);
-        Scanner fileSc = null;
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.err.println("Error trying to create new data storage: " + e.getMessage());
-            }
-        }
-        try {
-            fileSc = new Scanner(file);
-        } catch(FileNotFoundException e) {
-            System.err.println("Storage data file does not exist: " + e.getMessage());
-        }
-        try {
-            loadTasks(fileSc, list);
-        } catch (InvalidCommandException e) {
-            System.err.println("Error in stored data format: " + e.getMessage());
-        }
-        fileSc.close();
-        //greeting
         System.out.println("    ____________________________________________________________");
         System.out.printf("      Hello! I'm %s\n", name);
         System.out.println("      What can I do for you?");
         System.out.println("    ____________________________________________________________");
+    }
+    public void run() {
+        greet();
+        boolean isExit = false;
 
-        //scan for input
-        Scanner sc = new Scanner(System.in);
-        String command = sc.nextLine();
-
-        //keep checking for commands until user says bye
-        while (!command.toLowerCase().equals("bye")) {
-            // split command by spaces
-            String[] split = command.split("\\s+", 2);
-            if (split[0].toLowerCase().equals("list")) {
-                printList(list);
-            } else if (split[0].toLowerCase().equals("mark")) {
-                try {
-                    markTask(split, list);
-                } catch (InvalidCommandException e) {
-                    System.out.println("    ____________________________________________________________");
-                    System.out.printf("      %s\n", e.getMessage());
-                    System.out.println("    ____________________________________________________________");
-                }
-            } else if (split[0].toLowerCase().equals("unmark")) {
-                try {
-                    unmarkTask(split, list);
-                } catch (InvalidCommandException e) {
-                    System.out.println("    ____________________________________________________________");
-                    System.out.printf("      %s\n", e.getMessage());
-                    System.out.println("    ____________________________________________________________");
-                }
-            } else if (split[0].toLowerCase().equals("delete")) {
-                try {
-                    deleteTask(split, list);
-                } catch (InvalidCommandException e) {
-                    System.out.println("    ____________________________________________________________");
-                    System.out.printf("      %s\n", e.getMessage());
-                    System.out.println("    ____________________________________________________________");
-                }
-            } else {
-                try {
-                    createTask(split, list);
-                } catch (InvalidCommandException e) {
-                    System.out.println("    ____________________________________________________________");
-                    System.out.printf("      %s\n", e.getMessage());
-                    System.out.println("    ____________________________________________________________");
-                }
+        while(!isExit) {
+            try {
+                String command = this.ui.readCommand();
+                ui.showLine();
+                command.execute();
+                isExit = command.isExit();
+            } catch (DukeException e) {
+                ui.printError(e);
+            } finally {
+                ui.showLine();
             }
-            command = sc.nextLine();
         }
-        sc.close();
+        this.ui.endCommands();
+
+
+    }
+    public static void main(String[] args) {
+
+        new Duke("./data/storage.txt").run();
+
         //exit
         System.out.println("    ____________________________________________________________");
         System.out.println("      Bye! Hope to see you again soon wooo!");
