@@ -82,6 +82,25 @@ public class TaskList implements Iterable<Task> {
         System.out.println(" Hello I'm NoisyChatter");
         System.out.println(" What can I do for you?");
     }
+
+    public void matches(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : mylist) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println("  " + (i + 1) + ". " + matchingTasks.get(i));
+            }
+        }
+    }
+
     @Override
     public Iterator<Task> iterator() {
         return mylist.iterator();
