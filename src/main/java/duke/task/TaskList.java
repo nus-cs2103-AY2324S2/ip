@@ -5,7 +5,6 @@ import java.util.StringTokenizer;
 
 import duke.command.CommandException;
 import duke.storage.LoadException;
-import duke.ui.Ui;
 import duke.utils.Parser;
 
 /**
@@ -122,20 +121,23 @@ public class TaskList {
     }
 
     /**
-     * Loads the given String data as tasks and add them to the list.
+     * Returns the number of tasks that were not loaded successfully.
+     * Loads the given String data as tasks and adds them to the list.
      *
      * @param data String data stored in file.
-     * @param ui UI to output feedback to user.
+     * @return Number of tasks that did not load successfully.
      */
-    public void loadTasks(String data, Ui ui) {
+    public int loadTasks(String data) {
+        int failedToLoad = 0;
         StringTokenizer st = new StringTokenizer(data, "\n");
         while (st.hasMoreTokens()) {
             try {
                 this.addTask(Parser.parseData(st.nextToken()));
             } catch (LoadException e) {
-                ui.showError(e.getMessage());
+                failedToLoad += 1;
             }
         }
+        return failedToLoad;
     }
 
     /**

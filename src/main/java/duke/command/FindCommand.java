@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import duke.storage.Storage;
 import duke.task.TaskList;
-import duke.ui.Ui;
 
 /**
  * Class to run Find Command.
@@ -28,7 +27,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) throws IOException, CommandException {
-        ui.showMessage(taskList.findTasks(this.keyword));
+    public String run(TaskList taskList, Storage storage) throws IOException, CommandException {
+        return taskList.findTasks(this.keyword);
     }
 }

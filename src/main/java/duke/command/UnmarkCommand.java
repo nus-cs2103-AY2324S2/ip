@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import duke.storage.Storage;
 import duke.task.TaskList;
-import duke.ui.Ui;
 
 /**
  * Class to run the Unmark Command
@@ -30,8 +29,9 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) throws IOException, CommandException {
-        ui.showMessage(taskList.unmarkTask(this.indexToUnmark));
+    public String run(TaskList taskList, Storage storage) throws IOException, CommandException {
+        String message = taskList.unmarkTask(this.indexToUnmark);
         storage.save(taskList.toDataString());
+        return message;
     }
 }

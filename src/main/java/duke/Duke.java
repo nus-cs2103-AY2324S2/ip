@@ -6,7 +6,6 @@ import duke.command.Command;
 import duke.command.CommandException;
 import duke.storage.Storage;
 import duke.task.TaskList;
-import duke.ui.Ui;
 import duke.utils.Parser;
 
 /**
@@ -20,36 +19,64 @@ public class Duke {
     // File name of stored data.
     private static final String FILE_NAME = "duke.txt";
 
-    public static void main(String[] args) {
-        Ui ui = new Ui();
-        TaskList taskList = new TaskList();
-        Storage storage = null;
+    private Storage storage;
+    private TaskList taskList;
+
+    /**
+     * Initializes a new Duke instance.
+     * Sets up necessary components for chatbot interaction.
+     *
+     * @throws IOException Exception when IO errors are encountered in initializing save file.
+     */
+    public Duke() throws IOException {
+        this.taskList = new TaskList();
+        this.storage = new Storage(Duke.FILE_DIRECTORY, Duke.FILE_NAME);
+    }
+
+    /**
+     * Returns greeting message to be presenting on chatbot start up.
+     *
+     * @return Greeting message from chatbot.
+     */
+    public String getGreeting() {
+        return "This is Duke Zeh. What can I do for you today?";
+    }
+
+    /**
+     * Loads TaskList from directed save file and returns status of tasks.
+     * Status refers to how many tasks were loaded successfully and unsuccessfully.
+     * If IOException is encountered, feedback to restart the program will be given.
+     *
+     * @return Status message of tasks loaded.
+     */
+    public String getLoadStatus() {
         try {
-            storage = new Storage(Duke.FILE_DIRECTORY, Duke.FILE_NAME);
-            taskList.loadTasks(storage.load(), ui);
-        } catch (IOException e) {
-            ui.showError("Error in creating or accessing data file. Exiting...");
-            return;
-        }
-
-        ui.showGreeting();
-
-        boolean isQuit = false;
-        while (!isQuit) {
-            try {
-                String input = ui.readline();
-                ui.showLine();
-                Command command = Parser.parseInput(input);
-                command.run(taskList, ui, storage);
-                isQuit = command.isExit();
-            } catch (CommandException e) {
-                ui.showError(e.getMessage());
-            } catch (IOException e) {
-                ui.showError("An error has occurred with the save file. Exiting...");
-                isQuit = true;
-            } finally {
-                ui.showLine();
+            int failedCount = taskList.loadTasks(this.storage.load());
+            if (failedCount > 0) {
+                return "Loaded tasks from previous session. Failed to load " + failedCount
+                        + " tasks from improper format.";
+            } else {
+                return "Loaded all tasks from previous session successfully.";
             }
+        } catch (IOException e) {
+            return "Error loading tasks from save file. Please restart...";
+        }
+    }
+
+    /**
+     * Returns feedback message based on user command.
+     *
+     * @param input Input command and parameters for Duke to process.
+     * @return Message on command execution.
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parseInput(input);
+            return command.run(this.taskList, this.storage);
+        } catch (CommandException e) {
+            return e.getMessage();
+        } catch (IOException e) {
+            return "An error has occurred with the save file. Please restart.";
         }
     }
 }
