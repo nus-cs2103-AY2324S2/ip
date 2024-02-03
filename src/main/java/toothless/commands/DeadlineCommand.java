@@ -19,7 +19,7 @@ public class DeadlineCommand extends Command{
      * and its deadline.
      * @param detail The task detail, expected to contain a description and a deadline.
      */
-    public DeadlineCommand(String detail){
+    public DeadlineCommand(String detail) {
         this.detail = detail;
     }
 
@@ -40,7 +40,7 @@ public class DeadlineCommand extends Command{
         }
 
         int dateIndex = detail.indexOf("/by");
-        if (dateIndex == -1){
+        if (dateIndex == -1) {
             throw new ToothlessException("Human deadline no deadline @_@");
         }
 

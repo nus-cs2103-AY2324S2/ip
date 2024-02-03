@@ -1,12 +1,11 @@
 package toothless;
 
-import toothless.commands.*;
+import toothless.commands.Command;
 
 /**
  * A chatbot that helps store and organise your tasks
  */
 public class Toothless {
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -15,7 +14,7 @@ public class Toothless {
      * Construct a chatbot with a file storage at the filepath
      * @param filepath
      */
-    public Toothless(String filepath){
+    public Toothless(String filepath) {
         ui = new Ui();
         storage = new Storage(filepath);
         try {
@@ -34,7 +33,7 @@ public class Toothless {
     public void start() {
         boolean isExit = false;
         ui.showWelcome();
-        while(!isExit){
+        while(!isExit) {
             try {
                 String input = ui.readCommand();
                 ui.showLine();
@@ -48,7 +47,7 @@ public class Toothless {
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new Toothless("./data/toothless.txt").start();
     }
 }

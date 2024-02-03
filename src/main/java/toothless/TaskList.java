@@ -2,6 +2,7 @@ package toothless;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import toothless.tasks.Task;
 
 /**
@@ -9,21 +10,20 @@ import toothless.tasks.Task;
  * adding, removing, and retrieving tasks from the list.
  */
 public class TaskList {
-
     private List<Task> taskList;
 
     /**
      * Constructs a new TaskList with the specified list of tasks.
      * @param taskList A list of tasks to be managed.
      */
-    public TaskList(List<Task> taskList){
+    public TaskList(List<Task> taskList) {
         this.taskList = taskList;
     }
 
     /**
      * Constructs an empty TaskList.
      */
-    public TaskList(){
+    public TaskList() {
         this.taskList = new ArrayList<>();
     }
 

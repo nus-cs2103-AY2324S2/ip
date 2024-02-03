@@ -11,14 +11,14 @@ import toothless.tasks.Task;
  * Represents a command to add a todo task to the task list.
  * The detail provided includes the task description.
  */
-public class TodoCommand extends Command{
+public class TodoCommand extends Command {
     private String detail;
 
     /**
      * Constructs a TodoCommand with the specified detail, which includes the task description.
      * @param detail The task description.
      */
-    public TodoCommand (String detail){
+    public TodoCommand(String detail) {
         this.detail = detail;
     }
 

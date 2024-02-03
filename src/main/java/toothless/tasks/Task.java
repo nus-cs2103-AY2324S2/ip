@@ -17,7 +17,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return this.description;
+        return description;
     }
 
     /**
@@ -25,36 +25,36 @@ public abstract class Task {
      * @return A string "X" if the task is done, or a space " " if it is not done.
      */
     public String getStatusIcon() {
-        return this.isDone ? "X": " "; // mark done task with X
+        return isDone ? "X": " "; // mark done task with X
     }
 
     /**
      * Marks the task as done.
      */
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Marks the task as not done.
      */
-    public void markAsNotDone(){
-        this.isDone = false;
+    public void markAsNotDone() {
+        isDone = false;
     }
 
     /**
      * Formats the task data for writing into storage.
      * @return A string representation of the task's storage format.
      */
-    public String toWrite(){
-        return (isDone ? 1 : 0) + " | " + this.description;
+    public String toWrite() {
+        return (isDone ? 1 : 0) + " | " + description;
     }
 
     /**
      * Checks if the task is marked as done.
      * @return true if the task is marked, false otherwise.
      */
-    public boolean isDone(){
+    public boolean isDone() {
         return isDone;
     }
 
@@ -63,7 +63,7 @@ public abstract class Task {
      * @param dateTime The LocalDateTime object to format.
      * @return A string representation of the date and time in "MMM dd yyyy HH:mm" format.
      */
-    public String dateTimeFormat(LocalDateTime dateTime){
+    public String dateTimeFormat(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
     }
 

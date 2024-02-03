@@ -11,7 +11,7 @@ import toothless.tasks.Task;
  * The task to be unmarked is specified by a detail string, which should contain the index of the task
  * in the task list.
  */
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     private String detail;
 
     /**
@@ -19,7 +19,7 @@ public class UnmarkCommand extends Command{
      * The detail is expected to be a string representing the index of the task to be marked as not done.
      * @param detail The index of the task to be marked as not done, as a string.
      */
-    public UnmarkCommand (String detail){
+    public UnmarkCommand(String detail) {
         this.detail = detail;
     }
 
@@ -38,7 +38,7 @@ public class UnmarkCommand extends Command{
     @Override
     public boolean handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         int taskIndex = super.getTaskIndex(detail);
-        if (taskIndex >= taskList.size() || taskIndex < 0 || detail.equals("")){
+        if (taskIndex >= taskList.size() || taskIndex < 0 || detail.equals("")) {
             throw new ToothlessException("Human trying to unmark nothing ^O^. Silly");
         }
 

@@ -2,7 +2,6 @@ package toothless.commands;
 
 import toothless.Storage;
 import toothless.TaskList;
-import toothless.ToothlessException;
 import toothless.Ui;
 
 /**
@@ -10,7 +9,7 @@ import toothless.Ui;
  * When executed, this command shows a farewell message to the user, saves the current state of the
  * task list to storage, and signals the application to terminate.
  */
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
 
     /**
      * Executes the command to terminate the application. It displays a farewell message, saves the tasks to storage,
@@ -21,7 +20,7 @@ public class ByeCommand extends Command{
      * @return true to indicate the application should stop running.
      */
     @Override
-    public boolean handle(Ui ui, TaskList taskList, Storage storage){
+    public boolean handle(Ui ui, TaskList taskList, Storage storage) {
         ui.showFarewell();
         storage.writeTasks(taskList);
         return true;

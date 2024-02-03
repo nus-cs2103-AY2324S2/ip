@@ -11,7 +11,7 @@ import toothless.tasks.Task;
  * The task to be marked is specified by a detail string, which should contain the index of the task
  * in the task list.
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     private String detail;
 
     /**
@@ -19,7 +19,7 @@ public class MarkCommand extends Command{
      * The detail is expected to be a string representing the index of the task to be marked as done.
      * @param detail The index of the task to be marked as done, as a string.
      */
-    public MarkCommand (String detail){
+    public MarkCommand(String detail) {
         this.detail = detail;
     }
 
@@ -37,7 +37,7 @@ public class MarkCommand extends Command{
     @Override
     public boolean handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         int taskIndex = super.getTaskIndex(detail);
-        if (taskIndex >= taskList.size() || taskIndex < 0){
+        if (taskIndex >= taskList.size() || taskIndex < 0) {
             throw new ToothlessException("Human trying to mark nothing ^O^. Foolish");
         }
 

@@ -7,7 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import toothless.tasks.*;
+
+import toothless.tasks.Deadline;
+import toothless.tasks.Event;
+import toothless.tasks.Task;
+import toothless.tasks.Todo;
 
 /**
  * Handles loading and storing tasks.
@@ -17,7 +21,6 @@ import toothless.tasks.*;
  * easily parsed and reconstructed into their respective tasks.
  */
 public class Storage {
-
     private String filepath;
     private File file;
 
@@ -43,18 +46,18 @@ public class Storage {
             while (sc.hasNext()) {
                 Task task;
                 String[] storedTask = sc.nextLine().split(" \\| ");
-                switch (storedTask[0]){
-                    case "T":
-                        task = new Todo(storedTask[2], storedTask[1].equals("1"));
-                        break;
-                    case "D":
-                        task = new Deadline(storedTask[2], storedTask[3], storedTask[1].equals("1"));
-                        break;
-                    case "E":
-                        task = new Event(storedTask[2], storedTask[3], storedTask[4], storedTask[1].equals("1"));
-                        break;
-                    default:
-                        throw new ToothlessException("File corrupted O_O. Try again later.");
+                switch (storedTask[0]) {
+                case "T":
+                    task = new Todo(storedTask[2], storedTask[1].equals("1"));
+                    break;
+                case "D":
+                    task = new Deadline(storedTask[2], storedTask[3], storedTask[1].equals("1"));
+                    break;
+                case "E":
+                    task = new Event(storedTask[2], storedTask[3], storedTask[4], storedTask[1].equals("1"));
+                    break;
+                default:
+                    throw new ToothlessException("File corrupted O_O. Try again later.");
                 }
                 list.add(task);
             }

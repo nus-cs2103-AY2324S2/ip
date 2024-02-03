@@ -30,11 +30,11 @@ public abstract class Command {
      * @return The integer index corresponding to the user's input, adjusted for zero-based indexing.
      * @throws ToothlessException If the provided detail is not a valid integer.
      */
-    public int getTaskIndex(String detail) throws ToothlessException{
+    public int getTaskIndex(String detail) throws ToothlessException {
         try {
             int taskIndex = Integer.valueOf(detail);
             return taskIndex - 1;
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new toothless.ToothlessException("Number put is not number.\nPlease put real number ._.");
         }
     }

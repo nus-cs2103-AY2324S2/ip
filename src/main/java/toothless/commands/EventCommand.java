@@ -19,7 +19,7 @@ public class EventCommand extends Command{
      * and its start and end dates.
      * @param detail The task detail, expected to contain a description, a start date, and an end date.
      */
-    public EventCommand(String detail){
+    public EventCommand(String detail) {
         this.detail = detail;
     }
 
@@ -41,14 +41,14 @@ public class EventCommand extends Command{
         }
 
         int date1Index = detail.indexOf("/from");
-        if (date1Index == -1){
+        if (date1Index == -1) {
             throw new ToothlessException("Human event no start date D:");
         }
         String description = detail.substring(0, date1Index - 1);
         detail = detail.substring(date1Index + 6);
 
         int date2Index = detail.indexOf("/to");
-        if (date2Index == -1){
+        if (date2Index == -1) {
             throw new ToothlessException("Human event no end date D:");
         }
 

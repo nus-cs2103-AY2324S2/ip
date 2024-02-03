@@ -80,7 +80,7 @@ public class Ui {
      * Reads a command from the user.
      * @return The command entered by the user.
      */
-    public String readCommand(){
+    public String readCommand() {
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
     }

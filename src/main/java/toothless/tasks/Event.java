@@ -39,7 +39,7 @@ public class Event extends Task {
      * @param isDone The completion status of the event.
      * @throws ToothlessException If the end date is before the start date.
      */
-    public Event(String description, String startDate, String endDate, boolean isDone) throws ToothlessException{
+    public Event(String description, String startDate, String endDate, boolean isDone) throws ToothlessException {
         super.description = description;
         super.isDone = isDone;
         LocalDateTime start = LocalDateTime.parse(startDate);
@@ -57,16 +57,13 @@ public class Event extends Task {
     }
 
     @Override
-    public String toWrite(){
-        return "E | " + super.toWrite()
-                + " | " + this.startDate
-                + " | " + this.endDate;
+    public String toWrite() {
+        return "E | " + super.toWrite() + " | " + startDate + " | " + endDate;
     }
 
     @Override
-    public String toString(){
-        return this.description
-                + " (from: " + super.dateTimeFormat(this.startDate)
-                + " to: " + super.dateTimeFormat(this.endDate) + ")";
+    public String toString() {
+        return description + " (from: " + super.dateTimeFormat(startDate)
+                + " to: " + super.dateTimeFormat(endDate) + ")";
     }
 }

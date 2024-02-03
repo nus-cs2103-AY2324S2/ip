@@ -11,7 +11,7 @@ import toothless.tasks.Task;
  * The task to be deleted is specified by a detail string,
  * which should contain the index of the task in the task list.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     private String detail;
 
     /**
@@ -19,7 +19,7 @@ public class DeleteCommand extends Command{
      * The detail is expected to be a string representing the index of the task to be deleted.
      * @param detail The index of the task to be deleted, as a string.
      */
-    public DeleteCommand(String detail){
+    public DeleteCommand(String detail) {
         this.detail = detail;
     }
 
@@ -36,7 +36,7 @@ public class DeleteCommand extends Command{
     @Override
     public boolean handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         int taskIndex = getTaskIndex(detail);
-        if (taskIndex >= taskList.size() || taskIndex < 0 || detail.equals("")){
+        if (taskIndex >= taskList.size() || taskIndex < 0 || detail.equals("")) {
             throw new ToothlessException("Human trying to delete nothing ^O^. Absurd");
         }
 

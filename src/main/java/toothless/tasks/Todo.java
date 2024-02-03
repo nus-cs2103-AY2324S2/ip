@@ -11,7 +11,7 @@ public class Todo extends Task {
      *
      * @param description The todo's description.
      */
-    public Todo(String description){
+    public Todo(String description) {
         super.description = description;
     }
 
@@ -21,17 +21,17 @@ public class Todo extends Task {
      * @param description The todo's description.
      * @param isDone The todo's completion status.
      */
-    public Todo(String description, boolean isDone){
+    public Todo(String description, boolean isDone) {
         super.description = description;
         super.isDone = isDone;
     }
 
-    public String getTaskIcon(){
+    public String getTaskIcon() {
         return "T";
     }
 
     @Override
-    public String toWrite(){
+    public String toWrite() {
         return "T | " + super.toWrite();
     }
 }
