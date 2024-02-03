@@ -5,6 +5,9 @@ import tiny.tasks.Deadline;
 import tiny.tasks.Event;
 import tiny.tasks.Todo;
 
+/**
+ * Represents the parser for user commands.
+ */
 public class Parser {
     protected boolean isExit = false;
     protected String input;
@@ -39,7 +42,7 @@ public class Parser {
             } else if (checkCmd(input, "delete", 6)) {
                 return delete();
             } else if (checkCmd(input, "find", 4)) {
-                    return find();
+                return find();
             } else if (input.equals("bye")) {
                 isExit = true;
                 return bye();
@@ -207,12 +210,11 @@ public class Parser {
                 return "OOPS! You need to type \"delete <number>\" to delete the task!";
             }
             int ind = Integer.parseInt(s[1]);
-            String output = "Noted. I've removed this task:" +
-                    "\n      " + taskList.get(ind - 1).toString() +
-                    "\n   Now you have " + (taskList.size() - 1) + " task(s) in the list.";
+            String output = "Noted. I've removed this task:"
+                    + "\n      " + taskList.get(ind - 1).toString()
+                    + "\n   Now you have " + (taskList.size() - 1) + " task(s) in the list.";
             taskList.delete(ind - 1);
             return output;
-
         } catch (NumberFormatException e) {
             return "OOPS! You need to type \"delete <number>\" to delete the task!";
         } catch (NullPointerException | IndexOutOfBoundsException e) {
@@ -227,18 +229,18 @@ public class Parser {
      *
      * @return The message to be displayed to the user.
      * @throws TinyException When input is invalid.
-     */    
+     */
     private String find() throws TinyException {
         try {
             String[] s = input.split(" ");
             if (s.length != 2 || !s[0].equals("find")) {
                 return "OOPS! You need to type \"find <keyword>\" to find the task(s)!";
-            }            
+            }
             return taskList.find(s[1]);
         } catch (Exception e) {
             throw new TinyException("Something went wrong...");
         }
-    }    
+    }
 
     /**
      * Handles the “bye” command.

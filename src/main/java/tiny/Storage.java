@@ -1,15 +1,17 @@
 package tiny;
 
-import tiny.exceptions.TinyException;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
+import tiny.exceptions.TinyException;
+
+/**
+ * Represents the storage to save and load data.
+ */
 public class Storage {
     protected String filePath;
 
