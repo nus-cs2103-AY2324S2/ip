@@ -1,5 +1,7 @@
 import java.io.*;
-import java.nio.Buffer;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -22,9 +24,14 @@ public class ATSISBot {
   private static final String addTaskMessage = "Got it. I've added this task:\n";
   private static final String deleteTaskMessage = "Noted. I've removed this task:\n";
   private static final String noDescriptionMessage = "The description of a %s cannot be empty.\n";
+  private static final String invalidDeadlineFormatMessage = "Invalid deadline format. Please use: deadline <description> /by <date>\n";
+  private static final String invalidEventFormatMessage = "Invalid event format. Please use: event <description> /from <date> /to <date>\n";
+  private static final String invalidTaskNumberMessage = "Invalid task number. Please enter a valid task number.\n";
   private static final String unknownCommandMessage = "I'm sorry, but I don't understand that command.\n";
 
   private static ArrayList<Task> list = new ArrayList<>();
+
+  public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
   /**
    * The main method is the entry point of the ATSISBot program.
@@ -35,7 +42,7 @@ public class ATSISBot {
    * @param args The command line arguments.
    */
   public static void main(String[] args) {
-    loadList(); // Load the list from file
+    loadList(); 
 
     System.out.println(ATSISBot.welcomeMessage);
 
@@ -52,7 +59,7 @@ public class ATSISBot {
       } else if (input.startsWith("mark")) {
         int elementIdx = Integer.parseInt(input.split(" ")[1]);
         if (elementIdx <= 0 || elementIdx > list.size()) {
-          System.out.println("Invalid task number. Please enter a valid task number.");
+          System.out.println(invalidTaskNumberMessage);
         } else {
           list.get(elementIdx - 1).markAsDone();
           saveList();
@@ -62,7 +69,7 @@ public class ATSISBot {
       } else if (input.startsWith("unmark")) {
         int elementIdx = Integer.parseInt(input.split(" ")[1]);
         if (elementIdx <= 0 || elementIdx > list.size()) {
-          System.out.println("Invalid task number. Please enter a valid task number.");
+          System.out.println(invalidTaskNumberMessage);
         } else {
           list.get(elementIdx - 1).markAsUndone();
           saveList();
@@ -86,13 +93,18 @@ public class ATSISBot {
         } else {
           String[] descriptionAndBy = input.split(" ", 2)[1].split(" /by ");
           if (descriptionAndBy.length != 2) {
-            System.out.println("Invalid deadline format. Please use: deadline <description> /by <date>");
+            System.out.println(invalidDeadlineFormatMessage);
           } else {
-            list.add(new Deadline(descriptionAndBy[0], descriptionAndBy[1]));
-            saveList();
-            System.out.print(addTaskMessage);
-            System.out.println("  " + list.get(list.size() - 1).toString());
-            System.out.println(Task.getTaskNum());
+            try {
+              LocalDateTime deadline = LocalDateTime.parse(descriptionAndBy[1], ATSISBot.formatter);
+              list.add(new Deadline(descriptionAndBy[0], deadline));
+              saveList();
+              System.out.print(addTaskMessage);
+              System.out.println("  " + list.get(list.size() - 1).toString());
+              System.out.println(Task.getTaskNum());
+            } catch (DateTimeParseException e) {
+              System.out.println("Invalid deadline format. Please use: deadline <description> /by <date>");
+            }
           }
         }
       } else if (input.startsWith("event")) {
@@ -100,20 +112,27 @@ public class ATSISBot {
           System.out.print(String.format(noDescriptionMessage, "event"));
         } else {
           String[] descriptionAndFromTo = input.split(" ", 2)[1].split(" /from ");
-          if (descriptionAndFromTo.length != 2) {
-            System.out.println("Invalid event format. Please use: event <description> /from <date>");
+          String[] fromTo = descriptionAndFromTo[1].split(" /to ", 2);
+          if (descriptionAndFromTo.length != 2 || fromTo.length != 2) {
+            System.out.println(invalidEventFormatMessage);
           } else {
-            list.add(new Event(descriptionAndFromTo[0], descriptionAndFromTo[1]));
-            saveList();
-            System.out.print(addTaskMessage);
-            System.out.println("  " + list.get(list.size() - 1).toString());
-            System.out.println(Task.getTaskNum());
+            try {
+              LocalDateTime startDateTime = LocalDateTime.parse(fromTo[0], ATSISBot.formatter);
+              LocalDateTime endDateTime = LocalDateTime.parse(fromTo[1], ATSISBot.formatter);
+              list.add(new Event(descriptionAndFromTo[0], startDateTime, endDateTime));
+              saveList();
+              System.out.print(addTaskMessage);
+              System.out.println("  " + list.get(list.size() - 1).toString());
+              System.out.println(Task.getTaskNum());
+            } catch (DateTimeParseException e) {
+              System.out.println("Invalid event format. Please use: event <description> /from <date> /to <date>");
+            }
           }
         }
       } else if (input.startsWith("delete")) {
         int elementIdx = Integer.parseInt(input.split(" ")[1]);
         if (elementIdx <= 0 || elementIdx > list.size()) {
-          System.out.println("Invalid task number. Please enter a valid task number.");
+          System.out.println(invalidTaskNumberMessage);
         } else {
           Task removedTask = list.remove(elementIdx - 1);
           saveList();
@@ -129,6 +148,7 @@ public class ATSISBot {
     }
 
     System.out.println(ATSISBot.endingMessage);
+    sc.close();
   }
 
   /**
@@ -150,10 +170,21 @@ public class ATSISBot {
             list.add(new Todo(taskInfo[2]));
             break;
           case "D":
-            list.add(new Deadline(taskInfo[2], taskInfo[3]));
+            try {
+              LocalDateTime deadline = LocalDateTime.parse(taskInfo[3], formatter);
+              list.add(new Deadline(taskInfo[2], deadline));
+            } catch (DateTimeParseException e) {
+              System.out.println("Invalid deadline format in the task list: " + e.getMessage());
+            }
             break;
           case "E":
-            list.add(new Event(taskInfo[2], taskInfo[3]));
+            try {
+              LocalDateTime startDateTime = LocalDateTime.parse(taskInfo[3], formatter);
+              LocalDateTime endDateTime = LocalDateTime.parse(taskInfo[4], formatter);
+              list.add(new Event(taskInfo[2], startDateTime, endDateTime));
+            } catch (DateTimeParseException e) {
+              System.out.println("Invalid event format in the task list: " + e.getMessage());
+            }
             break;
           default:
             break;
