@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.exception.DukeException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -9,7 +13,7 @@ public class Event extends Task {
     protected DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     protected DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
-    public Event(String description, String from, String to) throws DukeException{
+    public Event(String description, String from, String to) throws DukeException {
         super(description);
         try {
             LocalDateTime date1 = LocalDateTime.parse(from, input);

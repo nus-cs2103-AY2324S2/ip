@@ -1,3 +1,12 @@
+package duke.parser;
+
+import duke.core.Duke;
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 public class Parser {
     protected String command;
 
