@@ -2,6 +2,8 @@ import harvard.Ui;
 import harvard.Storage;
 import harvard.Parser;
 import harvard.TaskList;
+import harvard.exceptions.HarvardException;
+
 import java.util.Scanner;
 
 public class Harvard {
@@ -30,7 +32,11 @@ public class Harvard {
                 break;
             }
 
-            parser.parse(echoInput);
+            try {
+                parser.parse(echoInput);
+            } catch (HarvardException e) {
+                System.out.println(e.getMessage());
+            }
         }
         ui.showGoodbye();
     }

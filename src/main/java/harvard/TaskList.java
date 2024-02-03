@@ -9,6 +9,7 @@ import harvard.tasks.Task;
 import harvard.tasks.Event;
 import harvard.tasks.Deadline;
 import harvard.tasks.Todo;
+import harvard.exceptions.HarvardException;
 
 public class TaskList {
     List<Task> taskList = new ArrayList<>();
@@ -20,7 +21,10 @@ public class TaskList {
     public TaskList() {
     }
 
-    public String printString(int index) {
+    public String printString(int index) throws HarvardException{
+        if (index > this.taskList.size() - 1) {
+            throw new HarvardException("Sorry, this task could not be found.");
+        }
         return taskList.get(index).toString();
     }
 

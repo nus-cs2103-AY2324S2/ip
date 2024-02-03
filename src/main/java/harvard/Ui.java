@@ -1,5 +1,6 @@
 package harvard;
 
+import harvard.exceptions.HarvardException;
 import harvard.tasks.Task;
 public class Ui {
     public Ui() {
@@ -60,7 +61,11 @@ public class Ui {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println(i + 1 + ". " + tasks.printString(i));
+            try {
+                System.out.println(i + 1 + ". " + tasks.printString(i));
+            } catch (HarvardException e) {
+                System.out.println(e.getMessage());
+            }
         }
         System.out.println("____________________________________________________________\n");
     }
