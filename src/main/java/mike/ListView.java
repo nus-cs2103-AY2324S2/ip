@@ -55,4 +55,8 @@ public class ListView {
         return !type.equals(ListViewType.DESCRIPTION) || description.contains(attribute);
     }
 
+    @Override
+    public String toString() {
+        return "LISTVIEW " + type + attribute;
+    }
 }

@@ -33,4 +33,9 @@ public class AddDeadlineCommand extends AddCommand {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "ADD DEADLINE " + description + " " + deadline;
+    }
 }

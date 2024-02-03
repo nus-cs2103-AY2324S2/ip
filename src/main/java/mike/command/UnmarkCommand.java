@@ -39,4 +39,9 @@ public class UnmarkCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "UNMARK " + taskNumber;
+    }
 }

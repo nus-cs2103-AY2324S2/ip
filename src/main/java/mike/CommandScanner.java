@@ -124,7 +124,7 @@ class CommandScanner {
     }
 
     private Token createToken(TokenType type) {
-        String text = source.substring(start, current);
+        String text = source.substring(start, current).strip();
         return new Token(type, text);
 
     }

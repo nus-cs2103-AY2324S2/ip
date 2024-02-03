@@ -27,15 +27,21 @@ public class Mike {
      */
     public void run() {
         ui.displayWelcome();
+
         boolean exitSeen = false;
+
         while (!exitSeen) {
             try {
                 String userInput = ui.scanInput();
                 Ui.displayLine();
+
                 List<Token> tokens = new CommandScanner(userInput).scanTokens();
+
                 Command command = new CommandParser(tokens).parse();
+
                 String response = command.execute(taskList);
                 Ui.display(response);
+
                 if (command.isExit()) {
                     exitSeen = true;
                 }

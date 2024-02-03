@@ -36,4 +36,9 @@ public class AddEventCommand extends AddCommand {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "ADD EVENT " + description + " " + startDate + " " + endDate;
+    }
 }

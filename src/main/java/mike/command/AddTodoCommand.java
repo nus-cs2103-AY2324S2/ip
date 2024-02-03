@@ -31,4 +31,8 @@ public class AddTodoCommand extends AddCommand {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "ADD TODO " + description;
+    }
 }
