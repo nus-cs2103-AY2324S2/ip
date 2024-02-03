@@ -1,3 +1,19 @@
+package duke;
+
+import duke.exception.EmptyTaskNameException;
+import duke.exception.NoTaskTypeException;
+
+import duke.parser.Parser;
+
+import duke.storage.Storage;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
+import duke.task.TaskList;
+
+import duke.ui.Ui;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 

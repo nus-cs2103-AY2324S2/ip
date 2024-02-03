@@ -1,3 +1,11 @@
+package duke.storage;
+
+import duke.parser.Parser;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
+import duke.task.TaskList;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,8 +17,8 @@ import java.util.Scanner;
 
 public class Storage {
     Parser parser = new Parser();
-    String filePath = "./src/main/";
-    String directoryPath = "./src/main/";
+    public String filePath = "./src/main/";
+    public String directoryPath = "./src/main/";
     public Storage(String filePath) {
         this.directoryPath += filePath.substring(0, filePath.lastIndexOf("/"));
         this.filePath += filePath;
