@@ -24,9 +24,17 @@ public class Duke {
      * The delimiter used for separating command arguments in the storage file.
      */
     public static final String ARG_DELIMITER = "\u241f";
-
+    /**
+     * The storage field used to load and save tasks data.
+     */
     private final Storage storage;
+    /**
+     * The tasks field used to store tasks.
+     */
     private TaskList tasks;
+    /**
+     * The ui field used to interact visually with the user.
+     */
     private final Ui ui;
 
     /**
