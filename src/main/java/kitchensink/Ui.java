@@ -46,4 +46,9 @@ public class Ui {
         System.out.println(Ui.LINE + "Noted. I've removed this task:\n" + task.toString()
                 + "\nNow you have " + taskListSize + taskOrTasks + "in the list.\n" + Ui.LINE);
     }
+
+    public void displayResults(List results) {
+        System.out.println(LINE + "Here are the matching tasks in your list:\n"
+                + results.toString() + "\n" + LINE);
+    }
 }

@@ -28,7 +28,11 @@ public class InvalidSyntaxException extends Throwable {
         case "event":
             syntax = "event [task description] /from [start date] /to [end date]";
             break;
-        case "delete": syntax = "delete [task number]";
+        case "delete":
+            syntax = "delete [task number]";
+            break;
+        case "find":
+            syntax = "find [keyword(s)]";
             break;
         default:
         }

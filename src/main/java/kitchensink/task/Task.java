@@ -28,6 +28,10 @@ public class Task {
         ui.sayTaskUnmarked(this);
     }
 
+    public boolean hasKeywords(String keywords) {
+        return description.contains(keywords);
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

@@ -118,6 +118,13 @@ public class Parser {
             }
             taskList.deleteTask(taskNum - 1, storage, ui);
             break;
+        case "find":
+            if (input.split(" ").length != 2) {
+                throw new InvalidSyntaxException("find");
+            }
+            String keywords = input.substring(5);
+            taskList.findTasks(keywords, ui);
+            break;
         default:
             throw new UnknownCommandException();
         }
