@@ -11,10 +11,23 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ *  Represents the parser of the program that converts user inputs into Commands.
+ */
 public class Parser {
     public enum Cmd{
         list, todo, deadline, event, mark, unmark, delete, bye, none;
     }
+    /**
+     * Initializes the given Task ArrayList with given input,
+     * by adding the tasks from each line of input into the ArrayList.
+     * The different data in each line of a stored task is splitted by a "|" sign.
+     * THe method processes these data, creates corresponding task and add the ArrayList accordingly.
+     *
+     * @param input the input for each task, the input typically comes from a stored data,
+     *              accessed by the Storage class.
+     * @param taskList the given Task ArrayList to be initialized.
+     */
     public static void initializeTask(String input, ArrayList<Task> taskList) {
         String[] data = input.split(" \\| ");
         Task task = new Task("");
@@ -40,6 +53,21 @@ public class Parser {
         }
         taskList.add(task);
     }
+
+    /**
+     * Parse the given input into Commands that can be run inside the program.
+     *
+     * @param input the String input by the user. The different type of input are as follow:
+     *              todo <description>: to add a todo with the given description.
+     *              deadline <description> <date>: to add a deadline with the given information.
+     *              event <description> <start date> <end date>: to add an event with the given information.
+     *              list : to list the full list
+     *              tmark <index>: to mark the task at index no <index> in the list as complete
+     *              tunmark <index>: to mark the task at index no <index> in the last as incomplete
+     *              delete <index>: to remove the taks at index no <index> in the last
+     *              bye: to leave the program
+     * @return the Command that correspond to the input
+     */
     public Command parse(String input){
         Command command = new NoAction(Cmd.none);
         String[] cmds = input.split(" ", 2);
