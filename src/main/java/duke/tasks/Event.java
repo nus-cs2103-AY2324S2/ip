@@ -1,9 +1,11 @@
-package tasks;
+package duke.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
-import exceptions.tasks.EmptyDescriptionException;
+import duke.Duke;
+import duke.exceptions.tasks.EmptyDescriptionException;
 
 public class Event extends Task {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
@@ -28,6 +30,19 @@ public class Event extends Task {
 
     public LocalDate getTo() {
         return this.to;
+    }
+
+    @Override
+    public String serialize() {
+        ArrayList<String> taskArgs = new ArrayList<>();
+
+        taskArgs.add("event");
+        taskArgs.add(this.getDescription());
+        taskArgs.add(this.getFrom().toString());
+        taskArgs.add(this.getTo().toString());
+        taskArgs.add(this.isDone() ? "1" : "0");
+
+        return String.join(Duke.ARG_DELIMITER, taskArgs);
     }
 
     @Override
