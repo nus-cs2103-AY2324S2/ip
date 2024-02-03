@@ -1,7 +1,4 @@
 package zoe;
-
-import zoe.Event;
-
 public class Parser {
     public TaskList tl;
     protected Ui ui;
@@ -23,8 +20,8 @@ public class Parser {
     public void carryOutShortCommand(String command) {
         if (command.equals("list")) {
             for (int i = 0; i < tl.getSize(); i++) {
-                System.out.println(String.format
-                        ("%d.%s", i + 1, tl.get(i).getStatus()));
+                System.out.println(String.format("%d.%s",
+                        i + 1, tl.get(i).getStatus()));
             }
         } else {
             if (command.equals("todo")) {

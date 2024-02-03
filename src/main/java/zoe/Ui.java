@@ -3,10 +3,8 @@ package zoe;
 import java.util.ArrayList;
 import java.util.List;
 public class Ui {
-    protected ArrayList<Task> tasks;
     protected ArrayList<String> functions = new ArrayList<String>();
     public Ui() {
-        this.tasks = new ArrayList<Task>();
         functions.addAll(List.of("list", "mark", "unmark", "todo", "deadline", "event"));
     }
     public void saysHi() {

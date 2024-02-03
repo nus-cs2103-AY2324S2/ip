@@ -18,12 +18,7 @@ public class Event extends Task {
         this.from = str[1].split(" ",2)[1];
         this.to = str[2].split(" ", 2)[1];
         this.type = "E";
-
-        if (isDoneNumber.equals("1")) {
-            this.isDone = true;
-        } else {
-            this.isDone = false;
-        }
+        this.isDone = isDoneNumber.equals("1");
     }
 
     @Override

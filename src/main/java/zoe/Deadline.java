@@ -23,12 +23,7 @@ public class Deadline extends Task {
         LocalDate inputDate = LocalDate.parse(date);
         this.formattedDate = inputDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         this.type = "D";
-
-        if (isDoneNumber.equals("1")) {
-            this.isDone = true;
-        } else {
-            this.isDone = false;
-        }
+        this.isDone = isDoneNumber.equals("1");
     }
 
     @Override

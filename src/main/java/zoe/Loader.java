@@ -1,7 +1,5 @@
 package zoe;
 
-import zoe.Event;
-
 import java.io.*;
 import java.util.ArrayList;
 public class Loader {

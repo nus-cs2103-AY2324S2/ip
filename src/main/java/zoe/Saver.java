@@ -1,7 +1,5 @@
 package zoe;
 
-import zoe.Task;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;

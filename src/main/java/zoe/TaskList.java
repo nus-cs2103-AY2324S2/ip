@@ -4,10 +4,6 @@ import java.util.ArrayList;
 public class TaskList {
     protected ArrayList<Task> tasks;
 
-    public TaskList() {
-        this.tasks = new ArrayList<Task>();
-    }
-
     public TaskList(ArrayList<Task> tl) {
         this.tasks = tl;
     }
@@ -50,10 +46,6 @@ public class TaskList {
     }
 
     public boolean isValid(int i) {
-        if (i > tasks.size() || i < 1) {
-            return false;
-        }
-
-        return true;
+        return (i < tasks.size() && i > 0);
     }
 }
