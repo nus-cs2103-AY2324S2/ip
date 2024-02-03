@@ -33,6 +33,15 @@ public abstract class Task {
      */
     abstract String getCommand();
 
+    /**
+     * Checks if the task's name contains the keyword.
+     * @param keyword The keyword to search for.
+     * @return True if the task's name contains the keyword, false otherwise.
+     */
+    boolean matches(String keyword) {
+        return name.contains(keyword);
+    }
+
     @Override
     public String toString() {
         return (isDone ? "[X] " : "[ ] ") + name;
