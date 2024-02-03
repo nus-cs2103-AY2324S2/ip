@@ -34,20 +34,30 @@ public class Task {
         return String.format("| %d | %s", isDone ? 1 : 0, name);
     }
 
-    /** Returns a String representation of the task if task is occurring on the date given.
-     *
+    /**
+     * Returns a String representation of the task if task is occurring on the date given.
      * @param date the date to check if task was active
-     * @return the string representation of  if date is within task timeframe, or an empty string if it is not
+     * @return the string representation of task if date is within task timeframe, or an empty string if it is not
      */
 
     public String happenOn(LocalDate date) {
         return "";
     }
 
+    /**
+     * Returns a String representation of the task if task name contains string.
+     * @param match the date to check if task was active
+     * @return the string representation of task if string is within task name, or an empty string if it is not
+     */
     public String printMatch(String match) {
         return "";
     }
 
+    /**
+     * Returns true if the name contains the string given, false otherwise
+     * @param match string to be checked
+     * @return true if name contains string, false otherwise
+     */
     public boolean contains(String match) {
         return name.contains(match);
     }
