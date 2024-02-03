@@ -1,0 +1,74 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import Tasks.Task;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.ToDo;
+
+public abstract class ReadData {
+    private static final String dataPath = "../data/tasks.txt";
+
+    protected static void read(ArrayList<Task> list) {
+        File f = new File(dataPath);
+        if (!f.isFile()) return;
+        try {
+            Scanner scanner = new Scanner(f);
+            while (scanner.hasNextLine()) {
+                String data = scanner.nextLine();
+                String[] processedData = data.split("\\s\\|\\s");
+                if (processedData.length == 3) {
+                    switch (processedData[0]) {
+                        case "D":
+                            list.add(new Deadline(processedData[1].equals("1"), processedData[2]));
+                            break;
+                        case "E":
+                            list.add(new Event(processedData[1].equals("1"), processedData[2]));
+                            break;
+                        case "T":
+                            list.add(new ToDo(processedData[1].equals("1"), processedData[2]));
+                            break;
+                    }
+                }
+            }
+            scanner.close();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected static void write(ArrayList<Task> list) {
+        createFile();
+        try {
+            new FileOutputStream(dataPath).close();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(dataPath, true));
+            writer.write("");
+            for (Task task: list) {
+                writer.append(task.toStringAlt() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void createFile() {
+        File f = new File("../data");
+        if (!f.exists() || !f.isDirectory())
+            f.mkdir();
+        f = new File(dataPath);
+        if (!f.isFile()) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+    }
+}
