@@ -4,7 +4,7 @@ import exceptions.RyanGoslingException;
 import tasks.Deadline;
 import tasks.Events;
 import tasks.Todo;
-import utilities.MessagePrinter;
+import utilities.ResponseHandler;
 import utilities.Storage;
 import utilities.TaskList;
 
@@ -34,7 +34,7 @@ public class CommandsParser {
     public int parseCommands(String task) throws RyanGoslingException {
         String[] commandSplit = task.split(" ");
         if (task.equals(String.valueOf(CommandsEnum.bye))) {
-            MessagePrinter.bye();
+            ResponseHandler.bye();
             return 1;
         } else if (task.equals(String.valueOf(CommandsEnum.list))) {
             taskList.printList();

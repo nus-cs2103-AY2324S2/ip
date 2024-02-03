@@ -29,7 +29,7 @@ public class Ui {
             ArrayList<Task> parsedTasks = this.taskLoader.parseAndLoadTasks();
             this.taskList = new TaskList(parsedTasks);
         } catch (RyanGoslingException | FileNotFoundException e) {
-            MessagePrinter.errorPrinter(e);
+            ResponseHandler.errorPrinter(e);
             return;
         }
         CommandsParser commandsParser = new CommandsParser(this.taskList, this.filePath, this.taskLoader);
@@ -45,12 +45,35 @@ public class Ui {
                                            + "Date should be in YYYY-MM-DD\n"
                                            + "Time should be in 24 HR clock format");
             } catch (Exception e){
-                MessagePrinter.errorPrinter(e);
+                ResponseHandler.errorPrinter(e);
             } finally {
                 if (status == 1) {
                     return;
                 }
             }
+        }
+    }
+
+    public void oneTimeLoadAllTasks() {
+        try {
+            ArrayList<Task> parsedTasks = this.taskLoader.parseAndLoadTasks();
+            this.taskList = new TaskList(parsedTasks);
+        } catch (RyanGoslingException | FileNotFoundException e) {
+            ResponseHandler.errorPrinter(e);
+            return;
+        }
+    }
+
+    public String performTaskFromSingleUserInput(String input) {
+        CommandsParser commandsParser = new CommandsParser(this.taskList, this.filePath, this.taskLoader);
+        try {
+            int status = commandsParser.parseCommands(task);
+            if (status == 1) {
+                return status;
+            }
+        } catch (DateTimeException e) {
+
+
         }
     }
 }
