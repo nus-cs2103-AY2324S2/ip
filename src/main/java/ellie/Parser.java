@@ -8,9 +8,15 @@ import ellie.task.Event;
 import ellie.task.Task;
 import ellie.task.Todo;
 
-// Role of ellie.Parser: To parse a given String and return
+/**
+ * The Parser class is responsible for parsing user input and generating corresponding commands.
+ * It recognizes different command types and arguments, creating appropriate command objects.
+ */
 public class Parser {
 
+    /**
+     * Enum representing different command types.
+     */
     enum Type {
         MARK,
         UNMARK,
@@ -25,6 +31,12 @@ public class Parser {
 
     }
 
+    /**
+     * Parses the user input and generates a corresponding command.
+     *
+     * @param input The user input to be parsed.
+     * @return A Command object based on the parsed input.
+     */
     public static Command parse(String input) {
 
         Type type = Type.UNKNOWN;

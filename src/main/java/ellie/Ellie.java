@@ -19,12 +19,20 @@ public class Ellie {
 
     private Command command;
 
+    /**
+     * Constructs an Ellie object.
+     * Initializes the storage, task list, and user interface components.
+     */
     public Ellie() {
         storage = new Storage("./data/toDoList.txt", "./data");
         taskList = new TaskList(storage);
         ui = new Ui();
     }
 
+    /**
+     * Starts the Ellie application.
+     * Prompts the user for input and processes commands until an exit command is received.
+     */
     public void start() {
         ui.hello();
         Scanner reader = new Scanner(System.in);
