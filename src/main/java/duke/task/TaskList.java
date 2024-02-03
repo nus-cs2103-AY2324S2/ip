@@ -44,6 +44,16 @@ public class TaskList {
         return t.toString();
     }
 
+    public ArrayList<String> find(String keyword) throws DukeException {
+        ArrayList<String> found = new ArrayList<>();
+        for (Task t : this.tasks) {
+            if (t.canFind(keyword)) {
+                found.add(t.toString());
+            }
+        }
+        return found;
+    }
+
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }
