@@ -1,9 +1,13 @@
 import java.util.*;
+import java.io.*;
+
 
 public class Riz {
-    public static void main(String[] args) throws Exception {
+    private static final String FILE_PATH = "./data/riz.txt";
+
+    public static void main(String[] args) {
+        ArrayList<Task> tasks = FileManager.loadFromFile(FILE_PATH);
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
         String dotted = "-----------------------------------";
         //greetings
         String greetings = "Hello... I'm Riz...\n"
@@ -34,6 +38,7 @@ public class Riz {
                     int curr = Integer.parseInt(token[1]) - 1;
                     Task task = tasks.get(curr);
                     task.mark();
+                    FileManager.writeToFile(FILE_PATH, tasks);
                     System.out.println("Awesome..., I've marked this task as completed...");
                     System.out.println(task);
                     System.out.println("\n");
@@ -53,17 +58,19 @@ public class Riz {
                     int curr = Integer.parseInt(token[1]) - 1;
                     Task task = tasks.get(curr);
                     task.unmark();
+                    FileManager.writeToFile(FILE_PATH, tasks);
                     System.out.println("Oops... Guess it's not done yet...");
                     System.out.println(task);
                     System.out.println("\n");
                 } else if (token[0].equals("list")) {
                     int size = tasks.size();
                     System.out.println("Here are the items in your To-Do List...");
-                    for (int i = 0; i < size; i++) {
+                    FileManager.printFromFile(FILE_PATH);
+                    /*for (int i = 0; i < size; i++) {
                         int curr = i + 1;
                         String result = curr + ". " + tasks.get(i).toString() + "...";
                         System.out.println(result);
-                    }
+                    } */
                     System.out.println("\n");
                 } else if (token[0].equals("delete")) {
                     boolean isNumber = true;
@@ -91,6 +98,7 @@ public class Riz {
                         } else {
                             Task task = new ToDo(token[1]);
                             tasks.add(task);
+                            FileManager.writeToFile(FILE_PATH, tasks);
                             System.out.println("added: " + task + "...");
                         }
                     } else if (token[0].equals("deadline")) {
@@ -103,6 +111,7 @@ public class Riz {
                         } else {
                             Task task = new Deadline(details[0], details[1]);
                             tasks.add(task);
+                            FileManager.writeToFile(FILE_PATH, tasks);
                             System.out.println("added: " + task + "...");
                         }
                     } else if (token[0].equals("event")) {
@@ -115,12 +124,13 @@ public class Riz {
                         } else {
                             Task task = new Event(details[0], details[1], details[2]);
                             tasks.add(task);
+                            FileManager.writeToFile(FILE_PATH, tasks);
                             System.out.println("added: " + task + "...");
                         }
                     } else {
                         throw new RizException("Are you speaking Yapanese?...");
                     }
-                    int size = tasks.size();
+                    int size = FileManager.countFromFile(FILE_PATH);
                     System.out.println("You currently have " + size + " things to do...");
                     System.out.println("\n");
                 }
