@@ -6,7 +6,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Parser {
-
     private File saveFile;
     private TaskList taskList;
     private Storage storage;
@@ -32,9 +31,7 @@ public class Parser {
      */
     public boolean parseCommand(String input) {
         String trimmedLowercase = input.trim().toLowerCase();
-        //bye, list
         if (trimmedLowercase.equals("bye")) {
-            //TODO: save history
             storage.saveHistory(saveFile, taskList.getTasks());
             return true;
         } else if (trimmedLowercase.equals("list")) {
@@ -50,7 +47,6 @@ public class Parser {
                 System.out.println("[Missing delete parameter(s)]\n");
                 return false;
             }
-
         } else if (trimmedLowercase.split(" ")[0].trim().equals("mark")) {
             try {
                 int index = Integer.parseInt(input.split(" ")[1].strip()) - 1;
@@ -61,7 +57,6 @@ public class Parser {
                 System.out.println("[Missing mark parameter(s)]\n");
                 return false;
             }
-
         }
 
         //tasks
