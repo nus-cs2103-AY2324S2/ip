@@ -42,6 +42,9 @@ public class Task {
         }
     }
 
+    /**
+     * Saves respective tasks in the required format
+     */
     public String saveTask() {
         return String.format("%d|%s", this.isDoneNumerical(), this.description);
     }
