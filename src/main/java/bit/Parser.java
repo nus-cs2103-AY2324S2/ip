@@ -1,3 +1,7 @@
+package bit;
+
+import bit.Ui;
+
 import  java.util.Scanner;
 public class Parser {
 

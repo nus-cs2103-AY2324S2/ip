@@ -1,3 +1,5 @@
+package bit;
+
 public class Task {
 
     protected boolean isDone;

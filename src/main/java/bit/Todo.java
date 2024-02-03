@@ -1,4 +1,8 @@
-public class Todo extends  Task{
+package bit;
+
+import bit.Task;
+
+public class Todo extends Task {
 
     public Todo(String description) {
         super(description);
