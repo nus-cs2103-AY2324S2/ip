@@ -23,7 +23,7 @@ public class Storage {
      *
      * @return the converted Task ArrayList from the stored data.
      */
-    public ArrayList<Task> loadTasks(){
+    public ArrayList<Task> loadTasks() {
         ArrayList<Task> temp = new ArrayList<>();
         this.initializeListFile();
         File f = new File(listFilePath);
@@ -61,7 +61,7 @@ public class Storage {
      * Removes the task at the given index in the list from the stored data.
      * @param index the given index of the task to be removed.
      */
-    public void removeListStateRecord(int index){
+    public void removeListStateRecord(int index) {
         this.listStates.remove(index);
         this.writeList();
     }
@@ -77,7 +77,7 @@ public class Storage {
      *             For deadlines, the data has description and the deadline.
      *             For events, the data has description, start time and end time.
      */
-    public void addListStateRecord(String type, String[] data){
+    public void addListStateRecord(String type, String[] data) {
         String newRecord = "";
         switch (type){
         case "todo":
@@ -120,7 +120,7 @@ public class Storage {
      * If the directory does not exist, it is created.
      * If the file does not exist, it is created.
      */
-    public void initializeListFile(){
+    public void initializeListFile() {
         try{
             File dir = new File("./data/");
             if (!dir.exists()) {

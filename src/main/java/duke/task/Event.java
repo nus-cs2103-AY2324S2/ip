@@ -18,7 +18,7 @@ public class Event extends Task{
      * @param fromDate the starting date of the event.
      * @param toDate the ending date of the event.
      */
-    public Event(String description, LocalDateTime fromDate, LocalDateTime toDate){
+    public Event(String description, LocalDateTime fromDate, LocalDateTime toDate) {
         super(description);
         this.fromDate = fromDate;
         this.toDate = toDate;

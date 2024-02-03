@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents the Command of adding a new event to a task list.
  */
-public class AddEvent extends Command{
+public class AddEventCommand extends Command {
     private String description;
     private LocalDateTime fromDate;
     private LocalDateTime toDate;
@@ -23,7 +23,7 @@ public class AddEvent extends Command{
      * @param fromDate the starting date of the event to be added.
      * @param toDate the ending date of the event to be added.
      */
-    public AddEvent(Parser.Cmd type, String description, LocalDateTime fromDate, LocalDateTime toDate){
+    public AddEventCommand(Parser.Cmd type, String description, LocalDateTime fromDate, LocalDateTime toDate) {
         super(type);
         this.description = description;
         this.fromDate = fromDate;
@@ -36,7 +36,7 @@ public class AddEvent extends Command{
      * @param taskList the given taskList to add the task to.
      */
     @Override
-    public void run(TaskList taskList){
+    public void run(TaskList taskList) {
         Event event = new Event(this.description, this.fromDate, this.toDate);
         String fromTime = this.fromDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
         String toTime = this.toDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));

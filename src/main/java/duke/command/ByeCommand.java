@@ -4,11 +4,10 @@ import duke.util.Parser;
 import duke.util.TaskList;
 import duke.util.Ui;
 
-
 /**
  * Represents a Command for exiting the program.
  */
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
 
     /**
      * Initializes the exiting Command.
@@ -25,7 +24,7 @@ public class ByeCommand extends Command{
      * @param taskList the given taskList to run the function on.
      */
     @Override
-    public void run(TaskList taskList){
+    public void run(TaskList taskList) {
         Ui.leave();
     }
 }

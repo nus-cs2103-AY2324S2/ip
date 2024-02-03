@@ -7,14 +7,14 @@ import duke.util.TaskList;
  * Represents a Command for doing nothing.
  * Use as a placeholder when there is invalid Command.
  */
-public class NoAction extends Command{
+public class NoActionCommand extends Command {
 
     /**
      * Initializes the Command that does nothing.
      *
      * @param type the type of the Command which is none.
      */
-    public NoAction(Parser.Cmd type) {
+    public NoActionCommand(Parser.Cmd type) {
         super(type);
     }
     /**

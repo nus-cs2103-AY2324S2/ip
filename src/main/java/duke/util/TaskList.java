@@ -32,7 +32,7 @@ public class TaskList {
      * Constructs an instance of TaskList.
      * The listItems field is initialized from the stored data, if any.
      */
-    public TaskList(){
+    public TaskList() {
         this.listItems = storage.loadTasks();
     }
 
@@ -40,7 +40,7 @@ public class TaskList {
      * Displays the details of each task.
      * The process is done using loops to go through all the tasks.
      */
-    public void showList(){
+    public void showList() {
         System.out.println("\t____________________________________________________________");
         System.out.println("\tPer your request, I am outlining the tasks from your designated list:");
         int index = 1;
@@ -55,7 +55,7 @@ public class TaskList {
      * Marks the task at the given index in the list.
      * @param index the given index of the task to be marked.
      */
-    public void markList(int index){
+    public void markList(int index) {
         this.listItems.get(index-1).mark();
         storage.modifyStateRecord(true, index-1);
         Ui.informListMarked(listItems.get(index-1));
@@ -65,7 +65,7 @@ public class TaskList {
      * Unmarks the task at the given index in the list.
      * @param index the given index of the task to be marked.
      */
-    public void unmarkList(int index){
+    public void unmarkList(int index) {
         this.listItems.get(index-1).unmark();
         storage.modifyStateRecord(false, index-1);
         Ui.informListUnmarked(listItems.get(index-1));
@@ -75,7 +75,7 @@ public class TaskList {
      * Removes the task at the given index in the list.
      * @param index the given index of the task to be marked.
      */
-    public void deleteList(int index){
+    public void deleteList(int index) {
         Task task = listItems.remove(index-1);
         storage.removeListStateRecord( index-1);
         Ui.informItemRemoved(task, listItems.size());
@@ -85,7 +85,7 @@ public class TaskList {
      * Returns the number of tasks in the list.
      * @return size of the ArrayList storing the list of tasks.
      */
-    public int getSize(){
+    public int getSize() {
         return this.listItems.size();
     }
 
@@ -93,7 +93,7 @@ public class TaskList {
      * Changes the String representation TaskList into showing the number of tasks in the list.
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "\tCurrently, the list comprises  " + listItems.size() + " tasks.";
     }
 

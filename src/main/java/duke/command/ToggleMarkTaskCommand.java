@@ -6,7 +6,7 @@ import duke.util.TaskList;
 /**
  * Represents the Command of marking/unmarking a task in a list.
  */
-public class ToggleMarkTask extends Command{
+public class ToggleMarkTaskCommand extends Command{
     private int index;
 
     /**
@@ -15,7 +15,7 @@ public class ToggleMarkTask extends Command{
      * @param type the type of the Command which can be mark or unmark.
      * @param index the index of the task to be marked
      */
-    public ToggleMarkTask(Parser.Cmd type, int index){
+    public ToggleMarkTaskCommand(Parser.Cmd type, int index){
         super(type);
         this.index = index;
     }
@@ -26,8 +26,8 @@ public class ToggleMarkTask extends Command{
      * @param taskList the given taskList to mark/unmark the task.
      */
     @Override
-    public void run(TaskList taskList){
-        if (this.type == Parser.Cmd.mark){
+    public void run(TaskList taskList) {
+        if (this.type == Parser.Cmd.mark) {
             taskList.markList(this.index);
         } else {
             taskList.unmarkList(this.index);

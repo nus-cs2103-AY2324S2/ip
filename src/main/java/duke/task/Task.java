@@ -28,16 +28,16 @@ public class Task {
     }
 
     /**
-     * Marks the isDone field as true;
+     * Sets the isDone field as true;
      */
-    public void mark(){
+    public void mark() {
         this.isDone = true;
     }
 
     /**
-     * Marks the isDone field as false;
+     * Sets the isDone field as false;
      */
-    public void unmark(){
+    public void unmark() {
         this.isDone = false;
     }
 
@@ -46,7 +46,7 @@ public class Task {
      * @return the specified string representation of the task.
      */
     @Override
-    public String toString(){
+    public String toString() {
         String output = "[" + this.getStatusIcon() + "] " + this.description;
         return output;
     }

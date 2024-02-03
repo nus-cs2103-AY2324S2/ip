@@ -13,7 +13,7 @@ public abstract class Command {
      * Constructor of the Command class
      * @param type type of the Command created.
      */
-    protected Command(Parser.Cmd type){
+    protected Command(Parser.Cmd type) {
         this.type = type;
     }
 

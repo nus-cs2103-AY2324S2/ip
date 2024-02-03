@@ -3,7 +3,7 @@ package duke.task;
 /**
  * Represents a todo task that is added by the user.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * {@inheritDoc}
