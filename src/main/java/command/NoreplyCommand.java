@@ -7,7 +7,7 @@ import ui.Ui;
 public class NoreplyCommand extends Command {
 
     /**
-     * A command that does nothing.
+     * A command that does nothing (Null Command).
      *
      * @param tasks Current TaskList.
      * @param storage Current Storage.
