@@ -129,6 +129,10 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Displays a message to inform the user that no results matching their search criteria were found.
+     * This method shows a line separator, a notification message, and another line separator.
+     */
     public void showNoTask() {
         showLine();
         System.out.println(" There is no result found");
