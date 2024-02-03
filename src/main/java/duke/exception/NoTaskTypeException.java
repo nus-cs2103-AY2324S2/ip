@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class NoTaskTypeException extends Exception {
     public NoTaskTypeException() {
         super("Sorry! I don't understand your command!\n" +

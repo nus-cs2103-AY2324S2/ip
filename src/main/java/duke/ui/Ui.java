@@ -1,3 +1,7 @@
+package duke.ui;
+
+import duke.task.TaskList;
+
 import java.io.InputStream;
 
 import java.util.Scanner;
@@ -9,10 +13,6 @@ public class Ui {
     private static final String TAB = "  ";
     public Ui(InputStream in) {
         this.in = new Scanner(in);
-    }
-
-    public boolean isExit() {
-        return input.equals("bye");
     }
 
     public String getCommand() {
@@ -37,6 +37,7 @@ public class Ui {
         printMessage(TAB + newTask);
         printLine();
     }
+
     public void printMark(String task) {
         printLine();
         printMessage("Nice! I've marked this task as done:");
