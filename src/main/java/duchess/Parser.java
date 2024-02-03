@@ -17,20 +17,20 @@ public class Parser {
         String description = parts[2].trim();
 
         switch (type) {
-            case "T":
-                task = new ToDo(description, isDone);
-                break;
-            case "D":
-                String by = parts[3].trim();
-                task = new Deadline(description, isDone, by);
-                break;
-            case "E":
-                String from = parts[3].trim();
-                String to = parts[4].trim();
-                task = new Event(description, isDone, from, to);
-                break;
-            default:
-                System.out.println("Unknown task type: " + type);
+        case "T":
+            task = new ToDo(description, isDone);
+            break;
+        case "D":
+            String by = parts[3].trim();
+            task = new Deadline(description, isDone, by);
+            break;
+        case "E":
+            String from = parts[3].trim();
+            String to = parts[4].trim();
+            task = new Event(description, isDone, from, to);
+            break;
+        default:
+            System.out.println("Unknown task type: " + type);
         }
         return task;
     }

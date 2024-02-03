@@ -31,5 +31,8 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
-    public String toFileString() { return "duchess.task.Task |" + (isDone ? "1" : "0") + " | " + description; }
+    public String toFileString() {
+        return "duchess.task.Task |" + (isDone ? "1" : "0")
+                + " | " + description;
+    }
 }

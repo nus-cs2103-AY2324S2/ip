@@ -53,68 +53,68 @@ public class Ui {
 
             // Based on user input, change output
             switch (tokens[0].toLowerCase()) {
-                case "bye":
-                    printClosingGreeting();
-                    return;
+            case "bye":
+                printClosingGreeting();
+                return;
 
-                case "list":
-                    printHorizontalLine();
-                    taskList.printTaskList();
-                    break;
+            case "list":
+                printHorizontalLine();
+                taskList.printTaskList();
+                break;
 
-                case "mark":
-                    printHorizontalLine();
-                    if (tokens.length > 1) {
-                        int taskIndexToMark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
-                        taskList.markTaskAsDone(taskIndexToMark);
-                        storage.saveData(taskList);
-                    } else {
-                        throw new DuchessException("Oh dear! That is an invalid command. Try: mark <taskIndex>");
-                    }
-                    break;
-
-                case "unmark":
-                    printHorizontalLine();
-                    if (tokens.length > 1) {
-                        int taskIndexToUnmark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
-                        taskList.unmarkTaskAsDone(taskIndexToUnmark);
-                        storage.saveData(taskList);
-                    } else {
-                        throw new DuchessException("Oh dear! That is an invalid command. Try: unmark <taskIndex>");
-                    }
-                    break;
-
-                case "todo":
-                    printHorizontalLine();
-                    taskList.addToDo(userInput);
+            case "mark":
+                printHorizontalLine();
+                if (tokens.length > 1) {
+                    int taskIndexToMark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
+                    taskList.markTaskAsDone(taskIndexToMark);
                     storage.saveData(taskList);
-                    break;
+                } else {
+                    throw new DuchessException("Oh dear! That is an invalid command. Try: mark <taskIndex>");
+                }
+                break;
 
-                case "deadline":
-                    printHorizontalLine();
-                    taskList.addDeadline(userInput);
+            case "unmark":
+                printHorizontalLine();
+                if (tokens.length > 1) {
+                    int taskIndexToUnmark = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
+                    taskList.unmarkTaskAsDone(taskIndexToUnmark);
                     storage.saveData(taskList);
-                    break;
+                } else {
+                    throw new DuchessException("Oh dear! That is an invalid command. Try: unmark <taskIndex>");
+                }
+                break;
 
-                case "event":
-                    printHorizontalLine();
-                    taskList.addEvent(userInput);
+            case "todo":
+                printHorizontalLine();
+                taskList.addToDo(userInput);
+                storage.saveData(taskList);
+                break;
+
+            case "deadline":
+                printHorizontalLine();
+                taskList.addDeadline(userInput);
+                storage.saveData(taskList);
+                break;
+
+            case "event":
+                printHorizontalLine();
+                taskList.addEvent(userInput);
+                storage.saveData(taskList);
+                break;
+
+            case "delete":
+                printHorizontalLine();
+                if (tokens.length > 1) {
+                    int taskIndexToDelete = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
+                    taskList.deleteTask(taskIndexToDelete);
                     storage.saveData(taskList);
-                    break;
+                } else {
+                    throw new DuchessException("Oh dear! That is an invalid command. Try: unmark <taskIndex>");
+                }
+                break;
 
-                case "delete":
-                    printHorizontalLine();
-                    if (tokens.length > 1) {
-                        int taskIndexToDelete = Integer.parseInt(tokens[1]) - 1; //Minus 1 to match zero-index
-                        taskList.deleteTask(taskIndexToDelete);
-                        storage.saveData(taskList);
-                    } else {
-                        throw new DuchessException("Oh dear! That is an invalid command. Try: unmark <taskIndex>");
-                    }
-                    break;
-
-                default:
-                    throw new DuchessException("Oh dear, I can't make out what that is.");
+            default:
+                throw new DuchessException("Oh dear, I can't make out what that is.");
 
             }
             printHorizontalLine();
