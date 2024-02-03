@@ -1,15 +1,17 @@
 package numerator;
 
-import numerator.exceptions.storage.LoadingException;
-import numerator.exceptions.storage.SavingException;
-import numerator.task.TaskList;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.format.DateTimeParseException;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
+
+import numerator.exceptions.storage.LoadingException;
+import numerator.exceptions.storage.SavingException;
+import numerator.task.TaskList;
+
 
 /**
  * Interacts with the local filesystem to load and save tasks
@@ -27,6 +29,32 @@ public class Storage {
         this.filepath = filepath;
     }
 
+    private static Consumer<String> readLineFromString(TaskList taskList) {
+        return line -> {
+            String[] s = line.split(" \\| ");
+            String taskType = s[0];
+            boolean isDone = s[1].equals("1");
+            String taskDesc = s[2];
+            switch (taskType) {
+            case "T":
+                taskList.addToDo(taskDesc);
+                break;
+            case "D":
+                taskList.addDeadline(taskDesc, s[3]);
+                break;
+            case "E":
+                taskList.addEvent(taskDesc, s[3], s[4]);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + taskType);
+            }
+
+            if (isDone) {
+                taskList.markLastAsDone();
+            }
+
+        };
+    }
 
     /**
      * Loads tasks from the file
@@ -46,30 +74,7 @@ public class Storage {
 
             // Solution below adapted from https://www.baeldung.com/reading-file-in-java
             Stream<String> lines = Files.lines(this.filepath);
-            lines.forEach(line -> {
-                        String[] s = line.split(" \\| ");
-                        String taskType = s[0];
-                        boolean isDone = s[1].equals("1");
-                        String taskDesc = s[2];
-                        switch (taskType) {
-                        case "T":
-                            taskList.addToDo(taskDesc);
-                            break;
-                        case "D":
-                            taskList.addDeadline(taskDesc, s[3]);
-                            break;
-                        case "E":
-                            taskList.addEvent(taskDesc, s[3], s[4]);
-                            break;
-                        default:
-                            throw new IllegalStateException("Unexpected value: " + taskType);
-                        }
-
-                        if (isDone) {
-                            taskList.markLastAsDone();
-                        }
-
-                    }
+            lines.forEach(readLineFromString(taskList)
             );
 
             lines.close();

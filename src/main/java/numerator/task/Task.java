@@ -9,9 +9,8 @@ import java.time.format.DateTimeParseException;
  * Represents a task
  */
 public abstract class Task {
-    final String description;
     protected boolean isDone;
-
+    final String description;
 
     /**
      * Constructs a task with the specified description
