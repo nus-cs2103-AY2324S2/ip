@@ -1,8 +1,4 @@
-package Duke.Task;
-
-import Duke.Task.Task;
-
-import java.util.ArrayList;
+package duke.task;
 
 public class Event extends Task {
     protected String from;

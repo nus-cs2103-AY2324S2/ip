@@ -1,11 +1,10 @@
-package Duke.Command;
+package duke.command;
 
-import Duke.Storage;
-import Duke.Task.TaskList;
-import Duke.Ui;
+import duke.Storage;
+import duke.task.TaskList;
+import duke.Ui;
 
-import java.lang.reflect.Array;
-import Duke.Exception.InvalidArgumentException;
+import duke.exception.InvalidArgumentException;
 
 public class MarkCommand extends Command {
     int positionToMark;

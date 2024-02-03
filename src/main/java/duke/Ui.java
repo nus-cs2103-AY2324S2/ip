@@ -1,10 +1,12 @@
-package Duke;
+package duke;
 
-import Duke.Task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
-import Duke.Task.TaskList;
-import Duke.Exception.DukeException;
+
+import duke.task.Task;
+import duke.task.TaskList;
+
+import duke.exception.DukeException;
 
 public class Ui {
     Scanner scanner;
@@ -78,7 +80,6 @@ public class Ui {
         printDivider();
     }
 
-
     public static void displayNewTask(Task task, TaskList taskList) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task.toString());
@@ -92,6 +93,7 @@ public class Ui {
         System.out.println(e.errorMessage());
         printDivider();
     }
+
     private static void printDivider() {
         System.out.println("____________________________");
     }

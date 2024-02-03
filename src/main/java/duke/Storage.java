@@ -1,16 +1,22 @@
-package Duke;
+package duke;
 
-import Duke.Exception.InvalidCommandException;
-import Duke.Task.Task;
+import duke.exception.InvalidCommandException;
+import duke.task.Task;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.FileWriter;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 
 import java.util.ArrayList;
-import Duke.Task.TaskList;
-import Duke.Exception.DukeException;
+import duke.task.TaskList;
+import duke.exception.DukeException;
 
 public class Storage {
     // Default file path for storage
@@ -32,6 +38,7 @@ public class Storage {
             System.out.println(e.getMessage());
         }
     }
+
     public static void save(TaskList tasksList) {
         ArrayList<Task> arrayListOfTasks = tasksList.getArrayList();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
@@ -59,7 +66,6 @@ public class Storage {
         } catch (IOException e) {
             throw new InvalidCommandException("No existing file. Starting with an empty task list.");
         }
-
         return arrayTaskList;
     }
 }
