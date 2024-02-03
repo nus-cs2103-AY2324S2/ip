@@ -13,8 +13,6 @@ public class Parser {
     private String userInput;
     private String command;
 
-    public Parser() { }
-
     /**
      * Constructor of Parse object.
      *
@@ -61,7 +59,8 @@ public class Parser {
     }
 
     /**
-     * Returns task's due date for deadline object as string.
+     * Returns task's due date as string.
+     * Only valid for tasks of type deadline.
      *
      * @return Due date in string format.
      */
@@ -113,7 +112,7 @@ public class Parser {
      * Parses user input as integer.
      * Only valid for commands 'delete', 'unmark', 'mark'.
      *
-     * @return Integer for task list index.
+     * @return User input as integer.
      */
     public int parseIndex() {
         return Integer.parseInt(userInput.trim());

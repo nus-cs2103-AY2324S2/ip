@@ -8,6 +8,9 @@ import java.util.ArrayList;
 public class TaskList {
     private final ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * Constructor for task list
+     */
     public TaskList() { }
 
     /**
@@ -38,23 +41,23 @@ public class TaskList {
      * Marks task of the specified index in the task list as completed.
      * Returns the string representation of the newly added task.
      *
-     * @param index Index of the task to mark starting from 1.
+     * @param index Index of the task to mark - starting from 1.
      * @return String representation of the marked task.
      */
     public String markTask(int index) {
-        tasks.get(index - 1).mark();
+        tasks.get(index - 1).setDone();
         return tasks.get(index - 1).toString();
     }
 
     /**
-     * Unmarks task of the specified index in the task list as completed.
+     * Marks task of the specified index in the task list as not completed.
      * Returns the string representation of the newly added task.
      *
-     * @param index Index of the task to unmark starting from 1.
+     * @param index Index of the task to unmark - starting from 1.
      * @return String representation of the unmarked task.
      */
     public String unmarkTask(int index) {
-        tasks.get(index - 1).unmark();
+        tasks.get(index - 1).setNotDone();
         return tasks.get(index - 1).toString();
     }
 
@@ -65,7 +68,7 @@ public class TaskList {
     /**
      * Returns a string representation of the task list to be stored in storage.
      *
-     * @return String representation of tasks to be stored in storage.
+     * @return String representation of task list to be stored in storage.
      */
     public String storeTasks() {
         StringBuilder savedTask = new StringBuilder();

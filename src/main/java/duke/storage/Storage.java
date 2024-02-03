@@ -1,6 +1,5 @@
 package duke.storage;
 
-import duke.parser.Parser;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
@@ -20,13 +19,27 @@ import java.util.Scanner;
  * Handles loading and writing tasks data to a file.
  */
 public class Storage {
-    Parser parser = new Parser();
     private String filePath = "./src/main/";
-    public String directoryPath = "./src/main/";
+    private String directoryPath = "./src/main/";
 
+    /**
+     * Constructor for Storage object.
+     *
+     * @param filePath File path to store and read data.
+     */
     public Storage(String filePath) {
         this.directoryPath += filePath.substring(0, filePath.lastIndexOf("/"));
         this.filePath += filePath;
+    }
+
+    /**
+     * Returns the directory of the file.
+     * Used if the directory of the file is not initialized.
+     *
+     * @return Directory path.
+     */
+    public String getDirectoryPath() {
+        return this.directoryPath;
     }
 
     /**
@@ -43,23 +56,23 @@ public class Storage {
             String taskName = taskDescriptions[1];
             boolean done = Boolean.parseBoolean(taskDescriptions[2]);
             switch (taskDescriptions[0]) {
-                case "todo" :
-                    tasks.addTask(new ToDo(taskName, done));
-                    break;
-                case "deadline" :
-                    if (taskDescriptions[3].split("T").length > 1) {
-                        LocalDateTime time = LocalDateTime.parse(taskDescriptions[3]);
-                        tasks.addTask(new Deadline(taskName, done, time));
-                    } else {
-                        LocalDate time = LocalDate.parse(taskDescriptions[3]);
-                        tasks.addTask(new Deadline(taskName, done, time));
-                    }
-                    break;
-                case "event" :
-                    tasks.addTask(new Event(taskName, done, taskDescriptions[3], taskDescriptions[4]));
-                    break;
-                default:
-                    break;
+            case "todo" :
+                tasks.addTask(new ToDo(taskName, done));
+                break;
+            case "deadline" :
+                if (taskDescriptions[3].split("T").length > 1) {
+                    LocalDateTime time = LocalDateTime.parse(taskDescriptions[3]);
+                    tasks.addTask(new Deadline(taskName, done, time));
+                } else {
+                    LocalDate time = LocalDate.parse(taskDescriptions[3]);
+                    tasks.addTask(new Deadline(taskName, done, time));
+                }
+                break;
+            case "event" :
+                tasks.addTask(new Event(taskName, done, taskDescriptions[3], taskDescriptions[4]));
+                break;
+            default:
+                break;
             }
         }
     }

@@ -1,10 +1,18 @@
 package duke.task;
 
 /**
- * Tasks to do without any time reminder.
+ * Tasks to be done without any time reminder.
  */
 public class ToDo extends Task {
-    public ToDo(String taskName, boolean isDone) { super(taskName, isDone); }
+    /**
+     * Constructor for to-do object.
+     *
+     * @param taskName Name of task.
+     * @param isDone Completion of task.
+     */
+    public ToDo(String taskName, boolean isDone) {
+        super(taskName, isDone);
+    }
 
     @Override
     public String storeData() {

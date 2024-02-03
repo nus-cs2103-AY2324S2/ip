@@ -10,8 +10,8 @@ public class Task {
     /**
      * Constructor of task object.
      *
-     * @param taskName Task name.
-     * @param isDone Is completed task.
+     * @param taskName Name of task.
+     * @param isDone Completion of task.
      */
     public Task(String taskName, boolean isDone) {
         this.taskName = taskName;
@@ -21,14 +21,14 @@ public class Task {
     /**
      * Marks the task as done.
      */
-    public void mark() {
+    public void setDone() {
         this.isDone = true;
     }
 
     /**
      * Marks the task as not done.
      */
-    public void unmark() {
+    public void setNotDone() {
         this.isDone = false;
     }
 
