@@ -79,10 +79,6 @@ public class YodaUI {
         }
     }
 
-    public void findTasks(String keyword) {
-        taskList.findTasks(keyword);
-    }
-
     /**
      * Deletes a task from the list.
      * Delegates to TaskList to delete a task.

@@ -59,12 +59,6 @@ public class Parser {
                 case EVENT:
                     addTaskWithDateTime(parts, Command.EVENT);
                     break;
-                case FIND:
-                    if (parts.length < 2) {
-                        throw new Exception("Search keyword, provide you must.");
-                    }
-                    yodaUI.findTasks(parts[1]);
-                    break;
                 default:
                     yodaUI.printMessage("Sorry, I am. What that means, I do not know :-(");
             }
