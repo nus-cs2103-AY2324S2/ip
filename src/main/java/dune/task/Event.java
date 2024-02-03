@@ -10,9 +10,9 @@ public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
 
-    private static final DateTimePrinter dateTimePrinter = new DateTimePrinter();
+    private static final DateTimePrinter DATE_TIME_PRINTER = new DateTimePrinter();
 
-    private static String before = "Start date must be before end date";
+    private static final String BEFORE = "Start date must be before end date";
 
     // test this method
     public Event(String description, String start, String end) {
@@ -20,7 +20,7 @@ public class Event extends Task {
         this.start = LocalDateTime.parse(start);
         this.end = LocalDateTime.parse(end);
         if (!this.start.isBefore(this.end)) {
-            throw new DateTimeParseException(before, "", 0);
+            throw new DateTimeParseException(BEFORE, "", 0);
         }
     }
 
@@ -30,7 +30,7 @@ public class Event extends Task {
         this.start = LocalDateTime.parse(start);
         this.end = LocalDateTime.parse(end);
         if (this.start.isAfter(this.end)) {
-            throw new DateTimeParseException(before, "", 0);
+            throw new DateTimeParseException(BEFORE, "", 0);
         }
     }
 
@@ -45,8 +45,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + dateTimePrinter.print(this.start)
-                + " to: " + dateTimePrinter.print(this.end) + ")";
+        return "[E]" + super.toString() + " (from: " + DATE_TIME_PRINTER.print(this.start)
+                + " to: " + DATE_TIME_PRINTER.print(this.end) + ")";
     }
 
 }
