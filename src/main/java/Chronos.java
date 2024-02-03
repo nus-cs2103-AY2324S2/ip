@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import task.Task;
 import task.Todo;
@@ -18,7 +19,7 @@ import task.Event;
 public class Chronos {
     private static final String DIVIDER = "        ------------------------------------------------------------";
     private static final String POSSIBLE_COMMANDS = "        TODO     --- todo [task name]\n" +
-                                                    "        DEADLINE --- deadline [task name] /by [due date]\n" +
+                                                    "        DEADLINE --- deadline [task name] /by [yyyy-mm-dd]\n" +
                                                     "        EVENT    --- event [task name] /from [date] /to [date]" ;
 
     private static String filePath = "./data/chronos.txt";
@@ -278,16 +279,16 @@ public class Chronos {
                         break;
                     case "deadline":
                         try {
-                            String[] descriptionAndBy = token[1].split("/");
-                            String dueDate = descriptionAndBy[1].split(" ", 2)[1];
+                            String[] descriptionAndBy = token[1].split("/by");
                             String description = descriptionAndBy[0].trim();
+                            LocalDate dueDate = LocalDate.parse(descriptionAndBy[1].trim());
 
-                            Chronos.addDeadline(description, dueDate);
+                            Chronos.addDeadline(description, dueDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
                             Chronos.saveTasks(fw);
                         } catch (Exception e) {
                             System.out.println(DIVIDER);
                             System.out.println("        Invalid command. Please include a task name and a valid due date following the syntax of the example below:");
-                            System.out.println("        e.g. deadline return library book /by 6th March");
+                            System.out.println("        e.g. deadline return library book /by 2024-09-22");
                         }
                         break;
                     case "event":
