@@ -1,7 +1,7 @@
 package simpli.interpreter;
 
-import simpli.TaskManager;
-import simpli.Ui;
+import simpli.tasks.TaskManager;
+import simpli.ui.Ui;
 import simpli.actions.Action;
 import simpli.exceptions.ActionException;
 import simpli.tasks.Task;
