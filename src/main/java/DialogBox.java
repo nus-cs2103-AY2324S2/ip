@@ -1,49 +1,78 @@
+import java.io.IOException;
+import java.util.Collections;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
 
+
+/**
+ * An example of a custom control using FXML.
+ * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
+ * containing text from the speaker.
+ */
 public class DialogBox extends HBox {
-
-    private Label text;
+    private static final Color BG_COLOR_USER = Color.DODGERBLUE;
+    private static final Color BG_COLOR_NARUTO = Color.GOLD;
+    @FXML
+    private Label dialog;
+    @FXML
     private ImageView displayPicture;
 
-    public DialogBox(Label l, ImageView iv) {
-        text = l;
-        displayPicture = iv;
+    private DialogBox(String text, Image img, Color backgroundColor) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        text.setWrapText(true);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
-
-        this.setAlignment(Pos.TOP_RIGHT);
-        this.setPadding(new Insets(10)); // Add padding between each DialogBox
-        this.setSpacing(10); // Add spacing between ImageView and Label
-        this.getChildren().addAll(text, displayPicture); // Reorder the children
-        this.setStyle("-fx-background-color: #ffe182;"); // Set background color
+        dialog.setText(text);
+        displayPicture.setImage(img);
+        applyStyling(backgroundColor);
     }
+
+    private void applyStyling(Color backgroundColor) {
+        dialog.setStyle("-fx-background-color: " + toHex(backgroundColor) + "; "
+                + "-fx-background-radius: 10; "
+                + "-fx-padding: 10px; "
+                + "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 0, 2);");
+    }
+
+    private String toHex(Color color) {
+        return String.format("#%02X%02X%02X",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
+    }
+
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
     private void flip() {
-        this.setAlignment(Pos.TOP_LEFT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        FXCollections.reverse(tmp);
-        this.getChildren().setAll(tmp);
+        Collections.reverse(tmp);
+        getChildren().setAll(tmp);
+        setAlignment(Pos.TOP_LEFT);
     }
 
-    public static DialogBox getUserDialog(Label l, ImageView iv) {
-        return new DialogBox(l, iv);
+    public static DialogBox getUserDialog(String text, Image img) {
+        return new DialogBox(text, img, BG_COLOR_USER);
     }
 
-    public static DialogBox getNarutoDialog(Label l, ImageView iv) {
-        var db = new DialogBox(l, iv);
+    public static DialogBox getNarutoDialog(String text, Image img) {
+        var db = new DialogBox(text, img, BG_COLOR_NARUTO);
         db.flip();
         return db;
     }
