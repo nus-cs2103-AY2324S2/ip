@@ -10,7 +10,7 @@ public class Task {
     /**
      * Constructs a Task object with the given description.
      *
-     * @param description description of the task.
+     * @param description Description of the task.
      */
     public Task(String description) {
         this.description = description;
@@ -20,7 +20,7 @@ public class Task {
     /**
      * Returns the status icon based on isDone.
      *
-     * @return status icon of isDone.
+     * @return Status icon of isDone.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
@@ -43,7 +43,7 @@ public class Task {
     /**
      * Returns a string representation of the Task object.
      *
-     * @return string representation of the task.
+     * @return String representation of the task.
      */
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;

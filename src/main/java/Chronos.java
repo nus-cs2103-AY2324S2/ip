@@ -19,8 +19,8 @@ import task.Event;
 public class Chronos {
     private static final String DIVIDER = "        ------------------------------------------------------------";
     private static final String POSSIBLE_COMMANDS = "        TODO     --- todo [task name]\n" +
-                                                    "        DEADLINE --- deadline [task name] /by [yyyy-mm-dd]T[HH:MM]\n" +
-                                                    "        EVENT    --- event [task name] /from [yyyy-mm-dd]T[HH:MM] /to [yyyy-mm-dd]T[HH:MM]" ;
+                                                    "        DEADLINE --- deadline [task name] /by [yyyy-mm-dd HH:MM]\n" +
+                                                    "        EVENT    --- event [task name] /from [yyyy-mm-dd HH:MM] /to [yyyy-mm-dd HH:MM]" ;
 
     private static String filePath = "./data/chronos.txt";
     private static ArrayList<Task> tasks = new ArrayList<Task>();
@@ -71,7 +71,7 @@ public class Chronos {
     /**
      * Saves task list to text file upon each change.
      *
-     * @param fw filewriter object.
+     * @param fw Filewriter object.
      */
     public static void saveTasks(FileWriter fw) throws IOException {
         fw = new FileWriter(filePath);
@@ -87,7 +87,7 @@ public class Chronos {
     /**
      * Adds amd prints a todo task.
      *
-     * @param description description of the todo task.
+     * @param description Description of the todo task.
      */
     public static void addToDo(String description) {
         Todo todo = new Todo(description);
@@ -104,8 +104,8 @@ public class Chronos {
     /**
      * Adds and prints a task with a deadline.
      *
-     * @param description description of the task with deadline.
-     * @param dueDate deadline of the task.
+     * @param description Description of the task with deadline.
+     * @param dueDate Deadline of the task.
      */
     public static void addDeadline(String description, String dueDate) {
         Deadline deadline = new Deadline(description, dueDate);
@@ -122,9 +122,9 @@ public class Chronos {
     /**
      * Adds and prints an event.
      *
-     * @param description description of the event.
-     * @param from start date and time of the event.
-     * @param to end date and time of the event.
+     * @param description Description of the event.
+     * @param from Start date and time of the event.
+     * @param to End date and time of the event.
      */
     public static void addEvent(String description, String from, String to) {
         Event event = new Event(description, from, to);
@@ -141,7 +141,7 @@ public class Chronos {
     /**
      * Marks a task as completed.
      *
-     * @param selectedTaskNumberToBeMarked task number to be marked as completed.
+     * @param selectedTaskNumberToBeMarked Task number to be marked as completed.
      */
     public static void markTask(int selectedTaskNumberToBeMarked) {
         Task selectedTaskToBeMarked = tasks.get(selectedTaskNumberToBeMarked - 1);
@@ -156,7 +156,7 @@ public class Chronos {
     /**
      * Unmarks a task as incomplete.
      *
-     * @param selectedTaskNumberToBeUnmarked task number to be unmarked as incomplete.
+     * @param selectedTaskNumberToBeUnmarked Task number to be unmarked as incomplete.
      */
     public static void unMarkTask(int selectedTaskNumberToBeUnmarked) {
         Task selectedTaskToBeUnmarked = tasks.get(selectedTaskNumberToBeUnmarked - 1);
@@ -171,7 +171,7 @@ public class Chronos {
     /**
      * Deletes a task from task list.
      *
-     * @param selectedTaskNumberToBeDeleted task number to be deleted.
+     * @param selectedTaskNumberToBeDeleted Task number to be deleted.
      */
     public static void deleteTask(int selectedTaskNumberToBeDeleted) {
         Task deletedTask = tasks.get(selectedTaskNumberToBeDeleted - 1);
@@ -188,8 +188,8 @@ public class Chronos {
     /**
      * Changes the format the date specified for a deadline or an event.
      *
-     * @param dateTime date and time of a deadline or an event in the format yyyy-mm-dd HH:MM.
-     * @return formatted date and time.
+     * @param dateTime Date and time of a deadline or an event in the format yyyy-mm-dd HH:MM.
+     * @return Formatted date and time.
      */
     public static String formatDateTime(String dateTime) {
         String[] dateTimeArray = dateTime.split(" ");
