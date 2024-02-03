@@ -31,7 +31,7 @@ public class Bob {
     /**
      * Main logic of the chatbot.
      */
-    public void start() {
+    public Bob start() {
 
         try {
             this.taskList.setList(this.storage.loadSavedTasks());
@@ -43,12 +43,7 @@ public class Bob {
 
         this.ui.greet();
 
-        while (this.ui.acceptingInput()) {
-
-            String input = this.ui.getUserInput().trim();
-            this.parser.processInput(input);
-
-        }
+        return this;
     }
 
     /**
@@ -69,7 +64,13 @@ public class Bob {
         return bob;
     }
 
-    public static void main(String[] args) {
-        init().start();
+    /**
+     * Process input from user.
+     *
+     * @param input User input in the chat box.
+     * @return Chat bot response as String.
+     */
+    public String getResponse(String input) {
+        return "Yes";
     }
 }
