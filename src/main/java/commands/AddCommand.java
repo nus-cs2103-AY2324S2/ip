@@ -18,11 +18,9 @@ public class AddCommand extends Command {
         String taskAdded = "";
         if (input.startsWith("todo")) {
             taskAdded = addToDo(tasks, input);
-        }
-        else if (input.startsWith("deadline")) {
+        } else if (input.startsWith("deadline")) {
             taskAdded = addDeadline(tasks, input);
-        }
-        else if (input.startsWith("event")) {
+        } else if (input.startsWith("event")) {
             taskAdded = addEvent(tasks, input);
         }
         int size = tasks.getSize();
@@ -50,8 +48,7 @@ public class AddCommand extends Command {
             String date = input.substring(index + 4);
             Deadline deadline = new Deadline(task, date);
             return tasks.add(deadline);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new WeiException("please tell me when is the deadline");
         }
     }
@@ -65,8 +62,7 @@ public class AddCommand extends Command {
             String task = input.substring(6, firstIndex - 1);
             Event event = new Event(task, start, end);
             return tasks.add(event);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new WeiException("please tell me when is the event occurring");
         }
     }

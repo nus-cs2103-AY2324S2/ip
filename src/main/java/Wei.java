@@ -41,6 +41,7 @@ public class Wei {
                 ui.showLine();
             }
         }
+        
         try {
             storage.save(tasks);
         } catch (IOException e) {

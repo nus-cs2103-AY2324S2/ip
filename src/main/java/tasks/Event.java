@@ -12,8 +12,8 @@ public class Event extends Task {
         this.end = LocalDate.parse(end);
     }
 
-    public Event(String task, String start, String end, boolean status) {
-        super(task, status);
+    public Event(String task, String start, String end, boolean isComplete) {
+        super(task, isComplete);
         this.start = LocalDate.parse(start);
         this.end = LocalDate.parse(end);
     }

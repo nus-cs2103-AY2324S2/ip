@@ -20,8 +20,7 @@ public class DeleteCommand extends Command {
             int size = tasks.getSize();
             ui.showDeleteMessage(deletedTask);
             ui.showNumberOfRemainingTasks(size);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new WeiException("which task do you want to delete?");
         }
 

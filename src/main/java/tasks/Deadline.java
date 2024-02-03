@@ -10,8 +10,8 @@ public class Deadline extends Task {
         this.date = LocalDate.parse(date);
     }
 
-    public Deadline(String task, String date, boolean status) {
-        super(task, status);
+    public Deadline(String task, String date, boolean isComplete) {
+        super(task, isComplete);
         this.date = LocalDate.parse(date);
     }
 

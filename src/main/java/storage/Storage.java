@@ -33,13 +33,13 @@ public class Storage {
             Task curr;
             String temp = s.nextLine();
             String[] split = temp.split(" \\| ");
-            boolean status = checkStatus(split[1]);
+            boolean isComplete = checkStatus(split[1]);
             if (split[0].equals("T")) {
-                curr = new ToDo(split[2], status);
+                curr = new ToDo(split[2], isComplete);
             } else if (split[0].equals("D")) {
-                curr = new Deadline(split[2], split[3], status);
+                curr = new Deadline(split[2], split[3], isComplete);
             } else {
-                curr = new Event(split[2], split[3], split[4], status);
+                curr = new Event(split[2], split[3], split[4], isComplete);
             }
             tasks.add(curr);
         }
