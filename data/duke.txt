@@ -1,4 +1,3 @@
-T | 0 | 0 | bozo
-E | 0 | | 0 | bdd | 6feb - 7feb - 7feb - 7feb - 7feb
-D | 0 | | 0 | kms | right now
-T | 0 | | 0 | help me
+T | 0 | borrow book
+E | 0 | project meeting | Mon 2pm - 4pm
+D | 0 | return book | 2019-12-02 1800

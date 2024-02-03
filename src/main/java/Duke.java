@@ -2,6 +2,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Duke {
@@ -95,7 +98,7 @@ public class Duke {
                 }
             } else if (echo.startsWith("deadline") || echo.startsWith("Deadline")) {
                 int pos = echo.indexOf(" ");
-                int posBy = echo.indexOf("/");
+                int posBy = echo.indexOf("/by");
                 if (pos != -1 && pos + 1 < echo.length() && posBy != -1 && posBy + 1 < echo.length()) {
                     String taskStr = echo.substring(pos + 1, posBy - 1);
                     String taskStrby = echo.substring(posBy + 4);
@@ -104,12 +107,15 @@ public class Duke {
                         throw new DukeException("Invalid command >:((");
                     }
 
-                    tasks[taskNum] = new Deadline(taskStr, taskStrby);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                    LocalDateTime deadlineDate = LocalDateTime.parse(taskStrby, formatter);
+
+                    tasks[taskNum] = new Deadline(taskStr, deadlineDate);
 
                     tasks[taskNum].markAsNotDone();
                     System.out.println("    ____________________________________________________________");
                     System.out.println("     Got it. I've added this task:");
-                    System.out.println("       " + tasks[taskNum]);
+                    System.out.println("       " + tasks[taskNum].toString());
                     taskNum++;
                     System.out.println("     Now you have " + (taskNum) + " tasks in the list.");
                     System.out.println("    ____________________________________________________________");
@@ -120,6 +126,7 @@ public class Duke {
                 int pos = echo.indexOf(" ");
                 int posFrom = echo.indexOf("/from");
                 int posTo = echo.indexOf("/to");
+
                 if (pos != -1 && pos + 1 < echo.length() && posFrom != -1 && posFrom + 1 < echo.length() && posTo != -1 && posTo + 1 < echo.length()) {
                     String taskStr = echo.substring(pos + 1, posFrom - 1);
                     String taskStrFrom = echo.substring(posFrom + 6, posTo - 1);
@@ -164,17 +171,38 @@ public class Duke {
                     }
                 }
                 System.out.println(" ");
+            } else if (echo.startsWith("On") || echo.startsWith("on")) {
+                int pos = echo.indexOf(" ");
+                if (pos != -1 && pos + 1 < echo.length()) {
+                    String dateStr = echo.substring(pos + 1);
+                    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    LocalDate dateToCheck = LocalDate.parse(dateStr, dateFormatter);
+
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Deadlines/Events occurring on " + dateToCheck.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ":");
+                    for (int i = 0; i < taskNum; i++) {
+                        if (tasks[i] instanceof Deadline) {
+                            Deadline deadline = (Deadline) tasks[i];
+                            if (deadline.getBy().toLocalDate().isEqual(dateToCheck)) {
+                                System.out.println("       " + tasks[i].toString());
+                            }
+                        }
+                    }
+                    System.out.println("    ____________________________________________________________");
+                } else {
+                    throw new DukeException("Invalid command >:(");
+                }
             } else {
                 throw new DukeException("Gurl I'm sorry, idk what that means :-(");
             }
         }
     }
 
-    private static void removeTask(int index, int tasknum) {
-        for (int i = index; i < tasknum - 1; i++) {
+    private static void removeTask(int index, int taskNum) {
+        for (int i = index; i < taskNum - 1; i++) {
             tasks[i] = tasks[i + 1];
         }
-        tasks[tasknum - 1] = null;
+        tasks[taskNum - 1] = null;
     }
 
     private static void saveTasks() {
@@ -213,21 +241,26 @@ public class Duke {
             char taskType = line.charAt(0);
             boolean isDone = line.charAt(4) == '1';
 
-            int Sep1 = line.indexOf(" | ", 6);
+            int Sep1 = line.indexOf("|", 4);
 
             if (taskType == 'T') {
-                String description = line.substring(Sep1 + 3);
+                String description = line.substring(Sep1 + 2);
                 tasks[taskNum] = new Todo(description);
             } else if (taskType == 'D') {
                 int Sep2 = line.indexOf(" | ", Sep1 + 3);
-                String description = (Sep2 != -1) ? line.substring(Sep1 + 3, Sep2) : line.substring(Sep1 + 3);
-                String by = line.substring(Sep2 + 3);
-                tasks[taskNum] = new Deadline(description, by);
+                String description = (Sep2 != -1) ? line.substring(Sep1 + 2, Sep2) : line.substring(Sep2 + 3);
+
+                String dateString = line.substring(line.lastIndexOf("|") + 1).trim();
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                LocalDateTime deadlineDateTime = LocalDateTime.parse(dateString, formatter);
+
+                tasks[taskNum] = new Deadline(description, deadlineDateTime);
             } else if (taskType == 'E') {
                 int Sep2 = line.indexOf(" | ", Sep1 + 3);
-                int to = line.indexOf(" - ", Sep1 + 3);
-                String description = (Sep2 != -1) ? line.substring(Sep1 + 3, Sep2) : line.substring(Sep1 + 3);
-                String from = line.substring(Sep2 + 3);
+                int to = line.indexOf(" - ", Sep2 + 3);
+                String description = (Sep2 != -1) ? line.substring(Sep1 + 2, Sep2) : line.substring(Sep2 + 3);
+                String from = line.substring(Sep2 + 3, to);
                 String too = line.substring(to + 3);
                 tasks[taskNum] = new Event(description, from, too);
             }
