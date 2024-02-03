@@ -13,6 +13,11 @@ public class Duke {
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructs a Duke instance.
+     *
+     * @param filePath The file path for storing and saving the data.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,16 +30,15 @@ public class Duke {
         parser = new Parser();
     }
 
+    /**
+     * Runs the Duke program according to the user command line.
+     */
     public void run() {
-
         ui.welcome();
-
         while(true) {
-
             Scanner sc = new Scanner(System.in);        
             String order = sc.nextLine();
             String[] orders = order.split(" "); 
-
             if (orders[0].equals("bye")) {
                 ui.bye();
                 System.exit(0);
@@ -102,6 +106,11 @@ public class Duke {
         }
     }
     
+    /**
+     * The entry point(the file path) for the program. 
+     *
+     * @param args The command-line arguments.
+     */
     public static void main(String[] args) {
         new Duke("/Users/leedoye/ip/src/data/duke_tasks.txt").run();
     }
