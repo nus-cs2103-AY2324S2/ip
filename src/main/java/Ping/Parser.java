@@ -8,6 +8,7 @@ import Command.BlahCommand;
 import Command.Command;
 import Command.DeleteCommand;
 import Command.ExitCommand;
+import Command.FindCommand;
 import Command.HiCommand;
 import Command.ListCommand;
 import Command.MarkCommand;
@@ -45,6 +46,8 @@ public class Parser {
             return parseDeadline(restCommands);
         case "event":
             return parseEvent(restCommands);
+        case "find":
+            return parseFind(restCommands);
         default:
             System.out.println("Pleas fill in the valid command\n"
                     + "Valid commands are: bye, list, blah, todo, event, deadline, mark, unmark, delete, hi");
@@ -179,6 +182,21 @@ public class Parser {
             } else {
                 System.out.println("Did you type right?");
             }
+        } catch (Exception e) {
+            System.out.println("Incorrect number or command");
+        }
+        return null;
+    }
+
+    // This function after prCommand[0] is the string that need to be found in ArrayList<Task>
+    // After matching, it will return the list of tasks that contain the string 
+    private static Command parseFind(String[] prCommand) {
+        StringBuilder rest = new StringBuilder();
+        try {
+            for (int i = 1; i < prCommand.length; i++) {
+                rest.append(prCommand[i]).append(" ");
+            }
+            return new FindCommand(rest.toString());
         } catch (Exception e) {
             System.out.println("Incorrect number or command");
         }
