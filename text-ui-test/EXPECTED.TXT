@@ -9,12 +9,12 @@
 	____________________________________________________________
 	____________________________________________________________
 	Got it. I've added this task:
-	[D][ ] return book (by: June 6th)
+	[D][ ] return book (by: January 05 2024 18:00)
 	Now you have 2 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	Got it. I've added this task:
-	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	[E][ ] project meeting (from: February 01 2024 12:00 to: February 01 2024 16:00)
 	Now you have 3 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
@@ -30,8 +30,8 @@
 	____________________________________________________________
 	Here are the tasks in your list:
 	1. [T][ ] read book
-	2. [D][ ] return book (by: June 6th)
-	3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	2. [D][ ] return book (by: January 05 2024 18:00)
+	3. [E][ ] project meeting (from: February 01 2024 12:00 to: February 01 2024 16:00)
 	4. [T][ ] join sports club
 	5. [T][ ] borrow book
 	____________________________________________________________
@@ -50,20 +50,20 @@
 	____________________________________________________________
 	Here are the tasks in your list:
 	1. [T][ ] read book
-	2. [D][ ] return book (by: June 6th)
-	3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	2. [D][ ] return book (by: January 05 2024 18:00)
+	3. [E][ ] project meeting (from: February 01 2024 12:00 to: February 01 2024 16:00)
 	4. [T][ ] join sports club
 	5. [T][X] borrow book
 	____________________________________________________________
 	____________________________________________________________
 	Noted. I've removed this task:
-	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	[E][ ] project meeting (from: February 01 2024 12:00 to: February 01 2024 16:00)
 	Now you have 4 tasks in the list.
 	____________________________________________________________
 	____________________________________________________________
 	Here are the tasks in your list:
 	1. [T][ ] read book
-	2. [D][ ] return book (by: June 6th)
+	2. [D][ ] return book (by: January 05 2024 18:00)
 	3. [T][ ] join sports club
 	4. [T][X] borrow book
 	____________________________________________________________
@@ -71,10 +71,10 @@
 	Oh no!!! Invalid task index!
 	____________________________________________________________
 	____________________________________________________________
-	Oh no! Your todo command is as silent as a snowball rolling down a mountain.
+	Oh no! Your todo command is incomplete!!
 	____________________________________________________________
 	____________________________________________________________
-	OOPS!!! Your command triggered a virtual avalanche of confusion.
+	ERROR!! The system did not recognize the command you entered.
 	____________________________________________________________
 	____________________________________________________________
 	OOPS!!! Please add a valid deadline.
