@@ -123,6 +123,18 @@ public class Ui {
     }
 
     /*
+     * Displays the list of keyword matching tasks to the user.
+     * 
+     * @param tasksList The list of tasks
+     */
+    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + ". " + matchingTasks.get(i));
+        }
+    }
+
+    /*
      * Returns the string representation of the number of tasks remaining in the
      * task list.
      * 

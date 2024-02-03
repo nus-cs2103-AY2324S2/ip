@@ -14,7 +14,6 @@ import ui.Ui;
 
 import java.util.ArrayList;
 
-
 /**
  * Represents a parser that processes user input and executes the corresponding
  * commands.
@@ -51,42 +50,42 @@ public class Parser {
      *
      * @param input The user input to be parsed and executed.
      */
-      public void parseInput(String input) {
-            String command = input.split(" ")[0];
-            switch (command) {
-              case "help":
-                    ui.showListOfCommands();
-                    break;
-              case "bye":
-                    break;
-              case "list":
-                    taskList.printList();
-                    break;
-              case "mark":
-                    processMarkCommand(input);
-                    break;
-              case "unmark":
-                    processUnmarkCommand(input);
-                    break;
-              case "delete":
-                    processDeleteCommand(input);
-                    break;
-              case "event":
-                    processEventCommand(input);
-                    break;
-              case "deadline":
-                    processDeadlineCommand(input);
-                    break;
-              case "todo":
-                    processToDoCommand(input);
-                    break;
-              case "find":
-                processFindCommand(input);
-                break;
-            default:
-                    ui.showErrorMessage("I'm sorry, but I don't know what that means :-(");
-            }
-      }
+    public void parseInput(String input) {
+        String command = input.split(" ")[0];
+        switch (command) {
+        case "help":
+            ui.showListOfCommands();
+            break;
+        case "bye":
+            break;
+        case "list":
+            taskList.printList();
+            break;
+        case "mark":
+            processMarkCommand(input);
+            break;
+        case "unmark":
+            processUnmarkCommand(input);
+            break;
+        case "delete":
+            processDeleteCommand(input);
+            break;
+        case "event":
+            processEventCommand(input);
+            break;
+        case "deadline":
+            processDeadlineCommand(input);
+            break;
+        case "todo":
+            processToDoCommand(input);
+            break;
+        case "find":
+            processFindCommand(input);
+            break;
+        default:
+            ui.showErrorMessage("I'm sorry, but I don't know what that means :-(");
+        }
+    }
 
     /*
      * Processes the mark command by attempting to mark the task at the specified
@@ -255,8 +254,8 @@ public class Parser {
         }
     }
 
-      /*
-       * Processes the todo command by attempting to create and add a new todo task to
+    /*
+     * Processes the todo command by attempting to create and add a new todo task to
      * the task list.
      * 
      * @param input The user input to be processed.
@@ -265,19 +264,19 @@ public class Parser {
      * incorrect.
      * 
      * @throws GeePeeTeeException If an error occurs while adding the todo task.
-       */
-      private void processToDoCommand(String input) {
-            try {
-                  ToDo newToDo = ToDo.createFromInput(input);
-                  taskList.addTask(newToDo);
-                  ui.showAddTask(newToDo, taskList.getTaskCount());
-                  storage.saveTaskList(taskList.getTasksList());
-            } catch (InvalidTaskFormatException e) {
-                  ui.showErrorMessage(e.getMessage());
-            } catch (GeePeeTeeException e) {
-                  ui.showErrorMessage(e.getMessage());
-            }
-      }
+     */
+    private void processToDoCommand(String input) {
+        try {
+            ToDo newToDo = ToDo.createFromInput(input);
+            taskList.addTask(newToDo);
+            ui.showAddTask(newToDo, taskList.getTaskCount());
+            storage.saveTaskList(taskList.getTasksList());
+        } catch (InvalidTaskFormatException e) {
+            ui.showErrorMessage(e.getMessage());
+        } catch (GeePeeTeeException e) {
+            ui.showErrorMessage(e.getMessage());
+        }
+    }
 
     /*
      * Processes the find command.

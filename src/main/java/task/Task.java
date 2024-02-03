@@ -9,18 +9,18 @@ package task;
  * </p>
  */
 public class Task {
-  protected String description;
-  protected boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
     /**
      * Constructs a new {@code Task} instance with the specified description.
      *
      * @param description The description of the task.
      */
-      public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-      }
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
 
     public String getDescription() {
         return this.description;

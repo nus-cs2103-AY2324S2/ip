@@ -18,7 +18,6 @@ import exception.InvalidTaskFormatException;
 public class Deadline extends Task {
 
     protected LocalDate by;
-    protected LocalDate by;
 
     /**
      * Creates a new {@code Deadline} instance with the specified description and

@@ -13,7 +13,6 @@ import task.Task;
  */
 public class TaskList {
     private ArrayList<Task> tasksList;
-    private ArrayList<Task> tasksList;
 
     /**
      * Constructs a new {@code TaskList} instance with an empty list of tasks.
@@ -79,14 +78,14 @@ public class TaskList {
         this.tasksList.add(task);
     }
 
-      /*
-       * Removes a task from the list at the specified index.
+    /*
+     * Removes a task from the list at the specified index.
      * 
      * @param index The index of the task to be removed
-       */
-      public void removeTask(int index) {
-            this.tasksList.remove(index - 1);
-      }
+     */
+    public void removeTask(int index) {
+        this.tasksList.remove(index - 1);
+    }
 
     /*
      * Finds tasks that match the keyword

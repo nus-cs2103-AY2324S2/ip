@@ -20,48 +20,48 @@ import ui.Ui;
  */
 public class GeePeeTee {
 
-      private TaskList taskList;
-      private Storage storage;
-      private Ui ui;
+    private TaskList taskList;
+    private Storage storage;
+    private Ui ui;
 
     /**
      * Constructs a new {@code GeePeeTee} instance with the specified file path.
      *
      * @param filePath The file path to be associated with the application.
      */
-      public GeePeeTee(String filePath) {
-            ui = new Ui();
-            try {
-                  storage = new Storage("GeePeeTee.txt");
-                  taskList = new TaskList(storage.loadTaskList());
-            } catch (FileNotFoundException e) {
-                  ui.showFileNotFoundError();
-            } catch (IOException e) {
-                  ui.showLoadingError();
-            } catch (GeePeeTeeException e) {
-                  ui.showErrorMessage(e.getMessage());
-            }
-      }
+    public GeePeeTee(String filePath) {
+        ui = new Ui();
+        try {
+            storage = new Storage("GeePeeTee.txt");
+            taskList = new TaskList(storage.loadTaskList());
+        } catch (FileNotFoundException e) {
+            ui.showFileNotFoundError();
+        } catch (IOException e) {
+            ui.showLoadingError();
+        } catch (GeePeeTeeException e) {
+            ui.showErrorMessage(e.getMessage());
+        }
+    }
 
     /**
      * Runs the main loop of the application, processing user input and executing
      * the corresponding commands.
      */
-      public void run() {
-            String input = "";
-            ui.showWelcomeMessage();
-            Scanner scanner = new Scanner(System.in);
-            Parser parser = new Parser(taskList, storage, ui);
-            while (!input.equals("bye")) {
-                  input = scanner.nextLine();
-                  System.out.println("\n--------------------------------------------------");
-                  if (input.equals("bye")) {
-                        scanner.close();
-                        ui.showGoodbyeMessage();
-                  }
-                  parser.parseInput(input);
-
-                  System.out.println("--------------------------------------------------\n");
+    public void run() {
+        String input = "";
+        ui.showWelcomeMessage();
+        Scanner scanner = new Scanner(System.in);
+        Parser parser = new Parser(taskList, storage, ui);
+        while (!input.equals("bye")) {
+            input = scanner.nextLine();
+            System.out.println("\n--------------------------------------------------");
+            if (input.equals("bye")) {
+                scanner.close();
+                ui.showGoodbyeMessage();
             }
-      }
+            parser.parseInput(input);
+
+            System.out.println("--------------------------------------------------\n");
+        }
+    }
 }
