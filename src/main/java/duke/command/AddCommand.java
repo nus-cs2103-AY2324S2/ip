@@ -53,37 +53,37 @@ public class AddCommand extends Command{
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         switch (type) {
-            case TODO: {
-                Task newTask = new Todo(task.substring(5));
-                tasks.add(newTask);
-                ui.add(newTask, tasks);
-                break;
-            }
+        case TODO: {
+            Task newTask = new Todo(task.substring(5));
+            tasks.add(newTask);
+            ui.add(newTask, tasks);
+            break;
+        }
 
-            case DEADLINE: {
-                // Create deadline task
-                try {
-                    if (splitedDateTime.length == 2) {
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                        LocalDateTime parsedDateTime = LocalDateTime.parse(deadline, formatter);
-                        Task newTask = new Deadline(content, parsedDateTime);
-                        tasks.add(newTask);
-                        ui.add(newTask, tasks);
-                    } else {
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                        LocalDate parsedDate = LocalDate.parse(deadline, formatter);
-                        Task newTask = new Deadline(content, parsedDate);
-                        tasks.add(newTask);
-                        ui.add(newTask, tasks);
-                    }
-                } catch (Exception e) {
-                    throw new DukeException("Syntax of deadline: deadline {task description} /by ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
-                            + "E.g. deadline breakfast /by 2022-12-31 15:00");
+        case DEADLINE: {
+            // Create deadline task
+            try {
+                if (splitedDateTime.length == 2) {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    LocalDateTime parsedDateTime = LocalDateTime.parse(deadline, formatter);
+                    Task newTask = new Deadline(content, parsedDateTime);
+                    tasks.add(newTask);
+                    ui.add(newTask, tasks);
+                } else {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    LocalDate parsedDate = LocalDate.parse(deadline, formatter);
+                    Task newTask = new Deadline(content, parsedDate);
+                    tasks.add(newTask);
+                    ui.add(newTask, tasks);
                 }
-                break;
+            } catch (Exception e) {
+                throw new DukeException("Syntax of deadline: deadline {task description} /by ({yyyy-MM-dd HH:mm} or {yyyy-MM-dd})\n"
+                        + "E.g. deadline breakfast /by 2022-12-31 15:00");
             }
+            break;
+        }
 
-            case EVENT: {
+        case EVENT: {
                 // Create event task
                 try {
                     if (splitedFromDateTime.length == 2 && splitedToDateTime.length == 2) {
