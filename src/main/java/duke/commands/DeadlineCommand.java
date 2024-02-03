@@ -1,11 +1,12 @@
 package duke.commands;
 
-import duke.exception.MalformedUserInputException;
-import duke.tasklist.Deadline;
+import static duke.common.DateTimeHandler.DATE_INPUT_FORMAT_STRING;
 
 import java.util.regex.Pattern;
 
-import static duke.common.DateTimeHandler.DATE_INPUT_FORMAT_STRING;
+import duke.exception.MalformedUserInputException;
+import duke.tasklist.Deadline;
+
 
 /**
  * Represents the command to add a deadline task to the data storage.
@@ -25,7 +26,7 @@ public class DeadlineCommand extends Command {
      */
     public static final String MESSAGE_USAGE = "\t " + COMMAND_WORD + ": Adds an deadline. \n"
             + "\t Example: " + COMMAND_WORD
-            + " boil hot water /by " + DATE_INPUT_FORMAT_STRING ;
+            + " boil hot water /by " + DATE_INPUT_FORMAT_STRING;
 
     /**
      * Represents the error message when the event name is blank.
@@ -41,9 +42,9 @@ public class DeadlineCommand extends Command {
      * Represents the message after the deadline is successfully added.
      * Contains the added deadline details and the current number of tasks in the database.
      */
-    public static final String MESSAGE_SUCCESS = "\t Got it. I've added this task: \n" +
-            "\t %s\n" +
-            "\t Now you have %d task(s) available!";
+    public static final String MESSAGE_SUCCESS = "\t Got it. I've added this task: \n"
+            + "\t %s\n"
+            + "\t Now you have %d task(s) available!";
 
     /**
      * Represents the format of the arguments for a deadline command.

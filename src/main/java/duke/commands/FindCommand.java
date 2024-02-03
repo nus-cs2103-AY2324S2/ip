@@ -17,19 +17,19 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     /**
+     * Represents a message displayed when the search term is empty.
+     */
+    public static final String MESSAGE_EMPTY_SEARCH_TERM =
+            "\t If you would like to list everything, please use the list command.";
+
+    /**
      * Represents how each individual event should be formatted.
      */
     private static final String MESSAGE_INDIVIDUAL_LISTING_FORMAT = "\t %d. %s";
 
     /**
-     * Represents message for no items found.
+     * The target index stores the search term provided by the user.
      */
-    public static final String MESSAGE_CANNOT_FIND =
-            "\t Sorry, but we could not find anything that you requested.";
-
-    public static final String MESSAGE_EMPTY_SEARCH_TERM =
-            "\t If you would like to list everything, please use the list command.";
-
     private String targetIndex;
 
     public FindCommand(String searchTerm) {
@@ -49,7 +49,7 @@ public class FindCommand extends Command {
         for (int i = 0; i < dataStorage.getTaskCount(); i++) {
             Task currentTask = dataStorage.getTask(i);
 
-            // If the taks contains the required string.
+            // If the tasks contain the required string.
             if (currentTask.getDescription().contains(this.targetIndex)) {
                 String entry = String.format(MESSAGE_INDIVIDUAL_LISTING_FORMAT, i + 1, currentTask.toString());
                 listViewBuilder.append(entry);

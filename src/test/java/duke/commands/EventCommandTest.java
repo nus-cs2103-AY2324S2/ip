@@ -1,9 +1,10 @@
 package duke.commands;
 
-import duke.exception.MalformedUserInputException;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import duke.exception.MalformedUserInputException;
 
 /**
  * This class is a JUnit test class for the EventCommand class.
@@ -19,7 +20,7 @@ public class EventCommandTest {
      * Represents a variable for whitespace to test for empty event name
      * or date.
      */
-    public static String whitespace = " ";
+    public static final String WHITESPACE = " ";
 
 
     /**
@@ -27,9 +28,9 @@ public class EventCommandTest {
      */
     @Test
     public void addCommand_emptyEvent_throwsException() {
-        assertConstructingInvalidEventCmdThrowsException("some event name", whitespace, "2024-01-01");
-        assertConstructingInvalidEventCmdThrowsException("some event name", "2024-01-01", whitespace);
-        assertConstructingInvalidEventCmdThrowsException(whitespace, "2024-01-01", "2024-01-01");
+        assertConstructingInvalidEventCmdThrowsException("some event name", WHITESPACE, "2024-01-01");
+        assertConstructingInvalidEventCmdThrowsException("some event name", "2024-01-01", WHITESPACE);
+        assertConstructingInvalidEventCmdThrowsException(WHITESPACE, "2024-01-01", "2024-01-01");
     }
 
 
@@ -66,7 +67,7 @@ public class EventCommandTest {
     @Test
     public void addCommand_successful() {
         final String[] validDates = {"1992-01-01", "2013-01-09", "2023-01-09", "2024-01-09", "2024-01-03"};
-        final String[] activityNames = {"drill through the wall", "cook laksa", "write test case", "swim", "dance in the pool"};
+        final String[] activityNames = {"drill the wall", "cook laksa", "write test case", "swim", "dance in pool"};
 
         for (String startDate : validDates) {
             for (String endDate : validDates) {

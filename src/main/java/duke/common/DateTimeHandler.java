@@ -1,21 +1,22 @@
 package duke.common;
 
-import duke.exception.MalformedUserInputException;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import duke.exception.MalformedUserInputException;
 
 /**
  * Represents a handler for date and time operations.
  */
 public class DateTimeHandler {
 
-    // Solution adapted from: https://stackoverflow.com/questions/22463062/how-can-i-parse-format-dates-with-localdatetime-java-8
+    // Solution adapted from:
+    // https://stackoverflow.com/questions/22463062/how-can-i-parse-format-dates-with-localdatetime-java-8
     /**
      * Represents the date input format string.
      */
-    public static String DATE_INPUT_FORMAT_STRING = "yyyy-MM-dd";
+    public static final String DATE_INPUT_FORMAT_STRING = "yyyy-MM-dd";
     /**
      * Represents the format for parsing input dates.
      */
@@ -45,8 +46,8 @@ public class DateTimeHandler {
             localDate = LocalDate.parse(dateTime, DATE_INPUT_FORMAT);
 
         } catch (DateTimeException dateTimeException) {
-            throw new MalformedUserInputException("\t Invalid date time format.\n" +
-                    "\t Please enter in format " + DATE_INPUT_FORMAT_STRING);
+            throw new MalformedUserInputException("\t Invalid date time format.\n"
+                    + "\t Please enter in format " + DATE_INPUT_FORMAT_STRING);
         }
     }
 

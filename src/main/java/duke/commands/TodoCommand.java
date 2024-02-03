@@ -27,9 +27,9 @@ public class TodoCommand extends Command {
      * Represents the message after the event is successfully added.
      * Contains the added event details and the current number of tasks in the database.
      */
-    public static final String MESSAGE_SUCCESS = "\t Got it. I've added this task:\n" +
-            "\t %s\n" +
-            "\t Now you have %d task(s) available!";
+    public static final String MESSAGE_SUCCESS = "\t Got it. I've added this task:\n"
+            + "\t %s\n"
+            + "\t Now you have %d task(s) available!";
 
     /**
      * Represents error message when the event name is blank.

@@ -1,17 +1,22 @@
 package duke.common;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import duke.exception.MalformedUserInputException;
 import duke.tasklist.Deadline;
 import duke.tasklist.Event;
 import duke.tasklist.Task;
 import duke.tasklist.Todo;
 
-import java.io.*;
-import java.util.ArrayList;
-
 /**
  * Stores and manages tasks in a data storage file.
- *
+ * <p>
  * Persist to long-term storage when a new task is added or current task is modified.
  * For retrieval, it makes use of the one that is cached in RAM.
  */
@@ -25,7 +30,7 @@ public class DataStorage {
      * Constructs a new DataStorage object with maximum number of tasks and file name.
      * Exits the program if there are problem accessing device IO.
      *
-     * @param maxTask the maximum number of tasks to store.
+     * @param maxTask  the maximum number of tasks to store.
      * @param fileName the name of the file to use for storage.
      */
     public DataStorage(int maxTask, String fileName) {
@@ -48,9 +53,9 @@ public class DataStorage {
 
 
         } catch (IOException e) {
-            System.err.println("An error occurred while opening the file. \n" +
-                    "An error occurred on your device; " +
-                    "please check that there is at least 100 MB of free disk space.");
+            System.err.println("An error occurred while opening the file. \n"
+                    + "An error occurred on your device; "
+                    + "please check that there is at least 100 MB of free disk space.");
             System.exit(1); // Exit the program. Non-zero indicates abnormal termination.
         }
 
@@ -62,7 +67,6 @@ public class DataStorage {
      * @param index the index of the task to be retrieved.
      * @return the task at the specified index.
      * @throws IndexOutOfBoundsException if the index is lesser than zero or greater than the task count.
-     *
      */
     public Task getTask(int index) {
         if (index < 0 || index > this.taskCount) {
@@ -74,19 +78,20 @@ public class DataStorage {
 
     /**
      * Adds a task to the task list and updates the storage file on HDD.
+     *
      * @param task the task to be added.
      */
     public void addTask(Task task) {
-            this.tasksList.add(task);
-            addTaskToFile(task.toStorageString(), true);
-            this.taskCount++;
+        this.tasksList.add(task);
+        addTaskToFile(task.toStorageString(), true);
+        this.taskCount++;
     }
 
 
     /**
      * Adds a task to the storage file on HDD.
      *
-     * @param line the entry to be added to the file.
+     * @param line     the entry to be added to the file.
      * @param isAppend flag to select append the line to the end of the file or overwrite the file (completely).
      */
     public void addTaskToFile(String line, boolean isAppend) {
@@ -171,9 +176,9 @@ public class DataStorage {
      * Set the completion status of a task at the specified index, and updates the HDD file.
      *
      * @param taskIndex the index of the task.
-     * @param status the status of the task (true indicates completed, while false indicates incomplete).
+     * @param status    the status of the task (true indicates completed, while false indicates incomplete).
      * @throws MalformedUserInputException if the task index is out of bounds or the task has not been created yet.
-     * @throws IndexOutOfBoundsException if the task index is out of bounds.
+     * @throws IndexOutOfBoundsException   if the task index is out of bounds.
      */
     public void setTaskStatus(int taskIndex, boolean status) throws MalformedUserInputException {
         if (taskIndex < 0 || taskIndex > this.maxTask) {
@@ -191,6 +196,7 @@ public class DataStorage {
 
     /**
      * Retrieves the number of tasks stored in the data storage.
+     *
      * @return the number of tasks.
      */
     public int getTaskCount() {
@@ -211,7 +217,7 @@ public class DataStorage {
      *
      * @param indexToDelete the index of the task to be deleted.
      * @throws MalformedUserInputException if the task index is out of bounds or the task has not been created yet.
-     * @throws IndexOutOfBoundsException if the task index is out of bounds.
+     * @throws IndexOutOfBoundsException   if the task index is out of bounds.
      */
     public void deleteTask(int indexToDelete) throws MalformedUserInputException {
         if (indexToDelete < 0 || indexToDelete > this.maxTask) {

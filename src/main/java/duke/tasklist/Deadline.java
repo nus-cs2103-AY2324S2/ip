@@ -1,7 +1,7 @@
 package duke.tasklist;
 
-import duke.exception.MalformedUserInputException;
 import duke.common.DateTimeHandler;
+import duke.exception.MalformedUserInputException;
 
 /**
  * Represents a Deadline.

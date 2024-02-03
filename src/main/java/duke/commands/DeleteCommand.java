@@ -29,9 +29,9 @@ public class DeleteCommand extends Command {
      * Represents the message after the delete command is successfully executed.
      * Contains the deleted task information, and task count in the database.
      */
-    public static final String MESSAGE_SUCCESS = "\t Noted, I have removed this task:\n" +
-            "\t  %s\n" +
-            "\t Now you have %d task(s) in the list.";
+    public static final String MESSAGE_SUCCESS = "\t Noted, I have removed this task:\n"
+            + "\t  %s\n"
+            + "\t Now you have %d task(s) in the list.";
 
     /**
      * Represents an invalid message when user input is dirty.
@@ -41,8 +41,8 @@ public class DeleteCommand extends Command {
     /**
      * Represents a message indicating that a task has not been created yet.
      */
-    public static final String MESSAGE_TASK_NOT_CREATED_YET = " \t This is an invalid index\n" +
-            "\t There are %d tasks available.\n";
+    public static final String MESSAGE_TASK_NOT_CREATED_YET = " \t This is an invalid index\n"
+            + "\t There are %d tasks available.\n";
 
     /**
      * Represents the index of the task to be deleted.

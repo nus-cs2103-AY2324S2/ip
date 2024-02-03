@@ -1,10 +1,19 @@
 package duke.parser;
 
-import duke.commands.*;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.commands.DeadlineCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.EventCommand;
+import duke.commands.FindCommand;
+import duke.commands.IncorrectCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+import duke.commands.TodoCommand;
+import duke.commands.UnmarkCommand;
 import duke.common.Messages;
 import duke.exception.MalformedUserInputException;
 
