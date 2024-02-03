@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * A utility class for printing messages and handling interactions with the user.
+ * A utility class for returning responses as a String.
  */
 public class ResponseHandler {
     /**
@@ -25,15 +25,18 @@ public class ResponseHandler {
 
     /**
      * Prints the stored message to the console.
+     *
+     * @return The stored message.
      */
     public String printStored() {
         return this.message;
     }
 
     /**
-     * Prints a personalized reply based on the given message.
+     * Generates a personalized reply based on the given message.
      *
      * @param message The message to be analyzed and replied to.
+     * @return A personalized reply.
      */
     public static String personalisedReply(String message) {
         HashMap<String, String> responseMap = new HashMap<>();
@@ -45,52 +48,60 @@ public class ResponseHandler {
 
     /**
      * Prints a line separator to the console.
+     *
+     * @return A line separator.
      */
     public static String printLine() {
         return "____________________________________________________________";
     }
 
     /**
-     * Prints a greeting message to the console.
+     * Generates a greeting message.
      *
      * @param chatBotName The name of the chatbot.
+     * @return A greeting message.
      */
     public static String greeting(String chatBotName) {
         return "Hello! I'm " + chatBotName + "\nWhat can I do for you?";
     }
 
     /**
-     * Prints a goodbye message to the console.
+     * Generates a goodbye message.
+     *
+     * @return A goodbye message.
      */
     public static String bye() {
         return "Goodbye. Hope to see you again!";
     }
 
     /**
-     * Prints a command to the console.
+     * Generates a command message.
      *
      * @param command The command to be printed.
+     * @return The command message.
      */
     public static String commandPrint(String command) {
         return command;
     }
 
     /**
-     * Prints information about a task and the total number of tasks to the console.
+     * Generates a message with information about a task and the total number of tasks.
      *
      * @param task The task to be printed.
      * @param size The total number of tasks.
+     * @return A message with task information.
      */
     public static String commandPrint(Task task, int size) {
-        return "Got it. I've added this task:\n" + task + "\nNow you have " + size + " tasks in the list.";
-        //System.out.println(task);
-        //System.out.println("Now you have " + size + " tasks in the list.");
+        return "Got it. I've added this task:\n" + task
+                + "\nNow you have " + size
+                + " tasks in the list.";
     }
 
     /**
-     * Prints a list of tasks to the console.
+     * Generates a message with a list of tasks.
      *
      * @param list The list of tasks to be printed.
+     * @return A message with the list of tasks.
      */
     public static String commandListPrint(ArrayList<Task> list) {
         StringBuilder stringOfAddedCommands = new StringBuilder();
@@ -106,10 +117,11 @@ public class ResponseHandler {
     }
 
     /**
-     * Prints a message indicating the result of a mark action on a task.
+     * Generates a message indicating the result of a mark action on a task.
      *
      * @param action The action performed ("mark" or "unmark").
      * @param task   The task on which the action was performed.
+     * @return A message with the mark action result.
      */
     public static String markActionPrint(String action, Task task) {
         StringBuilder stringResponse = new StringBuilder();
@@ -123,19 +135,21 @@ public class ResponseHandler {
     }
 
     /**
-     * Prints an error message to the console based on the provided exception.
+     * Generates an error message based on the provided exception.
      *
      * @param e The exception containing the error message.
+     * @return An error message.
      */
     public static String errorPrinter(Exception e) {
         return e.getMessage();
     }
 
     /**
-     * Prints information about a removed task and the updated total number of tasks to the console.
+     * Generates a message with information about a removed task and the updated total number of tasks.
      *
      * @param task The task that was removed.
      * @param size The updated total number of tasks.
+     * @return A message with information about the removed task.
      */
     public static String removePrinter(Task task, int size) {
         StringBuilder stringResponse = new StringBuilder();
@@ -145,6 +159,12 @@ public class ResponseHandler {
         return stringResponse.toString();
     }
 
+    /**
+     * Generates a message with information about found tasks.
+     *
+     * @param listOfFoundTasks The list of found tasks.
+     * @return A message with information about found tasks.
+     */
     public static String printFoundTasks(ArrayList<Task> listOfFoundTasks) {
         StringBuilder stringResponse = new StringBuilder();
         if (listOfFoundTasks.isEmpty()) {
@@ -152,7 +172,7 @@ public class ResponseHandler {
         } else {
             stringResponse.append("Found! Here they are!\n");
             for (int i = 0; i < listOfFoundTasks.size(); i += 1) {
-                stringResponse.append((i+1 + "." + listOfFoundTasks.get(i)));
+                stringResponse.append((i + 1 + "." + listOfFoundTasks.get(i)));
                 if (i != listOfFoundTasks.size() - 1) {
                     stringResponse.append("\n");
                 }
