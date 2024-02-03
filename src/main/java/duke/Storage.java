@@ -18,7 +18,7 @@ import java.util.Scanner;
 class Storage {
     File taskFile;
     //private static final DateTimeFormatter CUSTOM_DATE_FORMATTER = DateTimeFormatter.ofPattern(
-            //"d/M/yyyy");
+    //"d/M/yyyy");
 
     public Storage(String filePath) {
         this.taskFile = new File(filePath);
@@ -36,30 +36,30 @@ class Storage {
                 String status = token[1];
                 String description = token[2];
                 switch (taskType) {
-                    case "T":
-                        ToDo todoTask = new ToDo(description);
-                        if (status.equals("X")) {
-                            todoTask.mark();
-                        }
-                        tasks.addTask(todoTask);
-                        break;
-                    case "D":
-                        Deadline deadlineTask = new Deadline(description,
-                                LocalDate.parse(token[3]));
-                        if (status.equals("X")) {
-                            deadlineTask.mark();
-                        }
-                        tasks.addTask(deadlineTask);
-                        break;
+                case "T":
+                    ToDo todoTask = new ToDo(description);
+                    if (status.equals("X")) {
+                        todoTask.mark();
+                    }
+                    tasks.addTask(todoTask);
+                    break;
+                case "D":
+                    Deadline deadlineTask = new Deadline(description,
+                            LocalDate.parse(token[3]));
+                    if (status.equals("X")) {
+                        deadlineTask.mark();
+                    }
+                    tasks.addTask(deadlineTask);
+                    break;
 
-                    case "E":
-                        Event eventTask = new Event(description, LocalDate.parse(token[3]),
-                                LocalDate.parse(token[4]));
-                        if (status.equals("X")) {
-                            eventTask.mark();
-                        }
-                        tasks.addTask(eventTask);
-                        break;
+                case "E":
+                    Event eventTask = new Event(description, LocalDate.parse(token[3]),
+                            LocalDate.parse(token[4]));
+                    if (status.equals("X")) {
+                        eventTask.mark();
+                    }
+                    tasks.addTask(eventTask);
+                    break;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -80,21 +80,21 @@ class Storage {
                 String taskLine;
 
                 switch (icon) {
-                    case "T":
-                        taskLine = String.format("%s|%s|%s\n", icon, status, description);
-                        break;
+                case "T":
+                    taskLine = String.format("%s|%s|%s\n", icon, status, description);
+                    break;
 
-                    case "D":
-                        taskLine = String.format("%s|%s|%s|%s\n", icon, status, description, ((Deadline) t).getBy());
-                        break;
+                case "D":
+                    taskLine = String.format("%s|%s|%s|%s\n", icon, status, description, ((Deadline) t).getBy());
+                    break;
 
-                    case "E":
-                        taskLine = String.format("%s|%s|%s|%s|%s\n", icon, status, description,
-                                ((Event) t).getFrom(), ((Event) t).getTo());
-                        break;
+                case "E":
+                    taskLine = String.format("%s|%s|%s|%s|%s\n", icon, status, description,
+                            ((Event) t).getFrom(), ((Event) t).getTo());
+                    break;
 
-                    default:
-                        throw new IllegalArgumentException("Invalid task type: " + icon);
+                default:
+                    throw new IllegalArgumentException("Invalid task type: " + icon);
                 }
 
                 fw.write(taskLine);
