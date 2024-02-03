@@ -1,5 +1,6 @@
 package chatbot;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -64,6 +65,14 @@ public class Ui {
         this.display("Got it. I've removed this task:\n" +
                 ">> " + t + "\n" +
                 "You now have " + tl.getSize() + " tasks in the list.\n");
+    }
+
+    public void displayFind(ArrayList<Task> tl) {
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < tl.size(); i++) {
+            sb.append(i + 1).append(". ").append(tl.get(i)).append("\n");
+        }
+        this.display(sb.toString());
     }
 
     public void displayError(Exception e) {

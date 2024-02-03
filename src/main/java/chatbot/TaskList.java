@@ -42,6 +42,17 @@ public class TaskList {
         return this.tasks.remove(i);
     }
 
+    public ArrayList<Task> filterByString(String s) {
+        ArrayList<Task> res = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task.contains(s)) {
+                res.add(task);
+            }
+        }
+
+        return res;
+    }
+
     public void saveToStore(Storage store) throws IOException {
         store.saveToStore(this.tasks);
     }

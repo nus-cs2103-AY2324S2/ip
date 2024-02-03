@@ -3,6 +3,7 @@ package chatbot;
 import chatbot.exceptions.DukeException;
 import chatbot.exceptions.InvalidArgumentException;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,7 +15,8 @@ public enum Command {
     DELETE("delete"),
     TODO("todo"),
     DEADLINE("deadline"),
-    EVENT("event");
+    EVENT("event"),
+    FIND("find");
 
     private final String rep;
     private String args = "";
@@ -47,7 +49,10 @@ public enum Command {
             case TODO:
             case DEADLINE:
             case EVENT:
-                executeFlagged(view, tl);
+                executeAdd(view, tl);
+                break;
+            case FIND:
+                executeFind(view, tl);
                 break;
             case MARK:
             case UNMARK:
@@ -57,7 +62,7 @@ public enum Command {
         }
     }
 
-    private void executeFlagged(Ui view, TaskList tl) throws DukeException {
+    private void executeAdd(Ui view, TaskList tl) throws DukeException {
         Task t = new Task("");
         Pattern pattern;
         Matcher matcher;
@@ -112,5 +117,10 @@ public enum Command {
                 view.displayDelete(tl, removed);
                 break;
         }
+    }
+
+    private void executeFind(Ui view, TaskList tl) {
+        ArrayList<Task> res = tl.filterByString(args.strip());
+        view.displayFind(res);
     }
 }
