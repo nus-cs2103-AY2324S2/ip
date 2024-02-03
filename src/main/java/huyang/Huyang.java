@@ -35,8 +35,10 @@ public class Huyang {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Processes user commands and saves tasks to local storage. Generates a response based on the given command.
+     *
+     * @param input The user's input command.
+     * @return A response message generated based on the input.
      */
     public String getResponse(String input) {
         Parser.CommandType command = parser.parseCommand(input);
@@ -139,7 +141,7 @@ public class Huyang {
             }
         }
         scanner.close();
-        ui.print(ui.getFarewellMessage());
+        ui.print(Ui.getFarewellMessage());
         ui.print("Success");
     }
 

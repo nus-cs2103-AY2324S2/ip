@@ -15,6 +15,11 @@ public class Main extends Application {
 
     private Huyang huyang = new Huyang();
 
+    /**
+     * The main entry point of the JavaFX application.
+     *
+     * @param stage The primary stage for the JavaFX application, where the GUI will be displayed.
+     */
     @Override
     public void start(Stage stage) {
         try {

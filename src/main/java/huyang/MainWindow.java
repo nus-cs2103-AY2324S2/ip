@@ -25,11 +25,26 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Minion.png"));
     private Image huyangImage = new Image(this.getClass().getResourceAsStream("/images/Huyang.png"));
 
+    /**
+     * Initializes the MainWindow controller.
+     *
+     * This method is automatically called after the FXML layout is loaded and all @FXML-annotated fields are initialized.
+     * It sets up the scroll pane to automatically scroll to the bottom of the dialog container and displays a greeting
+     * message from Huyang in the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String greetingMessage = Ui.getGreetingMessage();
+        dialogContainer.getChildren().add(DialogBox.getHuyangDialog(greetingMessage, huyangImage));
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the Huyang instance for the MainWindow controller.
+     *
+     * @param h The Huyang instance to associate with this controller.
+     */
     public void setHuyang(Huyang h) {
         huyang = h;
     }

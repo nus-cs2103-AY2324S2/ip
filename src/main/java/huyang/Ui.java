@@ -10,7 +10,7 @@ public class Ui {
     /**
      * Returns a greeting message.
      */
-    public String getGreetingMessage() {
+    public static String getGreetingMessage() {
         return "Hello! I'm Huyang\nWhat can I do for you?";
     }
 
@@ -33,7 +33,7 @@ public class Ui {
     /**
      * Returns a farewell message.
      */
-    public String getFarewellMessage() {
+    public static String getFarewellMessage() {
         return "Bye. Hope to see you again soon!";
     }
 
@@ -101,6 +101,11 @@ public class Ui {
         return sb.toString();
     }
 
+    /**
+     * Print statement.
+     *
+     * @param s String to be printed.
+     */
     public void print(String s) {
         System.out.println(s);
     }
