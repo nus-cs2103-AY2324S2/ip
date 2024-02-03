@@ -3,6 +3,8 @@ import ken.exception.KenException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 public class TaskList {
 
     private static final int MAX_TASKS = 100;
@@ -123,6 +125,34 @@ public class TaskList {
                 System.out.println((i + 1) + ". " + tasks.get(i));
             }
         }
+    }
+
+    /**
+     * Finds tasks containing the specified keyword in their descriptions and displays the matching tasks.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     */
+    public void findTasks(String keyword) {
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toList());
+
+        displayMatchingTasks(matchingTasks, keyword);
+    }
+
+    /**
+     * Displays the list of matching tasks along with the specified keyword.
+     *
+     * @param matchingTasks The list of tasks matching the specified keyword.
+     * @param keyword The keyword used for the search.
+     */
+    private void displayMatchingTasks(List<Task> matchingTasks, String keyword) {
+        System.out.println("seeking...\n");
+        System.out.println("These are all the " + keyword + "s in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + ". " + matchingTasks.get(i));
+        }
+        System.out.println("There, all found!\n");
     }
 
 }
