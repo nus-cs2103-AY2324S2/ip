@@ -1,6 +1,9 @@
 package guanguan;
 
+import javafx.application.Platform;
+
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Main class of chatbot.
@@ -14,10 +17,23 @@ public class GuanGuan {
      * Constructor for GuanGuan.
      *
      * @param filePath path of text file to store data
-     * @throws GGException if file path is invalid
+     * @throws GgException if file path is invalid
      */
-    public GuanGuan(String filePath) throws GGException {
+    public GuanGuan(String filePath) throws GgException {
         this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        this.items = new TaskList(storage.readData());
+    }
+
+    /**
+     * Constructor for GuanGuan.
+     *
+     * @param filePath path of text file to store data
+     * @param ui Ui class
+     * @throws GgException if file path is invalid
+     */
+    public GuanGuan(String filePath, Ui ui) throws GgException {
+        this.ui = ui;
         this.storage = new Storage(filePath);
         this.items = new TaskList(storage.readData());
     }
@@ -36,14 +52,38 @@ public class GuanGuan {
             try {
                 isValid = Parser.parse(input, items, ui);
                 storage.saveData(items);
-            } catch (GGException e) {
+            } catch (GgException e) {
                 ui.error(e.getMessage());
             }
             ui.emptyLine();
         }
     }
 
-    public static void main(String[] args) throws GGException {
+    public static void main(String[] args) throws GgException {
         new GuanGuan("data/test.txt").run();
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    String getResponse(String input) {
+        boolean isValid;
+        try {
+            isValid = Parser.parse(input, items, ui);
+            storage.saveData(items);
+
+            if (!isValid) {
+                // TODO
+                TimeUnit.SECONDS.sleep(3);
+                Platform.exit();
+            }
+
+        } catch (GgException e) {
+            ui.error(e.getMessage());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return ui.getTextOutput();
     }
 }
