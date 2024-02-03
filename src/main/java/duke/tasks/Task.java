@@ -48,6 +48,10 @@ abstract public class Task {
         return this.marked;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     /**
      * Returns a String representation of the task.
      *

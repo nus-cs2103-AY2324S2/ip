@@ -12,6 +12,7 @@ import duke.actions.DeleteTask;
 import duke.actions.ListTask;
 import duke.actions.MarkTask;
 import duke.actions.UnmarkTask;
+import duke.actions.FindTask;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -195,6 +196,17 @@ public class Parser {
                     DeleteTask deleter = new DeleteTask(storage, index);
                     deleter.delete();
                     return deleter.toString();
+                }
+            }
+            else if (input.startsWith("find")) {
+                String valid_format = "Please input in format: find *Task*";
+                if (input.trim().equals("find")) {
+                    throw new DukeException("OOPS!! Invalid find command " + valid_format);
+                } else {
+                    String task = input.substring(5);
+                    FindTask finder = new FindTask(storage, task);
+                    finder.createMatches();
+                    return finder.toString();
                 }
             }
             else {
