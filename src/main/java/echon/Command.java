@@ -13,7 +13,7 @@ public abstract class Command {
      * @param ui The user interface where the command is executed.
      * @throws EchonException If an error occurs while executing the command.
      */
-    public abstract void execute(UI ui) throws EchonException;
+    public abstract void execute(EchonUi ui) throws EchonException;
 }
 
 class ByeCommand extends Command {
@@ -23,9 +23,8 @@ class ByeCommand extends Command {
     }
 
     @Override
-    public void execute(UI ui) {
-        ui.printMessage(BYE_MESSAGE);
-        ui.setActive(false);
+    public void execute(EchonUi ui) {
+        ui.displayEchonMessage(BYE_MESSAGE);
     }
 }
 
@@ -37,8 +36,8 @@ class EchoCommand extends Command {
     }
 
     @Override
-    public void execute(UI ui) {
-        ui.printMessage(message);
+    public void execute(EchonUi ui) {
+        ui.displayEchonMessage(message);
     }
 }
 
@@ -57,7 +56,7 @@ abstract class AddTaskCommand extends Command {
     protected abstract Task createTask() throws EchonException;
 
     @Override
-    public void execute(UI ui) throws EchonException {
+    public void execute(EchonUi ui) throws EchonException {
         if (this.description.equals("")) {
             throw new EchonException(EMPTY_DESCRIPTION_MESSAGE);
         }
@@ -72,7 +71,7 @@ abstract class AddTaskCommand extends Command {
                 "Got it. I've added this task:", "  " + task.toString(),
                 String.format("Now you have %d tasks in the list.",
                         this.taskList.getSize())));
-        ui.printMessages(messages);
+        ui.displayEchonMessages(messages);
     }
 }
 
@@ -127,11 +126,11 @@ class ListCommand extends Command {
     }
 
     @Override
-    public void execute(UI ui) {
+    public void execute(EchonUi ui) {
         ArrayList<String> messages = new ArrayList<String>(
                 Arrays.asList("Here are the tasks in your list:"));
         messages.addAll(this.taskList.listTasks());
-        ui.printMessages(messages);
+        ui.displayEchonMessages(messages);
     }
 }
 
@@ -145,13 +144,13 @@ class MarkAsDoneCommand extends Command {
     }
 
     @Override
-    public void execute(UI ui) {
+    public void execute(EchonUi ui) {
         Task task = this.taskList.getTask(this.index);
         task.markAsDone();
         ArrayList<String> messages = new ArrayList<String>(
                 Arrays.asList("Nice! I've marked this task as done:",
                         "  " + task.toString()));
-        ui.printMessages(messages);
+        ui.displayEchonMessages(messages);
     }
 }
 
@@ -165,13 +164,13 @@ class UnmarkAsDoneCommand extends Command {
     }
 
     @Override
-    public void execute(UI ui) {
+    public void execute(EchonUi ui) {
         Task task = this.taskList.getTask(this.index);
         task.unmarkAsDone();
         ArrayList<String> messages = new ArrayList<String>(
                 Arrays.asList("OK, I've marked this task as not done yet:",
                         "  " + task.toString()));
-        ui.printMessages(messages);
+        ui.displayEchonMessages(messages);
     }
 }
 
@@ -185,7 +184,7 @@ class DeleteTaskCommand extends Command {
     }
 
     @Override
-    public void execute(UI ui) {
+    public void execute(EchonUi ui) {
         Task task = this.taskList.getTask(index);
         this.taskList.deleteTask(index);
         ArrayList<String> messages = new ArrayList<String>(
@@ -193,7 +192,7 @@ class DeleteTaskCommand extends Command {
                         + task.toString(),
                         String.format("Now you have %d tasks in the list.",
                                 this.taskList.getSize())));
-        ui.printMessages(messages);
+        ui.displayEchonMessages(messages);
     }
 }
 
@@ -207,7 +206,7 @@ class FindTaskCommand extends Command {
     }
 
     @Override
-    public void execute(UI ui) {
+    public void execute(EchonUi ui) {
         ArrayList<String> messages = new ArrayList<String>(
                 Arrays.asList("Here are the matching tasks in your list:"));
         for (int i = 0; i < this.taskList.getSize(); i++) {
@@ -216,6 +215,6 @@ class FindTaskCommand extends Command {
                 messages.add(String.format("%d.%s", i + 1, task.toString()));
             }
         }
-        ui.printMessages(messages);
+        ui.displayEchonMessages(messages);
     }
 }
