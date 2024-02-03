@@ -1,9 +1,9 @@
 package duke.command;
 
 import duke.TaskList;
-import duke.task.Task;
 import duke.Storage;
 import duke.Ui;
+import duke.task.Task;
 
 import java.io.IOException;
 
