@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.parser.MissingInputFieldException;
+
 public abstract class Task {
     protected String description;
     private boolean isDone;
@@ -96,7 +100,7 @@ public abstract class Task {
 
     public static Task convertDataToTask(String dataRow) {
         String[] inputArray = NextWords(Task.NextWords(dataRow.split(dataStringSplitter)));
-        if (!isTaskStringArray(inputArray)) throw new RuntimeException("Data Corrupted: No Matching Task Type");
+        if (!isTaskStringArray(inputArray)) throw new RuntimeException("Data Corrupted: No Matching duke.task.Task Type");
         try {
             Task temp = null;
             if (inputArray[0].equals("T")) {
@@ -106,7 +110,7 @@ public abstract class Task {
             } else if (inputArray[0].equals("D")) {
                 temp = createTask("deadline", "deadline "+ inputArray[2] + " /by " + inputArray[3]);
             } else {
-                throw new RuntimeException("Data Corrupted: No Matching Task Type");
+                throw new RuntimeException("Data Corrupted: No Matching duke.task.Task Type");
             }
             if (isTaskDataEntryDone(inputArray)) temp.isDone = true;
             return temp;

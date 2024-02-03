@@ -1,8 +1,12 @@
+package duke;
+
+import duke.parser.InputException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.io.File;
-import java.io.IOException;
-import java.io.FileWriter;
 
 /*
  things to do now
@@ -11,15 +15,15 @@ import java.io.FileWriter;
  */
 
 // name of the chat bot
-public class Liv {
-    private Liv() {
+public class Duke {
+    private Duke() {
         // break the initialisation into the initialization function of different classes
         currentState = LivState.INACTIVE;
     }
 
-    public static Liv getInstance() {
+    public static Duke getInstance() {
         if (instance == null) {
-            instance = new Liv();
+            instance = new Duke();
         }
         return instance;
     }
@@ -34,7 +38,7 @@ public class Liv {
     private Storage storage = null;
     private void Start() {
 
-        // initialize Ui
+        // initialize duke.ui.Ui
         ui = Ui.getInstance();
         ui.initUi();
 
@@ -77,7 +81,7 @@ public class Liv {
         ACTIVE,
         INACTIVE
     }
-    private static Liv instance = null;
+    private static Duke instance = null;
     private LivState currentState = null;
 
     public void ToggleActiveState() {

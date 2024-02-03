@@ -1,5 +1,7 @@
+package duke.task;
+
 import java.util.LinkedList;
-import java.util.Scanner;
+import duke.ui.Ui;
 
 public class TaskList {
     private static LinkedList<Task> tasks = null;
@@ -38,7 +40,7 @@ public class TaskList {
 
     public Task deleteTask(int index) throws TaskIndexOutOfBoundsException {
         try {
-            //Task deletedTask =
+            //duke.task.Task deletedTask =
             return tasks.remove(index - 1);
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfBoundsException(index);

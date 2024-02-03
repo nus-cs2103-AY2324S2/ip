@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.parser.MissingInputFieldException;
+
 public class ToDo extends Task {
 
     public ToDo(String input) throws MissingInputFieldException {
