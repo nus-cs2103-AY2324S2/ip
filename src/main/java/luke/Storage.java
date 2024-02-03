@@ -11,8 +11,13 @@ public class Storage implements Serializable {
         history = new ArrayList<>();
     }
 
-    //Attempts to save history (reference: https://www.baeldung.com/java-serialization)
-    //For now we will only do this once when exiting the program normally. (i.e., by using "bye" command).
+    /**
+     * Attempts to save history. (My reference: https://www.baeldung.com/java-serialization)
+     * History is saved when exiting the program normally, by using "bye" command.
+     *
+     * @param file File object to locate the save file.
+     * @param tasks An ArrayList of Tasks, as obtained from our TaskList.
+     */
     public void saveHistory(File file, ArrayList<Task> tasks) {
         updateHistory(tasks);
         try {
@@ -25,6 +30,11 @@ public class Storage implements Serializable {
         }
     }
 
+    /**
+     * Updates the history with the new given tasks.
+     *
+     * @param tasks The new arrayList of tasks.
+     */
     public void updateHistory(ArrayList<Task> tasks) {
         this.history = tasks;
     }

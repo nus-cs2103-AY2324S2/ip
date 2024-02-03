@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
     Parser parser = new Parser(new Storage(), null);
-
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     LocalDate date1 = LocalDate.parse("27-08-2001", formatter);
     LocalDate date2 = LocalDate.parse("28-08-2001", formatter);

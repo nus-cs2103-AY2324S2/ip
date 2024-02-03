@@ -5,11 +5,20 @@ import java.time.LocalDate;
 public class Deadline extends Task {
     private LocalDate by;
 
+    /**
+     * Creates a Deadline with the specified name and date.
+     *
+     * @param name Name of task.
+     * @param by LocalDate representing when the deadline is by.
+     */
     public Deadline(String name, LocalDate by) {
         super(name);
         this.by = by;
     }
 
+    /**
+     * @return The status of task. ([taskType][isDone] taskname by)
+     */
     @Override
     public String fullStatus() { //TODO: add type of task later
         String checkbox;
