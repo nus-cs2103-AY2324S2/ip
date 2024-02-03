@@ -1,9 +1,10 @@
 package duke.command;
 
-import java.io.IOException;
 import duke.TaskList;
 import duke.Storage;
 import duke.Ui;
+
+import java.io.IOException;
 
 public abstract class Command {
     private boolean isExit = false;

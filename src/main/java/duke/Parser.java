@@ -1,7 +1,9 @@
 package duke;
 
 import duke.command.*;
-import duke.task.*;
+import duke.task.ToDo;
+import duke.task.Deadline;
+import duke.task.Event;
 
 public class Parser {
 
@@ -21,44 +23,52 @@ public class Parser {
         String details = words.length > 1 ? words[1] : "";
 
         switch (command) {
-            case "bye":
-                return new ExitTaskCommand();
+        case "bye": //Fallthrough
+            return new ExitTaskCommand();
+            // Fallthrough
 
-            case "list":
-                return new ListTasksCommand();
+        case "list":
+            return new ListTasksCommand();
+            // Fallthrough
 
-            case "done":
-                return new CompleteTaskCommand(Integer.parseInt(details));
+        case "done":
+            return new CompleteTaskCommand(Integer.parseInt(details));
+            // Fallthrough
 
-            case "delete":
-                return new DeleteTaskCommand(Integer.parseInt(details));
+        case "delete":
+            return new DeleteTaskCommand(Integer.parseInt(details));
+            // Fallthrough
 
-            case "todo":
-                if (details.trim().isEmpty()) {
-                    throw new JamieException("OOPS!!! The description of a todo cannot be empty.");
-                }
-                return new AddTaskCommand(new ToDo(details));
+        case "todo":
+            if (details.trim().isEmpty()) {
+                throw new JamieException("OOPS!!! The description of a todo cannot be empty.");
+            }
+            return new AddTaskCommand(new ToDo(details));
+            // Fallthrough
 
-            case "deadline":
-                String[] deadlineDetails = details.split(" /by ");
-                if (deadlineDetails.length != 2 || deadlineDetails[0].trim().isEmpty() || deadlineDetails[1].trim().isEmpty()) {
-                    throw new JamieException("OOPS!!! Invalid format for deadline. Please use: deadline <description> /by <date>");
-                }
-                return new AddTaskCommand(new Deadline(deadlineDetails[0], deadlineDetails[1]));
+        case "deadline":
+            String[] deadlineDetails = details.split(" /by ");
+            if (deadlineDetails.length != 2 || deadlineDetails[0].trim().isEmpty() || deadlineDetails[1].trim().isEmpty()) {
+                throw new JamieException("OOPS!!! Invalid format for deadline. Please use: deadline <description> /by <date>");
+            }
+            return new AddTaskCommand(new Deadline(deadlineDetails[0], deadlineDetails[1]));
+            // Fallthrough
 
-            case "event":
-                String[] eventDetails = details.split(" /from ");
-                if (eventDetails.length != 2) {
-                    throw new JamieException("OOPS!!! Invalid format for event. Please use: event <description> /from <start> /to <end>");
-                }
-                String[] eventTiming = eventDetails[1].split(" /to ");
-                if (eventTiming.length != 2 || eventTiming[0].trim().isEmpty() || eventTiming[1].trim().isEmpty()) {
-                    throw new JamieException("OOPS!!! Invalid format for event timing. Please use: event <description> /from <start> /to <end>");
-                }
-                return new AddTaskCommand(new Event(eventDetails[0], eventTiming[0], eventTiming[1]));
+        case "event":
+            String[] eventDetails = details.split(" /from ");
+            if (eventDetails.length != 2) {
+                throw new JamieException("OOPS!!! Invalid format for event. Please use: event <description> /from <start> /to <end>");
+            }
+            String[] eventTiming = eventDetails[1].split(" /to ");
+            if (eventTiming.length != 2 || eventTiming[0].trim().isEmpty() || eventTiming[1].trim().isEmpty()) {
+                throw new JamieException("OOPS!!! Invalid format for event timing. Please use: event <description> /from <start> /to <end>");
+            }
+            return new AddTaskCommand(new Event(eventDetails[0], eventTiming[0], eventTiming[1]));
+            // Fallthrough
 
-                default:
-                    throw new JamieException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        default:
+            throw new JamieException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            // Fallthrough
         }
     }
 }
