@@ -1,3 +1,3 @@
 public enum Actions {
-    UNMARK, MARK, DELETE
+    TODO, DEADLINE, EVENT
 }
