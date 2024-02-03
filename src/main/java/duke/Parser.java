@@ -3,11 +3,27 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parser class parses the user commands in Duke.
+ * It throws exceptions for invalid formats and inform how to fix it.
+ *
+ */
 public class Parser {
 
+    /**
+     * Constructs an empty Parser instance.
+     */
     public Parser() {
     }
 
+    /**
+     * Parses the marking command from the main class.
+     *
+     * @param order     The user command.
+     * @param totalnum  The total number of tasks.
+     * @return The task number to mark as done.
+     * @throws DukeException If the command format is invalid and tell how to fix.
+     */
     public int parseMark(String order, int totalnum) throws DukeException {
         try { 
             String[] actions = order.split(" "); 
@@ -23,6 +39,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the deleting command from the user.
+     *
+     * @param order     The user command.
+     * @param totalnum  The total number of tasks.
+     * @return The task number to delete.
+     * @throws DukeException If the command format is invalid and tell how to fix.
+     */
     public int parseDelete(String order, int totalnum) throws DukeException{
         try {
             String[] actions = order.split(" ");
@@ -38,6 +62,15 @@ public class Parser {
         }
     }
 
+
+    /**
+     * Parses the unmarking command from the user.
+     *
+     * @param order     The user command.
+     * @param totalnum  The total number of tasks.
+     * @return The task number to unmark.
+     * @throws DukeException If the command format is invalid and tell how to fix.
+     */
     public int parseUnmark(String order, int totalnum) throws DukeException {
         try { 
             String[] actions = order.split(" "); 
@@ -53,6 +86,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the todo command from the user.
+     *
+     * @param order The user command.
+     * @return The created Todo task from the command.
+     * @throws DukeException If the command format is invalid and tell how to fix.
+     */
     public Todo parseTodo(String order) throws DukeException {
         try {
             String t = order.substring(4).trim();
@@ -67,6 +107,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the deadline command from the user.
+     *
+     * @param order The user command.
+     * @return The created Deadline task from the command.
+     * @throws DukeException If the command format is invalid and tell how to fix.
+     */
     public Deadline parseDeadline(String order) throws DukeException {
         try {
             int byIndex = order.indexOf("/by");
@@ -86,6 +133,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the event command from the user.
+     *
+     * @param order The user command.
+     * @return The created Event task from the command.
+     * @throws DukeException If the command format is invalid and tell how to fix.
+     */
     public Event parseEvent(String order) throws DukeException {
         try {
             int fromIndex = order.indexOf("/from");
