@@ -1,6 +1,4 @@
 package headcube;
-import java.util.List;
-import java.util.Scanner;
 /**
  * The Ui class handles the user interface for the HeadCube application.
  * It is responsible for displaying messages to the user.

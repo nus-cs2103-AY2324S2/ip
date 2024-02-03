@@ -1,7 +1,5 @@
 package headcube;
 
-import java.util.List;
-
 /**
  * The Parser class handles the parsing of user input and executing corresponding actions
  * in the HeadCube application.
@@ -18,7 +16,7 @@ public class Parser {
      * @param taskList The list of tasks to manage.
      * @param storage The storage to save and load tasks.
      */
-    public Parser(Ui ui, TaskList taskList, Storage storage){
+    public Parser(Ui ui, TaskList taskList, Storage storage) {
         this.ui = ui;
         this.taskList = taskList;
         this.storage = storage;
@@ -31,11 +29,11 @@ public class Parser {
      */
     public void parse(String input) {
         try {
-            String[] split = input.split(" ",2);
+            String[] split = input.split(" ", 2);
 
             if (input.equals("list")) {
                 ui.list(taskList);
-            } else if (split[0].equals("mark")){
+            } else if (split[0].equals("mark")) {
                 taskList.mark(Integer.parseInt(split[1]));
 
             } else if (split[0].equals("find")) {
@@ -47,7 +45,7 @@ public class Parser {
             } else if (input.equals("save")) {
                 storage.save(taskList);
             } else {
-                String[] string = input.split(" ",2 );
+                String[] string = input.split(" ", 2 );
                 String event = string[0];
                 String description;
 
@@ -57,10 +55,10 @@ public class Parser {
                     }
                     taskList.add(new ToDos(split[1]));
                 } else if (event.equals("deadline")) {
-                    String[] parts = split[1].split(" /by ",2);
+                    String[] parts = split[1].split(" /by ", 2);
                     description = parts[0];
                     String by = parts[1];
-                    taskList.add(new Deadlines(description,by));
+                    taskList.add(new Deadlines(description, by));
                 } else if (event.equals("event")) {
                     String[] parts = split[1].split(" /from ", 2);
                     description = parts[0];

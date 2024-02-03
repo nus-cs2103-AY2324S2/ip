@@ -96,7 +96,7 @@ public class Storage {
         } else if ("D".equals(event)) {
             if (parts.length > 3) {
                 String by = parts[3].replace("(by: ", "").replace(")", "");
-                task = new Deadlines(description,by);
+                task = new Deadlines(description, by);
             }
         } else {
             if (parts.length > 3) {

@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 /**
  * Represents an event task with a start and end time.
  */
-public class Events extends Task{
+public class Events extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
 
@@ -59,8 +59,8 @@ public class Events extends Task{
      */
     @Override
     public String toFileFormat() {
-        return "E | " + super.toFileFormat() + " | " +
-                "(from: " + start.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) +
-                " to: " + end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+        return "E | " + super.toFileFormat() + " | "
+                + "(from: " + start.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                + " to: " + end.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 }
