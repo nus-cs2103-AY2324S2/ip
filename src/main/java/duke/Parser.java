@@ -5,13 +5,7 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
 
-    private String order;
-
-    public Parser (String order) {
-        this.order = order;
-    }
-
-    public int parseMark(int totalnum) throws DukeException {
+    public int parseMark(String order, int totalnum) throws DukeException {
         try { 
             String[] actions = order.split(" "); 
             int markNum = Integer.parseInt(actions[1]);
@@ -26,7 +20,7 @@ public class Parser {
         }
     }
 
-    public int parseDelete(int totalnum) throws DukeException{
+    public int parseDelete(String order, int totalnum) throws DukeException{
         try {
             String[] actions = order.split(" ");
             int deleteNum = Integer.parseInt(actions[1]);
@@ -41,7 +35,7 @@ public class Parser {
         }
     }
 
-    public int parseUnmark(int totalnum) throws DukeException {
+    public int parseUnmark(String order, int totalnum) throws DukeException {
         try { 
             String[] actions = order.split(" "); 
             int unmarkNum = Integer.parseInt(actions[1]);
@@ -56,7 +50,7 @@ public class Parser {
         }
     }
 
-    public Todo parseTodo() throws DukeException {
+    public Todo parseTodo(String order) throws DukeException {
         try {
             String t = order.substring(4).trim();
             if (t.isEmpty()) {
@@ -70,7 +64,7 @@ public class Parser {
         }
     }
 
-    public Deadline parseDeadline() throws DukeException {
+    public Deadline parseDeadline(String order) throws DukeException {
         try {
             int byIndex = order.indexOf("/by");
             String t = order.substring(9, byIndex - 1);
@@ -89,7 +83,7 @@ public class Parser {
         }
     }
 
-    public Event parseEvent() throws DukeException {
+    public Event parseEvent(String order) throws DukeException {
         try {
             int fromIndex = order.indexOf("/from");
             int toIndex = order.indexOf("/to");

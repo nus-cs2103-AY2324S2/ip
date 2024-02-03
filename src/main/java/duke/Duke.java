@@ -42,7 +42,7 @@ public class Duke {
                 ui.list(tasks.getTasks());
             } else if (orders[0].equals("unmark")) {
                 try {
-                    int number = parser.parseUnmark(tasks.getSize());
+                    int number = parser.parseUnmark(order, tasks.getSize());
                     tasks.unmark(number);
                     ui.unmark(tasks.getTask(number));
                 } catch (DukeException e) {
@@ -50,7 +50,7 @@ public class Duke {
                 }
             } else if (orders[0].equals("mark")) {
                 try {
-                    int number = parser.parseMark(tasks.getSize());
+                    int number = parser.parseMark(order, tasks.getSize());
                     tasks.mark(number);
                     ui.mark(tasks.getTask(number));
                 } catch (DukeException e) {
@@ -58,7 +58,7 @@ public class Duke {
                 }
             } else if (orders[0].equals("todo")) {  
                 try {
-                    Task task = parser.parseTodo();
+                    Task task = parser.parseTodo(order);
                     tasks.addTask(task);
                     ui.addedMessage(task);
                     ui.totalTask(tasks.getSize());
@@ -68,7 +68,7 @@ public class Duke {
                 }
             } else if (orders[0].equals("deadline")) {  
                 try {
-                    Task task = parser.parseDeadline();
+                    Task task = parser.parseDeadline(order);
                     tasks.addTask(task);
                     ui.addedMessage(task);
                     ui.totalTask(tasks.getSize());
@@ -78,7 +78,7 @@ public class Duke {
                 }
             } else if (orders[0].equals("event")) {  
                 try {
-                    Task task = parser.parseEvent();
+                    Task task = parser.parseEvent(order);
                     tasks.addTask(task);
                     ui.addedMessage(task);
                     ui.totalTask(tasks.getSize());
@@ -88,7 +88,7 @@ public class Duke {
                 }
             } else if (orders[0].equals("delete")) {
                 try {
-                    int number = parser.parseDelete(tasks.getSize());
+                    int number = parser.parseDelete(order, tasks.getSize());
                     ui.deletedMessage(tasks.getTask(number));
                     tasks.deleteTask(number);
                     ui.totalTask(tasks.getSize());
