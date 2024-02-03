@@ -3,24 +3,37 @@ package bit;
 public class Task {
 
     protected boolean isDone;
-    protected final String description;
+    protected final String DESCRIPTION;
     public Task(String description) {
         isDone = false;
-        this.description = description;
+        this.DESCRIPTION = description;
 
     }
 
+    /**
+     * Mark task as complete
+     */
     public void complete() {
         this.isDone = true;
     }
 
-    public void incomplete() {this.isDone = false; }
+    /**
+     * Uncheck task as incomplete.
+     */
+    public void incomplete() {
+        this.isDone = false;
+    }
+
+    /**
+     * Return String format of task.
+     * @return task in string format.
+     */
     @Override
     public String toString() {
         if(this.isDone) {
-            return "[X] "+ description;
+            return "[X] " + DESCRIPTION;
         } else {
-            return "[ ] " + description;
+            return "[ ] " + DESCRIPTION;
         }
     }
     public boolean containsKeyword(String key) {

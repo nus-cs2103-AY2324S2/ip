@@ -13,9 +13,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         if(this.isDone) {
-            return "[E][X] "+ description + " (from: " + start + " to: " + end + ")";
+            return "[E][X] "+ DESCRIPTION + " (from: " + start + " to: " + end + ")";
         } else {
-            return "[E][ ] " + description + " (from: " + start + " to: " + end + ")";
+            return "[E][ ] " + DESCRIPTION + " (from: " + start + " to: " + end + ")";
         }
     }
 

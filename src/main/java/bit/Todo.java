@@ -1,7 +1,5 @@
 package bit;
 
-import bit.Task;
-
 public class Todo extends Task {
 
     public Todo(String description) {
@@ -11,9 +9,9 @@ public class Todo extends Task {
     @Override
     public String toString() {
         if(this.isDone) {
-            return "[T][X] "+ description;
+            return "[T][X] "+ DESCRIPTION;
         } else {
-            return "[T][ ] " + description;
+            return "[T][ ] " + DESCRIPTION;
         }
     }
 }

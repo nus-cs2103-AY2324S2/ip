@@ -16,10 +16,21 @@ public class Parser {
 
     }
 
+    /**
+     * Returns index number stored in this object
+     * This is usually index of Task you wish to access
+     * @return index number stored
+     */
     public int getIndex() {
         return index;
     }
 
+    /**
+     * Returns user's command in string format
+     * If there is an error, it will be funneled towards add method, which will handle them
+     * @param input
+     * @return command
+     */
     public String parse(String input) {
         if (input.equals("bye")) {
             return "bye";

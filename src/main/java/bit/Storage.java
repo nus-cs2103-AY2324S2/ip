@@ -12,6 +12,12 @@ public class Storage {
 
     }
 
+    /**
+     * Create a file myFile if it does not exist. If file exists after this method, return true.
+     * Otherwise, return false.
+     * @param myFile file to be created
+     * @return true or false based on whether file exists after method is run.
+     */
     public boolean createFile(File myFile) {
         try {
             if (!myFile.exists()) {
@@ -26,6 +32,10 @@ public class Storage {
 
     }
 
+    /**
+     * Load all tasks stored in text file to Tasklist.
+     * @param list list of tasks to be loaded
+     */
     public void loadFile(Tasklist list) {
 
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
@@ -62,21 +72,30 @@ public class Storage {
         }
     }
 
+    /**
+     * Save all tasks in the list to a text file.
+     * @param tasklist the tasks to be stored.
+     */
     public   void saveAll(Tasklist tasklist) {
 
         for (int i = 0; i < tasklist.getSize(); i++) {
             Task t = tasklist.getTask(i);
             if (t instanceof Todo) {
-                saveToFile(t.isDone, t.description);
+                saveToFile(t.isDone, t.DESCRIPTION);
             } else if (t instanceof Deadline) {
-                saveToFile(t.isDone, t.description, ((Deadline) t).getDeadline());
+                saveToFile(t.isDone, t.DESCRIPTION, ((Deadline) t).getDeadline());
             } else if (t instanceof Event) {
-                saveToFile(t.isDone, t.description, ((Event) t).getStart(), ((Event) t).getEnd());
+                saveToFile(t.isDone, t.DESCRIPTION, ((Event) t).getStart(), ((Event) t).getEnd());
             }
 
         }
     }
 
+    /**
+     * Save a todo to text file.
+     * @param marked completion status of todo
+     * @param description the description of the task
+     */
     public void  saveToFile(boolean marked, String description) {
         try {
             FileWriter myWriter = new FileWriter(FILE_PATH, true);
@@ -92,6 +111,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Save a deadline to text file.
+     * @param marked completion status of task.
+     * @param description body of task.
+     * @param deadline deadline of the task.
+     */
     public void saveToFile(boolean marked, String description, String deadline) {
         try {
             FileWriter myWriter = new FileWriter(FILE_PATH, true);
@@ -107,6 +132,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Save an event to textfile.
+     * @param marked Completion status of task.
+     * @param description Body of task.
+     * @param start Start time of event
+     * @param end Ending time of event
+     */
     public  void saveToFile(boolean marked, String description, String start, String end) {
         try {
             FileWriter myWriter = new FileWriter(FILE_PATH, true);
@@ -122,6 +154,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Clear file after extracting tasks.
+     */
     public  void cleanList() {
         try {
             FileWriter myCleaner = new FileWriter(FILE_PATH);
