@@ -1,3 +1,7 @@
+/**
+ * The Parser class is responsible for parsing user input and generating appropriate commands and tasks.
+ * It provides methods for parsing commands, creating commands, and parsing task details.
+ */
 package duke;
 
 import duke.task.Deadline;
@@ -11,6 +15,13 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Parser {
+    /**
+     * Parses the command from user input.
+     *
+     * @param userInput The user input string.
+     * @return The CommandType corresponding to the parsed command.
+     * @throws DukeException If the command is not recognized.
+     */
     public static CommandType parseCommand(String userInput) throws DukeException {
         String[] parts = userInput.trim().split("\\s+", 2);
         String commandStr = parts[0].toUpperCase();
@@ -22,6 +33,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Processes the user input and creates the appropriate Command object.
+     *
+     * @param userInput The user input string.
+     * @return The Command object corresponding to the user input.
+     * @throws DukeException If there is an issue processing the command.
+     */
     public static Command processCommand(String userInput) throws DukeException {
 
         try {
@@ -50,6 +68,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses task details from user input and creates a Task object.
+     *
+     * @param userInput The user input string containing task details.
+     * @return The Task object created based on the input.
+     * @throws DukeException If there is an issue parsing the task or if the task type is not recognized.
+     */
+
     public static Task parseTask(String userInput) throws DukeException {
         String[] parts = userInput.split("\\s+", 2);
         if (parts.length < 2) {
@@ -71,6 +97,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses deadline details from user input and creates a Deadline object.
+     *
+     * @param taskDetails The task details string containing the description and deadline.
+     * @return The Deadline object created based on the input.
+     * @throws DukeException If there is an issue parsing the deadline or if the format is invalid.
+     */
     private static Deadline parseDeadline(String taskDetails) throws DukeException {
         String[] parts = taskDetails.split("/by", 2);
         if (parts.length < 2) {
@@ -85,6 +118,13 @@ public class Parser {
         return new Deadline(description, dateTime);
     }
 
+    /**
+     * Parses event details from user input and creates an Event object.
+     *
+     * @param taskDetails The task details string containing the description and event details.
+     * @return The Event object created based on the input.
+     * @throws DukeException If there is an issue parsing the event or if the format is invalid.
+     */
     private static Event parseEvent(String taskDetails) throws DukeException {
         String[] parts = taskDetails.split("/from", 2);
         if (parts.length < 2) {
@@ -111,6 +151,13 @@ public class Parser {
         return new Event(description, startTime, endTime);
     }
 
+    /**
+     * Parses date and time from a string and creates a LocalDateTime object.
+     *
+     * @param dateTimeStr The string containing date and time information.
+     * @return The LocalDateTime object created based on the input.
+     * @throws DukeException If there is an issue parsing the date and time or if the format is invalid.
+     */
     public static LocalDateTime parseDateTime(String dateTimeStr) throws DukeException {
         try {
             if (dateTimeStr.equalsIgnoreCase("today")) {
@@ -127,6 +174,14 @@ public class Parser {
             throw new DukeException("Invalid date/time format. Please use 'yyyy/MM/dd HHmm', 'yyyy/MM/dd', 'today', or 'tomorrow'.");
         }
     }
+
+    /**
+     * Extracts the task index from user input.
+     *
+     * @param userInput The user input string containing the task index.
+     * @return The extracted task index.
+     * @throws DukeException If there is an issue extracting the index or if it's not a valid integer.
+     */
     public static int extractTaskIndex(String userInput) throws DukeException {
         try {
             return Integer.parseInt(userInput.split("\\s+")[1]);

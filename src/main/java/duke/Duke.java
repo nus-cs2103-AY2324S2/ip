@@ -1,3 +1,7 @@
+/**
+ * The Duke class serves as the entry point for the Duke chatbot application.
+ * It manages the interaction between the user, tasks, and the user interface.
+ */
 package duke;
 
 import duke.task.TaskList;
@@ -6,6 +10,11 @@ public class Duke {
     private static TaskList taskList; // Using duke.task.TaskList to manage tasks
     private static Ui ui;
 
+    /**
+     * The main method for starting the Duke chatbot application.
+     *
+     * @param args Command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         ui = new Ui();
         ui.showWelcome();
@@ -18,6 +27,9 @@ public class Duke {
         new Duke().run();
     }
 
+    /**
+     * Runs the main loop of the Duke chatbot application, continuously processing user commands.
+     */
     public void run() {
         String userInput;
 

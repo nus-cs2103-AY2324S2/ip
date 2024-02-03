@@ -1,3 +1,7 @@
+/**
+ * The Storage class is responsible for managing the storage and retrieval of tasks in the Duke chatbot application.
+ * It handles saving tasks to a file and loading tasks from a file.
+ */
 package duke;
 
 import duke.task.Deadline;
@@ -16,6 +20,11 @@ public class Storage {
     private static final String DIRECTORY_PATH = "./data";
     private static final String FILE_PATH = "./data/duke.txt";
 
+    /**
+     * Saves a list of tasks to a file.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public static void saveTasks(List<Task> tasks) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             for (Task task : tasks) {
@@ -26,7 +35,12 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Loads tasks from a file and returns them as a list.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws DukeException If there is an issue loading tasks from the file.
+     */
     public static List<Task> loadTasks() throws DukeException {
         List<Task> tasks = new ArrayList<>();
         createEmptyFile();
@@ -45,6 +59,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Creates an empty file and directory if they do not exist.
+     *
+     * @throws DukeException If there is an issue creating the file or directory.
+     */
     private static void createEmptyFile() throws DukeException {
         File directory = new File("./data");
         File file = new File("./data/duke.txt");
@@ -62,9 +81,12 @@ public class Storage {
         }
     }
 
-
-
-
+    /**
+     * Creates a Task object from a line of text read from the file.
+     *
+     * @param line The line of text representing a task.
+     * @return The Task object created from the line.
+     */
     private static Task createTaskFromLine(String line) {
       String[] parts = line.split("\\s*\\|\\s*");
       if (parts.length >= 3) {

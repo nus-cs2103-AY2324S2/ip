@@ -1,42 +1,81 @@
+/**
+ * The Task class represents a general task with a description and a completion status.
+ * It is a base class for specific task types like Todo, Deadline, and Event.
+ */
 package duke.task;
 
 public class Task {
-  protected String description;
-  protected boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
-  public Task(String description) {
-      this.description = description;
-      this.isDone = false;
-  }
+    /**
+     * Constructs a Task object with a description and initializes it as not done.
+     *
+     * @param description A description of the task.
+     */
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
+    }
 
-  public void markAsDone() {
-      this.isDone = true;
-  }
+    /**
+     * Marks the task as done by setting the completion status to true.
+     */
+    public void markAsDone() {
+        this.isDone = true;
+    }
 
-  public void unmarkAsDone() {
-      this.isDone = false;
-  }
+    /**
+     * Unmarks the task as done by setting the completion status to false.
+     */
+    public void unmarkAsDone() {
+        this.isDone = false;
+    }
 
-  public String getStatusnumber() {
-      return (isDone ? "1" : "0"); // Use "1" for done, "0" for not done
-  }
+    /**
+     * Returns the status number of the task (0 for not done, 1 for done).
+     *
+     * @return A string representing the task's completion status.
+     */
+    public String getStatusnumber() {
+        return (isDone ? "1" : "0"); // Use "1" for done, "0" for not done
+    }
 
-  public String getStatusIcon() {
-    return (isDone ? "[X]" : "[ ]"); 
-  }
+    /**
+     * Returns the status icon of the task ("[X]" for done, "[ ]" for not done).
+     *
+     * @return A string representing the task's completion status icon.
+     */
+    public String getStatusIcon() {
+        return (isDone ? "[X]" : "[ ]");
+    }
 
-  public String toFileString() {
-      // Format: [TaskType] | [Status] | [Description]
-      return ""; // Implement this in each subclass (duke.task.Todo, duke.task.Deadline, duke.task.Event)
-  }
-  
-  @Override
-  public String toString() {
-      return getStatusIcon() + " " + description;
-  }
+    /**
+     * Converts the Task object to a string that can be saved to a file.
+     * Subclasses (Todo, Deadline, Event) should implement this method.
+     *
+     * @return An empty string, to be implemented in each subclass.
+     */
+    public String toFileString() {
+        return ""; // Implement this in each subclass (duke.task.Todo, duke.task.Deadline, duke.task.Event)
+    }
 
+    /**
+     * Returns a string representation of the task in a user-friendly format.
+     *
+     * @return A string representing the task's status icon and description.
+     */
+    @Override
+    public String toString() {
+        return getStatusIcon() + " " + description;
+    }
+
+    /**
+     * Checks if the task is marked as done.
+     *
+     * @return True if the task is done, false otherwise.
+     */
     public boolean isDone() {
-      return this.isDone;
+        return this.isDone;
     }
 }
-
