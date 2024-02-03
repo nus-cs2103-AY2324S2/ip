@@ -2,6 +2,9 @@ package duke;
 
 import duke.exceptions.DukeException;
 
+/**
+ * <code>Command</code> encapsulates the main command and the arguments needed for execution.
+ */
 public class Command {
     private String command;
     private String[] arguments;

@@ -2,13 +2,16 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * Ui class that displays several ui elements onto the command-line.
+ */
 public class Ui {
     private Scanner sc;
     private String hLine = "________________________________________________";
-    private String logo = "                            ╱|、\n" +
-            "                          (˚ˎ 。7  \n" +
-            "                           |、˜〵          \n" +
-            "                          じしˍ,)ノ\n";
+    private String logo = "                            ╱|、\n"
+            + "                          (˚ˎ 。7  \n"
+            + "                           |、˜〵          \n"
+            + "                          じしˍ,)ノ\n";
     private String greetMsg = "Hello! I'm Hatsune Miku!\n"
             + " What can I do for you?";
 

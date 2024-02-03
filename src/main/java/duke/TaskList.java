@@ -1,16 +1,19 @@
 package duke;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+
 import duke.exceptions.InvalidTaskException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-
+/**
+ * Holds an array of <code>Task</code> that actively keeps track of stored tasks in runtime.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 

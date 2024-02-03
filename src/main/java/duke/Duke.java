@@ -1,9 +1,12 @@
 package duke;
 
-import duke.exceptions.DukeException;
-
 import java.io.IOException;
 
+import duke.exceptions.DukeException;
+
+/**
+ * Main program of Duke that runs the application.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
