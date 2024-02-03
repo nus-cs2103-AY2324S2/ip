@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
-import javax.swing.text.StyledEditorKit;
+import Managers.fileManager;
+import Managers.dateManager;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ import Tasks.ToDo;
 // main class for the project
 public class Duke {
 
-    /* class-wide variables */ 
+    /* --- VARIABLES --- */
     private static ArrayList<Task> taskList = fileManager.fetchTasks();
 
     public static void main(String[] args) { 
@@ -24,18 +25,11 @@ public class Duke {
         String command;
         String description;
 
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-
         String line = "================================================================";
 
         String greet = "Wassup! I'm someBOTy.\n"
                      + "What are you here for?\n";
 
-        System.out.println(logo + line);    // PRINT LOGO
         System.out.println(greet + line);   // PRINT GREET MESSAGE
 
         while (true) {
@@ -61,6 +55,10 @@ public class Duke {
                     help();
                     break;
 
+                case "dateFormats":
+                    dateManager.validDateFormats();
+                    break;
+
                 case "mark":
                     description = getDescription(input);
                     mark(description);
@@ -75,6 +73,10 @@ public class Duke {
                     description = getDescription(input);
                     delete(description);
                     break; 
+
+                case "clear":
+                    clear();
+                    break;
 
                 case "todo":
                     description = getDescription(input);
@@ -117,6 +119,7 @@ public class Duke {
         System.out.println(exitMessage);
     }
 
+    /* --- METHODS --- */
 
     private static String getDescription(String string) {
         String[] listOfStrings = string.split(" ");
@@ -134,9 +137,6 @@ public class Duke {
         }
 
     }
-
-    /* =============== FUNCTIONS TO HANDLE ACTIONS ================== */
-
 
     // list out the recorded tasks
     private static void list() {
@@ -159,7 +159,19 @@ public class Duke {
     private static void help() {
         System.out.println("Here are the tasks:");
 
-        String[] commands = {"deadline", "event", "help", "list", "mark", "todo", "unmark"};
+        String[] commands = {
+            "help",
+            "list", 
+            "dateFormats",
+            "mark", 
+            "unmark", 
+            "delete",
+            "clear",
+            "deadline", 
+            "event", 
+            "todo"
+        };
+
         for (int i = 0; i < commands.length; i++) {
             System.out.println(String.format("%d. %s", i + 1, commands[i]));
         }
@@ -236,6 +248,12 @@ public class Duke {
             System.out.println("  " + removedTask);
             System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
         }
+    }
+
+    private static void clear() {
+        taskList.clear();
+
+        System.out.println("Huh. Your list is magically gone!");
     }
 
     // add a new task of type "ToDo"

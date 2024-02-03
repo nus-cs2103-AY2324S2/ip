@@ -1,5 +1,9 @@
 package Tasks;
 
+import java.time.LocalDateTime;
+
+import Managers.dateManager;
+
 /**
 * Handles a task of type "Event".
 * Event tasks contains the following details:
@@ -9,28 +13,18 @@ package Tasks;
 */
 public class Event extends Task {
 
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     public Event(String description) {
         super("");
         this.formatInput(description);
     }
 
-    public Event(String name, String from, String to) {
+    public Event(String name, String stringFrom, String stringTo) {
         super(name);
-        this.from = from;
-        this.to = to;
-    }
-
-    // Get start date.
-    public String getStart() {
-        return this.from;
-    }
-
-    // Get end date.
-    public String getEnd() {
-        return this.to;
+        this.from = dateManager.parseDate(stringFrom);
+        this.to = dateManager.parseDate(stringTo);
     }
 
     @Override
@@ -39,22 +33,19 @@ public class Event extends Task {
             "Unable to identify the start and/or end date. Make sure to follow the format:\n"
             + "event DESCRIPTION /from START /to END";
     
+        String stringFrom, stringTo;
 
         try {
-            String[] listOfStrings = description.split("/");
-            this.name = listOfStrings[0].trim();
-            this.from = listOfStrings[1];
-            this.to = listOfStrings[2];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException(errorMessage);
-        }
+            this.name = description.split("/")[0].trim();
+            stringFrom = description.split("/from ")[1].split("/to ")[0].trim();
+            stringTo = description.split("/to ")[1].trim();
 
-        if (!this.from.startsWith("from ") || !this.to.startsWith("to ")) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new IllegalArgumentException(errorMessage);
         }
 
-        this.from = this.from.substring(5).trim();
-        this.to = this.to.substring(3).trim();
+        this.from = dateManager.parseDate(stringFrom);
+        this.to = dateManager.parseDate(stringTo);
     }
 
     @Override
@@ -66,13 +57,17 @@ public class Event extends Task {
         return String.format("E,%c,%s,%s,%s\n",
                     status,
                     this.name,
-                    this.from,
-                    this.to
+                    dateManager.printDate(this.from),
+                    dateManager.printDate(this.to)
                     );
     }
     
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s, to: %s)", super.toString(), this.from, this.to);
+        return String.format("[E]%s (from: [%s], to: [%s])",
+                    super.toString(),
+                    dateManager.printDate(this.from),
+                    dateManager.printDate(this.to)
+                    );
     }
 }
