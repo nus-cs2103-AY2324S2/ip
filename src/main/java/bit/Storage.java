@@ -1,16 +1,14 @@
 package bit;
 
-import bit.Tasklist;
-
 import java.io.*;
 
 public class Storage {
 
     private final String FILE_PATH = "./data/bit.txt";
-    private File file = new File(FILE_PATH);
+    private final File FILE = new File(FILE_PATH);
 
     public Storage() {
-        boolean isCreated = createFile(file);
+        boolean isCreated = createFile(FILE);
 
     }
 

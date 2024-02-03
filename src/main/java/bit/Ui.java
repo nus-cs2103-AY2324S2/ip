@@ -40,16 +40,16 @@ public class Ui {
 
     public void sayAdded(int i, String string, Task task) {
         switch (string) {
-            case "todo":
-                System.out.println("I have added this todo: " + i + '.' + task.toString());
-                break;
-            case "event":
-                System.out.println("I have added this event: " + (i) + " " + task.toString());
-                break;
-            case "deadline":
-                System.out.println("Done! I have added this deadline" + task.toString());
-            default:
-                break;
+        case "todo":
+            System.out.println("I have added this todo: " + i + '.' + task.toString());
+            break;
+        case "event":
+            System.out.println("I have added this event: " + (i) + " " + task.toString());
+            break;
+        case "deadline":
+            System.out.println("Done! I have added this deadline" + task.toString());
+        default:
+            break;
         }
     }
 
@@ -60,21 +60,21 @@ public class Ui {
 
     public void handleErrorMessage(String string) {
         switch (string) {
-            case "absent":
-                System.out.println("Hey, I don't think you have added that yet!");
-                break;
-            case "Not a number":
-                System.out.println("Woah! That is not a number!");
-                break;
-            case "forget":
-                System.out.println("Did you forget something?");
-                break;
-            case "NotaDate":
-                System.out.println("The date you entered is invalid.");
-                break;
-            default:
-                System.out.println("Sorry, I don't understand what you mean\n");
-                break;
+        case "absent":
+            System.out.println("Hey, I don't think you have added that yet!");
+            break;
+        case "Not a number":
+            System.out.println("Woah! That is not a number!");
+            break;
+        case "forget":
+            System.out.println("Did you forget something?");
+            break;
+        case "NotaDate":
+            System.out.println("The date you entered is invalid.");
+            break;
+        default:
+            System.out.println("Sorry, I don't understand what you mean\n");
+            break;
         }
     }
 
