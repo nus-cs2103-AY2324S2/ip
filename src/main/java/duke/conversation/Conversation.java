@@ -1,5 +1,7 @@
 package duke.conversation;
 
+import duke.ui.Ui;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -9,9 +11,6 @@ import java.util.List;
  * It provides predefined dialogues and handles the display of responses.
  */
 public class Conversation {
-    private static final String INDENTATION = "      ";
-    private static final String LINE = "    -----------------------------------" +
-            "------------------------------------------------------";
 
     protected Hashtable<String, List<String>> dialogues;
 
@@ -43,7 +42,7 @@ public class Conversation {
      */
     public void initializeDialogues(String username) {
         addDialogue("starter", "Hello, " + username +
-                ". Nice to meet you!\n" + Conversation.INDENTATION +
+                ". Nice to meet you!\n" + Ui.INDENTATION +
                 "So, what can I do for you today?");
         addDialogue("bye", "Bye bye! See you later!");
         addDialogue("hello", "Hi there! How can I help you?");
@@ -73,18 +72,18 @@ public class Conversation {
      * @param message The user's input used to retrieve corresponding dialogues.
      */
     public void printDialogue(String message) {
-        System.out.println(Conversation.LINE);
+        System.out.println(Ui.LINE);
         List<String> dialoguesList = getCommands(message);
         if (dialoguesList != null && !dialoguesList.isEmpty()) {
             for (String dialogue : dialoguesList) {
-                System.out.println(INDENTATION + dialogue);
+                System.out.println(Ui.INDENTATION + dialogue);
             }
         } else {
-            System.out.println(INDENTATION + "Sorry, I don't understand " +
+            System.out.println(Ui.INDENTATION + "Sorry, I don't understand " +
                     "what you mean by " + message);
-            System.out.println(INDENTATION + "Maybe try checking the " +
+            System.out.println(Ui.INDENTATION + "Maybe try checking the " +
                     "spelling or ask me anything else!");
         }
-        System.out.println(LINE);
+        System.out.println(Ui.LINE);
     }
 }

@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.ui.Ui;
+
 import java.util.List;
 
 /**
@@ -7,9 +9,6 @@ import java.util.List;
  * It is an abstract class that serves as the base class for specific task types such as Todo, Deadline, and Event.
  */
 public class TaskDisplay {
-    private static final String INDENTATION = "    ";
-    private static final String LINE = "    -----------------------------------------------------------------------------------------";
-
 
     /**
      * Displays tasks based on the user command and task list.
@@ -21,7 +20,7 @@ public class TaskDisplay {
         String[] tokens = input.split(" ");
         String command = tokens[0].toLowerCase();
 
-        System.out.println(LINE);
+        System.out.println(Ui.LINE);
 
         if (!command.equalsIgnoreCase("list") && tokens.length == 1) {
             printErrorMessage(input);
@@ -51,7 +50,7 @@ public class TaskDisplay {
                 break;
         }
 
-        System.out.println(LINE);
+        System.out.println(Ui.LINE);
     }
 
     /**
@@ -60,14 +59,27 @@ public class TaskDisplay {
      * @param taskList The list of tasks to print.
      */
     private void printTaskList(List<Task> taskList) {
-        System.out.println(INDENTATION + " Here are the tasks in your list:");
+        System.out.println(Ui.INDENTATION + " Here are the tasks in your list:");
         int count = 1;
         for (Task task : taskList) {
-            System.out.println(INDENTATION + "    " + count + ". "
+            System.out.println(Ui.INDENTATION + "    " + count + ". "
                     + task.getTaskIcon()  + task.getStatusIcon() + " "
                     + task.getTaskDescription());
             count++;
         }
+    }
+
+    public void printFindTaskList(List<Task> taskList) {
+        System.out.println(Ui.LINE);
+        System.out.println(Ui.INDENTATION + " Here are the matching tasks in your list:");
+        int count = 1;
+        for (Task task : taskList) {
+            System.out.println(Ui.INDENTATION + "    " + count + ". "
+                    + task.getTaskIcon()  + task.getStatusIcon() + " "
+                    + task.getTaskDescription());
+            count++;
+        }
+        System.out.println(Ui.LINE);
     }
 
     /**
@@ -81,8 +93,8 @@ public class TaskDisplay {
             return;
         }
         Task task = taskList.get(index);
-        System.out.println(INDENTATION + "  Nice! I've marked this task as done: ");
-        System.out.println(INDENTATION  + "    " + task.getTaskIcon() +
+        System.out.println(Ui.INDENTATION + "  Nice! I've marked this task as done: ");
+        System.out.println(Ui.INDENTATION  + "    " + task.getTaskIcon() +
                 task.getStatusIcon() + task.getTaskDescription());
     }
 
@@ -97,8 +109,8 @@ public class TaskDisplay {
             return;
         }
         Task task = taskList.get(index);
-        System.out.println(INDENTATION + "  OK, I've marked this task as not done yet: ");
-        System.out.println(INDENTATION  + "    " + task.getTaskIcon() +
+        System.out.println(Ui.INDENTATION + "  OK, I've marked this task as not done yet: ");
+        System.out.println(Ui.INDENTATION  + "    " + task.getTaskIcon() +
                 task.getStatusIcon() + task.getTaskDescription());
     }
 
@@ -110,15 +122,15 @@ public class TaskDisplay {
      */
     private void printDeletedTask(List<Task> taskList, int index) {
         if (index < 0 || index >= taskList.size()) {
-            System.out.println(INDENTATION + "  Sorry, I believe the TASK NUMBER" +
+            System.out.println(Ui.INDENTATION + "  Sorry, I believe the TASK NUMBER" +
                     " you specified doesn't exist.");
             return;
         }
         Task deletedTask = taskList.get(index);
-        System.out.println(INDENTATION + "  Noted. I've removed this task:");
-        System.out.println(INDENTATION + "     " + deletedTask.getTaskIcon() +
+        System.out.println(Ui.INDENTATION + "  Noted. I've removed this task:");
+        System.out.println(Ui.INDENTATION + "     " + deletedTask.getTaskIcon() +
                 deletedTask.getStatusIcon() + deletedTask.getTaskDescription());
-        System.out.println(INDENTATION + "  Now you have " + (taskList.size() - 1) +
+        System.out.println(Ui.INDENTATION + "  Now you have " + (taskList.size() - 1) +
                 " tasks left in this list.");
     }
 
@@ -133,11 +145,11 @@ public class TaskDisplay {
             return;
         }
         Task task = taskList.get(index);
-        System.out.println(INDENTATION + "  Got it. I've added this task: "
+        System.out.println(Ui.INDENTATION + "  Got it. I've added this task: "
                 + task.getTaskDescription());
-        System.out.println(INDENTATION + "    " + task.getTaskIcon() +
+        System.out.println(Ui.INDENTATION + "    " + task.getTaskIcon() +
                 task.getStatusIcon() + task.getTaskDescription());
-        System.out.println(INDENTATION + "  Now you have " + taskList.size() +
+        System.out.println(Ui.INDENTATION + "  Now you have " + taskList.size() +
                 " tasks in the list.");
     }
 
@@ -147,10 +159,10 @@ public class TaskDisplay {
      * @param input The user input command.
      */
     public void printErrorMessage(String input) {
-        System.out.println(INDENTATION + "  Sorry, the description of " +
+        System.out.println(Ui.INDENTATION + "  Sorry, the description of " +
                 input.toUpperCase() + " cannot be empty. Please add details, so that I can");
-        System.out.println(INDENTATION + "  assist you better!");
-        System.out.println(LINE);
+        System.out.println(Ui.INDENTATION + "  assist you better!");
+        System.out.println(Ui.LINE);
     }
 }
 
