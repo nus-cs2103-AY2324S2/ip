@@ -1,5 +1,4 @@
 public class ToDos extends Task{
-    protected String by;
 
     public ToDos(String description) {
         super(description);
@@ -7,6 +6,6 @@ public class ToDos extends Task{
 
     @Override
     public String toString() {
-        return "[D]" + super.toString();
+        return "[T]" + super.toString();
     }
 }
