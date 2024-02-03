@@ -25,9 +25,6 @@ public class Wei {
         }
     }
 
-    /**
-     * execute the chatbot.
-     */
     private void run() {
         ui.greet();
         boolean isExit = false;

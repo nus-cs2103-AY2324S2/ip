@@ -53,4 +53,23 @@ public class TaskList {
         return task.stringify();
     }
 
+    /**
+     * Looks for tasks that matches the keyword.
+     *
+     * @param keyword Keyword.
+     * @return List of tasks that matches the keyword.
+     */
+    public String find(String keyword) {
+        String result = "";
+        int order = 1;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.search(keyword)) {
+                String text = task.stringify();
+                result += order + ". " + text + "\n";
+                order++;
+            }
+        }
+        return result;
+    }
 }

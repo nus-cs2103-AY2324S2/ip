@@ -40,7 +40,7 @@ public class Ui {
         System.out.println(taskName);
     }
 
-        public void showNumberOfRemainingTasks(int sizeOfTaskList) {
+    public void showNumberOfRemainingTasks(int sizeOfTaskList) {
         System.out.println("Now you have " + sizeOfTaskList + " tasks in the list.");
     }
 
@@ -48,4 +48,13 @@ public class Ui {
         System.out.println(errorMessage);
     }
 
+    /**
+     * Show the result that matches the searched keyword.
+     *
+     * @param result Tasks in the result.
+     */
+    public void showSearchResult(String result) {
+        System.out.println("Here are the matching tasks in your list:");
+        System.out.println(result);
+    }
 }

@@ -16,10 +16,11 @@ public class Parser {
             return new UnmarkCommand(input);
         } else if (input.startsWith("delete")) {
             return new DeleteCommand(input);
+        } else if (input.startsWith("find")) {
+            return new FindCommand(input);
         } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
             return new AddCommand(input);
-        }
-        else {
+        } else {
             throw new WeiException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }

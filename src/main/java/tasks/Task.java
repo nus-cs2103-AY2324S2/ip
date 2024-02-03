@@ -34,4 +34,16 @@ public class Task {
         return done + " | " + this.description;
     }
 
+    /**
+     * Searches for keyword in the task description.
+     *
+     * @param keyword Keyword.
+     * @return True if search matches, false otherwise.
+     */
+    public boolean search(String keyword) {
+        if (this.description.contains(keyword)) {
+            return true;
+        }
+        return false;
+    }
 }
