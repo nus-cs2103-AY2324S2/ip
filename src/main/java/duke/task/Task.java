@@ -17,6 +17,9 @@ public class Task {
     public void unmark(){
         this.isDone = false;
     }
+    public boolean contains(String keyword) {
+        return this.description.contains(keyword);
+    }
     @Override
     public String toString(){
         String output = "[" + this.getStatusIcon() + "] " + this.description;

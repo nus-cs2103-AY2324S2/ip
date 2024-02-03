@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Parser {
     public enum Cmd{
-        list, todo, deadline, event, mark, unmark, delete, bye, none;
+        list, todo, deadline, event, mark, unmark, delete, find, bye, none;
     }
     public static void initializeTask(String input, ArrayList<Task> taskList) {
         String[] data = input.split(" \\| ");
@@ -72,6 +72,9 @@ public class Parser {
                     LocalDateTime fromDate = LocalDateTime.parse(eventData2[0], formatter);
                     LocalDateTime toDate = LocalDateTime.parse(eventData2[1], formatter);
                     command = new AddEvent(Cmd.event, eventData[0], fromDate, toDate);
+                    break;
+                case find:
+                    command = new FindCommand(Cmd.find, cmds[1]);
                     break;
                 case delete:
                     command = new DeleteTask(Cmd.delete, Integer.parseInt(cmds[1]));

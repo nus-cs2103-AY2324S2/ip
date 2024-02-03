@@ -43,6 +43,15 @@ public class TaskList {
     public int getSize(){
         return this.listItems.size();
     }
+    public void search(String keyword) {
+        ArrayList<Task> searchResult = new ArrayList<>();
+        for(Task t : this.listItems){
+            if(t.contains(keyword)){
+                searchResult.add(t);
+            }
+        }
+        Ui.displaySelectedList(searchResult);
+    }
     @Override
     public String toString(){
         return "\tCurrently, the list comprises  " + listItems.size() + " tasks.";

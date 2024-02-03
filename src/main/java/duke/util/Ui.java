@@ -2,6 +2,8 @@ package duke.util;
 
 import duke.task.Task;
 
+import java.util.ArrayList;
+
 public class Ui {
     private String logo = "\t  __   __    ____  ____  ____  ____\n"
             + "\t / _\\ (  )  (  __)(  _ \\(  __)(    \\\n"
@@ -63,6 +65,14 @@ public class Ui {
             printMessageWithLines(message);
         }
     }
+    public static void displaySelectedList(ArrayList<Task> taskList) {
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\tHere are the corresponding tasks that align with your criteria:");
+        for(Task t: taskList){
+            System.out.println("\t" + t);
+        }
+        System.out.println("\t____________________________________________________________\n" );
+    }
     public static void informItemRemoved(Task task, int size){
         String message = "I acknowledge your update. The specified task has been duly removed:\n\t" + task + "\n\tCurrently, " +
                 "the list comprises " + size + " tasks.";
@@ -83,7 +93,8 @@ public class Ui {
                 "\t\tmark <index>: to mark the task at index no <index> in the list as complete\n" +
                 "\t\tunmark <index>: to mark the task at index no <index> in the last as incomplete\n" +
                 "\t\tdelete <index>: to remove the taks at index no <index> in the last\n" +
-                "\t\tbye: to leave the program";
+                "\t\tbye: to leave the program\n" +
+                "\t\tfind <keyword>: to find tasks with description that contains the keyword";
         printMessageWithLines(message);
     }
 
