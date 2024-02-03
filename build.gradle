@@ -43,3 +43,6 @@ shadowJar {
 run{
     standardInput = System.in
 }
+javadoc {
+    options.addStringOption('Xdoclint:none', '-quiet')
+}

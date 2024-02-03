@@ -5,11 +5,19 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * Parser class which coordinates the tasklist, screen and storage based on user input
+ * @author Cedric
+ */
 public class Parser {
     private TaskList taskList = new TaskList();
     private Ui screen = new Ui();
     private Storage storage = new Storage();
+    /**
+     * Constructor for Parser, when called, checks if data/data.txt exists then either creates it or uses the existing
+     * one to add information to the tasklist
+     * @throws DateTimeParseException unlikely to be thrown as lines in data.txt is written by the program itself
+     */
     public Parser() {
         storage.check();
         String currentLine;
@@ -115,6 +123,10 @@ public class Parser {
     public boolean isEnded() {
         return ended;
     }
+    /**
+     * receives new input from the user and interprets it, coordinating the information to tasklist, storage and ui
+     * @throws DateTimeParseException Thrown if an invalid date/time is input by user
+     */
     public void interpret() {
         String input = screen.receive();
         Matcher mMark = pMark.matcher(input);
@@ -261,9 +273,16 @@ public class Parser {
         }
 
     }
+    /**
+     * Trivial method to allow Duke class to access ui display();
+     * @param n Object to display in string form
+     */
     public void display(Object n) {
         screen.display(n);
     }
+    /**
+     * Trivial method to allow Duke class to access ui receive();
+     */
     public void receive() {
         screen.receive();
     }
