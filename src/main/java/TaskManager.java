@@ -12,8 +12,6 @@ import java.util.regex.Pattern;
 public class TaskManager {
     private ArrayList<Task> items;
     private boolean hasChanged = false;
-    private static final String INDENT = "   ";
-
     private static final String listingResponse = "Here are the tasks in your list:";
 
     //Strings for marking and unmarking
@@ -31,7 +29,8 @@ public class TaskManager {
         this.items = new ArrayList<>();
     }
 
-    public String addTask(Actions options, String instruction) throws DukeException {
+
+    public ArrayList<String> addTask(Actions options, String instruction) throws DukeException {
         Task item;
         String description;
         String by;
@@ -59,9 +58,10 @@ public class TaskManager {
                     throw new DukeException("by");
                 }
                 Optional<LocalDate> testDate = DateHandler.checkDate(by);
-                item = testDate.map(localDate -> new Deadline(description, LocalDateTime.of(localDate,
-                                        DateHandler.checkTime(by).orElse(LocalTime.of(0, 0)))))
-                                            .orElseGet(() -> new Deadline(description, by));
+                item = testDate.map(localDate -> new Deadline(description,
+                                LocalDateTime.of(localDate, DateHandler.checkTime(by)
+                                        .orElse(LocalTime.of(0, 0)))))
+                        .orElseGet(() -> new Deadline(description, by));
                 break;
             case EVENT:
                 Matcher eventMatch = eventFormat.matcher(instruction);
@@ -81,26 +81,34 @@ public class TaskManager {
                 }
                 Optional<LocalDate> testByDate = DateHandler.checkDate(by);
                 Optional<LocalDate> testFromDate = DateHandler.checkDate(from);
-                if (testByDate.isPresent() && testFromDate.isPresent()) {
-                    LocalTime testByTime = DateHandler.checkTime(by).orElse(LocalTime.of(0, 0));
-                    LocalTime testFromTime = DateHandler.checkTime(from).orElse(LocalTime.of(0, 0));
-
-                    item = new Event(description, LocalDateTime.of(testFromDate.get(), testFromTime),
-                            LocalDateTime.of(testByDate.get(), testByTime));
-                } else {
-                    item = new Event(description, from, by);
-                }
+                //This will only check a valid time after checking a valid date if not it will skip and use legacy stuff
+                Optional<LocalDateTime> combineByDate = testByDate.flatMap(byDate -> {
+                    LocalTime time = DateHandler.checkTime(by).orElse(LocalTime.of(0, 0));
+                    return Optional.of(LocalDateTime.of(byDate, time));
+                });
+                Optional<LocalDateTime> combineFromDate = testFromDate.flatMap(fromDate -> {
+                    LocalTime time = DateHandler.checkTime(from).orElse(LocalTime.of(0, 0));
+                    return Optional.of(LocalDateTime.of(fromDate, time));
+                });
+                item = combineByDate.flatMap(byDate ->
+                                combineFromDate.flatMap(fromDate ->
+                                        Optional.of(new Event(description, fromDate, byDate))))
+                        .orElseGet(() -> new Event(description, from, by));
                 break;
             default:
                 throw new DukeException("Invalid");
         }
         hasChanged = true;
         items.add(item);
-        return RESPONSE_ADD + "\n" + INDENT + item + "\n" + INDENT + numOfTask();
+        ArrayList<String> returnString = new ArrayList<>();
+        returnString.add(RESPONSE_ADD);
+        returnString.add(item.toString());
+        returnString.add(numOfTask());
+        return returnString;
 
     }
 
-    public String manageTask(Manage act, String instruction) throws DukeException {
+    public ArrayList<String> manageTask(Manage act, String instruction) throws DukeException {
         if (items.isEmpty()) {
             throw new DukeException("empty");
         }
@@ -131,11 +139,16 @@ public class TaskManager {
                 break;
         }
         hasChanged = true;
+        ArrayList<String> returnString = new ArrayList<>();
         if (act.equals(Manage.MARK) || act.equals(Manage.UNMARK)) {
-            return response + "\n" + INDENT + item;
+            returnString.add(response);
+            returnString.add(item.toString());
+            return returnString;
         } else {
-            //Should be delete bu default
-            return response + "\n" + INDENT + item + "\n" + INDENT + numOfTask();
+            returnString.add(response);
+            returnString.add(item.toString());
+            returnString.add(numOfTask());
+            return returnString;
         }
     }
 
@@ -223,24 +236,6 @@ public class TaskManager {
         }
         return item;
 
-    }
-
-    public void testDate(String date) throws DukeException {
-        Optional<LocalDate> print = DateHandler.checkDate(date);
-        if (print.isPresent()) {
-            System.out.println(print.get());
-        } else {
-            System.out.println("Invalid date");
-        }
-    }
-
-    public void testTime(String time) throws DukeException {
-        Optional<LocalTime> print = DateHandler.checkTime(time);
-        if (print.isPresent()) {
-            System.out.println(print.get());
-        } else {
-            System.out.println("Invalid time");
-        }
     }
 
     public void loadTasksFromFile(File file) {

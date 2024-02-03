@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 public class DateHandler {
 
     //Inspired from: https://www.baeldung.com/java-date-regular-expressions
