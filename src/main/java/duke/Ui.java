@@ -27,25 +27,26 @@ public class Ui {
      *          to operate on
      */
     public int[] analyseUserInput(String echo) {
-        int[] result = new int[] {0,0};
+        int[] results = new int[] {0,0};
 
         if (echo.equals("bye") || echo.equals("Bye")) {
-            result[0] = 1;
+            results[0] = 1;
         } else if (echo.equals("list") || echo.equals("List")) {
-            result[0] = 2;
+            results[0] = 2;
         } else if (echo.matches("mark -?[0-9]*")) {
-            result[0] = 3;
-            result[1] = parser.digOutInt(echo);
+            results[0] = 3;
+            results[1] = parser.digOutInt(echo);
         } else if (echo.matches("unmark -?[0-9]*")) {
-            result[0] = 4;
-            result[1] = parser.digOutInt(echo);
-        } else if (echo.matches("delete -?[0-9]*")){
-            result[0] = 5;
-            result[1] = parser.digOutInt(echo);
+            results[0] = 4;
+            results[1] = parser.digOutInt(echo);
+        } else if (echo.matches("delete -?[0-9]*")) {
+            results[0] = 5;
+            results[1] = parser.digOutInt(echo);
         } else {
-            result[0] = 6;
+            results[0] = 6;
         }
-        return result;
+
+        return results;
     }
 
     /**
@@ -57,15 +58,16 @@ public class Ui {
      */
     public Task analyseTask(String echo) throws DukeException {
         Task taskAdded = new Task("Error. Unable to retrieve Task.");
-        String[] result = parser.decryptInput(echo);
+        String[] results = parser.decryptInput(echo);
 
-        if(result[1] == null && result[2] == null){
-            taskAdded = new Todo(result[0]);
-        } else if (result[2] == null){
-            taskAdded = new Deadline(result[0], result[1]);
+        if(results[1] == null && results[2] == null) {
+            taskAdded = new Todo(results[0]);
+        } else if (results[2] == null) {
+            taskAdded = new Deadline(results[0], results[1]);
         } else {
-            taskAdded = new Event(result[0], result[1], result[2]);
+            taskAdded = new Event(results[0], results[1], results[2]);
         }
+
         return taskAdded;
     }
 }

@@ -11,8 +11,11 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task{
 
-    protected String by;
-    protected LocalDateTime converted;
+    /**
+     * A Deadline instance contains a do by time/date
+     */
+    private String by;
+    private LocalDateTime converted;
 
     /**
      * Constructor for a Deadline instance
@@ -35,6 +38,7 @@ public class Deadline extends Task{
     @Override
     public String toString() {
         DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+
         return "[D]" + super.toString() + " (by:" + this.converted.format(output) + ")";
     }
 

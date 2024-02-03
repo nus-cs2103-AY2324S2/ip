@@ -19,7 +19,7 @@ public class TaskList {
      *
      * @param  inputTaskArray an ArrayList<Task> to load in
      */
-    public TaskList(ArrayList<Task> inputTaskArray){
+    public TaskList(ArrayList<Task> inputTaskArray) {
         tasks = inputTaskArray;
     }
 
@@ -27,12 +27,12 @@ public class TaskList {
      * Constructor for a TaskList instance given no previous records
      *
      */
-    public TaskList(){
+    public TaskList() {
 
         tasks = new ArrayList<Task>();
     }
 
-    public int getSize(){
+    public int getSize() {
         return tasks.size();
     }
 
@@ -42,17 +42,20 @@ public class TaskList {
      * @return string representation of the taskList
      * @throws DukeException when taskList is empty
      */
-    public String showTasks() throws DukeException{
+    public String showTasks() throws DukeException {
         StringBuilder sb = new StringBuilder();
-        if(tasks.size() == 0){
+
+        if(tasks.size() == 0) {
             throw new DukeException("Add tasks to list first! Type something other than List/list or Bye/bye.\n");
         } else {
             System.out.println("Here are the tasks in your list:\n");
             sb.append("Here are the tasks in your list:\n\n");
+
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println(i+1 + "." + tasks.get(i).toString());
                 sb.append(i+1 + "." + tasks.get(i).toString() + "\n");
             }
+
             System.out.println();
             sb.append("\n");
         }
@@ -67,7 +70,7 @@ public class TaskList {
      * @throws DukeException when invalid Task number is given
      */
     public void markMechanism(int num) throws DukeException {
-        if(num <= tasks.size() && num > 0){
+        if(num <= tasks.size() && num > 0) {
             System.out.println(tasks.get(num-1).markAsDone());
         } else {
             throw new DukeException("Please mark a valid task!\n");
@@ -81,8 +84,8 @@ public class TaskList {
      * @param num index of Task in taskList to unmark
      * @throws DukeException when invalid Task number is given
      */
-    public void unmarkMechanism(int num) throws DukeException{
-        if(num <= tasks.size() && num > 0){
+    public void unmarkMechanism(int num) throws DukeException {
+        if(num <= tasks.size() && num > 0) {
             System.out.println(tasks.get(num-1).unMarkTask());
         } else {
             throw new DukeException("Please mark a valid task!\n");
@@ -117,7 +120,9 @@ public class TaskList {
     public Task deleteMechanism(int num) throws IndexOutOfBoundsException {
         Task removed = new Task("Task to be deleted");
         removed = tasks.remove(num - 1);
-        System.out.println("Very well. I have removed this task.\n" + removed
+
+        System.out.println("Very well. I have removed this task.\n"
+                + removed
                 + "\nNow you have " + tasks.size()
                 + " task(s) in the list.\n");
 
