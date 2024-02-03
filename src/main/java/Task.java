@@ -3,6 +3,7 @@ abstract class Task {
     protected Boolean done;
     protected final String name;
     protected Type type;
+    protected String file_format;
     enum Type {
         T,D,E;
 
@@ -12,10 +13,11 @@ abstract class Task {
         }
     }
 
-    Task(String name, Type type) {
+    Task(String name, Type type, String file_format) {
         this.done = false;
         this.name = name;
         this.type = type;
+        this.file_format = file_format;
     }
 
     // Mark task as done
@@ -30,6 +32,5 @@ abstract class Task {
     public String getName() {
         return this.name;
     }
-
 
 }
