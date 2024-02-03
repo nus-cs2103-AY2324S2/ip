@@ -20,8 +20,8 @@ public class IOHandler {
     public void displaySearchResults(ArrayList<Task> list) {
         divider();
         System.out.println("Here are the matching tasks in your list: ");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(i+1 + "." + list.get(i));
+        for (int j = 0; j < list.size(); j++) {
+            System.out.println(j+1 + "." + list.get(j));
         }
         divider();
     }
