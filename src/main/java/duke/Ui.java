@@ -2,6 +2,11 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * Manages the user interface for the Duke application. This class handles input
+ * and output, displaying
+ * greetings, errors, and other messages to the user.
+ */
 public class Ui {
     private static final String LINE = "\t____________________________________________________________\n";
     private String hello = Ui.LINE + "\tHello! I'm %s\n" + "\tWhat can I do for you?\n" + Ui.LINE;
@@ -10,25 +15,42 @@ public class Ui {
     private Storage storage = null;
     private TaskList taskList = null;
 
+    /**
+     * Manages the user interface for the Duke application. This class handles input
+     * and output, displaying
+     * greetings, errors, and other messages to the user.
+     */
     Ui(String name, Storage storage, TaskList taskList) {
         this.storage = storage;
         this.taskList = taskList;
         this.hello = String.format(this.hello, name);
     }
 
+    /**
+     * Displays a message indicating an error loading tasks.
+     */
     public void showLoadingError() {
         System.out.println("Error loading tasks!");
     }
 
+    /**
+     * Displays the welcome message to the user.
+     */
     public void showWelcome() {
         System.out.println(this.hello);
     }
 
+    /**
+     * Displays the goodbye message to the user.
+     */
     public void showGoodbye() {
         System.out.println(this.goodbye);
     }
 
-    // Level 2 onwards
+    /**
+     * Initiates the main application loop, handling user input and coordinating
+     * responses.
+     */
     public void start() {
         System.out.println(this.hello);
         this.storage.loadTasks();
@@ -86,6 +108,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints a message indicating the user has entered an invalid command.
+     */
     public static void printInvalid() {
         System.out.println("\tOOPS!!! That is not a valid command! "
                 + "Try the following: \n"

@@ -4,8 +4,21 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses user input into commands for the Duke application.
+ * This class provides static methods to interpret user input and create tasks
+ * based on that input.
+ */
 public class Parser {
 
+    /**
+     * Parses the given input string into a {@link ParsedCommand} object.
+     * The method identifies the type of command and extracts necessary information
+     * from the input.
+     *
+     * @param input The user input string to parse.
+     * @return A {@link ParsedCommand} object representing the parsed command.
+     */
     public static ParsedCommand parse(String input) {
         if (input.replaceAll("\\s", "").equals("")) {
             System.out.println("\tTask should not be empty!");
@@ -37,39 +50,83 @@ public class Parser {
         }
     }
 
+    /**
+     * Represents a parsed command, encapsulating the command type, input string, and any task number associated with it.
+     * This class is used to hold the result of parsing a user input command within the Parser class.
+     */
     public static class ParsedCommand {
-        private final CommandType commandType;
-        private final String input;
-        private final int taskNumber;
-
-        // Constructor for commands with details
+        private final CommandType commandType; // The type of command parsed from the input.
+        private final String input; // The input string containing task details, if applicable.
+        private final int taskNumber; // The task number associated with the command, if applicable.
+    
+        /**
+         * Constructor for commands that include task details but no task number.
+         * This constructor is typically used for commands that create or modify tasks based on textual input.
+         *
+         * @param commandType The type of command, as determined by the parser.
+         * @param input The input string containing task details. This could include task descriptions
+         *              or additional information required to perform the command.
+         */
         public ParsedCommand(CommandType commandType, String input) {
             this.commandType = commandType;
             this.input = input;
-            this.taskNumber = -1;
+            this.taskNumber = -1; // Indicates that no task number is associated with this command.
         }
-
-        // Constructor for commands with a task number
+    
+        /**
+         * Constructor for commands that are associated with a specific task number.
+         * This constructor is used for commands that operate on an existing task, identified by its number.
+         *
+         * @param commandType The type of command, such as MARK, UNMARK, or DELETE.
+         * @param taskNumber The number of the task to which the command applies.
+         */
         public ParsedCommand(CommandType commandType, int taskNumber) {
             this.commandType = commandType;
             this.taskNumber = taskNumber;
-            this.input = null;
+            this.input = null; // Indicates that no detailed input string is associated with this command.
         }
-
-        // Getters
+    
+        /**
+         * Gets the type of the command.
+         *
+         * @return The CommandType representing the type of command.
+         */
         public CommandType getCommandType() {
             return commandType;
         }
-
-        public String getinput() {
+    
+        /**
+         * Gets the input string containing task details.
+         * This method returns the original input string used to create or modify a task.
+         * It is only applicable for commands that include such details.
+         *
+         * @return The input string containing task details, or null if not applicable.
+         */
+        public String getInput() {
             return input;
         }
-
+    
+        /**
+         * Gets the task number associated with the command.
+         * This method returns the number of the task to which the command applies.
+         * It is only applicable for commands that operate on an existing task.
+         *
+         * @return The task number, or -1 if no task number is associated with this command.
+         */
         public int getTaskNumber() {
             return taskNumber;
         }
     }
+    
 
+    /**
+     * Creates a {@link Task} object based on the given command type and input.
+     * This method supports creation of Todo, Deadline, and Event tasks.
+     *
+     * @param command The command type indicating which kind of task to create.
+     * @param input   The user input string containing task details.
+     * @return A {@link Task} object or {@code null} if task creation fails.
+     */
     public static Task createTask(CommandType command, String input) {
         String[] parts = input.split(" ", 2);
         Task newTask = null;
@@ -129,6 +186,13 @@ public class Parser {
         return newTask;
     }
 
+    /**
+     * Parses a date string into a {@link LocalDate} object.
+     * The method expects a date string in "yyyy-MM-dd" format.
+     *
+     * @param dateStr The date string to parse.
+     * @return A {@link LocalDate} object or {@code null} if parsing fails.
+     */
     private static LocalDate parseDate(String dateStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
