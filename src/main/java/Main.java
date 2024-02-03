@@ -11,24 +11,24 @@ import duke.Duke;
  * database.
  */
 public class Main {
-  public static void main(String[] args) {
-    Config cfg = new Config();
+    public static void main(String[] args) {
+        Config cfg = new Config();
 
-    try {
-      Database db = new Database();
-      db.connect(cfg);
-      db.autoMigrate();
+        try {
+            Database db = new Database();
+            db.connect(cfg);
+            db.autoMigrate();
 
-      Duke app = new Duke(cfg.APP_NAME);
-      app.run();
+            Duke app = new Duke(cfg.appName);
+            app.run();
 
-      db.disconnect();
-    } catch (SQLException e) {
-      System.out.println("Something went wrong while connecting and migrating the database:");
-      throw new RuntimeException(e.getMessage()); // we should not continue if we cannot connect to the database
-    } catch (Exception e) {
-      System.out.println("Something went wrong while loading the app:");
-      System.out.println(e.getMessage());
+            db.disconnect();
+        } catch (SQLException e) {
+            System.out.println("Something went wrong while connecting and migrating the database:");
+            throw new RuntimeException(e.getMessage()); // we should not continue if we cannot connect to the database
+        } catch (Exception e) {
+            System.out.println("Something went wrong while loading the app:");
+            System.out.println(e.getMessage());
+        }
     }
-  }
 }
