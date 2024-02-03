@@ -149,8 +149,6 @@ class Todo implements Activity {
         act.add(name); // Task name
     }
 
-
-
     @Override
     public void printActivity() {
         System.out.format("\t\t [T][%s]%s%n", act.get(0), act.get(1));
