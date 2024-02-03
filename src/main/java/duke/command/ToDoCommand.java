@@ -5,7 +5,6 @@ import java.io.IOException;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.task.ToDo;
-import duke.ui.Ui;
 
 /**
  * Class to run the ToDo Command.
@@ -29,8 +28,9 @@ public class ToDoCommand extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) throws IOException, CommandException {
-        ui.showMessage(taskList.addTask(new ToDo(this.toDoDescription)));
+    public String run(TaskList taskList, Storage storage) throws IOException, CommandException {
+        String message = taskList.addTask(new ToDo(this.toDoDescription));
         storage.save(taskList.toDataString());
+        return message;
     }
 }

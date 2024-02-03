@@ -54,8 +54,9 @@ public class TaskListTest {
         try {
             this.taskList.markTask(1);
             this.taskList.unmarkTask(1);
-            assertEquals("Here are your list of tasks:\n    "
-                    + "1.[D][ ] task 2 (by: Sunday, January 28, 2024, 1:00 PM)", this.taskList.listTasks());
+            assertEquals("Here are your list of tasks:\n"
+                    + "    1.[D][ ] task 2\n"
+                    + "    (By Sunday, January 28, 2024, 1:00 PM)", this.taskList.listTasks());
         } catch (Exception e) {
             fail();
         }

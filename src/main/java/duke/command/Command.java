@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import duke.storage.Storage;
 import duke.task.TaskList;
-import duke.ui.Ui;
 
 /**
  * Base class for all Command types.
@@ -16,12 +15,12 @@ public abstract class Command {
      * Runs given command based on command type.
      *
      * @param taskList TaskList to execute command on.
-     * @param ui UI to output feedback.
-     * @param storage Storage that saves respective data.
+     * @param storage  Storage that saves respective data.
+     * @return Response after command has finished running.
      * @throws IOException Exception on failure in writing data to saved data.
      * @throws CommandException Exception if Command cannot run due to unexpected input.
      */
-    public abstract void run(TaskList taskList, Ui ui, Storage storage) throws IOException, CommandException;
+    public abstract String run(TaskList taskList, Storage storage) throws IOException, CommandException;
 
     public boolean isExit() {
         return false;

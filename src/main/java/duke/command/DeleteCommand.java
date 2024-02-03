@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import duke.storage.Storage;
 import duke.task.TaskList;
-import duke.ui.Ui;
 
 /**
  * Class to run Delete Command.
@@ -30,8 +29,9 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) throws IOException, CommandException {
-        ui.showMessage(taskList.deleteTask(this.indexToDelete));
+    public String run(TaskList taskList, Storage storage) throws IOException, CommandException {
+        String message = taskList.deleteTask(this.indexToDelete);
         storage.save(taskList.toDataString());
+        return message;
     }
 }

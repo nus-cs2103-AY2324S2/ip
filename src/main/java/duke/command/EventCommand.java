@@ -8,7 +8,6 @@ import duke.storage.Storage;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.ui.Ui;
 
 /**
  * Class to run Event Command.
@@ -43,8 +42,9 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void run(TaskList taskList, Ui ui, Storage storage) throws IOException, CommandException {
-        ui.showMessage(taskList.addTask(new Event(this.eventDescription, this.eventFrom, this.eventTo)));
+    public String run(TaskList taskList, Storage storage) throws IOException, CommandException {
+        String message = taskList.addTask(new Event(this.eventDescription, this.eventFrom, this.eventTo));
         storage.save(taskList.toDataString());
+        return message;
     }
 }
