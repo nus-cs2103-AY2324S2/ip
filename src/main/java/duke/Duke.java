@@ -38,6 +38,7 @@ public class Duke {
             if (!cmd[0].equalsIgnoreCase("bye")) {
                 parser.parse(input);
             } else {
+                parser.saveAllTasks();
                 ui.defaultExit();
                 break;
             }
@@ -49,7 +50,7 @@ public class Duke {
     /**
      * The entry point of the Duke application.
      *
-     * @param args Command-line arguments (not used in this application).
+     * @param args default command-line arguments
      */
     public static void main(String[] args) {
         new Duke().run();

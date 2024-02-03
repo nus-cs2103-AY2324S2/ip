@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.ui.Ui;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,9 +11,6 @@ import java.util.ArrayList;
  * marking as complete or incomplete, and displaying tasks.
  */
 public class TaskManager {
-    private static final String INDENTATION = "      ";
-    private static final String LINE = "    --------------------------------------------" +
-            "---------------------------------------------";
     TaskDisplay taskDisplay = new TaskDisplay();
     FileManager fileManager;
 
@@ -67,6 +66,18 @@ public class TaskManager {
         }
     }
 
+    public List<Task> findTask(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : taskList) {
+            if (task.getTaskDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+
+        return matchingTasks;
+    }
+
     /**
      * Deletes the task at the specified index from the task list.
      * Automatically saves the updated task list.
@@ -90,22 +101,22 @@ public class TaskManager {
      * Automatically saves the updated task list.
      */
     public void deleteAllTasks() {
-        System.out.println(LINE);
+        System.out.println(Ui.LINE);
         try {
             if (taskList.isEmpty()) {
-                System.out.println(INDENTATION + " No tasks to delete. " +
+                System.out.println(Ui.INDENTATION + " No tasks to delete. " +
                         "Your task list is already empty.");
                 return;
             }
 
             taskList.clear();
-            System.out.println(INDENTATION + " okay, noted. I've removed " +
+            System.out.println(Ui.INDENTATION + " okay, noted. I've removed " +
                     "all tasks from the list.");
             autoSaveTask();
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println(LINE);
+        System.out.println(Ui.LINE);
     }
 
     /**

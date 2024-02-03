@@ -1,17 +1,24 @@
 package duke.command;
 
 import duke.conversation.Conversation;
+import duke.task.Task;
+import duke.task.TaskDisplay;
 import duke.task.TaskManager;
 import duke.task.TaskType;
+import duke.ui.Ui;
+
+import java.util.List;
 
 /**
  * The Parser class is responsible for parsing user commands and interacting with the TaskManager.
  * It interprets the input commands and executes corresponding actions.
  */
 public class Parser {
-    private TaskManager taskManager;
-    private Conversation conversation;
+    TaskManager taskManager;
+    Conversation conversation;
     private final String username;
+
+    TaskDisplay taskDisplay = new TaskDisplay();
 
     private static final String DELETE_ALL_COMMAND = "delete all";
 
@@ -24,7 +31,6 @@ public class Parser {
         taskManager = new TaskManager(username);
         conversation = new Conversation(username);
         this.username = username;
-        taskManager.autoSaveTask();
     }
 
     /**
@@ -42,6 +48,9 @@ public class Parser {
         }
 
         switch (userMessage[0].toLowerCase()) {
+            case "find":
+                handleFindCommand(userMessage, taskManager);
+                break;
             case "list":
                 taskManager.displayTask(input);
                 break;
@@ -99,6 +108,32 @@ public class Parser {
         taskManager.deleteTask(Integer.parseInt(userMessage[1]) - 1);
     }
 
+    private void handleFindCommand(String[] userMessage, TaskManager taskManager) {
+        if (userMessage.length == 1) {
+            System.out.println(Ui.LINE);
+            System.out.println(Ui.INDENTATION + "Can you specify a keyword after the find command" +
+                    "so that I can help you better?");
+            System.out.println(Ui.LINE);
+            return;
+        }
+
+        String keyword = userMessage[1];
+        List<Task> matchingTasks = taskManager.findTask(keyword);
+
+        if (matchingTasks.isEmpty()) {
+            System.out.println(Ui.LINE);
+            System.out.println(Ui.INDENTATION + "I don't think there is anything in your list " +
+                    "that matches: " + keyword);
+            System.out.println(Ui.LINE);
+        } else {
+            taskDisplay.printFindTaskList(matchingTasks);
+        }
+    }
+
+    public void saveAllTasks() {
+        taskManager.autoSaveTask();
+    }
+
     /**
      * Checks if a given string is numeric.
      *
@@ -120,12 +155,12 @@ public class Parser {
      * @param input The input command causing the error.
      */
     private void printError(String input) {
-        System.out.println(TaskManager.LINE);
-        System.out.println(TaskManager.INDENTATION + "Sorry " + username + ", the TASK NUMBER " +
+        System.out.println(Ui.LINE);
+        System.out.println(Ui.INDENTATION + "Sorry " + username + ", the TASK NUMBER " +
                 "is missing after " + input.toLowerCase() + ".");
-        System.out.println(TaskManager.INDENTATION + "Can you please specify a valid task number" +
+        System.out.println(Ui.INDENTATION + "Can you please specify a valid task number" +
                 " from the list?");
-        System.out.println(TaskManager.LINE);
+        System.out.println(Ui.LINE);
     }
 }
 

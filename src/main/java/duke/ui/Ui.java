@@ -7,15 +7,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
-
-    private static final String INDENTATION = "      ";
-    private static final String LINE = "    --------------------------------------" +
-            "---------------------------------------------------";
-    private static final String CHAT_BOT_NAME = "Sophia";
     private static final Scanner scanner = new Scanner(System.in);
-    public static String username;
+
+    // Default names and reserved commands
+    private static String username;
+    private static final String CHAT_BOT_NAME = "Sophia";
     private static final List<String> reservedCommands = Arrays.asList("list", "mark", "unmark",
             "todo", "deadline", "event", "delete", "delete all");
+
+    // Common ui elements
+    public static final String INDENTATION = "      ";
+    public static final String LINE = "    --------------------------------------" +
+            "---------------------------------------------------";
 
     public Ui() {
     }
