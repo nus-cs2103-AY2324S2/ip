@@ -84,7 +84,7 @@ public class Parser {
         case "mark":
             int taskNum = Integer.parseInt(argument);
             if (taskNum > tasks.size()) {
-                return ("Uh oh, we do not have a task assigned to that number.");
+                return "Uh oh, we do not have a task assigned to that number.";
             } else {
                 Task completed = tasks.get(taskNum - 1);
                 return completed.markAsDone();
@@ -93,7 +93,7 @@ public class Parser {
         case "unmark":
             int taskNumber = Integer.parseInt(argument);
             if (taskNumber > tasks.size()) {
-                return ("Uh oh, we do not have a task assigned to that number.");
+                return "Uh oh, we do not have a task assigned to that number.";
             } else {
                 Task missing = tasks.get(taskNumber - 1);
                 return missing.markAsUndone();
@@ -104,7 +104,7 @@ public class Parser {
             ArrayList<Task> matchingTasks = tasks.findTasksByKeyword(searchKeyword);
 
             if (matchingTasks.isEmpty()) {
-                return ("Aww, there are no tasks that contains that keyword.");
+                return "Aww, there are no tasks that contains that keyword.";
             } else {
                 StringBuilder printTask = new StringBuilder("Matching tasks:\n");
                 for (Task task : matchingTasks) {
