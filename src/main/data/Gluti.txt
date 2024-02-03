@@ -1,4 +1,5 @@
 [D][X] meeting (by: Nov 11 2013)
-[D][ ] meeting (by: Dec 29 2023)
+[D][X] meeting (by: Dec 29 2023)
 [T][ ] meeting
 [T][X] meeting
+[T][ ] meeting

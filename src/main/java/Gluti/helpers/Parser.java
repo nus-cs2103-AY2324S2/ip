@@ -3,6 +3,7 @@ package Gluti.helpers;
 import Gluti.utils.*;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 /**
  * An Interface to interpret user input and call relevant functions
@@ -11,14 +12,15 @@ import java.util.ArrayList;
 public class Parser {
     private FileStorage fstorage;
     private boolean isExit;
-
+    private Consumer<String> uiMessageCallback;
     /**
      * Initialises a Parser instance
      * @param fstorage loads and writes tasks from/to data
      */
-    public Parser(FileStorage fstorage) {
+    public Parser(FileStorage fstorage, Consumer<String> uiMessageCallback) {
         this.fstorage = fstorage;
         this.isExit = false;
+        this.uiMessageCallback = uiMessageCallback;
     }
 
     /**
@@ -31,26 +33,30 @@ public class Parser {
 
     /**
      * Parsers the user inputs and perform relevant tasks accordingly
+     *
      * @param word The line read from user input
+     * @return
      * @throws GlutiException Caught exceptions from Tasks subclasses
      */
-    public void parse(String word) throws GlutiException {
+    public String parse(String word) throws GlutiException {
         ArrayList<Task> storage = fstorage.readList();
         String function = word.split(" ")[0].toLowerCase();
             String[] input = word.split(" ");
             function = input[0].toLowerCase();
             switch (function) {
                 case "bye":
+                    String end = "Bye. Hope to see you again soon!";
                     this.isExit = true;
+                    sendMessageToUI(end);
                     break;
                 case "list":
                     int num = 1;
                     if (!storage.isEmpty()) {
                         for (Task x : storage) {
-                            System.out.println(num++ + "." + x.toString());
+                            sendMessageToUI(num++ + "." + x.toString());
                         }
                     } else {
-                        System.out.println("List is Empty!");
+                        sendMessageToUI("List is Empty!");
                     }
                     break;
                 case "mark":
@@ -58,7 +64,7 @@ public class Parser {
                     try {
                         storage.get(index - 1).setDone();
                         Task task = storage.get(index - 1);
-                        System.out.println("Nice! I've marked this task as done:\n" +
+                        sendMessageToUI("Nice! I've marked this task as done:\n" +
                                 task.toString());
                     } catch (IndexOutOfBoundsException e) {
                         throw new GlutiException("Make sure that you have selected the correct task!");
@@ -69,7 +75,7 @@ public class Parser {
                     try {
                         storage.get(index - 1).setunDone();
                         Task task = storage.get(index - 1);
-                        System.out.println("OK, I've marked this task as not done yet:\n" +
+                        sendMessageToUI("OK, I've marked this task as not done yet:\n" +
                                 task.toString());
                     } catch (IndexOutOfBoundsException e) {
                         throw new GlutiException("Make sure that you have selected the correct task!");
@@ -81,9 +87,9 @@ public class Parser {
                         assert tempinput.length > 2;
                         Todo toDo = new Todo(tempinput[1]);
                         storage.add(toDo);
-                        System.out.println("Got it. I've added this task:\n" +
+                        sendMessageToUI("Got it. I've added this task:\n" +
                                 toDo);
-                        System.out.println("Now you have " + storage.size() + " tasks in the list.");
+                        sendMessageToUI("Now you have " + storage.size() + " tasks in the list.");
                     } catch (ArrayIndexOutOfBoundsException e){
                         throw new GlutiException("Todo must have a description!");
                     }
@@ -97,9 +103,9 @@ public class Parser {
                         String[] period = tempinpute[1].split("/from",2)[1].split("/to",2);
                         Event event = new Event(description, period);
                         storage.add(event);
-                        System.out.println("Got it. I've added this task:\n" +
+                        sendMessageToUI("Got it. I've added this task:\n" +
                                 event);
-                        System.out.println("Now you have " + storage.size() + " tasks in the list.");
+                        sendMessageToUI("Now you have " + storage.size() + " tasks in the list.");
                     } catch (IndexOutOfBoundsException e) {
                         throw new GlutiException("Event must be in this format event <description> /from <date+time> /to <time>");
                     }
@@ -114,9 +120,9 @@ public class Parser {
                         String time = tempinputd[1].split("/by", 2)[1];
                         Deadline deadline = new Deadline(description, time);
                         storage.add(deadline);
-                        System.out.println("Got it. I've added this task:\n" +
+                        sendMessageToUI("Got it. I've added this task:\n" +
                                 deadline);
-                        System.out.println("Now you have " + storage.size() + " tasks in the list.");
+                        sendMessageToUI("Now you have " + storage.size() + " tasks in the list.");
                     } catch (IndexOutOfBoundsException e) {
                         throw new GlutiException("Deadline must be in this format <description> /by <date+time>");
                     }
@@ -126,9 +132,9 @@ public class Parser {
                     try {
                         Task task = storage.get(index - 1);
                         storage.remove(index - 1);
-                        System.out.println("Noted. I've removed this task:\n" +
+                        sendMessageToUI("Noted. I've removed this task:\n" +
                                 task.toString());
-                        System.out.println("Now you have " + storage.size() + " tasks in the list.");
+                        sendMessageToUI("Now you have " + storage.size() + " tasks in the list.");
                     } catch (IndexOutOfBoundsException e) {
                         throw new GlutiException("Make sure that you have selected the correct task!");
                     }
@@ -142,12 +148,12 @@ public class Parser {
                         }
                     }
                     if (matchlist.isEmpty()) {
-                        System.out.println("No matching tasks!");
+                        sendMessageToUI("No matching tasks!");
                     } else {
-                        System.out.println("Here are the matching tasks in your list:");
+                        sendMessageToUI("Here are the matching tasks in your list:");
                         int count = 1;
                         for (Task y : matchlist) {
-                            System.out.println(count++ + "." + y);
+                            sendMessageToUI(count++ + "." + y);
                         }
                     }
                     break;
@@ -156,5 +162,12 @@ public class Parser {
             }
         //}
         fstorage.saveList(storage);
+        return "";
+    }
+
+    private void sendMessageToUI(String message) {
+        if (uiMessageCallback != null) {
+            uiMessageCallback.accept(message);
+        }
     }
     };
