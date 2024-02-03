@@ -43,7 +43,7 @@ public class Parser {
         return new CommandUnmark(taskIndex);
     }
 
-    private static Command parseCommandTodo(String[] args) throws EmptyDescriptionException {
+    private static Command parseCommandTodo(String[] args) throws DukeException {
         String[] taskArgs = Arrays.copyOfRange(args, 1, args.length);
         String description = String.join(" ", taskArgs);
 
@@ -52,7 +52,7 @@ public class Parser {
         return new CommandTodo(todo);
     }
 
-    private static Command parseCommandDeadline(String[] args) throws EmptyDescriptionException {
+    private static Command parseCommandDeadline(String[] args) throws DukeException {
         String[] taskArgs = Arrays.copyOfRange(args, 1, args.length);
         String byDelim = "/by";
 
@@ -69,7 +69,7 @@ public class Parser {
         return new CommandDeadline(deadline);
     }
 
-    private static Command parseCommandEvent(String[] args) throws EmptyDescriptionException {
+    private static Command parseCommandEvent(String[] args) throws DukeException {
         String[] taskArgs = Arrays.copyOfRange(args, 1, args.length);
         String fromDelim = "/from";
         String toDelim = "/to";

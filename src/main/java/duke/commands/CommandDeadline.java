@@ -1,10 +1,9 @@
 package duke.commands;
 
-import java.io.IOException;
-
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.exceptions.DukeException;
 import duke.tasks.Deadline;
 
 public class CommandDeadline extends Command {
@@ -15,7 +14,7 @@ public class CommandDeadline extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.add(this.deadline);
 
         storage.saveTasks(tasks);

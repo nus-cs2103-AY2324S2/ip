@@ -1,10 +1,9 @@
 package duke.commands;
 
-import java.io.IOException;
-
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.exceptions.DukeException;
 import duke.tasks.Event;
 
 public class CommandEvent extends Command {
@@ -15,7 +14,7 @@ public class CommandEvent extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.add(this.event);
 
         storage.saveTasks(tasks);

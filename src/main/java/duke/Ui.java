@@ -25,10 +25,6 @@ public class Ui {
         this.showMessage(error);
     }
 
-    public void showLoadingError() {
-        this.showMessage("Failed to load tasks.");
-    }
-
     public void showMessage(String message) {
         this.showLine();
         System.out.println(message);

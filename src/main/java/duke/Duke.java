@@ -24,8 +24,8 @@ public class Duke {
 
         try {
             this.tasks = new TaskList(this.storage.loadTasks());
-        } catch (DukeException | IOException e) {
-            this.ui.showLoadingError();
+        } catch (DukeException dukeException) {
+            this.ui.showError(dukeException.getMessage());
             this.tasks = new TaskList();
         }
     }
@@ -41,8 +41,8 @@ public class Duke {
                 command.execute(tasks, ui, storage);
 
                 isExit = command.isExit();
-            } catch (DukeException | IOException e) {
-                ui.showError(e.getMessage());
+            } catch (DukeException dukeException) {
+                ui.showError(dukeException.getMessage());
             }
         }
     }
