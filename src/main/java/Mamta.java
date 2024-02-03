@@ -8,6 +8,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Mamta {
     private static final ArrayList<Task> history = new ArrayList<Task>();
@@ -128,7 +131,7 @@ public class Mamta {
             output.append(task.toString()).append("\n");
         }
         //save the output
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
             writer.write(String.valueOf(output));
             System.out.println("String has been successfully saved to the file.");
         } catch (IOException e) {
@@ -149,6 +152,9 @@ public class Mamta {
 
         String relativeFilePath = "./data/mamtainput.txt";
         Mamta.loadTaskData(relativeFilePath); //loads tasks from file
+
+
+
 
         try (Scanner scanner = new Scanner(new File("./text-ui-test/input.txt"))) {
             while (scanner.hasNextLine()) {

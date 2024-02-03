@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class Event extends Task {
     private final String startTime;
     private final String endTime;
@@ -8,15 +10,38 @@ public class Event extends Task {
             this.startTime = String.valueOf(MamtaException.invalidDates());
             this.endTime = "";
         } else {
-            this.startTime = startTime;
-            this.endTime = endTime;
+            this.startTime = transformDates(startTime);
+            this.endTime = transformDates(endTime);
         }
     }
 
     Event(boolean isComplete, String content, String startTime, String endTime) {
         super(isComplete, content);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = transformDates(startTime);
+        this.endTime = transformDates(endTime);
+    }
+
+    public String transformDates(String deadline) {
+        String year = "";
+        String month = "";
+        String day = "";
+        String time = "";
+        try {
+            String[] splitOutput = deadline.split("-");
+            for (String s : splitOutput) {
+                year = splitOutput[0];
+                month = splitOutput[1];
+                day = splitOutput[2].split(" ")[0];
+                time = splitOutput[2].split(" ")[1];
+            }
+            LocalDate date = LocalDate.parse(String.format("%s-%s-%s", year, month, day));
+            year = String.valueOf(date.getYear());
+            month = String.valueOf(date.getMonth());
+            day = String.valueOf(date.getDayOfMonth());
+            return String.format("%s %s %s %s", month, day, year, time);
+        } catch (Exception e) {
+            return deadline;
+        }
     }
 
     @Override
@@ -30,9 +55,9 @@ public class Event extends Task {
 
     public String toString() {
         if (this.isComplete) {
-            return String.format("E|X|%s|%s|%s)", this.content, this.startTime, this.endTime);
+            return String.format("E|X|%s|%s|%s", this.content, this.startTime, this.endTime);
         } else {
-            return String.format("E| |%s|%s|%s)", this.content, this.startTime, this.endTime);
+            return String.format("E| |%s|%s|%s", this.content, this.startTime, this.endTime);
         }
     }
 
