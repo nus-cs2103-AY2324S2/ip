@@ -1,14 +1,14 @@
 package duke.tasklist;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import duke.dukeexception.DukeException;
 import duke.dukeexception.DukeTaskNotFound;
 import duke.task.Task;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 public class TaskList {
-    ArrayList<Task> list;
+    private ArrayList<Task> list;
 
     public TaskList() {
         list = new ArrayList<>();
@@ -68,12 +68,12 @@ public class TaskList {
         }
     }
 
-    public String check(LocalDate date) throws DukeException {
+    public String check(LocalDate date) {
         String output = String.format("Tasks on %s:", date) + System.lineSeparator();
         for (Task item : list) {
             output += item.happenOn(date);
         }
-            return output;
+        return output;
 
     }
 

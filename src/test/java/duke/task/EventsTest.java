@@ -1,16 +1,16 @@
 package duke.task;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.Test;
 
 public class EventsTest {
-    LocalDateTime from = LocalDateTime.of(2024,1,1,0,0);
-    LocalDateTime to = LocalDateTime.of(2024,1,30,23,59);
-    Events test = new Events("Test",  from, to, false);
+    private LocalDateTime from = LocalDateTime.of(2024, 1, 1, 0, 0);
+    private LocalDateTime to = LocalDateTime.of(2024, 1, 30, 23, 59);
+    private Events test = new Events("Test", from, to, false);
 
     @Test
     public void testSaveOutput() {

@@ -1,9 +1,9 @@
 package duke.task;
 
+import java.time.LocalDate;
+
 import duke.dukeexception.DukeCannotBeMarked;
 import duke.dukeexception.DukeCannotBeUnmarked;
-
-import java.time.LocalDate;
 
 
 public class Task {

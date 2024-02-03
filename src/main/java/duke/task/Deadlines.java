@@ -3,8 +3,7 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-public class Deadlines extends Task{
-    private Task task;
+public class Deadlines extends Task {
     private LocalDateTime by;
     public Deadlines(String name, LocalDateTime by, Boolean status) {
         super(name, status);

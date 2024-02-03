@@ -15,7 +15,7 @@ public class UnmarkCommand extends Command {
     }
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (inputs.isEmpty()) {
-            throw new DukeMissingArgument(1,"unmark");
+            throw new DukeMissingArgument(1, "unmark");
         }
         try {
             int index = Integer.valueOf(inputs);

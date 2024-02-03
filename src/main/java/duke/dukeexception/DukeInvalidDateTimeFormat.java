@@ -1,7 +1,7 @@
 package duke.dukeexception;
 
-public class DukeInvalidDateTimeFormat extends DukeException{
-    String timeFormat;
+public class DukeInvalidDateTimeFormat extends DukeException {
+    private String timeFormat;
     public DukeInvalidDateTimeFormat(String timeFormat) {
         super();
         this.timeFormat = timeFormat;
