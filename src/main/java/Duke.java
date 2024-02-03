@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -92,31 +94,42 @@ public class Duke {
                 break;
             case "deadline":
                 String deadlineName;
-                String by;
+                LocalDate by;
+                Task deadline;
                 try {
                     String[] d = details.split("/by");
                     if (d.length == 1) {
                         throw new DukeException("Invalid deadline task!");
                     }
                     deadlineName = d[0].trim();
-                    by = d[1].trim();
-
+                    by = LocalDate.parse(d[1].trim());
+                    deadline = new Deadline(deadlineName, by);
                 } catch (DukeException e) {
                     output = e.toString();
                     break;
+                } catch (DateTimeParseException e) {
+                    output = "Please specify the correct format date: yyyy-mm-dd";
+                    break;
                 }
-                Task deadline = new Deadline(deadlineName, by);
                 addItem(deadline);
                 output = "added deadline: " + deadline.toString();
                 break;
             case "event":
                 String eventName = details.split("/from ")[0].trim();
-                String from = details.split("/from ")[1].split(" /to")[0].trim();
-                String to = details.split("/to ")[1].trim();
-                Task event = new Event(eventName, from, to);
-                addItem(event);
-                output = "added event: " + event.toString();
-                break;
+                LocalDate from = LocalDate.parse(details.split("/from ")[1].split(" /to")[0].trim());
+                LocalDate to = LocalDate.parse(details.split("/to ")[1].trim());
+                try {
+                    Task event = new Event(eventName, from, to);
+                    addItem(event);
+                    output = "added event: " + event.toString();
+                    break;
+                } catch (DukeException e) {
+                    output = e.toString();
+                    break;
+                } catch (DateTimeParseException e) {
+                    output = "Please specify the correct format date: yyyy-mm-dd";
+                    break;
+                }
             case "delete":
                 taskNumber = Integer.parseInt(details) - 1;
                 Task t = removeItem(taskNumber);

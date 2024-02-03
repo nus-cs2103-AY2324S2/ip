@@ -1,11 +1,18 @@
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
-    public Event(String description, String from, String to) {
+public class Event extends Task {
+    protected LocalDate from;
+    protected LocalDate to;
+
+    public Event(String description, LocalDate from, LocalDate to) throws DukeException {
         super(description);
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = from;
+            this.to = to;
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Please specify the correct format date: yyyy-mm-dd");
+        }
     }
 
     @Override
