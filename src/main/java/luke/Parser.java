@@ -49,7 +49,16 @@ public class Parser {
                 System.out.println("[Missing mark parameter(s)]\n");
                 return false;
             }
-
+        } else if (trimmedLowercase.split(" ")[0].trim().equals("find")) {
+            try {
+                String keyword = input.split(" ")[1].strip();
+                taskList.findTask(keyword);
+                return false;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Hey! You forgot something! Be glad I'm here to remind you.");
+                System.out.println("[Missing search phrase]\n");
+                return false;
+            }
         }
 
         //tasks
