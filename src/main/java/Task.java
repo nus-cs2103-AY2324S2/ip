@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public abstract class Task { // Adapted from Course Website
     protected String description;
     protected boolean isDone;
@@ -52,6 +54,61 @@ public abstract class Task { // Adapted from Course Website
         }
         return null; // shouldn't come here, since we have done the check already before calling this factory function
     }
+
+    /**
+     * Returns a new Task created from the parsedString taken from the saved data file.
+     *
+     * @param parsedString string from data file
+     * @return a subclass of Task (ToDo, Event, Deadline)
+     * @throws CreateTaskException if save file corrupted or edited such that format is not what is expected
+     */
+    public static Task createFromParsedString(String parsedString) throws CreateTaskException {
+        // Get trimmed tokens
+        // ToDos -> T | y or n | description
+        // Deadlines -> D | y or n | description | by
+        // Events -> E | y or n | description | from | to
+        String[] parsedTokens = parsedString.split("\\|");
+        for (int i = 0; i < parsedTokens.length; i++) {
+            parsedTokens[i] = parsedTokens[i].trim();
+        }
+
+        // The check below considers todos having minimum of 3 tokens, and events having maximum of 5 tokens.
+        if (parsedTokens.length < 3 || parsedTokens.length > 5) {
+            throw new CreateTaskException("Token count not valid. File corrupted.");
+        }
+
+        boolean taskIsDone = parsedTokens[1].equals("y");
+        String taskDescription = parsedTokens[2];
+        String taskType = parsedTokens[0].equals("T") ? "todo"
+                : parsedTokens[0].equals("D") ? "deadline"
+                : parsedTokens[0].equals("E") ? "event"
+                : "unknown";
+        if (taskType.equals("unknown")) {
+            throw new CreateTaskException("taskType invalid. File corrupted.");
+        }
+
+        String commandString = String.format("%s %s", taskType, taskDescription);
+        Task newTask;
+
+        // Create the new task using the user input string constructor
+        if (taskType.equals("todo") && parsedTokens.length == 3) {
+            newTask = Task.create(commandString);
+        } else if (taskType.equals("deadline") && parsedTokens.length == 4) {
+            newTask = Task.create(commandString + String.format("/by %s", parsedTokens[3]));
+        } else if (taskType.equals("event") && parsedTokens.length == 5) {
+            newTask = Task.create(commandString + String.format("/from %s /to %s", parsedTokens[3], parsedTokens[4]));
+        } else {
+            throw new CreateTaskException("Task type and token count not matched. File corrupted.");
+        }
+
+        // Finally mark if task is done or not
+        if (taskIsDone) {
+            assert newTask != null;
+            newTask.markDone();
+        }
+        return newTask;
+    }
+
     public void markDone() {
         this.isDone = true;
     }
