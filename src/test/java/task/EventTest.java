@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
+
+
 /*
  * Tests for the Event class.
  */
@@ -35,50 +37,50 @@ public class EventTest {
         }
     }
 
-    /*
+      /*
      * Tests the creation of an event task from user input.
      * <p>
      * The input string is in the incorrect format and an exception is thrown.
      */
     @Test
-    public void eventToString_incorrectFormat_invalidTaskFormatExceptionThrown() {
-        String eventStartDate = "2024-01-01";
-        String eventDescription = "Event Test";
-        // Missing end date
-        String inputStringMissingEndDate = "event " + eventDescription + " /from " + eventStartDate;
-        // Missing description
-        String inputStringMissingDescription = "event /from " + eventStartDate + " /to " + eventStartDate;
-        // Missing start date
-        String inputStringMissingStartDate = "event " + eventDescription + " /to " + eventStartDate;
-        String inputStringMissingPrefix = eventDescription + " /from " + eventStartDate + " /to " + eventStartDate;
-        assertThrows(InvalidTaskFormatException.class, () -> {
-            Event.createFromInput(inputStringMissingEndDate);
-        });
-        assertThrows(InvalidTaskFormatException.class, () -> {
-            Event.createFromInput(inputStringMissingDescription);
-        });
-        assertThrows(InvalidTaskFormatException.class, () -> {
-            Event.createFromInput(inputStringMissingStartDate);
-        });
-        assertThrows(InvalidTaskFormatException.class, () -> {
-            Event.createFromInput(inputStringMissingPrefix);
-        });
-    }
+      public void eventToString_incorrectFormat_invalidTaskFormatExceptionThrown() {
+            String eventStartDate = "2024-01-01";
+            String eventDescription = "Event Test";
+            // Missing end date
+            String inputStringMissingEndDate = "event " + eventDescription + " /from " + eventStartDate;
+            // Missing description
+            String inputStringMissingDescription = "event /from " + eventStartDate + " /to " + eventStartDate;
+            // Missing start date
+            String inputStringMissingStartDate = "event " + eventDescription + " /to " + eventStartDate;
+            String inputStringMissingPrefix = eventDescription + " /from " + eventStartDate + " /to " + eventStartDate;
+            assertThrows(InvalidTaskFormatException.class, () -> {
+                  Event.createFromInput(inputStringMissingEndDate);
+            });
+            assertThrows(InvalidTaskFormatException.class, () -> {
+                  Event.createFromInput(inputStringMissingDescription);
+            });
+            assertThrows(InvalidTaskFormatException.class, () -> {
+                  Event.createFromInput(inputStringMissingStartDate);
+            });
+            assertThrows(InvalidTaskFormatException.class, () -> {
+                  Event.createFromInput(inputStringMissingPrefix);
+            });
+      }
 
-    /*
+      /*
      * Tests the creation of an event task from user input.
      * <p>
      * The input string is in the correct format but the date is in an incorrect
      * format and an exception is thrown.
      */
     @Test
-    public void eventToString_incorrectDateFormat_invalidDateExceptionThrown() {
-        String eventStartDate = "20240101";
-        String eventEndDate = "20240102";
-        String eventDescription = "Event Test";
-        String inputString = "event " + eventDescription + " /from " + eventStartDate + " /to " + eventEndDate;
-        assertThrows(InvalidDateException.class, () -> {
-            Event.createFromInput(inputString);
-        });
-    }
+      public void eventToString_incorrectDateFormat_invalidDateExceptionThrown() {
+            String eventStartDate = "20240101";
+            String eventEndDate = "20240102";
+            String eventDescription = "Event Test";
+            String inputString = "event " + eventDescription + " /from " + eventStartDate + " /to " + eventEndDate;
+            assertThrows(InvalidDateException.class, () -> {
+                  Event.createFromInput(inputString);
+            });
+      }
 }

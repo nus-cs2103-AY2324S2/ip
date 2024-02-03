@@ -19,6 +19,8 @@ public class Event extends Task {
 
     protected LocalDate from;
     protected LocalDate by;
+    protected LocalDate from;
+    protected LocalDate by;
 
     /**
      * Creates a new {@code Event} instance with the specified description, start
