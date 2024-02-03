@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TaskListTest {
     @Test
@@ -32,5 +33,20 @@ public class TaskListTest {
         assertEquals("[E][ ] task (from: now to: tomorrow)",
                 new TaskList().addTask(
                         new Event("task", false, "now", "tomorrow")));
+    }
+
+    @Test
+    public void deleteTask_indexInBound_successStringReturned() {
+        TaskList t = new TaskList();
+        t.addTask(new Event("task", false, "now", "tomorrow"));
+        t.addTask(new ToDo("task", false));
+        assertEquals("[T][ ] task", t.deleteTask(2));
+        assertEquals("[E][ ] task (from: now to: tomorrow)", t.deleteTask(1));
+    }
+
+    @Test
+    public void deleteTask_indexOutOfBound_fail() {
+        assertThrows(IndexOutOfBoundsException.class,
+                () -> new TaskList().deleteTask(2));
     }
 }

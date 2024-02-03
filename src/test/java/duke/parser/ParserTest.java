@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
     @Test
@@ -30,5 +30,11 @@ public class ParserTest {
         } catch (DateTimeParseException e) {
             assertEquals("Text '2023/10/03 0500' could not be parsed at index 4", e.getMessage());
         }
+    }
+
+    @Test
+    public void parseDueTime_emptyDueTime_fail() {
+        assertThrows(ArrayIndexOutOfBoundsException.class,
+                () -> new Parser("task /by ", "deadline").parseDueTime());
     }
 }
