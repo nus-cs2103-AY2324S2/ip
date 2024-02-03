@@ -11,7 +11,7 @@ public class Bit {
     public static void main(String[] args) {
 
         UI.greet();
-        Tasklist tasklist = new Tasklist(UI);
+        Tasklist tasklist = new Tasklist();
         Scanner scanner = new Scanner(System.in);
         Storage store = new Storage();
         store.loadFile(tasklist);

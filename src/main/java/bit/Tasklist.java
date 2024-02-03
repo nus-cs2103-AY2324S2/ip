@@ -6,8 +6,8 @@ public class Tasklist {
     private Ui UI;
 
 
-    public Tasklist(Ui UI) {
-        this.UI = UI;
+    public Tasklist() {
+        this.UI = new Ui();
     }
 
     public int getSize() {
