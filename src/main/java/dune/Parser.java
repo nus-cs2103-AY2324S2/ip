@@ -64,12 +64,12 @@ public class Parser {
                     if (text.equals(check)) {
                         throw new DuneException("The description of a to-do cannot be empty.");
                     }
+                    taskList.addTask(i, text.substring(check.length()).trim(), storage);
                 } catch (DuneException d) {
                     System.out.println(d);
                     continue;
                 }
-                taskList.addTask(i, text.substring(check.length()).trim(), storage);
-                // how to save to hard-disk?
+
                 break;
             }
         }

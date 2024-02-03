@@ -12,13 +12,15 @@ public class Event extends Task {
 
     private static final DateTimePrinter dateTimePrinter = new DateTimePrinter();
 
+    private static String before = "Start date must be before end date";
+
     // test this method
     public Event(String description, String start, String end) {
         super(description);
         this.start = LocalDateTime.parse(start);
         this.end = LocalDateTime.parse(end);
         if (!this.start.isBefore(this.end)) {
-            throw new DateTimeParseException("Start date must be before end date", "", 0);
+            throw new DateTimeParseException(before, "", 0);
         }
     }
 
@@ -28,7 +30,7 @@ public class Event extends Task {
         this.start = LocalDateTime.parse(start);
         this.end = LocalDateTime.parse(end);
         if (this.start.isAfter(this.end)) {
-            throw new DateTimeParseException("Start date cannot be after end date", "", 0);
+            throw new DateTimeParseException(before, "", 0);
         }
     }
 

@@ -14,6 +14,8 @@ import java.util.ArrayList;
 public class TaskList {
     private List<Task> tasks;
 
+    private static String before = "Start date must be before end date";
+
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
@@ -37,8 +39,8 @@ public class TaskList {
                 try {
                     x = new Deadline(parts[0].trim(), parts[1].trim());
                 } catch (DateTimeParseException d) {
-                    if (d.getMessage().equals("Start date cannot be after end date")) {
-                        System.out.println(d.getMessage());
+                    if (d.getMessage().equals(before)) {
+                        System.out.println(before);
                     } else {
                         System.out.println("Enter date in the format yyyy-mm-ddTHH:MM");
                     }
@@ -67,10 +69,10 @@ public class TaskList {
                     x = new Event(parts[0].trim(), dates[0].trim(), dates[1].trim());
                     storage.saveTasks(this);
                 } catch (DateTimeParseException d) {
-                    if (d.getMessage().equals("Start date cannot be after end date")) {
+                    if (d.getMessage().equals(before)) {
                         System.out.println(d.getMessage());
                     } else {
-                        System.out.println("Enter date in the format yyyy-mm-ddTHH:MM");
+                        System.out.println(before);
                     }
                     return;
                 }
