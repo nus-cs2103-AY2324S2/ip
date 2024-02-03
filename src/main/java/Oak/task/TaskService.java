@@ -38,7 +38,6 @@ public class TaskService {
         }
 
         for (String line : fileData) {
-            // TODO: Double check if the formatting for dateTime to string works for parsing
             this.parseTaskList(line);
         }
     }

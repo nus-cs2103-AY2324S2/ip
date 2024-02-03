@@ -16,7 +16,6 @@ public class DateTimeUtility {
      * @param rawDateTime the raw datetime
      * @return the local datetime
      */
-// TODO: Add utility to work with the tasklist.txt
     public static LocalDateTime parseStringToLocalDateTime(String rawDateTime) {
         try {
             return LocalDateTime.parse(rawDateTime);
