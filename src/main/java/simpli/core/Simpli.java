@@ -1,8 +1,8 @@
 package simpli.core;
 
-import simpli.TaskManager;
-import simpli.Storage;
-import simpli.Ui;
+import simpli.tasks.TaskManager;
+import simpli.storage.Storage;
+import simpli.ui.Ui;
 import simpli.configs.SimpliConfiguration;
 import simpli.exceptions.ActionException;
 import simpli.exceptions.TaskException;

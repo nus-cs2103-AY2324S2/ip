@@ -1,4 +1,4 @@
-package simpli;
+package simpli.tasks;
 
 import simpli.tasks.Deadline;
 import simpli.tasks.Event;

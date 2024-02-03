@@ -1,4 +1,4 @@
-package simpli;
+package simpli.ui;
 
 import simpli.configs.SimpliConfiguration;
 

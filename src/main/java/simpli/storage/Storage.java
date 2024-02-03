@@ -1,9 +1,10 @@
-package simpli;
+package simpli.storage;
 
 import simpli.exceptions.ActionException;
 import simpli.interpreter.Interpreter;
 import simpli.parser.Parser;
 import simpli.tasks.Task;
+import simpli.tasks.TaskManager;
 
 import java.io.File;
 import java.io.FileWriter;
