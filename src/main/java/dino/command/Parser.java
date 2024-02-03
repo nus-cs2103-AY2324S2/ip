@@ -40,112 +40,110 @@ public class Parser {
     /**
      * Parses the given command and performs the corresponding action.
      *
-     * @param command The user command to be parsed.
+     * @param input The user command to be parsed.
+     * @return String representation of command.
      */
-    public void parseCommand(String command) {
+    public String parseCommand(String input) {
+        String[] parts = input.trim().split(" "); // Split into command and argument
+        String command = parts[0];
+        String argument = parts.length > 1 ? parts[1] : "";
+
         switch (command) {
         case "list":
-            tasks.listTask();
-            break;
+            return tasks.listTask();
 
         case "bye":
             break;
 
         case "delete":
             try {
-                int taskNum = sc.nextInt();
-                tasks.deleteTask(taskNum);
+                int taskNum = Integer.parseInt(argument);
+                return tasks.deleteTask(taskNum);
             } catch (DinoException e) {
-                System.out.println("Error: " + e.getMessage());
+                return "Error: " + e.getMessage();
             }
-            break;
 
         case "todo":
             taskType = Dino.TaskType.TODO;
-            handleTaskCreation(sc, taskType);
-            break;
+            return handleTaskCreation(taskType, argument);
 
         case "deadline":
             taskType = Dino.TaskType.DEADLINE;
-            handleTaskCreation(sc, taskType);
-            break;
+            return handleTaskCreation(taskType, argument);
 
         case "event":
             taskType = Dino.TaskType.EVENT;
-            handleTaskCreation(sc, taskType);
-            break;
+            return handleTaskCreation(taskType, argument);
 
         case "filter":
-            printTasksForDate(sc);
-            break;
+            return printTasksForDate(argument.trim());
 
         case "mark":
-            int taskNum = sc.nextInt();
+            int taskNum = Integer.parseInt(argument);
             if (taskNum > tasks.size()) {
-                System.out.println("Uh oh, we do not have a task assigned to that number.");
+                return ("Uh oh, we do not have a task assigned to that number.");
             } else {
-                System.out.println("Good job on completing the task! I have checked it off the list.");
                 Task completed = tasks.get(taskNum - 1);
-                completed.markAsDone();
+                return completed.markAsDone();
             }
-            break;
 
         case "unmark":
-            int taskNumber = sc.nextInt();
+            int taskNumber = Integer.parseInt(argument);
             if (taskNumber > tasks.size()) {
-                System.out.println("Uh oh, we do not have a task assigned to that number.");
+                return ("Uh oh, we do not have a task assigned to that number.");
             } else {
-                System.out.println("Ah, I will mark it as undone. Remember to do it asap!");
                 Task missing = tasks.get(taskNumber - 1);
-                missing.markAsUndone();
+                return missing.markAsUndone();
             }
-            break;
 
         case "find":
-            String searchKeyword = sc.nextLine().trim();
+            String searchKeyword = argument.trim();
             ArrayList<Task> matchingTasks = tasks.findTasksByKeyword(searchKeyword);
 
             if (matchingTasks.isEmpty()) {
-                System.out.println("Aww, there are no tasks that contains that keyword.");
+                return ("Aww, there are no tasks that contains that keyword.");
             } else {
-                System.out.println("Matching tasks:");
+                StringBuilder printTask = new StringBuilder("Matching tasks:\n");
                 for (Task task : matchingTasks) {
-                    System.out.println(task);
+                    printTask.append(task).append("\n");
                 }
+                return String.valueOf(printTask);
             }
-            break;
 
         default:
             try {
                 throw new DinoException("I don't understand ;;");
             } catch (DinoException e) {
-                System.out.println("Error: " + e.getMessage());
+                return ("Error: " + e.getMessage());
             }
-            break;
         }
+        return null;
     }
 
     /**
      * Handles the creation of tasks based on user input for tasks like ToDo, Deadline, and Event.
      *
-     * @param sc        The Scanner for reading user input.
-     * @param taskType  The type of the task (ToDo, Deadline, or Event).
+     * @param taskType The type of the task (ToDo, Deadline, or Event).
+     * @param description String description of the task.
+     * @return String representation of new task.
      */
-    private void handleTaskCreation(Scanner sc, Dino.TaskType taskType) {
+    private String handleTaskCreation(Dino.TaskType taskType, String description) {
+        StringBuilder printTask = new StringBuilder();
+
         try {
-            String taskDetails = sc.nextLine().trim();
-            if (taskDetails.isEmpty()) {
+            if (description.isEmpty()) {
                 throw new DinoException("Description cannot be empty.");
             }
 
-            tasks.addTask(createTaskFromInput(taskType, taskDetails));
+            tasks.addTask(createTaskFromInput(taskType, description));
 
-            System.out.println("Okay.");
-            System.out.println("  " + tasks.get(tasks.size() - 1));
-            System.out.println("Now you have " + tasks.size() + " in the list.");
+            printTask.append("Okay.\n");
+            printTask.append("  ").append(tasks.get(tasks.size() - 1)).append("\n");
+            printTask.append("Now you have ").append(tasks.size()).append(" in the list.");
         } catch (DinoException e) {
-            System.out.println("Error: " + e.getMessage());
+            printTask.append("Error: ").append(e.getMessage());
         }
+        return printTask.toString();
     }
 
     /**
@@ -256,32 +254,35 @@ public class Parser {
     /**
      * Prints tasks for a specific date.
      *
-     * @param sc The Scanner for reading user input.
+     * @param dateString The string representation for user input.
+     * @return String representation of tasks for specified date.
      */
-    void printTasksForDate(Scanner sc) {
+    String printTasksForDate(String dateString) {
+        StringBuilder result = new StringBuilder();
+
         try {
-            String dateString = sc.next();
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
             LocalDate date = LocalDate.parse(dateString, dateFormatter);
 
-            System.out.println("Tasks for " + date + ":");
+            result.append("Tasks for ").append(date).append(":\n");
 
             tasks.getTaskList().stream()
                     .filter(task -> task instanceof Deadline)
                     .map(task -> (Deadline) task)
                     .filter(deadline -> deadline.getDateTime().toLocalDate().equals(date))
-                    .forEach(System.out::println);
+                    .forEach(deadline -> result.append(deadline).append("\n"));
 
             tasks.getTaskList().stream()
                     .filter(task -> task instanceof Event)
                     .map(task -> (Event) task)
                     .filter(event -> event.getStartTime().toLocalDate().equals(date)
                             || event.getEndTime().toLocalDate().equals(date))
-                    .forEach(System.out::println);
+                    .forEach(event -> result.append(event).append("\n"));
 
         } catch (DateTimeParseException e) {
-            System.out.println("Error parsing date: " + e.getMessage());
+            result.append("Error parsing date: ").append(e.getMessage());
         }
+        return result.toString();
     }
 }
 
