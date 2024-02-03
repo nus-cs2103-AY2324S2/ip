@@ -2,7 +2,8 @@ package duke;
 
 /**
  * Enumerates the types of commands that can be used in the Duke application.
- * Provides a method to convert a string command into a corresponding CommandType.
+ * Provides a method to convert a string command into a corresponding
+ * CommandType.
  */
 public enum CommandType {
     TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BYE, LIST, INVALID;

@@ -32,7 +32,7 @@ public class Storage {
     public void setupTaskList(TaskList tasks) {
         this.taskList = tasks;
     }
-    
+
     /**
      * Loads tasks from the predefined file into the TaskList.
      * Reads the file line by line, creating tasks from the file format

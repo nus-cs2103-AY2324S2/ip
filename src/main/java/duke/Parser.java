@@ -51,41 +51,46 @@ public class Parser {
     }
 
     /**
-     * Represents a parsed command, encapsulating the command type, input string, and any task number associated with it.
-     * This class is used to hold the result of parsing a user input command within the Parser class.
+     * Represents a parsed command, encapsulating the command type, input string,
+     * and any task number associated with it.
+     * This class is used to hold the result of parsing a user input command within
+     * the Parser class.
      */
     public static class ParsedCommand {
         private final CommandType commandType; // The type of command parsed from the input.
         private final String input; // The input string containing task details, if applicable.
         private final int taskNumber; // The task number associated with the command, if applicable.
-    
+
         /**
          * Constructor for commands that include task details but no task number.
-         * This constructor is typically used for commands that create or modify tasks based on textual input.
+         * This constructor is typically used for commands that create or modify tasks
+         * based on textual input.
          *
          * @param commandType The type of command, as determined by the parser.
-         * @param input The input string containing task details. This could include task descriptions
-         *              or additional information required to perform the command.
+         * @param input       The input string containing task details. This could
+         *                    include task descriptions
+         *                    or additional information required to perform the command.
          */
         public ParsedCommand(CommandType commandType, String input) {
             this.commandType = commandType;
             this.input = input;
             this.taskNumber = -1; // Indicates that no task number is associated with this command.
         }
-    
+
         /**
          * Constructor for commands that are associated with a specific task number.
-         * This constructor is used for commands that operate on an existing task, identified by its number.
+         * This constructor is used for commands that operate on an existing task,
+         * identified by its number.
          *
          * @param commandType The type of command, such as MARK, UNMARK, or DELETE.
-         * @param taskNumber The number of the task to which the command applies.
+         * @param taskNumber  The number of the task to which the command applies.
          */
         public ParsedCommand(CommandType commandType, int taskNumber) {
             this.commandType = commandType;
             this.taskNumber = taskNumber;
             this.input = null; // Indicates that no detailed input string is associated with this command.
         }
-    
+
         /**
          * Gets the type of the command.
          *
@@ -94,10 +99,11 @@ public class Parser {
         public CommandType getCommandType() {
             return commandType;
         }
-    
+
         /**
          * Gets the input string containing task details.
-         * This method returns the original input string used to create or modify a task.
+         * This method returns the original input string used to create or modify a
+         * task.
          * It is only applicable for commands that include such details.
          *
          * @return The input string containing task details, or null if not applicable.
@@ -105,19 +111,19 @@ public class Parser {
         public String getInput() {
             return input;
         }
-    
+
         /**
          * Gets the task number associated with the command.
          * This method returns the number of the task to which the command applies.
          * It is only applicable for commands that operate on an existing task.
          *
-         * @return The task number, or -1 if no task number is associated with this command.
+         * @return The task number, or -1 if no task number is associated with this
+         *         command.
          */
         public int getTaskNumber() {
             return taskNumber;
         }
     }
-    
 
     /**
      * Creates a {@link Task} object based on the given command type and input.
@@ -131,57 +137,57 @@ public class Parser {
         String[] parts = input.split(" ", 2);
         Task newTask = null;
         switch (command) {
-            case TODO:
-                if (parts[1].replaceAll("\\s", "").equals("")) {
-                    System.out.println("\tTask should not be empty!");
-                } else {
-                    newTask = new Todo(parts[1], input);
+        case TODO:
+            if (parts[1].replaceAll("\\s", "").equals("")) {
+                System.out.println("\tTask should not be empty!");
+            } else {
+                newTask = new Todo(parts[1], input);
+            }
+            break;
+        case DEADLINE:
+            String[] deadlineParts = parts[1].split(" /by ", 2);
+            if (deadlineParts.length < 2) {
+                System.out.println("\tSpecify /by xxx!");
+            } else if (deadlineParts[0].replaceAll("\\s", "").equals("")) {
+                System.out.println("\tTask should not be empty!");
+            } else if (deadlineParts[1].replaceAll("\\s", "").equals("")) {
+                System.out.println("\tDue date should not be empty!");
+            } else {
+                LocalDate dueDate = parseDate(deadlineParts[1]);
+                if (dueDate != null) {
+                    newTask = new Deadline(deadlineParts[0], dueDate, input);
                 }
-                break;
-            case DEADLINE:
-                String[] deadlineParts = parts[1].split(" /by ", 2);
-                if (deadlineParts.length < 2) {
-                    System.out.println("\tSpecify /by xxx!");
-                } else if (deadlineParts[0].replaceAll("\\s", "").equals("")) {
-                    System.out.println("\tTask should not be empty!");
-                } else if (deadlineParts[1].replaceAll("\\s", "").equals("")) {
-                    System.out.println("\tDue date should not be empty!");
+            }
+            break;
+        case EVENT:
+            String[] eventParts = parts[1].split(" /from ", 2);
+            if (eventParts[0].replaceAll("\\s", "").equals("")) {
+                System.out.println("\tTask should not be empty!");
+            } else if (eventParts.length < 2) {
+                // not enough parts for an event
+                System.out.println("\tSpecify /from xxx and /to xxx!");
+            } else {
+                String[] timeParts = eventParts[1].split(" /to ", 2);
+                if (timeParts[0].replaceAll("\\s", "").equals("")) {
+                    System.out.println("\tStart time should not be empty!");
+                } else if (timeParts.length < 2) {
+                    System.out.println("\tSpecify xxx /to xxx!");
+                } else if (timeParts[1].replaceAll("\\s", "").equals("")) {
+                    System.out.println("\tEnd time should not be empty!");
                 } else {
-                    LocalDate dueDate = parseDate(deadlineParts[1]);
-                    if (dueDate != null) {
-                        newTask = new Deadline(deadlineParts[0], dueDate, input);
+                    // Construct the event string
+                    String eventTime = timeParts[0] + " to: " + timeParts[1];
+                    LocalDate start = parseDate(timeParts[0]);
+                    LocalDate end = parseDate(timeParts[1]);
+                    if (start != null && end != null) {
+                        newTask = new Event(eventParts[0], eventTime, input, start, end);
                     }
                 }
-                break;
-            case EVENT:
-                String[] eventParts = parts[1].split(" /from ", 2);
-                if (eventParts[0].replaceAll("\\s", "").equals("")) {
-                    System.out.println("\tTask should not be empty!");
-                } else if (eventParts.length < 2) {
-                    // not enough parts for an event
-                    System.out.println("\tSpecify /from xxx and /to xxx!");
-                } else {
-                    String[] timeParts = eventParts[1].split(" /to ", 2);
-                    if (timeParts[0].replaceAll("\\s", "").equals("")) {
-                        System.out.println("\tStart time should not be empty!");
-                    } else if (timeParts.length < 2) {
-                        System.out.println("\tSpecify xxx /to xxx!");
-                    } else if (timeParts[1].replaceAll("\\s", "").equals("")) {
-                        System.out.println("\tEnd time should not be empty!");
-                    } else {
-                        // Construct the event string
-                        String eventTime = timeParts[0] + " to: " + timeParts[1];
-                        LocalDate start = parseDate(timeParts[0]);
-                        LocalDate end = parseDate(timeParts[1]);
-                        if (start != null && end != null) {
-                            newTask = new Event(eventParts[0], eventTime, input, start, end);
-                        }
-                    }
-                }
-                break;
-            default:
-                System.out.println("Default case");
-                break;
+            }
+            break;
+        default:
+            System.out.println("Default case");
+            break;
         }
         return newTask;
     }
@@ -204,6 +210,18 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a task from a formatted string and creates a Task object.
+     * 
+     * The input string format should be "CommandType | Status | Input":
+     * - CommandType is the task type (e.g., TODO, DEADLINE, EVENT).
+     * - Status is 1 (done) or 0 (not done).
+     * - Input is the description or details of the task.
+     *
+     * @param line The formatted string representing a task.
+     * @return A Task object corresponding to the input string. The task is marked as done if
+     *         the Status is 1. Returns null or throws an exception for invalid input formats or command types.
+     */
     protected static Task createTaskFromFile(String line) {
         String[] parts = line.split(" \\| ");
         CommandType commandType = CommandType.fromString(parts[0]);
