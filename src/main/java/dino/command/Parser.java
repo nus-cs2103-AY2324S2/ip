@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -46,7 +47,9 @@ public class Parser {
     public String parseCommand(String input) {
         String[] parts = input.trim().split(" "); // Split into command and argument
         String command = parts[0];
-        String argument = parts.length > 1 ? parts[1] : "";
+        String argument = parts.length > 1
+                ? String.join(" ", Arrays.copyOfRange(parts, 1, parts.length))
+                : "";
 
         switch (command) {
         case "list":
@@ -139,7 +142,7 @@ public class Parser {
 
             printTask.append("Okay.\n");
             printTask.append("  ").append(tasks.get(tasks.size() - 1)).append("\n");
-            printTask.append("Now you have ").append(tasks.size()).append(" in the list.");
+            printTask.append("Now you have ").append(tasks.size()).append(" in the list.\n");
         } catch (DinoException e) {
             printTask.append("Error: ").append(e.getMessage());
         }

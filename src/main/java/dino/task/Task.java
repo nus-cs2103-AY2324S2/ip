@@ -31,8 +31,8 @@ public class Task {
      */
     public String markAsDone() {
         this.isDone = true;
-        return "Good job on completing the task! I have checked it off the list."
-                + getStatusIcon() + " | " + description;
+        return "Good job on completing the task! I have checked it off the list.\n"
+                + getStatusIcon() + " | " + description + "\n";
     }
 
     /**
@@ -42,8 +42,8 @@ public class Task {
      */
     public String markAsUndone() {
         this.isDone = false;
-        return "Ah, I will mark it as undone. Remember to do it asap!"
-                + getStatusIcon() + " | " + description;
+        return "Ah, I will mark it as undone. Remember to do it asap!\n"
+                + getStatusIcon() + " | " + description + "\n";
     }
 
     /**
