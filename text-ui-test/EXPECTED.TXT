@@ -1,5 +1,5 @@
 Hi Barbie!
-I'm Ken!
+I'm Ken.Ken!
 What would you like to beach today?
 
 
@@ -13,7 +13,7 @@ added task: [T][ ] code
 Now Barbie has 2 tasks in list
 
 
-SUBLIME! Task 1 completed!
+SUBLIME! Ken.Ken.task.Task 1 completed!
  [T][X] slay
 Hold my ice cream,
 Your tasks for today:

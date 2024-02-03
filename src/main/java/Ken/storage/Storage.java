@@ -1,3 +1,6 @@
+package Ken.storage;
+import Ken.task.Task;
+import Ken.KenException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -8,7 +11,7 @@ import java.util.List;
 
 public class Storage {
 
-    private String filePath;
+    private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;

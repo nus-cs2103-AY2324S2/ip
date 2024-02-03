@@ -1,3 +1,5 @@
+package Ken.ui;
+
 public class Ui {
     public void welcomeMessage() {
         System.out.println("Hi Barbie!");
