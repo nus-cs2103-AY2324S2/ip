@@ -88,7 +88,7 @@ public class Scribbles {
         boolean isByeCommand = false;
         while (!isByeCommand) {
             String input = scanner.nextLine();
-            isByeCommand = parseInput(input);
+            isByeCommand = isParsedInput(input);
         }
         scanner.close();
 
@@ -102,106 +102,106 @@ public class Scribbles {
      * @param input The command input by user.
      * @return false if command is "bye", true otherwise.
      */
-    public boolean parseInput(String input) {
+    public boolean isParsedInput(String input) {
         Parser parsedInput = new Parser(input);
         String command = parsedInput.getCommand();
 
-        switch (command){
-            case "bye":
-                return true;
-            case "list":
-                ui.listTask(taskList);
-                break;
-            case "mark":
+        switch (command) {
+        case "bye":
+            return true;
+        case "list":
+            ui.listTask(taskList);
+            break;
+        case "mark":
+            try {
+                int index = parsedInput.getIndex();
+                taskList.get(index - 1).markComplete();
+                ui.markCompletedMessage(index, taskList);
+                storage.saveFileData(taskList);
+            } catch (IndexOutOfBoundsException e) {
+                ui.invalidIndexMessage(taskList);
+            } catch (FileNotFoundException e) {
+                ui.fileNotFoundMessage();
+            }
+            break;
+        case "unmark":
+            try {
+                int index = parsedInput.getIndex();
+                taskList.get(index - 1).markIncomplete();
+                ui.markIncompleteMessage(index, taskList);
+                storage.saveFileData(taskList);
+            } catch (IndexOutOfBoundsException e) {
+                ui.invalidIndexMessage(taskList);
+            } catch (FileNotFoundException e) {
+                ui.fileNotFoundMessage();
+            }
+            break;
+        case "todo":
+            try {
+                String description = parsedInput.getTodoDescription();
+                taskList.addTask(new Todo(description, false));
+                ui.confirmTaskAddition(taskList);
+                storage.saveFileData(taskList);
+            } catch (IndexOutOfBoundsException e) {
+                ui.taskMissingInformationMessage();
+            } catch (FileNotFoundException e) {
+                ui.fileNotFoundMessage();
+            }
+            break;
+        case "deadline":
+            if (parsedInput.isMissingDeadlineInformation()) {
+                ui.taskMissingInformationMessage();
+            } else {
                 try {
-                    int index = parsedInput.getIndex();
-                    taskList.get(index - 1).markComplete();
-                    ui.markCompletedMessage(index, taskList);
-                    storage.saveFileData(taskList);
-                } catch (IndexOutOfBoundsException e) {
-                    ui.invalidIndexMessage(taskList);
-                } catch (FileNotFoundException e) {
-                    ui.fileNotFoundMessage();
-                }
-                break;
-            case "unmark":
-                try {
-                    int index = parsedInput.getIndex();
-                    taskList.get(index - 1).markIncomplete();
-                    ui.markIncompleteMessage(index, taskList);
-                    storage.saveFileData(taskList);
-                } catch (IndexOutOfBoundsException e) {
-                    ui.invalidIndexMessage(taskList);
-                } catch (FileNotFoundException e) {
-                    ui.fileNotFoundMessage();
-                }
-                break;
-            case "todo":
-                try {
-                    String description = parsedInput.getTodoDescription();
-                    taskList.addTask(new Todo(description, false));
+                    String description = parsedInput.getDeadlineDescription();
+                    LocalDateTime by = parsedInput.getDeadlineBy();
+                    taskList.addTask(new Deadline(description, false, by));
                     ui.confirmTaskAddition(taskList);
                     storage.saveFileData(taskList);
                 } catch (IndexOutOfBoundsException e) {
                     ui.taskMissingInformationMessage();
+                } catch (DateTimeParseException e) {
+                    ui.wrongDateTimeFormatMessage();
                 } catch (FileNotFoundException e) {
                     ui.fileNotFoundMessage();
                 }
-                break;
-            case "deadline":
-                if (parsedInput.isMissingDeadlineInformation()) {
-                    ui.taskMissingInformationMessage();
-                } else {
-                    try {
-                        String description = parsedInput.getDeadlineDescription();
-                        LocalDateTime by = parsedInput.getDeadlineBy();
-                        taskList.addTask(new Deadline(description, false, by));
-                        ui.confirmTaskAddition(taskList);
-                        storage.saveFileData(taskList);
-                    } catch (IndexOutOfBoundsException e) {
-                        ui.taskMissingInformationMessage();
-                    } catch (DateTimeParseException e) {
-                        ui.wrongDateTimeFormatMessage();
-                    } catch (FileNotFoundException e) {
-                        ui.fileNotFoundMessage();
-                    }
-                }
-                break;
-            case "event":
-                if (parsedInput.isInvalidEvent()) {
-                    ui.taskMissingInformationMessage();
-                } else {
-                    try {
-                        String description = parsedInput.getEventDescription();
-                        LocalDateTime start = parsedInput.getStartDateTime();
-                        LocalDateTime end = parsedInput.getEndDateTime();
-                        taskList.addTask(new Event(description, false, start, end));
-                        ui.confirmTaskAddition(taskList);
-                        storage.saveFileData(taskList);
-                    } catch (IndexOutOfBoundsException e) {
-                        ui.taskMissingInformationMessage();
-                    } catch (DateTimeParseException e) {
-                        ui.wrongDateTimeFormatMessage();
-                    } catch (FileNotFoundException e) {
-                        ui.fileNotFoundMessage();
-                    }
-                }
-                break;
-            case "delete":
+            }
+            break;
+        case "event":
+            if (parsedInput.isInvalidEvent()) {
+                ui.taskMissingInformationMessage();
+            } else {
                 try {
-                    int index = parsedInput.getIndex();
-                    String taskRemoved = taskList.get(index - 1).toString();
-                    taskList.deleteTask(index - 1);
-                    ui.taskDeletionMessage(taskRemoved, taskList);
+                    String description = parsedInput.getEventDescription();
+                    LocalDateTime start = parsedInput.getStartDateTime();
+                    LocalDateTime end = parsedInput.getEndDateTime();
+                    taskList.addTask(new Event(description, false, start, end));
+                    ui.confirmTaskAddition(taskList);
                     storage.saveFileData(taskList);
                 } catch (IndexOutOfBoundsException e) {
-                    ui.invalidIndexMessage(taskList);
+                    ui.taskMissingInformationMessage();
+                } catch (DateTimeParseException e) {
+                    ui.wrongDateTimeFormatMessage();
                 } catch (FileNotFoundException e) {
                     ui.fileNotFoundMessage();
                 }
-                break;
-            default:
-                ui.invalidInputMessage();
+            }
+            break;
+        case "delete":
+            try {
+                int index = parsedInput.getIndex();
+                String taskRemoved = taskList.get(index - 1).toString();
+                taskList.deleteTask(index - 1);
+                ui.taskDeletionMessage(taskRemoved, taskList);
+                storage.saveFileData(taskList);
+            } catch (IndexOutOfBoundsException e) {
+                ui.invalidIndexMessage(taskList);
+            } catch (FileNotFoundException e) {
+                ui.fileNotFoundMessage();
+            }
+            break;
+        default:
+            ui.invalidInputMessage();
         }
         return false;
     }

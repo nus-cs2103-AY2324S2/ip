@@ -7,10 +7,10 @@ import java.time.format.DateTimeFormatter;
  * This class represents a deadline
  */
 public class Deadline extends Task {
-    protected LocalDateTime by; // date/time to be done before
+    private LocalDateTime by;
 
-    public Deadline(String description, boolean completed, LocalDateTime by) {
-        super(description, completed);
+    public Deadline(String description, boolean isCompleted, LocalDateTime by) {
+        super(description, isCompleted);
         this.by = by;
     }
 
