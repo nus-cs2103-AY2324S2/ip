@@ -33,6 +33,11 @@ public class Parser {
             return new ByeCommand();
         case "LIST":
             return new ListCommand();
+        case "FIND":
+            if (split.length < 2) {
+                throw new ToothlessException("Input keyword pls");
+            }
+            return new FindCommand(split[1]);
         case "MARK":
             if (split.length < 2) {
                 throw new ToothlessException("Input number pls");
