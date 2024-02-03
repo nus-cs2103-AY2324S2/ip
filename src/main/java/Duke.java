@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.List;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.time.LocalDate;
 
 public class Duke {
     private static final String FILE_PATH = "data/duke.txt";
@@ -11,7 +12,7 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
         File f = new File(FILE_PATH);
-        System.out.println("file exists?: " + f.exists());
+
 
 
         try {
@@ -23,7 +24,7 @@ public class Duke {
                     System.out.println("Unable to create file");
                 }
             } else {
-                System.out.println("Loading data");
+                System.out.println("Loading data...");
             }
         } catch (IOException e) {
             System.out.println("Error " + e.getMessage());
@@ -37,7 +38,7 @@ public class Duke {
             System.out.println(e.getMessage());
         }
 
-
+        System.out.println();
         System.out.println("Hello! I'm tars.");
         System.out.println("What can I do for you?");
 
@@ -76,9 +77,15 @@ public class Duke {
                 if (comd.length() <= 9) {
                     throw new DukeException("Empty Description");
                 }
+                InputHandler handler = new InputHandler();
                 String[] data = comd.split("/");
+                //System.out.println("this is the input: " + data[1].substring(3));
+                //System.out.println("next " + data[2]);
+
+                LocalDate deadlineDate = handler.formatDeadline(data);
+
                 String task = data[0].substring(9);
-                Deadline d = new Deadline(task, data[1].substring(3));
+                Deadline d = new Deadline(task, deadlineDate);
                 list.add(d);
 
                 System.out.println("Got it. I've added this task: ");
@@ -174,7 +181,7 @@ public class Duke {
             while(fileScanner.hasNextLine()) {
                 String taskData = fileScanner.nextLine();
                 loadedList.add(Task.parser(taskData));
-                System.out.println("loaded");
+                //System.out.println("successfully loaded");
             }
         }
 
