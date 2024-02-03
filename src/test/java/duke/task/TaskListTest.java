@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class TaskListTest {
 
     @Test
-    public void markTaskTest(){
+    public void tasklist_markTaskTest(){
         try {
             TaskList tskLst = new TaskList(new ArrayList<Task>());
             Storage storage = new Storage("src/main/data/test/caching.txt");
@@ -25,7 +25,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void unmarkTaskTest(){
+    public void tasklist_unmarkTaskTest(){
         try {
             TaskList tskLst = new TaskList(new ArrayList<Task>());
             Storage storage = new Storage("src/main/data/test/caching.txt");

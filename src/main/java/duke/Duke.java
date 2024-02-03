@@ -27,7 +27,7 @@ public class Duke {
     }
 
     /**
-     * Runs the program until the "bye" instruction is inputted by the user and interprets the commonad word. 
+     * Runs the program until the "bye" instruction is inputted by the user and interprets the command word. 
      */
     public void run() {
         this.ui = new Ui(System.in); 
