@@ -1,4 +1,4 @@
-package duke.ui;
+package toothless.ui;
 
 import java.util.Scanner;
 

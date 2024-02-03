@@ -1,10 +1,10 @@
-package duke.storage;
+package toothless.storage;
 
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
+import toothless.exception.ToothlessException;
+import toothless.task.Deadline;
+import toothless.task.Event;
+import toothless.task.Task;
+import toothless.task.ToDo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -21,7 +21,7 @@ public class Storage {
 
     private static final DateTimeFormatter DATETIME_PARSE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     
-    public Storage(String filePath) throws DukeException {
+    public Storage(String filePath) throws ToothlessException {
         this.filePath = filePath;
         this.f = new File(filePath);
         try {
@@ -32,7 +32,7 @@ public class Storage {
                 f.createNewFile();
             }
         } catch (IOException e) {
-            throw new DukeException(e.getMessage());
+            throw new ToothlessException(e.getMessage());
         }
     }
     
@@ -40,7 +40,7 @@ public class Storage {
         return this.filePath;
     }
     
-    public ArrayList<Task> loadStorage() throws DukeException {
+    public ArrayList<Task> loadStorage() throws ToothlessException {
         ArrayList<Task> taskArrayList = new ArrayList<>();
         try {
             Scanner tasklistScanner = new Scanner(this.f);
@@ -65,32 +65,32 @@ public class Storage {
                         Event newEvent = new Event(taskDescription, isDone, eventFrom, eventTo);
                         taskArrayList.add(newEvent);
                     } else {
-                        throw new DukeException("Sorry, tasklist.txt seems to contain a corrupted duke.task type.");
+                        throw new ToothlessException("Sorry, tasklist.txt seems to contain a corrupted task type.");
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    throw new DukeException("Sorry, tasks seem to have missing arguments.");
+                    throw new ToothlessException("Sorry, tasks seem to have missing arguments.");
                 } catch (DateTimeParseException e) {
-                    throw new DukeException("Sorry, duke.task seems to have corrupted datetime. " +
+                    throw new ToothlessException("Sorry, task seems to have corrupted datetime. " +
                             "The format should be yyyy-mm-dd hh:mm");
                 }
             }
             tasklistScanner.close();
         } catch (IOException e) {
-            throw new DukeException(e.getMessage());
+            throw new ToothlessException(e.getMessage());
         } 
         return taskArrayList;
     }
     
-    public void saveToStorage(ArrayList<Task> taskArrayList) throws DukeException {
+    public void saveToStorage(ArrayList<Task> taskArrayList) throws ToothlessException {
         try {
             FileWriter fw = new FileWriter(this.getFilePath(), false);
             for (Task t : taskArrayList) {
                 fw.write(t.toStorageString() + System.lineSeparator());
             }
             fw.close();
-            System.out.println("\tSuccessfully saved duke.task data to tasklist.txt.");
+            System.out.println("\tSuccessfully saved task data to tasklist.txt.");
         } catch (IOException e) {
-            throw new DukeException("Sorry, saving to tasklist.txt failed.");
+            throw new ToothlessException("Sorry, saving to tasklist.txt failed.");
         }
     }
 

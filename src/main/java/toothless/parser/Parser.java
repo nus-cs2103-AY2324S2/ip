@@ -1,15 +1,15 @@
-package duke.parser;
+package toothless.parser;
 
-import duke.exception.DukeException;
-import duke.task.TaskList;
-import duke.ui.Ui;
+import toothless.exception.ToothlessException;
+import toothless.task.TaskList;
+import toothless.ui.Ui;
 
 public class Parser {
     
     public Parser() {
     }
     
-    public boolean parseInput(String userInput, TaskList taskList, Ui ui) throws DukeException {
+    public boolean parseInput(String userInput, TaskList taskList, Ui ui) throws ToothlessException {
         if (userInput.equals("bye")) {
             ui.printMessage("Bye. Purr-lease chat again soon!");
             return false;
@@ -34,58 +34,58 @@ public class Parser {
             int listIndex = validateListInput(userInput, "delete", taskList.size());
             taskList.deleteTask(listIndex);
         } else {
-            throw new DukeException("Sorry, I don't understand what that means D:");
+            throw new ToothlessException("Sorry, I don't understand what that means D:");
         }
         return true;
     }
 
-    public int validateListInput(String listInput, String command, int taskListSize) throws DukeException {
+    public int validateListInput(String listInput, String command, int taskListSize) throws ToothlessException {
         // split string by spaces
         String[] markInputSplit = listInput.strip().split("\\s+");
         try {
             if (markInputSplit.length > 2) {
-                throw new DukeException(
+                throw new ToothlessException(
                         String.format("Sorry, purr-lease only include one numeric argument after %s.", command));
             } else if (markInputSplit.length < 2 || markInputSplit[1].isBlank()) {
-                throw new DukeException(String.format("Sorry, purr-lease state a list index to %s.", command));
+                throw new ToothlessException(String.format("Sorry, purr-lease state a list index to %s.", command));
             }
             // try parsing integer
             int listIndex = Integer.parseInt(markInputSplit[1]);
             // check index bounds
             if (listIndex < 1 || listIndex > taskListSize) {
-                throw new DukeException("Apurrlogies, there's no duke.task at that index.");
+                throw new ToothlessException("Apurrlogies, there's no task at that index.");
             }
             return listIndex;
         } catch (NumberFormatException e) {
-            throw new DukeException(String.format("Sorry, purr-lease use a numeric list index to %s.", command));
+            throw new ToothlessException(String.format("Sorry, purr-lease use a numeric list index to %s.", command));
         }
     }
 
-    public String validateToDoInput(String toDoInput) throws DukeException {
+    public String validateToDoInput(String toDoInput) throws ToothlessException {
         String taskDescription = toDoInput.replace("todo ", "").strip();
         if (taskDescription.isBlank()) {
-            throw new DukeException("Apurrlogies, the duke.task description cannot be empty.");
+            throw new ToothlessException("Apurrlogies, the task description cannot be empty.");
         }
         return taskDescription;
     }
 
-    public String[] validateDeadlineInput(String deadlineInput) throws DukeException {
+    public String[] validateDeadlineInput(String deadlineInput) throws ToothlessException {
         String[] deadlineAttributes = deadlineInput.replace("deadline ", "")
                 .strip().split("\\s+/by\\s+");
 
         if (deadlineAttributes.length != 2) {
-            throw new DukeException("Sorry, purr-lease use the format: " +
+            throw new ToothlessException("Sorry, purr-lease use the format: " +
                     "deadline [description] /by [yyyy-mm-dd hh:mm].");
         } else if (deadlineAttributes[0].isBlank()) {
-            throw new DukeException("Apurrlogies, the duke.task description cannot be empty.");
+            throw new ToothlessException("Apurrlogies, the task description cannot be empty.");
         } else if (deadlineAttributes[1].isBlank()) {
-            throw new DukeException("Apurrlogies, the /by field cannot be empty.");
+            throw new ToothlessException("Apurrlogies, the /by field cannot be empty.");
         }
 
         return deadlineAttributes;
     }
 
-    public String[] validateEventInput(String eventInput) throws DukeException {
+    public String[] validateEventInput(String eventInput) throws ToothlessException {
         String[] eventAttributes = new String[3];
         String[] tempAttributes = eventInput.replace("event ", "")
                 .strip().split("\\s+/from\\s+|\\s+/to\\s+");
@@ -94,14 +94,14 @@ public class Parser {
         int toIndex = eventInput.indexOf("/to");
 
         if (tempAttributes.length != 3) {
-            throw new DukeException("Sorry, purr-lease use the format: " +
+            throw new ToothlessException("Sorry, purr-lease use the format: " +
                     "event [description] /from [yyyy-mm-dd hh:mm] /to [yyyy-mm-dd hh:mm]");
         } else if (fromIndex == -1 || toIndex == -1) {
-            throw new DukeException("Sorry, purr-lease remember to include the /from and /to fields.");
+            throw new ToothlessException("Sorry, purr-lease remember to include the /from and /to fields.");
         } else if (tempAttributes[0].isBlank()) {
-            throw new DukeException("Apurrlogies, the duke.task description cannot be empty.");
+            throw new ToothlessException("Apurrlogies, the task description cannot be empty.");
         } else if (tempAttributes[1].isBlank() || tempAttributes[2].isBlank()) {
-            throw new DukeException(("Apurrlogies, the /from and /to fields cannot be empty."));
+            throw new ToothlessException(("Apurrlogies, the /from and /to fields cannot be empty."));
         }
 
         eventAttributes[0] = tempAttributes[0];

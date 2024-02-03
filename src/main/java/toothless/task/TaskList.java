@@ -1,6 +1,6 @@
-package duke.task;
+package toothless.task;
 
-import duke.exception.DukeException;
+import toothless.exception.ToothlessException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -52,19 +52,19 @@ public class TaskList {
         printNewTask(newTask);
     }
 
-    public void addDeadlineToList(String taskDescription, String by) throws DukeException {
+    public void addDeadlineToList(String taskDescription, String by) throws ToothlessException {
         try {
             LocalDateTime deadlineBy = LocalDateTime.parse(by, DATETIME_PARSE_FORMATTER);
             Task newTask = new Deadline(taskDescription, deadlineBy);
             taskList.add(newTask);
             printNewTask(newTask);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Sorry, /by field datetime should use the following format: " +
+            throw new ToothlessException("Sorry, /by field datetime should use the following format: " +
                     "[yyyy-mm-dd hh:mm].");
         }
     }
 
-    public void addEventToList(String taskDescription, String from, String to) throws DukeException {
+    public void addEventToList(String taskDescription, String from, String to) throws ToothlessException {
         try {
             LocalDateTime eventFrom = LocalDateTime.parse(from, DATETIME_PARSE_FORMATTER);
             LocalDateTime eventTo = LocalDateTime.parse(to, DATETIME_PARSE_FORMATTER);
@@ -72,7 +72,7 @@ public class TaskList {
             taskList.add(newTask);
             printNewTask(newTask);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Sorry, /from and /to field datetime should use the following format: " +
+            throw new ToothlessException("Sorry, /from and /to field datetime should use the following format: " +
                     "[yyyy-mm-dd hh:mm].");
         }
         
@@ -80,24 +80,24 @@ public class TaskList {
 
     public void printNewTask(Task newTask) {
         String message =
-                String.format("\tGot it. I've added this duke.task:\n\t\t%s\n\tNya-ow you have %d tasks in the list.",
+                String.format("\tGot it. I've added this task:\n\t\t%s\n\tNya-ow you have %d tasks in the list.",
                         newTask, taskList.size());
         System.out.println(message);
     }
 
     public void printDeletedTask(Task deletedTask) {
         String message =
-                String.format("\tNoted. I've remeowved this duke.task:\n\t\t%s\n\tNya-ow you have %d tasks in the list.",
+                String.format("\tNoted. I've remeowved this task:\n\t\t%s\n\tNya-ow you have %d tasks in the list.",
                         deletedTask, taskList.size());
         System.out.println(message);
     }
     
     public void printMarkedTask(Task markedTask) {
-        System.out.println("\tAmeowzing! I've marked this duke.task as done:\n\t" + markedTask);
+        System.out.println("\tAmeowzing! I've marked this task as done:\n\t" + markedTask);
     }
 
     public void printUnmarkedTask(Task unmarkedTask) {
-        System.out.println("\tOK, I've marked this duke.task as not done yet:\n\t" + unmarkedTask);
+        System.out.println("\tOK, I've marked this task as not done yet:\n\t" + unmarkedTask);
     }
 
     public void printList() {

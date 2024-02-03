@@ -1,4 +1,4 @@
-package duke.parser;
+package toothless.parser;
 
 import org.junit.jupiter.api.Test;
 

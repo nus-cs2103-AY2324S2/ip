@@ -1,12 +1,12 @@
-package duke;
+package toothless;
 
-import duke.exception.DukeException;
-import duke.parser.Parser;
-import duke.storage.Storage;
-import duke.task.TaskList;
-import duke.ui.Ui;
+import toothless.exception.ToothlessException;
+import toothless.parser.Parser;
+import toothless.storage.Storage;
+import toothless.task.TaskList;
+import toothless.ui.Ui;
 
-public class Duke {
+public class Toothless {
     private boolean isRunning;
     private TaskList taskList;
     private Storage storage;
@@ -14,18 +14,18 @@ public class Duke {
     private Parser parser;
 
     public static void main(String[] args) {
-        Duke duke = new Duke("./data/tasklist.txt");
-        duke.run();
+        Toothless toothless = new Toothless("./data/tasklist.txt");
+        toothless.run();
     }
     
-    public Duke(String filepath) {
+    public Toothless(String filepath) {
         ui = new Ui();
         parser = new Parser();
         
         try {
             this.storage = new Storage(filepath);
             this.taskList = new TaskList(this.storage.loadStorage());
-        } catch (DukeException e) {
+        } catch (ToothlessException e) {
             ui.printMessage(e.getMessage());
             ui.printMessage("Sorry, tasklist.txt is corrupted. Starting a blank tasklist.");
             this.taskList = new TaskList();
@@ -41,7 +41,7 @@ public class Duke {
                 String userInput = ui.readCommand();
                 ui.printLine();
                 this.isRunning = parser.parseInput(userInput, taskList, ui);
-            } catch (DukeException e) {
+            } catch (ToothlessException e) {
                 ui.printMessage(e.getMessage());
             } finally {
                 ui.printLine();
@@ -50,7 +50,7 @@ public class Duke {
         
         try {
             storage.saveToStorage(taskList.getTaskList());
-        } catch (DukeException e) {
+        } catch (ToothlessException e) {
             ui.printMessage(e.getMessage());
         }
         

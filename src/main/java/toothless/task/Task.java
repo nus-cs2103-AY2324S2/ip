@@ -1,4 +1,4 @@
-package duke.task;
+package toothless.task;
 
 public abstract class Task {
     private String description;
