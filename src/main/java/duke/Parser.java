@@ -78,7 +78,7 @@ public class Parser {
         for (String word : words) {
             if (word.startsWith("/")) {
                 // Check if the previous key had any data given to it
-                if (builders.get(key).length() == 0) {
+                if (builders.get(key) == null) {
                     throw new InvalidCommandData(key);
                 }
 
