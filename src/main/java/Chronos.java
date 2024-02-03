@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import task.Task;
 import task.Todo;
@@ -17,8 +19,8 @@ import task.Event;
 public class Chronos {
     private static final String DIVIDER = "        ------------------------------------------------------------";
     private static final String POSSIBLE_COMMANDS = "        TODO     --- todo [task name]\n" +
-                                                    "        DEADLINE --- deadline [task name] /by [due date]\n" +
-                                                    "        EVENT    --- event [task name] /from [date] /to [date]" ;
+                                                    "        DEADLINE --- deadline [task name] /by [yyyy-mm-dd HH:MM]\n" +
+                                                    "        EVENT    --- event [task name] /from [yyyy-mm-dd HH:MM] /to [yyyy-mm-dd HH:MM]" ;
 
     private static String filePath = "./data/chronos.txt";
     private static ArrayList<Task> tasks = new ArrayList<Task>();
@@ -69,7 +71,7 @@ public class Chronos {
     /**
      * Saves task list to text file upon each change.
      *
-     * @param fw filewriter object.
+     * @param fw Filewriter object.
      */
     public static void saveTasks(FileWriter fw) throws IOException {
         fw = new FileWriter(filePath);
@@ -85,7 +87,7 @@ public class Chronos {
     /**
      * Adds amd prints a todo task.
      *
-     * @param description description of the todo task.
+     * @param description Description of the todo task.
      */
     public static void addToDo(String description) {
         Todo todo = new Todo(description);
@@ -102,8 +104,8 @@ public class Chronos {
     /**
      * Adds and prints a task with a deadline.
      *
-     * @param description description of the task with deadline.
-     * @param dueDate deadline of the task.
+     * @param description Description of the task with deadline.
+     * @param dueDate Deadline of the task.
      */
     public static void addDeadline(String description, String dueDate) {
         Deadline deadline = new Deadline(description, dueDate);
@@ -120,9 +122,9 @@ public class Chronos {
     /**
      * Adds and prints an event.
      *
-     * @param description description of the event.
-     * @param from start date and time of the event.
-     * @param to end date and time of the event.
+     * @param description Description of the event.
+     * @param from Start date and time of the event.
+     * @param to End date and time of the event.
      */
     public static void addEvent(String description, String from, String to) {
         Event event = new Event(description, from, to);
@@ -139,7 +141,7 @@ public class Chronos {
     /**
      * Marks a task as completed.
      *
-     * @param selectedTaskNumberToBeMarked task number to be marked as completed.
+     * @param selectedTaskNumberToBeMarked Task number to be marked as completed.
      */
     public static void markTask(int selectedTaskNumberToBeMarked) {
         Task selectedTaskToBeMarked = tasks.get(selectedTaskNumberToBeMarked - 1);
@@ -152,9 +154,24 @@ public class Chronos {
     }
 
     /**
+     * Unmarks a task as incomplete.
+     *
+     * @param selectedTaskNumberToBeUnmarked Task number to be unmarked as incomplete.
+     */
+    public static void unMarkTask(int selectedTaskNumberToBeUnmarked) {
+        Task selectedTaskToBeUnmarked = tasks.get(selectedTaskNumberToBeUnmarked - 1);
+        selectedTaskToBeUnmarked.setUnmarked();
+        tasks.set(selectedTaskNumberToBeUnmarked - 1, selectedTaskToBeUnmarked);
+        System.out.println(DIVIDER);
+        System.out.println("        OK, I've marked this task as not done yet:");
+        System.out.println("          " + selectedTaskToBeUnmarked);
+        System.out.println(DIVIDER);
+    }
+
+    /**
      * Deletes a task from task list.
      *
-     * @param selectedTaskNumberToBeDeleted task number to be deleted.
+     * @param selectedTaskNumberToBeDeleted Task number to be deleted.
      */
     public static void deleteTask(int selectedTaskNumberToBeDeleted) {
         Task deletedTask = tasks.get(selectedTaskNumberToBeDeleted - 1);
@@ -166,6 +183,20 @@ public class Chronos {
         System.out.println("        Now you have " + noOfTasks + " tasks in the list.");
         System.out.println(DIVIDER);
         tasks.remove(selectedTaskNumberToBeDeleted - 1);
+    }
+
+    /**
+     * Changes the format the date specified for a deadline or an event.
+     *
+     * @param dateTime Date and time of a deadline or an event in the format yyyy-mm-dd HH:MM.
+     * @return Formatted date and time.
+     */
+    public static String formatDateTime(String dateTime) {
+        String[] dateTimeArray = dateTime.split(" ");
+        String date = dateTimeArray[0];
+        String time = dateTimeArray[1];
+        String combinedDateTime = date + "T" + time;
+        return LocalDateTime.parse(combinedDateTime).format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"));
     }
 
     /**
@@ -235,15 +266,8 @@ public class Chronos {
                             System.out.println(DIVIDER);
                         } else {
                             try {
-                                int selectedTaskNumberToBeUnmarked = Integer.parseInt(token[1]);
-                                Task selectedTaskToBeUnmarked = tasks.get(selectedTaskNumberToBeUnmarked - 1);
-                                selectedTaskToBeUnmarked.setUnmarked();
-                                tasks.set(selectedTaskNumberToBeUnmarked - 1, selectedTaskToBeUnmarked);
-                                System.out.println(DIVIDER);
-                                System.out.println("        OK, I've marked this task as not done yet:");
-                                System.out.println("          " + selectedTaskToBeUnmarked);
-                                System.out.println(DIVIDER);
-
+                                int i = Integer.parseInt(token[1]);
+                                Chronos.unMarkTask(i);
                                 Chronos.saveTasks(fw);
                             } catch (NumberFormatException e) {
                                 System.out.println(DIVIDER);
@@ -269,31 +293,30 @@ public class Chronos {
                         break;
                     case "deadline":
                         try {
-                            String[] descriptionAndBy = token[1].split("/");
-                            String dueDate = descriptionAndBy[1].split(" ", 2)[1];
+                            String[] descriptionAndBy = token[1].split("/by");
                             String description = descriptionAndBy[0].trim();
-
+                            String dueDate = Chronos.formatDateTime(descriptionAndBy[1].trim());
                             Chronos.addDeadline(description, dueDate);
                             Chronos.saveTasks(fw);
                         } catch (Exception e) {
                             System.out.println(DIVIDER);
                             System.out.println("        Invalid command. Please include a task name and a valid due date following the syntax of the example below:");
-                            System.out.println("        e.g. deadline return library book /by 6th March");
+                            System.out.println("        e.g. deadline return library book /by 2024-09-22 15:00");
                         }
                         break;
                     case "event":
                         try {
-                            String[] descriptionAndFromAndTo = token[1].split("/");
-                            String description = descriptionAndFromAndTo[0].trim();
-                            String from = descriptionAndFromAndTo[1].split(" ", 2)[1].trim();
-                            String to = descriptionAndFromAndTo[2].split(" ", 2)[1].trim();
-
-                            Chronos.addEvent(description, from, to);
+                            String[] descriptionAndDate = token[1].split("/from");
+                            String description = descriptionAndDate[0].trim();
+                            String[] fromAndTo = descriptionAndDate[1].split("/to");
+                            String fromDateAndTime = Chronos.formatDateTime(fromAndTo[0].trim());
+                            String toDateAndTime = Chronos.formatDateTime(fromAndTo[1].trim());
+                            Chronos.addEvent(description, fromDateAndTime, toDateAndTime);
                             Chronos.saveTasks(fw);
                         } catch (Exception e) {
                             System.out.println(DIVIDER);
                             System.out.println("        Invalid command. Please include a task name and a valid due date following the syntax of the example below:");
-                            System.out.println("        e.g. event project meeting /from 2 Feb 2pm /to 2 Feb 4pm");
+                            System.out.println("        e.g. event concert /from 2024-02-16 18:00 /to 2024-02-16 20:00");
                             System.out.println(DIVIDER);
                         }
                         break;

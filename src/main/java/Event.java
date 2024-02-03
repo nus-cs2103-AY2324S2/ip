@@ -13,9 +13,9 @@ public class Event extends Task {
     /**
      * Constructs an Event object with the given description, start and end date and time.
      *
-     * @param description description of the event.
-     * @param from start date and time.
-     * @param to end date and time.
+     * @param description Description of the event.
+     * @param from Start date and time.
+     * @param to End date and time.
      */
     public Event(String description, String from, String to) {
         super(description);
@@ -26,7 +26,7 @@ public class Event extends Task {
     /**
      * Returns a string representation of the Event object.
      *
-     * @return string representation of the event.
+     * @return String representation of the event.
      */
     @Override
     public String toString() {
