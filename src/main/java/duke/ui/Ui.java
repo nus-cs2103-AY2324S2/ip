@@ -101,9 +101,19 @@ public class Ui {
     }
 
     public void listTasks() {
+        taskList.unfilterTasks();
         ToggleConversationState();
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= taskList.getNumOfTasks(); i++) {
+            System.out.println(i + "." + taskList.getTask(i).toString());
+        }
+        ToggleConversationState();
+    }
+
+    public void listFilteredTasks() {
+        ToggleConversationState();
+        System.out.println("Here are tasks found:");
+        for (int i = 1; i <= taskList.getNumOfFilteredTasks(); i++) {
             System.out.println(i + "." + taskList.getTask(i).toString());
         }
         ToggleConversationState();

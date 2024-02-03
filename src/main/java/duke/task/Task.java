@@ -107,6 +107,10 @@ public abstract class Task {
         }
     }
 
+    public boolean descriptionContainKeyword(String keyword) {
+        return description.contains(keyword);
+    }
+
     private static boolean isTaskStringArray(String[] inputArray) {
         return inputArray[0].equals("T") ||
                 inputArray[0].equals("E") ||
