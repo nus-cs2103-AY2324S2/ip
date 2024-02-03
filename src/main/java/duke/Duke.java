@@ -52,7 +52,8 @@ public class Duke {
         try {
             storage.loadFromMemory();
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            System.out.println("No previous task file found");//e.getMessage());
+            storage.createDataFile();
         }
 
         instance.ToggleActiveState();
