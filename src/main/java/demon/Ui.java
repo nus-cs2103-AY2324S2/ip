@@ -1,3 +1,5 @@
+package demon;
+
 public class Ui {
 
     public void welcomeMessage() {

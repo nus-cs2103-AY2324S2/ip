@@ -1,3 +1,5 @@
+package demon;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -73,7 +75,9 @@ public class Commands {
 
         // Automatically assume that if time is not given, then time is 0000hrs
         int sizeOfBy = by.split(" ").length;
-        if (sizeOfBy < 2) by += " 0000";
+        if (sizeOfBy < 2) {
+            by += " 0000";
+        }
         // Format the date, time, and create Deadline object, add to list
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
@@ -126,9 +130,13 @@ public class Commands {
 
         // Automatically assume that if time is not given, then time is 0000hrs
         int sizeOfFrom = from.split(" ").length;
-        if (sizeOfFrom < 2) from += " 0000";
+        if (sizeOfFrom < 2) {
+            from += " 0000";
+        }
         int sizeOfTo = to.split(" ").length;
-        if (sizeOfTo < 2) to += " 0000";
+        if (sizeOfTo < 2) {
+            to += " 0000";
+        }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         LocalDateTime dateTimeFrom = LocalDateTime.parse(from, formatter);
