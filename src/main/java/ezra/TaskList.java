@@ -1,11 +1,10 @@
 package ezra;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.File;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Represents a collection of tasks and provides methods for managing them.
@@ -27,7 +26,7 @@ public class TaskList {
      * @param f The file containing tasks.
      * @throws FileNotFoundException If the specified file is not found.
      */
-    public TaskList(File f) throws FileNotFoundException{
+    public TaskList(File f) throws FileNotFoundException {
         Scanner s = new Scanner(f);
         while (s.hasNextLine()) {
             // Extract command, isDone and description from input
