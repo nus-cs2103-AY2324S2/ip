@@ -17,18 +17,18 @@ import duke.exceptions.TaskCreationException;
 
 /**
  * This class implements the saving and reading of bot data into a text file.
- * 
+ *
  * @author delishad21
  */
 public class Storage {
     private File f;
-    
+
     /**
      * Creates a Storage object, takes in a filepath for the file in which data
      * should be saved.
-     * 
+     *
      * @param filePath File to save data to and load data from.
-     * @throws IOException 
+     * @throws IOException
      */
     public Storage(String filePath) throws IOException {
         this.f = new File(filePath);
@@ -37,7 +37,7 @@ public class Storage {
 
     /**
      * Checks and creates file based on filepath.
-     * 
+     *
      * @throws IOException
      */
     private void checkAndCreateFile() throws IOException {
@@ -57,25 +57,22 @@ public class Storage {
 
     /**
      * Reads save data from save file.
-     * 
+     *
      * @param ui Used for printing information.
      * @return TaskList read from save data.
      * @throws FileNotFoundException
      */
-    public TaskList readSaveData(Ui ui) throws FileNotFoundException{
+    public TaskList readSaveData() throws FileNotFoundException{
         TaskList taskList = new TaskList();
 
         Scanner s = new Scanner(f);
-        int count = 0;
         while (s.hasNext()) {
             try {
                 taskList.add(parseTaskFromSave(s.nextLine()));
-                count++;
             } catch (TaskCreationException e) {
                 System.out.println("Error in reading task: " + e.getMessage());
             }
         }
-        ui.botPrint(count + " tasks loaded from save");
         s.close();
 
         return taskList;
@@ -84,31 +81,31 @@ public class Storage {
 
     /**
      * Saves data from bot back to save file.
-     * 
+     *
      * @param data The data from the bot.
      * @param ui Used for printing information.
      * @throws IOException
      */
-    public void saveTodoData(TaskList data, Ui ui) throws IOException {
+    public String saveTodoData(TaskList data) throws IOException {
         this.checkAndCreateFile();
 
         FileWriter fw = new FileWriter(f);
-        
+
         String dataString = "";
-        
+
         for (int i = 1; i <= data.size(); i++) {
             dataString = dataString + data.get(i).toSave() + "\n";
         }
-        
+
         fw.write(dataString);
         fw.close();
 
-        ui.botPrint(data.size() + " tasks saved");
+        return data.size() + " tasks saved";
     }
 
     /**
      * Parses individual line from save file into Tasks.
-     * 
+     *
      * @param task Each line read from save file.
      * @return A Task object generated with information parsed from input.
      * @throws TaskCreationException
@@ -128,11 +125,11 @@ public class Storage {
         case "[T]":
             return new Todo(isDone, taskSplit[2]);
         case "[D]":
-            return new Deadline(isDone, taskSplit[2], 
+            return new Deadline(isDone, taskSplit[2],
                                 LocalDateTime.parse(taskSplit[3], Parser.INPUT_DT_FORMATTER));
-        case "[E]":        
-            return new Event(isDone, taskSplit[2],  
-                             LocalDateTime.parse(taskSplit[3], Parser.INPUT_DT_FORMATTER),  
+        case "[E]":
+            return new Event(isDone, taskSplit[2],
+                             LocalDateTime.parse(taskSplit[3], Parser.INPUT_DT_FORMATTER),
                              LocalDateTime.parse(taskSplit[4], Parser.INPUT_DT_FORMATTER));
         default:
             throw new TaskCreationException("No such task: " + taskSplit[0] + " for " + task);

@@ -13,34 +13,32 @@ import duke.exceptions.NoSuchCommandException;
 
 /**
  * This class implements the functionality for Parsing commands input into the bot.
- * 
+ *
  * @author delishad21
- 
+
  */
 public class Parser {
-    public static final DateTimeFormatter INPUT_DT_FORMATTER = 
+    public static final DateTimeFormatter INPUT_DT_FORMATTER =
         DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm");
-    public static final DateTimeFormatter OUTPUT_DT_FORMATTER = 
+    public static final DateTimeFormatter OUTPUT_DT_FORMATTER =
         DateTimeFormatter.ofPattern("dd MMMM yyyy, hh:mma", Locale.ENGLISH);
-    
-    
-    
-    /** 
+
+
+
+    /**
      * Parses user input and  into the appropriate commands for the bot to execute.
-     * 
+     *
      * @param input
      * @return Command
      * @throws NoSuchCommandException
      */
     public static Command parse(String input) throws NoSuchCommandException {
 
-        if (input.equals("bye")) {
-            return new ExitCommand();
-        }
-
         String action = input.split(" ")[0].toLowerCase();
 
         switch (action) {
+        case "bye":
+            return new ExitCommand();
         case "list":
             return new ListTaskCommand();
         case "find":
@@ -61,5 +59,5 @@ public class Parser {
             throw new NoSuchCommandException(input);
         }
     }
-    
+
 }

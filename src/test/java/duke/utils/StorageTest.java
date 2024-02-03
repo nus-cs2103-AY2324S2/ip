@@ -22,7 +22,7 @@ public class StorageTest {
         file.delete();
         try {
             Storage s = new Storage("data/test.txt");
-            assertTrue(file.exists()); 
+            assertTrue(file.exists());
             file.delete();
         } catch (IOException e) {
             fail();
@@ -32,7 +32,7 @@ public class StorageTest {
 
     @Test
     public void testStorageReading() {
-        
+
         try {
             File file = new File("data/test.txt");
             file.createNewFile();
@@ -43,15 +43,14 @@ public class StorageTest {
 
             fw.close();
             Storage s = new Storage("data/test.txt");
-            Ui ui = new Ui();
-            TaskList taskList = s.readSaveData(ui);
+            TaskList taskList = s.readSaveData();
 
             assertTrue(taskList.size() == 3);
             assertTrue(taskList.get(1) instanceof Todo);
             assertTrue(taskList.get(2) instanceof Deadline);
             assertTrue(taskList.get(3) instanceof Event);
             file.delete();
-            
+
         } catch (IOException e) {
             fail();
         }
