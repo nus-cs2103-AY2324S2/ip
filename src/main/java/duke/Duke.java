@@ -27,6 +27,20 @@ public class Duke {
     }
 
     /**
+     * Constructs an instance of the Duke Chatbot with no parameters.
+     */
+    public Duke() {
+        String filePath = "src/main/data/caching.txt";
+        try {
+            this.storage = new Storage(filePath);
+            this.tasks = new TaskList(this.storage.loadTaskList());
+            this.parser = new Parser();
+        } catch (DukeException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    /**
      * Runs the program until the "bye" instruction is inputted by the user and interprets the command word.
      */
     public void run() {
@@ -49,5 +63,13 @@ public class Duke {
      */
     public static void main(String[] args) {
         new Duke("src/main/data/caching.txt").run();
+    }
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    public String getResponse(String input) {
+        return this.parser.parseInstr(this.tasks, this.storage, input);
     }
 }
