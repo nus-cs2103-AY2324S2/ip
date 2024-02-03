@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     private String task;
     private boolean completed;
@@ -39,29 +42,33 @@ class ToDo extends Task {
 }
 
 class Deadline extends Task {
-    private String by;
+    private LocalDateTime by;
     public Deadline (String deadline, String by) {
         super(deadline);
-        this.by = by;
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        this.by = LocalDateTime.parse(by, inputFormatter);
     }
 
     @Override
     public String toString() {
-        return "D" + super.toString() + " | " + this.by;
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
+        return "D" + super.toString() + " | " + this.by.format(outputFormatter);
     }
 }
 
 class Event extends Task {
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
     public Event(String event, String from, String to) {
         super(event);
-        this.from = from;
-        this.to = to;
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        this.from = LocalDateTime.parse(from, inputFormatter);
+        this.to = LocalDateTime.parse(to, inputFormatter);
     }
 
     @Override
     public String toString() {
-        return "E" + super.toString() + " | " + this.from + "-" + this.to;
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
+        return "E" + super.toString() + " | " + this.from.format(outputFormatter) + " - " + this.to.format(outputFormatter);
     }
 }

@@ -1,6 +1,7 @@
 import java.util.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.io.*;
-
 
 public class Riz {
     private static final String FILE_PATH = "./data/riz.txt";
@@ -88,6 +89,7 @@ public class Riz {
                     int curr = Integer.parseInt(token[1]) - 1;
                     Task task = tasks.get(curr);
                     tasks.remove(curr);
+                    FileManager.writeToFile(FILE_PATH, tasks);
                     System.out.println("Boo... planning to slack off?");
                     System.out.println("Removed: " + task + "...");
                     System.out.println("\n");

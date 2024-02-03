@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class FileManager {
 
@@ -20,14 +22,19 @@ public class FileManager {
                     }
                     tasks.add(todo);
                 } else if (token[0].equals("D")) {
-                    Deadline deadline = new Deadline(token[2], token[3]);
+                    LocalDateTime by = LocalDateTime.parse(token[3], DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
+                    Deadline deadline = new Deadline(token[2], by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")));
                     if (token[1].equals("X")) {
                         deadline.mark();
                     }
                     tasks.add(deadline);
                 } else {
-                    String[] time = token[3].split("-");
-                    Event event = new Event(token[2], time[0], time[1]);
+                    String[] time = token[3].split(" - ");
+                    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
+                    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                    LocalDateTime from = LocalDateTime.parse(time[0], inputFormatter);
+                    LocalDateTime to = LocalDateTime.parse(time[1], inputFormatter);
+                    Event event = new Event(token[2], from.format(outputFormatter), to.format(outputFormatter));
                     if (token[1].equals("X")) {
                         event.mark();
                     }
