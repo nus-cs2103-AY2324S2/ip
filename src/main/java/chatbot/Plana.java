@@ -1,8 +1,8 @@
 package chatbot;
 
-import chatbot.exceptions.DukeException;
-
 import java.io.IOException;
+
+import chatbot.exceptions.DukeException;
 
 /**
  * Represents the main class responsible for running the chatbot 'Plana'. Critical components like UI, file IO are

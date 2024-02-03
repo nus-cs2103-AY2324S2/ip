@@ -8,7 +8,7 @@ public class Duke {
             Plana p = new Plana();
             p.init();
         } catch (ClassNotFoundException e) {
-            System.out.println("Invalid save file:\n" +e.getMessage());
+            System.out.println("Invalid save file:\n" + e.getMessage());
         } catch (IOException e) {
             System.out.println("Storage failed with error:\n" + e.getMessage());
         }

@@ -1,10 +1,10 @@
 package chatbot;
 
-import chatbot.exceptions.AlreadyMarkedException;
-import chatbot.exceptions.AlreadyUnmarkedException;
-
 import java.io.IOException;
 import java.util.ArrayList;
+
+import chatbot.exceptions.AlreadyMarkedException;
+import chatbot.exceptions.AlreadyUnmarkedException;
 
 /**
  * Represents a list of Tasks.
@@ -36,7 +36,7 @@ public class TaskList {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            sb.append(String.format("%d. %s\n", i+1, tasks.get(i)));
+            sb.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
         }
         return sb.toString();
     }
@@ -80,6 +80,12 @@ public class TaskList {
         return this.tasks.remove(i);
     }
 
+    /**
+     * Filters tasks by string.
+     *
+     * @param s The search string.
+     * @return The tasks with description containing that string.
+     */
     public ArrayList<Task> filterByString(String s) {
         ArrayList<Task> res = new ArrayList<>();
         for (Task task : this.tasks) {

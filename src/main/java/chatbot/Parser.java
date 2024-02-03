@@ -1,13 +1,13 @@
 package chatbot;
 
-import chatbot.exceptions.InvalidCommandException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 import java.util.HashMap;
 import java.util.Map;
+
+import chatbot.exceptions.InvalidCommandException;
 
 /**
  * Represents a utility class to parse string inputs from the user.
@@ -49,9 +49,9 @@ public class Parser {
     public static LocalDateTime parseDate(String date) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .append(DateTimeFormatter.ofPattern(
-                        "[yyyy-MM-dd HH:mm]" +
-                                "[yyyy-MM-dd]" +
-                                "[yyyy-MM]"
+                        "[yyyy-MM-dd HH:mm]"
+                        + "[yyyy-MM-dd]"
+                        + "[yyyy-MM]"
                 ))
                 .parseDefaulting(ChronoField.MONTH_OF_YEAR, 1)
                 .parseDefaulting(ChronoField.DAY_OF_MONTH, 1)

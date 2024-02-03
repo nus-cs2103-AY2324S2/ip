@@ -1,11 +1,11 @@
 package chatbot;
 
-import chatbot.exceptions.InvalidArgumentException;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import chatbot.exceptions.InvalidArgumentException;
 
 class DeadlineTask extends Task implements Serializable {
     private static final long serialVersionUID = 1L;

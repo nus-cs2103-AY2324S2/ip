@@ -1,9 +1,9 @@
 package chatbot;
 
+import java.io.Serializable;
+
 import chatbot.exceptions.AlreadyMarkedException;
 import chatbot.exceptions.AlreadyUnmarkedException;
-
-import java.io.Serializable;
 
 /**
  * Represents a Task created by the user, as part of a list of tasks.
@@ -39,7 +39,9 @@ public class Task implements Serializable {
      * @throws AlreadyMarkedException If the task is already marked as done.
      */
     public void mark() throws AlreadyMarkedException {
-        if (this.done) throw new AlreadyMarkedException();
+        if (this.done) {
+            throw new AlreadyMarkedException();
+        }
         this.done = true;
     }
 
@@ -49,7 +51,9 @@ public class Task implements Serializable {
      * @throws AlreadyUnmarkedException If the task is not marked as done.
      */
     public void unmark() throws AlreadyUnmarkedException {
-        if (!this.done) throw new AlreadyUnmarkedException();
+        if (!this.done) {
+            throw new AlreadyUnmarkedException();
+        }
         this.done = false;
     }
 }

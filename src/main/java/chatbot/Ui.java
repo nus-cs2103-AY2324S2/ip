@@ -12,11 +12,11 @@ public class Ui {
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_CYAN = "\u001B[36m";
     private static final String LOGO =
-            "    ____  __                 \n" +
-            "   / __ \\/ /___ _____  ____ _\n" +
-            "  / /_/ / / __ `/ __ \\/ __ `/\n" +
-            " / ____/ / /_/ / / / / /_/ / \n" +
-            "/_/   /_/\\__,_/_/ /_/\\__,_/  \n";
+            "    ____  __                 \n"
+                    + "   / __ \\/ /___ _____  ____ _\n"
+                    + "  / /_/ / / __ `/ __ \\/ __ `/\n"
+                    + " / ____/ / /_/ / / / / /_/ / \n"
+                    + "/_/   /_/\\__,_/_/ /_/\\__,_/  \n";
 
     private static final String NAME = "Plana";
 
@@ -41,6 +41,7 @@ public class Ui {
 
     /**
      * Waits for user input.
+     *
      * @return User input.
      */
     public String getInput() {
@@ -50,6 +51,7 @@ public class Ui {
 
     /**
      * Utility function to display strings in stdout with color.
+     *
      * @param msg The message to display.
      */
     private void display(String msg) {
@@ -73,12 +75,12 @@ public class Ui {
      * Display a notification after user adds a task.
      *
      * @param tl The task list.
-     * @param t The added task.
+     * @param t  The added task.
      */
     public void displayAdd(TaskList tl, Task t) {
-        this.display("Got it. I've added this task:\n" +
-                ">> " + t + "\n" +
-                "You now have " + tl.getSize() + " tasks in the list.\n");
+        this.display("Got it. I've added this task:\n"
+                + ">> " + t + "\n"
+                + "You now have " + tl.getSize() + " tasks in the list.\n");
     }
 
     /**
@@ -103,14 +105,19 @@ public class Ui {
      * Displays a notification after user deletes a task.
      *
      * @param tl The task list.
-     * @param t The deleted task.
+     * @param t  The deleted task.
      */
     public void displayDelete(TaskList tl, Task t) {
-        this.display("Got it. I've removed this task:\n" +
-                ">> " + t + "\n" +
-                "You now have " + tl.getSize() + " tasks in the list.\n");
+        this.display("Got it. I've removed this task:\n"
+                + ">> " + t + "\n"
+                + "You now have " + tl.getSize() + " tasks in the list.\n");
     }
 
+    /**
+     * Displays the results after user searches for tasks.
+     *
+     * @param tl The results list.
+     */
     public void displayFind(ArrayList<Task> tl) {
         StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tl.size(); i++) {

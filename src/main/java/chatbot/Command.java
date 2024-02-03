@@ -1,11 +1,11 @@
 package chatbot;
 
-import chatbot.exceptions.DukeException;
-import chatbot.exceptions.InvalidArgumentException;
-
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import chatbot.exceptions.DukeException;
+import chatbot.exceptions.InvalidArgumentException;
 
 /**
  * Represents an enum of the valid user commands.
@@ -79,6 +79,8 @@ public enum Command {
         case DELETE:
             executeIndexing(view, tl);
             break;
+        default:
+            break;
         }
     }
 
@@ -115,6 +117,8 @@ public enum Command {
             }
             t = new EventTask(matcher.group(1).strip(), matcher.group(2).strip(), matcher.group(3).strip());
             break;
+        default:
+            break;
         }
         tl.addTask(t);
         view.displayAdd(tl, t);
@@ -135,7 +139,9 @@ public enum Command {
             throw new InvalidArgumentException();
         }
 
-        if (i < 1 || i > tl.getSize()) throw new InvalidArgumentException();
+        if (i < 1 || i > tl.getSize()) {
+            throw new InvalidArgumentException();
+        }
 
         switch (this) {
         case MARK:
@@ -149,6 +155,8 @@ public enum Command {
         case DELETE:
             Task removed = tl.removeTask(i - 1);
             view.displayDelete(tl, removed);
+            break;
+        default:
             break;
         }
     }
