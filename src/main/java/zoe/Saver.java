@@ -13,6 +13,10 @@ public class Saver {
         this.tasks = tasks;
     }
 
+    /**
+     * Saves data from the current zoe instance to a path when zoe closes
+     * @param path
+     */
     public void saveTo(String path) {
         File file = new File(path, "SavedTasks.txt");
 

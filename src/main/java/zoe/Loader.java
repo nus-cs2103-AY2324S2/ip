@@ -1,9 +1,8 @@
 package zoe;
 
-import zoe.Event;
-
 import java.io.*;
 import java.util.ArrayList;
+
 public class Loader {
     protected String path;
     protected String fileName;
@@ -13,6 +12,10 @@ public class Loader {
         this.fileName = fileName;
     }
 
+    /**
+     * Loads data from a saved file when zoe is opened again
+     * If no file exists, creates an empty Array list for zoe.
+     */
     public ArrayList<Task> loadTasks(){
         File file = new File(path, fileName);
         try {

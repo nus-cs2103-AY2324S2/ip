@@ -1,5 +1,9 @@
 package zoe;
 
+/**
+ * Superclass for all forms of tasks
+ * Contains some global methods so that all subclasses have access to that method
+ */
 public class Task {
     protected String description;
     protected String type;
@@ -21,10 +25,16 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Marks a task as done to reflect in zoe
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Unmarks a given task from list in zoe
+     */
     public void unmark() {
         this.isDone = false;
     }
@@ -33,6 +43,9 @@ public class Task {
         return String.format("[%s][%s] %s", this.type, this.getStatusIcon(), this.description);
     }
 
+    /**
+     * Records whether a task is done or not for data loading
+     */
     public int isDoneNumerical() {
         //to help with saving and loading
         if (this.isDone) {

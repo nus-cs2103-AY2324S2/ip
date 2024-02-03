@@ -1,7 +1,8 @@
 package zoe;
 
-import zoe.Event;
-
+/**
+ * Processes input from user
+ */
 public class Parser {
     public TaskList tl;
     protected Ui ui;
@@ -20,6 +21,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Carries out short commands like list
+     * If invalid command like empty todo is given, calls the respective responses
+     * @param command
+     */
     public void carryOutShortCommand(String command) {
         if (command.equals("list")) {
             for (int i = 0; i < tl.getSize(); i++) {
@@ -35,6 +41,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Carries out long commands to deal with the different forms of task
+     * @param command
+     * @param commandDescription
+     */
     public void carryOutLongCommand(String command, String commandDescription) {
         if (command.equals("todo")) {
             ToDo td = new ToDo(commandDescription);
@@ -60,7 +71,7 @@ public class Parser {
             }
 
         } else if (!tl.isValid(Integer.parseInt(commandDescription))){
-            ui.invalidIndex();
+            ui.invalidIndex(tl.getSize());
         } else {
             ui.invalidCommand();
         }

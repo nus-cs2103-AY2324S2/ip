@@ -1,5 +1,9 @@
 package zoe;
 
+/**
+ * Subclass of task
+ * Creates a todo task when keyed in the following form: todo XYZ
+ */
 public class ToDo extends Task {
     public ToDo(String description) {
         super(description);

@@ -2,6 +2,11 @@ package zoe;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * Subclass of task
+ * Creates a deadline when keyed in the form: deadline XYZ /by yyyy-mm-dd
+ */
 public class Deadline extends Task {
 
     protected String date;
