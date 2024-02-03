@@ -18,7 +18,6 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
-
     /**
      * Prints the farewell message of Tobias.
      * */
@@ -57,7 +56,6 @@ public class Ui {
      * */
     public String readCommand() {
         Scanner scanner = new Scanner(System.in);
-        String command = scanner.nextLine().trim();
-        return command;
+        return scanner.nextLine().trim();
     }
 }
