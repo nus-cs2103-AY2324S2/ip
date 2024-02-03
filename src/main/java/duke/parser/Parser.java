@@ -9,6 +9,7 @@ import duke.commands.CommandBye;
 import duke.commands.CommandDeadline;
 import duke.commands.CommandDelete;
 import duke.commands.CommandEvent;
+import duke.commands.CommandFind;
 import duke.commands.CommandList;
 import duke.commands.CommandMark;
 import duke.commands.CommandTodo;
@@ -233,6 +234,23 @@ public class Parser {
     }
 
     /**
+     * Parses the "find" command and its arguments.
+     *
+     * @param args The arguments passed with the command.
+     * @return A CommandFind instance with the specified keyword.
+     * @throws DukeException If the search keyword is missing.
+     */
+    private static Command parseCommandFind(String[] args) throws DukeException {
+        if (args.length < 2) {
+            throw new InvalidArgumentException("search keyword", "is missing");
+        }
+
+        String keyword = args[1];
+
+        return new CommandFind(keyword);
+    }
+
+    /**
      * Parses an unknown command.
      *
      * @return A CommandUnknown instance.
@@ -279,6 +297,9 @@ public class Parser {
             break;
         case "delete":
             command = parseCommandDelete(args);
+            break;
+        case "find":
+            command = parseCommandFind(args);
             break;
         default:
             command = parseCommandUnknown();
