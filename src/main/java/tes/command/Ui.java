@@ -167,4 +167,24 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Finds tasks in the list with a keyword.
+     *
+     * @param keyword Word used to find the task.
+     */
+    public void find(String keyword) {
+        printLine();
+        System.out.println("    Here are the matching tasks in your list:");
+        int counter = 1;
+        for (int i = 1; i <= this.taskList.getSize(); i++) {
+            String temp = this.taskList.getTaskDescription(i - 1);
+            if (temp.contains(keyword)) {
+                System.out.println("    " + counter + "."
+                        + temp);
+                counter++;
+            }
+        }
+        printLine();
+    }
+
 }
