@@ -49,15 +49,20 @@ public class InputParser extends Parser {
         return matcher.group(1);
     }
 
+    private static boolean isSingleOccurrence(String pattern, String input) {
+        String[] parts = input.split(pattern);
+        return parts.length == 2;
+    }
+
     public static String[] parseDeadline(String input) {
         String[] ret = new String[3];
         Pattern pattern = Pattern.compile("^deadline ([^ ].*) /by ([^ ].*)$");
         Matcher matcher = pattern.matcher(input);
-        if (matcher.find()) {
+        if (matcher.find() && isSingleOccurrence("/by", input)) {
             ret[0] = matcher.group(1);
             ret[1] = matcher.group(2);
         } else {
-            throw new InputMismatchException();
+            throw new InputMismatchException("Unknown input format");
         }
         return ret;
     }
@@ -66,12 +71,14 @@ public class InputParser extends Parser {
         String[] ret = new String[3];
         Pattern pattern = Pattern.compile("^event ([^ ].*) /from ([^ ].*) /to ([^ ].*)$");
         Matcher matcher = pattern.matcher(input);
-        if (matcher.find()) {
+        if (matcher.find() &&
+                isSingleOccurrence("/from", input) &&
+                isSingleOccurrence("/to", input)) {
             ret[0] = matcher.group(1);
             ret[1] = matcher.group(2);
             ret[2] = matcher.group(3);
         } else {
-            throw new InputMismatchException();
+            throw new InputMismatchException("Unknown input format");
         }
         return ret;
     }
