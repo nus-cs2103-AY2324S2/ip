@@ -35,15 +35,18 @@ public class TaskList {
         Storage.updateSaved(tasks);
     }
 
-    public void printTasks() {
-        System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            int num = i + 1;
-            System.out.println("\t" + num + ". " + tasks.get(i));
-        }
+    public String getListCounter() {
+        return "\tNow you have " + this.tasks.size() + " tasks in the list.";
     }
 
-    public void printListCounter() {
-        System.out.println("\tNow you have " + this.tasks.size() + " tasks in the list.");
+    @Override
+    public String toString() {
+        String taskStr = "\tHere are the tasks in your list:";
+        for (int i = 0; i < tasks.size(); i++) {
+            int num = i + 1;
+            String nextTask = "\t" + num + ". " + tasks.get(i);
+            taskStr += "\n" + nextTask;
+        }
+        return taskStr;
     }
 }

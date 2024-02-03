@@ -30,9 +30,9 @@ public class Storage {
     }
 
     public ArrayList<Task> loadTasks() {
+        ArrayList<Task> taskAL = new ArrayList<>();
         try {
             File data = initDataFile();
-            ArrayList<Task> taskAL = new ArrayList<>();
             BufferedReader reader = new BufferedReader(new FileReader(data));
 
             String task;
@@ -59,7 +59,6 @@ public class Storage {
                     taskAL.add(event);
                 }
             }
-            
             reader.close();
             return taskAL;
         } catch (IOException e) {
@@ -68,7 +67,7 @@ public class Storage {
             e.printStackTrace();
         }
 
-        return null;
+        return taskAL;
     }
 
     private static File initDataFile () throws IOException {
