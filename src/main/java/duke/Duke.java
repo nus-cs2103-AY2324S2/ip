@@ -1,4 +1,5 @@
-import duke.Parser;
+package duke;
+
 public class Duke {
     private Parser parser;
     public Duke() {
