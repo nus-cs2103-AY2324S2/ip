@@ -1,33 +1,30 @@
 package Duke.Command;
 
+import Duke.Exception.*;
 import Duke.Task.TaskList;
 import Duke.Task.Task;
 import Duke.Task.Todo;
 import Duke.Ui;
 import Duke.Storage;
+import Duke.Exception.InvalidArgumentException;
 
 public class AddTodoCommand extends Command {
-    Task task;
+    String description;
 
     public AddTodoCommand(String description) {
-        this.task = new Todo(description);
+        this.description = description;
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws IllegalArgumentException {
+    public void execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
         try {
-            Task todo = this.task;
+            Task todo = new Todo(this.description);
             taskList.addTask(todo);
             Storage.save(taskList);
             Ui.displayNewTask(todo, taskList);
-        } catch (IllegalArgumentException e) {
-            System.out.println("illegal argument exception");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidArgumentException("TODO");
         }
+
     }
-
-
-
-
-
-
 }

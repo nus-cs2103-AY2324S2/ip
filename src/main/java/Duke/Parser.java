@@ -11,22 +11,22 @@ import Duke.Command.UnmarkCommand;
 
 
 import Duke.Command.Command;
-
+import Duke.Exception.DukeException;
+import Duke.Exception.InvalidArgumentException;
+import Duke.Exception.InvalidCommandException;
+import Duke.Ui;
 
 public class Parser {
     public enum CommandType {
         BYE, LIST, DELETE, MARK, UNMARK, TODO, EVENT, DEADLINE
     }
 
-    public static Command parseCommand(String userInput) {
+    public static Command parseCommand(String userInput) throws InvalidCommandException, InvalidArgumentException {
         Command command = null;
 
         try {
             String[] components = userInput.split(" ", 2);
             String description;
-
-            // Validate non-empty Duke.Command.Duke.Command
-            validateNonEmptyCommand(components);
             CommandType commandType = CommandType.valueOf(components[0].toUpperCase());
 
             switch (commandType) {
@@ -69,29 +69,14 @@ public class Parser {
                 break;
 
             default:
-                throw new IllegalArgumentException("Invalid Duke.Command.Duke.Command");
+                throw new InvalidCommandException("Invalid Command");
             }
-
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
         } catch (IllegalArgumentException e) {
-            System.out.println("Invalid Duke.Command.Duke.Command");
+            throw new InvalidCommandException("Invalid Command");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidArgumentException("Description Cannot be Empty");
         }
-
         return command;
     }
 
-    private static void validateNonEmptyCommand(String[] components) throws DukeException {
-        if (components.length < 1 || components[0].isBlank()) {
-            throw new DukeException("Invalid command");
-        }
-    }
-
-    private static void validateValidCommand(String command) throws DukeException {
-        try {
-            CommandType convertCommand = CommandType.valueOf(command);
-        } catch (IllegalArgumentException e) {
-            throw new DukeException("Invalid command");
-        }
-    }
 }

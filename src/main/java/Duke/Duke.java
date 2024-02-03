@@ -2,6 +2,7 @@ package Duke;
 
 import Duke.Command.Command;
 import Duke.Task.TaskList;
+import Duke.Exception.*;
 
 public class Duke {
 
@@ -27,10 +28,16 @@ public class Duke {
         ui.greet();
 
         while (isActive) {
-            String userInput = ui.getInput();
-            Command command = Parser.parseCommand(userInput);
-            command.execute(this.storage, this.tasks, this.ui);
-            isActive = command.getIsActive();
+            try {
+                String userInput = this.ui.getInput();
+                Command command = Parser.parseCommand(userInput);
+                command.execute(this.storage, this.tasks, this.ui);
+                isActive = command.getIsActive();
+            } catch (InvalidArgumentException e) {
+                Ui.printError(e);
+            } catch (InvalidCommandException e) {
+                Ui.printError(e);
+            }
         }
 
     }
@@ -41,27 +48,27 @@ public class Duke {
 }
 
 
-//    private static void validateNonEmptyDesc(String[] components) throws Duke.DukeException {
+//    private static void validateNonEmptyDesc(String[] components) throws Duke.Exception.DukeException {
 //        if (components.length < 2 || components[1].isBlank()) {
-//            throw new Duke.DukeException("The description cannot be empty :(");
+//            throw new Duke.Exception.DukeException("The description cannot be empty :(");
 //        }
 //    }
 
 
 //
-//    private static void validateFormat(String[] fragments, int expectedNumberOfFragments) throws Duke.DukeException {
+//    private static void validateFormat(String[] fragments, int expectedNumberOfFragments) throws Duke.Exception.DukeException {
 //        if (fragments.length != expectedNumberOfFragments) {
-//            throw new Duke.DukeException("Something is wrong with the format!");
+//            throw new Duke.Exception.DukeException("Something is wrong with the format!");
 //        }
 //        for (int i = 0; i < expectedNumberOfFragments; i++) {
 //            if (fragments[i].isBlank()) {
-//                throw new Duke.DukeException("Something is wrong with the format!");
+//                throw new Duke.Exception.DukeException("Something is wrong with the format!");
 //            }
 //        }
 //    }
-//    private static void validateIndex(int index, int length) throws Duke.DukeException {
+//    private static void validateIndex(int index, int length) throws Duke.Exception.DukeException {
 //        if (index > length || index <= 0) {
-//            throw new Duke.DukeException("Invalid index");
+//            throw new Duke.Exception.DukeException("Invalid index");
 //        }
 //    }
 //

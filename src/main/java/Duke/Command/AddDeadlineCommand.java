@@ -1,5 +1,6 @@
 package Duke.Command;
 
+import Duke.Exception.InvalidArgumentException;
 import Duke.Task.Deadline;
 import Duke.Task.Task;
 import Duke.Task.TaskList;
@@ -7,26 +8,27 @@ import Duke.Storage;
 import Duke.Ui;
 
 public class AddDeadlineCommand extends Command {
-    Task task;
+    String description;
 
     public AddDeadlineCommand(String description) {
-        String[] components = description.split(" /by ", 2);
-        String deadlineDetails = components[0];
-        String byDate = components[1];
-        String formattedByDate = formatDate(byDate);
-        String formattedDescription = deadlineDetails + " (by: " + formattedByDate + ")";
-
-        this.task = new Deadline(formattedDescription);
+        this.description = description;
     }
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) throws IllegalArgumentException {
+    public void execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
         try {
-            Task deadline = this.task;
+            String[] components = this.description.split(" /by ", 2);
+            String deadlineDetails = components[0];
+            String byDate = components[1];
+
+            String formattedByDate = formatDate(byDate);
+            String formattedDescription = deadlineDetails + " (by: " + formattedByDate + ")";
+            Task deadline = new Deadline(formattedDescription);
+
             taskList.addTask(deadline);
             Storage.save(taskList);
             ui.displayNewTask(deadline, taskList);
-        } catch (IllegalArgumentException e) {
-            System.out.println("illegal argument exception");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidArgumentException("DEADLINE");
         }
     }
 }

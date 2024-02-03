@@ -1,5 +1,6 @@
 package Duke;
 
+import Duke.Exception.InvalidCommandException;
 import Duke.Task.Task;
 
 import java.io.*;
@@ -9,6 +10,7 @@ import java.nio.file.Files;
 
 import java.util.ArrayList;
 import Duke.Task.TaskList;
+import Duke.Exception.DukeException;
 
 public class Storage {
     // Default file path for storage
@@ -53,9 +55,9 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new DukeException("No existing file. Starting with an empty task list.");
+            throw new InvalidCommandException("No existing file. Starting with an empty task list.");
         } catch (IOException e) {
-            throw new DukeException("No existing file. Starting with an empty task list.");
+            throw new InvalidCommandException("No existing file. Starting with an empty task list.");
         }
 
         return arrayTaskList;

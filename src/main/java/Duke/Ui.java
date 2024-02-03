@@ -4,6 +4,7 @@ import Duke.Task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Duke.Task.TaskList;
+import Duke.Exception.DukeException;
 
 public class Ui {
     Scanner scanner;
@@ -30,7 +31,7 @@ public class Ui {
     }
 
     public static void showLoadingError() {
-        System.out.println("There is an error loading the Duke.Storage");
+        System.out.println("There is an error loading the Storage");
     }
 
     public String getInput() {
@@ -85,6 +86,11 @@ public class Ui {
 
         printDivider();
 
+    }
+
+    public static void printError(DukeException e) {
+        System.out.println(e.errorMessage());
+        printDivider();
     }
     private static void printDivider() {
         System.out.println("____________________________");

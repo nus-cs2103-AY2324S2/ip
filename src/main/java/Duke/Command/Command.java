@@ -5,21 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+
+import Duke.Exception.InvalidArgumentException;
 import Duke.Storage;
 import Duke.Task.TaskList;
 import Duke.Ui;
 
 public abstract class Command {
     boolean isActive = true;
-    public abstract void execute(Storage storage, TaskList taskList, Ui ui);
+    public abstract void execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException;
     static String formatDate(String byDate) {
         List<DateTimeFormatter> formatters = new ArrayList<>();
         formatters.add(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         formatters.add(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         formatters.add(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         LocalDate parsedDateTime = null;
-
-        System.out.println("Input date: " + byDate);
 
         for (DateTimeFormatter formatter : formatters) {
             try {
