@@ -2,6 +2,13 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = '10.2'
+    configFile = file("${rootDir}/config/checkstyle.xml")
+    showViolations = true
 }
 
 repositories {
@@ -11,6 +18,7 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    checkstyle 'com.puppycrawl.tools:checkstyle:8.44'
 }
 
 test {
@@ -28,11 +36,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("campus.Campus")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "campus"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

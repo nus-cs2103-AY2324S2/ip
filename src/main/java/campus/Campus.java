@@ -10,7 +10,7 @@ import campus.infrastructure.Ui;
  */
 public class Campus {
     private final Ui ui;
-    private final Parser parser;
+                    private final Parser parser;
 
     /**
      * Creation of a Campus instance
