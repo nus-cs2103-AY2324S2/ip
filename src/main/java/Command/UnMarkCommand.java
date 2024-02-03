@@ -3,6 +3,10 @@ package Command;
 import Ping.Task;
 import Ping.TaskList;
 import Ping.UI;
+
+/**
+ * This class is used to unmark a task
+ */
 public class UnMarkCommand extends Command {
     private int idx;
 

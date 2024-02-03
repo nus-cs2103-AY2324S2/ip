@@ -4,13 +4,22 @@ import java.util.ArrayList;
 
 import Command.Command;
 
+
+/**
+ * This class is used to run the program
+ */
 public class Ping {
     private UI ui;
-
+    /**
+     * This is the constructor of the Ping class
+     */
     public Ping() {
         this.ui = new UI();
     }
 
+    /**
+     * This method is used to run the program
+     */
     public void run() {
         ArrayList<Task> tasks = Storage.loadFiles();
         TaskList tasks1 = new TaskList(tasks);

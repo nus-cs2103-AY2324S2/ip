@@ -4,6 +4,9 @@ import Ping.Task;
 import Ping.TaskList;
 import Ping.UI;
 
+/**
+ * This class is used to delete a task from the list of tasks
+ */
 public class DeleteCommand extends Command {
     private int idx;
 

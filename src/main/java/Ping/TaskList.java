@@ -1,6 +1,9 @@
 package Ping;
 import java.util.ArrayList;
 
+/**
+ * This class is used to create a list of tasks
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 

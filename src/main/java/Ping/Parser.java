@@ -12,10 +12,16 @@ import Command.HiCommand;
 import Command.ListCommand;
 import Command.MarkCommand;
 import Command.UnMarkCommand;
-
-
+/**
+ * This class is used to parse the command input by the user
+ */
 public class Parser {
-  public static Command parseCommand(String input) {
+    /**
+    * This method is used to parse the command input by the user
+     * @param input the command input by the user
+     * @return the command object
+     */
+    public static Command parseCommand(String input) {
         String[] restCommands = input.split(" ");
         String command = restCommands[0];
         switch (command.toLowerCase()) {

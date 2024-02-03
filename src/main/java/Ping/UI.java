@@ -3,6 +3,9 @@ package Ping;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class is used to create a user interface
+ */
 public class UI {
     private Scanner sc;
 
@@ -13,7 +16,9 @@ public class UI {
     public String readLines() {
         return sc.nextLine();
     }
-
+    /**
+     * This method is used to print the welcome message
+     */
     public void welcome() {
         System.out.println("----------------------------------------------------------");
         System.out.println("Hello! I'm Ping" + "\nWhat can I do for you?");
@@ -44,12 +49,18 @@ public class UI {
         System.out.printf("Now you have %d tasks in the list." + "%n", numOfWork);
     }
 
+    /**
+     * This function below used for todo command
+     */
     public void deleteTaskMessage(int i, Task task, int numOfWork) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.toString());
         System.out.printf("Now you have %d tasks in the list." + "%n", numOfWork);
     }
-
+    /**
+     * This method is used to show the list of tasks
+     * @param tasks the list of tasks
+     */
     public void showList(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("No task added yet");
@@ -65,12 +76,18 @@ public class UI {
             }
         }
     }
-
+    /**
+     * This method is used to mark the task as done
+     * @param t the task
+     */
     public void markTaskMessage(Task t) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(t.toString());
     }
-
+    /**
+     * This method is used to unmark the task as not done
+     * @param t the task
+     */
     public void unmarkTaskMessage(Task t) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(t.toString());

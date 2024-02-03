@@ -3,6 +3,10 @@ package Command;
 import Ping.Task;
 import Ping.TaskList;
 import Ping.UI;
+
+/**
+ * This class is used to mark a task as done
+ */
 public class MarkCommand extends Command {
     private int idx;
 

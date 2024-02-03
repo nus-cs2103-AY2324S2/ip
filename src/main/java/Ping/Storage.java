@@ -2,10 +2,16 @@ package Ping;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * This class is used to save and load the file
+ */
 @SuppressWarnings("unchecked")
 public class Storage {
     private static final String PATH = "./data/duke.txt";
-
+    /**
+     * This method is used to save the file
+     * @param tasks the list of tasks
+     */
     public static void saveFiles(ArrayList<Task> tasks) {
         try {
             File file = new File(PATH);
@@ -28,7 +34,10 @@ public class Storage {
             System.out.println("Oops! Something goes wrong!");
         }
     }
-
+    /**
+     * This method is used to load the file
+     * @return the list of tasks
+     */
     public static ArrayList<Task> loadFiles() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(PATH);
