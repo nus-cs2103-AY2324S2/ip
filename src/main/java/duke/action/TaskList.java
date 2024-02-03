@@ -1,9 +1,10 @@
 package duke.action;
 
-import duke.task.Task;
-
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import duke.task.Task;
+
 
 public class TaskList implements Iterable<Task> {
     private final ArrayList<Task> mylist;
@@ -24,7 +25,8 @@ public class TaskList implements Iterable<Task> {
 
     public Task deleteTask(int index) {
         if (index >= 0 && index < mylist.size()) {
-            System.out.println("Noted. I've removed this task:\n" + mylist.get(index).toString() + "\nNow you have " + (mylist.size()-1) + " tasks in the list.");
+            System.out.println("Noted. I've removed this task:\n" + mylist.get(index).toString()
+                    + "\nNow you have " + (mylist.size() - 1) + " tasks in the list.");
             return mylist.remove(index);
         } else {
             return null;

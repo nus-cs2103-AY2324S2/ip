@@ -1,7 +1,5 @@
 package duke.task;
 
-import java.util.List;
-import java.util.ArrayList;
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -12,11 +10,11 @@ public class Task {
     }
 
     public void mark() {
-        this.isDone=true;
+        this.isDone = true;
     }
 
     public void unmark() {
-        this.isDone=false;
+        this.isDone = false;
     }
 
     public boolean isDone() {
@@ -36,7 +34,7 @@ public class Task {
     }
 
     public String toString() {
-        String temp = " ["+ this.getStatusIcon() + "] " + this.description ;
+        String temp = " [" + this.getStatusIcon() + "] " + this.description;
         return temp;
     }
 

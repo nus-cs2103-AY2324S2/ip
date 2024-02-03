@@ -1,6 +1,5 @@
 package duke.action;
 
-import duke.action.Action;
 public class Farewell implements Action {
     @Override
     public String response() {

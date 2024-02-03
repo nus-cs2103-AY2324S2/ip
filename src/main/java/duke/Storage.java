@@ -1,24 +1,21 @@
 package duke;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Scanner;
+
 import duke.action.TaskList;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.FileWriter;
-
-import java.time.LocalDate;
-
-import java.util.Scanner;
 
 class Storage {
-    File taskFile;
-    //private static final DateTimeFormatter CUSTOM_DATE_FORMATTER = DateTimeFormatter.ofPattern(
-    //"d/M/yyyy");
+    private File taskFile;
 
     public Storage(String filePath) {
         this.taskFile = new File(filePath);
@@ -60,6 +57,9 @@ class Storage {
                     }
                     tasks.addTask(eventTask);
                     break;
+
+                default:
+                    throw new IllegalArgumentException("Unexpected task type: " + taskType);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -89,8 +89,8 @@ class Storage {
                     break;
 
                 case "E":
-                    taskLine = String.format("%s|%s|%s|%s|%s\n", icon, status, description,
-                            ((Event) t).getFrom(), ((Event) t).getTo());
+                    taskLine = String.format("%s|%s|%s|%s|%s\n", icon, status,
+                            description, ((Event) t).getFrom(), ((Event) t).getTo());
                     break;
 
                 default:
@@ -100,7 +100,7 @@ class Storage {
                 fw.write(taskLine);
             }
 
-            fw.flush();  // Flush the buffer to ensure data is written immediately
+            fw.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

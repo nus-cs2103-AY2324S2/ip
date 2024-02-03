@@ -1,12 +1,10 @@
 package duke.action;
 
-import duke.action.Action;
-
 import duke.task.Task;
 
 
 public class Delete implements Action {
-    public Task deletedTask;
+    private Task deletedTask;
 
     public Delete(Task deletedTask) {
         this.deletedTask = deletedTask;
@@ -14,8 +12,8 @@ public class Delete implements Action {
 
     @Override
     public String response() {
-        return "Noted. I've removed this task:\n" + deletedTask.toString() + "\nNow you have " +
-            " tasks in the list." ;
+        return "Noted. I've removed this task:\n" + deletedTask.toString() + "\nNow you have "
+            + " tasks in the list.";
     }
 }
 
