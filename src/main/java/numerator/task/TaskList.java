@@ -1,9 +1,9 @@
 package numerator.task;
 
-import numerator.Ui;
-
 import java.util.ArrayList;
 import java.util.stream.IntStream;
+
+import numerator.Ui;
 
 /**
  * Represents a list of tasks.
@@ -26,6 +26,7 @@ public class TaskList {
 
     /**
      * Finds the tasks which contain the pattern in the description
+     *
      * @param pattern the pattern to search
      * @return the String representation of the tasks
      */

@@ -1,10 +1,11 @@
 package numerator;
 
-import numerator.task.Task;
-import numerator.task.ToDo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import numerator.task.Task;
+import numerator.task.ToDo;
 
 public class ToDoTest {
     @Test
