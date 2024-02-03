@@ -1,3 +1,12 @@
+package eggy.command;
+
+import eggy.exception.EggyException;
+import eggy.exception.IncompleteTaskException;
+import eggy.storage.Storage;
+import eggy.task.TaskList;
+import eggy.task.Deadline;
+import eggy.ui.Ui;
+
 import java.time.LocalDateTime;
 
 public class DeadlineCommand extends Command {

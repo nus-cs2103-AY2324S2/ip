@@ -1,3 +1,14 @@
+package eggy.command;
+
+import eggy.exception.EggyException;
+import eggy.exception.IncompleteCommandException;
+import eggy.exception.TaskListIndexOutOfBoundsException;
+import eggy.exception.TaskNumberFormatException;
+import eggy.storage.Storage;
+import eggy.task.TaskList;
+import eggy.task.Task;
+import eggy.ui.Ui;
+
 public class DeleteCommand extends Command {
     private int index;
 

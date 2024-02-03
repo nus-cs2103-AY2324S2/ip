@@ -1,5 +1,7 @@
+package eggy.exception;
+
 public class TaskNumberFormatException extends EggyException {
     public TaskNumberFormatException() {
-        super(" Task number must be an integer.");
+        super(" eggy.task.Task number must be an integer.");
     }
 }

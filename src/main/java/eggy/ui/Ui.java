@@ -1,3 +1,8 @@
+package eggy.ui;
+
+import eggy.task.Task;
+import eggy.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -25,23 +30,23 @@ public class Ui {
     }
 
     public void printTaskAdded(Task task, int taskCount) {
-        System.out.println("     Got it. I've added this task:");
+        System.out.println("     Got it. I've added this eggy.task:");
         System.out.println("       " + task.toString());
         System.out.println("     Now you have " + taskCount + " tasks in the list.");
     }
 
     public void printTaskRemoved(Task task, int taskCount) {
-        System.out.println("     Noted. I've removed this task:");
+        System.out.println("     Noted. I've removed this eggy.task:");
         System.out.println("       " + task.toString());
         System.out.println("     Now you have " + taskCount + " tasks in the list.");
     }
 
     public void printTaskMarkedDone(Task task) {
-        System.out.println("     Nice! I've marked this task as done:\n       " + task.toString());
+        System.out.println("     Nice! I've marked this eggy.task as done:\n       " + task.toString());
     }
 
     public void printTaskUnmarkedDone(Task task) {
-        System.out.println("     OK, I've marked this task as not done yet:\n       " + task.toString());
+        System.out.println("     OK, I've marked this eggy.task as not done yet:\n       " + task.toString());
     }
 
     public void printTaskList(TaskList tasks) {
