@@ -18,7 +18,7 @@ public class TaskList {
      * 
      * @param task task to be added
      */
-    private void addTask(String task) {
+    public void addTask(String task) {
         TaskType taskType = getTaskType(task);
 
         switch (taskType) {
@@ -53,7 +53,7 @@ public class TaskList {
      * 
      * @param task task to be added
      */
-    private void addTodoTask(String task) {
+    public void addTodoTask(String task) {
     
         String todoDescription = task.substring(4).trim();
         if (todoDescription.isEmpty()) {
@@ -72,7 +72,7 @@ public class TaskList {
      * 
      * @param task task to be added
      */
-    private void addDeadline(String task) {
+    public void addDeadline(String task) {
      
         String[] deadlineDescription = task.substring(8).trim().split("/by", 2);
         if (deadlineDescription.length != 2 || deadlineDescription[0].trim().isEmpty() 
@@ -95,7 +95,7 @@ public class TaskList {
      * 
      * @param task task to be added
      */
-    private void addEvent(String task) {
+    public void addEvent(String task) {
     
         String[] eventParts = task.substring(6).trim().split("/from");
         if (eventParts.length == 2) {
@@ -125,7 +125,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
      */
-    private void deleteTask(int index) {
+    public void deleteTask(int index) {
         try {
             System.out.println("\t" + "Noted. I've removed this task:" + "\n" + "\t" 
                     + "[ " + this.taskList.get(index) + " ]");
@@ -145,7 +145,7 @@ public class TaskList {
      * @param task task to be added
      * @return TaskType
      */
-    private TaskType getTaskType(String task) {
+    public TaskType getTaskType(String task) {
         if (task.startsWith("todo")) {
             return TaskType.TODO;
         } else if (task.startsWith("deadline")) {
@@ -172,7 +172,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
      */
-    private void markDone(int index) {
+    public void markDone(int index) {
         try {
             if (this.taskList.get(index).isDone()) {
                 System.out.println("\t" + "You completed this task already!");
@@ -201,7 +201,7 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if index is out of bounds
      * @throws NumberFormatException if input is not a number
      */
-    private void markUndone(int index) {
+    public void markUndone(int index) {
         try {
             if (!this.taskList.get(index).isDone()) {
                 System.out.println("\t" + "Oops! You still haven't done this task!");
@@ -222,7 +222,7 @@ public class TaskList {
     /** 
      * Prints taskList
      */
-    private void printList() {
+    public void printList() {
         if (this.taskList.isEmpty()) {
             System.out.println("\t" + "Your tasklist is empty");
         } else {
