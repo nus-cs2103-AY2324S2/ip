@@ -1,5 +1,6 @@
-public class DukeException extends Exception {
-    public DukeException(String msg) {
+package podz.exceptions;
+public class PodzException extends Exception {
+    public PodzException(String msg) {
         super(msg);
     }
 

@@ -1,4 +1,7 @@
+package podz.task;
 import java.util.ArrayList;
+
+import podz.storage.Storage;
 
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();

@@ -1,19 +1,28 @@
-public class Duke {
+package podz;
+
+import podz.command.ByeCommand;
+import podz.command.Command;
+import podz.parser.Parser;
+import podz.storage.Storage;
+import podz.task.TaskList;
+import podz.ui.Ui;
+
+public class Podz {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
 
-    private Duke() {
-        storage = new Storage("./data/duke.txt");
+    private Podz() {
+        storage = new Storage("./data/podz.txt");
         tasks = new TaskList(this.storage.loadTasks());
         ui = new Ui();
         parser = new Parser();
     }
 
     public static void main(String[] args) {
-        Duke duke = new Duke();
-        duke.run();
+        Podz podz = new Podz();
+        podz.run();
     }
 
     public void run() {
