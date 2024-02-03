@@ -3,9 +3,10 @@ package duke.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import duke.tasks.Task;
-
 
 /**
  * Manages storage operations for Duke application tasks.
@@ -15,17 +16,20 @@ import duke.tasks.Task;
  * </p>
  */
 public class Storage {
-    private static final String FILEPATH = "../../../data/rah.txt";
+    private static final String FILE_NAME = "rah.txt";
+    private static final Path PROJECT_DIR = Paths.get(System.getProperty("user.dir"));
+    private static final Path DATA_DIR = Paths.get(PROJECT_DIR.toString(), "data");
+    private static final Path FILE_PATH = Paths.get(DATA_DIR.toString(), FILE_NAME);
     private static ArrayList<Task> tasks = new ArrayList<>();
-    
+
     public void writeToFile(ArrayList<Task> inventory) throws IOException {
-        File file = new File(FILEPATH);
+        File file = FILE_PATH.toFile();
         // Ensure the directory exists
         file.getParentFile().mkdirs();
 
         try (FileWriter fw = new FileWriter(file, false)) { // false to overwrite
             for (Task task : inventory) {
-                    fw.write(task.toString() + System.lineSeparator());
+                fw.write(task.toString() + System.lineSeparator());
             }
         }
     }
@@ -34,28 +38,18 @@ public class Storage {
         tasks.add(t);
     }
 
-    /**
-     * Retrieves the current list of tasks.
-     * <p>
-     * This method returns an ArrayList containing all the tasks currently stored in memory.
-     * </p>
-     *
-     * @return An ArrayList of {@link Task} objects representing the tasks currently stored.
-     */
     public ArrayList<Task> load() {
         return tasks;
     }
 
     @Override
     public String toString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         int count = 1;
         for (Task s : tasks) {
-            result += count + ". " + s.toString() + "\n";
+            result.append(count).append(". ").append(s.toString()).append("\n");
             count++;
         }
-        return result;
+        return result.toString();
     }
 }
-
-
