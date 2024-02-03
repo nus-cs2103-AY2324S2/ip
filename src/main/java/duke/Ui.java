@@ -129,6 +129,12 @@ public class Ui {
         showLine();
     }
 
+    public void showNoTask() {
+        showLine();
+        System.out.println(" There is no result found");
+        showLine();
+    }
+
     /**
      * Closes the scanner used for user input.
      */
