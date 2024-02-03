@@ -1,10 +1,18 @@
+import java.io.*;
+import java.util.LinkedList;
+
 public class Duke {
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String line;
+        String[] tokens;
+
+        Bot bot = new Bot();
+        bot.greet();
+        while (!(line = br.readLine()).equals("bye")) {
+            bot.consume(line);
+        }
+        bot.exit();
     }
 }
