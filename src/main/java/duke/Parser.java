@@ -46,6 +46,9 @@ public class Parser {
                         LocalDateTime localDateTime = LocalDateTime.parse(deadline, formatter);
 
                         descriptor = descriptor.trim();
+                        if (descriptor.isEmpty()) {
+                            throw new EmptyTaskException();
+                        }
                         Deadlines d = new Deadlines(descriptor, localDateTime);
                         storage.add(d);
                         ui.onTaskAddition(storage.addToListOutput(d));
@@ -65,6 +68,9 @@ public class Parser {
                             descriptor += inputParts.get(i)+ " ";
                         }
                         descriptor = descriptor.trim();
+                        if (descriptor.isEmpty()) {
+                            throw new EmptyTaskException();
+                        }
                         from = from.trim();
                         to = to.trim();
 
@@ -80,6 +86,9 @@ public class Parser {
                         ToDos t = new ToDos(descriptor);
                         storage.add(t);
                         ui.onTaskAddition(storage.addToListOutput(t));
+                        if (descriptor.isEmpty()) {
+                            throw new EmptyTaskException();
+                        }
                     }
 
                 } else if (inputParts.get(0).equals("mark")) {

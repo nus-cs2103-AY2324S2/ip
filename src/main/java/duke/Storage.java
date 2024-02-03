@@ -19,7 +19,7 @@ public class Storage {
         return this.storage.indexOf(s);
     }
 
-    public Task pop(int index) {
+    public Task pop(int index) throws DukeExceptions {
         Task t = this.storage.get(index);
         this.storage.remove(index);
         return t;
@@ -34,12 +34,12 @@ public class Storage {
         return output;
     }
 
-
     public String addToListOutput(Task t) {
         String output = "Got it. I've added this task:\n" +
                 String.format("  %s\nNow you have %d tasks in the list.", t.toString(), this.size());
         return output;
     }
+
 
 
 }
