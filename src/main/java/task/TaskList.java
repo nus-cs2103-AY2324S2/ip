@@ -113,7 +113,7 @@ public class TaskList {
 
         try {
             if (foundResults.isEmpty()) {
-                throw new TobiasException("    Could not find any results containing : " + keyword);
+                throw new TobiasException("    Could not find any results containing keyword : " + keyword);
             } else {
                 Ui.printDivider();
 
@@ -122,7 +122,6 @@ public class TaskList {
                     int index = tasks.indexOf(task);
                     task.taskPrinter(index);
                 }
-
                 Ui.printDivider();
             }
         } catch (TobiasException e) {
