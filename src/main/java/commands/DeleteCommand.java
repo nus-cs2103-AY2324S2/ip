@@ -1,3 +1,11 @@
+package commands;
+
+import exceptions.BenException;
+import storage.Storage;
+import tasks.Task;
+import tasks.TaskList;
+import ui.Ui;
+
 public class DeleteCommand extends Command {
   private final int index;
 

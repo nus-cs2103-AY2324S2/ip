@@ -1,3 +1,11 @@
+package commands;
+
+import storage.Storage;
+import tasks.Event;
+import tasks.Task;
+import tasks.TaskList;
+import ui.Ui;
+
 public class EventCommand extends Command {
   private final String description;
   private final String startDate;

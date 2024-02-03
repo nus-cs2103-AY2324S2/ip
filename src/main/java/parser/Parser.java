@@ -1,3 +1,8 @@
+package parser;
+
+import commands.*;
+import exceptions.BenException;
+
 import java.time.LocalDate;
 
 public class Parser {
@@ -19,7 +24,7 @@ public class Parser {
             throw new BenException("   Key in a value!");
           }
 
-          // obtain index of task within TaskList
+          // obtain index of task within tasks.TaskList
           int index = Integer.parseInt(tokens[1]) - 1;
 
           return new MarkCommand(index);
@@ -31,7 +36,7 @@ public class Parser {
             throw new BenException("   Key in a value!");
           }
 
-          // obtain index of task within TaskList
+          // obtain index of task within tasks.TaskList
           int index = Integer.parseInt(tokens[1]) - 1;
 
           return new UnmarkCommand(index);
