@@ -24,6 +24,11 @@ public class UI {
     public void onPrintList(String s) {
         System.out.println(LINE + s + LINE);
     }
+    public void onPrintFind(String s) {
+        if (!s.isEmpty()) {
+            System.out.println( LINE + "Here are the matching tasks in your list:\n" + s + LINE);
+        }
+    }
     public void onMark(String s) {
         String output = LINE + "Great job on completing the task!\n" + s + "\n" + LINE;
         System.out.println(output);

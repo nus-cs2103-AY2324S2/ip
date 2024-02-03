@@ -105,6 +105,14 @@ public class Parser {
                     int index = Integer.parseInt(inputParts.get(1));
                     Task t = storage.pop(index-1);
                     ui.onTaskDeletion(t.toString(), storage.size());
+                }  else if (inputParts.get(0).equals("find")) {
+                    String identifier = "";
+                    for (int j=1; j<inputParts.size(); j++) {
+                        identifier += inputParts.get(j) + " ";
+                    }
+                    identifier = identifier.trim();
+                    String output = storage.find(identifier);
+                    ui.onPrintFind(output);
                 } else {
                     throw new UnknownInputException();
                 }

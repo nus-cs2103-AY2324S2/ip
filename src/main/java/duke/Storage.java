@@ -25,6 +25,23 @@ public class Storage {
         return t;
     }
 
+    public String find(String s) throws DukeExceptions {
+        String output = "";
+        try {
+            for (int i=0; i<this.storage.size(); i++) {
+                if (this.storage.get(i).description.contains(s)) {
+                    output += String.format("%d. ", i+1);
+                    output += this.storage.get(i).toString() + "\n";
+                }
+            }
+            if (output.isEmpty()) throw new DukeExceptions();
+
+        } catch (DukeExceptions d) {
+            System.out.println("Nothing was found");
+        }
+        return output;
+    }
+
     public String printList() {
         String output = "";
         for (int i=0; i<this.storage.size(); i++) {
