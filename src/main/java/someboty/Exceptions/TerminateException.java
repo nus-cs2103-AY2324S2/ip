@@ -1,4 +1,4 @@
-package Exceptions;
+package someboty.Exceptions;
 
 public class TerminateException extends RuntimeException{
     public TerminateException(String errorMessage) {

@@ -1,13 +1,12 @@
-package Managers;
+package someboty.Managers;
 
 import java.util.ArrayList;
 
-import Exceptions.InputException;
-
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
+import someboty.Exceptions.InputException;
+import someboty.Tasks.Deadline;
+import someboty.Tasks.Event;
+import someboty.Tasks.Task;
+import someboty.Tasks.ToDo;
 
 public class taskManager {
 

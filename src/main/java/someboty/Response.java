@@ -1,7 +1,9 @@
+package someboty;
+
 import java.util.Scanner;
 
-import Managers.commandManager;
-import Managers.taskManager;
+import someboty.Managers.commandManager;
+import someboty.Managers.taskManager;
 
 public class Response {
     

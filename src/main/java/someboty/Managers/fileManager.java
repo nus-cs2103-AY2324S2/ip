@@ -1,4 +1,4 @@
-package Managers;
+package someboty.Managers;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Tasks.Task;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.ToDo;
+import someboty.Tasks.Deadline;
+import someboty.Tasks.Event;
+import someboty.Tasks.Task;
+import someboty.Tasks.ToDo;
 
 
 /**
@@ -82,7 +82,6 @@ public class fileManager {
         } catch (IOException e) { // for devs debugging
             System.out.println("Error. Unable to save tasks to file.");
             e.printStackTrace();
-            return;
         }
 
         System.out.println("Task list successfully saved to file.");

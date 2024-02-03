@@ -1,8 +1,9 @@
-package Tasks;
+package someboty.Tasks;
 
 import java.time.LocalDateTime;
-import Exceptions.InputException;
-import Managers.dateManager;
+
+import someboty.Exceptions.InputException;
+import someboty.Managers.dateManager;
 
 /**
 * Handles a task of type "Event".

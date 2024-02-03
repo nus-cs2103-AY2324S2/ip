@@ -1,7 +1,7 @@
-package Managers;
+package someboty.Managers;
 
-import Exceptions.InputException;
-import Exceptions.TerminateException;
+import someboty.Exceptions.InputException;
+import someboty.Exceptions.TerminateException;
 
 public class commandManager {
 

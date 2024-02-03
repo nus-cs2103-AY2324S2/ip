@@ -1,4 +1,4 @@
-package Tasks;
+package someboty.Tasks;
 
 /**
  * A abstract class to handle details of a task.

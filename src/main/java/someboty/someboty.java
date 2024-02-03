@@ -1,8 +1,10 @@
-import Exceptions.TerminateException;
-import Managers.taskManager;
+package someboty;
+
+import someboty.Exceptions.TerminateException;
+import someboty.Managers.taskManager;
 
 // main class for the project
-public class Duke {
+public class someboty {
 
     public static void main(String[] args) { 
         // Initialize
