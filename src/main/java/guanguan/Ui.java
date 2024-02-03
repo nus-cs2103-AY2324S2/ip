@@ -57,9 +57,9 @@ public class Ui {
      * Prints list of tasks message
      *
      * @param items list of tasks
-     * @throws GGException if index out of bound
+     * @throws GgException if index out of bound
      */
-    public void tasks(TaskList items) throws GGException {
+    public void tasks(TaskList items) throws GgException {
         if (items.isEmpty()) {
             System.out.println("You have no tasking available.");
         } else {
@@ -105,5 +105,9 @@ public class Ui {
      */
     public void error(String message) {
         System.out.printf("[!] %s\n", message);
+    }
+
+    public String getTextOutput() {
+        return "";
     }
 }

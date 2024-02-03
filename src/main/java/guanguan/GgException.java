@@ -1,15 +1,15 @@
 package guanguan;
 
 /**
- * Represents a GGException that will be thrown in the event of an error.
+ * Represents a GgException that will be thrown in the event of an error.
  */
-public class GGException extends Exception {
+public class GgException extends Exception {
     /**
-     * Constructor for GGException.
+     * Constructor for GgException.
      *
      * @param errorMessage Error message to be displayed.
      */
-    public GGException(String errorMessage) {
+    public GgException(String errorMessage) {
         super(errorMessage);
     }
 }

@@ -11,9 +11,9 @@ public class Parser {
      * @param items TaskList class
      * @param ui Ui class
      * @return false if user ends the program, else false
-     * @throws GGException if user input is invalid
+     * @throws GgException if user input is invalid
      */
-    public static boolean parse(String input, TaskList items, Ui ui) throws GGException {
+    public static boolean parse(String input, TaskList items, Ui ui) throws GgException {
         String command = input.split(" ")[0];
         switch (command) {
         case "bye":
@@ -44,7 +44,7 @@ public class Parser {
             findTask(input, items, ui);
             break;
         default:
-            throw new GGException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new GgException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return true;
     }
@@ -56,9 +56,9 @@ public class Parser {
      * @param items TaskList class
      * @param ui Ui class
      * @param isMark true if mark task, otherwise false
-     * @throws GGException if user input is invalid
+     * @throws GgException if user input is invalid
      */
-    static void markTask(String input, TaskList items, Ui ui, boolean isMark) throws GGException {
+    static void markTask(String input, TaskList items, Ui ui, boolean isMark) throws GgException {
         try {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
 
@@ -71,7 +71,7 @@ public class Parser {
             }
             ui.println(items.get(index).toString());
         } catch (IndexOutOfBoundsException e) {
-            throw new GGException("Invalid task ID to mark");
+            throw new GgException("Invalid task ID to mark");
         }
     }
 
@@ -81,11 +81,11 @@ public class Parser {
      * @param input user input
      * @param items TaskList class
      * @param ui Ui class
-     * @throws GGException if description of todo is empty
+     * @throws GgException if description of todo is empty
      */
-    static void addTodoTask(String input, TaskList items, Ui ui) throws GGException {
+    static void addTodoTask(String input, TaskList items, Ui ui) throws GgException {
         if (input.length() <= 5) {
-            throw new GGException("OOPS!!! The description of a todo cannot be empty.");
+            throw new GgException("OOPS!!! The description of a todo cannot be empty.");
         }
 
         ui.addTask();
@@ -104,11 +104,11 @@ public class Parser {
      * @param input user input
      * @param items TaskList class
      * @param ui Ui class
-     * @throws GGException if description of deadline is empty
+     * @throws GgException if description of deadline is empty
      */
-    static void addDeadlineTask(String input, TaskList items, Ui ui) throws GGException {
+    static void addDeadlineTask(String input, TaskList items, Ui ui) throws GgException {
         if (input.length() <= 9) {
-            throw new GGException("OOPS!!! The description of a deadline cannot be empty.");
+            throw new GgException("OOPS!!! The description of a deadline cannot be empty.");
         }
 
         try{
@@ -123,7 +123,7 @@ public class Parser {
             ui.println(deadline.toString());
             ui.countTasks(items.size());;
         } catch (IndexOutOfBoundsException e) {
-            throw new GGException("Use /by to specify deadline.");
+            throw new GgException("Use /by to specify deadline.");
         }
     }
 
@@ -133,11 +133,11 @@ public class Parser {
      * @param input user input
      * @param items TaskList class
      * @param ui Ui class
-     * @throws GGException if description of event is empty
+     * @throws GgException if description of event is empty
      */
-    static void addEventTask(String input, TaskList items, Ui ui) throws GGException {
+    static void addEventTask(String input, TaskList items, Ui ui) throws GgException {
         if (input.length() <= 6) {
-            throw new GGException("OOPS!!! The description of a event cannot be empty.");
+            throw new GgException("OOPS!!! The description of a event cannot be empty.");
         }
 
         try {
@@ -156,7 +156,7 @@ public class Parser {
             ui.println(event.toString());
             ui.countTasks(items.size());;
         } catch (IndexOutOfBoundsException e) {
-            throw new GGException("Invalid event date. Use /from and /to");
+            throw new GgException("Invalid event date. Use /from and /to");
         }
     }
 
@@ -166,11 +166,11 @@ public class Parser {
      * @param input user input
      * @param items TaskList class
      * @param ui Ui class
-     * @throws GGException if task ID is invalid
+     * @throws GgException if task ID is invalid
      */
-    static void deleteTask(String input, TaskList items, Ui ui) throws GGException {
+    static void deleteTask(String input, TaskList items, Ui ui) throws GgException {
         if (input.length() <= 7) {
-            throw new GGException("OOPS!!! Task ID cannot be empty.");
+            throw new GgException("OOPS!!! Task ID cannot be empty.");
         }
 
         try {
@@ -181,7 +181,7 @@ public class Parser {
             ui.println(task.toString());
             ui.countTasks(items.size());;
         } catch (IndexOutOfBoundsException e) {
-            throw new GGException("Invalid task ID to delete");
+            throw new GgException("Invalid task ID to delete");
         }
     }
 
@@ -191,11 +191,11 @@ public class Parser {
      * @param input user input
      * @param items TaskList class
      * @param ui Ui class
-     * @throws GGException if keyword is empty
+     * @throws GgException if keyword is empty
      */
-    static void findTask(String input, TaskList items, Ui ui) throws GGException {
+    static void findTask(String input, TaskList items, Ui ui) throws GgException {
         if (input.length() <= 5) {
-            throw new GGException("OOPS!!! Keyword cannot be empty.");
+            throw new GgException("OOPS!!! Keyword cannot be empty.");
         }
 
         String keyword = input.split(" ")[1];

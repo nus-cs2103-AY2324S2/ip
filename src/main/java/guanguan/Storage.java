@@ -27,9 +27,9 @@ public class Storage {
      * Reads data from text file.
      *
      * @return list of tasks
-     * @throws GGException if unable to understand file content
+     * @throws GgException if unable to understand file content
      */
-    public ArrayList<Task> readData() throws GGException {
+    public ArrayList<Task> readData() throws GgException {
         try {
             File file = new File(filepath);
 
@@ -63,7 +63,7 @@ public class Storage {
                 }
 
                 if (task == null) {
-                    throw new GGException("Task Type not found!");
+                    throw new GgException("Task Type not found!");
                 }
 
                 task.isDone = isDone;
@@ -72,7 +72,7 @@ public class Storage {
             reader.close();
 
         } catch (IOException e) {
-            throw new GGException("Task Type not found!");
+            throw new GgException("Task Type not found!");
         }
         return items;
     }
@@ -81,9 +81,9 @@ public class Storage {
      * Saves data to text file.
      *
      * @param items list of tasks
-     * @throws GGException if unable to save tasks/write file
+     * @throws GgException if unable to save tasks/write file
      */
-    public void saveData(TaskList items) throws GGException {
+    public void saveData(TaskList items) throws GgException {
         try {
             StringBuilder builder = new StringBuilder();
 
@@ -95,7 +95,7 @@ public class Storage {
             fileWriter.write(builder.toString());
             fileWriter.close();
         } catch (IOException e) {
-            throw new GGException("Unable to store tasks!");
+            throw new GgException("Unable to store tasks!");
         }
     }
 }
