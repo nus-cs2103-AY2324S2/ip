@@ -57,6 +57,9 @@ public class Parser {
                 }
                 return new AddTaskCommand(new Event(eventDetails[0], eventTiming[0], eventTiming[1]));
 
+            case "find":
+                return new FindTaskCommand(details);
+
                 default:
                     throw new JamieException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

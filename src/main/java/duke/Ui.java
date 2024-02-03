@@ -35,6 +35,22 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays a list of tasks to the user.
+     *
+     * @param tasks The list of tasks to be displayed.
+     */
+    public void showTaskList(List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
+        }
+    }
+
     public void showNumTasks(TaskList tasks) {
         System.out.println("Now you have " + tasks.getTasksSize() + " tasks in the list.");
     }
