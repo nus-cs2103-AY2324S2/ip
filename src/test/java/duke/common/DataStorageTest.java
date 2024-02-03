@@ -1,13 +1,8 @@
 package duke.common;
 
-import duke.exception.MalformedUserInputException;
-import duke.tasklist.Deadline;
-import duke.tasklist.Event;
-import duke.tasklist.Task;
-import duke.tasklist.Todo;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,9 +13,16 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import duke.exception.MalformedUserInputException;
+import duke.tasklist.Deadline;
+import duke.tasklist.Event;
+import duke.tasklist.Task;
+import duke.tasklist.Todo;
+
 
 /**
  * Tests the functionality of the {@code DataStorage} class.
@@ -30,6 +32,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * error handling and output.
  */
 public class DataStorageTest {
+    // Represents the String that the Tests format of the database.
+    private static final String TODO_DATABASE_FORMAT = "T | %s | %s";
+    private static final String DEADLINE_DATABASE_FORMAT = "D | %s | %s | %s";
+    private static final String EVENT_DATABASE_FORMAT = "E | %s | %s | %s | %s";
+
+    // Represents the random activities and valid timestamps used for testing.
+    private static final String[] activityNames = {"Running", "Swimming", "Cycling", "Hiking", "Skiing"};
+    private static final String[] datesRange = {"2024-01-01", "2025-01-01", "2024-03-21", "2024-12-31", "2023-01-01"};
+
+    private static final int NUMBER_OF_EVENTS = 200;
 
     /**
      * Creates a temporary file used internally for Tests.
@@ -40,20 +52,9 @@ public class DataStorageTest {
      * Creates the dataStorage that we are testing.
      */
     private DataStorage dataStorage;
-    private static final String NON_EXISTENT_FILE_NAME = "This_IS_a_BaD_FiKeName.txt";
-
-    // Represents the String that the Tests format of the database.
-    private static final String TODO_DATABASE_FORMAT = "T | %s | %s";
-    private static final String DEADLINE_DATABASE_FORMAT = "D | %s | %s | %s";
-    private static final String EVENT_DATABASE_FORMAT = "E | %s | %s | %s | %s";
-
-    // Represents the random activities and valid timestamps used for testing.
-    private final String[] activityNames = {"Running", "Swimming", "Cycling", "Hiking", "Skiing"};
-    private final String[] datesRange = {"2024-01-01", "2025-01-01", "2024-03-21", "2024-12-31", "2023-01-01"};
 
     private ArrayList<Task> tasks;
 
-    private final int NUMBER_OF_EVENTS = 200;
 
     /**
      * Returns the total number of lines in the mockFile.
@@ -119,7 +120,8 @@ public class DataStorageTest {
         this.tasks = new ArrayList<>();
 
         try {
-            // Referenced from: https://stackoverflow.com/questions/26860167/what-is-a-safe-way-to-create-a-temp-file-in-java
+            // Referenced from:
+            // https://stackoverflow.com/questions/26860167/what-is-a-safe-way-to-create-a-temp-file-in-java
             mockFile = Files.createTempFile("test", ".txt").toFile();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -258,9 +260,9 @@ public class DataStorageTest {
      * @param min the lower bound of the range.
      * @param max the upper bound of the range.
      * @return a random integer within the specified range.
-     * @@author baeldung
-     * Reuse from https://www.baeldung.com/java-generating-random-numbers-in-range
-     * with no modifications.
+     *     @@author baeldung.
+     *     Reuse from https://www.baeldung.com/java-generating-random-numbers-in-range
+     *     with no modifications.
      */
     public int getRandomNumberUsingNextInt(int min, int max) {
         Random random = new Random();
