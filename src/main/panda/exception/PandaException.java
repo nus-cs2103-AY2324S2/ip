@@ -1,3 +1,4 @@
+package panda.exception;
 public class PandaException extends Exception {
     public PandaException() {
         super();
