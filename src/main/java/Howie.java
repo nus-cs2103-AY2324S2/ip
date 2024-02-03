@@ -14,9 +14,6 @@ import java.util.List;
  * @author Koo Zhuo Hui
  */
 public class Howie {
-    private static Ui ui;
-    private static TaskList taskLs;
-    private static Storage storage;
 
     /**
      * Initialises the program.
@@ -25,9 +22,9 @@ public class Howie {
      * or input exception occurs.
      */
     public static void main(String[] args) throws Exception {
-        ui = new Ui();
-        storage = new Storage();
-        taskLs = storage.readFile();
+        Ui ui = new Ui();
+        Storage storage = new Storage();
+        TaskList taskLs = storage.readFile();
         while (true) {
             String[] input = ui.getUserCommand();
             try {
