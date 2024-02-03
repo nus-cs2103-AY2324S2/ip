@@ -16,4 +16,13 @@ public class Todo extends Task {
         }
         return checkbox + name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Todo todo = (Todo) obj;
+        if (todo.name.equals(this.name) && (todo.isDone == this.isDone)) {
+            return true;
+        }
+        return false;
+    }
 }

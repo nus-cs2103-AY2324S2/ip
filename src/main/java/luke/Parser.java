@@ -64,7 +64,7 @@ public class Parser {
     }
 
     //assume that the input is a task
-    private static Task makeTask(String input) {
+    protected static Task makeTask(String input) {
         Task task;
         String trimmedLowercase = input.trim().toLowerCase();
         String taskType = trimmedLowercase.split(" ")[0];
@@ -83,7 +83,7 @@ public class Parser {
             }
         } else if (taskType.equals(deadlineString)) {
             try {
-                String taskName = input.split("/")[0].substring(deadlineString.length()).trim();
+                String taskName = input.split("/")[0].trim().substring(deadlineString.length()).trim();
                 LocalDate by = LocalDate.parse(input.split("/")[1].replace("by", "").trim(), formatter);
                 task = new Deadline(taskName, by);
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -97,7 +97,7 @@ public class Parser {
             }
         } else if (taskType.equals(eventString)) {
             try {
-                String taskName = input.split("/")[0].substring(eventString.length()).trim();
+                String taskName = input.split("/")[0].trim().substring(eventString.length()).trim();
                 LocalDate start = LocalDate.parse(input.split("/")[1].replace("from", "").trim(), formatter);
                 LocalDate end = LocalDate.parse(input.split("/")[2].replace("to", "").trim(), formatter);
                 task = new Event(taskName, start, end);
@@ -112,7 +112,7 @@ public class Parser {
             }
         } else {
             System.out.println("/// What on earth are you saying! ///");
-            System.out.println("[luke.Command not found]\n");
+            System.out.println("[Command not found]\n");
             return null;
         }
         return task;

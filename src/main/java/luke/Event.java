@@ -23,4 +23,13 @@ public class Event extends Task {
         }
         return checkbox + name + " (from: " + start +  " to: " + end + ")";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Event event = (Event) obj;
+        if (event.name.equals(this.name) && event.start.equals(this.start) && event.end.equals(this.end) && (event.isDone == this.isDone)) {
+            return true;
+        }
+        return false;
+    }
 }
