@@ -10,9 +10,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Utility class for handling storage-related operations in the Duke application.
+ * The Storage class is responsible for loading tasks from a file and saving tasks to a file.
+ */
 public class Storage {
     private String filePath;
     private File file;
+
+    /**
+     * Constructor for creating a Storage instance with a specified file path.
+     *
+     * @param filePath The file path for the task list data file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
 
@@ -29,6 +39,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file and returns them as a list of strings.
+     *
+     * @return ArrayList containing tasks read from the file
+     * @throws DukeExceptions If there is an error in loading or parsing the file
+     */
     public ArrayList<String> load() throws DukeExceptions {
         ArrayList<String> lst = new ArrayList<>();
         try {
@@ -49,6 +65,11 @@ public class Storage {
         return lst;
     }
 
+    /**
+     * Saves the provided list of tasks to the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void saveFile(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(this.file);

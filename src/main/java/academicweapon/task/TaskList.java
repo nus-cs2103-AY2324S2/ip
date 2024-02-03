@@ -9,12 +9,25 @@ import academicweapon.ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks in the Duke application.
+ * The TaskList class provides methods to manipulate and display a list.
+ */
 public class TaskList {
     ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
+
+    /**
+     * Consturcts a TaskList based on the provided list of string representations of tasks
+     *
+     * @param strLst List of string representations of tasks
+     */
     public TaskList(ArrayList<String> strLst) {
         ArrayList<Task> tasks = new ArrayList<>();
         for (int i = 0; i < strLst.size(); i++) {
@@ -47,6 +60,12 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Checks if a task is done based on the input value and updates its status.
+     *
+     * @param t Task to check and update
+     * @param val Value representing the task status
+     */
     public static void checkIfDone(Task t, String val) {
         if (val.equals("0")) {
             t.markAsNotDone();
@@ -55,10 +74,19 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task Task to be added to the list
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
 
+    /**
+     * Displays the list of tasks in a formatted manner.
+     * If the list is empty, it shows an appropriate message.
+     */
     public void showList() {
         try {
             DukeExceptions.checkListNotEmpty(this.tasks);
@@ -74,20 +102,42 @@ public class TaskList {
         Ui.showLine();
     }
 
+    /**
+     * Retrieves a task at the specified index in the task list.
+     *
+     * @param index Index of the task to retrieve
+     * @return The task at the specified index
+     */
     public Task getTask(int index) {
         return this.tasks.get(index);
     }
 
+    /**
+     * Returns the number of tasks in the task list.
+     *
+     * @return Number of tasks in the task list
+     */
     public int getSize() {
         return this.tasks.size();
     }
 
+    /**
+     * Removes a task at the specified index from the task list.
+     *
+     * @param index Index of the task to be removed
+     * @return The removed task
+     */
     public Task removeTask(int index) {
         Task toBeRemoved = this.tasks.get(index);
         this.tasks.remove(index);
         return toBeRemoved;
     }
 
+    /**
+     * Returns the list of tasks in the task list.
+     *
+     * @return ArrayList containing tasks in the task list
+     */
     public ArrayList<Task> getList() {
         return this.tasks;
     }
