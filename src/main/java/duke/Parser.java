@@ -2,11 +2,23 @@ package duke;
 
 import duke.command.*;
 
+/**
+ * Parses the user input and creates the commands requested by the user.
+ */
 public class Parser {
+    /**
+     * Returns an instance of a Parser object to parse the user input.
+     */
     public Parser() {
-
     }
 
+    /**
+     * Returns the command object after parsing through the user input.
+     *
+     * @param fullCommand The user input.
+     * @return The command object created.
+     * @throws DukeException If the user input is an invalid command or format.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String command = fullCommand.split(" ")[0];
         String[] splitCommand;

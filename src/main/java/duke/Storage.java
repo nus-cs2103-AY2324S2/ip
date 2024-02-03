@@ -8,15 +8,34 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Loads and saves the list of tasks to a file.
+ */
 public class Storage {
     private String filepath;
+
+    /**
+     * Returns an instance of a Storage object that will load/save to the given filepath.
+     *
+     * @param filepath The filepath of the file to load/saves the tasks from/to.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
     }
+
+    /**
+     * Returns an instance of a Storage object that will load/save to the default filepath "./duke.txt".
+     */
     public Storage() {
         this("./duke.txt");
     }
 
+    /**
+     * Returns the list of tasks loaded from the storage file.
+     *
+     * @return The list of tasks loaded in an ArrayList.
+     * @throws DukeException If the file to load from cannot be loaded.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -52,6 +71,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the current list of tasks to the storage file.
+     *
+     * @param tasklist The list of tasks to save.
+     * @throws DukeException If the file cannot be saved to.
+     */
     public void save(TaskList tasklist) throws DukeException {
         try {
             ArrayList<Task> tasks = tasklist.getTasks();
