@@ -1,33 +1,33 @@
 package duke.task;
 
 /**
- * Represents the todo task. 
+ * Represents the todo task.
  */
 public class Todo extends Task {
 
     /**
-     * Constructor to instantiate a todo task. 
-     * 
-     * @param description Represents the string describing what the task is. 
+     * Constructor to instantiate a todo task.
+     *
+     * @param description Represents the string describing what the task is.
      */
     public Todo(String description) {
         super(description);
     }
 
     /**
-     * Overloaded constructor to instantiate a todo task with a specific checkmark. 
-     * 
-     * @param description Represents the string describing what the task is. 
-     * @param isDone Represents the boolean describing whether the task is checked. 
+     * Overloaded constructor to instantiate a todo task with a specific checkmark.
+     *
+     * @param description Represents the string describing what the task is.
+     * @param isDone Represents the boolean describing whether the task is checked.
      */
     public Todo(String description, Boolean isDone) {
-        super(description, isDone); 
+        super(description, isDone);
     }
 
     /**
-     * Returns a string formatting of the todo task. 
-     * 
-     * @return A string representation of the todo task. 
+     * Returns a string formatting of the todo task.
+     *
+     * @return A string representation of the todo task.
      */
     @Override
     public String toString() {
@@ -35,9 +35,9 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns a special string formmating of the todo task to write into local file. 
-     * 
-     * @return A special string representation of the todo task used in the local file. 
+     * Returns a special string formmating of the todo task to write into local file.
+     *
+     * @return A special string representation of the todo task used in the local file.
      */
     @Override
     public String toSave() {

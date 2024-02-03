@@ -1,18 +1,18 @@
 package duke.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 import duke.DukeException;
 import duke.Storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ArrayList;
-
 public class TaskListTest {
 
     @Test
-    public void tasklist_markTaskTest(){
+    public void tasklist_markTaskTest() {
         try {
             TaskList tskLst = new TaskList(new ArrayList<Task>());
             Storage storage = new Storage("src/main/data/test/caching.txt");
@@ -25,7 +25,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void tasklist_unmarkTaskTest(){
+    public void tasklist_unmarkTaskTest() {
         try {
             TaskList tskLst = new TaskList(new ArrayList<Task>());
             Storage storage = new Storage("src/main/data/test/caching.txt");

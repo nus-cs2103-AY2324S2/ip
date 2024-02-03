@@ -3,43 +3,43 @@ package duke.task;
 import duke.DateFormatter;
 
 /**
- * Represents the deadline task. 
+ * Represents the deadline task.
  */
 public class Deadline extends Task {
     /**
-     * Represents the deadline of this task. 
+     * Represents the deadline of this task.
      */
     protected String by;
 
     /**
-     * Constructor to instantiate a deadline task. 
-     * 
-     * @param description Represents the string describing what the task is. 
-     * @param by Represent the deadline of the task. 
+     * Constructor to instantiate a deadline task.
+     *
+     * @param description Represents the string describing what the task is.
+     * @param by Represent the deadline of the task.
      */
     public Deadline(String description, String by) {
         super(description);
-        DateFormatter dateFormat = new DateFormatter(); 
+        DateFormatter dateFormat = new DateFormatter();
         this.by = dateFormat.convertedDate(by);
     }
 
     /**
      * Overloaded constructor to instantiate a deadline task with a specific checkmark.
-     * 
-     * @param description Represents the string describing what the task is. 
-     * @param by Represent the deadline of the task. 
+     *
+     * @param description Represents the string describing what the task is.
+     * @param by Represent the deadline of the task.
      * @param isDone Represents the boolean describing whether the task is checked.
      */
     public Deadline(String description, String by, Boolean isDone) {
-        super(description, isDone); 
-        DateFormatter dateFormat = new DateFormatter(); 
+        super(description, isDone);
+        DateFormatter dateFormat = new DateFormatter();
         this.by = dateFormat.convertedDate(by);
     }
 
     /**
-     * Returns a string formatting of the deadline task. 
-     * 
-     * @return A string representation of the deadline task. 
+     * Returns a string formatting of the deadline task.
+     *
+     * @return A string representation of the deadline task.
      */
     @Override
     public String toString() {
@@ -47,9 +47,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a special string formmating of the deadline task to write into local file. 
-     * 
-     * @return A special string representation of the deadline task used in the local file. 
+     * Returns a special string formmating of the deadline task to write into local file.
+     *
+     * @return A special string representation of the deadline task used in the local file.
      */
     @Override
     public String toSave() {
