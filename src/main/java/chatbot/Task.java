@@ -21,6 +21,10 @@ public class Task implements Serializable {
         return (done ? "[X] " : "[ ] ") + description;
     }
 
+    public boolean contains(String s) {
+        return this.description.contains(s);
+    }
+
     public void mark() throws AlreadyMarkedException {
         if (this.done) throw new AlreadyMarkedException();
         this.done = true;
