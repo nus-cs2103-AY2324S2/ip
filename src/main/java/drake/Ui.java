@@ -1,5 +1,4 @@
 package drake;
-
 import java.util.ArrayList;
 
 import drake.task.Task;
@@ -37,21 +36,6 @@ public class Ui {
     public void showError(String message) {
         System.out.println("____________________________________________________________");
         System.out.println(message);
-        System.out.println("____________________________________________________________");
-    }
-
-    /**
-     * Displays a task along with a custom message and the total number of tasks.
-     *
-     * @param message The custom message to display before the task.
-     * @param task    The task to be displayed.
-     * @param size    The total number of tasks in the list.
-     */
-    public void showTask(String message, Task task, int size) {
-        System.out.println("____________________________________________________________");
-        System.out.println(message);
-        System.out.println(task);
-        System.out.println("Now you have " + size + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
 
@@ -122,6 +106,11 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays a message showing tasks that match the input.
+     *
+     * @param matchingTasks The tasks that match the input.
+     */
     public void showMatchingTasks(ArrayList<Task> matchingTasks) {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the matching tasks in your list:");
