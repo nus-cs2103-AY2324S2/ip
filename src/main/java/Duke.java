@@ -2,8 +2,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Duke {
     public static void main(String[] args) throws NoCmdException, FileNotFoundException{
@@ -12,7 +15,6 @@ public class Duke {
 
 
         System.out.println(greet);
-
 
         ArrayList<Task> task = new ArrayList<Task>();
 
@@ -33,8 +35,6 @@ public class Duke {
                     } else {
                         isDone = false;
                     }
-//                    System.out.println(type);
-//                    System.out.println(status);
                     String D = divided[1];
                     Task new_task = new ToDos(D);
                     if (isDone) {
@@ -59,7 +59,7 @@ public class Duke {
                     System.out.println(data);
                     divided = data.split("\\|", 2);
                     String D = divided[0];
-                    String by = divided[1];
+                    String by = divided[1].trim();
                     System.out.println(by);
                     Task new_task = new Deadline(D, by);
                     if (isDone) {
@@ -84,8 +84,8 @@ public class Duke {
                     String D = divided[0];
                     data = divided[1];
                     divided = data.split("\\|", 2);
-                    String from = divided[0];
-                    String to = divided[1];
+                    String from = divided[0].trim();
+                    String to = divided[1].trim();
                     System.out.println(from);
                     System.out.println(to);
                     Task new_task = new Events(D, from, to);
@@ -134,14 +134,14 @@ public class Duke {
                 String userCmd = cmd.nextLine();
                 try {
                     processEvents(userCmd, task);
-                } catch (EventException e){
+                } catch (EventException | DateException e){
                     System.out.println("Sir, " + e.getMessage());
                 }
             } else if (cmd.hasNext("deadline")) {
                 String userCmd = cmd.nextLine();
                 try {
                     processDeadline(userCmd, task);
-                } catch (DeadlineException e){
+                } catch (DeadlineException | DateException e){
                     System.out.println("Sir, " + e.getMessage());
                 }
             } else if (cmd.hasNext("delete")) {
@@ -181,7 +181,10 @@ public class Duke {
                         isDone = "1";
                     }
                     to_record += "E" + " | " + isDone
-                            + " | " + temp.description + "|"  + t.from + "|" + t.to+ "\n";
+                            + " | " + temp.description + "|"
+                            + t.from.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"))
+                            + "|" + t.to.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"))
+                            + "\n";
 
                 } else if (temp instanceof Deadline) {
                     System.out.println("YOU");
@@ -191,7 +194,9 @@ public class Duke {
                         isDone = "1";
                     }
                     to_record += "D" + " | " + isDone
-                            + " | " + temp.description + "|"  + t.by + "\n";
+                            + " | " + temp.description + "|"
+                            + t.by.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
+                            + "\n";
                 }
             }
             data.write(to_record);
@@ -220,7 +225,7 @@ public class Duke {
         System.out.println("Now you have " + length + " tasks in the list.");
     }
 
-    public static void processDeadline(String cmd, ArrayList<Task> task) throws DeadlineException{
+    public static void processDeadline(String cmd, ArrayList<Task> task) throws DeadlineException, DateException{
         String [] divided = cmd.split(" ",2);
         if (divided.length < 2) {
             throw new DeadlineException("What deadline do you need to record?");
@@ -231,7 +236,11 @@ public class Duke {
             throw new DeadlineException("When do you have to get it done");
         }
         D = divided[0];
-        String by = divided[1];
+        String by = divided[1].trim();
+        boolean validateDate = by.matches("[0-9]{4}/[0-9]{2}/[0-9]{2}");
+        if (!validateDate) {
+            throw new DateException("Invalid format of the date");
+        }
         Task new_task =  new Deadline(D, by);
         task.add(new_task);
         String length = "" + task.size();
@@ -240,7 +249,7 @@ public class Duke {
         System.out.println("Now you have " + length + " tasks in the list.");
     }
 
-    public static void processEvents(String cmd, ArrayList<Task> task) throws EventException{
+    public static void processEvents(String cmd, ArrayList<Task> task) throws EventException, DateException{
         String [] divided = cmd.split(" ", 2);
         if (divided.length < 2) {
             throw new EventException("What event do you need to record?");
@@ -256,8 +265,16 @@ public class Duke {
         if (divided.length < 2) {
             throw new EventException("There is no event timeline!");
         }
-        String from = divided[0];
-        String to = divided[1];
+        String from = divided[0].trim();
+        String to = divided[1].trim();
+        boolean validateFromDate = from.matches("[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{4}");
+        if (!validateFromDate) {
+            throw new DateException("Invalid format of the date");
+        }
+        boolean validateToDate = to.matches("[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{4}");
+        if (!validateToDate) {
+            throw new DateException("Invalid format of the date");
+        }
         Task new_task = new Events(D, from, to);
         task.add(new_task);
         String length = "" + task.size();
