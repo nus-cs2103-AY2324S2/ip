@@ -1,1 +1,2 @@
-D | X | return book | Sunday
+D | √ | return book | 02/12/2019 1800
+D | X | return dook | 02/12/2019 1800

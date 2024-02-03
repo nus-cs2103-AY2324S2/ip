@@ -53,6 +53,7 @@ class ActivityList {
     public ActivityList() {
         this.loadList = new LocalList(filePath);
         this.activities = loadList.load();
+        System.out.println(activities);
         this.searchTable = new ArrayList<>();
         for (Activity activity : activities) {
             searchTable.add(activity.getName());
@@ -101,6 +102,7 @@ class ActivityList {
         } else {
             throw new RuntimeException("can't find activity");
         }
+        loadList.save(activities);
     }
 
     public void deleteActivity(String input) {
@@ -117,6 +119,7 @@ class ActivityList {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("to long or too short won't do the job");
         }
+        loadList.save(activities);
     }
 }
 
@@ -164,6 +167,9 @@ class Todo implements Activity {
 
 class Deadline implements Activity {
     List<String> act;
+    LocalDate date;
+    LocalTime time;
+
     public Deadline(String input) {
         act = new ArrayList<>();
         act.add("X");
@@ -174,11 +180,19 @@ class Deadline implements Activity {
         } else {
             throw new RuntimeException("unbearable");
         }
+        date = DateTimeFormat.getDate(act.get(2));
+        time = DateTimeFormat.getTime(act.get(2));
     }
 
     @Override
     public void printActivity() {
-        System.out.format("\t\t [D][%s]%s(by: %s)%n", act.get(0), act.get(1),act.get(2));
+        if (date != null && time != null) {
+            String dateOutput = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            String timeOutput = time.format(DateTimeFormatter.ofPattern("HH:mm"));
+            System.out.format("\t\t [D][%s]%s(by: %s, %s)%n", act.get(0), act.get(1), dateOutput, timeOutput);
+        } else {
+            System.out.format("\t\t [D][%s]%s(by: %s)%n", act.get(0), act.get(1),act.get(2));
+        }
     }
 
     @Override
@@ -255,14 +269,15 @@ class LocalList {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
-                String[] parts = line.split("\\|");
+                String[] parts = line.split(" \\| ");
                 Activity activity = null;
+                System.out.println(Arrays.toString(parts));
                 switch (parts[0]) {
                     case "T":
                         activity = new Todo("todo " + parts[2]);
                         break;
                     case "D":
-                        activity = new Deadline("deadline " + parts[2] + " /" + parts[3]);
+                        activity = new Deadline("deadline " + parts[2] + " /by " + parts[3]);
                         break;
                     case "E":
                         activity = new Event("event " + parts[2] + " /" + parts[3] + " " + parts[4]);
@@ -300,6 +315,33 @@ class LocalList {
             writer.close();
         } catch (IOException e) {
             System.out.println("An error occurred while saving the activities.");
+        }
+    }
+}
+
+class DateTimeFormat {
+    static public LocalDate getDate(String input) {
+        String[] dateString = input.split(" ", 2);
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        try {
+            return LocalDate.parse(dateString[0], formatter1);
+        } catch (DateTimeParseException ignored) {}
+        try {
+            return LocalDate.parse(dateString[0], formatter2);
+        } catch (DateTimeParseException format) {
+            return null;
+        }
+    }
+
+    static public LocalTime getTime(String input) {
+        String[] timeString = input.split(" ", 2);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
+        try{
+            return LocalTime.parse(timeString[1], formatter);
+        }  catch (DateTimeParseException format) {
+            return null;
         }
     }
 }
