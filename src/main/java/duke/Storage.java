@@ -27,9 +27,18 @@ public class Storage {
         try {
             Storage.filePath = filePath;
             this.file = new File(filePath);
+            // Attempt to create the file if it does not exist
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
             this.scanner = new Scanner(file);
         } catch (FileNotFoundException e) {
-            throw new DukeException("Error loading file");
+            throw new DukeException("File not found: " + filePath);
+        } catch (IOException e) {
+            // Catch IOException from createNewFile()
+            throw new DukeException("An error occurred while creating or opening the file: " + filePath);
         }
     }
 
