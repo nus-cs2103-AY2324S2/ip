@@ -62,21 +62,35 @@ class ActivityList {
 
     public void addActivity(String type, String input) {
         Activity activity;
-        if (type.equals("todo")) {
-            activity = new Todo(input);
-            this.searchTable.add(activity.getName());
-            this.activities.add(activity);
-        } else if (type.equals("deadline")) {
-            activity = new Deadline(input);
-            this.searchTable.add(activity.getName());
-            this.activities.add(activity);
-        } else if (type.equals("event")) {
-            activity = new Event(input);
-            this.searchTable.add(activity.getName());
-            this.activities.add(activity);
-        } else {
-            throw new RuntimeException("unbearable");
+        int index = input.indexOf(" ") + 1;
+        String subStr = input.substring(index);
+
+        switch (type) {
+            case "todo":
+                activity = new Todo("X", subStr); // Pass only the relevant substring
+                break;
+            case "deadline":
+                String[] deadlineParts = subStr.split(" /", 2);
+                if (deadlineParts.length == 2) {
+                    activity = new Deadline("X", deadlineParts[0], deadlineParts[1]); // Adjust Deadline constructor to accept date and time
+                } else {
+                    throw new RuntimeException("Invalid deadline format");
+                }
+                break;
+            case "event":
+                String[] eventParts = subStr.split(" /", 3);
+                if (eventParts.length == 3) {
+                    activity = new Event("X", eventParts[0], eventParts[1], eventParts[2]); // Adjust Event constructor
+                } else {
+                    throw new RuntimeException("Invalid event format");
+                }
+                break;
+            default:
+                throw new RuntimeException("Unknown activity type: " + type);
         }
+
+        this.searchTable.add(activity.getName());
+        this.activities.add(activity);
         System.out.println("\t____________________________________________________________");
         System.out.print("\tadded: ");
         activity.printActivity();
@@ -129,17 +143,12 @@ interface Activity {
 }
 class Todo implements Activity {
     List<String> act;
-    public Todo(String input) {
+    public Todo(String status, String name) {
         act = new ArrayList<>();
-        act.add("X");
-        int index = input.indexOf(" ") + 1;
-        if (index > 0) {
-            String subStr = input.substring(index);
-            act.add(subStr);
-        } else {
-            throw new RuntimeException("too short");
-        }
+        act.add(status); // Status
+        act.add(name); // Task name
     }
+
 
 
     @Override
@@ -169,19 +178,17 @@ class Deadline implements Activity {
     LocalDate date;
     LocalTime time;
 
-    public Deadline(String input) {
+    public Deadline(String status, String name, String dateAndTime) {
         act = new ArrayList<>();
-        act.add("X");
-        int index = input.indexOf(" ") + 1;
-        if (index > 0) {
-            String[] subStr = input.substring(index).split(" /by ", 2);;
-            act.addAll(List.of(subStr));
-        } else {
-            throw new RuntimeException("unbearable");
-        }
-        date = DateTimeFormat.getDate(act.get(2));
-        time = DateTimeFormat.getTime(act.get(2));
+        act.add(status); // Status
+        act.add(name); // Task name
+        act.add(dateAndTime);
+        LocalDate date = DateTimeFormat.getDate(dateAndTime);
+        LocalTime time = DateTimeFormat.getTime(dateAndTime);
+        this.date = date;
+        this.time = time;
     }
+
 
     @Override
     public void printActivity() {
@@ -213,27 +220,41 @@ class Deadline implements Activity {
 
 class Event implements Activity {
     List<String> act;
-    public Event(String input) {
+    LocalDate startDate;
+    LocalDate endDate;
+    LocalTime startTime;
+    LocalTime endTime;
+
+
+    public Event(String status, String name, String startDateAndTime, String endDateAndTime) {
         act = new ArrayList<>();
-        act.add("X");
-        int index = input.indexOf(" ") + 1;
-        String subStr = input.substring(index);
-        if (index > 0 && subStr.contains(" /")) {
-            String[] slips = subStr.split(" /");
-            if (slips.length == 3) {
-                act.addAll(List.of(slips));
-            } else {
-                throw new RuntimeException("unbearable");
-            }
-        } else {
-            throw new RuntimeException("unbearable");
-        }
+        act.add(status); // Status
+        act.add(name); // Event name
+        act.add(startDateAndTime);
+        act.add(endDateAndTime);
+        LocalDate startDate = DateTimeFormat.getDate(startDateAndTime);
+        LocalTime startTime = DateTimeFormat.getTime(startDateAndTime);
+        LocalDate endDate = DateTimeFormat.getDate(endDateAndTime);
+        LocalTime endTime = DateTimeFormat.getTime(endDateAndTime);
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endDate = endDate;
+        this.endTime = endTime;
     }
 
     @Override
     public void printActivity() {
-        System.out.format("\t\t [E][%s]%s(%s %s)%n",
-                act.get(0), act.get(1),act.get(2), act.get(3));
+        if (startDate != null && startTime != null && endDate != null && endTime != null) {
+            String startDateOutput = startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            String startTimeOutput = startTime.format(DateTimeFormatter.ofPattern("HH:mm"));
+            String endDateOutput = endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            String endTimeOutput = endTime.format(DateTimeFormatter.ofPattern("HH:mm"));
+            System.out.format("\t\t [E][%s]%s(from: %s %s to: %s %s)%n",
+                    act.get(0), act.get(1), startDateOutput, startTimeOutput, endDateOutput, endTimeOutput);
+        } else {
+            System.out.format("\t\t [E][%s]%s(%s %s)%n",
+                    act.get(0), act.get(1), act.get(2), act.get(3));
+        }
     }
 
     @Override
@@ -272,21 +293,16 @@ class LocalList {
                 Activity activity = null;
                 switch (parts[0]) {
                     case "T":
-                        activity = new Todo("todo " + parts[2]);
+                        activity = new Todo(parts[1], parts[2]);
                         break;
                     case "D":
-                        activity = new Deadline("deadline " + parts[2] + " /by " + parts[3]);
+                        activity = new Deadline(parts[1], parts[2], parts[3]);
                         break;
                     case "E":
-                        activity = new Event("event " + parts[2] + " /" + parts[3] + " /" + parts[4]);
+                        activity = new Event(parts[1], parts[2], parts[3], parts[4]);
                         break;
                 }
-                if (activity != null) {
-                    if (parts[1].trim().equals("√")) {
-                        activity.mark("mark");
-                    }
-                    loadedActivities.add(activity);
-                }
+                loadedActivities.add(activity);
             }
             scanner.close();
         } catch (IOException e) {
@@ -320,8 +336,8 @@ class LocalList {
 class DateTimeFormat {
     static public LocalDate getDate(String input) {
         String[] dateString = input.split(" ", 2);
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         try {
             return LocalDate.parse(dateString[0], formatter1);
