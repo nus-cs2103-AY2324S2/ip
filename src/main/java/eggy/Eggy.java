@@ -1,3 +1,12 @@
+package eggy;
+
+import eggy.command.Command;
+import eggy.exception.EggyException;
+import eggy.parser.Parser;
+import eggy.storage.Storage;
+import eggy.task.TaskList;
+import eggy.ui.Ui;
+
 public class Eggy {
     public final String NAME = "Eggy";
     private final Ui ui;

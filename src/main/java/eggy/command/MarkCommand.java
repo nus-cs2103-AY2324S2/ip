@@ -1,9 +1,20 @@
-public class UnmarkCommand extends Command {
+package eggy.command;
+
+import eggy.exception.EggyException;
+import eggy.exception.IncompleteCommandException;
+import eggy.exception.TaskListIndexOutOfBoundsException;
+import eggy.exception.TaskNumberFormatException;
+import eggy.storage.Storage;
+import eggy.task.TaskList;
+import eggy.task.Task;
+import eggy.ui.Ui;
+
+public class MarkCommand extends Command {
     private int index;
 
-    public UnmarkCommand(String[] commands, int tasksSize) throws EggyException {
+    public MarkCommand(String[] commands, int tasksSize) throws EggyException {
         if (commands.length < 2) {
-            throw new IncompleteCommandException("unmark");
+            throw new IncompleteCommandException("mark");
         }
         try {
             int taskNumber = Integer.parseInt(commands[1]);
@@ -19,8 +30,8 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EggyException {
         Task task = tasks.getTask(index);
-        task.unmarkDone();
-        ui.printTaskUnmarkedDone(task);
+        task.markDone();
+        ui.printTaskMarkedDone(task);
         storage.save(tasks);
     }
 }

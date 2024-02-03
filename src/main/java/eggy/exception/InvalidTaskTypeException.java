@@ -1,5 +1,7 @@
+package eggy.exception;
+
 public class InvalidTaskTypeException extends EggyException {
     public InvalidTaskTypeException() {
-        super(" There is an invalid task type in the file :-(");
+        super(" There is an invalid eggy.task type in the file :-(");
     }
 }

@@ -1,3 +1,5 @@
+package eggy.task;
+
 public abstract class Task {
     private final String name;
     private boolean isDone;
