@@ -7,10 +7,10 @@ import toothless.Ui;
 import toothless.tasks.Todo;
 import toothless.tasks.Task;
 
-public class TodoCommand extends Command{
+public class TodoCommand extends Command {
     private String detail;
 
-    public TodoCommand (String detail){
+    public TodoCommand(String detail) {
         this.detail = detail;
     }
     @Override

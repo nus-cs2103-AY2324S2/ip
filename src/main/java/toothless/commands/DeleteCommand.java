@@ -6,17 +6,17 @@ import toothless.ToothlessException;
 import toothless.Ui;
 import toothless.tasks.Task;
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     private String detail;
 
-    public DeleteCommand(String detail){
+    public DeleteCommand(String detail) {
         this.detail = detail;
     }
 
     @Override
     public boolean handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         int taskIndex = getTaskIndex(detail);
-        if (taskIndex >= taskList.size() || taskIndex < 0 || detail.equals("")){
+        if (taskIndex >= taskList.size() || taskIndex < 0 || detail.equals("")) {
             throw new ToothlessException("Human trying to delete nothing ^O^. Absurd");
         }
 

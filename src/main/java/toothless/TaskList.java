@@ -2,17 +2,18 @@ package toothless;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import toothless.tasks.Task;
 
 public class TaskList {
 
     private List<Task> taskList;
 
-    public TaskList(List<Task> taskList){
+    public TaskList(List<Task> taskList) {
         this.taskList = taskList;
     }
 
-    public TaskList(){
+    public TaskList() {
         this.taskList = new ArrayList<>();
     }
 

@@ -6,17 +6,17 @@ import toothless.ToothlessException;
 import toothless.Ui;
 import toothless.tasks.Task;
 
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     private String detail;
 
-    public UnmarkCommand (String detail){
+    public UnmarkCommand(String detail) {
         this.detail = detail;
     }
 
     @Override
     public boolean handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         int taskIndex = super.getTaskIndex(detail);
-        if (taskIndex >= taskList.size() || taskIndex < 0 || detail.equals("")){
+        if (taskIndex >= taskList.size() || taskIndex < 0 || detail.equals("")) {
             throw new ToothlessException("Human trying to unmark nothing ^O^. Silly");
         }
 

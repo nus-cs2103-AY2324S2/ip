@@ -46,7 +46,7 @@ public class Ui {
         this.showLine();
     }
 
-    public String readCommand(){
+    public String readCommand() {
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
     }

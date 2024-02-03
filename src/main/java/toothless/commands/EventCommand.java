@@ -7,10 +7,10 @@ import toothless.Ui;
 import toothless.tasks.Task;
 import toothless.tasks.Event;
 
-public class EventCommand extends Command{
+public class EventCommand extends Command {
     private String detail;
 
-    public EventCommand(String detail){
+    public EventCommand(String detail) {
         this.detail = detail;
     }
     @Override
@@ -20,14 +20,14 @@ public class EventCommand extends Command{
         }
 
         int date1Index = detail.indexOf("/from");
-        if (date1Index == -1){
+        if (date1Index == -1) {
             throw new ToothlessException("Human event no start date D:");
         }
         String description = detail.substring(0, date1Index - 1);
         detail = detail.substring(date1Index + 6);
 
         int date2Index = detail.indexOf("/to");
-        if (date2Index == -1){
+        if (date2Index == -1) {
             throw new ToothlessException("Human event no end date D:");
         }
 

@@ -9,30 +9,30 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return this.description;
+        return description;
     }
 
     public String getStatusIcon() {
-        return this.isDone ? "X": " "; // mark done task with X
+        return isDone ? "X": " "; // mark done task with X
     }
 
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
-    public void markAsNotDone(){
-        this.isDone = false;
+    public void markAsNotDone() {
+        isDone = false;
     }
 
-    public String toWrite(){
-        return (isDone ? 1 : 0) + " | " + this.description;
+    public String toWrite() {
+        return (isDone ? 1 : 0) + " | " + description;
     }
 
-    public boolean isDone(){
+    public boolean isDone() {
         return isDone;
     }
 
-    public String dateTimeFormat(LocalDateTime dateTime){
+    public String dateTimeFormat(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
     }
 

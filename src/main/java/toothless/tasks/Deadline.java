@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 public class Deadline extends Task {
     private LocalDateTime date;
 
-    public Deadline(String description, String date){
+    public Deadline(String description, String date) {
         super.description = description;
         this.date = LocalDateTime.parse(date);
     }
 
-    public Deadline(String description, String date, boolean isDone){
+    public Deadline(String description, String date, boolean isDone) {
         super.description = description;
         super.isDone = isDone;
         this.date = LocalDateTime.parse(date);
@@ -22,14 +22,12 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toWrite(){
-        return "D | " + super.toWrite()
-                + " | " + this.date;
+    public String toWrite() {
+        return "D | " + super.toWrite() + " | " + date;
     }
 
     @Override
-    public String toString(){
-        return this.description
-                + " (by: "+ super.dateTimeFormat(this.date) + ")";
+    public String toString() {
+        return description + " (by: "+ super.dateTimeFormat(date) + ")";
     }
 }
