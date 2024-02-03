@@ -14,13 +14,23 @@ import java.io.FileNotFoundException;
 
 import java.util.ArrayList;
 
-// Purpose is to save tasks and load tasks
+/**
+ * The Storage class is responsible for saving tasks to a file and loading tasks from a file.
+ * It interacts with the file system to store and retrieve task data.
+ */
 public class Storage {
 
     private final String filePath;
     private final File f;
 
-    // Constructor
+    /**
+     * Constructs a Storage object with the specified file path and directory.
+     * If the directory does not exist, it creates the directory.
+     * If the file does not exist, it creates the file.
+     *
+     * @param filePath  The path to the file where tasks are stored.
+     * @param directory The directory where the file is located.
+     */
     public Storage(String filePath, String directory) {
         // If (data) directory does not exist, create directory
         File dir = new File(directory);
@@ -47,6 +57,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file into the provided task list.
+     *
+     * @param taskList The ArrayList to which loaded tasks will be added.
+     */
     public void load(ArrayList<Task> taskList) {
         try {
             Task task;
@@ -81,6 +96,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks from the provided task list to the file.
+     *
+     * @param taskList The ArrayList containing tasks to be saved.
+     */
     public void save(ArrayList<Task> taskList) {
         if (taskList.isEmpty()) {
             return;
@@ -123,8 +143,4 @@ public class Storage {
     //  T   |   1/0   | <event-name>
     //  D   |   1/0   | <event-name>  | <date>
     //  E   |   1/0   | <event-name>  | <start-date> | <end-date>
-
-
-
-
 }

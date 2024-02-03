@@ -4,19 +4,26 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-/* Events: tasks that start at a specific date/time and
- * ends at a specific date/time e.g.,
+/**
+ * Represents an event task with a specific start and end date.
+ * Example: event team project meeting /from 2022-02-15 /to 2022-02-16
  * (a) event team project meeting /from 2-10-2019 /to 2-4pm
  * (b) event orientation week /from 4-10-2019 /to 11-10-2019
- * */
+ */
 public class Event extends Task {
 
     private String startDateString, endDateString;
 
     private LocalDate startDate, endDate;
 
-    
 
+    /**
+     * Constructs an Event object with the given description, start date, and end date.
+     *
+     * @param description     The description of the event.
+     * @param startDateString The start date of the event in string format.
+     * @param endDateString   The end date of the event in string format.
+     */
     public Event(String description, String startDateString, String endDateString) {
         super(description);
         this.startDateString = startDateString;
@@ -32,6 +39,14 @@ public class Event extends Task {
 
     }
 
+    /**
+     * Constructs an Event object with the given description, completion status, start date, and end date.
+     *
+     * @param description     The description of the event.
+     * @param isDone          The completion status of the event (1 for done, 0 for not done).
+     * @param startDateString The start date of the event in string format.
+     * @param endDateString   The end date of the event in string format.
+     */
     public Event(String description, int isDone, String startDateString, String endDateString) {
         super(description, isDone);
         this.startDateString = startDateString;
@@ -46,12 +61,22 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns the task type identifier for an event.
+     *
+     * @return The task type identifier ('E' for event).
+     */
     @Override
     public char getTaskType() {
         return 'E';
     }
 
-    // project meeting (from: Aug 6th 2pm to: 4pm)
+    /**
+     * Returns a formatted string representation of the event task.
+     * Includes the task type, completion status, description, and event duration.
+     *
+     * @return A formatted string representation of the event task.
+     */
     @Override
     public String listTaskString() {
         if (startDate == null) {
@@ -65,10 +90,20 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns the start date of the event in string format.
+     *
+     * @return The start date of the event.
+     */
     public String getStartDate() {
         return this.startDateString;
     }
 
+    /**
+     * Returns the end date of the event in string format.
+     *
+     * @return The end date of the event.
+     */
     public String getEndDate() {
         return this.endDateString;
     }
