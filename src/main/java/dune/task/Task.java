@@ -1,17 +1,33 @@
 package dune.task;
 
+/**
+ * Represents a task. A task has a description and a boolean isDone status.
+ */
 public abstract class Task {
 
+    /** String description of task */
     private String description;
     private boolean isDone;
+
+    /**
+     * Constructor for Task.
+     *
+     * @param description String description of task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-    public Task(String description, boolean done) {
+    /**
+     * Constructor for Task with isDone.
+     *
+     * @param description String description of task.
+     * @param isDone Boolean isDone status of task.
+     */
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = done;
+        this.isDone = isDone;
     }
 
     public void mark() {

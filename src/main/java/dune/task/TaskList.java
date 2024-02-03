@@ -11,19 +11,37 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks. A TaskList has a list of tasks.
+ */
 public class TaskList {
     private List<Task> tasks;
 
     private static String before = "Start date must be before end date";
 
+    /**
+     * Constructor for TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Adds task to list of tasks.
+     *
+     * @param task Task to be added.
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
 
+    /**
+     * Adds task to list of tasks given a string.
+     *
+     * @param i  Type of task.
+     * @param text  Description of task.
+     * @param storage  Storage object to save tasks.
+     */
     public void addTask(int i, String text, Storage storage) {
         Task x = null;
         if (i == 0) {
@@ -89,10 +107,21 @@ public class TaskList {
         System.out.println("Now you have " + this.tasks.size() + " tasks in your list.");
     }
 
+    /**
+     * Deletes task from list of tasks at given position.
+     *
+     * @param index Position of task to be deleted.
+     */
     private void deleteTask(int index) {
         this.tasks.remove(index);
     }
 
+    /**
+     * Deletes task from list of tasks at given string of position.
+     *
+     * @param indexStr Position of task to be deleted, as a string.
+     * @param storage Storage object to save tasks.
+     */
     public void deleteTask(String indexStr, Storage storage) {
         try {
             if (indexStr.trim().equals("")) {

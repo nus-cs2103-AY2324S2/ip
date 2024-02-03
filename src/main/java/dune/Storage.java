@@ -8,6 +8,9 @@ import java.nio.file.Paths;
 import java.io.*;
 import java.util.List;
 
+/**
+ * Deals with loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
 
     private String dir;
@@ -18,6 +21,11 @@ public class Storage {
         this.filePath = Paths.get(dir, "data", "dune.txt");
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @param tasks
+     */
     public void loadTasks(TaskList tasks) {
         boolean fileExists = java.nio.file.Files.exists(this.filePath);
         // System.out.println(filePath);
@@ -48,6 +56,14 @@ public class Storage {
     }
 
     // Dates are in the format yyyy-mm-ddTHH:MM, unlike what's printed
+
+    /**
+     * Converts a line from the file to a task.
+     *
+     * @param s String to be converted to a task.
+     * @return Task.
+     * @throws DuneException
+     */
     public Task convertLineToTask(String s) throws DuneException {
         // components = [type, T/F, task] for todo
         // [type, T/F, task, deadline] for deadline, [type, T/F, task, start, end] for event
@@ -69,6 +85,14 @@ public class Storage {
     }
 
     // Dates are in the format yyyy-mm-ddTHH:MM, unlike what's printed
+
+    /**
+     * Converts a task to a line to be written to the file.
+     *
+     * @param t A task.
+     * @return
+     * @throws DuneException
+     */
     public String convertTaskToLine(Task t) throws DuneException {
         String ans = "";
         if (t instanceof ToDo) {
@@ -87,6 +111,11 @@ public class Storage {
         return ans;
     }
 
+    /**
+     * Saves tasks to the file.
+     *
+     * @param tasks
+     */
     public void saveTasks(TaskList tasks) {
         boolean fileExists = java.nio.file.Files.exists(this.filePath);
 

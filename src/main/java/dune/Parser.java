@@ -4,10 +4,22 @@ import dune.task.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Deals with making sense of the user command.
+ */
 public class Parser {
 
     private static String[] taskTypes = new String[] {"todo", "deadline", "event"};
 
+    /**
+     * Parses the user input and decides what to do.
+     *
+     * @param scanner The scanner object to read user input.
+     * @param taskList
+     * @param ui
+     * @param storage The storage object to save the tasks to.
+     * @return
+     */
     public boolean parse(Scanner scanner, TaskList taskList, Ui ui, Storage storage) {
         String text = scanner.nextLine();  // Read user input
         if (text.equals("bye")) {
