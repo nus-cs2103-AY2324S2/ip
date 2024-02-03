@@ -52,7 +52,7 @@ public class Storage {
     /**
      * Saves the tasks in the file from the list of tasks.
      * @param list List of tasks.
-     * @throws FileIoException if unsuccessful in creating file.
+     * @throws FileIOException if unsuccessful in creating file.
      */
         protected void saveInFile(TaskList list) throws FileIOException {
             try {
@@ -65,17 +65,17 @@ public class Storage {
                 Task task = list.get(i);
                     if (task instanceof Deadline) {
                         Deadline deadline = (Deadline) task;
-                        fw.write("D| " + (deadline.isDone ? "1" : "0") + "| " +
-                                deadline.description + "| " + deadline.getBy().format(formatter) + "\n");
+                        fw.write("D| " + (deadline.checkDone() ? "1" : "0") + "| " +
+                                deadline.getDescription() + "| " + deadline.getBy().format(formatter) + "\n");
                     } else if (task instanceof Event) {
                         Event event = (Event) task;
-                        fw.write("E| " + (event.isDone ? "1" : "0") + "| " +
-                                event.description + "| " + event.getStart().format(formatter) +
+                        fw.write("E| " + (event.checkDone() ? "1" : "0") + "| " +
+                                event.getDescription() + "| " + event.getStart().format(formatter) +
                                 "-" + event.getEnd().format(formatter) + "\n");
                     } else if (task instanceof Todo) {
                         Todo todo = (Todo) task;
-                        fw.write("T| " + (todo.isDone ? "1" : "0") + "| " +
-                                todo.description + "\n");
+                        fw.write("T| " + (todo.checkDone() ? "1" : "0") + "| " +
+                                todo.getDescription() + "\n");
                     }
                 }
                 fw.close();
