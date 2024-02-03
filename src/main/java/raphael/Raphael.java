@@ -28,6 +28,10 @@ public class Raphael {
             this.tasks = new TaskList();
         }
     }
+
+    /**
+     * Activates Raphael.
+     */
     private void run() {
         this.ui.showWelcome();
         boolean isExit = false;
@@ -45,6 +49,12 @@ public class Raphael {
             }
         }
     }
+
+    /**
+     * Serves as the entry point of the whole program.
+     *
+     * @param args the command line argument upon running the binary file.
+     */
     public static void main(String[] args) {
         new Raphael("./data/tasks.txt").run();
     }
