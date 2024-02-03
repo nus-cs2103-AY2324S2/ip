@@ -8,17 +8,17 @@ import java.time.format.DateTimeFormatter;
 class EventTask extends Task {
     public LocalDateTime from, to;
     DateTimeFormatter printFormat  = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm:ss");
-    public EventTask(String type, String desc, LocalDateTime from, LocalDateTime to) {
-        super(type, desc);
+    public EventTask(String desc, LocalDateTime from, LocalDateTime to) {
+        super("E", desc);
         this.from = from;
         this.to = to;
     }
 
     @Override
     public String toString() {
-        return "[" + type + "] "
-                + (completed ? "[X]" : "[ ]")
-                + " " + desc
+        return "[" + this.getType() + "] "
+                + (this.isCompleted() ? "[X]" : "[ ]")
+                + " " + this.getDesc()
                 + " (from: " + from.format(printFormat) + " to: " + to.format(printFormat) + ")";
     }
 }

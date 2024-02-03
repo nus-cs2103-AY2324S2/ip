@@ -9,7 +9,7 @@ public class DylanBot {
 
     public DylanBot(String filePath) {
         this.ui = new Ui();
-        this.st = new Storage(filePath);
+        this.st = new Storage(filePath, ui);
         try {
             this.tl = new TaskList(this.st.loadDataFromFile(), ui);
             ui.print("Loaded data from file");

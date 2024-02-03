@@ -40,7 +40,7 @@ public class Ui {
         }
     }
 
-    public void print(String msg) {
+    public static void print(String msg) {
         System.out.println(msg);
     }
 

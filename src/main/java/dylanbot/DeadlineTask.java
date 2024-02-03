@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter;
 public class DeadlineTask extends Task {
     public LocalDateTime deadline;
     DateTimeFormatter printFormat  = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm:ss");
-    public DeadlineTask(String type, String desc, LocalDateTime deadline) {
-        super(type, desc);
+    public DeadlineTask(String desc, LocalDateTime deadline) {
+        super("D", desc);
         this.deadline = deadline;
     }
 
@@ -15,9 +15,9 @@ public class DeadlineTask extends Task {
     public String toString() {
         String res = "";
         try {
-            res = "[" + type + "] "
-                    + (completed ? "[X]" : "[ ]")
-                    + " " + desc
+            res = "[" + this.getType() + "] "
+                    + (this.isCompleted() ? "[X]" : "[ ]")
+                    + " " + this.getDesc()
                     + " (by: " + deadline.format(printFormat) + ")";
         } catch (NullPointerException e) {
         }
