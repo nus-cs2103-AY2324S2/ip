@@ -1,11 +1,12 @@
 import java.io.IOException;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.io.File;
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.FileReader;
+import java.time.LocalDate;
 
 public class gops {
 
@@ -23,7 +24,7 @@ public class gops {
             }
         }
         public String stringPrinter() {
-            return " T " + "| " + this.doneOrNot() + " | " + itemDescription;
+            return "T " + "| " + this.doneOrNot() + " | " + itemDescription;
         }
         public void Printer() {
             System.out.println(stringPrinter());
@@ -31,17 +32,29 @@ public class gops {
     }
 
     public static class Deadline extends Todo {
-        protected String todoDescription;
+        protected String endDateString;
+        String reformattedEndDateString;
+        protected LocalDate endDate;
         protected boolean todoStatus = false;
-        protected String dayTodoBy;
-        public Deadline(String todoDescription, String dayTodoBy) {
+        public Deadline(String todoDescription, String endDateString) {
             super(todoDescription);
-            this.dayTodoBy = dayTodoBy;
+            this.endDateString = endDateString.trim();
+            if (endDateString.replaceAll("\\s", "").length() != 9) {
+                dateFormatter(endDateString);
+            } else {
+                reformattedEndDateString = endDateString.trim();
+            }
+        }
+
+        private void dateFormatter(String dateString) {
+            endDate = LocalDate.parse(dateString.trim());
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+            reformattedEndDateString = endDate.format(dateFormatter);
         }
 
         @Override
         public String stringPrinter() {
-            return " " + "D " + "| " + this.doneOrNot() + " | " + itemDescription + " | by:" + dayTodoBy;
+            return "D " + "| " + this.doneOrNot() + " | " + itemDescription + " | by: " + reformattedEndDateString;
         }
 
         @Override
@@ -58,14 +71,14 @@ public class gops {
         protected String startBy;
         protected String endBy;
         public Event(String todoDescription, String startBy, String endBy) {
-            super(todoDescription);
-            this.startBy = startBy;
-            this.endBy  = endBy;
+            super(todoDescription.trim());
+            this.startBy = startBy.trim();
+            this.endBy  = endBy.trim();
         }
 
         @Override
         public String stringPrinter() {
-            return " " + "E " + "| " + this.doneOrNot() + " | " + itemDescription + " | from: " + startBy + " | to: " + endBy + "";
+            return "E " + "| " + this.doneOrNot() + " | " + itemDescription + " | from: " + startBy + " | to: " + endBy + "";
         }
 
         @Override
@@ -160,7 +173,13 @@ public class gops {
 
         String userReply = inputTaker.nextLine();
         while (userReply != null && !userReply.equals("bye")) {
-            if (userReply.contains("todo")) {
+            if (userReply.equals("clear")) {
+                toDoList = new Todo[100];
+                System.out.println("List Cleared");
+                writeToHardDisk(toDoList, 0, txtFile);
+                messageCount = 0;
+                userReply = inputTaker.nextLine();
+            } else if (userReply.contains("todo")) {
                 String[] splitter = userReply.split(" ", 2);
                 try {
                     if (splitter.length == 1) {
@@ -170,8 +189,10 @@ public class gops {
                     toDoList[messageCount] = todoObject;
                     messageCount += 1;
                     System.out.println("Got it. I've added this task:");
+                    System.out.println("------------------------------------------------------------------");
                     todoObject.Printer();
                     writeToHardDisk(toDoList, messageCount, txtFile);
+                    System.out.println("------------------------------------------------------------------");
                     System.out.println("Now you have " + messageCount + " tasks in the list.");
                     userReply = inputTaker.nextLine();
                 } catch (gopsException e) {
@@ -185,13 +206,15 @@ public class gops {
                         throw new gopsException();
                     }
                     String[] seocndSplitter = firstSplitter[1].split("/by", 2);
-                    Deadline deadlineObject = new Deadline(seocndSplitter[0], seocndSplitter[1]);
+                    Deadline deadlineObject = new Deadline(seocndSplitter[0].trim(), seocndSplitter[1]);
                     toDoList[messageCount] = deadlineObject;
                     messageCount += 1;
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println("Task Added");
+                    System.out.println("------------------------------------------------------------------");
                     deadlineObject.Printer();
                     writeToHardDisk(toDoList, messageCount, txtFile);
-                    System.out.println("Now you have " + messageCount + " tasks in the list.");
+                    System.out.println("------------------------------------------------------------------");
+                    System.out.println(messageCount + " Tasks Remaining");
                     userReply = inputTaker.nextLine();
                 } catch (gopsException e) {
                     System.out.println("Please follow the format for setting deadlines\ndeadline [your-task-here] /by [deadline-of-your-task]");
@@ -251,11 +274,18 @@ public class gops {
             }
 
             else if (userReply.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < messageCount; i++) {
-                    System.out.println(i + 1 + ")" + toDoList[i].stringPrinter());
+                if (messageCount == 0) {
+                    System.out.println("No Tasks Left");
+                    userReply = inputTaker.nextLine();
+                } else {
+                    System.out.println("Here are the tasks in your list:");
+                    System.out.println("------------------------------------------------------------------");
+                    for (int i = 0; i < messageCount; i++) {
+                        System.out.println(i + 1 + ") " + toDoList[i].stringPrinter());
+                    }
+                    System.out.println("------------------------------------------------------------------");
+                    userReply = inputTaker.nextLine();
                 }
-                userReply = inputTaker.nextLine();
             } else if (userReply.contains("delete")) {
                 try {
                     if (userReply.length() == 6) {
