@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Tasks to do without any time reminder.
+ */
 public class ToDo extends Task {
     public ToDo(String taskName, boolean isDone) { super(taskName, isDone); }
 

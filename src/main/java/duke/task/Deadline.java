@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Task with a due date and time.
+ */
 public class Deadline extends Task {
     private LocalDateTime dueTime;
     private LocalDate dueDate;

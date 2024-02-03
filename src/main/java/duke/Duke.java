@@ -22,6 +22,9 @@ import java.nio.file.Paths;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Entry point for the application.
+ */
 public class Duke {
     private static Ui ui = new Ui(System.in);
     private static Storage storage = new Storage("data/tasks.txt");
@@ -29,8 +32,10 @@ public class Duke {
 
     public static void main(String[] args) throws IOException {
         try {
+            //loads tasks from file to task list.
             storage.loadFile(taskList);
         } catch (FileNotFoundException e) {
+            //creates directory if the given directory path doesn't exist.
             Files.createDirectories(Paths.get(storage.directoryPath));
             ui.printMessage("New human detected!");
         }

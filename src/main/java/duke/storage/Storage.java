@@ -15,14 +15,26 @@ import java.time.LocalDateTime;
 
 import java.util.Scanner;
 
+/**
+ * Represents the file used to store the tasks.
+ * Handles loading and writing tasks data to a file.
+ */
 public class Storage {
     Parser parser = new Parser();
-    public String filePath = "./src/main/";
+    private String filePath = "./src/main/";
     public String directoryPath = "./src/main/";
+
     public Storage(String filePath) {
         this.directoryPath += filePath.substring(0, filePath.lastIndexOf("/"));
         this.filePath += filePath;
     }
+
+    /**
+     * Loads the tasks from the specified filepath into the task list.
+     *
+     * @param tasks TaskList to store the tasks.
+     * @throws IOException If error occur when reading the file.
+     */
     public void loadFile(TaskList tasks) throws IOException {
         File f = new File(filePath);
         Scanner sc = new Scanner(f);
@@ -52,6 +64,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Store the tasks in the task list into the specified file.
+     *
+     * @param tasks List of tasks to be stored.
+     * @throws IOException If error occurred when writing to the file.
+     */
     public void writeFile(TaskList tasks) throws IOException {
         File f = new File(this.filePath);
         FileWriter writer = new FileWriter(f);
