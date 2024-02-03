@@ -1,14 +1,9 @@
 package duke.task;
 
-<<<<<<< HEAD
-import java.util.List;
-import java.util.ArrayList;
-
 /**
  * Represents a generic task in the Duke application.
  */
-=======
->>>>>>> A-CodingStandard
+
 public class Task {
 
     /**
@@ -87,12 +82,7 @@ public class Task {
      * @return A formatted string representing the task.
      */
     public String toString() {
-<<<<<<< HEAD
         return " [" + this.getStatusIcon() + "] " + this.description;
-=======
-        String temp = " [" + this.getStatusIcon() + "] " + this.description;
-        return temp;
->>>>>>> A-CodingStandard
     }
 }
 

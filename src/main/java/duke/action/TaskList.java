@@ -142,7 +142,9 @@ public class TaskList implements Iterable<Task> {
         System.out.println(" Hello I'm NoisyChatter");
         System.out.println(" What can I do for you?");
     }
-
+    /**
+     * Finds the matches.
+     */
     public void matches(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : mylist) {

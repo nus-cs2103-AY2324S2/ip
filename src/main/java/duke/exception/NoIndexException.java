@@ -1,11 +1,8 @@
 package duke.exception;
 
-<<<<<<< HEAD
 /**
  * Represents an exception thrown when no index is provided for a task operation.
  */
-=======
->>>>>>> A-CodingStandard
 public class NoIndexException extends DukeException {
 
     /**

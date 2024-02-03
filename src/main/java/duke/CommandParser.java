@@ -3,16 +3,12 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-<<<<<<< HEAD
-/**
- * Parses user commands and performs corresponding actions in the Duke application.
- */
-=======
 import duke.action.Action;
 import duke.action.Delete;
 import duke.action.Echo;
 import duke.action.Farewell;
 import duke.action.Mark;
+import duke.action.Match;
 import duke.action.MyList;
 import duke.action.TaskList;
 import duke.action.Unmark;
@@ -26,10 +22,15 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
-
->>>>>>> A-CodingStandard
+/**
+ * Parses user commands and performs corresponding actions in the Duke application.
+ */
 
 public class CommandParser {
+
+    /**
+     * Parses user commands and performs corresponding actions in the Duke application.
+     */
     public static Action parseCommand(String command, TaskList taskList) throws
             EmptyDescriptionException, NoIndexException, UnknownCommandException,
             WrongDateFormatException, WrongDateOrderingException {

@@ -5,13 +5,6 @@ import java.io.IOException;
 import duke.action.Action;
 import duke.action.TaskList;
 import duke.exception.DukeException;
-<<<<<<< HEAD
-import duke.action.*;
-
-import java.io.IOException;
-=======
-
->>>>>>> A-CodingStandard
 
 /**
  * Duke is a task management application that allows users to manage their tasks.

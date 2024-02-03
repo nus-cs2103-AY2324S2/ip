@@ -1,12 +1,9 @@
 package duke.exception;
 
-<<<<<<< HEAD
 /**
  * Represents an exception thrown when an unknown command is encountered.
  */
-=======
 
->>>>>>> A-CodingStandard
 public class UnknownCommandException extends DukeException {
 
     /**

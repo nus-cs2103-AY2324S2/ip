@@ -1,11 +1,9 @@
 package duke.task;
 
-<<<<<<< HEAD
 /**
  * Represents a task of type ToDo in the Duke application.
  */
-=======
->>>>>>> A-CodingStandard
+
 public class ToDo extends Task {
 
     /**

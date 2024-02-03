@@ -13,25 +13,12 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
-<<<<<<< HEAD
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.FileWriter;
-import java.time.LocalDate;
-import java.util.Scanner;
-=======
->>>>>>> A-CodingStandard
 
 /**
  * Handles the reading and writing of tasks to and from a file.
  */
 class Storage {
-<<<<<<< HEAD
-    File taskFile;
-=======
     private File taskFile;
->>>>>>> A-CodingStandard
 
     /**
      * Constructs a Storage object with the specified file path.

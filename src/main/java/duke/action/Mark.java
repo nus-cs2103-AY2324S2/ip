@@ -1,12 +1,9 @@
 package duke.action;
 
-<<<<<<< HEAD
 /**
  * Represents an action to mark a task as done.
  */
-=======
 
->>>>>>> A-CodingStandard
 public class Mark implements Action {
 
     /**
