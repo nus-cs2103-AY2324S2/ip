@@ -32,7 +32,8 @@ public class Event implements Task{
 
     @Override
     public String toString() {
-        return "[E][" + (this.done?"X":" ") + "] " + this.name +
-                " (from: " + this.startDate.format(dtf) + " | to: " + this.endDate.format(dtf) + ")";
+        String d = this.done ? "X" : " ";
+        return String.format("[E][%s] %s (from: %s) (to: %s)", d, name,
+                startDate.format(dtf), endDate.format(dtf));
     }
 }

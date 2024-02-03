@@ -20,15 +20,16 @@ public class Deadline implements Task {
     }
 
     public Deadline mark() {
-        return new Deadline(this.name, true, this.deadline);
+        return new Deadline(name, true, deadline);
     }
 
     public Deadline unmark() {
-        return new Deadline(this.name, false, this.deadline);
+        return new Deadline(name, false, deadline);
     }
 
     @Override
     public String toString() {
-        return "[D][" + (this.done?"X":" ") + "] " + this.name + " (by: " + this.deadline.format(dtf) + ")";
+        String d = this.done ? "X" : " ";
+        return String.format("[D][%s] %s (by: %s)", d, name, deadline.format(dtf));
     }
 }
