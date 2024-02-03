@@ -1,4 +1,4 @@
-package duke;
+package duke.parser;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -14,7 +14,6 @@ import duke.commands.CommandTodo;
 import duke.commands.CommandUnknown;
 import duke.commands.CommandUnmark;
 import duke.exceptions.DukeException;
-import duke.exceptions.tasks.EmptyDescriptionException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Todo;

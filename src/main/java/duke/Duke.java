@@ -1,13 +1,16 @@
 package duke;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import duke.commands.Command;
 import duke.exceptions.DukeException;
+import duke.parser.Parser;
+import duke.storage.Storage;
 import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
 
 public class Duke {
     public static final Path TASKS_FILE_PATH = Paths.get(".", "data", "duke.tasks");

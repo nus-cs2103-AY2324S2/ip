@@ -9,8 +9,8 @@ import duke.exceptions.tasks.EmptyDescriptionException;
 
 public class Event extends Task {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    private LocalDate from;
-    private LocalDate to;
+    private final LocalDate from;
+    private final LocalDate to;
 
     public Event(String description, LocalDate from, LocalDate to) throws EmptyDescriptionException {
         super(description);

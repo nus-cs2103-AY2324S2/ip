@@ -9,7 +9,7 @@ import duke.exceptions.tasks.EmptyDescriptionException;
 
 public class Deadline extends Task {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    private LocalDate by;
+    private final LocalDate by;
 
     public Deadline(String description, LocalDate by) throws EmptyDescriptionException {
         super(description);

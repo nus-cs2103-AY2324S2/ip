@@ -1,8 +1,5 @@
-package duke;
+package duke.storage;
 
-import duke.exceptions.storage.CreateTasksFileFailedException;
-import duke.exceptions.storage.LoadTasksFailedException;
-import duke.exceptions.storage.SaveTasksFailedException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,14 +7,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import duke.exceptions.DukeException;
+import duke.exceptions.storage.CreateTasksFileFailedException;
+import duke.exceptions.storage.LoadTasksFailedException;
+import duke.exceptions.storage.SaveTasksFailedException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
+import duke.tasks.TaskList;
 import duke.tasks.Todo;
 
 public class Storage {
-    private Path filePath;
-    private String argDelimiter;
+    private final Path filePath;
+    private final String argDelimiter;
 
     public Storage(Path filePath, String argDelimiter) {
         this.filePath = filePath;

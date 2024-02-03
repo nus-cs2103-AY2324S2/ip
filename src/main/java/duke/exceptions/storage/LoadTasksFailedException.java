@@ -1,7 +1,8 @@
 package duke.exceptions.storage;
 
-import duke.exceptions.DukeException;
 import java.io.IOException;
+
+import duke.exceptions.DukeException;
 
 public class LoadTasksFailedException extends DukeException {
     public LoadTasksFailedException(IOException ioException) {
