@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.nio.file.Files;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -114,15 +115,31 @@ public class Tam {
                     if (deadlineDescription.equals("")) { // empty description
                         System.out.print("Missing task description!\n");
                         System.out.print(dividerText);
-                    } else if (deadlineDueDate.equals("")) { // empty due date
+                    }
+                    else if (deadlineDueDate.equals("")) { // empty due date
                         System.out.print("Missing task due date!\n");
                         System.out.print(dividerText);
-                    } else if (deadlineDescription.contains("/from") ||
+                    }
+                    else if (deadlineDescription.contains("/from") ||
                             deadlineDescription.contains("/to")) { // unnecessary from and to date
                         System.out.print("Deadline task cannot have a from and to date!\n");
                         System.out.print(dividerText);
-                    } else {
-                        Tam.addDeadline(deadlineDescription, deadlineDueDate);
+                    }
+                    else {
+                        try {
+                            // assume yyyy-mm-dd format
+                            String[] dateStringArray = deadlineDueDate.split("-");
+                            int[] dateArray = new int[3];
+                            for (int i = 0; i < 3; i++) {
+                                dateArray[i] = Integer.parseInt(dateStringArray[i]);
+                            }
+                            LocalDate deadlineDueDateLocal = LocalDate.of(dateArray[0], dateArray[1], dateArray[2]);
+                            Tam.addDeadline(deadlineDescription, deadlineDueDateLocal);
+                        }
+                        catch (Exception e) {
+                            System.out.print("Incorrect formatting of due date! Ensure it is yyyy-mm-dd\n");
+                            System.out.print(dividerText);
+                        }
                     }
                     FileRetriever.saveTaskList(taskList);
                     return 1;
@@ -161,7 +178,24 @@ public class Tam {
                         System.out.print("Event task cannot have a due date!\n");
                         System.out.print(dividerText);
                     } else {
-                        Tam.addEvent(eventDescription, eventFrom, eventTo);
+                        try {
+                            // assume yyyy-mm-dd format
+                            String[] fromDateStringArray = eventFrom.split("-");
+                            String[] toDateStringArray = eventTo.split("-");
+                            int[] fromDateArray = new int[3];
+                            int[] toDateArray = new int[3];
+                            for (int i = 0; i < 3; i++) {
+                                fromDateArray[i] = Integer.parseInt(fromDateStringArray[i]);
+                                toDateArray[i] = Integer.parseInt(toDateStringArray[i]);
+                            }
+                            LocalDate eventFromDateLocal = LocalDate.of(fromDateArray[0], fromDateArray[1], fromDateArray[2]);
+                            LocalDate eventToDateLocal = LocalDate.of(toDateArray[0], toDateArray[1], toDateArray[2]);
+                            Tam.addEvent(eventDescription, eventFromDateLocal, eventToDateLocal);
+                        }
+                        catch (Exception e) {
+                            System.out.print("Incorrect formatting of due date! Ensure it is yyyy-mm-dd\n");
+                            System.out.print(dividerText);
+                        }
                     }
                     FileRetriever.saveTaskList(taskList);
                     return 1;
@@ -216,7 +250,7 @@ public class Tam {
         System.out.print(dividerText);
     }
 
-    public static void addDeadline(String description, String dueDate) {
+    public static void addDeadline(String description, LocalDate dueDate) {
         Deadline newDeadline = new Deadline(description, dueDate);
         taskList.add(newDeadline);
         numTasks++;
@@ -226,7 +260,7 @@ public class Tam {
         System.out.print(dividerText);
     }
 
-    public static void addEvent(String description, String fromDate, String toDate) {
+    public static void addEvent(String description, LocalDate fromDate, LocalDate toDate) {
         Event newEvent = new Event(description, fromDate, toDate);
         taskList.add(newEvent);
         numTasks++;
