@@ -21,8 +21,8 @@ public class Event extends Task {
      */
     public Event(String description, boolean isDone, String startTime, String endTime) {
         super(description, isDone, TaskType.EVENT);
-        this.startTime = LocalDateTime.parse(startTime, super.dateTimeEntryForm);
-        this.endTime = LocalDateTime.parse(endTime, super.dateTimeEntryForm);
+        this.startTime = LocalDateTime.parse(startTime, super.DATE_TIME_ENTRY_FORMAT);
+        this.endTime = LocalDateTime.parse(endTime, super.DATE_TIME_ENTRY_FORMAT);
     }
 
 
@@ -52,8 +52,8 @@ public class Event extends Task {
     @Override
     public String getSaveFileString() {
         return String.format("E | %d | %s | %s | %s", super.getDoneAsInt(),
-                super.getDescription(), this.getStartTime().format(super.dateTimeEntryForm),
-                this.getEndTime().format(dateTimeEntryForm));
+                super.getDescription(), this.getStartTime().format(super.DATE_TIME_ENTRY_FORMAT),
+                this.getEndTime().format(DATE_TIME_ENTRY_FORMAT));
     }
 
     /**
@@ -64,7 +64,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E] %s (from: %s to: %s)", super.toString(),
-                this.getStartTime().format(dateTimeOutForm),
-                this.getEndTime().format(dateTimeOutForm));
+                this.getStartTime().format(DATE_TIME_OUT_FORMAT),
+                this.getEndTime().format(DATE_TIME_OUT_FORMAT));
     }
 }

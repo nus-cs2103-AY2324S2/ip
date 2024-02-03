@@ -7,10 +7,10 @@ import talkingbot.task.Task;
  * Class that represents the user interface.
  */
 public class Ui {
-    private static final String H_LINE = "\t__________________________" +
-            "__________________________________";
-    private static final String WELCOME =  "\tHello! I'm " +
-            "TalkingBot\n\tWhat can I do for you?";
+    private static final String H_LINE = "\t__________________________"
+            + "__________________________________";
+    private static final String WELCOME = "\tHello! I'm "
+            + "TalkingBot\n\tWhat can I do for you?";
     private static final String GOODBYE = "\tBye. Hope to see you again soon!";
     private static final String LOADING_ERR_MSG = "\tUsing new file instead...";
     private static final String TASK_SET_DONE_MSG = "\tNice! I've marked this task as done:";
