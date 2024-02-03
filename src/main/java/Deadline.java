@@ -1,5 +1,4 @@
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * The Deadline class represents a task with a deadline.
@@ -7,7 +6,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    private LocalDateTime deadline;
+    private LocalDateTime by;
 
     /**
      * Constructor for Deadline class.
@@ -15,10 +14,9 @@ public class Deadline extends Task {
      * @param description The description of the task.
      * @param by The deadline of the task.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
-        this.deadline = LocalDateTime.parse(by, formatter);
+        this.by = by;
     }
 
     /**
@@ -28,7 +26,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 }
 

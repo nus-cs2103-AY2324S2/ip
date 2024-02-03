@@ -1,11 +1,13 @@
+import java.time.LocalDateTime;
+
 /**
  * The Event class represents a event, starting date and ending date.
  * It has information about the event and it is a subclass of the Task class.
  */
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Constructor for Event class.
@@ -14,7 +16,7 @@ public class Event extends Task {
      * @param from The starting date or time of the task.
      * @param to The ending date or time of the task.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;

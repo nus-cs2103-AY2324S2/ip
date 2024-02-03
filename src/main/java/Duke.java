@@ -1,6 +1,4 @@
-//merge commit
-import java.util.*;
-import java.io.*;
+import java.util.Scanner;
 
 public class Duke {
     /**
@@ -9,131 +7,102 @@ public class Duke {
      *
      * @param args The command-line
      */
-    public static void main(String[] args) {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+    private Parser parser;
 
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Doye\n" + "What can I do for you?");
-        System.out.println("____________________________________________________________");
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
 
-        List<Task> array = new ArrayList<>();
-        array = load();
+    public void run() {
 
-        Scanner sc = new Scanner(System.in);
+        ui.welcome();
 
-        while (true) {
+        while(true) {
+
+            Scanner sc = new Scanner(System.in);        
             String order = sc.nextLine();
+            parser = new Parser(order);
+            String[] orders = order.split(" "); 
 
-            if (order.equals("bye")) {
-                save(array);
-                System.out.println("____________________________________________________________");
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("____________________________________________________________");
-                break;
-            } else if (order.equals("list")) {
-                System.out.println("____________________________________________________________");
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < array.size(); i++) {
-                    Task addTask = array.get(i);
-                    System.out.println((i + 1) + "." + addTask.toString());
-                }
-                System.out.println("____________________________________________________________");
-            } else if (order.contains("unmark")) {
-                String[] tokens = order.split(" ");
-                int number = Integer.parseInt(tokens[1]);
-                System.out.println("____________________________________________________________");
-                System.out.println("OK, I've marked this task as not done yet:");
-                Task t = array.get(number - 1);
-                t.markAsUnDone();
-                System.out.println(t.toString());
-                System.out.println("____________________________________________________________");
-            } else if (order.contains("mark")) {
-                String[] tokens = order.split(" ");
-                int number = Integer.parseInt(tokens[1]);
-                System.out.println("____________________________________________________________");
-                System.out.println("Nice! I've marked this task as done:");
-                Task t = array.get(number - 1);
-                t.markAsDone();
-                System.out.println(t.toString());
-                System.out.println("____________________________________________________________");
-            } else if(order.contains("todo")) {
+            if (orders[0].equals("bye")) {
+                ui.bye();
+                System.exit(0);
+            } else if (orders[0].equals("list")) {
+                ui.list(tasks.getTasks());
+            } else if (orders[0].equals("unmark")) {
                 try {
-                    String task = order.substring(4).trim();
-                    if (task.isEmpty()) {
-                        throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
-                    }
-                    Task t = new Todo(task);
-                    array.add(t);
-                    save(array);
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(t.toString());
-                    System.out.println("Now you have " + array.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
-                }  catch (DukeException e) {
-                    System.out.println("____________________________________________________________");
+                    int number = parser.parseUnmark(tasks.getSize());
+                    tasks.unmark(number);
+                    ui.unmark(tasks.getTask(number));
+                } catch (DukeException e) {
                     System.out.println(e.getMessage());
-                    System.out.println("____________________________________________________________");
                 }
-            } else if (order.contains("deadline")) {
-                int byIndex = order.indexOf("/by");
-                String task = order.substring(9, byIndex - 1);
-                String due = order.substring(byIndex + 4);
-                Task t = new Deadline(task, due);
-                array.add(t);
-                save(array);
-                System.out.println("____________________________________________________________");
-                System.out.println("Got it. I've added this task:");
-                System.out.println(t.toString());
-                System.out.println("Now you have " + array.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________");
-            } else if (order.contains("event")) {
-                int fromIndex = order.indexOf("/from");
-                int toIndex = order.indexOf("/to");
-                String task = order.substring(6, fromIndex - 1);
-                String from = order.substring(fromIndex + 6, toIndex);
-                String to = order.substring(toIndex + 4);
-                Task t = new Event(task, from, to);
-                array.add(t);
-                save(array);
-                System.out.println("____________________________________________________________");
-                System.out.println("Got it. I've added this task:");
-                System.out.println(t.toString());
-                System.out.println("Now you have " + array.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________");
-            } else if (order.contains("delete")) {
-                String[] tokens = order.split(" ");
-                int number = Integer.parseInt(tokens[1]);
-                System.out.println("____________________________________________________________");
-                System.out.println("Noted. I've removed this task:");
-                Task t = array.get(number - 1);
-                System.out.println(t.toString());
-                array.remove(number - 1);
-                save(array);
-                System.out.println("Now you have " + array.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________");
+            } else if (orders[0].equals("mark")) {
+                try {
+                    int number = parser.parseMark(tasks.getSize());
+                    tasks.mark(number);
+                    ui.mark(tasks.getTask(number));
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (orders[0].equals("todo")) {  
+                try {
+                    Task task = parser.parseTodo();
+                    tasks.addTask(task);
+                    ui.addedMessage(task);
+                    ui.totalTask(tasks.getSize());
+                    storage.save(tasks.getTasks());
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (orders[0].equals("deadline")) {  
+                try {
+                    Task task = parser.parseDeadline();
+                    tasks.addTask(task);
+                    ui.addedMessage(task);
+                    ui.totalTask(tasks.getSize());
+                    storage.save(tasks.getTasks());
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (orders[0].equals("event")) {  
+                try {
+                    Task task = parser.parseEvent();
+                    tasks.addTask(task);
+                    ui.addedMessage(task);
+                    ui.totalTask(tasks.getSize());
+                    storage.save(tasks.getTasks());
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (orders[0].equals("delete")) {
+                try {
+                    int number = parser.parseDelete(tasks.getSize());
+                    ui.deletedMessage(tasks.getTask(number));
+                    tasks.deleteTask(number);
+                    ui.totalTask(tasks.getSize());
+                    storage.save(tasks.getTasks());
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
             } else {
-                System.out.println("____________________________________________________________");
-                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                System.out.println("____________________________________________________________");
+                ui.dontUnderstand();
             }
         }
     }
-
-    private static void save(List<Task> tasks) {
-        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("/Users/leedoye/ip/src/data/duke_tasks.txt"))) {
-            output.writeObject(tasks);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static List<Task> load() {
-        try (ObjectInputStream intput = new ObjectInputStream(new FileInputStream("/Users/leedoye/ip/src/data/duke_tasks.txt"))) {
-            return (List<Task>) intput.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("No existing tasks or file.");
-            return new ArrayList<>();
-        }
+    
+    public static void main(String[] args) {
+        new Duke("/Users/leedoye/ip/src/data/duke_tasks.txt").run();
     }
 }
 
