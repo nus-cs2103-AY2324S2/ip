@@ -1,10 +1,9 @@
 package Actions;
 
-import ChatBot.Duke;
+import UI.Duke;
 import Tasks.Deadline;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class CreateDeadline implements Action {
     private String desc;

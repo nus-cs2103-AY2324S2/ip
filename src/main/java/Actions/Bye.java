@@ -1,6 +1,6 @@
 package Actions;
 
-import ChatBot.Duke;
+import UI.Duke;
 
 public class Bye implements Action {
     @Override

@@ -1,13 +1,11 @@
-package ChatBot;
+package UI;
 
 import Actions.Action;
+import Actions.Greet;
 import ExceptionHandling.DukeException;
 import Storage.Storage;
 import TaskList.TaskList;
-import Tasks.Deadline;
-import Tasks.Event;
 import Tasks.Task;
-import Tasks.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -33,12 +31,12 @@ public class Duke {
         this.storage = new Storage();
     }
 
-    public void greet() {
-        System.out.println("Hello! I'm " + this.name + "\nWhat can I do for you?\n");
+    public String getName() {
+        return this.name;
     }
 
     public void exit() {
-        this.saveToDoList("src/main/duke.txt");
+        this.storage.save(this.taskList);
         System.out.println("Bye. Hope to see you again soon!\n");
         System.exit(0);
     }
@@ -47,42 +45,12 @@ public class Duke {
         return this.taskList;
     }
 
-    public void saveToDoList(String filename){
-        try{
-            FileWriter dest = new FileWriter(filename);
-            for (Task t : this.taskList.getList()) {
-                dest.write(t.getCommand());
-            }
-            dest.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void loadToDoList(String filename){
-        try {
-            File f = new File(filename);
-            Scanner reader = new Scanner(f);
-            while (reader.hasNextLine()) {
-                String command = reader.nextLine();
-                String isDone = reader.nextLine();
-                Action a = parseCommand(command);
-                a.execute(this);
-                if (Objects.equals(isDone, "true")) {
-                    this.getTaskList().markTask(this.getTaskList().getListSize());
-                }
-            }
-            System.out.println("Loading Done!");
-        } catch (FileNotFoundException | DukeException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     public static void main(String[] args) {
         Duke chatbot = new Duke("Bob");
-        chatbot.loadToDoList("src/main/duke.txt");
-        chatbot.greet();
+        chatbot.storage.load(chatbot);
+        Greet g = new Greet();
+        g.execute(chatbot);
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String command = scanner.nextLine();
@@ -96,5 +64,7 @@ public class Duke {
             }
         }
     }
+
+
 }
 

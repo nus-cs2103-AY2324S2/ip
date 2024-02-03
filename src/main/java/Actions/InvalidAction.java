@@ -1,7 +1,6 @@
 package Actions;
 
-import ChatBot.Duke;
-import TaskList.TaskList;
+import UI.Duke;
 
 public class InvalidAction implements Action {
     public InvalidAction() {

@@ -1,4 +1,4 @@
-package ChatBot;
+package UI;
 
 public class Main {
 }

@@ -1,7 +1,6 @@
 package Actions;
 
-import ChatBot.Duke;
-import TaskList.TaskList;
+import UI.Duke;
 import Tasks.Todo;
 
 public class CreateTodo implements Action {
