@@ -32,7 +32,6 @@ public class Duke {
 
             Scanner sc = new Scanner(System.in);        
             String order = sc.nextLine();
-            parser = new Parser(order);
             String[] orders = order.split(" "); 
 
             if (orders[0].equals("bye")) {
