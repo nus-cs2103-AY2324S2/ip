@@ -2,10 +2,12 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
 }
 
 repositories {
     mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
 dependencies {
@@ -39,4 +41,8 @@ shadowJar {
 
 run{
     standardInput = System.in
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
