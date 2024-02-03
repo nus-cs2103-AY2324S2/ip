@@ -1,32 +1,14 @@
-package Klee;
+package klee;
 
-import Klee.command.Bye;
-import Klee.command.Command;
-
-import Klee.task.Task;
-
-import java.io.IOException;
 import java.util.Scanner;
-import java.util.ArrayList;
 
-import java.io.FileWriter;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import klee.command.Bye;
+import klee.command.Command;
 
 /**
  * Main program to store list of upcoming tasks.
  */
 public class Klee {
-    enum Instruction {
-        todo,
-        deadline,
-        event,
-        mark,
-        unmark,
-        delete
-    }
-
     /**
      * Function to run the program.
      *

@@ -1,16 +1,15 @@
-package Klee.command;
+package klee.command;
 
-import Klee.Storage;
-import Klee.TaskList;
-import Klee.Ui;
-
-import Klee.task.Task;
+import klee.Storage;
+import klee.TaskList;
+import klee.Ui;
+import klee.task.Task;
 
 /**
  * Represent the command to filter tasks by their description.
  */
 public class Find extends Command {
-    String searchTerm;
+    protected String searchTerm;
 
     /**
      * Constructor for Find class.

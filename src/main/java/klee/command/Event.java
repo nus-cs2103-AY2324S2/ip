@@ -1,11 +1,11 @@
-package Klee.command;
-
-import Klee.Storage;
-import Klee.TaskList;
-import Klee.Ui;
-import Klee.task.Task;
+package klee.command;
 
 import java.time.LocalDateTime;
+
+import klee.Storage;
+import klee.TaskList;
+import klee.Ui;
+import klee.task.Task;
 
 /**
  * Represents the command for Klee to create a new Event and add it into tasks.
@@ -40,7 +40,7 @@ public class Event extends Command {
      */
     @Override
     public void runCommand(Ui ui, Storage storage, TaskList tasks) {
-        Task task = new Klee.task.Event(description, from, to);
+        Task task = new klee.task.Event(description, from, to);
         tasks.add(task);
         ui.showCreation(task, tasks.size());
         storage.saveTasks(tasks);
@@ -55,7 +55,8 @@ public class Event extends Command {
     @Override
     public boolean equals(Object obj) {
         if (obj.getClass() == Event.class) {
-            return (this.description.equals(((Event) obj).description) && this.from.equals((((Event) obj).from)) && this.to.equals((((Event) obj).to)));
+            return (this.description.equals(((Event) obj).description) && this.from.equals((((Event) obj).from))
+                    && this.to.equals((((Event) obj).to)));
         } else {
             return false;
         }

@@ -1,8 +1,8 @@
-package Klee;
-
-import Klee.task.Task;
+package klee;
 
 import java.util.ArrayList;
+
+import klee.task.Task;
 
 /**
  * Contains function for interacting with the list of tasks.
@@ -66,7 +66,9 @@ public class TaskList {
             try {
                 if (this.size() == ((TaskList) obj).size()) {
                     for (int i = 0; i < this.size(); i++) {
-                        if (this.get(i) == ((TaskList) obj).get(i)) return false;
+                        if (this.get(i) == ((TaskList) obj).get(i)) {
+                            return false;
+                        }
                     }
                     return true;
                 } else {

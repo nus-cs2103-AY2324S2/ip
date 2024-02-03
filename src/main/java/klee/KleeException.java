@@ -1,4 +1,4 @@
-package Klee;
+package klee;
 
 /**
  * Represents the exceptions that Klee can catch.
@@ -11,15 +11,6 @@ public class KleeException extends Exception {
      */
     public KleeException(String errorMessage) {
         super(errorMessage);
-    }
-
-    /**
-     * Called if KleeException was instantiated with no errorMessage.
-     *
-     * @return Empty String.
-     */
-    public String NoDescriptionError() {
-        return "";
     }
 
     /**

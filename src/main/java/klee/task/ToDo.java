@@ -1,4 +1,4 @@
-package Klee.task;
+package klee.task;
 
 /**
  * Represents a task that has to be completed.
@@ -31,7 +31,7 @@ public class ToDo extends Task {
      * @param done
      * @return Instance of Task.
      */
-    static public Task fromText(String description, String done) {
+    public static Task fromText(String description, String done) {
         Task task = new ToDo(description);
         task.isDone = done.equals("1");
         return task;

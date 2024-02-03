@@ -1,9 +1,9 @@
-package Klee.command;
+package klee.command;
 
-import Klee.Storage;
-import Klee.TaskList;
-import Klee.Ui;
-import Klee.task.Task;
+import klee.Storage;
+import klee.TaskList;
+import klee.Ui;
+import klee.task.Task;
 
 /**
  * Represents command for Klee to create new ToDo and add it to tasks.
@@ -32,7 +32,7 @@ public class ToDo extends Command {
      */
     @Override
     public void runCommand(Ui ui, Storage storage, TaskList tasks) {
-        Task task = new Klee.task.ToDo(description);
+        Task task = new klee.task.ToDo(description);
         tasks.add(task);
         ui.showCreation(task, tasks.size());
         storage.saveTasks(tasks);
