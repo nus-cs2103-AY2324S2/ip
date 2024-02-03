@@ -62,12 +62,10 @@ public class TaskList {
      */
     public String findTasks(String keyword) {
         String str = "";
-        int count = 1;
         for (int i = 0; i < taskList.size(); i++) {
             Task t = taskList.get(i);
             if (t.checkKeyword(keyword)) {
-                str += count + ". " + t + "\n";
-                count++;
+                str += (i + 1) + ". " + t + "\n";
             }
         }
         return str;

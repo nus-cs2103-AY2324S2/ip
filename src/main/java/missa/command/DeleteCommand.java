@@ -25,10 +25,14 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public TaskList execute(Ui ui) {
+    public TaskList execute() {
         tasks.deleteTask(index);
-        System.out.println(ui.replyDeleteCommand(removedTask, tasks.getSize()));
         return tasks;
+    }
+
+    @Override
+    public String getReply(Ui ui) {
+        return ui.replyDeleteCommand(removedTask, tasks.getSize());
     }
 
     @Override

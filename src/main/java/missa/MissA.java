@@ -3,6 +3,7 @@ package missa;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javafx.scene.Scene;
 import missa.command.Command;
 import missa.exception.IncorrectTaskTypeException;
 import missa.exception.NoContentException;
@@ -20,6 +21,7 @@ public class MissA {
     private Storage storage;
     private Parser parser = new Parser();
     private boolean isBye = false;
+    private Scene scene;
 
     /**
      * Create a MissA object.
@@ -37,44 +39,48 @@ public class MissA {
     }
 
     /**
-     * Starts the MissA chatbot.
+     * Executes commands and replies to users.
+     *
+     * @param input User input to be analysed.
+     * @return A string of messages indicating the task is done.
      */
-    public void run() {
-        // Greets users.
-        System.out.println(ui.sayHi());
-
-        while (!isBye) {
-            try {
-                // Collects user input.
-                String userInput = ui.readInput();
-                Command command = parser.parse(userInput, tasks);
-                tasks = command.execute(ui);
-                isBye = command.isBye();
-            } catch (IncorrectTaskTypeException
-                     | NoSuchTaskException
-                     | NoTimingException
-                     | NoContentException e) {
-                System.out.println(ui.showError(e));
-            }
-        }
-
-        // Writes back to data file.
+    public String getResponse(String input) {
         try {
+            Command command = parser.parse(input, tasks);
+            tasks = command.execute();
             String newData = tasks.getUpdatedData();
             storage.writeBackData(newData);
+            return command.getReply(ui);
+        } catch (IncorrectTaskTypeException
+                 | NoSuchTaskException
+                 | NoTimingException
+                 | NoContentException e) {
+            return ui.showError(e);
         } catch (IOException e) {
-            System.out.println("Sorry, I am unable to update data file.");
+            return "Sorry, I am unable to update data file.";
         }
-
-        // Exits program.
-        System.out.println(ui.goodBye());
     }
 
     /**
-     * Starts communication with chatbot MissA.
+     * Checks if this is a bye command.
+     *
+     * @param input User input to be analysed.
+     * @return True if this is a bye command.
      */
-    public static void main(String[] args) {
-        MissA missA = new MissA("src/main/java/data/tasks.txt");
-        missA.run();
+    public boolean checkBye(String input) {
+        if (input.equals("bye")) {
+            return true;
+        }
+        return false;
     }
+
+    /**
+     * Returns welcome message to user.
+     *
+     * @return A string of welcome message.
+     */
+    public String getWelcomeMsg() {
+        return ui.sayHi();
+    }
+
 }

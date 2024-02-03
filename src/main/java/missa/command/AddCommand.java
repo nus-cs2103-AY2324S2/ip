@@ -23,10 +23,14 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public TaskList execute(Ui ui) {
+    public TaskList execute() {
         tasks.addTask(this.task);
-        System.out.println(ui.replyAddCommand(task, tasks.getSize()));
         return tasks;
+    }
+
+    @Override
+    public String getReply(Ui ui) {
+        return ui.replyAddCommand(task, tasks.getSize());
     }
 
     @Override

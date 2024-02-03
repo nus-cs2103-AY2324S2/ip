@@ -64,7 +64,7 @@ public class ParserTest {
             TaskList tasks = new TaskList();
             Ui ui = new Ui();
             Parser parser = new Parser();
-            tasks = parser.parse("todo clean room", tasks).execute(ui);
+            tasks = parser.parse("todo clean room", tasks).execute();
             Task task = tasks.getATask(0);
             assertEquals("[T][ ] clean room", task.toString());
         } catch (NoSuchTaskException

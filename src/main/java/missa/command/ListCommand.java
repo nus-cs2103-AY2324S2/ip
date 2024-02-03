@@ -14,9 +14,13 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public TaskList execute(Ui ui) {
-        System.out.println(ui.loadingTaskList(tasks.getTasks()));
+    public TaskList execute() {
         return tasks;
+    }
+
+    @Override
+    public String getReply(Ui ui) {
+        return ui.loadingTaskList(tasks.getTasks());
     }
 
     @Override

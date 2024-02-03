@@ -10,10 +10,17 @@ public abstract class Command {
     /**
      * Executes commands.
      *
-     * @param ui missa.Ui used to reply users.
      * @return missa.TaskList after executing missa.command.
      */
-    public abstract TaskList execute(Ui ui);
+    public abstract TaskList execute();
+
+    /**
+     * Returns a message to indicate the task is completed.
+     *
+     * @param ui Ui used to produce messages.
+     * @return A string of messages.
+     */
+    public abstract String getReply(Ui ui);
 
     /**
      * Returns true if this is a Bye missa.command.Command.
