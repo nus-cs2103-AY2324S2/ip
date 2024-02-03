@@ -14,10 +14,15 @@ public class ExitCommand extends Command {
      * @param tasks   The task list.
      * @param ui      The user interface.
      * @param storage The storage.
+     * @return response to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ("\n"
+                + "As our time together comes to a close, "
+                + "I just want to say it's been an absolute delight!\n "
+                + "Remember, every day is a new adventure waiting to happen.\n "
+                + "Bye for now, and take care! ");
     }
 
     /**
