@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,9 +45,11 @@ public class FileHandler {
                         first_string = input.split(" /")[0];
                         second_string = input.split(" /")[1];
                         task_name = String.join(" ", Arrays.copyOfRange(first_string.split(" "), 1, first_string.split(" ").length));
-                        end = String.join(" ", Arrays.copyOfRange(second_string.split(" "), 1, second_string.split(" ").length));
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                        end = String.join(" ", Arrays.copyOfRange(second_string.split("by "), 1, second_string.split("by ").length));
+                        LocalDateTime end_time = LocalDateTime.parse(end, formatter);
                         try {
-                            task = new DeadlineTask(task_name, end, input);
+                            task = new DeadlineTask(task_name, end_time, input);
                             todo.add(task);
                             break;
                         } catch (DukeException err) {
@@ -79,7 +83,7 @@ public class FileHandler {
         try {
             FileWriter fw = new FileWriter(FILE);
             for (Task task : todo) {
-                fw.write(task.file_format);
+                fw.write(task.file_format + System.lineSeparator());
             }
             fw.close();
         } catch (IOException err) {

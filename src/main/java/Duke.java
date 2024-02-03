@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Duke {
 
     static FileHandler fh = new FileHandler();
@@ -71,9 +73,11 @@ public class Duke {
                         first_string = input.split(" /")[0];
                         second_string = input.split(" /")[1];
                         task_name = String.join(" ", Arrays.copyOfRange(first_string.split(" "), 1, first_string.split(" ").length));
-                        end = String.join(" ", Arrays.copyOfRange(second_string.split(" "), 1, second_string.split(" ").length));
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                        end = String.join(" ", Arrays.copyOfRange(second_string.split("by "), 1, second_string.split("by ").length));
+                        LocalDateTime end_time = LocalDateTime.parse(end, formatter);
                         try {
-                            task = new DeadlineTask(task_name, end, input);
+                            task = new DeadlineTask(task_name, end_time, input);
                             todo.add(task);
                             System.out.println("\tGot it. I've added this task:");
                             System.out.printf("\t\t%s\n", task);

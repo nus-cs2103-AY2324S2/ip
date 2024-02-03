@@ -1,1 +1,2 @@
-todo read book
+deadline return book /by 2/12/2019 1800
+event project meeting /from Mon 2pm /to 4pm

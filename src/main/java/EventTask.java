@@ -5,16 +5,17 @@ public class EventTask extends Task {
         super(name, Type.E, file_format);
         this.start_time = start_time;
         this.end_time = end_time;
-        String error_message = "\tInvalid event description\n\tEx: event project meeting /from Mon 2pm /to 4pm\n";
-        throw new DukeException(error_message);
+        if (this.name.isBlank() || this.start_time.isBlank() || this.end_time.isBlank()) {
+            String error_message = "\tInvalid event description\n\tEx: event project meeting /from Mon 2pm /to 4pm\n";
+            throw new DukeException(error_message);
+        }
     }
 
     @Override
     public String toString() {
         String output;
-        if (done) {
-            output = "[" + this.type + "]" + "[X] " + this.name + " (from: " + this.start_time + " to: " + this.end_time + ")\n";
-            output = this.end_time;
+        if (!done) {
+            output = "[" + this.type + "]" + "[ ] " + this.name + " (from: " + this.start_time + " to: " + this.end_time + ")\n";
         } else {
             output = "[" + this.type + "]" + "[X] " + this.name + " (from: " + this.start_time + " to: " + this.end_time + ")\n";
         }
