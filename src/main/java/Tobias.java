@@ -12,7 +12,7 @@ public class Tobias {
     private Ui ui;
 
     /**
-     * Constructor for the bot - Tobias.
+     * Constructor for the bot Tobias.
      *
      * @param filePath The relative string file path of the saved data.
      * */
@@ -28,7 +28,7 @@ public class Tobias {
     }
 
     /**
-     * Runs the bot - Tobias until isExit is true
+     * Runs the bot Tobias until isExit is true
      * */
     public void run() {
         ui.helloPrinter();
@@ -46,6 +46,9 @@ public class Tobias {
         }
     }
 
+    /**
+     * Main function that kick-starts the whole program
+     * */
     public static void main(String[] args) {
         new Tobias("data/Tobias.txt").run();
     }
