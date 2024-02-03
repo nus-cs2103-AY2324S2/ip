@@ -66,4 +66,6 @@ public abstract class Task { // Adapted from Course Website
                                 isDone ? "X" : " ",
                                 this.description);
     }
+
+    public abstract String parsedFormatToSave();
 }
