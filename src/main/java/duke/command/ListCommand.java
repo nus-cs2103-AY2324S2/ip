@@ -26,9 +26,9 @@ public class ListCommand extends Command{
     }
 
     /**
-     * Returns True.
+     * Returns False.
 
-     * @return True.
+     * @return False.
      */
     @Override
     public boolean isExit() {
