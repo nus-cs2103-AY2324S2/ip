@@ -4,7 +4,7 @@ package tasks;
  * Represents something that needs to be done by the user.
  */
 public class Task {
-    private final String description;
+    private final String DESCRIPTION;
     private boolean isComplete;
 
     /**
@@ -13,7 +13,7 @@ public class Task {
      * @param description Indicates what the task is about.
      */
     public Task(String description) {
-        this.description = description;
+        this.DESCRIPTION = description;
         this.isComplete = false;
     }
 
@@ -24,7 +24,7 @@ public class Task {
      * @param isComplete Indicates whether the task has been completed or not.
      */
     public Task(String description, boolean isComplete) {
-        this.description = description;
+        this.DESCRIPTION = description;
         this.isComplete = isComplete;
     }
 
@@ -47,7 +47,7 @@ public class Task {
         if (this.isComplete) {
             done = "[X]";
         }
-        return done + " " + this.description;
+        return done + " " + this.DESCRIPTION;
     }
 
     /**
@@ -60,7 +60,7 @@ public class Task {
         if (this.isComplete) {
             done = "X";
         }
-        return done + " | " + this.description;
+        return done + " | " + this.DESCRIPTION;
     }
 
     /**
@@ -70,9 +70,6 @@ public class Task {
      * @return True if search matches, false otherwise.
      */
     public boolean search(String keyword) {
-        if (this.description.contains(keyword)) {
-            return true;
-        }
-        return false;
+        return this.DESCRIPTION.contains(keyword);
     }
 }

@@ -19,7 +19,6 @@ import java.util.Scanner;
 public class Storage {
     private String filePath;
     private File file;
-    private FileWriter fileWriter;
 
     /**
      * Creates a storage object.
@@ -44,11 +43,12 @@ public class Storage {
     public TaskList read() throws FileNotFoundException {
         TaskList tasks = new TaskList();
         Scanner s = new Scanner(file); // create a Scanner using the File as the source
+
         while (s.hasNext()) {
             Task curr;
             String temp = s.nextLine();
             String[] split = temp.split(" \\| ");
-            boolean isComplete = checkStatus(split[1]);
+            boolean isComplete = split[1].equals("X");
             if (split[0].equals("T")) {
                 curr = new ToDo(split[2], isComplete);
             } else if (split[0].equals("D")) {
@@ -58,14 +58,8 @@ public class Storage {
             }
             tasks.add(curr);
         }
-        return tasks;
-    }
 
-    private boolean checkStatus(String status) {
-        if (status.equals("X")) {
-            return true;
-        }
-        return false;
+        return tasks;
     }
 
     /**
@@ -75,7 +69,7 @@ public class Storage {
      * @throws IOException If file does not exist.
      */
     public void save(TaskList tasks) throws IOException {
-        fileWriter = new FileWriter(filePath);
+        FileWriter fileWriter = new FileWriter(filePath);
         for (int i = 0; i < tasks.getSize(); i++) {
             Task temp = tasks.getTask(i);
             fileWriter.write(temp.toString() + "\n");
