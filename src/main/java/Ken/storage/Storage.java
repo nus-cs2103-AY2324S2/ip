@@ -1,6 +1,8 @@
 package ken.storage;
+
 import ken.task.Task;
 import ken.exception.KenException;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -9,14 +11,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Storage class is responsible for saving and loading tasks to and from hard drive.
+ *
+ * The tasks are stored in a plain text file with one task per line.
+ * The file is created in the "data" directory with the name "ken.txt".
+ */
 public class Storage {
 
     private final String filePath;
 
+    /**
+     * Constructs a new Storage with the specified file path.
+     *
+     * @param filePath the path to the file where tasks will be stored
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves a list of tasks to the file specified in the constructor.
+     *
+     * @param tasks the list of tasks to be saved
+     * @throws KenException if there is an error during file writing
+     */
     public void saveTasks(List<Task> tasks) {
         try {
 
@@ -40,6 +59,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file specified in the constructor.
+     *
+     * @return a list of tasks loaded from the file
+     * @throws KenException if there is an error during file reading
+     */
     public List<Task> loadTask() throws KenException {
         try {
             File directory = new File("." + File.separator + "data");

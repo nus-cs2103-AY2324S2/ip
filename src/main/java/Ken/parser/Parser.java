@@ -6,6 +6,10 @@ import ken.storage.Storage;
 
 import java.util.Scanner;
 
+/**
+ * The Parser Class handles the parsing of user commands in the Ken application.
+ * It interprets user input and performs corresponding actions on the TaskList and Storage.
+ */
 public class Parser {
 
     private Scanner scanner;
@@ -13,12 +17,24 @@ public class Parser {
     private Storage storage;
     private boolean saidBye;
 
+    /**
+     * Constructs a new Parser with the specified TaskList and Storage.
+     *
+     * @param taskList the list of tasks to be manipulated by the parser
+     * @param storage  the storage to save and load tasks
+     */
     public Parser(TaskList taskList, Storage storage) {
         this.scanner = new Scanner(System.in);
         this.taskList = taskList;
         this.storage = storage;
         this.saidBye = false;
     }
+
+    /**
+     * Parses user commands until the "bye" command is received.
+     *
+     * @throws KenException if there is an error during command parsing or task manipulation
+     */
     public void parseUserCommands() throws KenException {
         String command;
 
@@ -56,6 +72,12 @@ public class Parser {
         storage.saveTasks(taskList.getTasks());
         scanner.close();
     }
+
+    /**
+     * Checks if the user has said "bye" during the last interaction.
+     *
+     * @return true if the user has said "bye," false otherwise
+     */
     public boolean hasSaidBye() {
         return saidBye;
     }

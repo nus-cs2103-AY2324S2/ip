@@ -1,35 +1,77 @@
 package ken.task;
 
+import ken.exception.KenException;
+
+/**
+ * The Task class represents a general task.
+ *
+ * A task has a description and a completion status.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a task with the given description.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
+
+    /**
+     * Unmarks the task as done.
+     */
     public void unmarkAsDone() {
         this.isDone = false;
     }
 
+    /**
+     * Retrieves the status icon for the task.
+     *
+     * @return The status icon ("✔" if done, " " if not done).
+     */
     private String getStatusIcon() {
         return (isDone ? "✔" : " "); // mark done task with X
     }
+
+    /**
+     * Converts the task to its string representation.
+     *
+     * @return The string representation of the task.
+     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    /**
+     * Converts the task to its file string representation.
+     *
+     * @return The file string representation of the task.
+     */
     public String toFileString() {
         // " | 0 | task description"
         return " | " + (isDone ? "1" : "0") + " | " + description;
     }
 
-    public static Task parseFromFileString(String fileString) {
+    /**
+     * Parses a task from its file string representation.
+     *
+     * @param fileString The file string representation of the task.
+     * @return The parsed task.
+     * @throws KenException If the task type is invalid.
+     */
+    public static Task parseFromFileString(String fileString) throws KenException {
         // "T | 1 | read book"
         String[] parts = fileString.split(" \\| ");
 
@@ -41,13 +83,11 @@ public class Task {
         if (taskType == 'T') {
             task = new Todo(description);
         } else if (taskType == 'D') {
-            // Assuming Ken.Ken.task.Deadline constructor takes description and by
             task = new Deadline(description, parts[3]);
         } else if (taskType == 'E') {
-            // Assuming Ken.Ken.task.Event constructor takes description, from, and to
             task = new Event(description, parts[3], parts[4]);
         } else {
-            throw new IllegalArgumentException("Invalid task type");
+            throw new KenException("Invalid task type");
         }
 
         // Set task status based on the parsed value
