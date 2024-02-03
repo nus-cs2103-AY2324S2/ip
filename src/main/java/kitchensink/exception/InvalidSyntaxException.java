@@ -41,6 +41,7 @@ public class InvalidSyntaxException extends Throwable {
         default:
         }
     }
+
     @Override
     public String toString() {
         return "\nSorry, the format for the command is invalid. The syntax for "

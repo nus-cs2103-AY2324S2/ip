@@ -47,7 +47,7 @@ public class List {
      * @param taskNum The number in the user input (for mark/unmark).
      * @return Whether is task is valid.
      */
-    public boolean validTaskNum(int taskNum) {
+    public boolean isValidTaskNum(int taskNum) {
         return taskNum > 0 && taskNum <= tasks.size();
     }
 
