@@ -6,9 +6,15 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Represents the testing class for the TaskList class.
+ */
 public class TaskListTest {
+    /**
+     * Tests the storeDeadline method in the TaskList class.
+     */
     @Test
-    public void testStoreDeadLine() {
+    public void testStoreDeadline() {
         String taskDescription = "return book";
         String by = "2022-12-12 1900";
         ArrayList<Task> tasks = new ArrayList<>();
