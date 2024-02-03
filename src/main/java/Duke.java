@@ -1,8 +1,26 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import Task.Task;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        String dirName = "data";
+        Path dirPath = Paths.get(dirName);
+        if (!Files.exists(dirPath)) {
+            Files.createDirectory(dirPath);
+        }
+
+        String filePath = "./data/duke.txt";
+        FileWriter fw = new FileWriter(filePath);
+        fw.write("There are no outstanding tasks in your list.");
+        fw.close();
+
         String divider = "        ------------------------------------------------------------";
         String possibleCommands = "        TODO     --- todo [task name]\n" +
                                   "        DEADLINE --- deadline [task name] /by [due date]\n" +
@@ -64,6 +82,15 @@ public class Duke {
                                     System.out.println("        Nice! I've marked this task as done:");
                                     System.out.println("          " + selectedTaskToBeMarked);
                                     System.out.println(divider);
+
+                                    fw = new FileWriter(filePath);
+                                    fw.write(divider + "\n");
+                                    for (int j = 1; j < noOfTasks + 1; j++) {
+                                        Task currentTask = tasks.get(j - 1);
+                                        fw.write("        " + j + ". " + currentTask.toString() + "\n");
+                                    }
+                                    fw.write(divider + "\n");
+                                    fw.close();
                                 } else {
                                     System.out.println(divider);
                                     System.out.println("        Task number out of range. Please include a valid task number.");
@@ -93,6 +120,15 @@ public class Duke {
                                     System.out.println("        OK, I've marked this task as not done yet:");
                                     System.out.println("          " + selectedTaskToBeUnmarked);
                                     System.out.println(divider);
+
+                                    fw = new FileWriter(filePath);
+                                    fw.write(divider + "\n");
+                                    for (int j = 1; j < noOfTasks + 1; j++) {
+                                        Task currentTask = tasks.get(j - 1);
+                                        fw.write("        " + i + ". " + currentTask.toString() + "\n");
+                                    }
+                                    fw.write(divider + "\n");
+                                    fw.close();
                                 } else {
                                     System.out.println(divider);
                                     System.out.println("        Task number out of range. Please include a valid task number.");
@@ -120,6 +156,15 @@ public class Duke {
                             System.out.println("          " + todo);
                             System.out.println("        Now you have " + tasks.size() + " tasks in the list.");
                             System.out.println(divider);
+
+                            fw = new FileWriter(filePath);
+                            fw.write(divider + "\n");
+                            for (int i = 1; i < noOfTasks + 1; i++) {
+                                Task currentTask = tasks.get(i - 1);
+                                fw.write("        " + i + ". " + currentTask.toString() + "\n");
+                            }
+                            fw.write(divider + "\n");
+                            fw.close();
                         }
                         break;
                     case "deadline":
@@ -136,6 +181,15 @@ public class Duke {
                             System.out.println("          " + deadline);
                             System.out.println("        Now you have " + tasks.size() + " tasks in the list.");
                             System.out.println(divider);
+
+                            fw = new FileWriter(filePath);
+                            fw.write(divider + "\n");
+                            for (int i = 1; i < noOfTasks + 1; i++) {
+                                Task currentTask = tasks.get(i - 1);
+                                fw.write("        " + i + ". " + currentTask.toString() + "\n");
+                            }
+                            fw.write(divider + "\n");
+                            fw.close();
                         } catch (Exception e) {
                             System.out.println(divider);
                             System.out.println("        Invalid command. Please include a task name and a valid due date following the syntax of the example below:");
@@ -157,6 +211,15 @@ public class Duke {
                             System.out.println("          " + event);
                             System.out.println("        Now you have " + tasks.size() + " tasks in the list.");
                             System.out.println(divider);
+
+                            fw = new FileWriter(filePath);
+                            fw.write(divider + "\n");
+                            for (int i = 1; i < noOfTasks + 1; i++) {
+                                Task currentTask = tasks.get(i - 1);
+                                fw.write("        " + i + ". " + currentTask.toString() + "\n");
+                            }
+                            fw.write(divider + "\n");
+                            fw.close();
                         } catch (Exception e) {
                             System.out.println(divider);
                             System.out.println("        Invalid command. Please include a task name and a valid due date following the syntax of the example below:");
@@ -181,8 +244,16 @@ public class Duke {
                                     System.out.println("          " + deletedTask);
                                     System.out.println("        Now you have " + noOfTasks + " tasks in the list.");
                                     System.out.println(divider);
-
                                     tasks.remove(i - 1);
+
+                                    fw = new FileWriter(filePath);
+                                    fw.write(divider + "\n");
+                                    for (int j = 1; j < noOfTasks + 1; j++) {
+                                        Task currentTask = tasks.get(j - 1);
+                                        fw.write("        " + j + ". " + currentTask.toString() + "\n");
+                                    }
+                                    fw.write(divider + "\n");
+                                    fw.close();
                                 } else {
                                     System.out.println(divider);
                                     System.out.println("        Task number out of range. Please include a valid task number.");
