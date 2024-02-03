@@ -43,8 +43,6 @@ public class Parser {
         }
     }
 
-    
-
     public static Task parseTask(String userInput) throws DukeException {
         String[] parts = userInput.split("\\s+", 2);
         if (parts.length < 2) {
@@ -123,6 +121,7 @@ public class Parser {
         }
     }
 
+    
     public static int extractTaskIndex(String userInput) throws DukeException {
         try {
             return Integer.parseInt(userInput.split("\\s+")[1]);

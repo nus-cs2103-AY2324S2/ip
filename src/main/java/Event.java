@@ -10,7 +10,6 @@ class Event extends Task {
       this.from = from;
       this.to = to;
   }
-
   @Override
   public String toFileString() {
       // Format: E | [Status] | [Description] | [Start Time] - [End Time]
@@ -19,7 +18,6 @@ class Event extends Task {
               " - " +
               to.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
   }
-
   @Override
   public String toString() {
       StringBuilder builder = new StringBuilder();

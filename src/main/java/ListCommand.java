@@ -7,5 +7,4 @@ public class ListCommand extends Command{
     List<Task> tasks = taskList.getTasks(); // Use TaskList to get the list of tasks
         ui.showTasks(tasks);
   }
-  
 }
