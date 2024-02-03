@@ -2,9 +2,10 @@ package raphael.task;
 import java.util.ArrayList;
 import raphael.format.FileFormattable;
 import raphael.format.Formatter;
+import raphael.exception.RaphaelException;
 public class TaskList implements FileFormattable {
     private final ArrayList<Task> tasks;
-    public TaskList(String tasks) throws raphael.exception.RaphaelException {
+    public TaskList(String tasks) throws RaphaelException {
         this.tasks = new ArrayList<>();
         final String[] tasksArr = tasks.split("\n");
         for (String task : tasksArr) {
@@ -29,33 +30,29 @@ public class TaskList implements FileFormattable {
     public String getSize() {
         return String.format("You now have %d tasks in your list!", this.tasks.size());
     }
-    public int checkTask(int idx) throws raphael.exception.RaphaelException {
+    public String checkTask(int idx) throws RaphaelException {
         if (idx < 0 || idx >= this.tasks.size()) {
-            throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.INVALID_TASK_INDEX);
+            throw new RaphaelException(RaphaelException.TYPE.INVALID_TASK_INDEX);
         } else {
             if(this.tasks.get(idx).check() == 0) {
-                System.out.printf("Hooray! Congrats on completing the following task!:\n"
+                return String.format("Hooray! Congrats on completing the following task!:\n"
                         + "\t%s\n", this.tasks.get(idx));
-                return 0;
             } else {
-                System.out.printf("Hmm. You seems to have completed the task:\n"
+                return String.format("Hmm. You seems to have completed the task:\n"
                         + "\t%s\n", this.tasks.get(idx));
-                return -1;
             }
         }
     }
-    public int uncheckTask(int idx) throws raphael.exception.RaphaelException {
+    public String uncheckTask(int idx) throws RaphaelException {
         if (idx < 0 || idx >= this.tasks.size()) {
-            throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.INVALID_TASK_INDEX);
+            throw new RaphaelException(RaphaelException.TYPE.INVALID_TASK_INDEX);
         } else {
             if(this.tasks.get(idx).uncheck() == 0) {
-                System.out.printf("Uh oh! Workload + 1 by having the following task:\n"
+                return String.format("Uh oh! Workload + 1 by having the following task:\n"
                         + "\t%s\n", this.tasks.get(idx));
-                return 0;
             } else {
-                System.out.printf("Hmm. You seems to have not complete the task before:\n"
+                return String.format("Hmm. You seems to have not complete the task before:\n"
                         + "\t%s\n", this.tasks.get(idx));
-                return -1;
             }
         }
     }
@@ -63,24 +60,20 @@ public class TaskList implements FileFormattable {
     public void addTask(Task t) {
         this.tasks.add(t);
     }
-    public int deleteTask(int idx) throws raphael.exception.RaphaelException {
+    public Task deleteTask(int idx) throws RaphaelException {
         if (idx < 0 || idx >= this.tasks.size()) {
-            throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.INVALID_TASK_INDEX);
+            throw new RaphaelException(RaphaelException.TYPE.INVALID_TASK_INDEX);
         } else {
             Task temp = this.tasks.get(idx);
             this.tasks.remove(idx);
-            System.out.printf("Alrigthy! I have deleted the following task for you:\n"
-                    + "\t%s\n", temp);
-            System.out.println(this.getSize());
-            return 0;
+            return temp;
         }
     }
-    public void listTasks() {
+    public String listTasks() {
         if (this.tasks.isEmpty()) {
-            System.out.println("YAY! You have no tasks ongoing ^_^");
+            return "YAY! You have no tasks ongoing ^_^";
         } else {
-            System.out.println("Here are the tasks in your list:");
-            System.out.println(this);
+            return String.format("Here are the tasks in your list:\n%s", this);
         }
     }
     @Override

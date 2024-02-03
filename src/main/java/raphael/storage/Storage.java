@@ -1,4 +1,6 @@
 package raphael.storage;
+
+import raphael.exception.RaphaelException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
@@ -17,7 +19,7 @@ public class Storage {
 //            throw new DukeException(DukeException.CONNECT_FILE_EXCEPTION);
         }
     }
-    public String load() throws raphael.exception.RaphaelException {
+    public String load() throws RaphaelException {
         try {
             BufferedReader br = Files.newBufferedReader(this.filePath);
             String line;
@@ -28,17 +30,17 @@ public class Storage {
             br.close();
             return tasks.toString();
         } catch (IOException e) {
-            throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.READ_IO_EXCEPTION);
+            throw new RaphaelException(RaphaelException.TYPE.READ_IO_EXCEPTION);
         }
     }
 
-    public void write(String content) throws raphael.exception.RaphaelException {
+    public void write(String content) throws RaphaelException {
         try {
             BufferedWriter bw = Files.newBufferedWriter(this.filePath);
             bw.write(content);
             bw.close();
         } catch (IOException e) {
-            throw new raphael.exception.RaphaelException(raphael.exception.RaphaelException.WRITE_IO_EXCEPTION);
+            throw new RaphaelException(RaphaelException.TYPE.WRITE_IO_EXCEPTION);
         }
     }
 }
