@@ -2,7 +2,7 @@ public class BondException extends Exception {
 
     private enum ExceptionType {
         EMPTY_DESCRIPTION, INVALID_COMMAND_TYPE, MISSING_INDEX, EXTRA_DETAILS, INVALID_INDEX, EMPTY_LIST, STORE_FAILURE,
-        LOAD_FAILURE
+        LOAD_FAILURE, INVALID_DATE_FORMAT
     }
 
     private BondException(String message) {
@@ -29,6 +29,8 @@ public class BondException extends Exception {
             message = String.format("I COULD NOT %s your tasks!!!", taskName.toUpperCase());
         } else if (exceptionType.equals(ExceptionType.LOAD_FAILURE.toString())) {
             message = String.format("I COULD NOT %s your tasks!!!", taskName.toUpperCase());
+        } else if (exceptionType.equals(ExceptionType.INVALID_DATE_FORMAT.toString())) {
+            message = String.format("Give the DATE(s) in the CORRECT FORMAT!!!");
         }
 
         throw new BondException(message);

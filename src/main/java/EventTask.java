@@ -8,15 +8,23 @@ public class EventTask extends Task {
   private LocalDate endDate;
   private String endTiming;
 
-  public EventTask(String name, String start, String end) {
+  public EventTask(String name, String start, String end) throws BondException {
     super(name);
 
-    String[] startDateTime = start.split(" ");
-    this.startDate = LocalDate.parse(startDateTime[0]);
-    this.startTiming = startDateTime[1];
-    String[] endDateTime = end.split(" ");
-    this.endDate = LocalDate.parse(endDateTime[0]);
-    this.endTiming = endDateTime[1];
+    try {
+
+      String[] startDateTime = start.split(" ");
+      this.startDate = LocalDate.parse(startDateTime[0]);
+      this.startTiming = startDateTime[1];
+
+      String[] endDateTime = end.split(" ");
+      this.endDate = LocalDate.parse(endDateTime[0]);
+      this.endTiming = endDateTime[1];
+
+    } catch (java.time.format.DateTimeParseException e) {
+      BondException.raiseException("deadline", "INVALID_DATE_FORMAT");
+    }
+
   }
 
   @Override

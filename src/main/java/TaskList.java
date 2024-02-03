@@ -1,13 +1,12 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ListIterator;
 
 public class TaskList {
 
     private ArrayList<Task> tasks;
 
-    public TaskList() {
-        this.tasks = new ArrayList<>();
+    public TaskList(ArrayList<Task> taskList) {
+        this.tasks = taskList == null ? new ArrayList<>() : taskList;
     }
 
     public int numberOfTasks() {

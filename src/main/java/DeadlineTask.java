@@ -6,11 +6,16 @@ public class DeadlineTask extends Task {
     private LocalDate dueDate;
     private String timing;
 
-    public DeadlineTask(String name, String deadline) {
+    public DeadlineTask(String name, String deadline) throws BondException {
         super(name);
 
         String[] dateTime = deadline.split(" ");
-        this.dueDate = LocalDate.parse(dateTime[0]);
+
+        try {
+            this.dueDate = LocalDate.parse(dateTime[0]);
+        } catch (java.time.format.DateTimeParseException e) {
+            BondException.raiseException("deadline", "INVALID_DATE_FORMAT");
+        }
 
         if (Parser.isNumber(dateTime[1])) {
             int hours = Integer.valueOf(dateTime[1].substring(0, 2));

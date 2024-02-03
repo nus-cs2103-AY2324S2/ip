@@ -1,17 +1,104 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.Scanner;
 
 public class Storage {
 
-    private String filePath;
+    private String pathToFile;
 
     public Storage(String filePath) {
-        this.filePath = filePath;
+        this.pathToFile = filePath;
     }
 
-    public void load() throws BondException {
+    private void parseAndAddTask(String task, ArrayList<Task> tasks) throws BondException {
+        // System.out.println(task);
+        String remainder = task.substring(4);
+        String taskName = "";
+        boolean isMarked = false;
+        Task newTask;
+
+        if (remainder.startsWith("[X]")) {
+            isMarked = true;
+        }
+
+        remainder = remainder.substring(4);
+
+        // Determine task name
+        if (remainder.indexOf("(") == -1) {
+            taskName = remainder;
+            remainder = "";
+        } else {
+            int openIndex = remainder.indexOf("(");
+            taskName = remainder.substring(0, openIndex - 1);
+            remainder = remainder.substring(openIndex + 1);
+        }
+
+        // Add task to taskList
+        if (task.startsWith("[T]")) {
+            newTask = new ToDoTask(taskName);
+
+        } else if (task.startsWith("[D]")) {
+            int spaceIndex = remainder.indexOf(" ");
+            int closeIndex = remainder.indexOf(")");
+            String deadline = remainder.substring(spaceIndex + 1, closeIndex);
+            String[] components = deadline.split(" ");
+            deadline = Parser.changeDateFormat(components[0], components[1], components[2]) + " " + components[3];
+
+            newTask = new DeadlineTask(taskName, deadline);
+
+        } else if (task.startsWith("[E]")) {
+            String start = "";
+            String end = "";
+            int closeIndex = remainder.indexOf(")");
+            remainder = remainder.substring(0, closeIndex);
+            String[] components = remainder.split(" ");
+
+            for (int i = 0; i < components.length; i++) {
+                if (components[i].equals("from:")) {
+
+                    for (int j = i + 1; j < components.length; j++) {
+                        if (components[j].equals("to:")) {
+                            break;
+                        }
+                        start += components[j] + " ";
+                    }
+
+                } else if (components[i].equals("to:")) {
+                    end = components[i + 1];
+                }
+            }
+
+            String[] startComponents = start.split(" ");
+            start = Parser.changeDateFormat(startComponents[0], startComponents[1], startComponents[2]) + " "
+                    + startComponents[3];
+            String[] endComponents = end.split(" ");
+            end = Parser.changeDateFormat(endComponents[0], endComponents[1], endComponents[2]) + " "
+                    + endComponents[3];
+
+            newTask = new EventTask(taskName, start, end);
+
+        } else {
+            newTask = null;
+            BondException.raiseException("load", "LOAD_FAILURE");
+        }
+
+        if (isMarked && newTask != null) {
+            newTask.markAsComplete();
+        }
+
+        tasks.add(newTask);
+    }
+
+    public ArrayList<Task> load() throws BondException {
+
         try {
+
+            ArrayList<Task> loadedTasks = new ArrayList<>();
+
             // Check for directory / file existence
             String home = System.getProperty("user.home");
             java.nio.file.Path directoryPath = java.nio.file.Paths.get(home, "data");
@@ -27,14 +114,33 @@ public class Storage {
             if (!fileExists) {
                 java.nio.file.Files.createFile(filePath);
             }
+
+            File f = new File(pathToFile); // create a File for the given file path
+            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+
+            while (s.hasNextLine()) {
+                // System.out.println("I have reached Loop in " + "loadTasksFromFIle");
+                String currTask = s.nextLine();
+                // System.out.println("Current task read is: " + currTask);
+                parseAndAddTask(currTask, loadedTasks);
+            }
+
+            s.close();
+
+            return loadedTasks;
+
+        } catch (FileNotFoundException e) {
+            BondException.raiseException("load", "LOAD_FAILURE");
+            return null;
         } catch (IOException e) {
             BondException.raiseException("load", "LOAD_FAILURE");
+            return null;
         }
     }
 
     public void storeTask(Task newTask, TaskList taskList) throws BondException {
         try {
-            FileWriter fw = new FileWriter(this.filePath, true); // create a FileWriter in append mode
+            FileWriter fw = new FileWriter(this.pathToFile, true); // create a FileWriter in append mode
             fw.write(newTask.toString());
             fw.write(System.lineSeparator());
             fw.close();
@@ -45,7 +151,7 @@ public class Storage {
 
     public void overwritePreviousSave(TaskList taskList) throws BondException {
         try {
-            FileWriter fw = new FileWriter(filePath, false); // create a FileWriter in overwrite mode
+            FileWriter fw = new FileWriter(pathToFile, false); // create a FileWriter in overwrite mode
             ListIterator<Task> toWrite = taskList.getTasks();
 
             while (toWrite.hasNext()) {

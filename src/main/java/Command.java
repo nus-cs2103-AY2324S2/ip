@@ -16,11 +16,17 @@ public abstract class Command {
     };
 
     public String commandType;
+    public boolean isExit;
 
     public Command(String commandType) {
         this.commandType = commandType;
+        this.isExit = false;
     }
 
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws BondException;
+
+    public boolean isExit() {
+        return this.isExit;
+    }
 
 }
