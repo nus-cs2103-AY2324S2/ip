@@ -1,3 +1,5 @@
+package tes.command;
+
 /**
  * Represents a parser to react accordingly to the command given.
  */

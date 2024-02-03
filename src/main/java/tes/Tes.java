@@ -1,10 +1,14 @@
+package tes;
+
+import tes.command.Ui;
+import tes.command.Parser;
 /**
  * Represents the chatbot.
  */
 public class Tes {
     /** User interface to deal with input and output */
     private Ui ui;
-    /** Parser to deal with commands */
+    /** tes.command.Parser to deal with commands */
     private Parser parser;
 
     /**

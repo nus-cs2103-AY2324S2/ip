@@ -1,3 +1,5 @@
+package tes.taskmanager;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class TaskList {
      * Stores the task with deadline into the task list.
      *
      * @param task Description of task to be stored.
-     * @param by Deadline of the task.
+     * @param by tes.taskmanager.Deadline of the task.
      */
     public void storeDeadline(String task, String by) {
         LocalDateTime by1 = LocalDateTime.parse(by, FORMATTER_RECEIVE);
