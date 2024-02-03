@@ -12,7 +12,7 @@ public class Duke {
     private final Storage storage;
 
     /**
-     * Constructs a simple Duke Object.
+     * Constructs a simple Duke-Object.
      * @param filePath Stores the file path for loading and saving.
      */
     public Duke(String filePath) {
