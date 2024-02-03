@@ -1,6 +1,8 @@
+package wis.util;
+
 import java.io.IOException;
-import java.time.DateTimeException;
-import java.util.InputMismatchException;
+
+import wis.Action;
 
 public class WisException {
     public static void ActionExceptionHandler(Action action) {

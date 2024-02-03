@@ -1,3 +1,5 @@
+package wis.task;
+
 public class Task {
     final private String description;
     private boolean isDone;

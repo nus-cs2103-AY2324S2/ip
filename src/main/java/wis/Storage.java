@@ -1,3 +1,5 @@
+package wis;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,7 +9,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
-public class Storage extends Parser {
+import wis.task.Task;
+import wis.task.TaskList;
+import wis.util.WisException;
+import wis.util.FileDataParser;
+
+public class Storage {
     private static final String PATH = "data/tasks.txt";
 
     public static void saveTasks(TaskList tasks) {

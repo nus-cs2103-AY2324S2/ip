@@ -1,3 +1,5 @@
+package wis;
+
 public enum Action {
     NONE,
     GREET, BYE,

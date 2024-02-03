@@ -1,5 +1,12 @@
+package wis.util;
+
 import java.time.LocalDateTime;
 import java.util.InputMismatchException;
+
+import wis.task.Todo;
+import wis.task.Task;
+import wis.task.Deadline;
+import wis.task.Event;
 
 public class FileDataParser extends Parser {
     public static Task parseLine(String line) throws InputMismatchException {

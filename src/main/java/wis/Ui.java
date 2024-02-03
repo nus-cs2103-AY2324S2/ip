@@ -1,5 +1,16 @@
+package wis;
+
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
+
+import wis.task.Task;
+import wis.task.Todo;
+import wis.task.Deadline;
+import wis.task.Event;
+import wis.task.TaskList;
+import wis.util.InputParser;
+import wis.util.WisException;
+import wis.util.Printer;
 
 public class Ui {
     private String input;
