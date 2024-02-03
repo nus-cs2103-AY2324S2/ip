@@ -1,10 +1,10 @@
 package chatbot.task;
 
-import chatbot.task.exception.InvalidTaskStringException;
-import chatbot.value.DateStringValue;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import chatbot.task.exception.InvalidTaskStringException;
+import chatbot.value.DateStringValue;
 
 /**
  * This encapsulates tasks that need to be done before a specific date/time.
@@ -12,9 +12,6 @@ import java.util.regex.Pattern;
  * @author Titus Chew
  */
 public final class Deadline extends Task {
-    /** Stores the deadline time of this. */
-    private final DateStringValue deadline;
-
     /** The icon for the task type. */
     private static final String TASK_TYPE_ICON = "D";
 
@@ -24,6 +21,9 @@ public final class Deadline extends Task {
     /** The regex pattern that a {@link Deadline} takes. */
     private static final Pattern REGEX_PATTERN = Pattern.compile(
             String.format("\\[%s\\](?<task>.*)\\(by:(?<by>.*)\\)", TASK_TYPE_ICON));
+
+    /** Stores the deadline time of this. */
+    private final DateStringValue deadline;
 
     /**
      * Constructor for this deadline.

@@ -1,9 +1,9 @@
 package chatbot.task;
 
-import chatbot.task.exception.InvalidTaskStringException;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import chatbot.task.exception.InvalidTaskStringException;
 
 /**
  * This encapsulates tasks without any date/time attached to it.

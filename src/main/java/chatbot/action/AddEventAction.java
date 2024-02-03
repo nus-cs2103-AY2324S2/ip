@@ -4,10 +4,10 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
-import chatbot.ui.Printer;
 import chatbot.task.Event;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
+import chatbot.ui.Printer;
 import chatbot.value.DateStringValue;
 
 /**
@@ -43,8 +43,8 @@ public final class AddEventAction extends Action {
     @Override
     public void execute(TaskList taskList) {
         String name = findDefaultArgument().toString();
-        DateStringValue from = new DateStringValue(findArgument("from")),
-                to = new DateStringValue(findArgument("to"));
+        DateStringValue from = new DateStringValue(findArgument("from"));
+        DateStringValue to = new DateStringValue(findArgument("to"));
 
         // Perform behaviour
         Task task = taskList.addEvent(name, from, to);

@@ -4,7 +4,6 @@ import chatbot.value.StringValue;
 
 /**
  * This stores a {@link Command} argument's name, and it's associated value.
- * <ul>
  * <li>The argument must have a name.
  * <li>If the name matches the command, it is defined to be the default argument.
  *
@@ -36,7 +35,7 @@ public class Argument {
      */
     public Argument(String name, String value) {
         this.name = name;
-        this.value = (value == null) ? null :new StringValue(value);
+        this.value = (value == null) ? null : new StringValue(value);
     }
 
     public String getName() {

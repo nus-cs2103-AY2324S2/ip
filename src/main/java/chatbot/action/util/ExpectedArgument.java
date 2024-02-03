@@ -6,7 +6,6 @@ import chatbot.action.exception.UnexpectedArgumentValueException;
 
 /**
  * This encapsulates the behaviour of an {@link Argument} that a {@link Command} can expect.
- * <ul>
  * <li>An ExpectedArgument list generates the usage hint for a {@link Command}.
  *
  * @author Titus Chew

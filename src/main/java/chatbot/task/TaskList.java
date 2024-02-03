@@ -1,13 +1,12 @@
 package chatbot.task;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
 import chatbot.storage.LocalStorage;
 import chatbot.task.exception.OutOfBoundsException;
 import chatbot.value.DateStringValue;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.lang.StringBuilder;
-import java.util.function.Consumer;
 
 /**
  * This encapsulates a {@link Task} list.

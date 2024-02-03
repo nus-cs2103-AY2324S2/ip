@@ -4,8 +4,6 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.exception.MissingArgumentException;
 import chatbot.action.exception.UnrecognizedArgumentException;
 
-import java.lang.StringBuilder;
-
 /**
  * This defines the {@link Argument}(s) of a {@link Command}.
  *
@@ -23,7 +21,6 @@ public final class Command {
 
     /**
      * Constructor for this command, which parses the expected {@link Argument}(s).
-     * <ul>
      * <li>The first {@link Argument} has the name of the command.
      * <li>If the value is null, there is no value for that {@link Argument}. Otherwise, the value is required.
      *

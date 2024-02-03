@@ -4,10 +4,10 @@ import chatbot.action.exception.ActionException;
 import chatbot.action.util.Argument;
 import chatbot.action.util.Command;
 import chatbot.action.util.ExpectedArgument;
-import chatbot.ui.Printer;
 import chatbot.task.Task;
 import chatbot.task.TaskList;
 import chatbot.task.ToDo;
+import chatbot.ui.Printer;
 
 /**
  * This encapsulates the behaviour of adding a {@link ToDo}.
