@@ -178,7 +178,7 @@ class Storage {
         try (Scanner fileScanner = new Scanner(file)) {
             while (fileScanner.hasNext()) {
                 String line = fileScanner.nextLine();
-                String[] parts = line.split(" \\| ");
+                String[] parts = line.split(" \\| "); //
                 try {
                     String type = parts[0];
                     boolean isDone = parts[1].equals("1");
