@@ -66,7 +66,7 @@ public class Parser {
      * @return An array representing the extracted data from the description array.
      * @throws InvalidInputException The given input has something wrong (Parameter wise or command wise).
      */
-    public static String[] extractDescriptionData(String[] descriptionArray) throws
+    public static String[] extractDescriptionData(String... descriptionArray) throws
             InvalidInputException {
         String[] ret = new String[3];
         String taskDesc;

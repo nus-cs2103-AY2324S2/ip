@@ -127,7 +127,7 @@ public class TaskList {
      * @return The output of the task list to be printed.
      */
     public String showTaskList() {
-        String ret = "Get off your ass and starting doing work!" + "\n";
+        String ret = "";
         for (int i = 0; i < this.tasks.size(); i++) {
             Task curr = this.tasks.get(i);
             ret += (i + 1)
