@@ -4,38 +4,46 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Duke {
+    private static Storage store;
+    private UI ui;
 
-    private static final String line = "      ________________________________________________________\n";
-    private static String logo = "     _______       ______     _______    _______    ___  ___\n"
-            + "    |   _  \"\\     /    \" \\   |   _  \"\\  |   _  \"\\  |\"  \\/\"  |\n"
-            + "    (. |_)  :)   // ____  \\  (. |_)  :) (. |_)  :)  \\   \\  /\n"
-            + "    |:     \\/   /  /    ) :) |:     \\/  |:     \\/    \\\\  \\/\n"
-            + "    (|  _  \\\\  (: (____/ //  (|  _  \\\\  (|  _  \\\\    /   /\n"
-            + "    |: |_)  :)  \\        /   |: |_)  :) |: |_)  :)  /   /\n"
-            + "    (_______/    \\\"_____/    (_______/  (_______/  |___/";
-    public static void intro() {
-        System.out.println("Hello! I'm\n" + Duke.logo + "\n\n What can I do for you today? :)\n");
-    }
+    private TaskList taskList;
 
-    public static void emptyDesc(String tasktype) throws DukeException {
-        if (tasktype.equals("todo")) {
-            throw new DukeException("todo task.");
-        } else if (tasktype.equals("deadline")) {
-            throw new DukeException("task and the deadline.");
-        } else if (tasktype.equals("event")) {
-            throw new DukeException("event and provide the start and end timing.");
-        }
-    }
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Storage store = new Storage();
+    public Duke(String filePath) {
+        ui = new UI(store);
+        taskList = new TaskList();
+        store = new Storage(filePath, taskList);
         try {
             store.loadFile();
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
-        Duke.intro();
+    }
+//    private static final String line = "      ________________________________________________________\n";
+//    private static String logo = "     _______       ______     _______    _______    ___  ___\n"
+//            + "    |   _  \"\\     /    \" \\   |   _  \"\\  |   _  \"\\  |\"  \\/\"  |\n"
+//            + "    (. |_)  :)   // ____  \\  (. |_)  :) (. |_)  :)  \\   \\  /\n"
+//            + "    |:     \\/   /  /    ) :) |:     \\/  |:     \\/    \\\\  \\/\n"
+//            + "    (|  _  \\\\  (: (____/ //  (|  _  \\\\  (|  _  \\\\    /   /\n"
+//            + "    |: |_)  :)  \\        /   |: |_)  :) |: |_)  :)  /   /\n"
+//            + "    (_______/    \\\"_____/    (_______/  (_______/  |___/";
+//    private static void intro() {
+//        System.out.println("Hello! I'm\n" + Duke.logo + "\n\n What can I do for you today? :)\n");
+//    }
+
+//    private static void emptyDesc(String tasktype) throws DukeException {
+//        if (tasktype.equals("todo")) {
+//            throw new DukeException("todo task.");
+//        } else if (tasktype.equals("deadline")) {
+//            throw new DukeException("task and the deadline.");
+//        } else if (tasktype.equals("event")) {
+//            throw new DukeException("event and provide the start and end timing.");
+//        }
+//    }
+
+    public void run() {
+        ui.intro();
+        Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
 
         while(!userInput.equals("bye")) {
@@ -45,39 +53,24 @@ public class Duke {
 //                    if (items.length == 1) {
 //                        throw new DukeException("Oops! Please state which task number you want to mark done!");
 //                    }
-                    store.mark(Integer.parseInt(userInput.split(" ")[1]));
+                    taskList.mark(Parser.parseNum(userInput));
                 } else if (userInput.startsWith("unmark")) {
-                    store.unmark(Integer.parseInt(userInput.split(" ")[1]));
+                    taskList.unmark(Parser.parseNum(userInput));
                 } else if (userInput.startsWith("delete")){
-                    store.delete(Integer.parseInt(userInput.split(" ")[1]));
+                    taskList.delete(Parser.parseNum(userInput));
                 } else if (userInput.startsWith("todo")) {
-                    String[] items = userInput.split(" ", 2);
-                    if (items.length == 1) {
-                        Duke.emptyDesc("todo");
-                    }
-                    store.addItem(new Todos(userInput.split(" ", 2)[1]));
+                    taskList.addItem(new Todos(Parser.parseTodo(userInput)), true);
                 } else if (userInput.startsWith("deadline")) {
-                    String[] items = userInput.split(" ", 2);
-                    if (items.length == 1) {
-                        Duke.emptyDesc("deadline");
-                    }
-                    String[] parts = userInput.split("/by ");
-                    String task = parts[0].replaceFirst("deadline ", "");
+                    String[] parts = Parser.parseDeadline(userInput);
+                    String task = parts[0];
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
                     LocalDateTime deadline = LocalDateTime.parse(parts[1], formatter);
-                    store.addItem(new Deadlines(task, deadline));
+                    taskList.addItem(new Deadlines(task, deadline), true);
                 } else if (userInput.startsWith("event")) {
-                    String[] items = userInput.split(" ", 2);
-                    if (items.length == 1) {
-                        Duke.emptyDesc("event");
-                    }
-                    String[] parts = userInput.split("/from ");
-                    String task = parts[0].replaceFirst("event ", "");
-                    String from = parts[1].split("/to")[0];
-                    String to = parts[1].split("/to")[1];
-                    store.addItem(new Events(task, from, to));
+                    String[] parts = Parser.parseEvent(userInput);
+                    taskList.addItem(new Events(parts[0], parts[1], parts[2]), true);
                 } else if (userInput.equals("list")) {
-                    store.printList();
+                    taskList.printList();
                 } else {
                     throw new DukeException();
                 }
@@ -87,7 +80,9 @@ public class Duke {
 
             userInput = scanner.nextLine();
         }
-
-        System.out.print(Duke.line + "      Bye! Have a great day ahead :>\n" + Duke.line);
+        ui.bye();
+    }
+    public static void main(String[] args) {
+        new Duke("./data/Duke.txt").run();
     }
 }
