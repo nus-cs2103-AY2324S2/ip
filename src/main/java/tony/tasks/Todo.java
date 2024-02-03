@@ -5,7 +5,7 @@ public class Todo extends Task {
         super(description);
         this.type = TaskType.TODO;
         if (description.equals("")) {
-            throw new IllegalArgumentException("Should have more description dawg");
+            throw new IllegalArgumentException("Should have a description dawg");
         }
 
     }

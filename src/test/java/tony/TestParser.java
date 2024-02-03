@@ -40,10 +40,14 @@ public class TestParser {
 
     @Test
     public void testParseDate() {
-        Parser parser = new Parser();
-        String date = "2022-12-31T14:30";
-        LocalDateTime parsedDateTime = parser.parseDate(date);
-        LocalDateTime expectedDateTime = LocalDateTime.of(2022, 12, 31, 14, 30);
-        assertEquals(expectedDateTime, parsedDateTime);
+        try {
+            Parser parser = new Parser();
+            String date = "2022-12-31T14:30";
+            LocalDateTime parsedDateTime = parser.parseDate(date);
+            LocalDateTime expectedDateTime = LocalDateTime.of(2022, 12, 31, 14, 30);
+            assertEquals(expectedDateTime, parsedDateTime);
+        } catch (Exception e) {
+            assertEquals(0, 1);
+        }
     }
 }

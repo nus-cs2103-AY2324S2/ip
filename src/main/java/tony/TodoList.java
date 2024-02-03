@@ -1,5 +1,6 @@
 package tony;
 
+import tony.exceptions.InvalidTaskException;
 import tony.tasks.Task;
 import tony.tasks.TaskType;
 
@@ -81,13 +82,13 @@ public class TodoList {
         return sb.toString();
     }
 
-    public void loadTask(String line) {
+    public void loadTask(String line) throws InvalidTaskException {
         Task task = createTaskFromLine(line);
         list.add(task);
     }
 
     // Example of parsing task lines and creating Task objects
-    private Task createTaskFromLine(String line) {
+    private Task createTaskFromLine(String line) throws InvalidTaskException {
         String[] parts = line.split("\\|");
 
         if (parts.length >= 3) {
