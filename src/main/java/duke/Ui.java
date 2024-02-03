@@ -50,6 +50,17 @@ public class Ui {
         }
     }
 
+    public void list(TaskList tasks, String keyword) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0, j = 0; i < tasks.getItems().size(); i++) {
+            Task nextTask = tasks.getItems().get(i);
+            if (nextTask.getDescriptionStatus().contains(keyword)) {
+                System.out.println((j + 1) + ". " + nextTask.getDescriptionStatus());
+                j++;
+            }
+        }
+    }
+
     public void mark(Task task) {
         System.out.println(task.getMarkStatus());
         System.out.println(task.getDescriptionStatus());
