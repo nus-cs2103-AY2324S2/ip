@@ -92,22 +92,6 @@ public class Duke {
         Scanner scan = new Scanner( System.in );
         String input = scan.nextLine();
 
-
-        /**
-         try {
-         File myObj = new File("./data/duke.txt");
-         if (myObj.createNewFile()) {
-         System.out.println("File created: " + myObj.getName());
-         } else {
-         System.out.println("File already exists.");
-         }
-         } catch (IOException e) {
-         System.out.println("An error occurred.");
-         e.printStackTrace();
-         }
-         **/
-
-
         while (!input.equalsIgnoreCase("bye")) {
             try {
                 if (input.equalsIgnoreCase("list")) {
