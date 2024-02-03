@@ -60,6 +60,8 @@ public class Parser {
                 case DEADLINE:
                 case EVENT:
                     return new AddCommand();
+                case FIND:
+                    return new FindCommand();
                 default:
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
             }
