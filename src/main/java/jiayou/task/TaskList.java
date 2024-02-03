@@ -21,6 +21,13 @@ public class TaskList {
     }
 
     /**
+     * Updates the linked text file.
+     */
+    public void updateStorage() {
+        this.storage.save();
+    }
+
+    /**
      * Adds a new task to the task list.
      *
      * @param task the task to be added.
@@ -28,7 +35,7 @@ public class TaskList {
     public void addTask(Task task) {
          this.tasks.size();
          this.tasks.add(task);
-         this.storage.save();
+         updateStorage();
     }
 
     /**
@@ -47,7 +54,7 @@ public class TaskList {
             System.out.println(">w<Noted. I've removed this task:");
             System.out.println("  " + removedTask);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            this.storage.save();
+            updateStorage();
         } catch (NumberFormatException e) {
             System.out.println("OOPS!!! Please enter a valid task number!");
         } catch (JiayouException e) {
@@ -66,7 +73,7 @@ public class TaskList {
         task.setStatus(true);
         System.out.println(">w<Nice! I've marked this task as done:");
         System.out.println("  " + task);
-        this.storage.save();
+        updateStorage();
     }
 
     /**
@@ -80,7 +87,7 @@ public class TaskList {
         task.setStatus(false);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + task);
-        this.storage.save();
+        updateStorage();
     }
 
     /**

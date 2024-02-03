@@ -32,6 +32,7 @@ public class Parser {
                     throw new JiayouException("OOPS!!! I don't know which task to mark. Please add the index after the keyword mark!");
                 } else {
                     tasks.markTask(content);
+                    tasks.updateStorage();
                     break;
                 }
             case UNMARK:
@@ -39,6 +40,7 @@ public class Parser {
                     throw new JiayouException("OOPS!!! I don't know which task to unmark. Please add the index after the keyword unmark!");
                 } else {
                     tasks.unmarkTask(content);
+                    tasks.updateStorage();
                     break;
                 }
             case DELETE:
