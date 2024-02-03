@@ -2,6 +2,7 @@ package duchess.task;
 
 /**
  * Event class represents an event task with a start and end time or date in the Duchess program.
+ * It currently supports a String as a start and end.
  * It extends the Task class and provides methods to manipulate Event tasks.
  */
 public class Event extends Task {
