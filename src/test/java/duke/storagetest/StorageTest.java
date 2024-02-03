@@ -2,7 +2,7 @@ package duke.storagetest;
 
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.task.ToDos;
+import duke.task.ToDo;
 import duke.tasklist.TaskList;
 import duke.task.Task;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,7 +40,7 @@ public class StorageTest {
     
     @Test
     void testAddTaskToFile() throws IOException {
-        Task task = new ToDos("running");
+        Task task = new ToDo("running");
         storage.addTaskToFile(task);
         String content = Files.readString(tempDir.resolve("dukeTest.txt"));
         assertTrue(content.contains("running"), "File should contain the added task's description");
@@ -48,8 +48,8 @@ public class StorageTest {
     
     @Test
     void testChangeFileContent() throws IOException {
-        Task task1 = new ToDos("sleep");
-        Task task2 = new ToDos("eat");
+        Task task1 = new ToDo("sleep");
+        Task task2 = new ToDo("eat");
         list.add(task1);
         list.add(task2);
         storage.changeFileContent(list);

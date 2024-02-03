@@ -1,9 +1,9 @@
 package duke.parser;
 
 import duke.task.Task;
-import duke.task.ToDos;
-import duke.task.Deadlines;
-import duke.task.Events;
+import duke.task.ToDo;
+import duke.task.Deadline;
+import duke.task.Event;
 import duke.tasklist.TaskList;
 import duke.exception.DukeException;
 import duke.ui.Ui;
@@ -61,7 +61,7 @@ public class Parser {
      */
     public Task createToDo(String input) {
         String todoDescription = input.substring(5);
-        return new ToDos(todoDescription);
+        return new ToDo(todoDescription);
     }
     
     /**
@@ -78,7 +78,7 @@ public class Parser {
         String deadline = input.substring(indexOfBy + 4);
         LocalDate by = this.formatInputDate(deadline);
         ui.handleInvalidInputDate(deadline, DateTimeFormatter.ofPattern("dd/MM/yyyy"), by);
-        return new Deadlines(deadlineDescription, by);
+        return new Deadline(deadlineDescription, by);
     }
     
     /**
@@ -99,7 +99,7 @@ public class Parser {
         LocalDate end = this.formatInputDate(endString);
         ui.handleInvalidInputDate(startString, DateTimeFormatter.ofPattern("dd/MM/yyyy"), start);
         ui.handleInvalidInputDate(endString, DateTimeFormatter.ofPattern("dd/MM/yyyy"), end);
-        return new Events(eventDescription, start, end);
+        return new Event(eventDescription, start, end);
     }
     
     /**
@@ -114,13 +114,13 @@ public class Parser {
         Task t = null;
         if (typeOfTask == 'T') {
             String description = line.substring(7);
-            t = new ToDos(description);
+            t = new ToDo(description);
         } else if (typeOfTask == 'D') {
             int indexOfTime = line.indexOf("(by: ");
             String description = line.substring(7, indexOfTime - 1);
             String byString = line.substring(indexOfTime + 5, line.indexOf(")"));
             LocalDate by = parseFileDateToStorageDate(byString);
-            t = new Deadlines(description, by);
+            t = new Deadline(description, by);
         } else if (typeOfTask == 'E') {
             int indexOfStartTime = line.indexOf("(from");
             int indexOfEndTime = line .indexOf("to");
@@ -129,7 +129,7 @@ public class Parser {
             String endString = line.substring(indexOfEndTime + 3, line.indexOf(")"));
             LocalDate start = parseFileDateToStorageDate(startString);
             LocalDate end = parseFileDateToStorageDate(endString);
-            t = new Events(description, start, end);
+            t = new Event(description, start, end);
         }
         boolean doneOrNot = (status == 'X');
         t.setStatus(doneOrNot);

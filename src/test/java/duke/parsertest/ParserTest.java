@@ -3,7 +3,7 @@ package duke.parsertest;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.task.Task;
-import duke.task.ToDos;
+import duke.task.ToDo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,7 +18,7 @@ public class ParserTest {
         
         Task result = parser.createToDo(input);
  
-        assertTrue(result instanceof ToDos, "The result should be an instance of ToDos");
+        assertTrue(result instanceof ToDo, "The result should be an instance of ToDos");
         assertEquals("buy milk", result.getDescription(), "The description of the todo should match the input");
     }
     

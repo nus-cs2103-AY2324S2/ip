@@ -1,10 +1,10 @@
 package duke.task;
 import java.time.LocalDate;
-public class Events extends Task{
+public class Event extends Task{
     protected LocalDate start;
     protected LocalDate end;
     
-    public Events(String description, LocalDate start, LocalDate end) {
+    public Event(String description, LocalDate start, LocalDate end) {
         super(description);
         this.start = start;
         this.end = end;
