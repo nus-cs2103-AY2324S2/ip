@@ -1,8 +1,8 @@
 package duke;
 
-import duke.tasks.Task;
-
 import java.util.ArrayList;
+
+import duke.tasks.Task;
 
 /**
  * The TaskList class represents a list of tasks.
@@ -78,7 +78,7 @@ public class TaskList {
         StringBuilder response = new StringBuilder("Here are the tasks in your list:");
         for (int i = 0; i < this.tasks.size(); ++i) {
             Task t = this.tasks.get(i);
-            String taskString = "\n" + String.valueOf(i+1) + ". " + t.toString();
+            String taskString = "\n" + String.valueOf(i + 1) + ". " + t.toString();
             response.append(taskString);
         }
         response.append("\n");
@@ -119,6 +119,12 @@ public class TaskList {
         }
         return match;
     }
+
+    /**
+     * Returns a string representation of the list of tasks matching the keyword.
+     *
+     * @return a string representation of list of tasks matching the keyword
+     */
     public String findToString(String keyword) {
         ArrayList<Task> match = this.find(keyword);
         if (match.isEmpty()) {
@@ -127,7 +133,7 @@ public class TaskList {
         StringBuilder response = new StringBuilder("Here are the matching tasks in your list:");
         for (int i = 0; i < match.size(); ++i) {
             Task t = match.get(i);
-            String taskString = "\n" + String.valueOf(i+1) + ". " + t.toString();
+            String taskString = "\n" + String.valueOf(i + 1) + ". " + t.toString();
             response.append(taskString);
         }
         response.append("\n");

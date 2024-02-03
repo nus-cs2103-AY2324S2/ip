@@ -1,18 +1,18 @@
 package duke.parser;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.regex.Pattern;
+
 import duke.Actions;
-import duke.TextTemplate;
 import duke.TaskList;
+import duke.TextTemplate;
 import duke.exceptions.InvalidDateFormException;
 import duke.exceptions.InvalidInputException;
 import duke.tasks.DeadlineTask;
 import duke.tasks.EventTask;
 import duke.tasks.Task;
 import duke.tasks.TodoTask;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.regex.Pattern;
 
 /**
  * The InputParser class handles the parsing of user input and performs corresponding actions.
@@ -122,7 +122,8 @@ public class InputParser {
         tasks.add(deadline);
 
         String taskCounterMsg = String.format(TextTemplate.TASK_COUNT, tasks.size());
-        return TextTemplate.ADD_TASK + "\n" + deadline.toString() + "\n" + taskCounterMsg + "\n" + TextTemplate.LINE_BREAK;
+        return TextTemplate.ADD_TASK + "\n" + deadline.toString() + "\n" + taskCounterMsg
+                + "\n" + TextTemplate.LINE_BREAK;
     }
 
     private String matchKeyword(String input, TaskList tasks) {
@@ -165,7 +166,7 @@ public class InputParser {
         if (Pattern.matches("deadline .+ /by .+", input)) {
             return Actions.DEADLINE;
         }
-        if (Pattern.matches( "event .+ /from .+ /to .+", input)) {
+        if (Pattern.matches("event .+ /from .+ /to .+", input)) {
             return Actions.EVENT;
         }
         if (Pattern.matches("mark \\d+", input)) {
@@ -214,9 +215,8 @@ public class InputParser {
             return this.addDeadline(input, tasks);
         case MATCH:
             return this.matchKeyword(input, tasks);
-        case INVALID:
+        default:
             throw new InvalidInputException();
         }
-        return null;
     }
 }

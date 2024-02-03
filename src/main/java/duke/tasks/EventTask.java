@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * The EventTask class represents a task with an event description and start/end date/time.
  * Inherits from the Task class.
  */
-public class EventTask extends Task{
+public class EventTask extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
 
@@ -24,7 +24,8 @@ public class EventTask extends Task{
     }
 
     /**
-     * Constructs an EventTask object with the specified description, completion status, start datetime, and end datetime.
+     * Constructs an EventTask object with the specified description, completion status, start datetime,
+     *     and end datetime.
      *
      * @param desc the description of the event task
      * @param isDone the completion status of the event task ("1" for done, "0" for not done)
@@ -50,11 +51,11 @@ public class EventTask extends Task{
      * Returns a string representation of the event task.
      *
      * @return a string representation of the event task, including its status icon, description, start datetime,
-     * and end datetime
+     *     and end datetime
      */
     public String toString() {
-        return this.getStatusIcon() + this.getDesc() + " (from: " + Task.toStringDateTime(this.start) +
-                " to: " + Task.toStringDateTime(this.end) + ")";
+        return this.getStatusIcon() + this.getDesc() + " (from: " + Task.toStringDateTime(this.start)
+                + " to: " + Task.toStringDateTime(this.end) + ")";
     }
 
     /**

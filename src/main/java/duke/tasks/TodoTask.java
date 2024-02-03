@@ -4,7 +4,7 @@ package duke.tasks;
  * The TodoTask class represents a task with a todo description.
  * Inherits from the Task class.
  */
-public class TodoTask extends Task{
+public class TodoTask extends Task {
 
     /**
      * Constructs a TodoTask object with the specified description.
@@ -47,7 +47,7 @@ public class TodoTask extends Task{
      * Returns a string in the CSV format to represent the todo task for saving to file.
      *
      * @return a string in the CSV format representing the todo task ("T,1,description" if done,
-     * "T,0,description" if not done)
+     *     "T,0,description" if not done)
      */
     public String save() {
         String isDone = this.isDone() ? "1" : "0";

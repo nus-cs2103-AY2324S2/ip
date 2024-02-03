@@ -1,16 +1,16 @@
 package duke.parser;
 
-import duke.tasks.DeadlineTask;
-import duke.tasks.EventTask;
-import duke.tasks.Task;
-import duke.tasks.TodoTask;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.tasks.DeadlineTask;
+import duke.tasks.EventTask;
+import duke.tasks.Task;
+import duke.tasks.TodoTask;
 
 /**
  * The FileParser class handles the parsing of a file containing task data.

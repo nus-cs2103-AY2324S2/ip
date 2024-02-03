@@ -47,8 +47,8 @@ public class DeadlineTask extends Task {
      * @return a string representation of the deadline task, including its status icon, description, and end datetime
      */
     public String toString() {
-        return this.getStatusIcon() + this.getDesc() + " (by: " +
-                Task.toStringDateTime(this.end) + ")";
+        return this.getStatusIcon() + this.getDesc() + " (by: "
+                + Task.toStringDateTime(this.end) + ")";
     }
 
     /**

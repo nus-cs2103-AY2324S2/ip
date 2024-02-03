@@ -1,11 +1,11 @@
 package duke;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import duke.exceptions.InvalidInputException;
 import duke.exceptions.StorageException;
 import duke.parser.InputParser;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 /**
  * The Duke class represents the chatbot application.
@@ -60,8 +60,8 @@ public class Duke {
             } catch (InvalidInputException e) {
                 this.ui.sendSystemMessage(e.getMessage(), TextTemplate.LINE_BREAK);
             } catch (IOException e) {
-                this.ui.sendSystemMessage("Error saving to file\nTerminating Process..." +
-                        TextTemplate.LINE_BREAK);
+                this.ui.sendSystemMessage("Error saving to file\nTerminating Process..."
+                        + TextTemplate.LINE_BREAK);
                 this.ui.exit();
             }
         }
