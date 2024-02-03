@@ -11,7 +11,7 @@ public class ParserTest {
 
     Storage storage = new Storage();
     IOHandler ioHandler = new IOHandler();
-    TaskList list = new TaskList();
+    TaskList List = new TaskList();
 
 
     @Test
