@@ -56,7 +56,7 @@ public class ActionTask implements ParseExecutionable {
     @Override
     public String execute(TaskStorage taskStorage) {
         String printMessage = "";
-        switch (this.action) {
+        switch (this.action) { 
             case LIST:
                 if (taskStorage.size() > 0) {
                     return taskStorage.toString();
