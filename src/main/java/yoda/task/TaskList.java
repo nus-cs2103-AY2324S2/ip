@@ -16,6 +16,22 @@ public class TaskList {
         }
     }
 
+    public void findTasks(String keyword) {
+        List<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        if (foundTasks.isEmpty()) {
+            System.out.println("No tasks found with the keyword: " + keyword);
+        } else {
+            System.out.println("Tasks found with the keyword: " + keyword);
+            for (int i = 0; i < foundTasks.size(); i++) {
+                System.out.println(i + 1 + "." + foundTasks.get(i));
+            }
+        }
+    }
 
     public void deleteTask(int taskNumber) throws Exception {
         if (taskNumber <= 0 || taskNumber > tasks.size()) {

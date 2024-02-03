@@ -44,6 +44,13 @@ public class Parser {
                 case DELETE:
                     performTaskOperation(parts, yodaUI::deleteTask);
                     break;
+                case FIND:
+                    if (parts.length > 1) {
+                        yodaUI.findTasks(parts[1]);
+                    } else {
+                        throw new Exception("Search term, provide you must.");
+                    }
+                    break;
                 case MARK:
                     performTaskOperation(parts, yodaUI::markTaskAsDone);
                     break;
