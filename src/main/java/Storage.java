@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
+    private static final String DIRECTORY_PATH = "./data";
     private static final String FILE_PATH = "./data/duke.txt";
 
     public static void saveTasks(List<Task> tasks) {
@@ -21,9 +19,10 @@ public class Storage {
         }
     }
 
-    public static List<Task> loadTasks() {
-        List<Task> tasks = new ArrayList<>();
 
+    public static List<Task> loadTasks() throws DukeException {
+        List<Task> tasks = new ArrayList<>();
+        createEmptyFile();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -38,6 +37,26 @@ public class Storage {
 
         return tasks;
     }
+
+    private static void createEmptyFile() throws DukeException {
+        File directory = new File("./data");
+        File file = new File("./data/duke.txt");
+
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new DukeException("File Creation Failed");
+            }
+        }
+    }
+
+
+
 
     private static Task createTaskFromLine(String line) {
       String[] parts = line.split("\\s*\\|\\s*");

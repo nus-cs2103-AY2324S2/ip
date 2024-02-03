@@ -6,7 +6,11 @@ public class Duke {
         ui = new Ui();
         ui.showWelcome();
         taskList = new TaskList(); // Initialize the TaskList
-        taskList.getTasks().addAll(Storage.loadTasks()); // Load tasks from storage
+        try {
+            taskList.getTasks().addAll(Storage.loadTasks()); // Load tasks from storage
+        } catch (DukeException e) {
+            System.out.println(e);
+        }
         new Duke().run();
     }
 
