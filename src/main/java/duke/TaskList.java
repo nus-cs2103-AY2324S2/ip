@@ -1,6 +1,9 @@
 package duke;
 
-import java.lang.reflect.Array;
+import duke.exceptions.InvalidCommandException;
+import duke.exceptions.InvalidTaskNumberException;
+import duke.tasks.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

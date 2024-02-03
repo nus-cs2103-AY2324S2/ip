@@ -1,12 +1,7 @@
 package duke;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.io.IOException;
-import duke.commands.*;
-import duke.Parser;
+import duke.commands.Command;
+import duke.exceptions.DukeException;
 
 public class Duke {
     private String storePath;

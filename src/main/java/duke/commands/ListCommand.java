@@ -1,6 +1,6 @@
 package duke.commands;
 
-import duke.InvalidCommandException;
+import duke.exceptions.InvalidCommandException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;

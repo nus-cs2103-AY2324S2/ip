@@ -1,8 +1,9 @@
 package duke.commands;
 
-import duke.*;
-
-import java.util.ArrayList;
+import duke.exceptions.InvalidCommandException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
 
 public class DeleteCommand extends Command {
     private int deleteNumber;

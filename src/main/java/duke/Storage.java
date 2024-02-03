@@ -1,5 +1,13 @@
 package duke;
 
+import duke.exceptions.DukeException;
+import duke.exceptions.DukeFileException;
+import duke.exceptions.InvalidCommandException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,7 +23,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public TaskList load() throws DukeException{
+    public TaskList load() throws DukeException {
         TaskList list = new TaskList();
         //load previous tasks
         File directory = new File("duke/data");
