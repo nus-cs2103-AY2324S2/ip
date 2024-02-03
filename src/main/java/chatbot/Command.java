@@ -79,6 +79,9 @@ public enum Command {
         case DELETE:
             executeIndexing(view, tl);
             break;
+        case FIND:
+            executeFind(view, tl);
+            break;
         default:
             break;
         }
