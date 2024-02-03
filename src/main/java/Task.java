@@ -14,12 +14,10 @@ public abstract class Task {
 
     public void markDone() {
         this.isDone = true;
-        System.out.println("     Nice! I've marked this task as done:\n       " + this.toString());
     }
 
     public void unmarkDone() {
         this.isDone = false;
-        System.out.println("     OK, I've marked this task as not done yet:\n       " + this.toString());
     }
 
     @Override
