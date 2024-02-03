@@ -45,7 +45,7 @@ public class Drake {
     private final Ui UI;
     private final Storage STORAGE;
     private final TaskList TASKS;
-    private boolean isRunning; 
+    private boolean isRunning;
 
     public Drake(String FILE_PATH) {
         UI = new Ui();
