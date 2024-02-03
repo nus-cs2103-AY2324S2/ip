@@ -9,11 +9,13 @@ import java.util.Scanner;
 public class Ui {
 
     private static final String INDENTATION = "      ";
-    private static final String LINE = "    -----------------------------------------------------------------------------------------";
-    private static final String CHATBOTNAME = "Sophia";
+    private static final String LINE = "    --------------------------------------" +
+            "---------------------------------------------------";
+    private static final String CHAT_BOT_NAME = "Sophia";
     private static final Scanner scanner = new Scanner(System.in);
     public static String username;
-    private static final List<String> reservedCommands = Arrays.asList("list", "mark", "unmark", "todo", "deadline", "event", "delete", "delete all");
+    private static final List<String> reservedCommands = Arrays.asList("list", "mark", "unmark",
+            "todo", "deadline", "event", "delete", "delete all");
 
     public Ui() {
     }
@@ -23,9 +25,10 @@ public class Ui {
         String input = scanner.nextLine();
         if (!input.isBlank()) {
             while (isReservedCommand(input)) {
-                System.out.println(Conversation.LINE);
-                System.out.println(Conversation.INDENTATION + "  Invalid username. Please choose a different username.");
-                System.out.println(Conversation.LINE);
+                System.out.println(LINE);
+                System.out.println(INDENTATION + "  Invalid username. " +
+                        "Please choose a different username.");
+                System.out.println(LINE);
                 input = scanner.nextLine();
             }
             username = input.toUpperCase();
@@ -36,15 +39,20 @@ public class Ui {
 
     private void defaultStart() {
         System.out.println(LINE);
-        System.out.println(INDENTATION + "Hi there! I'm " + CHATBOTNAME + " :)\n" + INDENTATION + "I'm your AI Assistant and I'm here to help you with anything.");
+        System.out.println(INDENTATION + "Hi there! I'm " + CHAT_BOT_NAME +
+                " :)\n" + INDENTATION + "I'm your AI Assistant and I'm here" +
+                " to help you with anything.");
         System.out.println(LINE);
-        System.out.println(INDENTATION + "But first, let's start with getting to know you a little bit.\n" + INDENTATION +"So, what's your name?");
+        System.out.println(INDENTATION + "But first, let's start with " +
+                "getting to know you a little bit.\n" + INDENTATION +
+                "So, what's your name?");
         System.out.println(LINE);
     }
 
     public void defaultExit() {
         System.out.println(LINE);
-        System.out.println(INDENTATION + "Bye bye! Take care and feel free to come back if you need any other help!");
+        System.out.println(INDENTATION + "Bye bye! Take care and feel free " +
+                "to come back if you need any other help!");
         System.out.println(LINE);
     }
 

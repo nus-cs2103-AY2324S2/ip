@@ -33,7 +33,8 @@ public class Deadline extends Task {
 
     @Override
     public String getTaskDescription() {
-        return trimDescription(taskDescription) + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+        return trimDescription(taskDescription) + " (by: " +
+                by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 
     @Override
@@ -44,7 +45,8 @@ public class Deadline extends Task {
 
         if (matcher.matches()) {
             taskDescription = matcher.group(1).trim();
-            by = LocalDateTime.parse(matcher.group(2), DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+            by = LocalDateTime.parse(matcher.group(2),
+                    DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
         }
 
         return taskDescription;

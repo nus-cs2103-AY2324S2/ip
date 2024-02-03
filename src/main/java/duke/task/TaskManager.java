@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class TaskManager {
-    public static final String INDENTATION = "      ";
-    public static final String LINE = "    -----------------------------------------------------------------------------------------";
+    private static final String INDENTATION = "      ";
+    private static final String LINE = "    --------------------------------------------" +
+            "---------------------------------------------";
     TaskDisplay taskDisplay = new TaskDisplay();
     FileManager fileManager;
 
@@ -28,18 +29,20 @@ public class TaskManager {
 
             Task task;
             switch (type) {
-                case TODO:
+                case Todo:
                     task = new Todo(taskDescription, false);
                     break;
-                case EVENT:
-                    task = new Event(taskDescription, false, LocalDateTime.now(), LocalDateTime.now().plusDays(1));
+                case Event:
+                    task = new Event(taskDescription, false,
+                            LocalDateTime.now(), LocalDateTime.now().plusDays(1));
                     break;
-                case DEADLINE:
+                case Deadline:
                     LocalDateTime defaultDeadline = LocalDateTime.now().plusDays(1);
                     task = new Deadline(taskDescription, false, defaultDeadline);
                     break;
                 default:
-                    throw new DukeException("Hey, I'm not quite sure what that means. Mind giving me another shot at understanding?");
+                    throw new DukeException("Hey, I'm not quite sure what" +
+                            " that means. Mind giving me another shot at understanding?");
             }
 
             taskList.add(task);
@@ -65,12 +68,14 @@ public class TaskManager {
         System.out.println(LINE);
         try {
             if (taskList.isEmpty()) {
-                System.out.println(INDENTATION + " No tasks to delete. Your duke.task list is already empty.");
+                System.out.println(INDENTATION + " No tasks to delete. " +
+                        "Your task list is already empty.");
                 return;
             }
 
             taskList.clear();
-            System.out.println(INDENTATION + " okay, noted. I've removed all tasks from the list.");
+            System.out.println(INDENTATION + " okay, noted. I've removed " +
+                    "all tasks from the list.");
             autoSaveTask();
         } catch (DukeException e) {
             System.out.println(e.getMessage());
