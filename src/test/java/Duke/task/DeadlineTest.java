@@ -16,7 +16,7 @@ public class DeadlineTest {
         String expected = "[D][ ] return book (by: Feb 03 2023)";
         assertEquals(expected, input);
     }
-    
+
     @Test
     public void testDeadlineStringInput() {
         String date = "2023-02-03";
