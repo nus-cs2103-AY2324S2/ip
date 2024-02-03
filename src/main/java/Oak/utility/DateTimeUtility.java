@@ -1,16 +1,22 @@
-package Utility;
+package Oak.utility;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The type Date time utility.
+ */
 public class DateTimeUtility {
-    // TODO: Add utility to work with the tasklist.txt
+    /**
+     * Parse string to local datetime local date time.
+     *
+     * @param rawDateTime the raw datetime
+     * @return the local datetime
+     */
     public static LocalDateTime parseStringToLocalDateTime(String rawDateTime) {
-        // FIX: How do we separate the formats of the tasklist better?
         try {
             return LocalDateTime.parse(rawDateTime);
         }
@@ -24,6 +30,12 @@ public class DateTimeUtility {
         return LocalDateTime.of(date, time);
     }
 
+    /**
+     * Parse local datetime to string
+     *
+     * @param dateTime the datetime
+     * @return the parsed local datetime string
+     */
     public static String parseLocalDateTimeToString(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy @ HHmm");
 

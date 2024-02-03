@@ -1,11 +1,14 @@
-package model;
+package Oak.task.model;
 
-import Utility.DateTimeUtility;
+import Oak.utility.DateTimeUtility;
 
 import java.time.LocalDateTime;
 
+
 public class Deadline extends Task {
+    /** The icon this task is represented by */
     public static String typeIcon = "D";
+    /** The datetime the task has to be completed by */
     private LocalDateTime byDateTime;
 
     public Deadline(String name, String byDateTime) {

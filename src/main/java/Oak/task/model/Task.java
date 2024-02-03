@@ -1,17 +1,25 @@
-package model;
+package Oak.task.model;
 
 public class Task {
-    public Boolean isCompleted = false; // Default value = false
+    /** Whether the task has been completed, Default value = false */
+    public Boolean isCompleted = false;
+    /** The name of the task */
     public String name;
 
     public Task(String name) {
         this.name = name;
     }
 
+    /**
+     * Mark task completed.
+     */
     public void markTaskCompleted() {
         this.isCompleted = true;
     }
 
+    /**
+     * Mark task not completed.
+     */
     public void markTaskNotCompleted() {
         this.isCompleted = false;
     }
@@ -27,6 +35,11 @@ public class Task {
         return null;
     };
 
+    /**
+     * Converts the current task to a string format to be saved in the task list
+     *
+     * @return the formatted string
+     */
     public String toTaskListStringFormat() {
         String completedValue = this.isCompleted ? "1" : "0";
         return String.format("%s|%s", completedValue, this.name);
