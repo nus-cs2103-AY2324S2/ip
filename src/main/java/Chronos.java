@@ -13,6 +13,8 @@ import task.Todo;
 import task.Deadline;
 import task.Event;
 
+import exception.ChronosException;
+
 /**
  * Represents the main class of the Chronos Task Management System.
  */
@@ -199,12 +201,24 @@ public class Chronos {
         return LocalDateTime.parse(combinedDateTime).format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"));
     }
 
+    public static void printNumberFormatException() {
+        System.out.println(DIVIDER);
+        System.out.println("        Task number is not an integer. Please include a valid task number.");
+        System.out.println(DIVIDER);
+    }
+
+    public static void printIndexOutOfBoundsException() {
+        System.out.println(DIVIDER);
+        System.out.println("        Task number out of range. Please include a valid task number.");
+        System.out.println(DIVIDER);
+    }
+
     /**
      * Initialises text file to store task list and processes user commands.
      *
      * @throws @IOException If directory or file is not found.
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ChronosException {
         String dirName = "data";
         Path dirPath = Paths.get(dirName);
         if (!Files.exists(dirPath)) {
@@ -228,84 +242,93 @@ public class Chronos {
             } else {
                 switch(token[0]) {
                     case "list":
-                        if (token.length != 1) {
-                            System.out.println(DIVIDER);
-                            System.out.println("        Invalid command. To print the list of tasks, please use list only.");
-                            System.out.println(DIVIDER);
-                        } else if (tasks.isEmpty()) {
-                            Chronos.printHelp();
-                        } else {
-                            Chronos.printTasks();
+                        try {
+                            if (token.length != 1) {
+                                throw ChronosException.createInvalidListException();
+                            } else if (tasks.isEmpty()) {
+                                Chronos.printHelp();
+                            } else {
+                                Chronos.printTasks();
+                            }
+                        } catch (exception.InvalidListException e){
+                            System.out.println(e.getMessage());
                         }
                         break;
                     case "mark":
-                        if (token.length != 2 || token[1].trim().isEmpty()) {
-                            System.out.println(DIVIDER);
-                            System.out.println("        Missing task number. Please include the task number to be marked.");
-                            System.out.println(DIVIDER);
-                        } else {
-                            try {
-                                int i = Integer.parseInt(token[1]);
-                                Chronos.markTask(i);
-                                Chronos.saveTasks(fw);
-                            } catch (NumberFormatException e) {
-                                System.out.println(DIVIDER);
-                                System.out.println("        Task number is not an integer. Please include a valid task number.");
-                                System.out.println(DIVIDER);
-                            } catch (IndexOutOfBoundsException e) {
-                                System.out.println(DIVIDER);
-                                System.out.println("        Task number out of range. Please include a valid task number.");
-                                System.out.println(DIVIDER);
+                        try {
+                            if (token.length != 2 || token[1].trim().isEmpty()) {
+                                throw ChronosException.createMissingTaskNumberException();
+                            } else {
+                                try {
+                                    int i = Integer.parseInt(token[1]);
+                                    Chronos.markTask(i);
+                                    Chronos.saveTasks(fw);
+                                } catch (NumberFormatException e) {
+                                    Chronos.printNumberFormatException();
+                                } catch (IndexOutOfBoundsException e) {
+                                    Chronos.printIndexOutOfBoundsException();
+                                }
                             }
+                        } catch (exception.MissingTaskNumberException e) {
+                            System.out.println(e.getMessage());
                         }
                         break;
                     case "unmark":
-                        if (token.length != 2 || token[1].trim().isEmpty()) {
-                            System.out.println(DIVIDER);
-                            System.out.println("        Missing task number. Please include the task number to be unmarked.");
-                            System.out.println(DIVIDER);
-                        } else {
-                            try {
-                                int i = Integer.parseInt(token[1]);
-                                Chronos.unMarkTask(i);
-                                Chronos.saveTasks(fw);
-                            } catch (NumberFormatException e) {
-                                System.out.println(DIVIDER);
-                                System.out.println("        Task number is not an integer. Please include a valid task number.");
-                                System.out.println(DIVIDER);
-                            } catch (IndexOutOfBoundsException e) {
-                                System.out.println(DIVIDER);
-                                System.out.println("        Task number out of range. Please include a valid task number.");
-                                System.out.println(DIVIDER);
+                        try {
+                            if (token.length != 2 || token[1].trim().isEmpty()) {
+                                throw ChronosException.createMissingTaskNumberException();
+                            } else {
+                                try {
+                                    int i = Integer.parseInt(token[1]);
+                                    Chronos.unMarkTask(i);
+                                    Chronos.saveTasks(fw);
+                                } catch (NumberFormatException e) {
+                                    Chronos.printNumberFormatException();
+                                } catch (IndexOutOfBoundsException e) {
+                                    Chronos.printIndexOutOfBoundsException();
+                                }
                             }
+                        } catch (exception.MissingTaskNumberException e) {
+                            System.out.println(e.getMessage());
                         }
                         break;
                     case "todo":
-                        if (token.length != 2 || token[1].trim().isEmpty()) {
-                            System.out.println(DIVIDER);
-                            System.out.println("        Missing description. Please include a description of your todo.");
-                            System.out.println(DIVIDER);
-                        } else {
-                            String description = token[1];
-                            Chronos.addToDo(description);
-                            Chronos.saveTasks(fw);
+                        try {
+                            if (token.length != 2 || token[1].trim().isEmpty()) {
+                                throw ChronosException.createMissingDescriptionException();
+                            } else {
+                                String description = token[1];
+                                Chronos.addToDo(description);
+                                Chronos.saveTasks(fw);
+                            }
+                        } catch (exception.MissingDescriptionException e) {
+                            System.out.println(e.getMessage());
                         }
                         break;
                     case "deadline":
                         try {
+                            if (!token[1].contains("/by")) {
+                                throw ChronosException.createInvalidDeadlineException();
+                            }
                             String[] descriptionAndBy = token[1].split("/by");
                             String description = descriptionAndBy[0].trim();
                             String dueDate = Chronos.formatDateTime(descriptionAndBy[1].trim());
                             Chronos.addDeadline(description, dueDate);
                             Chronos.saveTasks(fw);
+                        } catch (exception.InvalidDeadlineException e) {
+                            System.out.println(e.getMessage());
                         } catch (Exception e) {
                             System.out.println(DIVIDER);
                             System.out.println("        Invalid command. Please include a task name and a valid due date following the syntax of the example below:");
                             System.out.println("        e.g. deadline return library book /by 2024-09-22 15:00");
+                            System.out.println(DIVIDER);
                         }
                         break;
                     case "event":
                         try {
+                            if (!token[1].contains("/from") && !token[1].contains("/to")) {
+                                throw ChronosException.createInvalidEventException();
+                            }
                             String[] descriptionAndDate = token[1].split("/from");
                             String description = descriptionAndDate[0].trim();
                             String[] fromAndTo = descriptionAndDate[1].split("/to");
@@ -313,6 +336,8 @@ public class Chronos {
                             String toDateAndTime = Chronos.formatDateTime(fromAndTo[1].trim());
                             Chronos.addEvent(description, fromDateAndTime, toDateAndTime);
                             Chronos.saveTasks(fw);
+                        } catch (exception.InvalidEventException e) {
+                            System.out.println(e.getMessage());
                         } catch (Exception e) {
                             System.out.println(DIVIDER);
                             System.out.println("        Invalid command. Please include a task name and a valid due date following the syntax of the example below:");
@@ -321,30 +346,31 @@ public class Chronos {
                         }
                         break;
                     case "delete":
-                        if (token.length != 2 || token[1].trim().isEmpty()) {
-                            System.out.println(DIVIDER);
-                            System.out.println("        Missing task number. Please include the task number to be deleted.");
-                            System.out.println(DIVIDER);
-                        } else {
-                            try {
-                                int i = Integer.parseInt(token[1]);
-                                Chronos.deleteTask(i);
-                                Chronos.saveTasks(fw);
-                            } catch (NumberFormatException e) {
-                                System.out.println(DIVIDER);
-                                System.out.println("        Task number is not an integer. Please include a valid task number.");
-                                System.out.println(DIVIDER);
-                            } catch (IndexOutOfBoundsException e) {
-                                System.out.println(DIVIDER);
-                                System.out.println("        Task number out of range. Please include a valid task number.");
-                                System.out.println(DIVIDER);
+                        try {
+                            if (token.length != 2 || token[1].trim().isEmpty()) {
+                                throw ChronosException.createMissingTaskNumberException();
+                            } else {
+                                try {
+                                    int i = Integer.parseInt(token[1]);
+                                    Chronos.deleteTask(i);
+                                    Chronos.saveTasks(fw);
+                                } catch (NumberFormatException e) {
+                                    Chronos.printNumberFormatException();
+                                } catch (IndexOutOfBoundsException e) {
+                                    Chronos.printIndexOutOfBoundsException();
+                                }
                             }
+                        } catch (exception.MissingTaskNumberException e) {
+                            System.out.println(e.getMessage());
                         }
+
                         break;
                     default:
-                        System.out.println(DIVIDER);
-                        System.out.println("        Invalid command. Please try again.");
-                        System.out.println(DIVIDER);
+                        try {
+                            throw ChronosException.createInvalidCommandException();
+                        } catch (exception.InvalidCommandException e) {
+                            System.out.println(e.getMessage());
+                        }
                         break;
                 }
             }
