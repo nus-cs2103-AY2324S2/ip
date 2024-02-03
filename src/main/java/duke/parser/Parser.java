@@ -20,16 +20,38 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Todo;
 
+/**
+ * Parses user input into commands for the Duke application.
+ * This class provides static methods to interpret strings of user input
+ * and convert them into executable Command objects.
+ */
 public class Parser {
 
+    /**
+     * Parses the "list" command.
+     *
+     * @return A CommandList instance.
+     */
     private static Command parseCommandList() {
         return new CommandList();
     }
 
+    /**
+     * Parses the "bye" command.
+     *
+     * @return A CommandBye instance.
+     */
     private static Command parseCommandBye() {
         return new CommandBye();
     }
 
+    /**
+     * Parses the "mark" command and its arguments.
+     *
+     * @param args The arguments passed with the command.
+     * @return A CommandMark instance with the specified task index.
+     * @throws DukeException If the argument is missing or not an integer.
+     */
     private static Command parseCommandMark(String[] args) throws DukeException {
         try {
             if (args.length < 2) {
@@ -46,6 +68,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the "unmark" command and its arguments.
+     *
+     * @param args The arguments passed with the command.
+     * @return A CommandUnmark instance with the specified task index.
+     * @throws DukeException If the argument is missing or not an integer.
+     */
     private static Command parseCommandUnmark(String[] args) throws DukeException {
         try {
             if (args.length < 2) {
@@ -62,6 +91,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the "todo" command and its arguments.
+     *
+     * @param args The arguments passed with the command.
+     * @return A CommandTodo instance with the specified description.
+     * @throws DukeException If the task description is missing.
+     */
     private static Command parseCommandTodo(String[] args) throws DukeException {
         if (args.length < 2) {
             throw new InvalidArgumentException("task description", "is missing");
@@ -74,6 +110,7 @@ public class Parser {
 
         return new CommandTodo(todo);
     }
+
 
     private static Deadline getDeadline(int byIndex, String argsStr, String byDelim) throws DukeException {
         if (byIndex == -1) {
@@ -90,10 +127,16 @@ public class Parser {
             throw new InvalidArgumentException("/by", "is not a valid date", dateTimeParseException.getMessage());
         }
 
-        Deadline deadline = new Deadline(description, by);
-        return deadline;
+        return new Deadline(description, by);
     }
 
+    /**
+     * Parses the "deadline" command and its arguments.
+     *
+     * @param args The arguments passed with the command.
+     * @return A CommandDeadline instance with the specified task.
+     * @throws DukeException If the task description or deadline is missing or invalid.
+     */
     private static Command parseCommandDeadline(String[] args) throws DukeException {
         if (args.length < 3) {
             throw new InvalidArgumentException("task description, /by", "are missing");
@@ -122,10 +165,16 @@ public class Parser {
             throw new InvalidArgumentException("/to", "is not a valid date", dateTimeParseException.getMessage());
         }
 
-        Event event = new Event(description, from, to);
-        return event;
+        return new Event(description, from, to);
     }
 
+    /**
+     * Parses the "event" command and its arguments.
+     *
+     * @param args The arguments passed with the command.
+     * @return A CommandEvent instance with the specified task.
+     * @throws DukeException If the task description, start time, or end time is missing or invalid.
+     */
     private static Command parseCommandEvent(String[] args) throws DukeException {
         if (args.length < 4) {
             throw new InvalidArgumentException("task description, /from, /to", "are missing");
@@ -160,6 +209,13 @@ public class Parser {
         return new CommandEvent(event);
     }
 
+    /**
+     * Parses the "delete" command and its arguments.
+     *
+     * @param args The arguments passed with the command.
+     * @return A CommandDelete instance with the specified task index.
+     * @throws DukeException If the argument is missing or not an integer.
+     */
     private static Command parseCommandDelete(String[] args) throws DukeException {
         try {
             if (args.length < 2) {
@@ -176,10 +232,22 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses an unknown command.
+     *
+     * @return A CommandUnknown instance.
+     */
     private static Command parseCommandUnknown() {
         return new CommandUnknown();
     }
 
+    /**
+     * Parses the full command input by the user into a Command object.
+     *
+     * @param fullCommand The full line of input from the user.
+     * @return A Command object representing the user's intent.
+     * @throws DukeException If the input does not conform to the expected format for known commands.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         fullCommand = fullCommand.strip();
 

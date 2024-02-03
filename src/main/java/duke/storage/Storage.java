@@ -16,27 +16,38 @@ import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.tasks.Todo;
 
+/**
+ * Handles loading and saving tasks to and from a file.
+ * This class provides functionality to read tasks from a file upon starting the application
+ * and to save tasks into the file upon exiting.
+ */
 public class Storage {
     private final Path filePath;
     private final String argDelimiter;
 
+    /**
+     * Constructs a Storage object with a specified file path and argument delimiter.
+     *
+     * @param filePath The file path where tasks are stored.
+     * @param argDelimiter The delimiter used to separate task attributes in the file.
+     */
     public Storage(Path filePath, String argDelimiter) {
         this.filePath = filePath;
         this.argDelimiter = argDelimiter;
     }
 
+    /**
+     * Ensures the file for storing tasks exists. If it does not, attempts to create it.
+     *
+     * @throws DukeException If creating the file or directories fails.
+     */
     private void createFileIfDontExist() throws DukeException {
         try {
-            // Create duke.tasks file if it doesn't exist
             if (!Files.exists(this.filePath)) {
                 Path parentDir = this.filePath.getParent();
-
-                // Create parent directory if it doesn't exist
                 if (!Files.exists(parentDir)) {
                     Files.createDirectories(parentDir);
                 }
-
-                // Create duke.tasks file
                 Files.createFile(this.filePath);
             }
         } catch (IOException ioException) {
@@ -44,82 +55,92 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses task arguments into a Task object.
+     *
+     * @param taskArgs The array of strings representing task arguments.
+     * @return A Task object if parsing is successful, null otherwise.
+     */
+    private Task parseTask(String[] taskArgs) throws Exception {
+        String taskType = taskArgs[0];
+        Task task = null;
+        String description;
+        boolean isDone;
+
+        switch (taskType) {
+        case "deadline":
+            description = taskArgs[1];
+            LocalDate by = LocalDate.parse(taskArgs[2]);
+            isDone = taskArgs[3].equals("1");
+            task = new Deadline(description, isDone, by);
+            break;
+        case "event":
+            description = taskArgs[1];
+            LocalDate from = LocalDate.parse(taskArgs[2]);
+            LocalDate to = LocalDate.parse(taskArgs[3]);
+            isDone = taskArgs[4].equals("1");
+            task = new Event(description, isDone, from, to);
+            break;
+        case "todo":
+            description = taskArgs[1];
+            isDone = taskArgs[2].equals("1");
+            task = new Todo(description, isDone);
+            break;
+        default:
+            break;
+        }
+
+        return task;
+    }
+
+    /**
+     * Reads tasks from the file and constructs a list of tasks from it.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws DukeException If reading from the file fails or the file format is incorrect.
+     */
     private ArrayList<Task> readTasks() throws DukeException {
         try {
             ArrayList<Task> tasks = new ArrayList<>();
-
             String fileContent = Files.readString(this.filePath);
             String[] fileContentSplit = fileContent.split("\n");
 
             for (String taskArgsStr : fileContentSplit) {
                 String[] taskArgs = taskArgsStr.split(this.argDelimiter);
-                String taskType = taskArgs[0];
-
-                Task task;
-                String description;
-                String isDoneStr;
-                boolean isDone;
-
-                switch (taskType) {
-                case "deadline": {
-                    description = taskArgs[1];
-                    String byStr = taskArgs[2];
-                    LocalDate by = LocalDate.parse(byStr);
-                    isDoneStr = taskArgs[3];
-                    isDone = isDoneStr.equals("1");
-
-                    task = new Deadline(description, isDone, by);
-                    break;
+                Task task = parseTask(taskArgs);
+                if (task != null) {
+                    tasks.add(task);
                 }
-                case "event": {
-                    description = taskArgs[1];
-                    String fromStr = taskArgs[2];
-                    String toStr = taskArgs[3];
-                    LocalDate from = LocalDate.parse(fromStr);
-                    LocalDate to = LocalDate.parse(toStr);
-                    isDoneStr = taskArgs[4];
-                    isDone = isDoneStr.equals("1");
-
-                    task = new Event(description, isDone, from, to);
-                    break;
-                }
-                case "todo": {
-                    description = taskArgs[1];
-                    isDoneStr = taskArgs[2];
-                    isDone = isDoneStr.equals("1");
-
-                    task = new Todo(description, isDone);
-                    break;
-                }
-                default:
-                    continue;
-                }
-
-                tasks.add(task);
             }
-
             return tasks;
-        } catch (IOException ioException) {
-            throw new LoadTasksFailedException(ioException);
+        } catch (Exception exception) {
+            throw new LoadTasksFailedException(exception);
         }
     }
 
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws DukeException If the file does not exist and cannot be created, or if tasks cannot be loaded.
+     */
     public ArrayList<Task> loadTasks() throws DukeException {
         this.createFileIfDontExist();
         return this.readTasks();
     }
 
+    /**
+     * Saves the current list of tasks to the file.
+     *
+     * @param tasks The TaskList containing tasks to be saved.
+     * @throws DukeException If saving the tasks to the file fails.
+     */
     public void saveTasks(TaskList tasks) throws DukeException {
         try {
             ArrayList<String> tasksData = new ArrayList<>();
-
-            Files.writeString(this.filePath, "");
-
             for (int i = 0; i < tasks.size(); i++) {
-                Task task = tasks.get(i);
-                tasksData.add(task.serialize());
+                tasksData.add(tasks.get(i).serialize());
             }
-
             Files.writeString(this.filePath, String.join("\n", tasksData));
         } catch (IOException ioException) {
             throw new SaveTasksFailedException(ioException);
