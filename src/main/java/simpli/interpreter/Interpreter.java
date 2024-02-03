@@ -1,24 +1,25 @@
 package simpli.interpreter;
 
+import simpli.TaskManager;
+import simpli.Ui;
 import simpli.actions.Action;
-import simpli.core.Simpli;
 import simpli.exceptions.ActionException;
-import simpli.exceptions.TaskException;
+import simpli.tasks.Task;
 
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public class Interpreter {
-    private final Simpli app;
+    private Ui ui;
+    private TaskManager taskManager;
 
-    public Interpreter(Simpli app) {
-        this.app = app;
+    public Interpreter(Ui ui, TaskManager taskManager) {
+        this.ui = ui;
+        this.taskManager = taskManager;
     }
 
     public void interpret(String[] tokens) throws ActionException {
-        Simpli app = this.app;
-
         // interpret the string date and time as LocalDateTime object
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         LocalDateTime[] dates = new LocalDateTime[tokens.length];
@@ -30,34 +31,57 @@ public class Interpreter {
             dates[i - 3] = LocalDateTime.parse(tokens[i], formatter);
         }
 
+        // interpreting different action types
         Action actionType = Action.valueOf(tokens[0].toUpperCase());
         switch (actionType) {
         case Action.LIST:  // list stored tasks
-            app.list();
+            ui.display(taskManager.toString());
             break;
         case Action.MARK: {  // mark task as done
-            app.mark(Integer.parseInt(tokens[2]));
+            int taskNum = Integer.parseInt(tokens[2]);
+            taskManager.mark(taskNum);
+            ui.display("Nice! I've marked this task as done:\n\t" +
+                    taskManager.getTask(taskNum));
             break;
         }
         case Action.UNMARK: {  // mark task as undone
-            app.unmark(Integer.parseInt(tokens[2]));
+            int taskNum = Integer.parseInt(tokens[2]);
+            taskManager.unmark(taskNum);
+            ui.display("OK, I've marked this task as not done yet:\n\t" +
+                    taskManager.getTask(taskNum));
             break;
         }
         case Action.DELETE: {  // delete task
-            app.deleteTask(Integer.parseInt(tokens[2]));
+            int taskNum = Integer.parseInt(tokens[2]);
+            Task removedTask = taskManager.deleteTask(taskNum);
+            ui.display("Noted. I've removed this task:\n" +
+                    removedTask + "\n" +
+                    "Now you have " + taskManager.size() + " task(s) in the list.");
             break;
         }
         case Action.TODO: {  // creates todo task
-            app.addTodo(tokens);
+            Task addedTask = taskManager.addTodo(tokens);
+            ui.display("Got it. I've added this task:\n\t" +
+                    addedTask + "\n" +
+                    "Now you have " + taskManager.size() + " task(s) in the list.");
             break;
         }
         case Action.DEADLINE: {  // creates deadline task
-            app.addDeadline(tokens, dates);
+            Task addedTask = taskManager.addDeadline(tokens, dates);
+            ui.display("Got it. I've added this task:\n\t" +
+                    addedTask + "\n" +
+                    "Now you have " + taskManager.size() + " task(s) in the list.");
             break;
         }
         case Action.EVENT: {  // creates event task
-            app.addEvent(tokens, dates);
+            Task addedTask = taskManager.addEvent(tokens, dates);
+            ui.display("Got it. I've added this task:\n\t" +
+                    addedTask + "\n" +
+                    "Now you have " + taskManager.size() + " task(s) in the list.");
             break;
+        }
+        default: {
+            throw new ActionException();
         }
         }
     }

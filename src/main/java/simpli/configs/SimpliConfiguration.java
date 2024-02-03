@@ -7,6 +7,8 @@ public final class SimpliConfiguration {
             \t\t%s
             \t------------------------------------------------------------""";
 
+    public static final String DATAPATH = "./data/simpli.csv";
+
     private SimpliConfiguration() {
     }
 }
