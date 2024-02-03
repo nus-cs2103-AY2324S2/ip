@@ -11,8 +11,11 @@ public class TaskList {
     }
 
     public void addTask(Task task) {
-        tasks.add(task);
+        if (task != null) {
+            tasks.add(task);
+        }
     }
+
 
     public void deleteTask(int taskNumber) throws Exception {
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
