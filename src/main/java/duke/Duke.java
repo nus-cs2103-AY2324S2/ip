@@ -38,6 +38,7 @@ public class Duke {
      *
      * @param args Command line arguments (not used).
      * @throws IOException If an I/O error occurs.
+     * @throws DukeException If an error occurs while loading the task list.
      */
     public static void main(String[] args) throws IOException, DukeException {
         try {
@@ -63,8 +64,17 @@ public class Duke {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Processes the given input and returns a response.
+     * <p>
+     * This method handles user input and performs actions based on the input. If the input is "bye",
+     * it attempts to save the current list of tasks to storage and then exits the platform. For other inputs,
+     * it processes the input to generate a response. If an error occurs during saving or processing,
+     * an appropriate error message is returned.
+     *
+     * @param input The user input to be processed.
+     * @return A string representing the response to the input. This could be a confirmation message for actions
+     *         taken (e.g., saving data, adding a task), an error message if something goes wrong, or any other
+     *         response generated based on the user input.
      */
     public String getResponse(String input) {
         String response;

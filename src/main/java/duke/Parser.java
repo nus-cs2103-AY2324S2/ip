@@ -13,11 +13,22 @@ public class Parser {
 
     /**
      * Parses the user input for a "todo" command and adds a new Todo task to the task list.
-     * It throws an exception if the input does not contain a description for the todo.
+     * This method expects the input to follow the format "todo [description]" where [description]
+     * is the task's description. It throws an exception if the input does not contain a description
+     * for the todo after the command keyword.
      *
-     * @param list The TaskList to which the new todo task is added.
-     * @param message The user input string.
-     * @throws DukeException If the todo description is empty.
+     * @param list The TaskList to which the new todo task is added. This list is modified by adding a
+     *             new Todo task with the provided description.
+     *
+     * @param message The user input string, expected to start with "todo" followed by the task's description.
+     *                The method parses this input to extract and add the task.
+     *
+     * @return A string response indicating that the new Todo task has been added to the list,
+     *                including a summary of the task and the total number of tasks in the list.
+     *
+     * @throws DukeException If the input string does not contain a description for the todo or
+     *                       if the description is empty. The exception message provides feedback
+     *                       to the user about the missing description.
      */
     public static String handleTodo(TaskList list, String message) throws DukeException {
         if (message.trim().equals("todo")) {
@@ -32,14 +43,17 @@ public class Parser {
         return response;
     }
 
-
     /**
-     * Parses and handles the "deadline" command.
-     * Adds a deadline task to the task list with a specified due date.
+     * Parses the user input for a "deadline" command, creating and adding a new Deadline task to the task list.
+     * The command should follow the format "deadline [description] /by [date]" where [date]
+     * is in the "yyyy-MM-dd" format.
+     * Throws an exception if the command syntax is incorrect or the date format does not match the expected pattern.
      *
-     * @param list The task list to add the deadline to.
-     * @param message The user input string.
-     * @throws DukeException If the deadline or its date/time format is incorrect.
+     * @param list The task list to which the new Deadline task will be added.
+     * @param message The user input containing the command and its arguments.
+     * @return A string response indicating the successful addition of the Deadline task to the list,
+     *         along with a count of the total tasks now present.
+     * @throws DukeException If the deadline date/time is missing, or the date format is incorrect.
      */
     public static String handleDeadline(TaskList list, String message) throws DukeException {
         String[] parts = message.split("/by", 2);
@@ -66,12 +80,17 @@ public class Parser {
     }
 
     /**
-     * Parses and handles the "event" command.
-     * Adds an event task to the task list with specified start and end times.
+     * Parses the user input for an "event" command, creating and adding a new Event task to the task
+     * list with specified start and end times.
+     * The command should follow the format "event [description] /from [start time] /to [end time]"
+     * where the time is in the "yyyy-MM-dd HH:mm" format.
+     * Throws an exception if the command syntax is incorrect or the time format does not match the expected pattern.
      *
-     * @param list The task list to add the event to.
-     * @param message The user input string.
-     * @throws DukeException If the event time is missing or the date/time format is incorrect.
+     * @param list The task list to which the new Event task will be added.
+     * @param message The user input containing the command and its arguments.
+     * @return A string response indicating the successful addition of the Event task to the list,
+     *         along with a count of the total tasks now present.
+     * @throws DukeException If the event time is missing, incomplete, or incorrectly formatted.
      */
     public static String handleEvent(TaskList list, String message) throws DukeException {
         String[] parts = message.split(" /from ", 2);
@@ -100,10 +119,11 @@ public class Parser {
     }
 
     /**
-     * Handles the "list" command.
-     * Displays all tasks in the task list.
+     * Generates a string representation of all tasks currently in the task list.
+     * This method is used to handle the "list" command, displaying each task with its index.
      *
-     * @param list The task list to display.
+     * @param list The task list to be displayed.
+     * @return A string listing all tasks in the task list, each prefixed by its index number.
      */
     public static String handleList(TaskList list) {
         StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
@@ -114,11 +134,12 @@ public class Parser {
     }
 
     /**
-     * Parses and handles the "mark" command.
-     * Marks a task as done based on the specified task number.
+     * Marks a specified task in the task list as done. The task to be marked is specified by an index number
+     * following the "mark" command. Throws an exception if the index is missing or invalid.
      *
-     * @param list The task list containing the task to be marked.
-     * @param message The user input string.
+     * @param list The task list containing the task to mark.
+     * @param message The user input containing the command and the index of the task to be marked.
+     * @return A string response indicating the task has been successfully marked as done.
      * @throws DukeException If the task number is missing or invalid.
      */
     public static String handleMark(TaskList list, String message) throws DukeException {
@@ -136,11 +157,12 @@ public class Parser {
     }
 
     /**
-     * Parses and handles the "unmark" command.
-     * Marks a task as not done based on the specified task number.
+     * Marks a specified task in the task list as not done. The task to be unmarked is specified by an index number
+     * following the "unmark" command. Throws an exception if the index is missing or invalid.
      *
-     * @param list The task list containing the task to be unmarked.
-     * @param message The user input string.
+     * @param list The task list containing the task to unmark.
+     * @param message The user input containing the command and the index of the task to be unmarked.
+     * @return A string response indicating the task has been successfully marked as not done.
      * @throws DukeException If the task number is missing or invalid.
      */
     public static String handleUnmark(TaskList list, String message) throws DukeException {
@@ -158,11 +180,12 @@ public class Parser {
     }
 
     /**
-     * Parses and handles the "delete" command.
-     * Deletes a task from the task list based on the specified task number.
+     * Deletes a specified task from the task list. The task to be deleted is specified by an index number
+     * following the "delete" command. Throws an exception if the index is missing or invalid.
      *
-     * @param list The task list from which to delete the task.
-     * @param message The user input string.
+     * @param list The task list from which the task will be deleted.
+     * @param message The user input containing the command and the index of the task to be deleted.
+     * @return A string response indicating the task has been successfully deleted from the list.
      * @throws DukeException If the task number is missing or invalid.
      */
     public static String deleteTask(TaskList list, String message) throws DukeException {
@@ -180,11 +203,12 @@ public class Parser {
     }
 
     /**
-     * Parses and handles the "find" command.
-     * Finds all tasks in the task list that contain the specified keyword.
+     * Finds and lists all tasks in the task list that contain the specified keyword. The keyword follows
+     * the "find" command. Throws an exception if the keyword is missing.
      *
      * @param list The task list to search for matching tasks.
-     * @param message The user input string.
+     * @param message The user input containing the command and the keyword for the search.
+     * @return A string listing all tasks that match the keyword, each prefixed by its index number.
      * @throws DukeException If the keyword is missing.
      */
     public static String findTask(TaskList list, String message) throws DukeException {

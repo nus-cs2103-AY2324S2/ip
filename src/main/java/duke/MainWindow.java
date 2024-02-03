@@ -25,9 +25,19 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpeg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaBot.jpeg"));
 
+    /**
+     * Initializes the controller class.
+     * <p>
+     * This method is automatically called after the FXML file has been loaded. It binds the vertical scroll
+     * position of the scroll pane to the height of the dialog container and adds a welcome dialog box to the
+     * dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(Ui.showWelcome(), dukeImage)
+        );
     }
 
     public void setDuke(Duke d) {
