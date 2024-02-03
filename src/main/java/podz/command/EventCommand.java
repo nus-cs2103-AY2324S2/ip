@@ -1,3 +1,8 @@
+package podz.command;
+
+import podz.task.Event;
+import podz.ui.Ui;
+
 public class EventCommand extends Command {
     private Event event;
 

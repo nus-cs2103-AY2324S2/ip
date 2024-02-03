@@ -1,3 +1,7 @@
+package podz.command;
+
+import podz.ui.Ui;
+
 public class IncorrectCommand extends Command {
     private Exception e;
 

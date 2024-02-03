@@ -1,3 +1,4 @@
+package podz.storage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -5,6 +6,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import podz.task.Deadline;
+import podz.task.Event;
+import podz.task.Task;
+import podz.task.Todo;
 
 public class Storage {
     private static String FILE_PATH;
@@ -51,7 +57,7 @@ public class Storage {
                         deadline.mark();
                     }
                     taskAL.add(deadline);
-                } else {
+                } else if (taskInfo[0].equals("E")) {
                     Event event = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
                     if (Integer.parseInt(taskInfo[1]) == 1) {
                         event.mark();

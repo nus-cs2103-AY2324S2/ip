@@ -1,3 +1,8 @@
+package podz.command;
+
+import podz.task.TaskList;
+import podz.ui.Ui;
+
 public abstract class Command {
     protected TaskList taskList;
 

@@ -1,3 +1,0 @@
-T | 0 | read book
-D | 0 | return book | 2024-01-05 1800
-T | 0 | food

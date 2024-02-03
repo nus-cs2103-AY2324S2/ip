@@ -1,3 +1,8 @@
+package podz.command;
+
+import podz.task.Deadline;
+import podz.ui.Ui;
+
 public class DeadlineCommand extends Command {
     private Deadline deadline;
 

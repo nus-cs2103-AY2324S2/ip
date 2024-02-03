@@ -1,4 +1,7 @@
+package podz.ui;
 import java.util.Scanner;
+
+import podz.task.Task;
 
 public class Ui {
     private static final String DIV = "____________________________________________________________";
@@ -14,7 +17,7 @@ public class Ui {
 
     public void printGreeting() {
         printDiv();
-        System.out.println("\tHello! I'm Puffin.");
+        System.out.println("\tHello! I'm Podz.");
         System.out.println("\tWhat can I do for you?");
         printDiv();
     }
