@@ -48,7 +48,7 @@ public class Numerator {
     }
 
     public String getResponse(String response) {
-        return "test response";
+        return "TODO to be implemented";
     }
 
     /**
@@ -63,10 +63,10 @@ public class Numerator {
             try {
                 input = sc.nextLine();
                 Ui.printLine();
-                boolean exit = Parser.parseArguments(input, taskList, storage);
+                boolean isExiting = Parser.parseArguments(input, taskList, storage);
                 storage.save(taskList);
 
-                if (exit) {
+                if (isExiting) {
                     Ui.printExit();
                     break;
                 }
