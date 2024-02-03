@@ -41,7 +41,7 @@ public class Ui {
                 "              <date> should be in the format YYYY-MM-DD. \n" +
                 "event    -  create a task of type event    \n" +
                 "               usage: event <details> /from <start_time YYYY-MM-DD> /to <end_time YYYY-MM-DD>\n" +
-                "save     -  save tasks to persistent storage" +
+                "save     -  save tasks to persistent storage\n" +
                 "bye      -  exit");
 
     }
