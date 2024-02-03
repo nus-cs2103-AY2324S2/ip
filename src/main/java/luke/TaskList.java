@@ -47,6 +47,30 @@ public class TaskList {
     }
 
     /**
+     * Looks for a specified task in the tasklist using the given keyword.
+     * Prints them out, as well as their position in the list (index + 1), if any are found.
+     *
+     * @param keyword The keyword to search for a task.
+     */
+    public void findTask(String keyword) {
+        int num = 1;
+        boolean found = false;
+        System.out.println("Here... here you go!!!");
+        for (Task task : tasks) {
+            String taskName = task.getName();
+            if (taskName.contains(keyword)) {
+                found = true;
+                System.out.println(num + ". " + task.fullStatus());
+            }
+            num += 1;
+        }
+        if (!found) {
+            System.out.println("[Nothing was found, however.]");
+        }
+        System.out.println();
+    }
+
+    /**
      * Prints a list of all current tasks and their statuses.
      */
     public void listTasks() {
