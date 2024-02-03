@@ -19,7 +19,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, String userInput) throws DukeException {
         int taskIndex = Parser.extractTaskIndex(userInput);
-        Task task = taskList.markTaskAsDone(taskIndex); // Use duke.task.TaskList to mark task as done
+        Task task = taskList.markTaskAsDone(taskIndex);
         if (task != null) {
             ui.showTaskDone(task);
         } else {
