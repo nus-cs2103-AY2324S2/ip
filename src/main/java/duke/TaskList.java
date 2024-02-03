@@ -203,6 +203,11 @@ public class TaskList {
         return l.get(i);
     }
 
+    /**
+     * Finds tasks that contain the given keyword in their description.
+     *
+     * @param user_keyword The keyword to search for in the task descriptions.
+     */
     public void findTask(String user_keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (int i = 0; i < l.size(); i++) {
@@ -214,14 +219,19 @@ public class TaskList {
         displayMatchingTasks(matchingTasks);
     }
 
-    private void displayMatchingTasks(List<Task> matchingTasks) {
-        if (matchingTasks.isEmpty()) {
+    /**
+     * Displays the tasks that match the search criteria.
+     *
+     * @param task_match The list of tasks that match the search criteria.
+     */
+    private void displayMatchingTasks(List<Task> task_match) {
+        if (task_match.isEmpty()) {
             ui.showTask("No matching tasks found.");
         } else {
             ui.divider();
             System.out.println("Here are the matching tasks in your list:");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                ui.showTask((i + 1) + ". " + matchingTasks.get(i));
+            for (int i = 0; i < task_match.size(); i++) {
+                ui.showTask((i + 1) + ". " + task_match.get(i));
             }
             ui.divider();
         }
