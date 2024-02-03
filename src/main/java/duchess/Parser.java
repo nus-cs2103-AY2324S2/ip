@@ -5,8 +5,18 @@ import duchess.task.Event;
 import duchess.task.ToDo;
 import duchess.task.Deadline;
 
+/**
+ * Parser class provides methods to parse input strings into Task objects.
+ * It is responsible for parsing task information from file format strings.
+ */
 public class Parser {
-    // Method to parse task from a line read from file
+
+    /**
+     * Parses a task from a line read from a file.
+     * @param line the line read from the file
+     * @return the Task object parsed from the line
+     * @throws DuchessException if an error occurs during parsing
+     */
     public Task parseTaskFromFileString(String line) throws DuchessException {
         Task task = null;
         // Parse the line and create task objects accordingly

@@ -8,24 +8,37 @@ import duchess.task.ToDo;
 
 import java.util.ArrayList;
 
+/**
+ * TaskList class represents a list of tasks in the Duchess program.
+ * It provides methods to add, delete, and manipulate tasks in the list.
+ */
 public class TaskList {
     private static final int MAX_TASKS = 100;
     private ArrayList<Task> tasks;
     private int taskCount;
 
-    //Constructor for entirely new list
+    /**
+     * Constructs a TaskList object with an empty list of tasks.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
         this.taskCount = 0;
     }
 
-    //Constructor if storage already existed.
+    /**
+     * Constructs a TaskList object with the given list of tasks.
+     * @param tasks the list of tasks to initialize the TaskList with
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
         this.taskCount = this.tasks.size();
     }
 
-    //Add a duchess.task.ToDo to the task list
+    /**
+     * Adds a ToDo task to the task list.
+     * @param userInput the user input containing task details
+     * @throws DuchessException if an error occurs while adding the task
+     */
     public void addToDo(String userInput) throws DuchessException {
         String[] toDoTokens = userInput.split("todo"); //Split to find description
         if (toDoTokens.length > 1) {
@@ -37,7 +50,11 @@ public class TaskList {
         }
     }
 
-    //Add a duchess.task.Deadline to the taskList
+    /**
+     * Adds a Deadline task to the task list.
+     * @param userInput the user input containing task details
+     * @throws DuchessException if an error occurs while adding the task
+     */
     public void addDeadline(String userInput) throws DuchessException {
         String[] deadlineTokens = userInput.split("deadline");
 
@@ -58,7 +75,11 @@ public class TaskList {
         }
     }
 
-    //Add an duchess.task.Event to the task list
+    /**
+     * Adds an Event task to the task list.
+     * @param userInput the user input containing task details
+     * @throws DuchessException if an error occurs while adding the task
+     */
     public void addEvent(String userInput) throws DuchessException {
         String[] eventTokens = userInput.split("event");
 
@@ -81,6 +102,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints the task list.
+     */
     public void printTaskList() {
         //printHorizontalLine();
         if (this.taskCount == 0) {
@@ -94,7 +118,12 @@ public class TaskList {
         //printHorizontalLine();
     }
 
-    //Add a task to task list
+    /**
+     * Adds a task to the task list.
+     * @param task the task to be added
+     * @param taskType the type of the task (ToDo, Deadline, or Event)
+     * @throws DuchessException if an error occurs while adding the task
+     */
     private void addTask(Task task, TaskType taskType) throws DuchessException {
         if (this.taskCount < MAX_TASKS) {
             this.tasks.add(task);
@@ -110,6 +139,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the task list.
+     * @param taskIndex the index of the task to be deleted
+     * @throws DuchessException if the task index is invalid
+     */
     public void deleteTask(int taskIndex) throws DuchessException {
         if (isValidTaskIndex(taskIndex)) {
             Task deletedTask = this.tasks.remove(taskIndex);
@@ -125,7 +159,11 @@ public class TaskList {
         }
     }
 
-    // Mark a task as done
+    /**
+     * Marks a task as done.
+     * @param taskIndex the index of the task to be marked as done
+     * @throws DuchessException if the task index is invalid
+     */
     public void markTaskAsDone(int taskIndex) throws DuchessException {
         if (isValidTaskIndex(taskIndex)) {
             this.tasks.get(taskIndex).markAsDone();
@@ -138,7 +176,11 @@ public class TaskList {
         }
     }
 
-    // Unmark a task as done
+    /**
+     * Unmarks a task as done.
+     * @param taskIndex the index of the task to be unmarked
+     * @throws DuchessException if the task index is invalid
+     */
     public void unmarkTaskAsDone(int taskIndex) throws DuchessException {
         if (isValidTaskIndex(taskIndex)) {
             this.tasks.get(taskIndex).unmarkAsDone();
@@ -151,13 +193,19 @@ public class TaskList {
         }
     }
 
-    // Check if the task index is valid
+    /**
+     * Checks if the task index is valid.
+     * @param taskIndex the index of the task to be checked
+     * @return true if the task index is valid, false otherwise
+     */
     private boolean isValidTaskIndex(int taskIndex) {
         return taskIndex >= 0 && taskIndex < this.taskCount;
     }
 
-    //Remove this in the future... not very good to have getters!
-    //Gets the "tasks" array list
+    /**
+     * Gets the list of tasks.
+     * @return the list of tasks
+     */
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }

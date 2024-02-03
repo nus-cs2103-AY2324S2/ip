@@ -3,6 +3,10 @@ package duchess;
 import duchess.task.Task;
 import java.util.ArrayList;
 
+/**
+ * Duchess class represents the main class of the Duchess program.
+ * It initializes the necessary components and runs the program.
+ */
 public class Duchess {
     private TaskList taskList;
     private Storage storage;
@@ -11,6 +15,11 @@ public class Duchess {
 
     private static final String FILE_PATH = "./data/duchess.txt";
 
+    /**
+     * Constructs a Duchess object.
+     * Initializes storage, task list, and user interface components.
+     * @throws DuchessException if an error occurs during initialization
+     */
     public Duchess() throws DuchessException {
         storage = new Storage(FILE_PATH);
         taskList = new TaskList();
@@ -21,6 +30,10 @@ public class Duchess {
         ui = new Ui();
     }
 
+    /**
+     * Main method to start the Duchess program.
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         try {
             new Duchess().run();
@@ -30,6 +43,10 @@ public class Duchess {
 
     }
 
+    /**
+     * Runs the Duchess program.
+     * Displays opening greeting, interacts with user, and handles exceptions.
+     */
     public void run() {
         ui.printOpeningGreeting();
         try {

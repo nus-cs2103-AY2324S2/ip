@@ -2,12 +2,18 @@ package duchess;
 
 import java.util.Scanner;
 
+/**
+ * Ui class handles user interface interactions in the Duchess program.
+ * It provides methods for printing greetings, messages, and reading user input.
+ */
 public class Ui {
 
     // Declare the scanner as a static field in the class
     private static Scanner scanner = new Scanner(System.in);
 
-    //Print opening greeting
+    /**
+     * Prints the opening greeting message when the program starts.
+     */
     public void printOpeningGreeting() {
         String logo = " ____            __\n"
                 + "|  _ \\ _   ______| |      ___  ___  ___\n"
@@ -23,14 +29,18 @@ public class Ui {
     }
 
 
-    //Prints closing greeting
+    /**
+     * Prints the closing farewell message when the program ends.
+     */
     public void printClosingGreeting() {
         printHorizontalLine();
         System.out.println("Farewell. Hope to see you again soon, my dear!");
         printHorizontalLine();
     }
 
-    //Prints a Horizontal Line of 50 dashes
+    /**
+     * Prints a horizontal line of dashes as a visual separator.
+     */
     public void printHorizontalLine() {
         int lineLength = 50; // Specify the length of the line
 
@@ -42,7 +52,12 @@ public class Ui {
         System.out.println();
     }
 
-    //Adds user input to list, exits if user inputs "bye"
+    /**
+     * Reads user input, processes commands, and interacts with the TaskList and Storage.
+     * @param taskList the TaskList object containing the list of tasks
+     * @param storage the Storage object for saving tasks to file
+     * @throws DuchessException if an error occurs during command processing
+     */
     public void printEcho(TaskList taskList, Storage storage) throws DuchessException {
         // Loop to read user input
         while (true) {
@@ -121,6 +136,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Closes the scanner used for reading user input.
+     */
     public void closeScanner() {
         scanner.close();
     }

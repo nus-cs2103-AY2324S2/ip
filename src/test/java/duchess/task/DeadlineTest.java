@@ -4,7 +4,15 @@ import duchess.DuchessException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * DeadlineTest class contains JUnit tests for the Deadline class.
+ */
 public class DeadlineTest {
+
+    /**
+     * Tests the toString method of the Deadline class.
+     * It checks if the string representation of a deadline task is correct.
+     */
     @Test
     public void deadlineToStringTest(){
         try {

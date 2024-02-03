@@ -6,9 +6,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Deadline class represents a task with a specific deadline in the Duchess program.
+ * It extends the Task class and provides methods to manipulate Deadline tasks.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
 
+    /**
+     * Constructs a Deadline object with the given description and deadline.
+     * @param description the description of the deadline task
+     * @param by the deadline of the task in the format "dd-MM-yyyy HHmm"
+     * @throws DuchessException if there is an error parsing the deadline string
+     */
     public Deadline(String description, String by) throws DuchessException {
         super(description);
         try {
@@ -18,7 +28,13 @@ public class Deadline extends Task {
         }
     }
 
-    //duchess.task.Deadline that already has isDone state, and by is written in MMM dd yyyy hh:mm a format
+    /**
+     * Constructs a Deadline object with the given description, completion status, and deadline.
+     * @param description the description of the deadline task
+     * @param isDone true if the task is completed, false otherwise
+     * @param by the deadline of the task in the format "MMM dd yyyy hh:mm a"
+     * @throws DuchessException if there is an error parsing the deadline string
+     */
     public Deadline(String description, boolean isDone, String by) throws DuchessException{
         super(description, isDone);
         try {
@@ -28,11 +44,19 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns a string representation of the Deadline task.
+     * @return a string representing the Deadline task including its type, completion status, description, and deadline
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a")) + ")";
     }
 
+    /**
+     * Returns a string representation of the Deadline task in file format.
+     * @return a string representing the Deadline task including its type, completion status, description, and deadline for file storage
+     */
     @Override
     public String toFileString() {
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));

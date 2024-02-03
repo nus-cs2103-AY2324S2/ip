@@ -3,8 +3,15 @@ package duchess;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+/**
+ * TaskListTest class contains JUnit tests for the TaskList class.
+ */
 public class TaskListTest {
+
+    /**
+     * Tests the addToDo method of the TaskList class.
+     * It checks if a ToDo task is correctly added to the task list.
+     */
     @Test
     public void addToDoTest(){
         TaskList taskList = new TaskList();
@@ -17,6 +24,10 @@ public class TaskListTest {
         assertEquals("[T][ ] buy groceries", taskList.getTasks().get(0).toString());
     }
 
+    /**
+     * Tests the deleteTask method of the TaskList class.
+     * It checks if a task is correctly deleted from the task list.
+     */
     @Test
     public void deleteTaskTest(){
         TaskList taskList = new TaskList();
