@@ -52,8 +52,8 @@ public class TaskList {
      * @param action The action to be performed (mark or unmark).
      * @param which  The index of the task in the list.
      */
-    public void changeStatusOfItem(String action, int which) {
-        this.taskArrayList.get(which).changeStatus(action);
+    public String changeStatusOfItem(String action, int which) {
+        return this.taskArrayList.get(which).changeStatus(action);
     }
 
     /**
@@ -80,10 +80,10 @@ public class TaskList {
 
     public String findTasks(String taskPattern) {
         ArrayList<Task> tasksWithPattern = new ArrayList<>();
-        for (int i = 0; i < this.taskArrayList.size(); i += 1) {
-            String currTaskName = taskArrayList.get(i).getTaskName();
+        for (Task task : this.taskArrayList) {
+            String currTaskName = task.getTaskName();
             if (currTaskName.contains(taskPattern)) {
-                tasksWithPattern.add(taskArrayList.get(i));
+                tasksWithPattern.add(task);
             }
         }
         return ResponseHandler.printFoundTasks(tasksWithPattern);

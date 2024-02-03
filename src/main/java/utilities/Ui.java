@@ -24,6 +24,7 @@ public class Ui {
      * Listens to user input, parses commands, and executes corresponding actions.
      */
     public void chatListener() {
+        /*
         //First attempt to load the file.
         try {
             ArrayList<Task> parsedTasks = this.taskLoader.parseAndLoadTasks();
@@ -52,6 +53,7 @@ public class Ui {
                 }
             }
         }
+        */
     }
 
     public void oneTimeLoadAllTasks() {
@@ -64,16 +66,18 @@ public class Ui {
         }
     }
 
-    public String performTaskFromSingleUserInput(String input) {
+    public String performTaskFromSingleUserInput(String userInput) {
         CommandsParser commandsParser = new CommandsParser(this.taskList, this.filePath, this.taskLoader);
         try {
-            int status = commandsParser.parseCommands(task);
-            if (status == 1) {
-                return status;
-            }
+            String returnedResponse = commandsParser.parseCommands(userInput);
+            return returnedResponse;
         } catch (DateTimeException e) {
-
-
+            return "Problem with date or time format!\n"
+                    + "Date should be in YYYY-MM-DD\n"
+                    + "Time should be in 24 HR clock format";
+        } catch (RyanGoslingException e) {
+            return e.getMessage();
         }
+
     }
 }
