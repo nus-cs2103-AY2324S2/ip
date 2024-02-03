@@ -1,5 +1,6 @@
 import exception.AronaIncompleteCommandException;
 import exception.AronaInvalidCommandException;
+import exception.AronaInvalidDateException;
 import exception.AronaInvalidIndexException;
 
 import storage.Storage;
@@ -43,7 +44,7 @@ public class Arona {
                 + (tasks.taskCount() == 1 ? "" : "s") + ".");
     }
 
-    private void addDeadline(String str, String by) {
+    private void addDeadline(String str, String by) throws AronaInvalidDateException {
         Deadline deadline = new Deadline(str, by);
         tasks.addElements(deadline);
         System.out.println("I've added this deadline, Sensei!");
@@ -52,7 +53,7 @@ public class Arona {
                 + (tasks.taskCount() == 1 ? "" : "s") + ".");
     }
 
-    private void addEvent(String str, String start, String end) {
+    private void addEvent(String str, String start, String end) throws AronaInvalidDateException {
         Event event = new Event(str, start, end);
         tasks.addElements(event);
         System.out.println("I've added this event, Sensei!");
@@ -81,7 +82,7 @@ public class Arona {
         System.out.println("    " + tasks.getTask(id));
     }
 
-    private boolean processCommand(String command) throws AronaIncompleteCommandException, AronaInvalidIndexException, AronaInvalidCommandException {
+    private boolean processCommand(String command) throws AronaIncompleteCommandException, AronaInvalidIndexException, AronaInvalidCommandException, AronaInvalidDateException {
         String[] commandSplit = command.split(" ", 2);
 
         if (commandSplit[0].equalsIgnoreCase("bye")) {

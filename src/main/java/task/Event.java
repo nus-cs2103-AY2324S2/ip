@@ -1,5 +1,11 @@
 package task;
 
+import exception.AronaInvalidDateException;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents a "Event" task,
  * which is a task with a start time and end time attached.
@@ -10,11 +16,11 @@ public class Event extends Task {
     /**
      * The start time of the task.
      */
-    String startTime;
+    LocalDate startTime;
     /**
      * The end time of the task.
      */
-    String endTime;
+    LocalDate endTime;
 
     /**
      * A public constructor for the task.Event.
@@ -22,10 +28,14 @@ public class Event extends Task {
      * @param startTime - the start time of the task
      * @param endTime - the end time of the task
      */
-    public Event(String desc, String startTime, String endTime) {
+    public Event(String desc, String startTime, String endTime) throws AronaInvalidDateException {
         super(desc);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        try {
+            this.startTime = LocalDate.parse(startTime);
+            this.endTime = LocalDate.parse(endTime);
+        } catch (DateTimeParseException e) {
+            throw new AronaInvalidDateException("");
+        }
     }
 
     @Override
@@ -40,6 +50,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")";
+        return "[E]" + super.toString() +
+                " (from: " + this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
+                " to: " + this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

@@ -1,5 +1,10 @@
 package task;
 
+import exception.AronaInvalidDateException;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 /**
  * Represents a "Deadline" task,
  * which is a task with a deadline time attached.
@@ -10,16 +15,20 @@ public class Deadline extends Task {
     /**
      * The due date of the task.
      */
-    protected String deadline;
+    protected LocalDate deadline;
 
     /**
      * A public constructor for the task.Deadline.
      * @param desc - the description of the task
      * @param deadline - the deadline of the task
      */
-    public Deadline(String desc, String deadline) {
+    public Deadline(String desc, String deadline) throws AronaInvalidDateException {
         super(desc);
-        this.deadline = deadline;
+        try {
+            this.deadline = LocalDate.parse(deadline);
+        } catch (DateTimeParseException e) {
+            throw new AronaInvalidDateException("");
+        }
     }
 
     @Override
@@ -34,6 +43,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        return "[D]" + super.toString() + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

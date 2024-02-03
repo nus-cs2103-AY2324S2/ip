@@ -4,12 +4,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import java.time.temporal.TemporalAdjuster;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import exception.AronaInvalidDateException;
 import task.Task;
 import task.ToDo;
 import task.Deadline;
@@ -65,12 +64,17 @@ public class Storage {
             String[] taskArguments = streamSplit[1].split(Pattern.quote("|"), 0);
 
             Task task;
-            if (taskType.equals("T")) {
-                task = new ToDo(taskArguments[1]);
-            } else if (taskType.equals("D")) {
-                task = new Deadline(taskArguments[1], taskArguments[2]);
-            } else { // if (taskType.equals("E"))
-                task = new Event(taskArguments[1], taskArguments[2], taskArguments[3]);
+            try {
+                if (taskType.equals("T")) {
+                    task = new ToDo(taskArguments[1]);
+                } else if (taskType.equals("D")) {
+                    task = new Deadline(taskArguments[1], taskArguments[2]);
+                } else { // if (taskType.equals("E"))
+                    task = new Event(taskArguments[1], taskArguments[2], taskArguments[3]);
+                }
+            } catch (AronaInvalidDateException e) {
+                System.out.println("Sorry, Sensei! I seem to be struggling to load the tasks :(");
+                break;
             }
 
             if (taskArguments[0].equals("1")) {
