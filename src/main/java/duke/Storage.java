@@ -84,77 +84,77 @@ public class Storage {
                 for (String task: tasks) {
                     String[] splited = task.split("`");
                     switch (splited[0]) {
-                        case "duke.task.Deadline": {
-                            String content = splited[1];
-                            boolean isDone = splited[2].equals("Y");
-                            String deadline = splited[3];
-                            String[] splitedDateTime = deadline.split(" ");
+                    case "duke.task.Deadline": {
+                        String content = splited[1];
+                        boolean isDone = splited[2].equals("Y");
+                        String deadline = splited[3];
+                        String[] splitedDateTime = deadline.split(" ");
 
-                            // Date and time
-                            try {
-                                if (splitedDateTime.length == 2) {
-                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                                    LocalDateTime parsedDateTime = LocalDateTime.parse(deadline, formatter);
-                                    Task newTask = new Deadline(content, isDone, parsedDateTime);
-                                    items.add(newTask);
-                                } else {
-                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                                    LocalDate parsedDate = LocalDate.parse(deadline, formatter);
-                                    Task newTask = new Deadline(content, isDone, parsedDate);
-                                    items.add(newTask);
-                                }
-                            } catch (Exception e) {
-                                throw new DukeException("deadline");
+                        // Date and time
+                        try {
+                            if (splitedDateTime.length == 2) {
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                                LocalDateTime parsedDateTime = LocalDateTime.parse(deadline, formatter);
+                                Task newTask = new Deadline(content, isDone, parsedDateTime);
+                                items.add(newTask);
+                            } else {
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                                LocalDate parsedDate = LocalDate.parse(deadline, formatter);
+                                Task newTask = new Deadline(content, isDone, parsedDate);
+                                items.add(newTask);
                             }
-                            break;
+                        } catch (Exception e) {
+                            throw new DukeException("deadline");
                         }
-                        case "duke.task.Event": {
-                            String content = splited[1];
-                            boolean isDone = splited[2].equals("Y");
-                            String from = splited[3];
-                            String to = splited[4];
+                        break;
+                    }
+                    case "duke.task.Event": {
+                        String content = splited[1];
+                        boolean isDone = splited[2].equals("Y");
+                        String from = splited[3];
+                        String to = splited[4];
 
-                            // From
-                            String[] splitedFrom = from.split(" ");
-                            String[] splitedTo = to.split(" ");
+                        // From
+                        String[] splitedFrom = from.split(" ");
+                        String[] splitedTo = to.split(" ");
 
-                            // Date and time
-                            try {
-                                if (splitedFrom.length == 2 && splitedTo.length == 2) {
-                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                                    LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, formatter);
-                                    LocalDateTime parsedToDateTime = LocalDateTime.parse(to, formatter);
-                                    Task newTask = new Event(content, isDone, parsedFromDateTime, parsedToDateTime);
-                                    items.add(newTask);
-                                } else if (splitedFrom.length == 2 && splitedTo.length == 1) {
-                                    DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                                    DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                                    LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, formatter1);
-                                    LocalDate parsedToDate = LocalDate.parse(to, formatter2);
-                                    Task newTask = new Event(content, isDone, parsedFromDateTime, parsedToDate);
-                                    items.add(newTask);
-                                } else if (splitedFrom.length == 1 && splitedTo.length == 2) {
-                                    DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                                    DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                                    LocalDate parsedFromDate = LocalDate.parse(from, formatter2);
-                                    LocalDateTime parsedToDateTime = LocalDateTime.parse(to, formatter1);
-                                    Task newTask = new Event(content, isDone, parsedFromDate, parsedToDateTime);
-                                    items.add(newTask);
-                                } else {
-                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                                    LocalDate parsedFromDate = LocalDate.parse(from, formatter);
-                                    LocalDate parsedToDate = LocalDate.parse(to, formatter);
-                                    Task newTask = new Event(content, isDone, parsedFromDate, parsedToDate);
-                                    items.add(newTask);
-                                }
-                            } catch (Exception e) {
-                                throw new DukeException("event");
+                        // Date and time
+                        try {
+                            if (splitedFrom.length == 2 && splitedTo.length == 2) {
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                                LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, formatter);
+                                LocalDateTime parsedToDateTime = LocalDateTime.parse(to, formatter);
+                                Task newTask = new Event(content, isDone, parsedFromDateTime, parsedToDateTime);
+                                items.add(newTask);
+                            } else if (splitedFrom.length == 2 && splitedTo.length == 1) {
+                                DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                                DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                                LocalDateTime parsedFromDateTime = LocalDateTime.parse(from, formatter1);
+                                LocalDate parsedToDate = LocalDate.parse(to, formatter2);
+                                Task newTask = new Event(content, isDone, parsedFromDateTime, parsedToDate);
+                                items.add(newTask);
+                            } else if (splitedFrom.length == 1 && splitedTo.length == 2) {
+                                DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                                DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                                LocalDate parsedFromDate = LocalDate.parse(from, formatter2);
+                                LocalDateTime parsedToDateTime = LocalDateTime.parse(to, formatter1);
+                                Task newTask = new Event(content, isDone, parsedFromDate, parsedToDateTime);
+                                items.add(newTask);
+                            } else {
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                                LocalDate parsedFromDate = LocalDate.parse(from, formatter);
+                                LocalDate parsedToDate = LocalDate.parse(to, formatter);
+                                Task newTask = new Event(content, isDone, parsedFromDate, parsedToDate);
+                                items.add(newTask);
                             }
-                            break;
+                        } catch (Exception e) {
+                            throw new DukeException("event");
                         }
-                        default: {
-                            items.add(new Todo(splited[1], splited[2].equals("Y")));
-                        }
+                        break;
+                    }
+                    default: {
+                        items.add(new Todo(splited[1], splited[2].equals("Y")));
+                    }
                     }
                 }
             }
