@@ -1,13 +1,13 @@
 import java.util.ArrayList;
-import java.util.Scanner;
-
 
 public class ChatBro {
     public static void main(String[] args) {
         Ui ui = new Ui();
         ui.printWelcome();
+        //Database db = new Database();
 
-        ArrayList<Task> taskList = new ArrayList<>(101); // First element left empty for 1-based indexing
+        ArrayList<Task> taskList = new ArrayList<>(101);
+        //taskList.add(null); // First element left empty for 1-based indexing
         for (int i = 0; i < 102; i++) {
             taskList.add(null);
         }

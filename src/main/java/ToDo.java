@@ -1,3 +1,6 @@
+/**
+ * ToDo class that represents a Task without any associated time.
+ */
 public class ToDo extends Task {
     /**
      * Constructor for ToDo class.

@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * Represents the user interface of the ChatBro.
+ */
 public class Ui {
     private Scanner sc;
     public Ui() {
@@ -18,11 +21,11 @@ public class Ui {
                 + "_________________________\n");
     }
     public void printLine() {
-        System.out.println("_________________________\n");
+        System.out.println("_________________________");
     }
     public void printBye() {
         printLine();
-        System.out.println("Hasta la vista bro!\n");
+        System.out.println("Hasta la vista bro!");
         printLine();
         sc.close();
     }

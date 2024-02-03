@@ -1,3 +1,6 @@
+/**
+ * Represents a user's task.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -27,6 +30,14 @@ public abstract class Task {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Returns the type of the task.
+     * @return Type of the task.
+     */
+    public char getType() {
+        return type;
     }
 
     /**
@@ -63,6 +74,15 @@ public abstract class Task {
      */
     public static int getTaskCount() {
         return taskCount;
+    }
+
+    /**
+     * Parses a string into a Task object.
+     * @return Task object.
+     */
+    public static Task parseTask(String taskString) {
+        //stuck here for now
+        return null;
     }
 
     /**

@@ -1,3 +1,6 @@
+/**
+ * Event class that represents a Task with starting and ending time.
+ */
 public class Event extends Task {
     protected String startTime;
     protected String endTime;
