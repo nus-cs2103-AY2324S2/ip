@@ -8,12 +8,23 @@ import java.time.LocalDate;
 
 public class Duke {
     private static final String FILE_PATH = "data/duke.txt";
-    public static void main(String[] args) throws DukeException {
+    private Ui ui;
+    List<Task> list;
 
+    public Duke() {
+        ui = new Ui();
+        list = new ArrayList<>();
+    }
+
+    public static void main(String[] args) throws DukeException {
+        new Duke().run();
+    }
+
+    private void run() throws DukeException{
+
+        Ui Ui = new Ui();
         Scanner scanner = new Scanner(System.in);
         File f = new File(FILE_PATH);
-
-
 
         try {
             if (!f.exists()) {
@@ -30,7 +41,7 @@ public class Duke {
             System.out.println("Error " + e.getMessage());
         }
 
-        List<Task> list = new ArrayList<>();
+        //List<Task> list = new ArrayList<>();
 
         try {
             list = retrieveData(f);
@@ -38,9 +49,8 @@ public class Duke {
             System.out.println(e.getMessage());
         }
 
-        System.out.println();
-        System.out.println("Hello! I'm tars.");
-        System.out.println("What can I do for you?");
+        Ui.greet();
+
 
         while (scanner.hasNextLine()) {
             String comd = scanner.nextLine();
@@ -169,7 +179,7 @@ public class Duke {
             else {
                 throw new DukeException("Invalid Command!");
             }
-            
+
         }
         System.out.print("Bye. Hope to see you again soon!");
     }
