@@ -13,8 +13,6 @@ import drake.task.Todo;
 
 enum Command {
     BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND;
-    
-    // Method to get the appropriate enum value from a string input
     public static Command fromString(String commandString) {
         switch (commandString.toLowerCase()) {
         case "bye":
@@ -41,87 +39,101 @@ enum Command {
     }
 }
 
+/**
+ * This is the main class for the Drake application, which is a task manager program.
+ * It initializes the application, loads existing tasks, and enters a command loop that
+ * allows users to interact with their task list through various commands.
+ */
 public class Drake {
-    private final Ui UI;
-    private final Storage STORAGE;
-    private final TaskList TASKS;
+    private final Ui ui;
+    private final Storage storage;
+    private final TaskList tasks;
     private boolean isRunning;
 
-    public Drake(String FILE_PATH) {
-        UI = new Ui();
-        STORAGE = new Storage(FILE_PATH);
-        TASKS = new TaskList(STORAGE.loadTasks());
+    /**
+     * Constructs a new instance of the Drake application.
+     *
+     * @param filePath The path to the file where tasks are stored and retrieved from.
+     */
+    public Drake(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList(storage.loadTasks());
         isRunning = true;
     }
 
+    /**
+     * Starts the main command loop of the application. This method reads user input,
+     * processes commands, and interacts with the task list until the bye command is issued.
+     *
+     * @throws Exception if an unexpected error occurs during command processing.
+     */
     public void run() throws Exception {
         Scanner scanner = new Scanner(System.in);
-        UI.showWelcome();
-    
+        ui.showWelcome();
         while (isRunning) {
             String input = scanner.nextLine().trim();
             String[] words = input.split(" ", 2);
             String commandWord = words[0];
             Command command = Command.fromString(commandWord);
-
             try {
                 switch (command) {
                 case BYE:
                     isRunning = false;
-                    STORAGE.saveTasks(TASKS.getTasks());
-                    UI.showGoodbye();
+                    storage.saveTasks(tasks.getTasks());
+                    ui.showGoodbye();
                     break;
                 case LIST:
-                    UI.showTaskList(TASKS);
+                    ui.showTaskList(tasks);
                     break;
                 case MARK:
                     int markIndex = Parser.parseTaskIndex(input);
-                    TASKS.markTask(markIndex);
-                    UI.showMarkTask(TASKS.getTask(markIndex));
+                    tasks.markTask(markIndex);
+                    ui.showMarkTask(tasks.getTask(markIndex));
                     break;
                 case UNMARK:
                     int unmarkIndex = Parser.parseTaskIndex(input);
-                    TASKS.unmarkTask(unmarkIndex);
-                    UI.showUnmarkTask(TASKS.getTask(unmarkIndex));
+                    tasks.unmarkTask(unmarkIndex);
+                    ui.showUnmarkTask(tasks.getTask(unmarkIndex));
                     break;
                 case TODO:
                     String todoDescription = Parser.parseDescription(input);
                     Todo newTodo = new Todo(todoDescription);
-                    TASKS.addTask(newTodo);
-                    UI.showAddTask(newTodo, TASKS.size());
+                    tasks.addTask(newTodo);
+                    ui.showAddTask(newTodo, tasks.size());
                     break;
                 case DEADLINE:
                     try {
-                        Object[] deadlineDetails = Parser.parseDeadline (input);
+                        Object[] deadlineDetails = Parser.parseDeadline(input);
                         Deadline newDeadline = new Deadline((String) deadlineDetails[0],
                                 (LocalDateTime) deadlineDetails[1]);
-                        TASKS.addTask(newDeadline);
-                        UI.showAddTask(newDeadline, TASKS.size());
+                        tasks.addTask(newDeadline);
+                        ui.showAddTask(newDeadline, tasks.size());
                     } catch (DateTimeParseException e) {
-                        UI.showError("Oops, format error! Type in a date in the form yy-mm-dd and try again!");
+                        ui.showError("Oops, format error! Type in a date in the form yy-mm-dd and try again!");
                     }
                     break;
                 case EVENT:
                     String[] eventDetails = Parser.parseEvent(input);
                     Event newEvent = new Event(eventDetails[0], eventDetails[1], eventDetails[2]);
-                    TASKS.addTask(newEvent);
-                    UI.showAddTask(newEvent, TASKS.size());
+                    tasks.addTask(newEvent);
+                    ui.showAddTask(newEvent, tasks.size());
                     break;
                 case DELETE:
                     int deleteIndex = Parser.parseTaskIndex(input);
-                    Task deletedTask = TASKS.deleteTask(deleteIndex);
-                    UI.showDeleteTask(deletedTask, TASKS.size());
+                    Task deletedTask = tasks.deleteTask(deleteIndex);
+                    ui.showDeleteTask(deletedTask, tasks.size());
                     break;
-                    case FIND:
-                        String keyword = Parser.parseKeyword(input);
-                        ArrayList<Task> matchingTasks = TASKS.findTasksByKeyword(keyword);
-                        UI.showMatchingTasks(matchingTasks);
-                        break;
-                case INVALID:
+                case FIND:
+                    String keyword = Parser.parseKeyword(input);
+                    ArrayList<Task> matchingTasks = tasks.findTasksByKeyword(keyword);
+                    ui.showMatchingTasks(matchingTasks);
+                    break;
+                default:
                     throw new NotValidCommand("That's not a valid command!");
                 }
             } catch (NotValidCommand | TodoLeftBlank e) {
-                UI.showError(e.getMessage());
+                ui.showError(e.getMessage());
             }
         }
         scanner.close();

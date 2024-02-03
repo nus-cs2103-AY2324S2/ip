@@ -1,37 +1,31 @@
 package drake;
 
-import org.junit.jupiter.api.Test;
-
-import drake.Parser;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-
-import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
-
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     @Test
-    public void parseDeadlineSucessTest() throws Exception {
+    public void parseDeadlineSuccessTest() throws Exception {
         String testInput = "deadline eat dinner /by 2024-12-01";
         Object[] actualOutput = Parser.parseDeadline(testInput);
-        Object[] expectedOutput = {"eat dinner", LocalDate.parse("2024-12-01", DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay()};
-        assertEquals(actualOutput, actualOutput);
+        Object[] expectedOutput = {"eat dinner", LocalDate.parse("2024-12-01",
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay()};
+        assertEquals(expectedOutput, actualOutput);
     }
 
     @Test
-    public void parseDeadlineWrongDateFormatTest() throws Exception {
+    public void parseDeadlineWrongDateFormatTest() {
         try {
 
             String testInput = "deadline eat dinner /by 2024-14-01";
             Object[] actualOutput = Parser.parseDeadline(testInput);
-            Object[] expectedWrongOutput = {"eat dinner", LocalDate.parse("2024-14-01", DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay()};
-        
+            Object[] expectedWrongOutput = {"eat dinner", LocalDate.parse("2024-14-01",
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay()};
             assertEquals(actualOutput, expectedWrongOutput);
             fail(); //This block should not be run.
         } catch (Exception e) {
@@ -39,13 +33,13 @@ public class ParserTest {
             assertEquals("Date is of the wrong format!", e.getMessage());
         }
     }
-    @Test
-    public void parseDeadlineWrongSpellingFormatTest() throws Exception {
-        try {
 
+    @Test
+    public void parseDeadlineWrongSpellingFormatTest() {
+        try {
             String testInput = "dedline eat dinner /by 2024-12-01";
-            Object[] actualOutput = Parser.parseDeadline(testInput);
-            Object[] expectedWrongOutput = {"eat dinner", LocalDate.parse("2024-12-01", DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay()};
+
+            Parser.parseDeadline(testInput);
             fail(); //This block should not be run.
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -1,30 +1,24 @@
 package drake.task;
 
-import org.junit.jupiter.api.Test;
-
-import drake.Ui;
-import drake.task.TaskList;
-import drake.task.Task;
-import drake.task.Todo;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Test;
+
 public class TaskListTest {
     @Test
-    public void getTaskSucessTest() throws Exception {
+    public void getTaskSuccessTest() {
         TaskList input = new TaskList();
         Task task1 = new Todo("sleep");
         input.addTask(task1);
         input.addTask(new Todo("eat"));
 
         Task actualOutput = input.getTask(0);
-        
         assertEquals(task1, actualOutput);
     }
 
     @Test
-    public void getTaskOutofBoundsTest() throws Exception {
+    public void getTaskOutOfBoundsTest() {
         TaskList input = new TaskList();
         Task task1 = new Todo("sleep");
         input.addTask(task1);

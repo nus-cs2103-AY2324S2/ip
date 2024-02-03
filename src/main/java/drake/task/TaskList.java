@@ -89,7 +89,7 @@ public class TaskList {
     }
 
     /**
-     * Unmarks a task in the task list, indicating it is not done.
+     * Un-marks a task in the task list, indicating it is not done.
      *
      * @param index The index of the task to be unmarked.
      * @throws IndexOutOfBoundsException If the index is out of the range of the task list.
@@ -98,6 +98,12 @@ public class TaskList {
         getTask(index).isDone = false;
     }
 
+    /**
+     * Searches through all tasks and returns a list of tasks whose descriptions contain the specified keyword.
+     *
+     * @param keyword The string to search for within the task descriptions.
+     * @return An {@code ArrayList<Task>} containing all tasks that have the specified keyword in their description.
+     */
     public ArrayList<Task> findTasksByKeyword(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
@@ -107,5 +113,4 @@ public class TaskList {
         }
         return matchingTasks;
     }
-
 }

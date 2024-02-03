@@ -10,6 +10,14 @@ import java.time.format.DateTimeParseException;
  */
 public class Parser {
 
+    /**
+     * Parses an event task from the user input. It assumes the input contains
+     *     the event details after the 'event' keyword.
+     *
+     * @param input The user input string that contains the event details.
+     * @return A String array with three elements: the event title, the start time, and the end time.
+     * @throws IllegalArgumentException If the input does not contain valid 'from' and 'to' times for the event.
+     */
     public static int parseTaskIndex(String input) throws NumberFormatException {
         String[] words = input.split(" ", 2);
         if (words.length < 2) {
@@ -35,9 +43,8 @@ public class Parser {
 
     /**
      * Parses the deadline task from the user input.
-     * 
-     * @param input The user input string.
-     * @return An Object array where the first element is the task description and the second element is the deadline as a LocalDateTime.
+     * @return An Object array where the first element is the task description and the second element
+     *     is the deadline as a LocalDateTime.
      * @throws Exception if the deadline format is incorrect or if the 'deadline' keyword is misspelled.
      */
     public static Object[] parseDeadline(String input) throws Exception {
@@ -56,24 +63,22 @@ public class Parser {
             by = date.atStartOfDay();
         } catch (DateTimeParseException e) {
             throw new Exception("Date is of the wrong format!");
-        } 
-        
+        }
         return new Object[]{description, by};
 
     }
 
     /**
      * Parses an event task from the user input.
-     * 
      * @param input The user input string.
-     * @return A String array where the first element is the event title, the second element is the start time, and the third element is the end time.
+     * @return A String array where the first element is the event title,
+     *     the second element is the start time, and the third element is the end time.
      */
     public static String[] parseEvent(String input) {
         String[] parts = input.substring(6).split("/");
         String title = parts[0];
         String from = "";
         String to = "";
-    
         for (int i = 1; i < parts.length; i++) {
             if (parts[i].split(" ")[0].equals("from")) {
                 from = parts[i].substring(5);
@@ -84,6 +89,15 @@ public class Parser {
         }
         return new String[]{title, from, to};
     }
+
+    /**
+     * Parses the search keyword from the user input. It assumes the input contains
+     *     the keyword after the 'find' command.
+     *
+     * @param input The user input string that contains the search keyword.
+     * @return The search keyword.
+     * @throws IllegalArgumentException If the keyword for search is missing or empty.
+     */
     public static String parseKeyword(String input) {
         String[] parts = input.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -91,5 +105,4 @@ public class Parser {
         }
         return parts[1].trim();
     }
-
 }
