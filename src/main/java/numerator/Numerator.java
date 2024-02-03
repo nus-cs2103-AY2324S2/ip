@@ -47,6 +47,10 @@ public class Numerator {
         new Numerator().run();
     }
 
+    public String getResponse(String response) {
+        return "test response";
+    }
+
     /**
      * Runs the Numerator program
      */
