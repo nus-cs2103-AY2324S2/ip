@@ -37,41 +37,48 @@ public class Ui {
      * @param taskList TaskList from main program.
      * @param trail Remainder of user's input excluding command.
      * @param storage Storage from main program.
+     * @return String of output to be used if needed.
      * @throws DukeException Custom exception for Duke related errors.
      * @throws IOException Exception for any file related problems.
+     *
      */
-    public void nextCommand(Options choice, TaskList taskList, String trail, Storage storage)
+    public String nextCommand(Options choice, TaskList taskList, String trail, Storage storage)
             throws DukeException, IOException {
         LocalDate now = LocalDate.now(); // Current date
         Task add;
         String taskName;
+        String output;
 
-        switch (choice) {
-        case bye:
-            exit();
-            break;
+        switch (choice) { // TODO add a help command to list all commands
+        case bye: // TODO make this exit the chatbot
+            return exit();
         case list:
-            taskList.list();
-            break;
+            output = taskList.list();
+            System.out.println(padding(output));
+            return output;
         case delete:
             int no = Integer.parseInt(trail);
-            taskList.delete(no);
-            break;
+            output = taskList.delete(no);
+            System.out.println(padding(output));
+            return output;
         case mark:
             int markNo = Integer.parseInt(trail);
-            taskList.mark(markNo);
-            break;
+            output = taskList.mark(markNo);
+            System.out.println(padding(output));
+            return output;
         case unmark:
             int unmarkNo = Integer.parseInt(trail);
-            taskList.unmark(unmarkNo);
-            break;
+            output = taskList.unmark(unmarkNo);
+            System.out.println(padding(output));
+            return output;
         case todo:
             if (trail.isEmpty()) {
                 throw new DukeException("Description of a ToDo cannot be empty!");
             }
             add = new ToDo(trail);
-            taskList.add(add);
-            break;
+            output = taskList.add(add);
+            System.out.println(padding(output));
+            return output;
         case deadline:
             if (!trail.contains(" /by ")) {
                 throw new DukeException("Description of a Deadline must contain \" /by \"!");
@@ -91,8 +98,9 @@ public class Ui {
             }
 
             add = new Deadline(taskName, d1);
-            taskList.add(add);
-            break;
+            output = taskList.add(add);
+            System.out.println(padding(output));
+            return output;
         case event:
             if (!trail.contains(" /from ") || !trail.contains(" /to ")) {
                 throw new DukeException("Description of a Event must contain \" /from \" and \" /to \"!");
@@ -125,40 +133,49 @@ public class Ui {
             }
 
             add = new Event(taskName, d2, d3);
-            taskList.add(add);
-            break;
+            output = taskList.add(add);
+            System.out.println(padding(output));
+            return output;
         case save:
-            storage.save(taskList.getTaskList());
-            break;
+            output = storage.save(taskList.getTaskList());
+            System.out.println(padding(output));
+            return output;
         case find:
-            taskList.find(trail);
-            break;
+            output = taskList.find(trail);
+            System.out.println(padding(output));
+            return output;
         case error:
             throw new DukeException("Command not found! Please try again.");
         default:
-            break;
+            return "";
         }
     }
     /**
      * End the chatbot.
+     * @return String of output to be used if needed.
      */
-    public void exit() {
-        String text = "\t____________________________________________________________\n"
-                + "\tBye. Hope to see you again soon!\n"
-                + "\t____________________________________________________________\n";
-
-        System.out.println(text);
+    public String exit() {
+        String text = "\tBye. Hope to see you again soon!\n";
+        System.out.println(padding(text));
+        return text;
     }
-
-
 
     /**
      * Displays message if no save file found.
      */
     public void showLoadingError() {
-        String text = "\t____________________________________________________________\n"
-                + "\tSave file not found, creating a new one.\n"
+        String text = "\tSave file not found, creating a new one.\n";
+        System.out.println(padding(text));
+    }
+
+    /**
+     * Adding  padding
+     * @param text text to pad
+     * @return padded text
+     */
+    public String padding(String text) {
+        return "\t____________________________________________________________\n"
+                + text
                 + "\t____________________________________________________________\n";
-        System.out.println(text);
     }
 }
