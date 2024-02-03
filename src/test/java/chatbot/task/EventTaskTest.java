@@ -1,12 +1,13 @@
 package chatbot.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EventTaskTest {
-    
+
     @Test
     public void checkInstantiation() {
         LocalDateTime start = LocalDateTime.parse("2021-08-21T18:00:00");

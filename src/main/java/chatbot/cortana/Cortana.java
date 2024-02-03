@@ -1,7 +1,6 @@
 package chatbot.cortana;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,21 +15,28 @@ import chatbot.ui.Ui;
  */
 public class Cortana {
 
+    private static final String DATA_FOLDER = "data";
+    private static final String SAVE_FILENAME = "tasks.csv";
     private String name = "Cortana";
     private TaskList taskList;
-    private final String BASE_DIR;
-    private final String SAVE_DIR_PATH;
-    private final static String DATA_FOLDER = "data";
-    private final static String SAVE_FILENAME = "tasks.csv";  
+    private final String baseDir;
+    private final String saveDirPath;
     private Storage storage;
 
+    /**
+     * Constructor for Cortana.
+     * @param baseDir The base directory of the chatbot.
+     */
     public Cortana(String baseDir) {
-        this.BASE_DIR = baseDir;
-        this.SAVE_DIR_PATH = java.nio.file.Paths.get(BASE_DIR, DATA_FOLDER).toString();
-        this.storage = new Storage(SAVE_DIR_PATH, SAVE_FILENAME);
+        this.baseDir = baseDir;
+        this.saveDirPath = java.nio.file.Paths.get(this.baseDir, DATA_FOLDER).toString();
+        this.storage = new Storage(saveDirPath, SAVE_FILENAME);
         this.taskList = new TaskList();
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
         try {
             this.taskList = this.storage.loadTaskList();
@@ -49,40 +55,40 @@ public class Cortana {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         Command command = Parser.parseCommand(input);
-        ArrayList<Task> tasks; 
+        ArrayList<Task> tasks;
         int numTasks;
-        Task curr_task;
+        Task currTask;
         String response;
         while (command != Command.BYE) {
             try {
                 Parser.validateInput(command, input, this.taskList);
                 switch (command) {
                 case TODO:
-                    curr_task = Parser.parseTodoTask(input);
-                    this.taskList.addTask(curr_task);
-                    response = Ui.addTaskSuccess(curr_task, this.taskList.getNumTasks());  
+                    currTask = Parser.parseTodoTask(input);
+                    this.taskList.addTask(currTask);
+                    response = Ui.addTaskSuccess(currTask, this.taskList.getNumTasks());
                     break;
                 case DEADLINE:
-                    curr_task = Parser.parseDeadlineTask(input);
-                    this.taskList.addTask(curr_task);
-                    response = Ui.addTaskSuccess(curr_task, this.taskList.getNumTasks());
+                    currTask = Parser.parseDeadlineTask(input);
+                    this.taskList.addTask(currTask);
+                    response = Ui.addTaskSuccess(currTask, this.taskList.getNumTasks());
                     break;
                 case EVENT:
-                    curr_task = Parser.parseEventTask(input);
-                    this.taskList.addTask(curr_task);
-                    response = Ui.addTaskSuccess(curr_task, this.taskList.getNumTasks());
+                    currTask = Parser.parseEventTask(input);
+                    this.taskList.addTask(currTask);
+                    response = Ui.addTaskSuccess(currTask, this.taskList.getNumTasks());
                     break;
                 case MARK:
-                    curr_task = this.taskList.markTask(Parser.parseIndex(command, input));
-                    response = Ui.markTask(curr_task);
+                    currTask = this.taskList.markTask(Parser.parseIndex(command, input));
+                    response = Ui.markTask(currTask);
                     break;
                 case UNMARK:
-                    curr_task = this.taskList.unmarkTask(Parser.parseIndex(command, input));
-                    response = Ui.unmarkTask(curr_task);
+                    currTask = this.taskList.unmarkTask(Parser.parseIndex(command, input));
+                    response = Ui.unmarkTask(currTask);
                     break;
                 case DELETE:
-                    curr_task = this.taskList.deleteTask(Parser.parseIndex(command, input));
-                    response = Ui.deleteTask(curr_task, this.taskList.getNumTasks());
+                    currTask = this.taskList.deleteTask(Parser.parseIndex(command, input));
+                    response = Ui.deleteTask(currTask, this.taskList.getNumTasks());
                     break;
                 case LIST:
                     tasks = this.taskList.getTasks();

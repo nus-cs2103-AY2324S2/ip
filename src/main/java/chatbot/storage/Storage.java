@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import chatbot.task.DeadlineTask;
 import chatbot.task.EventTask;
 import chatbot.task.Task;
@@ -17,12 +18,17 @@ import chatbot.task.TodoTask;
  */
 public class Storage {
 
-    private final String SAVE_DIR_PATH;
-    private final String SAVE_FILENAME;  
+    private final String saveDirPath;
+    private final String saveFilename;
 
+    /**
+     * Constructor for Storage class
+     * @param saveDirPath the directory path to save the file
+     * @param saveFilename the filename to save the file
+     */
     public Storage(String saveDirPath, String saveFilename) {
-        this.SAVE_DIR_PATH = saveDirPath;
-        this.SAVE_FILENAME = saveFilename;
+        this.saveDirPath = saveDirPath;
+        this.saveFilename = saveFilename;
     }
 
     /**
@@ -32,12 +38,12 @@ public class Storage {
      */
     public void saveTaskList(TaskList taskList) throws IOException {
         // create directory if not exists
-        File dir = new File(this.SAVE_DIR_PATH);
+        File dir = new File(this.saveDirPath);
         if (!dir.exists()) {
             dir.mkdirs();
         }
         // create file if not exists
-        File file = new File(this.SAVE_DIR_PATH, this.SAVE_FILENAME);
+        File file = new File(this.saveDirPath, this.saveFilename);
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -66,7 +72,7 @@ public class Storage {
     public TaskList loadTaskList() throws IOException {
         // Load a csv
         TaskList taskList = new TaskList();
-        File file = new File(this.SAVE_DIR_PATH, this.SAVE_FILENAME);
+        File file = new File(this.saveDirPath, this.saveFilename);
         if (!file.exists()) {
             return taskList;
         }
