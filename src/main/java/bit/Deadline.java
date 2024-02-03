@@ -2,7 +2,6 @@ package bit;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
 
@@ -26,10 +25,10 @@ public class Deadline extends Task {
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
         if(this.isDone) {
-            return  "[D][X] " + description + " (by: " + deadline.format(formatter) +")";
+            return  "[D][X] " + DESCRIPTION + " (by: " + deadline.format(formatter) +")";
         }
 
-        return "[D][ ] " + description + " (by: " + deadline.format(formatter) +")";
+        return "[D][ ] " + DESCRIPTION + " (by: " + deadline.format(formatter) +")";
     }
 
     public String getDeadline() {

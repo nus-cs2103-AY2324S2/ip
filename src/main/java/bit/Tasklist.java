@@ -10,14 +10,30 @@ public class Tasklist {
         this.UI = new Ui();
     }
 
+    /**
+     * Return current size of taskList
+     * @return size of tasklist
+     */
     public int getSize() {
         return taskList.size();
     }
+
+    /**
+     * Return task stored at index i of list
+     * @param i the index of the task to be retrieved
+     * @return task stored at i
+     */
 
     public Task getTask(int i) {
         return taskList.get(i);
     }
 
+    /**
+     * Adds tasks to the list. Takes in String that it parses. Will throw various errors based on input.
+     * It accepts todds, deadlines and events.
+     * @param input String commmand from user
+     * @throws DukeException
+     */
     public  void addTo(String input) throws DukeException {
         if(input.startsWith("todo")) {
 
@@ -98,6 +114,10 @@ public class Tasklist {
 
     }
 
+    /**
+     * Deletes task found at i - 1. This means the very first task is deleted when i = 1.
+     * @param i index number of task to be deleted.
+     */
     public  void delete(int i) {
         try {
             i -= 1;
@@ -109,6 +129,10 @@ public class Tasklist {
         }
     }
 
+    /**
+     * Mark task found at i - 1 as complete.
+     * @param i index of task to be marked.
+     */
     public void mark(int i) {
         i -= 1;
         try {
@@ -119,6 +143,10 @@ public class Tasklist {
         }
     }
 
+    /**
+     *Remove mark from task found at i - 1
+     * @param i index of task to be unmarked.
+     */
     public  void unmark(int i) {
         i -= 1;
         try {
@@ -129,6 +157,10 @@ public class Tasklist {
         }
     }
 
+    /**
+     * Used by main to add tasks from harddisk to this list
+     * @param task The task being added from harddisk.
+     */
     public void  addFromStorage(Task task) {
         taskList.add(task);
     }
