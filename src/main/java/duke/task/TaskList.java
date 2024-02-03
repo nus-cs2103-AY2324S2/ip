@@ -1,3 +1,8 @@
+package duke.task;
+
+import duke.storage.Storage;
+import duke.exception.DukeException;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -23,7 +28,7 @@ public class TaskList {
                 + " Now you have " + tasks.size() + " tasks in the list.";
     }
 
-    public String deleteToDo(int taskIndex) throws DukeException{
+    public String deleteToDo(int taskIndex) throws DukeException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
 
             Task t = this.tasks.remove(taskIndex);
@@ -31,7 +36,7 @@ public class TaskList {
             return "Noted. I've removed this task:\n" + "   " + t + "\n"
                     + " Now you have " + tasks.size() + " tasks in the list.";
         } else {
-            throw new DukeException("Task not found.");
+            throw new DukeException("duke.task.Task not found.");
         }
     }
 
@@ -55,7 +60,7 @@ public class TaskList {
         return str.toString();
     }
 
-    public String markToDo(int taskIndex) throws DukeException{
+    public String markToDo(int taskIndex) throws DukeException {
 
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
 
@@ -64,11 +69,11 @@ public class TaskList {
 
             return "Nice! I've marked this task as done:\n" + "   " + t;
         } else {
-            throw new DukeException("Task not found.");
+            throw new DukeException("duke.task.Task not found.");
         }
     }
 
-    public String unMarkToDo(int taskIndex) throws DukeException{
+    public String unMarkToDo(int taskIndex) throws DukeException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
 
             Task t = this.tasks.get(taskIndex);
@@ -76,7 +81,7 @@ public class TaskList {
             return "OK, I've marked this task as not done yet:\n" + "   " + t;
 
         } else {
-            throw new DukeException("Task not found.");
+            throw new DukeException("duke.task.Task not found.");
         }
     }
 

@@ -1,3 +1,11 @@
+package duke.core;
+
+import duke.exception.DukeException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 public class Duke {
 
@@ -5,7 +13,7 @@ public class Duke {
     private TaskList tasks;
     private final Ui ui;
 
-    enum Command {
+    public enum Command {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
     }
 

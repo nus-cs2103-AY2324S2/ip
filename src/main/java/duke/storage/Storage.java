@@ -1,3 +1,11 @@
+package duke.storage;
+
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,7 +30,7 @@ public class Storage {
         }
     }
 
-    private void prepareFile() throws DukeException{
+    private void prepareFile() throws DukeException {
         try {
             if (!Files.exists(filePath)) {
                 Files.createDirectories(filePath.getParent());
@@ -33,7 +41,7 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> loadTasks() throws DukeException{
+    public ArrayList<Task> loadTasks() throws DukeException {
         prepareFile();
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -59,7 +67,7 @@ public class Storage {
         return tasks;
     }
 
-    public void saveTasks(ArrayList<Task> tasks) throws DukeException{
+    public void saveTasks(ArrayList<Task> tasks) throws DukeException {
         prepareFile();
         try {
             ArrayList<String> lines = new ArrayList<>();
@@ -73,7 +81,7 @@ public class Storage {
     }
 
 
-    public Task load(String line) throws DukeException{
+    public Task load(String line) throws DukeException {
         String[] parts = line.split(" \\| ");
 
         if (parts.length < 3 || !parts[1].matches("[01]")) {
