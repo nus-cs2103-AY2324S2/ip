@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 
 public class RyanGosling {
     Ui botDispatcher;
-    public static String chatBotName = "main.RyanGosling";
+    public static String chatBotName = "RyanGosling";
 
     public RyanGosling() {
         botDispatcher = new Ui();
