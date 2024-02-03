@@ -28,10 +28,6 @@ public class fileManager {
 
     private static final String FILE_PATH = "../../../data/tasks.csv";
     private static ArrayList<Task> taskList;
-    
-    // Empty constructor. There is no need to instantiate this class.
-    public fileManager() {
-    }
 
     /**
      * Read task details from the csv file and
@@ -128,10 +124,7 @@ public class fileManager {
             break;
         }
 
-        if (status) {
-            task.mark();
-        }
-
+        task.setStatus(status);
         return task;
     }
 }

@@ -41,14 +41,12 @@ abstract public class Task {
         return this.isDone;
     }
 
-    // Set completed status to true.
-    public void mark() {
-        this.isDone = true;
-    }
-
-    // Set completed status to false.
-    public void unmark() {
-        this.isDone = false;
+    /**
+     * Set completion status of the task.
+     * @param status true is completed, false otherwise
+     */
+    public void setStatus(boolean status) {
+        this.isDone = status;
     }
 
     @Override

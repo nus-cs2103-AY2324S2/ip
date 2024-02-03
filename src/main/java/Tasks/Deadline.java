@@ -1,7 +1,7 @@
 package Tasks;
 
 import java.time.LocalDateTime;
-
+import Exceptions.InputException;
 import Managers.dateManager;
 
 /**
@@ -27,17 +27,16 @@ public class Deadline extends Task {
     /* --- METHODS --- */
     @Override
     protected void formatInput(String description) {
-        String errorMessage = 
-            "Unable to identify the deadline date. Make sure to follow the format:\n"
-            + "'deadline DESCRIPTION /by VALID_DATE_FORMAT'";
-
         try {
             String stringDeadline = description.split("/by ")[1].trim();
             this.deadline = dateManager.parseDate(stringDeadline);
 
         } catch (ArrayIndexOutOfBoundsException e){
             // occurs when missing "/by " in command
-            throw new ArrayIndexOutOfBoundsException(errorMessage);
+            throw new InputException(
+                "Unable to identify the deadline date. Make sure to follow the format:\n"
+                + "'deadline DESCRIPTION /by VALID_DATE_FORMAT'"
+                );
         }
 
         this.name = description.split("/by")[0].trim();

@@ -1,7 +1,7 @@
 package Tasks;
 
 import java.time.LocalDateTime;
-
+import Exceptions.InputException;
 import Managers.dateManager;
 
 /**
@@ -29,10 +29,6 @@ public class Event extends Task {
 
     @Override
     protected void formatInput(String description) {
-        String errorMessage = 
-            "Unable to identify the start and/or end date. Make sure to follow the format:\n"
-            + "event DESCRIPTION /from START /to END";
-    
         String stringFrom, stringTo;
 
         try {
@@ -41,7 +37,10 @@ public class Event extends Task {
             stringTo = description.split("/to ")[1].trim();
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException(errorMessage);
+            throw new InputException(
+                "Unable to identify the start and/or end date. Make sure to follow the format:\n"
+                + "event DESCRIPTION /from START /to END"
+                );
         }
 
         this.from = dateManager.parseDate(stringFrom);

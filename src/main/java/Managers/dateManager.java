@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import Exceptions.InputException;
+
 /**
  * A class to handle processing and formatting of dates and time.
  */
@@ -25,11 +27,6 @@ public class dateManager {
         "yyyy/MM/dd HHmm",
         "dd MMM yyyy HH:mm"
     };
-
-
-    // Empty constructor. There is no need to instantiate this class.
-    public dateManager() {
-    }
 
     /* --- METHODS --- */
 
@@ -55,7 +52,7 @@ public class dateManager {
             }
         }
 
-        throw new IllegalArgumentException("Sorry, I can't recognize that date and time format of yours.");
+        throw new InputException("Sorry, I can't recognize that date and time format of yours.");
     }
 
     /**
@@ -64,23 +61,19 @@ public class dateManager {
      * @return a string representation of the date and time.
      */
     public static String printDate(LocalDateTime date) {
-        try {
-            return date.format(OUT_FORMATTER);
-
-        } catch (DateTimeException e) {
-            return "ERROR";
-        }
-        
+        return date.format(OUT_FORMATTER);
     }
 
     /**
      * Lists out all accepted date formats.
      */
-    public static void validDateFormats() {
-        System.out.println("Here's a list of all acceptable date formats:");
+    public static String validDateFormats() {
+        String response = "Here's a list of all acceptable date formats:\n";
 
         for (String format: DATE_FORMATS) {
-            System.out.println(" - " + format);
+            response = response + " - " + format + "\n";
         }
+
+        return response;
     }
 }
