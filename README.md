@@ -1,6 +1,6 @@
-# lulu.Lulu Task Manager 🤖
+# Lulu Task Manager 🤖
 
-lulu.Lulu Task Manager is a simple command-line task manager written in Java. Keep track of your tasks with ease!
+Lulu Task Manager is a simple command-line task manager written in Java. Keep track of your tasks with ease!
 
 ## Table of Contents
 
@@ -13,7 +13,7 @@ lulu.Lulu Task Manager is a simple command-line task manager written in Java. Ke
 
 ## Introduction
 
-lulu.Lulu Task Manager is a Java-based task management application. It allows users to add, mark, unmark, and delete tasks, as well as perform queries based on specific criteria. The application utilizes a command-line interface for a straightforward user experience.
+Lulu Task Manager is a Java-based task management application. It allows users to add, mark, unmark, and delete tasks, as well as perform queries based on specific criteria. The application utilizes a command-line interface for a straightforward user experience.
 
 ## Features
 
@@ -37,11 +37,11 @@ git clone https://github.com/your-username/lulu-task-manager.git
 javac -d . src/*.java
 ```
 
-This is lulu.Lulu `lulu.Lulu chatbot = new lulu.Lulu();`.
+This is Lulu `Lulu chatbot = new Lulu();`.
 
 ```java
 public static void main(String[] args) {
-        lulu.Lulu chatbot = new lulu.Lulu();
+        Lulu chatbot = new Lulu();
         UI.start();
         try {
             chatbot.respond();
