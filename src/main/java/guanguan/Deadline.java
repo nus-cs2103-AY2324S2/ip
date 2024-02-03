@@ -5,6 +5,7 @@ import java.time.LocalDate;
 /**
  * Represents a Deadline class inherited from Task.
  */
+@SuppressWarnings("checkstyle:Regexp")
 public class Deadline extends Task {
     protected LocalDate by;
 
@@ -19,6 +20,7 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    @Override
     public String saveToText() {
         return String.format("D | %s | %s | %s", this.isDone ? 1 : 0, this.description,
                 Utils.convertDateTimeToString(this.by));

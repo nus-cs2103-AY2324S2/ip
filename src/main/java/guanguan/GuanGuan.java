@@ -1,9 +1,10 @@
 package guanguan;
 
-import javafx.application.Platform;
-
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+
+import javafx.application.Platform;
+
 
 /**
  * Main class of chatbot.

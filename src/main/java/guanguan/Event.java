@@ -16,12 +16,13 @@ public class Event extends Task {
      * @param from        starting date of the event
      * @param to          ending date of the event
      */
-    public Event(String description, LocalDate  from, LocalDate  to) {
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    @Override
     public String saveToText() {
         return String.format("E | %s | %s | %s | %s", this.isDone ? 1 : 0, this.description,
                 Utils.convertDateTimeToString(this.from), Utils.convertDateTimeToString(this.to));

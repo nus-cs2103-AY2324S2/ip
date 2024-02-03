@@ -25,15 +25,6 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    public void initialize() {
-        Circle clip = new Circle(
-                displayPicture.getFitWidth() / 2,
-                displayPicture.getFitHeight() / 2,
-                displayPicture.getFitWidth() / 2
-        );
-        displayPicture.setClip(clip);
-    }
-
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -46,6 +37,18 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+    }
+
+    /**
+     * Initializes the DialogBox.
+     */
+    public void initialize() {
+        Circle clip = new Circle(
+                displayPicture.getFitWidth() / 2,
+                displayPicture.getFitHeight() / 2,
+                displayPicture.getFitWidth() / 2
+        );
+        displayPicture.setClip(clip);
     }
 
     /**

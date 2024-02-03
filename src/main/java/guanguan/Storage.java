@@ -60,8 +60,9 @@ public class Storage {
                     task = new Event(lineArray[2], Utils.convertStringToDateTime(lineArray[3]),
                             Utils.convertStringToDateTime(lineArray[4]));
                     break;
+                default:
+                    break;
                 }
-
                 if (task == null) {
                     throw new GgException("Task Type not found!");
                 }
