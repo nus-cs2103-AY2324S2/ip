@@ -18,9 +18,9 @@ class ParserTest {
         assertEquals(CommandType.TODO, parsedCommand.getCommandType(), "Command type should be TODO");
         assertEquals(CommandType.DEADLINE, parsedCommand2.getCommandType(), "Command type should be DEADLINE");
         assertEquals(CommandType.EVENT, parsedCommand3.getCommandType(), "Command type should be EVENT");
-        assertEquals("todo read book", parsedCommand.getinput(), "Command details should match input");
-        assertEquals("deadline read book /by 2024-02-20", parsedCommand2.getinput(), "Command details should match input");
-        assertEquals("event read book /from 2024-02-20 /to 2024-03-20", parsedCommand3.getinput(), "Command details should match input");
+        assertEquals("todo read book", parsedCommand.getInput(), "Command details should match input");
+        assertEquals("deadline read book /by 2024-02-20", parsedCommand2.getInput(), "Command details should match input");
+        assertEquals("event read book /from 2024-02-20 /to 2024-03-20", parsedCommand3.getInput(), "Command details should match input");
     }
 
     @Test
@@ -32,7 +32,7 @@ class ParserTest {
         Parser.ParsedCommand parsedCommand = Parser.parse(input);
         Parser.ParsedCommand parsedCommand2 = Parser.parse(deadlineInput);
         Parser.ParsedCommand parsedCommand3 = Parser.parse(eventInput);
-        Task createdTodo = Parser.createTask(parsedCommand.getCommandType(), parsedCommand.getinput());
+        Task createdTodo = Parser.createTask(parsedCommand.getCommandType(), parsedCommand.getInput());
         Task createdDeadline = Parser.createTask(parsedCommand2.getCommandType(), deadlineInput);
         Task createdEvent = Parser.createTask(parsedCommand3.getCommandType(), eventInput);
         assertEquals("[T][ ] read book", createdTodo.toString(), "Todo string output should match input");
