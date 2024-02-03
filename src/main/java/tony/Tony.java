@@ -4,6 +4,9 @@ import tony.tasks.Task;
 import tony.tasks.TaskType;
 import java.util.Scanner;
 
+/**
+ * The main class representing the Tony application.
+ */
 public class Tony {
     private Ui ui;
     private TodoList list;
@@ -11,7 +14,11 @@ public class Tony {
     private Scanner scanner;
     private Parser parser;
 
-
+    /**
+     * Initializes a new instance of the Tony application.
+     *
+     * @param filePath The path to the file used for storing task data.
+     */
     public Tony(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,7 +32,9 @@ public class Tony {
         }
 
     }
-
+    /**
+     * Runs the Tony application, allowing users to interact with tasks.
+     */
     public void run() {
         ui.greeting();
         String input = scanner.nextLine();
@@ -65,7 +74,7 @@ public class Tony {
                         break;
                     case "find":
                         String description = parser.parseDescription(input);
-                        lst.find(description);
+                        list.find(description);
                         break;
                     default:
                         throw new IllegalArgumentException("Invalid command: " + command);
@@ -80,7 +89,11 @@ public class Tony {
         storage.saveToFile(list.printTasksToString());
         ui.goodbye();
     }
-
+    /**
+     * The main entry point of the Tony application.
+     *
+     * @param args The command-line arguments.
+     */
     public static void main(String[] args) {
         new Tony("data.txt").run();
     }
