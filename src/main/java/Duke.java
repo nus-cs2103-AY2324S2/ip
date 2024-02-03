@@ -2,8 +2,11 @@ import java.util.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -166,11 +169,8 @@ class Deadline implements Activity {
         act.add("X");
         int index = input.indexOf(" ") + 1;
         if (index > 0) {
-            String subStr = input.substring(index);
-            if (subStr.indexOf(" /") + 1 > 0) {
-                act.add(subStr.substring(index, subStr.indexOf(" /") - 1));
-                act.add(subStr.substring(subStr.indexOf(" /") + 1));
-            }
+            String[] subStr = input.substring(index).split(" /by ", 2);;
+            act.addAll(List.of(subStr));
         } else {
             throw new RuntimeException("unbearable");
         }
@@ -178,7 +178,7 @@ class Deadline implements Activity {
 
     @Override
     public void printActivity() {
-        System.out.format("\t\t [D][%s]%s(%s)%n", act.get(0), act.get(1),act.get(2));
+        System.out.format("\t\t [D][%s]%s(by: %s)%n", act.get(0), act.get(1),act.get(2));
     }
 
     @Override
