@@ -9,12 +9,22 @@ import academicweapon.ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+/**
+ * Duke is a task management application that allows users to interact with tasks through a command-line interface.
+ * It supports various command for managing tasks such as adding, listing, marking and deleting tasks.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Duke object with the specified file path for storage
+     *
+     * @param filePath The file path for task storage
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -26,6 +36,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the duke application, handling user interactions through a command-line interface.
+     * It processes user commands, updates tasks, and performs necessary  actions based on the commands.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -106,6 +120,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Main method to start the Duke application
+     *
+     * @param args Command-line arguments (not used)
+     */
     public static void main(String[] args) {
         new Duke("./src/main/data/acadList.txt").run();
     }

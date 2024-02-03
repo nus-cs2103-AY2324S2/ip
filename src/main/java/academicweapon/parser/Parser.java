@@ -5,8 +5,19 @@ import academicweapon.exceptions.DukeExceptions;
 
 import java.util.ArrayList;
 
+/**
+ * Utility class for parsing user commands in the Duke application.
+ * The Parser class extracts the action and parameters from the user inputs.
+ */
 public class Parser {
 
+    /**
+     * Parses the full command provided by the user.
+     *
+     * @param fullCommand The complete user input command
+     * @return An Arraylist containing the action and parameters
+     * @throws DukeExceptions If there is an error in parsing or validating the input
+     */
     public static ArrayList<String> parse(String fullCommand) throws DukeExceptions {
         Action action;
         String parameters;

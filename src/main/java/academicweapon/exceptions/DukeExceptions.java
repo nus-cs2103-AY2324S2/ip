@@ -4,17 +4,38 @@ import academicweapon.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Custom exception class for handling Duke application-specific exceptions.
+ * Provides various static methods for checking and validating different conditions in the Duke application.
+ */
 public class DukeExceptions extends Exception {
+    /**
+     * Constructs a new DukeExceptions with the specified detail message
+     *
+     * @param msg The detail message
+     */
     public DukeExceptions(String msg) {
         super(msg);
     }
 
+    /**
+     * Checks if the provided task list is not empty.
+     *
+     * @param lst The task list to check
+     * @throws DukeExceptions If the task list is empty
+     */
     public static void checkListNotEmpty (ArrayList<Task> lst) throws DukeExceptions {
         if (lst.size() == 0) {
             throw new DukeExceptions("OOPS!!! The list is empty.");
         }
     }
 
+    /**
+     * Checks if a line from a file representing a task is corrupted.
+     *
+     * @param line The line from the file
+     * @throws DukeExceptions If the file is corrupted
+     */
     public static void checkCorruptedFile(String line) throws DukeExceptions {
         String[] splittedLine = line.split("\\|");
         String action = splittedLine[0].trim();
@@ -39,6 +60,13 @@ public class DukeExceptions extends Exception {
         }
     }
 
+    /**
+     * Validates user input based on the specified action and parameters.
+     *
+     * @param action The action to be performed
+     * @param parameters The parameters associated with the action
+     * @throws DukeExceptions If the input is invalid
+     */
     public static void validateInput(String action, String parameters) throws DukeExceptions{
         switch(action) {
             case "TODO":

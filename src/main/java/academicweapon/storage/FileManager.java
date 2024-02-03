@@ -13,13 +13,30 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Utility class for managing file operations related to the Duke application.
+ * The FileManager class provides methods for loading, reading and saving.
+ */
 public class FileManager {
 
+    /**
+     * File route for storing the task list data file.
+     */
     private static final String fileRoute = "./src/main/data/acadList.txt";
+
+    /**
+     * Private constructor to prevent instantiation of the FileManager class.
+     */
     private FileManager() {
 
     }
 
+    /**
+     * Reads the contents of the file and returns a list of tasks.
+     *
+     * @param readFile The file containing the task list data
+     * @return An ArrayList containing tasks read from the file
+     */
     public static ArrayList<Task> getList(File readFile) {
         ArrayList<Task> lst = new ArrayList<>();
         try {
@@ -52,6 +69,12 @@ public class FileManager {
         }
     }
 
+    /**
+     * Checks if a task is done based on the input value and updates it
+     *
+     * @param t Task to check and update
+     * @param val Value representing the task status (0 for not done, 1 for done)
+     */
     public static void checkIfDone(Task t, String val) {
         if (val.equals("0")) {
             t.markAsNotDone();
@@ -60,6 +83,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Loads the task list data file. Creates a new file if it does not exist.
+     *
+     * @return The loaded or newly created file
+     */
     public static File load() {
         File file = new File(fileRoute);
         try {
@@ -75,6 +103,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Reads and displays the contents of the file to the console.
+     *
+     * @param fileToRead The file to read
+     */
     public static void readFile(File fileToRead) {
         try {
             Scanner sc = new Scanner(fileToRead);
@@ -92,6 +125,12 @@ public class FileManager {
         }
     }
 
+    /**
+     * Saves the task list data to the specified file.
+     *
+     * @param fileToSave The file to save the task list data
+     * @param lst The list of tasks to be saved
+     */
     public static void saveFile(File fileToSave, ArrayList<Task> lst) {
         try {
             FileWriter writer = new FileWriter(fileToSave);

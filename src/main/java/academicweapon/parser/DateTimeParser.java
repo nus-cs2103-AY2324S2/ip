@@ -5,10 +5,24 @@ import academicweapon.exceptions.DukeExceptions;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Utility class for parsing and formatting date-time in the Duke application
+ */
 public class DateTimeParser {
+    /**
+     * Private constructor to prevent instantiation of the DateTimeParser utility class.
+     */
     private DateTimeParser() {
 
     }
+
+    /**
+     * Parses the input string to create a LocalDateTime object.
+     *
+     * @param by The string containing date and time to be parsed
+     * @return LocalDateTime object representing the parsed date and time
+     * @throws DukeExceptions If the input string is not in the expected format
+     */
     public static LocalDateTime parseDateTime(String by) throws DukeExceptions {
         String[] splitBy = by.split(" ");
 
@@ -49,6 +63,12 @@ public class DateTimeParser {
         return ldt;
     }
 
+    /**
+     * Formats the provided LocalDateTime object as a string.
+     *
+     * @param ldt The LocalDateTime object to be formatted
+     * @return Formatted string representing the date and the time
+     */
     public static String toString(LocalDateTime ldt) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMM dd yyyy hhmm");
         return ldt.format(dtf);
