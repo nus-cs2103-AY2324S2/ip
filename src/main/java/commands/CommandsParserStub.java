@@ -1,7 +1,7 @@
 package commands;
 
 import exceptions.RyanGoslingException;
-import utilities.MessagePrinter;
+import utilities.ResponseHandler;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,7 +10,7 @@ public class CommandsParserStub {
     public int parseCommandsOriginal(String task) throws RyanGoslingException {
         String[] taskSplit = task.split(" ");
         if (task.equals(String.valueOf(CommandsEnum.bye))) {
-            MessagePrinter.bye();
+            ResponseHandler.bye();
             return 1;
         } else if (task.equals(String.valueOf(CommandsEnum.list))) {
             //taskList.printList();
@@ -69,7 +69,7 @@ public class CommandsParserStub {
     public String parseCommandsReturnString(String task) throws RyanGoslingException {
         String[] taskSplit = task.split(" ");
         if (task.equals(String.valueOf(CommandsEnum.bye))) {
-            MessagePrinter.bye();
+            ResponseHandler.bye();
             return "1";
         } else if (task.equals(String.valueOf(CommandsEnum.list))) {
             //taskList.printList();

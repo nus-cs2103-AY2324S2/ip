@@ -34,16 +34,16 @@ public class TaskList {
      *
      * @param newTask The task to be added to the list.
      */
-    public void add(Task newTask) {
+    public String add(Task newTask) {
         this.taskArrayList.add(newTask);
-        MessagePrinter.commandPrint(newTask, this.taskArrayList.size());
+        return ResponseHandler.commandPrint(newTask, this.taskArrayList.size());
     }
 
     /**
      * Prints the entire task list.
      */
-    public void printList() {
-        MessagePrinter.commandListPrint(this.taskArrayList);
+    public String printList() {
+        return ResponseHandler.commandListPrint(this.taskArrayList);
     }
 
     /**
@@ -52,8 +52,8 @@ public class TaskList {
      * @param action The action to be performed (mark or unmark).
      * @param which  The index of the task in the list.
      */
-    public void changeStatusOfItem(String action, int which) {
-        this.taskArrayList.get(which).changeStatus(action);
+    public String changeStatusOfItem(String action, int which) {
+        return this.taskArrayList.get(which).changeStatus(action);
     }
 
     /**
@@ -61,9 +61,11 @@ public class TaskList {
      *
      * @param index The index of the task to be removed.
      */
-    public void removeIndex(int index) {
-        MessagePrinter.removePrinter(this.taskArrayList.get(index), this.taskArrayList.size());
+    public String removeIndex(int index) {
+        Task taskToBeRemoved = taskArrayList.get(index);
         this.taskArrayList.remove(index);
+        return ResponseHandler.removePrinter(taskToBeRemoved, taskArrayList.size());
+
     }
 
     /**
@@ -76,15 +78,15 @@ public class TaskList {
     }
 
 
-    public void findTasks(String taskPattern) {
+    public String findTasks(String taskPattern) {
         ArrayList<Task> tasksWithPattern = new ArrayList<>();
-        for (int i = 0; i < this.taskArrayList.size(); i += 1) {
-            String currTaskName = taskArrayList.get(i).getTaskName();
+        for (Task task : this.taskArrayList) {
+            String currTaskName = task.getTaskName();
             if (currTaskName.contains(taskPattern)) {
-                tasksWithPattern.add(taskArrayList.get(i));
+                tasksWithPattern.add(task);
             }
         }
-        MessagePrinter.printFoundTasks(tasksWithPattern);
+        return ResponseHandler.printFoundTasks(tasksWithPattern);
     }
 
 

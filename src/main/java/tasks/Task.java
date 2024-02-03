@@ -1,6 +1,6 @@
 package tasks;
 
-import utilities.MessagePrinter;
+import utilities.ResponseHandler;
 
 public class Task {
     private String taskName;
@@ -87,13 +87,13 @@ public class Task {
      *
      * @param action The action to be performed ("mark" to mark as done, other to mark as not done).
      */
-    public void changeStatus(String action) {
+    public String changeStatus(String action) {
         if (action.equals("mark")) {
             this.taskDone = true;
         } else {
             this.taskDone = false;
         }
-        MessagePrinter.markActionPrint(action, this);
+        return ResponseHandler.markActionPrint(action, this);
     }
 
     /**
