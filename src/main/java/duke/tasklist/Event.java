@@ -1,7 +1,7 @@
 package duke.tasklist;
 
-import duke.exception.MalformedUserInputException;
 import duke.common.DateTimeHandler;
+import duke.exception.MalformedUserInputException;
 
 /**
  * Represents an event task.
@@ -19,7 +19,8 @@ public class Event extends Task {
      * @param isDone the completion status of the Event task.
      * @throws MalformedUserInputException if the user input is dirty.
      */
-    public Event(String description, String startTime, String endTime, boolean isDone) throws MalformedUserInputException {
+    public Event(String description, String startTime, String endTime, boolean isDone)
+            throws MalformedUserInputException {
         super(description, isDone);
         this.startTime = new DateTimeHandler(startTime);
         this.endTime = new DateTimeHandler(endTime);
@@ -40,7 +41,8 @@ public class Event extends Task {
      */
     @Override
     public String toStorageString() {
-        return "E | " + this.getDescription() + " | " + super.getStatus() + " | " + this.startTime.toStorageString() + " | " + this.endTime.toStorageString();
+        return "E | " + this.getDescription() + " | " + super.getStatus() + " | "
+                + this.startTime.toStorageString() + " | " + this.endTime.toStorageString();
     }
 
 

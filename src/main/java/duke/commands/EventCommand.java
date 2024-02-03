@@ -1,11 +1,12 @@
 package duke.commands;
 
-import duke.exception.MalformedUserInputException;
-import duke.tasklist.Event;
+import static duke.common.DateTimeHandler.DATE_INPUT_FORMAT_STRING;
 
 import java.util.regex.Pattern;
 
-import static duke.common.DateTimeHandler.DATE_INPUT_FORMAT_STRING;
+import duke.exception.MalformedUserInputException;
+import duke.tasklist.Event;
+
 
 /**
  * Represents the command to add an event to the data storage.
@@ -32,9 +33,9 @@ public class EventCommand extends Command {
      * Represents the message after the event is successfully added.
      * Contains the added event details and the current number of tasks in the database.
      */
-    public static final String MESSAGE_SUCCESS = "\t Got it. I've added this task:\n" +
-            "\t %s\n" +
-            "\t Now you have %d task(s) available!";
+    public static final String MESSAGE_SUCCESS = "\t Got it. I've added this task:\n"
+            + "\t %s\n"
+            + "\t Now you have %d task(s) available!";
 
     /**
      * Represents error message when the event name is blank.
@@ -55,7 +56,8 @@ public class EventCommand extends Command {
      * Represents the format of the arguments for a deadline command.
      * Regex to capture the `eventName`, `startTime` and `endTime` as a capture group.
      */
-    public static final Pattern EVENT_ARGUMENTS_FORMAT = Pattern.compile("(?<eventName>.+) \\/from (?<startTime>\\S+) \\/to (?<endTime>\\S+)");
+    public static final Pattern EVENT_ARGUMENTS_FORMAT =
+            Pattern.compile("(?<eventName>.+) \\/from (?<startTime>\\S+) \\/to (?<endTime>\\S+)");
 
     /**
      * Represents the Event object that is to be stored.

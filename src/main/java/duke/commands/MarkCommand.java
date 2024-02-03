@@ -16,11 +16,11 @@ public class MarkCommand extends Command {
             + "\t Example: " + COMMAND_WORD
             + " 1 ";
 
-    public static final String MESSAGE_SUCCESS = "\t Nice! I've marked this task as done:\n" +
-            "\t %s";
+    public static final String MESSAGE_SUCCESS = "\t Nice! I've marked this task as done:\n"
+            + "\t %s";
     public static final String MESSAGE_INVALID_ID = "\t Please enter a integer that is 1 or larger.";
-    public static final String MESSAGE_TASK_NOT_CREATED_YET = " \t This is an invalid index\n"+
-            "\t There are %d tasks available.";
+    public static final String MESSAGE_TASK_NOT_CREATED_YET = " \t This is an invalid index\n"
+            + "\t There are %d tasks available.";
 
     private int targetIndex;
 

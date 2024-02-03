@@ -1,8 +1,8 @@
 package duke.ui;
 
-import duke.common.Messages;
-
 import java.util.Scanner;
+
+import duke.common.Messages;
 
 /**
  * Represents the User Interface of the application.
