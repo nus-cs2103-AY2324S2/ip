@@ -1,9 +1,10 @@
 package duke;
 
-import duke.exceptions.DukeException;
-
 import duke.exceptions.StorageException;
-import duke.task.*;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.TaskType;
+
 
 import java.io.File;
 import java.util.Scanner;
