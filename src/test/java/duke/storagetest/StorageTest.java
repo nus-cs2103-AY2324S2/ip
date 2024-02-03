@@ -16,6 +16,11 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests for the Storage class functionality.
+ * This includes testing the loading of tasks from a file,
+ * adding tasks to a file, and changing the content of the file.
+ */
 public class StorageTest {
     private Parser parser;
     private TaskList list;
@@ -24,6 +29,10 @@ public class StorageTest {
     @TempDir
     Path tempDir;
     
+    /**
+     * Sets up the environment for each test.
+     * Initializes a new Parser, TaskList, and Storage with a temporary file.
+     */
     @BeforeEach
     void setUp() {
         parser = new Parser();
@@ -31,6 +40,12 @@ public class StorageTest {
         storage = new Storage(tempDir.resolve("dukeTest.txt").toString(), parser);
     }
     
+    /**
+     * Tests loading tasks from an empty file.
+     * Verifies that the loaded TaskList is empty.
+     *
+     * @throws IOException If an I/O error occurs creating the empty file.
+     */
     @Test
     void testLoadFile_emptyFile() throws IOException {
         Files.createFile(tempDir.resolve("dukeTest.txt"));
@@ -38,6 +53,12 @@ public class StorageTest {
         assertTrue(loadedList.getList().isEmpty(), "Loaded list should be empty for an empty file");
     }
     
+    /**
+     * Tests adding a single task to the file.
+     * Verifies that the file contains the description of the added task.
+     *
+     * @throws IOException If an I/O error occurs reading the file content.
+     */
     @Test
     void testAddTaskToFile() throws IOException {
         Task task = new ToDo("running");
@@ -46,6 +67,12 @@ public class StorageTest {
         assertTrue(content.contains("running"), "File should contain the added task's description");
     }
     
+    /**
+     * Tests changing the file content with a new list of tasks.
+     * Verifies that the file contains the descriptions of all tasks in the list.
+     *
+     * @throws IOException If an I/O error occurs reading the file content.
+     */
     @Test
     void testChangeFileContent() throws IOException {
         Task task1 = new ToDo("sleep");

@@ -53,6 +53,12 @@ public class Parser {
         return list.getTask(indexOfTaskToDelete);
     }
     
+    /**
+     * Parses the input command to retrieve the keyword the user is finding in the task list.
+     *
+     * @param input The user input string.
+     * @return The String that is in the descriptions of the tasks in task list.
+     */
     public String getKeywordForFind(String input) {
         return input.substring(5);
     }

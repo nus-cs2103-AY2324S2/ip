@@ -93,7 +93,15 @@ public class Ui {
         System.out.println(toPrint);
     }
     
-    public void finding(TaskList list, String keyword) throws DukeException{
+    /**
+     * Prints a message to the user indicating the tasks the user is finding, and displays the tasks
+     * in a list format.
+     *
+     * @param list The task list from which the user is finding in.
+     * @param keyword The description string that the user is finding in the task description of the tasks
+     *                in the task list.
+     */
+    public void finding(TaskList list, String keyword) {
         String result = list.findTask(keyword);
         String toPrint = "Here are the matching tasks in your list:\n"
                 + result
