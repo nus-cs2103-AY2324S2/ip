@@ -1,13 +1,15 @@
 import exception.DukeException;
+import storage.Storage;
 import task.TaskList;
 
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
     private boolean isRunning;
     private TaskList taskList;
+    
+    private Storage storage;
     
     private static final DateTimeFormatter DATE_PARSE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -28,12 +30,14 @@ public class Duke {
                 "\tWhat can I do for you?";
         printMessage(introMessage);
         printLine();
-
+        
         try {
-            this.taskList = new TaskList();
+            this.storage = new Storage("./data/tasklist.txt");
+            this.taskList = new TaskList(this.storage.loadStorage());
         } catch (DukeException e) {
-            printMessage("Exiting as tasklist.txt is corrupted.");
-            this.isRunning = false;
+            printMessage(e.getMessage());
+            printMessage("tasklist.txt is corrupted. Starting a blank tasklist.");
+            this.taskList = new TaskList();
         }
 
         while (this.isRunning) {
@@ -47,8 +51,9 @@ public class Duke {
                 printLine();
             }
         }
+        
         try {
-            taskList.saveTasks();
+            storage.saveToStorage(taskList.getTaskList());
         } catch (DukeException e) {
             printMessage(e.getMessage());
         }

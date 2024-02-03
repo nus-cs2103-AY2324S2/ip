@@ -10,22 +10,23 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> taskList;
-    private Storage storage;
 
     private static final DateTimeFormatter DATETIME_PARSE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public TaskList() throws DukeException {
-        this.storage = new Storage("./data/tasklist.txt");
-        this.taskList = this.storage.loadStorage(new ArrayList<>());
+    public TaskList() {
+        this.taskList = new ArrayList<>();
+    }
+    
+    public TaskList(ArrayList<Task> taskArrayList) {
+        this.taskList = taskArrayList;
     }
     
     public int size() {
         return taskList.size();
     }
     
-    public void saveTasks() throws DukeException {
-        this.storage.saveToStorage(this.taskList);
-        System.out.println("\tSuccessfully saved task data to tasklist.txt.");
+    public ArrayList<Task> getTaskList() {
+        return this.taskList;
     }
     
     public void markTask(int index) {

@@ -40,7 +40,8 @@ public class Storage {
         return this.filePath;
     }
     
-    public ArrayList<Task> loadStorage(ArrayList<Task> taskArrayList) throws DukeException {
+    public ArrayList<Task> loadStorage() throws DukeException {
+        ArrayList<Task> taskArrayList = new ArrayList<>();
         try {
             Scanner tasklistScanner = new Scanner(this.f);
             while (tasklistScanner.hasNext()) {
@@ -82,11 +83,12 @@ public class Storage {
     
     public void saveToStorage(ArrayList<Task> taskArrayList) throws DukeException {
         try {
-            FileWriter fw = new FileWriter(this.getFilePath());
+            FileWriter fw = new FileWriter(this.getFilePath(), false);
             for (Task t : taskArrayList) {
                 fw.write(t.toStorageString() + System.lineSeparator());
             }
             fw.close();
+            System.out.println("\tSuccessfully saved task data to tasklist.txt.");
         } catch (IOException e) {
             throw new DukeException("Sorry, saving to tasklist.txt failed.");
         }
