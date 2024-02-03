@@ -1,3 +1,4 @@
+package panda.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -7,7 +8,7 @@ public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
-    Event(String desc, String from, String to) {
+    public Event(String desc, String from, String to) {
         super(desc);
         DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder();
         builder.parseCaseInsensitive()

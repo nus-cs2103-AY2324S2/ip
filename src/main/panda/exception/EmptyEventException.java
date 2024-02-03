@@ -1,3 +1,4 @@
+package panda.exception;
 public class EmptyEventException extends PandaException {
     public EmptyEventException() {
         super("OOPS! The description of an event cannot be empty.");
