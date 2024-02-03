@@ -24,12 +24,7 @@ public class Main {
             throw new RuntimeException(e.getMessage()); // we should not continue if we cannot connect to the database
         }
 
-        try {
-            Application.launch(App.class, args);
-        } catch (Exception e) {
-            System.out.println("Something went wrong while running the app:");
-            System.out.println(e.getMessage());
-        }
+        Application.launch(App.class, args);
 
         try {
             db.disconnect();
