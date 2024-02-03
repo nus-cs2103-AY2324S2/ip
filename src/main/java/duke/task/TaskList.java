@@ -11,6 +11,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manages all the operations of tasks on the list.
+ */
 public class TaskList {
     private List<Task> listOfTasks;
 

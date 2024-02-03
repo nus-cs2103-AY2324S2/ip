@@ -8,12 +8,28 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Deals in connecting with the user command.
+ */
 public class Parser {
+    /**
+     * Identifies the type of task.
+     * @param command User's inputted text.
+     * @return The type of task the user wants to do.
+     */
     public String identify(String command) {
         String[] strings = command.split(" ");
         return strings[0];
     }
 
+    /**
+     * Parses and executes user command to manage tasks.
+     * @param str User's inputed String (Command).
+     * @param io IoHandler object for input and output
+     * @param taskList List containing Tasks.
+     * @param storage Acts as a storage object for saving tasks.
+     * @return boolean value depicting whether application should run or should be exited.
+     */
     public boolean parse(String str, IOHandler io, TaskList taskList, Storage storage) throws FileIOException {
         String command = identify(str);
         try {
