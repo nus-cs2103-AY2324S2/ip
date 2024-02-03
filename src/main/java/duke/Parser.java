@@ -39,33 +39,33 @@ public class Parser {
         }
 
         switch (taskType) {
-            case BYE: {
-                return handleTaskBye(splitedTask);
-            }
-            case LIST: {
-                return handleTaskList(splitedTask);
-            }
-            case MARK: {
-                return handleTaskMark(splitedTask);
-            }
-            case UNMARK: {
-                return handleTaskUnmark(splitedTask);
-            }
-            case TODO: {
-                return handleTaskTodo(fullCommand, splitedTask);
-            }
-            case DEADLINE: {
-                return handleTaskDeadline(fullCommand, splitedTask);
-            }
-            case EVENT: {
-                return handleTaskEvent(fullCommand, splitedTask);
-            }
-            case DELETE: {
-                return handleTaskDelete(splitedTask);
-            }
-            default: {
-                throw new DukeException("Syntax error, unknown command.");
-            }
+        case BYE: {
+            return handleTaskBye(splitedTask);
+        }
+        case LIST: {
+            return handleTaskList(splitedTask);
+        }
+        case MARK: {
+            return handleTaskMark(splitedTask);
+        }
+        case UNMARK: {
+            return handleTaskUnmark(splitedTask);
+        }
+        case TODO: {
+            return handleTaskTodo(fullCommand, splitedTask);
+        }
+        case DEADLINE: {
+            return handleTaskDeadline(fullCommand, splitedTask);
+        }
+        case EVENT: {
+            return handleTaskEvent(fullCommand, splitedTask);
+        }
+        case DELETE: {
+            return handleTaskDelete(splitedTask);
+        }
+        default: {
+            throw new DukeException("Syntax error, unknown command.");
+        }
         }
     }
 
