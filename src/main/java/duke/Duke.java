@@ -1,3 +1,6 @@
+/**
+ * The Duke class is the main class of the FICIN Chat bot.
+ */
 package duke;
 
 import duke.task.TaskList;
@@ -6,6 +9,11 @@ public class Duke {
     private static TaskList taskList; // Using duke.task.TaskList to manage tasks
     private static Ui ui;
 
+    /**
+     * The main method is the entry point of the Duke application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         ui = new Ui();
         ui.showWelcome();
@@ -18,6 +26,10 @@ public class Duke {
         new Duke().run();
     }
 
+    /**
+     * The run method handles the main functionality of the Duke application.
+     * It continuously reads user input, processes commands, and executes tasks until the user enters "bye".
+     */
     public void run() {
         String userInput;
 

@@ -57,7 +57,7 @@ public class Task {
      * @return An empty string, to be implemented in each subclass.
      */
     public String toFileString() {
-        return ""; // Implement this in each subclass (duke.task.Todo, duke.task.Deadline, duke.task.Event)
+        return "";
     }
 
     /**
