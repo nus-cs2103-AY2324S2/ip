@@ -124,11 +124,7 @@ public class Storage {
         return tasks;
     }
 
-    /**
-     * Takes in a TaskList of tasks and stores it to the local save .txt file.
-     *
-     * @param tasks TaskList containing the tasks that need to be saved.
-     * */
+
     public void storeToLocal(TaskList tasks) {
         String result = tasks.saveMechanism();
 
