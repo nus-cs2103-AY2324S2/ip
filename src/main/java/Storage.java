@@ -1,43 +1,30 @@
+import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.util.ArrayList;
+
 public class Storage {
-    
+
     private static final String FOLDER_PATH = "./tasklist";
     private static final String TASKLIST_PATH = FOLDER_PATH + "/tasklist.txt";
-    private TaskList taskList;
+    private Path taskListPath = Paths.get(TASKLIST_PATH);
+    private Path folderPath = Paths.get(FOLDER_PATH);
+    private ArrayList<Task> taskList;
 
-    /** 
-     * Constructor for Storage
-     * 
-     * @param taskListPath
-     */
-    public Storage(String taskListPath) {
-        this.taskListPath = taskListPath;
+    public Storage(ArrayList<Task> taskList) {
+        this.taskList = taskList;
+        createTaskList();
+        loadTaskList();
     }
 
-    /**
-     * Loads the tasklist from file. Creates the folder and file if they don't exist.
-     * 
-     * @throws IOException if there is an error loading data from file
-     */
-    private void loadTasklist() {
+    public void loadTaskList() {
         try {
             // Clear existing tasks before loading
-            this.taskList.clear();  
+            this.taskList.clear();
 
-            Path taskListPath = Paths.get(TASKLIST_PATH);
-            Path folderPath = Paths.get(FOLDER_PATH);
-
-            // Create the folder and file if they don't exist
-            if (Files.notExists(folderPath)) { 
-                Files.createDirectories(folderPath);
-            }
-            if (Files.notExists(taskListPath)) {
-                Files.createFile(taskListPath);
-            }
-            
             // Load tasks from file
             ArrayList<String> taskListFromFile = new ArrayList<>(Files.readAllLines(taskListPath));
 
@@ -47,70 +34,78 @@ public class Storage {
                 String taskType = taskParts[0];
                 String taskStatus = taskParts[1];
                 String taskDescription = taskParts[2];
-                
+
                 switch (taskType) {
-                case "T":
-                    Todo newTodo = new Todo (taskDescription);
-                    if (taskStatus.equals("done")) {
-                        newTodo.markDone();
-                    }
-                    this.taskList.add(newTodo);
-                    break;
-                case "D":
-                    String[] deadlineParts = taskDescription.split(" \\(by: ", 2);
-                    String deadlineDescription = deadlineParts[0];
-                    String deadlineByDateTime = deadlineParts[1].substring(0, deadlineParts[1].length() - 1);
-                    
-                    Deadline newDeadline = new Deadline (deadlineDescription, deadlineByDateTime);
+                    case "T":
+                        Todo newTodo = new Todo(taskDescription);
+                        if (taskStatus.equals("done")) {
+                            newTodo.markDone();
+                        }
+                        this.taskList.add(newTodo);
+                        break;
+                    case "D":
+                        String[] deadlineParts = taskDescription.split(" \\(by: ", 2);
+                        String deadlineDescription = deadlineParts[0];
+                        String deadlineByDateTime = deadlineParts[1].substring(0, deadlineParts[1].length() - 1);
 
-                    if (taskStatus.equals("done")) {
-                        newDeadline.markDone();
-                    }
-                    this.taskList.add(newDeadline);
-                    break;
-                case "E":
-                    String[] eventParts = taskDescription.split(" \\(from: ", 2);
-                    String eventDescription = eventParts[0];
+                        Deadline newDeadline = new Deadline(deadlineDescription, deadlineByDateTime);
 
-                    String eventAt = eventParts[1].substring(0, eventParts[1].length() - 1);
-                    String[] eventAtParts = eventAt.split(", to: ", 2);
+                        if (taskStatus.equals("done")) {
+                            newDeadline.markDone();
+                        }
+                        this.taskList.add(newDeadline);
+                        break;
+                    case "E":
+                        String[] eventParts = taskDescription.split(" \\(from: ", 2);
+                        String eventDescription = eventParts[0];
 
-                    String eventFrom = eventAtParts[0];
-                    String eventTo = eventAtParts[1];
+                        String eventAt = eventParts[1].substring(0, eventParts[1].length() - 1);
+                        String[] eventAtParts = eventAt.split(", to: ", 2);
 
-                    Events newEvent = new Events (eventDescription, eventFrom, eventTo);
-                    if (taskStatus.equals("done")) {
-                        newEvent.markDone();
-                    }
-                    this.taskList.add(newEvent);
-                    break;
-                default:
-                    System.out.println(taskListFromFile); // debug line
-                    System.out.println("Unrecognized task type: " + task);
-                    throw new IOException("Error loading data from file: error in loadTasklist() try block");
+                        String eventFrom = eventAtParts[0];
+                        String eventTo = eventAtParts[1];
+
+                        Events newEvent = new Events(eventDescription, eventFrom, eventTo);
+                        if (taskStatus.equals("done")) {
+                            newEvent.markDone();
+                        }
+                        this.taskList.add(newEvent);
+                        break;
+                    default:
+                        System.out.println("Unrecognized task type: " + task);
+                        throw new IOException("Error loading data from file: unrecognized task type");
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error loading data from file: error in loadTasklist() catch block");
+            System.out.println("Error loading data from file: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    /**
-     * Saves data from taskList into the file
-     */
-    private void saveTaskListToFile() {
+    public void saveTaskListToFile() {
         try {
-            Path taskListPath = Paths.get(TASKLIST_PATH);
             ArrayList<String> newTaskList = new ArrayList<>();
-            
+
             for (Task task : this.taskList) {
                 newTaskList.add(task.toString());
             }
 
             Files.write(taskListPath, newTaskList);
         } catch (IOException e) {
-            System.out.println("Error saving data to file: error in saveTaskListToFile()");
+            System.out.println("Error saving data to file: " + e.getMessage());
+        }
+    }
+
+    private void createTaskList() {
+        try {
+            if (Files.notExists(folderPath)) {
+                Files.createDirectories(folderPath);
+            }
+            if (Files.notExists(taskListPath)) {
+                Files.createFile(taskListPath);
+            }
+        } catch (IOException e) {
+            System.out.println("Error creating tasklist: " + e.getMessage());
         }
     }
 }
