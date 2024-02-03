@@ -1,4 +1,4 @@
-package duke;
+package echon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +21,7 @@ public class UI {
 
     /**
      * Prints a message to the user.
-     * 
+     *
      * @param message The message to be printed.
      */
     public void printMessage(String message) {
@@ -33,7 +33,7 @@ public class UI {
 
     /**
      * Prints a multi-line message to the user.
-     * 
+     *
      * @param messages The list of message lines to be printed.
      */
     public void printMessages(ArrayList<String> messages) {
@@ -51,10 +51,10 @@ public class UI {
     public void printWelcomeMessage() {
         printMessages(WELCOME_MESSAGES);
     }
-    
+
     /**
      * Processes the commands entered by the user.
-     * 
+     *
      * @param commandCreator The command creator to create commands.
      * @param storage The storage to save the task list.
      */
@@ -66,7 +66,7 @@ public class UI {
                 Command command = commandCreator.createCommand(input);
                 command.execute(this);
                 storage.save();
-            } catch (DukeException e) {
+            } catch (EchonException e) {
                 printMessage(e.getMessage());
             }
         }
@@ -76,7 +76,7 @@ public class UI {
     /**
      * Sets whether the user interface is active.
      * Setting the user interface to inactive will cause the user interface to terminate.
-     * 
+     *
      * @param isActive Whether the user interface is active.
      */
     public void setActive(boolean isActive) {

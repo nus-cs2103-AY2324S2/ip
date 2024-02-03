@@ -1,4 +1,4 @@
-package duke;
+package echon;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,20 +12,20 @@ public class Event extends Task {
 
     /**
      * Creates an event task.
-     * 
+     *
      * @param description Description of the task.
      * @param fromDate Start date of the task.
      * @param toDate End date of the task.
-     * @throws DukeException If the start or end date is not in the correct format.
+     * @throws EchonException If the start or end date is not in the correct format.
      */
-    public Event(String description, String fromDate, String toDate) throws DukeException {
+    public Event(String description, String fromDate, String toDate) throws EchonException {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         try {
             this.fromDate = LocalDateTime.parse(fromDate, formatter);
             this.toDate = LocalDateTime.parse(toDate, formatter);
         } catch (Exception e) {
-            throw new DukeException("Please enter a valid date and time in the format yyyy-MM-dd HH:mm");
+            throw new EchonException("Please enter a valid date and time in the format yyyy-MM-dd HH:mm");
         }
     }
 

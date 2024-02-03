@@ -1,14 +1,14 @@
-package duke;
+package echon;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 class TaskStub extends Task {
-    String identifier;
+    private final String identifier;
 
     public TaskStub(String identifier) {
         super("stub");

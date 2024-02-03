@@ -1,4 +1,4 @@
-package duke;
+package echon;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,18 +16,18 @@ public class Storage {
 
     /**
      * Creates a new Storage object.
-     * 
+     *
      * @param filePath The path to the file that stores the task list.
-     * @throws DukeException If the file does not exist and cannot be created.
+     * @throws EchonException If the file does not exist and cannot be created.
      */
-    public Storage(String filePath) throws DukeException {
+    public Storage(String filePath) throws EchonException {
         this.file = new File(filePath);
         if (!this.file.exists()) {
             this.file.getParentFile().mkdirs();
             try {
                 this.file.createNewFile();
             } catch (IOException e) {
-                throw new DukeException("Error creating new file");
+                throw new EchonException("Error creating new file");
             }
         }
     }
@@ -35,10 +35,10 @@ public class Storage {
     /**
      * Saves the task list to the file.
      * Assumption: load should be called before save.
-     * 
-     * @throws DukeException If there is an error writing to file.
+     *
+     * @throws EchonException If there is an error writing to file.
      */
-    public void save() throws DukeException {
+    public void save() throws EchonException {
         try {
             FileWriter fileWriter = new FileWriter(file);
             for (int i = 0; i < this.taskList.getSize(); i++) {
@@ -48,17 +48,17 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-            throw new DukeException("Error saving tasks to file");
+            throw new EchonException("Error saving tasks to file");
         }
     }
 
     /**
      * Loads the task list from the file.
-     * 
+     *
      * @return The task list.
-     * @throws DukeException If there is an error reading from file.
+     * @throws EchonException If there is an error reading from file.
      */
-    public TaskList load() throws DukeException {
+    public TaskList load() throws EchonException {
         this.taskList = new TaskList();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
@@ -70,9 +70,9 @@ public class Storage {
             }
             bufferedReader.close();
         } catch (FileNotFoundException e) {
-            throw new DukeException("Error loading tasks from file");
+            throw new EchonException("Error loading tasks from file");
         } catch (IOException e) {
-            throw new DukeException("Error loading tasks from file");
+            throw new EchonException("Error loading tasks from file");
         }
         return this.taskList;
     }

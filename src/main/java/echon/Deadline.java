@@ -1,4 +1,4 @@
-package duke;
+package echon;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,18 +12,18 @@ public class Deadline extends Task {
 
     /**
      * Creates a deadline task.
-     * 
+     *
      * @param description Description of the task.
      * @param byDate Due date of the task.
-     * @throws DukeException If the due date is not in the correct format.
+     * @throws EchonException If the due date is not in the correct format.
      */
-    public Deadline(String description, String byDate) throws DukeException {
+    public Deadline(String description, String byDate) throws EchonException {
         super(description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         try {
             this.byDate = LocalDateTime.parse(byDate, formatter);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Please enter a valid date and time in the format yyyy-MM-dd HH:mm");
+            throw new EchonException("Please enter a valid date and time in the format yyyy-MM-dd HH:mm");
         }
     }
 

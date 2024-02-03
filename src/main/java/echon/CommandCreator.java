@@ -1,4 +1,4 @@
-package duke;
+package echon;
 
 /**
  * Creates a command object from a command string.
@@ -10,19 +10,19 @@ public class CommandCreator {
         this.taskList = taskList;
     }
 
-    private int parseIndex(String command) throws DukeException {
+    private int parseIndex(String command) throws EchonException {
         String[] tokens = command.split(" ");
         if (tokens.length == 1) {
-            throw new DukeException("OOPS!!! The index of a " + tokens[0]
+            throw new EchonException("OOPS!!! The index of a " + tokens[0]
                     + " cannot be empty.");
         }
         return Integer.parseInt(tokens[1]) - 1;
     }
 
-    private String parseStringArgument(String command) throws DukeException {
+    private String parseStringArgument(String command) throws EchonException {
         String[] tokens = command.split(" ");
         if (tokens.length == 1) {
-            throw new DukeException("OOPS!!! The description of a " + tokens[0]
+            throw new EchonException("OOPS!!! The description of a " + tokens[0]
                     + " cannot be empty.");
         }
         String argument = tokens[1];
@@ -35,7 +35,7 @@ public class CommandCreator {
         return argument;
     }
 
-    private String parseNamedArgument(String command, String name) throws DukeException {
+    private String parseNamedArgument(String command, String name) throws EchonException {
         String[] tokens = command.split(" ");
         for (int i = 0; i < tokens.length - 1; i++) {
             if (tokens[i].equals("/" + name)) {
@@ -49,17 +49,17 @@ public class CommandCreator {
                 return argument;
             }
         }
-        throw new DukeException("OOPS!!! The argument /" + name + " is missing.");
+        throw new EchonException("OOPS!!! The argument /" + name + " is missing.");
     }
 
     /**
      * Creates a command object from a command string.
-     * 
+     *
      * @param command The command string.
      * @return The command object.
-     * @throws DukeException If the command string is invalid.
+     * @throws EchonException If the command string is invalid.
      */
-    public Command createCommand(String command) throws DukeException {
+    public Command createCommand(String command) throws EchonException {
         if (command.equals("bye")) {
             return new ByeCommand();
         } else if (command.equals("list")) {
@@ -90,7 +90,7 @@ public class CommandCreator {
             String keyword = parseStringArgument(command);
             return new FindTaskCommand(keyword, this.taskList);
         } else {
-            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new EchonException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }

@@ -1,4 +1,4 @@
-package duke;
+package echon;
 
 /**
  * Creates a task object from a line in the file.
@@ -6,12 +6,12 @@ package duke;
 public class TaskBuilder {
     /**
      * Creates a task object from a line in the file.
-     * 
+     *
      * @param line Line in the file.
      * @return Task object.
-     * @throws DukeException If the line is invalid.
+     * @throws EchonException If the line is invalid.
      */
-    public static Task createTaskFromFileLine(String line) throws DukeException {
+    public static Task createTaskFromFileLine(String line) throws EchonException {
         String[] lineSplit = line.split(" \\| ");
         String type = lineSplit[0];
         String status = lineSplit[1];
@@ -31,7 +31,7 @@ public class TaskBuilder {
             task = new Event(description, fromDate, toDate);
             break;
         default:
-            throw new DukeException("File corrupted.");
+            throw new EchonException("File corrupted.");
         }
         if (status.equals("1")) {
             task.markAsDone();

@@ -1,4 +1,4 @@
-package duke;
+package echon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,11 +9,11 @@ import java.util.Arrays;
 public abstract class Command {
     /**
      * Executes the command.
-     * 
+     *
      * @param ui The user interface where the command is executed.
-     * @throws DukeException If an error occurs while executing the command.
+     * @throws EchonException If an error occurs while executing the command.
      */
-    public abstract void execute(UI ui) throws DukeException;
+    public abstract void execute(UI ui) throws EchonException;
 }
 
 class ByeCommand extends Command {
@@ -54,18 +54,18 @@ abstract class AddTaskCommand extends Command {
         this.taskList = taskList;
     }
 
-    protected abstract Task createTask() throws DukeException;
+    protected abstract Task createTask() throws EchonException;
 
     @Override
-    public void execute(UI ui) throws DukeException {
+    public void execute(UI ui) throws EchonException {
         if (this.description.equals("")) {
-            throw new DukeException(EMPTY_DESCRIPTION_MESSAGE);
+            throw new EchonException(EMPTY_DESCRIPTION_MESSAGE);
         }
         Task task;
         try {
             task = this.createTask();
-        } catch (DukeException e) {
-            throw new DukeException(e.getMessage());
+        } catch (EchonException e) {
+            throw new EchonException(e.getMessage());
         }
         this.taskList.addTask(task);
         ArrayList<String> messages = new ArrayList<String>(Arrays.asList(
@@ -97,7 +97,7 @@ class AddDeadlineCommand extends AddTaskCommand {
     }
 
     @Override
-    protected Task createTask() throws DukeException {
+    protected Task createTask() throws EchonException {
         return new Deadline(this.description, this.byDate);
     }
 }
@@ -114,7 +114,7 @@ class AddEventCommand extends AddTaskCommand {
     }
 
     @Override
-    protected Task createTask() throws DukeException {
+    protected Task createTask() throws EchonException {
         return new Event(this.description, this.fromDate, this.toDate);
     }
 }

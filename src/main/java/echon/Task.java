@@ -1,4 +1,4 @@
-package duke;
+package echon;
 
 /**
  * Represents a task.
@@ -9,7 +9,7 @@ public class Task {
 
     /**
      * Creates a task with the given description.
-     * 
+     *
      * @param description Description of the task.
      */
     public Task(String description) {
@@ -23,7 +23,7 @@ public class Task {
 
     /**
      * Marks the task as done.
-     */    
+     */
     public void markAsDone() {
         this.isDone = true;
     }
@@ -37,7 +37,7 @@ public class Task {
 
     /**
      * Returns a string representation of the task to be saved in the file.
-     * 
+     *
      * @return String representation of the task to be saved in the file.
      */
     public String toFileLine() {

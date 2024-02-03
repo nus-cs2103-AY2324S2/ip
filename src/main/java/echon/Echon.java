@@ -1,9 +1,9 @@
-package duke;
+package echon;
 
 /**
  * Represents the main class of the application.
  */
-public class Duke {
+public class Echon {
     private static final String FILE_PATH = "data/duke.txt";
 
     private static UI ui;
@@ -16,7 +16,7 @@ public class Duke {
         try {
             storage = new Storage(FILE_PATH);
             taskList = storage.load();
-        } catch (DukeException e) {
+        } catch (EchonException e) {
             ui.printMessage("Error loading task list: " + e.getMessage());
             return;
         }

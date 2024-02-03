@@ -1,4 +1,4 @@
-package duke;
+package echon;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class TaskList {
 
     /**
      * Adds a task to the task list.
-     * 
+     *
      * @param task The task to be added.
      */
     public void addTask(Task task) {
@@ -26,7 +26,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the task list.
-     * 
+     *
      * @param index The index of the task to be deleted.
      */
     public void deleteTask(int index) {
@@ -35,7 +35,7 @@ public class TaskList {
 
     /**
      * Lists all the tasks in the task list in their string representations.
-     * 
+     *
      * @return The list of tasks in their string representations.
      */
     public ArrayList<String> listTasks() {
@@ -49,7 +49,7 @@ public class TaskList {
 
     /**
      * Returns the task at the given index.
-     * 
+     *
      * @param index The index of the task.
      * @return The task at the given index.
      */
@@ -59,7 +59,7 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the task list.
-     * 
+     *
      * @return The number of tasks in the task list.
      */
     public int getSize() {

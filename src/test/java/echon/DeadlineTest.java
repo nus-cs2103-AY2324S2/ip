@@ -1,11 +1,11 @@
-package duke;
+package echon;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
     @Test
@@ -15,7 +15,7 @@ public class DeadlineTest {
 
     @Test
     public void constructor_wrongDateFormat_throwsException() {
-        assertThrows(DukeException.class, () -> new Deadline("this is a string", "26/1/2024 23:59"));
+        assertThrows(EchonException.class, () -> new Deadline("this is a string", "26/1/2024 23:59"));
     }
 
     @Test
@@ -23,7 +23,7 @@ public class DeadlineTest {
         try {
             assertEquals("[D][ ] this is a string (by: Jan 26 2024 23:59)",
                     new Deadline("this is a string", "2024-01-26 23:59").toString());
-        } catch (DukeException e) {
+        } catch (EchonException e) {
             fail();
         }
     }
@@ -33,7 +33,7 @@ public class DeadlineTest {
         try {
             assertEquals("D | 0 | this is a string | 2024-01-26 23:59",
                     new Deadline("this is a string", "2024-01-26 23:59").toFileLine());
-        } catch (DukeException e) {
+        } catch (EchonException e) {
             fail();
         }
     }
@@ -44,7 +44,7 @@ public class DeadlineTest {
             Deadline deadline = new Deadline("this is a string", "2024-01-26 23:59");
             deadline.markAsDone();
             assertEquals("[D][X] this is a string (by: Jan 26 2024 23:59)", deadline.toString());
-        } catch (DukeException e) {
+        } catch (EchonException e) {
             fail();
         }
     }
@@ -56,7 +56,7 @@ public class DeadlineTest {
             deadline.markAsDone();
             deadline.unmarkAsDone();
             assertEquals("[D][ ] this is a string (by: Jan 26 2024 23:59)", deadline.toString());
-        } catch (DukeException e) {
+        } catch (EchonException e) {
             fail();
         }
     }
@@ -65,7 +65,7 @@ public class DeadlineTest {
     public void getDescription_normalInput_returnCorrectly() {
         try {
             assertEquals("this is a string", new Deadline("this is a string", "2024-01-26 23:59").getDescription());
-        } catch (DukeException e) {
+        } catch (EchonException e) {
             fail();
         }
     }
