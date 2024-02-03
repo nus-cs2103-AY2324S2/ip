@@ -25,6 +25,7 @@ public class Parser {
      * If given "deadline", a new task with a deadline is added to the list.
      * If given "event", a new task with a designated period is added to the list.
      * If given "todo", a new normal task is added to the list.
+     * If given "find", a list of tasks containing the keyword is shown.
      * If commands other than the above are given, nothing will be done and the user is asked for the next command.
      */
     public void parse() {
@@ -103,6 +104,9 @@ public class Parser {
                         Ui.printLine();
                     }
 
+                } else if (command.contains("find")) {
+                    String[] split = command.split(" ");
+                    this.ui.find(split[1]);
                 } else {
                     throw new TesException("Stop this nonsense. Come back with a smarter brain.");
                 }
