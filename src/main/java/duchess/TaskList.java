@@ -7,6 +7,7 @@ import duchess.task.Task;
 import duchess.task.ToDo;
 
 import java.util.ArrayList;
+import javafx.util.Pair;
 
 public class TaskList {
     private static final int MAX_TASKS = 100;
@@ -160,6 +161,17 @@ public class TaskList {
     //Gets the "tasks" array list
     public ArrayList<Task> getTasks() {
         return this.tasks;
+    }
+
+    public ArrayList<Pair<Integer, Task>> findTasksByKeyword(String keyword) {
+        ArrayList<Pair<Integer, Task>> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.toString().contains(keyword)) {
+                matchingTasks.add(new Pair<>(i, task));
+            }
+        }
+        return matchingTasks;
     }
 }
 
