@@ -1,10 +1,12 @@
-package tasks;
+package duke.tasks;
 
-import exceptions.tasks.EmptyDescriptionException;
+import duke.exceptions.tasks.EmptyDescriptionException;
 
 public abstract class Task {
     private String description;
     private boolean isDone;
+
+    public abstract String serialize();
 
     public Task(String description) throws EmptyDescriptionException {
         this.setDescription(description);
@@ -31,7 +33,7 @@ public abstract class Task {
         this.description = description;
     }
 
-    public boolean getIsDone() {
+    public boolean isDone() {
         return this.isDone;
     }
 

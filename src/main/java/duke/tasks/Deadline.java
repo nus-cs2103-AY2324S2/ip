@@ -1,9 +1,11 @@
-package tasks;
+package duke.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
-import exceptions.tasks.EmptyDescriptionException;
+import duke.Duke;
+import duke.exceptions.tasks.EmptyDescriptionException;
 
 public class Deadline extends Task {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
@@ -21,6 +23,18 @@ public class Deadline extends Task {
 
     public LocalDate getBy() {
         return this.by;
+    }
+
+    @Override
+    public String serialize() {
+        ArrayList<String> taskArgs = new ArrayList<>();
+
+        taskArgs.add("deadline");
+        taskArgs.add(this.getDescription());
+        taskArgs.add(this.getBy().toString());
+        taskArgs.add(this.isDone() ? "1" : "0");
+
+        return String.join(Duke.ARG_DELIMITER, taskArgs);
     }
 
     @Override
