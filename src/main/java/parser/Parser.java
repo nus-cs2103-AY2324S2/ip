@@ -49,7 +49,7 @@ public class Parser {
      * @throws IndexOutOfBoundsException If user leaves the description blank
      */
     public String getTodoDescription() throws IndexOutOfBoundsException {
-        String[] inputParts = this.input.split("\\s+");
+        String[] inputParts = this.input.split("\\s+, 2");
         String description = inputParts[1].trim();
         return description;
     }
@@ -161,7 +161,15 @@ public class Parser {
         return end;
     }
 
-
-
+    /**
+     * Gets the keyword that user wants to look for in tasks.
+     *
+     * @return The keyword.
+     * @throws IndexOutOfBoundsException If find command does not contain a keyword.
+     */
+    public String getFindKeyword() throws IndexOutOfBoundsException {
+        String keyword = this.input.split("\\s+", 2)[1].trim();
+        return keyword;
+    }
 }
 

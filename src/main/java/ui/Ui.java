@@ -1,5 +1,6 @@
 package ui;
 
+import task.Task;
 import tasklist.TaskList;
 
 public class Ui {
@@ -31,6 +32,7 @@ public class Ui {
                 "- type \"event [task] /from [start] to [end]\" " +
                 "to insert task into your list with a start and end duration\n" +
                 "- type \"delete [index]\" to remove a task at index from your list\n" +
+                "- type \"find [keyword]\" to find tasks with matching keyword\n" +
                 "Please try again :)\n");
     }
 
@@ -62,6 +64,12 @@ public class Ui {
         System.out.println("You currently only have " + numOfTasks + " task(s) in your list.\n");
     }
 
+    /**
+     * Prints message when task is deleted from the list.
+     *
+     * @param taskDeleted String of the task deleted from the list.
+     * @param taskList task list that contains the tasks.
+     */
     public void taskDeletionMessage(String taskDeleted, TaskList taskList){
         System.out.println("I've removed this task from your list:");
         System.out.println(taskDeleted);
@@ -142,6 +150,35 @@ public class Ui {
         System.out.println("I've added this task to your list: ");
         System.out.println(taskList.get(taskList.size() - 1).toString());
         System.out.println("Now you have " + taskList.size() + " task(s) in the list.\n");
+    }
+
+    /**
+     * List tasks in task list that contain the keyword.
+     *
+     * @param keyword Keyword that task should contain.
+     * @param taskList Task list that contains tasks.
+     */
+    public void tasksWithKeyword(String keyword, TaskList taskList) {
+        System.out.println("Here are the matching tasks in your list: ");
+        int numOfTasks = taskList.size();
+        int taskNumber = 0;
+        int index = 1;
+
+        while (taskNumber < numOfTasks) {
+            if (taskList.get(taskNumber).getDescription().contains(keyword)) {
+                System.out.println(index + ". " + taskList.get(taskNumber).toString());
+                index++;
+            }
+            taskNumber++;
+        }
+    }
+
+    /**
+     * Prints error message if there is no keyword included in the find command.
+     */
+    public void missingKeywordMessage() {
+        System.out.println("Please include a keyword so Scribbles can search for the tasks you are looking for!");
+        System.out.println("i.e. find [keyword]\n");
     }
 
     /**
