@@ -42,48 +42,57 @@ public class Duke {
         String userInput = "";
         while (true) {
             try {
+                Commands cmd;
+                userInput = sc.nextLine();
                 try {
-                    userInput = sc.nextLine();
-                    Commands cmd = Commands.valueOf(userInput);
+                    cmd = Commands.valueOf(userInput.split(" ", 2)[0].toUpperCase());
                 } catch (IllegalArgumentException e) {
                     throw new InvalidCmd(userInput);
                 }
-                if (userInput.startsWith("bye")) {
-                    // bye
-                    System.out.println(Std_msgs.BYE);
-                    break;
-                } else if (userInput.startsWith("list")) {
-                    // unsure if i should extend Items as a Msg
-                    System.out.println(new Msg(Duke.items.toString()));
-                    // add new Task
-                } else if (userInput.startsWith("unmark")) {
-                    Duke.items.unmark(Integer.parseInt(userInput.substring(7)));
-                } else if (userInput.startsWith("mark")) {
-                    Duke.items.mark(Integer.parseInt(userInput.substring(5)));
-                } else if (userInput.startsWith("todo")) {
-                    Duke.items.add(new Todo(userInput.substring(5)));
-                } else if (userInput.startsWith("deadline")) {
-                    String[] inputs = userInput.substring(8).split("/by", 2);
-                    if (inputs.length != 2) {
-                        throw new DeadlineEmptyException(userInput);
-                    }
-                    Duke.items.add(new Deadline(inputs[0], inputs[1]));
-                } else if (userInput.startsWith("event")) {
-                    String[] inputs = userInput.substring(5).split("/", 3); // 0 has description, 1 has from, 2 has to
-                    if (inputs.length != 3) {
-                        throw new EventEmptyException(userInput, true, true);
-                    }
-                    Duke.items.add(
-                            new Event(inputs[0],
-                                    inputs[1].substring(4),
-                                    inputs[2].substring(2)));
-                } else if (userInput.startsWith("add")) {
-                    Duke.items.add(new Task(userInput));
-                } else if (userInput.startsWith("delete")) {
-                    Duke.items.delete(Integer.parseInt(userInput.substring(7)));
+                switch (cmd) {
+                    case BYE:
+                        System.out.println(Std_msgs.BYE);
+                        return;
+                    case LIST:
+                        // unsure if i should extend Items as a Msg
+                        System.out.println(new Msg(Duke.items.toString()));
+                        break;
+                    case UNMARK:
+                        Duke.items.unmark(Integer.parseInt(userInput.substring(7)));
+                        break;
+                    case MARK:
+                        Duke.items.mark(Integer.parseInt(userInput.substring(5)));
+                        break;
+                    case TODO:
+                        Duke.items.add(new Todo(userInput.substring(5)));
+                        break;
+                    case EVENT:
+                        String[] inputs = userInput.substring(5).split("/", 3); // 0 has description, 1 has from, 2 has to
+                        if (inputs.length != 3) {
+                            throw new EventEmptyException(userInput, true, true);
+                        }
+                        Duke.items.add(
+                                new Event(inputs[0],
+                                        inputs[1].substring(4),
+                                        inputs[2].substring(2)));
+                        break;
+                    case DEADLINE:
+                        inputs = userInput.substring(8).split("/by", 2);
+                        if (inputs.length != 2) {
+                            throw new DeadlineEmptyException(userInput);
+                        }
+                        Duke.items.add(new Deadline(inputs[0], inputs[1]));
+                        break;
+                    case ADD:
+                        Duke.items.add(new Task(userInput));
+                        break;
+                    case DELETE:
+                        Duke.items.delete(Integer.parseInt(userInput.substring(7)));
+                        break;
                 }
-            } catch (InvalidCmd| DeadlineEmptyException | EventEmptyException inv) {
-                System.out.println(new Msg(inv.toString()));
+
+            } catch (InvalidCmd| DeadlineEmptyException | EventEmptyException err) {
+                System.out.println(new Msg(err.toString()));
             }
         }
     }
