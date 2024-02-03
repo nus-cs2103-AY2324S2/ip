@@ -11,39 +11,39 @@ import ui.Ui;
 
 public class GeePeeTee {
 
-  private TaskList taskList;
-  private Storage storage;
-  private Ui ui;
+    private TaskList taskList;
+    private Storage storage;
+    private Ui ui;
 
-  public GeePeeTee(String filePath) {
-    ui = new Ui();
-    try {
-      storage = new Storage("GeePeeTee.txt");
-      taskList = new TaskList(storage.loadTaskList());
-    } catch (FileNotFoundException e) {
-      ui.showFileNotFoundError();
-    } catch (IOException e) {
-      ui.showLoadingError();
-    } catch (DukeException e) {
-      ui.showErrorMessage(e.getMessage());
+    public GeePeeTee(String filePath) {
+        ui = new Ui();
+        try {
+            storage = new Storage("GeePeeTee.txt");
+            taskList = new TaskList(storage.loadTaskList());
+        } catch (FileNotFoundException e) {
+            ui.showFileNotFoundError();
+        } catch (IOException e) {
+            ui.showLoadingError();
+        } catch (DukeException e) {
+            ui.showErrorMessage(e.getMessage());
+        }
     }
-  }
 
-  public void run() {
-    String input = "";
-    ui.showWelcomeMessage();
-    Scanner scanner = new Scanner(System.in);
-    Parser parser = new Parser(taskList, storage, ui);
-    while (!input.equals("bye")) {
-      input = scanner.nextLine();
-      System.out.println("\n--------------------------------------------------");
-      if (input.equals("bye")) {
-        scanner.close();
-        ui.showGoodbyeMessage();
-      }
-      parser.parseInput(input);
+    public void run() {
+        String input = "";
+        ui.showWelcomeMessage();
+        Scanner scanner = new Scanner(System.in);
+        Parser parser = new Parser(taskList, storage, ui);
+        while (!input.equals("bye")) {
+            input = scanner.nextLine();
+            System.out.println("\n--------------------------------------------------");
+            if (input.equals("bye")) {
+                scanner.close();
+                ui.showGoodbyeMessage();
+            }
+            parser.parseInput(input);
 
-      System.out.println("--------------------------------------------------\n");
+            System.out.println("--------------------------------------------------\n");
+        }
     }
-  }
 }

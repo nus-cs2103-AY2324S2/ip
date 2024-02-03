@@ -5,58 +5,71 @@ import java.util.ArrayList;
 import task.Task;
 
 public class TaskList {
-  private ArrayList<Task> tasksList;
+    private ArrayList<Task> tasksList;
 
-  public TaskList() {
-    this.tasksList = new ArrayList<Task>();
-  }
-
-  public TaskList(ArrayList<Task> tasksList) {
-    this.tasksList = tasksList;
-  }
-
-  /*
-   * Returns the number of tasks in the list
-   */
-  public int getTaskCount() {
-    return this.tasksList.size();
-  }
-
-  /*
-   * Get the list of tasks
-   */
-  public ArrayList<Task> getTasksList() {
-    return this.tasksList;
-  }
-
-  /*
-   * Get task at index
-   */
-  public Task getTask(int index) {
-    return this.tasksList.get(index - 1);
-  }
-
-  /*
-   * Prints the list of tasks
-   */
-  public void printList() {
-    System.out.println("Here are the tasks in your list:");
-    for (int i = 0; i < this.tasksList.size(); i++) {
-      System.out.println((i + 1) + ". " + this.tasksList.get(i));
+    public TaskList() {
+        this.tasksList = new ArrayList<Task>();
     }
-  }
 
-  /*
-   * Adds a task to the list
-   */
-  public void addTask(Task task) {
-    this.tasksList.add(task);
-  }
+    public TaskList(ArrayList<Task> tasksList) {
+        this.tasksList = tasksList;
+    }
 
-  /*
-   * Removes a task from the list
-   */
-  public void removeTask(int index) {
-    this.tasksList.remove(index - 1);
-  }
+    /*
+     * Returns the number of tasks in the list
+     */
+    public int getTaskCount() {
+        return this.tasksList.size();
+    }
+
+    /*
+     * Get the list of tasks
+     */
+    public ArrayList<Task> getTasksList() {
+        return this.tasksList;
+    }
+
+    /*
+     * Get task at index
+     */
+    public Task getTask(int index) {
+        return this.tasksList.get(index - 1);
+    }
+
+    /*
+     * Prints the list of tasks
+     */
+    public void printList() {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < this.tasksList.size(); i++) {
+            System.out.println((i + 1) + ". " + this.tasksList.get(i));
+        }
+    }
+
+    /*
+     * Adds a task to the list
+     */
+    public void addTask(Task task) {
+        this.tasksList.add(task);
+    }
+
+    /*
+     * Removes a task from the list
+     */
+    public void removeTask(int index) {
+        this.tasksList.remove(index - 1);
+    }
+
+    /*
+     * Finds tasks that match the keyword
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> result = new ArrayList<Task>();
+        for (Task task : this.tasksList) {
+            if (task.getDescription().contains(keyword)) {
+                result.add(task);
+            }
+        }
+        return result;
+    }
 }
