@@ -13,15 +13,13 @@ public abstract class Task implements Serializable {
     public Task(String token) {
         this.description = token;
     }
-    public void markDone() {
+    public Task markDone() {
         this.status = "[X]";
-        System.out.printf("%s Nice! I've marked this task as done:\n   %s\n%s",
-                hRULER, this.toString(), hRULER);
+        return this;
     }
-    public void unMarkDone() {
+    public Task unMarkDone() {
         this.status = "[ ]";
-        System.out.printf("%s OK, I've marked this task as not done yet:\n   %s\n%s",
-                hRULER, this.toString(), hRULER);
+        return this;
     }
     @Override
     public String toString() {
