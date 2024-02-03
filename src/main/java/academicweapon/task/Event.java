@@ -4,7 +4,7 @@ package academicweapon.task;
  * Represents an event task in the Duke application.
  * The Event class extends the Task class and includes a start and end time for the event.
  */
-public class Event extends Task{
+public class Event extends Task {
 
     protected String from;
     protected String to;
