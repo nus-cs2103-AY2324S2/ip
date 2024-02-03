@@ -40,7 +40,9 @@ public class Task implements FileFormattable {
             return 0;
         }
     }
-    @Override
+    public boolean isContaining(String keyword) {
+        return this.description.contains(keyword);
+    }
     public String toFileFormat() {
         return String.format("%d |&| %s", this.isDone ? 1 : 0, this.description);
     }

@@ -3,6 +3,7 @@ package raphael.parser;
 import raphael.command.Command;
 import raphael.command.DeleteCommand;
 import raphael.command.ExitCommand;
+import raphael.command.FindCommand;
 import raphael.command.CheckCommand;
 import raphael.command.EditCommand;
 import raphael.command.AddCommand;
@@ -76,6 +77,11 @@ public class Parser {
                 return new ListCommand();
             case "any":
                 return new CheckCommand();
+            case "find":
+                if (inputArr.length == 1) {
+                    throw new raphael.exception.RaphaelException("find [keyword]");
+                }
+                return new FindCommand(inputArr[1]);
             default:
                 throw new RaphaelException("I'm sorry that I can't recognize the command!");
         }

@@ -84,7 +84,9 @@ public class Ui {
                 "\t%s\n", task);
         System.out.println(tasks.getSize());
     }
-
+    public void showFindOutput(String text) {
+        System.out.println(text);
+    }
     public void showDeleteOutput(Task task) {
         System.out.printf("Alrigthy! I have deleted the following task for you:\n"
                 + "\t%s\n", task);
