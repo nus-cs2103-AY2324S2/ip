@@ -1,4 +1,9 @@
+package tes.command;
+
 import java.util.Scanner;
+
+import tes.taskmanager.TaskList;
+import tes.taskmanager.Storage;
 
 /**
  * Represents a class to deal with input and output of the chatbot system.
@@ -7,7 +12,7 @@ public class Ui {
     /** Line seperator */
     private static final String LINE = "    _______________________________________________________________";
     private Scanner scanner; // Scanner for input
-    private TaskList taskList; // Task List to store tasks
+    private TaskList taskList; // tes.taskmanager.Task List to store tasks
     private Storage store;
 
     /**
@@ -61,7 +66,7 @@ public class Ui {
     /**
      * Adds a to-do task to the task list.
      *
-     * @param command Task description of the new task.
+     * @param command tes.taskmanager.Task description of the new task.
      */
     public void addToDo(String command) {
         this.taskList.storeToDo(command);
@@ -75,8 +80,8 @@ public class Ui {
     /**
      * Adds a task with deadline to the task list.
      *
-     * @param command Task description of the new task.
-     * @param by Deadline of the task.
+     * @param command tes.taskmanager.Task description of the new task.
+     * @param by tes.taskmanager.Deadline of the task.
      */
     public void addDeadline(String command, String by) {
         this.taskList.storeDeadline(command, by);
@@ -89,7 +94,7 @@ public class Ui {
 
     /**
      * Adds a task with a designated period to the task list.
-     * @param command Task description of the new task.
+     * @param command tes.taskmanager.Task description of the new task.
      * @param from Starting time of the task.
      * @param to Ending time of the task.
      */
