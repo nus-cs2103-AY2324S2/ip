@@ -17,7 +17,6 @@ public class Parser {
      */
     public static String generateReply(String input, Storage storage, TaskList tasks) {
         String message = "Invalid command";
-        Ui.horizontalLine();
         try {
             if (input.equals("bye")) {
                 message = "Bye. Hope to see you again soon!";
@@ -43,8 +42,6 @@ public class Parser {
         } catch (DateTimeParseException e) {
             message = "Date time must be in this format: 28/01/2023 1800";
         }
-        System.out.println(message);
-        Ui.horizontalLine();
         return message;
     }
 
