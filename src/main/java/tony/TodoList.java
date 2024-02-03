@@ -1,17 +1,17 @@
 package tony;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import tony.exceptions.InvalidTaskException;
 import tony.tasks.Task;
 import tony.tasks.TaskType;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents a list of tasks in the Tony application.
  */
 public class TodoList {
-    List<Task> list = new ArrayList<>();
+    private List<Task> list = new ArrayList<>();
 
     /**
      * Adds a task to the task list.
@@ -24,7 +24,7 @@ public class TodoList {
         line();
         System.out.println("Got it dawg. I've added this task: \n");
         System.out.println(item.toString() + "\n");
-        System.out.println("Now you got "+ numberOfTasks + " tony.tasks fam \n");
+        System.out.println("Now you got " + numberOfTasks + " tony.tasks fam \n");
         line();
     }
 
@@ -150,7 +150,8 @@ public class TodoList {
                 }
                 return deadline;
             } else if (taskType.equals("E")) {
-                Task event = new TaskFactory().createTask(TaskType.EVENT, taskDetails, "from: " + parts[3], "to:" + parts[4]);
+                Task event = new TaskFactory().createTask(TaskType.EVENT, taskDetails,
+                        "from: " + parts[3], "to:" + parts[4]);
                 if (completionStatus == 1) {
                     event.markAsDone();
                 }
@@ -164,6 +165,11 @@ public class TodoList {
         System.out.println("_______________________\n");
     }
 
+    /**
+     * Function to find tasks via description
+     *
+     * @param input The description of the tasks that want to be listed
+     */
     public void find(String input) {
         int count = 1;
         List<String> output = new ArrayList<>();
@@ -171,7 +177,7 @@ public class TodoList {
             Task task = list.get(i);
             String description = task.getDescription();
             if (description.contains(input)) {
-                output.add("" + count + ". " + task.toString()+ "\n");
+                output.add("" + count + ". " + task.toString() + "\n");
                 count++;
             }
         }

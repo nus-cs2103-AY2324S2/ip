@@ -1,9 +1,9 @@
 package tony;
 
-import tony.exceptions.BadDateException;
-
 import java.time.LocalDateTime;
 import java.util.Arrays;
+
+import tony.exceptions.BadDateException;
 
 /**
  * The Parser class provides methods for parsing user input and dates.

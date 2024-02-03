@@ -64,7 +64,7 @@ public abstract class Task {
      * @return A formatted string representing the task's completion status and description.
      */
     public String formattedString() {
-        return "|" + (isDone? 1 : 0) + "|" + description;
+        return "|" + (isDone ? 1 : 0) + "|" + description;
     }
 
     public String getDescription() {
