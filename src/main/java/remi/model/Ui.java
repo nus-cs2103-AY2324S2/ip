@@ -42,6 +42,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Utility function to exit the io loop.
+     * If called at least once, termination will occur after all pending commands are finished.
+     */
     public void exitIoLoop() {
         exitLoop = true;
     }
