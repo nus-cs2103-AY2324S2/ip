@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -90,7 +91,7 @@ public class Martin {
                     case "D":
                         String[] deadlineArray = taskDescription.split(" \\| ");
                         String deadlineDescription = deadlineArray[0];
-                        String deadlineTime = deadlineArray[1];
+                        LocalDate deadlineTime = LocalDate.parse(deadlineArray[1]);
                         Deadline deadline = new Deadline(deadlineDescription, deadlineTime);
                         if (isDone) {
                             deadline.markAsDone();
@@ -167,7 +168,7 @@ public class Martin {
                 }
                 String[] deadlineSplit = inputs.split(" ", 2);
                 String deadlineDescription = deadlineSplit[0];
-                String deadline = deadlineSplit[1];
+                LocalDate deadline = LocalDate.parse(deadlineSplit[1]);
                 Deadline deadlineTask = new Deadline(deadlineDescription, deadline);
                 todoList.add(deadlineTask);
                 System.out.println("Got it. I've added this deadline: " + deadlineDescription);
@@ -189,6 +190,7 @@ public class Martin {
     private static void rewriteFile() throws IOException{
         try {
             FileWriter fw = new FileWriter("./data/martin.txt");
+            fw.write("T | 1 | dummy offset\n");
             for (int i = 0; i < todoList.size(); i++) {
                 todoList.get(i).toFileString();
             }
