@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task with a description and status.
  */
@@ -114,7 +117,7 @@ class Todo extends Task {
  * Represents a task with a deadline.
  */
 class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
 
     /**
      * Constructs a Deadline object with the given description and deadline.
@@ -122,7 +125,7 @@ class Deadline extends Task {
      * @param description the description of the task
      * @param by          the deadline of the task
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
@@ -134,13 +137,15 @@ class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D][" + this.getStatus().getStatusIcon() + "] " + this.getDescription() + " (by: " + this.by + ")";
+        return "[D][" + this.getStatus().getStatusIcon() + "] " + this.getDescription() + " (by: "
+                + this.by.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + ")";
     }
 
     @Override
     public String encode() {
         String status = this.getStatus().isDone() ? "1" : "0";
-        return "D | " + status + " | " + this.description + " | " + this.by;
+        return "D | " + status + " | " + this.description + " | "
+                + this.by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
 }
 
@@ -149,7 +154,8 @@ class Deadline extends Task {
  * Inherits from the Task class.
  */
 class Event extends Task {
-    protected String fromTo;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     /**
      * Constructs an Event object with the given description and fromTo details.
@@ -157,9 +163,10 @@ class Event extends Task {
      * @param description The description of the event.
      * @param fromTo      The time period of the event.
      */
-    public Event(String description, String fromTo) {
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
-        this.fromTo = fromTo;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     /**
@@ -169,12 +176,17 @@ class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E][" + this.getStatus().getStatusIcon() + "] " + this.getDescription() + " (at: " + this.fromTo + ")";
+        return "[E][" + this.getStatus().getStatusIcon() + "] " + this.getDescription()
+                + String.format(" (from: %s to %s)",
+                        this.startTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")),
+                        this.endTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
     }
 
     @Override
     public String encode() {
         String status = this.getStatus().isDone() ? "1" : "0";
-        return "E | " + status + " | " + this.description + " | " + this.fromTo;
+        return "E | " + status + " | " + this.description + " | " + String.format("%s | %s",
+                this.startTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
+                this.endTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
     }
 }
