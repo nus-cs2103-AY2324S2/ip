@@ -1,8 +1,5 @@
 package duke.parser;
 
-import duke.Duke;
-import duke.exceptions.parser.InvalidArgumentException;
-import duke.exceptions.tasks.EmptyDescriptionException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
@@ -18,6 +15,7 @@ import duke.commands.CommandTodo;
 import duke.commands.CommandUnknown;
 import duke.commands.CommandUnmark;
 import duke.exceptions.DukeException;
+import duke.exceptions.parser.InvalidArgumentException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Todo;
@@ -77,8 +75,7 @@ public class Parser {
         return new CommandTodo(todo);
     }
 
-    private static Deadline getDeadline(int byIndex, String argsStr, String byDelim)
-        throws DukeException {
+    private static Deadline getDeadline(int byIndex, String argsStr, String byDelim) throws DukeException {
         if (byIndex == -1) {
             throw new InvalidArgumentException("/by", "not found");
         }
@@ -111,8 +108,7 @@ public class Parser {
         return new CommandDeadline(deadline);
     }
 
-    private static Event getEvent(String fromStr, String toStr, String description)
-        throws DukeException {
+    private static Event getEvent(String fromStr, String toStr, String description) throws DukeException {
         LocalDate from;
         LocalDate to;
         try {

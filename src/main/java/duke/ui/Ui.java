@@ -7,7 +7,7 @@ public class Ui {
     private static final Character BORDER_CHAR = '_';
     private static final Integer BORDER_LEN = 60;
 
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public Ui() {
         this.scanner = new Scanner(System.in);

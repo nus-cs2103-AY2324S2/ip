@@ -1,11 +1,12 @@
 package duke.tasks;
 
-import duke.exceptions.DukeException;
-import duke.exceptions.tasks.MissingTaskException;
 import java.util.ArrayList;
 
+import duke.exceptions.DukeException;
+import duke.exceptions.tasks.MissingTaskException;
+
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<Task>();
