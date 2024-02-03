@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import task.Task;
@@ -19,8 +19,8 @@ import task.Event;
 public class Chronos {
     private static final String DIVIDER = "        ------------------------------------------------------------";
     private static final String POSSIBLE_COMMANDS = "        TODO     --- todo [task name]\n" +
-                                                    "        DEADLINE --- deadline [task name] /by [yyyy-mm-dd]\n" +
-                                                    "        EVENT    --- event [task name] /from [date] /to [date]" ;
+                                                    "        DEADLINE --- deadline [task name] /by [yyyy-mm-dd]T[HH:MM]\n" +
+                                                    "        EVENT    --- event [task name] /from [yyyy-mm-dd]T[HH:MM] /to [yyyy-mm-dd]T[HH:MM]" ;
 
     private static String filePath = "./data/chronos.txt";
     private static ArrayList<Task> tasks = new ArrayList<Task>();
@@ -186,6 +186,20 @@ public class Chronos {
     }
 
     /**
+     * Changes the format the date specified for a deadline or an event.
+     *
+     * @param dateTime date and time of a deadline or an event in the format yyyy-mm-dd HH:MM.
+     * @return formatted date and time.
+     */
+    public static String formatDateTime(String dateTime) {
+        String[] dateTimeArray = dateTime.split(" ");
+        String date = dateTimeArray[0];
+        String time = dateTimeArray[1];
+        String combinedDateTime = date + "T" + time;
+        return LocalDateTime.parse(combinedDateTime).format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"));
+    }
+
+    /**
      * Initialises text file to store task list and processes user commands.
      *
      * @throws @IOException If directory or file is not found.
@@ -281,29 +295,28 @@ public class Chronos {
                         try {
                             String[] descriptionAndBy = token[1].split("/by");
                             String description = descriptionAndBy[0].trim();
-                            LocalDate dueDate = LocalDate.parse(descriptionAndBy[1].trim());
-
-                            Chronos.addDeadline(description, dueDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
+                            String dueDate = Chronos.formatDateTime(descriptionAndBy[1].trim());
+                            Chronos.addDeadline(description, dueDate);
                             Chronos.saveTasks(fw);
                         } catch (Exception e) {
                             System.out.println(DIVIDER);
                             System.out.println("        Invalid command. Please include a task name and a valid due date following the syntax of the example below:");
-                            System.out.println("        e.g. deadline return library book /by 2024-09-22");
+                            System.out.println("        e.g. deadline return library book /by 2024-09-22 15:00");
                         }
                         break;
                     case "event":
                         try {
-                            String[] descriptionAndFromAndTo = token[1].split("/");
-                            String description = descriptionAndFromAndTo[0].trim();
-                            String from = descriptionAndFromAndTo[1].split(" ", 2)[1].trim();
-                            String to = descriptionAndFromAndTo[2].split(" ", 2)[1].trim();
-
-                            Chronos.addEvent(description, from, to);
+                            String[] descriptionAndDate = token[1].split("/from");
+                            String description = descriptionAndDate[0].trim();
+                            String[] fromAndTo = descriptionAndDate[1].split("/to");
+                            String fromDateAndTime = Chronos.formatDateTime(fromAndTo[0].trim());
+                            String toDateAndTime = Chronos.formatDateTime(fromAndTo[1].trim());
+                            Chronos.addEvent(description, fromDateAndTime, toDateAndTime);
                             Chronos.saveTasks(fw);
                         } catch (Exception e) {
                             System.out.println(DIVIDER);
                             System.out.println("        Invalid command. Please include a task name and a valid due date following the syntax of the example below:");
-                            System.out.println("        e.g. event project meeting /from 2 Feb 2pm /to 2 Feb 4pm");
+                            System.out.println("        e.g. event concert /from 2024-02-16 18:00 /to 2024-02-16 20:00");
                             System.out.println(DIVIDER);
                         }
                         break;
