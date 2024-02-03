@@ -37,6 +37,9 @@ public class Ui {
                 list.printList();
             } else if (nextTask.startsWith("delete")) {
                 list.deleteTask(Integer.parseInt(nextTask.split(" ", 2)[1]));
+            } else if (nextTask.startsWith("find")){
+                System.out.println("These are the matching tasks in your list:");
+                list.printFind(nextTask.split(" ", 2)[1]);
             } else {
                 list.addTask(nextTask);
             }

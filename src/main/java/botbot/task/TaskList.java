@@ -67,4 +67,13 @@ public class TaskList {
     public int size() {
         return this.list.size();
     }
+    public void printFind(String s) {
+        int count = 1;
+        for (Task task : list) {
+            if (task.getName().contains(s)) {
+                System.out.println(count + ". " +task.getRep());
+                count++;
+            }
+        }
+    }
 }
