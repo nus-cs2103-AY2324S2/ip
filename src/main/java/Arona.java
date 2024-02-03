@@ -1,9 +1,19 @@
+import exception.AronaIncompleteCommandException;
+import exception.AronaInvalidCommandException;
+import exception.AronaInvalidIndexException;
+
+import storage.Storage;
+
+import task.Deadline;
+import task.Event;
+import task.ToDo;
+
 import java.util.Scanner;
 
 public class Arona {
-    private TaskList tasks;
+    private Storage tasks;
     Arona() {
-        tasks = new TaskList();
+        tasks = new Storage();
     }
 
     private void greet() {
@@ -24,8 +34,8 @@ public class Arona {
         tasks.printElements();
     }
 
-    private void addTask(String str) {
-        Task task = new Task(str);
+    private void addToDo(String str) {
+        ToDo task = new ToDo(str);
         tasks.addElements(task);
         System.out.println("I've added this task, Sensei!");
         System.out.println("    " + task);
@@ -83,7 +93,7 @@ public class Arona {
                 throw new AronaIncompleteCommandException("index number");
             }
 
-            if (Integer.parseInt(commandSplit[1]) <= 0 || Integer.parseInt(commandSplit[1]) > tasks.taskCount()) {
+            if (!tasks.checkIndexValidity(Integer.parseInt(commandSplit[1]))) {
                 throw new AronaInvalidIndexException(Integer.toString(tasks.taskCount()));
             }
 
@@ -94,7 +104,7 @@ public class Arona {
                 throw new AronaIncompleteCommandException("index number");
             }
 
-            if (Integer.parseInt(commandSplit[1]) <= 0 || Integer.parseInt(commandSplit[1]) > tasks.taskCount()) {
+            if (!tasks.checkIndexValidity(Integer.parseInt(commandSplit[1]))) {
                 throw new AronaInvalidIndexException(Integer.toString(tasks.taskCount()));
             }
 
@@ -105,7 +115,7 @@ public class Arona {
                 throw new AronaIncompleteCommandException("task description");
             }
 
-            addTask(commandSplit[1]);
+            addToDo(commandSplit[1]);
         } else if (commandSplit[0].equalsIgnoreCase("deadline")) {
             if (commandSplit.length == 1 || commandSplit[1].equals("")) {
                 throw new AronaIncompleteCommandException("task description");
@@ -141,7 +151,7 @@ public class Arona {
                 throw new AronaIncompleteCommandException("index number");
             }
 
-            if (Integer.parseInt(commandSplit[1]) <= 0 || Integer.parseInt(commandSplit[1]) > tasks.taskCount()) {
+            if (!tasks.checkIndexValidity(Integer.parseInt(commandSplit[1]))) {
                 throw new AronaInvalidIndexException(Integer.toString(tasks.taskCount()));
             }
 

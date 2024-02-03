@@ -1,3 +1,10 @@
+package exception;
+
+/**
+ * Represents an exception when the index provided is invalid.
+ *
+ * @author Maximilliano Utomo
+ */
 public class AronaInvalidIndexException extends AronaException {
     public AronaInvalidIndexException(String message) {
         super("Sorry, sensei! You only have " + message + " task"
