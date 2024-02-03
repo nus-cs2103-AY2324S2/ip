@@ -39,12 +39,13 @@ public class Ui {
         } else if (echo.matches("unmark -?[0-9]*")) {
             result[0] = 4;
             result[1] = parser.digOutInt(echo);
-        } else if (echo.matches("delete -?[0-9]*")){
+        } else if (echo.matches("delete -?[0-9]*")) {
             result[0] = 5;
             result[1] = parser.digOutInt(echo);
         } else {
             result[0] = 6;
         }
+
         return result;
     }
 
@@ -58,13 +59,14 @@ public class Ui {
         Task taskAdded = new Task("Error. Unable to retrieve Task.");
         String[] result = parser.decryptInput(echo);
 
-        if(result[1] == null && result[2] == null){
+        if(result[1] == null && result[2] == null) {
             taskAdded = new Todo(result[0]);
-        } else if (result[2] == null){
+        } else if (result[2] == null) {
             taskAdded = new Deadline(result[0], result[1]);
         } else {
             taskAdded = new Event(result[0], result[1], result[2]);
         }
+
         return taskAdded;
     }
 }

@@ -31,7 +31,7 @@ public class Storage {
      * @param  fileName name of file to check and update data in
      */
 
-    public Storage(String directoryPath, String fileName){
+    public Storage(String directoryPath, String fileName) {
         directory = new File(directoryPath);
         dataFile = new File(directoryPath + "/" + fileName);
     }
@@ -44,33 +44,37 @@ public class Storage {
      * @return an ArrayList<Task> to be loaded into the TaskList instance
      */
 
-    public ArrayList<Task> dirAndFileSetUp() throws DukeException{
+    public ArrayList<Task> dirAndFileSetUp() throws DukeException {
         ArrayList<Task> previousTasks = new ArrayList<Task>();
-        if (!directory.exists()){
+
+        if (!directory.exists()) {
             directory.mkdir();
         }
 
         boolean hasRecords = true;
+
         try {
             hasRecords = dataFile.createNewFile();
-        } catch(IOException e){
+        } catch(IOException e) {
             System.out.println("There seems to be previous records. Loading...");
         }
 
-        if(hasRecords == true){
+        if(hasRecords == true) {
             throw new DukeException("No previous records found.");
         }
 
-        if(hasRecords == false){
+        if(hasRecords == false) {
             System.out.println("Previous records loaded.\n");
             try {
                 Scanner scanner = new Scanner(dataFile);
-                while(scanner.hasNextLine()){
+
+                while(scanner.hasNextLine()) {
                     previousTasks.add(transferFileContent(scanner.nextLine()));
                 }
-            } catch (FileNotFoundException e){
+
+            } catch (FileNotFoundException e) {
                 System.out.println("Error.");
-            } catch (DukeException e){
+            } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -83,13 +87,14 @@ public class Storage {
      * @param  line line in file that is scanned and needed to be operated on
      * @return a Task that is decrypted
      */
-    private Task transferFileContent (String line) throws DukeException{
+    private Task transferFileContent (String line) throws DukeException {
         String taskComponents[] = line.split("@");
         Task taskAdded = new Task("Error. Unable to retrieve Task.");
-        if(taskComponents.length == 3){
+
+        if(taskComponents.length == 3) {
             taskAdded = new Todo(taskComponents[2]);
 
-        } else if (taskComponents.length == 4 ){
+        } else if (taskComponents.length == 4 ) {
             taskAdded = new Deadline(taskComponents[2],taskComponents[3]);
 
         } else if (taskComponents.length == 5 ) {
@@ -97,7 +102,7 @@ public class Storage {
 
         }
 
-        if(taskComponents[1].equals("1")){
+        if(taskComponents[1].equals("1")) {
             taskAdded.markAsDone();
         }
         return taskAdded;
@@ -112,14 +117,17 @@ public class Storage {
      */
     public void fileUpdate(Task taskToUpdate, int command, int lineNum) {
         String taskString = taskToUpdate.toString(true);
+
         try {
             if(command == 0) {
+
                 BufferedWriter writer = new BufferedWriter(new FileWriter(
                         dataFile,true ));
 
-                if(dataFile.length() != 0){
+                if(dataFile.length() != 0) {
                     writer.newLine();
                 }
+
                 writer.write(taskString);
                 writer.close();
             } else {
@@ -127,6 +135,7 @@ public class Storage {
                 String line;
                 StringBuilder sb = new StringBuilder();
                 int lineNumCount = 1;
+
                 while((line = reader.readLine()) != null) {
                     if ((lineNumCount == lineNum)) {
                         sb.append("");
@@ -136,13 +145,14 @@ public class Storage {
                     }
                     lineNumCount++;
                 }
+
                 sb.deleteCharAt(sb.lastIndexOf("\n"));
                 BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile));
                 writer.write(sb.toString());
                 writer.close();
                 reader.close();
             }
-        } catch( IOException e){
+        } catch( IOException e) {
             System.out.println("Oops!");
         }
     }

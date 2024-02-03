@@ -13,15 +13,15 @@ public class Event extends Task{
     /**
      * A Event instance contains a start time/date
      */
-    protected String from;
+    private String from;
 
     /**
      * A Event instance contains a end time/date
      */
-    protected String to;
+    private String to;
 
-    protected LocalDateTime convertedFrom;
-    protected LocalDateTime convertedTo;
+    private LocalDateTime convertedFrom;
+    private LocalDateTime convertedTo;
 
     /**
      * Constructor for a Event instance,
@@ -46,8 +46,9 @@ public class Event extends Task{
     @Override
     public String toString() {
         DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+
         return "[E]" + super.toString() + "(from:" + this.convertedFrom.format(output)
-                    + " to:" + this.convertedTo.format(output) + ")";
+                + " to:" + this.convertedTo.format(output) + ")";
     }
 
     @Override

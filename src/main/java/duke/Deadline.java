@@ -14,8 +14,8 @@ public class Deadline extends Task{
     /**
      * A Deadline instance contains a do by time/date
      */
-    protected String by;
-    protected LocalDateTime converted;
+    private String by;
+    private LocalDateTime converted;
     /**
      * Constructor for a Deadline instance,
      * @param description to be used to identify a task
@@ -35,6 +35,7 @@ public class Deadline extends Task{
     @Override
     public String toString() {
         DateTimeFormatter output = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+
         return "[D]" + super.toString() + " (by:" + this.converted.format(output) + ")";
     }
 

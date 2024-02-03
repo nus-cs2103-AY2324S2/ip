@@ -15,9 +15,11 @@ public class Parser {
      * @param echo input to be analysed
      * @return an integer that represents the Task to be operated on
      */
-    public int digOutInt(String echo){
-        String echo1[] = echo.split(" ", 2);
-        int numberToOperateOn = Integer.parseInt(echo1[1]);
+    public int digOutInt(String echo) {
+        String echoParts[] = echo.split(" ", 2);
+
+        int numberToOperateOn = Integer.parseInt(echoParts[1]);
+
         return numberToOperateOn;
     }
 
@@ -30,50 +32,52 @@ public class Parser {
      * @return a string array that contains all parsed info ready for operation
      */
     public String[] decryptInput(String echo) throws DukeException {
-        String[] result = new String[3];
+        String[] results = new String[3];
 
         String keyword = echo.split(" ")[0];
         if (keyword.equals("deadline")) {
-            String echo1[] = echo.split("deadline", 2);
-            String deadline[] = echo1[1].split("/by", 2);
-            if ((deadline[0]).matches("\\s+") || ((deadline[1]).matches("\\s+"))
-                    || (deadline[1].equals(""))) {
+            String echoParts[] = echo.split("deadline", 2);
+            String deadlineParts[] = echoParts[1].split("/by", 2);
+
+            if ((deadlineParts[0]).matches("\\s+") || ((deadlineParts[1]).matches("\\s+"))
+                    || (deadlineParts[1].equals(""))) {
                 throw new DukeException("Empty task fields where applicable are not allowed.\n");
             } else {
-                result[0] = deadline[0];
-                result[1] = deadline[1];
+                results[0] = deadlineParts[0];
+                results[1] = deadlineParts[1];
             }
         } else if (keyword.equals("event")) {
-            String echo1[] = echo.split("event", 2);
-            String event[] = echo1[1].split("/from", 2);
-            String event1[] = event[1].split("/to", 2);
+            String echoParts[] = echo.split("event", 2);
+            String eventfirstHalfParts[] = echoParts[1].split("/from", 2);
+            String eventsecondHalfParts[] = eventfirstHalfParts[1].split("/to", 2);
 
-            if (((event[0]).matches("\\s+")) || (event1[0].matches("\\s+"))
-                    || (event1[1].matches(  "\\s+")) || (event1[1].matches(""))) {
+            if (((eventfirstHalfParts[0]).matches("\\s+")) || (eventsecondHalfParts[0].matches("\\s+"))
+                    || (eventsecondHalfParts[1].matches(  "\\s+")) || (eventsecondHalfParts[1].matches(""))) {
                 throw new DukeException("Empty task fields where applicable are not allowed.\n");
             } else {
-                result[0] = event[0];
-                result[1] = event1[0];
-                result[2] = event1[1];
+                results[0] = eventfirstHalfParts[0];
+                results[1] = eventsecondHalfParts[0];
+                results[2] = eventsecondHalfParts[1];
             }
         } else if (keyword.equals("todo")) {
-            String todo[] = echo.split("todo", 2);
+            String todoParts[] = echo.split("todo", 2);
+
             //test if empty task
-            if ((todo[1]).matches("\\s+") || (todo[1]).equals("")) {
+            if ((todoParts[1]).matches("\\s+") || (todoParts[1]).equals("")) {
                 throw new DukeException("Empty task fields where applicable are not allowed.\n");
             } else {
-                result[0] = todo[1];
+                results [0] = todoParts[1];
             }
         } else {
-            throw new DukeException("Invalid command. Please ensure" +
-                    "delete/mark/unmark commands\n" +
-                    "only contain numbers after the command.\n" +
-                    "Please enter a todo, deadline or event with the relevant details!\n" +
-                    "Todo: todo + task ;\n" +
-                    "Event: event + task + /from yyyy-MM-dd HH:mm + /to yyyy-MM-dd HH:mm;\n" +
-                    "Deadline: deadline + task + /by yyyy-MM-dd HH:mm;\n");
+            throw new DukeException("Invalid command. Please ensure"
+                    + "delete/mark/unmark commands\n"
+                    + "only contain numbers after the command.\n"
+                    + "Please enter a todo, deadline or event with the relevant details!\n"
+                    + "Todo: todo + task ;\n"
+                    + "Event: event + task + /from yyyy-MM-dd HH:mm + /to yyyy-MM-dd HH:mm;\n"
+                    + "Deadline: deadline + task + /by yyyy-MM-dd HH:mm;\n");
         }
-        return result;
+        return results;
     }
 
 }

@@ -10,11 +10,11 @@ public class Task {
     /**
      * A Task instance contains a description to be read out
      */
-    protected String description;
+    private String description;
     /**
      * A Task instance contains a label to determine whether it is marked or not
      */
-    protected boolean isDone;
+    private boolean isDone;
 
 
     /**
@@ -39,40 +39,46 @@ public class Task {
      * @return a string representing the task description
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + this.getStatusIcon() +"]"
                 + this.description;
     }
 
-    public String toString(boolean update){
+    public String toString(boolean update) {
         int isDoneInt = 0;
-        if(this.isDone == true){
+
+        if(this.isDone == true) {
             isDoneInt = 1;
         }
+
         return isDoneInt +"@" + this.description;
     }
 
     /**
      * Marks a valid Task in the Task array
      */
-    public String markAsDone() throws DukeException{
-        if(this.isDone == true){
+    public String markAsDone() throws DukeException {
+        if(this.isDone == true) {
             throw new DukeException("This task is already completed.\n");
         } else {
             this.isDone = true;
-            return "Very well. This task is now completed.\n" + this.toString() +"\n";
+            return "Very well. This task is now completed.\n"
+                    + this.toString()
+                    +"\n";
         }
     }
 
     /**
      * Unmarks a valid Task in the Task array
      */
-    public String unMarkTask() throws DukeException{
-        if(this.isDone == false){
+    public String unMarkTask() throws DukeException {
+        if(this.isDone == false) {
             throw new DukeException("This task is already unmarked.\n");
         } else {
             this.isDone = false;
-            return "Very well. This task is now marked as not completed.\n" + this.toString() + "\n";
+            return "Very well. This task is now marked as not completed.\n"
+                    + this.toString()
+                    + "\n";
         }
     }
 }
