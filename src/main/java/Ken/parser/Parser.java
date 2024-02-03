@@ -41,6 +41,10 @@ public class Parser {
                 taskList.addEventTask(command.substring(6));
             } else if (command.equalsIgnoreCase("bye")) {
                 saidBye = true;
+            } else if (command.startsWith("seek ")) {
+                taskList.findTasks(command.substring(5));
+            } else if (command.startsWith("seek")) {
+                System.out.println("OKAY I'LL GO HIDE!\n");
             } else if (command.startsWith("todo")) {
                 System.out.println("do what?\n");
             } else if (command.startsWith("deadline")) {

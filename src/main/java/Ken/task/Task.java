@@ -19,6 +19,15 @@ public class Task {
     private String getStatusIcon() {
         return (isDone ? "✔" : " "); // mark done task with X
     }
+
+    /**
+     * Returns a string representation of description.
+     *
+     * @return String representation of description.
+     */
+    public String getDescription() {
+        return this.description;
+    }
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
