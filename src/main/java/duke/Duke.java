@@ -26,9 +26,7 @@ public class Duke {
     private boolean isRunning;
 
     /**
-     * Creates Duke object with filepath to data file.
-     *
-     * @param filePath Filepath to save file.
+     * Initialises Duke object with an empty tasklist and empty storage.
      */
     public Duke() {
         this.tasks = new TaskList();
@@ -36,10 +34,21 @@ public class Duke {
         this.isRunning = true;
     }
 
+    /**
+     * Returns whether the Duke bot is still running.
+     *
+     * @return running state of Duke.
+     */
     public boolean isRunning() {
         return this.isRunning;
     }
 
+    /**
+     * Loads filePath into a storage object for loading and saving files.
+     *
+     * @param filePath Path for file to be saved and loaded from.
+     * @return Status of loading filepath.
+     */
     public String loadSave(String filePath) {
         if (isRunning) {
             try {
@@ -56,6 +65,12 @@ public class Duke {
         return "Duke is not running";
     }
 
+    /**
+     * Parses user input into commands, executes them and returns bot response.
+     *
+     * @param input User input.
+     * @return Response from bot.
+     */
     public String getResponse(String input) {
         if (isRunning) {
             try {

@@ -9,10 +9,16 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Class that implements the starting up of the main User Interface
+ */
 public class Main extends Application {
 
     private Duke duke = new Duke();
 
+    /**
+     * Starts the bot by generating Javafx items for the user interface and linking a Duke object.
+     */
     @Override
     public void start(Stage stage) {
         try {

@@ -12,6 +12,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+/**
+ * Class that implements the Main Window of the bot
+ */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -31,11 +34,17 @@ public class MainWindow extends AnchorPane {
     private String startupMessage = "Hello! I'm " + name + "\nWhat can I do for you?";
     private String goodbyeMessage = "See you again soon!";
 
+    /**
+     * Initializations for the main window
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Initalises the Duke bot used together with the interface to provide functionality and responses.
+     */
     public void setDuke(Duke d) {
         duke = d;
         String loadStatus = d.loadSave("data/data.txt");
@@ -49,7 +58,6 @@ public class MainWindow extends AnchorPane {
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply
      * and then appends them to the dialog container. Clears the user input after processing.
      */
-
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
