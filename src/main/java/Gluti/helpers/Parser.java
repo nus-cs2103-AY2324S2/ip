@@ -67,6 +67,7 @@ public class Parser {
                         sendMessageToUI("Nice! I've marked this task as done:\n" +
                                 task.toString());
                     } catch (IndexOutOfBoundsException e) {
+                        sendMessageToUI("Make sure that you have selected the correct task!");
                         throw new GlutiException("Make sure that you have selected the correct task!");
                     }
                     break;
@@ -78,6 +79,7 @@ public class Parser {
                         sendMessageToUI("OK, I've marked this task as not done yet:\n" +
                                 task.toString());
                     } catch (IndexOutOfBoundsException e) {
+                        sendMessageToUI("Make sure that you have selected the correct task!");
                         throw new GlutiException("Make sure that you have selected the correct task!");
                     }
                     break;
@@ -91,6 +93,7 @@ public class Parser {
                                 toDo);
                         sendMessageToUI("Now you have " + storage.size() + " tasks in the list.");
                     } catch (ArrayIndexOutOfBoundsException e){
+                        sendMessageToUI("Todo must have a description!");
                         throw new GlutiException("Todo must have a description!");
                     }
                     break;
@@ -107,6 +110,7 @@ public class Parser {
                                 event);
                         sendMessageToUI("Now you have " + storage.size() + " tasks in the list.");
                     } catch (IndexOutOfBoundsException e) {
+                        sendMessageToUI("Event must be in this format event <description> /from <date+time> /to <time>");
                         throw new GlutiException("Event must be in this format event <description> /from <date+time> /to <time>");
                     }
 
@@ -124,6 +128,7 @@ public class Parser {
                                 deadline);
                         sendMessageToUI("Now you have " + storage.size() + " tasks in the list.");
                     } catch (IndexOutOfBoundsException e) {
+                        sendMessageToUI("Deadline must be in this format <description> /by <date+time>");
                         throw new GlutiException("Deadline must be in this format <description> /by <date+time>");
                     }
                     break;
@@ -136,6 +141,7 @@ public class Parser {
                                 task.toString());
                         sendMessageToUI("Now you have " + storage.size() + " tasks in the list.");
                     } catch (IndexOutOfBoundsException e) {
+                        sendMessageToUI("Make sure that you have selected the correct task!");
                         throw new GlutiException("Make sure that you have selected the correct task!");
                     }
                     break;
