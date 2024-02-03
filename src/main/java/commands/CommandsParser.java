@@ -92,9 +92,13 @@ public class CommandsParser {
             } else {
                 throw new RyanGoslingException("Incomplete find command! find <task_word>");
             }
+        } else if (commandSplit[0].equals(String.valueOf(CommandsEnum.help))) {
+            return CommandsEnum.getAllCommands();
+
+
         } else {
-            throw new RyanGoslingException("I was created in a few hours so " +
-                    "I don't know what that means :(");
+            throw new RyanGoslingException("I am artificially intelligent but not in a smart way. \nTry a valid "
+                                                   + "command! or check them out by typing help");
         }
     }
 }
