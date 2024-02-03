@@ -7,14 +7,16 @@ public class Ui {
     /** Line seperator */
     private static final String LINE = "    _______________________________________________________________";
     private Scanner scanner; // Scanner for input
-    private Storage taskList; // Task List to store tasks
+    private TaskList taskList; // Task List to store tasks
+    private Storage store;
 
     /**
      * Constructs a User Interface to deal with input and output.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
-        this.taskList = new Storage();
+        this.store = new Storage();
+        this.taskList = new TaskList(this.store.loadFromFile());
     }
 
     /**
