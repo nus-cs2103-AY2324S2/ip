@@ -17,6 +17,7 @@ public class Parser {
     public LocalDateTime toLocalDateTime(String date) {
         return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
+
     public boolean parse(String input, List taskList, Ui ui, Storage storage) throws UnknownCommandException,
             TaskNotFoundException, IOException, InvalidSyntaxException, InvalidDateTimeException {
         String command = input.split(" ")[0].toLowerCase();
