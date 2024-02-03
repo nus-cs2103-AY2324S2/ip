@@ -23,6 +23,28 @@ public class TaskList {
         System.out.println("Now you have " + this.taskQuantity() + " tasks in the list.\n");
     }
 
+    public void searchTask(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : taskArrayList) {
+            if (task.toString().toLowerCase().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.\n");
+        } else {
+            System.out.println("Matching tasks:");
+            int index = 0;
+            for (Task matchingTask : matchingTasks) {
+                index++;
+                System.out.println("    " + index + "." + matchingTask.listTaskString());
+            }
+            System.out.println();
+        }
+    }
+
     public void listTasks() {
         if (taskArrayList.isEmpty()) {
             System.out.println("No items in list!\n");
