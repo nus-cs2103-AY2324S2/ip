@@ -34,7 +34,7 @@ public class Parser {
     public boolean parse(String str, IOHandler io, TaskList taskList, Storage storage) throws FileIOException {
         String command = identify(str);
         try {
-            switch (command) {
+                switch (command) {
                 case "deadline":
                     Deadline tempDeadline = setDeadline(str.substring(8));
                     taskList.addTask(tempDeadline);
