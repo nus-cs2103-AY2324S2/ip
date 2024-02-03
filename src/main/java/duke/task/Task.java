@@ -56,6 +56,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return getTaskIcon() + " | " + getStatusIcon() + " | " + getTaskDescription();
+        return getTaskIcon() + " | "
+                + getStatusIcon() + " | " + getTaskDescription();
     }
 }

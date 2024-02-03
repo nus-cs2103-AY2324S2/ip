@@ -9,10 +9,11 @@ import duke.task.TaskType;
  * It interprets the input commands and executes corresponding actions.
  */
 public class Parser {
-    TaskManager taskManager;
-    Conversation conversation;
-    TaskType taskType;
-    String userName;
+    private TaskManager taskManager;
+    private Conversation conversation;
+    private final String username;
+
+    private static final String DELETE_ALL_COMMAND = "delete all";
 
     /**
      * Constructs a Parser with the specified username. Initializes the TaskManager and Conversation.
@@ -22,7 +23,7 @@ public class Parser {
     public Parser(String username) {
         taskManager = new TaskManager(username);
         conversation = new Conversation(username);
-        this.userName = username;
+        this.username = username;
         taskManager.autoSaveTask();
     }
 
@@ -35,7 +36,7 @@ public class Parser {
 
         String[] userMessage = input.split(" ");
 
-        if (input.equalsIgnoreCase("delete all")) {
+        if (input.equalsIgnoreCase(DELETE_ALL_COMMAND)) {
             taskManager.deleteAllTasks();
             return;
         }
@@ -72,7 +73,7 @@ public class Parser {
     }
 
     private void handleMarkCommand(String[] userMessage, TaskManager taskManager, String input) {
-        if (userMessage.length == 1 || isNumeric(userMessage[1])) {
+        if (userMessage.length == 1 || !isNumeric(userMessage[1])) {
             printError(input);
             return;
         }
@@ -81,7 +82,7 @@ public class Parser {
     }
 
     private void handleUnmarkCommand(String[] userMessage, TaskManager taskManager, String input) {
-        if (userMessage.length == 1 || isNumeric(userMessage[1])) {
+        if (userMessage.length == 1 || !isNumeric(userMessage[1])) {
             printError(input);
             return;
         }
@@ -90,7 +91,7 @@ public class Parser {
     }
 
     private void handleDeleteCommand(String[] userMessage, TaskManager taskManager, String input) {
-        if (userMessage.length == 1 || isNumeric(userMessage[1])) {
+        if (userMessage.length == 1 || !isNumeric(userMessage[1])) {
             printError(input);
             return;
         }
@@ -107,9 +108,9 @@ public class Parser {
     private boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);
-            return false;
-        } catch (NumberFormatException e) {
             return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 
@@ -120,8 +121,10 @@ public class Parser {
      */
     private void printError(String input) {
         System.out.println(TaskManager.LINE);
-        System.out.println(TaskManager.INDENTATION + "Sorry " + userName + ", the TASK NUMBER is missing after " + input.toLowerCase() + ".");
-        System.out.println(TaskManager.INDENTATION + "Can you please specify a valid duke.task number from the list?");
+        System.out.println(TaskManager.INDENTATION + "Sorry " + username + ", the TASK NUMBER " +
+                "is missing after " + input.toLowerCase() + ".");
+        System.out.println(TaskManager.INDENTATION + "Can you please specify a valid task number" +
+                " from the list?");
         System.out.println(TaskManager.LINE);
     }
 }

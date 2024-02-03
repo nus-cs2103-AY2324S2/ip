@@ -81,7 +81,8 @@ public class FileManager {
             return ((Todo) task).getTaskDescription();
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return event.getEventDescription() + " | " + formatDateTime(event.getFrom()) + " | " + formatDateTime(event.getTo());
+            return event.getEventDescription() + " | " +
+                    formatDateTime(event.getFrom()) + " | " + formatDateTime(event.getTo());
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
             return deadline.getDeadlineDescription() + " | " + formatDateTime(deadline.getBy());
@@ -121,16 +122,22 @@ public class FileManager {
                     return new Todo(taskDescription, isMarked);
                 case "D":
                     String deadlineDate = matcher.group(4);
-                    LocalDateTime by = LocalDateTime.parse(deadlineDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                    LocalDateTime by = LocalDateTime.parse(deadlineDate,
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                     return new Deadline(taskDescription, isMarked, by);
                 case "E":
                     String from = matcher.group(4);
                     String to = matcher.group(5);
-                    LocalDateTime fromDate = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                    LocalDateTime toDate = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
+                    LocalDateTime fromDate = LocalDateTime.parse(from,
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
+                    LocalDateTime toDate = LocalDateTime.parse(to,
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                     return new Event(taskDescription, isMarked, fromDate, toDate);
                 default:
-                    System.err.println("Sorry, there's no such duke.task in my system. Try these: todo, deadline, event");
+                    System.err.println("Sorry, there's no such duke.task in my system. " +
+                            "Try these: todo, deadline, event");
                     break;
             }
         }
@@ -145,7 +152,8 @@ public class FileManager {
      * @return The LocalDateTime instance parsed from the string.
      */
     private LocalDateTime parseDateTime(String dateTimeString) {
-        return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        return LocalDateTime.parse(dateTimeString,
+                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
     }
 
     /**

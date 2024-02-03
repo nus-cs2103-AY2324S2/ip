@@ -63,7 +63,9 @@ public class TaskDisplay {
         System.out.println(INDENTATION + " Here are the tasks in your list:");
         int count = 1;
         for (Task task : taskList) {
-            System.out.println(INDENTATION + "    " + count + ". " + task.getTaskIcon()  + task.getStatusIcon() + " " + task.getTaskDescription());
+            System.out.println(INDENTATION + "    " + count + ". "
+                    + task.getTaskIcon()  + task.getStatusIcon() + " "
+                    + task.getTaskDescription());
             count++;
         }
     }
@@ -80,7 +82,8 @@ public class TaskDisplay {
         }
         Task task = taskList.get(index);
         System.out.println(INDENTATION + "  Nice! I've marked this task as done: ");
-        System.out.println(INDENTATION  + "    " + task.getTaskIcon() + task.getStatusIcon() + task.getTaskDescription());
+        System.out.println(INDENTATION  + "    " + task.getTaskIcon() +
+                task.getStatusIcon() + task.getTaskDescription());
     }
 
     /**
@@ -95,7 +98,8 @@ public class TaskDisplay {
         }
         Task task = taskList.get(index);
         System.out.println(INDENTATION + "  OK, I've marked this task as not done yet: ");
-        System.out.println(INDENTATION  + "    " + task.getTaskIcon() + task.getStatusIcon() + task.getTaskDescription());
+        System.out.println(INDENTATION  + "    " + task.getTaskIcon() +
+                task.getStatusIcon() + task.getTaskDescription());
     }
 
     /**
@@ -106,13 +110,16 @@ public class TaskDisplay {
      */
     private void printDeletedTask(List<Task> taskList, int index) {
         if (index < 0 || index >= taskList.size()) {
-            System.out.println(INDENTATION + "  Sorry, I believe the TASK NUMBER you specified doesn't exist.");
+            System.out.println(INDENTATION + "  Sorry, I believe the TASK NUMBER" +
+                    " you specified doesn't exist.");
             return;
         }
         Task deletedTask = taskList.get(index);
         System.out.println(INDENTATION + "  Noted. I've removed this task:");
-        System.out.println(INDENTATION + "     " + deletedTask.getTaskIcon() + deletedTask.getStatusIcon() + deletedTask.getTaskDescription());
-        System.out.println(INDENTATION + "  Now you have " + (taskList.size() - 1) + " tasks left in this list.");
+        System.out.println(INDENTATION + "     " + deletedTask.getTaskIcon() +
+                deletedTask.getStatusIcon() + deletedTask.getTaskDescription());
+        System.out.println(INDENTATION + "  Now you have " + (taskList.size() - 1) +
+                " tasks left in this list.");
     }
 
     /**
@@ -126,9 +133,12 @@ public class TaskDisplay {
             return;
         }
         Task task = taskList.get(index);
-        System.out.println(INDENTATION + "  Got it. I've added this task: " + task.getTaskDescription());
-        System.out.println(INDENTATION + "    " + task.getTaskIcon() + task.getStatusIcon() + task.getTaskDescription());
-        System.out.println(INDENTATION + "  Now you have " + taskList.size() + " tasks in the list.");
+        System.out.println(INDENTATION + "  Got it. I've added this task: "
+                + task.getTaskDescription());
+        System.out.println(INDENTATION + "    " + task.getTaskIcon() +
+                task.getStatusIcon() + task.getTaskDescription());
+        System.out.println(INDENTATION + "  Now you have " + taskList.size() +
+                " tasks in the list.");
     }
 
     /**
@@ -137,7 +147,8 @@ public class TaskDisplay {
      * @param input The user input command.
      */
     public void printErrorMessage(String input) {
-        System.out.println(INDENTATION + "  Sorry, the description of " + input.toUpperCase() + " cannot be empty. Please add details, so that I can");
+        System.out.println(INDENTATION + "  Sorry, the description of " +
+                input.toUpperCase() + " cannot be empty. Please add details, so that I can");
         System.out.println(INDENTATION + "  assist you better!");
         System.out.println(LINE);
     }

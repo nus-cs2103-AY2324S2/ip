@@ -64,7 +64,8 @@ public class Event extends Task {
      */
     @Override
     public String getTaskDescription() {
-        return trimDescription(taskDescription) + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) +
+        return trimDescription(taskDescription) + " (from: " +
+                from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) +
                 " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 
