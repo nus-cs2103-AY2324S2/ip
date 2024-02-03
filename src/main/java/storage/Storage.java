@@ -35,9 +35,9 @@ public class Storage {
             }
 
             if (file.createNewFile()) {
-                System.out.println("   File created successfully: " + file.getAbsolutePath());
+                System.out.println("   I have made a new save file for ya : " + file.getAbsolutePath());
             } else {
-                System.out.println("   File alr exists: " + file.getAbsolutePath());
+                System.out.println("   You seem to have an existing save file, YAY : " + file.getAbsolutePath());
             }
 
         } catch (Exception e) {
