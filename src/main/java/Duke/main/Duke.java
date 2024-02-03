@@ -20,14 +20,14 @@ public class Duke {
         System.out.println("\tHello! I'm Dad\n\tWhat can I do for you?");
         System.out.println("\t____________________________________________________________");
 
-        while(true) {
+        while (true) {
             String input = scanner.nextLine();
             String firstWord = input.split(" ")[0];
-            if(Objects.equals(firstWord, "list")) {
+            if (Objects.equals(firstWord, "list")) {
                 list.printActivity();
             } else if (Objects.equals(firstWord, "delete")) {
                 list.deleteActivity(input.substring(input.indexOf(" ") + 1));
-            } else if(Objects.equals(firstWord, "bye")) {
+            } else if (Objects.equals(firstWord, "bye")) {
                 break;
             } else if (Objects.equals(firstWord, "mark") || Objects.equals(firstWord, "unmark")) {
                 list.markActivity(firstWord, input.substring(input.indexOf(" ") + 1));
@@ -43,10 +43,10 @@ public class Duke {
 
 
 class ActivityList {
-    private ArrayList<Activity> activities;
-    private ArrayList<String> searchTable;
+    private final ArrayList<Activity> activities;
+    private final ArrayList<String> searchTable;
     private final String filePath = "./data/duke.txt";
-    private LocalList loadList;
+    private final LocalList loadList;
 
     public ActivityList() {
         this.loadList = new LocalList(filePath);
@@ -99,7 +99,7 @@ class ActivityList {
     public void printActivity() {
         System.out.println("\t____________________________________________________________");
         System.out.println("\tList: ");
-        for(int i = 0; i < activities.size(); i++) {
+        for (int i = 0; i < activities.size(); i++) {
             System.out.format("%s. ", i + 1);
             activities.get(i).printActivity();
         }
