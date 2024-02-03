@@ -1,2 +1,3 @@
 D | √ | return book | 02/12/2019 1800
 D | X | return dook | 02/12/2019 1800
+E | X | project meeting | from Mon 2pm | to 4pm

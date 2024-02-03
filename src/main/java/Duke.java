@@ -53,7 +53,6 @@ class ActivityList {
     public ActivityList() {
         this.loadList = new LocalList(filePath);
         this.activities = loadList.load();
-        System.out.println(activities);
         this.searchTable = new ArrayList<>();
         for (Activity activity : activities) {
             searchTable.add(activity.getName());
@@ -271,7 +270,6 @@ class LocalList {
                 String line = scanner.nextLine();
                 String[] parts = line.split(" \\| ");
                 Activity activity = null;
-                System.out.println(Arrays.toString(parts));
                 switch (parts[0]) {
                     case "T":
                         activity = new Todo("todo " + parts[2]);
@@ -280,7 +278,7 @@ class LocalList {
                         activity = new Deadline("deadline " + parts[2] + " /by " + parts[3]);
                         break;
                     case "E":
-                        activity = new Event("event " + parts[2] + " /" + parts[3] + " " + parts[4]);
+                        activity = new Event("event " + parts[2] + " /" + parts[3] + " /" + parts[4]);
                         break;
                 }
                 if (activity != null) {
