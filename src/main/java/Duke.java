@@ -1,5 +1,11 @@
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
 public class Duke {
     public static void main(String[] args) {
 
@@ -11,6 +17,64 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
          */
+        ArrayList<Task> list = new ArrayList<>();
+
+        try {
+            File myObj = new File("tasks.txt");
+            if (myObj.createNewFile()) {
+                System.out.println(myObj.getName() + " not found");
+                System.out.println("File created: " + myObj.getName() + "\n");
+            } else {
+                Scanner myReader = new Scanner(myObj);
+                while (myReader.hasNextLine()) {
+                    String data = myReader.nextLine();
+
+                    String[] input = data.split("");
+                    String type = input[1];
+                    String isDone = input[4];
+                    String description = "";
+
+                    for (int i = 7; i < input.length; i++) {
+                        description += input[i];
+                    }
+
+                    if (type.equals("T")) {
+                        Task task = new ToDo(description);
+                        if (isDone.equals("X")) {
+                            task.markAsDone();
+                        }
+                        list.add(task);
+                    }
+                    else if (type.equals("D")) {
+                        String[] descriptionArray = description.split(" \\(by: ");
+                        String name = descriptionArray[0];
+                        String by = descriptionArray[1].substring(0, descriptionArray[1].length() - 1);
+                        Task task = new Deadline(name, by);
+                        if (isDone.equals("X")) {
+                            task.markAsDone();
+                        }
+                        list.add(task);
+                    }
+                    else if (type.equals("E")) {
+                        String[] descriptionArray = description.split(" \\(from: ");
+                        String name = descriptionArray[0];
+                        String[] fromTo = descriptionArray[1].split(" to: ");
+                        String from = fromTo[0];
+                        String to = fromTo[1].substring(0, fromTo[1].length() - 1);
+                        Task task = new Event(name, from, to);
+                        if (isDone.equals("X")) {
+                            task.markAsDone();
+                        }
+                        list.add(task);
+                    }
+                }
+                myReader.close();
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
         String lineBreak = "\t\t------------------------------------------";
         String options = "\t\t1. To create a 'To Do': todo <description>" +
                 "\n\t\t2. To create a 'Deadline': deadline <description> /by <by>" +
@@ -27,7 +91,22 @@ public class Duke {
 
         Scanner scan = new Scanner( System.in );
         String input = scan.nextLine();
-        ArrayList<Task> list = new ArrayList<>();
+
+
+        /**
+         try {
+         File myObj = new File("./data/duke.txt");
+         if (myObj.createNewFile()) {
+         System.out.println("File created: " + myObj.getName());
+         } else {
+         System.out.println("File already exists.");
+         }
+         } catch (IOException e) {
+         System.out.println("An error occurred.");
+         e.printStackTrace();
+         }
+         **/
+
 
         while (!input.equalsIgnoreCase("bye")) {
             try {
@@ -43,8 +122,8 @@ public class Duke {
 
                 else if (input.toUpperCase().contains("DELETE")) {
                     try {
-                        int item_index = Character.getNumericValue(input.charAt(7));
-                        Task t = list.remove(item_index - 1);
+                        int itemIndex = Character.getNumericValue(input.charAt(7));
+                        Task t = list.remove(itemIndex - 1);
                         System.out.println(lineBreak);
                         System.out.println("\t\tNoted. I've removed this task:");
                         System.out.println("\t\t  " + t);
@@ -67,9 +146,9 @@ public class Duke {
 
                 else if (input.toUpperCase().contains("TODO")) {
                     System.out.println(lineBreak);
-                    String[] shortened_input = input.split("todo ");
+                    String[] shortenedInput = input.split("todo ");
                     try {
-                        Task t = new ToDo(shortened_input[1]);
+                        Task t = new ToDo(shortenedInput[1]);
                         list.add(t);
                         System.out.println("\t\tGot it. I've added this task: \n\t\t  " + t);
                         System.out.println("\t\tNow you have " + list.size() + " tasks in the list.");
@@ -83,10 +162,10 @@ public class Duke {
 
                 else if (input.toUpperCase().contains("DEADLINE")) {
                     System.out.println(lineBreak);
-                    String[] shortened_input = input.split("deadline ");
+                    String[] shortenedInput = input.split("deadline ");
                     boolean descriptionAvailable = false;
                     try {
-                        String[] inputArray = shortened_input[1].split(" /by ");
+                        String[] inputArray = shortenedInput[1].split(" /by ");
                         descriptionAvailable = true;
                         Task t = new Deadline(inputArray[0], inputArray[1]);
                         list.add(t);
@@ -107,17 +186,17 @@ public class Duke {
 
                 else if (input.toUpperCase().contains("EVENT")) {
                     System.out.println(lineBreak);
-                    String[] shortened_input = input.split("event ");
+                    String[] shortenedInput = input.split("event ");
                     boolean descriptionAvailable = false;
                     boolean fromAvailable = false;
                     try {
-                        String[] inputArray = shortened_input[1].split(" /from ");
+                        String[] inputArray = shortenedInput[1].split(" /from ");
                         descriptionAvailable = true;
-                        String[] from_to = inputArray[1].split(" /to ");
-                        String from = from_to[0];
+                        String[] fromTo = inputArray[1].split(" /to ");
+                        String from = fromTo[0];
                         fromAvailable = true;
-                        String to = from_to[1];
-                        Task t = new Event(inputArray[0], from_to[0], from_to[1]);
+                        String to = fromTo[1];
+                        Task t = new Event(inputArray[0], fromTo[0], fromTo[1]);
                         list.add(t);
                         System.out.println("\t\tGot it. I've added this task: \n\t\t  " + t);
                         System.out.println("\t\tNow you have " + list.size() + " tasks in the list.");
@@ -139,8 +218,8 @@ public class Duke {
                 else if (input.toUpperCase().contains("UNMARK")) {
                     try {
                         System.out.println(input.charAt(7));
-                        int item_index = Character.getNumericValue(input.charAt(7));
-                        Task t = list.get(item_index - 1);
+                        int itemIndex = Character.getNumericValue(input.charAt(7));
+                        Task t = list.get(itemIndex - 1);
                         t.markAsUndone();
                         System.out.println(lineBreak);
                         System.out.println("\t\tOK, I've marked this task as not done yet:");
@@ -164,8 +243,8 @@ public class Duke {
 
                 else if (input.toUpperCase().contains("MARK")) {
                     try {
-                        int item_index = Character.getNumericValue(input.charAt(5));
-                        Task t = list.get(item_index - 1);
+                        int itemIndex = Character.getNumericValue(input.charAt(5));
+                        Task t = list.get(itemIndex - 1);
                         t.markAsDone();
                         System.out.println(lineBreak);
                         System.out.println("\t\tNice! I've marked this task as done:");
@@ -201,6 +280,21 @@ public class Duke {
                 System.out.println(lineBreak);
             }
             input = scan.nextLine();
+        }
+
+
+        try {
+            FileWriter myWriter = new FileWriter("tasks.txt");
+            for (int i = 1; i <= list.size(); i++) {
+                Task t = list.get(i - 1);
+                System.out.println(t);
+                myWriter.write(t + "\n");
+            }
+            myWriter.close();
+            System.out.println("Successfully wrote changes to file: tasks.txt");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
 
         System.out.println(lineBreak);
