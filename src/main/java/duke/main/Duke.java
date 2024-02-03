@@ -53,7 +53,7 @@ public class Duke {
      * Enum representing possible instructions that Duke can process.
      */
     public enum Instruction {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE, ANYTHING_ELSE
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, BYE, FIND, ANYTHING_ELSE
     }
     
     /**
@@ -77,6 +77,8 @@ public class Duke {
             return Instruction.EVENT;
         } else if (input.toLowerCase().startsWith("delete")) {
             return Instruction.DELETE;
+        } else if (input.toLowerCase().startsWith("find")) {
+            return Instruction.FIND;
         } else if (input.toLowerCase().startsWith("bye")){
             return Instruction.BYE;
         } else {
@@ -174,6 +176,10 @@ public class Duke {
                 } catch (IOException e) {
                     duke.ui.changingFileError();
                 }
+                break;
+            case FIND:
+                String keyword = duke.parser.getKeywordForFind(inputFromUser);
+                this.ui.finding(duke.list, keyword);
                 break;
             case BYE:
                 duke.ui.bye();

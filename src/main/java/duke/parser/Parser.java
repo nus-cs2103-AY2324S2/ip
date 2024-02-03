@@ -53,6 +53,10 @@ public class Parser {
         return list.getTask(indexOfTaskToDelete);
     }
     
+    public String getKeywordForFind(String input) {
+        return input.substring(5);
+    }
+    
     /**
      * Creates a ToDo task from the input command.
      *

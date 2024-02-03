@@ -93,6 +93,14 @@ public class Ui {
         System.out.println(toPrint);
     }
     
+    public void finding(TaskList list, String keyword) throws DukeException{
+        String result = list.findTask(keyword);
+        String toPrint = "Here are the matching tasks in your list:\n"
+                + result
+                + "\n___________________________________" ;
+        System.out.println(toPrint);
+    }
+    
     /**
      * Prints a goodbye message to the user when the application exits.
      */
