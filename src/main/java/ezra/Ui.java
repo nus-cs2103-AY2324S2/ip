@@ -9,7 +9,7 @@ public class Ui {
      * Prints a horizontal line to the console.
      */
     public static void horizontalLine() {
-        System.out.println("\t____________________________________________________________");
+        System.out.println("____________________________________________________________");
     }
 
     /**
@@ -17,7 +17,7 @@ public class Ui {
      */
     public static void greet() {
         Ui.horizontalLine();
-        System.out.println("\tHello! I'm Ezra.\n\tWhat can I do for you?");
+        System.out.println("Hello! I'm Ezra.\nWhat can I do for you?");
         Ui.horizontalLine();
     }
 }
