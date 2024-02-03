@@ -16,11 +16,10 @@ public class TaskList implements Iterable<Task>{
     @Override
     public String toString() {
         String out = "Here is the list of things I remember!\n";
-        int count = 1;
+//        int count = 1;
 
         for (Task currentItem : this.taskList) {
-            out += count + "." + currentItem + "\n";
-            count++;
+            out += this.taskList.indexOf(currentItem) + 1 + "." + currentItem + "\n";
         }
         return out.equals("Here is the list of things I remember!\n") ? "Looks like you have nothing to do! Yay!\n" : out;
     }
@@ -75,5 +74,29 @@ public class TaskList implements Iterable<Task>{
      */
     public int countTasks() {
         return taskList.size();
+    }
+
+    /**
+     * Finds tasks with searchWord in their description.
+     *
+     * @param searchWord
+     * @return
+     */
+    public String find(String searchWord) {
+        StringBuilder out = new StringBuilder();
+        int count = 0;
+
+        for (Task currentItem : this.taskList) {
+            String taskString = currentItem.toString().toLowerCase();
+
+            if (taskString.contains(searchWord)) {
+                count++;
+                out.append("\n").append(this.taskList.indexOf(currentItem) + 1).append(".").append(currentItem);
+            }
+        }
+        out.insert(0, "I found " + count + " of them!");
+        out.insert(0, "Here are the matching tasks! ");
+
+        return out.toString();
     }
 }

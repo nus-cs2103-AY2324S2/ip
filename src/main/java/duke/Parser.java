@@ -56,6 +56,8 @@ public class Parser {
             return parseDeadlineCommand(tokens[1]);
         case "event":
             return parseEventCommand(tokens[1]);
+        case "find":
+            return parseFindCommand(tokens[1]);
         default:
             throw new ParserException("I dont understand you!"
                     + " Please be dont scold me and be gentle with me! Try again!");
@@ -160,6 +162,16 @@ public class Parser {
             throw new ParserException("Invalid date/time format for the deadline!"
                     + "Please use a dd MMM yyyy format (e.g. 21 Jan 2000).");
         }
+    }
 
+    /**
+     * Parses find commands from user and returns a command object.
+     *
+     * @param tokens String of user input.
+     * @return A FindCommand object that can be executed.
+     */
+    private static Command parseFindCommand(String tokens) {
+        String searchWord = tokens.trim().toLowerCase();
+        return new FindCommand(searchWord);
     }
 }
