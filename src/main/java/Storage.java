@@ -10,11 +10,15 @@ import java.util.List;
 public class Storage {
     private final String filePath;
 
+    private enum TaskType {
+        T, D, E
+    }
+
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public List<Task> load() {
+    public List<Task> load() throws EggyException {
         List<Task> tempTasks = new ArrayList<>();
         try {
             File file = new File(this.filePath);
@@ -23,22 +27,27 @@ public class Storage {
                 String line = br.readLine();
                 while (line != null) {
                     String[] taskStrings = line.split(" \\| ");
-                    Task task;
-                    switch (taskStrings[0]) {
-                        case "T":
-                            task = new Todo(taskStrings[2], taskStrings[1].equals("1"));
-                            break;
-                        case "D":
-                            task = new Deadline(taskStrings[2], LocalDateTime.parse(taskStrings[3]), taskStrings[1].equals("1"));
-                            break;
-                        case "E":
-                            task = new Event(taskStrings[2], LocalDateTime.parse(taskStrings[3]), LocalDateTime.parse(taskStrings[4]), taskStrings[1].equals("1"));
-                            break;
-                        default:
-                            throw new RuntimeException("Invalid task type");
+                    try {
+                        TaskType taskType = TaskType.valueOf(taskStrings[0]);
+                        Task task;
+                        switch (taskType) {
+                            case T:
+                                task = new Todo(taskStrings[2], taskStrings[1].equals("1"));
+                                break;
+                            case D:
+                                task = new Deadline(taskStrings[2], LocalDateTime.parse(taskStrings[3]), taskStrings[1].equals("1"));
+                                break;
+                            case E:
+                                task = new Event(taskStrings[2], LocalDateTime.parse(taskStrings[3]), LocalDateTime.parse(taskStrings[4]), taskStrings[1].equals("1"));
+                                break;
+                            default:
+                                throw new InvalidTaskTypeException();
+                        }
+                        tempTasks.add(task);
+                        line = br.readLine();
+                    } catch (IllegalArgumentException e) {
+                        throw new InvalidTaskTypeException();
                     }
-                    tempTasks.add(task);
-                    line = br.readLine();
                 }
                 br.close();
             } else {
@@ -47,11 +56,11 @@ public class Storage {
             }
             return tempTasks;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new LoadTasksException(this.filePath);
         }
     }
 
-    public void save(TaskList tasks) {
+    public void save(TaskList tasks) throws EggyException {
         try {
             File file = new File(this.filePath);
             if (!file.exists()) {
@@ -62,7 +71,7 @@ public class Storage {
             fw.write(tasks.toFileString());
             fw.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new SaveTasksException(this.filePath);
         }
     }
 }

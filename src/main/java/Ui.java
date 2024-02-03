@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Ui {
     private final String DIVIDER = "    ____________________________________________________________";
-    private Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
 
     public String readCommand() {
         return sc.nextLine();
@@ -20,9 +20,8 @@ public class Ui {
     }
 
     public void printGoodbye() {
-        this.printDivider();
         System.out.println("     Bye\uD83D\uDC4B. Hope to see you again soon!");
-        this.printDivider();
+        sc.close();
     }
 
     public void printTaskAdded(Task task, int taskCount) {
