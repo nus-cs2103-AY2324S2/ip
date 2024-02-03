@@ -1,17 +1,31 @@
 package duke;
 
-import duke.command.Command;
 import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
-import duke.command.DeleteCommand;
 
+/**
+ * Parses the user input and creates the commands requested by the user.
+ */
 public class Parser {
+    /**
+     * Returns an instance of a Parser object to parse the user input.
+     */
     public Parser() {
     }
 
+    /**
+     * Returns the command object after parsing through the user input.
+     *
+     * @param fullCommand The user input.
+     * @return The command object created.
+     * @throws DukeException If the user input is an invalid command or format.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String command = fullCommand.split(" ")[0];
         String[] splitCommand;

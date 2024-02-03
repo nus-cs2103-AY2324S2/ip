@@ -9,11 +9,20 @@ import duke.task.TaskList;
 import duke.task.Todo;
 import duke.ui.Ui;
 
+/**
+ * @inheritDoc
+ * Represents a command to add a task.
+ */
 public class AddCommand extends Command {
     private String command;
     private String desc;
     private String[] details;
 
+    /**
+     * Returns a command that contains the details of the task to add.
+     *
+     * @param details Task type, description, and optional date/times of task.
+     */
     public AddCommand(String... details) {
         this.details = new String[details.length - 2];
         for (int i = 0; i < this.details.length; i++) {
@@ -23,6 +32,10 @@ public class AddCommand extends Command {
         this.desc = details[1];
     }
 
+    /**
+     * Adds the new task created to the list of tasks.
+     * @inheritDoc
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task t = null;
@@ -46,6 +59,9 @@ public class AddCommand extends Command {
 
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public boolean isExit() {
         return false;
