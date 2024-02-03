@@ -165,8 +165,9 @@ public class Martin {
                     System.out.println("Please specify a deadline description and deadline");
                     break;
                 }
-                String deadlineDescription = String.join(" ", inputs);
-                String deadline = inputsArray[1];
+                String[] deadlineSplit = inputs.split(" ", 2);
+                String deadlineDescription = deadlineSplit[0];
+                String deadline = deadlineSplit[1];
                 Deadline deadlineTask = new Deadline(deadlineDescription, deadline);
                 todoList.add(deadlineTask);
                 System.out.println("Got it. I've added this deadline: " + deadlineDescription);
