@@ -62,6 +62,10 @@ public class Tony {
                         String deleteDescription = parser.parseDescription(input);
                         lst.delete(deleteDescription);
                         break;
+                    case "find":
+                        String description = parser.parseDescription(input);
+                        lst.find(description);
+                        break;
                     default:
                         throw new IllegalArgumentException("Invalid command: " + command);
                 }

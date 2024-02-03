@@ -126,4 +126,29 @@ public class TodoList {
     private static void line() {
         System.out.println("_______________________\n");
     }
+
+    public void find(String input) {
+        int count = 1;
+        List<String> output = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            Task task = list.get(i);
+            String description = task.getDescription();
+            if (description.contains(input)) {
+                output.add("" + count + ". " + task.toString()+ "\n");
+                count++;
+            }
+        }
+        if (count == 1) {
+            line();
+            System.out.println("Sorry there are no tasks matching " + input + "\n");
+            line();
+        } else {
+            line();
+            System.out.println("Here are the matching tasks in your list: \n");
+            for (int i = 0; i < count - 1; i++) {
+                System.out.println(output.get(i));
+            }
+            line();
+        }
+    }
 }

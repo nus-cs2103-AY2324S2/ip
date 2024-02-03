@@ -33,6 +33,10 @@ public abstract class Task {
     public String formattedString() {
         return "|" + (isDone? 1 : 0) + "|" + description;
     }
+
+    public String getDescription() {
+        return description;
+    }
 }
 
 
