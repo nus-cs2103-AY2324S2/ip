@@ -43,7 +43,7 @@ public class EdgarChatBot {
                 } catch (ChatBotException e) {
                     System.out.println(e.getMessage());
                 }
-                this.taskList.listTasks();
+                continue;
             }
 
             if (action.equalsIgnoreCase("mark")) {

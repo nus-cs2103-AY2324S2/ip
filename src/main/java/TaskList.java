@@ -1,12 +1,18 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class TaskList {
     private static final int MAX_TASKS = 100;
+    private static final String FILE_PATH = "./data/duke/.txt";
     private List<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
+        loadTasksFromFile();
     }
 
     public static void printHorizontalLine() {
@@ -56,6 +62,7 @@ public class TaskList {
         if (this.tasks.size() < MAX_TASKS) {
             try {
                 splitTask(task);
+                saveTasksFromFile();
                 printHorizontalLine();
                 System.out.println("Got it. I've added this task:");
                 System.out.println("\t" + this.tasks.get(this.tasks.size() - 1));
@@ -82,6 +89,7 @@ public class TaskList {
         }
 
         Task taskDeleted = this.tasks.remove(number - 1);
+        saveTasksFromFile();
         printHorizontalLine();
         System.out.println("Noted. I've removed this task:");
         System.out.println("\t" + taskDeleted.toString());
@@ -100,6 +108,7 @@ public class TaskList {
         }
         Task currTask = this.tasks.get(index - 1);
         currTask.markAsDone();
+        saveTasksFromFile();
         printHorizontalLine();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("\t" + currTask.toString());
@@ -115,6 +124,7 @@ public class TaskList {
         }
         Task currTask = this.tasks.get(index - 1);
         currTask.markAsNotDone();
+        saveTasksFromFile();
         printHorizontalLine();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("\t" + currTask.toString());
@@ -133,5 +143,84 @@ public class TaskList {
             }
         }
         printHorizontalLine();
+    }
+
+    public Task splitTasksFromFile(String tasks) throws ChatBotException {
+        String[] splitFileTask = tasks.split("\\|");
+        if (splitFileTask.length < 3 || splitFileTask.length > 4) {
+            throw new ChatBotException("Oops! Task format is invalid.");
+        }
+        String type = splitFileTask[0];
+        boolean isDone = splitFileTask[1].trim().equals("1");
+        String description = splitFileTask[2].trim();
+        String dateOrTime = splitFileTask.length > 3 ? splitFileTask[3].trim() : null;
+        switch (type) {
+        case "T":
+            ToDo todo = new ToDo(description);
+            if (isDone) {
+                todo.markAsDone();
+            }
+            this.tasks.add(todo);
+            return todo;
+        case "D":
+            if (dateOrTime == null) {
+                throw new ChatBotException("Oops! Deadline format is invalid.");
+            }
+            Deadline deadline = new Deadline(description, dateOrTime);
+            if (isDone) {
+                deadline.markAsDone();
+            }
+            this.tasks.add(deadline);
+            return deadline;
+        case "E":
+            String[] time = dateOrTime.split("to");
+            if (time.length < 2) {
+                throw new ChatBotException("Oops! Event format is invalid.");
+            }
+            Event event = new Event(description, time[0], time[1]);
+            if (isDone) {
+                event.markAsDone();
+            }
+            return event;
+        default:
+            throw new ChatBotException("Oops! Unknown task type");
+        }
+    }
+
+    public void loadTasksFromFile() {
+        File file = new File(FILE_PATH);
+        try {
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String taskString = scanner.nextLine();
+                splitTasksFromFile(taskString);
+            }
+        } catch (IOException e) {
+            System.out.println("Oops! There was an error loading the file.");
+        } catch (ChatBotException e) {
+            System.out.println("Oops! There was an error parsing the file.");
+        }
+    }
+
+    public void saveTasksFromFile() {
+        File file = new File(FILE_PATH);
+        try {
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            FileWriter fileWriter = new FileWriter(file);
+            for (int i = 0; i < this.tasks.size(); i++) {
+                Task task = this.tasks.get(i);
+                fileWriter.write(task.toStringFile() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Oops! There was an error saving the file.");
+        }
     }
 }
