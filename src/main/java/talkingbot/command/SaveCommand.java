@@ -25,15 +25,15 @@ public class SaveCommand extends Command {
      * and catches any exceptions that may occur before also
      * printing them to the standard output.
      *
-     * @param taskList List of tasks.
+     * @param tasks List of tasks.
      * @param saveFile Abstraction for a file.
      * @param ui User interface.
      */
     @Override
-    public void runCommand(TaskList taskList, SaveFile saveFile, Ui ui) {
+    public void runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
         try {
             ui.printSaveOngoingMsg(saveFile.getFileName());
-            saveFile.saveTasksToFile(taskList);
+            saveFile.saveTasksToFile(tasks);
             ui.printSaveDoneMsg();
         } catch (TalkingBotException e) {
             ui.printGenericError(e);

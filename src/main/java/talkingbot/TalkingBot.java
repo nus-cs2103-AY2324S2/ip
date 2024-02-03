@@ -13,7 +13,7 @@ import talkingbot.util.Ui;
 public class TalkingBot {
     private static final String FILE_PATH = "./data/taskList.txt";
     private SaveFile saveFile;
-    private TaskList taskList;
+    private TaskList tasks;
     private Ui ui;
 
     /**
@@ -25,10 +25,10 @@ public class TalkingBot {
         this.ui = new Ui();
         this.saveFile = new SaveFile(fileName);
         try {
-            this.taskList = this.saveFile.getTasksFromFile();
+            this.tasks = this.saveFile.getTasksFromFile();
         } catch (TalkingBotException e) {
             this.ui.printLoadingError(e);
-            this.taskList = new TaskList();
+            this.tasks = new TaskList();
         }
     }
 
@@ -41,7 +41,7 @@ public class TalkingBot {
         while (this.ui.getContinueIter()) {
             Command curCommand = parser.parseCommand();
             this.ui.printLine();
-            curCommand.runCommand(this.taskList, this.saveFile, this.ui);
+            curCommand.runCommand(this.tasks, this.saveFile, this.ui);
             this.ui.printLine();
         }
     }

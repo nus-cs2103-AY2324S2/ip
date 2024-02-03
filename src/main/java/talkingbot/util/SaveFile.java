@@ -42,12 +42,12 @@ public class SaveFile {
     public TaskList getTasksFromFile() throws TalkingBotException {
         try {
             Scanner fileScanner = new Scanner(this.saveFile);
-            TaskList taskList = new TaskList();
+            TaskList tasks = new TaskList();
             while (fileScanner.hasNextLine()) {
                 String curLine = fileScanner.nextLine();
-                taskList.addTask(Task.generateTaskFromFile(curLine));
+                tasks.addTask(Task.generateTaskFromFile(curLine));
             }
-            return taskList;
+            return tasks;
         } catch (FileNotFoundException e) {
             throw new TalkingBotException("ERROR! File not found!");
         } catch (Exception e) {
@@ -58,17 +58,17 @@ public class SaveFile {
     /**
      * Saves the task list into a file.
      *
-     * @param taskList Task list to be saved.
+     * @param tasks Task list to be saved.
      * @throws TalkingBotException If IOException occurs.
      */
-    public void saveTasksToFile(TaskList taskList) throws TalkingBotException {
+    public void saveTasksToFile(TaskList tasks) throws TalkingBotException {
         try {
             FileWriter fileWriter = new FileWriter(this.saveFile);
             StringBuilder strBuild = new StringBuilder();
-            for (int i = 0; i < taskList.getSize(); i++) {
-                Task curTask = taskList.getTask(i);
+            for (int i = 0; i < tasks.getSize(); i++) {
+                Task curTask = tasks.getTask(i);
                 strBuild.append(curTask.getSaveFileString());
-                if (i < taskList.getSize() - 1) {
+                if (i < tasks.getSize() - 1) {
                     strBuild.append("\n");
                 }
             }

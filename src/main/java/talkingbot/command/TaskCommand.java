@@ -29,12 +29,12 @@ public class TaskCommand extends Command {
      * then tries to add such Task to the list of Tasks while printing to the standard output. Catches
      * an exception if any occur and prints it to the standard output.
      *
-     * @param taskList List of tasks.
+     * @param tasks List of tasks.
      * @param saveFile Abstraction for a file.
      * @param ui User interface.
      */
     @Override
-    public void runCommand(TaskList taskList, SaveFile saveFile, Ui ui) {
+    public void runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
         String[] curCommand = super.getCommandArr();
         StringBuilder sbDescription = new StringBuilder();
         for (int idx = 1; idx < curCommand.length; idx++) {
@@ -46,8 +46,8 @@ public class TaskCommand extends Command {
         String fullDescription = sbDescription.toString();
         try {
             Task curTask = Task.generateTask(fullDescription, curCommand[0]);
-            taskList.addTask(curTask);
-            ui.printAddTask(curTask, taskList.getSize());
+            tasks.addTask(curTask);
+            ui.printAddTask(curTask, tasks.getSize());
         } catch (TalkingBotException e) {
             ui.printGenericError(e);
         }

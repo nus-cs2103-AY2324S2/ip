@@ -22,12 +22,12 @@ public class ListCommand extends Command {
      * Runs this command.
      * Prints out the list of Tasks to the standard output.
      *
-     * @param taskList List of tasks.
+     * @param tasks List of tasks.
      * @param saveFile Abstraction for a file.
      * @param ui User interface.
      */
     @Override
-    public void runCommand(TaskList taskList, SaveFile saveFile, Ui ui) {
-        System.out.println(taskList);
+    public void runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
+        System.out.println(tasks);
     }
 }

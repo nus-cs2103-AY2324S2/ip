@@ -113,24 +113,24 @@ public class Ui {
      * Prints a message when tasks are added.
      *
      * @param curTask Task that is added.
-     * @param taskListSize Current size of the task list.
+     * @param numTasks Current size of the task list.
      */
-    public void printAddTask(Task curTask, int taskListSize) {
+    public void printAddTask(Task curTask, int numTasks) {
         System.out.println(ADD_TASK_MSG);
         System.out.println("\t\t" + curTask);
-        System.out.println(String.format(TASK_NUM_MSG, taskListSize));
+        System.out.println(String.format(TASK_NUM_MSG, numTasks));
     }
 
     /**
      * Prints a message when tasks are deleted.
      *
      * @param removedTask Task that is removed.
-     * @param taskListSize Current size of the task list.
+     * @param numTasks Current size of the task list.
      */
-    public void printDeleteTask(Task removedTask, int taskListSize) {
+    public void printDeleteTask(Task removedTask, int numTasks) {
         System.out.println(REMOVE_TASK_MSG);
         System.out.println("\t\t" + removedTask);
-        System.out.println(String.format(TASK_NUM_MSG, taskListSize));
+        System.out.println(String.format(TASK_NUM_MSG, numTasks));
     }
 
     /**

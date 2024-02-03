@@ -24,15 +24,15 @@ public class ByeCommand extends Command {
      * Prints a goodbye message, saves current list to a file,
      * and stops the running of the program.
      *
-     * @param taskList List of tasks.
+     * @param tasks List of tasks.
      * @param saveFile Abstraction for a file.
      * @param ui User interface.
      */
     @Override
-    public void runCommand(TaskList taskList, SaveFile saveFile, Ui ui) {
+    public void runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
         try {
             ui.printGoodbyeMsg();
-            saveFile.saveTasksToFile(taskList);
+            saveFile.saveTasksToFile(tasks);
             ui.setContinueIter(false);
         } catch (TalkingBotException e) {
             ui.printGenericError(e);

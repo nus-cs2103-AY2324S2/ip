@@ -21,18 +21,18 @@ public class DeleteCommand extends Command {
 
     /**
      * Runs this command.
-     * Gets the index of the Task to be deleted, removes the task from the taskList,
+     * Gets the index of the Task to be deleted, removes the task from the list of tasks,
      * and prints out the removed Task.
      *
-     * @param taskList List of tasks.
+     * @param tasks List of tasks.
      * @param saveFile Abstraction for a file.
      * @param ui User interface.
      */
     @Override
-    public void runCommand(TaskList taskList, SaveFile saveFile, Ui ui) {
+    public void runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
         String[] curCommand = super.getCommandArr();
         int deleteIdxInt = Integer.valueOf(curCommand[1]);
-        Task removedTask = taskList.removeTask(deleteIdxInt - 1);
-        ui.printDeleteTask(removedTask, taskList.getSize());
+        Task removedTask = tasks.removeTask(deleteIdxInt - 1);
+        ui.printDeleteTask(removedTask, tasks.getSize());
     }
 }

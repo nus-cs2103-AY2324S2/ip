@@ -31,9 +31,9 @@ public abstract class Command {
     /**
      * Abstract method used in subclasses to run a certain command.
      *
-     * @param taskList List of tasks.
+     * @param tasks List of tasks.
      * @param saveFile Abstraction for a file.
      * @param ui User interface.
      */
-    public abstract void runCommand(TaskList taskList, SaveFile saveFile, Ui ui);
+    public abstract void runCommand(TaskList tasks, SaveFile saveFile, Ui ui);
 }

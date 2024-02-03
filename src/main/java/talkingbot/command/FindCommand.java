@@ -22,13 +22,13 @@ public class FindCommand extends Command {
      * Gets the String array containing the command before printing
      * a filtered list of tasks that contain matching descriptions.
      *
-     * @param taskList List of tasks.
+     * @param tasks List of tasks.
      * @param saveFile Abstraction for a file.
      * @param ui User interface.
      */
     @Override
-    public void runCommand(TaskList taskList, SaveFile saveFile, Ui ui) {
+    public void runCommand(TaskList tasks, SaveFile saveFile, Ui ui) {
         String[] commandArr = super.getCommandArr();
-        System.out.println(taskList.filterList(commandArr[1]));
+        System.out.println(tasks.filterList(commandArr[1]));
     }
 }
