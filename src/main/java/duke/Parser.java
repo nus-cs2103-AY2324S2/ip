@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.ArrayList;
 
 
 public class Parser {
@@ -83,6 +84,7 @@ public class Parser {
             currLine = currLine + 1;
         }
     }
+    private String find = "find";
     private String mark = "mark (\\d+)";
     private String unmark = "unmark (\\d+)";
     private String delete = "delete (\\d+)";
@@ -97,6 +99,7 @@ public class Parser {
     private String event2 = "[E]";
     private String unmarked = "[ ]";
     private String marked = "[X]";
+    private Pattern pFind = Pattern.compile(find);
     private Pattern pMark = Pattern.compile(mark);
     private Pattern pUnmark = Pattern.compile(unmark);
     private Pattern pTodo = Pattern.compile(todo);
@@ -126,6 +129,7 @@ public class Parser {
         Matcher mFrom = pFrom.matcher(input);
         Matcher mTo = pTo.matcher(input);
         Matcher mDelete = pDelete.matcher(input);
+        Matcher mFind = pFind.matcher(input);
         if (input.equals("reset")) {
             taskList.clear();
             storage.clear();
@@ -145,6 +149,26 @@ public class Parser {
                 }
 
             }
+        } else if (mFind.find()) {
+            String newInput = input.replace(find, "").trim();
+            if (newInput.trim().equals("")) {
+                screen.display("Search cannot be empty!");
+            } else {
+                int currentLine = 1;
+                ArrayList<Task> tasks = taskList.find(newInput);
+                if (tasks.size() == 0) {
+                    screen.display("You have no matching tasks in your list!");
+                } else {
+                    screen.display("Here are the matching tasks in your list:");
+                    for (int i =0; i < tasks.size(); i++) {
+                        Task task = tasks.get(i);
+                        screen.display(currentLine + ". " + task.toString());
+                        currentLine = currentLine + 1;
+                    }
+                }
+
+            }
+
         } else if (mDelete.find()) {
             String captured = mDelete.group(1);
             int number = Integer.parseInt(captured);
@@ -187,7 +211,7 @@ public class Parser {
             String newInput = input.replace(todo, "");
             Todo n = new Todo(newInput, false);
             if (newInput.trim().equals("")) {
-                screen.display("duke.Task cannot be empty!");
+                screen.display("Task cannot be empty!");
             } else {
                 taskList.add(n);
                 screen.display("OK, I have added this task :");
@@ -216,7 +240,7 @@ public class Parser {
                     return;
                 }
                 if (newInput.trim().equals("")) {
-                    screen.display("duke.Task cannot be empty!");
+                    screen.display("Task cannot be empty!");
                 } else {
                     Event n = new Event(newInput, false, ldt, ldt2);
                     taskList.add(n);
@@ -243,7 +267,7 @@ public class Parser {
                     return;
                 }
                 if (newInput.trim().equals("")) {
-                    screen.display("duke.Task cannot be empty!");
+                    screen.display("Task cannot be empty!");
                 } else {
                     Deadline n = new Deadline(newInput, false, ldt);
                     taskList.add(n);
