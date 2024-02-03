@@ -1,7 +1,8 @@
 package duke;
 
+import duke.exceptions.*;
 import duke.task.*;
-import exceptions.*;
+
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,6 +48,7 @@ public class Parser {
                 case "mark":
                     Task tempMark = setDone(str, taskList);
                     io.divider();
+                    storage.saveInFile(taskList);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  " + tempMark);
                     io.divider();
@@ -54,6 +56,7 @@ public class Parser {
                 case "unmark":
                     Task tempUnmark = setUndone(str, taskList);
                     io.divider();
+                    storage.saveInFile(taskList);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  " + tempUnmark);
                     io.divider();

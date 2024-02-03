@@ -1,7 +1,7 @@
 package duke;
 
 import duke.task.*;
-import exceptions.FileIOException;
+import duke.exceptions.FileIOException;
 
 
 import java.io.File;

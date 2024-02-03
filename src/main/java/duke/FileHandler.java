@@ -4,7 +4,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-import exceptions.FileIOException;
+import duke.exceptions.FileIOException;
 
 import java.io.File;
 import java.io.FileReader;

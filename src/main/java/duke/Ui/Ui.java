@@ -1,4 +1,4 @@
-package ui;
+package duke.Ui;
 
 public class Ui {
     public Ui() {}
