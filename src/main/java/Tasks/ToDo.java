@@ -3,6 +3,12 @@ package Tasks;
 public class ToDo extends Task {
     public ToDo(String name) {
         super(name);
-        this.type = "T";
+        setType("T");
+    }
+
+    public ToDo(Boolean done, String name) {
+        super(name);
+        setType("T");
+        if (done) setDone();
     }
 }

@@ -1,16 +1,17 @@
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
 
-import Tasks.*;
-import Actions.*;
+import Tasks.Task;
+
 import Actions.Deadline;
+import Actions.Delete;
 import Actions.Event;
+import Actions.Mark;
 import Actions.ToDo;
+import Actions.Unmark;
+
 import Exceptions.InvalidInput;
 import Exceptions.ValueNotFound;
-
-import java.util.ArrayList;
 
 public class Alpaca {
     static String name = "Alpaca";
@@ -73,7 +74,9 @@ public class Alpaca {
     public static void main(String[] args) {
         greeting();
         scanner = new Scanner(System.in);
+        ReadData.read(list);
         processInput();
+        ReadData.write(list);
         scanner.close();
     }
 }
