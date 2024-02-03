@@ -2,6 +2,7 @@ package util;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -94,14 +95,14 @@ public class TaskList {
     }
 
     /**
-     * Finds tasks in the task list that contain the specified string.
+     * Finds tasks in the task list that contain all the specified strings.
      *
-     * @param s the string to search for in the tasks
-     * @return a list of tasks that contain the specified string
+     * @param s the strings to search for in the tasks
+     * @return a list of tasks that contain all the specified strings
      */
-    public static List<Task> find(String s) {
+    public static List<Task> find(String... s) {
         return tasks.stream()
-                .filter(t -> t.contains(s))
+                .filter(t -> Arrays.stream(s).allMatch(t::contains))
                 .collect(Collectors.toList());
     }
 
