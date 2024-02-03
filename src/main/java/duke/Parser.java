@@ -38,21 +38,16 @@ public class Parser {
         if (user_word.equals("bye")) {
             ui.showGoodbye();
             System.exit(0);
-        }
-        if (user_word.equals("list")) {
+        } if (user_word.equals("list")) {
             taskList.listTasks();
-            //fileIO.readFromFile();
         } else if (user_word.contains("unmark")) {
             int element_index = Integer.parseInt(user_word.split(" ")[1]) - 1;
             taskList.unmarkTask(element_index);
-            //fileIO.saveToFile(lucifer.list);
         } else if (user_word.contains("mark")) {
             int element_index = Integer.parseInt(user_word.split(" ")[1]) - 1;
             taskList.markTask(element_index);
-            //fileIO.saveToFile(lucifer.list);
         } else if (user_word.equals("deadline")) {
             ui.divider();
-            //fileIO.saveToFile(lucifer.list);
             throw new DukeException("ERROR!! Please give the description of deadline.\n______________________________________________________");
         } else if (user_word.contains("deadline")) {
             String[] array_split = user_word.split("/by ");
@@ -60,14 +55,11 @@ public class Parser {
             LocalDateTime dateTime = parseDateTime(array_split[1].trim());
             Deadline deadline = new Deadline(description, dateTime);
             taskList.addDeadlineTask(deadline);
-            //fileIO.saveToFile(lucifer.list);
         } else if (user_word.equals("todo")) {
             ui.divider();
-            //fileIO.saveToFile(lucifer.list);
             throw new DukeException("ERROR!! Please give the description of todo.\n______________________________________________________");
         } else if (user_word.contains("todo")) {
             ToDo todo = new ToDo(user_word.substring(5));
-            //fileIO.saveToFile(lucifer.list);
             taskList.addTodoTask(todo);
         } else if (user_word.equals("event")) {
             ui.divider();
@@ -85,21 +77,16 @@ public class Parser {
             } else {
                 System.out.println("Invalid format for event times.");
             }
-            //lucifer.addEventTask(temp_event);
-            //fileIO.saveToFile(lucifer.list);
             throw new DukeException("ERROR!! Please give the description of event.\n______________________________________________________");
         } else if (user_word.contains("event")) {
             String[] event = user_word.split("/from | /to ");
             Event temp_event = new Event(event[0].substring(6),
                     LocalDate.parse(event[1]), LocalDate.parse(event[2]));
             taskList.addEventTask(temp_event);
-            //fileIO.saveToFile(lucifer.list);
         } else if (user_word.contains("delete")) {
             int deleted_index = Integer.parseInt(user_word.split(" ")[1]);
             taskList.deleteTask(deleted_index);
-            //fileIO.saveToFile(lucifer.list);
         } else {
-            //lucifer.addTask(user_word);
             ui.divider();
             throw new DukeException("ERROR!! I can't understand what you mean by that\n______________________________________________________");
         }

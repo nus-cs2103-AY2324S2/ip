@@ -39,16 +39,6 @@ public class TaskList {
         }
     }
 
-    private static LocalDateTime parseDateTime(String dateTimeStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        try {
-            return LocalDateTime.parse(dateTimeStr, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use d/M/yyyy HHmm, e.g., 2/12/2019 1800");
-            return null;
-        }
-    }
-
     /**
      * Lists all tasks in the task list.
      *
@@ -183,7 +173,6 @@ public class TaskList {
     public void addDeadlineTask(Task task) throws IOException {
         System.out.println("______________________________________________________");
         System.out.println("Got it. I've added this task:");
-        //System.out.println(" " + task);
         ui.showTask(task.toString());
         l.add(task);
         storage.saveToFile(l);

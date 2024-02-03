@@ -3,8 +3,6 @@ package duke;
 import org.junit.jupiter.api.Test;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -48,9 +46,7 @@ class ParserTest {
         Task addedTask = (Task) taskList.getTask(initialSize);
         assertTrue(addedTask instanceof Deadline);
         Deadline addedDeadline = (Deadline) addedTask;
-        //The Deadline task's description should match output
         assertEquals(description, addedDeadline.getDescription());
-        //The Deadline task's end time should match the output end time
         assertEquals(endTime, addedDeadline.getEndTime());
     }
 
@@ -66,10 +62,9 @@ class ParserTest {
 
         assertEquals(initialSize + 1, taskList.getSize());
 
-        Task addedTask = (Task) taskList.getTask(initialSize); // Assuming getTask() method exists
+        Task addedTask = (Task) taskList.getTask(initialSize);
         assertTrue(addedTask instanceof Event);
         Event addedEvent = (Event) addedTask;
-        //The Event task's description should match the expected description
         assertEquals(description, addedEvent.getDescription());
         assertEquals(startDate, addedEvent.getStartTime());
         assertEquals(endDate, addedEvent.getEndTime());

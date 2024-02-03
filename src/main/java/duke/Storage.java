@@ -1,7 +1,6 @@
 package duke;
 
 import java.io.*;
-import java.nio.file.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -83,7 +82,6 @@ public class Storage {
                 }
                 l.add(deadline);
             } else if (array_split[0].equals("E")) {
-                //Event event = new Event(array_split[1], array_split[2], array_split[3]);
                 String description = array_split[2];
                 String[] dates = array_split[3].split(" to ");
                 LocalDate startTime = LocalDate.parse(dates[0], formatter);
@@ -120,7 +118,6 @@ public class Storage {
             String formattedStartTime = event.startTime.format(formatter);
             String formattedEndTime = event.endTime.format(formatter);
             return "E | " + status + " | " + event.description + " | " + formattedStartTime + " to " + formattedEndTime;
-            // return "E | " + status + " | " + task.description + " | " + ((Event) task).startTime + "-" + ((Event) task).endTime + task.getExactTime();
         }
         return "";
     }
@@ -144,23 +141,5 @@ public class Storage {
             throw e;
         }
     }
-    protected static LocalDate parseDate(String dateStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        try {
-            return LocalDate.parse(dateStr, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use yyyy-MM-dd, e.g., 2023-03-15");
-            return null;
-        }
-    }
 
-    protected static LocalDateTime parseDateTime(String dateTimeStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        try {
-            return LocalDateTime.parse(dateTimeStr, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use d/M/yyyy HHmm, e.g., 2/12/2019 1800");
-            return null;
-        }
-    }
 }

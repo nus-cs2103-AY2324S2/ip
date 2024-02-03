@@ -29,6 +29,7 @@ public class Ui {
 
     /**
      * Reads a command from the user input.
+     *
      * @return A string containing the user's command.
      */
     public String readCommand() {
@@ -37,6 +38,7 @@ public class Ui {
 
     /**
      * Displays a task to the user.
+     *
      * @param task The string representation of the task to be displayed.
      */
     public void showTask(String task) {

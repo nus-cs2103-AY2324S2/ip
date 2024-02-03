@@ -1,7 +1,6 @@
 package duke;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
@@ -33,7 +32,6 @@ public class Event extends Task {
         String formattedStartTime = startTime.format(formatter);
         String formattedEndTime = endTime.format(formatter);
         return "E |" + super.toString().substring(1) + "| " + formattedStartTime + " to " + formattedEndTime;
-        //return "E |" + super.toString().substring(1) + "| " + getExactTime();
     }
 
     /**
