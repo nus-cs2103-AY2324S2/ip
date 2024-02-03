@@ -1,11 +1,9 @@
+package duke;
 
-import duke.IOHandler;
-import duke.Parser;
-import duke.Storage;
+
+import duke.Ui.Ui;
+import duke.exceptions.FileIOException;
 import duke.task.TaskList;
-import exceptions.FileIOException;
-import ui.Ui;
-
 public class Duke {
     private Ui ui;
     private final IOHandler ioHandler = new IOHandler();
