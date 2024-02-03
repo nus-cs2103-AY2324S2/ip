@@ -55,30 +55,25 @@ public class Numerator {
         Scanner sc = new Scanner(System.in);
 
         String input;
-        while (true) {
-            if (sc.hasNext()) {
-                try {
-                    input = sc.nextLine();
-                    Ui.printLine();
-                    boolean exit = Parser.parseArguments(input, taskList, storage);
-                    storage.save(taskList);
+        while (sc.hasNext()) {
+            try {
+                input = sc.nextLine();
+                Ui.printLine();
+                boolean exit = Parser.parseArguments(input, taskList, storage);
+                storage.save(taskList);
 
-                    if (exit) {
-                        Ui.printExit();
-                        sc.close();
-                        break;
-                    }
-                } catch (NumeratorException e) {
-                    Ui.printError(e);
-                } finally {
-                    Ui.printLine();
+                if (exit) {
+                    Ui.printExit();
+                    break;
                 }
-
-            } else {
-                sc.close();
-                break;
+            } catch (NumeratorException e) {
+                Ui.printError(e);
+            } finally {
+                Ui.printLine();
             }
         }
+
+        sc.close();
 
     }
 }
