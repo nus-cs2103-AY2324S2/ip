@@ -1,0 +1,8 @@
+todo borrow book
+deadline submit assign /by 2pm
+list
+mark 1
+list
+event PHight night /from 2pm /to 6pm
+list
+bye
