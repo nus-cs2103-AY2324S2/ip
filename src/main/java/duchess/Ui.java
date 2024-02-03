@@ -1,6 +1,11 @@
 package duchess;
 
+import duchess.task.Task;
+
 import java.util.Scanner;
+import java.util.ArrayList;
+
+import javafx.util.Pair;
 
 /**
  * Ui class handles user interface interactions in the Duchess program.
@@ -129,9 +134,29 @@ public class Ui {
                 }
                 break;
 
-            default:
-                throw new DuchessException("Oh dear, I can't make out what that is.");
+            case "find":
+                printHorizontalLine();
+                if (tokens.length > 1) {
+                    String keyword = tokens[1].toLowerCase();
+                    ArrayList<Pair<Integer, Task>> matchingTasks = taskList.findTasksByKeyword(keyword);
+                    if (!matchingTasks.isEmpty()) {
+                        System.out.println(" Here are the matching tasks in your list:");
+                        for (Pair<Integer, Task> pair : matchingTasks) {
+                            int originalIndex = pair.getKey() + 1; // Add 1 to match the original index
+                            Task task = pair.getValue();
+                            System.out.println(" " + originalIndex + "." + task.toString());
+                        }
+                    } else {
+                        System.out.println(" No matching tasks found.");
+                    }
+                } else {
+                    throw new DuchessException("Oh dear! Please provide a keyword to search for.");
+                }
+                break;
 
+
+            default:
+                    throw new DuchessException("Oh dear, I can't make out what that is.");
             }
             printHorizontalLine();
         }

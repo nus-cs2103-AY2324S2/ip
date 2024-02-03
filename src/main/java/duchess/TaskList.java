@@ -7,6 +7,7 @@ import duchess.task.Task;
 import duchess.task.ToDo;
 
 import java.util.ArrayList;
+import javafx.util.Pair;
 
 /**
  * TaskList class represents a list of tasks in the Duchess program.
@@ -218,6 +219,23 @@ public class TaskList {
      */
     public ArrayList<Task> getTasks() {
         return this.tasks;
+    }
+
+    /**
+     * Finds tasks containing the specified keyword in their descriptions.
+     *
+     * @param keyword the keyword to search for in task descriptions
+     * @return an ArrayList of Pair objects containing the index of the matching task in the original list and the matching task itself
+     */
+    public ArrayList<Pair<Integer, Task>> findTasksByKeyword(String keyword) {
+        ArrayList<Pair<Integer, Task>> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.toString().contains(keyword)) {
+                matchingTasks.add(new Pair<>(i, task));
+            }
+        }
+        return matchingTasks;
     }
 }
 
