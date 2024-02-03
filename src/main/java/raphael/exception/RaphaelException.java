@@ -1,38 +1,32 @@
 package raphael.exception;
+
+import raphael.command.Command;
 public class RaphaelException extends Exception {
-    public static final String INVALID_TASK_INDEX = "Invalid task index!";
+    public enum TYPE {
+        INVALID_TASK_INDEX("Invalid task index!"),
+        READ_IO_EXCEPTION("Failed to read from the task file!"),
+        WRITE_IO_EXCEPTION("Failed to write to the task file!");
+        private final String errorMessage;
+        private TYPE(String errorMessage) {
+            this.errorMessage = errorMessage;
+        }
+    }
     public static final String EXECUTE_EXIT_COMMAND = "Exit command can't be executed!";
     public static final String CONNECT_FILE_EXCEPTION = "Error occurred when connecting the bot with the file!";
-    public static final String READ_IO_EXCEPTION = "Error occurred when reading from the file!";
-    public static final String WRITE_IO_EXCEPTION = "Error occurred when writing to the file!";
     public RaphaelException(String message) {
         super(message);
     }
 
+    public RaphaelException(RaphaelException.TYPE exceptionType) {
+        super(exceptionType.errorMessage);
+    }
     /**
-     * Returns the corresponding error message for different type of error that cause this exception to be thrown.
+     * Returns the message for correct command format based on the command type.
      *
-     * @param s the string indicating which type of error it is
-     * @return the error message
+     * @param commandType the type of command.
+     * @return the error message.
      */
-    public static String invalidFormat(String s) {
-        final String TODO_FORMAT = "todo [task]";
-        final String DEADLINE_FORMAT = "deadline [task] /by [datetime]";
-        final String EVENT_FORMAT = "event [task] /from [datetime] /to [datetime]";
-        final String CHECK_TASK_FORMAT = "mark [index]";
-        final String UNCHECK_TASK_FORMAT = "unmark [index]";
-        return String.format("Invalid format!\n"
-                    + "Please follow the format: %s"
-                    , s.equals("TODO") ? TODO_FORMAT
-                                          : s.equals("EVENT")
-                                          ? EVENT_FORMAT
-                                          : s.equals("DEADLINE")
-                                          ? DEADLINE_FORMAT
-                                          : s.equals("CHECK_TASK")
-                                          ? CHECK_TASK_FORMAT
-                                          : s.equals("UNCHECK_TASK")
-                                          ? UNCHECK_TASK_FORMAT
-                                          : ""
-                    );
+    public static String invalidFormat(Command.TYPE commandType) {
+        return String.format("Please follow the format!:\n\t%s", commandType.getFormat());
     }
 }

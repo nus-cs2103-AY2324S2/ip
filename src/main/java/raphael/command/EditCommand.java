@@ -1,4 +1,6 @@
 package raphael.command;
+
+import raphael.exception.RaphaelException;
 import raphael.task.TaskList;
 import raphael.ui.Ui;
 import raphael.storage.Storage;
@@ -8,10 +10,10 @@ import raphael.storage.Storage;
  */
 public class EditCommand extends Command {
     private final int idx;
-    private final boolean isCheck;
-    public EditCommand(int idx, boolean isCheck) {
+    private final boolean isMark;
+    public EditCommand(int idx, boolean isMark) {
         this.idx = idx;
-        this.isCheck = isCheck;
+        this.isMark = isMark;
     }
 
     /**
@@ -26,11 +28,11 @@ public class EditCommand extends Command {
      * @throws raphael.exception.RaphaelException exception exclusive to raphael
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws raphael.exception.RaphaelException {
-        if (this.isCheck) {
-            tasks.checkTask(this.idx);
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws RaphaelException {
+        if (this.isMark) {
+            ui.showMarkOutput(tasks.checkTask(this.idx));
         } else {
-            tasks.uncheckTask(this.idx);
+            ui.showUnmarkOutput(tasks.uncheckTask(this.idx));
         }
         storage.write(tasks.toFileFormat());
     }
