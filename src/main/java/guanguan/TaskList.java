@@ -38,13 +38,13 @@ public class TaskList {
      *
      * @param index index of the task in the TaskList
      * @return task at the specified index
-     * @throws GGException if index is out of bounds
+     * @throws GgException if index is out of bounds
      */
-    public Task get(int index) throws GGException {
+    public Task get(int index) throws GgException {
         try {
             return this.tasks.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new GGException("Invalid task ID");
+            throw new GgException("Invalid task ID");
         }
     }
 
@@ -63,13 +63,13 @@ public class TaskList {
      *
      * @param index index of the task in the TaskList
      * @return task at the specified index
-     * @throws GGException if index is out of bounds
+     * @throws GgException if index is out of bounds
      */
-    public Task remove(int index) throws GGException {
+    public Task remove(int index) throws GgException {
         try {
             return this.tasks.remove(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new GGException("Invalid task ID");
+            throw new GgException("Invalid task ID");
         }
     }
 
