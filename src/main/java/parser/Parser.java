@@ -18,8 +18,7 @@ public class Parser {
             return new DeleteCommand(input);
         } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
             return new AddCommand(input);
-        }
-        else {
+        } else {
             throw new WeiException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }

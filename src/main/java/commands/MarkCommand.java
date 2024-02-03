@@ -17,8 +17,7 @@ public class MarkCommand extends Command {
             int order = Integer.parseInt(input.substring(5)) - 1;
             String markedTask = tasks.mark(order);
             ui.showMarkedMessage(markedTask);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new WeiException("which task do you want to mark?");
         }
     }

@@ -25,9 +25,6 @@ public class Wei {
         }
     }
 
-    /**
-     * execute the chatbot.
-     */
     private void run() {
         ui.greet();
         boolean isExit = false;
@@ -44,6 +41,7 @@ public class Wei {
                 ui.showLine();
             }
         }
+        
         try {
             storage.save(tasks);
         } catch (IOException e) {

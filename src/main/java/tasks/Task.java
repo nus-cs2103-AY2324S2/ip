@@ -2,25 +2,25 @@ package tasks;
 
 public class Task {
     private final String description;
-    private boolean status;
+    private boolean isComplete;
 
     public Task(String description) {
         this.description = description;
-        this.status = false;
+        this.isComplete = false;
     }
 
-    public Task(String description, boolean status) {
+    public Task(String description, boolean isComplete) {
         this.description = description;
-        this.status = status;
+        this.isComplete = isComplete;
     }
 
-    public void setStatus(boolean done) {
-        this.status = done;
+    public void setStatus(boolean isComplete) {
+        this.isComplete = isComplete;
     }
 
     public String stringify() {
         String done = "[ ]";
-        if (this.status) {
+        if (this.isComplete) {
             done = "[X]";
         }
         return done + " " + this.description;
@@ -28,7 +28,7 @@ public class Task {
 
     public String toString() {
         String done = "O";
-        if (this.status) {
+        if (this.isComplete) {
             done = "X";
         }
         return done + " | " + this.description;

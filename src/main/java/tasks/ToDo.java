@@ -5,8 +5,8 @@ public class ToDo extends Task {
         super(task);
     }
 
-    public ToDo(String task, boolean status) {
-        super(task, status);
+    public ToDo(String task, boolean isComplete) {
+        super(task, isComplete);
     }
 
     @Override
