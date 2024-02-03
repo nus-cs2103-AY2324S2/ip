@@ -104,6 +104,9 @@ public class ResponseHandler {
      * @return A message with the list of tasks.
      */
     public static String commandListPrint(ArrayList<Task> list) {
+        if (list.isEmpty()) {
+            return "Task list is empty :(";
+        }
         StringBuilder stringOfAddedCommands = new StringBuilder();
         for (int i = 0; i < list.size(); i += 1) {
             stringOfAddedCommands.append(i + 1 + ". ");

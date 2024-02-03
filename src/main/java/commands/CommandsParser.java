@@ -35,8 +35,10 @@ public class CommandsParser {
                 || commandSplit[0].equals(String.valueOf(CommandsEnum.unmark))) {
             //All items to be 0-index referenced other than user input.
             try {
+                String responseReturn = taskList.changeStatusOfItem(commandSplit[0],
+                                                                   Integer.parseInt(commandSplit[1])-1);
                 taskList.writeToFile(taskLoader);
-                return taskList.changeStatusOfItem(commandSplit[0], Integer.parseInt(commandSplit[1])-1);
+                return responseReturn;
 
             } catch (Exception e) {
                 throw new RyanGoslingException("Wrong format! (un)mark <number>");
@@ -48,8 +50,9 @@ public class CommandsParser {
             Pattern pattern = Pattern.compile("todo (.*?)");
             Matcher matcher = pattern.matcher(task);
             if (matcher.matches()) {
+                String responseReturn = taskList.add(new Todo(matcher.group(1)));
                 taskList.writeToFile(taskLoader);
-                return taskList.add(new Todo(matcher.group(1)));
+                return responseReturn;
             } else {
                 throw new RyanGoslingException("Incomplete todo command, todo <event>");
             }
@@ -58,8 +61,10 @@ public class CommandsParser {
             Pattern pattern = Pattern.compile("deadline (.*?) /by (.*?) (.*?)");
             Matcher matcher = pattern.matcher(task);
             if (matcher.matches()) {
+                String responseReturn = taskList.add(new Deadline(matcher.group(1), matcher.group(2),
+                                                                  matcher.group(3)));
                 taskList.writeToFile(taskLoader);
-                return taskList.add(new Deadline(matcher.group(1), matcher.group(2), matcher.group(3)));
+                return responseReturn;
             } else {
                 throw new RyanGoslingException("Incomplete deadline command, " + "deadline <event> /by <date> <time> "
                                                        + "\n If no specific time, leave time as 2359");
@@ -71,9 +76,11 @@ public class CommandsParser {
             if (matcher.matches()) {
                 // Retrieve matched groups
                 //System.out.println(matcher.group(3));
+
+                String responseReturn = taskList.add(new Events(matcher.group(1), matcher.group(2), matcher.group(3),
+                                                               matcher.group(4), matcher.group(5)));
                 taskList.writeToFile(taskLoader);
-                return taskList.add(new Events(matcher.group(1), matcher.group(2), matcher.group(3), matcher.group(4),
-                                        matcher.group(5)));
+                return responseReturn;
 
             } else {
                 throw new RyanGoslingException("Incomplete event command, "
@@ -94,8 +101,6 @@ public class CommandsParser {
             }
         } else if (commandSplit[0].equals(String.valueOf(CommandsEnum.help))) {
             return CommandsEnum.getAllCommands();
-
-
         } else {
             throw new RyanGoslingException("I am artificially intelligent but not in a smart way. \nTry a valid "
                                                    + "command! or check them out by typing help");
