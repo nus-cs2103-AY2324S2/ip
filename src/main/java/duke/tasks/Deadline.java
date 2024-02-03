@@ -4,12 +4,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import duke.exceptions.TaskCreationException;
-
 import duke.utils.Parser;
 
 /**
  * This class implements the Deadline task type for the bot.
- * 
+ *
  * @author delishad21
  */
 public class Deadline extends Task {
@@ -17,7 +16,7 @@ public class Deadline extends Task {
 
     /**
      * Creates Deadline object.
-     * 
+     *
      * @param isDone Marks if task is completed.
      * @param description Description of the task.
      * @param deadline Datetime value for the deadline of the task.
@@ -29,15 +28,15 @@ public class Deadline extends Task {
 
     /**
      * Returns a Deadline object by taking in user input and parsing it.
-     * 
+     *
      * @param isDone Marks if task is completed.
      * @param input User input to be parsed.
      * @return Deadline object.
      * @throws TaskCreationException
      * @throws DateTimeParseException
      */
-    public static Deadline deadlineParse(boolean isDone, String input) 
-    throws TaskCreationException, DateTimeParseException {
+    public static Deadline deadlineParse(boolean isDone, String input)
+            throws TaskCreationException, DateTimeParseException {
         if (!input.contains("/by")) {
             throw new TaskCreationException("Missing parameters: /by");
         }
@@ -54,7 +53,7 @@ public class Deadline extends Task {
             missingInfo = missingInfo + "\"by\" ";
         }
         if (!missingInfo.equals("")) {
-            throw new TaskCreationException("Missing information: " +  missingInfo);
+            throw new TaskCreationException("Missing information: " + missingInfo);
         }
 
         LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineString, Parser.INPUT_DT_FORMATTER);
@@ -62,10 +61,10 @@ public class Deadline extends Task {
         return d;
     }
 
-    
-    /** 
+
+    /**
      * Returns Deadline as a viewable String.
-     * 
+     *
      * @return String
      */
     @Override
@@ -73,10 +72,10 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + deadline.format(Parser.OUTPUT_DT_FORMATTER) + ")";
     }
 
-    
-    /** 
+
+    /**
      * Coverts Deadline into a String for saving in save file.
-     * 
+     *
      * @return String
      */
     @Override

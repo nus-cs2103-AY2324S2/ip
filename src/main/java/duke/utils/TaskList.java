@@ -6,7 +6,7 @@ import duke.tasks.Task;
 
 /**
  * This class implementions the functionality of a variable length list containg Task objects.
- * 
+ *
  * @author delishad21
  */
 public class TaskList {
@@ -21,7 +21,7 @@ public class TaskList {
 
     /**
      * Prints out all items in the TaskList.
-     * 
+     *
      * @param ui Used for printing.
      */
     public void printList(Ui ui) {
@@ -34,7 +34,7 @@ public class TaskList {
 
     /**
      * Adds task to list.
-     * 
+     *
      * @param t Task that is to be added to list.
      */
     public void add(Task t) {
@@ -43,7 +43,7 @@ public class TaskList {
 
     /**
      * Removes task from list based on task input.
-     * 
+     *
      * @param t Task that is to be removed from list.
      */
     public void remove(Task t) {
@@ -52,7 +52,7 @@ public class TaskList {
 
     /**
      * Removes Task from list based on index.
-     * 
+     *
      * @param i Index of task to be removed from list.
      */
     public void remove(int i) {
@@ -61,7 +61,7 @@ public class TaskList {
 
     /**
      * Gets items from TaskList using index.
-     * 
+     *
      * @param i Index of item to be retrieved.
      * @return Task retrieved from TaskList.
      */
@@ -71,7 +71,7 @@ public class TaskList {
 
     /**
      * Gets current size of TaskList.
-     * 
+     *
      * @return Size of TaskList as integer.
      */
     public int size() {

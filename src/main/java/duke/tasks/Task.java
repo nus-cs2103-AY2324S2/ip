@@ -2,7 +2,7 @@ package duke.tasks;
 
 /**
  * This class implements functionality for Tasks in the bot.
- * 
+ *
  * @author delishad21
  */
 public class Task {
@@ -11,7 +11,7 @@ public class Task {
 
     /**
      * Creates Task object.
-     * 
+     *
      * @param isDone Marks if task is completed.
      * @param description Description of the task.
      */
@@ -26,7 +26,7 @@ public class Task {
     public void doTask() {
         this.isDone = true;
     }
-    
+
     /**
      * Marks task as undone by setting isDone to false
      */
@@ -36,16 +36,16 @@ public class Task {
 
     /**
      * Prints task marker, private method used by toString.
-     * 
+     *
      * @return marker depending on whether this task is completed.
      */
     private String statusIcon() {
         return isDone ? "X" : " ";
     }
-    
+
     /**
      * Gets description value.
-     * 
+     *
      * @return description
      */
     public String getDescription() {
@@ -54,17 +54,17 @@ public class Task {
 
     /**
      * Returns Task as a viewable String
-     * 
+     *
      * @return String
      */
     @Override
     public String toString() {
         return "[" + this.statusIcon() + "] " + this.description;
-    } 
+    }
 
-    /** 
+    /**
      * Converts Task into a String for saving in save file.
-     * 
+     *
      * @return String
      */
     public String toSave() {

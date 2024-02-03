@@ -8,26 +8,24 @@ import duke.commands.FindCommand;
 import duke.commands.GenerateTaskCommand;
 import duke.commands.ListTaskCommand;
 import duke.commands.ModifyTaskCommand;
-
 import duke.exceptions.NoSuchCommandException;
 
 /**
  * This class implements the functionality for Parsing commands input into the bot.
- * 
+ *
  * @author delishad21
- 
  */
 public class Parser {
-    public static final DateTimeFormatter INPUT_DT_FORMATTER = 
+    public static final DateTimeFormatter INPUT_DT_FORMATTER =
         DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm");
-    public static final DateTimeFormatter OUTPUT_DT_FORMATTER = 
+    public static final DateTimeFormatter OUTPUT_DT_FORMATTER =
         DateTimeFormatter.ofPattern("dd MMMM yyyy, hh:mma", Locale.ENGLISH);
-    
-    
-    
-    /** 
+
+
+
+    /**
      * Parses user input and  into the appropriate commands for the bot to execute.
-     * 
+     *
      * @param input
      * @return Command
      * @throws NoSuchCommandException
@@ -61,5 +59,5 @@ public class Parser {
             throw new NoSuchCommandException(input);
         }
     }
-    
+
 }
