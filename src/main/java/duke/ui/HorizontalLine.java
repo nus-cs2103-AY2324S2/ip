@@ -1,3 +1,5 @@
+package duke.ui;
+
 public class HorizontalLine {
     private static HorizontalLine instance = null;
 

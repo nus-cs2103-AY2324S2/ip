@@ -1,1 +1,4 @@
-E | 0 | dsfs | 220922T0922 | 220922T0922
+E | 1 | dsfs | 220922T0922 | 220922T0922
+T | 1 | jshfsdf
+T | 1 | sdgfsaf
+T | 0 | sfsd

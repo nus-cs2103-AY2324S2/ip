@@ -1,6 +1,12 @@
+package duke.parser;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
+
+import duke.Duke;
+import duke.storage.Storage;
+import duke.task.*;
+import duke.ui.Ui;
 
 public class Parser {
     private boolean isInteger(String str) {
@@ -17,7 +23,7 @@ public class Parser {
 
     private static Parser instance = null;
     private Ui ui = null;
-    private Liv liv = null;
+    private Duke duke = null;
     private TaskList taskList = null;
     private Storage storage = null;
     public static Parser getInstance() {
@@ -29,7 +35,7 @@ public class Parser {
 
     public void initParser() {
         ui = Ui.getInstance();
-        liv = Liv.getInstance();
+        duke = duke.getInstance();
         taskList = TaskList.getInstance();
         storage = Storage.getInstance();
     }

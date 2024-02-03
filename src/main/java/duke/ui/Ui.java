@@ -1,8 +1,12 @@
-import java.io.FileNotFoundException;
+package duke.ui;
+
+import duke.task.TaskList;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
 import java.util.Scanner;
+
+import duke.Duke;
 
 public class Ui {
 
@@ -24,7 +28,7 @@ public class Ui {
     private static HorizontalLine horizontalLine = null;
     private UiState currentState = null;
     private static final DateTimeFormatter PRINT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd YYYY HH:mm");
-    private Liv livInstance = null;
+    private Duke duke = null;
     private static Scanner scanner = null;
     private TaskList taskList = null;
 
@@ -32,7 +36,7 @@ public class Ui {
         // break the initialisation into the initialization function of different classes
         horizontalLine = HorizontalLine.getInstance();
         currentState = UiState.ACTIVE_TALKING;
-        this.livInstance = Liv.getInstance();
+        duke = Duke.getInstance();
         scanner = new Scanner(System.in);
     }
     public static Ui getInstance() {
@@ -89,7 +93,7 @@ public class Ui {
         ToggleConversationState();
         System.out.println("Hope you find my service helpful.");
         System.out.println("Till next time!");
-        livInstance.ToggleActiveState();
+        duke.ToggleActiveState();
     }
 
     public static void printHorizontalLine() {
