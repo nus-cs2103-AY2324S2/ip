@@ -12,7 +12,7 @@ public class FindCommand extends Command {
     /**
      * Constructor for Find Command.
      *
-     * @param keyWord The keyword that is searched for.
+     * @param keyWord The keyword that is being searched for.
      * */
     public FindCommand(String keyWord) {
         this.keyWord = keyWord;
@@ -39,7 +39,7 @@ public class FindCommand extends Command {
     /**
      * Informs if this command is an Exit command.
      *
-     * @return Boolean value of true if this command is an exit command.
+     * @return boolean value of true if this command is an exit command.
      * */
     @Override
     public boolean isExit() {
