@@ -3,7 +3,6 @@ package duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
 public class Deadlines extends Task {
     public LocalDateTime deadline;
 
@@ -15,10 +14,7 @@ public class Deadlines extends Task {
     @Override
     public String toString() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-
         String formattedDate = deadline.format(outputFormatter);
-
-
         return String.format("[D]%s (by: %s)", super.toString(), formattedDate);
     }
 }

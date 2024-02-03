@@ -18,17 +18,18 @@ public class Parser {
     }
 
     public void run() {
-        boolean stop = false;
-        while (!stop) {
+        boolean isStopRunning = false;
+        while (!isStopRunning) {
             try {
                 String input = sc.nextLine();
                 if (input.equals("bye")) {
-                    stop = true;
+                    isStopRunning = true;
                     break;
                 }
                 List<String> inputParts = Arrays.asList(input.split(" "));
 
-                if (inputParts.get(0).equals("deadline") || inputParts.get(0).equals("todo") || inputParts.get(0).equals("event")) {
+                if (inputParts.get(0).equals("deadline") || inputParts.get(0).equals("todo") || 
+                        inputParts.get(0).equals("event")) {
                     if (inputParts.size() == 1) {
                         throw new EmptyTaskException();
                     } else if (inputParts.get(0).equals("deadline")) {
@@ -73,7 +74,6 @@ public class Parser {
                         }
                         from = from.trim();
                         to = to.trim();
-
                         Events e =  new Events(descriptor, from, to);
                         storage.add(e);
                         ui.onTaskAddition(storage.addToListOutput(e));
