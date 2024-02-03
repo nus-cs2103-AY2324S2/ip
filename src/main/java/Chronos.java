@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 
 import task.Task;
 import task.Todo;
@@ -152,6 +153,21 @@ public class Chronos {
     }
 
     /**
+     * Unmarks a task as incomplete.
+     *
+     * @param selectedTaskNumberToBeUnmarked task number to be unmarked as incomplete.
+     */
+    public static void unMarkTask(int selectedTaskNumberToBeUnmarked) {
+        Task selectedTaskToBeUnmarked = tasks.get(selectedTaskNumberToBeUnmarked - 1);
+        selectedTaskToBeUnmarked.setUnmarked();
+        tasks.set(selectedTaskNumberToBeUnmarked - 1, selectedTaskToBeUnmarked);
+        System.out.println(DIVIDER);
+        System.out.println("        OK, I've marked this task as not done yet:");
+        System.out.println("          " + selectedTaskToBeUnmarked);
+        System.out.println(DIVIDER);
+    }
+
+    /**
      * Deletes a task from task list.
      *
      * @param selectedTaskNumberToBeDeleted task number to be deleted.
@@ -235,15 +251,8 @@ public class Chronos {
                             System.out.println(DIVIDER);
                         } else {
                             try {
-                                int selectedTaskNumberToBeUnmarked = Integer.parseInt(token[1]);
-                                Task selectedTaskToBeUnmarked = tasks.get(selectedTaskNumberToBeUnmarked - 1);
-                                selectedTaskToBeUnmarked.setUnmarked();
-                                tasks.set(selectedTaskNumberToBeUnmarked - 1, selectedTaskToBeUnmarked);
-                                System.out.println(DIVIDER);
-                                System.out.println("        OK, I've marked this task as not done yet:");
-                                System.out.println("          " + selectedTaskToBeUnmarked);
-                                System.out.println(DIVIDER);
-
+                                int i = Integer.parseInt(token[1]);
+                                Chronos.unMarkTask(i);
                                 Chronos.saveTasks(fw);
                             } catch (NumberFormatException e) {
                                 System.out.println(DIVIDER);
