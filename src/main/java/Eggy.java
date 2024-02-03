@@ -3,8 +3,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -57,12 +58,12 @@ public class Eggy {
                     break;
                 case DEADLINE:
                     String[] deadlineSplit = commandArr[1].split(" /by ");
-                    Deadline newDeadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
+                    Deadline newDeadline = new Deadline(deadlineSplit[0], parseDateTime(deadlineSplit[1]));
                     addTask(newDeadline);
                     break;
                 case EVENT:
                     String[] eventSplit = commandArr[1].split(" /from | /to ");
-                    Event newEvent = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
+                    Event newEvent = new Event(eventSplit[0], parseDateTime(eventSplit[1]), parseDateTime(eventSplit[2]));
                     addTask(newEvent);
                     break;
                 default:
@@ -137,10 +138,10 @@ public class Eggy {
                         task = new Todo(taskArr[2], taskArr[1].equals("1"));
                         break;
                     case "D":
-                        task = new Deadline(taskArr[2], taskArr[3], taskArr[1].equals("1"));
+                        task = new Deadline(taskArr[2], LocalDateTime.parse(taskArr[3]), taskArr[1].equals("1"));
                         break;
                     case "E":
-                        task = new Event(taskArr[2], taskArr[3], taskArr[4], taskArr[1].equals("1"));
+                        task = new Event(taskArr[2], LocalDateTime.parse(taskArr[3]), LocalDateTime.parse(taskArr[4]), taskArr[1].equals("1"));
                         break;
                     default:
                         throw new RuntimeException("Invalid task type");
@@ -173,5 +174,10 @@ public class Eggy {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static LocalDateTime parseDateTime(String dateTime) {
+        System.out.println(LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("d/MM/yyyy HHmm")));
+        return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"));
     }
 }
