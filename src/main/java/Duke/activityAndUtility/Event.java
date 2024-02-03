@@ -25,6 +25,15 @@ public class Event implements Activity {
         LocalTime startTime = DateTimeFormat.getTime(startDateAndTime);
         LocalDate endDate = DateTimeFormat.getDate(endDateAndTime);
         LocalTime endTime = DateTimeFormat.getTime(endDateAndTime);
+        if (startDate != null && endDate != null) {
+            if (startDate.isAfter(endDate)) {
+                throw new RuntimeException("Finish date ahead of start date");
+            } else if (startDate.isEqual(endDate)) {
+                if (startTime != null && endTime != null && startTime.isAfter(endTime)) {
+                    throw new RuntimeException ("Finish time ahead of start time");
+                }
+            }
+        }
         this.startDate = startDate;
         this.startTime = startTime;
         this.endDate = endDate;
