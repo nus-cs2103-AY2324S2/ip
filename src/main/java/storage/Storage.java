@@ -13,11 +13,20 @@ import java.io.IOException;
 
 import java.util.Scanner;
 
+/**
+ * Stores the task added by the user.
+ */
 public class Storage {
     private String filePath;
     private File file;
     private FileWriter fileWriter;
 
+    /**
+     * Creates a storage object.
+     *
+     * @param filePath Leads to the text file that stores the saved tasks.
+     * @throws IOException If text file cannot be created.
+     */
     public Storage(String filePath) throws IOException {
         this.filePath = filePath;
         this.file = new File(filePath);
@@ -26,6 +35,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from the text file into the TaskList object.
+     *
+     * @return A TaskList containing the tasks.
+     * @throws FileNotFoundException If file does not exist.
+     */
     public TaskList read() throws FileNotFoundException {
         TaskList tasks = new TaskList();
         Scanner s = new Scanner(file); // create a Scanner using the File as the source
@@ -53,6 +68,12 @@ public class Storage {
         return false;
     }
 
+    /**
+     * Saves the tasks in the TaskList object into the text file.
+     *
+     * @param tasks TaskList containing the tasks.
+     * @throws IOException If file does not exist.
+     */
     public void save(TaskList tasks) throws IOException {
         fileWriter = new FileWriter(filePath);
         for (int i = 0; i < tasks.getSize(); i++) {

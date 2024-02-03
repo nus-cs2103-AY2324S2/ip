@@ -7,12 +7,28 @@ import tasks.Event;
 import tasks.ToDo;
 import ui.Ui;
 
+/**
+ * Adds a tasks into the TaskList.
+ */
 public class AddCommand extends Command {
     private String input;
 
+    /**
+     * Creates an AddCommand object.
+     *
+     * @param input User Input.
+     */
     public AddCommand(String input) {
         this.input = input;
     }
+
+    /**
+     * Adds the task into the TaskList and inform the user.
+     *
+     * @param tasks All the tasks of the user.
+     * @param ui Gives reply to the user.
+     * @throws WeiException If the command is incomplete.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws WeiException {
         String taskAdded = "";
@@ -30,6 +46,11 @@ public class AddCommand extends Command {
         ui.showNumberOfRemainingTasks(size);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return false.
+     */
     @Override
     public boolean isExit() {
         return false;

@@ -5,13 +5,28 @@ import excceptions.WeiException;
 import taskList.TaskList;
 import ui.Ui;
 
+/**
+ * Adds a tasks from the TaskList.
+ */
 public class DeleteCommand extends Command {
     private String input;
 
+    /**
+     * Creates a DeleteCommand object.
+     *
+     * @param input the order of the task to be deleted.
+     */
     public DeleteCommand(String input) {
         this.input = input;
     }
 
+    /**
+     * Deletes the task in the TaskList and inform the user.
+     *
+     * @param tasks All the tasks of the user.
+     * @param ui Gives reply to the user.
+     * @throws WeiException If the command is incomplete.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws WeiException {
         try {
@@ -27,6 +42,11 @@ public class DeleteCommand extends Command {
 
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return false.
+     */
     @Override
     public boolean isExit() {
         return false;
