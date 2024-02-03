@@ -1,7 +1,6 @@
 package duke.task;
 
 public class ToDos extends Task{
-    private Task task;
     public ToDos(String name, Boolean status) {
         super(name, status);
     }
@@ -9,6 +8,14 @@ public class ToDos extends Task{
     @Override
     public String saveOutput() {
         return "T "+ super.saveOutput();
+    }
+
+    @Override
+    public String printMatch(String match) {
+        if (super.contains(match)) {
+            return taskInfo();
+        }
+        return "";
     }
 
     @Override
