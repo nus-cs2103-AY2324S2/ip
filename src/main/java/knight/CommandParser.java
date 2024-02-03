@@ -20,12 +20,18 @@ public class CommandParser {
             return Command.DEADLINE;
         } else if (s.matches("event \\S.* /from \\S.* /to \\S.*")) {
             return Command.EVENT;
+        } else if (s.matches("find \\S.*")) {
+            return Command.FIND;
         }
 
         if (s.startsWith("bye")) { // nonstandard command
             throw new NonstandardCommandException("Thou canst bid me farewell simply with:\nbye");
         } else if (s.startsWith("list")) {
             throw new NonstandardCommandException("Though canst view thy list simply with:\nlist");
+        } else if (s.matches("find")) {
+            throw new NonstandardCommandException(
+                    "Thou shouldst specify a keyword to search for in thy list of tasks:\n" +
+                            "find [keyword]");
         } else if (s.startsWith("mark")) {
             throw new NonstandardCommandException(
                     "Take heed, for thou shouldst reference the task thou wishest to alter by its index:\n" +

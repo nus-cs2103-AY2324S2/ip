@@ -91,6 +91,19 @@ public class TaskList {
             }
             tasks.add(task);
             Ui.speak("Understood. This task hath been added to thy list:\n" + task);
+        } else if (commandType == Command.FIND) {
+            String keyword = message.substring(5);
+            String output = "";
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.get(i).matches(keyword)) {
+                    output += "\n" + (i + 1) + ". " + tasks.get(i);
+                }
+            }
+            if (output.equals("")) {
+                Ui.speak("I regret to inform thee, Your Excellency, that no tasks bearing this keyword exist in thy list.");
+            } else {
+                Ui.speak("Behold, the tasks that match thy keyword:\n" + output);
+            }
         }
     }
 

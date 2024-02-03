@@ -9,7 +9,8 @@ public enum Command {
     TODO,
     EVENT,
     DEADLINE,
-    SAVE;
+    SAVE,
+    FIND;
 
     boolean isTaskInitialisation() {
         return this == TODO || this == EVENT || this == DEADLINE || this == MARK;
