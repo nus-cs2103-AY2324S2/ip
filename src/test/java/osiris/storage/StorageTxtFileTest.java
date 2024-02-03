@@ -16,20 +16,20 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for TxtFileStorage class.
  */
-public class TxtFileStorageTest {
+public class StorageTxtFileTest {
 
     /**
      * Test for checking if the storage file exists.
      */
     @Test
     public void storageFileExistTest() {
-        TxtFileStorage storage = new TxtFileStorage("Test.txt");
-        storage.initialiseTxtFileStorage();
-        assertTrue(storage.storageFileExist());
+        StorageTxtFile storage = new StorageTxtFile("Test.txt");
+        storage.initialiseStorageTxtFile();
+        assertTrue(storage.doesStorageFileExist());
 
         File testFile = new File("Test.txt");
         testFile.delete();
-        assertFalse(storage.storageFileExist());
+        assertFalse(storage.doesStorageFileExist());
     }
 
     /**
@@ -37,8 +37,8 @@ public class TxtFileStorageTest {
      */
     @Test
     public void initialiseTxtFileStorageTest() {
-        TxtFileStorage storage = new TxtFileStorage("Test.txt");
-        storage.initialiseTxtFileStorage();
+        StorageTxtFile storage = new StorageTxtFile("Test.txt");
+        storage.initialiseStorageTxtFile();
 
         File testFile = new File("Test.txt");
         assertTrue(testFile.exists());
@@ -59,8 +59,8 @@ public class TxtFileStorageTest {
             }
             fw.close();
 
-            TxtFileStorage storage = new TxtFileStorage("Test.txt");
-            ArrayList<String> readContents = storage.readTxtFileStorage();
+            StorageTxtFile storage = new StorageTxtFile("Test.txt");
+            ArrayList<String> readContents = storage.readStorageTxtFile();
             boolean valid = true;
             int i = 0;
 
@@ -89,9 +89,9 @@ public class TxtFileStorageTest {
         try {
             File testFile = new File("Test.txt");
             ArrayList<String> testInputs = new ArrayList<>(Arrays.asList("ABC", "123"));
-            TxtFileStorage storage = new TxtFileStorage("Test.txt");
+            StorageTxtFile storage = new StorageTxtFile("Test.txt");
             for (String testInput: testInputs) {
-                storage.appendToTxtFileStorage(testInput);
+                storage.appendToStorageTxtFile(testInput);
             }
 
             ArrayList<String> readContents = new ArrayList<>();
@@ -129,7 +129,7 @@ public class TxtFileStorageTest {
     public void clearTxtFileStorage() {
         try {
             File testFile = new File("Test.txt");
-            TxtFileStorage storage = new TxtFileStorage("Test.txt");
+            StorageTxtFile storage = new StorageTxtFile("Test.txt");
             FileWriter fw = new FileWriter("Test.txt", true);
             ArrayList<String> testInputs = new ArrayList<>(Arrays.asList("ABC", "123"));
 
@@ -137,7 +137,7 @@ public class TxtFileStorageTest {
                 fw.write(testStr + "\n");
             }
             fw.close();
-            storage.clearTxtFileStorage();
+            storage.clearStorageTxtFile();
             int i = 0;
             Scanner scanner = new Scanner(testFile);
             while (scanner.hasNext()) {

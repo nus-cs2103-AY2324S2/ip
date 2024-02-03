@@ -10,24 +10,24 @@ import java.util.Scanner;
 /**
  * Manages storage in a text file format.
  */
-public class TxtFileStorage extends Storage {
+public class StorageTxtFile extends Storage {
 
     /**
      * Constructs a TxtFileStorage object with the specified file path.
      *
      * @param filepath The file path for the text file storage.
      */
-    public TxtFileStorage(String filepath) {
+    public StorageTxtFile(String filepath) {
         super(filepath);
     }
 
     /**
      * Initializes the text file storage.
      */
-    public void initialiseTxtFileStorage() {
+    public void initialiseStorageTxtFile() {
         try {
             File file = new File(this.getFilepath());
-            if (super.storageFileExist()) {
+            if (super.doesStorageFileExist()) {
                 System.out.println("Task Storage File: " + this.getFilepath());
             } else {
                 if (file.createNewFile()) {
@@ -38,7 +38,6 @@ public class TxtFileStorage extends Storage {
             }
         } catch (IOException e) {
             System.out.println("Error: Unable to create new Txt file for Task storage.");
-            System.out.println(e.toString());
         }
     }
 
@@ -47,19 +46,17 @@ public class TxtFileStorage extends Storage {
      *
      * @return The contents of the text file storage as an ArrayList of strings.
      */
-    public ArrayList<String> readTxtFileStorage() {
+    public ArrayList<String> readStorageTxtFile() {
 
         ArrayList<String> readContents = new ArrayList<>();
         Scanner scanner = null;
 
         try {
             File file = new File(this.getFilepath());
-
             scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 readContents.add(scanner.nextLine());
             }
-
             return readContents;
         } catch (FileNotFoundException e) {
             System.out.println("Error: Unable to locate filepath " + this.getFilepath());
@@ -76,7 +73,7 @@ public class TxtFileStorage extends Storage {
      *
      * @param content The content to append to the text file storage.
      */
-    public void appendToTxtFileStorage(String content) {
+    public void appendToStorageTxtFile(String content) {
         try {
             FileWriter fw = new FileWriter(this.getFilepath(), true);
             fw.write(content + "\n");
@@ -89,7 +86,7 @@ public class TxtFileStorage extends Storage {
     /**
      * Clears the contents of the text file storage.
      */
-    public void clearTxtFileStorage() {
+    public void clearStorageTxtFile() {
         try {
             FileWriter fw = new FileWriter(getFilepath());
             fw.close();

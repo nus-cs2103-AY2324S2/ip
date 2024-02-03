@@ -10,8 +10,10 @@ import java.time.format.DateTimeParseException;
  */
 public class DateTimeFormatters {
 
+    /** A singleton DateTimeFormatters instance. */
     private static DateTimeFormatters instance;
 
+    /** Private constructor to initialise a DateTimeFormatters instance. */
     private DateTimeFormatters() {}
 
     /**
@@ -32,7 +34,7 @@ public class DateTimeFormatters {
      * @param dateStr The date string provided by the user.
      * @return The LocalDate object parsed from the string.
      */
-    public LocalDate userInputDateFormatter(String dateStr) {
+    public LocalDate formatUserInputDate(String dateStr) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         try {
@@ -50,7 +52,7 @@ public class DateTimeFormatters {
      * @param dateTimeStr The date and time string provided by the user.
      * @return The LocalDateTime object parsed from the string.
      */
-    public LocalDateTime userInputDateTimeFormatter(String dateTimeStr) {
+    public LocalDateTime formatUserInputDateTime(String dateTimeStr) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
         try {
@@ -66,16 +68,16 @@ public class DateTimeFormatters {
      * Formats the user input strings to an array of LocalDateTime objects representing a range.
      *
      * @param fromDateTimeStr The starting date and time string.
-     * @param toTimeStr       The ending date and time string.
+     * @param toDateTimeStr       The ending date and time string.
      * @return An array of LocalDateTime objects representing the date time range.
      */
-    public LocalDateTime[] userInputDateTimeRangeFormatter(String fromDateTimeStr, String toTimeStr) {
+    public LocalDateTime[] formateUserInputDateTimeRange(String fromDateTimeStr, String toDateTimeStr) {
         DateTimeFormatter startDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         DateTimeFormatter endDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
         try {
             LocalDateTime startDateTime = LocalDateTime.parse(fromDateTimeStr, startDateTimeFormatter);
-            LocalDateTime endDateTime = LocalDateTime.parse(toTimeStr, endDateTimeFormatter);
+            LocalDateTime endDateTime = LocalDateTime.parse(toDateTimeStr, endDateTimeFormatter);
             return new LocalDateTime[]{startDateTime, endDateTime};
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse the date time range.");
@@ -90,7 +92,7 @@ public class DateTimeFormatters {
      * @param dateStr The stored date string.
      * @return The LocalDate object parsed from the string.
      */
-    public LocalDate storedDataDateFormatter(String dateStr) {
+    public LocalDate formatStoredDate(String dateStr) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
 
         try {
@@ -107,7 +109,7 @@ public class DateTimeFormatters {
      * @param dateTimeStr The stored date and time string.
      * @return The LocalDateTime object parsed from the string.
      */
-    public LocalDateTime storedDataDateTimeFormatter(String dateTimeStr) {
+    public LocalDateTime formatStoredDateTime(String dateTimeStr) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
 
         try {
@@ -122,19 +124,19 @@ public class DateTimeFormatters {
      * Formats the stored date time range strings to an array of LocalDateTime objects.
      *
      * @param fromDateTimeStr The starting date and time string.
-     * @param toTimeStr       The ending date and time string.
+     * @param toDateTimeStr       The ending date and time string.
      * @return An array of LocalDateTime objects representing the date time range.
      */
-    public LocalDateTime[] storedDataDateTimeRangeFormatter(String fromDateTimeStr, String toTimeStr) {
+    public LocalDateTime[] formatStoredDateTimeRange(String fromDateTimeStr, String toDateTimeStr) {
         DateTimeFormatter startDateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
         DateTimeFormatter endDateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
 
         try {
             LocalDateTime startDateTime = LocalDateTime.parse(fromDateTimeStr, startDateTimeFormatter);
-            LocalDateTime endDateTime = LocalDateTime.parse(toTimeStr, endDateTimeFormatter);
+            LocalDateTime endDateTime = LocalDateTime.parse(toDateTimeStr, endDateTimeFormatter);
             return new LocalDateTime[]{startDateTime, endDateTime};
         } catch (DateTimeParseException e) {
-            System.out.println("Failed to parse the date time range: " + fromDateTimeStr + " OR " + toTimeStr);
+            System.out.println("Failed to parse the date time range: " + fromDateTimeStr + " OR " + toDateTimeStr);
             return null;
         }
     }

@@ -1,8 +1,8 @@
 package osiris.validation;
 
-import osiris.commands.addDeadlineTaskCommand;
-import osiris.commands.addEventTaskCommand;
-import osiris.commands.addToDoTaskCommand;
+import osiris.commands.AddDeadlineTaskCommand;
+import osiris.commands.AddEventTaskCommand;
+import osiris.commands.AddToDoTaskCommand;
 import osiris.formatters.DateTimeFormatters;
 
 /**
@@ -10,8 +10,10 @@ import osiris.formatters.DateTimeFormatters;
  */
 public class InputsValidator {
 
+    /** Singleton instance variable */
     private static InputsValidator instance;
 
+    /** Return a new Input Validator instance **/
     private InputsValidator() {}
 
     /**
@@ -32,7 +34,7 @@ public class InputsValidator {
      * @param userInput The user input string.
      * @return True if the input is valid; otherwise, false.
      */
-    public boolean validateMarkTaskCompletedInput(String userInput) {
+    public boolean isMarkTaskCompleteInputValid(String userInput) {
         String[] inputtedWords = userInput.split(" ");
         if (inputtedWords.length == 2) {
             String taskIndexString = inputtedWords[1];
@@ -53,7 +55,7 @@ public class InputsValidator {
      * @param userInput The user input string.
      * @return True if the input is valid; otherwise, false.
      */
-    public boolean validateMarkTaskIncompleteInput(String userInput) {
+    public boolean isMarkTaskIncompleteInputValid(String userInput) {
         String[] inputtedWords = userInput.split(" ");
         if (inputtedWords.length == 2) {
             String taskIndexString = inputtedWords[1];
@@ -74,7 +76,7 @@ public class InputsValidator {
      * @param userInput The user input string.
      * @return True if the input is valid; otherwise, false.
      */
-    public boolean validateRemoveTaskInput(String userInput) {
+    public boolean isDeleteTaskInputValid(String userInput) {
         String[] inputtedWords = userInput.split(" ");
         if (inputtedWords.length == 2) {
             String taskIndexString = inputtedWords[1];
@@ -95,8 +97,8 @@ public class InputsValidator {
      * @param userInput The user input string.
      * @return True if the input is valid; otherwise, false.
      */
-    public boolean validateAddToDoTaskInput(String userInput) {
-        String taskName = userInput.substring(addToDoTaskCommand.COMMAND.length()).trim();
+    public boolean isAddToDoTaskInputValid(String userInput) {
+        String taskName = userInput.substring(AddToDoTaskCommand.COMMAND.length()).trim();
         if (!taskName.isEmpty()) {
             return true;
         } else {
@@ -111,11 +113,11 @@ public class InputsValidator {
      * @param userInput The user input string.
      * @return True if the input is valid; otherwise, false.
      */
-    public boolean validateAddDeadlineTaskInput(String userInput) {
+    public boolean isAddDeadlineTaskInputValid(String userInput) {
         int byIndex = userInput.indexOf("/by");
 
         if (byIndex != -1) {
-            String taskName = userInput.substring(addDeadlineTaskCommand.COMMAND.length(), byIndex - 1).trim();
+            String taskName = userInput.substring(AddDeadlineTaskCommand.COMMAND.length(), byIndex - 1).trim();
 
             if (!taskName.isEmpty()) {
                 String deadline = userInput.substring(byIndex + "/by".length()).trim();
@@ -137,7 +139,8 @@ public class InputsValidator {
                 System.out.println("Task name not provided. Please Reenter.");
             }
         } else {
-            System.out.println("Invalid input format. Please Reenter. Ensure '/by' is specified for a Deadline Task. E.g. deadline Do Homework /by dd-MM-yyyy .");
+            System.out.println("Invalid input format. Please Reenter. Ensure '/by' is specified for a Deadline Task. "
+                    + "E.g. deadline Do Homework /by dd-MM-yyyy .");
         }
         return false;
     }
@@ -148,19 +151,19 @@ public class InputsValidator {
      * @param userInput The user input string.
      * @return True if the input is valid; otherwise, false.
      */
-    public boolean validateAddEventTaskInput(String userInput) {
+    public boolean isAddEventTaskInputValid(String userInput) {
         int fromIndex = userInput.indexOf("/from");
         int toIndex = userInput.indexOf("/to");
 
         if (fromIndex != -1 && toIndex != -1 && fromIndex < toIndex) {
-            String taskName = userInput.substring(addEventTaskCommand.COMMAND.length(), fromIndex - 1).trim();
+            String taskName = userInput.substring(AddEventTaskCommand.COMMAND.length(), fromIndex - 1).trim();
             if (!taskName.isEmpty()) {
                 String startDateTime = userInput.substring(fromIndex + "/from".length(), toIndex - 1).trim();
                 String endDateTime = userInput.substring(toIndex + "/to".length()).trim();
                 if (isValidDateTime(startDateTime) && isValidDateTime(endDateTime)) {
 
-                    if (DateTimeFormatters.getInstance().userInputDateTimeFormatter(startDateTime)
-                            .isBefore((DateTimeFormatters.getInstance().userInputDateTimeFormatter(endDateTime)))) {
+                    if (DateTimeFormatters.getInstance().formatUserInputDateTime(startDateTime)
+                            .isBefore((DateTimeFormatters.getInstance().formatUserInputDateTime(endDateTime)))) {
                         return true;
                     } else {
                         System.out.println("Invalid date-time order. Start date/time should be before end date/time.");
@@ -172,12 +175,21 @@ public class InputsValidator {
                 System.out.println("Task name not provided. Please Reenter.");
             }
         } else {
-            System.out.println("Invalid input format. Please Reenter. Ensure '/from' & '/to' is specified for a Event Task. E.g. event School Meeting /from dd-MM-yyyy HHmm /to dd-MM-yyyy HHmm. Please Reenter." );
+            System.out.println("Invalid input format. Please Reenter. "
+                    + "Ensure '/from' & '/to' is specified for a Event Task. "
+                    + "E.g. event School Meeting /from dd-MM-yyyy HHmm /to dd-MM-yyyy HHmm. Please Reenter.");
         }
         return false;
     }
 
     // Private helper methods for validation ===========================================================================
+
+    /**
+     * Validates if the given day string is a valid day of the month.
+     *
+     * @param dayStr The string representation of the day.
+     * @return true if the day is valid, otherwise false.
+     */
     private boolean isValidDay(String dayStr) {
         try {
             int day = Integer.parseInt(dayStr);
@@ -187,6 +199,12 @@ public class InputsValidator {
         }
     }
 
+    /**
+     * Validates if the given month string is a valid month of the year.
+     *
+     * @param monthStr The string representation of the month.
+     * @return true if the month is valid, otherwise false.
+     */
     private boolean isValidMonth(String monthStr) {
         try {
             int month = Integer.parseInt(monthStr);
@@ -196,6 +214,12 @@ public class InputsValidator {
         }
     }
 
+    /**
+     * Validates if the given year string is a valid year.
+     *
+     * @param yearStr The string representation of the year.
+     * @return true if the year is valid, otherwise false.
+     */
     private boolean isValidYear(String yearStr) {
         try {
             int year = Integer.parseInt(yearStr);
@@ -204,6 +228,13 @@ public class InputsValidator {
             return false;
         }
     }
+
+    /**
+     * Validates if the given date-time string is in a valid format and represents a valid date and time.
+     *
+     * @param dateTime The string representation of the date and time.
+     * @return true if the date-time is valid, otherwise false.
+     */
     private boolean isValidDateTime(String dateTime) {
 
         try {

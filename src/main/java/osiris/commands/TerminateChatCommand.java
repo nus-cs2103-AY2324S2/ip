@@ -6,8 +6,9 @@ import osiris.ui.Ui;
 /**
  * Command class representing the "bye" command to terminate the chat.
  */
-public class terminateChatCommand extends Command {
+public class TerminateChatCommand extends Command {
 
+    /** Keyword used to identify the command. */
     public static final String COMMAND = "bye";
 
     /**
@@ -28,7 +29,7 @@ public class terminateChatCommand extends Command {
      */
     @Override
     public boolean execute(TaskManager taskManager, Ui userInterface) {
-        taskManager.termintate();
+        taskManager.terminate();
         return true;
     }
 }

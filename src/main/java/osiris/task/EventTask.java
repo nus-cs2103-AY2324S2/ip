@@ -9,7 +9,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class EventTask extends Task {
 
+    /** Starting Date Time of Task. **/
     private final LocalDateTime startDateTime;
+
+    /** Ending Date Time of Task. **/
     private final LocalDateTime endDateTime;
 
     /**
@@ -45,7 +48,7 @@ public class EventTask extends Task {
      * @return The start date and time of the task formatted as "MMM d yyyy h:mm a".
      */
     public String getStartDateTimeStr() {
-        return this.startDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
+        return startDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
     }
 
     /**
@@ -54,7 +57,7 @@ public class EventTask extends Task {
      * @return The end date and time of the task formatted as "MMM d yyyy h:mm a".
      */
     public String getEndDateTimeStr() {
-        return this.endDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
+        return endDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h:mm a"));
     }
 
     /**

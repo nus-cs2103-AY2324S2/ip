@@ -6,8 +6,10 @@ package osiris.task;
  */
 public abstract class Task {
 
+    /** Name of Task */
     private final String taskName;
 
+    /** Whether Task has been completed. */
     private boolean isCompleted = false;
 
     /**
@@ -33,15 +35,15 @@ public abstract class Task {
     /**
      * Marks the task as completed.
      */
-    public void markCompleted() {
-        this.isCompleted = true;
+    public void markComplete() {
+        isCompleted = true;
     }
 
     /**
      * Marks the task as incomplete.
      */
     public void markIncomplete() {
-        this.isCompleted = false;
+        isCompleted = false;
     }
 
     /**
@@ -62,6 +64,6 @@ public abstract class Task {
     @Override
     public String toString() {
         String completionStatus = isCompleted ? "[X]" : "[ ]";
-        return String.format("%s %s", completionStatus, this.taskName);
+        return String.format("%s %s", completionStatus, taskName);
     }
 }

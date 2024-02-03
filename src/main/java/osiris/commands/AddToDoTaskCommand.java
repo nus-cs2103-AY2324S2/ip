@@ -6,10 +6,12 @@ import osiris.ui.Ui;
 /**
  * Command class representing the addition of a to-do task.
  */
-public class addToDoTaskCommand extends Command {
+public class AddToDoTaskCommand extends Command {
 
+    /** Keyword used to identify the command. */
     public static final String COMMAND = "todo";
 
+    /** Name of the Task. */
     private final String taskName;
 
     /**
@@ -17,7 +19,7 @@ public class addToDoTaskCommand extends Command {
      *
      * @param taskName The name of the to-do task.
      */
-    public addToDoTaskCommand(String taskName) {
+    public AddToDoTaskCommand(String taskName) {
         this.taskName = taskName;
     }
 
@@ -30,9 +32,9 @@ public class addToDoTaskCommand extends Command {
      */
     @Override
     public boolean execute(TaskManager taskManager, Ui userInterface) {
-        boolean isSuccess = taskManager.addToDoTask(this.taskName, false);
+        boolean isSuccess = taskManager.addToDoTask(taskName, false);
         if (isSuccess) {
-            userInterface.addToDoTaskSuccessNotification(taskManager.getTask(
+            userInterface.displayToDoTaskAdditionNotification(taskManager.getTask(
                     taskManager.getTotalTaskCount() - 1).toString(), taskManager.getTotalTaskCount());
         }
         return true;

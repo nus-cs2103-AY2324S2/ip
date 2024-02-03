@@ -10,8 +10,10 @@ import osiris.ui.Ui;
  */
 public class FindTasksCommand extends Command {
 
+    /** Keyword used to identify the command. */
     public static final String COMMAND = "find";
 
+    /** The String to be searched. */
     private final String searchSting;
 
     /**
@@ -32,7 +34,7 @@ public class FindTasksCommand extends Command {
      */
     @Override
     public boolean execute(TaskManager taskManager, Ui userInterface) {
-        ArrayList<String> relevantTasks = taskManager.findTask(this.searchSting);
+        ArrayList<String> relevantTasks = taskManager.findTask(searchSting);
         userInterface.printFoundUserTasks(relevantTasks);
         return true;
     }

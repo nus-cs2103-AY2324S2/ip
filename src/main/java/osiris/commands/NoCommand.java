@@ -6,6 +6,7 @@ import osiris.ui.Ui;
 /**
  * Command class representing a no-operation command.
  * This command does nothing when executed.
+ * Called when an exception is thrown.
  */
 public class NoCommand extends Command {
 

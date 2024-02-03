@@ -5,18 +5,37 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import osiris.formatters.DateTimeFormatters;
-import osiris.storage.TxtFileStorage;
+import osiris.storage.StorageTxtFile;
 
 /**
  * The TaskManager class manages user tasks.
  */
 public class TaskManager {
 
-    private final String TASKSTORAGEFILEPATH = "src/main/java/Osiris/Storage/data/task.txt";
+    /** File path of where user tasks will be stored */
+    private static final String TASK_STORAGE_FILE_PATH = "src/main/java/Osiris/Storage/data/task.txt";
 
+    /** List of user task. */
     private final ArrayList<Task> userTasks = new ArrayList<>();
 
-    private final TxtFileStorage taskStorage = new TxtFileStorage(TASKSTORAGEFILEPATH);
+    /** Initialise new Txt File for storage. */
+    private final StorageTxtFile taskStorage = new StorageTxtFile(TASK_STORAGE_FILE_PATH);
+
+    /**
+     * Initializes the task manager by loading tasks from file storage.
+     */
+    public void initialise() {
+        taskStorage.initialiseStorageTxtFile();
+        this.loadUserTaskFromFileStorage();
+    }
+
+    /**
+     * Terminates the task manager by clearing file storage and storing tasks.
+     */
+    public void terminate() {
+        taskStorage.clearStorageTxtFile();
+        this.storeUserTaskToFileStorage();
+    }
 
     /**
      * Adds a to-do task to the task manager.
@@ -27,7 +46,7 @@ public class TaskManager {
      */
     public boolean addToDoTask(String taskName, boolean isCompleted) {
         ToDoTask newTask = new ToDoTask(taskName, isCompleted);
-        this.userTasks.add(newTask);
+        userTasks.add(newTask);
         return true;
     }
 
@@ -35,13 +54,13 @@ public class TaskManager {
      * Adds a deadline task to the task manager.
      *
      * @param taskName    The name of the task.
-     * @param deadline    The deadline of the task.
      * @param isCompleted The completion status of the task.
+     * @param deadline    The deadline of the task.
      * @return True if the task is added successfully, false otherwise.
      */
-    public boolean addDeadlineTask(String taskName, LocalDate deadline, boolean isCompleted) {
+    public boolean addDeadlineTask(String taskName, boolean isCompleted, LocalDate deadline) {
         DeadlineTask newTask = new DeadlineTask(taskName, isCompleted, deadline);
-        this.userTasks.add(newTask);
+        userTasks.add(newTask);
         return true;
     }
 
@@ -49,15 +68,15 @@ public class TaskManager {
      * Adds an event task to the task manager.
      *
      * @param taskName      The name of the task.
+     * @param isCompleted   The completion status of the task.
      * @param startDateTime The start date and time of the event.
      * @param endDateTime   The end date and time of the event.
-     * @param isCompleted   The completion status of the task.
      * @return True if the task is added successfully, false otherwise.
      */
-    public boolean addEventTask(String taskName, LocalDateTime startDateTime,
-                                LocalDateTime endDateTime, boolean isCompleted) {
+    public boolean addEventTask(String taskName, boolean isCompleted, LocalDateTime startDateTime,
+                                LocalDateTime endDateTime) {
         EventTask newTask = new EventTask(taskName, isCompleted, startDateTime, endDateTime);
-        this.userTasks.add(newTask);
+        userTasks.add(newTask);
         return true;
     }
 
@@ -68,7 +87,7 @@ public class TaskManager {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
-        return this.userTasks.get(index);
+        return userTasks.get(index);
     }
 
     /**
@@ -86,10 +105,10 @@ public class TaskManager {
      * @param index The index of the task to be removed.
      * @return The removed task, or null if the index is out of bounds.
      */
-    public Task removeTask(int index) {
+    public Task deleteTask(int index) {
         try {
-            Task removedTask = this.userTasks.get(index);
-            this.userTasks.remove(index);
+            Task removedTask = userTasks.get(index);
+            userTasks.remove(index);
             return removedTask;
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No task with index " + (index + 1) + ". Enter 'list' to view tasks.");
@@ -103,7 +122,7 @@ public class TaskManager {
      * @return The total number of tasks.
      */
     public int getTotalTaskCount() {
-        return this.userTasks.size();
+        return userTasks.size();
     }
 
     /**
@@ -112,9 +131,9 @@ public class TaskManager {
      * @param index The index of the task to be marked as completed.
      * @return True if the task is marked as completed successfully, false otherwise.
      */
-    public boolean markTaskCompleted(int index) {
+    public boolean markTaskComplete(int index) {
         try {
-            this.userTasks.get(index).markCompleted();
+            userTasks.get(index).markComplete();
             return true;
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No task with index " + (index + 1) + ". Enter 'list' to view tasks.");
@@ -130,53 +149,12 @@ public class TaskManager {
      */
     public boolean markTaskIncomplete(int index) {
         try {
-            this.userTasks.get(index).markIncomplete();
+            userTasks.get(index).markIncomplete();
             return true;
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No task with index " + (index + 1) + ". Enter 'list' to view tasks.");
             return false;
         }
-    }
-
-    /**
-     * Stores user tasks to file storage.
-     */
-    private void storeUserTaskToFileStorage() {
-        for (Task task : this.userTasks) {
-            this.taskStorage.appendToTxtFileStorage(task.getStringStorageRepresentation());
-        }
-    }
-
-
-    /**
-     * Loads user tasks from file storage.
-     */
-    private void loadUserTaskFromFileStorage() {
-        ArrayList<String> readContents = this.taskStorage.readTxtFileStorage();
-        for (String readContentString : readContents) {
-            String[] readContentWord = readContentString.split("\\|");
-
-            if (readContentWord[0].trim().equals("T")) {
-                this.addToDoTask(readContentWord[2].trim(), readContentWord[1].trim().equals("Y"));
-            } else if (readContentWord[0].trim().equals("D")) {
-                LocalDate deadline = DateTimeFormatters.getInstance()
-                        .storedDataDateFormatter(readContentWord[3].trim());
-                this.addDeadlineTask(readContentWord[2].trim(), deadline, readContentWord[1].trim().equals("Y"));
-            } else if (readContentWord[0].trim().equals("E")) {
-                LocalDateTime[] dateTimeRange = DateTimeFormatters.getInstance()
-                        .storedDataDateTimeRangeFormatter(readContentWord[3].trim(), readContentWord[4].trim());
-                this.addEventTask(readContentWord[2].trim(), dateTimeRange[0],
-                        dateTimeRange[1], readContentWord[1].trim().equals("Y"));
-            }
-        }
-    }
-
-    /**
-     * Initializes the task manager by loading tasks from file storage.
-     */
-    public void initialise() {
-        this.taskStorage.initialiseTxtFileStorage();
-        this.loadUserTaskFromFileStorage();
     }
 
     /**
@@ -196,10 +174,34 @@ public class TaskManager {
     }
 
     /**
-     * Terminates the task manager by clearing file storage and storing tasks.
+     * Stores user tasks to file storage.
      */
-    public void termintate() {
-        this.taskStorage.clearTxtFileStorage();
-        this.storeUserTaskToFileStorage();
+    private void storeUserTaskToFileStorage() {
+        for (Task task : userTasks) {
+            taskStorage.appendToStorageTxtFile(task.getStringStorageRepresentation());
+        }
+    }
+
+    /**
+     * Loads user tasks from file storage.
+     */
+    private void loadUserTaskFromFileStorage() {
+        ArrayList<String> readContents = taskStorage.readStorageTxtFile();
+        for (String readContentString : readContents) {
+            String[] readContentWord = readContentString.split("\\|");
+
+            if (readContentWord[0].trim().equals("T")) {
+                this.addToDoTask(readContentWord[2].trim(), readContentWord[1].trim().equals("Y"));
+            } else if (readContentWord[0].trim().equals("D")) {
+                LocalDate deadline = DateTimeFormatters.getInstance()
+                        .formatStoredDate(readContentWord[3].trim());
+                this.addDeadlineTask(readContentWord[2].trim(), readContentWord[1].trim().equals("Y"), deadline);
+            } else if (readContentWord[0].trim().equals("E")) {
+                LocalDateTime[] dateTimeRange = DateTimeFormatters.getInstance()
+                        .formatStoredDateTimeRange(readContentWord[3].trim(), readContentWord[4].trim());
+                this.addEventTask(readContentWord[2].trim(), readContentWord[1].trim().equals("Y"), dateTimeRange[0],
+                        dateTimeRange[1]);
+            }
+        }
     }
 }

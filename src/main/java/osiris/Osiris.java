@@ -8,12 +8,15 @@ import osiris.task.TaskManager;
 import osiris.ui.Ui;
 
 /**
- * The Osiris class represents the main chatbot application.
+ * The Osiris class represents the main chatBot application.
  * It manages user interactions, interprets commands, and handles task management.
  */
 public class Osiris {
 
+    /** Represents the task manager responsible for managing tasks within the system. */
     private final TaskManager taskManager = new TaskManager();
+
+    /** Represents the user interface component of the application. */
     private final Ui userInterface = new Ui();
 
     /**
@@ -22,22 +25,22 @@ public class Osiris {
      */
     public void startChat() {
         Scanner scanner = new Scanner(System.in);
-        this.taskManager.initialise();
+        taskManager.initialise();
 
-        this.userInterface.outputIntroductions();
+        userInterface.displayIntroductions();
 
-        boolean terminateChat = false;
+        boolean isTerminate = false;
 
-        while (!terminateChat) {
-            this.userInterface.messageOsirisPrompt();
+        while (!isTerminate) {
+            userInterface.displayOsirisPromptMessage();
             String userInput = scanner.nextLine();
 
             Command userCommand = UserInputInterpreter.getInstance().interpretUserInput(userInput);
-            userCommand.execute(this.taskManager, this.userInterface);
-            terminateChat = userCommand.isTerminateChat();
+            userCommand.execute(taskManager, userInterface);
+            isTerminate = userCommand.isTerminateChat();
         }
 
-        this.userInterface.outputGoodbyes();
+        userInterface.displayGoodbyes();
     }
 
 }

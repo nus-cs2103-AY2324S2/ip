@@ -8,12 +8,15 @@ import osiris.ui.Ui;
 /**
  * Command class representing the addition of a deadline task.
  */
-public class addDeadlineTaskCommand extends Command {
+public class AddDeadlineTaskCommand extends Command {
 
+    /** Keyword used to identify the command. */
     public static final String COMMAND = "deadline";
 
+    /** Name of the Task. */
     private final String taskName;
 
+    /** Deadline date associated with the task. */
     private final LocalDate deadline;
 
     /**
@@ -22,7 +25,7 @@ public class addDeadlineTaskCommand extends Command {
      * @param taskName The name of the deadline task.
      * @param deadline The deadline of the task.
      */
-    public addDeadlineTaskCommand(String taskName, LocalDate deadline) {
+    public AddDeadlineTaskCommand(String taskName, LocalDate deadline) {
         this.taskName = taskName;
         this.deadline = deadline;
     }
@@ -36,9 +39,9 @@ public class addDeadlineTaskCommand extends Command {
      */
     @Override
     public boolean execute(TaskManager taskManager, Ui userInterface) {
-        boolean isSuccess = taskManager.addDeadlineTask(this.taskName, this.deadline, false);
+        boolean isSuccess = taskManager.addDeadlineTask(taskName, false, deadline);
         if (isSuccess) {
-            userInterface.addDeadlineTaskSuccessNotification(taskManager.getTask(
+            userInterface.displayDeadlineTaskAdditionNotification(taskManager.getTask(
                     taskManager.getTotalTaskCount() - 1).toString(), taskManager.getTotalTaskCount());
         }
         return true;

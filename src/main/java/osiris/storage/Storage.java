@@ -31,9 +31,9 @@ public class Storage {
      *
      * @return True if the storage file exists, false otherwise.
      */
-    public boolean storageFileExist() {
+    public boolean doesStorageFileExist() {
         try {
-            File file = new File(this.filepath);
+            File file = new File(filepath);
             return file.exists();
         } catch (SecurityException e) {
             System.err.println("SecurityException occurred." );

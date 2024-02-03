@@ -8,7 +8,17 @@ import osiris.ui.Ui;
  */
 public abstract class Command {
 
+    /** Whether the command for the chat to be terminated has been called. */
     private boolean isTerminateChat = false;
+
+    /**
+     * Sets the termination status of the chat.
+     *
+     * @param isTerminateChat A boolean value indicating whether the chat should be terminated.
+     */
+    public void setIsTerminateChat(boolean isTerminateChat) {
+        this.isTerminateChat = isTerminateChat;
+    }
 
     /**
      * Checks if the command is to terminate the chat.

@@ -8,14 +8,18 @@ import osiris.ui.Ui;
 /**
  * Command class representing the addition of an event task.
  */
-public class addEventTaskCommand extends Command {
+public class AddEventTaskCommand extends Command {
 
+    /** Keyword used to identify the command. */
     public static final String COMMAND = "event";
 
+    /** Name of the Task. */
     private final String taskName;
 
+    /** Start Date Time associated with the Task. */
     private final LocalDateTime startDateTime;
 
+    /** End Date Time associated with the Task. */
     private final LocalDateTime endDateTime;
 
     /**
@@ -25,7 +29,7 @@ public class addEventTaskCommand extends Command {
      * @param startDateTime The start date and time of the event.
      * @param endDateTime   The end date and time of the event.
      */
-    public addEventTaskCommand(String taskName, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+    public AddEventTaskCommand(String taskName, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         this.taskName = taskName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -40,10 +44,10 @@ public class addEventTaskCommand extends Command {
      */
     @Override
     public boolean execute(TaskManager taskManager, Ui userInterface) {
-        boolean isSuccess = taskManager.addEventTask(this.taskName, this.startDateTime, this.endDateTime, false);
+        boolean isSuccess = taskManager.addEventTask(taskName, false, startDateTime, endDateTime);
 
         if (isSuccess) {
-            userInterface.addEventTaskSuccessNotification(taskManager.getTask(
+            userInterface.displayEventTaskAdditionNotification(taskManager.getTask(
                     taskManager.getTotalTaskCount() - 1).toString(), taskManager.getTotalTaskCount());
         }
         return true;

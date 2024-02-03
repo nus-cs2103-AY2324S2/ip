@@ -16,12 +16,12 @@ public class InputsValidatorTest {
     @Test
     public void validateMarkTaskCompletedInputTest() {
         // Tests for valid input
-        assertTrue(InputsValidator.getInstance().validateMarkTaskCompletedInput("mark 1"));
+        assertTrue(InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark 1"));
 
         // Tests for invalid inputs
-        assertFalse(InputsValidator.getInstance().validateMarkTaskCompletedInput("mark "));
-        assertFalse(InputsValidator.getInstance().validateMarkTaskCompletedInput("mark 1.5"));
-        assertFalse(InputsValidator.getInstance().validateMarkTaskCompletedInput("mark a"));
+        assertFalse(InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark "));
+        assertFalse(InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark 1.5"));
+        assertFalse(InputsValidator.getInstance().isMarkTaskCompleteInputValid("mark a"));
     }
 
     /**
@@ -30,12 +30,12 @@ public class InputsValidatorTest {
     @Test
     public void validateMarkTaskIncompleteInputTest() {
         // Tests for valid input
-        assertTrue(InputsValidator.getInstance().validateMarkTaskIncompleteInput("unmark 1"));
+        assertTrue(InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark 1"));
 
         // Tests for invalid inputs
-        assertFalse(InputsValidator.getInstance().validateMarkTaskIncompleteInput("unmark "));
-        assertFalse(InputsValidator.getInstance().validateMarkTaskIncompleteInput("unmark 1.5"));
-        assertFalse(InputsValidator.getInstance().validateMarkTaskIncompleteInput("unmark a"));
+        assertFalse(InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark "));
+        assertFalse(InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark 1.5"));
+        assertFalse(InputsValidator.getInstance().isMarkTaskIncompleteInputValid("unmark a"));
     }
 
     /**
@@ -44,12 +44,12 @@ public class InputsValidatorTest {
     @Test
     public void validateRemoveTaskInputTest() {
         // Tests for valid input
-        assertTrue(InputsValidator.getInstance().validateRemoveTaskInput("delete 1"));
+        assertTrue(InputsValidator.getInstance().isDeleteTaskInputValid("delete 1"));
 
         // Tests for invalid inputs
-        assertFalse(InputsValidator.getInstance().validateRemoveTaskInput("delete "));
-        assertFalse(InputsValidator.getInstance().validateRemoveTaskInput("delete 1.5"));
-        assertFalse(InputsValidator.getInstance().validateRemoveTaskInput("delete a"));
+        assertFalse(InputsValidator.getInstance().isDeleteTaskInputValid("delete "));
+        assertFalse(InputsValidator.getInstance().isDeleteTaskInputValid("delete 1.5"));
+        assertFalse(InputsValidator.getInstance().isDeleteTaskInputValid("delete a"));
     }
 
     /**
@@ -58,13 +58,13 @@ public class InputsValidatorTest {
     @Test
     public void validateAddToDoTaskInputTest() {
         // Tests for valid input
-        assertTrue(InputsValidator.getInstance().validateAddToDoTaskInput("todo 1"));
-        assertTrue(InputsValidator.getInstance().validateAddToDoTaskInput("todo Task 1"));
-        assertTrue(InputsValidator.getInstance().validateAddToDoTaskInput("todo Valid Task 1"));
+        assertTrue(InputsValidator.getInstance().isAddToDoTaskInputValid("todo 1"));
+        assertTrue(InputsValidator.getInstance().isAddToDoTaskInputValid("todo Task 1"));
+        assertTrue(InputsValidator.getInstance().isAddToDoTaskInputValid("todo Valid Task 1"));
 
         // Tests for invalid inputs
-        assertFalse(InputsValidator.getInstance().validateAddToDoTaskInput("todo"));
-        assertFalse(InputsValidator.getInstance().validateRemoveTaskInput("todo "));
+        assertFalse(InputsValidator.getInstance().isAddToDoTaskInputValid("todo"));
+        assertFalse(InputsValidator.getInstance().isDeleteTaskInputValid("todo "));
     }
 
     /**
@@ -73,22 +73,22 @@ public class InputsValidatorTest {
     @Test
     public void validateAddDeadlineTaskInputTest() {
         // Tests for valid input
-        assertTrue(InputsValidator.getInstance().validateAddDeadlineTaskInput("deadline 1 /by 01-01-2024"));
-        assertTrue(InputsValidator.getInstance().validateAddDeadlineTaskInput("deadline Task /by 01-01-2024"));
-        assertTrue(InputsValidator.getInstance().validateAddDeadlineTaskInput("deadline Task 1 /by 01-01-2024"));
+        assertTrue(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline 1 /by 01-01-2024"));
+        assertTrue(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 01-01-2024"));
+        assertTrue(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task 1 /by 01-01-2024"));
 
         // Tests for invalid inputs
-        assertFalse(InputsValidator.getInstance().validateAddDeadlineTaskInput("deadline Task"));
-        assertFalse(InputsValidator.getInstance().validateAddDeadlineTaskInput("deadline Task /by 01/01/2024"));
-        assertFalse(InputsValidator.getInstance().validateAddDeadlineTaskInput("deadline /by 01-01-2024"));
-        assertFalse(InputsValidator.getInstance().validateAddDeadlineTaskInput("deadline Task /by 2024-01-01"));
-        assertFalse(InputsValidator.getInstance().validateAddDeadlineTaskInput("deadline Task /by 32-01-2024"));
-        assertFalse(InputsValidator.getInstance().validateAddDeadlineTaskInput("deadline Task /by 01-13-2024"));
-        assertFalse(InputsValidator.getInstance().validateAddDeadlineTaskInput("deadline Task /by 1-01-2024"));
-        assertFalse(InputsValidator.getInstance().validateAddDeadlineTaskInput("deadline Task /by 01-1-2024"));
-        assertFalse(InputsValidator.getInstance().validateAddDeadlineTaskInput("deadline Task /by 1-1-2024"));
-        assertFalse(InputsValidator.getInstance().validateAddDeadlineTaskInput("deadline Task 01-01-2024"));
-        assertFalse(InputsValidator.getInstance().validateAddDeadlineTaskInput("deadline Task by 01-01-2024"));
+        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task"));
+        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 01/01/2024"));
+        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline /by 01-01-2024"));
+        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 2024-01-01"));
+        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 32-01-2024"));
+        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 01-13-2024"));
+        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 1-01-2024"));
+        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 01-1-2024"));
+        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task /by 1-1-2024"));
+        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task 01-01-2024"));
+        assertFalse(InputsValidator.getInstance().isAddDeadlineTaskInputValid("deadline Task by 01-01-2024"));
     }
 
     /**
@@ -98,25 +98,25 @@ public class InputsValidatorTest {
     public void validateAddEventTaskInputTest() {
         // Tests for valid input
         assertTrue(InputsValidator.getInstance()
-                .validateAddEventTaskInput("event 2 /from 01-01-2024 1200 /to 01-01-2024 1300"));
+                .isAddEventTaskInputValid("event 2 /from 01-01-2024 1200 /to 01-01-2024 1300"));
         assertTrue(InputsValidator.getInstance()
-                .validateAddEventTaskInput("event School Meeting /from 01-01-2024 1200 /to 01-01-2024 1300"));
+                .isAddEventTaskInputValid("event School Meeting /from 01-01-2024 1200 /to 01-01-2024 1300"));
 
         // Tests for invalid inputs
         assertFalse(InputsValidator.getInstance()
-                .validateAddEventTaskInput("event /from 01-01-2024 1200 /to 01-01-2024 1300"));
+                .isAddEventTaskInputValid("event /from 01-01-2024 1200 /to 01-01-2024 1300"));
         assertFalse(InputsValidator.getInstance()
-                .validateAddEventTaskInput("event School Meeting from 01-01-2024 1200 to 01-01-2024 1300"));
+                .isAddEventTaskInputValid("event School Meeting from 01-01-2024 1200 to 01-01-2024 1300"));
         assertFalse(InputsValidator.getInstance()
-                .validateAddEventTaskInput("event School Meeting /from 01-01-2024 /to 01-01-2024"));
+                .isAddEventTaskInputValid("event School Meeting /from 01-01-2024 /to 01-01-2024"));
         assertFalse(InputsValidator.getInstance()
-                .validateAddEventTaskInput("event School Meeting /from 01-01-2024 1300 /to 01-01-2024 1200"));
+                .isAddEventTaskInputValid("event School Meeting /from 01-01-2024 1300 /to 01-01-2024 1200"));
         assertFalse(InputsValidator.getInstance()
-                .validateAddEventTaskInput("event School Meeting 01-01-2024 1200 01-01-2024 1300"));
+                .isAddEventTaskInputValid("event School Meeting 01-01-2024 1200 01-01-2024 1300"));
         assertFalse(InputsValidator.getInstance()
-                .validateAddEventTaskInput("event School Meeting /from 32-01-2024 1200 /to 33-01-2024 1300"));
+                .isAddEventTaskInputValid("event School Meeting /from 32-01-2024 1200 /to 33-01-2024 1300"));
         assertFalse(InputsValidator.getInstance()
-                .validateAddEventTaskInput("event School Meeting /from 01-13-2024 1200 /to 01-13-2024 1300"));
+                .isAddEventTaskInputValid("event School Meeting /from 01-13-2024 1200 /to 01-13-2024 1300"));
     }
 
     //

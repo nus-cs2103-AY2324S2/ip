@@ -7,10 +7,12 @@ import osiris.ui.Ui;
 /**
  * Command class to mark a task as incomplete.
  */
-public class markTaskIncompleteCommand extends Command {
+public class MarkTaskIncompleteCommand extends Command {
 
+    /** Keyword used to identify the command. */
     public static final String COMMAND = "unmark";
 
+    /** Index to mark as incomplete. */
     private final int taskIndex;
 
 
@@ -19,7 +21,7 @@ public class markTaskIncompleteCommand extends Command {
      *
      * @param taskIndex The index of the task to be marked as incomplete.
      */
-    public markTaskIncompleteCommand(int taskIndex) {
+    public MarkTaskIncompleteCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 
@@ -32,9 +34,9 @@ public class markTaskIncompleteCommand extends Command {
      */
     @Override
     public boolean execute(TaskManager taskManager, Ui userInterface) {
-        boolean isSuccess = taskManager.markTaskIncomplete(this.taskIndex - 1);
+        boolean isSuccess = taskManager.markTaskIncomplete(taskIndex - 1);
         if (isSuccess) {
-            userInterface.markTaskIncompleteSuccessNotification(taskManager.getTask(this.taskIndex - 1).toString());
+            userInterface.displayMarkTaskIncompleteNotification(taskManager.getTask(taskIndex - 1).toString());
         }
         return true;
     }

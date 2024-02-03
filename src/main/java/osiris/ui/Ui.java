@@ -10,9 +10,9 @@ public class Ui {
     /**
      * Outputs introduction messages to the user.
      */
-    public void outputIntroductions() {
+    public void displayIntroductions() {
         this.printSeparator();
-        for (String line : UiOutputs.NAMEASCIIArt) {
+        for (String line : UiOutputs.NAME_ASCII_ART) {
             System.out.println(line);
         }
         this.printSeparator();
@@ -23,21 +23,21 @@ public class Ui {
     /**
      * Prompts the user with the Osiris message prompt.
      */
-    public void messageOsirisPrompt() {
-        System.out.print(UiOutputs.MESSAGEOSIRISPROMPT);
+    public void displayOsirisPromptMessage() {
+        System.out.print(UiOutputs.MESSAGE_OSIRIS_PROMPT);
     }
 
     /**
      * Outputs a message for unsupported commands.
      */
-    public void unsupportedCommandsOutput() {
-        System.out.println(UiOutputs.UNSUPPORTEDCOMMANDSOUTPUT);
+    public void displayUnsupportedCommandMessage() {
+        System.out.println(UiOutputs.UNSUPPORTED_COMMAND_OUTPUT);
     }
 
     /**
      * Outputs goodbye messages to the user.
      */
-    public void outputGoodbyes() {
+    public void displayGoodbyes() {
         this.printSeparator();
         System.out.println(UiOutputs.GOODBYES);
         this.printSeparator();
@@ -49,7 +49,7 @@ public class Ui {
      * @param taskDetails The details of the added task.
      * @param taskCount   The total count of tasks.
      */
-    public void addToDoTaskSuccessNotification(String taskDetails, int taskCount) {
+    public void displayToDoTaskAdditionNotification(String taskDetails, int taskCount) {
         this.printSeparator();
         System.out.println("     Got it. I've added this task:");
         System.out.println("        " + taskDetails);
@@ -63,7 +63,7 @@ public class Ui {
      * @param taskDetails The details of the added task.
      * @param taskCount   The total count of tasks.
      */
-    public void addDeadlineTaskSuccessNotification(String taskDetails, int taskCount) {
+    public void displayDeadlineTaskAdditionNotification(String taskDetails, int taskCount) {
         this.printSeparator();
         System.out.println("     Got it. I've added this task:");
         System.out.println("        " + taskDetails);
@@ -77,7 +77,7 @@ public class Ui {
      * @param taskDetails The details of the added task.
      * @param taskCount   The total count of tasks.
      */
-    public void addEventTaskSuccessNotification(String taskDetails, int taskCount) {
+    public void displayEventTaskAdditionNotification(String taskDetails, int taskCount) {
         this.printSeparator();
         System.out.println("     Got it. I've added this task:");
         System.out.println("        " + taskDetails);
@@ -91,7 +91,7 @@ public class Ui {
      *
      * @param taskDetails The details of the completed task.
      */
-    public void markTaskCompletedSuccessNotification(String taskDetails) {
+    public void displayMarkTaskCompleteNotification(String taskDetails) {
         this.printSeparator();
         System.out.println("     Nice! I've marked this task as done:");
         System.out.println("        " + taskDetails);
@@ -104,7 +104,7 @@ public class Ui {
      *
      * @param taskDetails The details of the incomplete task.
      */
-    public void markTaskIncompleteSuccessNotification(String taskDetails) {
+    public void displayMarkTaskIncompleteNotification(String taskDetails) {
         this.printSeparator();
         System.out.println("     OK, I've marked this task as not done yet:");
         System.out.println("        " + taskDetails);
@@ -117,7 +117,7 @@ public class Ui {
      * @param taskDetails The details of the removed task.
      * @param taskCount   The total count of tasks.
      */
-    public void removeTaskSuccessNotification(String taskDetails, int taskCount) {
+    public void displayDeleteTaskNotification(String taskDetails, int taskCount) {
         this.printSeparator();
         System.out.println("     Noted. I've removed this task:");
         System.out.println("        " + taskDetails);
@@ -140,7 +140,8 @@ public class Ui {
         this.printSeparator();
     }
 
-    /** Prints the details of the found tasks to the user interface.
+    /**
+     * Prints the details of the found tasks to the user interface.
      *
      * @param taskDetailsList The list of task details to be printed.
      */
@@ -157,7 +158,7 @@ public class Ui {
      * Prints a separator line to the console.
      */
     private void printSeparator() {
-        System.out.println(UiOutputs.SEPERATOR);
+        System.out.println(UiOutputs.SEPARATOR);
     }
 
 }

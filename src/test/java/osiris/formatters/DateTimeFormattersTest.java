@@ -19,11 +19,11 @@ public class DateTimeFormattersTest {
     @Test
     public void userInputDateFormatterTest() {
         // Testing valid input
-        LocalDate date = DateTimeFormatters.getInstance().userInputDateFormatter("01-01-2024");
+        LocalDate date = DateTimeFormatters.getInstance().formatUserInputDate("01-01-2024");
         assertNotNull(date);
 
         // Testing invalid input
-        date = DateTimeFormatters.getInstance().userInputDateFormatter("invalid");
+        date = DateTimeFormatters.getInstance().formatUserInputDate("invalid");
         assertNull(date);
     }
 
@@ -33,11 +33,11 @@ public class DateTimeFormattersTest {
     @Test
     public void userInputDateTimeFormatterTest() {
         // Testing valid input
-        LocalDateTime dateTime = DateTimeFormatters.getInstance().userInputDateTimeFormatter("01-01-2024 2359");
+        LocalDateTime dateTime = DateTimeFormatters.getInstance().formatUserInputDateTime("01-01-2024 2359");
         assertNotNull(dateTime);
 
         // Testing invalid input
-        dateTime = DateTimeFormatters.getInstance().userInputDateTimeFormatter("invalid");
+        dateTime = DateTimeFormatters.getInstance().formatUserInputDateTime("invalid");
         assertNull(dateTime);
     }
 
@@ -48,11 +48,11 @@ public class DateTimeFormattersTest {
     public void userInputDateTimeRangeFormatterTest() {
         // Testing valid input
         LocalDateTime[] dateTime = DateTimeFormatters.getInstance()
-                .userInputDateTimeRangeFormatter("01-01-2024 0000", "01-01-2024 2359");
+                .formateUserInputDateTimeRange("01-01-2024 0000", "01-01-2024 2359");
         assertNotNull(dateTime);
 
         // Testing invalid input
-        dateTime = DateTimeFormatters.getInstance().userInputDateTimeRangeFormatter("invalid", "invalid");
+        dateTime = DateTimeFormatters.getInstance().formateUserInputDateTimeRange("invalid", "invalid");
         assertNull(dateTime);
     }
 
@@ -62,11 +62,11 @@ public class DateTimeFormattersTest {
     @Test
     public void storedDataDateFormatterTest() {
         // Testing valid input
-        LocalDate date = DateTimeFormatters.getInstance().storedDataDateFormatter("Jan 01 2024");
+        LocalDate date = DateTimeFormatters.getInstance().formatStoredDate("Jan 01 2024");
         assertNotNull(date);
 
         // Testing invalid input
-        date = DateTimeFormatters.getInstance().storedDataDateFormatter("invalid");
+        date = DateTimeFormatters.getInstance().formatStoredDate("invalid");
         assertNull(date);
     }
 
@@ -76,11 +76,11 @@ public class DateTimeFormattersTest {
     @Test
     public void storedDataDateTimeFormatterTest() {
         // Testing valid input
-        LocalDateTime dateTime = DateTimeFormatters.getInstance().storedDataDateTimeFormatter("Jan 01 2024 8:00 AM");
+        LocalDateTime dateTime = DateTimeFormatters.getInstance().formatStoredDateTime("Jan 01 2024 8:00 AM");
         assertNotNull(dateTime);
 
         // Testing invalid input
-        dateTime = DateTimeFormatters.getInstance().storedDataDateTimeFormatter("invalid");
+        dateTime = DateTimeFormatters.getInstance().formatStoredDateTime("invalid");
         assertNull(dateTime);
     }
 
@@ -91,11 +91,11 @@ public class DateTimeFormattersTest {
     public void storedDateDateTimeRangeFormatterTest() {
         // Testing valid input
         LocalDateTime[] dateTime = DateTimeFormatters.getInstance()
-                .storedDataDateTimeRangeFormatter("Jan 01 2024 8:00 AM", "Jan 01 2024 10:00 AM");
+                .formatStoredDateTimeRange("Jan 01 2024 8:00 AM", "Jan 01 2024 10:00 AM");
         assertNotNull(dateTime);
 
         // Testing invalid input
-        dateTime = DateTimeFormatters.getInstance().storedDataDateTimeRangeFormatter("invalid", "invalid");
+        dateTime = DateTimeFormatters.getInstance().formatStoredDateTimeRange("invalid", "invalid");
         assertNull(dateTime);
     }
 }

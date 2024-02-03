@@ -10,8 +10,9 @@ import osiris.ui.Ui;
 /**
  * Command class representing the "list" command to print user tasks.
  */
-public class printUserTasksCommand extends Command {
+public class PrintUserTasksCommand extends Command {
 
+    /** Keyword used to identify the command. */
     public static final String COMMAND = "list";
 
     /**
@@ -24,7 +25,7 @@ public class printUserTasksCommand extends Command {
     @Override
     public boolean execute(TaskManager taskManager, Ui userInterface) {
         ArrayList<Task> taskList = taskManager.getUserTasks();
-        ArrayList<String> taskDetailsArrayList = taskList.stream().map(task -> task.toString())
+        ArrayList<String> taskDetailsArrayList = taskList.stream().map(Task::toString)
                 .collect(Collectors.toCollection(ArrayList::new));
         userInterface.printUserTasks(taskDetailsArrayList);
         return true;

@@ -17,7 +17,7 @@ public class UnsupportedCommand extends Command {
      */
     @Override
     public boolean execute(TaskManager taskManager, Ui userInterface) {
-        userInterface.unsupportedCommandsOutput();
+        userInterface.displayUnsupportedCommandMessage();
         return true;
     }
 }

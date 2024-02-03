@@ -3,18 +3,18 @@ package osiris.interpreters;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import osiris.commands.AddDeadlineTaskCommand;
+import osiris.commands.AddEventTaskCommand;
+import osiris.commands.AddToDoTaskCommand;
 import osiris.commands.Command;
 import osiris.commands.FindTasksCommand;
+import osiris.commands.MarkTaskCompleteCommand;
+import osiris.commands.MarkTaskIncompleteCommand;
 import osiris.commands.NoCommand;
+import osiris.commands.PrintUserTasksCommand;
+import osiris.commands.RemoveTaskCommand;
+import osiris.commands.TerminateChatCommand;
 import osiris.commands.UnsupportedCommand;
-import osiris.commands.addDeadlineTaskCommand;
-import osiris.commands.addEventTaskCommand;
-import osiris.commands.addToDoTaskCommand;
-import osiris.commands.markTaskCompletedCommand;
-import osiris.commands.markTaskIncompleteCommand;
-import osiris.commands.printUserTasksCommand;
-import osiris.commands.removeTaskCommand;
-import osiris.commands.terminateChatCommand;
 import osiris.formatters.DateTimeFormatters;
 import osiris.validation.InputsValidator;
 
@@ -23,8 +23,10 @@ import osiris.validation.InputsValidator;
  */
 public class UserInputInterpreter {
 
+    /** A singleton UserInputInterpreter instance. */
     private static UserInputInterpreter instance;
 
+    /** Private constructor to initialise an UserInputInterpreter instance. */
     private UserInputInterpreter() {}
 
     /**
@@ -46,76 +48,78 @@ public class UserInputInterpreter {
      * @return The appropriate Command object based on the user input.
      */
     public Command interpretUserInput(String userInput) {
+
         String[] inputtedWords = userInput.split(" ");
-        String taskName;
-        boolean isValid;
+        String taskName = "";
+        boolean isValid = false;
+
         switch (inputtedWords[0]) {
-        case terminateChatCommand.COMMAND:
-            return new terminateChatCommand();
+        case TerminateChatCommand.COMMAND:
+            return new TerminateChatCommand();
 
-        case printUserTasksCommand.COMMAND:
-            return new printUserTasksCommand();
+        case PrintUserTasksCommand.COMMAND:
+            return new PrintUserTasksCommand();
 
-        case markTaskCompletedCommand.COMMAND:
-            isValid = InputsValidator.getInstance().validateMarkTaskCompletedInput(userInput);
+        case MarkTaskCompleteCommand.COMMAND:
+            isValid = InputsValidator.getInstance().isMarkTaskCompleteInputValid(userInput);
             if (isValid) {
                 String taskIndexString = inputtedWords[1];
                 int taskIndex = Integer.parseInt(taskIndexString);
-                return new markTaskCompletedCommand(taskIndex);
+                return new MarkTaskCompleteCommand(taskIndex);
             }
             break;
 
-        case markTaskIncompleteCommand.COMMAND:
-            isValid = InputsValidator.getInstance().validateMarkTaskIncompleteInput(userInput);
+        case MarkTaskIncompleteCommand.COMMAND:
+            isValid = InputsValidator.getInstance().isMarkTaskIncompleteInputValid(userInput);
             if (isValid) {
                 String taskIndexString = inputtedWords[1];
                 int taskIndex = Integer.parseInt(taskIndexString);
-                return new markTaskIncompleteCommand(taskIndex);
+                return new MarkTaskIncompleteCommand(taskIndex);
             }
             break;
 
-        case removeTaskCommand.COMMAND:
-            isValid = InputsValidator.getInstance().validateRemoveTaskInput(userInput);
+        case RemoveTaskCommand.COMMAND:
+            isValid = InputsValidator.getInstance().isDeleteTaskInputValid(userInput);
             if (isValid) {
                 String taskIndexString = inputtedWords[1];
                 int taskIndex = Integer.parseInt(taskIndexString);
-                return new removeTaskCommand(taskIndex);
+                return new RemoveTaskCommand(taskIndex);
             }
             break;
 
-        case addToDoTaskCommand.COMMAND:
-            isValid = InputsValidator.getInstance().validateAddToDoTaskInput(userInput);
+        case AddToDoTaskCommand.COMMAND:
+            isValid = InputsValidator.getInstance().isAddToDoTaskInputValid(userInput);
             if (isValid) {
-                taskName = userInput.substring(addToDoTaskCommand.COMMAND.length()).trim();
-                return new addToDoTaskCommand(taskName);
+                taskName = userInput.substring(AddToDoTaskCommand.COMMAND.length()).trim();
+                return new AddToDoTaskCommand(taskName);
             }
             break;
 
-        case addDeadlineTaskCommand.COMMAND:
-            isValid = InputsValidator.getInstance().validateAddDeadlineTaskInput(userInput);
+        case AddDeadlineTaskCommand.COMMAND:
+            isValid = InputsValidator.getInstance().isAddDeadlineTaskInputValid(userInput);
             if (isValid) {
                 int byIndex = userInput.indexOf("/by");
-                taskName = userInput.substring(addDeadlineTaskCommand.COMMAND.length(), byIndex - 1).trim();
+                taskName = userInput.substring(AddDeadlineTaskCommand.COMMAND.length(), byIndex - 1).trim();
                 String deadlineStr = userInput.substring(byIndex + "/by".length()).trim();
-                LocalDate deadline = DateTimeFormatters.getInstance().userInputDateFormatter(deadlineStr);
+                LocalDate deadline = DateTimeFormatters.getInstance().formatUserInputDate(deadlineStr);
                 if (deadline != null) {
-                    return new addDeadlineTaskCommand(taskName, deadline);
+                    return new AddDeadlineTaskCommand(taskName, deadline);
                 }
             }
             break;
 
-        case addEventTaskCommand.COMMAND:
-            isValid = InputsValidator.getInstance().validateAddEventTaskInput(userInput);
+        case AddEventTaskCommand.COMMAND:
+            isValid = InputsValidator.getInstance().isAddEventTaskInputValid(userInput);
             if (isValid) {
                 int fromIndex = userInput.indexOf("/from");
                 int toIndex = userInput.indexOf("/to");
-                taskName = userInput.substring(addEventTaskCommand.COMMAND.length(), fromIndex - 1).trim();
+                taskName = userInput.substring(AddEventTaskCommand.COMMAND.length(), fromIndex - 1).trim();
                 String startDateTimeStr = userInput.substring(fromIndex + "/from".length(), toIndex - 1).trim();
                 String endDateTimeStr = userInput.substring(toIndex + "/to".length()).trim();
                 LocalDateTime[] dateTimeRange = DateTimeFormatters.getInstance()
-                        .userInputDateTimeRangeFormatter(startDateTimeStr, endDateTimeStr);
+                        .formateUserInputDateTimeRange(startDateTimeStr, endDateTimeStr);
                 if (dateTimeRange != null) {
-                    return new addEventTaskCommand(taskName, dateTimeRange[0], dateTimeRange[1]);
+                    return new AddEventTaskCommand(taskName, dateTimeRange[0], dateTimeRange[1]);
                 }
             }
             break;
@@ -127,6 +131,7 @@ public class UserInputInterpreter {
         default:
             return new UnsupportedCommand();
         }
+
         return new NoCommand();
     }
 }
