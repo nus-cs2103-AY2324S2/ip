@@ -123,41 +123,55 @@ public class Duke {
     private static Task createTaskFromLine(String line) {
         String[] parts = line.split(" \\| ");
 
-        String type = parts[0];
-        String status = parts[1];
-        String description = parts[2];
+        if(parts.length > 2) {
+            String type = parts[0];
+            String status = parts[1];
+            String description = parts[2];
 
-        Task task;
+            Task task;
 
-        switch (type) {
-            case "T":
-                task = new Todos(description);
-                break;
-            case "D":
-                if (parts.length >= 4) {
-                    String by = parts[3];
-                    task = new Deadline(description, by);
-                } else {
+            switch (type) {
+                case "T":
+                    task = new Todos(description);
+                    break;
+                case "D":
+                    if (parts.length >= 4) {
+                        String by = parts[3];
+                        task = new Deadline(description, by);
+                    } else {
+                        task = new Task(description);
+                    }
+                    break;
+                case "E":
+                    if (parts.length >= 5) {
+                        String from = parts[3];
+                        String to = parts[4];
+                        task = new Events(description, from, to);
+                    } else {
+                        task = new Task(description);
+                    }
+                    break;
+                default:
                     task = new Task(description);
-                }
-                break;
-            case "E":
-                if (parts.length >= 5) {
-                    String from = parts[3];
-                    String to = parts[4];
-                    task = new Events(description, from, to);
-                } else {
-                    task = new Task(description);
-                }
-                break;
-            default:
-                task = new Task(description);
+            }
+
+            if (status.equals("1")) {
+                task.markAsDone();
+            }
+
+            return task;
+        } else {
+            String status = parts[0];
+            String description = parts[1];
+
+            Task task = new Task(description);
+
+            if (status.equals("1")) {
+                task.markAsDone();
+            }
+
+            return task;
         }
 
-        if (status.equals("1")) {
-            task.markAsDone();
-        }
-
-        return task;
     }
 }
