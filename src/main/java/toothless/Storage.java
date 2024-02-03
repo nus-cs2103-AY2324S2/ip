@@ -9,15 +9,32 @@ import java.util.List;
 import java.util.Scanner;
 import toothless.tasks.*;
 
+/**
+ * Handles loading and storing tasks.
+ * This class is responsible for reading tasks from a specific file
+ * and writing tasks back to the file.
+ * The tasks are stored in a specific format that allows them to be
+ * easily parsed and reconstructed into their respective tasks.
+ */
 public class Storage {
 
     private String filepath;
     private File file;
 
+    /**
+     * Constructs a Storage object associated with the filepath.
+     * @param filepath
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * Loads tasks from the storage file and returns them as a List of Task.
+     * If the file does not exist, it attempts to create the necessary directory and returns an empty List of Task.
+     * @return a list of Tasks loaded from the file.
+     * @throws ToothlessException if the file format is corrupted or cannot be parsed correctly.
+     */
     public List<Task> load() throws ToothlessException {
         try {
             List<Task> list = new ArrayList<>();
@@ -48,6 +65,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes a list of tasks to the storage file
+     * by converting each Task into a string format suitable for storage.
+     * If the file cannot be written to, an error message is printed.
+     * @param tasks the TaskList containing tasks to be saved to the file.
+     */
     public void writeTasks(TaskList tasks){
         try {
             FileWriter writer = new FileWriter(this.filepath);

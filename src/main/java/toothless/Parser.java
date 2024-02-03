@@ -2,8 +2,22 @@ package toothless;
 
 import toothless.commands.*;
 
+/**
+ * This class is responsible for interpreting the user's inputs and converting them
+ * into specific Commands that can be executed within the application.
+ * This class acts as a bridge between the user interface and the application's command execution logic,
+ * ensuring that user inputs are understood and acted upon appropriately.
+ */
 public class Parser {
 
+    /**
+     * Parses the given input string to produce a corresponding Command object that represents
+     * a specific operation or action to be performed by the application.
+     * This method identifies the type of command along with any necessary arguments by the user.
+     * @param input the raw input string provided by the user, which includes the command keyword and any arguments
+     * @return Command corresponding to the user's request
+     * @throws ToothlessException if the input is invalid or no Command is suitable
+     */
     public static Command parseCommand(String input) throws ToothlessException {
         String[] split = input.split(" ", 2);
         switch (split[0].toUpperCase()) {

@@ -7,12 +7,32 @@ import toothless.Ui;
 import toothless.tasks.Task;
 import toothless.tasks.Deadline;
 
+/**
+ * Represents a command to add a deadline task to the task list.
+ * The detail provided includes the task description and its deadline.
+ */
 public class DeadlineCommand extends Command{
     private String detail;
 
+    /**
+     * Constructs a DeadlineCommand with the specified detail, which includes the task description
+     * and its deadline.
+     * @param detail The task detail, expected to contain a description and a deadline.
+     */
     public DeadlineCommand(String detail){
         this.detail = detail;
     }
+
+    /**
+     * Executes the command to add a new deadline task to the task list. Parses the task detail to separate
+     * the description from the deadline, creates a new deadline task, adds it to the task list, and displays
+     * a message to the user about the addition.
+     * @param ui The user interface to interact with.
+     * @param taskList The task list to be manipulated or queried.
+     * @param storage The storage system for loading or saving tasks.
+     * @return false to indicate the application should continue running.
+     * @throws ToothlessException If the task detail is invalid, either missing a description or a deadline.
+     */
     @Override
     public boolean handle(Ui ui, TaskList taskList, Storage storage) throws ToothlessException {
         if (detail.equals("")) {

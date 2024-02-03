@@ -2,12 +2,19 @@ package toothless;
 
 import toothless.commands.*;
 
+/**
+ * A chatbot that helps store and organise your tasks
+ */
 public class Toothless {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Construct a chatbot with a file storage at the filepath
+     * @param filepath
+     */
     public Toothless(String filepath){
         ui = new Ui();
         storage = new Storage(filepath);
@@ -21,6 +28,9 @@ public class Toothless {
         }
     }
 
+    /**
+     * Start the application and query the user to input commands.
+     */
     public void start() {
         boolean isExit = false;
         ui.showWelcome();
