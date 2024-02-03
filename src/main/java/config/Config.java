@@ -9,6 +9,7 @@ import io.github.cdimascio.dotenv.Dotenv;
  * Represents the configuration of the application.
  */
 public class Config {
+    private static Config cfg;
     public final String dbConnectionUrl;
     public final String appName;
 
@@ -27,5 +28,13 @@ public class Config {
 
         String appName = dotenv.get("APP_NAME");
         this.appName = Objects.requireNonNullElse(appName, "Duke");
+    }
+
+    public static void loadConfig() throws RuntimeException {
+        cfg = new Config();
+    }
+
+    public static Config getConfig() {
+        return cfg;
     }
 }

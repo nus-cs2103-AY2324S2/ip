@@ -2,6 +2,7 @@ package duke;
 
 import java.util.Scanner;
 
+import config.Config;
 import duke.command.Command;
 
 /**
@@ -19,11 +20,10 @@ public class Duke {
 
     /**
      * Constructor for Duke.
-     * @param name
-     *            The name of the chatbot.
      */
-    public Duke(String name) {
-        this.chatBotName = name;
+    public Duke() {
+        Config cfg = Config.getConfig();
+        this.chatBotName = cfg.appName;
         this.printer = new view.PrettyPrinter();
     }
 
@@ -60,7 +60,7 @@ public class Duke {
      * Greets the user, then enters the REPL.
      * Finally, says goodbye to the user on exit.
      */
-    public void run() {
+    private void run() {
         printer.print(logo);
 
         printer.print(this.greetMsg());
@@ -68,5 +68,10 @@ public class Duke {
         this.repl();
 
         printer.print(this.exitMsg());
+    }
+
+    public String getResponse(String input) {
+        Command c = Command.interpret(input);
+        return c.execute();
     }
 }

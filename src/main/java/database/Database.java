@@ -16,12 +16,11 @@ public class Database {
 
     /**
      * Connect to the database.
-     * @param cfg
-     *            the config object
      * @throws SQLException
      *             if a database error occurs
      */
-    public void connect(Config cfg) throws SQLException {
+    public void connect() throws SQLException {
+        Config cfg = Config.getConfig();
         String connectionUrl = cfg.dbConnectionUrl;
 
         String[] connectionUrlParts = connectionUrl.split("/");

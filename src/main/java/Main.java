@@ -2,7 +2,8 @@ import java.sql.SQLException;
 
 import config.Config;
 import database.Database;
-import duke.Duke;
+import javafx.application.Application;
+import view.App;
 
 /**
  * The main class of the application.
@@ -12,23 +13,28 @@ import duke.Duke;
  */
 public class Main {
     public static void main(String[] args) {
-        Config cfg = new Config();
+        Config.loadConfig();
+        Database db = new Database();
 
         try {
-            Database db = new Database();
-            db.connect(cfg);
+            db.connect();
             db.autoMigrate();
-
-            Duke app = new Duke(cfg.appName);
-            app.run();
-
-            db.disconnect();
         } catch (SQLException e) {
             System.out.println("Something went wrong while connecting and migrating the database:");
             throw new RuntimeException(e.getMessage()); // we should not continue if we cannot connect to the database
+        }
+
+        try {
+            Application.launch(App.class, args);
         } catch (Exception e) {
-            System.out.println("Something went wrong while loading the app:");
+            System.out.println("Something went wrong while running the app:");
             System.out.println(e.getMessage());
+        }
+
+        try {
+            db.disconnect();
+        } catch (SQLException e) {
+            System.out.println("Something went wrong while disconnecting the database:");
         }
     }
 }
