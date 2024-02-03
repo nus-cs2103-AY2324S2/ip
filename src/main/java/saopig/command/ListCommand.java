@@ -1,5 +1,10 @@
 package saopig.command;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+
 import saopig.SaopigInvaildSizeException;
 import saopig.Storage;
 import saopig.Ui;
@@ -8,10 +13,6 @@ import saopig.task.Event;
 import saopig.task.Task;
 import saopig.task.TaskList;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 /**
  * Represents a command to list tasks.
@@ -81,8 +82,8 @@ public class ListCommand extends Command {
         try {
             checkValue(input.length(), 16, Integer.MAX_VALUE);
             String date = input.substring(15);
-            ui.printMessage("\n" +
-                    "Oh, splendid! Let me check my calendar for tasks on " + date + "...");
+            ui.printMessage("\n"
+                    + "Oh, splendid! Let me check my calendar for tasks on " + date + "...");
             LocalDateTime dateTime = LocalDateTime.parse(date + " 00:00", DATE_TIME_FORMATTER);
             ArrayList<Task> tasksOnDate = new ArrayList<>();
             for (Task task : taskList.getTasks()) {
@@ -91,8 +92,8 @@ public class ListCommand extends Command {
                         tasksOnDate.add(task);
                     }
                 } else if (task instanceof Event) {
-                    if (((Event) task).getStartTime().toLocalDate().isEqual(dateTime.toLocalDate()) ||
-                            ((Event) task).getEndTime().toLocalDate().isEqual(dateTime.toLocalDate())) {
+                    if (((Event) task).getStartTime().toLocalDate().isEqual(dateTime.toLocalDate())
+                            || ((Event) task).getEndTime().toLocalDate().isEqual(dateTime.toLocalDate())) {
                         tasksOnDate.add(task);
                     }
                 }
@@ -106,8 +107,8 @@ public class ListCommand extends Command {
                         + "Let's make it a magical journey together!");
                 return;
             }
-            ui.printMessage("\n" +
-                    "Oh, splendid! Here are the tasks on " + date + ":");
+            ui.printMessage("\n"
+                    + "Oh, splendid! Here are the tasks on " + date + ":");
             for (int i = 0; i < tasksOnDate.size(); i++) {
                 Task task = tasksOnDate.get(i);
                 ui.printMessage((i + 1) + ". " + task.toString());

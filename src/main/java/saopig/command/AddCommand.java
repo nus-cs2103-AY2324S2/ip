@@ -1,5 +1,9 @@
 package saopig.command;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import saopig.SaopigInvaildSizeException;
 import saopig.Storage;
 import saopig.Ui;
@@ -8,9 +12,7 @@ import saopig.task.Event;
 import saopig.task.TaskList;
 import saopig.task.Todo;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+
 
 /**
  * Represents a command to add a task to the task list.
@@ -135,7 +137,7 @@ public class AddCommand extends Command {
                     + "It's a tiny detail, "
                     + "but oh so important! Just add the deadline after '/by ', "
                     + "and you'll be as organized as a library on a quiet morning.\n "
-                    +  "You're doing an amazing job! ");
+                    + "You're doing an amazing job! ");
         }
     }
 
@@ -226,6 +228,8 @@ public class AddCommand extends Command {
             break;
         case 2:
             addEventTask(command, tasks, ui, storage);
+            break;
+        default:
             break;
         }
     }

@@ -1,15 +1,20 @@
 package saopig.command;
 
+import static org.mockito.ArgumentMatchers.contains;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import saopig.Storage;
 import saopig.Ui;
 import saopig.task.Deadline;
 import saopig.task.Event;
 import saopig.task.TaskList;
 import saopig.task.Todo;
-
-import static org.mockito.Mockito.*;
 
 class AddCommandTest {
 
@@ -42,7 +47,8 @@ class AddCommandTest {
 
     @Test
     public void testAddDeadlineTask() {
-        addCommand.addDeadlineTask("deadline return book /by 2020-02-02 18:00", mockTaskList, mockUi, mockStorage);
+        addCommand.addDeadlineTask("deadline return book /by 2020-02-02 18:00",
+                mockTaskList, mockUi, mockStorage);
 
         // Verify if a Deadline task was added to the task list
         verify(mockTaskList).addDeadlineTask(any(Deadline.class));
@@ -56,7 +62,8 @@ class AddCommandTest {
 
     @Test
     public void testAddEventTask() {
-        addCommand.addEventTask("event project meeting2 /from 2025-01-02 12:00 /to 2025-03-02 12:00", mockTaskList, mockUi, mockStorage);
+        addCommand.addEventTask("event project meeting2 /from 2025-01-02 12:00 /to 2025-03-02 12:00",
+                mockTaskList, mockUi, mockStorage);
 
         // Verify if an Event task was added to the task list
         verify(mockTaskList).addEventTask(any(Event.class));

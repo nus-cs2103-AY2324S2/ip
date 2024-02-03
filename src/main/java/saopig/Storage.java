@@ -1,7 +1,5 @@
 package saopig;
 
-import saopig.task.*;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +8,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
+import saopig.task.Deadline;
+import saopig.task.Event;
+import saopig.task.Task;
+import saopig.task.TaskList;
+import saopig.task.Todo;
+
+
 
 /**
  * Storage class handles the loading and saving of the task list.
@@ -70,9 +76,9 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException | DateTimeException e) {
-            ui.printMessage("\n" +
-                    "Oh no! I'm sorry, but I couldn't save your tasks.\n " +
-                    "Please try again, or type 'bye' to exit.");
+            ui.printMessage("\n"
+                    + "Oh no! I'm sorry, but I couldn't save your tasks.\n "
+                    + "Please try again, or type 'bye' to exit.");
         }
     }
 
@@ -109,6 +115,8 @@ public class Storage {
                     LocalDateTime fromDateTime = LocalDateTime.parse(splitInput[3], DATE_TIME_FORMATTER);
                     LocalDateTime toDateTime = LocalDateTime.parse(splitInput[4], DATE_TIME_FORMATTER);
                     taskList.getTasks().add(new Event(splitInput[2], fromDateTime, toDateTime));
+                    break;
+                default:
                     break;
                 }
                 if (splitInput[1].equals("1")) {

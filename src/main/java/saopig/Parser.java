@@ -1,6 +1,12 @@
 package saopig;
 
-import saopig.command.*;
+import saopig.command.AddCommand;
+import saopig.command.Command;
+import saopig.command.DeleteCommand;
+import saopig.command.ExitCommand;
+import saopig.command.FindCommand;
+import saopig.command.ListCommand;
+import saopig.command.MarkCommand;
 
 /**
  * Represents a Parser.

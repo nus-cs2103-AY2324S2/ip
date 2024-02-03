@@ -1,23 +1,20 @@
 package saopig.command;
 
+import java.util.ArrayList;
+
 import saopig.SaopigInvaildSizeException;
 import saopig.Storage;
 import saopig.Ui;
 import saopig.task.Task;
 import saopig.task.TaskList;
 
-import java.util.ArrayList;
-
-public class FindCommand extends Command{
-
+/**
+ * Represents a command to find tasks
+ */
+public class FindCommand extends Command {
     private String command;
     private int typeIndex;
 
-    private static void checkValue(int value, int lowerBound, int upperBound) throws SaopigInvaildSizeException {
-        if (value < lowerBound || value > upperBound) {
-            throw new SaopigInvaildSizeException("Error");
-        }
-    }
     /**
      * Constructs a find command.
      *
@@ -27,6 +24,12 @@ public class FindCommand extends Command{
     public FindCommand(String command, int typeIndex) {
         this.command = command;
         this.typeIndex = typeIndex;
+    }
+
+    private static void checkValue(int value, int lowerBound, int upperBound) throws SaopigInvaildSizeException {
+        if (value < lowerBound || value > upperBound) {
+            throw new SaopigInvaildSizeException("Error");
+        }
     }
 
     private void findTask(String input, TaskList tasks, Ui ui) {
@@ -52,9 +55,9 @@ public class FindCommand extends Command{
             }
 
         } catch (SaopigInvaildSizeException e) {
-            ui.printMessage("\n" +
-                    "Oopses daisy!\n " +
-                    "It seems like you might have given an invalid index for the task list.");
+            ui.printMessage("\n"
+                    + "Oopses daisy!\n "
+                    + "It seems like you might have given an invalid index for the task list.");
         }
     }
 

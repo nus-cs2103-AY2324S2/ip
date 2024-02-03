@@ -1,16 +1,21 @@
 package saopig.command;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import saopig.Storage;
-import saopig.Ui;
-import saopig.task.Task;
-import saopig.task.TaskList;
+import static org.mockito.ArgumentMatchers.contains;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import saopig.Storage;
+import saopig.Ui;
+import saopig.task.Task;
+import saopig.task.TaskList;
 
 public class ListCommandTest {
     private TaskList mockTaskList;
