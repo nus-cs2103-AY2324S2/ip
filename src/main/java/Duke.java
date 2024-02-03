@@ -1,10 +1,18 @@
-import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Duke {
 
-    public static final List<Task> tasksList = new ArrayList<>();
+    private static final Path TASKS_CACHE_PATH = Path.of(".duke-cache");
+    public static List<Task> tasksList = new ArrayList<>();
     private static final String horiLine = "---------------------------------\n";
 
     enum Instruction {
@@ -19,7 +27,6 @@ public class Duke {
         }
     }
 
-
     private static void greet() {
         String greet = "Hello! I'm Dino\n"
                 + "What can I do for you?\n"
@@ -29,6 +36,7 @@ public class Duke {
 
     public static void main(String[] args) {
 
+        load();
         greet();
 
         Scanner scanner = new Scanner(System.in);
@@ -55,24 +63,31 @@ public class Duke {
         switch (ins) {
             case LIST:
                 listTasks();
+                save();
                 break;
             case MARK:
                 completeTask(details);
+                save();
                 break;
             case UNMARK:
                 uncompleteTask(details);
+                save();
                 break;
             case TODO:
                 addTodo(details);
+                save();
                 break;
             case DEADLINE:
                 addDeadline(details);
+                save();
                 break;
             case EVENT:
                 addEvent(details);
+                save();
                 break;
             case DELETE:
                 deleteTask(details);
+                save();
                 break;
         }
     }
@@ -152,6 +167,42 @@ public class Duke {
             System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
         } catch(Exception e) {
             throw new DukeException("Please enter the valid task number");
+        }
+    }
+
+    private static void load() {
+        if (Files.notExists(TASKS_CACHE_PATH)) {
+            System.out.println("No cache found");
+            tasksList = new ArrayList<>();
+        } else {
+            try {
+                FileInputStream fileInputStream = new FileInputStream(TASKS_CACHE_PATH.toString());
+                ObjectInputStream objInputStream = new ObjectInputStream(fileInputStream);
+                tasksList = (List<Task>) objInputStream.readObject();
+
+                objInputStream.close();
+                fileInputStream.close();
+                System.out.println(String.format("Tasks downloaded from %s", TASKS_CACHE_PATH));
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Unable to download existing tasks");
+                tasksList = new ArrayList<>();
+                try {
+                    Files.delete(TASKS_CACHE_PATH);
+                } catch (IOException ignored) {
+                }
+            }
+        }
+    }
+
+    private static void save() {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(TASKS_CACHE_PATH.toString());
+            ObjectOutputStream objOutputStream = new ObjectOutputStream(fileOutputStream);
+            objOutputStream.writeObject(tasksList);
+            
+            objOutputStream.close();
+            fileOutputStream.close();
+        } catch (IOException ignored) {
         }
     }
 

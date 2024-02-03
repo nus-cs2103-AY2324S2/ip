@@ -1,5 +1,8 @@
-public class Deadline extends Task {
+import java.io.Serializable;
+
+public class Deadline extends Task implements Serializable {
     private String deadline;
+    private static final long serialVersionUID = 3L;
 
     Deadline(String description, String deadline) {
         super(description);
