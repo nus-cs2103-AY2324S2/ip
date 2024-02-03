@@ -1,4 +1,4 @@
-package Klee.task;
+package klee.task;
 
 /**
  * Represent a task for Klee to note down.
@@ -42,7 +42,9 @@ public class Task {
      *
      * @return String of the character type.
      */
-    public String type() { return type; }
+    public String type() {
+        return type;
+    }
 
     /**
      * Returns a String representation of this task which will be saved into the txt file by Storage.
@@ -87,7 +89,8 @@ public class Task {
     public boolean equals(Object obj) {
         System.out.println("Gets called");
         if (Task.class.isAssignableFrom(obj.getClass())) {
-            return this.isDone == ((Task) obj).isDone && this.description == ((Task) obj).description && this.type == ((Task) obj).type;
+            return this.isDone == ((Task) obj).isDone && this.description
+                    == ((Task) obj).description && this.type == ((Task) obj).type;
         } else {
             return false;
         }

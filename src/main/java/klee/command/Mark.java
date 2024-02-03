@@ -1,10 +1,10 @@
-package Klee.command;
+package klee.command;
 
-import Klee.KleeException;
-import Klee.Storage;
-import Klee.TaskList;
-import Klee.Ui;
-import Klee.task.Task;
+import klee.KleeException;
+import klee.Storage;
+import klee.TaskList;
+import klee.Ui;
+import klee.task.Task;
 
 /**
  * Represents the command for Klee to mark a task as complete.

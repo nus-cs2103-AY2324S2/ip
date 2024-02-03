@@ -1,11 +1,11 @@
-package Klee.command;
-
-import Klee.Ui;
-import Klee.Storage;
-import Klee.TaskList;
-import Klee.task.Task;
+package klee.command;
 
 import java.time.LocalDateTime;
+
+import klee.Storage;
+import klee.TaskList;
+import klee.Ui;
+import klee.task.Task;
 
 /**
  * Represents the command to create a deadline and add it to the list of tasks.
@@ -37,7 +37,7 @@ public class Deadline extends Command {
      */
     @Override
     public void runCommand(Ui ui, Storage storage, TaskList tasks) {
-        Task task = new Klee.task.Deadline(description, deadline);
+        Task task = new klee.task.Deadline(description, deadline);
         tasks.add(task);
         ui.showCreation(task, tasks.size());
         storage.saveTasks(tasks);
@@ -52,7 +52,8 @@ public class Deadline extends Command {
     @Override
     public boolean equals(Object obj) {
         if (obj.getClass() == Deadline.class) {
-            return (this.description.equals(((Deadline) obj).description) && this.deadline.equals((((Deadline) obj).deadline)));
+            return (this.description.equals(((Deadline) obj).description)
+                    && this.deadline.equals((((Deadline) obj).deadline)));
         } else {
             return false;
         }

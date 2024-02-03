@@ -1,9 +1,11 @@
-package Klee;
+package klee;
 
-import Klee.task.Task;
-import Klee.task.ToDo;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import klee.task.Task;
+import klee.task.ToDo;
 
 public class TaskListTest {
     @Test

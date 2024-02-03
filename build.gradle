@@ -33,7 +33,7 @@ test {
 }
 
 application {
-    mainClass.set("Klee.Klee")
+    mainClass.set("klee.Klee")
 }
 
 shadowJar {

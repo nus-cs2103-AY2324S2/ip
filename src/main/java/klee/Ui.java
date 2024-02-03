@@ -1,6 +1,6 @@
-package Klee;
+package klee;
 
-import Klee.task.Task;
+import klee.task.Task;
 
 /**
  * Contains functions to output to the user.

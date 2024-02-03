@@ -1,4 +1,4 @@
-package Klee;
+package klee;
 
 public class UiTest {
 }

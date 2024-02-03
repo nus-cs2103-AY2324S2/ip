@@ -1,16 +1,15 @@
-package Klee;
-
-import Klee.task.Deadline;
-import Klee.task.Event;
-import Klee.task.Task;
-import Klee.task.ToDo;
+package klee;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Scanner;
+
+import klee.task.Deadline;
+import klee.task.Event;
+import klee.task.Task;
+import klee.task.ToDo;
 
 /**
  * Represents the Storage which contains the tasks listed in TaskList.
@@ -88,7 +87,10 @@ public class Storage {
                         tasks.add(Deadline.fromText(line[2], line[1], parseDateTimeTxt(line[3])));
                         break;
                     case "E":
-                        tasks.add(Event.fromText(line[2], line[1], parseDateTimeTxt(line[3]), parseDateTimeTxt(line[4])));
+                        tasks.add(Event.fromText(line[2], line[1], parseDateTimeTxt(line[3]),
+                                parseDateTimeTxt(line[4])));
+                        break;
+                    default:
                         break;
                     }
                 }

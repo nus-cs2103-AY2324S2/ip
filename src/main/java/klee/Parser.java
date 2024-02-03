@@ -1,8 +1,17 @@
-package Klee;
-
-import Klee.command.*;
+package klee;
 
 import java.time.LocalDateTime;
+
+import klee.command.Bye;
+import klee.command.Command;
+import klee.command.Deadline;
+import klee.command.Delete;
+import klee.command.Event;
+import klee.command.Find;
+import klee.command.List;
+import klee.command.Mark;
+import klee.command.ToDo;
+import klee.command.Unmark;
 
 /**
  * Represents a parser to parse String input from the user.
@@ -86,10 +95,12 @@ public class Parser {
                         if (index >= 0) {
                             return new Mark(index);
                         } else {
-                            throw new KleeException("Is that a negative number? I usually start counting from number 1...");
+                            throw new KleeException("Is that a negative number? "
+                                    + "I usually start counting from number 1...");
                         }
                     } catch (Exception e) {
-                        throw new KleeException("There should be an integer after mark to indicate which task to mark!");
+                        throw new KleeException("There should be an integer after mark to indicate which "
+                                + "task to mark!");
                     }
                 } else {
                     throw new KleeException("There should be an integer after mark to indicate which task to mark!");
@@ -101,13 +112,16 @@ public class Parser {
                         if (index >= 0) {
                             return new Unmark(index);
                         } else {
-                            throw new KleeException("Is that a negative number? I usually start counting from number 1...");
+                            throw new KleeException("Is that a negative number? "
+                                    + "I usually start counting from number 1...");
                         }
                     } catch (Exception e) {
-                        throw new KleeException("There should be an integer after unmark to indicate which task to unmark!");
+                        throw new KleeException("There should be an integer after unmark to indicate which task "
+                                + "to unmark!");
                     }
                 } else {
-                    throw new KleeException("There should be an integer after unmark to indicate which task to unmark!");
+                    throw new KleeException("There should be an integer after unmark to indicate which task to "
+                            + "unmark!");
                 }
             case "todo":
                 try {
@@ -122,7 +136,8 @@ public class Parser {
                     String[] deadlineProps = splitDeadline[1].split(" /by ");
                     return new Deadline(deadlineProps[0], parseDateTime(deadlineProps[1]));
                 } catch (Exception e) {
-                    throw new KleeException("The correct way to indicate a deadline is `deadline [description] /by [date and time]`");
+                    throw new KleeException("The correct way to indicate a deadline is `deadline [description] "
+                            + "/by [date and time]`");
                 }
             case "event":
                 String[] splitEvent = input.split("event ");
@@ -132,7 +147,8 @@ public class Parser {
                     eventProps = eventProps[1].split(" /to ");
                     return new Event(description, parseDateTime(eventProps[0]), parseDateTime(eventProps[1]));
                 } catch (Exception e) {
-                    throw new KleeException("The correct way to indicate a event is `event [description] /from [date and time] /to [date and time]`");
+                    throw new KleeException("The correct way to indicate a event is `event [description] "
+                            + "/from [date and time] /to [date and time]`");
                 }
             case "find":
                 try {
@@ -148,13 +164,16 @@ public class Parser {
                         if (index >= 0) {
                             return new Delete(index);
                         } else {
-                            throw new KleeException("Is that a negative number? I usually start counting from number 1...");
+                            throw new KleeException("Is that a negative number? I usually start counting from "
+                                    + "number 1...");
                         }
                     } catch (Exception e) {
-                        throw new KleeException("There should be an integer after delete to indicate which task to delete!");
+                        throw new KleeException("There should be an integer after delete to indicate which task to "
+                                + "delete!");
                     }
                 } else {
-                    throw new KleeException("There should be an integer after delete to indicate which task to delete!");
+                    throw new KleeException("There should be an integer after delete to indicate which task to "
+                            + "delete!");
                 }
             default:
                 throw new KleeException("Klee doesn't understand, what are you talking about?");

@@ -1,4 +1,4 @@
-package Klee.task;
+package klee.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -28,7 +28,8 @@ public class Deadline extends Task {
      */
     public String getStatus() {
         String statusIcon = (isDone ? "X" : " ");
-        return "[" + type + "][" + statusIcon + "] " + description + " (by: " + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:ma")) + ")";
+        return "[" + type + "][" + statusIcon + "] " + description + " (by: "
+                + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:ma")) + ")";
     }
 
     /**
@@ -48,7 +49,7 @@ public class Deadline extends Task {
      * @param by
      * @return Instance of Task.
      */
-    static public Task fromText(String description, String done, LocalDateTime by) {
+    public static Task fromText(String description, String done, LocalDateTime by) {
         Task task = new Deadline(description, by);
         task.isDone = done.equals("1");
         return task;

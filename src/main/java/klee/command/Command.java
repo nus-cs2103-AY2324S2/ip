@@ -1,10 +1,9 @@
-package Klee.command;
+package klee.command;
 
-import Klee.KleeException;
-
-import Klee.Ui;
-import Klee.Storage;
-import Klee.TaskList;
+import klee.KleeException;
+import klee.Storage;
+import klee.TaskList;
+import klee.Ui;
 
 /**
  * Represents a command that Klee can run.

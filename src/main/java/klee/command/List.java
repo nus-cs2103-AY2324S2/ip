@@ -1,8 +1,8 @@
-package Klee.command;
+package klee.command;
 
-import Klee.Ui;
-import Klee.Storage;
-import Klee.TaskList;
+import klee.Storage;
+import klee.TaskList;
+import klee.Ui;
 
 /**
  * Represents the command for Klee to list all tasks.

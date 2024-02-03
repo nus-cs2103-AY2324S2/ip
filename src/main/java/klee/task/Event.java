@@ -1,4 +1,4 @@
-package Klee.task;
+package klee.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -31,7 +31,9 @@ public class Event extends Task {
      */
     public String getStatus() {
         String statusIcon = (isDone ? "X" : " ");
-        return "[" + type + "][" + statusIcon + "] " + description + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:ma")) + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:ma")) + ")";
+        return "[" + type + "][" + statusIcon + "] " + description + " (from: "
+                + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:ma")) + " to: "
+                + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:ma")) + ")";
     }
 
     /**
@@ -40,7 +42,8 @@ public class Event extends Task {
      * @return String to be stored in txt file.
      */
     public String toText() {
-        return super.toText() + " / " + from.format(DateTimeFormatter.ofPattern("yyyy MM dd H m")) + " / " + to.format(DateTimeFormatter.ofPattern("yyyy MM dd H m"));
+        return super.toText() + " / " + from.format(DateTimeFormatter.ofPattern("yyyy MM dd H m")) + " / "
+                + to.format(DateTimeFormatter.ofPattern("yyyy MM dd H m"));
     }
 
     /**
@@ -52,7 +55,7 @@ public class Event extends Task {
      * @param to
      * @return instance of Task.
      */
-    static public Task fromText(String description, String done, LocalDateTime from, LocalDateTime to) {
+    public static Task fromText(String description, String done, LocalDateTime from, LocalDateTime to) {
         Task task = new Event(description, from, to);
         task.isDone = done.equals("1");
         return task;
