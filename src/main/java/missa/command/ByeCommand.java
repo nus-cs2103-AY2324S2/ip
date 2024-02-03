@@ -14,8 +14,13 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public TaskList execute(Ui ui) {
+    public TaskList execute() {
         return tasks;
+    }
+
+    @Override
+    public String getReply(Ui ui) {
+        return ui.goodBye();
     }
 
     @Override

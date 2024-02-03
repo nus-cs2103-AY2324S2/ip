@@ -22,10 +22,14 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public TaskList execute(Ui ui) {
+    public TaskList execute() {
         tasks.markTask(index);
-        System.out.println(ui.replyMarkCommand());
         return tasks;
+    }
+
+    @Override
+    public String getReply(Ui ui) {
+        return ui.replyMarkCommand();
     }
 
     @Override

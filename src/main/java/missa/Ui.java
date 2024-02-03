@@ -1,7 +1,5 @@
 package missa;
 
-import java.util.Scanner;
-
 import missa.task.Task;
 
 /**
@@ -9,7 +7,7 @@ import missa.task.Task;
  */
 public class Ui {
     /** An empty line */
-    private String emptyLine = "____________________________________________________________\n";
+    private String emptyLine = "________________________________________\n";
 
     /** Greeting sentences */
     private String greeting = "Hello from Miss A\n"
@@ -25,13 +23,10 @@ public class Ui {
             + "\"mark/unmark + number\": I will mark/unmark task in the list!\n"
             + "\"delete + number\": I will remove task from the list.\n"
             + "\"find + keyword\": I will search for relevant tasks recorded!\n"
-            + "\"bye\": this program will be closed.\n"
-            + emptyLine;
+            + "\"bye\": this program will be closed.\n";
 
     /** Goodbye sentences */
-    private String goodBye = emptyLine
-            + "Bye. Have a nice day!\n"
-            + emptyLine;
+    private String goodBye = "Bye. Have a nice day!\n";
 
     /**
      * Greets users when first enter the program.
@@ -57,7 +52,8 @@ public class Ui {
      * @return A string of error info.
      */
     public String showError(Exception e) {
-        return emptyLine + "\n" + e.getMessage() + "\n" + emptyLine;
+
+        return e.getMessage() + "\n";
     }
 
     /**
@@ -68,12 +64,10 @@ public class Ui {
      * @return A message to show that the task is deleted successfully.
      */
     public String replyDeleteCommand(Task taskinfo, int noOfTasks) {
-        return emptyLine
-            + "Noted. I will remove this task:\n"
-            + "  " + taskinfo
-            + "\n"
-            + "Now you have " + noOfTasks + " tasks!\n"
-            + emptyLine;
+        return "Noted. I will remove this task:\n"
+                + "  " + taskinfo
+                + "\n"
+                + "Now you have " + noOfTasks + " tasks!\n";
     }
 
     /**
@@ -84,12 +78,10 @@ public class Ui {
      * @return A message to show that the task is added successfully.
      */
     public String replyAddCommand(Task nextTask, int noOfTasks) {
-        return emptyLine
-                + "Ok, I will add in this task:\n"
+        return "Ok, I will add in this task:\n"
                 + "  " + nextTask
                 + "\n"
-                + "Now there are " + noOfTasks + " tasks in the list.\n"
-                + emptyLine;
+                + "Now there are " + noOfTasks + " tasks in the list.\n";
     }
 
     /**
@@ -98,9 +90,7 @@ public class Ui {
      * @return A message to show that the task is unmarked.
      */
     public String replyUnmarkCommand() {
-        return emptyLine
-                + "Ok, this task is still in progress :-(\n"
-                + emptyLine;
+        return "Ok, this task is still in progress :-(\n";
     }
 
     /**
@@ -109,9 +99,7 @@ public class Ui {
      * @return A message to show that the task is marked.
      */
     public String replyMarkCommand() {
-        return emptyLine
-                + "Great! You have completed this task!\n"
-                + emptyLine;
+        return "Great! You have completed this task!\n";
     }
 
     /**
@@ -121,10 +109,8 @@ public class Ui {
      * @return String representation of tasks.
      */
     public String loadingTaskList(String tasks) {
-        return emptyLine
-                + "Here are your tasks:\n"
-                + tasks
-                + emptyLine;
+        return "Here are your tasks:\n"
+                + tasks;
     }
 
     /**
@@ -134,20 +120,7 @@ public class Ui {
      * @return String representation of matching tasks.
      */
     public String replyFindCommand(String tasks) {
-        return emptyLine
-                + "Yes! Here are the matching tasks in your list:\n"
-                + tasks
-                + emptyLine;
-    }
-
-    /**
-     * Gets user input.
-     *
-     * @return A string of user input.
-     */
-    public String readInput() {
-        Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
-        return userInput;
+        return "Yes! Here are the matching tasks in your list:\n"
+                + tasks;
     }
 }

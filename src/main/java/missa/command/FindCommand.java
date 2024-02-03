@@ -8,6 +8,7 @@ import missa.Ui;
  */
 public class FindCommand extends Command {
     private String keyword;
+    private String matchingTasks;
     private TaskList tasks;
 
     /**
@@ -22,10 +23,14 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public TaskList execute(Ui ui) {
-        String matchingTasks = tasks.findTasks(keyword);
-        System.out.println(ui.replyFindCommand(matchingTasks));
+    public TaskList execute() {
+        matchingTasks = tasks.findTasks(keyword);
         return tasks;
+    }
+
+    @Override
+    public String getReply(Ui ui) {
+        return ui.replyFindCommand(matchingTasks);
     }
 
     @Override

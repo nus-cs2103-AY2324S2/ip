@@ -22,10 +22,14 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public TaskList execute(Ui ui) {
+    public TaskList execute() {
         tasks.unmarkTask(index);
-        System.out.println(ui.replyUnmarkCommand());
         return tasks;
+    }
+
+    @Override
+    public String getReply(Ui ui) {
+        return ui.replyUnmarkCommand();
     }
 
     @Override
