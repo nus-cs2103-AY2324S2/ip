@@ -39,7 +39,6 @@ public class Storage {
      */
     public void saveTasks(List<Task> tasks) {
         try {
-
             File directory = new File("." + File.separator + "data");
             if (!directory.exists()) {
                 directory.mkdirs();  // Create the directory if it doesn't exist
