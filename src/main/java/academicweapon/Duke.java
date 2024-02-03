@@ -1,8 +1,13 @@
+package academicweapon;
 
-import java.io.BufferedReader;
-import java.io.File;
+import academicweapon.action.Action;
+import academicweapon.exceptions.DukeExceptions;
+import academicweapon.parser.Parser;
+import academicweapon.storage.Storage;
+import academicweapon.task.*;
+import academicweapon.ui.Ui;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 public class Duke {
 

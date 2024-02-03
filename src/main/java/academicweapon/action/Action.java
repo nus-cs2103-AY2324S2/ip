@@ -1,3 +1,5 @@
+package academicweapon.action;
+
 public enum Action {
     LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, BYE, DELETE
 }

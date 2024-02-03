@@ -1,5 +1,13 @@
+package academicweapon.task;
+
+import academicweapon.exceptions.DukeExceptions;
+import academicweapon.task.Deadline;
+import academicweapon.task.Event;
+import academicweapon.task.Task;
+import academicweapon.task.Todo;
+import academicweapon.ui.Ui;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class TaskList {
     ArrayList<Task> tasks;

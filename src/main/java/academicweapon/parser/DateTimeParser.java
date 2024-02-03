@@ -1,3 +1,7 @@
+package academicweapon.parser;
+
+import academicweapon.exceptions.DukeExceptions;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

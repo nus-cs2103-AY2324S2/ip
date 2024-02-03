@@ -1,8 +1,15 @@
+package academicweapon.storage;
+
+import academicweapon.exceptions.DukeExceptions;
+import academicweapon.task.Deadline;
+import academicweapon.task.Event;
+import academicweapon.task.Task;
+import academicweapon.task.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
