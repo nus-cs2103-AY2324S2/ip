@@ -40,6 +40,16 @@ public class Ui {
         printLine();
     }
 
+    public void findList(List<Task> tasks) {
+        printLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task addTask = tasks.get(i);
+            System.out.println((i + 1) + "." + addTask.toString());
+        }
+        printLine();
+    }
+
     public void unmark(Task t) {
         printLine();
         System.out.println("OK, I've marked this task as not done yet:");

@@ -1,4 +1,5 @@
 package duke;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
@@ -93,6 +94,14 @@ public class Duke {
                     tasks.deleteTask(number);
                     ui.totalTask(tasks.getSize());
                     storage.save(tasks.getTasks());
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (orders[0].equals("find")) {
+                try {
+                    String word = parser.parseFind(order);
+                    TaskList newtasks = new TaskList(tasks.findTasks(word));
+                    ui.findList(newtasks.getTasks());
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
