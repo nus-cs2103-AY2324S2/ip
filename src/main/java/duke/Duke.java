@@ -6,7 +6,6 @@ import duke.util.TaskList;
 import duke.util.Ui;
 import java.util.Scanner;
 
-//Start following java coding standard
 public class Duke {
     private Parser parser;
     private Ui ui;
