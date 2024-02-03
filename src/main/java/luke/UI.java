@@ -8,11 +8,17 @@ public class UI {
             + "  _| |__/ || \\_/ |, | |`\\ \\| \\__., \n"
             + " |________|'.__.'_/[__|  \\_]'.__.' ";
 
+    /**
+     * Prints out a greeting message and the Luke logo.
+     */
     public static void greet() {
         System.out.println("I'm\n" + logo + "\n");
         System.out.println("Don't expect to get too chummy with me, you got that?\n");
     }
 
+    /**
+     * Prints out a goodbye message.
+     */
     public static void bye() {
         System.out.println("Don't be ridiculous!\n" +
                 "It's... it's not like I want to see you again or anything!\n");

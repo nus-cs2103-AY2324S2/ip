@@ -11,6 +11,12 @@ public class Parser {
     private TaskList taskList;
     private Storage storage;
 
+    /**
+     * Creates a parser with the specified Storage and save file.
+     *
+     * @param storage Serializable which represents the save data.
+     * @param saveFile File object used to save/load.
+     */
     public Parser(Storage storage, File saveFile) {
         this.storage = storage;
         ArrayList<Task> tasks = storage.getHistory();
@@ -18,6 +24,12 @@ public class Parser {
         this.saveFile = saveFile;
     }
 
+    /**
+     * Parses a command given a string input. Returns false if there is a next command, else true.
+     *
+     * @param input String input as given by the user.
+     * @return False if there is a next command, else true.
+     */
     public boolean parseCommand(String input) {
         String trimmedLowercase = input.trim().toLowerCase();
         //bye, list
@@ -63,7 +75,12 @@ public class Parser {
         return false;
     }
 
-    //assume that the input is a task
+    /**
+     * Returns a Task given a string input by the user.
+     *
+     * @param input String input given by user
+     * @return The task if the input is valid, else null.
+     */
     protected static Task makeTask(String input) {
         Task task;
         String trimmedLowercase = input.trim().toLowerCase();

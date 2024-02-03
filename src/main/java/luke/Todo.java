@@ -2,10 +2,20 @@ package luke;
 
 public class Todo extends Task {
 
+    /**
+     * Creates a Todo with the given name.
+     *
+     * @param name The name of the Todo.
+     */
     public Todo(String name) {
         super(name);
     }
 
+    /**
+     * Returns the full status of the task.
+     *
+     * @return The status of task. ([taskType][isDone] taskname)
+     */
     @Override
     public String fullStatus() { //TODO: add type of task later
         String checkbox;

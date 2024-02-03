@@ -6,6 +6,12 @@ public class Task implements Serializable {
     protected boolean isDone = false;
     protected String name = "";
 
+
+    /**
+     * Creates a task with the given name.
+     *
+     * @param name Name of task.
+     */
     public Task(String name) {
         this.name = name;
     }
@@ -18,16 +24,19 @@ public class Task implements Serializable {
         return isDone;
     }
 
+    /**
+     * Marks this task as complete.
+     */
     public void complete() {
         isDone = true;
         //System.out.println("It's about time you got this done. ");
     }
 
-    public void incomplete() {
-        isDone = false;
-        //System.out.println("Stop dragging your heels on it!");
-    }
-
+    /**
+     * Gives the full status of task. ([isDone] taskname)
+     *
+     * @return The status of task. ([isDone] taskname)
+     */
     public String fullStatus() { //TODO: add type of task later
         String checkbox;
         if (isDone) {

@@ -16,6 +16,11 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Adds task to tasklist.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         if (task != null) {
             tasks.add(task);
@@ -23,6 +28,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task at index in the tasklist as done.
+     *
+     * @param index Index of task to be marked as done.
+     */
     public void markTask(int index) {
         try {
             tasks.get(index).complete();
@@ -36,6 +46,9 @@ public class TaskList {
         System.out.println();
     }
 
+    /**
+     * Prints a list of all current tasks and their statuses.
+     */
     public void listTasks() {
         int num = 1;
         if (tasks.size() == 0) {
@@ -53,6 +66,11 @@ public class TaskList {
         System.out.println();
     }
 
+    /**
+     * Deletes a task at index in the tasklist.
+     *
+     * @param index Index of task to be deleted.
+     */
     public void deleteTask(int index) {
         String fullStatus;
         try {
