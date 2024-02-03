@@ -22,7 +22,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Storage {
 
-    String filePath;
+    private String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
