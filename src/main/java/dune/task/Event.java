@@ -5,16 +5,31 @@ import dune.DateTimePrinter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an event. An event has a description, a boolean isDone status,
+ * and a starting and ending time.
+ */
 public class Event extends Task {
 
+    /** Starting time of event */
     private LocalDateTime start;
+
+    /** Ending time of event */
     private LocalDateTime end;
 
     private static final DateTimePrinter dateTimePrinter = new DateTimePrinter();
 
-    private static String before = "Start date must be before end date";
+    private static final String before = "Start date must be before end date";
 
     // test this method
+
+    /**
+     * Constructor for Event.
+     *
+     * @param description
+     * @param start Starting time of event.
+     * @param end Ending time of event.
+     */
     public Event(String description, String start, String end) {
         super(description);
         this.start = LocalDateTime.parse(start);
@@ -25,6 +40,14 @@ public class Event extends Task {
     }
 
 
+    /**
+     * Constructor for Event with isDone.
+     *
+     * @param description
+     * @param start Starting time of event.
+     * @param end Ending time of event.
+     * @param isDone
+     */
     public Event(String description, String start, String end, boolean isDone) {
         super(description, isDone);
         this.start = LocalDateTime.parse(start);

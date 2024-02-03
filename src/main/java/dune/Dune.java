@@ -4,6 +4,9 @@ import dune.task.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * The main class for the program.
+ */
 public class Dune {
 
 
@@ -15,6 +18,9 @@ public class Dune {
 
     private Ui ui;
 
+    /**
+     * Constructor for dune.Dune.
+     */
     public Dune() {
         this.ui = new Ui();
         this.storage = new Storage();
@@ -22,6 +28,9 @@ public class Dune {
         this.storage.loadTasks(this.tasks);
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
         ui.printWelcome();
         p = new Parser();
