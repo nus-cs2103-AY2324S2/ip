@@ -28,8 +28,8 @@ public class TaskList {
         return this.taskList.get(position - 1);
     }
     public void markTask(int position) {
-        Task task = taskList.get(position - 1);
-        task.setIsDone(true);
+            Task task = taskList.get(position - 1);
+            task.setIsDone(true);
     }
     public void unmarkTask(int position) {
         Task task = taskList.get(position - 1);

@@ -1,5 +1,6 @@
 package Duke.Command;
 
+import Duke.Exception.InvalidArgumentException;
 import Duke.Storage;
 import Duke.Task.TaskList;
 import Duke.Ui;
@@ -12,9 +13,14 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(Storage storage, TaskList taskList, Ui ui) {
+    public void execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
+        try {
+
         taskList.unmarkTask(positionToUnmark);
         ui.displayUnmarkedTask(taskList, positionToUnmark);
         Storage.save(taskList);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidArgumentException("The index is out of range >.<");
+        }
     }
 }

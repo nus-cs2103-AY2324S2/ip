@@ -33,9 +33,7 @@ public class Duke {
                 Command command = Parser.parseCommand(userInput);
                 command.execute(this.storage, this.tasks, this.ui);
                 isActive = command.getIsActive();
-            } catch (InvalidArgumentException e) {
-                Ui.printError(e);
-            } catch (InvalidCommandException e) {
+            } catch (DukeException e) {
                 Ui.printError(e);
             }
         }
@@ -46,54 +44,4 @@ public class Duke {
         new Duke("./data/tasks.txt").run();
     }
 }
-
-
-//    private static void validateNonEmptyDesc(String[] components) throws Duke.Exception.DukeException {
-//        if (components.length < 2 || components[1].isBlank()) {
-//            throw new Duke.Exception.DukeException("The description cannot be empty :(");
-//        }
-//    }
-
-
-//
-//    private static void validateFormat(String[] fragments, int expectedNumberOfFragments) throws Duke.Exception.DukeException {
-//        if (fragments.length != expectedNumberOfFragments) {
-//            throw new Duke.Exception.DukeException("Something is wrong with the format!");
-//        }
-//        for (int i = 0; i < expectedNumberOfFragments; i++) {
-//            if (fragments[i].isBlank()) {
-//                throw new Duke.Exception.DukeException("Something is wrong with the format!");
-//            }
-//        }
-//    }
-//    private static void validateIndex(int index, int length) throws Duke.Exception.DukeException {
-//        if (index > length || index <= 0) {
-//            throw new Duke.Exception.DukeException("Invalid index");
-//        }
-//    }
-//
-//    private static String formatDate(String byDate) {
-//        List<DateTimeFormatter> formatters = new ArrayList<>();
-//        formatters.add(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//        formatters.add(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-//        formatters.add(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-//        LocalDate parsedDateTime = null;
-//
-//        System.out.println("Input date: " + byDate);
-//
-//        for (DateTimeFormatter formatter : formatters) {
-//            try {
-//                parsedDateTime = LocalDate.parse(byDate, formatter);
-//                break;
-//            } catch (DateTimeParseException e) {
-//            }
-//        }
-//        if (parsedDateTime == null) {
-//            return byDate;
-//        }
-//        return parsedDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-//    }
-//}
-
-
 
