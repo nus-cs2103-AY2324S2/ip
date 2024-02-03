@@ -1,7 +1,8 @@
 package tasklist;
 
-import java.util.ArrayList;
 import tasks.Task;
+
+import java.util.ArrayList;
 
 /**
  * The `TaskList` class represents a list that holds tasks managed by the Duke chatbot.
@@ -59,7 +60,8 @@ public class TaskList {
     public void displayList() {
         int index = 1;
         for (Task task : this.list) {
-            System.out.println(String.format("%d. [%s] [%s] %s", index, task.getTypeIcon(), task.getStatusIcon(), task.getDescription()));
+            System.out.println(String.format("%d. [%s] [%s] %s", index, task.getTypeIcon(), task.getStatusIcon(),
+                    task.getDescription()));
             index++;
         }
     }
