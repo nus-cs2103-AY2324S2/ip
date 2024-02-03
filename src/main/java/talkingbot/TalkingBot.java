@@ -11,11 +11,10 @@ import talkingbot.util.Ui;
  * Class serving as the entry point of the application.
  */
 public class TalkingBot {
-
+    private static final String FILE_PATH = "./data/taskList.txt";
     private SaveFile saveFile;
     private TaskList taskList;
     private Ui ui;
-    private static final String FILE_PATH = "./data/taskList.txt";
 
     /**
      * Constructor for the TalkingBot class.
@@ -38,7 +37,7 @@ public class TalkingBot {
      */
     public void runTalkingBot() {
         this.ui.printWelcomeMsg();
-        Parser parser =  new Parser();
+        Parser parser = new Parser();
         while (this.ui.getContinueIter()) {
             Command curCommand = parser.parseCommand();
             this.ui.printLine();

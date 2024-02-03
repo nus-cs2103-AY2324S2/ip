@@ -21,7 +21,7 @@ public class SaveFile {
      *
      * @param path Relative path to the save file.
      */
-    public SaveFile(String path)  {
+    public SaveFile(String path) {
         this.saveFile = new File(path);
         this.path = path;
         if (!this.saveFile.exists()) {

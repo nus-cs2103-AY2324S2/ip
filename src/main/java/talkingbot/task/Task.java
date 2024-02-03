@@ -9,17 +9,18 @@ import talkingbot.type.TaskType;
  * An abstract class for tasks.
  */
 public abstract class Task {
-    private final String description;
-    private boolean isDone;
-    private final TaskType taskType;
 
     /** Formatting of datetime used during entry and saving */
-    protected static final DateTimeFormatter dateTimeEntryForm = DateTimeFormatter
+    protected static final DateTimeFormatter DATE_TIME_ENTRY_FORMAT = DateTimeFormatter
             .ofPattern("yyyy-MM-dd kkmm");
 
     /** Formatting of datetime outputs used for displaying to the user */
-    protected static final DateTimeFormatter dateTimeOutForm = DateTimeFormatter
+    protected static final DateTimeFormatter DATE_TIME_OUT_FORMAT = DateTimeFormatter
             .ofPattern("MMM dd yyyy kkmm");
+
+    private final String description;
+    private boolean isDone;
+    private final TaskType taskType;
 
     /**
      * Constructor for the Task class.
@@ -47,8 +48,8 @@ public abstract class Task {
             throws TalkingBotException {
         if (type.equals("todo")) {
             if (fullDescription.isEmpty()) {
-                throw new TalkingBotException("ERROR! todo descriptions cannot be empty" +
-                        " nor only containing whitespaces.");
+                throw new TalkingBotException("ERROR! todo descriptions cannot be empty"
+                        + " nor only containing whitespaces.");
             }
             return new Todo(fullDescription, false);
         } else if (type.equals("deadline")) {
@@ -57,8 +58,8 @@ public abstract class Task {
                 return new Deadline(splitArr[0], false, splitArr[1]);
             } catch (IndexOutOfBoundsException err) {
                 throw new TalkingBotException(
-                    "ERROR! deadline descriptions cannot be empty and must have a /by" +
-                    " property."
+                    "ERROR! deadline descriptions cannot be empty and must have a /by"
+                    + " property."
                 );
             }
         } else {
@@ -67,8 +68,8 @@ public abstract class Task {
                 return new Event(splitArr[0], false, splitArr[1], splitArr[2]);
             } catch (IndexOutOfBoundsException err) {
                 throw new TalkingBotException(
-                    "ERROR! event descriptions cannot be empty, and must have" +
-                    " /from and /to properties."
+                    "ERROR! event descriptions cannot be empty, and must have"
+                    + " /from and /to properties."
                 );
             }
         }
