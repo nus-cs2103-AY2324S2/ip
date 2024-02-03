@@ -30,9 +30,9 @@ public class Event extends Task {
 
     public String toString() {
         if (this.isComplete) {
-            return String.format("[D][X] %s(by: %sto: %s)", this.content, this.startTime, this.endTime);
+            return String.format("E|X|%s|%s|%s)", this.content, this.startTime, this.endTime);
         } else {
-            return String.format("[D][ ] %s(by: %sto: %s)", this.content, this.startTime, this.endTime);
+            return String.format("E| |%s|%s|%s)", this.content, this.startTime, this.endTime);
         }
     }
 

@@ -24,9 +24,9 @@ public class Deadline extends Task {
     }
     public String toString() {
         if (this.isComplete) {
-            return String.format("[D][X] %s(by: %s)", this.content, this.deadline);
+            return String.format("D|X|%s|%s", this.content, this.deadline);
         } else {
-            return String.format("[D][ ] %s(by: %s)", this.content, this.deadline);
+            return String.format("D| |%s|%s", this.content, this.deadline);
         }
     }
 }
