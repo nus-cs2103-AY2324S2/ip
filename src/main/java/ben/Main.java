@@ -1,19 +1,21 @@
-import commands.Command;
-import exceptions.BenException;
-import parser.Parser;
-import storage.Storage;
-import tasks.TaskList;
-import ui.Ui;
+package ben;
+
+import ben.commands.Command;
+import ben.exceptions.BenException;
+import ben.parser.Parser;
+import ben.storage.Storage;
+import ben.tasks.TaskList;
+import ben.ui.Ui;
 
 import java.io.FileNotFoundException;
 
-public class Ben {
+public class Main {
 
   private Storage storage;
   private TaskList tasks;
   private Ui ui;
 
-  public Ben(String filePath) {
+  public Main(String filePath) {
     ui = new Ui();
     storage = new Storage(filePath);
     try {
@@ -45,6 +47,6 @@ public class Ben {
 
 
   public static void main(String[] args) {
-    new Ben("data/tasks.txt").run();
+    new Main("data/tasks.txt").run();
   }
 }

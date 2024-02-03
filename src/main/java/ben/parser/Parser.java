@@ -1,9 +1,10 @@
-package parser;
+package ben.parser;
 
-import commands.*;
-import exceptions.BenException;
+import ben.commands.*;
+import ben.exceptions.BenException;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
   public static Command parse(String fullCommand) throws BenException {
@@ -24,7 +25,7 @@ public class Parser {
             throw new BenException("   Key in a value!");
           }
 
-          // obtain index of task within tasks.TaskList
+          // obtain index of task within Ben.tasks.TaskList
           int index = Integer.parseInt(tokens[1]) - 1;
 
           return new MarkCommand(index);
@@ -36,7 +37,7 @@ public class Parser {
             throw new BenException("   Key in a value!");
           }
 
-          // obtain index of task within tasks.TaskList
+          // obtain index of task within Ben.tasks.TaskList
           int index = Integer.parseInt(tokens[1]) - 1;
 
           return new UnmarkCommand(index);
@@ -65,9 +66,12 @@ public class Parser {
           String description = descTokens[0];
           String by = descTokens[1];
 
-          LocalDate deadline = LocalDate.parse(by);
-
-          return new DeadlineCommand(description, deadline);
+          try {
+            LocalDate deadline = LocalDate.parse(by);
+            return new DeadlineCommand(description, deadline);
+          } catch (DateTimeParseException e) {
+            throw new BenException("Invalid deadline format");
+          }
         }
 
         case "event": {
@@ -85,7 +89,13 @@ public class Parser {
           String startDate = dateTokens[0];
           String endDate = dateTokens[1];
 
-          return new EventCommand(description, startDate, endDate);
+          try {
+            LocalDate dateFormattedStartDate = LocalDate.parse(startDate);
+            LocalDate dateFormattedEndDate = LocalDate.parse(endDate);
+            return new EventCommand(description, dateFormattedStartDate, dateFormattedEndDate);
+          } catch (DateTimeParseException e) {
+            throw new BenException("Invalid deadline format");
+          }
         }
 
         case "delete": {

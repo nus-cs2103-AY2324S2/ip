@@ -1,10 +1,13 @@
-package tasks;
+package ben.tasks;
 
-import ui.Ui;
+import ben.commands.DeadlineCommand;
+import ben.exceptions.BenException;
+import ben.ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,7 +20,7 @@ public class TaskList {
     this.tasks = new ArrayList<>();
   }
 
-  public TaskList(File file) throws FileNotFoundException {
+  public TaskList(File file) throws FileNotFoundException, BenException {
     this.tasks = new ArrayList<>();
     Scanner sc = new Scanner(file);
 
@@ -35,15 +38,27 @@ public class TaskList {
 
         case "D":
           String by = tokens[3];
-          LocalDate deadline = LocalDate.parse(by);
-          this.tasks.add(new Deadline(isDone, description, deadline));
-          break;
+
+          try {
+            LocalDate deadline = LocalDate.parse(by);
+            this.tasks.add(new Deadline(isDone, description, deadline));
+            break;
+          } catch (DateTimeParseException e) {
+            throw new BenException("Invalid deadline format");
+          }
 
         case "E":
           String startDate = tokens[3];
           String endDate = tokens[4];
-          this.tasks.add(new Event(isDone, description, startDate, endDate));
-          break;
+
+          try {
+            LocalDate dateFormattedStartDate = LocalDate.parse(startDate);
+            LocalDate dateFormattedEndDate = LocalDate.parse(endDate);
+            this.tasks.add(new Event(isDone, description, dateFormattedStartDate, dateFormattedEndDate));
+            break;
+          } catch (DateTimeParseException e) {
+            throw new BenException("Invalid deadline format");
+          }
 
         default:
           break;

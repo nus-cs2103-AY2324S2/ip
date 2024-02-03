@@ -1,6 +1,6 @@
-package storage;
+package ben.storage;
 
-import exceptions.BenException;
+import ben.exceptions.BenException;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package tasks;
+package ben.tasks;
 
 public class Todo extends Task {
   public Todo(boolean isDone, String description) {

@@ -1,4 +1,4 @@
-package exceptions;
+package ben.exceptions;
 
 public class BenException extends Exception {
   public BenException(String message) {

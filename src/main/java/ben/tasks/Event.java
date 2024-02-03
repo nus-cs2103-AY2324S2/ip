@@ -1,10 +1,13 @@
-package tasks;
+package ben.tasks;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-  protected String startDate;
-  protected String endDate;
+  protected LocalDate startDate;
+  protected LocalDate endDate;
 
-  public Event(boolean isDone, String description, String startDate, String endDate) {
+  public Event(boolean isDone, String description, LocalDate startDate, LocalDate endDate) {
     super(isDone, description);
     this.startDate = startDate;
     this.endDate = endDate;
@@ -16,6 +19,8 @@ public class Event extends Task {
   }
   @Override
   public String toString() {
-    return "[E]" + super.toString() + " (from: " + this.startDate + " to: " + this.endDate + ")";
+    String formattedStartDate = this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    String formattedEndDate = this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    return "[E]" + super.toString() + " (from: " + formattedStartDate + " to: " + formattedEndDate + ")";
   }
 }

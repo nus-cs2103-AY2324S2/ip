@@ -1,7 +1,7 @@
-package ui;
+package ben.ui;
 
-import tasks.Task;
-import tasks.TaskList;
+import ben.tasks.Task;
+import ben.tasks.TaskList;
 
 import java.util.Scanner;
 

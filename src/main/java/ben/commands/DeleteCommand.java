@@ -1,10 +1,10 @@
-package commands;
+package ben.commands;
 
-import exceptions.BenException;
-import storage.Storage;
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
+import ben.exceptions.BenException;
+import ben.storage.Storage;
+import ben.tasks.Task;
+import ben.tasks.TaskList;
+import ben.ui.Ui;
 
 public class DeleteCommand extends Command {
   private final int index;

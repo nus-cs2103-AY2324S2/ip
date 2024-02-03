@@ -1,17 +1,19 @@
-package commands;
+package ben.commands;
 
-import storage.Storage;
-import tasks.Event;
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
+import ben.storage.Storage;
+import ben.tasks.Event;
+import ben.tasks.Task;
+import ben.tasks.TaskList;
+import ben.ui.Ui;
+
+import java.time.LocalDate;
 
 public class EventCommand extends Command {
   private final String description;
-  private final String startDate;
-  private final String endDate;
+  private final LocalDate startDate;
+  private final LocalDate endDate;
 
-  public EventCommand(String description, String startDate, String endDate) {
+  public EventCommand(String description, LocalDate startDate, LocalDate endDate) {
     this.description = description;
     this.startDate = startDate;
     this.endDate = endDate;

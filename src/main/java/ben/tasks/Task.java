@@ -1,16 +1,16 @@
-package tasks;
+package ben.tasks;
 
 public class Task {
   protected String description;
   protected boolean isDone;
 
-  // instantiate a new tasks.Task Object
+  // instantiate a new Ben.tasks.Task Object
   public Task(boolean isDone, String description) {
     this.description = description;
     this.isDone = isDone;
   }
 
-  // gets Status icon for the tasks.Task itself
+  // gets Status icon for the Ben.tasks.Task itself
   public String getStatusIcon() {
     return (this.isDone ? "[X]" : "[ ]");
   }
