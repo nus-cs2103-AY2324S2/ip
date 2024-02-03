@@ -5,25 +5,29 @@ import duke.ui.Ui;
 
 public class TaskList {
     private static LinkedList<Task> tasks = null;
-    public int getNumOfTasks() {
-        return tasks.size();
-    }
     private static TaskList instance = null;
     private Ui ui = null;
 
     private TaskList() {
         //this.livInstance = Liv.getInstance();
     }
+
+    public int getNumOfTasks() {
+        return tasks.size();
+    }
+
     public static TaskList getInstance() {
         if (instance == null) {
             instance = new TaskList();
         }
         return instance;
     }
+
     public void initTaskList() {
         tasks = new LinkedList<>();
         ui = Ui.getInstance();
     }
+
     public void addTask(Task task) {
         tasks.add(task);
     }

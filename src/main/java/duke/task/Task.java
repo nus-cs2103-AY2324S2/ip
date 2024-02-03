@@ -3,18 +3,15 @@ package duke.task;
 import duke.parser.MissingInputFieldException;
 
 public abstract class Task {
-    protected String description;
+
     private boolean isDone;
-
     protected TaskType type;
-
     public static String delimiter;
     public static String command;
-
     protected static String dataStringSplitter = " \\| ";
     // temporary measure before storage related methods are migrated over to the storage class
     protected static String storageDataStringSplitter = " | ";
-
+    protected String description;
     public enum TaskType {
         TODO,
         DEADLINE,
@@ -89,12 +86,6 @@ public abstract class Task {
         return printType() + storageDataStringSplitter + boolToInt(isDone) + storageDataStringSplitter + description;
     }
 
-    private static int boolToInt(boolean b) {
-        return b ? 1 : 0;
-    }
-    public abstract String printType();
-    public abstract void setUpTask(String input) throws MissingInputFieldException;
-
     public static Task convertDataToTask(String dataRow) {
         String[] inputArray = NextWords(Task.NextWords(dataRow.split(dataStringSplitter)));
         if (!isTaskStringArray(inputArray)) throw new RuntimeException("Data Corrupted: No Matching duke.task.Task Type");
@@ -125,4 +116,12 @@ public abstract class Task {
     private static boolean isTaskDataEntryDone(String[] inputArray) {
         return inputArray[1].equals("1");
     }
+
+    private static int boolToInt(boolean b) {
+        return b ? 1 : 0;
+    }
+
+    public abstract String printType();
+
+    public abstract void setUpTask(String input) throws MissingInputFieldException;
 }

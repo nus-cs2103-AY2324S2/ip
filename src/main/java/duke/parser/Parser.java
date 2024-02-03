@@ -9,23 +9,14 @@ import duke.task.*;
 import duke.ui.Ui;
 
 public class Parser {
-    private boolean isInteger(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private Parser() {
-    }
-
+    private static final DateTimeFormatter DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("ddMMyy'T'HHmm");
     private static Parser instance = null;
     private Ui ui = null;
     private Duke duke = null;
     private TaskList taskList = null;
     private Storage storage = null;
+
     public static Parser getInstance() {
         if (instance == null) {
             instance = new Parser();
@@ -104,12 +95,20 @@ public class Parser {
         throw new CommandNotFoundException(input);
     }
 
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMyy'T'HHmm");
     public static LocalDateTime parseDateAndTime(String input) {
         return LocalDateTime.parse(input, DATE_TIME_FORMATTER);
     }
 
     public static String convertDateTimeToCommandFormat(LocalDateTime localDateTime) {
         return localDateTime.format(DATE_TIME_FORMATTER);
+    }
+
+    private boolean isInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

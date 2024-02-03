@@ -1,11 +1,12 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 import duke.parser.MissingInputFieldException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.time.LocalDateTime;
 
 public class Event extends Task {
 
