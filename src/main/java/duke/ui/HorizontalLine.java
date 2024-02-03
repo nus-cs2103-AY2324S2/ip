@@ -22,6 +22,9 @@ public class HorizontalLine {
         lineLength = length;
     }
 
+    /**
+     *
+     */
     public void printLine() {
         for (int i = 0; i < lineLength; i++) {
             System.out.print("-");

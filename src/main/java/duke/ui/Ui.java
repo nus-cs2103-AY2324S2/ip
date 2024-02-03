@@ -46,6 +46,9 @@ public class Ui {
         return instance;
     }
 
+    /**
+     *
+     */
     public void initUi() {
         taskList = TaskList.getInstance();
         Greet();
@@ -55,14 +58,25 @@ public class Ui {
         return localDateTime.format(PRINT_DATE_TIME_FORMATTER);
     }
 
+    /**
+     * @param output
+     */
     public void speak(String output) {
         ToggleConversationState();
         System.out.println(output);
         ToggleConversationState();
     }
+
+    /**
+     *
+     */
     private void Greet() {
         speak("Hello there, Liv here." + '\n' + "How may I help you?");
     }
+
+    /**
+     *
+     */
     public void ToggleConversationState() {
 
         horizontalLine.printLine();
@@ -78,16 +92,25 @@ public class Ui {
         }
     }
 
+    /**
+     * @return
+     */
     public String StartListening() {
         // should be called from ACTIVE_TALKING STATE
         if (currentState == UiState.ACTIVE_LISTENING) ToggleConversationState();
         return scanner.nextLine();
     }
 
+    /**
+     *
+     */
     public void EndListening() {
         if (currentState == UiState.ACTIVE_TALKING) ToggleConversationState();
     }
 
+    /**
+     *
+     */
     public void EndSession() {
         // should be called from ACTIVE_LISTENING STATE, exception handling?
         ToggleConversationState();
@@ -100,6 +123,9 @@ public class Ui {
         horizontalLine.printLine();
     }
 
+    /**
+     *
+     */
     public void listTasks() {
         ToggleConversationState();
         System.out.println("Here are the tasks in your list:");
