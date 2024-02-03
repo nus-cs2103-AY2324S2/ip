@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    private String identify(String command) {
+    public String identify(String command) {
         String[] strings = command.split(" ");
         return strings[0];
     }

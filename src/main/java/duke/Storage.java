@@ -20,6 +20,7 @@ public class Storage {
     public Storage(String filePath) {
         this.FILE = new File(filePath);
     }
+    public Storage() {}
 
     private void create() throws FileIOException {
         try {
