@@ -1,7 +1,8 @@
 package duke;
 
 /**
- * Provides static methods for handling various types of errors throughout the Duke application.
+ * Provides static methods for handling various types of errors throughout the
+ * Duke application.
  * This includes file not found errors, I/O errors, and number format errors.
  */
 public class ErrorHandler {
@@ -28,7 +29,8 @@ public class ErrorHandler {
      * Handles errors resulting from invalid number formats in user input.
      * Prints an error message indicating the invalid input that caused the error.
      *
-     * @param input The user input that was expected to be in a valid number format but was not.
+     * @param input The user input that was expected to be in a valid number format
+     *              but was not.
      */
     public static void handleNumberFormatException(String input) {
         System.out.println("Invalid number format: " + input);

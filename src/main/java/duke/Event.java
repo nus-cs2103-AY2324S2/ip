@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents an "Event" task in the Duke application, which includes start and end dates.
+ * Represents an "Event" task in the Duke application, which includes start and
+ * end dates.
  */
 public class Event extends Task {
     private LocalDate start;
@@ -12,13 +13,14 @@ public class Event extends Task {
     private String startToEnd;
 
     /**
-     * Constructs a new Event task with the specified description, start and end dates.
+     * Constructs a new Event task with the specified description, start and end
+     * dates.
      *
      * @param description The task's description.
-     * @param startToEnd A string representing the range from start to end date.
-     * @param input The original input string that created the task.
-     * @param start The start date of the event.
-     * @param end The end date of the event.
+     * @param startToEnd  A string representing the range from start to end date.
+     * @param input       The original input string that created the task.
+     * @param start       The start date of the event.
+     * @param end         The end date of the event.
      */
     Event(String description, String startToEnd, String input, LocalDate start, LocalDate end) {
         super(description, input);
@@ -51,7 +53,7 @@ public class Event extends Task {
      * Marks the Event task as done and prints a confirmation message.
      */
     @Override
-    public void mark() {
+    public void markComplete() {
         super.setComplete();
         System.out.println("\tNice! I've marked this task as done:\n\t" + this.toString());
     }
@@ -60,7 +62,7 @@ public class Event extends Task {
      * Marks the Event task as not done and prints a confirmation message.
      */
     @Override
-    public void unmark() {
+    public void unmarkComplete() {
         super.setIncomplete();
         System.out.println("\tOK, I've marked this task as not done yet:\n\t" + this.toString());
     }

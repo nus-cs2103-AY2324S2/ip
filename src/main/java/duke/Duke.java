@@ -11,7 +11,7 @@ public class Duke {
     protected static final String DATA_DIRECTORY = Paths.get("src", "main", "java", "data").toString();
     // Path to the file within DATA_DIRECTORY where tasks are saved
     protected static final String DATA_FILE = Paths.get(DATA_DIRECTORY, "tasks.txt").toString();
-    
+
     private Storage storage; // Component for loading and saving tasks
     private TaskList tasks; // Component managing the list of tasks
     private Ui ui; // Component handling user interactions

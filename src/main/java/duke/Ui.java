@@ -67,41 +67,41 @@ public class Ui {
             }
             int taskIndex = parsedCommand.getTaskNumber() - 1;
             switch (parsedCommand.getCommandType()) {
-                case INVALID:
-                    break;
-                case BYE:
-                    // handle BYE
-                    System.out.println(this.goodbye);
-                    scanner.close();
-                    this.storage.saveTasks();
-                    return;
-                case LIST:
-                    // handle LIST
-                    this.taskList.list();
-                    break;
-                case MARK:
-                    this.taskList.getTask(taskIndex).mark();
-                    break;
-                case UNMARK:
-                    this.taskList.getTask(taskIndex).unmark();
-                    break;
-                case DELETE:
-                    Task deletedTask = this.taskList.getTask(taskIndex);
-                    this.taskList.deleteTask(taskIndex);
-                    System.out.println("\tNoted. I've removed this task:\n\t" + deletedTask);
-                    break;
-                case EVENT:
-                case TODO:
-                case DEADLINE:
-                    Task task = Parser.createTask(parsedCommand.getCommandType(), input);
-                    if (task != null) {
-                        this.taskList.addTask(task);
-                        System.out.println("\tGot it. I've added this task:\n\t" + task);
-                        System.out.println("\tNow you have " + TaskList.storageFill + " tasks in the list.");
-                    }
-                    break;
-                default:
-                    break;
+            case INVALID:
+                break;
+            case BYE:
+                // handle BYE
+                System.out.println(this.goodbye);
+                scanner.close();
+                this.storage.saveTasks();
+                return;
+            case LIST:
+                // handle LIST
+                this.taskList.list();
+                break;
+            case MARK:
+                this.taskList.getTask(taskIndex).markComplete();
+                break;
+            case UNMARK:
+                this.taskList.getTask(taskIndex).unmarkComplete();
+                break;
+            case DELETE:
+                Task deletedTask = this.taskList.getTask(taskIndex);
+                this.taskList.deleteTask(taskIndex);
+                System.out.println("\tNoted. I've removed this task:\n\t" + deletedTask);
+                break;
+            case EVENT:
+            case TODO:
+            case DEADLINE:
+                Task task = Parser.createTask(parsedCommand.getCommandType(), input);
+                if (task != null) {
+                    this.taskList.addTask(task);
+                    System.out.println("\tGot it. I've added this task:\n\t" + task);
+                    System.out.println("\tNow you have " + TaskList.storageFill + " tasks in the list.");
+                }
+                break;
+            default:
+                break;
             }
 
             System.out.println(Ui.LINE);

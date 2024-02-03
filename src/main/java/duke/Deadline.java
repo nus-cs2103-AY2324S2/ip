@@ -12,11 +12,12 @@ public class Deadline extends Task {
     private LocalDate dueDate; // The actual due date
 
     /**
-     * Constructs a new Deadline task with the specified description, due date, and input.
+     * Constructs a new Deadline task with the specified description, due date, and
+     * input.
      *
      * @param description The task's description.
-     * @param dueDate The due date of the task.
-     * @param input The original input string that created the task.
+     * @param dueDate     The due date of the task.
+     * @param input       The original input string that created the task.
      */
     Deadline(String description, LocalDate dueDate, String input) {
         super(description, input);
@@ -39,7 +40,7 @@ public class Deadline extends Task {
      * Marks the Deadline task as done and prints a confirmation message.
      */
     @Override
-    public void mark() {
+    public void markComplete() {
         super.setComplete();
         System.out.println("\tNice! I've marked this task as done:\n\t" + this.toString());
     }
@@ -48,7 +49,7 @@ public class Deadline extends Task {
      * Marks the Deadline task as not done and prints a confirmation message.
      */
     @Override
-    public void unmark() {
+    public void unmarkComplete() {
         super.setIncomplete();
         System.out.println("\tOK, I've marked this task as not done yet:\n\t" + this.toString());
     }

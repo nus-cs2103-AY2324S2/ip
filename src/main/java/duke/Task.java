@@ -15,7 +15,7 @@ public abstract class Task {
      * Constructs a Task with the specified description and input.
      *
      * @param description The task's description.
-     * @param input The original user input that created the task.
+     * @param input       The original user input that created the task.
      */
     Task(String description, String input) {
         this.description = description;
@@ -61,7 +61,7 @@ public abstract class Task {
     /**
      * Marks the task as done and prints a confirmation message.
      */
-    public void mark() {
+    public void markComplete() {
         this.setComplete();
         System.out.println("\tNice! I've marked this task as done:\n\t" + this.getDetails());
     }
@@ -76,7 +76,7 @@ public abstract class Task {
     /**
      * Marks the task as not done and prints a confirmation message.
      */
-    public void unmark() {
+    public void unmarkComplete() {
         this.setIncomplete();
         System.out.println("\tOK, I've marked this task as not done yet:\n\t" + this.getDetails());
     }
