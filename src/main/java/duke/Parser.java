@@ -16,20 +16,25 @@ public class Parser {
      */
     public List<String> parse(String input) {
         List<String> stringList = new ArrayList<>();
-
-        String firstWord;
-        String trail = "";
-        int space = input.indexOf(" ");
-        if (space == -1) {
-            firstWord = input;
-        } else {
-            firstWord = input.substring(0, space);
-            trail = input.substring(space + 1);
+        String[] strings = input.split(" ");
+        String s = "";
+        for (int i = 0; i < strings.length; i++) {
+            if (i == 0) {
+                stringList.add(strings[0]); // command
+            } else { // build the remaining fields
+                if (strings[i].equals("/by") || strings[i].equals("/from") || strings[i].equals("/to")) {
+                    stringList.add(s);
+                    s = "";
+                } else {
+                    if (s.equals("")) {
+                        s = strings[i];
+                    } else {
+                        s += " " + strings[i];
+                    }
+                }
+            }
         }
-
-        stringList.add(firstWord);
-        stringList.add(trail);
-
+        stringList.add(s);
         return stringList;
     }
 }

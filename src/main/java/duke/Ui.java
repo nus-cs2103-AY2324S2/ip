@@ -1,6 +1,7 @@
 package duke;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Ui class for menu display.
@@ -42,14 +43,15 @@ public class Ui {
      * @throws IOException Exception for any file related problems.
      *
      */
-    public String nextCommand(Options choice, TaskList taskList, String trail, Storage storage)
+    public String nextCommand(Options choice, TaskList taskList, List<String> trail, Storage storage)
             throws DukeException, IOException {
         LocalDate now = LocalDate.now(); // Current date
         Task add;
         String taskName;
         String output;
+        trail.remove(0);
 
-        switch (choice) { // TODO add a help command to list all commands
+        switch (choice) {
         case bye: // TODO make this exit the chatbot
             return exit();
         case list:
@@ -57,93 +59,83 @@ public class Ui {
             System.out.println(padding(output));
             return output;
         case delete:
-            int no = Integer.parseInt(trail);
+            int no = Integer.parseInt(trail.get(0));
             output = taskList.delete(no);
             System.out.println(padding(output));
             return output;
         case mark:
-            int markNo = Integer.parseInt(trail);
+            int markNo = Integer.parseInt(trail.get(0));
             output = taskList.mark(markNo);
             System.out.println(padding(output));
             return output;
         case unmark:
-            int unmarkNo = Integer.parseInt(trail);
+            int unmarkNo = Integer.parseInt(trail.get(0));
             output = taskList.unmark(unmarkNo);
             System.out.println(padding(output));
             return output;
         case todo:
-            if (trail.isEmpty()) {
-                throw new DukeException("Description of a ToDo cannot be empty!");
+            if (trail.get(0).equals("")) {
+                throw new DukeException("Description for todo cannot be empty!");
             }
-            add = new ToDo(trail);
+            add = new ToDo(trail.get(0));
             output = taskList.add(add);
             System.out.println(padding(output));
             return output;
         case deadline:
-            if (!trail.contains(" /by ")) {
-                throw new DukeException("Description of a Deadline must contain \" /by \"!");
+            if (trail.get(0).equals("")) {
+                throw new DukeException("Description for todo cannot be empty!");
             }
-            taskName = trail.substring(0, trail.indexOf(" /by "));
-            if (taskName.isEmpty()) {
-                throw new DukeException("Description of a Deadline cannot be empty!");
+            try {
+                LocalDate d1 = LocalDate.parse(trail.get(1));
+                if (d1.isBefore(now)) {
+                    throw new DukeException("Deadline must be after today!");
+                }
+                add = new Deadline(trail.get(0), d1);
+                output = taskList.add(add);
+                System.out.println(padding(output));
+                return output;
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Please include /by tag for deadline!");
             }
-            String by = trail.substring(trail.indexOf(" /by ") + 5);
-            // depending on whether by can be empty or not
-            // if (by.isEmpty()) {throw new DukeException("Deadline cannot be empty!");}
-
-            LocalDate d1 = LocalDate.parse(by);
-
-            if (d1.isBefore(now)) {
-                throw new DukeException("Deadline must be after today!");
-            }
-
-            add = new Deadline(taskName, d1);
-            output = taskList.add(add);
-            System.out.println(padding(output));
-            return output;
         case event:
-            if (!trail.contains(" /from ") || !trail.contains(" /to ")) {
-                throw new DukeException("Description of a Event must contain \" /from \" and \" /to \"!");
+            if (trail.get(0).equals("")) {
+                throw new DukeException("Description for todo cannot be empty!");
             }
-            taskName = trail.substring(0, trail.indexOf(" /from "));
-            if (taskName.isEmpty()) {
-                throw new DukeException("Description of a Event cannot be empty!");
+            try {
+                LocalDate d2 = LocalDate.parse(trail.get(1));
+                LocalDate d3 = LocalDate.parse(trail.get(2));
+                if (d3.isBefore(d2)) {
+                    throw new DukeException("To must be after From!");
+                }
+                if (d2.isBefore(now)) {
+                    throw new DukeException("From must be after today!");
+                }
+                add = new Event(trail.get(0), d2, d3);
+                output = taskList.add(add);
+                System.out.println(padding(output));
+                return output;
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Please include /from and /to tags!");
             }
-            int a = trail.indexOf(" /from ") + 7;
-            int b = trail.indexOf(" /to ");
-            if (a > b) {
-                throw new DukeException("From cannot be empty!");
-            }
-            String from = trail.substring(a, b);
-            // depending on whether from can be empty or not
-            // if (from.isEmpty()) {throw new DukeException("From cannot be empty!");}
-            String to = trail.substring(trail.indexOf(" /to ") + 5);
-            // depending on whether to can be empty or not
-            // if (to.isEmpty()) {throw new DukeException("To cannot be empty!");}
-
-            LocalDate d2 = LocalDate.parse(from);
-            LocalDate d3 = LocalDate.parse(to);
-
-            if (d3.isBefore(d2)) {
-                throw new DukeException("To must be after From!");
-            }
-
-            if (d2.isBefore(now)) {
-                throw new DukeException("From must be after today!");
-            }
-
-            add = new Event(taskName, d2, d3);
-            output = taskList.add(add);
-            System.out.println(padding(output));
-            return output;
         case save:
             output = storage.save(taskList.getTaskList());
             System.out.println(padding(output));
             return output;
         case find:
-            output = taskList.find(trail);
+            String search = trail.get(0);
+            for (int i = 1; i < trail.size(); i++) {
+                search += " " + trail.get(i);
+            }
+            output = taskList.find(search);
             System.out.println(padding(output));
             return output;
+        case help:
+            String text = "Commands available:\n";
+            for (Options option : Options.values()) {
+                text += "\t" + option.name() + "\n";
+            }
+            System.out.println(padding(text));
+            return text;
         case error:
             throw new DukeException("Command not found! Please try again.");
         default:

@@ -1,4 +1,5 @@
 package duke;
+
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -13,8 +14,6 @@ public class Duke {
     private Ui ui;
     private Parser parser = new Parser();
     private List<String> stringList;
-    private String command;
-    private String trail;
 
     /**
      * Constructor for Duke class.
@@ -61,12 +60,10 @@ public class Duke {
                 // Take user input
                 input = scanner.nextLine();
                 stringList = parser.parse(input);
-                command = stringList.get(0);
-                trail = stringList.get(1);
 
-                Options choice = optionType(command);
+                Options choice = optionType(stringList.get(0));
 
-                ui.nextCommand(choice, tasks, trail, storage);
+                ui.nextCommand(choice, tasks, stringList, storage);
 
                 if (choice.equals(optionType("bye"))) {
                     isExit = true;
@@ -114,11 +111,9 @@ public class Duke {
     protected String getResponse(String input) {
         try {
             stringList = parser.parse(input);
-            command = stringList.get(0);
-            trail = stringList.get(1);
-            Options choice = optionType(command);
+            Options choice = optionType(stringList.get(0));
 
-            return ui.nextCommand(choice, tasks, trail, storage).replace("\t", "");
+            return ui.nextCommand(choice, tasks, stringList, storage).replace("\t", "");
         } catch (DukeException de) {
             return de + "\n";
         } catch (NumberFormatException nfe) {
@@ -146,7 +141,7 @@ public class Duke {
      * @param option first word of input from user.
      * @return enum of given option.
      */
-    public static Options optionType(String option) {
+    public Options optionType(String option) {
         switch (option) {
         case "bye":
             return Options.bye;
@@ -168,6 +163,8 @@ public class Duke {
             return Options.save;
         case "find":
             return Options.find;
+        case "help":
+            return Options.help;
         default:
             return Options.error;
         }
@@ -175,5 +172,5 @@ public class Duke {
 }
 
 enum Options {
-    bye, list, delete, mark, unmark, todo, deadline, event, error, save, find
+    help, bye, list, mark, unmark, todo, deadline, event, delete, find, save, error
 }
