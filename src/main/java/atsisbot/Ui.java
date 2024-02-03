@@ -1,21 +1,23 @@
+package atsisbot;
+
 import java.util.Scanner;
 
-import task.*;
+import atsisbot.task.*;
 
 public class Ui {
     private static final String line = "____________________________________________________________\n";
-    private static final String welcomeMessage = line + "Hello! I'm ATSISBot\n" + "What can I do for you?\n" + line;
+    private static final String welcomeMessage = line + "Hello! I'm atsisbot.ATSISBot\n" + "What can I do for you?\n" + line;
     private static final String endingMessage = line + "Bye. Hope to see you again soon!\n" + line;
     private static final String listMessage = "Here are the tasks in your list:\n";
-    private static final String markMessage = "Nice! I've marked this task as done:\n";
-    private static final String unmarkMessage = "OK, I've marked this task as not done yet:\n";
-    private static final String addTaskMessage = "Got it. I've added this task:\n";
-    private static final String deleteTaskMessage = "Noted. I've removed this task:\n";
+    private static final String markMessage = "Nice! I've marked this atsisbot.task as done:\n";
+    private static final String unmarkMessage = "OK, I've marked this atsisbot.task as not done yet:\n";
+    private static final String addTaskMessage = "Got it. I've added this atsisbot.task:\n";
+    private static final String deleteTaskMessage = "Noted. I've removed this atsisbot.task:\n";
     private static final String noDescriptionMessage = "The description of a %s cannot be empty.\n";
     private static final String invalidDeadlineFormatMessage = "Invalid deadline format. Please use: deadline <description> /by <date>\n";
     private static final String invalidEventFormatMessage = "Invalid event format. Please use: event <description> /from <date> /to <date>\n";
-    private static final String invalidTaskNumberMessage = "Invalid task number. Please enter a valid task number.\n";
-    private static final String unknownCommandMessage = "I'm sorry, but I don't understand that command.\n";
+    private static final String invalidTaskNumberMessage = "Invalid atsisbot.task number. Please enter a valid atsisbot.task number.\n";
+    private static final String unknownCommandMessage = "I'm sorry, but I don't understand that command.";
 
     private static Scanner sc = new Scanner(System.in);
 
@@ -24,7 +26,7 @@ public class Ui {
     }
 
     public static void printList(TaskList list) {
-        System.out.println(listMessage + list.getList());
+        System.out.print(listMessage + list.getList());
     }
 
     public static void printWelcomeMessage() {
@@ -36,11 +38,11 @@ public class Ui {
     }
 
     public static void printMarkMessage(Task task) {
-        System.out.println(markMessage + task.toString());
+        System.out.print(markMessage + task.toString());
     }
 
     public static void printUnmarkMessage(Task task) {
-        System.out.println(unmarkMessage + task.toString());
+        System.out.print(unmarkMessage + task.toString());
     }
 
     public static void printAddTaskMessage(Task task, TaskList taskList) {

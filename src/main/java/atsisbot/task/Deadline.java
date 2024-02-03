@@ -1,10 +1,10 @@
-package task;
+package atsisbot.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a task with a deadline.
+ * Represents a atsisbot.task with a deadline.
  */
 public class Deadline extends Task {
     protected LocalDateTime by;
@@ -12,8 +12,8 @@ public class Deadline extends Task {
     /**
      * Constructs a Deadline object with the given description and deadline.
      *
-     * @param description the description of the task
-     * @param by          the deadline of the task
+     * @param description the description of the atsisbot.task
+     * @param by          the deadline of the atsisbot.task
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);

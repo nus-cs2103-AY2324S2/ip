@@ -1,3 +1,5 @@
+package atsisbot;
+
 public class Parser {
     public static CommandEnum parseCommand(String input) {
         try {

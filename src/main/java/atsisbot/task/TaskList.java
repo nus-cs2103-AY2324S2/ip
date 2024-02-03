@@ -1,4 +1,4 @@
-package task;
+package atsisbot.task;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,28 +21,28 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the list.
+     * Adds a atsisbot.task to the list.
      *
-     * @param task The task to be added.
+     * @param task The atsisbot.task to be added.
      */
     public void addTask(Task task) {
         this.list.add(task);
     }
 
     /**
-     * Removes a task from the list at the specified index.
+     * Removes a atsisbot.task from the list at the specified index.
      *
-     * @param index The index of the task to be removed.
+     * @param index The index of the atsisbot.task to be removed.
      */
     public void removeTask(int index) {
         this.list.remove(index - 1);
     }
 
     /**
-     * Retrieves the task at the specified index.
+     * Retrieves the atsisbot.task at the specified index.
      *
-     * @param index The index of the task to be retrieved.
-     * @return The task at the specified index.
+     * @param index The index of the atsisbot.task to be retrieved.
+     * @return The atsisbot.task at the specified index.
      */
     public Task getTask(int index) {
         return this.list.get(index - 1);
@@ -50,7 +50,7 @@ public class TaskList {
 
     public String getSavedList() {
         StringBuilder sb = new StringBuilder();
-        this.list.forEach((Task element) -> sb.append(element.encode()));
+        this.list.forEach((Task element) -> sb.append(element.encode() + "\n"));
         return sb.toString();
     }
 
@@ -75,18 +75,18 @@ public class TaskList {
     }
 
     /**
-     * Marks the task at the specified index as done.
+     * Marks the atsisbot.task at the specified index as done.
      *
-     * @param index The index of the task to be marked as done.
+     * @param index The index of the atsisbot.task to be marked as done.
      */
     public void markTaskAsDone(int index) {
         this.list.get(index - 1).markAsDone();
     }
 
     /**
-     * Marks the task at the specified index as undone.
+     * Marks the atsisbot.task at the specified index as undone.
      *
-     * @param index The index of the task to be marked as undone.
+     * @param index The index of the atsisbot.task to be marked as undone.
      */
     public void markTaskAsUndone(int index) {
         this.list.get(index - 1).markAsUndone();

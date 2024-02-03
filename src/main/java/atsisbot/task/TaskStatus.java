@@ -1,7 +1,7 @@
-package task;
+package atsisbot.task;
 
 /**
- * Represents the status of a task.
+ * Represents the status of a atsisbot.task.
  */
 enum TaskStatus {
   DONE("X"),
@@ -12,14 +12,14 @@ enum TaskStatus {
   /**
    * Constructs a TaskStatus with the specified status icon.
    * 
-   * @param statusIcon the status icon associated with the task status
+   * @param statusIcon the status icon associated with the atsisbot.task status
    */
   TaskStatus(String statusIcon) {
     this.statusIcon = statusIcon;
   }
 
   /**
-   * Gets the status icon associated with the task status.
+   * Gets the status icon associated with the atsisbot.task status.
    * 
    * @return the status icon
    */
@@ -28,9 +28,9 @@ enum TaskStatus {
   }
 
   /**
-   * Returns a Boolean value indicating whether the task is done.
+   * Returns a Boolean value indicating whether the atsisbot.task is done.
    *
-   * @return true if the task is done, false otherwise
+   * @return true if the atsisbot.task is done, false otherwise
    */
   public Boolean isDone() {
     return this == DONE;

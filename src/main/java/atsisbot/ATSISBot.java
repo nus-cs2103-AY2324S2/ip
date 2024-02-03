@@ -1,7 +1,9 @@
-import task.*;
+package atsisbot;
+
+import atsisbot.task.*;
 
 /**
- * The ATSISBot class represents a chatbot that can perform various tasks.
+ * The atsisbot.ATSISBot class represents a chatbot that can perform various tasks.
  * It allows users to interact with the bot by entering commands and receiving
  * responses.
  * The bot can manage a list of tasks, including adding, marking, and deleting
@@ -12,7 +14,7 @@ public class ATSISBot {
   private static Storage storage;
 
   /**
-   * The main method is the entry point of the ATSISBot program.
+   * The main method is the entry point of the atsisbot.ATSISBot program.
    * It prompts the user for input and executes corresponding commands based on
    * the input.
    * The program continues to accept input until the user enters "bye".
