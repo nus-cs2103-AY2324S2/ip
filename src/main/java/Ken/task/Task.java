@@ -41,10 +41,8 @@ public class Task {
         if (taskType == 'T') {
             task = new Todo(description);
         } else if (taskType == 'D') {
-            // Assuming Ken.Ken.task.Deadline constructor takes description and by
             task = new Deadline(description, parts[3]);
         } else if (taskType == 'E') {
-            // Assuming Ken.Ken.task.Event constructor takes description, from, and to
             task = new Event(description, parts[3], parts[4]);
         } else {
             throw new IllegalArgumentException("Invalid task type");

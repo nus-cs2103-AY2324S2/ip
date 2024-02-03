@@ -1,11 +1,14 @@
 package ken.storage;
+
 import ken.task.Task;
 import ken.exception.KenException;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +22,6 @@ public class Storage {
 
     public void saveTasks(List<Task> tasks) {
         try {
-
             File directory = new File("." + File.separator + "data");
             if (!directory.exists()) {
                 directory.mkdirs();  // Create the directory if it doesn't exist
