@@ -15,6 +15,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Parser {
+
     /**
      * Parses the command from user input.
      *
@@ -75,7 +76,6 @@ public class Parser {
      * @return The Task object created based on the input.
      * @throws DukeException If there is an issue parsing the task or if the task type is not recognized.
      */
-
     public static Task parseTask(String userInput) throws DukeException {
         String[] parts = userInput.split("\\s+", 2);
         if (parts.length < 2) {

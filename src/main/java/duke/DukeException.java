@@ -1,8 +1,8 @@
-package duke;
-
 /**
  * Used to handle and convey application-specific errors.
  */
+package duke;
+
 public class DukeException extends Exception {
 
     /**

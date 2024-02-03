@@ -88,61 +88,61 @@ public class Storage {
      * @return The Task object created from the line.
      */
     private static Task createTaskFromLine(String line) {
-      String[] parts = line.split("\\s*\\|\\s*");
-      if (parts.length >= 3) {
-          String taskType = parts[0].trim();
-          String status = parts[1].trim();
-          String description = parts[2].trim();
+        String[] parts = line.split("\\s*\\|\\s*");
+        if (parts.length >= 3) {
+            String taskType = parts[0].trim();
+            String status = parts[1].trim();
+            String description = parts[2].trim();
           
-          Task task;
-          switch (taskType) {
-              case "T":
+            Task task;
+            switch (taskType) {
+                case "T":
                   task = new Todo(description);
                   break;
-              case "D":
-                  if (parts.length >= 4) {
-                      String dateTimeString = parts[3].trim();
-                      if (dateTimeString.contains(" ")) {
+                case "D":
+                    if (parts.length >= 4) {
+                        String dateTimeString = parts[3].trim();
+                        if (dateTimeString.contains(" ")) {
                           LocalDateTime byDateTime = LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
                           task = new Deadline(description, byDateTime);
-                      } else {
-                          LocalDate byDate = LocalDate.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                          task = new Deadline(description, byDate);
-                      }
-                  } else {
-                      task = null;
-                  }
-                  break;
-              case "E":
-                  if (parts.length >= 4) {
-                      String dateAndTime = parts[3].trim();
-                      String[] event = dateAndTime.split("-");
-                      if (event.length == 2) {
-                          String start = event[0].trim();
-                          String end = event[1].trim();
-                          // Parse the event start and end times
-                          LocalDateTime startTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
-                          LocalDateTime endTime = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
-                          task = new Event(description, startTime, endTime);
-                      } else {
-                          task = null;
-                      }
-                  } else {
-                      task = null;
-                  }
-                  break;
-              default:
-                  task = null;
-                  break;
-          }
+                        } else {
+                            LocalDate byDate = LocalDate.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                            task = new Deadline(description, byDate);
+                        }
+                    } else {
+                        task = null;
+                    }
+                    break;
+                case "E":
+                    if (parts.length >= 4) {
+                          String dateAndTime = parts[3].trim();
+                        String[] event = dateAndTime.split("-");
+                        if (event.length == 2) {
+                            String start = event[0].trim();
+                            String end = event[1].trim();
+                            // Parse the event start and end times
+                            LocalDateTime startTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
+                            LocalDateTime endTime = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"));
+                            task = new Event(description, startTime, endTime);
+                        } else {
+                            task = null;
+                        }
+                    } else {
+                        task = null;
+                    }
+                    break;
+                default:
+                    task = null;
+                    break;
+            }
 
-          if (task != null) {
-              if (status.equals("1")) {
-                  task.markAsDone();
-              }
-              return task;
-          }
-      }
-      return null;
+            if (task != null) {
+                if (status.equals("1")) {
+                    task.markAsDone();
+                }
+                return task;
+            }
+        }
+        return null;
     }
 }

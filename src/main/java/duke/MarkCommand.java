@@ -8,6 +8,7 @@ import duke.task.Task;
 import duke.task.TaskList;
 
 public class MarkCommand extends Command {
+
     /**
      * Executes the mark command to mark a task as done in the task list based on user input.
      *
