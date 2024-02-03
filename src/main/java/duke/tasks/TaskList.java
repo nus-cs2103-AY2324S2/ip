@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.exceptions.DukeException;
+import duke.exceptions.tasks.MissingTaskException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -13,16 +15,24 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    public Task get(Integer index) {
-        return this.tasks.get(index);
+    public Task get(int index) throws DukeException {
+        try {
+            return this.tasks.get(index);
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            throw new MissingTaskException();
+        }
     }
 
     public boolean add(Task task) {
         return this.tasks.add(task);
     }
 
-    public Task remove(int i) {
-        return this.tasks.remove(i);
+    public Task remove(int index) throws DukeException {
+        try {
+            return this.tasks.remove(index);
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            throw new MissingTaskException();
+        }
     }
 
     public int size() {
