@@ -38,20 +38,43 @@ public class Parser{
             return new DontknowCommand();
         }
     }
-    private static String[] processEventMsg(String msg){
+    static String[] processEventMsg(String msg){
         String[] arr = new String[3];
         String[] strarr = msg.split("/from");
-        arr[0] = strarr[0].trim();
-        String[] strArr = strarr[1].split("/to");
-        arr[1] = strArr[1].trim();
-        arr[2]=strArr[0].trim();
+        if(strarr.length == 2){
+            arr[0] = strarr[0].trim();
+            String[] strArr = strarr[1].split("/to");
+            arr[1] = strArr[0].trim();
+            if(strArr.length == 2){
+                arr[2]=strArr[1].trim();
+            }else{
+                arr[2]="";
+            }
+        }else{
+            String[] strArr = strarr[0].split("/to");
+            if(strArr.length == 2) {
+                arr[0] = strArr[0].trim();
+                arr[1] = "";
+                arr[2] = strArr[1].trim();
+            }
+            else{
+                arr[0] = strArr[0].trim();
+                arr[1] = "";
+                arr[2] = "";
+            }
+        }
         return arr;
     }
-    private static String[] processDeadlineMsg(String msg){
+    static String[] processDeadlineMsg(String msg){
         String[] arr = new String[2];
         String[] strarr = msg.split("/by");
-        arr[0] = (strarr[0].trim());
-        arr[1] = strarr[1].substring(0).trim();
+        if(strarr.length == 2){
+            arr[0] = strarr[0].trim();
+            arr[1] = strarr[1].trim();
+        }else{
+            arr[0] = (strarr[0].trim());
+            arr[1] = "";
+        }
         return arr;
     }
 }
