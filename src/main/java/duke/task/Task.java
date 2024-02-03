@@ -11,14 +11,14 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
-    public void mark(){
+    public void mark() {
         this.isDone = true;
     }
-    public void unmark(){
+    public void unmark() {
         this.isDone = false;
     }
     @Override
-    public String toString(){
+    public String toString() {
         String output = "[" + this.getStatusIcon() + "] " + this.description;
         return output;
     }

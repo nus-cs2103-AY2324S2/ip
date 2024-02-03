@@ -12,10 +12,10 @@ public class TaskList {
         storage.addListStateRecord(type, data);
         Ui.informItemAdded(task, this);
     }
-    public TaskList(){
+    public TaskList() {
         this.listItems = storage.loadTasks();
     }
-    public void showList(){
+    public void showList() {
         System.out.println("\t____________________________________________________________");
         System.out.println("\tPer your request, I am outlining the tasks from your designated list:");
         int index = 1;
@@ -25,17 +25,17 @@ public class TaskList {
         }
         System.out.println("\t____________________________________________________________\n" );
     }
-    public void markList(int index){
+    public void markList(int index) {
         this.listItems.get(index-1).mark();
         storage.modifyStateRecord(true, index-1);
         Ui.informListMarked(listItems.get(index-1));
     }
-    public void unmarkList(int index){
+    public void unmarkList(int index) {
         this.listItems.get(index-1).unmark();
         storage.modifyStateRecord(false, index-1);
         Ui.informListUnmarked(listItems.get(index-1));
     }
-    public void deleteList(int index){
+    public void deleteList(int index) {
         Task task = listItems.remove(index-1);
         storage.removeListStateRecord( index-1);
         Ui.informItemRemoved(task, listItems.size());
@@ -44,7 +44,7 @@ public class TaskList {
         return this.listItems.size();
     }
     @Override
-    public String toString(){
+    public String toString() {
         return "\tCurrently, the list comprises  " + listItems.size() + " tasks.";
     }
 

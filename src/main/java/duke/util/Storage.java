@@ -13,7 +13,7 @@ public class Storage {
     private ArrayList<String> listStates= new ArrayList<>();
     private static String listFilePath = "./data/duke.txt";
 
-    public ArrayList<Task> loadTasks(){
+    public ArrayList<Task> loadTasks() {
         ArrayList<Task> temp = new ArrayList<>();
         this.initializeListFile();
         File f = new File(listFilePath);
@@ -41,11 +41,11 @@ public class Storage {
             System.out.println("File Saving failed..." + e);
         }
     }
-    public void removeListStateRecord(int index){
+    public void removeListStateRecord(int index) {
         this.listStates.remove(index);
         this.writeList();
     }
-    public void addListStateRecord(String type, String[] data){
+    public void addListStateRecord(String type, String[] data) {
         String newRecord = "";
         switch (type){
         case "todo":
@@ -66,14 +66,14 @@ public class Storage {
         this.listStates.add(newRecord);
         this.writeList();
     }
-    public void modifyStateRecord(boolean isMarking, int index){
+    public void modifyStateRecord(boolean isMarking, int index) {
         String[] record = this.listStates.get(index).split(" \\| ");
         record[1] = isMarking ? "1" : "0";
         String newRecord = String.join(" | ", record);
         this.listStates.set(index, newRecord);
         this.writeList();
     }
-    public void initializeListFile(){
+    public void initializeListFile() {
         try{
             File dir = new File("./data/");
             if (!dir.exists()) {

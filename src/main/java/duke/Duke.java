@@ -12,12 +12,12 @@ public class Duke {
     private Ui ui;
     private TaskList taskList;
 
-    public Duke(){
+    public Duke() {
         this.parser = new Parser();
         this.ui = new Ui();
         this.taskList = new TaskList();
     }
-    public void run(){
+    public void run() {
         this.ui.greet();
         Scanner scanner = new Scanner(System.in);
         try {
@@ -26,7 +26,7 @@ public class Duke {
                 command = this.parser.parse(scanner.nextLine());
                 command.run(this.taskList);
             }while(!command.getType().equals(Parser.Cmd.bye));
-        }catch(IllegalArgumentException e){
+        }catch(IllegalArgumentException e) {
             Ui.informInvalidCommand();
         }
     }

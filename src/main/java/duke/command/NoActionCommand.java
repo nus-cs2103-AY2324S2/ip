@@ -3,8 +3,8 @@ package duke.command;
 import duke.util.Parser;
 import duke.util.TaskList;
 
-public class NoAction extends Command{
-    public NoAction(Parser.Cmd type) {
+public class NoActionCommand extends Command {
+    public NoActionCommand(Parser.Cmd type) {
         super(type);
     }
     @Override

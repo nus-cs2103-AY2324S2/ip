@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ParserTest {
@@ -28,8 +27,8 @@ public class ParserTest {
         Parser p = new Parser();
 
         //test 1
-        AddTodo dummy1 = (AddTodo) p.parse(todo);
-        Field field = AddTodo.class.getDeclaredField("description");
+        AddTodoCommand dummy1 = (AddTodoCommand) p.parse(todo);
+        Field field = AddTodoCommand.class.getDeclaredField("description");
         field.setAccessible(true);
         @SuppressWarnings("unchecked")
         String todoDes = (String) field.get(dummy1);
@@ -37,12 +36,12 @@ public class ParserTest {
         assertEquals(todoDes, "read book");
 
         //test2
-        AddDeadline dummy2 = (AddDeadline) p.parse(deadline);
-        field = AddDeadline.class.getDeclaredField("description");
+        AddDeadlineCommand dummy2 = (AddDeadlineCommand) p.parse(deadline);
+        field = AddDeadlineCommand.class.getDeclaredField("description");
         field.setAccessible(true);
         @SuppressWarnings("unchecked")
         String deadlineDes = (String) field.get(dummy2);
-        field = AddDeadline.class.getDeclaredField("date");
+        field = AddDeadlineCommand.class.getDeclaredField("date");
         field.setAccessible(true);
         @SuppressWarnings("unchecked")
         LocalDateTime deadlineDt = (LocalDateTime) field.get(dummy2);
@@ -51,16 +50,16 @@ public class ParserTest {
         assertEquals(deadlineDt, deadlineDate);
 
         //test3
-        AddEvent dummy3 = (AddEvent) p.parse(event);
-        field = AddEvent.class.getDeclaredField("description");
+        AddEventCommand dummy3 = (AddEventCommand) p.parse(event);
+        field = AddEventCommand.class.getDeclaredField("description");
         field.setAccessible(true);
         @SuppressWarnings("unchecked")
         String eventDes = (String) field.get(dummy3);
-        field = AddEvent.class.getDeclaredField("fromDate");
+        field = AddEventCommand.class.getDeclaredField("fromDate");
         field.setAccessible(true);
         @SuppressWarnings("unchecked")
         LocalDateTime eventFD = (LocalDateTime) field.get(dummy3);
-        field = AddEvent.class.getDeclaredField("toDate");
+        field = AddEventCommand.class.getDeclaredField("toDate");
         field.setAccessible(true);
         @SuppressWarnings("unchecked")
         LocalDateTime eventTD = (LocalDateTime) field.get(dummy3);
@@ -70,12 +69,12 @@ public class ParserTest {
         assertEquals(eventTD, eventToDate);
 
         //test4
-        ListTask dummy4 = (ListTask) p.parse(list);
+        ListTaskCommand dummy4 = (ListTaskCommand) p.parse(list);
         assertEquals(dummy4.getType(), Parser.Cmd.list);
 
         //test5
-        ToggleMarkTask dummy5 = (ToggleMarkTask) p.parse(mark3);
-        field = ToggleMarkTask.class.getDeclaredField("index");
+        ToggleMarkTaskCommand dummy5 = (ToggleMarkTaskCommand) p.parse(mark3);
+        field = ToggleMarkTaskCommand.class.getDeclaredField("index");
         field.setAccessible(true);
         @SuppressWarnings("unchecked")
         int markInd = (int) field.get(dummy5);
@@ -83,14 +82,14 @@ public class ParserTest {
         assertEquals(markInd, 3);
 
         //test6
-        ToggleMarkTask dummy6 = (ToggleMarkTask) p.parse(unmark1);
+        ToggleMarkTaskCommand dummy6 = (ToggleMarkTaskCommand) p.parse(unmark1);
         int unmarkInd =(int) field.get(dummy6);
         assertEquals(dummy6.getType(), Parser.Cmd.unmark);
         assertEquals(unmarkInd, 1);
 
         //test7
-        DeleteTask dummy7 = (DeleteTask) p.parse(delete);
-        field = DeleteTask.class.getDeclaredField("index");
+        DeleteTaskCommand dummy7 = (DeleteTaskCommand) p.parse(delete);
+        field = DeleteTaskCommand.class.getDeclaredField("index");
         field.setAccessible(true);
         @SuppressWarnings("unchecked")
         int deleteInd = (int) field.get(dummy7);
@@ -98,7 +97,7 @@ public class ParserTest {
         assertEquals(deleteInd, 1);
 
         //test8
-        NoAction dummy8 = (NoAction) p.parse(gibberish);
+        NoActionCommand dummy8 = (NoActionCommand) p.parse(gibberish);
         assertEquals(dummy8.getType(), Parser.Cmd.none);
 
         //test9
