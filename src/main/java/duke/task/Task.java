@@ -5,8 +5,9 @@ package duke.task;
  * Contatins the information of the Task.
  */
 public abstract class Task {
-    public String description;
-    public boolean isDone;
+
+    private String description;
+    private boolean isDone;
 
     /**
      * Constructs the task object.
@@ -32,6 +33,10 @@ public abstract class Task {
 
     public String type() {
         return "";
+    }
+
+    public boolean checkDone() {
+        return isDone;
     }
 
     public String getStatusIcon() {

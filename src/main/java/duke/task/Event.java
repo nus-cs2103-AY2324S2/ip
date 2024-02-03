@@ -29,7 +29,9 @@ import java.time.format.DateTimeFormatter;
 /**
  * Contains the details of events as a part of task.
  */
+
 public class Event extends Task {
+
     private LocalDateTime start;
     private LocalDateTime end;
 
@@ -48,7 +50,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-        return "[E]" + (this.isDone ? "[X] " : "[ ] ") + this.description + " (from: " + this.start.format(formatter) + " to: " + this.end.format(formatter) + ")";
+        return "[E]" + (this.checkDone() ? "[X] " : "[ ] ") + this.getDescription() + " (from: " + this.start.format(formatter) + " to: " + this.end.format(formatter) + ")";
     }
 
     public String getDate() {
