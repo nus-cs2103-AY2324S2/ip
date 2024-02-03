@@ -5,7 +5,6 @@ import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.TaskType;
-import duke.task.ToDo;
 
 public class ToDoCommand extends Command {
     private String description;

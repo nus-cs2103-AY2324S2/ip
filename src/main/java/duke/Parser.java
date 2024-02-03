@@ -1,6 +1,14 @@
 package duke;
 
-import duke.command.*;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.UnmarkCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.ByeCommand;
+import duke.command.DeadlineCommand;
+import duke.command.ToDoCommand;
 import duke.exceptions.DukeException;
 import duke.exceptions.IllegalParamException;
 import duke.exceptions.MissingInfoException;
@@ -10,7 +18,7 @@ import duke.task.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-//converts the input string from user to a duke.command.Command object
+//converts the input string from user to a e3duke.command.Command object
 public class Parser {
     /**
      * Parses user input and converts it to a duke. Command object.

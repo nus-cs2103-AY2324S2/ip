@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.Storage;
 import duke.Ui;
-import duke.exceptions.DukeException;
 import duke.exceptions.IllegalParamException;
 import duke.task.TaskList;
 
