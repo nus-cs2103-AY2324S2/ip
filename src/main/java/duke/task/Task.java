@@ -8,7 +8,7 @@ public class Task {
     private boolean isDone;
 
     /**
-     * Constructor of task object.
+     * Constructs a task object.
      *
      * @param taskName Name of task.
      * @param isDone Completion of task.
@@ -16,6 +16,15 @@ public class Task {
     public Task(String taskName, boolean isDone) {
         this.taskName = taskName;
         this.isDone = isDone;
+    }
+
+    /**
+     * Retrieves task name.
+     *
+     * @return Task name.
+     */
+    public String getTaskName() {
+        return taskName;
     }
 
     /**

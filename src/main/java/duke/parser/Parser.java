@@ -14,7 +14,7 @@ public class Parser {
     private String command;
 
     /**
-     * Constructor of Parse object.
+     * Constructs a Parser object.
      *
      * @param userInput User input text.
      * @param command Command keyword.
@@ -22,6 +22,15 @@ public class Parser {
     public Parser(String userInput, String command) {
         this.userInput = userInput;
         this.command = command;
+    }
+
+    /**
+     * Retrieves raw user input.
+     *
+     * @return User input text.
+     */
+    public String getUserInput() {
+        return this.userInput.trim();
     }
 
     /**
