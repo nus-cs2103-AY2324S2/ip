@@ -43,6 +43,12 @@ public class Stille {
                 System.out.println("\nOK, I've marked this task as not done yet:");
                 System.out.println("  " + t);
                 break;
+            case "delete" :
+                t = list.get(Integer.parseInt(command[1]) - 1);
+                list.remove(Integer.parseInt(command[1]) - 1);
+                System.out.println("\nNoted. I've removed this task:\n " + t);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                break;
             case "todo" :
                 if (command.length == 1 || command[1].trim() == "") {
                     System.out.println("\nOOPS!!! The description of a todo cannot be empty.\n ");
