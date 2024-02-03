@@ -3,12 +3,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class ConsoleUserInterface {
+public class UI {
     private Scanner scanner;
     private boolean isPolling;
     private List<Task> tasks;
 
-    public ConsoleUserInterface() {
+    public UI() {
         this.scanner = new Scanner(System.in);
         this.isPolling = true;
         this.tasks = new ArrayList<>();

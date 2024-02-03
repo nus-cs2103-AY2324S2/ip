@@ -1,7 +1,7 @@
 public class Duke {
-    private ConsoleUserInterface ui;
+    private UI ui;
 
-    public Duke(ConsoleUserInterface ui) {
+    public Duke(UI ui) {
         this.ui = ui;
     }
 
@@ -11,7 +11,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        ConsoleUserInterface consoleUI = new ConsoleUserInterface();
+        UI consoleUI = new UI();
         Duke duke = new Duke(consoleUI);
 
         duke.run();
