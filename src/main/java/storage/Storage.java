@@ -95,10 +95,10 @@ public class Storage {
                 tasks.addToList(newTask);
             }
             else {
-                throw new TobiasException("   Saved file is corrupted!");
+                throw new TobiasException("   OH NO, someone has ruined your save file :(");
             }
         } catch (Exception e) {
-            System.out.println("local to list function " + e.getMessage());
+            System.out.println("The error stems from the localToList function " + e.getMessage());
         }
     }
 
