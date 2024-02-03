@@ -3,10 +3,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Database {
-    private static final String PATH = "./data/saved-data";
-    private static File myFile = new File(PATH);
+    private File myFile;
+    private Duke duke;
 
-    public static void createFile() {
+    public Database(String filePath, Duke duke) {
+        myFile = new File(filePath);
+        this.duke = duke;
+    }
+
+    public void createFile() {
         try {
             myFile.createNewFile();
         } catch (IOException e) {
@@ -14,9 +19,9 @@ public class Database {
         }
     }
 
-    public static void writeFile(String msg) {
+    public void writeFile(String msg) {
         try {
-            FileWriter myWritter = new FileWriter(PATH, true);
+            FileWriter myWritter = new FileWriter(myFile, true);
             myWritter.write(msg + "\n");
             myWritter.close();
         } catch (IOException e) {
@@ -24,7 +29,7 @@ public class Database {
         }
     }
 
-    public static ArrayList<String> readFile() {
+    public ArrayList<String> readFile() {
         ArrayList<String> data = new ArrayList<>();
         try {
             Scanner myReader = new Scanner(myFile);
@@ -38,19 +43,20 @@ public class Database {
         return data;
     }
 
-    public static void loadData(ArrayList<String> data) {
+    public void loadData(ArrayList<String> data) {
+        Parser commandParser = new Parser();
         for (String i : data) {
             String[] tokens = i.split("/");
             String command = tokens[0].split(" ")[0];
             try {
-                Duke.addingTask(command, i);
+                duke.addingTask(command, i);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    public static void deleteLine(int index) {
+    public void deleteLine(int index) {
         ArrayList<String> data = readFile();
         data.remove(index-1);
         clearFile();
@@ -59,7 +65,7 @@ public class Database {
         }
     }
 
-    public static void clearFile() {
+    public void clearFile() {
         try {
             PrintWriter pw = new PrintWriter(myFile);
             pw.print("");

@@ -1,88 +1,91 @@
 import javax.swing.*;
 import javax.swing.plaf.synth.SynthSpinnerUI;
 import java.io.*;
-import java.util.ArrayList;
 
 public class Duke {
-    protected static ArrayList<Task> taskList = new ArrayList<>();
     protected static boolean initialize = true;
 
-    public static void greet() {
-        String logo = "$$\\      $$\\  $$$$$$\\  $$\\   $$\\       $$\\      $$\\ $$$$$$\\ $$\\   $$\\ \n"
-                + "$$$\\    $$$ |$$  __$$\\ $$ |  $$ |      $$ | $\\  $$ |\\_$$  _|$$$\\  $$ | \n"
-                + "$$$$\\  $$$$ |$$ /  $$ |\\$$\\ $$  |      $$ |$$$\\ $$ |  $$ |  $$$$\\ $$ | \n"
-                + "$$\\$$\\$$ $$ |$$$$$$$$ | \\$$$$  /       $$ $$ $$\\$$ |  $$ |  $$ $$\\$$ | \n"
-                + "$$ \\$$$  $$ |$$  __$$ | $$  $$<        $$$$  _$$$$ |  $$ |  $$ \\$$$$ | \n"
-                + "$$ |\\$  /$$ |$$ |  $$ |$$  /\\$$\\       $$$  / \\$$$ |  $$ |  $$ |\\$$$ | \n"
-                + "$$ | \\_/ $$ |$$ |  $$ |$$ /  $$ |      $$  /   \\$$ |$$$$$$\\ $$ | \\$$ | \n"
-                + "\\__|     \\__|\\__|  \\__|\\__|  \\__|      \\__/     \\__|\\______|\\__|  \\__| \n";
-        System.out.println("Hello from\n" + logo);
-        Duke.line();
-        System.out.println("Hello! I'm Anita MaxWynn");
-        System.out.println("What can I do for you?");
-        Duke.line();
+    private Database database;
+    private Ui ui;
+    private TaskList taskList;
+
+    public Duke(String filePath) {
+        database = new Database(filePath, this);
+        ui = new Ui();
+        taskList = new TaskList(database);
+        database.createFile();
+        database.loadData(database.readFile());
+        initialize = false;
     }
 
-    public static void echo(BufferedReader br) throws IOException {
-        String description = br.readLine();
-        String[] tokens = description.split("/", 2);
-        String command = tokens[0].split(" ")[0];
-        while (!command.equals("bye")) {
-            Duke.line();
+    public void run() throws IOException {
+        ui.greet();
+        taskList.listTask();
+
+        Parser parser = new Parser();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        boolean isRunning = true;
+
+        while (isRunning) {
+            String description = br.readLine();
+            String command = parser.parseCommand(description);
+            ui.line();
             try {
-                if (command.equals("list")) {
-                    Task.listTask();
-                } else if (command.equals("mark")) {
-                    Task.setDone(Integer.parseInt(tokens[0].split(" ")[1]));
-                } else if (command.equals("unmark")) {
-                    Task.setNotDone(Integer.parseInt(tokens[0].split(" ")[1]));
-                } else if (command.equals("delete")) {
-                    Task.removeTask(description);
-                } else {
-                    addingTask(command, description);
-                }
+                switch (command) {
+                    case "bye":
+                        isRunning = false;
+                        ui.bye();
+                        break;
+                    case "list":
+                        taskList.listTask();
+                        break;
+                    case "mark":
+                        taskList.setDone(parser.indexParser(description));
+                        break;
+                    case "unmark":
+                        taskList.setNotDone(parser.indexParser(description));
+                        break;
+                    case "delete":
+                        taskList.removeTask(description);
+                        break;
+                    default:
+                        addingTask(command, description);
+                        break;
+                    }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            Duke.line();
-            description = br.readLine();
-            tokens = description.split("/", 2);
-            command = tokens[0].split(" ")[0];
+            ui.line();
         }
-        Duke.bye();
     }
 
-    public static void addingTask(String command, String description) throws Exception{
 
-            if (command.equals("todo")) {
-                Todo.addTask(description);
-            } else if (command.equals("deadline")) {
-                Deadline.addTask(description);
-            } else if (command.equals("event")) {
-                Event.addTask(description);
-            } else {
+    public void addingTask(String command, String description) throws Exception {
+        Parser parser = new Parser();
+        switch (command) {
+            case "todo":
+                String[] parsedTodo = parser.todoParser(description);
+                database.writeFile(description);
+                taskList.addTask(new Todo(parsedTodo[0]));
+                break;
+            case "deadline":
+                String[] parsedDeadline = parser.deadlineParser(description);
+                database.writeFile(description);
+                taskList.addTask(new Deadline(parsedDeadline[0], parsedDeadline[1]));
+                break;
+            case "event":
+                String[] parsedEvent = parser.eventParser(description);
+                database.writeFile(description);
+                taskList.addTask(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
+                break;
+            default:
                 throw new IllegalArgumentException("Please enter a valid command.");
-            }
+        }
 
-    }
-
-    public static void bye() {
-        Duke.line();
-        System.out.println("Bye. Hope to see you again soon!");
-        Duke.line();
-    }
-
-    public static void line() {
-        System.out.println("____________________________________________________________");
     }
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Duke.greet();
-        Database.createFile();
-        Database.loadData(Database.readFile());
-        initialize = false;
-        Task.listTask();
-        Duke.echo(br);
+        new Duke("./data/saved-data").run();
     }
 }
