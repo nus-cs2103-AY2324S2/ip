@@ -1,12 +1,13 @@
 package Duke.Tasks;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws DateTimeException {
         super(description, 'E');
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         LocalDateTime fromParsed = LocalDateTime.parse(from.trim(), formatter);

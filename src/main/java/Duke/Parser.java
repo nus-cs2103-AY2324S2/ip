@@ -5,8 +5,10 @@ import Duke.Tasks.Task;
 
 public class Parser {
     enum CommandWords {
+        TODO,
+        DEADLINE,
+        EVENT,
         BYE,
-        ADD,
         DELETE,
         LIST,
         MARK,
@@ -28,8 +30,12 @@ public class Parser {
                     return new MarkDoneCommand(ui, taskList, storage, Integer.parseInt(inputs[inputs.length - 1]));
                 case UNMARK:
                     return new MarkUndoneCommand(ui, taskList, storage, Integer.parseInt(inputs[inputs.length - 1]));
-                case ADD:
-                    return new AddCommand(ui, taskList, storage, input);
+                case TODO:
+                    return new CreateTodoCommand(ui, taskList, storage, input);
+                case EVENT:
+                    return new CreateEventCommand(ui, taskList, storage, input);
+                case DEADLINE:
+                    return new CreateDeadlineCommand(ui, taskList, storage, input);
                 default:
                     return new ErrorCommand(ui, taskList, storage,
                             "Please use the correct command Word!>.<");

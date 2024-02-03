@@ -1,12 +1,13 @@
 package Duke.Tasks;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
     protected LocalDateTime dueDate;
 
-    public Deadline(String description, String by){
+    public Deadline(String description, String by) throws DateTimeException {
         super(description, 'D');
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         LocalDateTime dueDateParsed = LocalDateTime.parse(by.trim(), formatter);
