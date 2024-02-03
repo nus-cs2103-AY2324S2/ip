@@ -1,3 +1,5 @@
+package wis.task;
+
 import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.Locale;

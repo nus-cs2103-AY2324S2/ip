@@ -1,10 +1,14 @@
+package wis.util;
+
 import java.util.InputMismatchException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-public class InputParser {
+import wis.Action;
+
+public class InputParser extends Parser {
     public static Action parseAction(String input, String[] words) {
         if (input.isEmpty()) {
             return Action.NONE;

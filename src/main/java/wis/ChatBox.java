@@ -1,6 +1,12 @@
+package wis;
+
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import wis.task.TaskList;
+import wis.util.Printer;
+import wis.util.WisException;
 
 public class ChatBox {
     private Scanner scanner;
