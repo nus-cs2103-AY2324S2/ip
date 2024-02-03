@@ -80,6 +80,15 @@ public class YodaUI {
     }
 
     /**
+     * Finds tasks that match the search term.
+     * Delegates to TaskList to find tasks.
+     * @param searchTerm The search term to match tasks against.
+     */
+    public void findTasks(String searchTerm) {
+        taskList.findTasks(searchTerm);
+    }
+
+    /**
      * Deletes a task from the list.
      * Delegates to TaskList to delete a task.
      * @param taskNumber The number of the task to be deleted.
