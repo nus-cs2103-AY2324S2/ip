@@ -1,7 +1,8 @@
 package task;
 
-import task.Task;
-
+/**
+ * This class represents a to-do task.
+ */
 public class Todo extends Task {
     public Todo(String description, boolean completed) {
         super(description, completed);

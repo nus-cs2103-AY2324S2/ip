@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * This class deals with making sense of user commands.
+ */
 public class Parser {
     private String input;
     private Ui ui;
@@ -131,7 +134,12 @@ public class Parser {
         return this.input.split("\\s+", 2)[1].split("\\s+/from\\s+", 2)[0].trim();
     }
 
-
+    /**
+     * Gets event start time as LocalDateTime.
+     *
+     * @return Start time of event.
+     * @throws DateTimeParseException If date/time string is formatted wrongly.
+     */
     public LocalDateTime getStartDateTime() throws DateTimeParseException {
         String startString = this.input.split("\\s+/from\\s+", 2)[1].split("\\s+/to\\s+",
                 2)[0].trim();
@@ -140,6 +148,12 @@ public class Parser {
         return start;
     }
 
+    /**
+     * Gets event end time as LocalDateTime.
+     *
+     * @return End time of event.
+     * @throws DateTimeParseException If date/time string is formatted wrongly.
+     */
     public LocalDateTime getEndDateTime() throws IndexOutOfBoundsException, DateTimeException {
         String endString = this.input.split("\\s+/to\\s+", 2)[1].trim();
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");

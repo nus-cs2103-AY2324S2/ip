@@ -2,16 +2,24 @@ package storage;
 
 import task.Task;
 import tasklist.TaskList;
-import task.Task;
 import task.Todo;
 import task.Deadline;
 import task.Event;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * This class deals with loading tasks from the file and saving task to the file.
+ */
 public class Storage {
 
     String filePath;
