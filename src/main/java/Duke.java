@@ -6,7 +6,7 @@ public class Duke {
         System.out.println(FormatOutput.format(Greet.greet));
         Scanner sc = new Scanner(System.in);
         String command = sc.nextLine();
-        ItemList itemList = new ItemList();
+        ItemList itemList = Storage.readFromFile();
 
         while (!command.equals("bye")) {
             String[] splitted = command.split(" ");
@@ -108,6 +108,7 @@ public class Duke {
             }
             command = sc.nextLine();
         }
+        Storage.writeToFile(itemList);
         System.out.println(FormatOutput.format(Greet.bye));
     }
 }

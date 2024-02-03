@@ -1,38 +1,20 @@
-public abstract class Item {
-    private boolean isDone = false;
-    private String name;
+import java.io.Serializable;
+
+public interface Item extends Serializable {
+    public boolean isDone = false;
 
     public abstract void markDone();
 
     public abstract void markUndone();
 
-    String doneMessage() {
-        return "Nice! I've marked this task as done:\n     " +
-                this.toString();
-    }
+    public abstract String doneMessage();
 
-    String undoneMessage() {
-        return "OK, I've marked this task as not done yet:\n     " +
-                this.toString();
-    }
+    public abstract String undoneMessage();
 
-    String printChecked(boolean b) {
-        return b ? "X" : " ";
-    }
+    public abstract String printChecked(boolean b);
 
-    String addMessage(int num) {
-        return "Got it. I've added this task:\n" +
-                "       " + this.toString() +
-                "\n     Now you have " + num +  " tasks in the list.";
-    }
+    public abstract String addMessage(int num);
 
-    String removeMessage(int num) {
-        return "Noted. I've removed this task:\n" +
-                "       " + this.toString() +
-                "\n     Now you have " + num +  " tasks in the list.";
-    }
+    public abstract String removeMessage(int num);
 
-
-    @Override
-    public abstract String toString();
 }

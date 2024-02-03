@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ItemList {
+public class ItemList implements Serializable {
     private ArrayList<Item> listOfItems = new ArrayList<Item>();
     private int itemCount = 0;
 
