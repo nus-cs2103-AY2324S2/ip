@@ -1,4 +1,6 @@
-import Task.Task;
+package task;
+
+import task.Task;
 
 public class Deadline extends Task {
 

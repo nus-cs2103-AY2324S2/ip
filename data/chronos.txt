@@ -1,5 +1,5 @@
         ------------------------------------------------------------
-        1. [T][ ] complete ip
-        2. [T][X] recap chapter 1
-        3. [D][ ] return library book (by: 6th March)
+        1. [T][ ] 1
+        2. [T][ ] a
+        3. [E][X] project meeting (from: 2 Feb 2pm to: 2 Feb 4pm)
         ------------------------------------------------------------
