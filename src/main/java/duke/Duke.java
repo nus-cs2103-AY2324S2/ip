@@ -1,10 +1,10 @@
-import exception.DukeException;
-import parser.Parser;
-import storage.Storage;
-import task.TaskList;
-import ui.Ui;
+package duke;
 
-import java.util.Scanner;
+import duke.exception.DukeException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 public class Duke {
     private boolean isRunning;

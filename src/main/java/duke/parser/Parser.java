@@ -1,8 +1,8 @@
-package parser;
+package duke.parser;
 
-import exception.DukeException;
-import task.TaskList;
-import ui.Ui;
+import duke.exception.DukeException;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 public class Parser {
     
@@ -53,7 +53,7 @@ public class Parser {
             int listIndex = Integer.parseInt(markInputSplit[1]);
             // check index bounds
             if (listIndex < 1 || listIndex > taskListSize) {
-                throw new DukeException("Apurrlogies, there's no task at that index.");
+                throw new DukeException("Apurrlogies, there's no duke.task at that index.");
             }
             return listIndex;
         } catch (NumberFormatException e) {
@@ -64,7 +64,7 @@ public class Parser {
     public String validateToDoInput(String toDoInput) throws DukeException {
         String taskDescription = toDoInput.replace("todo ", "").strip();
         if (taskDescription.isBlank()) {
-            throw new DukeException("Apurrlogies, the task description cannot be empty.");
+            throw new DukeException("Apurrlogies, the duke.task description cannot be empty.");
         }
         return taskDescription;
     }
@@ -77,7 +77,7 @@ public class Parser {
             throw new DukeException("Sorry, purr-lease use the format: " +
                     "deadline [description] /by [yyyy-mm-dd hh:mm].");
         } else if (deadlineAttributes[0].isBlank()) {
-            throw new DukeException("Apurrlogies, the task description cannot be empty.");
+            throw new DukeException("Apurrlogies, the duke.task description cannot be empty.");
         } else if (deadlineAttributes[1].isBlank()) {
             throw new DukeException("Apurrlogies, the /by field cannot be empty.");
         }
@@ -99,7 +99,7 @@ public class Parser {
         } else if (fromIndex == -1 || toIndex == -1) {
             throw new DukeException("Sorry, purr-lease remember to include the /from and /to fields.");
         } else if (tempAttributes[0].isBlank()) {
-            throw new DukeException("Apurrlogies, the task description cannot be empty.");
+            throw new DukeException("Apurrlogies, the duke.task description cannot be empty.");
         } else if (tempAttributes[1].isBlank() || tempAttributes[2].isBlank()) {
             throw new DukeException(("Apurrlogies, the /from and /to fields cannot be empty."));
         }

@@ -1,6 +1,6 @@
-package task;
+package duke.task;
 
-import exception.DukeException;
+import duke.exception.DukeException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -80,24 +80,24 @@ public class TaskList {
 
     public void printNewTask(Task newTask) {
         String message =
-                String.format("\tGot it. I've added this task:\n\t\t%s\n\tNya-ow you have %d tasks in the list.",
+                String.format("\tGot it. I've added this duke.task:\n\t\t%s\n\tNya-ow you have %d tasks in the list.",
                         newTask, taskList.size());
         System.out.println(message);
     }
 
     public void printDeletedTask(Task deletedTask) {
         String message =
-                String.format("\tNoted. I've remeowved this task:\n\t\t%s\n\tNya-ow you have %d tasks in the list.",
+                String.format("\tNoted. I've remeowved this duke.task:\n\t\t%s\n\tNya-ow you have %d tasks in the list.",
                         deletedTask, taskList.size());
         System.out.println(message);
     }
     
     public void printMarkedTask(Task markedTask) {
-        System.out.println("\tAmeowzing! I've marked this task as done:\n\t" + markedTask);
+        System.out.println("\tAmeowzing! I've marked this duke.task as done:\n\t" + markedTask);
     }
 
     public void printUnmarkedTask(Task unmarkedTask) {
-        System.out.println("\tOK, I've marked this task as not done yet:\n\t" + unmarkedTask);
+        System.out.println("\tOK, I've marked this duke.task as not done yet:\n\t" + unmarkedTask);
     }
 
     public void printList() {
