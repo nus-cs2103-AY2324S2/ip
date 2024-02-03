@@ -19,7 +19,7 @@ public class Storage {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream("./data/duke.txt"));
             final ItemList il = (ItemList) in.readObject();
             return il;
-        } catch (EOFException e) {
+        } catch (FileNotFoundException | EOFException e) {
             return new ItemList();
         } catch (IOException e) {
             e.printStackTrace();
