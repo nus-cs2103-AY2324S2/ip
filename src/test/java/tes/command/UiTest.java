@@ -9,6 +9,9 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Represents the testing class for Ui class.
+ */
 public class UiTest {
 
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
@@ -24,6 +27,9 @@ public class UiTest {
         System.setOut(originalOut);
     }
 
+    /**
+     * Tests the greet function in Ui class.
+     */
     @Test
     public void testGreet() {
         Ui ui = new Ui();
