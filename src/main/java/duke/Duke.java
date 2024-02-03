@@ -106,6 +106,9 @@ public class Duke {
             case "delete" :
                 ui.printDelete(taskList.deleteTask(parser.parseIndex()), taskList.getSize());
                 break;
+            case "find" :
+                ui.printFind(taskList.find(parser.getUserInput()));
+                break;
             default :
                 try {
                     throw new NoTaskTypeException();

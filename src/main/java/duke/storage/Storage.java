@@ -23,7 +23,7 @@ public class Storage {
     private String directoryPath = "./src/main/";
 
     /**
-     * Constructor for Storage object.
+     * Constructs Storage object.
      *
      * @param filePath File path to store and read data.
      */

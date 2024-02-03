@@ -16,7 +16,7 @@ public class Ui {
     private static final String TAB = "  ";
 
     /**
-     * Constructor of UI object.
+     * Constructs a UI object.
      *
      * @param in InputStream to read input from.
      */
@@ -116,6 +116,18 @@ public class Ui {
         printLine();
         printMessage("Here are the tasks in your list:");
         System.out.print(tasks.toString());
+        printLine();
+    }
+
+    /**
+     * Prints message for finding tasks matching a keyword.
+     *
+     * @param tasks String representation of the tasks matching the given keyword.
+     */
+    public void printFind(String tasks) {
+        printLine();
+        printMessage("Here are the matching tasks in your list:");
+        System.out.print(tasks);
         printLine();
     }
 

@@ -8,7 +8,7 @@ public class Event extends Task {
     private String end;
 
     /**
-     * Constructor of event object.
+     * Constructs an event object.
      *
      * @param taskName Name of event.
      * @param isDone Completion of event.

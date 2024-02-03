@@ -1,6 +1,8 @@
 package duke.task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A list of tasks.
@@ -61,8 +63,31 @@ public class TaskList {
         return tasks.get(index - 1).toString();
     }
 
+    /**
+     * Returns the amount of tasks in the task list.
+     *
+     * @return Size of task list.
+     */
     public int getSize() {
         return tasks.size();
+    }
+
+    /**
+     * Find tasks having names matching the given keyword.
+     * Returns a string representation of the list of tasks.
+     *
+     * @param keyword Keyword to search in task name.
+     * @return A string representation of tasks containing the specified keyword.
+     */
+    public String find(String keyword) {
+        TaskList result = new TaskList();
+        for (Task t : tasks) {
+            List<String> words = Arrays.asList(t.getTaskName().split(" "));
+            if (words.contains(keyword)) {
+                result.addTask(t);
+            }
+        }
+        return result.toString();
     }
 
     /**

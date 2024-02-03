@@ -12,7 +12,7 @@ public class Deadline extends Task {
     private LocalDate dueDate;
 
     /**
-     * Constructor for deadline object.
+     * Constructs a deadline object.
      *
      * @param taskName Name of task.
      * @param isDone Completion of task.
