@@ -179,7 +179,7 @@ public class Duke {
                 break;
             case FIND:
                 String keyword = duke.parser.getKeywordForFind(inputFromUser);
-                this.ui.finding(duke.list, keyword);
+                duke.ui.finding(duke.list, keyword);
                 break;
             case BYE:
                 duke.ui.bye();
