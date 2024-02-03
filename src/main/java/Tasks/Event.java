@@ -1,5 +1,12 @@
 package Tasks;
 
+/**
+* Handles a task of type "Event".
+* Event tasks contains the following details:
+* 1) Description of the task.
+* 2) Event start date/time.
+* 3) Event end date/time.
+*/
 public class Event extends Task {
 
     private String from;
@@ -7,10 +14,27 @@ public class Event extends Task {
 
     public Event(String description) {
         super("");
-        this.format(description);
+        this.formatInput(description);
     }
 
-    protected void format(String description) {
+    public Event(String name, String from, String to) {
+        super(name);
+        this.from = from;
+        this.to = to;
+    }
+
+    // Get start date.
+    public String getStart() {
+        return this.from;
+    }
+
+    // Get end date.
+    public String getEnd() {
+        return this.to;
+    }
+
+    @Override
+    protected void formatInput(String description) {
         String errorMessage = 
             "Unable to identify the start and/or end date. Make sure to follow the format:\n"
             + "event DESCRIPTION /from START /to END";
@@ -32,7 +56,22 @@ public class Event extends Task {
         this.from = this.from.substring(5).trim();
         this.to = this.to.substring(3).trim();
     }
+
+    @Override
+    public String toCSV() {
+        char status = this.isDone
+                            ? '1'
+                            : '0';
+
+        return String.format("E,%c,%s,%s,%s\n",
+                    status,
+                    this.name,
+                    this.from,
+                    this.to
+                    );
+    }
     
+    @Override
     public String toString() {
         return String.format("[E]%s (from: %s, to: %s)", super.toString(), this.from, this.to);
     }

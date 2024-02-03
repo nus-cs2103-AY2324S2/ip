@@ -1,16 +1,20 @@
 import java.util.Scanner;
+
+import javax.swing.text.StyledEditorKit;
+
 import java.util.ArrayList;
-import java.util.List;
+
 import Tasks.Task;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.ToDo;
 
+
 // main class for the project
 public class Duke {
 
     /* class-wide variables */ 
-    private static List<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> taskList = fileManager.fetchTasks();
 
     public static void main(String[] args) { 
 
@@ -103,8 +107,14 @@ public class Duke {
 
         scanner.close();
 
-        String exit_message = "Aight. Imma head out.\n" + line; // Print exit message
-        System.out.println(exit_message);
+        // closing admin processes.
+        String adminMessage = "Lemme process some admin stuff first...";
+        System.out.println(adminMessage);
+
+        fileManager.storeTasks(taskList); // update task list with the latest one.
+
+        String exitMessage = "Aight. Imma head out.\n" + line; // Print exit message
+        System.out.println(exitMessage);
     }
 
 
@@ -131,7 +141,7 @@ public class Duke {
     // list out the recorded tasks
     private static void list() {
 
-        if (tasks.size() == 0) {    // special message for empty list
+        if (taskList.size() == 0) {    // special message for empty list
             System.out.println("Wow! You have no recorded task! Peek laziness here.");
             return;
         }
@@ -139,7 +149,7 @@ public class Duke {
         System.out.println("Here are the tasks:");
 
         int index = 0;
-        for (Task task : tasks) {
+        for (Task task : taskList) {
             System.out.println(String.valueOf(index + 1) + ". " + task);
             index++;
         }
@@ -169,13 +179,13 @@ public class Duke {
             return;
         }
         
-        if (index < 0 || index >= tasks.size()) {   // given index out of range
+        if (index < 0 || index >= taskList.size()) {   // given index out of range
             System.out.println(">>> Bruh, there ain't no task " + String.valueOf(index + 1));
 
         } else {
-            tasks.get(index).mark();
+            taskList.get(index).mark();
             System.out.println(">>> Wow. Can't believe you've done it.");
-            System.out.println(tasks.get(index));
+            System.out.println(taskList.get(index));
         }
     }
 
@@ -193,13 +203,13 @@ public class Duke {
             return;
         }
         
-        if (index < 0 || index >= tasks.size()) { // given index out of range
+        if (index < 0 || index >= taskList.size()) { // given index out of range
             System.out.println(">>> Bruh, there ain't no task " + String.valueOf(index + 1));
 
         } else {
-            tasks.get(index).unmark();
+            taskList.get(index).unmark();
             System.out.println(">>> O...k... you'd better finish it later.");
-            System.out.println(tasks.get(index));
+            System.out.println(taskList.get(index));
         }
     }
 
@@ -216,22 +226,22 @@ public class Duke {
             return;
         }
 
-        if (index < 0 || index >= tasks.size()) { // given index out of range
+        if (index < 0 || index >= taskList.size()) { // given index out of range
             System.out.println(">>> Bruh, there ain't no task " + String.valueOf(index + 1));
 
         } else {
-            Task removedTask = tasks.remove(index);
+            Task removedTask = taskList.remove(index);
 
             System.out.println("Noted. I've removed this task:");
             System.out.println("  " + removedTask);
-            System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+            System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
         }
     }
 
     // add a new task of type "ToDo"
     private static void addTodo(String description) {
         ToDo newTodo = new ToDo(description);
-        tasks.add(newTodo);
+        taskList.add(newTodo);
 
         printTaskMessage(newTodo);
     }
@@ -241,7 +251,7 @@ public class Duke {
         
         try {
             Deadline newDeadline = new Deadline(description);
-            tasks.add(newDeadline);
+            taskList.add(newDeadline);
 
             printTaskMessage(newDeadline);
 
@@ -255,7 +265,7 @@ public class Duke {
         
         try {
             Event newEvent = new Event(description);
-            tasks.add(newEvent);
+            taskList.add(newEvent);
 
             printTaskMessage(newEvent);
 
@@ -268,7 +278,7 @@ public class Duke {
     private static void printTaskMessage(Task task) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task.toString());
-        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
         System.out.println("(Type 'list' to see the full list of tasks)");
     }
 
