@@ -61,12 +61,14 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+
     /**
      * Returns a string representation of the task in file format.
      *
      * @return a string representing the task's type, completion status, and description for file storage
      */
     public String toFileString() {
-        return "duchess.task.Task |" + (isDone ? "1" : "0") + " | " + description;
+        return "duchess.task.Task |" + (isDone ? "1" : "0")
+                + " | " + description;
     }
 }
