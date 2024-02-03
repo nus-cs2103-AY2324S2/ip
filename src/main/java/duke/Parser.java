@@ -1,5 +1,9 @@
 package duke;
 
+import java.util.HashMap;
+import java.util.Objects;
+import java.util.Scanner;
+
 import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.CompleteCommand;
@@ -7,10 +11,6 @@ import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
-
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Scanner;
 
 /**
  * Used to parse user commands.
@@ -94,11 +94,15 @@ public class Parser {
     }
 
     /**
-     *
+     * Exception when the command is unknown.
      */
     public static class InvalidCommandType extends Exception {
         private final String command;
 
+        /**
+         * Creates an exception about an unknown command string.
+         * @param command The name of the unknown command
+         */
         public InvalidCommandType(String command) {
             super("Command \"" + command + "\" is invalid or not yet implemented.");
             this.command = command;
@@ -108,7 +112,13 @@ public class Parser {
             return command;
         }
     }
-    
+
+    /**
+     * Exception when the data given to a particular
+     * command doesn't match what is expected. The problem
+     * can either be that no parameters are given, or that
+     * a parameter is missing.
+     */
     public static class InvalidCommandData extends Exception {
         public InvalidCommandData() {
             super("Parameters to command not given.");

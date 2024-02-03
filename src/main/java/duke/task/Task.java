@@ -124,7 +124,7 @@ public abstract class Task implements Serializable {
         DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         try {
             return LocalDateTime.from(f.parse(input));
-        } catch(DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new InvalidComponents(input);
         }
     }

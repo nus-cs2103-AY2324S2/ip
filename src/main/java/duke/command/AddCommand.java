@@ -1,5 +1,7 @@
 package duke.command;
 
+import java.util.HashMap;
+
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
@@ -7,8 +9,6 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-
-import java.util.HashMap;
 
 /**
  * A command to add a task to the task list.
@@ -28,7 +28,8 @@ public class AddCommand extends Command {
 
     /**
      * Constructs a command that adds a task to the task list.
-     * @param type the type of the task
+     *
+     * @param type       the type of the task
      * @param components the components parsed from the user command
      */
     public AddCommand(Type type, HashMap<String, String> components) {

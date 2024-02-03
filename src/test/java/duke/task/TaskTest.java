@@ -1,17 +1,16 @@
 package duke.task;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Stream;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 class TaskTest {
     @Test
     public void validateComponentKeys_noDescription_invalidComponentsThrown() {
-        Task.InvalidComponents e = Assertions.assertThrows(Task.InvalidComponents.class,
-                () -> Task.validateComponentKeys(new HashSet<>(), new HashSet<>()));
+        Task.InvalidComponents e = Assertions.assertThrows(Task.InvalidComponents.class, ()
+                -> Task.validateComponentKeys(new HashSet<>(), new HashSet<>()));
 
         Assertions.assertEquals("No description given", e.getMessage());
     }
@@ -32,8 +31,8 @@ class TaskTest {
             var expected = expecteds.get(i);
             var actual = actuals.get(i);
 
-            Task.InvalidComponents e = Assertions.assertThrows(Task.InvalidComponents.class,
-                    () -> Task.validateComponentKeys(expected, actual));
+            Task.InvalidComponents e = Assertions.assertThrows(Task.InvalidComponents.class, ()
+                    -> Task.validateComponentKeys(expected, actual));
 
             Assertions.assertEquals("Invalid task components: " + actual + "; expected: " + expected, e.getMessage());
         }
