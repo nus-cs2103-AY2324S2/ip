@@ -1,13 +1,17 @@
-package Lery;
-
-import Lery.task.*;
-
+package lery;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
+import lery.task.Deadline;
+import lery.task.Event;
+import lery.task.Task;
+import lery.task.TaskList;
+import lery.task.Todo;
+
 
 /**
  * Represents a storage.
@@ -19,7 +23,7 @@ import java.util.Scanner;
  */
 public class Storage {
     private File tasksFile;
-    private String FILENAME = "./data/lery.txt";
+    private final String filename = "./data/lery.txt";
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private TaskList taskList;
@@ -40,7 +44,7 @@ public class Storage {
      */
     public TaskList loadTasks() throws LeryException {
         try {
-            File file = new File(FILENAME);
+            File file = new File(filename);
             if (!file.exists()) {
                 throw new LeryException("Erm... Text file storage does not exist");
             } else {
@@ -91,7 +95,7 @@ public class Storage {
             msg += ("| " + newTask.getExtraInfoShortened());
         }
         try {
-            FileWriter fw = new FileWriter(FILENAME, true);
+            FileWriter fw = new FileWriter(filename, true);
             fw.write(msg);
             fw.close();
             this.taskList.add(newTask);
@@ -112,7 +116,7 @@ public class Storage {
             LocalDate d = LocalDate.parse(date, this.formatter);
         } catch (Exception ex) {
 
-            throw new LeryException("Erm... Date not keyed in correct format! Correct format is yyyy-MM-dd"+ex);
+            throw new LeryException("Erm... Date not keyed in correct format! Correct format is yyyy-MM-dd" + ex);
 
         }
     }

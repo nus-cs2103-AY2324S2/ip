@@ -1,4 +1,4 @@
-package Lery;
+package lery;
 
 /**
  * Represents a Ui.
@@ -10,14 +10,13 @@ package Lery;
  *
  */
 public class Ui {
-    private final String LINE = "____________________________________________________________\n";
-    private final String logo =
-            " _                    \n" +
-                    "| |    ___ _ __ _   _ \n" +
-                    "| |   / _ \\ '__| | | |\n" +
-                    "| |__|  __/ |  | |_| |\n" +
-                    "|_____\\___|_|   \\__, |\n" +
-                    "                |___/ \n";
+    private static final String LINE = "____________________________________________________________\n";
+    private static final String LOGO = " _                    \n"
+            + "| |    ___ _ __ _   _ \n"
+                    + "| |   / _ \\ '__| | | |\n"
+                    + "| |__|  __/ |  | |_| |\n"
+                    + "|_____\\___|_|   \\__, |\n"
+                    + "                |___/ \n";
 
     /**
      * Prints a message surrounded by horizontal line breaks.
@@ -32,7 +31,7 @@ public class Ui {
      * Prints a greeting message with the Lery logo.
      */
     public void greet() {
-        System.out.println(this.LINE + logo + "Hello! I'm Lery.Lery"
+        System.out.println(this.LINE + LOGO + "Hello! I'm Lery.Lery"
                 + "\n" + "What can I do for you?\n" + this.LINE);
 
     }
@@ -41,7 +40,7 @@ public class Ui {
      * Prints an exit message.
      */
     public void exit() {
-        System.out.println(this.LINE + "Bye. Hope to see you again soon!\n" +  this.LINE);
+        System.out.println(this.LINE + "Bye. Hope to see you again soon!\n" + this.LINE);
     }
 
 }

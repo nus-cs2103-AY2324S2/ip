@@ -1,4 +1,4 @@
-package Lery.task;
+package lery.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
  * for a deadline task.
  */
 public class Deadline extends Task {
-    private final String TYPE = "D";
+    private static final String TYPE = "D";
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private LocalDate deadline;
 
@@ -37,7 +37,7 @@ public class Deadline extends Task {
     public Deadline(String event, String extraInfo) {
         super(event);
 
-        this.deadline = LocalDate.parse(extraInfo.replace('/','-'), formatter);;
+        this.deadline = LocalDate.parse(extraInfo.replace('/', '-'), formatter);;
     }
 
     /**

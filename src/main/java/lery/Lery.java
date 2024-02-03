@@ -1,7 +1,6 @@
-package Lery;
+package lery;
 
 
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -16,7 +15,10 @@ public class Lery {
 
     private Storage storage;
     private Ui ui;
-
+    /**
+     * Constructs a Lery chatbot object.
+     *
+     */
     public Lery() {
         this.ui = new Ui();
         this.storage = new Storage();
@@ -25,7 +27,6 @@ public class Lery {
 
     /**
      * Runs the chatbot and parses the users comments.
-     * @return Nothing.
      */
 
     public void run() {
@@ -37,7 +38,7 @@ public class Lery {
         } catch (LeryException e) {
             ui.printMessageWithLine(e.getMessage());
         }
-        while(scanner.hasNext()) {
+        while (scanner.hasNext()) {
             Parser p = new Parser(this.storage);
             String command = scanner.nextLine();
             if (command.equalsIgnoreCase("bye")) {
@@ -55,11 +56,10 @@ public class Lery {
     /**
      * This is the main method which starts the chatbot.
      * @param args Unused.
-     * @return Nothing.
      */
     public static void main(String[] args) {
-        Lery Lery = new Lery();
-        Lery.run();
+        Lery lery = new Lery();
+        lery.run();
     }
 
 }
