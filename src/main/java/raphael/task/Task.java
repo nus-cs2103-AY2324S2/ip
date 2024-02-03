@@ -29,6 +29,9 @@ public class Task implements FileFormattable {
             return 0;
         }
     }
+    public boolean isContaining(String keyword) {
+        return this.description.contains(keyword);
+    }
     public String getDescription() {
         return this.description;
     }

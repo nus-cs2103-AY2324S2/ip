@@ -83,6 +83,23 @@ public class TaskList implements FileFormattable {
             System.out.println(this);
         }
     }
+    public String find(String keyword) {
+        String res = "";
+        for(Task task : this.tasks) {
+            if (task.isContaining(keyword)) {
+                if (res.isEmpty()) {
+                    res = task.toString();
+                } else {
+                    res = String.format("%s\n%s", res, task);
+                }
+            }
+        }
+        if (res.isEmpty()) {
+            return "There are no matching tasks.";
+        } else {
+            return String.format("Here are the matching tasks in your list:\n\t%s", res);
+        }
+    }
     @Override
     public String toString() {
         String res = "";

@@ -48,6 +48,9 @@ public class Ui {
                 "\t%s\n", task);
         System.out.println(tasks.getSize());
     }
+    public void showFindOutput(String text) {
+        System.out.println(text);
+    }
 //    public static void start() {
 //        Ui.printStartLine();
 //        final String greetings = String.format( "Hello! I'm %s\n"
