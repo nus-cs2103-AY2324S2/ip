@@ -73,7 +73,9 @@ public class Ui {
         printLine();
         System.out.println("    Got it. I've added this task:\n      "
                 + this.taskList.getTaskDescription(this.taskList.getSize() - 1)
-                + "\n    Now you have " + this.taskList.getSize() + " in the list.");
+                + "\n    Now you have "
+                + this.taskList.getSize()
+                + " in the list.");
         printLine();
     }
 
@@ -88,7 +90,9 @@ public class Ui {
         printLine();
         System.out.println("    Got it. I've added this task:\n      "
                 + this.taskList.getTaskDescription(this.taskList.getSize() - 1)
-                + "\n    Now you have " + this.taskList.getSize() + " in the list.");
+                + "\n    Now you have "
+                + this.taskList.getSize()
+                + " in the list.");
         printLine();
     }
 
@@ -103,7 +107,9 @@ public class Ui {
         printLine();
         System.out.println("    Got it. I've added this task:\n      "
                 + this.taskList.getTaskDescription(this.taskList.getSize() - 1)
-                + "\n    Now you have " + this.taskList.getSize() + " in the list.");
+                + "\n    Now you have "
+                + this.taskList.getSize()
+                + " in the list.");
         printLine();
     }
 
@@ -154,7 +160,9 @@ public class Ui {
         printLine();
         System.out.println("    Noted. I've removed this task:\n      "
                 + this.taskList.getTaskDescription(index - 1)
-                + "\n    Now you have " + Integer.toString(this.taskList.getSize() - 1) + " in the list.");
+                + "\n    Now you have "
+                + (this.taskList.getSize() - 1)
+                + " in the list.");
         this.taskList.delete(index - 1);
         printLine();
     }
