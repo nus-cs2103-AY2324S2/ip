@@ -1,3 +1,4 @@
+package Msg;
 public class Msg {
     private String text;
     private static final String divider = "____________________________________________________________";

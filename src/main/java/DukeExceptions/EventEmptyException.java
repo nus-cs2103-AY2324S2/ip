@@ -1,3 +1,4 @@
+package DukeExceptions;
 public class EventEmptyException extends EmptyFieldException{
     private static final String missing_from_txt = "from - What time does %s start from?\n";
     private static final String missing_to_txt = "to - What time does %s end?\n";

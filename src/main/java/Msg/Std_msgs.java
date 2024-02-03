@@ -1,3 +1,4 @@
+package Msg;
 public enum Std_msgs {
     // collection of std msgs to be used
     WELCOME(new Msg("Greetings Sir/Mdm, I am Sir Duke, at your service\n" +

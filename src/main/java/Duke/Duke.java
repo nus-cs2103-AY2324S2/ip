@@ -1,6 +1,37 @@
+package Duke;
 import java.util.Scanner;
+import DukeExceptions.DeadlineEmptyException;
+import DukeExceptions.EventEmptyException;
+import DukeExceptions.InvalidCmd;
+import Msg.Msg;
+import Msg.Std_msgs;
+import Items.Items;
+import Task.Deadline;
+import Task.Event;
+import Task.Todo;
+import Task.Task;
+
+/** Sir Duke Chatbot Class */
 public class Duke {
     private static Items items = new Items();
+    public enum Commands {
+        BYE,
+        LIST,
+        UNMARK,
+        MARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        ADD,
+        DELETE
+    }
+
+    /**
+     * Runs the Duke Chatbot
+     *
+     * @param args String arguments to be passes by User
+     * @throws InvalidCmd If command is not in Commands
+     */
     public static void main(String[] args) throws InvalidCmd {
         Scanner sc = new Scanner(System.in);
         // Should I create a profile about the user by having them answer a few questions?
@@ -11,7 +42,12 @@ public class Duke {
         String userInput = "";
         while (true) {
             try {
-                userInput = sc.nextLine();
+                try {
+                    userInput = sc.nextLine();
+                    Commands cmd = Commands.valueOf(userInput);
+                } catch (IllegalArgumentException e) {
+                    throw new InvalidCmd(userInput);
+                }
                 if (userInput.startsWith("bye")) {
                     // bye
                     System.out.println(Std_msgs.BYE);
@@ -45,10 +81,8 @@ public class Duke {
                     Duke.items.add(new Task(userInput));
                 } else if (userInput.startsWith("delete")) {
                     Duke.items.delete(Integer.parseInt(userInput.substring(7)));
-                } else {
-                    throw new InvalidCmd(userInput);
                 }
-            } catch (InvalidCmd | DeadlineEmptyException | EventEmptyException inv) {
+            } catch (InvalidCmd| DeadlineEmptyException | EventEmptyException inv) {
                 System.out.println(new Msg(inv.toString()));
             }
         }
