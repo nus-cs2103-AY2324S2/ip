@@ -22,6 +22,7 @@ public class Deadline extends Task {
     public String toFileString() {
         return "D," + super.toFileString() + "," + this.by;
     }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
