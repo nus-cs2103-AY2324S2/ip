@@ -7,45 +7,45 @@ public class Storage {
     public Storage(String filepath) {
         this.filepath = filepath;
     }
-    public ArrayList<Task> readFile(File dukeFile) {
+    public ArrayList<Task> readFile () {
         ArrayList<Task> res = new ArrayList<>();
         try {
-            Scanner token = new Scanner(dukeFile);
+            Scanner token = new Scanner(new File(this.filepath));
             while (token.hasNextLine()) {
                 String line = token.nextLine();
                 String[] splits = line.split(" [|] ");
-                Commands type = Commands.valueOf(splits[0]);
                 Task readTask = null;
-                switch (type) {
-                    case todo:
+                switch (splits[0]) {
+                    case "todo":
                         readTask = new ToDo(splits[1], splits[2]);
                         break;
-                    case deadline:
+                    case "deadline":
                         readTask = new Deadline(splits[1], splits[2], splits[3]);
                         break;
-                    case event:
+                    case "event":
                         readTask = new Event(splits[1], splits[2], splits[3], splits[4]);
                         break;
                 }
                 res.add(readTask);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Cannot locate file please try again");
+            System.out.println("Cannot find file, program will now exit");
+            return res;
         }
         return res;
     }
-    public void addToWriteFile (File dukeFile, Task task) {
+    public void addToWriteFile (Task task) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(dukeFile.toString(), true));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.filepath, true));
             writer.append(task.writeObject());
             writer.close();
         } catch (IOException e) {
             System.out.println("An error has occur while writing to file");
         }
     }
-    public void rewriteFile (File dukeFile, ArrayList<Task> current) {
+    public void rewriteFile (ArrayList<Task> current) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(dukeFile.toString()));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.filepath));
             for (int i = 0; i < current.size(); i++) {
                 writer.write(current.get(i).writeObject());
             }

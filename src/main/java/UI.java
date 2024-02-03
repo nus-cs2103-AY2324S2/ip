@@ -48,4 +48,7 @@ public class UI {
             System.out.println(token[i]);
         }
     }
+    public void displayExceptionMsg(DukeException e) {
+        System.out.printf("%s%s%s", hRULER, e, hRULER);
+    }
 }

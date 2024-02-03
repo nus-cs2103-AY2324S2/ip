@@ -4,7 +4,8 @@ public class InvalidDeadlineException extends DukeException {
     }
     @Override
     public String toString() {
-        return "Maybe you do not know what a deadline is,\nbut please have key in a valid time or day as a deadline following\n" +
+        return "Maybe you do not know what a deadline is,\n" +
+                "but please have key in a valid time or day as a deadline following\n" +
                 "a '/'\n";
     }
 }

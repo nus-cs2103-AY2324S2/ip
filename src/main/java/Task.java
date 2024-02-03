@@ -13,11 +13,13 @@ public abstract class Task implements Serializable {
     public Task(String token) {
         this.description = token;
     }
-    public void markDone() {
+    public Task markDone() {
         this.status = "[X]";
+        return this;
     }
-    public void unMarkDone() {
+    public Task unMarkDone() {
         this.status = "[ ]";
+        return this;
     }
     @Override
     public String toString() {
