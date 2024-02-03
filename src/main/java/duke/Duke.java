@@ -1,5 +1,7 @@
 package duke;
 
+import duke.commands.Command;
+
 import java.util.Scanner;
 
 /**
@@ -16,16 +18,17 @@ public class Duke {
     public Duke() {
         Scanner scanner = new Scanner(System.in);
 
-        FileHandler.init();
-        String fileContents = FileHandler.read();
+        Storage.init();
+        String fileContents = Storage.read();
         TaskList taskList = new TaskList(fileContents);
         Ui ui = new Ui();
 
         ui.print(INTRO_MSG);
         while (true) {
             String input = scanner.nextLine();
-            boolean exitFlag = Parser.handleInput(input, ui, taskList);
-            if (exitFlag) break;
+            Command command = Parser.handleInput(input, ui, taskList);
+            command.execute(taskList, ui);
+            if (command.isExit()) break;
         }
     }
 

@@ -1,129 +1,110 @@
 package duke;
 
+import duke.exceptions.InvalidArgumentException;
+import duke.tasks.DeadlineTask;
 import org.junit.jupiter.api.Test;
+
+import java.time.DateTimeException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class DeadlineTaskTest {
+    private static final String INVALID_DATE_FORMAT = "eh the date/time format is wrong la, must be yyyy-mm-dd";
+    private static final String INVALID_NAME = "oi the task needs a name la \uD83D\uDE21\uD83D\uDE21";
+    private static final String INVALID_DEADLINE = "bro this task needs a deadline bro";
+
+
     @Test
-    public void testStringConversion() {
-        DeadlineTask deadline = null;
-        try {
-            deadline = new DeadlineTask("return book", "2020-12-12");
-            assertEquals("[D][ ] return book (by: Dec 12 2020)", deadline.toString());
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
+    public void testStringConversion() throws InvalidArgumentException, DateTimeException {
+        DeadlineTask deadline = new DeadlineTask("return book", "2020-12-12");
+        assertEquals("[D][ ] return book (by: Dec 12 2020)", deadline.toString());
     }
 
     @Test
-    public void testFileConversion() {
-        DeadlineTask deadline = null;
-        try {
-            deadline = new DeadlineTask("return book", "2020-12-12");
-            assertEquals("D | 0 | return book | 2020-12-12", deadline.toFileString());
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
+    public void testFileConversion() throws InvalidArgumentException, DateTimeException {
+        DeadlineTask deadline = new DeadlineTask("return book", "2020-12-12");
+        assertEquals("D | 0 | return book | 2020-12-12", deadline.toFileString());
     }
 
     @Test
-    public void testInvalidDate() {
+    public void testInvalidDate() throws InvalidArgumentException, DateTimeException {
         try {
             DeadlineTask deadline = new DeadlineTask("return book", "2020-12-32");
             fail();
-        } catch (DukeException e) {
-            assertEquals("can you follow the format yyyy-mm-dd pls", e.getMessage());
+        } catch (DateTimeException e) {
+            assertEquals(INVALID_DATE_FORMAT, e.getMessage());
         }
     }
 
     @Test
-    public void testEmptyName() {
+    public void testEmptyName() throws InvalidArgumentException, DateTimeException {
         try {
             DeadlineTask deadline = new DeadlineTask("", "2020-12-12");
             fail();
-        } catch (DukeException e) {
-            assertEquals("oi the task needs a name la \uD83D\uDE21\uD83D\uDE21", e.getMessage());
+        } catch (InvalidArgumentException e) {
+            assertEquals(INVALID_NAME, e.getMessage());
         }
     }
 
     @Test
-    public void testEmptyDeadline() {
+    public void testEmptyDeadline() throws InvalidArgumentException, DateTimeException {
         try {
             DeadlineTask deadline = new DeadlineTask("return book", "");
             fail();
-        } catch (DukeException e) {
-            assertEquals("bro this task needs a deadline bro", e.getMessage());
+        } catch (InvalidArgumentException e) {
+            assertEquals(INVALID_DEADLINE, e.getMessage());
         }
     }
 
     @Test
-    public void testEmptyNameAndDeadline() {
+    public void testEmptyNameAndDeadline() throws InvalidArgumentException, DateTimeException {
         try {
             DeadlineTask deadline = new DeadlineTask("", "");
             fail();
-        } catch (DukeException e) {
-            assertEquals("oi the task needs a name la \uD83D\uDE21\uD83D\uDE21", e.getMessage());
+        } catch (InvalidArgumentException e) {
+            assertEquals(INVALID_NAME, e.getMessage());
         }
     }
 
     @Test
-    public void testEmptyNameAndInvalidDeadline() {
+    public void testEmptyNameAndInvalidDeadline() throws InvalidArgumentException, DateTimeException {
         try {
             DeadlineTask deadline = new DeadlineTask("", "2020-12-32");
             fail();
-        } catch (DukeException e) {
-            assertEquals("oi the task needs a name la \uD83D\uDE21\uD83D\uDE21", e.getMessage());
+        } catch (InvalidArgumentException e) {
+            assertEquals(INVALID_NAME, e.getMessage());
         }
     }
 
     @Test
-    public void testMarkAsDone() {
-        DeadlineTask deadline = null;
-        try {
-            deadline = new DeadlineTask("return book", "2020-12-12");
-            deadline.markDone(true);
-            assertEquals("[D][X] return book (by: Dec 12 2020)", deadline.toString());
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
+    public void testMarkAsDone() throws InvalidArgumentException, DateTimeException {
+        DeadlineTask deadline = new DeadlineTask("return book", "2020-12-12");
+        deadline.markDone(true);
+        assertEquals("[D][X] return book (by: Dec 12 2020)", deadline.toString());
+
     }
 
     @Test
-    public void testMarkAsUndone() {
-        DeadlineTask deadline = null;
-        try {
-            deadline = new DeadlineTask("return book", "2020-12-12");
-            deadline.markDone(true);
-            deadline.markDone(false);
-            assertEquals("[D][ ] return book (by: Dec 12 2020)", deadline.toString());
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
+    public void testMarkAsUndone() throws InvalidArgumentException, DateTimeException {
+        DeadlineTask deadline = new DeadlineTask("return book", "2020-12-12");
+        deadline.markDone(true);
+        deadline.markDone(false);
+        assertEquals("[D][ ] return book (by: Dec 12 2020)", deadline.toString());
     }
 
     @Test
-    public void testMarkAsDoneAndFileConversion() {
-        DeadlineTask deadline = null;
-        try {
-            deadline = new DeadlineTask("return book", "2020-12-12");
-            deadline.markDone(true);
-            assertEquals("D | 1 | return book | 2020-12-12", deadline.toFileString());
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
+    public void testMarkAsDoneAndFileConversion() throws InvalidArgumentException, DateTimeException {
+        DeadlineTask deadline = new DeadlineTask("return book", "2020-12-12");
+        deadline.markDone(true);
+        assertEquals("D | 1 | return book | 2020-12-12", deadline.toFileString());
     }
 
     @Test
-    public void testMarkAsUndoneAndFileConversion() {
-        DeadlineTask deadline = null;
-        try {
-            deadline = new DeadlineTask("return book", "2020-12-12");
-            deadline.markDone(true);
-            deadline.markDone(false);
-            assertEquals("D | 0 | return book | 2020-12-12", deadline.toFileString());
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
+    public void testMarkAsUndoneAndFileConversion() throws InvalidArgumentException, DateTimeException {
+        DeadlineTask deadline = new DeadlineTask("return book", "2020-12-12");
+        deadline.markDone(true);
+        deadline.markDone(false);
+        assertEquals("D | 0 | return book | 2020-12-12", deadline.toFileString());
     }
 }

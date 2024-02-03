@@ -1,5 +1,12 @@
 package duke;
 
+import duke.exceptions.InvalidArgumentException;
+import duke.tasks.DeadlineTask;
+import duke.tasks.EventTask;
+import duke.tasks.Task;
+import duke.tasks.TodoTask;
+
+import java.time.DateTimeException;
 import java.util.ArrayList;
 
 public class TaskList extends ArrayList<Task> {
@@ -34,8 +41,8 @@ public class TaskList extends ArrayList<Task> {
                         this.add(new EventTask(taskContent, eventFrom, eventTo, isDone));
                         break;
                 }
-            } catch (DukeException e) {
-                System.out.println(e.toString());
+            } catch (DateTimeException | InvalidArgumentException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -43,14 +50,14 @@ public class TaskList extends ArrayList<Task> {
     @Override
     public boolean add(Task task) {
         super.add(task);
-        FileHandler.write(this.toFileString());
+        Storage.write(this.toFileString());
         return false;
     }
 
     @Override
     public Task remove(int index) {
         Task taskRemoved = super.remove(index);
-        FileHandler.write(this.toFileString());
+        Storage.write(this.toFileString());
         return taskRemoved;
     }
 

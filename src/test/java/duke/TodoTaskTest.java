@@ -1,79 +1,63 @@
 package duke;
 
+import duke.exceptions.InvalidArgumentException;
+import duke.tasks.TodoTask;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoTaskTest {
+    private static final String INVALID_NAME = "oi the task needs a name la \uD83D\uDE21\uD83D\uDE21";
+
     @Test
-    public void testStringConversion() {
-        TodoTask todo = null;
+    public void testStringConversion() throws InvalidArgumentException {
+        TodoTask todo = new TodoTask("read book");
+        assertEquals("[T][ ] read book", todo.toString());
+    }
+
+    @Test
+    public void testFileConversion() throws InvalidArgumentException {
+        TodoTask todo = new TodoTask("read book");
+        assertEquals("T | 0 | read book", todo.toFileString());
+    }
+
+    @Test
+    public void testEmptyName() throws InvalidArgumentException {
         try {
-            todo = new TodoTask("read book");
-            assertEquals("[T][ ] read book", todo.toString());
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            TodoTask todo = new TodoTask("");
+        } catch (InvalidArgumentException e) {
+            assertEquals(INVALID_NAME, e.getMessage());
         }
     }
 
     @Test
-    public void testFileConversion() {
-        TodoTask todo = null;
-        try {
-            todo = new TodoTask("read book");
-            assertEquals("T | 0 | read book", todo.toFileString());
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
+    public void testMarkAsDone() throws InvalidArgumentException {
+        TodoTask todo = new TodoTask("read book");
+        todo.markDone(true);
+        assertEquals("[T][X] read book", todo.toString());
     }
 
     @Test
-    public void testMarkAsDone() {
-        TodoTask todo = null;
-        try {
-            todo = new TodoTask("read book");
-            todo.markDone(true);
-            assertEquals("[T][X] read book", todo.toString());
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
+    public void testMarkAsUndone() throws InvalidArgumentException {
+        TodoTask todo = new TodoTask("read book");
+        todo.markDone(true);
+        todo.markDone(false);
+        assertEquals("[T][ ] read book", todo.toString());
     }
 
     @Test
-    public void testMarkAsUndone() {
-        TodoTask todo = null;
-        try {
-            todo = new TodoTask("read book");
-            todo.markDone(true);
-            todo.markDone(false);
-            assertEquals("[T][ ] read book", todo.toString());
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
+    public void testMarkAsDoneAndFileConversion() throws InvalidArgumentException {
+        TodoTask todo = new TodoTask("read book");
+        todo.markDone(true);
+        assertEquals("T | 1 | read book", todo.toFileString());
     }
 
     @Test
-    public void testMarkAsDoneAndFileConversion() {
-        TodoTask todo = null;
-        try {
-            todo = new TodoTask("read book");
-            todo.markDone(true);
-            assertEquals("T | 1 | read book", todo.toFileString());
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    @Test
-    public void testMarkAsUndoneAndFileConversion() {
-        TodoTask todo = null;
-        try {
-            todo = new TodoTask("read book");
-            todo.markDone(true);
-            todo.markDone(false);
-            assertEquals("T | 0 | read book", todo.toFileString());
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        }
+    public void testMarkAsUndoneAndFileConversion() throws InvalidArgumentException {
+        TodoTask todo = new TodoTask("read book");
+        todo.markDone(true);
+        todo.markDone(false);
+        assertEquals("T | 0 | read book", todo.toFileString());
     }
 
 }

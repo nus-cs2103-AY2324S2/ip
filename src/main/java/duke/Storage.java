@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class FileHandler {
+public class Storage {
     private static final String FILE_PATH = "data/duke.txt";
     private static File file;
 
