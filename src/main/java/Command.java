@@ -1,3 +1,3 @@
-public enum Command {
-    LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BYE
+public abstract class Command {
+  public abstract void execute(TaskList taskList, Ui ui, String userInput) throws DukeException;
 }
