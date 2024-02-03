@@ -21,6 +21,17 @@ public class Parser {
         return numberToOperateOn;
     }
 
+    /**
+     * Obtains the integer value in the taskList that the user wants to operate on
+     *
+     * @param echo input to be analysed
+     * @return an String that represents the keyword to find
+     */
+    public String digOutSearch(String echo) {
+        String echoParts[] = echo.split(" ", 2);
+        return echoParts[1];
+    }
+
 
     /**
      * Breaks down the input of the user into relevant details needed later

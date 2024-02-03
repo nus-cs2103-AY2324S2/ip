@@ -27,27 +27,33 @@ public class Ui {
      *          to operate on
      */
     public int[] analyseUserInput(String echo) {
-        int[] result = new int[] {0,0};
+        int[] results = new int[] {0,0};
 
         if (echo.equals("bye") || echo.equals("Bye")) {
-            result[0] = 1;
+            results[0] = 1;
         } else if (echo.equals("list") || echo.equals("List")) {
-            result[0] = 2;
+            results[0] = 2;
         } else if (echo.matches("mark -?[0-9]*")) {
-            result[0] = 3;
-            result[1] = parser.digOutInt(echo);
+            results[0] = 3;
+            results[1] = parser.digOutInt(echo);
         } else if (echo.matches("unmark -?[0-9]*")) {
-            result[0] = 4;
-            result[1] = parser.digOutInt(echo);
+            results[0] = 4;
+            results[1] = parser.digOutInt(echo);
         } else if (echo.matches("delete -?[0-9]*")){
-            result[0] = 5;
-            result[1] = parser.digOutInt(echo);
+            results[0] = 5;
+            results[1] = parser.digOutInt(echo);
+        } else if (echo.matches("find [a-zA-Z0-9]*")) {
+            results[0] = 6;
         } else {
-            result[0] = 6;
+            results[0] = 7;
         }
-        return result;
+
+        return results;
     }
 
+    public String analyseFind(String echo) throws DukeException {
+        return parser.digOutSearch(echo);
+    }
     /**
      * Converts the input of the user into a Task to be added to the taskList
      *

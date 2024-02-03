@@ -57,6 +57,12 @@ Here are the tasks in your list:
 3.[D][ ] read book  (by:Dec 10 2020 12:30)
 4.[E][ ] project meeting (from:Oct 10 2020 12:39 to:Oct 11 2020 12:49)
 
+Here are the tasks matching your keyword:
+
+1.[E][ ] project meeting (from:Oct 10 2020 12:39 to:Oct 11 2020 12:49)
+
+Unfortunately, there are no keywords matching your search.
+
 This task is already unmarked.
 
 Very well. This task is now completed.
