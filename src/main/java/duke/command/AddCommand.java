@@ -2,14 +2,18 @@ package duke.command;
 
 import duke.DukeException;
 import duke.Storage;
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
 import duke.ui.Ui;
 
-
 public class AddCommand extends Command {
-    private String[] details;
     private String command;
     private String desc;
+    private String[] details;
+
     public AddCommand(String... details) {
         this.details = new String[details.length - 2];
         for (int i = 0; i < this.details.length; i++) {
