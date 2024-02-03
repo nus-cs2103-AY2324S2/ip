@@ -44,7 +44,7 @@ public class Parser {
                 throw new InvalidSyntaxException("mark");
             }
             int taskNum = Integer.parseInt(input.split(" ")[1]);
-            if (!taskList.validTaskNum(taskNum)) {
+            if (!taskList.isValidTaskNum(taskNum)) {
                 throw new TaskNotFoundException(taskList);
             }
             taskList.markTask(taskNum - 1, storage, ui);
@@ -60,7 +60,7 @@ public class Parser {
                 throw new InvalidSyntaxException("unmark");
             }
             int taskNum = Integer.parseInt(input.split(" ")[1]);
-            if (!taskList.validTaskNum(taskNum)) {
+            if (!taskList.isValidTaskNum(taskNum)) {
                 throw new TaskNotFoundException(taskList);
             }
             taskList.unmarkTask(taskNum - 1, storage, ui);
@@ -114,7 +114,7 @@ public class Parser {
                 throw new InvalidSyntaxException("delete");
             }
             int taskNum = Integer.parseInt(input.split(" ")[1]);
-            if (!taskList.validTaskNum(taskNum)) {
+            if (!taskList.isValidTaskNum(taskNum)) {
                 throw new TaskNotFoundException(taskList);
             }
             taskList.deleteTask(taskNum - 1, storage, ui);

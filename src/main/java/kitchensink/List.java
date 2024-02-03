@@ -25,7 +25,7 @@ public class List {
         ui.sayTaskDeleted(task, tasks.size());
     }
 
-    public boolean validTaskNum(int taskNum) {
+    public boolean isValidTaskNum(int taskNum) {
         return taskNum > 0 && taskNum <= tasks.size();
     }
 
