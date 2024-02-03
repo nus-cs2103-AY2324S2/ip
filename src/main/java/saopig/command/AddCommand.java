@@ -22,8 +22,6 @@ import java.time.format.DateTimeParseException;
 public class AddCommand extends Command {
     private static final String TIME_PATTERN = "yyyy-MM-dd HH:mm";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_PATTERN);
-    private static final String FILE_PATH = "./data/saopigTaskList.txt";
-    private static final String FILE_DIRECTORY = "./data";
     private String command;
     private int typeIndex; //0 for todo, 1 for deadline, 2 for event
 
@@ -190,7 +188,7 @@ public class AddCommand extends Command {
                     + "I'm so proud of you for getting it done!\n "
                     + "Now you have " + taskList.getTasks().size() + " tasks in the list.");
         } catch (SaopigInvaildSizeException e) {
-            ui.printMessage(e.getMessage() +
+            ui.printMessage(e.getMessage()
                     + "\n"
                     + "Oh, it looks like the 'event' command is missing some details for the task.\n "
                     + "No problem at all!\n "
