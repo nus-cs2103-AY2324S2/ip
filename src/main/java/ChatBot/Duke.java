@@ -40,7 +40,7 @@ public class Duke {
     public void exit() {
         this.saveToDoList("src/main/duke.txt");
         System.out.println("Bye. Hope to see you again soon!\n");
-        System.exit(1);
+        System.exit(0);
     }
 
     public TaskList getTaskList() {
