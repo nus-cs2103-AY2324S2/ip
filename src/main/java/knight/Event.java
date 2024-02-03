@@ -11,6 +11,7 @@ public class Event extends Task {
         this.endTime = LocalDate.parse(endTime);
     }
 
+    @Override
     String getCommand() {
         return "event " + name + " /from " + startTime + " /to " + endTime;
     }

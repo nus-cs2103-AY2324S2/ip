@@ -9,6 +9,7 @@ public class Deadline extends Task {
         this.time = LocalDate.parse(time);
     }
 
+    @Override
     String getCommand() {
         return "deadline " + name + " /by " + time;
     }
