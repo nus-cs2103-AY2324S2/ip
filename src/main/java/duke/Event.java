@@ -10,21 +10,16 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task{
 
-    /**
-     * A Event instance contains a start time/date
-     */
     protected String from;
 
-    /**
-     * A Event instance contains a end time/date
-     */
     protected String to;
 
     protected LocalDateTime convertedFrom;
     protected LocalDateTime convertedTo;
 
     /**
-     * Constructor for a Event instance,
+     * Constructor for an Event instance
+     *
      * @param description to be used to identify a task
      * @param from to be used to identify the start of said task
      * @param to to be used to identify the end of said task
@@ -40,7 +35,8 @@ public class Event extends Task{
     }
 
     /**
-     * Prints Event description in Task Array or when task is marked/unmarked/added
+     * Prints Event description in Task Array
+     *
      * @return a string representing the task description
      */
     @Override
@@ -50,9 +46,13 @@ public class Event extends Task{
                     + " to:" + this.convertedTo.format(output) + ")";
     }
 
+    /**
+     * Returns the string representation of the Task to be updated in the data file
+     *
+     * @return a string representing the task description
+     */
     @Override
     public String toString(boolean update) {
-
         return "E@" + super.toString(update) + "@" + this.from + "@" + this.to;
     }
 }

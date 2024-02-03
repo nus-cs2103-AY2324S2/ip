@@ -11,13 +11,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task{
 
-    /**
-     * A Deadline instance contains a do by time/date
-     */
     protected String by;
     protected LocalDateTime converted;
+
     /**
-     * Constructor for a Deadline instance,
+     * Constructor for a Deadline instance
+     *
      * @param description to be used to identify a task
      * @param by to be used to identify the deadline of said task
      */
@@ -29,7 +28,8 @@ public class Deadline extends Task{
     }
 
     /**
-     * Prints Deadline description in Task Array or when task is marked/unmarked/added
+     * Prints Deadline description in Task Array
+     *
      * @return a string representing the task description
      */
     @Override
@@ -38,9 +38,13 @@ public class Deadline extends Task{
         return "[D]" + super.toString() + " (by:" + this.converted.format(output) + ")";
     }
 
+    /**
+     * Returns the string representation of the Task to be updated in the data file
+     *
+     * @return a string representing the task description
+     */
     @Override
     public String toString(boolean update) {
-
         return "D@" + super.toString(update) + "@" + this.by;
     }
 }

@@ -53,6 +53,7 @@ public class Ui {
      *
      * @param echo input to be analysed
      * @return a Task to be added later on
+     * @throws DukeException when user input is invalid
      */
     public Task analyseTask(String echo) throws DukeException {
         Task taskAdded = new Task("Error. Unable to retrieve Task.");

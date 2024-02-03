@@ -28,9 +28,10 @@ public class Parser {
      *
      * @param echo input to be analysed
      * @return a string array that contains all parsed info ready for operation
+     * @throws DukeException if input cannot be decrypted properly meaning invalid input
      */
     public String[] decryptInput(String echo) throws DukeException {
-        String[] result = new String[3];
+        String[] results = new String[3];
 
         String keyword = echo.split(" ")[0];
         if (keyword.equals("deadline")) {
@@ -40,8 +41,8 @@ public class Parser {
                     || (deadline[1].equals(""))) {
                 throw new DukeException("Empty task fields where applicable are not allowed.\n");
             } else {
-                result[0] = deadline[0];
-                result[1] = deadline[1];
+                results[0] = deadline[0];
+                results[1] = deadline[1];
             }
         } else if (keyword.equals("event")) {
             String echo1[] = echo.split("event", 2);
@@ -52,9 +53,9 @@ public class Parser {
                     || (event1[1].matches(  "\\s+")) || (event1[1].matches(""))) {
                 throw new DukeException("Empty task fields where applicable are not allowed.\n");
             } else {
-                result[0] = event[0];
-                result[1] = event1[0];
-                result[2] = event1[1];
+                results[0] = event[0];
+                results[1] = event1[0];
+                results[2] = event1[1];
             }
         } else if (keyword.equals("todo")) {
             String todo[] = echo.split("todo", 2);
@@ -62,7 +63,7 @@ public class Parser {
             if ((todo[1]).matches("\\s+") || (todo[1]).equals("")) {
                 throw new DukeException("Empty task fields where applicable are not allowed.\n");
             } else {
-                result[0] = todo[1];
+                results[0] = todo[1];
             }
         } else {
             throw new DukeException("Invalid command. Please ensure" +
@@ -73,7 +74,7 @@ public class Parser {
                     "Event: event + task + /from yyyy-MM-dd HH:mm + /to yyyy-MM-dd HH:mm;\n" +
                     "Deadline: deadline + task + /by yyyy-MM-dd HH:mm;\n");
         }
-        return result;
+        return results;
     }
 
 }

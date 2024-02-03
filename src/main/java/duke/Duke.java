@@ -37,6 +37,7 @@ public class Duke {
 
     /**
      * Activates once Chatbot is booted up
+     *
      * @return a greeting message
      */
     private String greet(){
@@ -53,6 +54,7 @@ public class Duke {
 
     /**
      * Activates once Chatbot is called to shut down
+     *
      * @return a goodbye message
      */
     private String bye(){
@@ -61,6 +63,7 @@ public class Duke {
 
     /**
      * Chatbot's main loop: keeps getting user input until called to shut down
+     *
      */
     private void chatting(){
         System.out.println(this.greet());

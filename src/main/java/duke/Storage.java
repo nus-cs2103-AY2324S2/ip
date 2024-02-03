@@ -42,6 +42,7 @@ public class Storage {
      * If the items exist, retrieve the data in the file and store it into an ArrayList<Task>
      *
      * @return an ArrayList<Task> to be loaded into the TaskList instance
+     * @throws DukeException when data file does not exist
      */
 
     public ArrayList<Task> dirAndFileSetUp() throws DukeException{
@@ -82,6 +83,7 @@ public class Storage {
      *
      * @param  line line in file that is scanned and needed to be operated on
      * @return a Task that is decrypted
+     * @throws DukeException when file line cannot be read
      */
     private Task transferFileContent (String line) throws DukeException{
         String taskComponents[] = line.split("@");

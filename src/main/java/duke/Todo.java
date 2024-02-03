@@ -11,6 +11,7 @@ public class Todo extends Task{
 
     /**
      * Constructor for a todo instance
+     *
      * @param description to be used to identify a todo task
      */
     public Todo(String description) {
@@ -18,7 +19,8 @@ public class Todo extends Task{
     }
 
     /**
-     * Prints Todo description in Task Array or when task is marked/unmarked/added
+     * Prints Todo description in Task Array
+     *
      * @return a string representing the task description
      */
     @Override
@@ -27,7 +29,6 @@ public class Todo extends Task{
     }
     @Override
     public String toString(boolean update) {
-
         return "T@" + super.toString(update);
     }
 }

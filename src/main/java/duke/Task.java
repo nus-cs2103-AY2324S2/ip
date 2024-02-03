@@ -7,18 +7,15 @@ package duke;
  * Author: Chua Zen Khoon
  */
 public class Task {
-    /**
-     * A Task instance contains a description to be read out
-     */
+
     protected String description;
-    /**
-     * A Task instance contains a label to determine whether it is marked or not
-     */
+
     protected boolean isDone;
 
 
     /**
-     * Constructor for a Task instance,
+     * Constructor for a Task instance
+     *
      * @param description to be used to identify a task
      */
     public Task(String description) {
@@ -28,14 +25,17 @@ public class Task {
 
     /**
      * Determines if a task is marked/unmarked for list printing later
+     *
      * @return  X or blank space in relation to whether task is marked/unmarked
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     /**
-     * Prints Task description in Task Array or when task is marked/unmarked/added
+     * Prints Task description in Task Array
+     *
      * @return a string representing the task description
      */
     @Override
@@ -44,6 +44,12 @@ public class Task {
                 + this.description;
     }
 
+
+    /**
+     * Prints Task description in Task Array when updating the data file
+     *
+     * @return a string representing the task description
+     */
     public String toString(boolean update){
         int isDoneInt = 0;
         if(this.isDone == true){
@@ -54,6 +60,9 @@ public class Task {
 
     /**
      * Marks a valid Task in the Task array
+     *
+     * @return the description of the Task after being marked
+     * @throws DukeException when task is already marked
      */
     public String markAsDone() throws DukeException{
         if(this.isDone == true){
@@ -66,6 +75,9 @@ public class Task {
 
     /**
      * Unmarks a valid Task in the Task array
+     *
+     * @return the description of the Task after being unmarked
+     * @throws DukeException when task is already unmarked
      */
     public String unMarkTask() throws DukeException{
         if(this.isDone == false){

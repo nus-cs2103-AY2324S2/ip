@@ -37,7 +37,10 @@ public class TaskList {
     }
 
     /**
-     * Prints the Task array to user, directs user to input Tasks if empty
+     * Prints the taskList to user, directs user to input Tasks if empty
+     *
+     * @return string representation of the taskList
+     * @throws DukeException when taskList is empty
      */
     public String showTasks() throws DukeException{
         StringBuilder sb = new StringBuilder();
@@ -61,6 +64,7 @@ public class TaskList {
      * Marks a Task in the Task Arraylist as requested by the user
      *
      * @param num index of Task in taskList to mark
+     * @throws DukeException when invalid Task number is given
      */
     public void markMechanism(int num) throws DukeException {
         if(num <= tasks.size() && num > 0){
@@ -75,6 +79,7 @@ public class TaskList {
      * Unmarks a Task in the Task Arraylist as requested by the user
      *
      * @param num index of Task in taskList to unmark
+     * @throws DukeException when invalid Task number is given
      */
     public void unmarkMechanism(int num) throws DukeException{
         if(num <= tasks.size() && num > 0){
@@ -89,7 +94,7 @@ public class TaskList {
      *
      * @param taskToAdd Task to be added into taskList
      */
-    public void taskMechanism(Task taskToAdd) throws DukeException {
+    public void taskMechanism(Task taskToAdd) {
         tasks.add(taskToAdd);
 
         System.out.println("Understood. I've added this task:\n "
@@ -107,6 +112,7 @@ public class TaskList {
      *
      * @param num index of Task in taskList to be removed
      * @return Task that was deleted for storage to settle
+     * @throws IndexOutOfBoundsException when user gives an invalid value
      */
     public Task deleteMechanism(int num) throws IndexOutOfBoundsException {
         Task removed = new Task("Task to be deleted");
