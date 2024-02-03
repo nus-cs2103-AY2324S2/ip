@@ -42,7 +42,7 @@ public class CommandsParser {
                 || commandSplit[0].equals(String.valueOf(CommandsEnum.unmark))) {
             //All items to be 0-index referenced other than user input.
             try {
-                taskList.changeStatusOfItem(commandSplit[0], Integer.parseInt(commandSplit[1])-1);
+                taskList.changeStatusOfItem(commandSplit[0], Integer.parseInt(commandSplit[1]) - 1);
                 taskList.writeToFile(taskLoader);
             } catch (Exception e) {
                 throw new RyanGoslingException("Wrong format! (un)mark <number>");
@@ -86,7 +86,7 @@ public class CommandsParser {
                                                        + "If no time, leave time as 2359");
             }
         } else if (commandSplit[0].equals(String.valueOf(CommandsEnum.delete))) {
-            taskList.removeIndex(Integer.parseInt(commandSplit[1])-1);
+            taskList.removeIndex(Integer.parseInt(commandSplit[1]) - 1);
             taskList.writeToFile(taskLoader);
         } else if (commandSplit[0].equals(String.valueOf(CommandsEnum.find))) {
             Pattern pattern = Pattern.compile("find (.*?)");
@@ -98,8 +98,8 @@ public class CommandsParser {
                 throw new RyanGoslingException("Incomplete find command! find <task_word>");
             }
         } else {
-            throw new RyanGoslingException("I was created in a few hours so " +
-                    "I don't know what that means :(");
+            throw new RyanGoslingException("I was created in a few hours so "
+                                                   + "I don't know what that means :(");
         }
         return 0;
     }

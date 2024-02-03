@@ -44,7 +44,7 @@ public class Ui {
                 System.out.println("Problem with date or time format!\n"
                                            + "Date should be in YYYY-MM-DD\n"
                                            + "Time should be in 24 HR clock format");
-            } catch (Exception e){
+            } catch (Exception e) {
                 MessagePrinter.errorPrinter(e);
             } finally {
                 if (status == 1) {
