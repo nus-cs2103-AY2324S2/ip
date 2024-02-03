@@ -23,7 +23,14 @@ public class Riz {
                 if (token[0].equals("bye")) {
                     running = false;
                     System.out.println("Bye... Hope to see you again...\n");
-                } else if (token[0].equals("mark")) {
+                } else if (token[0].equals("clear")) {
+                    System.out.println("Are you sure you want to delete all tasks? y/n");
+                    if (scanner.nextLine().equals("y")) {
+                        tasks.clear();
+                        FileManager.writeToFile(FILE_PATH, tasks);
+                    }
+                }
+                    else if (token[0].equals("mark")) {
                     boolean isNumber = true;
                     if (token.length != 2) {
                         throw new RizException("Oh you sure you completed the task?...");
