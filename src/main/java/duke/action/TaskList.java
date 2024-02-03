@@ -3,15 +3,13 @@ package duke.action;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-<<<<<<< HEAD
-/**
- * Represents a list of tasks in the Duke application.
- */
-=======
 import duke.task.Task;
 
 
->>>>>>> A-CodingStandard
+/**
+ * Represents a list of tasks in the Duke application.
+ */
+
 public class TaskList implements Iterable<Task> {
 
     /**
@@ -56,13 +54,8 @@ public class TaskList implements Iterable<Task> {
      */
     public Task deleteTask(int index) {
         if (index >= 0 && index < mylist.size()) {
-<<<<<<< HEAD
-            System.out.println("Noted. I've removed this task:\n" + mylist.get(index).toString() +
-                    "\nNow you have " + (mylist.size() - 1) + " tasks in the list.");
-=======
             System.out.println("Noted. I've removed this task:\n" + mylist.get(index).toString()
                     + "\nNow you have " + (mylist.size() - 1) + " tasks in the list.");
->>>>>>> A-CodingStandard
             return mylist.remove(index);
         } else {
             return null;
@@ -148,6 +141,24 @@ public class TaskList implements Iterable<Task> {
     public void hello() {
         System.out.println(" Hello I'm NoisyChatter");
         System.out.println(" What can I do for you?");
+    }
+
+    public void matches(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : mylist) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println("  " + (i + 1) + ". " + matchingTasks.get(i));
+            }
+        }
     }
 
     /**

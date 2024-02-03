@@ -37,6 +37,14 @@ public class CommandParser {
             String[] words = command.split(" ");
 
             switch (words[0]) {
+            case "find":
+                if (words.length > 1) {
+                    String keyword = command.substring(5).trim();
+                    taskList.matches(keyword);
+                } else {
+                    System.out.println("Please provide a keyword to search for.");
+                }
+                return new Match(taskList);
             case "bye":
                 taskList.goodBye();
                 return new Farewell();
