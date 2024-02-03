@@ -26,10 +26,6 @@ public class TaskList {
         return tasks.get(index - 1).toString();
     }
 
-    public Task getTask(int index) {
-        return tasks.get(index);
-    }
-
     public int getSize() {
         return tasks.size();
     }
