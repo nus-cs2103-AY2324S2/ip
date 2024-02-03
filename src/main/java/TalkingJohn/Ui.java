@@ -1,3 +1,5 @@
+package TalkingJohn;
+
 public class Ui {
 
     public void greeting() {
