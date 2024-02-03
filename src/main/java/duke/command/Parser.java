@@ -4,24 +4,39 @@ import duke.conversation.Conversation;
 import duke.task.TaskManager;
 import duke.task.TaskType;
 
+/**
+ * The Parser class is responsible for parsing user commands and interacting with the TaskManager.
+ * It interprets the input commands and executes corresponding actions.
+ */
 public class Parser {
-    TaskManager taskManager;
-    Conversation conversation;
-    TaskType taskType;
-    String userName;
+    private TaskManager taskManager;
+    private Conversation conversation;
+    private final String username;
 
+    private static final String DELETE_ALL_COMMAND = "delete all";
+
+    /**
+     * Constructs a Parser with the specified username. Initializes the TaskManager and Conversation.
+     *
+     * @param username The username for which the Parser is created.
+     */
     public Parser(String username) {
         taskManager = new TaskManager(username);
         conversation = new Conversation(username);
-        this.userName = username;
+        this.username = username;
         taskManager.autoSaveTask();
     }
 
+    /**
+     * Parses the user input and executes the corresponding action.
+     *
+     * @param input The user input to be parsed and executed.
+     */
     public void parse(String input) {
 
         String[] userMessage = input.split(" ");
 
-        if (input.equalsIgnoreCase("delete all")) {
+        if (input.equalsIgnoreCase(DELETE_ALL_COMMAND)) {
             taskManager.deleteAllTasks();
             return;
         }
@@ -37,15 +52,15 @@ public class Parser {
                 handleUnmarkCommand(userMessage, taskManager, input);
                 break;
             case "todo":
-                taskManager.addTask(input, TaskType.TODO);
+                taskManager.addTask(input, TaskType.Todo);
                 taskManager.displayTask(input);
                 break;
             case "deadline":
-                taskManager.addTask(input, TaskType.DEADLINE);
+                taskManager.addTask(input, TaskType.Deadline);
                 taskManager.displayTask(input);
                 break;
             case "event":
-                taskManager.addTask(input, TaskType.EVENT);
+                taskManager.addTask(input, TaskType.Event);
                 taskManager.displayTask(input);
                 break;
             case "delete":
@@ -58,7 +73,7 @@ public class Parser {
     }
 
     private void handleMarkCommand(String[] userMessage, TaskManager taskManager, String input) {
-        if (userMessage.length == 1 || isNumeric(userMessage[1])) {
+        if (userMessage.length == 1 || !isNumeric(userMessage[1])) {
             printError(input);
             return;
         }
@@ -67,7 +82,7 @@ public class Parser {
     }
 
     private void handleUnmarkCommand(String[] userMessage, TaskManager taskManager, String input) {
-        if (userMessage.length == 1 || isNumeric(userMessage[1])) {
+        if (userMessage.length == 1 || !isNumeric(userMessage[1])) {
             printError(input);
             return;
         }
@@ -76,7 +91,7 @@ public class Parser {
     }
 
     private void handleDeleteCommand(String[] userMessage, TaskManager taskManager, String input) {
-        if (userMessage.length == 1 || isNumeric(userMessage[1])) {
+        if (userMessage.length == 1 || !isNumeric(userMessage[1])) {
             printError(input);
             return;
         }
@@ -84,19 +99,32 @@ public class Parser {
         taskManager.deleteTask(Integer.parseInt(userMessage[1]) - 1);
     }
 
+    /**
+     * Checks if a given string is numeric.
+     *
+     * @param str The string to check.
+     * @return True if the string is numeric, false otherwise.
+     */
     private boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);
-            return false;
-        } catch (NumberFormatException e) {
             return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 
+    /**
+     * Prints an error message indicating that the TASK NUMBER is missing after the specified command.
+     *
+     * @param input The input command causing the error.
+     */
     private void printError(String input) {
         System.out.println(TaskManager.LINE);
-        System.out.println(TaskManager.INDENTATION + "Sorry " + userName + ", the TASK NUMBER is missing after " + input.toLowerCase() + ".");
-        System.out.println(TaskManager.INDENTATION + "Can you please specify a valid duke.task number from the list?");
+        System.out.println(TaskManager.INDENTATION + "Sorry " + username + ", the TASK NUMBER " +
+                "is missing after " + input.toLowerCase() + ".");
+        System.out.println(TaskManager.INDENTATION + "Can you please specify a valid task number" +
+                " from the list?");
         System.out.println(TaskManager.LINE);
     }
 }
