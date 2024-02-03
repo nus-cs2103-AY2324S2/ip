@@ -7,8 +7,13 @@ import java.util.ArrayList;
 import duke.tasks.Task;
 
 
-
-
+/**
+ * Manages storage operations for Duke application tasks.
+ * <p>
+ * This class handles the loading, adding, and saving of task objects to a file.
+ * It maintains an in-memory list of tasks for quick access and manipulation.
+ * </p>
+ */
 public class Storage {
     private static final String FILEPATH = "../../../data/rah.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
@@ -29,6 +34,14 @@ public class Storage {
         tasks.add(t);
     }
 
+    /**
+     * Retrieves the current list of tasks.
+     * <p>
+     * This method returns an ArrayList containing all the tasks currently stored in memory.
+     * </p>
+     *
+     * @return An ArrayList of {@link Task} objects representing the tasks currently stored.
+     */
     public ArrayList<Task> load() {
         return tasks;
     }

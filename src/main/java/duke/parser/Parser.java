@@ -17,6 +17,28 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 
+
+/**
+ * The Parser class is responsible for interpreting user input and executing corresponding task operations.
+ * <p>
+ * It serves as the intermediary between the user interface and the application's logic, parsing the input
+ * commands to perform actions such as adding, listing, marking, unmarking, deleting tasks, and handling
+ * task-related exceptions. The class supports a variety of commands, including "todo", "deadline", "event",
+ * "mark", "unmark", and "delete", each requiring specific input formats and handling potential input errors
+ * through custom exceptions.
+ * </p>
+ * <p>
+ * Upon receiving input, the Parser decodes the command, validates it, and then initiates the appropriate action
+ * by creating instances of action classes like AddTask, DeleteTask, ListTask, MarkTask, and UnmarkTask, or directly
+ * manipulating tasks through the storage class. It also provides feedback or error messages based on the outcomes
+ * of operations or the nature of exceptions encountered.
+ * </p>
+ *
+ * @see duke.storage.Storage
+ * @see duke.tasks.Task
+ * @see duke.exception.DukeException
+ */
+
 public class Parser {
     private Storage storage;
     
@@ -24,6 +46,17 @@ public class Parser {
         this.storage = storage;
     }
 
+    /**
+     * Parses the input command to perform task operations such as adding, listing, marking, unmarking, and deleting tasks.
+     * 
+     * This method handles user input, executing commands based on the input string. It supports operations for managing tasks,
+     * including "todo", "deadline", "event", and status updates like "mark" and "unmark". Error handling is implemented for invalid
+     * inputs or commands through custom exceptions.
+     *
+     * @param input The user input string representing a command and its arguments.
+     * @return A response message indicating the outcome of the operation, including error messages for invalid inputs.
+     * @throws DukeException If the input is invalid or does not meet command requirements.
+     */
     public String parse(String input) {
         ArrayList<Task> inventory = storage.load();
         try {
