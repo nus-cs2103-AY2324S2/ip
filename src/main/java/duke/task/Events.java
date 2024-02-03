@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Events extends Task{
-    private Task task;
     private LocalDateTime from;
     private LocalDateTime to;
     public Events(String name, LocalDateTime from, LocalDateTime to, Boolean status) {
@@ -19,6 +18,14 @@ public class Events extends Task{
     public String happenOn(LocalDate date) {
         if ((date.isAfter(from.toLocalDate()) && date.isBefore(to.toLocalDate()))
                 || date.isEqual(from.toLocalDate()) || date.isEqual(to.toLocalDate())) {
+            return taskInfo();
+        }
+        return "";
+    }
+
+    @Override
+    public String printMatch(String match) {
+        if (super.contains(match)) {
             return taskInfo();
         }
         return "";

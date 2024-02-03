@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Deadlines extends Task{
-    private Task task;
     private LocalDateTime by;
     public Deadlines(String name, LocalDateTime by, Boolean status) {
         super(name, status);
@@ -14,6 +13,13 @@ public class Deadlines extends Task{
     @Override
     public String happenOn(LocalDate date) {
         if (date.isEqual(by.toLocalDate())) {
+            return taskInfo();
+        }
+        return "";
+    }
+    @Override
+    public String printMatch(String match) {
+        if (super.contains(match)) {
             return taskInfo();
         }
         return "";

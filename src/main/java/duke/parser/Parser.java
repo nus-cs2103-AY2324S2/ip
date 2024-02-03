@@ -25,6 +25,8 @@ public class Parser {
                 return new DeleteCommand(input[1]);
             } else if (command.equals("check")) {
                 return new CheckCommand(input[1]);
+            } else if (command.equals("find")) {
+                return new FindCommand(input[1]);
             } else {
                 throw new DukeInvalidCommand(fullCommand);
             }

@@ -19,7 +19,7 @@ public class TaskList {
 
     public String add(Task newTask) {
         list.add(newTask);
-        return "Got it. I've added this duke.task:" + System.lineSeparator() + newTask.taskInfo() + listStatus();
+        return "Got it. I've added this task:" + System.lineSeparator() + newTask.taskInfo() + listStatus();
     }
 
     public String list() {
@@ -84,5 +84,14 @@ public class TaskList {
             output += System.lineSeparator();
         }
         return output;
+    }
+
+    public String find(String match) {
+        String output = "Here are the matching tasks in your list:" + System.lineSeparator();
+        for (Task item : list) {
+            output += item.printMatch(match);
+        }
+        return output;
+
     }
 }

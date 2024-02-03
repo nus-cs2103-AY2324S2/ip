@@ -23,6 +23,14 @@ public class Task {
         return "";
     }
 
+    public String printMatch(String match) {
+        return "";
+    }
+
+    public boolean contains(String match) {
+        return name.contains(match);
+    }
+
     public String taskInfo() {
         String output = "";
         if (isDone) {
