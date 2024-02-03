@@ -1,4 +1,6 @@
-public class Event extends Item {
+import java.io.Serializable;
+
+public class Event implements Item, Serializable {
     private boolean isDone = false;
     private String name = "";
     private String start = "";
@@ -35,6 +37,37 @@ public class Event extends Item {
     }
 
     @Override
+    public String doneMessage() {
+        return "Nice! I've marked this task as done:\n     " +
+                this.toString();
+    }
+
+    @Override
+    public String undoneMessage() {
+        return "OK, I've marked this task as not done yet:\n     " +
+                this.toString();
+    }
+
+    @Override
+    public String printChecked(boolean b) {
+        return b ? "X" : " ";
+    }
+
+    @Override
+    public String addMessage(int num) {
+        return "Got it. I've added this task:\n" +
+                "       " + this.toString() +
+                "\n     Now you have " + num +  " tasks in the list.";
+    }
+
+    @Override
+    public String removeMessage(int num) {
+        return "Noted. I've removed this task:\n" +
+                "       " + this.toString() +
+                "\n     Now you have " + num +  " tasks in the list.";
+    }
+
+    @Override
     public void markDone() {
         this.isDone = true;
     }
@@ -43,6 +76,7 @@ public class Event extends Item {
     public void markUndone() {
         this.isDone = false;
     }
+
     @Override
     public String toString() {
         return "[E]["
