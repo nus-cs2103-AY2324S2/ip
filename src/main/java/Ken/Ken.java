@@ -1,12 +1,14 @@
-
-import java.util.Scanner;
+package Ken;
+import Ken.parser.Parser;
+import Ken.storage.Storage;
+import Ken.ui.Ui;
 
 public class Ken {
     private static final String FILE_PATH = "./data/ken.txt";
 
-    private Storage storage;
+    private final Storage storage;
+    private final Ui ui;
     private TaskList tasks;
-    private Ui ui;
 
     public Ken(String filePath) {
         ui = new Ui();

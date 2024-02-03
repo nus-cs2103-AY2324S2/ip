@@ -1,9 +1,14 @@
+package Ken;
+import Ken.task.Deadline;
+import Ken.task.Event;
+import Ken.task.Task;
+import Ken.task.Todo;
 import java.util.ArrayList;
 import java.util.List;
 public class TaskList {
 
     private static final int MAX_TASKS = 100;
-    private List<Task> tasks;
+    private final List<Task> tasks;
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
