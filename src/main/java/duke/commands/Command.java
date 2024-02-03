@@ -24,8 +24,8 @@ public abstract class Command {
     public Command() {}
 
     /**
-     * Indicates whether executing this command should result in exiting the
-     * Duke application. By default, commands do not trigger an exit.
+     * Indicates whether executing this command should result in exiting the Duke application.
+     * By default, commands do not trigger an exit.
      *
      * @return true if executing this command should exit the application, false otherwise.
      */
