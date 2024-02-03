@@ -1,10 +1,15 @@
 package duke.task;
 
+/**
+ * Subclass of task that represents ToDo tasks.
+ */
 public class ToDo extends Task {
-    public ToDo(String name) {
-        super(name);
-    }
-
+    /**
+     * Constructs a ToDo object.
+     *
+     * @param description Description of task.
+     * @param isDone Boolean value describing completion status
+     */
     public ToDo(String description, boolean isDone) {
         super(description, isDone);
     }

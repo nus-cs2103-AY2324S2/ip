@@ -14,15 +14,22 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.time.format.DateTimeParseException;
 
-/** Helper class to manage all storage related methods of duke. */
+/**
+ * Helper class to manage all storage related methods of duke.
+ * This class creates a new directory in current working directory.
+ * It will add a file which stores information on the current tasks.
+ */
 public class Storage {
     private File file;
+
+    /** The filepath to the data file stored as a string */
     private String filePath;
 
     /**
-     * Constructs a duke.Storage object with the data file
+     * Constructs a Storage object with initialization of directory/file if needed.
+     * Verifies if data file exists, and if not, will create new file/directory.
      *
-     * Verifies if this file exists, and will create a new file/directory if needed
+     * @param filePath String specifying desired filepath of data file.
      */
     public Storage(String filePath) {
         this.file = new File(filePath);
@@ -50,10 +57,10 @@ public class Storage {
     }
 
     /**
-     * Saves contents of taskList to memory
+     * Saves contents of taskList to memory.
+     * Tasks objects are stored as a string, obtained from calling task.getTokens().
      *
-     * @param taskList duke.command.task.TaskList instance to save
-     * @see TaskList
+     * @param taskList TaskList instance to save.
      */
     public void save(TaskList taskList) {
         try {
@@ -68,11 +75,10 @@ public class Storage {
     }
 
     /**
-     * Loads taskList from datafile and returns a duke.command.task.TaskList object
+     * Loads taskList from datafile and returns as a TaskList object.
      *
-     * @return duke.command.task.TaskList object
-     * @throws StorageException
-     * @see TaskList
+     * @return TaskList object.
+     * @throws StorageException If file not found.
      */
     public TaskList load() throws StorageException{
         TaskList taskList = new TaskList();
@@ -90,6 +96,14 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Parses string input and returns the Task which string represents.
+     * This method rebuilds task objects from a string value.
+     *
+     * @param tokens String containing tokens of the task.
+     * @return Task object.
+     * @throws StorageException If data is corrupted and unable to be parsed.
+     */
     private Task parseLineFromStorage(String tokens) throws StorageException {
         try {
             String[] data = tokens.split(",");
@@ -100,13 +114,11 @@ public class Storage {
                 return Task.createTask(TaskType.EVENT, data[1], Boolean.parseBoolean(data[2]),
                         LocalDate.parse(data[3], Task.getDateFormat()),
                         LocalDate.parse(data[4], Task.getDateFormat()));
-//                    return new Event(data[1], Boolean.parseBoolean(data[2]),
-//                            LocalDate.parse(data[3], Task.getDateFormat()),
-//                            LocalDate.parse(data[4], Task.getDateFormat()));
+
             case "DEADLINE":
                 return Task.createTask(TaskType.DEADLINE, data[1], Boolean.parseBoolean(data[2]),
                         LocalDate.parse(data[3], Task.getDateFormat()));
-//                    return new Deadline(data[1], Boolean.parseBoolean(data[2]), LocalDate.parse(data[3], Task.getDateFormat()));
+
             default:
                 throw new StorageException("Data file is corrupted, task type does not exist");
             }

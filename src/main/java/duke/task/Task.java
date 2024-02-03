@@ -9,32 +9,19 @@ import java.time.format.DateTimeFormatter;
  */
 public abstract class Task {
 
-    /**
-     * Description of duke.command.task as a string.
-     */
+    /** Description of duke.command.task as a string */
     private String description;
 
-    /** Boolean Flag of whether the duke.command.task is done.*/
+    /** Boolean Flag of whether the duke.command.task is done */
     private boolean isDone;
 
     /** Format style for dates of Tasks. */
-
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     /**
-     * Constructs duke.command.task with specified description.
+     * Constructs a task.
      *
-     * @param description Description of task
-     */
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
-
-    /**
-     * Constructs a task with isDone flag set explicitly.
-     *
-     * @param description Brief description of duke.command.task.
+     * @param description Brief description of task.
      * @param isDone      String representing boolean value.
      */
     public Task(String description, boolean isDone) {
@@ -50,7 +37,7 @@ public abstract class Task {
      * @param type            The type of task to create (ToDo, Event, Deadline).
      * @param description     A brief description of the task.
      * @param isDone          The completion status of the task.
-     * @param dates           Number of dates params are specific to the task type
+     * @param dates           Number of dates params are specific to the task type.
      *                        For EVENTS: pass two LocalDate objects representing start and end dates.
      *                        For DEADLINES: pass one LocalDate object
      *                        For TODOs, no additional data is needed.
@@ -70,42 +57,12 @@ public abstract class Task {
         }
     }
 
-        /**
-         * Creates instances of Task subclasses.
-         * This overloaded factory method is used to create Tasks with false for the value of isDone
-         *
-         * @param type            The type of task to create (ToDo, Event, Deadline).
-         * @param description     A brief description of the task.
-         * @param dates           Number of dates params are specific to the task type
-         *                        For EVENTS: pass two LocalDate objects representing start and end dates.
-         *                        For DEADLINES: pass one LocalDate object
-         *                        For TODOs, no additional data is needed.
-         * @return An instance of the specified Task subclass.
-         * @throws IllegalArgumentException If the provided task type is unsupported.
-         */
-        public static Task createTask(TaskType type, String description, LocalDate... dates) {
-            switch (type) {
-                case TODO:
-                    return new ToDo(description);
-                case EVENT:
-                    return new Event(description, dates[0], dates[1]);
-                case DEADLINE:
-                    return new Deadline(description, dates[0]);
-                default:
-                    throw new IllegalArgumentException("Unsupported task type: " + type);
-            }
-        }
-
-    /**
-     * Sets this duke.command.task as done
-     */
+    /** Sets this task as done */
     public void setDone() {
         this.isDone = true;
     }
 
-    /**
-     * Sets this duke.command.task as not done
-     */
+    /** Sets this task as not done */
     public void setNotDone() {
         this.isDone = false;
 
@@ -127,10 +84,10 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string containing information of duke.command.task in a clean machine-readable format
+     * Returns a string containing information of this task in a clean machine-readable format.
      * "{description},{isDone}"
      *
-     * @return string with tokens separated by space
+     * @return String with tokens separated by commas.
      */
     public String getTokens() {
         return String.join(",", this.description, String.valueOf(this.isDone));

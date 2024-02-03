@@ -10,16 +10,20 @@ import duke.task.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-//converts the input string from user to a duke.command.Command object
+
+/**
+ * Parser class responsible for translating user inputs to command objects.
+ * The command objects are then passed on and executed.
+ */
 public class Parser {
+
     /**
-     * Parses user input and converts it to a duke. Command object.
-     * The duke.Command object can then be executed to perform the duke.command.
+     * Parses user input and converts it to a Command object.
+     * The Command object can then be executed to perform the command.
      *
-     * @param input user input as a string
-     * @return a duke.command.Command object
-     * @throws DukeException specific exception class will depend on error encountered
-     * @see Command
+     * @param input User input as a string.
+     * @return Command object.
+     * @throws DukeException Specific exception class will depend on error encountered.
      */
     public static Command parse(String input) throws DukeException {
         String clean = input.trim().toLowerCase();
