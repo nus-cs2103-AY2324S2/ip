@@ -1,13 +1,6 @@
 package Duke;
 
 import Duke.Commands.Command;
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Event;
-import Duke.Tasks.Task;
-import Duke.Tasks.Todo;
-
-import java.time.DateTimeException;
-import java.util.Scanner;
 
 public class Duke {
     TaskList taskList;
