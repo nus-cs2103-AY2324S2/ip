@@ -1,16 +1,23 @@
 package duke;
 
 import duke.exception.DukeException;
-
 import duke.action.*;
 
 import java.io.IOException;
 
+/**
+ * Duke is a task management application that allows users to manage their tasks.
+ */
 public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Constructs a Duke object with the specified file path.
+     *
+     * @param filePath The file path for storing tasks.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,6 +30,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke application, prompting the user for commands and executing them until the exit command is given.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -38,10 +48,16 @@ public class Duke {
         }
     }
 
+    /**
+     * The entry point for the Duke application.
+     *
+     * @param args Command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         new Duke("./data/tasks.txt").run();
     }
 }
+
 
 
 

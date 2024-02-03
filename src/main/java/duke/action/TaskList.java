@@ -5,16 +5,38 @@ import duke.task.Task;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Represents a list of tasks in the Duke application.
+ */
 public class TaskList implements Iterable<Task> {
+
+    /**
+     * The list containing tasks.
+     */
     private final ArrayList<Task> mylist;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.mylist = new ArrayList<>();
     }
+
+    /**
+     * Gets the number of tasks in the list.
+     *
+     * @return The number of tasks in the list.
+     */
     public int size() {
         return mylist.size();
     }
 
+    /**
+     * Gets the task at the specified index.
+     *
+     * @param index The index of the task.
+     * @return The task at the specified index or null if the index is invalid.
+     */
     public Task get(int index) {
         if (index >= 0 && index < mylist.size()) {
             return mylist.get(index);
@@ -22,15 +44,27 @@ public class TaskList implements Iterable<Task> {
         return null;
     }
 
+    /**
+     * Deletes the task at the specified index.
+     *
+     * @param index The index of the task to be deleted.
+     * @return The deleted task or null if the index is invalid.
+     */
     public Task deleteTask(int index) {
         if (index >= 0 && index < mylist.size()) {
-            System.out.println("Noted. I've removed this task:\n" + mylist.get(index).toString() + "\nNow you have " + (mylist.size()-1) + " tasks in the list.");
+            System.out.println("Noted. I've removed this task:\n" + mylist.get(index).toString() +
+                    "\nNow you have " + (mylist.size() - 1) + " tasks in the list.");
             return mylist.remove(index);
         } else {
             return null;
         }
     }
 
+    /**
+     * Adds a task to the list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         mylist.add(task);
         System.out.println("Got it. I've added this task:");
@@ -38,6 +72,11 @@ public class TaskList implements Iterable<Task> {
         System.out.println("Now you have " + size() + " tasks in the list.");
     }
 
+    /**
+     * Marks the task at the specified index as done.
+     *
+     * @param index The index of the task to be marked.
+     */
     public void markTask(int index) {
         if (validateIndex(index)) {
             Task taskToMark = mylist.get(index);
@@ -47,6 +86,11 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
+    /**
+     * Marks the task at the specified index as not done.
+     *
+     * @param index The index of the task to be unmarked.
+     */
     public void unmarkTask(int index) {
         if (validateIndex(index)) {
             Task taskToUnmark = mylist.get(index);
@@ -56,6 +100,9 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
+    /**
+     * Displays all tasks in the list.
+     */
     public void displayTasks() {
         System.out.print("");
         System.out.println("Here are the tasks in your list:");
@@ -64,7 +111,12 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
-
+    /**
+     * Validates the given index.
+     *
+     * @param index The index to be validated.
+     * @return True if the index is valid, false otherwise.
+     */
     private boolean validateIndex(int index) {
         if (index >= 0 && index < mylist.size()) {
             return true;
@@ -74,14 +126,21 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
+    /**
+     * Prints a goodbye message.
+     */
     public void goodBye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Prints a welcome message.
+     */
     public void hello() {
         System.out.println(" Hello I'm NoisyChatter");
         System.out.println(" What can I do for you?");
     }
+
 
     public void matches(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
@@ -101,9 +160,16 @@ public class TaskList implements Iterable<Task> {
         }
     }
 
+
+    /**
+     * Provides an iterator over the tasks in the list.
+     *
+     * @return An iterator over the tasks.
+     */
     @Override
     public Iterator<Task> iterator() {
         return mylist.iterator();
     }
 }
+
 

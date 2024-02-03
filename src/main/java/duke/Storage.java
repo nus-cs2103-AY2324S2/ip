@@ -10,21 +10,30 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
-
 import java.time.LocalDate;
-
 import java.util.Scanner;
 
+/**
+ * Handles the reading and writing of tasks to and from a file.
+ */
 class Storage {
     File taskFile;
-    //private static final DateTimeFormatter CUSTOM_DATE_FORMATTER = DateTimeFormatter.ofPattern(
-    //"d/M/yyyy");
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The file path for storing tasks.
+     */
     public Storage(String filePath) {
         this.taskFile = new File(filePath);
     }
 
-    // from txt to tasklist
+    /**
+     * Loads tasks from the file into a TaskList.
+     *
+     * @return A TaskList containing tasks loaded from the file.
+     * @throws FileNotFoundException If the file is not found.
+     */
     public TaskList loadFromFile() throws FileNotFoundException {
         TaskList tasks = new TaskList();
 
@@ -51,7 +60,6 @@ class Storage {
                     }
                     tasks.addTask(deadlineTask);
                     break;
-
                 case "E":
                     Event eventTask = new Event(description, LocalDate.parse(token[3]),
                             LocalDate.parse(token[4]));
@@ -69,8 +77,12 @@ class Storage {
         return tasks;
     }
 
-    // from tasklist to txt
-
+    /**
+     * Writes tasks from a TaskList to the file.
+     *
+     * @param tasks The TaskList containing tasks to be written to the file.
+     * @throws IOException If an I/O error occurs.
+     */
     public void writeToFile(TaskList tasks) throws IOException {
         try (FileWriter fw = new FileWriter(this.taskFile)) {
             for (Task t : tasks) {
@@ -83,16 +95,13 @@ class Storage {
                 case "T":
                     taskLine = String.format("%s|%s|%s\n", icon, status, description);
                     break;
-
                 case "D":
                     taskLine = String.format("%s|%s|%s|%s\n", icon, status, description, ((Deadline) t).getBy());
                     break;
-
                 case "E":
                     taskLine = String.format("%s|%s|%s|%s|%s\n", icon, status, description,
                             ((Event) t).getFrom(), ((Event) t).getTo());
                     break;
-
                 default:
                     throw new IllegalArgumentException("Invalid task type: " + icon);
                 }
@@ -100,7 +109,7 @@ class Storage {
                 fw.write(taskLine);
             }
 
-            fw.flush();  // Flush the buffer to ensure data is written immediately
+            fw.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
