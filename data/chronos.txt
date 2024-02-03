@@ -1,5 +1,6 @@
         ------------------------------------------------------------
-        1. [T][ ] 1
-        2. [T][ ] a
-        3. [E][X] project meeting (from: 2 Feb 2pm to: 2 Feb 4pm)
+        1. [T][X] 1
+        2. [T][ ] 2
+        3. [D][ ] return library book (by: 6th March)
+        4. [E][ ] project meeting (from: 2 Feb 2pm to: 2 Feb 4pm)
         ------------------------------------------------------------

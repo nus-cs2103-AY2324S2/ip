@@ -11,6 +11,9 @@ import task.Todo;
 import task.Deadline;
 import task.Event;
 
+/**
+ * Represents the main class of the Chronos Task Management System.
+ */
 public class Chronos {
     private static final String DIVIDER = "        ------------------------------------------------------------";
     private static final String POSSIBLE_COMMANDS = "        TODO     --- todo [task name]\n" +
@@ -21,6 +24,9 @@ public class Chronos {
     private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static int noOfTasks = 0;
 
+    /**
+     * Prints greetings to user.
+     */
     public static void greetUser() {
         System.out.println(DIVIDER);
         System.out.println("        Hello! I'm Chronos.");
@@ -28,12 +34,18 @@ public class Chronos {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * Prints goodbye to user.
+     */
     public static void bidGoodbye() {
         System.out.println(DIVIDER);
         System.out.println("        Bye. Hope to see you again soon!");
         System.out.println(DIVIDER);
     }
 
+    /**
+     * Prints task list.
+     */
     public static void printTasks() {
         System.out.println(DIVIDER);
         System.out.println("        Here are the tasks in your list:");
@@ -44,6 +56,9 @@ public class Chronos {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * Prints help list.
+     */
     public static void printHelp() {
         System.out.println(DIVIDER);
         System.out.println("        There are no outstanding tasks in your list.\n");
@@ -51,6 +66,11 @@ public class Chronos {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * Saves task list to text file upon each change.
+     *
+     * @param fw filewriter object.
+     */
     public static void saveTasks(FileWriter fw) throws IOException {
         fw = new FileWriter(filePath);
         fw.write(DIVIDER + "\n");
@@ -62,8 +82,13 @@ public class Chronos {
         fw.close();
     }
 
-    public static void addToDo(String[] token) {
-        Todo todo = new Todo(token[1]);
+    /**
+     * Adds amd prints a todo task.
+     *
+     * @param description description of the todo task.
+     */
+    public static void addToDo(String description) {
+        Todo todo = new Todo(description);
         tasks.add(todo);
         noOfTasks++;
 
@@ -74,8 +99,14 @@ public class Chronos {
         System.out.println(DIVIDER);
     }
 
-    public static void addDeadline(String[] descriptionAndBy, String[] dueDate) {
-        Deadline deadline = new Deadline(descriptionAndBy[0].trim(), dueDate[1]);
+    /**
+     * Adds and prints a task with a deadline.
+     *
+     * @param description description of the task with deadline.
+     * @param dueDate deadline of the task.
+     */
+    public static void addDeadline(String description, String dueDate) {
+        Deadline deadline = new Deadline(description, dueDate);
         tasks.add(deadline);
         noOfTasks++;
 
@@ -86,8 +117,15 @@ public class Chronos {
         System.out.println(DIVIDER);
     }
 
-    public static void addEvent(String task, String from, String to) {
-        Event event = new Event(task.trim(), from.trim(), to.trim());
+    /**
+     * Adds and prints an event.
+     *
+     * @param description description of the event.
+     * @param from start date and time of the event.
+     * @param to end date and time of the event.
+     */
+    public static void addEvent(String description, String from, String to) {
+        Event event = new Event(description, from, to);
         tasks.add(event);
         noOfTasks++;
 
@@ -98,6 +136,11 @@ public class Chronos {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * Marks a task as completed.
+     *
+     * @param selectedTaskNumberToBeMarked task number to be marked as completed.
+     */
     public static void markTask(int selectedTaskNumberToBeMarked) {
         Task selectedTaskToBeMarked = tasks.get(selectedTaskNumberToBeMarked - 1);
         selectedTaskToBeMarked.setMarked();
@@ -108,8 +151,13 @@ public class Chronos {
         System.out.println(DIVIDER);
     }
 
-    public static void deleteTask(int i) {
-        Task deletedTask = tasks.get(i - 1);
+    /**
+     * Deletes a task from task list.
+     *
+     * @param selectedTaskNumberToBeDeleted task number to be deleted.
+     */
+    public static void deleteTask(int selectedTaskNumberToBeDeleted) {
+        Task deletedTask = tasks.get(selectedTaskNumberToBeDeleted - 1);
         noOfTasks--;
 
         System.out.println(DIVIDER);
@@ -117,9 +165,14 @@ public class Chronos {
         System.out.println("          " + deletedTask);
         System.out.println("        Now you have " + noOfTasks + " tasks in the list.");
         System.out.println(DIVIDER);
-        tasks.remove(i - 1);
+        tasks.remove(selectedTaskNumberToBeDeleted - 1);
     }
 
+    /**
+     * Initialises text file to store task list and processes user commands.
+     *
+     * @throws @IOException If directory or file is not found.
+     */
     public static void main(String[] args) throws IOException {
         String dirName = "data";
         Path dirPath = Paths.get(dirName);
@@ -209,16 +262,18 @@ public class Chronos {
                             System.out.println("        Missing description. Please include a description of your todo.");
                             System.out.println(DIVIDER);
                         } else {
-                            Chronos.addToDo(token);
+                            String description = token[1];
+                            Chronos.addToDo(description);
                             Chronos.saveTasks(fw);
                         }
                         break;
                     case "deadline":
                         try {
                             String[] descriptionAndBy = token[1].split("/");
-                            String[] dueDate = descriptionAndBy[1].split(" ", 2);
+                            String dueDate = descriptionAndBy[1].split(" ", 2)[1];
+                            String description = descriptionAndBy[0].trim();
 
-                            Chronos.addDeadline(descriptionAndBy, dueDate);
+                            Chronos.addDeadline(description, dueDate);
                             Chronos.saveTasks(fw);
                         } catch (Exception e) {
                             System.out.println(DIVIDER);
@@ -229,11 +284,11 @@ public class Chronos {
                     case "event":
                         try {
                             String[] descriptionAndFromAndTo = token[1].split("/");
-                            String task = descriptionAndFromAndTo[0];
-                            String from = descriptionAndFromAndTo[1].split(" ", 2)[1];
-                            String to = descriptionAndFromAndTo[2].split(" ", 2)[1];
+                            String description = descriptionAndFromAndTo[0].trim();
+                            String from = descriptionAndFromAndTo[1].split(" ", 2)[1].trim();
+                            String to = descriptionAndFromAndTo[2].split(" ", 2)[1].trim();
 
-                            Chronos.addEvent(task, from, to);
+                            Chronos.addEvent(description, from, to);
                             Chronos.saveTasks(fw);
                         } catch (Exception e) {
                             System.out.println(DIVIDER);
