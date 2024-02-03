@@ -15,6 +15,9 @@ public class Duke {
     static final String NAME = "jun jie";
     static final String INTRO_MSG = "hi bro, im " + NAME + "\nwhat you want me to do?";
 
+    /**
+     * Constructs a Duke chatbot.
+     */
     public Duke() {
         Scanner scanner = new Scanner(System.in);
 
@@ -32,6 +35,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Entry point of the application.
+     *
+     * @param args Unused.
+     */
     public static void main(String[] args) {
         new Duke();
     }

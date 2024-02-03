@@ -4,13 +4,24 @@ import duke.tasks.Task;
 import duke.TaskList;
 import duke.Ui;
 
+/**
+ * A command to mark a task as done.
+ */
 public class MarkCommand extends Command {
+    /**
+     * The command word to mark a task as done.
+     */
     public static final String COMMAND_WORD = "mark";
-    public static final String MESSAGE = "good job bro, marked this task as done:\n%s";
-    public static final String ERROR_MESSAGE = "oi the argument must be a number la";
+    private static final String MESSAGE = "good job bro, marked this task as done:\n%s";
+    private static final String ERROR_MESSAGE = "oi the argument must be a number la";
 
     private final String index;
 
+    /**
+     * Constructs a command to mark the task at the given index.
+     *
+     * @param index The index of the task to mark.
+     */
     public MarkCommand(String index) {
         this.index = index;
     }

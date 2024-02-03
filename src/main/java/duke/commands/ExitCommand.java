@@ -7,8 +7,11 @@ import duke.Ui;
  * Represents a command to exit the program.
  */
 public class ExitCommand extends Command {
+    /**
+     * The command word to exit the program.
+     */
     public static final String COMMAND_WORD = "bye";
-    public static final String MESSAGE = "ok see you bro";
+    private static final String MESSAGE = "ok see you bro";
 
     @Override
     public void execute(TaskList tasks, Ui ui) {

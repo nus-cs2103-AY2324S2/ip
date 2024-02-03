@@ -1,5 +1,9 @@
 package duke;
 
+/**
+ * The Ui class handles the user interface of the application.
+ * It is responsible for printing messages to the user.
+ */
 public class Ui {
 
     /**

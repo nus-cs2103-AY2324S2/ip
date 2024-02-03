@@ -4,8 +4,16 @@ import duke.commands.*;
 
 import java.util.HashMap;
 
+/**
+ * Parser class is responsible for parsing user input and returning a Command object.
+ */
 public class Parser {
 
+    /**
+     * Splits user input into a HashMap.
+     * @param input user input
+     * @return HashMap containing the command and its content
+     */
     public static HashMap<String, String> splitInput(String input) {
         HashMap<String, String> res = new HashMap<>();
 

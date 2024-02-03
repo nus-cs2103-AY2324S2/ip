@@ -9,6 +9,9 @@ import duke.tasks.TodoTask;
 import java.time.DateTimeException;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList extends ArrayList<Task> {
 
     /**
