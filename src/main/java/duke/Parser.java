@@ -6,11 +6,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
 
-
+/**
+ * Parser class coordinates the ui, tasklist and storage to interpret user input
+ * @author Cedric
+ */
 public class Parser {
     private TaskList taskList = new TaskList();
     private Ui screen = new Ui();
     private Storage storage = new Storage();
+    /**
+     * Constructor for parser checks for the storage file/folder existence then moves information to tasklist
+     */
     public Parser() {
         storage.check();
         String currentLine;
@@ -115,9 +121,12 @@ public class Parser {
     private Pattern pUnmarked = Pattern.compile(unmarked);
     private Pattern pMarked = Pattern.compile(marked);
     private boolean ended = false;
-    public boolean isEnded() {
+    public boolean getIsEnded() {
         return ended;
     }
+    /**
+     * Receives input from Ui then interprets it before calling functions from tasklist, ui and storage
+     */
     public void interpret() {
         String input = screen.receive();
         Matcher mMark = pMark.matcher(input);
@@ -138,11 +147,11 @@ public class Parser {
             screen.display("Bye. Hope to see you again soon!");
             ended = true;
         } else if (input.equals("list")) {
-            if (taskList.length() == 0) {
+            if (taskList.getLength() == 0) {
                 screen.display("You have no tasks in your list!");
             } else {
                 screen.display("Here are your tasks in your list:");
-                for (int x = 0; x < taskList.length(); x++) {
+                for (int x = 0; x < taskList.getLength(); x++) {
                     Task item = taskList.get(x);
                     int numeric = x + 1;
                     System.out.println(numeric + "." + item.toString());
@@ -172,7 +181,7 @@ public class Parser {
         } else if (mDelete.find()) {
             String captured = mDelete.group(1);
             int number = Integer.parseInt(captured);
-            if (number > 0 && number <= taskList.length()) {
+            if (number > 0 && number <= taskList.getLength()) {
                 Task t = taskList.delete(number-1);
                 screen.display("OK! I have deleted this task:");
                 screen.display(t);
@@ -185,7 +194,7 @@ public class Parser {
             String captured = mUnmark.group(1);
             int number = Integer.parseInt(captured);
             Task t;
-            if (number > 0 && number <= taskList.length()) {
+            if (number > 0 && number <= taskList.getLength()) {
                 t = taskList.get(number - 1);
                 t.unmark();
                 screen.display("Oh no! I have marked this as not done:");
@@ -198,7 +207,7 @@ public class Parser {
             String captured = mMark.group(1);
             int number = Integer.parseInt(captured);
             Task t;
-            if (number > 0 && number <= taskList.length()) {
+            if (number > 0 && number <= taskList.getLength()) {
                 t = taskList.get(number -1);
                 t.mark();
                 screen.display("Nice! I have marked this as done:");
@@ -216,7 +225,7 @@ public class Parser {
                 taskList.add(n);
                 screen.display("OK, I have added this task :");
                 screen.display(n);
-                screen.display("You now have " + taskList.length() + " items in the list.");
+                screen.display("You now have " + taskList.getLength() + " items in the list.");
                 storage.add(n.export());
             }
         } else if (mEvent.find()) {
@@ -246,7 +255,7 @@ public class Parser {
                     taskList.add(n);
                     screen.display("OK, I have added this task :");
                     screen.display(n);
-                    screen.display("You now have " + taskList.length() + " items in the list.");
+                    screen.display("You now have " + taskList.getLength() + " items in the list.");
                     storage.add(n.export());
                 }
             } else {
@@ -273,7 +282,7 @@ public class Parser {
                     taskList.add(n);
                     screen.display("OK, I have added this task :");
                     screen.display(n);
-                    screen.display("You now have " + taskList.length() + " items in the list.");
+                    screen.display("You now have " + taskList.getLength() + " items in the list.");
                     storage.add(n.export());
                 }
             } else {

@@ -9,9 +9,16 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
 
+/**
+ * Stores the list for future calls of the duke function to retain the list of tasks
+ * @author Cedric
+ */
 public class Storage {
     private File folder = new File("data");
     private File file = new File(folder, "data.txt");
+    /**
+     * Checks that the file and folder exists, else creates them
+     */
     public void check() {
         if (!folder.exists()) {
             folder.mkdir();
@@ -21,6 +28,9 @@ public class Storage {
             file = new File(folder, "data.txt");
         }
     }
+    /**
+     * Clears the txt file
+     */
     public void clear() {
         if (!folder.exists()) {
             folder.mkdir();
@@ -35,6 +45,10 @@ public class Storage {
         }
 
     }
+    /**
+     * Writes a line to the txt file then calls newline
+     * @param n the String to write
+     */
     public void add(String n) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
             writer.write(n);
@@ -43,6 +57,10 @@ public class Storage {
             System.err.println("Error writing to file: " + e.getMessage());
         }
     }
+    /**
+     * finds the line to delete and rewrites txt with all other lines
+     * @param number the line to delete
+     */
     public void delete(int number) {
         // Read the content of the file
         ArrayList<String> lines = new ArrayList<>();
@@ -60,6 +78,11 @@ public class Storage {
             add(Line);
         }
     }
+    /**
+     * Reads and returns the nth line in the storage
+     * @param n the line which to return
+     * @return returns the string found
+     */
     public String read(int n) {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String currentLine = null;
@@ -74,6 +97,11 @@ public class Storage {
             return null;
         }
     }
+    /**
+     * finds the input line, replaces it with String L, and rewrites the whole file
+     * @param number line to edit
+     * @param L String to change the line into
+     */
     public void edit(int number, String L) {
         // Read the content of the file
         ArrayList<String> lines = new ArrayList<>();
