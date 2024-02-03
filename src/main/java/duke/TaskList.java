@@ -26,11 +26,22 @@ public class TaskList {
     public Task get(int numberToGet) {
         if (numberToGet < length && numberToGet >= 0) {
             return taskList.get(numberToGet);
-
         }
         return null;
     }
     public int getLength() {
         return length;
+    }
+    public ArrayList<Task> find(String L) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (int i = 0; i < length; i++) {
+            Task t = taskList.get(i);
+            String action = t.toString();
+            String export = t.export();
+            if (action.contains(L) || export.contains(L)) {
+                tasks.add(t);
+            }
+        }
+        return tasks;
     }
 }
