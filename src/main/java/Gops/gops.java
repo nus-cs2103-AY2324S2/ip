@@ -1,6 +1,4 @@
-import java.io.IOException;
-import java.util.Scanner;
-import java.io.File;
+package Gops;
 
 public class gops {
     private Storage storage;

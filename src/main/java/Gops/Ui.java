@@ -1,3 +1,5 @@
+package Gops;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -17,7 +19,7 @@ public class Ui {
         if (!dataFolder.exists()) {
             dataFolder.mkdir();
         }
-        File txtFile = new File(dataFolder,"gops.txt");
+        File txtFile = new File(dataFolder,"Gops.gops.txt");
         if (!txtFile.exists()) {
             try {
                 txtFile.createNewFile();
@@ -28,7 +30,7 @@ public class Ui {
             taskList = Storage.readFromHardDisk(txtFile);
             taskCount = taskList.numberOfTasks();
         }
-        System.out.println("Hello! I'm gops");
+        System.out.println("Hello! I'm Gops");
         System.out.println("What can I do for you?");
         String userReply = inputTaker.nextLine();
         parser.parse(userReply, taskList, txtFile, inputTaker);

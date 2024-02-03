@@ -1,3 +1,5 @@
+package Gops;
+
 public class Event extends Todo {
     protected String todoDescription;
     protected boolean todoStatus = false;
