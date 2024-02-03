@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-<<<<<<< HEAD
 import duke.dukeexception.DukeNoSaveFile;
 import duke.dukeexception.DukeSaveError;
 import duke.task.Deadlines;
@@ -17,11 +16,9 @@ import duke.task.Task;
 import duke.task.ToDos;
 import duke.tasklist.TaskList;
 
-=======
 /**
  * Facilitates the loading and saving of TaskList data during start up and closing of NotDuke.
  */
->>>>>>> branch-A-JavaDoc
 public class Storage {
     /** The file to load and save to. */
     private final File filePath;
