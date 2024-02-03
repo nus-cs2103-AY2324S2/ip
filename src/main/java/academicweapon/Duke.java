@@ -68,6 +68,16 @@ public class Duke {
             Action action = Action.valueOf(actions.get(0));
 
             switch (action) {
+                case FIND:
+                    ArrayList<String> strLst = this.tasks.findKeyword(actions.get(1));
+                    if (strLst.isEmpty()) {
+                        System.out.println("No tasks containing this keyword");
+                    } else {
+                        for (String str: strLst) {
+                            System.out.println(str);
+                        }
+                    }
+                    break;
                 case LIST:
                     this.tasks.showList();
                     break;
@@ -116,6 +126,7 @@ public class Duke {
                     this.ui.showBye();
                     break;
                 default:
+                    System.out.println("Sorry. I dont understand your command");
             }
         }
     }

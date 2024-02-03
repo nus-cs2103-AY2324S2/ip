@@ -43,4 +43,6 @@ public class Event extends Task{
     public String fileToString() {
         return "E | " + super.fileToString() + "| " + this.from.trim() + "-" + this.to;
     }
+
+
 }

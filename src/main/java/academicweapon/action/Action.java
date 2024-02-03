@@ -5,5 +5,5 @@ package academicweapon.action;
  * Each action corresponds to a specific command or user input.
  */
 public enum Action {
-    LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, BYE, DELETE
+    LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, BYE, DELETE, FIND
 }

@@ -27,7 +27,6 @@ public class Parser {
         try {
             String str = inputParts[0].toUpperCase();
             action = Action.valueOf(str);
-            System.out.println(action);
             lst.add(str);
         } catch (IllegalArgumentException e) {
             throw new DukeExceptions("Invalid AcademicWeapon.Action. Please enter a valid command.");
@@ -46,6 +45,10 @@ public class Parser {
         }
 
         switch (action) {
+            case FIND:
+                String keyword = inputParts[1];
+                lst.add(keyword);
+                break;
             case LIST:
                 break;
             case BYE:

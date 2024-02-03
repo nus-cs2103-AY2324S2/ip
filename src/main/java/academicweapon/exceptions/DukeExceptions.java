@@ -1,5 +1,6 @@
 package academicweapon.exceptions;
 
+import academicweapon.Duke;
 import academicweapon.task.Task;
 
 import java.util.ArrayList;
@@ -69,6 +70,10 @@ public class DukeExceptions extends Exception {
      */
     public static void validateInput(String action, String parameters) throws DukeExceptions{
         switch(action) {
+            case "FIND":
+                if (parameters.equals(" ")) {
+                    throw new DukeExceptions("Please enter the keyword");
+                }
             case "TODO":
                 if (parameters.equals(" ")) {
                     throw new DukeExceptions("OOPS!!! The description of a todo cannot be empty.");
