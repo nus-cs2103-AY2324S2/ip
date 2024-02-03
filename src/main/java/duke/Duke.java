@@ -11,12 +11,20 @@ public class Duke {
     private Parser parser = new Parser();
     private final Storage storage;
 
+    /**
+     * Constructs a simple Duke Object.
+     * @param filePath Stores the file path for loading and saving.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         this.storage = new Storage(filePath);
         this.taskList = new TaskList(storage.readFromFile());
     }
 
+    /**
+     * It runs the Duke Application.
+     * Displays Contents, handle the user inputs and commands until user exits.
+     */
     public void run() throws FileIOException {
         ioHandler.welcomeMessage();
         boolean exit = false;

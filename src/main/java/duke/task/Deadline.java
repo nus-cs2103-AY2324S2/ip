@@ -1,45 +1,39 @@
 package duke.task;
 
-//public class Deadline extends Task {
-//    String by;
-//
-//    public Deadline(String description, String by) {
-//        super(description);
-//        this.by = by;
-//    }
-//
-//    public String type() {
-//        return "D";
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "[D]" + (this.isDone ? "[X] " : "[ ] ") + this.description + " (by: " + this.by + ")";
-//    }
-//
-//    public String getBy() {
-//        return by;
-//    }
-//}
-
 
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+/**
+ * Consists of information related to Deadline.
+ */
 public class Deadline extends Task {
     private LocalDateTime by;
 
+    /**
+     * Constructs a Deadline Object.
+     * @param description Contains the type of deadline
+     * @param by Contains the date and time so as to when should the deadline be completed.
+     */
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
+    /**
+     * String representation of the deadline.
+     * @return formatted string with the deadline task.
+     */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         return "[D]" + (this.isDone ? "[X] " : "[ ] ") + this.description + " (by: " + this.by.format(formatter) + ")";
     }
 
+    /**
+     * Returns the formatted deadline date and time as a string.
+     * @return Date and Time in a particular format.
+     */
     public LocalDateTime getBy() {
         return by;
     }
