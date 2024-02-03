@@ -39,6 +39,34 @@ public class TaskList {
     }
 
     /**
+     * Searches for tasks containing the specified keyword.
+     *
+     * @param keyword The keyword to search for in tasks.
+     */
+    public void searchTask(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : taskArrayList) {
+            if (task.toString().toLowerCase().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.\n");
+        } else {
+            System.out.println("Matching tasks:");
+            int index = 0;
+            for (Task matchingTask : matchingTasks) {
+                index++;
+                System.out.println("    " + index + "." + matchingTask.listTaskString());
+            }
+            System.out.println();
+        }
+    }
+
+
+    /**
      * Prints the list of tasks to the console.
      * If the list is empty, prints a message indicating that there are no items in the list.
      */

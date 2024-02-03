@@ -1,6 +1,9 @@
 package ellie;
 
-import ellie.command.*;
+import ellie.command.ExitCommand;
+import ellie.command.InvalidCommand;
+import ellie.command.ListCommand;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

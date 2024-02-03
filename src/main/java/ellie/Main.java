@@ -16,6 +16,5 @@ public class Main {
         Ellie myEllie = new Ellie();
         myEllie.start();
 
-
     }
 }

@@ -18,6 +18,7 @@ public class Parser {
      * Enum representing different command types.
      */
     enum Type {
+        FIND,
         MARK,
         UNMARK,
         LIST,
@@ -44,6 +45,9 @@ public class Parser {
         String stringHeader = inputArray[0].toLowerCase();
 
         switch (stringHeader) {
+        case "find":
+            type = Type.FIND;
+            break;
         case "list":
             type = Type.LIST;
             break;
@@ -162,6 +166,8 @@ public class Parser {
                     return new AddCommand(task);
                 }
             }
+        } else if (type == Type.FIND) {
+            return new FindCommand(stringBody);
         }
 
         return new InvalidCommand("General Error! This line should not be reached.");
