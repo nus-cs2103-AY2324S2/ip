@@ -26,11 +26,6 @@ public class Haro {
     public void initialise() {
         haroUi.greet();
         boolean isExit = false;
-//        haroStorage = new Storage("data/saveList.txt", "data/");
-//        taskList = haroStorage.loadSave();
-//        Scanner inputScanner = new Scanner(System.in);
-//        String input = inputScanner.nextLine();
-//        Instruction instruction = Instruction.NONE;
         while(!isExit) {
             try{
                 String fullCommand = haroUi.readCommand();

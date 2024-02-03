@@ -35,10 +35,6 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public void discreteAddTask(Task task) {
-        tasks.add(task);
-    }
-
     public Task markTask(int index) throws InvalidArgsException {
         if (index >= tasks.size()) {
             throw new InvalidArgsException("Sorry that item does not exist in your list!\n");
