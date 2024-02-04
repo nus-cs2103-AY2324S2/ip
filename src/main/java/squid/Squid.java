@@ -4,13 +4,14 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-//import javafx.scene.image.ImageView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -33,6 +34,7 @@ import squid.tasks.Event;
 import squid.tasks.Task;
 import squid.tasks.Tasks;
 import squid.tasks.Todo;
+import squid.ui.DialogBox;
 
 /**
  * The main class of Squid.
@@ -59,23 +61,23 @@ public class Squid extends Application {
      * @throws NotEnoughInputsException If there are not enough parameters.
      * @throws IncorrectIndexException Should never happen.
      */
-    private static void list() throws NotEnoughInputsException, IncorrectIndexException {
-        echo(Messages.LIST);
-        Tasks.list();
+    private static String list() throws NotEnoughInputsException, IncorrectIndexException {
+        StringBuilder res = new StringBuilder();
+        res.append(echo(Messages.LIST));
+        res.append(Tasks.list());
+        return res.toString();
     }
 
     /**
      * Initializes Squid.
      */
-    private static void hello() {
+    private static String hello() {
         try {
             Tasks.read();
         } catch (ParseFailException | DuplicateTaskNameException | SquidDateException e) {
             echo(e.toString());
         }
-        System.out.println(Messages.LINE_BREAK);
-        echo(Messages.HELLO);
-        System.out.println(Messages.LINE_BREAK);
+        return Messages.LINE_BREAK + "\n" + Messages.HELLO + "\n" + Messages.LINE_BREAK;
     }
 
     /**
@@ -83,9 +85,9 @@ public class Squid extends Application {
      *
      * @throws NotEnoughInputsException Should never happen, unless constant MESSAGES.BYE is blank.
      */
-    private static void bye() throws NotEnoughInputsException {
-        echo(Messages.BYE);
+    private static String bye() throws NotEnoughInputsException {
         Tasks.save();
+        return Messages.BYE;
     }
 
     /**
@@ -95,10 +97,9 @@ public class Squid extends Application {
      * @param isFromUser Whether to further process message.
      * @throws NotEnoughInputsException If there are not enough parameters.
      */
-    private static void echo(String message, boolean isFromUser) throws NotEnoughInputsException {
+    private static String echo(String message, boolean isFromUser) throws NotEnoughInputsException {
         if (!isFromUser) {
-            echo(message);
-            return;
+            return echo(message);
         }
         String[] params = message.split(" ", 2);
         if (params.length <= 1) {
@@ -106,7 +107,7 @@ public class Squid extends Application {
                     String.format(
                             Exceptions.NOT_ENOUGH_INPUTS, "echo", CorrectUsage.ECHO));
         }
-        echo(params[1]);
+        return echo(params[1]);
     }
 
     /**
@@ -114,8 +115,8 @@ public class Squid extends Application {
      *
      * @param message The message to be printed.
      */
-    private static void echo(String message) {
-        System.out.println(Messages.ECHO + message);
+    private static String echo(String message) {
+        return Messages.ECHO + message;
     }
 
     /**
@@ -125,7 +126,7 @@ public class Squid extends Application {
      * @throws NotEnoughInputsException If there are not enough parameters.
      * @throws DuplicateTaskNameException If there is an existing task with the same name.
      */
-    private static void todo(String message) throws NotEnoughInputsException, DuplicateTaskNameException {
+    private static String todo(String message) throws NotEnoughInputsException, DuplicateTaskNameException {
         String[] params = message.split(" ", 2);
         if (params.length <= 1) {
             throw new NotEnoughInputsException(
@@ -136,7 +137,7 @@ public class Squid extends Application {
 
         Task t = new Todo(params[1]);
         Tasks.add(t);
-        echo(String.format(Messages.TODO, t));
+        return echo(String.format(Messages.TODO, t));
     }
 
     /**
@@ -147,7 +148,7 @@ public class Squid extends Application {
      * @throws DuplicateTaskNameException If there is an existing task with the same name.
      * @throws SquidDateException If the date given is unable to be parsed.
      */
-    private static void deadline(String message) throws
+    private static String deadline(String message) throws
             NotEnoughInputsException,
             DuplicateTaskNameException,
             SquidDateException {
@@ -173,7 +174,7 @@ public class Squid extends Application {
         DateTime dateTime = new DateTime(arguments[1]);
         Task t = new Deadline(task, dateTime);
         Tasks.add(t);
-        echo(String.format(Messages.DEADLINE, t));
+        return echo(String.format(Messages.DEADLINE, t));
     }
 
     /**
@@ -184,7 +185,7 @@ public class Squid extends Application {
      * @throws DuplicateTaskNameException If there is an existing task with the same name.
      * @throws SquidDateException If the date given is unable to be parsed.
      */
-    private static void event(String message) throws
+    private static String event(String message) throws
             NotEnoughInputsException,
             DuplicateTaskNameException,
             SquidDateException {
@@ -210,7 +211,7 @@ public class Squid extends Application {
         DateTime to = new DateTime(dates[1]);
         Task t = new Event(params[0], from, to);
         Tasks.add(t);
-        echo(String.format(Messages.EVENT, t));
+        return echo(String.format(Messages.EVENT, t));
     }
 
 
@@ -222,7 +223,7 @@ public class Squid extends Application {
      * @throws NotEnoughInputsException If there are not enough parameters.
      * @throws IncorrectIndexException If the index does not refer to a valid task.
      */
-    private static void mark(String input, boolean isCompleted) throws
+    private static String mark(String input, boolean isCompleted) throws
             NotEnoughInputsException,
             IncorrectIndexException {
         String[] params = input.split(" ", 2);
@@ -243,17 +244,17 @@ public class Squid extends Application {
         }
         if (found != null) {
             if (found.isCompleted() == isCompleted) {
-                echo(String.format(Messages.MARK_REPEAT, isCompleted ? "" : "un"));
+                return echo(String.format(Messages.MARK_REPEAT, isCompleted ? "" : "un"));
             } else {
                 found.setCompleted(isCompleted);
-                echo(String.format(isCompleted
+                return echo(String.format(isCompleted
                         ? Messages.MARK_COMPLETE
                         : Messages.MARK_INCOMPLETE, found));
             }
 
 
         } else {
-            echo(Messages.MARK_NOT_FOUND);
+            return echo(Messages.MARK_NOT_FOUND);
         }
     }
 
@@ -264,7 +265,7 @@ public class Squid extends Application {
      * @throws NotEnoughInputsException If there are not enough parameters.
      * @throws IncorrectIndexException If the index does not refer to a valid task.
      */
-    private static void delete(String input) throws NotEnoughInputsException, IncorrectIndexException {
+    private static String delete(String input) throws NotEnoughInputsException, IncorrectIndexException {
         String[] params = input.split(" ", 2);
         if (params.length == 1) {
             throw new NotEnoughInputsException(
@@ -273,21 +274,19 @@ public class Squid extends Application {
                             CorrectUsage.DELETE));
         }
         Task deleted = Tasks.delete(params[1]);
-        echo(String.format(Messages.DELETE, params[1], deleted));
-        Tasks.list();
+        return echo(String.format(Messages.DELETE, params[1], deleted)) + "\n" + Tasks.list();
     }
 
 
 
-    private static void find(String input) throws NotEnoughInputsException {
+    private static String find(String input) throws NotEnoughInputsException {
         String[] params = input.split(" ", 2);
         if (params.length == 1) {
             throw new NotEnoughInputsException(
                     String.format(Exceptions.NOT_ENOUGH_INPUTS, "find", CorrectUsage.FIND));
         }
         String keyword = params[1];
-        echo(Messages.FIND);
-        Tasks.find(keyword);
+        return echo(Messages.FIND) + "\n" + Tasks.find(keyword);
     }
 
     /**
@@ -350,14 +349,23 @@ public class Squid extends Application {
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         //Step 3. Add functionality to handle user input.
+
+        dialogContainer.getChildren().addAll(new DialogBox(new Label(hello()), new ImageView(duke)));
+
         sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
+            try {
+                handleUserInput();
+            } catch (InterruptedException e) {
+                e = e;
+            }
         });
 
         userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
+            try {
+                handleUserInput();
+            } catch (InterruptedException e) {
+                e = e;
+            }
         });
 
         //Scroll down to the end every time dialogContainer's height changes.
@@ -380,82 +388,98 @@ public class Squid extends Application {
     }
 
     /**
+     * Iteration 2:
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() throws InterruptedException {
+
+        String input = userInput.getText();
+        Response response = parseInput(true, input);
+        Label userText = new Label(input);
+        Label dukeText = new Label(response.getResponse());
+        dialogContainer.getChildren().addAll(
+                new DialogBox(userText, new ImageView(user)),
+                new DialogBox(dukeText, new ImageView(duke))
+        );
+        Tasks.save();
+        userInput.clear();
+    }
+
+    /**
      * Parse the user's input and assigns them to separate helper functions depending on command
      *
-     * @param loop Condition whether to terminate loop.
+     * @param isLoop Condition whether to terminate loop.
      * @param input The user's input.
      * @return Whether the loop should continue (Usually true unless "bye" command is given).
      * @throws SquidException General exception thrown by Squid.
      */
-    private static boolean parseInput(boolean loop, String input) throws SquidException {
+    private static Response parseInput(boolean isLoop, String input) {
         System.out.println(Messages.LINE_BREAK);
         String[] messages = input.split(" ", 2);
         String command = messages[0];
-        String params = "";
-        if (messages.length > 1) {
-            params = messages[1];
-        }
+        String res = "";
 
         try {
             switch (command) {
             case ("bye"):
-                loop = false;
-                bye();
+                isLoop = false;
+                res = bye();
                 break;
             case ("echo"):
-                echo(input, true);
+                res = echo(input, true);
                 break;
             case ("list"):
-                list();
+                res = list();
                 break;
             case ("mark"):
-                mark(input, true);
+                res = mark(input, true);
                 break;
             case ("unmark"):
-                mark(input, false);
+                res = mark(input, false);
                 break;
             case ("todo"):
-                todo(input);
+                res = todo(input);
                 break;
             case ("deadline"):
-                deadline(input);
+                res = deadline(input);
                 break;
             case ("event"):
-                event(input);
+                res = event(input);
                 break;
             case ("delete"):
-                delete(input);
+                res = delete(input);
                 break;
             case ("save"):
                 Tasks.save();
-                echo(Messages.SAVE);
+                res = echo(Messages.SAVE);
                 break;
             case ("find"):
-                find(input);
+                res = find(input);
                 break;
             default:
                 throw new IncorrectInputException(Exceptions.INCORRECT_INPUT);
             }
         } catch (SquidException e) {
-            echo(e.getMessage());
+            res = echo(e.getMessage());
         }
-        return loop;
+        res += "\n" + Messages.LINE_BREAK;
+        res = "\n" + Messages.LINE_BREAK + res;
+        return new Response(isLoop, res);
     }
 
-    public static void main(String[] args) throws SquidException {
+    public static void main(String[] args) {
         new Squid();
-        hello();
 
         Scanner scanner = new Scanner(System.in);
-        boolean loop = true;
+        boolean isLoop = true;
 
-        while (loop) {
+        while (isLoop) {
             String input = scanner.nextLine().strip();
-            loop = parseInput(loop, input);
-            System.out.println(Messages.LINE_BREAK);
+            Response response = parseInput(isLoop, input);
+            isLoop = response.getIsLoop();
             Tasks.save();
         }
-
     }
 
 
