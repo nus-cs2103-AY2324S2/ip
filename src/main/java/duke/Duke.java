@@ -1,6 +1,20 @@
 package duke;
 import Command.Command;
 import java.util.ArrayList;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.scene.layout.Region;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+
 /**
  * Main application class for Duke.
  * <p>
@@ -8,6 +22,7 @@ import java.util.ArrayList;
  * loading data from storage, and starting the main program loop.
  */
 public class Duke {
+
     private UI ui;
     private TaskList tasks;
 
@@ -36,15 +51,15 @@ public class Duke {
     public void run() throws DukeException {
         ui.showWelcomeMessage();
         boolean isExit = false;
-
+        String message = "";
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(tasks, fullCommand);
-                c.execute(tasks, ui);
+                message = c.execute(tasks, ui);
                 isExit = c.isExit();
             } catch (DukeException e) {
-                ui.showErrorMessage(e.getMessage());
+                message = ui.showErrorMessage(e.getMessage());
             }
         }
         TaskStorage.saveTasks(tasks.getAllTasks());
@@ -54,4 +69,16 @@ public class Duke {
     public static void main(String[] args) throws DukeException {
         new Duke().run();
     }
+
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(tasks, input);
+            TaskStorage.saveTasks(tasks.getAllTasks());
+            return c.execute(tasks, ui);
+        } catch (DukeException e) {
+            return ui.showErrorMessage(e.getMessage());
+        }
+    }
+
 }

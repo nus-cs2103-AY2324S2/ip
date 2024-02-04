@@ -11,13 +11,12 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public TaskList execute(TaskList tasks, UI ui) throws DukeException {
+    public String execute(TaskList tasks, UI ui) throws DukeException {
         if (tasks.size() >= MAX_TASKS) {
-            ui.showMaximumTasksReached();
+            return ui.showMaximumTasksReached();
         } else {
             tasks.addTask(taskToAdd);
-            ui.showTaskAdded(taskToAdd, tasks.size());
+            return ui.showTaskAdded(taskToAdd, tasks.size());
         }
-        return tasks;
     }
 }

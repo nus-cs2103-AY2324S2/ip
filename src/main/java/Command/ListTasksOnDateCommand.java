@@ -17,10 +17,9 @@ public class ListTasksOnDateCommand extends Command {
     }
 
     @Override
-    public TaskList execute(TaskList tasks, UI ui) throws DukeException {
+    public String execute(TaskList tasks, UI ui) throws DukeException {
         ArrayList<Task> filteredTasks = tasks.getTasksOnDate(dateString);
         LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("d/M/yyyy")); // Re-parse for display
-        ui.showTasksOnDate(filteredTasks, date);
-        return tasks;
+        return ui.showTasksOnDate(filteredTasks, date);
     }
 }

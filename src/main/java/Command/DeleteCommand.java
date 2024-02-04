@@ -13,12 +13,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public TaskList execute(TaskList tasks, UI ui) throws DukeException {
+    public String execute(TaskList tasks, UI ui) throws DukeException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new DukeException("Task number out of bounds.");
         }
         Task removedTask = tasks.removeTask(taskIndex);
-        ui.showTaskRemoved(removedTask, tasks.size());
-        return tasks;
+        return ui.showTaskRemoved(removedTask, tasks.size());
     }
 }

@@ -2,11 +2,12 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 public class UI {
-    private Scanner scanner;
+    // Keep the scanner if you still need it for any CLI functionality
+    private final Scanner scanner;
 
     public UI() {
         this.scanner = new Scanner(System.in);
@@ -15,70 +16,68 @@ public class UI {
     public String readCommand() {
         return scanner.nextLine();
     }
-    public void showWelcomeMessage() {
-        System.out.println("____________________________________________________________");
-        System.out.println("     Hello! I'm Cleo");
-        System.out.println("     What can I do for you?");
-        System.out.println("____________________________________________________________");
+
+    public String showWelcomeMessage() {
+        return "     Hello! I'm Cleo\n"
+                + "     What can I do for you?\n";
     }
 
-    public void showGoodbyeMessage() {
-        System.out.println("____________________________________________________________");
-        System.out.println("     Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+    public String showGoodbyeMessage() {
+        return "     Bye. Hope to see you again soon!\n";
     }
 
-    public void showErrorMessage(String errorMessage) {
-        System.out.println("____________________________________________________________");
-        System.out.println(errorMessage);
-        System.out.println("____________________________________________________________");
+    public String showErrorMessage(String errorMessage) {
+        return errorMessage + "\n";
     }
 
-    public void showTaskAdded(Task task, int taskCount) {
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + task);
-        System.out.println("     Now you have " + taskCount + " tasks in the list.");
+    public String showTaskAdded(Task task, int taskCount) {
+        return "     Got it. I've added this task:\n"
+                + "       " + task + "\n"
+                + "     Now you have " + taskCount + " tasks in the list.";
     }
 
-    public void showTaskList(ArrayList<Task> tasks) {
-        System.out.println("     Here are the tasks in your list:");
+    public String showTaskList(ArrayList<Task> tasks) {
+        StringBuilder message = new StringBuilder("     Here are the tasks in your list:\n");
         if (tasks.isEmpty()) {
-            System.out.println("     No tasks added yet.");
+            message.append("     No tasks added yet.");
         } else {
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("     " + (i + 1) + "." + tasks.get(i));
+                message.append("     ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
             }
         }
+        return message.toString().trim(); // .trim() to remove the last newline character
     }
 
-    public void showTasksOnDate(ArrayList<Task> tasks, LocalDate date) throws DukeException {
-        System.out.println("Tasks on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
-        for (Task task : tasks) {
-            System.out.println(task);
-        }
+    public String showTasksOnDate(ArrayList<Task> tasks, LocalDate date) {
+        StringBuilder message = new StringBuilder("Tasks on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":\n");
         if (tasks.isEmpty()) {
-            System.out.println("No tasks found on this date.");
+            message.append("No tasks found on this date.");
+        } else {
+            for (Task task : tasks) {
+                message.append(task).append("\n");
+            }
         }
+        return message.toString().trim(); // .trim() to remove the last newline character
     }
 
-    public void showMaximumTasksReached() {
-        System.out.println("     Maximum tasks reached. Cannot add more tasks.");
+    public String showMaximumTasksReached() {
+        return "     Maximum tasks reached. Cannot add more tasks.";
     }
 
-    public void showTaskRemoved(Task task, int taskCount) {
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("       " + task);
-        System.out.println("     Now you have " + taskCount + " tasks in the list.");
+    public String showTaskRemoved(Task task, int taskCount) {
+        return "     Noted. I've removed this task:\n"
+                + "       " + task + "\n"
+                + "     Now you have " + taskCount + " tasks in the list.";
     }
 
-    public void showTaskMarkedAsDone(Task task) {
-        System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("       " + task);
+    public String showTaskMarkedAsDone(Task task) {
+        return "     Nice! I've marked this task as done:\n"
+                + "       " + task;
     }
 
-    public void showTaskMarkedAsNotDone(Task task) {
-        System.out.println("     OK, I've marked this task as not done yet:");
-        System.out.println("       " + task);
+    public String showTaskMarkedAsNotDone(Task task) {
+        return "     OK, I've marked this task as not done yet:\n"
+                + "       " + task;
     }
 
 }

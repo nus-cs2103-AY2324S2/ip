@@ -5,9 +5,8 @@ import duke.UI;
 
 public class ExitCommand extends Command {
     @Override
-    public TaskList execute(TaskList tasks, UI ui) {
-        ui.showGoodbyeMessage();
-        return tasks;
+    public String execute(TaskList tasks, UI ui) {
+        return ui.showGoodbyeMessage();
     }
     @Override
     public boolean isExit() {

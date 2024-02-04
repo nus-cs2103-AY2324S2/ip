@@ -11,7 +11,7 @@ public abstract class Command {
      * @param ui The user interface.
      * @throws DukeException if there is an error during command execution.
      */
-    public abstract TaskList execute(TaskList tasks, UI ui) throws DukeException;
+    public abstract String execute(TaskList tasks, UI ui) throws DukeException;
 
     public boolean isExit() {
         return false;
