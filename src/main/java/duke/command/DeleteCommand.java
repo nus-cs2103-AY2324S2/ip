@@ -1,7 +1,7 @@
 package duke.command;
 
-import duke.ItemList;
 import duke.CustomExceptions;
+import duke.ItemList;
 
 public class DeleteCommand implements Command {
     @Override

@@ -1,8 +1,9 @@
 package duke.item;
 
-import duke.CustomExceptions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import duke.CustomExceptions;
 
 public class EventTest {
 
@@ -37,8 +38,9 @@ public class EventTest {
 
     @Test
     void constructor_unparseableDateTime_throwsUnrecognizableDateException() {
-        Assertions.assertThrows(CustomExceptions.unrecognizableDateException.class,
-                () -> { throw new CustomExceptions.unrecognizableDateException(""); });
+        Assertions.assertThrows(CustomExceptions.unrecognizableDateException.class, (
+            ) -> {
+            throw new CustomExceptions.unrecognizableDateException(""); });
     }
 
     @Test
