@@ -7,11 +7,15 @@ import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
-public class FileManager {
+public class Storage {
+    private String filePath;
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
 
-    public static ArrayList<Task> loadFromFile(String filePath) {
+    public ArrayList<Task> loadFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
-        File file = new File(filePath);
+        File file = new File(this.filePath);
          try (Scanner scanner = new Scanner(file)) {
             while(scanner.hasNext()) {
                 String[] token = scanner.nextLine().split(" \\| ");
@@ -59,8 +63,8 @@ public class FileManager {
     }
 
 
-    public static void writeToFile(String filePath, ArrayList<Task> tasks) {
-        try (FileWriter fw = new FileWriter(filePath)) {
+    public void writeToFile(ArrayList<Task> tasks) {
+        try (FileWriter fw = new FileWriter(this.filePath)) {
             for (Task task : tasks) {
                 fw.write(task.toString() + System.lineSeparator());
             }
@@ -69,8 +73,8 @@ public class FileManager {
         }
     }
 
-    public static void printFromFile(String filePath) {
-        File file = new File(filePath);
+    public void printFromFile() {
+        File file = new File(this.filePath);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
                 System.out.println(scanner.nextLine());
@@ -80,8 +84,8 @@ public class FileManager {
         }
     }
 
-    public static int countFromFile(String filePath) {
-        File file = new File(filePath);
+    public int countFromFile() {
+        File file = new File(this.filePath);
         int i = 0;
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
