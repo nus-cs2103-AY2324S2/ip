@@ -8,15 +8,15 @@ import cappy.task.TaskList;
 import cappy.ui.Ui;
 
 import java.io.IOException;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents the parsed input from the user command.
  *
  * <p>The {@code ParsedInput} class encapsulates the parsed information from the user's input,
- * including the command type, named arguments, and positional arguments. It provides methods
- * to retrieve and interact with the parsed information.
+ * including the command type, named arguments, and positional arguments. It provides methods to
+ * retrieve and interact with the parsed information.
  */
 public class ParsedInput {
     private CommandType commandType;
@@ -39,8 +39,8 @@ public class ParsedInput {
     }
 
     /**
-     * Returns the corresponding value for the named argument. Returns null if the argument
-     * does not exist.
+     * Returns the corresponding value for the named argument. Returns null if the argument does not
+     * exist.
      *
      * @param name The name of the argument.
      * @return The corresponding value of the argument.
@@ -50,15 +50,13 @@ public class ParsedInput {
     }
 
     /**
-     * Returns the value of the positional argument at the specified index.
-     * Throws {@code IndexOutOfBoundsException} if the specified index is
-     * not a valid index.
+     * Returns the value of the positional argument at the specified index. Throws {@code
+     * IndexOutOfBoundsException} if the specified index is not a valid index.
      *
      * @param index The index of the positional argument to retrieve.
      * @return The value of the positional argument at the specified index.
-     * @throws IndexOutOfBoundsException If the specified index is negative or
-     *                                   is greater than or equal to the size
-     *                                   of the positional arguments.
+     * @throws IndexOutOfBoundsException If the specified index is negative or is greater than or
+     *     equal to the size of the positional arguments.
      */
     public String getPositionalArgument(int index) {
         return positionalArguments.get(index);

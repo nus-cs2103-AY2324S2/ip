@@ -4,14 +4,17 @@ import cappy.parser.Parser;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a deadline task in the task management system.
+ *
+ * <p>The {@code Deadline} class encapsulates a deadline task with a description and a due date
+ * time.
+ */
 public class Deadline extends Task {
-    /**
-     * The type symbol for the Deadline Task.
-     */
+    /** The type symbol for the Deadline Task. */
     public static final String TYPE_SYMBOL = "D";
-    /**
-     * The due date time for the Deadline Task.
-     */
+
+    /** The due date time for the Deadline Task. */
     private final LocalDateTime due;
 
     public Deadline(String description, LocalDateTime due) {

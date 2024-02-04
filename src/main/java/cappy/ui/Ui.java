@@ -17,7 +17,7 @@ public class Ui implements AutoCloseable {
     private static final String HORIZONTAL_LINE =
             "____________________________________________________________";
     private static final String INDENT = "    ";
-    private final Scanner SCANNER = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     /**
      * Reads a line from Standard inupt and return that.
@@ -25,7 +25,7 @@ public class Ui implements AutoCloseable {
      * @return The line read from stdin.
      */
     public String getInput() {
-        return SCANNER.nextLine();
+        return scanner.nextLine();
     }
 
     /**
@@ -68,7 +68,7 @@ public class Ui implements AutoCloseable {
     /**
      * Shows the given messages to the user. Each message will be on a newline.
      *
-     * @param message The String array of messages to be displayed.
+     * @param messages The String array of messages to be displayed.
      */
     public void show(String[] messages) {
         Logger.print(INDENT + HORIZONTAL_LINE);
@@ -109,6 +109,6 @@ public class Ui implements AutoCloseable {
 
     @Override
     public void close() {
-        SCANNER.close();
+        scanner.close();
     }
 }

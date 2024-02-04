@@ -10,9 +10,9 @@ import java.io.IOException;
 /**
  * Manages storage operations for the task management system.
  *
- * <p>The {@code Storage} class provides functionality for creating, reading, and writing
- * to a specified file path. It supports operations such as emptying the content, writing
- * a line to the end of the storage, and reading all content from the storage.
+ * <p>The {@code Storage} class provides functionality for creating, reading, and writing to a
+ * specified file path. It supports operations such as emptying the content, writing a line to the
+ * end of the storage, and reading all content from the storage.
  *
  * <p><strong>File Path:</strong> The path to the file associated with the storage.
  */
@@ -22,8 +22,8 @@ public class Storage implements AutoCloseable {
     private BufferedWriter writer;
 
     /**
-     * Constructs a new Storage object with the specified file path.
-     * The file and its parent directories will be created if they do not exist.
+     * Constructs a new Storage object with the specified file path. The file and its parent
+     * directories will be created if they do not exist.
      *
      * @param path The file path for the storage.
      * @throws IOException If an I/O error occurs during file or directory creation.
@@ -37,8 +37,8 @@ public class Storage implements AutoCloseable {
     }
 
     /**
-     * Emptys the content in the storage. The underlying file will be overwritten to
-     * contain nothing.
+     * Emptys the content in the storage. The underlying file will be overwritten to contain
+     * nothing.
      *
      * @throws IOException If an I/O error occurs.
      */

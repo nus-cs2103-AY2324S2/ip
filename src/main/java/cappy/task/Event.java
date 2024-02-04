@@ -4,18 +4,20 @@ import cappy.parser.Parser;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a Event task in the task management system.
+ *
+ * <p>The {@code Event} class encapsulates a event task with a description and start and end date
+ * time.
+ */
 public class Event extends Task {
-    /**
-     * The type symbol for the Event Task.
-     */
+    /** The type symbol for the Event Task. */
     public static final String TYPE_SYMBOL = "E";
-    /**
-     * The starting date time for the Event Task.
-     */
+
+    /** The starting date time for the Event Task. */
     private final LocalDateTime begin;
-    /**
-     * The ending date time for the Event Task.
-     */
+
+    /** The ending date time for the Event Task. */
     private final LocalDateTime end;
 
     public Event(String description, LocalDateTime begin, LocalDateTime end) {
