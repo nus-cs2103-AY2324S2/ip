@@ -39,6 +39,7 @@ public abstract class Task {
      * @return return the description of task.
      */
     public String getDescription() {
+        assert this.description.length() > 0 : "at least some description should be given";
         return this.description;
     }
 
@@ -65,6 +66,7 @@ public abstract class Task {
      * Change the status of task from not Done to Done
      */
     public void setDone() {
+        assert !this.isDone : "task should not be done before we mark it done.";
         this.isDone = true;
     }
 
@@ -72,6 +74,7 @@ public abstract class Task {
      * Change the status of task from not Done to Done
      */
     public void unDone() {
+        assert this.isDone : "task should be done before we mark it undone.";
         this.isDone = false;
     }
 

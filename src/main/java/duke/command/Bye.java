@@ -11,6 +11,7 @@ public class Bye implements Command {
     @Override
     public String reply() {
         System.exit(0);
+        assert true : "Should not reach this line.";
         return "Bye, Hope to see you again soon!\n";
     }
 }

@@ -18,6 +18,7 @@ public class Find implements Command {
      * @param tasks Task list to search with.
      */
     public Find(String keyWord, TaskList tasks) {
+        assert keyWord.length() > 0 : "should have at least one character in keyword";
         this.foundList = new ArrayList<>();
         Pattern pattern = Pattern.compile(keyWord, Pattern.CASE_INSENSITIVE);
         for (Task task : tasks.getTaskList()) {

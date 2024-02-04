@@ -40,6 +40,7 @@ public class TaskList {
      * @return The removed task.
      */
     public Task removeTask(int index) {
+        assert index < taskArrayList.size() : "index should not exceed the list length";
         return taskArrayList.remove(index);
     }
 
@@ -57,6 +58,7 @@ public class TaskList {
      * @return The task requested.
      */
     public Task getTask(int index) {
+        assert index < taskArrayList.size() : "index should not exceed the list length";
         return this.taskArrayList.get(index);
     }
 }
