@@ -16,7 +16,7 @@ import duke.task.Todo;
 /**
  * Class for file management
  */
-class Storage {
+public class Storage {
     private File taskFile;
 
     /**
@@ -94,5 +94,9 @@ class Storage {
             fw.write(writeTask(t));
         }
         fw.close();
+    }
+
+    public void resetStorage(String filePath) {
+        this.taskFile = new File(filePath);
     }
 }

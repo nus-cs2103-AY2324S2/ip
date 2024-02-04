@@ -1,14 +1,6 @@
 package duke;
 
-import duke.command.Add;
-import duke.command.Bye;
-import duke.command.Command;
-import duke.command.CurrentTask;
-import duke.command.Delete;
-import duke.command.Find;
-import duke.command.List;
-import duke.command.Mark;
-import duke.command.Unmark;
+import duke.command.*;
 import duke.exception.DukeException;
 
 /**
@@ -17,13 +9,15 @@ import duke.exception.DukeException;
 class Parser {
     private static final int TOKEN_NUM = 2;
     private TaskList tasks;
+    private Storage storage;
 
     /**
      * Constructor of a parse
      * @param tasks tasks
      */
-    public Parser(TaskList tasks) {
+    public Parser(TaskList tasks, Storage storage) {
         this.tasks = tasks;
+        this.storage = storage;
     }
 
     /**
@@ -44,6 +38,9 @@ class Parser {
         }
         if (input.equals("current") || input.equals("curr")) {
             return new CurrentTask(tasks);
+        }
+        if ((inputs[0].equals("change") || inputs[0].equals("cd")) && inputs.length == TOKEN_NUM) {
+            return new ChangeDataSource(inputs[1], storage, tasks);
         }
         if (inputs[0].equals("find") && inputs.length == TOKEN_NUM) {
             return new Find(inputs[1], tasks);

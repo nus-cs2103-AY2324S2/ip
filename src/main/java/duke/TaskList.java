@@ -65,4 +65,8 @@ public class TaskList {
         assert index < taskArrayList.size() : "index should not exceed the list length";
         return this.taskArrayList.get(index);
     }
+
+    public void resetTaskList(ArrayList<Task> taskList) {
+        this.taskArrayList = taskList;
+    }
 }
