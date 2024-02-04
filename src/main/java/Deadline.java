@@ -1,11 +1,15 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
-public class Deadline extends Task{
-    protected String by;
+public class Deadline extends Task {
+    protected LocalDate by;
     private Deadline(String desc, String by) {
         super(desc);
-        this.by = by;
+        this.by = LocalDate.parse(by);
     }
 
     /**
@@ -14,14 +18,15 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "Deadline" + " " + super.toString() + "(by: " + by + ")";
+        return "Deadline" + " " + super.toString() +
+                "(by: " + by.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + " )";
     }
 
     /**
      * This is a Factory Method that generates an instance
      * @param s an ArrayList after tokenizing the query.
      */
-    public static Deadline extractDetails(ArrayList<String> s) throws BadAppleException{
+    public static Deadline extractDetails(ArrayList<String> s) throws BadAppleException, DateTimeParseException {
         StringBuilder taskName = new StringBuilder();
         StringBuilder deadline = new StringBuilder();
         int separatorIndex = s.indexOf("/by");
@@ -30,7 +35,7 @@ public class Deadline extends Task{
                 taskName.append(s.get(i)).append(" ");
             }
             for (int i = separatorIndex + 1; i < s.size();i++) {
-                deadline.append(s.get(i)).append(" ");
+                deadline.append(s.get(i));
             }
             return new Deadline(taskName.toString(), deadline.toString());
         } else {
