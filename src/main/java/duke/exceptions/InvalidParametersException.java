@@ -1,5 +1,6 @@
+package duke.exceptions;
 public class InvalidParametersException extends DukeException {
-    InvalidParametersException(String errorMessage) {
+    public InvalidParametersException(String errorMessage) {
         super(errorMessage);
     }
 }

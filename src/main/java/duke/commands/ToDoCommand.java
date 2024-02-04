@@ -1,3 +1,9 @@
+package duke.commands;
+
+import duke.ChatSession;
+import duke.exceptions.InvalidParametersException;
+import duke.tasks.ToDo;
+
 public class ToDoCommand implements NamedCommand {
     public String getName() { return "todo"; }
     public void execute(ChatSession session, String commandArgs) throws InvalidParametersException {

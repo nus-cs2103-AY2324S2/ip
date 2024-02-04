@@ -1,3 +1,9 @@
+package duke.commands;
+
+import duke.ChatSession;
+import duke.tasks.Task;
+
+
 public class Delete implements NamedCommand {
     public String getName() { return "delete"; }
     public void execute(ChatSession session, String commandArgs) {

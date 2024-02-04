@@ -1,3 +1,4 @@
+package duke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -8,13 +9,13 @@ public class Event extends Task {
     public Optional<LocalDateTime> fromDate;
     public Optional<LocalDateTime> toDate;
 
-    Event(String name) {
+    public Event(String name) {
         super(name);
         this.fromDate = Optional.empty();
         this.toDate = Optional.empty();
     }
 
-    Event(String name, boolean isDone, String fromString, String toString, boolean useCustomFormatter) {
+    public Event(String name, boolean isDone, String fromString, String toString, boolean useCustomFormatter) {
         super(name, isDone);
         this.fromDate = Optional.of(this.parseDate(fromString, useCustomFormatter));
         this.toDate = Optional.of(this.parseDate(toString, useCustomFormatter));
