@@ -34,4 +34,13 @@ public class TaskList {
         }
         return res;
     }
+    public ArrayList<Task> findTasksWithString(String toFind) {
+        ArrayList<Task> res = new ArrayList<>();
+        for (int i = 0; i < this.items.size(); i++) {
+            if (items.get(i).descriptionHasWord(toFind)) {
+                res.add(items.get(i));
+            }
+        }
+        return res;
+    }
 }
