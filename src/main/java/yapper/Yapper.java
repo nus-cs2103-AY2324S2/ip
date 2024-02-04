@@ -1,5 +1,9 @@
+package yapper;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import exception.YapperException;
 
 public class Yapper {
     public enum Command {

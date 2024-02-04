@@ -1,3 +1,11 @@
+package yapper;
+
+import exception.YapperException;
+import task.Task;
+import task.Todo;
+import task.Deadline;
+import task.Event;
+
 public class Ui {
     private static final String LINE = "    ____________________________________________________________\n";
     private static final String INDENT = "    ";

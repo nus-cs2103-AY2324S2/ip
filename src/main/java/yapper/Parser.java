@@ -1,6 +1,14 @@
+package yapper;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
+import exception.YapperException;
+import task.Task;
+import task.Todo;
+import task.Deadline;
+import task.Event;
 
 public class Parser {
     private static final Scanner in = new Scanner(System.in);
@@ -238,7 +246,7 @@ public class Parser {
                         task.getIsDoneInt(),
                         task.getDescription(),
                         deadline.getBy());
-            } else { // instanceof Event
+            } else if (task instanceof Event) {
                 Event event = (Event) task;
                 data += String.format("E / %d / %s / %s / %s",
                         task.getIsDoneInt(),

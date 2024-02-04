@@ -1,4 +1,11 @@
+package yapper;
+
 import java.util.ArrayList;
+
+import task.Task;
+import task.Todo;
+import task.Deadline;
+import task.Event;
 
 public class TaskList {
     private static final ArrayList<Task> tasks = new ArrayList<>();
@@ -19,8 +26,9 @@ public class TaskList {
             Ui.addDeadlineMessage((Deadline) task);
         } else if (task instanceof Event) {
             Ui.addEventMessage((Event) task);
+        } else {
+            System.out.println("wrong task type added, user should not reach here");
         }
-        System.out.println("wrong task type added, user should not reach here");
     }
 
     public static void addTaskNoMessage(Task task) {
