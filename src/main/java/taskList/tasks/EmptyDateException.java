@@ -1,5 +1,4 @@
-/* (C)2024 */
-package taskList.tasks;
+package tasklist.tasks;
 
 public class EmptyDateException extends RuntimeException {
 

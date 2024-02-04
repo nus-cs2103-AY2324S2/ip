@@ -1,4 +1,3 @@
-/* (C)2024 */
 package taskList.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

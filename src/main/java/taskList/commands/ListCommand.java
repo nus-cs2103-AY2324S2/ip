@@ -1,10 +1,9 @@
-/* (C)2024 */
-package taskList.commands;
+package tasklist.commands;
 
-import taskList.Storage;
-import taskList.TaskList;
-import taskList.Ui;
-import taskList.tasks.Task;
+import tasklist.Storage;
+import tasklist.TaskList;
+import tasklist.Ui;
+import tasklist.tasks.Task;
 
 public class ListCommand implements Command {
 

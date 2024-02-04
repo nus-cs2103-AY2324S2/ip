@@ -1,5 +1,4 @@
-/* (C)2024 */
-package taskList;
+package tasklist;
 
 import java.io.EOFException;
 import java.io.FileInputStream;

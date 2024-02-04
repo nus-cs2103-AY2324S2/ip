@@ -1,9 +1,9 @@
-/* (C)2024 */
-package taskList;
+package tasklist;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import taskList.tasks.Task;
+
+import tasklist.tasks.Task;
 
 public class TaskList implements Serializable {
   private ArrayList<Task> taskList;

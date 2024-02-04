@@ -1,9 +1,8 @@
-/* (C)2024 */
-package taskList.commands;
+package tasklist.commands;
 
-import taskList.Storage;
-import taskList.TaskList;
-import taskList.Ui;
+import tasklist.Storage;
+import tasklist.TaskList;
+import tasklist.Ui;
 
 public interface Command {
   void execute(TaskList taskList, Ui ui, Storage storage);

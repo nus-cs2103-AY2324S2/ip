@@ -1,7 +1,6 @@
-/* (C)2024 */
-package taskList;
+package tasklist;
 
-import taskList.tasks.Task;
+import tasklist.tasks.Task;
 
 /* User interface - handles interaction with the user
  * Provides methods to manage the user interface of the application.

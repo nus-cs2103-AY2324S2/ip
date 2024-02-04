@@ -1,5 +1,4 @@
-/* (C)2024 */
-package taskList.tasks;
+package tasklist.tasks;
 
 import java.io.Serializable;
 

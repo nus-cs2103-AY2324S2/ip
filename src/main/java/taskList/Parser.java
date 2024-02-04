@@ -1,7 +1,6 @@
-/* (C)2024 */
-package taskList;
+package tasklist;
 
-import taskList.commands.*;
+import tasklist.commands.*;
 
 public class Parser {
   public enum Commands {
