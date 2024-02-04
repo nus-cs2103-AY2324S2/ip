@@ -24,7 +24,7 @@ import nollid.tasks.Todo;
  */
 public class Storage {
     public static final Path DEFAULT_FILEPATH = Paths.get(".", "data", "nollid.json");
-    public static final Path TEST_FILEPATH = Paths.get(".", "data", "test.json");
+    public static final Path TEST_FILEPATH = Paths.get(".", "data", "tests", "test_valid.json");
     private final Path filePath;
 
     public Storage(Path filePath) {
@@ -47,6 +47,7 @@ public class Storage {
                 return taskList;
             }
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             return taskList;
         }
 
@@ -55,6 +56,7 @@ public class Storage {
         try {
             jsonTokener = new JSONTokener(Files.newInputStream(this.filePath));
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             return taskList;
         }
 
@@ -63,6 +65,7 @@ public class Storage {
         try {
             jsonArray = new JSONArray(jsonTokener);
         } catch (JSONException e) {
+            System.out.println(e.getMessage());
             return taskList;
         }
 
