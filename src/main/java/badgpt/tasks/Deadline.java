@@ -11,11 +11,6 @@ public class Deadline extends Task {
         this.deadline = LocalDate.parse(deadline);
     }
 
-    public Deadline(String description, LocalDate deadline) {
-        super(description);
-        this.deadline = deadline;
-    }
-
     @Override
     public String saveTask() {
         return "[D]" + super.toString() + " by: " + this.deadline;

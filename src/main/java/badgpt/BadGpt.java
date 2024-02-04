@@ -6,7 +6,7 @@ import badgpt.util.TaskList;
 import badgpt.util.Ui;
 
 public class BadGpt {
-    private static final String NAME = "BadGPT";
+    private final String NAME = "BadGPT";
     private TaskList taskList;
     private Ui ui;
     private FileManager fileManager;

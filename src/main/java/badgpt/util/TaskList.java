@@ -38,6 +38,10 @@ public class TaskList {
         }
     }
 
+    public int getListSize() {
+        return this.tasks.size();
+    }
+
     public void mark(int taskNum) throws TaskNotFoundException, SameStatusException {
         try {
             if (!tasks.get(taskNum).isComplete()) {
