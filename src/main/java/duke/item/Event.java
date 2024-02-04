@@ -31,7 +31,7 @@ public class Event implements Item, Serializable {
                 this.start = Parser.parseDTString(s.split("/from|/to")[1].trim());
                 this.end = Parser.parseDTString(s.split("/from|/to")[2].trim());
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new CustomExceptions.eventExceptionForFromTo("Unable to parse /from /to strings");
+                throw new CustomExceptions.eventExceptionForFromTo("");
             } catch (DateTimeParseException e) {
                 throw new CustomExceptions.unrecognizableDateException("Date format is unrecognizable, try dd/mm/yy hhmm");
             }
