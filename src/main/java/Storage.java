@@ -18,7 +18,7 @@ public class Storage {
                     while (scanner.hasNextLine()) {
                         String s = scanner.nextLine();
                         try {
-                            Duke.loadLine(s);
+                            loadLine(s);
                         } catch (DukeException e) {
                             System.out.println(e.getMessage());
                         }
@@ -30,6 +30,37 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeException("omg i cant read");
         }
+    }
+
+    public static void loadLine(String original) throws DukeException {
+        String[] inputParts = original.split("\\s+");
+
+        if (inputParts[0].equals("todo")) {
+            //handle "todoo"
+            String description = original.replace("todo", "");
+            if (description.isEmpty()) {
+                throw new DukeException("oi todo what. todo WHATTTTTT!!!!!!!!");
+            }
+            Task task = new ToDo(description);
+            Duke.addMessage(task);
+        } else if (inputParts[0].equals("deadline")) {
+            //handle "deadline"
+            String[] parts = original.replace("deadline", "").split(" /");
+            Task task = new Deadline(parts[0], parts[1].replace("by ", ""));
+            Duke.addMessage(task);
+        } else if (inputParts[0].equals("event")) {
+            //handle event
+            String[] parts = original.replace("event", "").split(" /");
+            Task task = new Event(parts[0], parts[1].replace("from ", ""), parts[2].replace("to ", ""));
+            Duke.addMessage(task);
+        } else if (inputParts[0].equals("delete")) {
+            //handle delete
+            int inputInt = Integer.parseInt(inputParts[1]);
+            Duke.deleteMessage(inputInt);
+        } else {
+            throw new DukeException("harh what u talking sia walao");
+        }
+
     }
 
     /**
