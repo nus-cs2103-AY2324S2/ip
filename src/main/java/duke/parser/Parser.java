@@ -1,3 +1,11 @@
+package duke.parser;
+
+import duke.DukeException;
+import duke.task.Manage;
+import duke.ui.Ui;
+import duke.task.Actions;
+import duke.task.TaskManager;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
