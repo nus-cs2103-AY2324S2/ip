@@ -40,6 +40,10 @@ public class Duke {
                 break;
             } else if (Objects.equals(firstWord, "mark") || Objects.equals(firstWord, "unmark")) {
                 list.markActivity(firstWord, input.substring(input.indexOf(" ") + 1));
+            } else if (Objects.equals(firstWord, "find")) {
+                //extracting second word for search
+                String substr = input.split(" ", 2)[1];
+                list.findActivity(substr);
             } else {
                 list.addActivity(firstWord, input);
             }
@@ -176,6 +180,17 @@ public class Duke {
                 System.out.println("to long or too short won't do the job");
             }
             localList.save(activities);
+        }
+
+        /**
+         * Searches for and prints activities that match a given substring.
+         * Utilizes the {@code searchList.printList} method to find and display
+         * activities from a list that contain the specified substring.
+         *
+         * @param substr The substring to search for within the activity names or descriptions.
+         */
+        public void findActivity(String substr) {
+            searchList.printList(searchTable, activities, substr);
         }
     }
 }
