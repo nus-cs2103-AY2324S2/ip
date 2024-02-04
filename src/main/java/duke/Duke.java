@@ -8,7 +8,6 @@ import duke.ui.Ui;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 public class Duke {
     //Initialise variables for the programs
     private TaskManager manager;
