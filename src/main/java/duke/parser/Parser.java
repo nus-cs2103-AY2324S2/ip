@@ -14,19 +14,19 @@ public class Parser {
         this.command = command;
     }
 
-    public Task parseAddToDo() throws DukeException {
+    public Task parseAdd() throws DukeException {
         if (command.toUpperCase().startsWith(Duke.Command.TODO.name())) {
             return this.parseTodo();
         } else if (command.toUpperCase().startsWith(Duke.Command.DEADLINE.name())) {
-            return this.parseDueDate();
+            return this.parseDeadline();
         } else if (command.toUpperCase().startsWith(Duke.Command.EVENT.name())) {
-            return this.parseSchedule();
+            return this.parseEvent();
         } else {
             throw new DukeException("Invalid format. Please use 'todo', 'deadline', or 'event'.");
         }
     }
 
-    public int parseDeleteToDo() throws DukeException{
+    public int parseDelete() throws DukeException{
         String[] part = command.split(" ");
 
         if (part.length == 2) {
@@ -42,7 +42,7 @@ public class Parser {
         }
     }
 
-    public int parseMarkToDo() throws DukeException{
+    public int parseMark() throws DukeException{
         String[] part = command.split(" ");
 
         if (part.length == 2) {
@@ -58,7 +58,7 @@ public class Parser {
         }
     }
 
-    public int parseUnMarkToDo() throws DukeException{
+    public int parseUnMark() throws DukeException{
         String[] part = command.split(" ");
 
         if (part.length == 2) {
@@ -75,7 +75,7 @@ public class Parser {
     }
 
 
-    public Event parseSchedule() throws DukeException {
+    public Event parseEvent() throws DukeException {
         String input = command.substring(Duke.Command.EVENT.name().length()).trim();
         int byIndex = input.indexOf(" /from ");
         if (byIndex != 0 && byIndex != -1) {
@@ -103,7 +103,7 @@ public class Parser {
         return new Todo(description);
     }
 
-    public Deadline parseDueDate() throws DukeException{
+    public Deadline parseDeadline() throws DukeException{
         String input = command.substring(Duke.Command.DEADLINE.name().length()).trim();
         int byIndex = input.indexOf(" /by ");
         if ( byIndex != 0 && byIndex != -1) {

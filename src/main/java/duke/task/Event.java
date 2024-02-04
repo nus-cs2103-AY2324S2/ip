@@ -5,6 +5,7 @@ import duke.exception.DukeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 public class Event extends Task {
 
@@ -43,5 +44,25 @@ public class Event extends Task {
     public String toFileString() {
         return "E" + super.toFileString() + " | " + LocalDateTime.parse(this.from, output).format(input) + " - "
                 + LocalDateTime.parse(this.to, output).format(input);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Event event = (Event) obj;
+        return this.isDone == event.isDone
+                && this.description.equals(event.description)
+                && this.from.equals(event.from)
+                && this.to.equals(event.to);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.description, this.isDone, this.from, this.to);
     }
 }

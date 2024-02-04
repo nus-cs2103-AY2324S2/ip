@@ -42,30 +42,30 @@ public class Duke {
 
                 } else if (msg.equalsIgnoreCase(Command.LIST.name())) {
 
-                    ui.formatReply(tasks.toDoList());
+                    ui.formatReply(tasks.printList());
 
                 } else if (msg.toUpperCase().startsWith(Command.MARK.name())){
 
-                    int taskIndex = parser.parseMarkToDo();
-                    ui.formatReply(tasks.markToDo(taskIndex));
+                    int taskIndex = parser.parseMark();
+                    ui.formatReply(tasks.markTask(taskIndex));
                     tasks.saveToStorage(storage);
 
                 } else if (msg.toUpperCase().startsWith(Command.UNMARK.name())){
 
-                    int taskIndex = parser.parseUnMarkToDo();
-                    ui.formatReply(tasks.unMarkToDo(taskIndex));
+                    int taskIndex = parser.parseUnMark();
+                    ui.formatReply(tasks.unmarkTask(taskIndex));
                     tasks.saveToStorage(storage);
 
                 } else if (msg.toUpperCase().startsWith(Command.DELETE.name())) {
 
-                    int taskIndex = parser.parseDeleteToDo();
-                    ui.formatReply(tasks.deleteToDo(taskIndex));
+                    int taskIndex = parser.parseDelete();
+                    ui.formatReply(tasks.deleteTask(taskIndex));
                     tasks.saveToStorage(storage);
 
                 } else {
 
-                    Task t = parser.parseAddToDo();
-                    ui.formatReply(tasks.addToDo(t));
+                    Task t = parser.parseAdd();
+                    ui.formatReply(tasks.addTask(t));
                     tasks.saveToStorage(storage);
 
                 }
