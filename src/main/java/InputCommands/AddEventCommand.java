@@ -9,17 +9,39 @@ import SnomTaskList.TaskList;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The AddEventCommand implements the command of adding
+ * a task of type Event to the Tasklist.
+ */
 class AddEventCommand extends Command {
 
     protected AddEventCommand(String desc) {
         super(desc);
     }
 
+
+    /**
+     * {@inheritDoc}
+     * In this subclass, the command will return enum
+     * of type EVENT
+     *
+     * @return the enum of type EVENT
+     */
     @Override
     public CmdType getType() {
         return CmdType.EVENT;
     }
 
+    /**
+     * {@inheritDoc}
+     * In this subclass, we implement date checks and task description checks
+     * to ensure that the command is valid.
+     *
+     * @param lst is the instance of Storage.TaskList.TaskList containing all the tasks.
+     * @return a string representing a valid command.
+     * @throws InvalidCommandException if the description or date is blank or when the
+     * date is in the wrong format.
+     */
     @Override
     public String execute(TaskList lst) throws InvalidCommandException {
 
@@ -50,15 +72,6 @@ class AddEventCommand extends Command {
 
             throw new InvalidCommandDateFormatException();
 
-        }
-    }
-
-    public static void main(String[] args) {
-        try {
-
-            System.out.println(new AddEventCommand("event AS/1999-01-01/2000-01-01").execute(null));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
     }
 

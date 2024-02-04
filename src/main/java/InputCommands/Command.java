@@ -3,6 +3,11 @@ package InputCommands;
 import SnomExceptions.InvalidCommandException;
 import SnomTaskList.TaskList;
 
+
+/**
+ * The Command class is an abstract class that implements
+ * the different types of command.
+ */
 public abstract class Command {
 
     protected String desc;
@@ -11,6 +16,10 @@ public abstract class Command {
         this.desc = desc;
     }
 
+    /**
+     * Tells the parser what type of command the current instance is.
+     * @return a enum type representing the type of command.
+     */
     public abstract CmdType getType();
 
 //    /**
@@ -35,7 +44,7 @@ public abstract class Command {
      * Creates a new Command based on the command entered.
      * @param description is the string entered by the user.
      * @return an instance of command.
-     * @throws InvalidCommandException if the user has enterd an invalid command.
+     * @throws InvalidCommandException if the user enters an invalid command.
      */
     public static Command makeCommand(String description) throws InvalidCommandException {
         String type = description.split(" ")[0].toLowerCase();

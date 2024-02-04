@@ -1,5 +1,9 @@
 package SnomExceptions;
 
+
+/**
+ *
+ */
 public class InvalidCommandDateValueException extends InvalidCommandException{
 
     public InvalidCommandDateValueException() {

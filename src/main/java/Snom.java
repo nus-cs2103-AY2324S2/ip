@@ -19,6 +19,9 @@ public class Snom {
     }
 
 
+    /**
+     * Starts the execution of the Snom.
+     */
     public void runBot() {
         this.ui.greet();
         boolean isActive = true;
