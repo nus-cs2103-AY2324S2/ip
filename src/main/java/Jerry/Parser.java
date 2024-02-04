@@ -74,6 +74,13 @@ public class Parser {
                     return new AddEventCommand(ui, taskList, parts[1]);
                 }
 
+            case "find":
+                if (parts.length < 2) {
+                    // Handle the case where the argument is missing
+                    return new FindCommand(ui, taskList, "");
+                } else {
+                    return new FindCommand(ui, taskList, parts[1]);
+                }
             default:
                 return new InvalidCommand(ui);
         }
