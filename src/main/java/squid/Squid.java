@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -38,11 +39,15 @@ import squid.ui.DialogBox;
 /**
  * The main class of Squid.
  */
-public class Squid extends Application {
+public class Squid {
 
+    @FXML
     private ScrollPane scrollPane;
+    @FXML
     private VBox dialogContainer;
+    @FXML
     private TextField userInput;
+    @FXML
     private Button sendButton;
     private Scene scene;
     private Image imageUser = new Image(
@@ -292,84 +297,84 @@ public class Squid extends Application {
      * Adapted from <a href="https://se-education.org/guides/tutorials/javaFxPart1.html">SE-EDU</a>
      * @param stage the primary stage for this application, onto which the application scene can be set.
      */
-    @Override
-    public void start(Stage stage) {
-        //Step 1. Setting up required components
-        stage.setX(600);
-        stage.setY(50);
-
-        //The container for the content of the chat to scroll.
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
-        stage.setScene(scene);
-        stage.show();
-
-        //Step 2. Formatting the window to look as expected
-        stage.setTitle("Squid");
-        stage.setResizable(false);
-        stage.setMinHeight(900);
-        stage.setMinWidth(600);
-
-        float width = 600;
-        float sendButtonWidth = 100;
-
-        mainLayout.setPrefSize(width, 900);
-
-        scrollPane.setPrefSize(width - scrollPane.getWidth(), stage.getHeight() - 100);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        //You will need to import `javafx.scene.layout.Region` for this.
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(width - sendButtonWidth - 25);
-
-        sendButton.setPrefWidth(sendButtonWidth);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        //Step 3. Add functionality to handle user input.
-
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(hello()), new ImageView(imageDuke)));
-
-        sendButton.setOnMouseClicked((event) -> {
-            try {
-                handleUserInput();
-            } catch (InterruptedException e) {
-                e = e;
-            }
-        });
-
-        userInput.setOnAction((event) -> {
-            try {
-                handleUserInput();
-            } catch (InterruptedException e) {
-                e = e;
-            }
-        });
-
-        //Scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-    }
+//    @Override
+//    public void start(Stage stage) {
+//        //Step 1. Setting up required components
+//        stage.setX(600);
+//        stage.setY(50);
+//
+//        //The container for the content of the chat to scroll.
+//        scrollPane = new ScrollPane();
+//        dialogContainer = new VBox();
+//        scrollPane.setContent(dialogContainer);
+//
+//        userInput = new TextField();
+//        sendButton = new Button("Send");
+//
+//        AnchorPane mainLayout = new AnchorPane();
+//        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+//
+//        scene = new Scene(mainLayout);
+//
+//        stage.setScene(scene);
+//        stage.show();
+//
+//        //Step 2. Formatting the window to look as expected
+//        stage.setTitle("Squid");
+//        stage.setResizable(false);
+//        stage.setMinHeight(900);
+//        stage.setMinWidth(600);
+//
+//        float width = 600;
+//        float sendButtonWidth = 100;
+//
+//        mainLayout.setPrefSize(width, 900);
+//
+//        scrollPane.setPrefSize(width - scrollPane.getWidth(), stage.getHeight() - 100);
+//        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+//        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+//
+//        scrollPane.setVvalue(1.0);
+//        scrollPane.setFitToWidth(true);
+//
+//        //You will need to import `javafx.scene.layout.Region` for this.
+//        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+//
+//        userInput.setPrefWidth(width - sendButtonWidth - 25);
+//
+//        sendButton.setPrefWidth(sendButtonWidth);
+//
+//        AnchorPane.setTopAnchor(scrollPane, 1.0);
+//
+//        AnchorPane.setBottomAnchor(sendButton, 1.0);
+//        AnchorPane.setRightAnchor(sendButton, 1.0);
+//
+//        AnchorPane.setLeftAnchor(userInput , 1.0);
+//        AnchorPane.setBottomAnchor(userInput, 1.0);
+//
+//        //Step 3. Add functionality to handle user input.
+//
+//        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(hello()), new ImageView(imageDuke)));
+//
+//        sendButton.setOnMouseClicked((event) -> {
+//            try {
+//                handleUserInput();
+//            } catch (InterruptedException e) {
+//                e = e;
+//            }
+//        });
+//
+//        userInput.setOnAction((event) -> {
+//            try {
+//                handleUserInput();
+//            } catch (InterruptedException e) {
+//                e = e;
+//            }
+//        });
+//
+//        //Scroll down to the end every time dialogContainer's height changes.
+//        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+//    }
 
     /**
      * Iteration 1:
@@ -390,20 +395,20 @@ public class Squid extends Application {
      * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
-     */
-    private void handleUserInput() throws InterruptedException {
-
-        String input = userInput.getText();
-        Response response = parseInput(true, input);
-        Label userText = new Label(input);
-        Label dukeText = new Label(response.getResponse());
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(imageUser)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(imageDuke))
-        );
-        Tasks.save();
-        userInput.clear();
-    }
+    */
+//    private void handleUserInput() throws InterruptedException {
+//
+//        String input = userInput.getText();
+//        Response response = parseInput(true, input);
+//        Label userText = new Label(input);
+//        Label dukeText = new Label(response.getResponse());
+//        dialogContainer.getChildren().addAll(
+//                DialogBox.getUserDialog(userText, new ImageView(imageUser)),
+//                DialogBox.getDukeDialog(dukeText, new ImageView(imageDuke))
+//        );
+//        Tasks.save();
+//        userInput.clear();
+//    }
 
     /**
      * Parse the user's input and assigns them to separate helper functions depending on command
