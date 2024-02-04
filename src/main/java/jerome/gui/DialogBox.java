@@ -1,5 +1,8 @@
 package jerome.gui;
 
+import java.io.IOException;
+import java.util.Collections;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,13 +14,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-import java.io.IOException;
-import java.util.Collections;
-
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * DialogBox controlled using FXML.
+ * Represents dialog box consisting of ImageView to represent the
+ * speaker's face and a label containing text from the speaker.
+ * @@author se-edu
+ * Reuse from https://se-education.org/guides/tutorials/javaFx.html
+ * with minor modifications to cater for differences in
+ * program design.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -35,8 +39,8 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        dialog.setText(text);
-        displayPicture.setImage(img);
+        this.dialog.setText(text);
+        this.displayPicture.setImage(img);
     }
 
     /**
@@ -49,10 +53,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Retrieves the user dialog box.
+     *
+     * @param text that the user enter.
+     * @param img image of the user.
+     * @return the user dialog box.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Retrieves the dialog box for the Chatbot.
+     *
+     * @param text from the chatbot.
+     * @param img chatbot image.
+     * @return the dialog box for Duke.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
