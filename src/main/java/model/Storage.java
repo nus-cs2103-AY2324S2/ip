@@ -1,3 +1,4 @@
+package model;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,7 +11,7 @@ public class Storage {
     private File saveFile;
     private TaskList tasks;
 
-    Storage(String filePath) throws IOException {
+    public Storage(String filePath) throws IOException {
         saveFile = new File(filePath);
 
         // Attempt to load TaskList from save file
@@ -34,13 +35,13 @@ public class Storage {
         }
     }
 
-    TaskList getTaskList() {
+    public TaskList getTaskList() {
         return tasks;
     }
 
     // Updates the save file with the task data
     // Reopen and close the ObjectOutputStream each time to override the file and update properly
-    void saveTaskList() throws IOException {
+    public void saveTaskList() throws IOException {
         try{
             FileOutputStream fos = new FileOutputStream(saveFile);
             ObjectOutputStream oos = new ObjectOutputStream(fos);

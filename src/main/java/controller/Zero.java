@@ -1,3 +1,4 @@
+package controller;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -7,6 +8,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Hashtable;
+
+import model.Command;
+import model.Deadline;
+import model.Event;
+import model.Storage;
+import model.Task;
+import view.Ui;
 
 public class Zero {
     private static final String NAME_STRING = "Zero";
@@ -23,7 +31,7 @@ public class Zero {
     private Ui ui;
     private Storage storage;
 
-    Zero() throws IOException {
+    public Zero() throws IOException {
         // Set Date Time formats for relevant classes
         Parser.dtfInput = DATE_TIME_FORMATTER_INPUT;
         Deadline.dtf = DATE_TIME_FORMATTER_OUTPUT;
@@ -33,12 +41,12 @@ public class Zero {
         storage = new Storage(SAVE_FILE_PATH);
     }
 
-    void close() throws IOException {
+    public void close() throws IOException {
         // Close Input reader and Output writer
         ui.close();
     }
 
-    Zero run() throws IOException {
+    public Zero run() throws IOException {
         // Startup message
         ui.showGreet(NAME_STRING);
 

@@ -1,3 +1,4 @@
+package model;
 public class ToDo implements Task {
     private final String name;
     private final boolean done;
