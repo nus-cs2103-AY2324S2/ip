@@ -23,4 +23,8 @@ public class Task {
     public String getDataString() {
         return "";
     }
+
+    public String getDescription() {
+        return this.description;
+    }
 }
