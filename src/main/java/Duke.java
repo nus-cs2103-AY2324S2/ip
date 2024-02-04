@@ -213,4 +213,22 @@ public class Duke {
                 + toDelete.toString());
         System.out.println("\nTasks remaining: " + tasks.size() + ".\n" + gap);
     }
+
+    private static void writeTaskListData() throws IOException {
+        String filePath = "./src/main/data/duke.txt";
+        File save = new File(filePath);
+        try {
+            if (!save.exists()) {
+                save.createNewFile();
+            }
+            FileWriter fw = new FileWriter(filePath);
+            for (int i = 0; i < tasks.size(); i++) {
+                fw.write(tasks.get(i).toString() + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("An error has occurred.");
+            e.getStackTrace();
+        }
+    }
 }
