@@ -60,7 +60,7 @@ public class Duke {
      * Greets the user, then enters the REPL.
      * Finally, says goodbye to the user on exit.
      */
-    private void run() {
+    public void run() {
         printer.print(logo);
 
         printer.print(this.greetMsg());
