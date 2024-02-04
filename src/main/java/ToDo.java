@@ -7,4 +7,9 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String toTaskSaveString() {
+        return "T|" + this.getStatusInt() + "|" + this.description;
+    }
 }
