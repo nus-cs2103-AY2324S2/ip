@@ -9,7 +9,7 @@ package bond.task;
 public abstract class Task {
 
     private Boolean isCompleted;
-    private String name;
+    protected String name;
 
     /**
      * Constructor for the Task class.

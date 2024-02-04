@@ -43,6 +43,13 @@ public class Ui {
         this.newLine();
     }
 
+    public void showTasklistEmpty() {
+        this.showLine();
+        System.out.println("\n    There are no tasks in the list.");
+        this.showLine();
+        this.newLine();
+    }
+
     /**
      * Reads the user input.
      * 
@@ -116,6 +123,26 @@ public class Ui {
                 .println(String.format(
                         "\n    OK, I've marked this task as not done yet:\n      %s",
                         unmarkedTask.toString()));
+        this.showLine();
+        this.newLine();
+    }
+
+    /**
+     * Shows all tasks found.
+     * 
+     * @param taskList The task list containing all tasks found.
+     */
+    public void showFoundTasks(TaskList taskList) {
+        ListIterator<Task> tasks = taskList.getTasks();
+
+        this.showLine();
+        System.out.println(String.format("\n    Here are the matching tasks in your list:"));
+
+        while (tasks.hasNext()) {
+            System.out.println(String.format("    %d. %s",
+                    tasks.nextIndex() + 1, tasks.next().toString()));
+        }
+
         this.showLine();
         this.newLine();
     }
