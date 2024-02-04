@@ -32,7 +32,7 @@ public class Duke {
                 String userInput = this.ui.getInput();
                 Command command = Parser.parseCommand(userInput);
                 command.execute(this.storage, this.tasks, this.ui);
-                isActive = command.getIsActive();
+                isActive = command.getActive();
             } catch (DukeException e) {
                 Ui.printError(e);
             }

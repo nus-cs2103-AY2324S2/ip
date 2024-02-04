@@ -11,7 +11,7 @@ public abstract class Command {
 
     protected boolean isActive = true;
 
-    public boolean getIsActive() {
+    public boolean getActive() {
         return this.isActive;
     }
 
