@@ -10,6 +10,7 @@ import remi.model.Ui;
 import remi.utils.RemiError;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class CommandList {
     private HashMap<String, Command> commandLookup;
@@ -103,6 +104,15 @@ public class CommandList {
             Task task = taskList.getTask(idx);
             taskList.removeTask(idx);
             return new Message(String.format("I've removed the task.\n%s\nYou still have %d tasks in the list.", task, taskList.size()));
+        });
+
+        commandLookup.put("find", (args) -> {
+            List<Task> tasks = taskList.getTask(args);
+            StringBuilder res = new StringBuilder("Here are the matching tasks in your list:");
+            for (int i = 0; tasks.size() > i; i++) {
+                res.append(String.format("\n%d. %s", i + 1, tasks.get(i)));
+            }
+            return new Message(res.toString());
         });
     }
 
