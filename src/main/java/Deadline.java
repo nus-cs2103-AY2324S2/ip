@@ -1,18 +1,28 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
-    private String by;
-    public Deadline(String description, String by) {
+    private LocalDateTime by;
+    public Deadline(String description, String by) throws CreateDeadlineException {
         super(description);
-        this.by = by;
+        try {
+            this.by = LocalDateTime.parse(by, this.saveLoadDateTimeFormat);
+        } catch (DateTimeParseException e) {
+            throw new CreateDeadlineException("Deadline /by argument in the wrong format. Use " +
+                    "format 'yyyy-MM-dd HH:mm' instead. Not saving seconds and below :)");
+        }
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + this.by.format(this.displayDateTimeFormat) + ")";
     }
 
     @Override
     public String parsedFormatToSave() {
         return String.format("D | %c | %s | %s",
-                this.isDone ? 'y' : 'n', this.description, this.by);
+                this.isDone ? 'y' : 'n', this.description,
+                this.by.format(this.saveLoadDateTimeFormat));
     }
 }

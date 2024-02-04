@@ -1,8 +1,12 @@
 import java.util.Objects;
+import java.time.format.DateTimeFormatter;
 
 public abstract class Task { // Adapted from Course Website
     protected String description;
     protected boolean isDone;
+
+    protected DateTimeFormatter displayDateTimeFormat = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    protected DateTimeFormatter saveLoadDateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
 
     public Task(String description) {
         this.description = description;
