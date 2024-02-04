@@ -43,6 +43,26 @@ public class Ui {
         }
     }
 
+    /**
+     * Shows the tasks that match the search keyword.
+     * @param tasks The list of tasks that match the search keyword.
+     */
+    public void showFoundTasks(TaskList tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.getSize(); i++) {
+            try {
+                System.out.println((i + 1) + ". " + tasks.getTask(i));
+            } catch (DukeException e) {
+                showError(e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Shows the task that was added to the task list.
+     * @param task The task that was added to the task list.
+     * @param newSize The new size of the task list.
+     */
     public void showTaskAdded(Task task, int newSize) {
         System.out.println("Got it. I've added this task:");
         System.out.println(task);

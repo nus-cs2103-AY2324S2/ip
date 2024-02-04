@@ -5,6 +5,7 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class TaskList {
     private List<Task> tasks;
@@ -33,6 +34,20 @@ public class TaskList {
             throw new DukeException("The task number is out of bounds.");
         }
         return tasks.get(index);
+    }
+
+    /**
+     * Filters the tasks in the task list based on a lambda expression.
+     * @return A new TaskList object containing the filtered tasks.
+     */
+    public TaskList filterTasks(Predicate<Task> predicate) {
+        List<Task> filteredTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (predicate.test(task)) {
+                filteredTasks.add(task);
+            }
+        }
+        return new TaskList(filteredTasks);
     }
 
     public int getSize() {
