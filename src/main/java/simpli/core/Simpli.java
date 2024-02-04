@@ -1,6 +1,6 @@
 package simpli.core;
 
-import simpli.tasks.TaskManager;
+import simpli.tasks.TaskList;
 import simpli.storage.Storage;
 import simpli.ui.Ui;
 import simpli.configs.SimpliConfiguration;
@@ -14,17 +14,17 @@ import java.util.Scanner;
 
 public class Simpli {
     private Ui ui;
-    private TaskManager taskManager;
+    private TaskList taskList;
     private Parser parser;
     private Interpreter intrpr;
     private Storage storage;
 
     public Simpli() {
         this.ui = new Ui();
-        this.taskManager = new TaskManager();
+        this.taskList = new TaskList();
         this.parser = new Parser();
-        this.intrpr = new Interpreter(ui, taskManager);
-        this.storage = new Storage(parser, intrpr, taskManager);
+        this.intrpr = new Interpreter(ui, taskList);
+        this.storage = new Storage(parser, intrpr, taskList);
     }
 
     public void start() {

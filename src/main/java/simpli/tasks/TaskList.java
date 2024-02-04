@@ -1,17 +1,12 @@
 package simpli.tasks;
 
-import simpli.tasks.Deadline;
-import simpli.tasks.Event;
-import simpli.tasks.Task;
-import simpli.tasks.Todo;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class TaskManager {
+public class TaskList {
     ArrayList<Task> tasks;
 
-    public TaskManager() {
+    public TaskList() {
         this.tasks = new ArrayList<>();
     }
 

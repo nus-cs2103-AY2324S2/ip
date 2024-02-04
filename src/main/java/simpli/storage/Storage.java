@@ -4,7 +4,7 @@ import simpli.exceptions.ActionException;
 import simpli.interpreter.Interpreter;
 import simpli.parser.Parser;
 import simpli.tasks.Task;
-import simpli.tasks.TaskManager;
+import simpli.tasks.TaskList;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -13,13 +13,13 @@ import java.util.Scanner;
 
 public class Storage {
     private final Parser parser;
-    private final TaskManager taskManager;
+    private final TaskList taskList;
     private final Interpreter intrpr;
 
-    public Storage(Parser parser, Interpreter intrpr, TaskManager taskManager) {
+    public Storage(Parser parser, Interpreter intrpr, TaskList taskList) {
         this.parser = parser;
         this.intrpr = intrpr;
-        this.taskManager = taskManager;
+        this.taskList = taskList;
     }
 
     public void saveTasksToFile(String path) throws IOException {
@@ -30,7 +30,7 @@ public class Storage {
         }
 
         FileWriter fileWriter = new FileWriter(path, false);
-        for (Task task : taskManager.tasks()) {
+        for (Task task : taskList.tasks()) {
             fileWriter.write(task.toCsv() + "\n");
         }
         fileWriter.close();
