@@ -10,4 +10,9 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.due_by + ")";
     }
+
+    @Override
+    public String dataString() {
+        return String.format("deadline|%s|%s", super.dataString(), this.due_by);
+    }
 }
