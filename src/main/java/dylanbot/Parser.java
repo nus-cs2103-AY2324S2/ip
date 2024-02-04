@@ -15,7 +15,13 @@ public class Parser {
                 if (tl.isEmpty()) {
                     throw new DylanBotException("No tasks to list right now! Add something first la");
                 }
-                ui.displayTasks(tl);
+                ui.displayTasks(tl.getTasks());
+            } else if (command.startsWith("find")) {
+                if (command.split(" ").length < 2) {
+                    throw new DylanBotException("HEY no search term provided");
+                }
+                String term = command.split(" ")[1];
+                tl.findTerm(term);
             } else if (command.startsWith("mark")) {
                 if (command.split(" ").length < 2) {
                     throw new DylanBotException("HEY no index specified for item to mark");

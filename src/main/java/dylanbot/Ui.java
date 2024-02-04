@@ -32,8 +32,7 @@ public class Ui {
         return input;
     }
 
-    public void displayTasks(TaskList tl) {
-        ArrayList<Task> tasks = tl.getTasks();
+    public void displayTasks(ArrayList<Task> tasks) {
         for (int i = 0; i < tasks.size(); i++) {
             Task curr = tasks.get(i);
             System.out.println("\t" + (i + 1) + ". " + curr.toString());
