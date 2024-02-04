@@ -14,6 +14,7 @@ public class Parser {
      * @param input   The user input command.
      * @param storage Storage object for writing tasks to a file.
      * @param tasks   TaskList object for managing tasks.
+     * @return A message to be displayed to the user.
      */
     public static String generateReply(String input, Storage storage, TaskList tasks) {
         String message = "Invalid command";

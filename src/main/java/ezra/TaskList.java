@@ -57,6 +57,8 @@ public class TaskList {
 
     /**
      * Lists all tasks in the TaskList.
+     *
+     * @return A string representing the list of tasks.
      */
     public String listTasks() {
         StringBuilder message = new StringBuilder();
@@ -79,6 +81,7 @@ public class TaskList {
      *
      * @param taskIndex The arrayList index of the task in to be deleted.
      * @param storage The storage to update after deletion.
+     * @return A message to be displayed after the delete operation.
      */
     public String delete(int taskIndex, Storage storage) {
         StringBuilder message = new StringBuilder();
@@ -107,6 +110,7 @@ public class TaskList {
      *
      * @param task The task to be added.
      * @param storage The storage to update after addition.
+     * @return A message to be displayed after adding the task.
      */
     public String updateTasks(Task task, Storage storage) {
         this.tasks.add(task);
@@ -130,6 +134,7 @@ public class TaskList {
      *
      * @param taskIndex The arrayList index of the task to be marked as done.
      * @param storage The storage to update after marking.
+     * @return A message to be displayed after marking the task.
      */
     public String mark(int taskIndex, Storage storage) {
         StringBuilder message = new StringBuilder();
@@ -160,6 +165,7 @@ public class TaskList {
      *
      * @param taskIndex The arrayList index of the task to be marked as not done.
      * @param storage The storage to update after marking.
+     * @return A message to be displayed after unmarking the task.
      */
     public String unmark(int taskIndex, Storage storage) {
         StringBuilder message = new StringBuilder();
@@ -189,6 +195,7 @@ public class TaskList {
      * Finds tasks in the TaskList that contain the specified keyword in their descriptions.
      *
      * @param keyword The keyword to search for in task descriptions.
+     * @return A string representing the matching tasks.
      */
     public String find(String keyword) {
         ArrayList<Integer> matchingTasks = new ArrayList<>();
