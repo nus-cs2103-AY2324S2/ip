@@ -78,4 +78,19 @@ public class TaskList {
         tasks.remove(idx - 1);
         Ui.print("Aight removed this task:\n\t" + toRemove.toString());
     }
+
+    public void findTerm(String term) {
+        ArrayList<Task> res = new ArrayList<>();
+        for (Task t : tasks) {
+            if (t.getDesc().contains(term)) {
+                res.add(t);
+            }
+        }
+        if (res.isEmpty()) {
+            Ui.print("Shag no results found for your search for: '" + term + "'");
+        } else {
+            Ui.print("Here you go, results from your search for: '" + term + "'");
+            ui.displayTasks(res);
+        }
+    }
 }
