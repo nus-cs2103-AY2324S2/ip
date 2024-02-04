@@ -14,25 +14,28 @@ public class Campus {
 
     /**
      * Creation of a Campus instance
-     * @param filePath the path to the data file
      */
-    public Campus(String filePath) {
+    public Campus() {
+        String filePath = "src/main/java/campus/dataTest.txt";
         this.ui = new Ui();
         TaskList taskList = new TaskList();
         Storage storage = new Storage(filePath);
         this.parser = new Parser(this.ui, taskList, storage);
     }
 
-    /**
-     * Main Driver Logic for the CampusBot - greet and exit are just sanity, main logic works in parser.listen()
-     */
-    public void run() {
-        this.ui.greet();
-        this.parser.listen();
-        this.ui.exit();
+    public static void main(String[] args) {
+        new Campus();
     }
 
-    public static void main(String[] args) {
-        new Campus("src/main/java/campus/data.txt").run();
+    public String respond(String input) {
+        return this.parser.respond(input);
+    }
+
+    public String greet() {
+        return this.ui.greet();
+    }
+
+    public String exit() {
+        return this.ui.exit();
     }
 }
