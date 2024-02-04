@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import panda.command.AlterMarkCommand;
 import panda.command.DeleteCommand;
 import panda.command.ExitCommand;
+import panda.command.FindCommand;
 import panda.command.NewTaskCommand;
 import panda.command.PrintListCommand;
 import panda.exception.PandaException;
@@ -41,6 +42,9 @@ public class ParserTest {
 
         // valid add task command results in new task command (event)
         assertEquals(new NewTaskCommand(new Event("read book", "Oct 15 2019 12AM", "Oct 16 2019 12AM")), Parser.parse("event read book /from Oct 15 2019 12AM /to Oct 16 2019 12AM"));
+
+        // valid command results in find command
+        assertEquals(new FindCommand("read"), Parser.parse("find read"));
 
     }
 

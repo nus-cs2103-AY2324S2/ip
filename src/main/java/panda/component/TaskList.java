@@ -84,10 +84,22 @@ public class TaskList {
     }
 
     /**
-     * Returns the string representation of the TaskList.
+     * Searches for tasks that match the given filter string.
+     * The filter string is treated as a regular expression and the comparison is case insensitive.
      * 
-     * @return the string representation of the TaskList.
+     * @param fString the filter string to match against.
+     * @return a new TaskList containing only the tasks that match the filter string.
      */
+    public TaskList find(String fString) {
+        TaskList tmp = new TaskList();
+        for(Task task : tlist) {
+            if(task.match(fString)) {
+                tmp.insert(task);
+            }
+        }
+        return tmp;
+    }
+
     public String toString() {
         if(tlist.size() == 0) {
             return "Your list is empty.";
