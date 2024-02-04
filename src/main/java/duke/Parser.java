@@ -1,3 +1,11 @@
+package duke;
+
+import tasks.Event;
+import tasks.Task;
+import tasks.TaskList;
+import tasks.Deadline;
+import tasks.ToDo;
+
 public class Parser {
 
     public Parser() {}
