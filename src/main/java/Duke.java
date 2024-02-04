@@ -1,7 +1,4 @@
-import java.io.*;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -9,138 +6,105 @@ import java.time.format.DateTimeFormatter;
  * Duke - Main class that handles user interactions and task management.
  */
 public class Duke {
-    private static ArrayList<Task> storage = new ArrayList<>();
-    //private static final String FILEPATH = "./data/duke.txt";
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    private static TaskList taskList;
+    private static Ui ui;
 
-        //SAY HI, don't change
-        String name = "____________________________________________________________ \n"
-                + "Hello! I'm RATZCHAT \n"
-                + "How can I help you today?";
-        System.out.println(name);
-        printLine();
+    public Duke() {
+        ui = new Ui();
+        taskList = new TaskList();
+        Storage.createFolder();
+        Storage.loadFile(taskList.getTasks());
+    }
 
-        //RESPONSIVE
-        while(true) {
-            String input = scanner.nextLine();
-            printLine();
+    public void run() {
+        ui.showWelcomeMessage();
 
-            if("bye".equalsIgnoreCase(input)) {
-                System.out.println("BYEBYE. Thank you for using RATZCHAT!");
-                printLine();
+        while (true) {
+            String input = ui.getUserInput();
+            ui.printLine();
+
+            if ("bye".equalsIgnoreCase(input)) {
+                ui.showByeMessage();
+                Storage.saveTasks(taskList.getTasks());
                 break;
             }
 
-            if("list".equalsIgnoreCase(input)) {
-                System.out.println("These are your to-dos: ");
-                printList(storage);
-                printLine();
-                continue;
-            }
+            handleUserInput(input);
 
-            if(input.startsWith("mark") || input.startsWith("unmark")) {
+            ui.printLine();
+        }
+    }
+        private static void handleUserInput(String input) {
+            String[] parsedInput = Parser.parseInput(input);
+
+            if ("list".equalsIgnoreCase(input)) {
+                Ui.showTaskList(taskList.getTasks());
+            } else if ("bye".equalsIgnoreCase(input)) {
+                Ui.showByeMessage();
+                Storage.saveTasks(taskList.getTasks());
+                System.exit(0);
+            } else if (parsedInput[0].equalsIgnoreCase("mark") || parsedInput[0].equalsIgnoreCase("unmark")) {
                 markingHandler(input);
-                printLine();
-                continue;
-            }
-
-            if(input.startsWith("deadline")) {
-                if (!validateDeadlineInput(input)) {
-                    System.out.println("Sorry, please complete your request by specifying the details of the task!");
-                    printLine();
-                    continue;
+            } else if (parsedInput[0].equalsIgnoreCase("deadline")) {
+                if (validateDeadlineInput(input)) {
+                    handleDeadlines(input);
+                } else {
+                    Ui.showErrorMessage("Please complete your request by specifying the details of the task!");
                 }
-
-                handleDeadlines(input);
-                printLine();
-                continue;
-            }
-
-            if(input.startsWith("todo")) {
-                if (!validateTodoInput(input)) {
-                    System.out.println("Sorry, please complete your request by specifying the details of the task!");
-                    printLine();
-                    continue;
+            } else if (parsedInput[0].equalsIgnoreCase("todo")) {
+                if (validateTodoInput(input)) {
+                    handleTodos(input);
+                } else {
+                    Ui.showErrorMessage("Please complete your request by specifying the details of the task!");
                 }
-
-                handleTodos(input);
-                printLine();
-                continue;
-            }
-
-            if(input.startsWith("event")) {
-                if (!validateEventInput(input)) {
-                    System.out.println("Sorry, please complete your request by specifying the details of the task!");
-                    printLine();
-                    continue;
+            } else if (parsedInput[0].equalsIgnoreCase("event")) {
+                if (validateEventInput(input)) {
+                    handleEvents(input);
+                } else {
+                    Ui.showErrorMessage("Please complete your request by specifying the details of the task!");
                 }
-
-                handleEvents(input);
-                printLine();
-                continue;
-            }
-
-            if (input.startsWith("delete")) {
+            } else if (parsedInput[0].equalsIgnoreCase("delete")) {
                 handleRemove(input);
-                printLine();
-                continue;
+            } else {
+                Ui.showErrorMessage("I'm sorry, I don't understand! Please type your request again.");
             }
-
-            System.out.println("I'm sorry, I don't understand! Please type your request again.");
-            printLine();
         }
-    }
-
-    /**
-     * Prints a line of underscores for formatting purposes.
-     */
-    private static void printLine() {
-        System.out.println("____________________________________________________________");
-    }
-
-    /**
-     * Prints the list of tasks with their corresponding indices.
-     * @param list ArrayList of Task objects.
-     */
-    private static void printList(ArrayList<Task> list) {
-        for(int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + "." + list.get(i));
-        }
-    }
 
     /**
      * Handles marking or unmarking tasks as done based on user input.
      * @param input User input specifying the action and task index.
      */
 
-    //HANDLING CLASSES AND FUNCTIONS
     private static void markingHandler(String input) {
         String[] split = input.split(" ");
         if (split.length < 2) {
-            System.out.println("Please specify the task number!");
+            Ui.showErrorMessage("Please specify the task number!");
             return;
         }
 
         try {
             int index = Integer.parseInt(split[1]) - 1;
-            Task task = storage.get(index);
+            Task task = taskList.getTasks().get(index);
 
             if ("mark".equalsIgnoreCase(split[0])) {
                 task.markAsDone();
-                //saveTasks();
-                System.out.println("I've marked this task as done:\n  " + task);
+                Storage.saveTasks(taskList.getTasks());
+                ui.showMarkedAsDone(task);
             }
 
             else if ("unmark".equalsIgnoreCase(split[0])) {
                 task.unmarkTask();
-                //saveTasks();
-                System.out.println("I've unmarked this task! It is now not done yet:\n  " + task);
+                Storage.saveTasks(taskList.getTasks());
+                ui.showUnmarkedTask(task);
             }
 
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println("Invalid task number. Please refer to your to-do list again.");
+            Ui.showErrorMessage("Invalid task number. Please refer to your to-do list again.");
         }
+    }
+
+    public static void main(String[] args) {
+        new Duke().run();
     }
 
     /**
@@ -150,10 +114,10 @@ public class Duke {
     private static void handleTodos(String input) {
         String description = input.substring(5).trim();
         Todo todo = new Todo(description);
-        storage.add(todo);
-        //saveTasks();
+        taskList.addTask(todo);
+        Storage.saveTasks(taskList.getTasks());
         System.out.println("Ok! I've added this todo: " + todo);
-        System.out.println("Now you have " + storage.size() + " tasks in your list.");
+        System.out.println("Now you have " + taskList.getTotalTasks() + " tasks in your list.");
     }
 
     /**
@@ -169,16 +133,16 @@ public class Duke {
             if (isValidDate(date)) {
                 LocalDate d1 = LocalDate.parse(date, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
                 Deadlines deadline = new Deadlines(description, d1);
-                storage.add(deadline);
-                //saveTasks();
+                taskList.addTask(deadline);
+                Storage.saveTasks(taskList.getTasks());
                 System.out.println("Ok! I've added this deadline: " + deadline);
             } else {
                 Deadlines deadline = new Deadlines(description, date);
-                storage.add(deadline);
-                //saveTasks();
+                taskList.addTask(deadline);
+                Storage.saveTasks(taskList.getTasks());
                 System.out.println("Ok! I've added this deadline: " + deadline);
             }
-            System.out.println("Now you have " + storage.size() + " tasks in your list.");
+            System.out.println("Now you have " + taskList.getTotalTasks() + " tasks in your list.");
         }
         else {
             System.out.println("Invalid input format for deadline. Please provide a valid date/time.");
@@ -193,29 +157,22 @@ public class Duke {
         String[] splitParts = input.substring(6).split("/from", 2);
         String[] splitTo = splitParts[1].split("/to", 2);
 
-        if (splitParts.length > 1) {
+        if (splitParts.length > 1 && splitTo.length > 1) {
             String description = splitParts[0].trim();
             String fromDate = splitTo[0].trim();
             String toDate = splitTo[1].trim();
-            if (isValidDate(fromDate)) {
+            if (isValidDate(fromDate) && isValidDate(toDate)) {
                 LocalDate d1 = LocalDate.parse(fromDate);
-                if (isValidDate(toDate)) {
-                    LocalDate d2 = LocalDate.parse(toDate);
-                    Event event = new Event(description, d1, d2);
-                    storage.add(event);
-                    //saveTasks();
-                    System.out.println("Ok! I've added this event: " + event);
-                }
+                LocalDate d2 = LocalDate.parse(toDate);
+                Event event = new Event(description, d1, d2);
+                taskList.addTask(event);
+                Storage.saveTasks(taskList.getTasks());
+                Ui.showTaskAdded(event, taskList.getTotalTasks());
             } else {
-                Event event = new Event(description, fromDate, toDate);
-                storage.add(event);
-                //saveTasks();
-                System.out.println("Ok! I've added this event: " + event);
+                Ui.showErrorMessage("Invalid input format for event. Please provide valid dates.");
             }
-            System.out.println("Now you have " + storage.size() + " tasks in your list.");
-
         } else {
-            System.out.println("Invalid input format for event. Please provide a valid date/time.");
+            Ui.showErrorMessage("Invalid input format for event. Please provide valid date/time.");
         }
     }
 
@@ -225,19 +182,15 @@ public class Duke {
             System.out.println("Please specify which task number you want to remove!");
             return;
         }
-
         try {
             int index = Integer.parseInt(splitParts[1]) - 1;
-            Task removedTask = storage.remove(index);
-            //saveTasks();
-            System.out.println("Ok! I have removed this task from your list:\n  " + removedTask);
-            System.out.println("Now you have " + storage.size() + " tasks in your list.");
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println("Invalid task number. Please refer to your to-do list again.");
+            Task removedTask = taskList.removeTask(index);
+            Storage.saveTasks(taskList.getTasks());
+            Ui.showTaskRemoved(removedTask, taskList.getTotalTasks());
+        } catch (IndexOutOfBoundsException e) {
+            Ui.showErrorMessage("Invalid task number. Please refer to your to-do list again.");
         }
     }
-
-    //PERFORMING CHECKS
 
     /**
      * Validates the input format for creating Deadlines.
@@ -267,8 +220,6 @@ public class Duke {
         String[] splitParts = input.substring(6).split("/from", 2);
         return splitParts.length > 1;
     }
-
-    // HANDLE DATES
 
     private static boolean isValidDate(String input) {
         try {
