@@ -1,6 +1,6 @@
 package roland;
 
-import roland.task.Task;
+import task.Task;
 
 import java.util.ArrayList;
 

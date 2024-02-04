@@ -1,9 +1,8 @@
 package roland;
-
-import roland.command.*;
-import roland.task.Deadlines;
-import roland.task.Events;
-import roland.task.ToDos;
+import command.*;
+import task.Deadlines;
+import task.Events;
+import task.ToDos;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
