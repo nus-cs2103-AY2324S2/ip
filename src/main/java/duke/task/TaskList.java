@@ -51,95 +51,74 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the `TaskList` and returns a formatted message.
+     * Finds tasks containing the specified keyword.
      *
-     * @param t The task to be added.
-     * @return A message confirming the addition of the task.
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A list of tasks containing the keyword.
      */
-    public String addTask(Task t) {
-        tasks.add(t);
-        return "Got it. I've added this task:\n" + "   " + t + "\n"
-                + " Now you have " + tasks.size() + " task(s) in the list.";
-    }
-
-    /**
-     * Deletes a task from the `TaskList` by index and returns a formatted message.
-     *
-     * @param taskIndex The index of the task to be deleted.
-     * @return A message confirming the deletion of the task.
-     * @throws DukeException If the specified task index is out of bounds.
-     */
-    public String deleteTask(int taskIndex) throws DukeException {
-        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-
-            Task t = this.tasks.remove(taskIndex);
-
-            return "Noted. I've removed this task:\n" + "   " + t + "\n"
-                    + " Now you have " + tasks.size() + " task(s) in the list.";
-        } else {
-            throw new DukeException("Task not found.");
-        }
-    }
-
-    /**
-     * Generates a formatted string containing the list of tasks.
-     *
-     * @return A formatted string representing the list of tasks.
-     */
-    public String printList() {
-        StringBuilder str;
-        if (tasks.isEmpty()) {
-
-            str = new StringBuilder("There are no tasks in the list.");
-
-        } else {
-
-            str = new StringBuilder("Here are the tasks in your list:");
-            int taskCount = 1;
-
-            for (Task task : tasks) {
-                str.append("\n ").append(taskCount).append(".").append(task);
-                taskCount++;
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                foundTasks.add(task);
             }
         }
-
-        return str.toString();
+        return foundTasks;
     }
 
     /**
-     * Marks a task as done by index and returns a formatted message.
+     * Adds a task to the `TaskList`.
      *
-     * @param taskIndex The index of the task to be marked as done.
-     * @return A message confirming the task has been marked as done.
+     * @param task The task to be added.
+     */
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
+
+    /**
+     * Deletes a task from the `TaskList` by index.
+     *
+     * @param taskIndex The index of the task to be deleted.
+     * @return The deleted task.
      * @throws DukeException If the specified task index is out of bounds.
      */
-    public String markTask(int taskIndex) throws DukeException {
-
+    public Task deleteTask(int taskIndex) throws DukeException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
-
-            Task t = this.tasks.get(taskIndex);
-            t.setDone(true);
-
-            return "Nice! I've marked this task as done:\n" + "   " + t;
+            return tasks.remove(taskIndex);
         } else {
             throw new DukeException("Task not found.");
         }
     }
 
     /**
-     * Marks a task as not done by index and returns a formatted message.
+     * Marks a task as done by index.
      *
-     * @param taskIndex The index of the task to be marked as not done.
-     * @return A message confirming the task has been marked as not done.
+     * @param taskIndex The index of the task to be marked as done.
+     * @return The task marked as done.
      * @throws DukeException If the specified task index is out of bounds.
      */
-    public String unmarkTask(int taskIndex) throws DukeException {
+    public Task markTask(int taskIndex) throws DukeException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            Task task = tasks.get(taskIndex);
+            task.setDone(true);
+            return task;
+        } else {
+            throw new DukeException("Task not found.");
+        }
+    }
 
-            Task t = this.tasks.get(taskIndex);
-            t.setDone(false);
-            return "OK, I've marked this task as not done yet:\n" + "   " + t;
-
+    /**
+     * Marks a task as not done by index.
+     *
+     * @param taskIndex The index of the task to be marked as not done.
+     * @return The task marked as not done.
+     * @throws DukeException If the specified task index is out of bounds.
+     */
+    public Task unmarkTask(int taskIndex) throws DukeException {
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            Task task = tasks.get(taskIndex);
+            task.setDone(false);
+            return task;
         } else {
             throw new DukeException("Task not found.");
         }

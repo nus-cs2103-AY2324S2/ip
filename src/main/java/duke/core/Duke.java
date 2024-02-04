@@ -32,7 +32,7 @@ public class Duke {
      * Enumeration representing valid commands for the Duke application.
      */
     public enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND
     }
 
     /**
@@ -55,32 +55,48 @@ public class Duke {
      * Main loop for processing user commands and executing corresponding actions.
      */
     public void echo() {
-        while (ui.next()) {
+        while (ui.hasNext()) {
             String msg = ui.getInput();
             Parser parser = new Parser(msg);
 
             try {
-                if (msg.equalsIgnoreCase(Command.BYE.name())) {
-                    ui.exit();
+                if (msg.toUpperCase().startsWith(Command.BYE.name()) && parser.parseBye()) {
+                    ui.formatReply(ui.exit());
                     break;
-                } else if (msg.equalsIgnoreCase(Command.LIST.name())) {
-                    ui.formatReply(tasks.printList());
+                } else if (msg.toUpperCase().startsWith(Command.LIST.name()) && parser.parseList()) {
+                    ui.formatReply(ui.showAllTasks(tasks.getTasks()));
+                } else if (msg.toUpperCase().startsWith(Command.FIND.name())) {
+                    String description = parser.parseFind();
+                    ui.formatReply(ui.showFoundTasks(tasks.findTasks(description)));
                 } else if (msg.toUpperCase().startsWith(Command.MARK.name())) {
                     int taskIndex = parser.parseMark();
-                    ui.formatReply(tasks.markTask(taskIndex));
+                    Task t = tasks.markTask(taskIndex);
+                    ui.formatReply(ui.showMarkTaskMessage(t));
                     tasks.saveToStorage(storage);
                 } else if (msg.toUpperCase().startsWith(Command.UNMARK.name())) {
-                    int taskIndex = parser.parseUnMark();
-                    ui.formatReply(tasks.unmarkTask(taskIndex));
+                    int taskIndex = parser.parseUnmark();
+                    Task t = tasks.unmarkTask(taskIndex);
+                    ui.formatReply(ui.showUnmarkTaskMessage(t));
                     tasks.saveToStorage(storage);
                 } else if (msg.toUpperCase().startsWith(Command.DELETE.name())) {
                     int taskIndex = parser.parseDelete();
-                    ui.formatReply(tasks.deleteTask(taskIndex));
+                    Task t = tasks.deleteTask(taskIndex);
+                    ui.formatReply(ui.showDeleteTaskMessage(t, tasks.getTasks().size()));
+                    tasks.saveToStorage(storage);
+                } else if (msg.toUpperCase().startsWith(Duke.Command.TODO.name())) {
+                    Task t = parser.parseTodo();
+                    ui.formatReply(ui.showAddTaskMessage(t, tasks.getTasks().size()));
+                    tasks.saveToStorage(storage);
+                } else if (msg.toUpperCase().startsWith(Command.DEADLINE.name())) {
+                    Task t = parser.parseDeadline();
+                    ui.formatReply(ui.showAddTaskMessage(t, tasks.getTasks().size()));
+                    tasks.saveToStorage(storage);
+                } else if (msg.toUpperCase().startsWith(Command.EVENT.name())) {
+                    Task t = parser.parseEvent();
+                    ui.formatReply(ui.showAddTaskMessage(t, tasks.getTasks().size()));
                     tasks.saveToStorage(storage);
                 } else {
-                    Task t = parser.parseAdd();
-                    ui.formatReply(tasks.addTask(t));
-                    tasks.saveToStorage(storage);
+                    ui.displayError("Unable to understand the command. Please enter a valid command.");
                 }
             } catch (DukeException e) {
                 ui.displayError(e.getMessage());
@@ -94,7 +110,7 @@ public class Duke {
      * Initializes the Duke application, greets the user, and starts command processing.
      */
     public void run() {
-        ui.greetUser();
+        ui.formatReply(ui.greetUser());
         this.echo();
     }
 
