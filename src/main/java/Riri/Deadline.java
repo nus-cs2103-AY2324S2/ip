@@ -1,9 +1,21 @@
 package Riri;
+import jdk.jshell.execution.LoaderDelegate;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 public class Deadline extends Task {
+    protected LocalDate byDate;
     protected String by;
     public Deadline(String task, String by) {
         super(task);
-        this.by = by;
+        this.byDate = LocalDate.parse(by);
+        this.by = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
+    public Deadline(String task, LocalDate by) {
+        super(task);
+        this.byDate = by;
+        this.by = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     /** Static method to create a Deadline object from a formatted string
@@ -26,7 +38,6 @@ public class Deadline extends Task {
         if (status == 'X') {
             deadline.markDone();
         }
-
         return deadline;
     }
 
