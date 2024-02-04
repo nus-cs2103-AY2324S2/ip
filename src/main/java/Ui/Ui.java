@@ -177,8 +177,16 @@ public class Ui {
         );
     }
 
-    public String formatString(String msg) {
-        return HORIZONTAL_LINE + "\n" + msg + "\n" + HORIZONTAL_LINE;
+
+    public String formatString(String... msg) {
+        String outputText = "";
+
+        for (String s: msg) {
+            outputText += s + "\n";
+        }
+
+
+        return HORIZONTAL_LINE + "\n" + outputText + "\n" + HORIZONTAL_LINE;
     }
 
     public void printIntro() {
