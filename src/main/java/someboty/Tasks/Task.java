@@ -13,10 +13,20 @@ abstract public class Task {
     protected String name;
     protected boolean isDone = false;
 
+    /**
+     * Constructor for Task.
+     * @param name Name of the task.
+     */
     public Task(String name) {
         this.name = name;
     }
 
+    /**
+     * Method body to be implemented by child classes.
+     * Parses the description into relevant variables as some subtasks
+     * contains more than just a name.
+     * @param description Raw description of the task.
+     */
     abstract protected void formatInput(String description);
 
     /**
@@ -45,7 +55,7 @@ abstract public class Task {
 
     /**
      * Set completion status of the task.
-     * @param status true is completed, false otherwise
+     * @param status true if completed, false otherwise.
      */
     public void setStatus(boolean status) {
         this.isDone = status;
@@ -58,6 +68,12 @@ abstract public class Task {
             : "[ ]" + " " + this.name;
     }
 
+    /**
+     * Creates a new task with the given type and description.
+     * @param type Type of the new task, represented as the first character of the actual type.
+     * @param description Relevant details of the new task.
+     * @return A new Task object containing the given descriptions.
+     */
     public static Task createTask(char type, String description) {
         return type == 'T'
         ? new ToDo(description)

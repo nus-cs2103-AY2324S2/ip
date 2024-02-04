@@ -7,11 +7,12 @@ import java.time.format.DateTimeParseException;
 import someboty.Exceptions.InputException;
 
 /**
- * A class to handle processing and formatting of dates and time.
+ * dateManager handles processing and formatting of date and time.
+ * This class does not need to be initialized to use its methods and so
+ * does not have a constructor.
  */
 public class dateManager {
 
-    /* --- VARIABLES --- */
     private static final DateTimeFormatter OUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 
     // accepted date formats
@@ -25,14 +26,13 @@ public class dateManager {
         "dd MMM yyyy HH:mm"
     };
 
-    /* --- METHODS --- */
-
     /**
-     * Parses a given date.
-     * @param date given date in type of string
-     * @return a LocalDateTime containing the date and time of the given date
+     * Parses a given date into a LocalDateTime object.
+     * @param date Given string date and time
+     * @return a LocalDateTime object containing the given date.
+     * @throws InputException Given date is not in an acceptable format.
      */
-    public static LocalDateTime parseDate(String date) {
+    public static LocalDateTime parseDate(String date) throws InputException {
         if (date.split(" ").length == 1) {
             date = date + " 2359";
         } 
@@ -53,16 +53,17 @@ public class dateManager {
     }
 
     /**
-     * Convert a date and time into a more reader-friendly one.
-     * @param date given date in type of LocalDateTime
-     * @return a string representation of the date and time.
+     * Convert a date and time into a more reader-friendly format.
+     * @param date A LocalDateTime object to format.
+     * @return String representation of the date and time.
      */
     public static String printDate(LocalDateTime date) {
         return date.format(OUT_FORMATTER);
     }
 
     /**
-     * Lists out all accepted date formats.
+     * Lists out all accepted date and time formats.
+     * @return String representation of the list of accepted date and time formats.
      */
     public static String validDateFormats() {
         String response = "Here's a list of all acceptable date formats:\n";

@@ -13,10 +13,10 @@ import someboty.Tasks.ToDo;
 
 
 /**
- * A class to handle fetching and storing of task list
- * to/from the "tasks.csv" file.
+ * fileManager handles the fetching and storing of a task list
+ * to/from a "tasks.csv" file.
  * 
- * Each task is saved in the following format:
+ * Each task is saved as a row in the file in the following format:
  * task type:           E, D, T         [Event, Deadline, ToDo respectively]
  * completion status:   0, 1            [1 if completed, else 0]
  * task description:    String of words
@@ -28,14 +28,17 @@ public class fileManager {
 
     private String filePath;
 
+    /**
+     * Constructor for fileManager
+     * @param filePath Path to find the "data/tasks.csv" file.
+     */
     public fileManager(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * Read task details from the csv file and
-     * converts it into an array.
-     * @return an array of type Task.
+     * Read saved tasks from the csv file and converts it into a list.
+     * @return A list of tasks.
      */
     public ArrayList<Task> fetchTasks() {
         Scanner scanner;
@@ -68,8 +71,9 @@ public class fileManager {
     }
 
     /**
-     * Takes in a list of task and writes it into the csv file.
-     * @param taskList an array of type Task.
+     * Takes in a list of task and overwrites it into the tasks.csv file.
+     * Note: This method does not append to the file, but overwrites it instead.
+     * @param taskList A list of tasks to be saved into file.
      */
     public void storeTasks(ArrayList<Task> taskList) {
         FileWriter outfile;
@@ -107,6 +111,11 @@ public class fileManager {
         
     }
 
+    /**
+     * Parses a row in the csv file into a task.
+     * @param line A row in the csv file.
+     * @return A task object created from the descriptions parsed.
+     */
     private static Task lineToTask(String line) {
         Task task = null;
         String[] details = line.split(",");

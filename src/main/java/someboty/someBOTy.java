@@ -1,6 +1,8 @@
 package someboty;
 
 import someboty.Exceptions.TerminateException;
+import someboty.Managers.commandManager;
+import someboty.Managers.fileManager;
 import someboty.Managers.responseManager;
 import someboty.Managers.taskManager;
 
@@ -9,7 +11,10 @@ public class someBOTy {
 
     public someBOTy(String filePath) {
         // Initialize
-        responseManager response = new responseManager(new taskManager(filePath));
+        fileManager files = new fileManager(filePath);
+        taskManager tasks = new taskManager(files);
+        commandManager commandCenter = new commandManager(tasks);
+        responseManager response = new responseManager(commandCenter);
 
         responseManager.printGreeting();
 

@@ -7,9 +7,14 @@ import someboty.Exceptions.TerminateException;
 
 import someboty.Tasks.Task;
 
+/**
+ * commandManager acts a command center to process and coordinate the different 
+ * command inputs with other managers. It also formats the results of each action
+ * into a string before forwarding it to the ResponseManager.
+ */
 public class commandManager {
 
-    private static final String[] commands = {
+    private static final String[] COMMANDS = {
         "help",
         "list",
         "dateFormats",
@@ -25,23 +30,29 @@ public class commandManager {
 
     private taskManager manager;
 
-    // CONSTRUCTOR
+    /**
+     * Constructor for commandManager
+     * @param taskList The taskManager to coordinate with.
+     */
     public commandManager(taskManager taskList) {
         this.manager = taskList;
     }
 
-    protected String parse(String input) {
-
+    /**
+     * Parses user input and forwards desription (if any) to relevant managers to execute command.
+     * @param input Command and description to be executed.
+     * @return Response output after executing the command.
+     * @throws TerminateException Thrown only when command input is "bye", which closes the application.
+     */
+    protected String parse(String input) throws TerminateException{
         String command = input.split(" ")[0];
-
-        if (command.equals("bye")) {
-            // bypass chain of command straight to Duke.java
-            manager.close();
-            throw new TerminateException("LMAO XD");
-        }
         
         try {
             switch (command) {
+
+            case "bye":
+                manager.update();
+                throw new TerminateException("LMAO XD");
             
             case "list":
                 return manager.printListTasks();
@@ -53,28 +64,28 @@ public class commandManager {
                 return dateManager.validDateFormats();
 
             case "find":
-                return findTasks(input);
+                return findTasks(getDescription(input));
 
             case "mark":
-                return setTaskStatus(input, true);
+                return setTaskStatus(getDescription(input), true);
 
             case "unmark":
-                return setTaskStatus(input, false);
+                return setTaskStatus(getDescription(input), false);
 
             case "delete":
-                return deleteTask(input);
+                return deleteTask(getDescription(input));
 
             case "clear":
                 return clearTaskList();
 
             case "todo":
-                return addTask('T', input);
+                return addTask('T', getDescription(input));
 
             case "deadline":
-                return addTask('D', input);
+                return addTask('D', getDescription(input));
 
             case "event":
-                return addTask('E', input);
+                return addTask('E', getDescription(input));
 
             default:
                 return "Command not recognized.\n"
@@ -89,15 +100,22 @@ public class commandManager {
     private static String listCommands() {
         String response = "Here are the list of commands:\n";
 
-        for (String command : commands) {
+        for (String command : COMMANDS) {
             response += String.format(" - %s\n", command);
         }
 
         return response;
     }
 
-    private static String getDescription(String string) {
-        String[] listOfStrings = string.trim().split(" ");
+    /**
+     * Parses input to extract the description.
+     * This method is called only when a command requires description to execute.
+     * @param input String input to be parsed.
+     * @return Description of the input.
+     * @throws InputException Thrown when input has no description.
+     */
+    private static String getDescription(String input) throws InputException {
+        String[] listOfStrings = input.trim().split(" ");
         String description = "";
 
         if (listOfStrings.length <= 1) {
@@ -112,9 +130,14 @@ public class commandManager {
         return description.trim();
     }
 
-    // mark/unmark a given task at the specified index as completed.
-    private String setTaskStatus(String input, boolean status) {
-        String description = getDescription(input);
+    /**
+     * Parses description into an integer and forwards it to taskManager to mark/unmark a task.
+     * @param description Index of the task in the list to be marked/unmarked.
+     * @param status Completion status of the task (true if completed, false otherwise).
+     * @return String response after marking/unmarking the task.
+     * @throws InputException Given index is out of the list's range.
+     */
+    private String setTaskStatus(String description, boolean status) throws InputException{
         int index;
 
         try {
@@ -133,9 +156,13 @@ public class commandManager {
                 : "O...k... as you wish I guess...!\n " + task;
     }
 
-    // delete a task at the specified index.
-    private String deleteTask(String input) {
-        String description = getDescription(input);
+    /**
+     * Parses description into an integer and forwards it to taskManager to delete a task.
+     * @param description Index of the task in the list to be deleted.
+     * @return String response after deleting the task.
+     * @throws InputException Description is not an integer.
+     */
+    private String deleteTask(String description) throws InputException {
         int index;
 
         try {
@@ -159,8 +186,13 @@ public class commandManager {
         return "Huh. Your list is magically gone!";
     }
 
-    private String addTask(char type, String input) {
-        String description = getDescription(input);
+    /**
+     * Forwards description to taskManager to create a new task and add to task list.
+     * @param type Type of the new task, represented as the first character of the actual type.
+     * @param description Details relevant to the new task.
+     * @return String response after adding the new task.
+     */
+    private String addTask(char type, String description) {
         Task newTask = this.manager.addTask(type, description);
 
         return "Got it. I've added this task:\n"
@@ -169,8 +201,13 @@ public class commandManager {
             +"(Type 'list' to see the full list of tasks)";
     }
 
-    private String findTasks(String input) {
-        String description = getDescription(input);
+    /**
+     * Forwards description to taskManager to find a new list of tasks matching it.
+     * Receives the matching list and formats it into a reader friendly format.
+     * @param description substring used to find matching tasks.
+     * @return String response of the list of matched tasks.
+     */
+    private String findTasks(String description) {
         ArrayList<Task> taskList = manager.findTasks(description);
 
         if (taskList.size() == 0) { // special case for when no matches found
