@@ -1,8 +1,8 @@
-package InputCommands;
+package SnomBot.InputCommands;
 
-import SnomExceptions.InvalidCommandException;
-import SnomExceptions.InvalidCommandIndexException;
-import SnomTaskList.TaskList;
+import SnomBot.SnomExceptions.InvalidCommandException;
+import SnomBot.SnomExceptions.InvalidCommandIndexException;
+import SnomBot.SnomTaskList.TaskList;
 
 class MarkTaskCommand extends Command{
 

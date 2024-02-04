@@ -1,9 +1,11 @@
-import InputCommands.Command;
-import SnomExceptions.InvalidCommandException;
-import SnomParser.Parser;
-import SnomStorage.TaskStorage;
-import SnomTaskList.TaskList;
-import SnomUi.Ui;
+package SnomBot;
+
+import SnomBot.InputCommands.Command;
+import SnomBot.SnomExceptions.InvalidCommandException;
+import SnomBot.SnomParser.Parser;
+import SnomBot.SnomStorage.TaskStorage;
+import SnomBot.SnomTaskList.TaskList;
+import SnomBot.SnomUi.Ui;
 
 public class Snom {
     private Ui ui;

@@ -1,7 +1,7 @@
-package InputCommands;
+package SnomBot.InputCommands;
 
-import SnomExceptions.InvalidCommandTaskDescException;
-import SnomTaskList.TaskList;
+import SnomBot.SnomExceptions.InvalidCommandTaskDescException;
+import SnomBot.SnomTaskList.TaskList;
 
 class AddTodoCommand extends Command{
 

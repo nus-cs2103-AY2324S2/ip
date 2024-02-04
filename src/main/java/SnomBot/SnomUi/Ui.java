@@ -1,4 +1,4 @@
-package SnomUi;
+package SnomBot.SnomUi;
 
 import java.util.Scanner;
 
@@ -13,7 +13,7 @@ public class Ui {
      * Greets the user when the bot is started.
      */
     public void greet() {
-        System.out.println("Hello, I'm Snom");
+        System.out.println("Hello, I'm SnomBot.Snom");
         System.out.println("What can I do for you?");
     }
 

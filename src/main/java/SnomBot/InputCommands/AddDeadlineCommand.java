@@ -1,9 +1,9 @@
-package InputCommands;
+package SnomBot.InputCommands;
 
-import SnomExceptions.InvalidCommandDateFormatException;
-import SnomExceptions.InvalidCommandException;
-import SnomExceptions.InvalidCommandTaskDescException;
-import SnomTaskList.TaskList;
+import SnomBot.SnomExceptions.InvalidCommandDateFormatException;
+import SnomBot.SnomExceptions.InvalidCommandException;
+import SnomBot.SnomExceptions.InvalidCommandTaskDescException;
+import SnomBot.SnomTaskList.TaskList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

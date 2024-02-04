@@ -1,6 +1,6 @@
-package SnomExceptions;
+package SnomBot.SnomExceptions;
 
-public class InvalidCommandDateValueException extends InvalidCommandException{
+class InvalidCommandDateValueException extends InvalidCommandException{
 
     public InvalidCommandDateValueException() {
         super("Please make sure that your end date is after the start date");

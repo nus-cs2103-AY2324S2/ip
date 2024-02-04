@@ -1,7 +1,7 @@
-package SnomTaskList;
+package SnomBot.SnomTaskList;
 
-import SnomExceptions.InvalidCommandIndexException;
-import SnomTask.Task;
+import SnomBot.SnomExceptions.InvalidCommandIndexException;
+import SnomBot.SnomTask.Task;
 
 import java.util.ArrayList;
 

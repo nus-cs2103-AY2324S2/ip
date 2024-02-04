@@ -1,6 +1,6 @@
-package SnomExceptions;
+package SnomBot.SnomExceptions;
 
-public class InvalidCommandException extends Exception{
+class InvalidCommandException extends Exception{
 
     public InvalidCommandException() {
         super("Please enter a valid command");

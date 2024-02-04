@@ -1,7 +1,7 @@
-package SnomExceptions;
+package SnomBot.SnomExceptions;
 
 
-public class InvalidCommandDateFormatException extends InvalidCommandException{
+class InvalidCommandDateFormatException extends InvalidCommandException{
     public InvalidCommandDateFormatException() {
         super("Please ensure that both your date is of the format yyyy-mm-dd");
     }

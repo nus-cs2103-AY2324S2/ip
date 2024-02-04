@@ -1,7 +1,7 @@
-package SnomStorage;
+package SnomBot.SnomStorage;
 
-import SnomExceptions.InvalidCommandIndexException;
-import SnomTaskList.TaskList;
+import SnomBot.SnomExceptions.InvalidCommandIndexException;
+import SnomBot.SnomTaskList.TaskList;
 
 import java.io.File;
 import java.io.FileWriter;

@@ -1,6 +1,6 @@
-package SnomExceptions;
+package SnomBot.SnomExceptions;
 
-public class InvalidCommandFormatException extends InvalidCommandException{
+class InvalidCommandFormatException extends InvalidCommandException{
 
     public InvalidCommandFormatException() {
         super("Please make sure your command is of the valid format");

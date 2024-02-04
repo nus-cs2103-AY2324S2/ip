@@ -1,4 +1,4 @@
-package SnomTask;
+package SnomBot.SnomTask;
 
 public class Event extends Task {
 

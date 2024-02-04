@@ -1,9 +1,9 @@
-package InputCommands;
+package SnomBot.InputCommands;
 
-import SnomExceptions.InvalidCommandException;
-import SnomTaskList.TaskList;
+import SnomBot.SnomExceptions.InvalidCommandException;
+import SnomBot.SnomTaskList.TaskList;
 
-public abstract class Command {
+abstract class Command {
 
     protected String desc;
 
