@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
@@ -10,7 +9,7 @@ public class Storage {
     public Storage() {
     }
 
-    public static void loadFileContents(ArrayList<Task> list, Ui ui) throws DukeException {
+    public static void loadFileContents(TaskList list) throws DukeException {
         File f = new File(FILE_PATH);
         try {
             if (f.exists()) {
@@ -18,7 +17,7 @@ public class Storage {
                     while (scanner.hasNextLine()) {
                         String s = scanner.nextLine();
                         try {
-                            loadLine(s, list, ui);
+                            loadLine(s, list);
                         } catch (DukeException e) {
                             System.out.println(e.getMessage());
                         }
@@ -32,7 +31,7 @@ public class Storage {
         }
     }
 
-    public static void loadLine(String original, ArrayList<Task> list, Ui ui) throws DukeException {
+    public static void loadLine(String original, TaskList list) throws DukeException {
         String[] inputParts = original.split("\\s+");
 
         if (inputParts[0].equals("todo")) {
@@ -42,21 +41,21 @@ public class Storage {
                 throw new DukeException("oi todo what. todo WHATTTTTT!!!!!!!!");
             }
             Task task = new ToDo(description);
-            ui.addMessage(task, list);
+            list.addTask(task);
         } else if (inputParts[0].equals("deadline")) {
             //handle "deadline"
             String[] parts = original.replace("deadline", "").split(" /");
             Task task = new Deadline(parts[0], parts[1].replace("by ", ""));
-            ui.addMessage(task, list);
+            list.addTask(task);
         } else if (inputParts[0].equals("event")) {
             //handle event
             String[] parts = original.replace("event", "").split(" /");
             Task task = new Event(parts[0], parts[1].replace("from ", ""), parts[2].replace("to ", ""));
-            ui.addMessage(task, list);
+            list.addTask(task);
         } else if (inputParts[0].equals("delete")) {
             //handle delete
             int inputInt = Integer.parseInt(inputParts[1]);
-            ui.deleteMessage(inputInt, list);
+            list.deleteTask(inputInt);
         } else {
             throw new DukeException("harh what u talking sia walao");
         }
@@ -68,11 +67,11 @@ public class Storage {
      *
      * @throws DukeException If there is a problem with writing into file.
      */
-    public static void writeToFile(ArrayList<Task> list) throws DukeException {
+    public static void writeToFile(TaskList list) throws DukeException {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
-            for (Task task : list) {
-                fw.write(task.writeToFileString() + "\n");
+            for (int i = 0; i < list.getSize(); i++) {
+                fw.write(list.getTask(i).writeToFileString() + "\n");
             }
             fw.close();
         } catch (IOException e) {

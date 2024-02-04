@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -6,7 +5,7 @@ import java.util.Scanner;
  */
 public class Duke {
 
-    private static ArrayList<Task> list = new ArrayList<>();
+    private static TaskList list = new TaskList();
     private Ui ui;
 
     public static void main(String[] args) {
@@ -16,7 +15,7 @@ public class Duke {
     public Duke() {
         ui = new Ui();
         try {
-            Storage.loadFileContents(list, ui);
+            Storage.loadFileContents(list);
         } catch (DukeException e) {
             ui.showLoadingError(e.getMessage());
         }

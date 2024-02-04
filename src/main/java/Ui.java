@@ -1,5 +1,4 @@
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.PrintStream;
 public class Ui {
@@ -42,11 +41,11 @@ public class Ui {
         showToUser(DIVIDER, e, DIVIDER);
     }
 
-    public void showList(ArrayList<Task> list) {
+    public void showList(TaskList list) {
         String message = "Here are the tasks in your list";
         StringBuilder tasks = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            tasks.append(" ").append(i + 1).append(". ").append(list.get(i).toString()).append("\n");
+        for (int i = 0; i < list.getSize(); i++) {
+            tasks.append(" ").append(i + 1).append(". ").append(list.getTask(i).toString()).append("\n");
         }
         showToUser(DIVIDER, message, tasks.toString(), DIVIDER);
     }
@@ -56,11 +55,10 @@ public class Ui {
      *
      * @param i index of task to delete.
      */
-    public void deleteMessage(int i, ArrayList<Task> list) {
+    public void deleteMessage(int i, TaskList list) {
         String m1 = "I remove this one alrdy: \n";
-        String m2 = "\n Now you have " + (list.size() - 1) + " tasks in the list.\n";
-        list.remove(i - 1);
-        showToUser(DIVIDER, m1, list.get(i - 1).toString(), m2, DIVIDER);
+        String m2 = "\n Now you have " + (list.getSize() - 1) + " tasks in the list.\n";
+        showToUser(DIVIDER, m1, list.getTask(i - 1).toString(), m2, DIVIDER);
     }
 
     /**
@@ -68,10 +66,9 @@ public class Ui {
      *
      * @param task new task to add to list.
      */
-    public void addMessage(Task task, ArrayList<Task> list) {
-        list.add(task);
+    public void addMessage(Task task, TaskList list) {
         String m1 = " Got it. I've added this task:\n";
-        String m2 = "\n Now you have " + (list.size()) + " tasks in the list.\n";
+        String m2 = "\n Now you have " + (list.getSize()) + " tasks in the list.\n";
         showToUser(DIVIDER, m1, task.toString(), m2, DIVIDER);
     }
 
