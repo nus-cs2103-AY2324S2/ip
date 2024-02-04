@@ -130,7 +130,7 @@ public class Ui {
                 + "UNMARK [task number]: Mark a task as not completed.\n"
                 + "DELETE [task number]: Remove a task from your list.\n"
                 + "[task type] [task description]: Add a new task. Task types include TODO, DEADLINE, EVENT.\n"
-                + "LIST_ON [yyyy-mm-dd]: List all tasks on a specific date in format yyyy-MM-dd.\n"
+                + "FIND [yyyy-mm-dd] / FIND [key word]: Search for all relevant tasks.\n"
                 + "DATE / TIME: Show the current date and time.\n"
                 + "BYE: Exit the chatbot.");
     }
@@ -161,11 +161,10 @@ public class Ui {
         System.out.println("No task numbered " + (idx + 1) + ", " + user + "!");
     }
 
-    /**
-     * Displays an error message for date format.
-     */
-    public void showDateFormatError() {
-        System.out.println("Sorry, " + user + ", please use list_on [yyyy-mm-dd] to list tasks on a specific date.");
+
+    public void showFindFormatError() {
+        System.out.println("Sorry, " + user + ", please use 'find [yyyy-mm-dd]' / 'find [key word]' "
+                + "to search for relevant tasks");
     }
 
     /**

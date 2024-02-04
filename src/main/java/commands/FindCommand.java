@@ -4,14 +4,14 @@ import core.Ui;
 import data.Storage;
 import tasks.TaskList;
 
-public class ListOnCommand extends Command {
+public class FindCommand extends Command {
     private String input;
 
-    public ListOnCommand(String input) {
+    public FindCommand(String input) {
         this.input = input;
     }
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.listTasksOnDate(input, ui);
+        tasks.find(input, ui);
     }
 }

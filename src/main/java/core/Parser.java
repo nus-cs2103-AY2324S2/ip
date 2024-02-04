@@ -5,7 +5,7 @@ import commands.Command;
 import commands.DeleteCommand;
 import commands.ExitCommand;
 import commands.ListCommand;
-import commands.ListOnCommand;
+import commands.FindCommand;
 import commands.MarkCommand;
 import commands.ShowTimeCommand;
 import commands.UnknownCommand;
@@ -34,8 +34,8 @@ public class Parser {
                 return new ExitCommand();
             case LIST:
                 return new ListCommand();
-            case LIST_ON:
-                return new ListOnCommand(input);
+            case FIND:
+                return new FindCommand(input);
             case MARK:
                 return new MarkCommand(input);
             case UNMARK:

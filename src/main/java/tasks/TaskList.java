@@ -10,6 +10,7 @@ import java.time.format.DateTimeParseException;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 /**
  * The TaskList class manages a list of tasks and provides methods to manipulate them.
@@ -155,26 +156,38 @@ public class TaskList {
     }
 
     /**
-     * Lists tasks that occur on a specific date.
+     * Processes the input to find tasks by date or keyword.
+     * If the input is a date in ISO_LOCAL_DATE format (yyyy-MM-dd), it will search for tasks on that date.
+     * If the input is not a date, it will treat it as a keyword and search task descriptions.
      *
-     * @param input The user input specifying the date to filter tasks.
-     * @param ui    The user interface for displaying messages.
+     * @param input The search parameter provided by the user, either a date or a keyword.
+     * @param ui The Ui instance for user interaction.
      */
-    public void listTasksOnDate(String input, Ui ui) {
+    public void find(String input, Ui ui) {
         String[] parts = input.split(" ", 2);
         if (parts.length < 2) {
-            ui.showDateFormatError();
+            ui.showFindFormatError();
             return;
         }
 
+        String searchInput = parts[1].trim();
         LocalDate date;
         try {
-            date = LocalDate.parse(parts[1]);
+            date = LocalDate.parse(searchInput);
+            findTasksByDate(date, ui);
         } catch (DateTimeParseException e) {
-            ui.showDateFormatError();
-            return;
+            findTasksByKeyword(searchInput, ui);
         }
+    }
 
+    /**
+     * Finds and displays tasks that are due on the specified date.
+     * It will show deadlines and events that occur on the given date.
+     *
+     * @param date The LocalDate object representing the date to search for.
+     * @param ui The Ui instance for user interaction.
+     */
+    private void findTasksByDate(LocalDate date, Ui ui) {
         int count = 0;
         for (Task task : tasks) {
             if ((task instanceof Deadline && ((Deadline) task).getBy().isEqual(date))
@@ -184,13 +197,35 @@ public class TaskList {
                             + date.format(DateTimeFormatter.ofPattern("MMM d yyyy").withLocale(Locale.US))
                             + ", you have the following tasks:");
                 }
-                ui.showMessage(task.toString());
+                ui.showMessage((count + 1) + "." + task);
                 count++;
             }
         }
         if (count == 0) {
             ui.showMessage(ui.getUser() + ", you have no task on "
                     + date.format(DateTimeFormatter.ofPattern("MMM d yyyy").withLocale(Locale.US)) + "!");
+        }
+    }
+
+    /**
+     * Finds and displays tasks that contain the given keyword in their description.
+     * The search is case-insensitive.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @param ui The Ui instance for user interaction.
+     */
+    private void findTasksByKeyword(String keyword, Ui ui) {
+        List<Task> foundTasks = tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+
+        if (foundTasks.isEmpty()) {
+            ui.showMessage(ui.getUser() + ", I couldn't find any task with the keyword: '" + keyword + "'.");
+        } else {
+            ui.showMessage(ui.getUser() + ", here are the tasks containing the keyword '" + keyword + "':");
+            for (int i = 0; i < foundTasks.size(); i++) {
+                ui.showMessage((i + 1) + "." + foundTasks.get(i).toString());
+            }
         }
     }
 
