@@ -1,3 +1,5 @@
+package riz.io;
+
 public class RizException extends Exception {
     String message;
 

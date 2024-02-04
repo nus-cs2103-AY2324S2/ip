@@ -1,3 +1,5 @@
+package riz.data;
+
 public class ToDo extends Task {
     public ToDo(String todo) {
         super(todo);

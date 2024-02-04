@@ -1,4 +1,7 @@
-import java.util.*;
+import riz.data.*;
+import riz.io.*;
+
+import java.util.Scanner;
 
 public class Riz {
     private TaskList taskList;
@@ -27,7 +30,7 @@ public class Riz {
         }
     }
     public static void main(String[] args) {
-        Riz riz = new Riz("./data/riz.txt");
+        Riz riz = new Riz("riz/data/riz.txt");
         riz.run();
     }
 }
