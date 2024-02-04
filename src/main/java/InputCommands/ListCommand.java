@@ -2,8 +2,7 @@ package InputCommands;
 
 import SnomExceptions.InvalidCommandException;
 import SnomTaskList.TaskList;
-
-public class ListCommand extends Command {
+class ListCommand extends Command {
 
     @Override
     public CmdType getType() {
