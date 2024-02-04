@@ -1,0 +1,5 @@
+T| |eatD
+D| |this|that
+E|X|this|that|there
+T|X|homework
+T| |this

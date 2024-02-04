@@ -1,7 +1,15 @@
+/**
+ * Represents a task with the specified description.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Creates a new Task object with the specified description.
+     *
+     * @param description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -11,11 +19,19 @@ public class Task {
         return this.description;
     }
 
+    /**
+     * Gets status of Task.
+     *
+     * @return X if Task is done, space character otherwise.
+     */
     public String getStatusIcon() {
         return (this.isDone ? "X" : " ");
     }
 
-    public void markAsDone() throws DukeException {
+    /**
+     * Sets isDone to true.
+     */
+    public void markAsDone() {
         Duke.breakLine();
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done:");
@@ -23,6 +39,9 @@ public class Task {
         Duke.breakLine();
     }
 
+    /**
+     * Sets isDone to false.
+     */
     public void unmark() {
         Duke.breakLine();
         this.isDone = false;
