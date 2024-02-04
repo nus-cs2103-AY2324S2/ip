@@ -3,17 +3,32 @@ package Jerry;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Ui class handles interactions with the user, including reading input and displaying messages.
+ * It abstracts the complexity of command-line input and output operations.
+ */
 public class Ui {
     private Scanner scanner;
 
+    /**
+     * Constructs a new Ui instance for handling user input and output.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Reads a command from the user.
+     *
+     * @return A string representing the user's input.
+     */
     public String readCommand() {
         return scanner.nextLine();
     }
 
+    /**
+     * Displays a welcome message to the user.
+     */
     public void showWelcome() {
         System.out.println("Hello! I'm Jerry.\nWhat can I do for you?");
     }
@@ -34,6 +49,10 @@ public class Ui {
         System.out.println(message);
     }
 
+    /**
+     * Closes the scanner, effectively terminating the ability to read further input from the user.
+     * Should be called before the application exits to release system resources.
+     */
     public void closeScanner() {
         if (scanner != null) {
             scanner.close();

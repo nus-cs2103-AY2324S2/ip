@@ -6,14 +6,28 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles storage operations for the chatbot application, including loading tasks from a file and saving tasks to a file.
+ * This class abstracts away the details of file read/write operations, providing a simple interface for task persistence.
+ */
 public class Storage {
 
-    String filepath;
+    String filePath;
 
-    public Storage(String filepath) {
-        this.filepath = filepath;
+    /**
+     * Constructs a new Storage instance using the specified file path for task data.
+     *
+     * @param filePath The path to the file used for storing task data.
+     */
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
 
+    /**
+     * Saves the current list of tasks to the configured file.
+     *
+     * @param tasks The list of tasks to save.
+     */
     public static void saveTasks(ArrayList<Task> tasks, String filePath) {
         try (PrintWriter writer = new PrintWriter(filePath)) {
             for (Task task : tasks) {
@@ -24,6 +38,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the configured file into the application.
+     *
+     * @return An ArrayList containing the tasks loaded from the file.
+     */
     public static ArrayList<Task> loadTasks(String filePath) {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
