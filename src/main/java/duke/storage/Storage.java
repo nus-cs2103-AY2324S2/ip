@@ -12,17 +12,32 @@ import duke.exception.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * Represents the storage for tasks in the Duke chatbot application.
+ * Handles loading tasks from a file and saving tasks to a file.
+ */
 public class Storage {
 
     private String filePath;
 
     private String directoryPath;
 
+    /**
+     * Constructs a Storage object with the specified file path for storage.
+     *
+     * @param filePath The file path for storing tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.directoryPath = "./data/";
     }
 
+    /**
+     * Loads tasks from the specified file.
+     *
+     * @return ArrayList of tasks loaded from the file.
+     * @throws DukeException If an error occurs during the loading process.
+     */
     public ArrayList<Task> load() throws DukeException {
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -48,28 +63,30 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the tasks in the provided TaskList to the specified file.
+     *
+     * @param tasks The TaskList containing tasks to be saved.
+     * @throws DukeException If an error occurs during the saving process.
+     */
     public void save(TaskList tasks) throws DukeException {
         File directory = new File(directoryPath);
 
-        // Create a directory if it doesn't exist
+        // Create a directory if it doesn't exist.
         if (!directory.exists()) {
             directory.mkdirs();
         }
 
-        // Write the tasks in the list into the file
+        // Write the tasks in the list into the file.
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             ArrayList<Task> taskList = tasks.getTasks();
-
             for (Task task : taskList) {
                 writer.write(task.toString());
                 writer.newLine();
             }
-
             System.out.println("Tasks saved successfully.");
         } catch (IOException e) {
             throw new DukeException("Error saving tasks to file: " + e.getMessage());
         }
     }
-
-
 }
