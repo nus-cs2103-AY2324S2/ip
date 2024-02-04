@@ -36,6 +36,15 @@ public class Task {
     }
 
     /**
+     * Checks if the queryString is located in the label parameter of this object.
+     *
+     * @param queryString the string we are querying
+     */
+    public boolean checkQuery(String queryString) {
+        return this.label.contains(queryString);
+    }
+
+    /**
      * Returns the string representation of the task.
      *
      * @return a string representation of the task and all its details
