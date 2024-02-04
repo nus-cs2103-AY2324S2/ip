@@ -1,65 +1,67 @@
 package duke;
 
-public class CustomExceptions extends Exception{
+public class CustomExceptions extends Exception {
 
     public CustomExceptions(String errorMessage) {
         super(errorMessage);
     }
-    public static class zeroIndexException extends CustomExceptions {
-        public zeroIndexException(String errorMessage) {
+    public static class ZeroIndexException extends CustomExceptions {
+        public ZeroIndexException(String errorMessage) {
             super(errorMessage);
         }
     }
 
-    public static class invalidTaskException extends CustomExceptions {
-        public invalidTaskException(String errorMessage) {
+    public static class InvalidTaskException extends CustomExceptions {
+        public InvalidTaskException(String errorMessage) {
             super(errorMessage);
         }
     }
 
-    public static class unrecognizedCommandException extends CustomExceptions {
-        public unrecognizedCommandException(String errorMessage) {
+    public static class UnrecognizedCommandException extends CustomExceptions {
+        public UnrecognizedCommandException(String errorMessage) {
             super(errorMessage);
         }
     }
 
-    public static class toBeforeFromException extends CustomExceptions {
-        public toBeforeFromException(String errorMessage) {
+    public static class ToBeforeFromException extends CustomExceptions {
+        public ToBeforeFromException(String errorMessage) {
             super(errorMessage);
         }
     }
 
-    public static class eventExceptionForFromTo extends CustomExceptions {
-        public eventExceptionForFromTo(String errorMessage) {
+    public static class EventExceptionForFromTo extends CustomExceptions {
+        public EventExceptionForFromTo(String errorMessage) {
             super(errorMessage);
         }
     }
 
-    public static class namelessTaskException extends CustomExceptions {
-        public namelessTaskException(String errorMessage) {
+    public static class NamelessTaskException extends CustomExceptions {
+        public NamelessTaskException(String errorMessage) {
             super(errorMessage);
         }
     }
 
-    public static class noSuchIndexException extends CustomExceptions {
-        public noSuchIndexException(String errorMessage) {
+    public static class NoSuchIndexException extends CustomExceptions {
+        public NoSuchIndexException(String errorMessage) {
             super(errorMessage);
         }
     }
 
-    public static class unrecognizableDateException extends CustomExceptions {
-        public unrecognizableDateException(String errorMessage) {
+    public static class UnrecognizableDateException extends CustomExceptions {
+        public UnrecognizableDateException(String errorMessage) {
             super(errorMessage);
         }
     }
 
-    public static class deadlineExceptionBy extends CustomExceptions {
-        public deadlineExceptionBy(String errorMessage) {
+    public static class DeadlineExceptionBy extends CustomExceptions {
+        public DeadlineExceptionBy(String errorMessage) {
             super(errorMessage);
         }
     }
 
-    public static class markException extends CustomExceptions {
-        public markException(String errorMessage) { super(errorMessage); }
+    public static class MarkException extends CustomExceptions {
+        public MarkException(String errorMessage) {
+            super(errorMessage);
+        }
     }
 }
