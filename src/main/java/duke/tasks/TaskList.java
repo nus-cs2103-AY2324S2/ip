@@ -1,9 +1,10 @@
 package duke.tasks;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
+
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeIllegalArgumentException;
-import java.util.ArrayList;
-import java.nio.file.Path;
 import duke.storage.Storage;
 
 /**
@@ -12,10 +13,14 @@ import duke.storage.Storage;
 public class TaskList {
     private static final String MARK_DONE_MESSAGE = "Nice! I've marked this task as done:%n%s";
     private static final String MARK_UNDONE_MESSAGE = "OK, I've marked this task as not done yet:%n%s";
-    private static final String LIST_TASK_MESSAGE = "Here are the tasks in your list:%s";
-    private static final String ADD_TASK_MESSAGE = "Got it. I've added this task:%n%s%nNow you have %d tasks in the list.";
-    private static final String MISSING_ARGUMENT_MESSAGE = "The command you entered has missing arguments. Please try again!";
-    private static final String REMOVE_TASK_MESSAGE = "Noted. I've removed this task:%n%s%nNow you have %d tasks in the list.";
+    private static final String LIST_TASK_MESSAGE =
+            "Here are the tasks in your list:%s";
+    private static final String ADD_TASK_MESSAGE =
+            "Got it. I've added this task:%n%s%nNow you have %d tasks in the list.";
+    private static final String MISSING_ARGUMENT_MESSAGE =
+            "The command you entered has missing arguments. Please try again!";
+    private static final String REMOVE_TASK_MESSAGE =
+            "Noted. I've removed this task:%n%s%nNow you have %d tasks in the list.";
     private static final String FIND_TASK_MESSAGE = "Here are the matching tasks in your list:%s";
 
     private final ArrayList<Task> taskList;
@@ -202,14 +207,15 @@ public class TaskList {
         }
     }
 
-    private void syncListWithStorage(String taskType, String status, String description, String by, String from, String to) {
+    private void syncListWithStorage(String taskType, String status, String description,
+                                     String by, String from, String to) {
         if (taskType.equals("T")) {
             taskList.add(new ToDo(description));
         } else if (taskType.equals("D")) {
             String byFormatted;
             String[] dateTimeParts = by.replace("-", "/").split("T");
-            String[] HHmm = dateTimeParts[1].split(":");
-            byFormatted = dateTimeParts[0] + " " + HHmm[0] + HHmm[1];
+            String[] time = dateTimeParts[1].split(":");
+            byFormatted = dateTimeParts[0] + " " + time[0] + time[1];
             taskList.add(new Deadline(description, byFormatted));
         } else {
             String fromFormatted;

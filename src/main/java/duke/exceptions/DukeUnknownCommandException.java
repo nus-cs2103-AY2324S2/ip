@@ -1,7 +1,8 @@
 package duke.exceptions;
 
 /**
- * The DukeUnknownCommandException class represents exceptions specific to unknown commands in the Duke chatbot application.
+ * The DukeUnknownCommandException class represents exceptions specific
+ * to unknown commands in the Duke chatbot application.
  * It extends the DukeException class.
  */
 public class DukeUnknownCommandException extends DukeException {

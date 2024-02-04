@@ -45,6 +45,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format(EVENT_MESSAGE, super.toString(), startTime.format(returnFormatter), endTime.format(returnFormatter));
+        return String.format(EVENT_MESSAGE, super.toString(),
+                startTime.format(returnFormatter), endTime.format(returnFormatter));
     }
 }

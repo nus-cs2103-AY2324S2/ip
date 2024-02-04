@@ -1,13 +1,13 @@
 package duke.storage;
 
-import duke.exceptions.DukeIOException;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import duke.exceptions.DukeIoException;
 /**
  * The Storage class handles file storage operations for the Duke chatbot application.
  */
@@ -19,7 +19,7 @@ public class Storage {
      * Constructs a Storage object with the specified file path.
      *
      * @param path The path to the file.
-     * @throws DukeIOException If an error occurs during file creation.
+     * @throws DukeIoException If an error occurs during file creation.
      */
     public Storage(String path) {
         this.path = path;
@@ -34,7 +34,7 @@ public class Storage {
             parentPath.mkdirs();
             f.createNewFile();
         } catch (IOException e) {
-            throw new DukeIOException("Error creating file!");
+            throw new DukeIoException("Error creating file!");
         }
     }
 
@@ -42,14 +42,14 @@ public class Storage {
      * Loads data from the file.
      *
      * @return The data read from the file.
-     * @throws DukeIOException If an error occurs while reading the file.
+     * @throws DukeIoException If an error occurs while reading the file.
      */
     public String loadFileData() {
         try {
             Path p = Paths.get(path);
             return Files.readString(p);
         } catch (IOException e) {
-            throw new DukeIOException("Error locating file");
+            throw new DukeIoException("Error locating file");
         }
     }
 
@@ -57,14 +57,14 @@ public class Storage {
      * Saves data to the file.
      *
      * @param dataToSave The data to be saved to the file.
-     * @throws DukeIOException If an error occurs while writing to the file.
+     * @throws DukeIoException If an error occurs while writing to the file.
      */
     public void saveToFile(String dataToSave) {
         try {
             Path p = Paths.get(path);
             Files.writeString(p, dataToSave);
         } catch (IOException e) {
-            throw new DukeIOException("Error saving to file");
+            throw new DukeIoException("Error saving to file");
         }
     }
 }
