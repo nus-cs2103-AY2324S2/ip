@@ -13,7 +13,7 @@ public class ParserTest {
 
     @Test
     public void testCreateTaskFromInput() throws DinoException {
-        Parser parser = new Parser(new TaskList(), new Ui(), null);
+        Parser parser = new Parser(new TaskList());
 
         Task todoTask = parser.createTaskFromInput(Dino.TaskType.TODO, "Buy groceries");
         assertEquals(" T | 0 | Buy groceries", todoTask.toString());
@@ -30,7 +30,7 @@ public class ParserTest {
     public void testCreateTaskFromInputWithInvalidDeadlineFormat() {
         TaskList taskList = new TaskList();
 
-        Parser parser = new Parser(taskList, new Ui(), new Scanner(System.in));
+        Parser parser = new Parser(taskList);
 
         String inputTaskDetails = "InvalidDeadlineFormat\n";
         Dino.TaskType taskType = Dino.TaskType.DEADLINE;

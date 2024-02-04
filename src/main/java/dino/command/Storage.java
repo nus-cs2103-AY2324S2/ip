@@ -37,7 +37,7 @@ public class Storage {
         try {
             File file = new File(filePath);
             Scanner fileScanner = new Scanner(file);
-            Parser parser = new Parser(taskList, new Ui(), fileScanner);
+            Parser parser = new Parser(taskList);
 
             while (fileScanner.hasNextLine()) {
                 String taskData = fileScanner.nextLine();
@@ -86,26 +86,23 @@ public class Storage {
      * Saves the provided task list to the file specified in the constructor.
      *
      * @param taskList The list of tasks to be saved.
+     * @throws IOException If an I/O error occurs while writing to the file.
      */
-    public void saveTasksToFile(ArrayList<Task> taskList) {
-        try {
-            File directory = new File("data");
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
+    public void saveTasksToFile(ArrayList<Task> taskList) throws IOException {
+        File directory = new File("data");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
 
-            File file = new File(filePath);
-            if (!file.exists()) {
-                file.createNewFile();
-            }
+        File file = new File(filePath);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
 
-            try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
-                for (Task task : taskList) {
-                    writer.println(task.toString());
-                }
+        try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
+            for (Task task : taskList) {
+                writer.println(task.toString());
             }
-        } catch (IOException e) {
-            System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
 }

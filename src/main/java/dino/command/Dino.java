@@ -1,21 +1,20 @@
 package dino.command;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import dino.task.Task;
+import javafx.application.Platform;
 
 /** The main class for the Dino application. */
-public class Dino extends Application {
-    private static final String FILE_PATH = "./data/duke.txt";
+public class Dino {
+    private static final String FILE_PATH = "./data/dino.txt";
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
+    private TaskType taskType;
 
     /**
      * Enumeration representing the types of tasks in the Dino application.
@@ -34,59 +33,99 @@ public class Dino extends Application {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
         tasks = storage.loadTasksFromFile();
-
-    }
-
-    @Override
-    public void start(Stage stage) {
-        TextArea chatArea = new TextArea();
-        TextField userInputField = new TextField();
-        Button submitButton = new Button("Submit");
-
-        submitButton.setOnAction(e -> {
-            String userCommand = userInputField.getText();
-            String response = processUserInput(userCommand);
-            appendToChat(chatArea, "User: " + userCommand);
-            appendToChat(chatArea, "Dino: " + response);
-            userInputField.clear();
-        });
-
-        VBox root = new VBox(10); // Vertical box layout
-        root.getChildren().addAll(chatArea, userInputField, submitButton);
-
-        Scene scene = new Scene(root, 400, 300);
-
-        stage.setTitle("Dino Chatbot");
-        stage.setScene(scene);
-        stage.show();
-    }
-
-
-    private String processUserInput(String command) {
-        Scanner sc = new Scanner(System.in);
-        Parser parser = new Parser(tasks, ui, sc);
-
-        if (command.equals("bye")) {
-            storage.saveTasksToFile(tasks.getTaskList());
-            ui.goodbye();
-            sc.close();
-            System.exit(0);
-        } else {
-            return parser.parseCommand(command);
-        }
-        return null;
-    }
-
-    private void appendToChat(TextArea chatArea, String message) {
-        chatArea.appendText(message + "\n");
     }
 
     /**
-     * The main entry point of the Dino application.
+     * Parses the given command and performs the corresponding action.
      *
-     * @param args arguments.
+     * @param input The user command to be parsed.
+     * @return String representation of command.
      */
-    public static void main(String[] args) {
-        launch(args);
+    public String parseCommand(String input) {
+        Scanner sc = new Scanner(System.in);
+        Parser parser = new Parser(tasks);
+        String[] parts = input.trim().split(" "); // Split into command and argument
+        String command = parts[0];
+        String argument = parts.length > 1
+                ? String.join(" ", Arrays.copyOfRange(parts, 1, parts.length))
+                : "";
+
+        switch (command) {
+        case "list":
+            return tasks.listTask();
+
+        case "bye":
+            try {
+                storage.saveTasksToFile(tasks.getTaskList());
+                return ui.goodbye();
+            } catch (IOException e) {
+                return "Error: " + e.getMessage();
+            } finally {
+                Platform.exit();
+            }
+
+
+        case "delete":
+            try {
+                int taskNum = Integer.parseInt(argument);
+                return tasks.deleteTask(taskNum);
+            } catch (DinoException e) {
+                return "Error: " + e.getMessage();
+            }
+
+        case "todo":
+            taskType = Dino.TaskType.TODO;
+            return parser.handleTaskCreation(taskType, argument);
+
+        case "deadline":
+            taskType = Dino.TaskType.DEADLINE;
+            return parser.handleTaskCreation(taskType, argument);
+
+        case "event":
+            taskType = Dino.TaskType.EVENT;
+            return parser.handleTaskCreation(taskType, argument);
+
+        case "filter":
+            return parser.printTasksForDate(argument.trim());
+
+        case "mark":
+            int taskNum = Integer.parseInt(argument);
+            if (taskNum > tasks.size()) {
+                return ("Uh oh, we do not have a task assigned to that number.");
+            } else {
+                Task completed = tasks.get(taskNum - 1);
+                return completed.markAsDone();
+            }
+
+        case "unmark":
+            int taskNumber = Integer.parseInt(argument);
+            if (taskNumber > tasks.size()) {
+                return ("Uh oh, we do not have a task assigned to that number.");
+            } else {
+                Task missing = tasks.get(taskNumber - 1);
+                return missing.markAsUndone();
+            }
+
+        case "find":
+            String searchKeyword = argument.trim();
+            ArrayList<Task> matchingTasks = tasks.findTasksByKeyword(searchKeyword);
+
+            if (matchingTasks.isEmpty()) {
+                return ("Aww, there are no tasks that contains that keyword.");
+            } else {
+                StringBuilder printTask = new StringBuilder("Matching tasks:\n");
+                for (Task task : matchingTasks) {
+                    printTask.append(task).append("\n");
+                }
+                return String.valueOf(printTask);
+            }
+
+        default:
+            try {
+                throw new DinoException("I don't understand ;;");
+            } catch (DinoException e) {
+                return ("Error: " + e.getMessage());
+            }
+        }
     }
 }
