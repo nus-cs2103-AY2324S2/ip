@@ -1,26 +1,38 @@
 package Duke;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-/**
- * The main class representing the Duke chatbot application. Duke manages the user interface, task list, and storage.
- * Duke processes user input, executes commands, and interacts with the user.
- */
-public class Duke {
+public class Duke extends Application {
     private static final String FILE_PATH = "./data/duke.txt";
     private TaskList tasks;
     private Ui ui;
     private Storage storage;
 
-    /**
-     * Constructs a Duke object with the specified file path.
-     *
-     * @param filePath The file path for storing and loading tasks.
-     */
-    public Duke(String filePath) {
+    private TextField inputField;
+    private TextArea outputArea;
+
+    public Duke() {
+
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
+
         try {
             storage.ensureDataFileExists();
             tasks = storage.loadTasksFromFile();
@@ -28,58 +40,70 @@ public class Duke {
             ui.showDukeDataCorruptionMessage(e);
         } catch (FileNotFoundException e) {
             System.out.println("Data file not found. Creating a new one.");
-            // Handle the case when the data file is not found, and create a new one
             ui.showFileNotFoundExceptionMessage();
         } catch (IOException e) {
-            // Handle IOException (e.g., file-related issues)
             ui.showIoExceptionMessage();
         } catch (NumberFormatException e) {
-            // Handle NumberFormatException (e.g., when parsing integers)
             ui.showNumberFormatExceptionMessage();
         }
+
+        // Set up UI components
+        inputField = new TextField();
+        outputArea = new TextArea();
+        outputArea.setEditable(false);
+
+        Button sendButton = new Button("Send");
+        sendButton.setOnAction(e -> handleUserInput());
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(outputArea, inputField, sendButton);
+
+        // Set up the scene
+        Scene scene = new Scene(layout, 400, 300);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Duck Chatbot");
+        primaryStage.show();
+
+        // Show welcome message
+        ui.showWelcomeMessage();
+        appendToOutputArea("Welcome to Duck Chatbot!\n");
     }
 
-    /**
-     * Runs the Duke application.
-     * Displays welcome messages, processes user input, and executes commands until the exit command is given.
-     */
-    public void run() {
-        ui.showWelcomeMessage();
+    private void handleUserInput() {
+        String userInput = inputField.getText();
+        appendToOutputArea("> " + userInput + "\n");
 
-        while (true) {
+        if (Parser.isExitCommand(userInput)) {
+            ui.showGoodbyeMessage();
+            appendToOutputArea("Goodbye! Hope to see you again :)");
+            // Save tasks and exit
             try {
-                String userInput = ui.getUserInput();
-                if (Parser.isExitCommand(userInput)) {
-                    ui.showGoodbyeMessage();
-                    storage.saveTasksToFile(tasks);
-                    break;
-                }
-                if (userInput.trim().isEmpty()) {
-                    throw new DukeException("Please enter an action and a task");
-                }
-                //System.out.println((tasks.getTask(0)).isDone());
-                Command command = Parser.parseCommand(userInput);
-                command.execute(tasks, ui, storage);
                 storage.saveTasksToFile(tasks);
-            } catch (DukeException e) {
-                ui.showDukeExceptionMessage(e);
-                tasks = new TaskList();
-            } catch (NumberFormatException e) {
-                // Handle NumberFormatException (e.g., when parsing integers)
-                ui.showNumberFormatExceptionMessage();
             } catch (IOException e) {
                 ui.showIoExceptionMessage();
             }
+            System.exit(0);
         }
+
+        if (userInput.trim().isEmpty()) {
+            appendToOutputArea("Please enter an action and a task\n");
+            return;
+        }
+
+        try {
+            Command command = Parser.parseCommand(userInput);
+            command.execute(tasks, new Ui(), storage);
+            storage.saveTasksToFile(tasks);
+        } catch (DukeException | IOException e) {
+            appendToOutputArea(e.getMessage() + "\n");
+        }
+
+        // Clear input field after processing
+        inputField.clear();
     }
 
-    /**
-     * The entry point of the Duke application.
-     *
-     * @param args The command-line arguments.
-     */
-    public static void main(String[] args) {
-        new Duke(FILE_PATH).run();
+    private void appendToOutputArea(String text) {
+        outputArea.appendText(text);
     }
 }
 
