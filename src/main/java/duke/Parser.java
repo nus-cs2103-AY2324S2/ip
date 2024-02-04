@@ -1,7 +1,5 @@
 package duke;
 
-import duke.command.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -9,21 +7,14 @@ import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 import java.util.HashMap;
 
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+
 public class Parser {
-
-    HashMap<String, Command> commands = new HashMap<>();
-    ItemList itemList;
-
-    public Parser(ItemList itemlist) {
-        this.itemList = itemlist;
-        commands.put("event", new AddCommand());
-        commands.put("todo", new AddCommand());
-        commands.put("deadline", new AddCommand());
-        commands.put("mark", new MarkCommand());
-        commands.put("unmark", new UnmarkCommand());
-        commands.put("delete", new DeleteCommand());
-        commands.put("list", new ListCommand());
-    }
 
     private static DateTimeFormatterBuilder[] dtFormats = {
             new DateTimeFormatterBuilder().append(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)),
@@ -36,8 +27,21 @@ public class Parser {
             new DateTimeFormatterBuilder().appendPattern("dd-MM-yy-hh:mma"),
             new DateTimeFormatterBuilder().appendPattern("dd-MM-yy hh:mma")
     };
+    private HashMap<String, Command> commands = new HashMap<>();
+    private ItemList itemList;
 
-    public static LocalDateTime parseDTString(String s) throws DateTimeParseException {
+    public Parser(ItemList itemlist) {
+        this.itemList = itemlist;
+        commands.put("event", new AddCommand());
+        commands.put("todo", new AddCommand());
+        commands.put("deadline", new AddCommand());
+        commands.put("mark", new MarkCommand());
+        commands.put("unmark", new UnmarkCommand());
+        commands.put("delete", new DeleteCommand());
+        commands.put("list", new ListCommand());
+    }
+
+    public static LocalDateTime parseDtString(String s) throws DateTimeParseException {
         DateTimeParseException thrown = null;
         for (DateTimeFormatterBuilder f : dtFormats) {
             try {
@@ -50,12 +54,12 @@ public class Parser {
         throw thrown;
     }
 
-    public String parse(String command) throws CustomExceptions{
+    public String parse(String command) throws CustomExceptions {
         String[] arr = command.split(" ");
         try {
             return commands.get(arr[0]).execute(command, arr, itemList);
         } catch (NullPointerException e) {
-            throw new CustomExceptions.unrecognizedCommandException("");
+            throw new CustomExceptions.UnrecognizedCommandException("");
         }
     }
 }

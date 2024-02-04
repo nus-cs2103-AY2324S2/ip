@@ -19,35 +19,35 @@ public class EventTest {
     void constructor_missingName_throwsNamelessTaskException() {
         String s = "event /from 10/10/10 1000 /to 10/10/10 1100";
         String[] info = s.split(" ");
-        Assertions.assertThrows(CustomExceptions.namelessTaskException.class, () -> new Event(info));
+        Assertions.assertThrows(CustomExceptions.NamelessTaskException.class, () -> new Event(info));
     }
 
     @Test
     void constructor_missingFrom_throwsToBeforeFromException() {
         String s = "event A /to 10/10/10 1100";
         String[] info = s.split(" ");
-        Assertions.assertThrows(CustomExceptions.toBeforeFromException.class, () -> new Event(info));
+        Assertions.assertThrows(CustomExceptions.ToBeforeFromException.class, () -> new Event(info));
     }
 
     @Test
     void constructor_missingTo_throwsEventExceptionForFromTo() {
         String s = "event A /from 10/10/10 1000";
         String[] info = s.split(" ");
-        Assertions.assertThrows(CustomExceptions.eventExceptionForFromTo.class, () -> new Event(info));
+        Assertions.assertThrows(CustomExceptions.EventExceptionForFromTo.class, () -> new Event(info));
     }
 
     @Test
     void constructor_unparseableDateTime_throwsUnrecognizableDateException() {
-        Assertions.assertThrows(CustomExceptions.unrecognizableDateException.class, (
+        Assertions.assertThrows(CustomExceptions.UnrecognizableDateException.class, (
             ) -> {
-            throw new CustomExceptions.unrecognizableDateException(""); });
+            throw new CustomExceptions.UnrecognizableDateException(""); });
     }
 
     @Test
     void constructor_swappedFromTo_throwsToBeforeFromException() {
         String s = "event A /to 10/10/10 1100 /from 10/10/10 1000";
         String[] info = s.split(" ");
-        Assertions.assertThrows(CustomExceptions.toBeforeFromException.class, () -> new Event(info));
+        Assertions.assertThrows(CustomExceptions.ToBeforeFromException.class, () -> new Event(info));
     }
 
 }
