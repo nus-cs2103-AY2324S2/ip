@@ -5,10 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
-import java.util.Scanner;
 
 import dino.task.Deadline;
 import dino.task.Event;
@@ -21,106 +18,14 @@ import dino.task.ToDo;
 public class Parser {
 
     private TaskList tasks;
-    private Ui ui;
-    private Dino.TaskType taskType;
-    private Scanner sc;
 
     /**
      * Constructs a new Parser instance with the specified TaskList, Ui, and Scanner.
      *
      * @param tasks The TaskList to be operated on.
-     * @param ui    The Ui for handling user interface interactions.
-     * @param sc    The Scanner for reading user input.
      */
-    public Parser(TaskList tasks, Ui ui, Scanner sc) {
+    public Parser(TaskList tasks) {
         this.tasks = tasks;
-        this.ui = ui;
-        this.sc = sc;
-    }
-
-    /**
-     * Parses the given command and performs the corresponding action.
-     *
-     * @param input The user command to be parsed.
-     * @return String representation of command.
-     */
-    public String parseCommand(String input) {
-        String[] parts = input.trim().split(" "); // Split into command and argument
-        String command = parts[0];
-        String argument = parts.length > 1
-                ? String.join(" ", Arrays.copyOfRange(parts, 1, parts.length))
-                : "";
-
-        switch (command) {
-        case "list":
-            return tasks.listTask();
-
-        case "bye":
-            break;
-
-        case "delete":
-            try {
-                int taskNum = Integer.parseInt(argument);
-                return tasks.deleteTask(taskNum);
-            } catch (DinoException e) {
-                return "Error: " + e.getMessage();
-            }
-
-        case "todo":
-            taskType = Dino.TaskType.TODO;
-            return handleTaskCreation(taskType, argument);
-
-        case "deadline":
-            taskType = Dino.TaskType.DEADLINE;
-            return handleTaskCreation(taskType, argument);
-
-        case "event":
-            taskType = Dino.TaskType.EVENT;
-            return handleTaskCreation(taskType, argument);
-
-        case "filter":
-            return printTasksForDate(argument.trim());
-
-        case "mark":
-            int taskNum = Integer.parseInt(argument);
-            if (taskNum > tasks.size()) {
-                return "Uh oh, we do not have a task assigned to that number.";
-            } else {
-                Task completed = tasks.get(taskNum - 1);
-                return completed.markAsDone();
-            }
-
-        case "unmark":
-            int taskNumber = Integer.parseInt(argument);
-            if (taskNumber > tasks.size()) {
-                return "Uh oh, we do not have a task assigned to that number.";
-            } else {
-                Task missing = tasks.get(taskNumber - 1);
-                return missing.markAsUndone();
-            }
-
-        case "find":
-            String searchKeyword = argument.trim();
-            ArrayList<Task> matchingTasks = tasks.findTasksByKeyword(searchKeyword);
-
-            if (matchingTasks.isEmpty()) {
-                return "Aww, there are no tasks that contains that keyword.";
-            } else {
-                StringBuilder printTask = new StringBuilder("Matching tasks:\n");
-                for (Task task : matchingTasks) {
-                    printTask.append(task).append("\n");
-                }
-                return String.valueOf(printTask);
-            }
-
-        default:
-            try {
-                throw new DinoException("I don't understand ;;");
-            } catch (DinoException e) {
-                return ("Error: " + e.getMessage());
-            }
-        }
-        return null;
     }
 
     /**
