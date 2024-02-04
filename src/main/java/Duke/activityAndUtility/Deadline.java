@@ -63,10 +63,11 @@ public class Deadline implements Activity {
 
     /**
      * Marks the deadline as complete or incomplete based on the input. If the input is "mark", the status is set to a
-     * checkmark (indicating completion). If the input is "unmark", the status is set to an "X" (indicating not completed).
+     * checkmark (indicating completion). If the input is "unmark", the status is set to "X" (indicating not completed).
      * After marking, the updated activity details are printed.
      *
-     * @param input A {@code String} indicating whether to mark the deadline as completed ("mark") or not completed ("unmark").
+     * @param input A {@code String} indicating whether to mark the deadline as completed ("mark")
+     *              or not completed ("unmark").
      */
     @Override
     public void mark(String input) {

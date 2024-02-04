@@ -23,6 +23,7 @@ class DateTimeFormat {
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
+        //checking if it fit either format
         try {
             return LocalDate.parse(dateString[0], formatter1);
         } catch (DateTimeParseException ignored) {

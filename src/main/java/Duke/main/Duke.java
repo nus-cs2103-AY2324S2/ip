@@ -13,6 +13,7 @@ import java.util.Scanner;
  * user interaction.
  */
 public class Duke {
+
     /**
      * The main method serves as the application's entry point. It initializes the application, displays a welcome
      * message, and enters a loop to accept and process user commands until the "bye" command is entered.
@@ -29,6 +30,7 @@ public class Duke {
 
         while (true) {
             String input = scanner.nextLine();
+            //extracting first word before space
             String firstWord = input.split(" ")[0];
             if (Objects.equals(firstWord, "list")) {
                 list.printActivity();
@@ -55,15 +57,14 @@ public class Duke {
     static class ActivityList {
         private final ArrayList<Activity> activities;
         private final ArrayList<String> searchTable;
-        private final String filePath = "./data/duke.txt";
         private final LocalList localList;
-
 
         /**
          * Constructs an {@code ActivityList} instance. It initializes the activity list by loading stored activities
          * from a file, and prepares a search table for quick access to activities by name.
          */
         public ActivityList() {
+            String filePath = "./data/duke.txt";
             this.localList = new LocalList(filePath);
             this.activities = localList.load();
             this.searchTable = new ArrayList<>();
@@ -94,7 +95,7 @@ public class Duke {
                 case "deadline":
                     String[] deadlineParts = subStr.split(" /", 2);
                     if (deadlineParts.length == 2) {
-                        activity = new Deadline("X", deadlineParts[0], deadlineParts[1]); // Adjust Duke.main.Duke.activity.Deadline constructor to accept date and time
+                        activity = new Deadline("X", deadlineParts[0], deadlineParts[1]);
                     } else {
                         throw new RuntimeException("Invalid deadline format");
                     }
@@ -102,7 +103,7 @@ public class Duke {
                 case "event":
                     String[] eventParts = subStr.split(" /", 3);
                     if (eventParts.length == 3) {
-                        activity = new Event("X", eventParts[0], eventParts[1], eventParts[2]); // Adjust Duke.main.Duke.activity.Event constructor
+                        activity = new Event("X", eventParts[0], eventParts[1], eventParts[2]);
                     } else {
                         throw new RuntimeException("Invalid event format");
                     }
@@ -113,10 +114,12 @@ public class Duke {
 
             this.searchTable.add(activity.getName());
             this.activities.add(activity);
+
             System.out.println("\t____________________________________________________________");
             System.out.print("\tadded: ");
             activity.printActivity();
             System.out.println("\t____________________________________________________________");
+
             localList.save(activities);
         }
 

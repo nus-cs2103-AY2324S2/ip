@@ -22,14 +22,14 @@ public class Event implements Activity {
 
     /**
      * Constructs a new {@code Event} instance with the given status, name, start date and time, and end date and time.
-     * It parses the start and end date and time strings to set the corresponding {@code LocalDate} and {@code LocalTime} fields.
-     * Validates that the start date and time are before the end date and time, throwing a {@code RuntimeException} if not.
+     * Parses the start and end date,time strings to set the corresponding {@code LocalDate} and {@code LocalTime} fields.
+     * Validates that the start date and time are before the end, throwing a {@code RuntimeException} if not.
      *
      * @param status            The initial status of the event (e.g., completed or not).
      * @param name              The name or description of the event.
      * @param startDateAndTime  The start date and time string for the event, to be parsed.
      * @param endDateAndTime    The end date and time string for the event, to be parsed.
-     * @throws RuntimeException if the end date is before the start date, or if the end time is before the start time on the same day.
+     * @throws RuntimeException if the end date is before the start date.
      */
     public Event(String status, String name, String startDateAndTime, String endDateAndTime) {
         act = new ArrayList<>();
@@ -37,10 +37,12 @@ public class Event implements Activity {
         act.add(name); // Event name
         act.add(startDateAndTime);
         act.add(endDateAndTime);
+
         LocalDate startDate = DateTimeFormat.getDate(startDateAndTime);
         LocalTime startTime = DateTimeFormat.getTime(startDateAndTime);
         LocalDate endDate = DateTimeFormat.getDate(endDateAndTime);
         LocalTime endTime = DateTimeFormat.getTime(endDateAndTime);
+
         if (startDate != null && endDate != null) {
             if (startDate.isAfter(endDate)) {
                 throw new RuntimeException("Finish date ahead of start date");
@@ -50,6 +52,7 @@ public class Event implements Activity {
                 }
             }
         }
+
         this.startDate = startDate;
         this.startTime = startTime;
         this.endDate = endDate;
