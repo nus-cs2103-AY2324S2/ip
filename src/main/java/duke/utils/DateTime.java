@@ -30,35 +30,39 @@ public class DateTime {
     protected LocalDate date;
 
     public DateTime(String datetime) {
-        String[] currInput = datetime.split(" ", 2);
+        String[] currInput = datetime.split(" ", 4);
 
-        if (currInput.length == 2) {
-            try {
-                DateTimeFormatter dateTimeFormatter = acceptedDateTimeFormats.toFormatter();
-                this.datetime = LocalDateTime.parse(datetime, dateTimeFormatter);
-            } catch (DateTimeParseException e) {
-                throw new DukeException(
-                        "Wrong date time format! Try the default: 'yyyy-MM-dd HHmm'");
-            }
-        } else {
+        // input with no time
+        if (currInput.length == 1 || currInput.length == 3) {
             try {
                 DateTimeFormatter dateTimeFormatter = acceptedDateFormats.toFormatter();
                 this.date = LocalDate.parse(datetime, dateTimeFormatter);
             } catch (DateTimeParseException e) {
                 throw new DukeException(
-                        "Wrong date format! Try the default: 'dd-MM-yyyy'");
+                        "wrong date format! Try the default: 'dd-MM-yyyy'");
+            }
+        // input with time
+        } else if ((currInput.length == 2) || (currInput.length == 4)) {
+            try {
+                DateTimeFormatter dateTimeFormatter = acceptedDateTimeFormats.toFormatter();
+                this.datetime = LocalDateTime.parse(datetime, dateTimeFormatter);
+            } catch (DateTimeParseException e) {
+                throw new DukeException(
+                        "wrong date time format! Try the default: 'dd-MM-yyyy HHmm'");
             }
         }
-
-
     }
 
     @Override
     public String toString() {
-        if (datetime != null) {
-            return this.datetime.format(DateTimeFormatter.ofPattern(PRINT_DATE_TIME_FORMAT));
-        } else {
-            return this.date.format(DateTimeFormatter.ofPattern(PRINT_DATE_FORMAT));
+        try {
+            if (datetime != null) {
+                return this.datetime.format(DateTimeFormatter.ofPattern(PRINT_DATE_TIME_FORMAT));
+            } else {
+                return this.date.format(DateTimeFormatter.ofPattern(PRINT_DATE_FORMAT));
+            }
+        } catch (NullPointerException e) {
+            throw new DukeException("unable to print date!");
         }
     }
 }
