@@ -1,123 +1,117 @@
+import command.CommandType;
+
 import exception.AronaIncompleteCommandException;
 import exception.AronaInvalidCommandException;
 import exception.AronaInvalidDateException;
 import exception.AronaInvalidIndexException;
 
+import java.io.IOException;
+import java.util.Scanner;
+
+import parser.Parser;
+
 import storage.Storage;
 
 import task.Deadline;
 import task.Event;
+import task.Task;
+import task.TaskList;
 import task.ToDo;
 
-import java.util.Scanner;
+import ui.Ui;
 
 public class Arona {
-    private Storage tasks;
-    Arona() {
-        tasks = new Storage();
-    }
-
-    private void greet() {
-        System.out.println("Welcome, sensei! Arona has been waiting for you.");
-    }
-
-    private void exit() {
-        System.out.println("Thanks for the hard work, Sensei!");
-    }
+    private static final Storage storage = new Storage();
+    private static final TaskList tasks = new TaskList();
+    private static final Parser parser = new Parser();
 
     private void listTasks() {
-        if (tasks.isEmpty()) {
-            System.out.println("Sensei! There are no tasks. " +
-                    "Take care of your health too. It's gotta take priority!");
-        } else {
-            System.out.println("Sensei! Pick a task. I'll back you up!");
-        }
-        tasks.printElements();
+        Ui.printLines(tasks.toString());
     }
 
     private void addToDo(String str) {
         ToDo task = new ToDo(str);
         tasks.addElements(task);
-        System.out.println("I've added this task, Sensei!");
-        System.out.println("    " + task);
-        System.out.println("Now, your task list has " + tasks.taskCount() + " task"
-                + (tasks.taskCount() == 1 ? "" : "s") + ".");
+
+        Ui.printLines("I've added this task, Sensei!",
+                "    " + task,
+                "Now, your task list has " + tasks.getSize() + " task"
+                + (tasks.getSize() == 1 ? "" : "s") + ".");
     }
 
     private void addDeadline(String str, String by) throws AronaInvalidDateException {
         Deadline deadline = new Deadline(str, by);
         tasks.addElements(deadline);
-        System.out.println("I've added this deadline, Sensei!");
-        System.out.println("    " + deadline);
-        System.out.println("Now, your task list has " + tasks.taskCount() + " task"
-                + (tasks.taskCount() == 1 ? "" : "s") + ".");
+        Ui.printLines("I've added this deadline, Sensei!",
+                "    " + deadline,
+                "Now, your task list has " + tasks.getSize() + " task"
+                + (tasks.getSize() == 1 ? "" : "s") + ".");
     }
 
     private void addEvent(String str, String start, String end) throws AronaInvalidDateException {
         Event event = new Event(str, start, end);
         tasks.addElements(event);
-        System.out.println("I've added this event, Sensei!");
-        System.out.println("    " + event);
-        System.out.println("Now, your task list has " + tasks.taskCount() + " task"
-                + (tasks.taskCount() == 1 ? "" : "s") + ".");
+        Ui.printLines("I've added this event, Sensei!",
+                "    " + event,
+                "Now, your task list has " + tasks.getSize() + " task"
+                + (tasks.getSize() == 1 ? "" : "s") + ".");
     }
 
     private void deleteTask(int id) {
-        System.out.println("I've removed this task, Sensei!");
-        System.out.println("    " + tasks.getTask(id));
+        Task task = tasks.getTask(id);
         tasks.deleteElements(id);
-        System.out.println("Now, your task list has " + tasks.taskCount() + " task"
-                + (tasks.taskCount() == 1 ? "" : "s") + ".");
+        Ui.printLines("I've removed this task, Sensei!",
+                "    " + task,
+                "Now, your task list has " + tasks.getSize() + " task"
+                + (tasks.getSize() == 1 ? "" : "s") + ".");
     }
 
     private void markDone(int id) {
         tasks.markIndexAsDone(id);
-        System.out.println("I've marked this task as done, Sensei!");
-        System.out.println("    " + tasks.getTask(id));
+        Ui.printLines("I've marked this task as done, Sensei!",
+                "    " + tasks.getTask(id));
     }
 
     private void markUndone(int id) {
         tasks.markIndexAsUndone(id);
-        System.out.println("I've marked this task as not done, Sensei!");
-        System.out.println("    " + tasks.getTask(id));
+        Ui.printLines("I've marked this task as not done, Sensei!",
+                "    " + tasks.getTask(id));
     }
 
-    private boolean processCommand(String command) throws AronaIncompleteCommandException, AronaInvalidIndexException, AronaInvalidCommandException, AronaInvalidDateException {
-        String[] commandSplit = command.split(" ", 2);
-
-        if (commandSplit[0].equalsIgnoreCase("bye")) {
+    private boolean processCommand(CommandType commandType, String[] commandSplit) throws AronaIncompleteCommandException, AronaInvalidIndexException, AronaInvalidCommandException, AronaInvalidDateException {
+        if (commandType == CommandType.BYE) {
             return false;
-        } else if (commandSplit[0].equalsIgnoreCase("list")) {
+        } else if (commandType == CommandType.LIST) {
             listTasks();
-        } else if (commandSplit[0].equalsIgnoreCase("mark")) {
+        } else if (commandType == CommandType.MARK) {
             if (commandSplit.length == 1 || commandSplit[1].equals("")) {
                 throw new AronaIncompleteCommandException("index number");
             }
 
             if (!tasks.checkIndexValidity(Integer.parseInt(commandSplit[1]))) {
-                throw new AronaInvalidIndexException(Integer.toString(tasks.taskCount()));
+                throw new AronaInvalidIndexException(Integer.toString(tasks.getSize()));
             }
 
             int index = Integer.parseInt(commandSplit[1]) - 1;
             markDone(index);
-        } else if (commandSplit[0].equalsIgnoreCase("unmark")) {
+        } else if (commandType == CommandType.UNMARK) {
             if (commandSplit.length == 1 || commandSplit[1].equals("")) {
                 throw new AronaIncompleteCommandException("index number");
             }
 
             if (!tasks.checkIndexValidity(Integer.parseInt(commandSplit[1]))) {
-                throw new AronaInvalidIndexException(Integer.toString(tasks.taskCount()));
+                throw new AronaInvalidIndexException(Integer.toString(tasks.getSize()));
             }
 
             int index = Integer.parseInt(commandSplit[1]) - 1;
             markUndone(index);
-        } else if (commandSplit[0].equalsIgnoreCase("todo")) {
+        } else if (commandType == CommandType.TODO) {
             if (commandSplit.length == 1 || commandSplit[1].equals("")) {
                 throw new AronaIncompleteCommandException("task description");
             }
 
             addToDo(commandSplit[1]);
-        } else if (commandSplit[0].equalsIgnoreCase("deadline")) {
+        } else if (commandType == CommandType.DEADLINE) {
             if (commandSplit.length == 1 || commandSplit[1].equals("")) {
                 throw new AronaIncompleteCommandException("task description");
             }
@@ -129,7 +123,7 @@ public class Arona {
             }
 
             addDeadline(deadlineSplit[0], deadlineSplit[1]);
-        } else if (commandSplit[0].equalsIgnoreCase("event")) {
+        } else if (commandType == CommandType.EVENT) {
             if (commandSplit.length == 1 || commandSplit[1].equals("")) {
                 throw new AronaIncompleteCommandException("task description");
             }
@@ -147,13 +141,13 @@ public class Arona {
             }
 
             addEvent(eventSplit[0], eventSplitTime[0], eventSplitTime[1]);
-        } else if(commandSplit[0].equalsIgnoreCase("delete")) {
+        } else if(commandType == CommandType.DELETE) {
             if (commandSplit.length == 1 || commandSplit[1].equals("")) {
                 throw new AronaIncompleteCommandException("index number");
             }
 
             if (!tasks.checkIndexValidity(Integer.parseInt(commandSplit[1]))) {
-                throw new AronaInvalidIndexException(Integer.toString(tasks.taskCount()));
+                throw new AronaInvalidIndexException(Integer.toString(tasks.getSize()));
             }
 
             int index = Integer.parseInt(commandSplit[1]) - 1;
@@ -169,19 +163,30 @@ public class Arona {
         Scanner scanner = new Scanner(System.in);
         String command;
 
-        arona.greet();
+        Ui.helloUser();
+
+        try {
+            storage.readTasksFromData(tasks);
+        } catch (IOException e) {
+            Ui.printLines("Sorry, Sensei! I seem to be struggling to load the tasks :(");
+        }
 
         while (true) {
-            command = scanner.nextLine();
             try {
-                if (!arona.processCommand(command))
+                command = scanner.nextLine();
+                CommandType commandType = parser.parseInput(command);
+                String[] inputs = command.split(" ", 2);
+                if (!arona.processCommand(commandType, inputs)) {
                     break;
+                }
+                storage.writeTasks(tasks);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                Ui.printLines(e.getMessage());
             }
         }
 
-        arona.exit();
+        Ui.byeUser();
+        storage.writeTasks(tasks);
         scanner.close();
     }
 }
