@@ -51,6 +51,16 @@ public class TaskList {
     public void unmark(int index) {
         this.taskList.get(index).unmark();
     }
+
+    public TaskList find(String searchString) {
+        TaskList filteredList = new TaskList();
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getDescription().contains(searchString)) {
+                filteredList.add(taskList.get(i));
+            }
+        }
+        return filteredList;
+    }
     public void populateTaskList(BufferedReader buffReader) {
         try {
             String line;

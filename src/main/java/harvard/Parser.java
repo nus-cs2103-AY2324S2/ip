@@ -21,7 +21,7 @@ public class Parser {
 //        try {
             if (!command.equals("list") && !command.equals("todo") && !command.equals("deadline") &&
                     !command.equals("event") && !command.equals("mark") && !command.equals("unmark") &&
-                    !command.equals("delete")) {
+                    !command.equals("delete") && !command.equals("find")) {
                 throw new HarvardException("Bro... Idk what that is man.");
             }
 //        } catch (HarvardException e) {
@@ -30,6 +30,13 @@ public class Parser {
 
         if (command.equals("list")) {
             this.ui.printTasks(tasks);
+        }
+
+        if (command.equals("find")) {
+            String[] commandItems = commandLine.split(" ");
+            TaskList filteredTasks = tasks.find(commandItems[1]);
+
+            this.ui.printFindTasks(filteredTasks);
         }
 
         if (command.equals("delete")) {

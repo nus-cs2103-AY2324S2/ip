@@ -70,4 +70,17 @@ public class Ui {
         System.out.println("____________________________________________________________\n");
     }
 
+    public void printFindTasks(TaskList tasks) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.getSize(); i++) {
+            try {
+                System.out.println(i + 1 + ". " + tasks.printString(i));
+            } catch (HarvardException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        System.out.println("____________________________________________________________\n");
+    }
+
 }
