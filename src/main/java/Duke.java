@@ -1,13 +1,19 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 public class Duke {
+    private static final String FILE_PATH = "./data/duke.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
     //private static int taskCount = 0;
     public static void main(String[] args) throws DukeException {
+
+        loadTasksFromFile();
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Hello! I'm Bob");
         System.out.println("What can I do for you?\n");
-
-        Scanner scanner = new Scanner(System.in);
 
         while(true){
             String input = scanner.nextLine();
@@ -77,12 +83,13 @@ public class Duke {
 
         scanner.close();
     }
-    
+
     private static void addTask(Task task) {
         tasks.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
+        saveTasksToFile();
     }
 
     private static void listTasks() {
@@ -99,6 +106,7 @@ public class Duke {
             tasks.get(taskIndex).markAsDone();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(tasks.get(taskIndex).toString() + "\n");
+            saveTasksToFile();
         } else {
             throw new DukeException("Task does not exist.");
             //System.out.println("Task does not exist.");
@@ -111,6 +119,7 @@ public class Duke {
             tasks.get(taskIndex).markAsNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(tasks.get(taskIndex).toString() + "\n");
+            saveTasksToFile();
         } else {
             throw new DukeException("Task does not exist.");
             //System.out.println("Task does not exist.");
@@ -127,9 +136,94 @@ public class Duke {
                 System.out.println("Noted. I've removed this task:");
                 System.out.println("  " + removedTask);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                saveTasksToFile();
             }
         } catch (NumberFormatException e) {
             System.out.println("Please enter a valid task number to delete.");
         }
+    }
+    private static void saveTasksToFile() {
+        try {
+            new File(FILE_PATH).getParentFile().mkdirs(); // Create directories if they do not exist
+            PrintWriter writer = new PrintWriter(new File(FILE_PATH));
+
+            for (Task task : tasks) {
+                writer.println(taskToFileString(task));
+            }
+
+            writer.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred while saving tasks to file.");
+        }
+    }
+
+    private static void loadTasksFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                return; // If the file does not exist, just return.
+            }
+
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                Task task = fileStringToTask(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found. Starting with an empty task list.");
+        }
+    }
+
+    private static String taskToFileString(Task task) {
+        String type = task instanceof ToDo ? "T" :
+                        task instanceof Deadline ? "D" :
+                        task instanceof Event ? "E" : "";
+        String status = task.isDone ? "1" : "0";
+        String details = type + " | " + status + " | " + task.description;
+
+        if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            details += " | " + deadline.by;
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            details += " | " + event.start + " | " + event.end;
+        }
+
+        return details;
+    }
+
+
+    private static Task fileStringToTask(String line) {
+        // Convert a string from a file back to a task
+        String[] parts = line.split(" \\| ");
+        if (parts.length < 3) {
+            return null; // Not enough parts to construct a task
+        }
+        String type = parts[0];
+        boolean isDone = "1".equals(parts[1]);
+        String description = parts[2];
+
+        Task task = null;
+        switch (type) {
+            case "T":
+                task = new ToDo(description);
+                break;
+            case "D":
+                task = new Deadline(description, parts.length > 3 ? parts[3] : "");
+                break;
+            case "E":
+                task = new Event(description, parts.length > 3 ? parts[3] : "", parts.length > 4 ? parts[4] : "");
+                break;
+        }
+        if (task != null && isDone) {
+            task.markAsDone();
+        }
+
+        return task;
     }
 }
