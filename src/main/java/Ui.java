@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Ui {
     private static final String LOGO =
             " __       __  ________   ______   __    __          _______   __    __  __    __  ________\n"
@@ -9,10 +11,14 @@ public class Ui {
                     + "$$ |$$$/ $$ |$$ |_____ $$ |  $$ |$$ |$$$$ |        $$ |__$$ |$$ \\__$$ |$$ |$$  \\ $$ |_____\n"
                     + "$$ | $/  $$ |$$       |$$ |  $$ |$$ | $$$ |        $$    $$/ $$    $$/ $$ | $$  |$$       |\n"
                     + "$$/      $$/ $$$$$$$$/ $$/   $$/ $$/   $$/         $$$$$$$/   $$$$$$/  $$/   $$/ $$$$$$$$/\n";
-    private static final String SPACER = "__________________________________________________________________________________";
+    private static final String SPACER = "___________________________________________________________________________________________";
     private static final String INTRO = LOGO + SPACER + "\n" + "What do you want this time?\n" + SPACER;
     private static final String OUTRO = "Finally you're finished, thought you would never stop yapping.";
+    private static Scanner inputScanner = new Scanner(System.in);
 
+    public static String readInput() {
+        return inputScanner.nextLine();
+    }
     public static void printLogo() {
         System.out.println(LOGO);
     }
@@ -33,7 +39,7 @@ public class Ui {
         System.out.println(msg);
     }
 
-    public static void printError(MeanDukeException e) {
+    public static void printError(Exception e) {
         System.out.println(e.getMessage());
     }
 }

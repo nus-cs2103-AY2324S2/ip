@@ -1,6 +1,6 @@
 public abstract class Command {
     public static String getUsage() {
-        return "Usage: ";
+        return "Usage:";
     }
 
     public abstract void execute() throws MeanDukeException;

@@ -21,7 +21,7 @@ public class AddDeadlineCommand extends AddCommand {
         super.getTaskList().add(new Deadline(this.description,
                 false, this.deadlineDate, this.deadlineTime));
         Ui.printMessage("Added Deadline task: " + description
-                + " (by: " + deadlineDate
+                + "(by: " + deadlineDate
                 + (deadlineTime == null ? "" : " " + deadlineTime)
                 + ")");
     }
