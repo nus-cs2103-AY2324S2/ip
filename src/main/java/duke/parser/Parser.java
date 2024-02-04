@@ -4,7 +4,6 @@ import duke.core.Duke;
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
-import duke.task.Task;
 import duke.task.Todo;
 
 /**
@@ -16,7 +15,7 @@ public class Parser {
     /**
      * The command to be parsed.
      */
-    protected String command;
+    private final String command;
 
     /**
      * Constructs a `Parser` with the given command.
@@ -28,21 +27,48 @@ public class Parser {
     }
 
     /**
-     * Parses the add command and returns the corresponding Task.
+     * Parses the "bye" command.
      *
-     * @return The Task created based on the add command.
-     * @throws DukeException If the command is in an invalid format.
+     * @return True if the input is a "bye" command, false otherwise.
+     * @throws DukeException If there is an issue parsing the command.
      */
-    public Task parseAdd() throws DukeException {
-        if (command.toUpperCase().startsWith(Duke.Command.TODO.name())) {
-            return parseTodo();
-        } else if (command.toUpperCase().startsWith(Duke.Command.DEADLINE.name())) {
-            return parseDeadline();
-        } else if (command.toUpperCase().startsWith(Duke.Command.EVENT.name())) {
-            return parseEvent();
+    public boolean parseBye() throws DukeException {
+        String[] parts = command.split(" ");
+        if (parts.length == 1 && parts[0].equalsIgnoreCase(Duke.Command.BYE.name())) {
+            return true;
         } else {
-            throw new DukeException("Invalid format. Please use 'todo', 'deadline', or 'event'.");
+            throw new DukeException("Invalid format. Please use 'bye'.");
         }
+    }
+
+    /**
+     * Parses the "list" command.
+     *
+     * @return True if the input is a "list" command, false otherwise.
+     * @throws DukeException If there is an issue parsing the command.
+     */
+    public boolean parseList() throws DukeException {
+        String[] parts = command.split(" ");
+        if (parts.length == 1 && parts[0].equalsIgnoreCase(Duke.Command.LIST.name())) {
+            return true;
+        } else {
+            throw new DukeException("Invalid format. Please use 'list'.");
+        }
+    }
+
+    /**
+     * Parses the "find" command to search for tasks with a keyword.
+     *
+     * @return The keyword to search for.
+     * @throws DukeException If the command format is invalid.
+     */
+    public String parseFind() throws DukeException {
+
+        String[] parts = command.split(" ", 2);
+        if (parts.length < 2 || parts[1].isEmpty()) {
+            throw new DukeException("Invalid format. Please use 'find <keyword>'.");
+        }
+        return parts[1].trim();
     }
 
     /**
@@ -94,7 +120,7 @@ public class Parser {
      * @return The index of the task to be marked as not done.
      * @throws DukeException If the command is in an invalid format.
      */
-    public int parseUnMark() throws DukeException {
+    public int parseUnmark() throws DukeException {
         String[] part = command.split(" ");
 
         if (part.length == 2) {

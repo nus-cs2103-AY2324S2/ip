@@ -28,10 +28,10 @@ public class Task {
     /**
      * Sets the task's done status.
      *
-     * @param isDone True if the task is done, false otherwise.
+     * @param done True if the task is done, false otherwise.
      */
-    public void setDone(boolean isDone) {
-        this.isDone = isDone;
+    public void setDone(boolean done) {
+        this.isDone = done;
     }
 
     /**
@@ -39,7 +39,7 @@ public class Task {
      *
      * @return "X" if the task is done, " " otherwise.
      */
-    protected String getStatusIcon() {
+    private String getStatusIcon() {
         return (this.isDone ? "X" : " "); // mark done task with X
     }
 
@@ -48,8 +48,17 @@ public class Task {
      *
      * @return "1" if the task is done, "0" otherwise.
      */
-    protected String getStatusSymbol() {
+    private String getStatusSymbol() {
         return (this.isDone ? "1" : "0");
+    }
+
+    /**
+     * Retrieves the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return this.description;
     }
 
     /**

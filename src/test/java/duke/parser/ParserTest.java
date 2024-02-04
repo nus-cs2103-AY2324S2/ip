@@ -31,7 +31,7 @@ public class ParserTest {
     @Test
     public void parseUnMark_validInput_correctUnmarkTask() throws DukeException {
         Parser parser = new Parser("unmark 4");
-        int result = parser.parseUnMark();
+        int result = parser.parseUnmark();
         assertEquals(3, result);
     }
 
