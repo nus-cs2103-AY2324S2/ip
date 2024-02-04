@@ -1,7 +1,7 @@
 package duke;
 
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import duke.task.Task;
 import duke.task.TaskList;
@@ -9,19 +9,20 @@ import duke.task.TaskList;
 import duke.exception.DukeException;
 
 public class Ui {
-    Scanner scanner;
-    TaskList taskList;
+
+    private Scanner scanner;
+    private TaskList taskList;
+    private static final String name = "Tommy";
 
     public Ui() {
-        scanner = new Scanner(System.in);
-        taskList = new TaskList();
+        this.scanner = new Scanner(System.in);
+        this.taskList = new TaskList();
     }
 
     public void greet() {
         //Greetings
-        String name = "Tommy";
         printDivider();
-        System.out.println("Hello! I'm " + name);
+        System.out.println("Hello! I'm " + this.name);
         System.out.println("What can I do for you?");
         printDivider();
     }
@@ -29,7 +30,7 @@ public class Ui {
     public void farewell() {
         System.out.println("Bye. Hope to see you again soon!");
         printDivider();
-        scanner.close();
+        this.scanner.close();
     }
 
     public static void showLoadingError() {
@@ -43,8 +44,10 @@ public class Ui {
 
     public static void displayAllTasks(TaskList taskList) {
         System.out.println("Here are the tasks in your list:");
+
         ArrayList<Task> arrayListOfTasks = taskList.getArrayList();
         int length = taskList.getSize();
+
         for (int i = 0; i < length; i++) {
             Task task = arrayListOfTasks.get(i);
             System.out.println(i + 1 + "." + task.toString());

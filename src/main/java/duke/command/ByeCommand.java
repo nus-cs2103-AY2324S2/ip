@@ -1,11 +1,12 @@
 package duke.command;
 
-import duke.Storage;
 import duke.Ui;
+import duke.Storage;
 
 import duke.task.TaskList;
 
 public class ByeCommand extends Command {
+
     public ByeCommand() {
         this.isActive = false;
     }

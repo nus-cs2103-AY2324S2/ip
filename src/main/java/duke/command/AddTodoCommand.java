@@ -3,14 +3,15 @@ package duke.command;
 import duke.Ui;
 import duke.Storage;
 
-import duke.task.TaskList;
 import duke.task.Task;
+import duke.task.TaskList;
 import duke.task.Todo;
 
 import duke.exception.InvalidArgumentException;
 
 public class AddTodoCommand extends Command {
-    String description;
+
+    private String description;
 
     public AddTodoCommand(String description) {
         this.description = description;
@@ -20,6 +21,7 @@ public class AddTodoCommand extends Command {
     public void execute(Storage storage, TaskList taskList, Ui ui) throws InvalidArgumentException {
         try {
             Task todo = new Todo(this.description);
+
             taskList.addTask(todo);
             Storage.save(taskList);
             Ui.displayNewTask(todo, taskList);
