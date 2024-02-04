@@ -17,8 +17,8 @@ public class CampusTest {
         System.setOut(new PrintStream(outContent));
 
         // Run the method
-        String filePath = "src/test/java/campus/dataTest.txt";
-        Campus campusBot = new Campus(filePath);
+//        String filePath = "src/test/java/campus/dataTest.txt";
+        Campus campusBot = new Campus();
         campusBot.run();
 
         // Set up simulated input

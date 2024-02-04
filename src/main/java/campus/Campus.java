@@ -14,9 +14,9 @@ public class Campus {
 
     /**
      * Creation of a Campus instance
-     * @param filePath the path to the data file
      */
-    public Campus(String filePath) {
+    public Campus() {
+        String filePath = "src/test/java/campus/dataTest.txt";
         this.ui = new Ui();
         TaskList taskList = new TaskList();
         Storage storage = new Storage(filePath);
@@ -33,6 +33,10 @@ public class Campus {
     }
 
     public static void main(String[] args) {
-        new Campus("src/main/java/campus/data.txt").run();
+        new Campus().run();
+    }
+
+    public String getResponse(String input) {
+        return "Campus heard: " + input;
     }
 }
