@@ -8,6 +8,10 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 
 public class StorageTest {
+
+    /**
+     * Tests if a String of valid format can be converted to LocalDateTime
+     */
     @Test
     public void convertStringToDateTime_validDate_success() {
         // converting String with date results in correct DateTime format, with midnight as the time
@@ -19,6 +23,9 @@ public class StorageTest {
                 Storage.convertStringToDateTime("2024-02-01T10:11:12"));
     }
 
+    /**
+     * Tests if a String of invalid format will throw the expected Exception
+     */
     @Test
     public void convertStringToDateTime_invalidFormat_exceptionThrown() {
         try {

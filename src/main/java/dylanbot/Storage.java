@@ -14,12 +14,19 @@ import java.util.regex.Pattern;
 // deals with loading tasks from the file and saving tasks in the file
 public class Storage {
     private final String filePath;
+
     private final Ui ui;
     public Storage(String filePath, Ui ui) {
         this.filePath = filePath;
         this.ui = ui;
     }
 
+    /**
+     * Loads and processes data from a specified file, returning it as an ArrayList of Tasks
+     *
+     * @return ArrayList of Tasks
+     * @throws IOException If file cannot be found at the specified file path
+     */
     public ArrayList<Task> loadDataFromFile() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String nextLine;
@@ -47,6 +54,12 @@ public class Storage {
         return res;
     }
 
+    /**
+     * Writes data to a specified file based on the provided ArrayList of Tasks
+     *
+     * @param tl The data to be saved
+     * @throws IOException If file path provided is invalid for a file to be created at
+     */
     public void saveDataToFile(TaskList tl) throws IOException {
         ArrayList<Task> tasks = tl.getTasks();
         File newFile = new File(filePath);
@@ -68,8 +81,13 @@ public class Storage {
         writer.close();
     }
 
-
-    public static LocalDateTime convertStringToDateTime(String input) throws DateTimeParseException {
+    /**
+     * Converts an input String to LocalDateTime and returns it
+     *
+     * @param input String to be converted
+     * @return The converted String as a LocalDateTime
+     */
+    public static LocalDateTime convertStringToDateTime(String input) {
         LocalDateTime deadline;
         if (input.length() < 11) {
             deadline = LocalDate.parse(input).atStartOfDay();

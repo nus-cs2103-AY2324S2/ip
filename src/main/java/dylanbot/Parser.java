@@ -1,7 +1,6 @@
 package dylanbot;
 
-// deals with making sense of the user command
-public class Parser {
+public class Parser { // deals with making sense of the user command
     private Ui ui;
     private TaskList tl;
 
@@ -9,6 +8,13 @@ public class Parser {
         this.ui = ui;
         this.tl = tl;
     }
+
+    /**
+     * Processes the provided user input and takes the appropriate follow-up actions
+     *
+     * @param command Provided user input
+     * @throws DylanBotException If input provided is of an invalid format
+     */
     public void process(String command) throws DylanBotException {
         try {
             if (command.equals("list")) {

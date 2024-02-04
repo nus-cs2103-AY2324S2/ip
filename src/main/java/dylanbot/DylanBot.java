@@ -22,6 +22,9 @@ public class DylanBot {
         }
     }
 
+    /**
+     * Runs DylanBot based on the provided user input
+     */
     public void run() {
         ui.sendGreeting();
         Parser ps = new Parser(ui, tl);
