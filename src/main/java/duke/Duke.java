@@ -57,9 +57,8 @@ public class Duke {
                     try {
                         index = Integer.parseInt(indexStr);
                     } catch (NumberFormatException e) {
-                        throw new DukeOptionParsingException(
-                                String.format("I expected a number but %s was given instead", indexStr)
-                        );
+                        throw new DukeOptionParsingException
+                                (String.format("I expected a number but %s was given instead", indexStr));
                     }
                 }
                 
@@ -68,10 +67,9 @@ public class Duke {
                 try { 
                     t = tasks.get(index - 1);
                 } catch (IndexOutOfBoundsException e) {
-                    throw new DukeException(
-                            String.format("You tried to access an invalid task index: %d", index)
-                    );
+                    throw new DukeException(String.format("You tried to access an invalid task index: %d", index));
                 }
+                
                 t.mark();
                 ui.print("CONGRATULATION!!!!!! you completed this task:\n" + t.describe());
                 Duke.st.writeTasks(tasks);
@@ -101,10 +99,10 @@ public class Duke {
                 try { 
                     t = tasks.get(index - 1);
                 } catch (IndexOutOfBoundsException e) {
-                    throw new DukeException(
-                            String.format("You tried to access an invalid task index: %d", index)
-                    );
+                    throw new DukeException
+                            (String.format("You tried to access an invalid task index: %d", index));
                 }
+                
                 t.unmark();
                 ui.print("CONGRATULATION!!!!!! you un completed this task:\n" + t.describe());
                 Duke.st.writeTasks(tasks);
