@@ -1,5 +1,6 @@
 import java.util.Objects;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import naruto.Naruto;
 
 
@@ -59,9 +61,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getNarutoDialog(response, narutoImage)
         );
-        if (input.equals("bye")) {
-            System.exit(0);
-        }
         userInput.clear();
+        if (input.trim().equalsIgnoreCase("bye")) {
+            PauseTransition pause = new PauseTransition(Duration.seconds(1)); // Adjust the delay as needed
+            pause.setOnFinished(event -> System.exit(0));
+            pause.play();
+        }
+
     }
 }

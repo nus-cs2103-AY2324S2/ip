@@ -56,14 +56,6 @@ public class Naruto {
     }
 
     /**
-     * Checks if there is a next action in the list of actions.
-     * @return true if there is a next action, false otherwise.
-     */
-    public static boolean hasNextAction() {
-        return !actions.isEmpty();
-    }
-
-    /**
      * Handles the given NarutoException by adding a HandleError action to the list of actions.
      * @param err the NarutoException to handle.
      */
