@@ -31,4 +31,20 @@ public class DeleteCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof DeleteCommand)) {
+            return false;
+        }
+         
+        DeleteCommand c = (DeleteCommand) o;
+
+        return idx == c.idx;
+    }
 }

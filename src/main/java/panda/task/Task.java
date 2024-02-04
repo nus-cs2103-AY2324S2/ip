@@ -1,4 +1,5 @@
 package panda.task;
+
 public class Task {
     private final String desc;
     private boolean isDone;
@@ -26,5 +27,21 @@ public class Task {
 
     public String saveString() {
         return (isDone ? "1" : "0") + " | " + desc;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Task)) {
+            return false;
+        }
+         
+        Task c = (Task) o;
+
+        return desc.equals(c.desc) && isDone == c.isDone;
     }
 }

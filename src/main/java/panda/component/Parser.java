@@ -36,7 +36,7 @@ public class Parser {
         if(userInput.split(" ")[0].equals("unmark")) {
             int target;
             try {
-                target = Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
+                target = Integer.parseInt(userInput.split(" ", 2)[1]);
             }
             catch (NumberFormatException e) {
                 throw new InvalidFormatException();
@@ -46,7 +46,7 @@ public class Parser {
         if(userInput.split(" ")[0].equals("delete")) {
             int target;
             try {
-                target = Integer.parseInt(userInput.split(" ", 2)[1]) - 1;
+                target = Integer.parseInt(userInput.split(" ", 2)[1]);
             }
             catch (NumberFormatException e) {
                 throw new InvalidFormatException();

@@ -44,6 +44,10 @@ public class TaskList {
     }
 
     public String toString() {
+        if(tlist.size() == 0) {
+            return "Your list is empty.";
+        }
+
         String result = "Here are the tasks in your list:";
         for(int i = 0; i < tlist.size(); i++) {
             result = result + "\n" + ((i + 1) + "." + tlist.get(i));
