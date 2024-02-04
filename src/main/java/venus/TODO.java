@@ -1,9 +1,9 @@
 package venus;
-public class TODO extends Task{
-    public TODO (String s) {
+public class Todo extends Task{
+    public Todo(String s) {
         super(s);
     }
-    public TODO (String s, boolean mark) {
+    public Todo(String s, boolean mark) {
         super(s);
         if (mark) {
             this.mark();

@@ -63,7 +63,7 @@ public class TaskList {
             case TODO:
                 try {
                     String todoMessage = Parser.findTodoContent(word);
-                    TODO todo = new TODO(todoMessage);
+                    Todo todo = new Todo(todoMessage);
                     data.add(todo);
                     Ui.formatTask(todo, data.size());
                 } catch (StringIndexOutOfBoundsException e) {

@@ -80,7 +80,7 @@ public class Storage {
                 }
                 if (type.equals("T")) {
                     boolean b = Integer.parseInt(items[1].trim()) == 1;
-                    ls.add(new TODO(items[2].trim(), b));
+                    ls.add(new Todo(items[2].trim(), b));
                 } else if (type.equals("D")) {
                     boolean b = Integer.parseInt(items[1].trim()) == 1;
                     ls.add(new Deadline(items[2].trim(), b, items[3].trim()));

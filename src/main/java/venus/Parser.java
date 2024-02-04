@@ -1,10 +1,12 @@
 package venus;
+
+import java.io.File;
+
 public class Parser {
-    public static TaskList.TYPES findType(String input) {
+    public static TaskList.TYPES findType(String input) throws IllegalArgumentException {
         String[] listType = input.toUpperCase().split(" ");
         TaskList.TYPES type = TaskList.TYPES.valueOf(listType[0]);
-        ;
-        if (listType.length == 1) {
+        if (listType.length == 1 && listType[0].equals("LIST")) {
             type = TaskList.TYPES.ALL;
         }
         return type;
