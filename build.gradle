@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -36,6 +37,10 @@ shadowJar {
     archiveBaseName = "zero"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+}
+
+checkstyle {
+    toolVersion = '10.3.3'
 }
 
 run{

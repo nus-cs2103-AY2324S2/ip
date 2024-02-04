@@ -3,12 +3,13 @@ package model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event implements Task{
+public class Event implements Task {
+    private static DateTimeFormatter dtfOutput = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
     private final String name;
     private final boolean done;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
-    public static DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     Event(String name, LocalDateTime startDate, LocalDateTime endDate) {
         this.name = name;
@@ -24,6 +25,10 @@ public class Event implements Task{
         this.endDate = endDate;
     }
 
+    public static void setDateTimeFormat(DateTimeFormatter dtf) {
+        dtfOutput = dtf;
+    }
+
     public Event mark() {
         return new Event(this.name, true, this.startDate, this.endDate);
     }
@@ -36,6 +41,6 @@ public class Event implements Task{
     public String toString() {
         String d = this.done ? "X" : " ";
         return String.format("[E][%s] %s (from: %s) (to: %s)", d, name,
-                startDate.format(dtf), endDate.format(dtf));
+                startDate.format(dtfOutput), endDate.format(dtfOutput));
     }
 }
