@@ -3,7 +3,7 @@ package Duke.Tasks;
 /**
  * Represent a Todo task.
  */
-public class Todo extends Task{
+public class Todo extends Task {
     /**
      * Constructor for the deadline class
      *

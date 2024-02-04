@@ -34,29 +34,27 @@ public class Parser {
             String[] inputs = input.split(" ");
             CommandWords commandWord = CommandWords.valueOf(inputs[0].toUpperCase());
             switch (commandWord) {
-                case BYE:
-                    return new GoodbyeCommand(ui, taskList, storage);
-                case DELETE:
-                    return new DeleteCommand(ui, taskList, storage, Integer.parseInt(inputs[inputs.length - 1]));
-                case LIST:
-                    return new PrintListCommand(ui, taskList, storage);
-                case MARK:
-                    return new MarkDoneCommand(ui, taskList, storage, Integer.parseInt(inputs[inputs.length - 1]));
-                case UNMARK:
-                    return new MarkUndoneCommand(ui, taskList, storage, Integer.parseInt(inputs[inputs.length - 1]));
-                case TODO:
-                    return new CreateTodoCommand(ui, taskList, storage, input);
-                case EVENT:
-                    return new CreateEventCommand(ui, taskList, storage, input);
-                case DEADLINE:
-                    return new CreateDeadlineCommand(ui, taskList, storage, input);
-                default:
-                    return new ErrorCommand(ui, taskList, storage,
-                            "Please use the correct command Word!>.<");
+            case BYE:
+                return new GoodbyeCommand(ui, taskList, storage);
+            case DELETE:
+                return new DeleteCommand(ui, taskList, storage, Integer.parseInt(inputs[inputs.length - 1]));
+            case LIST:
+                return new PrintListCommand(ui, taskList, storage);
+            case MARK:
+                return new MarkDoneCommand(ui, taskList, storage, Integer.parseInt(inputs[inputs.length - 1]));
+            case UNMARK:
+                return new MarkUndoneCommand(ui, taskList, storage, Integer.parseInt(inputs[inputs.length - 1]));
+            case TODO:
+                return new CreateTodoCommand(ui, taskList, storage, input);
+            case EVENT:
+                return new CreateEventCommand(ui, taskList, storage, input);
+            case DEADLINE:
+                return new CreateDeadlineCommand(ui, taskList, storage, input);
+            default:
+                return new ErrorCommand(ui, taskList, storage, "Please use the correct command Word!>.<");
             }
         } catch (Exception e) {
-            return new ErrorCommand(ui, taskList, storage,
-                    "Please use the correct command Word!>.<");
+            return new ErrorCommand(ui, taskList, storage, "Please use the correct command Word!>.<");
         }
     }
 }

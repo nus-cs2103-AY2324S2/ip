@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represent a deadline task.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected LocalDateTime dueDate;
 
     /**
@@ -28,7 +28,7 @@ public class Deadline extends Task{
      *
      * @return String By date of the deadline.
      */
-    public String dateInWords(){
+    public String dateInWords() {
         String dayWeek = dueDate.getDayOfWeek().toString();
         int dayMonth = dueDate.getDayOfMonth();
         String month = dueDate.getMonth().toString();
@@ -37,7 +37,7 @@ public class Deadline extends Task{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         String str = String.format(
                 super.toString() + " (%s)", this.dateInWords());
         return str;

@@ -31,7 +31,7 @@ public class MarkDoneCommand extends Command {
     }
     @Override
     public void execute() throws DukeException {
-        if(this.indexToMark < 1 || this.indexToMark > this.taskList.size()){
+        if (this.indexToMark < 1 || this.indexToMark > this.taskList.size()) {
             throw new DukeException("Invalid task number entered.");
         }
         this.taskList.setAsDone(this.indexToMark - 1);
