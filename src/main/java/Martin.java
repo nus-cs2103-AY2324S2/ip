@@ -12,13 +12,23 @@ import java.io.FileWriter;
 public class Martin {
     private static String NAME = "Martin";
     protected static ArrayList<Task> todoList = new ArrayList<>();
+    private static String FILEPATH = "./data/martin.txt";
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Martin() {
+        this.storage = new Storage(FILEPATH); // fixed file path for now 
+        this.tasks = new TaskList(todoList);
+    }
 
     public static void main(String[] args) {
 
         File martinFile;
         try {
             System.out.println("Initializing Martin...");
-            martinFile = new File("./data/martin.txt");
+            martinFile = new File(FILEPATH);
             if (martinFile.exists()) {
                 startUpSequence(martinFile);
             } else {
@@ -36,6 +46,7 @@ public class Martin {
             e.printStackTrace();
         }
 
+        // UI
         sayGreeting();
 
         Scanner sc = new Scanner(System.in);
