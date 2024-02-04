@@ -25,7 +25,7 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         UI ui = new UI(sc);
         ui.showWelcome();
-        lst = storage.loadTasks();
+        lst = Storage.loadTasks();
         while (ui.hasNextCommand()) {
             try {
                 String s = ui.readCommand();

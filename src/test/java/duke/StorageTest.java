@@ -35,11 +35,11 @@ class StorageTest {
      * Tests Saving and Loading Tasks
      * Creates Storage and check if tasks are loaded correctly
      *
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @throws IOException no file found
+     * @throws ClassNotFoundException incorrect objects found
      */
     @Test
-    void testSaveAndLoadTasks() throws IOException, ClassNotFoundException {
+    void testSaveAndLoadTasks() {
         // Add a task to the list
         Duke.lst.add(new Todo("Test task"));
 

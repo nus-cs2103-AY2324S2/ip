@@ -12,7 +12,7 @@ public class Deadline extends Task {
 
     /** Public Constructor of Deadline object
      * Required format: {@code name-of-event /by YYYY-MM-DD}
-     * @param desc
+     * @param desc description of Deadline in required format
      */
     public Deadline(String desc) {
         String[] splitDesc = desc.split(" /by ");
