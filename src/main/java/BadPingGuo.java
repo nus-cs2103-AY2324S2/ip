@@ -8,13 +8,8 @@ import java.util.Scanner;
 
 public class BadPingGuo {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        Ui.showWelcome();
         Scanner sc = new Scanner(System.in);
-
         String filename = "src/main/data/whiteSpace.txt";
 
         try {
@@ -22,13 +17,11 @@ public class BadPingGuo {
             FileReader fc = new FileReader(file);
             BufferedReader reader = new BufferedReader(fc);
 
-            System.out.println("Welcome to White Space! You booted up your laptop and wonder what to do...");
-
             Tracker.suppressMessages = true;
-            Tracker.parseTasks(file);
+            Storage.parseTasks(file);
             Tracker.suppressMessages = false;
 
-            Tracker.listTasks(reader);
+            TaskList.listTasks(reader);
             System.out.println("Waiting for something to happen?");
 
             // self note: update the file everytime an operation is complete.
@@ -36,7 +29,7 @@ public class BadPingGuo {
             while(true) {
                 String request = sc.nextLine();
                 if (request.equalsIgnoreCase("bye")) break;
-                Tracker.ProcessQuery(request, file);
+                Parser.ProcessQuery(request, file);
             }
 
             System.out.println("--------------------------------");
