@@ -1,12 +1,13 @@
-package taskList.commands;
+package tasklist.commands;
 
 import java.time.DateTimeException;
-import taskList.*;
-import taskList.tasks.Deadline;
-import taskList.tasks.EmptyDateException;
-import taskList.tasks.Event;
-import taskList.tasks.Task;
-import taskList.tasks.ToDo;
+
+import tasklist.*;
+import tasklist.tasks.Deadline;
+import tasklist.tasks.EmptyDateException;
+import tasklist.tasks.Event;
+import tasklist.tasks.Task;
+import tasklist.tasks.ToDo;
 
 public class AddCommand implements Command {
 

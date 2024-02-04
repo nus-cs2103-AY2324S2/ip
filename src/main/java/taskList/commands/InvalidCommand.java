@@ -1,8 +1,8 @@
-package taskList.commands;
+package tasklist.commands;
 
-import taskList.Storage;
-import taskList.TaskList;
-import taskList.Ui;
+import tasklist.Storage;
+import tasklist.TaskList;
+import tasklist.Ui;
 
 public class InvalidCommand implements Command {
   private String errorMessage;

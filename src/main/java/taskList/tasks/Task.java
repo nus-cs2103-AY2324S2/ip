@@ -1,4 +1,4 @@
-package taskList.tasks;
+package tasklist.tasks;
 
 import java.io.Serializable;
 

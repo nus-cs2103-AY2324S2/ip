@@ -1,4 +1,4 @@
-package taskList.tasks;
+package tasklist.tasks;
 
 /** Custom exception to indicate that the date param is empty. */
 public class EmptyDateException extends RuntimeException {

@@ -1,7 +1,8 @@
-package taskList;
+package tasklist;
 
 import java.util.Scanner;
-import taskList.commands.Command;
+
+import tasklist.commands.Command;
 
 public class Duke {
   private Storage storage;

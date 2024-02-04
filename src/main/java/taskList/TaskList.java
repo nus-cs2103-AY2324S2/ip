@@ -1,8 +1,9 @@
-package taskList;
+package tasklist;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import taskList.tasks.Task;
+
+import tasklist.tasks.Task;
 
 /**
  * Collection of tasks. Provides methods to manage the tasks in the list.

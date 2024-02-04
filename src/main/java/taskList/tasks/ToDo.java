@@ -1,4 +1,4 @@
-package taskList.tasks;
+package tasklist.tasks;
 
 /** Represents a Todo Task that needs to be completed. It is an extension of the Task class. */
 public class ToDo extends Task {
