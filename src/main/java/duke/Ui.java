@@ -45,17 +45,17 @@ public class Ui {
         case "list":
             return Parser.printLst(tl);
         case "find":
-            return Parser.findTask(tl, commandArr);
+            return Parser.findTask(tl, cmd, commandArr);
         case "mark":
             return Parser.markTask(tl, commandArr);
         case "unmark":
             return Parser.unmarkTask(tl, commandArr);
         case "todo":
-            return Parser.addTodo(tl, commandArr, cmd);
+            return Parser.addTodo(tl, cmd, commandArr);
         case "deadline":
-            return Parser.addDeadline(tl, commandArr, cmd);
+            return Parser.addDeadline(tl, cmd, commandArr);
         case "event":
-            return Parser.addEvent(tl, commandArr, cmd);
+            return Parser.addEvent(tl, cmd, commandArr);
         case "delete":
             return Parser.deleteTask(tl, commandArr);
         default:

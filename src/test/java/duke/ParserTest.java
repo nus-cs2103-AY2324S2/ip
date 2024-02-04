@@ -19,7 +19,7 @@ public class ParserTest {
     @Test
     public void addTodo_validInput_successfulAddition() throws DukeException {
         String command = "todo read magazine";
-        Parser.addTodo(list, command.split(" "), command);
+        Parser.addTodo(list, command, command.split(" "));
         assertEquals(1, list.size(), "TaskList should have one task after adding todo");
         Task addedTask = list.get(0);
         assertTrue(addedTask instanceof Todo, "Added task should be of type Todo");
