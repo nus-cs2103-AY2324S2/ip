@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The {@code Event} class represents an event activity, implementing the {@link Activity} interface. It encapsulates
+ * the status, name, start date and time, and end date and time of an event. This class is designed to manage events,
+ * allowing for them to be printed, named, and marked as complete or incomplete. It ensures that the event's start
+ * date and time are logically before its end date and time.
+ */
 public class Event implements Activity {
     List<String> act;
     LocalDate startDate;
@@ -14,7 +20,17 @@ public class Event implements Activity {
     LocalTime startTime;
     LocalTime endTime;
 
-
+    /**
+     * Constructs a new {@code Event} instance with the given status, name, start date and time, and end date and time.
+     * It parses the start and end date and time strings to set the corresponding {@code LocalDate} and {@code LocalTime} fields.
+     * Validates that the start date and time are before the end date and time, throwing a {@code RuntimeException} if not.
+     *
+     * @param status            The initial status of the event (e.g., completed or not).
+     * @param name              The name or description of the event.
+     * @param startDateAndTime  The start date and time string for the event, to be parsed.
+     * @param endDateAndTime    The end date and time string for the event, to be parsed.
+     * @throws RuntimeException if the end date is before the start date, or if the end time is before the start time on the same day.
+     */
     public Event(String status, String name, String startDateAndTime, String endDateAndTime) {
         act = new ArrayList<>();
         act.add(status); // Status
@@ -40,6 +56,11 @@ public class Event implements Activity {
         this.endTime = endTime;
     }
 
+    /**
+     * Prints the event's details, including its status, name, and start and end dates and times.
+     * If the start and end dates and times are not null, they are formatted and printed; otherwise,
+     * the raw input strings are printed.
+     */
     @Override
     public void printActivity() {
         if (startDate != null && startTime != null && endDate != null && endTime != null) {
@@ -55,11 +76,23 @@ public class Event implements Activity {
         }
     }
 
+    /**
+     * Returns the name or description of the event.
+     *
+     * @return A {@code String} representing the name of the event.
+     */
     @Override
     public String getName() {
         return act.get(1);
     }
 
+    /**
+     * Marks the event as complete or incomplete based on the input. If the input is "mark", the status is set to a
+     * checkmark (indicating completion). If the input is "unmark", the status is set to an "X" (indicating not completed).
+     * After marking, the updated event details are printed.
+     *
+     * @param input A {@code String} indicating whether to mark the event as completed ("mark") or not completed ("unmark").
+     */
     @Override
     public void mark(String input) {
         if (Objects.equals(input, "mark")) {

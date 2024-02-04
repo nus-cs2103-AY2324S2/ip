@@ -16,18 +16,33 @@ import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * The {@code LocalListTest} class contains unit tests for the {@code LocalList} class, verifying its ability to
+ * correctly save and load {@link Activity} objects to and from a file. It tests the functionality with valid data
+ * and also checks the behavior when encountering invalid file paths.
+ */
 public class LocalListTest {
 
     private LocalList localList;
     private ArrayList<Activity> activities;
     String tempDir;
 
+    /**
+     * Sets up the test environment before each test. This includes creating a {@code LocalList} instance
+     * with a temporary directory for testing file operations.
+     */
     @BeforeEach
     public void setUp() {
         tempDir = "duke.txt";
         localList = new LocalList(tempDir);
     }
 
+    /**
+     * Tests the ability of the {@code LocalList} to save a list of activities to a file.
+     * Verifies that the file contains the correct representations of the activities after saving.
+     *
+     * @throws IOException if an I/O error occurs during file writing or reading.
+     */
     @Test
     public void testSaveActivities() throws IOException {
         activities = new ArrayList<>();
@@ -54,6 +69,10 @@ public class LocalListTest {
                 "File should contain the saved Event task.");
     }
 
+    /**
+     * Tests the behavior of the {@code LocalList} when attempting to load activities from an invalid file path.
+     * Expects an {@code IOException} to be thrown to indicate the file cannot be accessed.
+     */
     @Test
     public void testInvalidFile() {
         activities = new ArrayList<>();
@@ -64,6 +83,10 @@ public class LocalListTest {
         }, "The expected exception was not thrown.");
     }
 
+    /**
+     * Cleans up the test environment after each test. This includes clearing the list of activities and ensuring
+     * the test file is reset, preventing test data persistence between tests.
+     */
     @AfterEach
     public void tearDown() {
         if (!activities.isEmpty()) {
