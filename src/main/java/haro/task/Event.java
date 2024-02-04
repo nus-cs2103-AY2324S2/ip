@@ -1,10 +1,8 @@
 package haro.task;
 
-import haro.task.Task;
-
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
 
 public class Event extends Task {
     String start;
@@ -25,8 +23,8 @@ public class Event extends Task {
         }
     }
 
-    public Event(String task, String start, String end, boolean done) {
-        super(task, done);
+    public Event(String task, String start, String end, boolean isDone) {
+        super(task, isDone);
         this.start = start;
         this.end = end;
 
@@ -43,6 +41,7 @@ public class Event extends Task {
     public String printTask() {
         String startString;
         String endString;
+
         if (startDate != null) {
             startString = startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         } else {
@@ -59,7 +58,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        int marked = this.done ? 1 : 0;
+        int marked = this.isDone ? 1 : 0;
         return "E | " + marked + " | " + this.task + " | " + this.start + " | " + this.end;
     }
 }

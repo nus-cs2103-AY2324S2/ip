@@ -2,28 +2,28 @@ package haro.task;
 
 public abstract class Task {
     protected String task;
-    protected boolean done;
+    protected boolean isDone;
     public Task(String task) {
         this.task = task;
-        this.done = false;
+        this.isDone = false;
     }
 
-    public Task(String task, boolean done) {
+    public Task(String task, boolean isDone) {
         this.task = task;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     public void markTask() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmarkTask() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public String printTask() {
         String taskString;
-        if (this.done) {
+        if (this.isDone) {
             taskString = "[X] " + this.task;
         } else {
             taskString = "[ ] " + this.task;

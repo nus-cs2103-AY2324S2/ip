@@ -35,37 +35,37 @@ public class Parser {
 
     public static Command parseCommand (String input) throws Exception {
         Instruction instruction = Instruction.NONE;
-        String[] inputArr = input.split(" ", 2);
-        String instructWord = inputArr[0].toLowerCase().trim();
+        String[] inputArgs = input.split(" ", 2);
+        String instructWord = inputArgs[0].toLowerCase().trim();
         Command resultCommand = null;
 
         switch (instructWord) {
-            case "bye":
-                instruction = Instruction.BYE;
-                break;
-            case "list":
-                instruction = Instruction.LIST;
-                break;
-            case "mark":
-                instruction = Instruction.MARK;
-                break;
-            case "unmark":
-                instruction = Instruction.UNMARK;
-                break;
-            case "todo":
-                instruction = Instruction.TODO;
-                break;
-            case "deadline":
-                instruction = Instruction.DEADLINE;
-                break;
-            case "event":
-                instruction = Instruction.EVENT;
-                break;
-            case "delete":
-                instruction = Instruction.DELETE;
-                break;
-            default:
-                instruction = Instruction.NONE;
+        case "bye":
+            instruction = Instruction.BYE;
+            break;
+        case "list":
+            instruction = Instruction.LIST;
+            break;
+        case "mark":
+            instruction = Instruction.MARK;
+            break;
+        case "unmark":
+            instruction = Instruction.UNMARK;
+            break;
+        case "todo":
+            instruction = Instruction.TODO;
+            break;
+        case "deadline":
+            instruction = Instruction.DEADLINE;
+            break;
+        case "event":
+            instruction = Instruction.EVENT;
+            break;
+        case "delete":
+            instruction = Instruction.DELETE;
+            break;
+        default:
+            instruction = Instruction.NONE;
         }
 
         // Parser actions
@@ -75,12 +75,11 @@ public class Parser {
         }
 
         else if (instruction == Instruction.NONE) {
-            if (inputArr[0].equals("")) {
+            if (inputArgs[0].equals("")) {
                 throw new EmptyCommandException("Empty command! Type something!\n ");
             }
 
             throw new InvalidCommandException("Sorry, please type a valid command\n");
-
         }
 
         else if (instruction == Instruction.LIST) {
@@ -89,11 +88,11 @@ public class Parser {
         }
 
         // Commands with arguments
-        if (inputArr.length < 2 || inputArr[1].equals("")) {
+        if (inputArgs.length < 2 || inputArgs[1].equals("")) {
             throw new EmptyTaskException("Please input a task name\n");
         }
 
-        String commandArg = inputArr[1];
+        String commandArg = inputArgs[1];
 
         if (instruction == Instruction.MARK) {
             if (!isNumeric(commandArg)) {

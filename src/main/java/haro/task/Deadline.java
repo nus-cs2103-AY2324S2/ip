@@ -1,10 +1,8 @@
 package haro.task;
 
-import haro.task.Task;
-
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
 
 public class Deadline extends Task {
     String deadline;
@@ -20,8 +18,8 @@ public class Deadline extends Task {
         }
     }
 
-    public Deadline(String task, String deadline, boolean done) {
-        super(task, done);
+    public Deadline(String task, String deadline, boolean isDone) {
+        super(task, isDone);
         this.deadline = deadline;
 
         try {

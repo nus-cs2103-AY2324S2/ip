@@ -26,6 +26,7 @@ public class Haro {
     public void initialise() {
         haroUi.greet();
         boolean isExit = false;
+
         while(!isExit) {
             try{
                 String fullCommand = haroUi.readCommand();

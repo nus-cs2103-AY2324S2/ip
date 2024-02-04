@@ -1,13 +1,11 @@
 package haro.task;
 
-import haro.task.Task;
-
 public class ToDo extends Task {
     public ToDo(String task) {
         super(task);
     }
-    public ToDo(String task, boolean done) {
-        super(task, done);
+    public ToDo(String task, boolean isDone) {
+        super(task, isDone);
     }
 
     @Override
@@ -17,7 +15,7 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        int marked = this.done ? 1 : 0;
+        int marked = this.isDone ? 1 : 0;
         return "T | " + marked + " | " + this.task;
     }
 }
