@@ -13,7 +13,16 @@ import commands.UnmarkCommand;
 
 import enums.Commands;
 
+/**
+ * The Parser class is responsible for parsing user input and returning the corresponding command.
+ */
 public class Parser {
+    /**
+     * Parses the user input and returns the appropriate command object.
+     *
+     * @param input The user input to be parsed.
+     * @return A command object based on the parsed input.
+     */
     public static Command parse(String input) {
         String[] parts = input.split(" ", 2);
 

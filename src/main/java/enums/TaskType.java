@@ -1,5 +1,8 @@
 package enums;
 
+/**
+ * Enum representing different types of tasks in the application.
+ */
 public enum TaskType {
     TODO("[T]"),
     DEADLINE("[D]"),
@@ -11,6 +14,11 @@ public enum TaskType {
         this.symbol = symbol;
     }
 
+    /**
+     * Gets the symbol associated with the task type.
+     *
+     * @return The symbol representing the task type.
+     */
     public String getSymbol() {
         return symbol;
     }

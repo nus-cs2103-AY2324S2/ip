@@ -11,17 +11,37 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * The TaskList class manages a list of tasks and provides methods to manipulate them.
+ */
 public class TaskList {
     private List<Task> tasks;
 
+    /**
+     * Constructs a TaskList instance with the specified list of tasks.
+     *
+     * @param loadedTasks The list of tasks loaded from storage.
+     */
     public TaskList(List<Task> loadedTasks) {
         tasks = loadedTasks;
     }
 
+    /**
+     * Gets the list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public List<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Adds a task based on user input to the task list.
+     *
+     * @param input   The user input specifying the task to be added.
+     * @param ui      The user interface for displaying messages.
+     * @param storage The storage to save the updated task list.
+     */
     public void addTask(String input, Ui ui, Storage storage) {
         String[] parts = input.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -91,6 +111,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the task list based on user input .
+     *
+     * @param input   The user input specifying the task to be deleted.
+     * @param ui      The user interface for displaying messages.
+     * @param storage The storage to save the updated task list.
+     */
     public void deleteTask(String input, Ui ui, Storage storage) {
         try {
             int idx = Integer.parseInt(input.substring(7)) - 1;
@@ -111,6 +138,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Lists all tasks in the task list.
+     *
+     * @param ui The user interface for displaying messages.
+     */
     public void listTasks(Ui ui) {
         if (tasks.size() == 0) {
             ui.showMessage("There is no task yet, " + ui.getUser() + "!");
@@ -122,6 +154,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Lists tasks that occur on a specific date.
+     *
+     * @param input The user input specifying the date to filter tasks.
+     * @param ui    The user interface for displaying messages.
+     */
     public void listTasksOnDate(String input, Ui ui) {
         String[] parts = input.split(" ", 2);
         if (parts.length < 2) {
@@ -156,6 +194,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as completed based on user input.
+     *
+     * @param input   The user input specifying the task to be marked as completed.
+     * @param ui      The user interface for displaying messages.
+     * @param storage The storage to save the updated task list.
+     */
     public void markTask(String input, Ui ui, Storage storage) {
         try {
             int idx = Integer.parseInt(input.substring(5)) - 1;
@@ -171,6 +216,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks a completed task based on user input.
+     *
+     * @param input   The user input specifying the task to be unmarked.
+     * @param ui      The user interface for displaying messages.
+     * @param storage The storage to save the updated task list.
+     */
     public void unmarkTask(String input, Ui ui, Storage storage) {
         try {
             int idx = Integer.parseInt(input.substring(7)) - 1;
