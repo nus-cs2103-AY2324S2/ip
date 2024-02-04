@@ -14,6 +14,7 @@ import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
 import duke.commands.TodoCommand;
 import duke.commands.UnmarkCommand;
+import duke.commands.FindCommand;
 
 public class Parser {
 
