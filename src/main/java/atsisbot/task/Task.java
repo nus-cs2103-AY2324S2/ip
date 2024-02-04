@@ -11,8 +11,9 @@ public abstract class Task {
     protected TaskStatus status;
 
     /**
-     * Constructs a Task object with the given description. The initial status is set to
-     * TaskStatus.UNDONE. The atsisbot.task number is incremented.
+     * Constructs a Task object with the given description.
+     * The initial status is set to TaskStatus.UNDONE.
+     * The atsisbot.task number is incremented.
      *
      * @param description the description of the atsisbot.task
      */

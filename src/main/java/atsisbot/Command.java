@@ -138,6 +138,21 @@ public class Command {
     }
 
     /**
+     * Finds tasks in the task list that match the given search query.
+     * Prints the matching tasks to the user.
+     *
+     * @param args     the search query
+     * @param taskList the task list to search in
+     */
+    public static void find(String args, TaskList taskList) {
+        if (args.isBlank()) {
+            Ui.printInvalidInputFormatMessage();
+            return;
+        }
+        Ui.printFindMessage(taskList.findTasks(args));
+    }
+
+    /**
      * Prints the list of tasks in the given task list.
      *
      * @param taskList the task list containing the tasks to be printed
