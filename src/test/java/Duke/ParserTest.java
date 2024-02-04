@@ -33,7 +33,8 @@ public class ParserTest {
     }
 
     /**
-     * Tests the isExitCommand method for various exit commands, expecting true, and for a non-exit command, expecting false.
+     * Tests the isExitCommand method for various exit commands,
+     * expecting true, and for a non-exit command, expecting false.
      */
     @Test
     public void testIsExitCommand() {
