@@ -4,8 +4,8 @@ import java.util.regex.Matcher;
 class ClearCommand extends Command {
     public ClearCommand() {}
 
-    public void execute(Storage storage, boolean silent) {
-        storage.clear();
+    public void execute(TaskList tasks, boolean silent) {
+        tasks.clear();
         if (!silent) {
             System.out.println("Cleared all tasks!");
         }
@@ -23,13 +23,13 @@ abstract class AddTaskCommand extends Command {
         assert task != null : "Task should not be null";
     }
 
-    public void execute(Storage storage, boolean silent) throws DukeException {
+    public void execute(TaskList tasks, boolean silent) throws DukeException {
         assert task != null : "execute() can only be called once";
-        storage.addTask(task);
+        tasks.addTask(task);
         if (!silent) {
             System.out.println("Got it. I've added this task:");
             System.out.println(task);
-            storage.printTaskCount();
+            tasks.printTaskCount();
         }
         task = null;
     }
@@ -97,8 +97,8 @@ class AddEventCommand extends AddTaskCommand {
 }
 
 class ListCommand extends Command {
-    public void execute(Storage storage, boolean silent) throws DukeException {
-        storage.listTasks();
+    public void execute(TaskList tasks, boolean silent) throws DukeException {
+        tasks.listTasks();
     }
 }
 
@@ -130,11 +130,11 @@ class MarkDoneCommand extends CommandTakingTaskIndex {
         super(index);
     }
 
-    public void execute(Storage storage, boolean silent) throws DukeException {
-        storage.markTaskAsDone(index);
+    public void execute(TaskList tasks, boolean silent) throws DukeException {
+        tasks.markTaskAsDone(index);
         if (!silent) {
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println(storage.getTaskDescription(index));
+            System.out.println(tasks.getTaskDescription(index));
         }
     }
 }
@@ -144,11 +144,11 @@ class UnmarkDoneCommand extends CommandTakingTaskIndex {
         super(index);
     }
 
-    public void execute(Storage storage, boolean silent) throws DukeException {
-        storage.unmarkTaskAsDone(index);
+    public void execute(TaskList tasks, boolean silent) throws DukeException {
+        tasks.unmarkTaskAsDone(index);
         if (!silent) {
             System.out.println("OK, I've unmarked this task as not done yet:");
-            System.out.println(storage.getTaskDescription(index));
+            System.out.println(tasks.getTaskDescription(index));
         }
     }
 }
@@ -158,13 +158,13 @@ class DeleteCommand extends CommandTakingTaskIndex {
         super(index);
     }
 
-    public void execute(Storage storage, boolean silent) throws DukeException {
-        String taskToDelete = storage.getTaskDescription(index);
-        storage.deleteTask(index);
+    public void execute(TaskList tasks, boolean silent) throws DukeException {
+        String taskToDelete = tasks.getTaskDescription(index);
+        tasks.deleteTask(index);
         if (!silent) {
             System.out.println("Noted. I've removed this task:");
             System.out.println(taskToDelete);
-            storage.printTaskCount();
+            tasks.printTaskCount();
         }
     }
 }
