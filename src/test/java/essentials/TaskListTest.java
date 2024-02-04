@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
-    // Create a new TaskList object.
-    TaskList taskList = new TaskList();
+    private TaskList taskList = new TaskList();
 
     @Test
     public void testCreateNewTask_invalidInstruction_exceptionThrown() {

@@ -17,6 +17,7 @@ public class Jimmy {
 
     /**
      * Constructor for Jimmy bot.
+     *
      * @param filePath The file path to the file where the tasks are stored.
      */
     public Jimmy(String filePath) {
@@ -61,6 +62,9 @@ public class Jimmy {
                         break;
                     case "delete":
                         tasks.deleteTask(details);
+                        break;
+                    case "find":
+                        tasks.findTask(details);
                         break;
                     default:
                         tasks.createNewTask(instruction, details);

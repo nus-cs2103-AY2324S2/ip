@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 public class ParserTest {
-    Parser parser = new Parser(); // Create a new Parser object.
+    private Parser parser = new Parser(); // Create a new Parser object.
 
     @Test
     public void testParseEventDetails_incorrectFormat_exceptionThrown() {

@@ -168,11 +168,7 @@ public class TaskList {
     public void displayTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
-            if (i == taskList.size() - 1) {
-                System.out.println((i + 1) + "." + taskList.get(i).toString() + "\n");
-            } else {
-                System.out.println((i + 1) + "." + taskList.get(i).toString());
-            }
+            System.out.println((i + 1) + "." + taskList.get(i).toString());
         }
     }
 
@@ -231,7 +227,30 @@ public class TaskList {
         return taskList.size();
     }
 
+    /**
+     * Gets the task list.
+     *
+     * @return The task list.
+     */
     public ArrayList<Task> getTaskList() {
         return this.taskList;
+    }
+
+    /**
+     * Finds a task in the task list.
+     *
+     * @param keyword The keyword to search for.
+     * @throws JimmyException If the keyword is empty.
+     */
+    public void findTask(String keyword) throws JimmyException {
+        if (keyword.length() == 0) {
+            throw new JimmyException("Please enter a keyword to search for.");
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getDesc().contains(keyword)) {
+                System.out.println((i + 1) + "." + taskList.get(i).toString());
+            }
+        }
     }
 }
