@@ -12,6 +12,7 @@ import ben.ui.Ui;
 public class TodoCommand extends Command {
     private final String description;
 
+
     /**
      * Creates a TodoCommand with the specified description.
      *
@@ -21,6 +22,7 @@ public class TodoCommand extends Command {
         this.description = description;
     }
 
+
     /**
      * Executes the TodoCommand by adding a new Todo task to the task list.
      *
@@ -28,6 +30,7 @@ public class TodoCommand extends Command {
      * @param ui      The user interface to display messages.
      * @param storage The storage to save the updated task list.
      */
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task newTodo = new Todo(false, description);

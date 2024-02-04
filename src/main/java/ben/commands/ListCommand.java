@@ -9,6 +9,7 @@ import ben.ui.Ui;
  */
 public class ListCommand extends Command {
 
+
     /**
      * Creates a ListCommand.
      */
@@ -22,6 +23,7 @@ public class ListCommand extends Command {
      * @param ui      The user interface to display messages.
      * @param storage The storage (not used in this command).
      */
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showListMessage();

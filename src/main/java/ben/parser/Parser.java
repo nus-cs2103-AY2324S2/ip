@@ -33,6 +33,7 @@ public class Parser {
 
             case "mark": {
                 // Mark command
+
                 // empty field
                 if (tokens.length < 2) {
                     throw new BenException("   Key in a value!");
@@ -46,6 +47,7 @@ public class Parser {
 
             case "unmark": {
                 // Unmark command
+
                 // empty field
                 if (tokens.length < 2) {
                     throw new BenException("   Key in a value!");
@@ -59,6 +61,7 @@ public class Parser {
 
             case "todo": {
                 // Todo command
+
                 // empty to-do
                 if (tokens.length < 2) {
                     throw new BenException("   OOPS!!! The description of a todo cannot be empty.");
@@ -71,6 +74,7 @@ public class Parser {
 
             case "deadline": {
                 // Deadline command
+
                 // empty deadline
                 if (tokens.length < 2) {
                     throw new BenException("   OOPS!!! The description of a deadline cannot be empty.");
@@ -92,6 +96,7 @@ public class Parser {
 
             case "event": {
                 // Event command
+
                 // empty event
                 if (tokens.length < 2) {
                     throw new BenException("   OOPS!!! The description of an event cannot be empty.");
@@ -117,6 +122,7 @@ public class Parser {
 
             case "delete": {
                 // Delete command
+
                 // empty field
                 if (tokens.length < 2) {
                     throw new BenException("   Key in a value");

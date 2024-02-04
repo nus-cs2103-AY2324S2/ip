@@ -20,6 +20,7 @@ public class Todo extends Task {
      *
      * @return A string representing the Todo task for saving to a file.
      */
+
     @Override
     public String saveTask() {
         return "T | " + super.saveTask();
@@ -30,6 +31,7 @@ public class Todo extends Task {
      *
      * @return A string representation of the Todo task.
      */
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

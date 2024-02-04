@@ -142,6 +142,7 @@ public class TaskList {
      * Displays the entire TaskList.
      */
     public void showTaskList() {
+        StringBuilder s = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
             Task currTask = this.tasks.get(i);
             Ui.show((i + 1) + ". " + currTask);
