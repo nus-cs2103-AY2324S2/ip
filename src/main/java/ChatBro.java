@@ -14,6 +14,9 @@ public class ChatBro {
             taskList.add(Task.parseTask(taskString));
         }
         for (int i = 0; i < savedTasksSplit.length; i++) {
+            if (savedTasksSplit[0].isEmpty()) {
+                break;
+            }
             Task.incrementTaskCount();
         }
         for (int i = 0; i < 100 - savedTasksSplit.length; i++) {

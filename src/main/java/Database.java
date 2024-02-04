@@ -7,7 +7,7 @@ import java.nio.file.Paths;
  * Represents a database that stores and loads tasks in a file.
  */
 public class Database {
-    private static final String FILE_PATH = "./data/savedTasks.txt";
+    private static final String FILE_PATH = "./savedTasks.txt";
     //saveToFile and readFromFile methods adapted from ChatGPT output
     public static void saveToFile(String tasks) {
         try {

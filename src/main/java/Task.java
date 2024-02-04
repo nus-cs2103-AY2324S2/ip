@@ -91,6 +91,9 @@ public abstract class Task {
      * @return Task object.
      */
     public static Task parseTask(String taskString) {
+        if (taskString.length() < 7) {
+            return null; // Does not match any task type
+        }
         String type = taskString.charAt(1) + ""; // get the type of the task
         String status = taskString.charAt(4) + ""; // get the status of the task
         boolean isDone = status.equals("X");
