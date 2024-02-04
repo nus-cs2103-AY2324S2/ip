@@ -1,8 +1,10 @@
+package task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Encapsulates DEADLINE task. Inherits from Task.
+ * Encapsulates DEADLINE task. Inherits from task.Task.
  *
  * @author Tan Qin Yong
  */
@@ -40,9 +42,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline object.
+     * Returns a string representation of the task.Deadline object.
      *
-     * @return A string representation of the Deadline object.
+     * @return A string representation of the task.Deadline object.
      */
     @Override
     public String toString() {

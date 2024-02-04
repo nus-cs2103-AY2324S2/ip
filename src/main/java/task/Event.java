@@ -1,8 +1,12 @@
+package task;
+
+import task.Task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Encapsulates EVENT task. Inherits from Task.
+ * Encapsulates EVENT task. Inherits from task.Task.
  * @author Tan Qin Yong
  */
 public class Event extends Task {
@@ -14,7 +18,7 @@ public class Event extends Task {
     private LocalDate to;
 
     /**
-     * Constructs an Event object.
+     * Constructs an task.Event object.
      *
      * @param description The description of the event task.
      * @param from        The starting date and time of the event.
@@ -53,9 +57,9 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event object.
+     * Returns a string representation of the task.Event object.
      *
-     * @return A string representation of the Event object.
+     * @return A string representation of the task.Event object.
      */
     @Override
     public String toString() {

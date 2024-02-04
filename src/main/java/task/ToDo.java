@@ -1,14 +1,18 @@
+package task;
+
+import task.Task;
+
 /**
- * Encapsulates TODO task. Inherits from Task.
+ * Encapsulates TODO task. Inherits from task.Task.
  *
  * @author Tan Qin Yong
  */
 public class ToDo extends Task {
 
     /**
-     * Constructs a ToDo object with the given description.
+     * Constructs a task.ToDo object with the given description.
      *
-     * @param description The description of the ToDo task.
+     * @param description The description of the task.ToDo task.
      */
     public ToDo(String description) {
         super(description);
@@ -25,10 +29,10 @@ public class ToDo extends Task {
     }
 
     /**
-     * Returns a string representation of the ToDo object.
-     * Overrides the toString method in the Task class.
+     * Returns a string representation of the task.ToDo object.
+     * Overrides the toString method in the task.Task class.
      *
-     * @return A string representation of the ToDo object.
+     * @return A string representation of the task.ToDo object.
      */
     @Override
     public String toString() {

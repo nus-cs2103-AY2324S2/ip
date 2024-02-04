@@ -1,16 +1,18 @@
+package util;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 /**
- * The Parser class is responsible for parsing various user inputs related to tasks and dates.
+ * The util.Parser class is responsible for parsing various user inputs related to tasks and dates.
  *
  * @author Tan Qin Yong
  */
 public class Parser {
     /**
-     * Constructs a Parser object.
+     * Constructs a util.Parser object.
      */
     public Parser() {}
 

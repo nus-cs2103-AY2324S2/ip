@@ -1,3 +1,5 @@
+package task;
+
 /**
  * Encapsulates a given task by the user and whether it is done
  *
@@ -71,10 +73,10 @@ public class Task {
     /**
      * Gets the type of the task.
      *
-     * @return The string "Task" representing the type of the task.
+     * @return The string "task.Task" representing the type of the task.
      */
     public String getType() {
-        return "Task";
+        return "task.Task";
     }
 
     /**

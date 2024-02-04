@@ -1,3 +1,11 @@
+package util;
+
+import duke.TaskList;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
@@ -13,7 +21,7 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    /** The file path where Duke's task list is stored. */
+    /** The file path where duke.Duke's task list is stored. */
     private static final String FILE_PATH = "./data/duke.txt";
 
     /**

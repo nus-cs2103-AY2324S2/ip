@@ -1,3 +1,7 @@
+package duke;
+
+import task.Task;
+
 import java.util.ArrayList;
 
 /**
@@ -15,7 +19,7 @@ public class TaskList {
     /**
      * Constructor of taskList.
      *
-     * @param taskList A given list of tasks to initialize the TaskList.
+     * @param taskList A given list of tasks to initialize the duke.TaskList.
      */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
@@ -23,7 +27,7 @@ public class TaskList {
     }
 
     /**
-     * Constructs an empty TaskList.
+     * Constructs an empty duke.TaskList.
      */
     public TaskList() {
         this.taskList = new ArrayList<Task>();
