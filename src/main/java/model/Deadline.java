@@ -1,3 +1,4 @@
+package model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -5,7 +6,7 @@ public class Deadline implements Task {
     private final String name;
     private final boolean done;
     private final LocalDateTime deadline;
-    static DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    public static DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     Deadline(String name, LocalDateTime deadline) {
         this.name = name;

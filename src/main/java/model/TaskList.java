@@ -1,3 +1,4 @@
+package model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -5,46 +6,46 @@ import java.util.ArrayList;
 public class TaskList implements Serializable {
     private ArrayList<Task> tasks;
 
-    TaskList() {
+    public TaskList() {
         tasks = new ArrayList<>();
     }
 
-    int size() {
+    public int size() {
         return tasks.size();
     }
 
     // Overloaded Method for ToDo task
-    Task addTask(String name) {
+    public Task addTask(String name) {
         Task t = new ToDo(name);
         tasks.add(t);
         return t;
     }
 
     // Overloaded Method for Deadline task
-    Task addTask(String name, LocalDateTime deadline) {
+    public Task addTask(String name, LocalDateTime deadline) {
         Task t = new Deadline(name, deadline);
         tasks.add(t);
         return t;
     }
 
     // Overloaded Method for Event task
-    Task addTask(String name, LocalDateTime start, LocalDateTime end) {
+    public Task addTask(String name, LocalDateTime start, LocalDateTime end) {
         Task t = new Event(name, start, end);
         tasks.add(t);
         return t;
     }
 
-    Task deleteTask(int index) throws IndexOutOfBoundsException {
+    public Task deleteTask(int index) throws IndexOutOfBoundsException {
         return tasks.remove(index);
     }
 
-    Task mark(int index) throws IndexOutOfBoundsException {
+    public Task mark(int index) throws IndexOutOfBoundsException {
         Task t = tasks.get(index).mark();
         tasks.set(index, t);
         return t;
     }
 
-    Task unmark(int index) throws IndexOutOfBoundsException {
+    public Task unmark(int index) throws IndexOutOfBoundsException {
         Task t = tasks.get(index).unmark();
         tasks.set(index, t);
         return t;

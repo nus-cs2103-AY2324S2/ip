@@ -1,3 +1,4 @@
+package model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -6,7 +7,7 @@ public class Event implements Task{
     private final boolean done;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
-    static DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    public static DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     Event(String name, LocalDateTime startDate, LocalDateTime endDate) {
         this.name = name;
