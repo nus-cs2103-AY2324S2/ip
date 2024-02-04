@@ -10,14 +10,22 @@ import duke.commands.DefaultCommand;
 import duke.commands.DeleteCommand;
 import duke.commands.EventCommand;
 import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
 import duke.commands.TodoCommand;
 import duke.commands.UnmarkCommand;
-import duke.commands.FindCommand;
 
+/**
+ * Parser class is responsible for parsing user input and returning a Command object.
+ */
 public class Parser {
 
+    /**
+     * Splits user input into a HashMap.
+     * @param input user input
+     * @return HashMap containing the command and its content
+     */
     public static HashMap<String, String> splitInput(String input) {
         HashMap<String, String> res = new HashMap<>();
         String argRegex = "(?<=/%s\\s)(.*?)(?=\\s/|$)";

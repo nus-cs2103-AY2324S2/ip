@@ -15,6 +15,11 @@ public abstract class Command {
      */
     public abstract void execute(TaskList tasks, Ui ui);
 
+    /**
+     * Returns true if the command is an exit command.
+     *
+     * @return True if the command is an exit command, false otherwise.
+     */
     public boolean isExit() {
         return false;
     }

@@ -6,6 +6,9 @@ import java.time.format.DateTimeFormatter;
 
 import duke.exceptions.InvalidArgumentException;
 
+/**
+ * Represents a task that starts and ends at specific dates and times.
+ */
 public class EventTask extends Task {
     private static final String INVALID_DATE_FORMAT = "eh the date/time format is wrong la, must be yyyy-mm-dd";
     private static final String INVALID_NAME = "oi the task needs a name la \uD83D\uDE21\uD83D\uDE21";

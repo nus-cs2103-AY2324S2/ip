@@ -10,6 +10,9 @@ import duke.tasks.Task;
 import duke.tasks.TodoTask;
 
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList extends ArrayList<Task> {
 
     /**

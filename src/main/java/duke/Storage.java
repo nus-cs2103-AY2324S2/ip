@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Storage is responsible for reading and writing to the file.
+ */
 public class Storage {
     private static final String FILE_PATH = "data/duke.txt";
     private static File file;

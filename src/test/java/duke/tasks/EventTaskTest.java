@@ -1,14 +1,17 @@
 package duke.tasks;
 
-import duke.exceptions.InvalidArgumentException;
-import duke.tasks.EventTask;
-import org.junit.jupiter.api.Test;
-
-import java.time.DateTimeException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.time.DateTimeException;
+
+import org.junit.jupiter.api.Test;
+
+import duke.exceptions.InvalidArgumentException;
+
+/**
+ * JUnit test class for the EventTask class.
+ */
 public class EventTaskTest {
     private static final String INVALID_DATE_FORMAT = "eh the date/time format is wrong la, must be yyyy-mm-dd";
     private static final String INVALID_NAME = "oi the task needs a name la \uD83D\uDE21\uD83D\uDE21";

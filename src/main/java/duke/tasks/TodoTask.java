@@ -2,6 +2,9 @@ package duke.tasks;
 
 import duke.exceptions.InvalidArgumentException;
 
+/**
+ * Represents a task that has no specific date or time associated with it.
+ */
 public class TodoTask extends Task {
     private static final String INVALID_NAME = "oi the task needs a name la \uD83D\uDE21\uD83D\uDE21";
 

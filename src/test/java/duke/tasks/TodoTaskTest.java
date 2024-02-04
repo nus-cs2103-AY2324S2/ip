@@ -1,11 +1,14 @@
 package duke.tasks;
 
-import duke.exceptions.InvalidArgumentException;
-import duke.tasks.TodoTask;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
+import duke.exceptions.InvalidArgumentException;
+
+/**
+ * Tests the TodoTask class.
+ */
 public class TodoTaskTest {
     private static final String INVALID_NAME = "oi the task needs a name la \uD83D\uDE21\uD83D\uDE21";
 
