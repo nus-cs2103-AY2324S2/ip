@@ -22,17 +22,28 @@ import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
 
-
+/**
+ * The Storage class handles the loading and saving of tasks to a file.
+ */
 public class Storage {
     private String filePath;
     private Ui ui;
 
+    /**
+     * Constructs a Storage instance with the specified file path and user interface.
+     *
+     * @param filePath The path to the data file where tasks are stored.
+     * @param ui       The user interface to display error messages.
+     */
     public Storage(String filePath, Ui ui) {
         this.filePath = filePath;
         this.ui = ui;
         ensureFileExists();
     }
 
+    /**
+     * Ensures that the data file exists; if not, it creates the file.
+     */
     private void ensureFileExists() {
         try {
             Path path = Paths.get(filePath);
@@ -52,6 +63,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves a list of tasks to the data file.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void save(List<Task> tasks) {
         Path path = Paths.get(filePath);
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
@@ -65,6 +81,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the data file and returns them as a list.
+     *
+     * @return A list of tasks loaded from the data file.
+     */
     public List<Task> load() {
         List<Task> loadedTasks = new ArrayList<>();
         Path path = Paths.get(filePath);
@@ -104,6 +125,7 @@ public class Storage {
             ui.showLoadingError("cannot read the task file");
             e.printStackTrace();
         }
+
         return loadedTasks;
     }
 }
