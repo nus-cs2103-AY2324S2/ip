@@ -20,17 +20,18 @@ public class ManageCommand extends Command {
     /**
      * The index of the task to be managed.
      */
-    private int index;
+    private int[] indices;
 
     /**
      * Constructs a ManageCommand with the specified command type and index.
      *
      * @param type  The type of manage command (MARK, UNMARK, DELETE).
-     * @param index The index of the task to be managed.
+     * @param indices The index of the task to be managed.
      */
-    public ManageCommand(Command.Types type, int index) {
+    @SafeVarargs
+    public ManageCommand(Command.Types type, int... indices) {
         this.type = type;
-        this.index = index;
+        this.indices = indices;
     }
 
     /**
@@ -70,33 +71,35 @@ public class ManageCommand extends Command {
      * @param storage The Storage where changes are saved.
      */
     public String mark(TaskList tasks, Storage storage) {
-        if (index >= tasks.getSize() || index < 0) {
-            UI.print("Oops! You did not give a valid index.");
-            return "Oops! You did not give a valid index.";
+        String result = "";
+        for (int index : this.indices) {
+            if (index >= tasks.getSize() || index < 0) {
+                UI.print(String.format("Oops! %d is not a valid index.", index));
+                result += String.format("Oops! %d is not a valid index.\n", index);
+                continue;
+            }
+            Task task = tasks.getTask(index);
+            try {
+                task.updateStatus(true);
+                UI.print("Nice! I've marked this task as done:");
+                UI.print(task);
+
+                result += "Nice! I've marked this task as done:\n";
+                result += task + "\n";
+
+                String line = storage.readLine(index);
+                String newLine = line.substring(0, line.length() - 5) + "true";
+                storage.updateLine(index, newLine);
+                storage.updateLine(index, newLine);
+            } catch (InvalidStatusUpdateException e) {
+                UI.print("This task was already marked!");
+                UI.print(task);
+
+                result += "This task was already marked!\n";
+                result += task + "\n";
+            }
         }
-        Task task = tasks.getTask(this.index);
-        try {
-            task.updateStatus(true);
-            UI.print("Nice! I've marked this task as done:");
-            UI.print(task);
-
-            String result = "Nice! I've marked this task as done:\n";
-            result += task;
-
-            String line = storage.readLine(index);
-            String newLine = line.substring(0, line.length() - 5) + "true";
-            storage.updateLine(index, newLine);
-            storage.updateLine(index, newLine);
-
-            return result;
-        } catch (InvalidStatusUpdateException e) {
-            UI.print("This task was already marked!");
-            UI.print(task);
-
-            String result = "This task was already marked!\n";
-            result += task;
-            return result;
-        }
+        return result;
     }
 
     /**
@@ -106,32 +109,34 @@ public class ManageCommand extends Command {
      * @param storage The Storage where changes are saved.
      */
     public String unmark(TaskList tasks, Storage storage) {
-        if (index >= tasks.getSize() || index < 0) {
-            UI.print("Oops! You did not give a valid index.");
-            return "Oops! You did not give a valid index.";
+        String result = "";
+        for (int index : this.indices) {
+            if (index >= tasks.getSize() || index < 0) {
+                UI.print(String.format("Oops! %d is not a valid index.", index));
+                result += String.format("Oops! %d is not a valid index.\n", index);
+                continue;
+            }
+            Task task = tasks.getTask(index);
+            try {
+                task.updateStatus(false);
+                UI.print("OK, I've marked this task as not done yet:");
+                UI.print(task);
+
+                result += "OK, I've marked this task as not done yet:\n";
+                result += task + "\n";
+
+                String line = storage.readLine(index);
+                String newLine = line.substring(0, line.length() - 4) + "false";
+                storage.updateLine(index, newLine);
+            } catch (InvalidStatusUpdateException e) {
+                UI.print("This task was already unmarked!");
+                UI.print(task);
+
+                result += "This task was already unmarked!\n";
+                result += task + "\n";
+            }
         }
-        Task task = tasks.getTask(index);
-        try {
-            task.updateStatus(false);
-            UI.print("OK, I've marked this task as not done yet:");
-            UI.print(task);
-
-            String result = "OK, I've marked this task as not done yet:\n";
-            result += task;
-
-            String line = storage.readLine(index);
-            String newLine = line.substring(0, line.length() - 4) + "false";
-            storage.updateLine(index, newLine);
-
-            return result;
-        } catch (InvalidStatusUpdateException e) {
-            UI.print("This task was already unmarked!");
-            UI.print(task);
-
-            String result = "This task was already unmarked!\n";
-            result += task;
-            return result;
-        }
+        return result;
     }
 
     /**
@@ -141,19 +146,23 @@ public class ManageCommand extends Command {
      * @param storage The Storage where changes are saved.
      */
     public String delete(TaskList tasks, Storage storage) {
-        if (index >= tasks.getSize() || index < 0) {
-            UI.print("Oops! You did not give a valid index.");
-            return "Oops! You did not give a valid index.";
+        String result = "";
+        for (int index : this.indices) {
+            if (index >= tasks.getSize() || index < 0) {
+                UI.print(String.format("Oops! %d is not a valid index.", index));
+                result += String.format("Oops! %d is not a valid index.\n", index);
+                continue;
+            }
+            Task removed = tasks.deleteTask(index);
+            storage.deleteLine(index);
+
+            UI.print("Noted. I've removed this task:");
+            UI.print("\t" + removed);
+
+            result += "Noted. I've removed this task:\n";
+            result += removed + "\n";
         }
-        Task removed = tasks.deleteTask(index);
-        storage.deleteLine(index);
-
-        UI.print("Noted. I've removed this task:");
-        UI.print("\t" + removed);
         UI.print(String.format("Now you have %d tasks in the list.", tasks.getSize()));
-
-        String result = "Noted. I've removed this task:\n";
-        result += "\t" + removed + "\n";
         result += String.format("Now you have %d tasks in the list.", tasks.getSize());
         return result;
     }

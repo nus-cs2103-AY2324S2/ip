@@ -1,6 +1,5 @@
 todo,todo1,false
-event,event1,2022-03-04,2024-05-06,true
-todo,bye,false
+event,event1,2022-03-04,2024-05-06,false
 todo,great day,false
-todo,test,false
-todo,today,true
+todo,a,false
+todo,b,false

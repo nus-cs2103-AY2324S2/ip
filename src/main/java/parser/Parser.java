@@ -110,8 +110,11 @@ public class Parser {
         if (words.length <= 1) {
             throw new InvalidCommandException();
         }
-        int index = Integer.valueOf(words[1]) - 1;
-        return new ManageCommand(Command.Types.MARK, index);
+        int[] indices = new int[words.length - 1];
+        for (int i = 1; i < words.length; i++) {
+            indices[i - 1] = Integer.valueOf(words[i]) - 1;
+        }
+        return new ManageCommand(Command.Types.MARK, indices);
     }
 
     /**
@@ -126,8 +129,11 @@ public class Parser {
         if (words.length <= 1) {
             throw new InvalidCommandException();
         }
-        int index = Integer.valueOf(words[1]) - 1;
-        return new ManageCommand(Command.Types.UNMARK, index);
+        int[] indices = new int[words.length - 1];
+        for (int i = 1; i < words.length; i++) {
+            indices[i - 1] = Integer.valueOf(words[i]) - 1;
+        }
+        return new ManageCommand(Command.Types.UNMARK, indices);
     }
 
     /**
@@ -142,8 +148,11 @@ public class Parser {
         if (words.length <= 1) {
             throw new InvalidCommandException();
         }
-        int index = Integer.valueOf(words[1]) - 1;
-        return new ManageCommand(Command.Types.DELETE, index);
+        int[] indices = new int[words.length - 1];
+        for (int i = 1; i < words.length; i++) {
+            indices[i - 1] = Integer.valueOf(words[i]) - 1;
+        }
+        return new ManageCommand(Command.Types.DELETE, indices);
     }
 
     /**
