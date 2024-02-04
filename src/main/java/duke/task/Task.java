@@ -16,8 +16,9 @@ public abstract class Task {
  * Contatins the information of the Task.
  */
 public abstract class Task {
-    public String description;
-    public boolean isDone;
+
+    private String description;
+    private boolean isDone;
 
 >>>>>>> branch-Level-9
     /**
