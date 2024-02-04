@@ -17,16 +17,16 @@ public class TaskList {
      *
      * @throws GeneralException If TaskList is empty.
      */
-    public static void unmark() throws GeneralException {
+    public static String unmark() throws GeneralException {
 
         if (TaskList.taskList.isEmpty()) throw new GeneralException("What you tryna unmark huh?");
         try {
             Task t = TaskList.taskList.get(Integer.parseInt(Parser.name.substring(7, 8)) - 1);
             if (t.getStatusIcon().equals(" ")) {
-                System.out.println("You haven't even started this task dummy!");
+                return("You haven't even started this task dummy!");
             } else {
                 t.unMark();
-                System.out.println(t);
+                return(t.toString());
             }
         } catch (NumberFormatException e) {
             throw new GeneralException("Can't you spell?");
@@ -41,16 +41,16 @@ public class TaskList {
      *
      * @throws GeneralException If TaskList is empty.
      */
-    public static void mark() throws GeneralException {
+    public static String mark() throws GeneralException {
 
         if (TaskList.taskList.isEmpty()) throw new GeneralException("What you tryna mark huh?");
         try {
             Task t = TaskList.taskList.get(Integer.parseInt(Parser.name.substring(5, 6)) - 1);
             if (t.getStatusIcon().equals("X")) {
-                System.out.println("You already finished this!");
+                return("You already finished this!");
             } else {
                 t.markAsDone();
-                System.out.println(t);
+                return(t.toString());
             }
         } catch (NumberFormatException e) {
             throw new GeneralException("Can't you spell?");
@@ -65,7 +65,7 @@ public class TaskList {
      *
      * @throws GeneralException If TaskList is empty.
      */
-    public static void delete() throws GeneralException {
+    public static String delete() throws GeneralException {
 
         if (TaskList.taskList.isEmpty()) throw new GeneralException("What you tryna delete huh?");
 
@@ -73,7 +73,7 @@ public class TaskList {
             int idx = Integer.parseInt(Parser.name.substring(7, 8)) - 1;
             Task t = TaskList.taskList.get(idx);
             TaskList.taskList.remove(idx);
-            getListSize("deleted", t);
+            return getListSize("deleted", t);
         } catch (NumberFormatException e) {
             throw new GeneralException("Can't you spell?");
         } catch (IndexOutOfBoundsException e ) {
@@ -87,16 +87,16 @@ public class TaskList {
      *
      * @throws GeneralException If TaskList is empty.
      */
-    public static void list() throws GeneralException {
-
+    public static String list() throws GeneralException {
+        StringBuilder response = new StringBuilder();
         int size = TaskList.taskList.size();
         if (TaskList.taskList.isEmpty()) throw new GeneralException("Aren't you pretty free now? "
                 + "Go find something to do!");
         for (int i = 0; i < size; i++) {
             Task t = TaskList.taskList.get(i);
-            System.out.println((i + 1) + ". " + t);
+            response.append((i + 1)).append(". ").append(t).append("\n");
         }
-
+        return response.toString();
     }
 
     /**
@@ -104,14 +104,14 @@ public class TaskList {
      *
      * @throws GeneralException If command given violates given format.
      */
-    public static void addToDo() throws GeneralException {
+    public static String addToDo() throws GeneralException {
 
         try {
             String todo = Parser.name.split(" ", 2)[1];
 
             Task t = new ToDo(todo);
             TaskList.taskList.add(t);
-            getListSize("added", t);
+            return getListSize("added", t);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new GeneralException("Can't you even remember the proper format for this?\n"
                     + "todo [task]");
@@ -124,7 +124,7 @@ public class TaskList {
      *
      * @throws GeneralException If command given violates given format.
      */
-    public static void addEvent() throws GeneralException {
+    public static String addEvent() throws GeneralException {
 
         try {
             String event = Parser.name.split(" ", 2)[1];
@@ -132,7 +132,7 @@ public class TaskList {
 
             Task t = new Event(x[0], x[1].split(" ", 2)[1], x[2].split(" ", 2)[1]);
             TaskList.taskList.add(t);
-            getListSize("added", t);
+            return getListSize("added", t);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new GeneralException("Can't you even remember the proper format for this?\n"
                     + "event [task] ,from [date],to [date]");
@@ -145,7 +145,7 @@ public class TaskList {
      *
      * @throws GeneralException If command given violates given format.
      */
-    public static void addDeadline() throws GeneralException {
+    public static String addDeadline() throws GeneralException {
 
         try {
             String deadline = Parser.name.split(" ", 2)[1];
@@ -155,7 +155,7 @@ public class TaskList {
 
             Task t = new Deadline(x[0], date);
             TaskList.taskList.add(t);
-            getListSize("added", t);
+            return getListSize("added", t);
 
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new GeneralException("Can't you even remember the proper format for this?\n"
@@ -169,23 +169,25 @@ public class TaskList {
      *
      * @throws GeneralException If TaskList is empty.
      */
-    public static void find() throws GeneralException {
+    public static String find() throws GeneralException {
 
         int size = TaskList.taskList.size();
         if (TaskList.taskList.isEmpty()) throw new GeneralException("Theres's nothing to find here!");
-
+        StringBuilder response = new StringBuilder();
         try {
             int count = 0;
             String keyword = Parser.name.split(" ", 2)[1];
             for (int i = 0; i < size; i++) {
                 Task t = TaskList.taskList.get(i);
                 if (t.description.contains(keyword)) {
-                    System.out.println((i + 1) + ". " + t);
+                    response.append((i + 1)).append(". ").append(t).append("\n");
                     count++;
                 }
             }
             if (count == 0) {
-                System.out.println("I couldn't find anything related to that!");
+                return("I couldn't find anything related to that!");
+            } else {
+                return response.toString();
             }
         } catch (IndexOutOfBoundsException e) {
             throw new GeneralException("Proper format is 'find [keyword]' just so you know...");
@@ -196,17 +198,18 @@ public class TaskList {
     /**
      * Prints number of Tasks in TaskList.
      */
-    public static void getListSize(String str, Task t) {
-
+    public static String getListSize(String str, Task t) {
+        String response = "";
         int size = TaskList.taskList.size();
-        System.out.println("Noted...");
-        System.out.println(" " + t.toString() + " has been " + str);
+        response += ("Noted...");
+        response += (" " + t.toString() + " has been " + str + "\n");
 
         if (size > 0) {
-            System.out.println("Get to work! You still have " + size + " " + (size > 1 ? "tasks" : "task") + " left!");
+            response += ("Get to work! You still have " + size + " " + (size > 1 ? "tasks" : "task") + " left!");
         } else {
-            System.out.println("You finally have free time?");
+            response += ("You finally have free time?");
         }
+        return response;
 
     }
 }
