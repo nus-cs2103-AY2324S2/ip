@@ -23,9 +23,10 @@ public class ParserTest {
         try {
             assertTrue((new TodoCommand("1234"))
                     .testEquals(Parser.parse("todo 1234")));
-            assertTrue((new DeadlineCommand("1234", parseDate("2021-08-25")))
+            assertTrue((new DeadlineCommand("1234", Parser.parseDate("2021-08-25")))
                     .testEquals(Parser.parse("deadline 1234 /by 2021-08-25")));
-            assertTrue((new EventCommand("1234", parseDate("2021-08-25"), parseDate("2021-08-26")))
+            assertTrue((new EventCommand("1234",
+                    Parser.parseDate("2021-08-25"), Parser.parseDate("2021-08-26")))
                     .testEquals(Parser.parse("event 1234 /from 2021-08-25 /to 2021-08-26")));
             assertTrue((new ByeCommand()).testEquals(Parser.parse("bye")));
             assertTrue((new UnknownCommand("blah")).testEquals(Parser.parse("blah blah blah")));
@@ -58,16 +59,5 @@ public class ParserTest {
         } catch (Exception e) {
             assertEquals("Error! You cannot provide a deadline with no parameters!", e.getMessage());
         }
-    }
-
-    public static LocalDate parseDate(String dateString) {
-        LocalDate date = null;
-        // check if in yyyy-mm-dd format
-        try {
-            date = LocalDate.parse(dateString);
-        } catch (Exception e) {
-            // do nothing
-        }
-        return date;
     }
 }
