@@ -22,7 +22,6 @@ public class dateManager {
         "dd/MM/yyyy HHmm",
         "MM/dd/yyyy HHmm",
         "yyyy/MM/dd HHmm",
-        "yyyy/MM/dd HHmm",
         "dd MMM yyyy HH:mm"
     };
 

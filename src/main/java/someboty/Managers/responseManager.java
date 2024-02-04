@@ -1,11 +1,8 @@
-package someboty;
+package someboty.Managers;
 
 import java.util.Scanner;
 
-import someboty.Managers.commandManager;
-import someboty.Managers.taskManager;
-
-public class Response {
+public class responseManager {
     
     private static final String GREET = "Wassup! I'm someBOTy.\n"
                                     + "What are you here for?";
@@ -17,7 +14,7 @@ public class Response {
     private commandManager commandCenter;
 
     // CONSTRUCTOR
-    public Response(taskManager taskList) {
+    public responseManager(taskManager taskList) {
         scanner = new Scanner(System.in);
         commandCenter = new commandManager(taskList);
     }
@@ -34,14 +31,6 @@ public class Response {
         printLine();
     }
 
-    public static void printLine() {
-        System.out.println(LINE_SEPERATOR);
-    }
-
-    public static void breakLine() {
-        System.out.println("");
-    }
-
     public void parseInput() {
         breakLine();
         String input = scanner.nextLine();
@@ -51,5 +40,13 @@ public class Response {
 
         System.out.println(response);
         printLine();
+    }
+
+    protected static void printLine() {
+        System.out.println(LINE_SEPERATOR);
+    }
+
+    protected static void breakLine() {
+        System.out.println("");
     }
 }

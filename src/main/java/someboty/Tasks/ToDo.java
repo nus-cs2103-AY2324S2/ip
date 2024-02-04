@@ -6,12 +6,13 @@ package someboty.Tasks;
 */
 public class ToDo extends Task {
     public ToDo(String name) {
-        super(name);
+        super("");
+        this.formatInput(name);
     }
 
     @Override
     protected void formatInput(String description) {
-        return; // ToDo tasks do not need to format anything.
+        this.name = description.trim();
     }
 
     @Override

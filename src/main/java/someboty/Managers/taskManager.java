@@ -3,21 +3,24 @@ package someboty.Managers;
 import java.util.ArrayList;
 
 import someboty.Exceptions.InputException;
-import someboty.Tasks.Deadline;
-import someboty.Tasks.Event;
 import someboty.Tasks.Task;
-import someboty.Tasks.ToDo;
 
 public class taskManager {
 
     private ArrayList<Task> taskList;
+    private fileManager filer;
 
     // CONSTRUCTOR
-    public taskManager() {
-        taskList = fileManager.fetchTasks();
+    public taskManager(String filePath) {
+        this.filer = new fileManager(filePath);
+        taskList = this.filer.fetchTasks();
     }
 
-    public String listTasks() {
+    protected int getListSize() {
+        return this.taskList.size();
+    }
+    
+    protected String listTasks() {
         if (taskList.size() == 0) {    // special message for empty list
             return "Wow! You have no recorded task! Peek laziness here.";
         }
@@ -36,82 +39,39 @@ public class taskManager {
         return response;
     }
 
-    public String setTaskStatus(int index, boolean status) {
+    protected String setTaskStatus(int index, boolean status) {
         try {
             this.taskList.get(index).setStatus(status);
-            return status
-                ? "Uppzz lah so hardworking!\n " + this.taskList.get(index).toString()
-                : "O...k... as you wish I guess...!\n " + this.taskList.get(index).toString();
+            return this.taskList.get(index).toString();
 
          } catch (IndexOutOfBoundsException e) {
             throw new InputException(">>> Bruh, there ain't no task " + String.valueOf(index + 1));
         }
     }
 
-    public String deleteTask(int index) {
+    protected String deleteTask(int index) {
         try {
             Task removedTask = taskList.remove(index);
-
-            String response = "Noted. I've removed this task:\n"
-                            + String.format("  %s\n", removedTask)
-                            + String.format("Now you have %d tasks in the list.", this.taskList.size());
-            
-            return response;
+            return removedTask.toString();
 
         } catch (IndexOutOfBoundsException e) {
             throw new InputException(">>> Bruh, there ain't no task " + String.valueOf(index + 1));
         }
     }
 
-    public void clear() {
+    protected void clear() {
         this.taskList.clear();
     }
 
-    public String addTask(char type, String description) {
-        return type == 'T'
-            ? addTodo(description)
-            : type == 'D'
-            ? addDeadline(description)
-            : type == 'E'
-            ? addEvent(description)
-            : invalidTaskType();
+    protected String addTask(char type, String description) {
+        Task newTask = Task.createTask(type, description);
+        this.taskList.add(newTask);
+        return newTask.toString();
     }
 
-    // add a new task of type "ToDo"
-    private String addTodo(String description) {
-        ToDo newTodo = new ToDo(description);
-        this.taskList.add(newTodo);
-
-        return getTaskMessage(newTodo);
+    protected void close() {
+        this.filer.storeTasks(this.taskList);
     }
-
-    // add a new task of type "Deadline"
-    private String addDeadline(String description) {
-        Deadline newDeadline = new Deadline(description);
-        this.taskList.add(newDeadline);
-        return getTaskMessage(newDeadline);
-    }
-
-    // add a new task of type "Event"
-    private String addEvent(String description) {
-        Event newEvent = new Event(description);
-        this.taskList.add(newEvent);
-        return getTaskMessage(newEvent);
-    }
-
-    public void close() {
-        fileManager.storeTasks(this.taskList);
-    }
-
-    private static String invalidTaskType() {
-        throw new InputException("Unknown task type. Check that your command is correct.");
-    }
-
-    // output a message after adding a task to the list.
-    private  String getTaskMessage(Task task) {
-        return "Got it. I've added this task:\n"
-            + String.format("  %s\n", task)
-            + String.format("Now you have %d tasks in the list.\n", this.taskList.size())
-            +"(Type 'list' to see the full list of tasks)";
-    }
+    
+    
 }

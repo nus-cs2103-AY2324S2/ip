@@ -25,7 +25,7 @@ public class commandManager {
         this.taskList = taskList;
     }
 
-    public String parse(String input) {
+    protected String parse(String input) {
 
         String command = input.split(" ")[0];
 
@@ -120,7 +120,10 @@ public class commandManager {
                 );
         }
 
-        return taskList.setTaskStatus(index, status);
+        String taskString = taskList.setTaskStatus(index, status);
+        return status
+                ? "Uppzz lah so hardworking!\n " + taskString
+                : "O...k... as you wish I guess...!\n " + taskString;
     }
 
     // delete a task at the specified index.
@@ -138,7 +141,10 @@ public class commandManager {
                 );
         }
 
-        return taskList.deleteTask(index);
+        String taskString = taskList.deleteTask(index);
+        return "Noted. I've removed this task:\n"
+            + String.format("  %s\n", taskString)
+            + String.format("Now you have %d tasks in the list.", this.taskList.getListSize());
     }
 
     private String clearTaskList() {
@@ -148,6 +154,11 @@ public class commandManager {
 
     private String addTask(char type, String input) {
         String description = getDescription(input);
-        return taskList.addTask(type, description);
+        String taskString = taskList.addTask(type, description);
+
+        return "Got it. I've added this task:\n"
+            + String.format("  %s\n", taskString)
+            + String.format("Now you have %d tasks in the list.\n", taskList.getListSize())
+            +"(Type 'list' to see the full list of tasks)";
     }
 }

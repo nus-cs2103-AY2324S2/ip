@@ -26,22 +26,25 @@ import someboty.Tasks.ToDo;
  */
 public class fileManager {
 
-    private static final String FILE_PATH = System.getProperty("user.dir") + "/data/tasks.csv";
-    private static ArrayList<Task> taskList;
+    private String filePath;
+
+    public fileManager(String filePath) {
+        this.filePath = filePath;
+    }
 
     /**
      * Read task details from the csv file and
      * converts it into an array.
      * @return an array of type Task.
      */
-    public static ArrayList<Task> fetchTasks() {
+    public ArrayList<Task> fetchTasks() {
         File infile;
         Scanner scanner;
         Task currentTask;
-        taskList = new ArrayList<>();
+        ArrayList<Task> taskList = new ArrayList<>();
 
         try {
-            infile = new File(FILE_PATH);
+            infile = new File(this.filePath);
             infile.createNewFile();     // Creates new file if it does not exist.
             scanner = new Scanner(infile);
 
@@ -63,10 +66,10 @@ public class fileManager {
      * Takes in a list of task and writes it into the csv file.
      * @param taskList an array of type Task.
      */
-    public static void storeTasks(ArrayList<Task> taskList) {
+    public void storeTasks(ArrayList<Task> taskList) {
         FileWriter outfile;
         try {
-            outfile = new FileWriter(FILE_PATH);
+            outfile = new FileWriter(this.filePath);
 
         } catch (IOException e) { // honestly idk what to do about this exception
             System.out.println("Error. Unable to create fileWriter.");

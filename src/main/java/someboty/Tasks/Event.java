@@ -35,7 +35,7 @@ public class Event extends Task {
         try {
             this.name = description.split("/")[0].trim();
             stringFrom = description.split("/from ")[1].split("/to ")[0].trim();
-            stringTo = description.split("/to ")[1].trim();
+            stringTo = description.split("/to ")[1].split("/from ")[0].trim();
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new InputException(

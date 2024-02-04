@@ -1,5 +1,7 @@
 package someboty.Tasks;
 
+import someboty.Exceptions.InputException;
+
 /**
  * A abstract class to handle details of a task.
  * This class is extended by 3 sub-classes:
@@ -54,6 +56,20 @@ abstract public class Task {
         return this.getStatus()
             ? "[X]" + " " + this.name
             : "[ ]" + " " + this.name;
+    }
+
+    public static Task createTask(char type, String description) {
+        return type == 'T'
+        ? new ToDo(description)
+        : type == 'D'
+        ? new Deadline(description)
+        : type == 'E'
+        ? new Event(description)
+        : invalidTaskType();
+    }
+
+    private static Task invalidTaskType() {
+        throw new InputException("Unknown task type. Check that your command is correct.");
     }
     
 }
