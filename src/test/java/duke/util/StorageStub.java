@@ -1,10 +1,13 @@
 package duke.util;
 
+import java.util.ArrayList;
+
 import duke.exception.DukeException;
 import duke.task.Task;
 
-import java.util.ArrayList;
-
+/**
+ * Represents a stub class for Storage.
+ */
 public class StorageStub extends Storage {
     public StorageStub(String file, String parent) {
         super(file, parent);

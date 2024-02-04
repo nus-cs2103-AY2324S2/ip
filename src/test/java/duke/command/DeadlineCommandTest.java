@@ -1,20 +1,21 @@
 package duke.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.util.StorageStub;
 import duke.util.TaskList;
 import duke.util.Ui;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class DeadlineCommandTest {
 
     @Test
-    public void execute_deadlineFormat_Deadline() {
+    public void execute_deadlineFormat_deadline() {
         DeadlineCommand dc = new DeadlineCommand("deadline return book /by 20-12-2020 10:01");
         Deadline dl = new Deadline("return book", "20-12-2020 10:01");
         TaskList list = new TaskList();
@@ -27,7 +28,7 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    public void execute_deadlineWrongDateFormat_DukeException() {
+    public void execute_deadlineWrongDateFormat_dukeException() {
         DeadlineCommand dc = new DeadlineCommand("deadline return book /by 20/12/2020 10:01");
         TaskList list = new TaskList();
         try {

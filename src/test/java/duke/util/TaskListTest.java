@@ -1,15 +1,15 @@
 package duke.util;
 
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 public class TaskListTest {
 

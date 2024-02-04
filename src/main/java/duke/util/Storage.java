@@ -1,17 +1,18 @@
 package duke.util;
 
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 
 /**
  * Represents a storage mechanism.
@@ -28,7 +29,7 @@ public class Storage {
      * @param parent Parent directory of the file.
      */
     public Storage(String file, String parent) {
-        this.f = new File(parent +"/" + file);
+        this.f = new File(parent + "/" + file);
         File parentDir = new File(parent);
         if (!parentDir.exists()) {
             parentDir.mkdirs();
@@ -75,7 +76,7 @@ public class Storage {
      * @return ArrayList of Task.
      * @throws DukeException If file not found due to no existing data saved.
      */
-    public ArrayList<Task> readFromFile() throws DukeException{
+    public ArrayList<Task> readFromFile() throws DukeException {
         ArrayList<Task> list = new ArrayList<Task>();
         if (f.exists()) {
             try {

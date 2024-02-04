@@ -4,9 +4,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a deadline object.
+ */
 public class Deadline extends Task {
     private LocalDateTime date;
 
+    /**
+     * Constructs a Deadline object.
+     *
+     * @param task Description of task.
+     * @param date Deadline of task.
+     */
     public Deadline(String task, String date) {
         super(task);
         this.date = setDate(date);

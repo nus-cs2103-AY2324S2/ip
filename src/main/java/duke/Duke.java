@@ -7,6 +7,9 @@ import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 
+/**
+ * Represents a ChatBot.
+ */
 public class Duke {
 
     private Storage storage;
@@ -56,7 +59,6 @@ public class Duke {
 
 
     /**
-     *
      * Starts Duke chatbot. Entry point of application.
      *
      * @param args Not used.

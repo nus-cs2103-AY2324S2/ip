@@ -1,14 +1,26 @@
 package duke.util;
 
-import duke.command.*;
-import duke.exception.DukeException;
-
 import java.util.regex.Pattern;
+
+import duke.command.Command;
+import duke.command.DeadlineCommand;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.TodoCommand;
+import duke.command.UnknownCommand;
+import duke.exception.DukeException;
 
 /**
  * Represents a parser to process and parse command.
  */
 public class Parser {
+    /**
+     * Sets the possible types of input.
+     */
     public enum InputType {
         LIST,
         MARK,
@@ -46,7 +58,7 @@ public class Parser {
         } else if (input.startsWith("event")) {
             return InputType.EVENT;
         } else if (input.startsWith("find")) {
-                return InputType.FIND;
+            return InputType.FIND;
         } else {
             return InputType.UNKNOWN;
         }
@@ -71,7 +83,7 @@ public class Parser {
      * @return Subclass of Command based on keyword and format of command.
      * @throws DukeException If command is not in the correct format.
      */
-    public static Command parseCommand(String input) throws DukeException{
+    public static Command parseCommand(String input) throws DukeException {
         String lowerInput = input.trim().toLowerCase();
         InputType commandType = getCommandType(lowerInput);
 
@@ -124,6 +136,7 @@ public class Parser {
             return new ExitCommand();
         case UNKNOWN:
             return new UnknownCommand();
+        default:
         }
         return null;
     }
@@ -134,11 +147,11 @@ public class Parser {
             return new MarkCommand(input, toMark);
         } else {
             if (toMark) {
-                throw new DukeException("Your mark instruction is unclear.\n" +
-                        "\t Try 'mark [task number to mark as done]'.");
+                throw new DukeException("Your mark instruction is unclear.\n"
+                        + "\t Try 'mark [task number to mark as done]'.");
             } else {
-                throw new DukeException("Your unmark instruction is unclear.\n" +
-                        "\t Try 'unmark [task number to mark as not done]'.");
+                throw new DukeException("Your unmark instruction is unclear.\n"
+                        + "\t Try 'unmark [task number to mark as not done]'.");
             }
         }
     }
@@ -148,8 +161,8 @@ public class Parser {
         if (Parser.matchPattern(lowerInput, "delete\\s\\d+")) {
             return new DeleteCommand(input);
         } else {
-            throw new DukeException("Your delete instruction is unclear.\n" +
-                    "\t Try 'delete [task number to be deleted]'.");
+            throw new DukeException("Your delete instruction is unclear.\n"
+                    + "\t Try 'delete [task number to be deleted]'.");
         }
     }
 
@@ -158,8 +171,8 @@ public class Parser {
         if (Parser.matchPattern(lowerInput, "todo\\s.+")) {
             return new TodoCommand(input);
         } else {
-            throw new DukeException("The description of a todo cannot be empty.\n" +
-                    "\t Try 'todo [task description]'.");
+            throw new DukeException("The description of a todo cannot be empty.\n"
+                    + "\t Try 'todo [task description]'.");
         }
     }
 
@@ -168,8 +181,8 @@ public class Parser {
         if (Parser.matchPattern(lowerInput, "deadline\\s.+\\s/by\\s.+")) {
             return new DeadlineCommand(input);
         } else {
-            throw new DukeException("The description and due of a deadline cannot be empty.\n" +
-                    "\t Try 'deadline [task description] /by [dd-MM-yyyy HH:mm]'.");
+            throw new DukeException("The description and due of a deadline cannot be empty.\n"
+                    + "\t Try 'deadline [task description] /by [dd-MM-yyyy HH:mm]'.");
         }
     }
 

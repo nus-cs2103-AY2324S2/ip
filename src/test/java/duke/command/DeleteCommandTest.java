@@ -1,5 +1,12 @@
 package duke.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Task;
@@ -7,17 +14,14 @@ import duke.util.StorageStub;
 import duke.util.TaskList;
 import duke.util.Ui;
 
-import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+
 
 public class DeleteCommandTest {
 
     @Test
-    public void execute_deleteFormat_Deleted() {
+    public void execute_deleteFormat_deleted() {
         DeleteCommand dc = new DeleteCommand("delete 1");
         Deadline dl = new Deadline("return book", "20-12-2020 10:01");
         ArrayList<Task> arr = new ArrayList<>();
@@ -32,7 +36,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_deleteNegativeIndex_DukeException() {
+    public void execute_deleteNegativeIndex_dukeException() {
         DeleteCommand dc = new DeleteCommand("delete -1");
         Deadline dl = new Deadline("return book", "20-12-2020 10:01");
         ArrayList<Task> arr = new ArrayList<>();
@@ -42,12 +46,13 @@ public class DeleteCommandTest {
             dc.execute(list, new Ui("JavAssist", "", System.in), new StorageStub("", ""));
             fail();
         } catch (DukeException e) {
-            assertEquals("Task (-1) not found.\n" + "\t Here are the tasks in your list:\n\t\t 1." + dl.printTask(), e.getMessage());
+            assertEquals("Task (-1) not found.\n" + "\t Here are the tasks in your list:\n\t\t 1."
+                    + dl.printTask(), e.getMessage());
         }
     }
 
     @Test
-    public void execute_deleteFromEmptyList_DukeException() {
+    public void execute_deleteFromEmptyList_dukeException() {
         DeleteCommand dc = new DeleteCommand("delete 1");
         TaskList list = new TaskList();
         try {

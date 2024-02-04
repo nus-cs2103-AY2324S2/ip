@@ -14,13 +14,20 @@ public class MarkCommand implements Command {
     private String input;
     private boolean toMark;
 
+    /**
+     * Constructs a MarkCommand object.
+     *
+     * @param input User input.
+     * @param toMark Indicates mark command if true, unmark if false.
+     */
     public MarkCommand(String input, boolean toMark) {
         this.input = input;
         this.toMark = toMark;
     }
 
     /**
-     * Sets task in TaskList as done or not done depending on boolean value of toMark, where index is indicated in input.
+     * Sets task in TaskList as done or not done depending on boolean value of toMark,
+     * where index is indicated in input.
      *
      * @param list Holds the tasks added.
      * @param ui Displays messages about executed operation.
