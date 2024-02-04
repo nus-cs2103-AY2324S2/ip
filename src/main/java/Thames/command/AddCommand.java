@@ -28,4 +28,12 @@ public class AddCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof AddCommand) {
+            return ((AddCommand) o).task.equals(this.task);
+        }
+        return false;
+    }
 }

@@ -32,4 +32,13 @@ public class Task {
         return "[" + (isDone? "X":" ") + "] " + this.name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Task) {
+            return ((Task) o).name.equals(this.name) &&
+                    ((Task) o).isDone.equals(this.isDone);
+        }
+        return false;
+    }
+
 }

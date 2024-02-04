@@ -25,4 +25,13 @@ public class Event extends Task{
         return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
                 " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Event) {
+            return super.equals(o) &&
+                    ((Event) o).from.equals(this.from) && ((Event) o).to.equals(this.to);
+        }
+        return false;
+    }
 }
