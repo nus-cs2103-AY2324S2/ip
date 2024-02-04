@@ -1,12 +1,32 @@
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+
 
 public class Storage {
-//    private final Task[] todoList = new Task[100];
     ArrayList<Task> todoList = new ArrayList<>();
-//    private int index;
+    String FILE_PATH = "data/hal.txt";
+    boolean isDoneDefault = false;
+    File file;
 
     public Storage() {
-//        this.index = 0;
+        this.file = new File(FILE_PATH);
+        this.file.getParentFile().mkdirs();
+
+        try {
+            // Ensure the file is created before attempting to read from it
+            if (this.file.createNewFile()) {
+                System.out.println("File created: " + FILE_PATH);
+            } else {
+                System.out.println("File already exists: " + FILE_PATH);
+            }
+
+            readFromFile();
+        } catch (IOException e) {
+            System.out.println("Error creating or reading from file");
+            e.printStackTrace();
+        }
     }
 
     public String addTask(String userInput) {
@@ -26,8 +46,7 @@ public class Storage {
 
                 if (userInputArray[0].equalsIgnoreCase("todo")) {
                     String description = userInput.substring(4).trim();
-//                    todoList[index] = new Todo(description);
-                    todoList.add(new Todo(description));
+                    todoList.add(new Todo(isDoneDefault, description));
 
                 } else if (userInputArray[0].equalsIgnoreCase("deadline")) {
 
@@ -37,9 +56,7 @@ public class Storage {
                         String description = userInput.substring(8, keywordIndex).trim();
                         String deadline = userInput.substring(keywordIndex + 3).trim();
 
-//                        Deadline deadlineObj = new Deadline(description, deadline);
-//                        todoList[index] = deadlineObj;
-                        todoList.add(new Deadline(description, deadline));
+                        todoList.add(new Deadline(isDoneDefault, description, deadline));
                     } else {
                         // Missing keyword error
                         throw new HALException("Missing keyword /by!");
@@ -54,19 +71,18 @@ public class Storage {
                         String deadlineFrom = userInput.substring(keywordIndex + 5, keyword2Index).trim();
                         String deadlineTo = userInput.substring(keyword2Index + 3).trim();
 
-                        todoList.add(new Event(description, deadlineFrom, deadlineTo));
-//                        todoList[index] = new Event(description, deadlineFrom, deadlineTo);
+                        todoList.add(new Event(isDoneDefault, description, deadlineFrom, deadlineTo));
                     } else {
                         // Missing keyword error
                         throw new HALException("Missing keyword /from and /to!");
 
                     }
                 }
-//                index ++;
 
                 // [index - 1] so that we increment index, but still return string from previously added task
-//                returnOutput = todoList[index - 1].toString();
                 Task taskObject = todoList.get(todoList.size() - 1);
+                String fileString = taskObject.getFileString();
+                writeToFile(fileString);
                 return taskObject.toString();
             }
 
@@ -86,18 +102,14 @@ public class Storage {
     }
 
     public String markAsDone(int taskIndex) {
-//        Task t = todoList[taskIndex];
         Task t = todoList.get(taskIndex);
         t.markAsDone();
-//        String taskString = String.format("[%s] %s\n", t.getStatusIcon(), t.getDescription());
         return t.toString();
     }
 
     public String markAsUndone(int taskIndex) {
-//        Task t = todoList[taskIndex];
         Task t = todoList.get(taskIndex);
         t.markAsUndone();
-//        String taskString = String.format("[%s] %s\n", t.getStatusIcon(), t.getDescription());
         return t.toString();
     }
 
@@ -113,5 +125,51 @@ public class Storage {
 
     public int getNumberOfTasks() {
         return todoList.size();
+    }
+
+    public void writeToFile(String fileString) {
+        try {
+            java.io.FileWriter fw = new java.io.FileWriter(FILE_PATH);
+            for (Task task : todoList) {
+                fw.write(task.getFileString() + "\n");
+            }
+            fw.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void readFromFile() throws FileNotFoundException {
+        Scanner sc = new Scanner(file);
+
+        try {
+
+            while (sc.hasNextLine()) {
+//                System.out.println(sc.nextLine());
+                String[] parts = sc.nextLine().split(" \\| ");
+//                System.out.println(parts);
+
+                String taskType = parts[0];
+                boolean isDone = (Integer.parseInt(parts[1]) == 1);
+                String description = parts[2];
+
+                switch (taskType) {
+                    case "T":
+                        todoList.add(new Todo(isDone, description));
+                        break;
+                    case "D":
+                        todoList.add(new Deadline(isDoneDefault, description, parts[3]));
+                        break;
+                    case "E":
+                        todoList.add(new Event(isDoneDefault, description, parts[3], parts[4]));
+                        break;
+                    default:
+                        System.out.println("Unknown task type");
+                }
+
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

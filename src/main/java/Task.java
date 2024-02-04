@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -27,6 +27,8 @@ public class Task {
         String statusWithDesc = String.format("[%s] %s", getStatusIcon(), getDescription());
         return statusWithDesc;
     }
+
+    public abstract String getFileString();
 
 }
 

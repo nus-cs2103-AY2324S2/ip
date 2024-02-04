@@ -6,10 +6,10 @@ public class Event extends Task {
     protected LocalDate deadlineFrom;
     protected LocalDate deadlineTo;
     String DATE_FORMAT = "MMM d yyyy";
+    String DIVIDER = " | ";
 
 
-
-    public Event(String description, String deadlineFrom, String deadlineTo) {
+    public Event(boolean isDone, String description, String deadlineFrom, String deadlineTo) {
         super(description);
         this.deadlineFrom = LocalDate.parse(deadlineFrom);
         this.deadlineTo = LocalDate.parse(deadlineTo);
@@ -20,4 +20,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + deadlineFrom.format(DateTimeFormatter.ofPattern(DATE_FORMAT))
                 + " to: " + deadlineTo.format(DateTimeFormatter.ofPattern(DATE_FORMAT)) + ")";
     }
+
+    @Override
+    public String getFileString() {
+        return "E" + DIVIDER + (isDone ? "1" : "0") + DIVIDER + description
+                + DIVIDER + deadlineFrom + DIVIDER + deadlineTo;
+    }
+
 }
