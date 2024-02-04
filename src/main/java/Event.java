@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
+    private static Ui ui = new Ui();
 
     public Event(String description, String from, String to) throws DukeException {
         super(description);
@@ -33,7 +34,7 @@ public class Event extends Task {
             }
             return event;
         } catch (DukeException e) {
-            System.out.println("Error creating event");
+            ui.printMessage("Error creating event");
             return null;
         }
     }

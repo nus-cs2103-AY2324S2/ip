@@ -1,52 +1,34 @@
-import java.io.IOException;
-import java.util.Scanner;
-
 public class Duke {
     private TaskList taskList;
     private Storage storage;
+    private Ui ui;
 
-    public Duke() {
+    public Duke(String filePath) {
+        this.ui = new Ui();
         try {
-            this.storage = new Storage("./data/duke.txt");
-            this.taskList = new TaskList(storage.load(), storage);
+            this.storage = new Storage(filePath);
+            this.taskList = new TaskList(storage);
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println("Error reading/ creating file");
+            ui.printMessage(e.getMessage());
         }
     }
 
-    private void greet() {
-        System.out.println("Hello! I'm Bot\nWhat can I do for you? \n");
-    }
-
-    private void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    private void echo(String input) {
-        System.out.println(input + "\n");
-    }
-
     public static void main(String[] args) {
-        Duke bot = new Duke();
-        bot.greet();
+        Duke bot = new Duke("./data/duke.txt");
+        bot.ui.showWelcome();
 
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
+        String input = bot.ui.readCommand();
         Handler handler = new Handler(bot.taskList);
 
         while (!input.equals("bye")) {
             try {
                 handler.handle(input);
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                bot.ui.printMessage(e.getMessage());
             }
-            input = sc.nextLine();
+            input = bot.ui.readCommand();
         }
 
-        sc.close();
-
-        bot.exit();
+        bot.ui.showGoodbye();
     }
 }
