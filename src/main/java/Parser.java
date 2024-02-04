@@ -1,8 +1,10 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
 public class Parser {
-    public static Command parse(String text, State state) throws DukeException {
+    public static Command parse(String text, State state) throws DukeException, DateTimeParseException {
         if (text.contains("|")) {
             throw new DukeException("No | pleaserin-o!");
         }
@@ -34,9 +36,10 @@ public class Parser {
                     throw new DukeException("Add something after your /by...");
                 }
                 String deadline = String.join(" ", parts.subList(byIndex + 1, parts.size()));
+                LocalDate deadlineDate = LocalDate.parse(deadline);
                 String description = String.join(" ", parts.subList(0, byIndex));
 
-                command = new AddDeadlineCommand(description,deadline);
+                command = new AddDeadlineCommand(description, deadlineDate);
             }
             case "event" -> {
                 int fromIndex = parts.indexOf("/from");
@@ -58,9 +61,14 @@ public class Parser {
                 }
                 String start = String.join(" ", parts.subList(fromIndex + 1, toIndex));
                 String deadline = String.join(" ", parts.subList(toIndex + 1, parts.size()));
+
                 String description = String.join(" ", parts.subList(0, fromIndex));
 
-                command = new AddEventCommand(description,start,deadline);
+                command = new AddEventCommand(
+                        description,
+                        LocalDate.parse(start),
+                        LocalDate.parse(deadline)
+                );
             }
             case "delete" -> {
                 if (parts.size() < 2) {

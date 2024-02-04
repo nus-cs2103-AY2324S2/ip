@@ -1,6 +1,8 @@
+import java.time.LocalDate;
+
 public class AddEventCommand extends Command {
-    String start, deadline;
-    public AddEventCommand(String description,  String start, String deadline) {
+    LocalDate start, deadline;
+    public AddEventCommand(String description,  LocalDate start, LocalDate deadline) {
         super(description, CommandType.ADD);
         this.start = start;
         this.deadline = deadline;
