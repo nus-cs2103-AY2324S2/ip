@@ -1,7 +1,6 @@
 package earl.util;
 
 import earl.exceptions.EarlException;
-import earl.logic.Handler;
 import earl.tasks.Deadline;
 import earl.tasks.Event;
 import earl.tasks.Task;
