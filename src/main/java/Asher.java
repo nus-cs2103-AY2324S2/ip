@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -5,12 +9,102 @@ import java.util.ArrayList;
 public class Asher {
     private static List<Task> tasks = new ArrayList<>();
 
+    public Asher() {
+        Asher.tasks = new ArrayList<>();
+    }
+
+    private static void getFileContents(String filePath, List<Task> tasks) throws FileNotFoundException {
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                boolean created = file.createNewFile();
+                if (!created) {
+                    throw new IOException("Failed to create file: " + filePath);
+                }
+            }
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Task task = createTask(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            } scanner.close();
+        } catch (IOException e) {
+            System.out.println("Error:" + e.getMessage());
+        }
+    }
+
+    // from the data we have, break it down to get the task listed
+    private static Task createTask(String list) {
+        Task task;
+        String[] splitParts = list.split(" \\| ");
+
+        // invalid format
+        if (splitParts.length < 3) {
+            return null;
+        }
+
+        String type = splitParts[0];
+        boolean isCompleted = splitParts[1].equals("1");
+        String description = splitParts[2];
+
+        if (type.equals("T")) {
+            Todo todo = new Todo(description);
+            if (isCompleted) {
+                todo.markDone();
+            } task = todo;
+        } else if (type.equals("D") && splitParts.length == 4) {
+            String dueDate = splitParts[3];
+            Deadline deadline = new Deadline(description, dueDate);
+            if (isCompleted) {
+                deadline.markDone();
+            } task = deadline;
+        } else if (type.equals("E") && splitParts.length == 5) {
+            String start = splitParts[3];
+            String end = splitParts[4];
+            Event event = new Event(description, start, end);
+            if (isCompleted) {
+                event.markDone();
+            } task = event;
+        } else {
+            task = null;
+        }
+        return task;
+    }
+
+    private static void writeToFile(List<Task> tasks) {
+        try {
+            FileWriter fw = new FileWriter("./taskLists.txt");
+            for (Task task : tasks) {
+                if (task == null) {
+                    break;
+                }
+                String taskString = task.writeToString();
+                fw.write(taskString + '\n');
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Cannot write into the file" + e.getMessage());
+        }
+    }
+
     private static void greet() {
         System.out.println("Hello! I'm Asher. What can I do for you?");
     }
 
     private static void exit() {
+        writeToFile(tasks);
         System.out.println("Bye. Hope to see you again soon!");
+
+    }
+
+    private static void displayTasks() {
+        System.out.println("Here are the tasks in your list:");
+
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
+        }
     }
 
     private static void addTask(Task task) throws BotException {
@@ -77,14 +171,6 @@ public class Asher {
         return new Event(description, startDate, deadline);
     }
 
-    private static void displayTasks() {
-        System.out.println("Here are the tasks in your list:");
-
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
-        }
-    }
-
     private static int getTaskNumber(String task) {
         String[] word = task.split(" ");
         if (word.length == 2) {
@@ -148,41 +234,57 @@ public class Asher {
         }
     }
 
-    public static void processCommand(String command) throws BotException {
+    public static void processCommand(String command) throws FileNotFoundException, BotException {
         String[] word = command.split(" ");
-
-        if (word[0].equals("bye")) {
-            Asher.exit();
-        } else if (word[0].equals("list")) {
-            displayTasks();
-        } else if (word[0].equals("mark")) {
-            markTaskDone(command);
-        } else if (word[0].equals("unmark")) {
-            markTaskUndone(command);
-        } else if (word[0].equals("todo")) {
-            addTask(createtoDo(command));
-        } else if (word[0].equals("deadline")) {
-            addTask(createDeadline(command));
-        } else if (word[0].equals("event")) {
-            addTask(createEvent(command));
-        } else if (word[0].equals("delete")) {
-            deleteTask(Integer.parseInt(word[1]));
-        } else {
-            throw new BotException("Invalid Command!");
+        String inputType = word[0];
+        switch (inputType) {
+            case "bye":
+                exit();
+                break;
+            case "list":
+                displayTasks();
+                break;
+            case "mark":
+                markTaskDone(command);
+                break;
+            case "unmark":
+                markTaskUndone(command);
+                break;
+            case "todo":
+                addTask(createtoDo(command));
+                break;
+            case "deadline":
+                addTask(createDeadline(command));
+                break;
+            case "event":
+                addTask(createEvent(command));
+                break;
+            case "delete":
+                deleteTask(Integer.parseInt(word[1]));
+                break;
+            default:
+                throw new BotException("Invalid Command!");
         }
     }
 
     public static void main(String[] args) {
-        Asher.greet();
-        Scanner scanner = new Scanner(System.in);
-        String command;
+        String dataFile = "./taskLists.txt";
 
         try {
+            Asher.getFileContents(dataFile, Asher.tasks);
+        } catch (FileNotFoundException e) {
+            System.out.println("File invalid!");
+        }
+
+        Asher.greet();
+
+        try (Scanner scanner = new Scanner(System.in)) {
+            String command;
             do {
                 command = scanner.nextLine();
                 Asher.processCommand(command);
             } while (!command.equals("bye"));
-        } catch (BotException e) {
+        } catch (BotException | FileNotFoundException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }

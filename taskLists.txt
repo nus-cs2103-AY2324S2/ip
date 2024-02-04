@@ -1,0 +1,7 @@
+T | 1 | read
+T | 0 | run
+D | 0 | assignment | Sunday
+E | 0 | usher | tdy | tmr
+T | 0 | sleep
+T | 0 | washing
+D | 1 | ps1 | tdy
