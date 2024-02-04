@@ -15,6 +15,7 @@ public class Bozo {
         parser = new Parser();
     }
 
+
     public void run() {
         ui.showWelcome();
         Scanner sc = new Scanner(System.in);
