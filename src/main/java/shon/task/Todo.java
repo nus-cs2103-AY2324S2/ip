@@ -1,3 +1,7 @@
+package shon.task;
+
+import shon.task.Task;
+
 public class Todo extends Task {
 
     public Todo(String description, boolean isDone) {
