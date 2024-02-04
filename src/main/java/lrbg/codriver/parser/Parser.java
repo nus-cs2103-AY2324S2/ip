@@ -1,15 +1,16 @@
-package parser;
+package lrbg.codriver.parser;
 
-import command.Command;
-import command.ByeCommand;
-import command.ListCommand;
-import command.UnmarkCommand;
-import command.TodoCommand;
-import command.DeadlineCommand;
-import command.EventCommand;
-import command.DeleteCommand;
-import command.UnknownCommand;
-import data.exception.CoDriverException;
+import lrbg.codriver.command.Command;
+import lrbg.codriver.command.ByeCommand;
+import lrbg.codriver.command.ListCommand;
+import lrbg.codriver.command.MarkCommand;
+import lrbg.codriver.command.UnmarkCommand;
+import lrbg.codriver.command.TodoCommand;
+import lrbg.codriver.command.DeadlineCommand;
+import lrbg.codriver.command.EventCommand;
+import lrbg.codriver.command.DeleteCommand;
+import lrbg.codriver.command.UnknownCommand;
+import lrbg.codriver.data.exception.CoDriverException;
 
 import java.time.LocalDate;
 
@@ -29,7 +30,7 @@ public class Parser {
                 throw new CoDriverException("Error! You should provide an integer argument for mark!");
             }
             int index = Integer.parseInt(arguments[1]);
-            return new UnmarkCommand(index);
+            return new MarkCommand(index);
         }
         case "unmark": {
             if (arguments.length > 2) {
