@@ -41,7 +41,7 @@ public class Event extends Task {
 
             super.description = descParsed[0].trim() + " (from: " + formattedDate1 + " to: " + formattedDate2 + ")";
         } catch (Exception e) {
-            System.out.println("Unknown Date Format!");
+            // System.out.println("Unknown Date Format!");
             super.description = descParsed[0].trim() + " (from: " + dateParsed[0].trim() + " to: "
                     + dateParsed[1].trim() + ")";
         }

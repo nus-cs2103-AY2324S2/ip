@@ -26,8 +26,8 @@ public class Storage {
     private final String SAVE_FILE = "src/main/java/Data/Kewqgy.txt";
     private Ui ui;
 
-    public Storage() {
-        this.ui = new Ui();
+    public Storage(Ui ui) {
+        this.ui = ui;
     }
 
     /**
@@ -70,7 +70,7 @@ public class Storage {
 
             saveFileBufferedWriter.close();
         } catch (IOException e) {
-            ui.printSingleLine("An error occurred.");
+            ui.printDukeText("An error occurred.");
             e.printStackTrace();
         }
     }
@@ -110,7 +110,7 @@ public class Storage {
 
             saveFileBufferedWriter.close();
         } catch (IOException e) {
-            ui.printSingleLine("An error occurred.");
+            ui.printDukeText("An error occurred.");
             e.printStackTrace();
         }
     }
@@ -144,13 +144,13 @@ public class Storage {
                     saveFileBufferedWriter.write(TaskType.E.toString() + " false " + userMsg + "\n");
                     break;
                 default:
-                    ui.printSingleLine("Unkown Task Type: " + taskType);
+                    ui.printDukeText("Unkown Task Type: " + taskType);
                     break;
             }
 
             saveFileBufferedWriter.close();
         } catch (IOException e) {
-            ui.printSingleLine("An error occurred.");
+            ui.printDukeText("An error occurred.");
             e.printStackTrace();
         }
     }
@@ -203,10 +203,10 @@ public class Storage {
 
             return savedTasks;
         } catch (IOException e) {
-            ui.printSingleLine("An error occurred.");
+            ui.printDukeText("An error occurred.");
             e.printStackTrace();
         } catch (DukeException e) {
-            ui.printSingleLine("DukeException occurred: " + e.toString());
+            ui.printDukeText("DukeException occurred: " + e.toString());
         }
 
         return new ArrayList<>();

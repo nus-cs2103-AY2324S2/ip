@@ -1,116 +1,138 @@
+import java.util.List;
+
 import Exceptions.DukeException;
 import Storage.Storage;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
-import Tasks.ToDo;
 import Tasks.Task.TaskType;
+import Tasks.ToDo;
 import Ui.Parser;
 import Ui.Parser.Command;
 import Ui.Ui;
-
-import java.util.List;
+import javafx.application.Application;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * Simple chatbot program named kewqgy
  * 
  * @author Tang Yetong
  **/
-public class Duke {
+public class Duke extends Application {
 
-    public static void main(String[] args) {
-        Storage storage = new Storage();
-        Ui ui = new Ui();
-        Parser parser = new Parser();
-        List<Task> userTaskList = storage.loadTasks();
+    private Ui ui;
+    private Storage storage;
+    private Parser parser;
+    private List<Task> userTaskList;
 
+    @Override
+    public void start(Stage stage) {
+        ui = new Ui(stage);
+        storage = new Storage(ui);
+        parser = new Parser();
+        userTaskList = storage.loadTasks();
+
+        ui.getSendButton().setOnAction(event -> handleUserInput());
+        
         ui.printIntro();
+    }
 
-        String[] userMsg = ui.getUserCommand();
-        Command nextCommand = parser.parseUserMsg(userMsg);
+    /**
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
+    public void handleUserInput() {
+        Label userText = new Label(ui.getUserInput().getText());
+        Label dukeText = new Label(getResponse(ui.userInput.getText()));
+        ui.addConversation(userText, dukeText);
+    }
 
-        while (nextCommand != Command.BYE) {
-            switch (nextCommand) {
-                case LIST:
-                    ui.printList(userTaskList);
-                    break;
-                case MARK:
-                    if (parser.checkValidMarkCommand(userMsg, userTaskList)) {
-                        int taskInt = Integer.parseInt(userMsg[1]) - 1;
+    public String getResponse(String userMsg) {
+        String[] userMsgParsed = userMsg.split(" ", 2);
+        Command nextCommand = parser.parseUserMsg(userMsgParsed);
 
-                        userTaskList.get(taskInt).setDone(true);
-                        storage.updateTask(taskInt, true);
+        String dukeText = "";
 
-                        ui.markTask(userTaskList, taskInt);
-                    }
-                    break;
-                case UNMARK:
-                    if (parser.checkValidMarkCommand(userMsg, userTaskList)) {
-                        int taskInt = Integer.parseInt(userMsg[1]) - 1;
+        switch (nextCommand) {
+            case LIST:
+            dukeText = ui.printList(userTaskList);
+                break;
+            case MARK:
+                if (parser.checkValidMarkCommand(userMsgParsed, userTaskList)) {
+                    int taskInt = Integer.parseInt(userMsgParsed[1]) - 1;
 
-                        userTaskList.get(taskInt).setDone(false);
-                        storage.updateTask(taskInt, false);
+                    userTaskList.get(taskInt).setDone(true);
+                    storage.updateTask(taskInt, true);
 
-                        ui.markTask(userTaskList, taskInt);
-                    }
-                    break;
-                case TODO:
-                    try {
-                        ToDo task = new ToDo(userMsg[1]);
-                        userTaskList.add(task);
-                        storage.saveTask(userMsg[1], TaskType.T);
+                    dukeText = ui.markTask(userTaskList, taskInt) + "\n";
+                }
+                break;
+            case UNMARK:
+                if (parser.checkValidMarkCommand(userMsgParsed, userTaskList)) {
+                    int taskInt = Integer.parseInt(userMsgParsed[1]) - 1;
 
-                        ui.printAddTask(task, userTaskList.size());
-                    } catch (DukeException e) {
-                        ui.printError(e);
-                    }
-                    break;
-                case DEADLINE:
-                    try {
-                        Deadline task = new Deadline(userMsg[1]);
-                        userTaskList.add(task);
-                        storage.saveTask(userMsg[1], TaskType.T);
+                    userTaskList.get(taskInt).setDone(false);
+                    storage.updateTask(taskInt, false);
 
-                        ui.printAddTask(task, userTaskList.size());
-                    } catch (DukeException e) {
-                        ui.printError(e);
-                    }
-                    break;
-                case EVENT:
-                    try {
-                        Event task = new Event(userMsg[1]);
-                        userTaskList.add(task);
-                        storage.saveTask(userMsg[1], TaskType.T);
+                    dukeText = ui.markTask(userTaskList, taskInt);
+                }
+                break;
+            case TODO:
+                try {
+                    ToDo task = new ToDo(userMsgParsed[1]);
+                    userTaskList.add(task);
+                    storage.saveTask(userMsgParsed[1], TaskType.T);
 
-                        ui.printAddTask(task, userTaskList.size());
-                    } catch (DukeException e) {
-                        ui.printError(e);
-                    }
-                    break;
-                case DELETE:
-                    if (parser.checkValidMarkCommand(userMsg, userTaskList)) {
-                        int taskInt = Integer.parseInt(userMsg[1]) - 1;
+                    dukeText = ui.printAddTask(task, userTaskList.size());
+                } catch (DukeException e) {
+                    dukeText = ui.printError(e);
+                }
+                break;
+            case DEADLINE:
+                try {
+                    Deadline task = new Deadline(userMsgParsed[1]);
+                    userTaskList.add(task);
+                    storage.saveTask(userMsgParsed[1], TaskType.T);
 
-                        userTaskList.remove(taskInt);
-                        storage.deleteTask(taskInt);
+                    dukeText = ui.printAddTask(task, userTaskList.size());
+                } catch (DukeException e) {
+                    dukeText = ui.printError(e);
+                }
+                break;
+            case EVENT:
+                try {
+                    Event task = new Event(userMsgParsed[1]);
+                    userTaskList.add(task);
+                    storage.saveTask(userMsgParsed[1], TaskType.T);
 
-                        ui.printDeleteTask(userTaskList.get(taskInt), userTaskList.size());
-                    }
-                    break;
-                case FIND:
-                    ui.printTaskKeyword(userTaskList, userMsg[1]);
-                    break;
-                case UNKNOWN:
-                    ui.printUnknownCommand();
-                    break;
-                default:
-                    break;
-            }
+                    dukeText = ui.printAddTask(task, userTaskList.size());
+                } catch (DukeException e) {
+                    dukeText = ui.printError(e);
+                }
+                break;
+            case DELETE:
+                if (parser.checkValidMarkCommand(userMsgParsed, userTaskList)) {
+                    int taskInt = Integer.parseInt(userMsgParsed[1]) - 1;
 
-            userMsg = ui.getUserCommand();
-            nextCommand = parser.parseUserMsg(userMsg);
+                    userTaskList.remove(taskInt);
+                    storage.deleteTask(taskInt);
+
+                    dukeText = ui.printDeleteTask(userTaskList.get(taskInt), userTaskList.size());
+                }
+                break;
+            case FIND:
+                dukeText = ui.printTaskKeyword(userTaskList, userMsgParsed[1]);
+                break;
+            case BYE:
+                dukeText = ui.printGoodBye();
+            case UNKNOWN:
+                dukeText = ui.printUnknownCommand();
+                break;
+            default:
+                break;
         }
 
-        ui.printGoodBye();
+        return dukeText;
     }
 }

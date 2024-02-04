@@ -38,7 +38,7 @@ public class Deadline extends Task {
 
             super.description = descParsed[0].trim() + " (by: " + formattedDate + ")";
         } catch (Exception e) {
-            System.out.println("Unknown Date Format!");
+            // System.out.println("Unknown Date Format!");
             super.description = descParsed[0].trim() + " (by: " + descParsed[1].trim() + ")";
         }
     }
