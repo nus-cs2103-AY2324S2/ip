@@ -50,6 +50,9 @@ class Parser {
         if (inputs[0].equals("mark") && inputs.length == TOKEN_NUM) {
             return new Mark(Integer.parseInt(inputs[1]) - 1, tasks);
         }
+        if (inputs[0].equals("priority") && inputs.length == TOKEN_NUM + 1) {
+            return new Priority(Integer.parseInt(inputs[1]) - 1, inputs[2], tasks);
+        }
         if (inputs[0].equals("unmark") && inputs.length == TOKEN_NUM) {
             return new Unmark(Integer.parseInt(inputs[1]) - 1, tasks);
         }
