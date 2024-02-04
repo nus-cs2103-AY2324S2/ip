@@ -1,5 +1,7 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task{
     private LocalDate deadline;
     public Deadline(String s, String deadline){
@@ -7,7 +9,7 @@ public class Deadline extends Task{
         this.deadline = TimeFormatter.stringToTime(deadline);
     }
 
-    public Deadline(String s, boolean mark, String deadline){ //constructor used for loading
+    public Deadline(String s, boolean mark, String deadline) throws DateTimeParseException { //constructor used for loading
         super(s);
         this.deadline = TimeFormatter.loadTimeFromString(deadline);
         if (mark) {
