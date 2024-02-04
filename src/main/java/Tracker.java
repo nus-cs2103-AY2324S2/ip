@@ -1,7 +1,10 @@
 import java.io.*;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static java.lang.Integer.parseInt;
 
@@ -137,7 +140,10 @@ public class Tracker {
                     for (int i = separator + 1; i < args.size() - 1; i++) {
                         by.append(args.get(i)).append(" ");
                     }
-                    query = "deadline " + taskName + "/by " + by;
+                    by.deleteCharAt(by.length() - 1);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM uuuu");
+                    LocalDate byValue = LocalDate.parse(by, formatter);
+                    query = "deadline " + taskName + "/by " + byValue;
                     break;
                 case "event":
                     if (args.size() < 8 || !(args.contains("(from:") && args.contains("to:"))) {
@@ -227,6 +233,8 @@ public class Tracker {
                     addTask(Deadline.extractDetails(args));
                 } catch (BadAppleException be) {
                     System.out.println(be);
+                } catch (DateTimeParseException dateError) {
+                    System.out.println("Date should be in YYYY-MM-DD format");
                 }
                 break;
             case "event":
