@@ -2,6 +2,8 @@ package arona.ui;
 
 /**
  * Class to deal with the user interface.
+ *
+ * @author Maximilliano Utomo
  */
 public class Ui {
     /**
@@ -21,6 +23,9 @@ public class Ui {
         printLines("Welcome, sensei! Arona has been waiting for you.");
     }
 
+    /**
+     * Prints a goodbye for the user.
+     */
     public static void byeUser() {
         printLines("Thanks for the hard work, Sensei!");
     }

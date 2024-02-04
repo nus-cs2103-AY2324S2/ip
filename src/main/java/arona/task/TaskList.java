@@ -1,6 +1,12 @@
 package arona.task;
 
 import java.util.ArrayList;
+
+/**
+ * The TaskList class stores the tasks in a list.
+ *
+ * @author Maximilliano Utomo
+ */
 public class TaskList {
     /**
      * The tasks stored in an ArrayList.

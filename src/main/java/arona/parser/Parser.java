@@ -2,7 +2,19 @@ package arona.parser;
 
 import arona.command.CommandType;
 import arona.exception.AronaInvalidCommandException;
+
+/**
+ * The Parser class can identify the command used in the input.
+ *
+ * @author Maximilliano Utomo
+ */
 public class Parser {
+    /**
+     * Detects the type of command in the input.
+     * @param input - the line of input given by the user
+     * @return the CommandType
+     * @throws AronaInvalidCommandException
+     */
     public CommandType parseInput(String input) throws AronaInvalidCommandException {
         String[] inputs = input.split(" ", 2);
 
