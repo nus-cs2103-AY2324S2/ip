@@ -1,18 +1,23 @@
 package klee;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+
 import klee.task.Task;
 
 /**
  * Contains functions to output to the user.
  */
 public class Ui {
-    protected static String divider = "____________________________________________________________________________";
+    protected static String divider = "\n____________________________________________________________________________\n";
+    protected VBox dialogContainer;
 
     /**
      * Constructor for Ui class.
      */
-    public Ui() {
-
+    public Ui(VBox dialogContainer) {
+        this.dialogContainer = dialogContainer;
     }
 
     /**
@@ -20,10 +25,12 @@ public class Ui {
      */
     public void showWelcome() {
         //Greet user
-        System.out.println(divider);
-        System.out.println("Hello! My name is Klee.");
-        System.out.println("Are you here to break Klee out of solitary confinement?");
-        System.out.println(divider);
+        Label output = new Label();
+        output.setAlignment(Pos.BASELINE_LEFT);
+        output.setText("Hello! My name is Klee. "
+                + "\nAre you here to break Klee out of solitary confinement?"
+                + divider);
+        dialogContainer.getChildren().add(output);
     }
 
     /**
@@ -32,9 +39,10 @@ public class Ui {
      * @param errorMessage
      */
     public void showError(String errorMessage) {
-        System.out.println(divider);
-        System.out.println(errorMessage);
-        System.out.println(divider);
+        Label output = new Label();
+        output.setAlignment(Pos.BASELINE_LEFT);
+        output.setText(errorMessage + divider);
+        dialogContainer.getChildren().add(output);
     }
 
     /**
@@ -44,12 +52,22 @@ public class Ui {
      */
 
     public void showTasks(TaskList tasks) {
-        System.out.println(divider);
-        System.out.println("These are all the things that we have to do today:");
+        Label output = new Label();
+        output.setAlignment(Pos.BASELINE_LEFT);
+        output.setText("These are all the things that we have to do today:");
+        output.autosize();
+        dialogContainer.getChildren().add(output);
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).getStatus());
+            output = new Label();
+            output.setAlignment(Pos.BASELINE_LEFT);
+            output.setText((i + 1) + ". " + tasks.get(i).getStatus());
+            output.autosize();
+            dialogContainer.getChildren().add(output);
         }
-        System.out.println(divider);
+        output = new Label();
+        output.setText(divider);
+        output.autosize();
+        dialogContainer.getChildren().add(output);
     }
 
     /**
@@ -58,12 +76,22 @@ public class Ui {
      * @param tasks
      */
     public void showFilteredTasks(TaskList tasks) {
-        System.out.println(divider);
-        System.out.println("These are all the things that are similar to what you are looking for:");
+        Label output = new Label();
+        output.setAlignment(Pos.BASELINE_LEFT);
+        output.setText("These are all the things that are similar to what you are looking for:");
+        output.autosize();
+        dialogContainer.getChildren().add(output);
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).getStatus());
+            output = new Label();
+            output.setAlignment(Pos.BASELINE_LEFT);
+            output.setText((i + 1) + ". " + tasks.get(i).getStatus());
+            output.autosize();
+            dialogContainer.getChildren().add(output);
         }
-        System.out.println(divider);
+        output = new Label();
+        output.setText(divider);
+        output.autosize();
+        dialogContainer.getChildren().add(output);
     }
 
     /**
@@ -73,11 +101,13 @@ public class Ui {
      * @param size
      */
     public void showCreation(Task task, int size) {
-        System.out.println(divider);
-        System.out.println("Klee will help you write that down! : ");
-        System.out.println(task.getStatus());
-        System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println(divider);
+        Label output = new Label();
+        output.setAlignment(Pos.BASELINE_LEFT);
+        output.setText("Klee will help you write that down! : "
+                + "\n" + task.getStatus()
+                + "\n" + "Now you have " + size + " tasks in the list."
+                + divider);
+        dialogContainer.getChildren().add(output);
     }
 
     /**
@@ -86,10 +116,12 @@ public class Ui {
      * @param task
      */
     public void showMarked(Task task) {
-        System.out.println(divider);
-        System.out.println("Great! Klee will put a big cross on this box:");
-        System.out.println(task.getStatus());
-        System.out.println(divider);
+        Label output = new Label();
+        output.setAlignment(Pos.BASELINE_LEFT);
+        output.setText("Great! Klee will put a big cross on this box:"
+                + "\n" + task.getStatus()
+                + divider);
+        dialogContainer.getChildren().add(output);
     }
 
     /**
@@ -98,10 +130,12 @@ public class Ui {
      * @param task
      */
     public void showUnMarked(Task task) {
-        System.out.println(divider);
-        System.out.println("Oh no! Klee will burn the cross away...:");
-        System.out.println(task.getStatus());
-        System.out.println(divider);
+        Label output = new Label();
+        output.setAlignment(Pos.BASELINE_LEFT);
+        output.setText("Oh no! Klee will burn the cross away...:"
+                + "\n" + task.getStatus()
+                + divider);
+        dialogContainer.getChildren().add(output);
     }
 
     /**
@@ -111,19 +145,34 @@ public class Ui {
      * @param size
      */
     public void showDeletion(Task task, int size) {
-        System.out.println(divider);
-        System.out.println("Okay, Klee will wipe this task away!");
-        System.out.println(task.getStatus());
-        System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println(divider);
+        Label output = new Label();
+        output.setAlignment(Pos.BASELINE_LEFT);
+        output.setText("Okay, Klee will wipe this task away!"
+                + "\n" + task.getStatus()
+                + "\nNow you have " + size + " tasks in the list."
+                + divider);
+        dialogContainer.getChildren().add(output);
     }
 
     /**
      * Says goodbye to the user.
      */
     public void showBye() {
-        System.out.println(divider);
-        System.out.println("Goodbye. Klee will go back to solitary confinement now...");
-        System.out.println(divider);
+        Label output = new Label();
+        output.setAlignment(Pos.BASELINE_LEFT);
+        output.setText("Goodbye. Klee will go back to solitary confinement now..."
+                + divider);
+        dialogContainer.getChildren().add(output);
+    }
+
+    /**
+     * Echo the user input.
+     */
+    public void echoUser(String userInput) {
+        Label input = new Label();
+        input.setAlignment(Pos.BASELINE_RIGHT);
+        input.setText(userInput + divider);
+        input.autosize();
+        dialogContainer.getChildren().add(input);
     }
 }
