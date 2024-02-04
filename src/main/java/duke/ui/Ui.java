@@ -69,32 +69,35 @@ public class Ui {
         //Used when your user does not know how to use the application
         String errorMsg;
         switch (error) {
-            case "description":
-                errorMsg = " OOPS!!! The description of this command cannot be empty.";
-                break;
-            case "from":
-                errorMsg = " OOPS!!! the from date .";
-                break;
-            case "by":
-                errorMsg = " OOPS!!! the by date cannot be empty.";
-                break;
-            case "dateError":
-                errorMsg = "OOPS!!! Incorrect date format!!!";
-                break;
-            case "number":
-                errorMsg = "OOPS!!! This is missing your index number";
-                break;
-            case "outOfRange":
-                errorMsg = "Opps!!!!! Your index in out of range!";
-                break;
-            case "empty":
-                errorMsg = "Opps!!!!! Your list is empty!!!You can't do any of these actions yet!";
-                break;
-            case "invalid":
-                errorMsg = "OOPS!!! I'm sorry, incorrect command or input";
-                break;
-            default:
-                errorMsg = "invalid application commence self-destruct";
+        case "description":
+            errorMsg = " OOPS!!! The description of this command cannot be empty.";
+            break;
+        case "from":
+            errorMsg = " OOPS!!! the from date .";
+            break;
+        case "by":
+            errorMsg = " OOPS!!! the by date cannot be empty.";
+            break;
+        case "dateError":
+            errorMsg = "OOPS!!! Incorrect date format!!!";
+            break;
+        case "number":
+            errorMsg = "OOPS!!! This is missing your index number";
+            break;
+        case "outOfRange":
+            errorMsg = "Opps!!!!! Your index in out of range!";
+            break;
+        case "empty":
+            errorMsg = "Opps!!!!! Your list is empty!!!You can't do any of these actions yet!";
+            break;
+        case "DateOutOfRange":
+            errorMsg = "Ooops!!! Yoo Your date numbers ain't right";
+            break;
+        case "invalid":
+            errorMsg = "OOPS!!! I'm sorry, incorrect command or input";
+            break;
+        default:
+            errorMsg = "invalid application commence self-destruct";
         }
         System.out.println(INDENT + errorMsg);
     }

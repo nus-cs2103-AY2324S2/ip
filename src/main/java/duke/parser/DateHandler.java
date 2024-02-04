@@ -31,7 +31,13 @@ public class DateHandler {
             } else if (y.length() == 2) {
                 y = "20" + y; //assume it is in the 2000
             }
-            LocalDate convert = LocalDate.parse(y + "-" + m + "-" + d);
+            int date = Integer.parseInt(d);
+            int month = Integer.parseInt(m);
+            if (!(0 <= date && date <= 31) || !(0 <= month && month <= 12)) {
+                throw new DukeException("DateOutOfRange");
+            }
+            int year = Integer.parseInt(y);
+            LocalDate convert = LocalDate.of(year, month, date);
             return Optional.of(convert);
 
         } else {
