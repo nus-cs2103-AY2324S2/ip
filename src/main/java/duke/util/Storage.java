@@ -57,19 +57,19 @@ public class Storage {
         Task task;
 
         switch(taskType) {
-            case "T":
-                task = new Todo(description, isDone);
-                break;
-            case "D":
-                String deadlineBy = convertDateFormat(tokens[3]);
-                task = new Deadline(description, deadlineBy, isDone);
-                break;
-            case "E":
-                String eventAt = tokens[3];
-                task = new Event(description, eventAt, isDone);
-                break;
-            default:
-                throw new IllegalStateException("I cannot recognize this duke.task type!" + taskType);
+        case "T":
+            task = new Todo(description, isDone);
+            break;
+        case "D":
+            String deadlineBy = convertDateFormat(tokens[3]);
+            task = new Deadline(description, deadlineBy, isDone);
+            break;
+        case "E":
+            String eventAt = tokens[3];
+            task = new Event(description, eventAt, isDone);
+            break;
+        default:
+            throw new IllegalStateException("I cannot recognize this duke.task type!" + taskType);
         }
         return task;
     }

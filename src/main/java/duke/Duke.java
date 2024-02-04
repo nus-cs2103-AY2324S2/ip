@@ -30,7 +30,7 @@ public class Duke {
         ui.showWelcome();
         storage.createFile();
         String input = ui.readUserInput();
-        while(!input.equals("bye")) {
+        while (!input.equals("bye")) {
             Parser.parse(input, taskList);
             input = ui.readUserInput();
         }

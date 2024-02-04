@@ -83,7 +83,7 @@ public class TaskList {
 
     /**
      * Find the task with the keyword given and list it in order.
-     * 
+     *
      * @param keyword
      */
     public void findTask(String keyword) {
@@ -100,6 +100,6 @@ public class TaskList {
     }
 
     public Task getTask(int index) {
-            return tasks.get(index);
+        return tasks.get(index);
     }
 }
