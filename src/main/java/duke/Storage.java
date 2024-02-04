@@ -1,19 +1,22 @@
 package duke;
-import duke.task.Deadline;
-import duke.task.Event;
+
 import duke.task.Task;
-import duke.task.Todo;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
-import java.util.ArrayList;
+
+
+
 
 /**
  * Storage class handles the loading and saving of tasks to a file.
  */
 public class Storage {
-    private String FILE_PATH;
+    private final String File_Path;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -21,7 +24,7 @@ public class Storage {
      * @param file The file path to save and load tasks.
      */
     public Storage(String file) {
-        this.FILE_PATH = file;
+        this.File_Path = file;
     }
 
     /**
@@ -31,13 +34,13 @@ public class Storage {
      */
     public void saveTasks(ArrayList<Task> store) {
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(File_Path);
             if (!file.exists()) {
                 file.getParentFile().mkdirs(); // Create parent directories if they don't exist
                 file.createNewFile(); // Create the file if it doesn't exist
             }
 
-            FileWriter fileWriter = new FileWriter(FILE_PATH);
+            FileWriter fileWriter = new FileWriter(File_Path);
             for (Task task : store) {
                 fileWriter.write(task.toFileString() + "\n");
             }
@@ -55,7 +58,7 @@ public class Storage {
      */
     public ArrayList<Task> load() throws DukeException {
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(File_Path);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();

@@ -1,15 +1,15 @@
 package duke;
-import duke.task.Task;
-import java.io.File;
-import java.io.FileWriter;
+
 import java.util.Scanner;
-import java.util.ArrayList;
+
 
 /**
  * Duke is a task management application that allows users to manage their tasks.
  * It provides a command-line interface for users to interact with their task list.
  */
 public class Duke {
+    private static final String FILE_PATH = "./data/duke.txt";
+
     private Ui ui;
     private Storage storage;
 
@@ -18,12 +18,12 @@ public class Duke {
      * Enumeration representing possible commands in Duke.
      */
 
-    public enum Command {
-        BYE, LIST, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN
-    }
+
+
+
 
     private TaskList tasks;
-    private static final String FILE_PATH = "./data/duke.txt";
+
 
     /**
      * Constructs a Duke instance with the specified file path.
@@ -53,7 +53,7 @@ public class Duke {
         while (!isExit) {
             try {
 
-                String userInput = ui.getUserInput();
+                Ui.Command userInput = ui.getUserInput();
                 if (userInput.equals("Bye")) {
                     isExit = true;
                 }

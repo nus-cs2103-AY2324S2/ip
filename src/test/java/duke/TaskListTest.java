@@ -1,9 +1,11 @@
 package duke;
-import duke.task.Todo;
 import duke.task.Task;
-import duke.task.Deadline;
+import duke.task.Todo;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * This class contains JUnit test cases to verify the functionality of the TaskList class.
@@ -14,7 +16,8 @@ public class TaskListTest {
         private String output;
 
         public void showError(String str) {
-            output  ="Error: " + str;
+
+            output = " Error: " + str;
         }
 
         public void deleteMessage(String str) {
@@ -54,7 +57,8 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         UiMock uiMock = new UiMock();
         taskList.markTasks(1, uiMock);
-        assertTrue(uiMock.getOutput().contains("OOPS!!! The task number is out of bounds. Please provide a valid task number."));
+        assertTrue(uiMock.getOutput().contains("OOPS!!! The task number is out of bounds. "
+                + "Please provide a valid task number."));
     }
 
     @Test

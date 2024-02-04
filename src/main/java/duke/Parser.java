@@ -3,13 +3,11 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-import java.io.IOError;
+
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
+
 import java.util.ArrayList;
 
 /**
@@ -34,66 +32,67 @@ public class Parser {
      * @param storage   The Storage object for saving and loading tasks.
      * @throws DukeException If an error occurs during the parsing or execution of the command.
      */
-    public static void parseAndExecute(String userInput, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public static void parseAndExecute(Ui.Command userInput, TaskList tasks, Ui ui, Storage storage)
+            throws DukeException {
 
         //String[] words = userInput.split(" ");
-        String commandStr = userInput.toUpperCase();
+        //String commandStr = userInput.toUpperCase();
 
 
-        switch (commandStr) {
-            case "BYE":
-                // Handle BYE command
-                ui.showGoodbyeMessage();
-                System.exit(0);
-                break;
-            case "LIST":
-                // Handle LIST command
-                tasks.listTasks(ui);
-                break;
-            case "DELETE":
-                //if (words.length < 2) {
-                //    throw new DukeException("The task number to mark is missing.");
-                //}
-                //nt taskNumberMark = Integer.parseInt(words[1]);
-                if (ui.hasNextInt()) {
-                    int num = ui.getUserInputInt();
-                    tasks.removeTasks(num, ui);
-                } else {
-                    throw new DukeException("The task number to mark is missing.");
+        switch (userInput) {
+        case BYE:
+            // Handle BYE command
+            ui.showGoodbyeMessage();
+            System.exit(0);
+            break;
+        case LIST:
+            // Handle LIST command
+            tasks.listTasks(ui);
+            break;
+        case DELETE:
+            //if (words.length < 2) {
+            //    throw new DukeException("The task number to mark is missing.");
+            //}
+            //nt taskNumberMark = Integer.parseInt(words[1]);
+            if (ui.hasNextInt()) {
+                int num = ui.getUserInputInt();
+                tasks.removeTasks(num, ui);
+            } else {
+                throw new DukeException("The task number to mark is missing.");
 
-                }
-                break; // Add break statement
+            }
+            break; // Add break statement
 
-            case "MARK":
-                // Handle MARK command
+        case MARK:
+            // Handle MARK command
 
-                if (ui.hasNextInt()) {
-                    int num = ui.getUserInputInt();
-                    tasks.markTasks(num, ui);
+            if (ui.hasNextInt()) {
+                int num = ui.getUserInputInt();
+                tasks.markTasks(num, ui);
 
-                } else {
-                    throw new DukeException("The task number to mark is missing.");
-                }
+            } else {
+                throw new DukeException("The task number to mark is missing.");
+            }
 
-                break;
-            case "DEADLINE":
-                parseDeadline( tasks, ui);
-                break;
+            break;
+        case DEADLINE:
+            parseDeadline(tasks, ui);
+            break;
 
-            case "EVENT":
-                parseEvent( tasks, ui);
-                break;
-            case "TODO":
+        case EVENT:
+            parseEvent(tasks, ui);
+            break;
+        case TODO:
 
-                parseTodo( tasks, ui);
+            parseTodo(tasks, ui);
 
-                break;
+            break;
 
-            case "FIND":
-                parseFind(tasks, ui);
-                break;
-            default:
-                throw new DukeException("I'm sorry, but I don't know what that means.");
+        case FIND:
+            parseFind(tasks, ui);
+            break;
+        default:
+            throw new DukeException("I'm sorry, but I don't know what that means.");
         }
     }
 
@@ -104,7 +103,7 @@ public class Parser {
      * @param ui    The Ui object for user interface interactions.
      * @throws DukeException If an error occurs during the parsing or execution of the command.
      */
-    public static void parseDeadline( TaskList tasks, Ui ui) throws DukeException{
+    public static void parseDeadline(TaskList tasks, Ui ui) throws DukeException {
         /*if (words.length < 4) {
             throw new DukeException("Insufficient information for creating a deadline task.");
         }
@@ -176,7 +175,7 @@ public class Parser {
      * @param ui    The Ui object for user interface interactions.
      * @throws DukeException If an error occurs during the parsing or execution of the command.
      */
-    public static void parseEvent( TaskList tasks, Ui ui) throws DukeException{
+    public static void parseEvent(TaskList tasks, Ui ui) throws DukeException {
         /*if (words.length < 6) {
             throw new DukeException("Insufficient information for creating a event task.");
         }
@@ -187,7 +186,8 @@ public class Parser {
         String toKeyword = words[4];
         String toTime = words[5];
 
-        if (!fromKeyword.equals("/from") || !toKeyword.equals("/to") || description.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
+        if (!fromKeyword.equals("/from") || !toKeyword.equals("/to")
+        || description.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
             try {
                 throw new DukeException("OOPS!!! The description and event time cannot be empty.");
             } catch (DukeException e) {
@@ -251,7 +251,7 @@ public class Parser {
      * @param ui    The Ui object for user interface interactions.
      * @throws DukeException If an error occurs during the parsing or execution of the command.
      */
-    public static void parseTodo( TaskList tasks, Ui ui) throws DukeException {
+    public static void parseTodo(TaskList tasks, Ui ui) throws DukeException {
         /* if (words.length < 2) {
             throw new DukeException("Insufficient information for creating a event task.");
         }
@@ -266,7 +266,7 @@ public class Parser {
         // Check if description is empty
         if (descriptionTodo.isEmpty()) {
             try {
-                throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+                throw new DukeException.EmptyTodoDescriptionException();
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
                 return;
@@ -296,30 +296,30 @@ public class Parser {
 
         Task task;
         switch (type) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                if (parts.length < 4) {
-                    throw new IOException("Invalid deadline format. Skipping line.");
-                }
-                String by = parts[3];
-                task = new Deadline(description, by);
-                break;
-            case "E":
-                if (parts.length < 4) {
-                    throw new IOException("Invalid event format. Skipping line.");
-                }
-                String[] eventParts = parts[3].split(" from ");
-                if (eventParts.length < 2) {
-                    throw new IOException("Invalid event format. Skipping line.");
-                }
-                String start = eventParts[0];
-                String end = eventParts[1];
-                task = new Event(description, start, end);
-                break;
-            default:
-                throw new IOException("Invalid task type in file. Skipping line.");
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            if (parts.length < 4) {
+                throw new IOException("Invalid deadline format. Skipping line.");
+            }
+            String by = parts[3];
+            task = new Deadline(description, by);
+            break;
+        case "E":
+            if (parts.length < 4) {
+                throw new IOException("Invalid event format. Skipping line.");
+            }
+            String[] eventParts = parts[3].split(" from ");
+            if (eventParts.length < 2) {
+                throw new IOException("Invalid event format. Skipping line.");
+            }
+            String start = eventParts[0];
+            String end = eventParts[1];
+            task = new Event(description, start, end);
+            break;
+        default:
+            throw new IOException("Invalid task type in file. Skipping line.");
         }
 
         if (isDone) {
@@ -336,7 +336,7 @@ public class Parser {
      * @param tasks The TaskList containing the tasks to search.
      * @param ui    The Ui object for handling user interface interactions.
      */
-    public static void parseFind( TaskList tasks, Ui ui) {
+    public static void parseFind(TaskList tasks, Ui ui) {
         String keyword = ui.getUserInput2().trim();
         //System.out.println(descriptionTodo);
         ArrayList<Task> matchingTasks = tasks.keywordSearch(keyword);

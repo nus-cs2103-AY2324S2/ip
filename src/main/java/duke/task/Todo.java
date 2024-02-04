@@ -4,7 +4,7 @@ package duke.task;
  * Represents a Todo task in the task list.
  * A Todo task is a basic task without a specific deadline or event time.
  */
-public class Todo extends  Task{
+public class Todo extends Task {
 
     /**
      * Constructs a Todo task with the given description.
@@ -34,6 +34,6 @@ public class Todo extends  Task{
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString() ;
+        return "[T]" + super.toString();
     }
 }

@@ -5,9 +5,9 @@ package duke.task;
  * A task can be a Todo, Deadline, or Event.
  */
 public class Task {
+    private static int numOfTasks = 0;
     protected String description;
     protected boolean isDone;
-    private static int numOfTasks = 0;
 
     /**
      * Constructs a Task with the given description.
@@ -67,7 +67,8 @@ public class Task {
      * @return A string representation of the task.
      */
     public String toString() {
-        return ("[" + this.getStatusIcon() + "]"  + " " + this.description);
+
+        return ("[" + this.getStatusIcon() + "]" + " " + this.description);
     }
 
     /**

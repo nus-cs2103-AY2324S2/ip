@@ -1,15 +1,22 @@
 package duke;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
 import java.util.Scanner;
+
+import duke.task.Task;
+
+
 
 /**
  * Ui class represents the user interface for Duke.
  */
 public class Ui {
     private Scanner scanner;
+
+    /**
+     * Contains enumeration of Commands
+     */
+    public enum Command {
+        BYE, LIST, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND
+    }
 
     /**
      * Constructs an Ui object with a Scanner for user input.
@@ -30,10 +37,19 @@ public class Ui {
      *
      * @return The user's input command.
      */
-    public String getUserInput() {
+    public Command getUserInput() {
         System.out.print("Enter your command: ");
-        return scanner.next();
+        return getCommand(scanner.next());
     }
+
+    private static Command getCommand(String input) {
+        try {
+            return Command.valueOf(input.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return Command.UNKNOWN;
+        }
+    }
+
 
     /**
      * Gets user input from the command line, allowing for multiple words.
@@ -111,9 +127,12 @@ public class Ui {
      * @param task The task that was marked.
      */
     public void markedMessage(Task task) {
-        System.out.println("\t" + "Nice! I've marked this task " +
-                "as done:" + "\n" +
-                "\t " + task);
+        System.out.println("\t"
+                + "Nice! I've marked this task "
+                + "as done:"
+                + "\n"
+                + "\t "
+                + task);
     }
 
     /**

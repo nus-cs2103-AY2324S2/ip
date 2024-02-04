@@ -1,8 +1,10 @@
 package duke.task;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * This class contains JUnit test cases to verify the functionality of the Deadline class.
  */

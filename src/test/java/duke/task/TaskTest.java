@@ -1,8 +1,10 @@
 package duke.task;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * This class contains JUnit test cases to verify the functionality of the Task class.
  */
@@ -50,17 +52,17 @@ public class TaskTest {
     @Test
     public void numOfTasksTest() {
         // Ensure that the number of tasks is correctly tracked
-        int x =  Task.getNumOfTasks();
+        int x = Task.getNumOfTasks();
 
         Task task1 = new Task("Task 1");
-        assertEquals(x+1, Task.getNumOfTasks());
+        assertEquals(x + 1, Task.getNumOfTasks());
 
         Task task2 = new Task("Task 2");
-        assertEquals(x+2, Task.getNumOfTasks());
+        assertEquals(x + 2, Task.getNumOfTasks());
 
         // Ensure that decrementTotal reduces the count
         Task.decrementTotal();
-        assertEquals(x+1, Task.getNumOfTasks());
+        assertEquals(x + 1, Task.getNumOfTasks());
     }
 
     // Additional test for toFileString method

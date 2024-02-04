@@ -39,6 +39,10 @@ shadowJar {
     dependsOn("distZip", "distTar")
 }
 
+checkstyle {
+    toolVersion = '10.2'
+}
+
 run{
     standardInput = System.in
 }

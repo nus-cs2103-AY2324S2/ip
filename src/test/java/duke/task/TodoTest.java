@@ -1,13 +1,14 @@
 package duke.task;
-import org.junit.jupiter.api.Test;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * This class contains JUnit test cases to verify the functionality of the Todo class.
  */
-public class TodoTest{
+public class TodoTest {
     @Test
     public void testInitialization() {
         Todo todo = new Todo("Buy groceries");
