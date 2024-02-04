@@ -1,3 +1,4 @@
+package Duke.exceptions;
 public class UnknownInputException extends DukeException {
     public UnknownInputException() {
         super();

@@ -1,3 +1,6 @@
+package Duke.tasks;
+import java.time.LocalDateTime;
+
 public class ToDo extends Task {
     public ToDo(String s) {
         super(s);
@@ -13,5 +16,9 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         return String.format("[T]%s", super.toString());
+    }
+    @Override
+    public boolean hasDate(LocalDateTime toFind) {
+        return false;
     }
 }

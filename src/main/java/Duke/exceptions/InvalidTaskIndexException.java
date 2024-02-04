@@ -1,3 +1,4 @@
+package Duke.exceptions;
 public class InvalidTaskIndexException extends DukeException {
     private int currentSize;
     public InvalidTaskIndexException(int size) {

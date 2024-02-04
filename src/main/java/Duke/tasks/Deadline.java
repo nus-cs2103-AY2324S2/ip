@@ -1,10 +1,12 @@
+package Duke.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private LocalDateTime deadlineDate;
     private String deadline;
     private static boolean isValidDateFormat(String deadline) {
-        if (deadline.length() <= 13 || deadline.length() >= 16) {
+        if (deadline.length() <= 12 || deadline.length() >= 16) {
             return false;
         }
         String[] dateNumbers = deadline.split("[/ ]");
@@ -26,6 +28,7 @@ public class Deadline extends Task {
     }
     public Deadline(String descr, String deadline) {
         super(descr);
+        deadline = deadline.trim();
         if (isValidDateFormat(deadline)) {
             String[] dateNumbers = deadline.split("[/ ]");
             this.deadlineDate = LocalDateTime.of(
@@ -71,5 +74,9 @@ public class Deadline extends Task {
                     this.deadlineDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm")));
         }
         return String.format("[D]%s(by: %s)", super.toString(), this.deadline);
+    }
+    @Override
+    public boolean hasDate(LocalDateTime toFind) {
+        return toFind.equals(this.deadlineDate);
     }
 }

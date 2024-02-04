@@ -1,9 +1,13 @@
+package Duke.tasks;
+
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public abstract class Task implements Serializable {
     private final static String hRULER = "____________________________________________________________\n";
     private final String description;
     private String status = "[ ]";
+    public abstract boolean hasDate(LocalDateTime toFind);
     public String writeObject() {
         return String.format("| %s | %s", this.status, this.description);
     }

@@ -1,4 +1,8 @@
+package Duke.util;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import Duke.tasks.Task;
 
 public class TaskList {
     private ArrayList<Task> items;
@@ -20,5 +24,14 @@ public class TaskList {
     }
     public ArrayList<Task> list() {
         return this.items;
+    }
+    public ArrayList<Task> findTaskWithDate(LocalDateTime toFind) {
+        ArrayList<Task> res = new ArrayList<>();
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).hasDate(toFind)) {
+                res.add(items.get(i));
+            }
+        }
+        return res;
     }
 }

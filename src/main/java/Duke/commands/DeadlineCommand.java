@@ -1,3 +1,13 @@
+package Duke.commands;
+
+import Duke.util.TaskList;
+import Duke.util.UI;
+import Duke.util.Storage;
+import Duke.exceptions.DukeException;
+import Duke.exceptions.EmptyDescriptionException;
+import Duke.exceptions.InvalidDeadlineException;
+import Duke.tasks.Task;
+import Duke.tasks.Deadline;
 public class DeadlineCommand extends Commands {
     private String[] words;
     public DeadlineCommand(String[] words) {
@@ -9,17 +19,8 @@ public class DeadlineCommand extends Commands {
         if (words.length == 1) {
             throw new EmptyDescriptionException("deadline");
         }
-        int deadlineStartIdx = 0;
-        boolean foundTime = false;
-        while (deadlineStartIdx < words[1].length()) {
-            if (words[1].charAt(deadlineStartIdx) != '/') {
-                deadlineStartIdx++;
-            } else {
-                foundTime = true;
-                break;
-            }
-        }
-        if (!foundTime) {
+        int deadlineStartIdx = words[1].indexOf("/by");
+        if (deadlineStartIdx == -1) {
             throw new InvalidDeadlineException();
         }
         Task newTask = new Deadline(words[1].substring(0, deadlineStartIdx),

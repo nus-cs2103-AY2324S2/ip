@@ -1,4 +1,11 @@
-public class DeleteCommand extends Commands {
+package Duke.commands;
+
+import Duke.util.TaskList;
+import Duke.util.UI;
+import Duke.util.Storage;
+import Duke.exceptions.DukeException;
+import Duke.exceptions.InvalidTaskIndexException;
+public class MarkCommand extends Commands {
     private String[] words;
     private static boolean isNumeric(String s) {
         if (s == null) {
@@ -11,23 +18,22 @@ public class DeleteCommand extends Commands {
         }
         return true;
     }
-    public DeleteCommand(String[] words) {
+    public MarkCommand(String[] words) {
         super();
         this.words = words;
     }
     @Override
-    public boolean execute(TaskList tasks, UI ui, Storage s) throws DukeException {
+    public boolean execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
         int currentIdx = tasks.list().size();
         if (words.length == 1 || !isNumeric(words[1])) {
             throw new InvalidTaskIndexException(currentIdx);
         }
-        int taskIdx2 = Integer.parseInt(words[1]) - 1;
-        if (taskIdx2 >= currentIdx || taskIdx2 < 0) {
+        int taskIdx = Integer.parseInt(words[1]) - 1;
+        if (taskIdx >= currentIdx || taskIdx < 0) {
             throw new InvalidTaskIndexException(currentIdx);
         }
-        currentIdx--;
-        ui.displayDelete(tasks.delete(taskIdx2), currentIdx);
-        s.rewriteFile(tasks.list());
+        ui.displayMark(tasks.markTask(taskIdx));
+        storage.rewriteFile(tasks.list());
         return false;
     }
 }

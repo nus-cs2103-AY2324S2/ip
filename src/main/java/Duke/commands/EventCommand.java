@@ -1,3 +1,13 @@
+package Duke.commands;
+
+import Duke.util.TaskList;
+import Duke.util.UI;
+import Duke.util.Storage;
+import Duke.exceptions.DukeException;
+import Duke.exceptions.EmptyDescriptionException;
+import Duke.exceptions.InvalidEventException;
+import Duke.tasks.Task;
+import Duke.tasks.Event;
 public class EventCommand extends Commands {
     private String[] words;
     public EventCommand(String[] words) {
@@ -9,17 +19,9 @@ public class EventCommand extends Commands {
         if (words.length == 1) {
             throw new EmptyDescriptionException("event");
         }
-        int startIdx = 0;
-        boolean haveTime = false;
-        while (startIdx < words[1].length()) {
-            if (words[1].charAt(startIdx) != '/') {
-                startIdx++;
-            } else {
-                haveTime = true;
-                break;
-            }
-        }
-        if (!haveTime) {
+        int startIdx = words[1].indexOf("/from");
+        int endIdx = words[1].indexOf("/to");
+        if (startIdx == -1 || endIdx == -1) {
             throw new InvalidEventException();
         }
         String[] dates = words[1].substring(startIdx).split("/from | /to ");

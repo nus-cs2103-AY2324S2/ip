@@ -1,3 +1,5 @@
+package Duke.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Event extends Task {
@@ -6,7 +8,7 @@ public class Event extends Task {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private static boolean isValidDateFormat(String deadline) {
-        if (deadline.length() <= 13 || deadline.length() >= 16) {
+        if (deadline.length() <= 12 || deadline.length() >= 16) {
             return false;
         }
         String[] dateNumbers = deadline.split("[/ ]");
@@ -27,7 +29,9 @@ public class Event extends Task {
     }
     public Event(String desc, String start, String end) {
         super(desc);
-        if (isValidDateFormat(start) && isValidDateFormat(end)) {
+        start = start.trim();
+        end = end.trim();
+        if (isValidDateFormat(start)) {
             String[] dateNumbers = start.split("[/ ]");
             this.startDate = LocalDateTime.of(
                     Integer.parseInt(dateNumbers[2]),
@@ -35,7 +39,11 @@ public class Event extends Task {
                     Integer.parseInt(dateNumbers[0]),
                     Integer.parseInt(dateNumbers[3].substring(0, 2)),
                     Integer.parseInt(dateNumbers[3].substring(2)));
-            dateNumbers = end.split("[/ ]");
+        } else {
+            this.start = start;
+        }
+        if (isValidDateFormat(end)) {
+            String[] dateNumbers = end.split("[/ ]");
             this.endDate = LocalDateTime.of(
                     Integer.parseInt(dateNumbers[2]),
                     Integer.parseInt(dateNumbers[1]),
@@ -43,7 +51,6 @@ public class Event extends Task {
                     Integer.parseInt(dateNumbers[3].substring(0, 2)),
                     Integer.parseInt(dateNumbers[3].substring(2)));
         } else {
-            this.start = start;
             this.end = end;
         }
     }
@@ -52,7 +59,7 @@ public class Event extends Task {
         super.setStatus(status);
         start = start.trim();
         end = end.trim();
-        if (isValidDateFormat(start) && isValidDateFormat(end)) {
+        if (isValidDateFormat(start)) {
             String[] dateNumbers = start.split("[/ ]");
             this.startDate = LocalDateTime.of(
                     Integer.parseInt(dateNumbers[2]),
@@ -60,7 +67,11 @@ public class Event extends Task {
                     Integer.parseInt(dateNumbers[0]),
                     Integer.parseInt(dateNumbers[3].substring(0, 2)),
                     Integer.parseInt(dateNumbers[3].substring(2)));
-            dateNumbers = end.split("[/ ]");
+        } else {
+            this.start = start;
+        }
+        if (isValidDateFormat(end)) {
+            String[] dateNumbers = end.split("[/ ]");
             this.endDate = LocalDateTime.of(
                     Integer.parseInt(dateNumbers[2]),
                     Integer.parseInt(dateNumbers[1]),
@@ -68,7 +79,6 @@ public class Event extends Task {
                     Integer.parseInt(dateNumbers[3].substring(0, 2)),
                     Integer.parseInt(dateNumbers[3].substring(2)));
         } else {
-            this.start = start;
             this.end = end;
         }
     }
@@ -84,13 +94,17 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        if (startDate != null && endDate != null) {
-            return String.format("[E]%s(from: %s to: %s)",
-                    super.toString(),
-                    this.startDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm")),
-                    this.endDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm")));
-        }
+        String startString = startDate != null
+                ? this.startDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm"))
+                : this.start;
+        String endString = endDate != null
+                ? this.endDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy HHmm"))
+                : this.end;
         return String.format("[E]%s(from: %s to: %s)",
-                super.toString(),start, end);
+                super.toString(),startString, endString);
+    }
+    @Override
+    public boolean hasDate(LocalDateTime toFind) {
+        return toFind.equals(this.startDate) || toFind.equals(this.endDate);
     }
 }

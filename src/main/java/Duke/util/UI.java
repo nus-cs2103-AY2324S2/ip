@@ -1,5 +1,10 @@
-import java.util.ArrayList;
+package Duke.util;
+
 import java.util.Scanner;
+import java.util.ArrayList;
+import Duke.tasks.Task;
+import Duke.exceptions.DukeException;
+
 public class UI {
     private static final String hRULER = "____________________________________________________________\n";
     private static final String[] token = new String[]{
@@ -51,4 +56,12 @@ public class UI {
     public void displayExceptionMsg(DukeException e) {
         System.out.printf("%s%s%s", hRULER, e, hRULER);
     }
+    public void displayFoundList(ArrayList<Task> l) {
+        System.out.printf("%s Here are the deadlines/events with specified date in your list:\n", hRULER);
+        for (int i = 0; i < l.size(); i++) {
+            System.out.printf(" %d.%s\n", i + 1, l.get(i).toString());
+        }
+        System.out.println(hRULER);
+    }
+
 }
