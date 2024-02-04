@@ -1,6 +1,8 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class TaskList {
 
@@ -49,5 +51,17 @@ public class TaskList {
 
     public void remove(int i) throws IndexOutOfBoundsException {
         this.list.remove(i);
+    }
+
+    public String filterSubString(String toFind) {
+        return Stream.iterate(0, i -> i < this.list.size(), i -> i + 1)
+                .filter(i -> this.list.get(i).nameContains(toFind))
+                .reduce(new StringBuilder(), 
+                        (sb, curr) -> sb
+                                .append(curr + 1).append(".")
+                                .append(this.list.get(curr).describe())
+                                .append(curr < list.size() - 1 ? "\n" : ""), 
+                        StringBuilder::append)
+                .toString();
     }
 }
