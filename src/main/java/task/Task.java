@@ -1,8 +1,8 @@
 package task;
 
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
     public enum ID {
         TODO,
         DEADLINE,

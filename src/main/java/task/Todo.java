@@ -12,7 +12,7 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return String.format("[T][%s] %s",
-                this.getStatusIcon(),
-                this.description);
+                getStatusIcon(),
+                getDescription());
     }
 }

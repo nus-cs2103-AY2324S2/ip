@@ -29,9 +29,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E][%s] %s (from: %s, to: %s)",
-                this.getStatusIcon(),
-                this.description,
-                this.from.format(DateTimeFormatter.ofPattern("d MMM yyyy")),
-                this.to.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
+                getStatusIcon(),
+                getDescription(),
+                from.format(DateTimeFormatter.ofPattern("d MMM yyyy")),
+                to.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
     }
 }
