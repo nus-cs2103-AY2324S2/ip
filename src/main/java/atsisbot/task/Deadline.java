@@ -31,6 +31,12 @@ public class Deadline extends Task {
                 + this.by.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + ")\n";
     }
 
+    /**
+     * Encodes the Deadline task into a string format.
+     * The encoded string contains the status, description, and deadline of the task.
+     *
+     * @return The encoded string representation of the Deadline task.
+     */
     @Override
     public String encode() {
         String status = this.getStatus().isDone() ? "1" : "0";

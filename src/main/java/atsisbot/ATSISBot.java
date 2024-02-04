@@ -39,6 +39,12 @@ public class ATSISBot {
     Ui.closeScanner();
   }
 
+  /**
+   * Executes the appropriate command based on the given commandEnum and args.
+   * 
+   * @param commandEnum the command enum representing the type of command to execute
+   * @param args the arguments for the command
+   */
   private static void response(CommandEnum commandEnum, String args) {
     try {
       switch (commandEnum) {
