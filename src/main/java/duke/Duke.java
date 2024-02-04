@@ -1,13 +1,10 @@
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
-import java.io.BufferedReader;
-import java.io.IOException;
+package duke;
 
+import duke.command.Command;
+import duke.exception.DukeException;
+import duke.storage.Storage;
+import duke.ui.Ui;
+import duke.task.TaskList;
 
 /**
  * A Personal Assistant Chatbot that helps a person to keep track of various things.
