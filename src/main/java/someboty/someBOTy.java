@@ -4,7 +4,7 @@ import someboty.Exceptions.TerminateException;
 import someboty.Managers.taskManager;
 
 // main class for the project
-public class someboty {
+public class someBOTy {
 
     public static void main(String[] args) { 
         // Initialize

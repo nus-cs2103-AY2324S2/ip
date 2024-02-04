@@ -124,7 +124,8 @@ public class commandManager {
     }
 
     // delete a task at the specified index.
-    private String deleteTask(String description) {
+    private String deleteTask(String input) {
+        String description = getDescription(input);
         int index;
 
         try {
@@ -132,7 +133,7 @@ public class commandManager {
 
         } catch(NumberFormatException e) {
             throw new InputException(
-                "Unable to determine which task to mark or unmark.\n"
+                "Unable to determine which task to delete.\n"
                 + "Please use the format: 'mark TASK_NUMBER' or 'unmark TASK_NUMBER'"
                 );
         }

@@ -26,7 +26,7 @@ import someboty.Tasks.ToDo;
  */
 public class fileManager {
 
-    private static final String FILE_PATH = "../../../data/tasks.csv";
+    private static final String FILE_PATH = System.getProperty("user.dir") + "/data/tasks.csv";
     private static ArrayList<Task> taskList;
 
     /**
@@ -46,7 +46,7 @@ public class fileManager {
             scanner = new Scanner(infile);
 
         } catch (IOException e) { // Not supposed to happen.
-            System.out.println("ERROR! Unable to create new file");
+            e.printStackTrace();
             return null;
         }
 

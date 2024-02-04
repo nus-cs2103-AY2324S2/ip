@@ -24,6 +24,7 @@ public class Response {
     
 
     public static void printGreeting() {
+        System.out.println(LINE_SEPERATOR);
         System.out.println(GREET);
         System.out.println(LINE_SEPERATOR);
     }
