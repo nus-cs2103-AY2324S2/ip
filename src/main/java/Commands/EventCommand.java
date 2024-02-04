@@ -1,5 +1,6 @@
 package Commands;
 
+import Irwyn.Exceptions.CommandException;
 import Irwyn.Tasks.TaskList;
 import Misc.StorageManager;
 import Misc.Ui;
@@ -7,10 +8,14 @@ import Irwyn.Tasks.Event;
 
 public class EventCommand extends Command {
     private final String[] event;
-    EventCommand (String input) {
+    public EventCommand(String input) throws CommandException {
         super(false);
+        if (!input.contains(" /from ") || !input.contains(" /to ")) {
+            throw new CommandException();
+        }
         this.event = input.replaceFirst("event ", "").split(" /from ");
     }
+
     @Override
     public void execute(TaskList taskList, Ui ui, StorageManager storageManager) {
         String description = event[0];

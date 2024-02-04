@@ -8,7 +8,7 @@ import Irwyn.Tasks.Task;
 
 public class DeleteCommand extends Command {
     private final int delete;
-    DeleteCommand (String input) {
+    public DeleteCommand (String input) {
         super(false);
         delete = Integer.parseInt(input.split(" ")[1]) - 1;
     }

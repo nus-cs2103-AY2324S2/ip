@@ -1,5 +1,6 @@
 package Commands;
 
+import Irwyn.Exceptions.CommandException;
 import Misc.StorageManager;
 import Misc.Ui;
 import Irwyn.Tasks.Deadline;
@@ -9,8 +10,11 @@ import java.time.format.DateTimeParseException;
 
 public class DeadlineCommand extends Command {
     private final String[] deadline;
-    DeadlineCommand (String input) {
+    public DeadlineCommand(String input) throws CommandException {
         super(false);
+        if (!input.contains(" /by ")) {
+            throw new CommandException();
+        }
         deadline = input.replaceFirst("deadline ", "").split(" /by ");
     }
 
@@ -28,3 +32,4 @@ public class DeadlineCommand extends Command {
         }
     }
 }
+
