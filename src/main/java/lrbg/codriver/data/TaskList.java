@@ -10,13 +10,24 @@ import java.io.FileNotFoundException;
 import lrbg.codriver.data.exception.CoDriverException;
 import lrbg.codriver.parser.Parser;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
+    /** The list of tasks. */
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructor for TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructor for TaskList.
+     * @param taskStrings The array of strings representing tasks.
+     */
     public TaskList(String[] taskStrings) {
         this.tasks = new ArrayList<>();
         for (String s : taskStrings) {
@@ -56,18 +67,36 @@ public class TaskList {
         }
     }
 
+    /**
+     * Gets the size of the list.
+     * @return The size of the list.
+     */
     public int size() {
         return this.tasks.size();
     }
 
+    /**
+     * Gets the task at the given index.
+     * @param index The index of the task, zero indexed.
+     * @return The task at the given index.
+     */
     public Task get(int index) {
         return this.tasks.get(index);
     }
 
+    /**
+     * Adds a task to the list.
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
 
+/**
+     * Marks the task at the given index as done.
+     * @param index The index of the task, one indexed.
+     * @throws CoDriverException If the index is out of bounds.
+     */
     public void markTask(int index) throws CoDriverException {
         int listIndex = index - 1;
         if (listIndex >= this.tasks.size()) {
@@ -77,6 +106,11 @@ public class TaskList {
         t.markDone();
     }
 
+    /**
+     * Marks the task at the given index as not done.
+     * @param index The index of the task, one indexed.
+     * @throws CoDriverException If the index is out of bounds.
+     */
     public void unmarkTask(int index) throws CoDriverException {
         int listIndex = index - 1;
         if (listIndex >= this.tasks.size()) {
@@ -86,6 +120,11 @@ public class TaskList {
         t.markNotDone();
     }
 
+    /**
+     * Deletes the task at the given index.
+     * @param index The index of the task, one indexed.
+     * @throws CoDriverException If the index is out of bounds.
+     */
     public void deleteTask(int index) throws CoDriverException {
         int listIndex = index - 1;
         if (listIndex >= this.tasks.size()) {
@@ -96,6 +135,10 @@ public class TaskList {
         System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
     }
 
+    /**
+     * Gets the list of tasks as a string to be saved in a file.
+     * @return The list of tasks as a string.
+     */
     public String toSaveString() {
         StringBuilder sb = new StringBuilder();
         for (Task t : this.tasks) {
@@ -108,55 +151,5 @@ public class TaskList {
             }
         }
         return sb.toString();
-    }
-
-    public static TaskList openTaskList(String filePath) {
-        TaskList tl = new TaskList();
-        File f = new File(filePath);
-        Scanner scanner;
-        try {
-            scanner = new Scanner(f);
-        } catch (FileNotFoundException e) {
-            return tl;
-        }
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            String[] arguments = line.split("\\|");
-            String type = arguments[0];
-            boolean isDone = arguments[1].equals("1");
-            switch (type) {
-            case "T": // task.ToDo
-                String description = arguments[2];
-                Todo t = new Todo(description);
-                if (isDone) {
-                    t.markDone();
-                }
-                tl.tasks.add(t);
-                break;
-            case "D": // task.Deadline
-                String deadlineDescription = arguments[2];
-//                String deadlineDate = line.substring(line.indexOf("|") + 2);
-                LocalDate deadlineDate = Parser.parseDate(arguments[3]);
-                Deadline d = new Deadline(deadlineDescription, deadlineDate);
-                if (isDone) {
-                    d.markDone();
-                }
-                tl.tasks.add(d);
-                break;
-            case "E": // task.Event
-                String eventDescription = arguments[2];
-                String[] dates = arguments[3].split("~");
-                LocalDate eventFrom = Parser.parseDate(dates[0]);
-                LocalDate eventTo = Parser.parseDate(dates[1]);
-                Event e = new Event(eventDescription, eventFrom, eventTo);
-                if (isDone) {
-                    e.markDone();
-                }
-                tl.tasks.add(e);
-                break;
-            }
-        }
-        scanner.close();
-        return tl;
     }
 }

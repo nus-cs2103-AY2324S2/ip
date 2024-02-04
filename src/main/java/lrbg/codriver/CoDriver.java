@@ -7,12 +7,22 @@ import lrbg.codriver.storage.Storage;
 import lrbg.codriver.data.TaskList;
 import lrbg.codriver.ui.Ui;
 
+/**
+ * The CoDriver program is a task manager that helps users keep track of their tasks.
+ */
 public class CoDriver {
-
+    /** The storage object that handles the loading and saving of tasks. */
     private Storage storage;
+    /** The task list that stores the tasks. */
     private TaskList tasks;
+    /** The user interface that interacts with the user. */
     private Ui ui;
 
+    /**
+     * Constructs a CoDriver object.
+     *
+     * @param filePath The file path to the file where the tasks are stored.
+     */
     public CoDriver(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -24,6 +34,9 @@ public class CoDriver {
         }
     }
 
+    /**
+     * Runs the CoDriver program.
+     */
     public void run() {
         ui.showGreeting();
         while (true) {
