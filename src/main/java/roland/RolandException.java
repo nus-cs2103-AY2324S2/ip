@@ -1,6 +1,6 @@
 package roland;
 
-class RolandException extends Exception {
+public class RolandException extends Exception {
     public RolandException(String message) {
         super(message);
     }
