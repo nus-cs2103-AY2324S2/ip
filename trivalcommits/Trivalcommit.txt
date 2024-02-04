@@ -9,3 +9,5 @@ expected to remember the exact case of the keywords.
 Let's,
 * update the search algorithm to use case-insensitive matching
 * add a script to migrate stress tests to the new format
+
+make PR on code quality branch
