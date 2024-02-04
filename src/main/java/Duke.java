@@ -164,6 +164,7 @@ public class Duke {
             saveTask();
 
         }
+        System.out.println(f.getAbsoluteFile());
         updateFile("data/tasks.txt");
     }
 

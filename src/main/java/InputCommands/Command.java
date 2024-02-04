@@ -1,24 +1,32 @@
 package InputCommands;
 
 import SnomExceptions.InvalidCommandException;
-import Storage.TaskList;
+import SnomTaskList.TaskList;
 
 public abstract class Command {
 
+    protected String desc;
+
+    public Command(String desc) {
+        this.desc = desc;
+    }
+
+    public abstract CmdType getType();
+
 //    /**
-//     * Checks against the Storage.TaskList to ensure that task is valid.
+//     * Checks against the Storage.TaskList.TaskList to ensure that task is valid.
 //     * Prevents duplicate tasks and invalid indices (if applicable).
 //     *
-//     * @param lst is the instance of Storage.TaskList containing all the tasks.
+//     * @param lst is the instance of Storage.TaskList.TaskList containing all the tasks.
 //     * @return a boolean value depending on whether the command is valid.
 //     */
-//    public abstract boolean checkCommand(Storage.TaskList lst);
+//    public abstract boolean checkCommand(Storage.TaskList.TaskList lst);
 
     /**
      * Verifies whether the command is valid or not.
      * If invalid, an exception will be thrown.
      *
-     * @param lst is the instance of Storage.TaskList containing all the tasks.
+     * @param lst is the instance of Storage.TaskList.TaskList containing all the tasks.
      * @return a String representing the command
      */
     public abstract String execute (TaskList lst) throws InvalidCommandException;
@@ -37,32 +45,31 @@ public abstract class Command {
 
         switch (type) {
         case "list":
-            cmd = null;
+            cmd = new ListCommand();
             break;
         case "bye":
-            cmd = null;
+            cmd = new ByeCommand();
             break;
         case "mark":
-            cmd = null;
+            cmd = new MarkTaskCommand(description);
             break;
         case "unmark":
-            cmd = null;
+            cmd = new UnmarkTaskCommand(description);
             break;
         case "delete":
-            cmd = null;
+            cmd = new DeleteTaskCommand(description);
             break;
         case "todo":
-            System.out.println("done");
-            cmd = null;
+            cmd = new AddTodoCommand(description);
             break;
         case "deadline":
-            cmd = null;
+            cmd = new AddDeadlineCommand(description);
             break;
         case "event":
-            cmd = null;
+            cmd = new AddEventCommand(description);
             break;
         default:
-            throw new InvalidCommandException("Please enter a valid command");
+            throw new InvalidCommandException();
 
         }
 
