@@ -24,10 +24,10 @@ public class Storage {
             boolean isFolderMade = file.getParentFile().mkdirs();
             boolean isFileMade = file.createNewFile();
             if (isFolderMade || isFileMade) {
+                // file is surely missing
                 throw new EarlException("Storage file missing... "
                         + "creating new file.");
             }
-
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 String entry = sc.nextLine();

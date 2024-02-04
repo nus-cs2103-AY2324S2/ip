@@ -18,8 +18,7 @@ public class TodoHandler extends Handler {
             tasks.add(new Todo(COMMAND[1]));
             ui.makeResponse("Added new todo.",
                     "\t" + tasks.get(tasks.getSize() - 1),
-                    "There are " + tasks.getSize()
-                            + " task(s) tracked.");
+                    "There are " + tasks.getSize() + " task(s) tracked.");
         } catch (IndexOutOfBoundsException e) {
             throw new EarlException("Error, missing task name.\n"
                     + "\tExample use:\n\ttodo <task_name>");

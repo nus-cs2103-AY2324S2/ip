@@ -21,7 +21,7 @@ public class Earl {
             temp = new TaskList(storage.load());
         } catch (EarlException e) {
             ui.makeResponse(e.getMessage());
-            temp = new TaskList();
+            temp = new TaskList(); // empty list when fail to read
         }
         tasks = temp;
     }
