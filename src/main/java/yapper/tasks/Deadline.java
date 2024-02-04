@@ -26,7 +26,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[" + getType() + "]" + "[" + getStatusIcon() + "] "
-                + description + " (by: " + getFormattedDate() + ")";
+                + getDescription() + " (by: " + getFormattedDate() + ")";
     }
 
     @Override
@@ -37,10 +37,10 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         return "D | " + (isDone ? "1" : "0") + " | "
-                + description + " | " + by;
+                + getDescription() + " | " + by;
     }
 
-    protected String getFormattedDate(){
+    protected String getFormattedDate() {
         return by.format(
                 DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma"));
     }

@@ -1,12 +1,18 @@
 package yapper;
-import yapper.tasks.*;
-import java.util.List;
-import java.util.Scanner;
+
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.NoSuchElementException;
-import java.io.InputStream;
+import java.util.Scanner;
 import java.util.stream.Collectors;
+
+import yapper.tasks.Deadline;
+import yapper.tasks.Event;
+import yapper.tasks.Task;
+import yapper.tasks.TaskList;
+import yapper.tasks.Todo;
 
 /**
  * The Yapper class is the main class that handles user input and manages tasks.
@@ -17,8 +23,8 @@ public class Yapper {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     private static List<Task> tasks;
-    private final Scanner userScanner;
     private static Ui ui;
+    private final Scanner userScanner;
     private final Storage storage;
 
     /**
@@ -59,8 +65,8 @@ public class Yapper {
             ui.showError(e.getMessage());
         } finally {
             userScanner.close();
-            }
         }
+    }
 
 
     /**
@@ -125,7 +131,7 @@ public class Yapper {
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 throw new YapperException("Please provide a valid task number to delete.");
             }
-        } else if(userInput.startsWith("find")) {
+        } else if (userInput.startsWith("find")) {
             String keyword = userInput.substring(5).trim();
             findTasks(keyword);
         } else if (userInput.equalsIgnoreCase("bye")) {
@@ -176,7 +182,7 @@ public class Yapper {
      */
     private static void findTasks(String keyword) {
         List<Task> matchingTasks = tasks.stream()
-                .filter(task -> task.description.toLowerCase().contains(keyword.toLowerCase()))
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
                 .collect(Collectors.toList());
 
         if (!matchingTasks.isEmpty()) {

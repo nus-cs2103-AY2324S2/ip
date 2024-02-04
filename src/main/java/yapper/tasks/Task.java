@@ -5,8 +5,8 @@ package yapper.tasks;
  * It serves as the base class for specific task types such as Todo, Deadline, and Event.
  */
 public abstract class Task {
-    public String description;
     protected boolean isDone;
+    private String description;
 
     /**
      * Constructs a new Task with the given description and initial completion status.
@@ -17,6 +17,10 @@ public abstract class Task {
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     /**
