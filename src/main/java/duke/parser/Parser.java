@@ -92,6 +92,12 @@ public class Parser {
             return;
         }
 
+        if (words[0].equals("find")) {
+            taskList.findTaskWithKeyword(words[1]);
+            ui.listFilteredTasks();
+            return;
+        }
+
         throw new CommandNotFoundException(input);
     }
 
