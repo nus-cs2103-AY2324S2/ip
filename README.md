@@ -9,9 +9,8 @@ Kai chatbot is glad to help you manage your tasks in a manner that is
 - SUPER friendly to use
 
 All you need to do is,
-1. download it from
-2. double click it
-3. add your tasks 
+1. clone the repo from [here](https://github.com/taeewonnn/ip)
+2. add your tasks 
 4. let it manage for you :grinning:
 
 And it's **FREE**!
@@ -22,11 +21,7 @@ Features:
 - [x] Managing events
 - [ ] GUI (coming soon)
 
-Feel free to try this code 
+try this out on gradle terminal!
 ```ruby
-public class Main {
-    public static void main(String[] args) {
-        Application.launch(MainApp.class, args);
-    }
-}
+gradlew run
 ```
