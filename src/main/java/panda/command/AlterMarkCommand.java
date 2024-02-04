@@ -6,7 +6,7 @@ public class AlterMarkCommand extends Command {
     private int idx;
     private boolean isMarked;
 
-    public AlterMarkCommand(int idx, boolean marked) {
+    public AlterMarkCommand(int idx, boolean isMarked) {
         this.idx = idx;
         this.isMarked = isMarked;
     }

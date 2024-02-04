@@ -32,6 +32,7 @@ application {
 }
 
 shadowJar {
+    archiveFileName = 'Panda.jar'
     archiveBaseName = "Panda"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
