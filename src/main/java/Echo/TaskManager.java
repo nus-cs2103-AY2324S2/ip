@@ -1,3 +1,14 @@
+/*
+ * Package: Echo
+ * Module/Project Name: Echo
+ * File: TaskManager.java
+ *
+ * Description:
+ * This class manages tasks, handling operations such as adding, listing, marking, unmarking, and deleting tasks.
+ * It interacts with the Storage class to save and load tasks from a file.
+ *
+ */
+
 package Echo;
 
 import Echo.Task.Task;
@@ -18,20 +29,36 @@ public class TaskManager {
     private final String FILE_PATH = "." + File.separator + "data" + File.separator + "echo.txt";
     private Storage storage;
 
-
+    /**
+     * Constructor for the TaskManager class.
+     *
+     * @param storage The Storage object to handle file operations.
+     */
     public TaskManager(Storage storage) {
         this.tasks = new ArrayList<>();
         this.storage = storage;
         loadTasksFromFile();
     }
+
+    /**
+     * Saves tasks to the file using the Storage class.
+     */
     private void saveTasksToFile() {
         storage.save(tasks);
     }
 
+    /**
+     * Loads tasks from the file using the Storage class.
+     */
     private void loadTasksFromFile() {
         tasks = storage.load();
     }
 
+    /**
+     * Executes a command based on user input.
+     *
+     * @param command The user input command.
+     */
     public void executeCommand(String command) {
         String[] tokens = command.split(" ", 2);
 
@@ -55,6 +82,9 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Lists all tasks in the console.
+     */
     public void listTasks() {
         System.out.println("____________________________________________________________");
         if (tasks.isEmpty()) {
@@ -68,6 +98,11 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Marks a task as done based on the user input.
+     *
+     * @param tokens The user input tokens.
+     */
     public void markTask(String[] tokens) {
         if (tokens.length == 2) {
             int index = Integer.parseInt(tokens[1]);
@@ -86,6 +121,11 @@ public class TaskManager {
         saveTasksToFile();
     }
 
+    /**
+     * Marks a task as undone based on the user input.
+     *
+     * @param tokens The user input tokens.
+     */
     public void unmarkTask(String[] tokens) {
         if (tokens.length == 2) {
             int index = Integer.parseInt(tokens[1]);
@@ -104,10 +144,15 @@ public class TaskManager {
         saveTasksToFile();
     }
 
+    /**
+     * Adds a task based on the user input.
+     *
+     * @param tokens The user input tokens.
+     */
     public void addTask(String[] tokens) {
         try {
             if (tokens.length != 2) {
-                throw new IllegalArgumentException("NO! I don't know what is this! Invalid command. Supported taskss: todo, deadline, event");
+                throw new IllegalArgumentException("NO! I don't know what is this! Invalid command. Supported tasks: todo, deadline, event");
             }
             String[] taskTokens = tokens;
 
@@ -153,10 +198,21 @@ public class TaskManager {
         saveTasksToFile();
     }
 
+    /**
+     * Checks if the given index is valid for the tasks list.
+     *
+     * @param index The index to check.
+     * @return true if the index is valid, false otherwise.
+     */
     private boolean isValidIndex(int index) {
         return index >= 1 && index <= tasks.size();
     }
 
+    /**
+     * Prints a message indicating the successful addition of a task.
+     *
+     * @param size The size of the tasks list after the addition.
+     */
     private void printTaskAddedMessage(int size) {
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
@@ -165,6 +221,11 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Deletes a task based on the user input.
+     *
+     * @param tokens The user input tokens.
+     */
     public void deleteTask(String[] tokens) {
         try {
             if (tokens.length != 2) {
@@ -173,7 +234,7 @@ public class TaskManager {
 
             int taskNumber = Integer.parseInt(tokens[1]) - 1;  // Adjusting for 0-based index
             if (taskNumber < 0 || taskNumber >= tasks.size()) {
-                throw new IllegalArgumentException("NO! Echo.Task.Echo.Task number does not exist. Enter a valid task number to delete.");
+                throw new IllegalArgumentException("NO! Task number does not exist. Enter a valid task number to delete.");
             }
 
             Task removedTask = tasks.remove(taskNumber);
@@ -190,13 +251,17 @@ public class TaskManager {
         saveTasksToFile();
     }
 
-
-
+    /**
+     * Deletes all tasks and resets the file.
+     */
     public void deleteAllTasks() {
         tasks.removeAll(tasks);
         resetFile();
     }
 
+    /**
+     * Resets the file by clearing its content.
+     */
     public void resetFile() {
         try {
             File file = new File(FILE_PATH);
