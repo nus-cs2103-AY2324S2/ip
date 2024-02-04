@@ -1,13 +1,13 @@
 package duke.tasks;
 
-import duke.exceptions.DukeException;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
 
     @Test
-    public void add_to_taskList_success() {
+    public void add_taskList_success() {
         TaskList taskList = new TaskList("src/test/java/duke/tasks/task_list_test.txt");
 
         taskList.addToDoTask("go to the gym");
@@ -16,12 +16,12 @@ public class TaskListTest {
     }
 
     @Test
-    public void missing_argument_exceptionThown() {
+    public void missing_argument_exceptionThrown() {
         TaskList taskList = new TaskList("src/test/java/duke/tasks/task_list_test.txt");
 
         try {
             taskList.markTask("");
-        } catch (DukeException e) {
+        } catch (Exception e) {
             assertEquals("The command you entered has missing arguments. Please try again!", e.getMessage());
         }
     }

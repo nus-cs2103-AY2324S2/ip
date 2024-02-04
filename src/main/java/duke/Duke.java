@@ -1,12 +1,15 @@
 package duke;
 
+import java.util.Scanner;
+
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeUnknownCommandException;
 import duke.parser.Parser;
 import duke.tasks.TaskList;
 
-import java.util.Scanner;
-
+/**
+ * Duke chatbot.
+ */
 public class Duke {
     private static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
     private static final String UNKNOWN_COMMAND_MESSAGE = "The command '%s' is unknown. Please try again!";
@@ -59,16 +62,21 @@ public class Duke {
                     taskList.findTask(arguments);
                     break;
                 case INVALID:
-                    throw new DukeUnknownCommandException(String.format(UNKNOWN_COMMAND_MESSAGE, p.getUnknownCommand()));
+                    throw new DukeUnknownCommandException(
+                            String.format(UNKNOWN_COMMAND_MESSAGE, p.getUnknownCommand()));
                 default:
                     break;
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
-        }   
+        }
         sc.close();
     }
+
+    /**
+     * Greets the user when the chatbot is launched.
+     */
 
     public static void greet() {
         String output = String.format("Hello! I'm Waffles!%nWhat can I do for you?");

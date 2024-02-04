@@ -1,7 +1,8 @@
 package duke.exceptions;
 
 /**
- * The DukeIllegalArgumentException class represents exceptions specific to invalid arguments in the Duke chatbot application.
+ * The DukeIllegalArgumentException class represents exceptions specific
+ * to invalid arguments in the Duke chatbot application.
  * It extends the DukeException class.
  */
 public class DukeIllegalArgumentException extends DukeException {
