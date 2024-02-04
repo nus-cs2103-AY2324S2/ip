@@ -1,3 +1,9 @@
+/**
+ * The main class for the Bond task management program.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.main;
 
 import bond.command.Command;

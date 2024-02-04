@@ -1,3 +1,10 @@
+/**
+ * The AddDeadlineCommand class is used to encapsulate an add deadline task
+ * command, which is executed upon invoking the execute() method.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.command;
 
 import bond.main.BondException;

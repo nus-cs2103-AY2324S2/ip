@@ -1,3 +1,9 @@
+/**
+ * Tests for the Parser class.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.main;
 
 import bond.command.Command;

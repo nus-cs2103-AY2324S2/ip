@@ -1,3 +1,10 @@
+/**
+ * The MarkCommand class is used to encapsulate a mark task command, which is
+ * executed upon invoking the execute() method.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.command;
 
 import bond.main.BondException;

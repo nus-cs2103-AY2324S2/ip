@@ -1,3 +1,10 @@
+/**
+ * The Parser class is used to parse user input and create the appropriate
+ * Command object.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.main;
 
 import bond.command.*;

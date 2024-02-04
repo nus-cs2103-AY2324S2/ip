@@ -1,3 +1,9 @@
+/**
+ * Represents a task in the Bond task management program.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.task;
 
 public abstract class Task {

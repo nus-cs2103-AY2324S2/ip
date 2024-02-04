@@ -1,3 +1,10 @@
+/**
+ * Stores and provides operations for the list of tasks in the Bond task
+ * management program.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.task;
 
 import java.util.ArrayList;

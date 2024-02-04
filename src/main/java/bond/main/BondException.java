@@ -1,3 +1,10 @@
+/**
+ * The BondException class is used to handle exceptions in the Bond task
+ * management program.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.main;
 
 public class BondException extends Exception {

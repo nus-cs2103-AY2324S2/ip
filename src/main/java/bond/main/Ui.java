@@ -1,3 +1,10 @@
+/**
+ * The Ui class is used to handle the user interface of the Bond task management
+ * program.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.main;
 
 import java.util.ListIterator;

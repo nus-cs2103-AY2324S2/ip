@@ -1,3 +1,10 @@
+/**
+ * The Storage class is used to handle the loading and storing of tasks in the
+ * Bond task management program.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.main;
 
 import java.io.File;
