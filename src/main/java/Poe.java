@@ -1,7 +1,5 @@
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,10 +25,10 @@ public class Poe {
 
         switch (splitStr[0]) {
             case "E" :
-                list.add(new Event(splitStr[2],Integer.parseInt(splitStr[1]) == 1,splitStr[3],splitStr[4]));
+                list.add(new Event(splitStr[2],Integer.parseInt(splitStr[1]) == 1,LocalDate.parse(splitStr[3]),LocalDate.parse(splitStr[4])));
                 break;
             case "D" :
-                list.add(new Deadline(splitStr[2],Integer.parseInt(splitStr[1]) == 1,splitStr[3]));
+                list.add(new Deadline(splitStr[2],Integer.parseInt(splitStr[1]) == 1,LocalDate.parse(splitStr[3])));
                 break;
             case "T" :
                 list.add(new Todo(splitStr[2],Integer.parseInt(splitStr[1]) == 1));
@@ -140,14 +138,14 @@ public class Poe {
 
                 case "deadline":
                     if (splitStr.length == 2) {
-                        String[] splitStrDeadline = splitStr[1].split("/", 2);
+                        String[] splitStrDeadline = splitStr[1].split("/by", 2);
                         if (splitStrDeadline.length == 2) {
-                            Task deadline1 = new Deadline(splitStrDeadline[0],false, splitStrDeadline[1]);
+                            Task deadline1 = new Deadline(splitStrDeadline[0],false, LocalDate.parse(splitStrDeadline[1].trim()));
                             list.add(deadline1);
                             isChanged = true;
                             System.out.println(line + "\nyessir added new deadline\n" + deadline1.toString() + "\n" + line);
                         }else {
-                            System.out.println("no deadline input :(\n" + line);
+                            System.out.println("input deadline with this format (eg: deadline assignment /by 2024-05-19\n" + line);
                         }
                     }else{
                         System.out.println("no name input :(\n"+line);
@@ -155,14 +153,14 @@ public class Poe {
                     break;
                 case "event":
                     if (splitStr.length == 2) {
-                        String[] splitStrEvent = splitStr[1].split("/");
+                        String[] splitStrEvent = splitStr[1].split("/from|/to");
                         if (splitStrEvent.length == 3) {
-                            Task event1 = new Event(splitStrEvent[0],false, splitStrEvent[1], splitStrEvent[2]);
+                            Task event1 = new Event(splitStrEvent[0],false, LocalDate.parse(splitStrEvent[1].trim()), LocalDate.parse(splitStrEvent[2].trim()));
                             list.add(event1);
                             isChanged = true;
                             System.out.println(line + "\nalrighty added new event\n" + event1.toString() + "\n" + line);
                         }else{
-                            System.out.println("no event start and end date :(\n"+line);
+                            System.out.println("input event with this format (eg: event party /from 2024-05-19 /to 2024-05-20\n"+line);
                         }
                     }else{
                         System.out.println("no event timeline input :(\n"+line);
