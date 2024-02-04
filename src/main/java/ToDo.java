@@ -8,7 +8,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String toStringFile() {
-        return "T" + super.toStringFile();
+    public String toStringForFile() {
+        return "T" + super.toStringForFile();
     }
 }

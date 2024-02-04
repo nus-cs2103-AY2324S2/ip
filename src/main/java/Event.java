@@ -1,8 +1,11 @@
-public class Event extends Task {
-    protected String start;
-    protected String end;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String event, String start, String end) {
+public class Event extends Task {
+    protected LocalDateTime start;
+    protected LocalDateTime end;
+
+    public Event(String event, LocalDateTime start, LocalDateTime end) {
         super(event);
         this.start = start;
         this.end = end;
@@ -10,12 +13,14 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + this.start + " to:" + this.end + ")";
+        return "[E]" + super.toString() + " (from: " +
+                start.format(DateTimeFormatter.ofPattern("dd MMM yyyy | hh:mm a")) +
+                        " to: " + end.format(DateTimeFormatter.ofPattern("dd MMM yyyy | hh:mm a")) + ")";
     }
 
     @Override
-    public String toStringFile() {
-        return "E" + super.toStringFile() + " | " + this.start + " to " + this.end;
+    public String toStringForFile() {
+        return "E" + super.toStringForFile() + " | " + this.start + " to " + this.end;
     }
 
 }
