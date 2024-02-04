@@ -4,7 +4,6 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -46,9 +45,9 @@ public class Squid extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(
+    private Image imageUser = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private Image duke = new Image(
+    private Image imageDuke = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
 
     public Squid() {
@@ -350,7 +349,7 @@ public class Squid extends Application {
 
         //Step 3. Add functionality to handle user input.
 
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(hello()), new ImageView(duke)));
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(hello()), new ImageView(imageDuke)));
 
         sendButton.setOnMouseClicked((event) -> {
             try {
@@ -399,8 +398,8 @@ public class Squid extends Application {
         Label userText = new Label(input);
         Label dukeText = new Label(response.getResponse());
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, new ImageView(imageUser)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(imageDuke))
         );
         Tasks.save();
         userInput.clear();
@@ -414,7 +413,7 @@ public class Squid extends Application {
      * @return Whether the loop should continue (Usually true unless "bye" command is given).
      * @throws SquidException General exception thrown by Squid.
      */
-    private static Response parseInput(boolean isLoop, String input) {
+    public static Response parseInput(boolean isLoop, String input) {
         System.out.println(Messages.LINE_BREAK);
         String[] messages = input.split(" ", 2);
         String command = messages[0];
