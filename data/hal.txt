@@ -1,4 +1,2 @@
-T | 0 | buy book
-D | 0 | ps0 | tmr
-E | 0 | projet meeting | monday | wed
-D | 0 | smoke | 7pm
+D | 0 | Submit RVX | 2019-10-15
+E | 0 | project meeting | 2019-10-15 | 2019-10-19
