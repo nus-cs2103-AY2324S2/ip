@@ -9,9 +9,18 @@ import duke.task.Todo;
 
 import duke.exception.InvalidArgumentException;
 
+/**
+ * Represents the command to add a Todo task to the taskList.
+ */
 public class AddTodoCommand extends Command {
     String description;
 
+    /**
+     * Constructor for an AddToDo command,
+     * which initialises the command with its task description.
+     *
+     * @param description description of the Todo task.
+     */
     public AddTodoCommand(String description) {
         this.description = description;
     }

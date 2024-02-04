@@ -10,10 +10,18 @@ import duke.task.TaskList;
 
 import duke.exception.InvalidArgumentException;
 
-
+/**
+ * Represents the command to add a Deadline task to the taskList.
+ */
 public class AddDeadlineCommand extends Command {
     String description;
 
+    /**
+     * Constructor for an AddDeadline command,
+     * which initialises the command with its task description.
+     *
+     * @param description Description of the Deadline task.
+     */
     public AddDeadlineCommand(String description) {
         this.description = description;
     }
