@@ -1,14 +1,14 @@
 package lrbg.codriver.parser;
 
 import lrbg.codriver.command.ByeCommand;
-import lrbg.codriver.command.TodoCommand;
-import lrbg.codriver.command.ListCommand;
-import lrbg.codriver.command.DeleteCommand;
-import lrbg.codriver.command.MarkCommand;
-import lrbg.codriver.command.UnmarkCommand;
 import lrbg.codriver.command.DeadlineCommand;
+import lrbg.codriver.command.DeleteCommand;
 import lrbg.codriver.command.EventCommand;
+import lrbg.codriver.command.ListCommand;
+import lrbg.codriver.command.MarkCommand;
+import lrbg.codriver.command.TodoCommand;
 import lrbg.codriver.command.UnknownCommand;
+import lrbg.codriver.command.UnmarkCommand;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
