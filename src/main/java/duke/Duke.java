@@ -1,3 +1,8 @@
+package duke;
+
+import duke.task.Task;
+import duke.task.Events;
+import duke.task.Deadlines;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.time.LocalDateTime;
@@ -19,27 +24,6 @@ public class Duke {
             System.out.println(e.getMessage());
         }
     }
-//    private static final String line = "      ________________________________________________________\n";
-//    private static String logo = "     _______       ______     _______    _______    ___  ___\n"
-//            + "    |   _  \"\\     /    \" \\   |   _  \"\\  |   _  \"\\  |\"  \\/\"  |\n"
-//            + "    (. |_)  :)   // ____  \\  (. |_)  :) (. |_)  :)  \\   \\  /\n"
-//            + "    |:     \\/   /  /    ) :) |:     \\/  |:     \\/    \\\\  \\/\n"
-//            + "    (|  _  \\\\  (: (____/ //  (|  _  \\\\  (|  _  \\\\    /   /\n"
-//            + "    |: |_)  :)  \\        /   |: |_)  :) |: |_)  :)  /   /\n"
-//            + "    (_______/    \\\"_____/    (_______/  (_______/  |___/";
-//    private static void intro() {
-//        System.out.println("Hello! I'm\n" + Duke.logo + "\n\n What can I do for you today? :)\n");
-//    }
-
-//    private static void emptyDesc(String tasktype) throws DukeException {
-//        if (tasktype.equals("todo")) {
-//            throw new DukeException("todo task.");
-//        } else if (tasktype.equals("deadline")) {
-//            throw new DukeException("task and the deadline.");
-//        } else if (tasktype.equals("event")) {
-//            throw new DukeException("event and provide the start and end timing.");
-//        }
-//    }
 
     public void run() {
         ui.intro();
@@ -49,17 +33,13 @@ public class Duke {
         while(!userInput.equals("bye")) {
             try {
                 if (userInput.startsWith("mark")) {
-//                    String[] items = userInput.split(" ");
-//                    if (items.length == 1) {
-//                        throw new DukeException("Oops! Please state which task number you want to mark done!");
-//                    }
                     taskList.mark(Parser.parseNum(userInput));
                 } else if (userInput.startsWith("unmark")) {
                     taskList.unmark(Parser.parseNum(userInput));
                 } else if (userInput.startsWith("delete")){
                     taskList.delete(Parser.parseNum(userInput));
                 } else if (userInput.startsWith("todo")) {
-                    taskList.addItem(new Todos(Parser.parseTodo(userInput)), true);
+                    taskList.addItem(new Task(Parser.parseTodo(userInput)), true);
                 } else if (userInput.startsWith("deadline")) {
                     String[] parts = Parser.parseDeadline(userInput);
                     String task = parts[0];
