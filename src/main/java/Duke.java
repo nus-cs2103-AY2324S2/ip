@@ -92,6 +92,13 @@ public class Duke {
             System.out.println("なに？！");
             break;
         }
+        try {
+            if (!identifier.equals("list")) {
+                writeTaskListData();
+            }
+        } catch (IOException e) {
+            System.out.println("Error");
+        }
         System.out.println("Total task count: " + tasks.size() + ".\n" + gap);
     }
 
