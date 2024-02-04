@@ -21,14 +21,17 @@ public class TaskList {
         storage.saveTasks(tasks);
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
 
-    public String addToDo(Task t){
+    public String addTask(Task t){
         tasks.add(t);
         return "Got it. I've added this task:\n" + "   " + t + "\n"
                 + " Now you have " + tasks.size() + " tasks in the list.";
     }
 
-    public String deleteToDo(int taskIndex) throws DukeException {
+    public String deleteTask(int taskIndex) throws DukeException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
 
             Task t = this.tasks.remove(taskIndex);
@@ -40,7 +43,7 @@ public class TaskList {
         }
     }
 
-    public String toDoList() {
+    public String printList() {
         StringBuilder str;
         if (tasks.isEmpty()) {
 
@@ -60,7 +63,7 @@ public class TaskList {
         return str.toString();
     }
 
-    public String markToDo(int taskIndex) throws DukeException {
+    public String markTask(int taskIndex) throws DukeException {
 
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
 
@@ -73,7 +76,7 @@ public class TaskList {
         }
     }
 
-    public String unMarkToDo(int taskIndex) throws DukeException {
+    public String unmarkTask(int taskIndex) throws DukeException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
 
             Task t = this.tasks.get(taskIndex);
