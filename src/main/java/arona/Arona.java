@@ -80,7 +80,9 @@ public class Arona {
                 "    " + tasks.getTask(id));
     }
 
-    private boolean processCommand(CommandType commandType, String[] commandSplit) throws AronaIncompleteCommandException, AronaInvalidIndexException, AronaInvalidCommandException, AronaInvalidDateException {
+    private boolean processCommand(CommandType commandType, String[] commandSplit) throws
+            AronaIncompleteCommandException, AronaInvalidIndexException,
+            AronaInvalidCommandException, AronaInvalidDateException {
         if (commandType == CommandType.BYE) {
             return false;
         } else if (commandType == CommandType.LIST) {
