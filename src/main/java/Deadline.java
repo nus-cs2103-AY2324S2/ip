@@ -1,22 +1,41 @@
-public class Deadline extends Task {
-    protected String by;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Deadline(String description, String by) {
+public class Deadline extends Task {
+    protected LocalDateTime by;
+
+    public Deadline(String description, String by) throws DukeException {
         super(description);
-        this.by = by;
+        try {
+            this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new DukeException(
+                    "Invalid date format. Please use dd/MM/yyyy HHmm format. Example: 02/12/2019 1800\n");
+        }
+        this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 
     @Override
     public String toString() {
-        return "D | " + super.toString() + " | " + by;
+        return "D | " + super.toString() + " | " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
     }
 
     public static Deadline fromString(String input) {
         String[] split = input.split(" \\| ");
-        Deadline deadline = new Deadline(split[2], split[3]);
-        if (split[1].equals("X")) {
-            deadline.markAsDone();
+        try {
+            Deadline deadline = new Deadline(split[2], split[3]);
+            if (split[1].equals("X")) {
+                deadline.markAsDone();
+            }
+            return deadline;
+        } catch (DukeException e) {
+            System.out.println("Error creating deadline");
+            return null;
         }
-        return deadline;
+    }
+
+    public String toFileString() {
+        return "D | " + super.toString() + " | " + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 }

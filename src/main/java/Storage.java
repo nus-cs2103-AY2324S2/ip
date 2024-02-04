@@ -48,7 +48,7 @@ public class Storage {
     public void save(List<Task> tasks) throws IOException {
         List<String> lines = new ArrayList<>();
         for (Task task : tasks) {
-            lines.add(task.toString());
+            lines.add(task.toFileString());
         }
         Path path = Paths.get(filePath);
         if (!Files.exists(path)) {
