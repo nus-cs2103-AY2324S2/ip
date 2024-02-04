@@ -101,7 +101,9 @@ public class Deadline extends Task {
 
     @Override
     public void updateTask(String updateField, String updateInfo) throws DukeException {
-        if (updateField.equals("/by")) {
+        if (updateField.equals("/des")) {
+            this.description = updateInfo;
+        } else if (updateField.equals("/by")) {
             String timeInfo = updateInfo;
             timeInfo = changeWordToDate(timeInfo);
             if (!checkTimeForm(timeInfo)) {

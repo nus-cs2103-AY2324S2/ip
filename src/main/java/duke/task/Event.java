@@ -121,7 +121,9 @@ public class Event extends Task {
 
     @Override
     public void updateTask(String updateField, String updateInfo) throws DukeException {
-        if (updateField.equals("/from")) {
+        if (updateField.equals("/des")) {
+            this.description = updateInfo;
+        } else if (updateField.equals("/from")) {
             String timeInfo = updateInfo;
             timeInfo = changeWordToDate(timeInfo);
             if (!checkTimeForm(timeInfo)) {

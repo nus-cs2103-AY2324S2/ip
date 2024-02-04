@@ -64,6 +64,10 @@ public class Todo extends Task {
 
     @Override
     public void updateTask(String updateField, String updateValue) throws WrongUsageException {
-        throw new WrongUsageException("update only on Deadlines and Events's time related field.\n");
+        if (updateField.equals("/des")) {
+            this.description = updateValue;
+        } else {
+            throw new WrongUsageException("update only on Deadlines and Events's time related field.\n");
+        }
     }
 }
