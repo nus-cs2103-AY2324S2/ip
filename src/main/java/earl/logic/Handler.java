@@ -1,9 +1,12 @@
-package earl.util;
+package earl.logic;
 
 import earl.exceptions.EarlException;
 import earl.tasks.Deadline;
 import earl.tasks.Event;
 import earl.tasks.Todo;
+import earl.util.Parser;
+import earl.util.TaskList;
+import earl.util.Ui;
 
 public abstract class Handler {
 

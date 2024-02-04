@@ -1,7 +1,7 @@
 package earl;
 
 import earl.exceptions.EarlException;
-import earl.util.Handler;
+import earl.logic.Handler;
 import earl.util.Parser;
 import earl.util.Storage;
 import earl.util.TaskList;
