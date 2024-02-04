@@ -31,8 +31,9 @@ public class AddTaskCommand extends Command {
     }
 
     @Override
-    public void execute(Storage s, TaskList t, Ui u) throws BelleException {
+    public String execute(Storage s, TaskList t, Ui u) throws BelleException {
         Task curr;
+        String printStatement;
         if (type.equals("todo")) {
             try {
                 curr = new TodoTask(msg.substring(5), false);
@@ -64,13 +65,12 @@ public class AddTaskCommand extends Command {
             }
         }
         t.addTask(curr);
-        System.out.println("--------------------------");
-        System.out.println("Got it. I've added this task:");
-        System.out.println(curr.toString());
-        System.out.println("Now you have " + t.getSize()+ " tasks in the list.");
-        System.out.println("--------------------------");
-
+        printStatement = "--------------------------" + "\n" +
+                "Got it. I've added this task:" + "\n" + curr.toString() +
+                "\n" + "Now you have " + t.getSize()+ " tasks in the list." +
+                "\n" + "--------------------------";
         s.save(t.getList());
+        return printStatement;
 
     }
 

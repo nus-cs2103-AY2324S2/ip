@@ -20,7 +20,7 @@ public abstract class Command {
      * @param t Tasklist of program.
      * @param u Ui that handles user interactions.
      */
-    public abstract void execute(Storage s, TaskList t, Ui u) throws BelleException;
+    public abstract String execute(Storage s, TaskList t, Ui u) throws BelleException;
 
     /**
      * Returns true if the program should exit

@@ -16,8 +16,8 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void execute(Storage s, TaskList t, Ui u) {
-        u.bye();
+    public String execute(Storage s, TaskList t, Ui u) {
+        return u.bye();
     }
 
     @Override

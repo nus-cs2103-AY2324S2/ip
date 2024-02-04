@@ -27,21 +27,18 @@ public class Ui {
     /**
      * Prints welcome message.
      */
-    public void greet() {
-        System.out.println("--------------------------");
-        System.out.println("Welcome!! I'm Belle <3.");
-        System.out.println("What can I do for you?");
-        System.out.println("--------------------------");
+    public String greet() {
+        return "--------------------------" +"\n" + "Welcome!! I'm Belle <3."
+                + "\n" + "What can I do for you?" + "\n" +
+                "--------------------------";
     }
 
     /**
      * Prints goodbye message.
      */
-    public void bye() {
-        System.out.println("--------------------------");
-        System.out.println("Till next time!! Goodbye.");
-        System.out.println("--------------------------");
+    public String bye() {
         this.sc.close();
+        return "--------------------------" +"\n" + "Till next time!! Goodbye.";
     }
 
     public void printError(String msg) {

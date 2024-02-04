@@ -28,16 +28,18 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(Storage s, TaskList t, Ui u) throws BelleException {
+    public String execute(Storage s, TaskList t, Ui u) throws BelleException {
         try {
+            String printStatement;
             Task deletetask = t.getTask(Integer.valueOf(index)-1);
             t.removeTask(Integer.parseInt(index) - 1);
-            System.out.println("--------------------------");
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(deletetask.toString());
-            System.out.println("Now you have "+ t.getSize() + " tasks in the list.");
-            System.out.println("--------------------------");
+            printStatement = "--------------------------" + "\n" +
+                    "Noted. I've removed this task:" + "\n" +
+                    deletetask.toString() +
+                    "\n" + "Now you have "+ t.getSize() + " tasks in the list." + "\n" +
+                    "--------------------------";
             s.save(t.getList());
+            return printStatement;
         } catch (IndexOutOfBoundsException e){
             throw new BelleException("This is not a valid number in my task list :(");
         }

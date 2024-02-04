@@ -24,15 +24,15 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(Storage s, TaskList t, Ui u) throws BelleException {
+    public String execute(Storage s, TaskList t, Ui u) throws BelleException {
         try {
             Task doingtask = t.getTask(Integer.valueOf(index)-1);
             doingtask.setTaskUndone();
-            System.out.println("--------------------------");
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(doingtask.toString());
-            System.out.println("--------------------------");
+            String printStatement = "--------------------------" + "\n"
+                    + "OK, I've marked this task as not done yet:" + "\n" +
+                    doingtask.toString() + "\n" + "--------------------------";
             s.save(t.getList());
+            return printStatement;
         } catch (IndexOutOfBoundsException e){
             throw new BelleException("This is not a valid number in my task list :(");
         }
