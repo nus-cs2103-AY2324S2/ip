@@ -9,4 +9,8 @@ public class AlfredException extends Exception{
         System.out.println(this.getMessage());
         System.out.println(line);
     }
+    @Override
+    public String toString() {
+        return this.getMessage();
+    }
 }
