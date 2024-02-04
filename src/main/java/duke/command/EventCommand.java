@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.task.Event;
+import duke.storage.Storage;
+import duke.tasklist.TaskList;
+import duke.ui.Ui;
+
 import java.time.LocalDate;
 
 /*
