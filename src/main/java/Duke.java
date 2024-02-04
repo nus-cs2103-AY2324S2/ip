@@ -237,8 +237,6 @@ public class Duke {
         }
     }
 
-    //PERFORMING CHECKS
-
     /**
      * Validates the input format for creating Deadlines.
      * @param input User input specifying the Deadline description and due date.
