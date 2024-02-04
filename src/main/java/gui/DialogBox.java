@@ -16,6 +16,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+/**
+ * A custom JavaFX control representing a dialog box with an ImageView for the speaker's face and a label for text.
+ */
 public class DialogBox extends HBox {
     @FXML
     private TextFlow dialogTextFlow;
