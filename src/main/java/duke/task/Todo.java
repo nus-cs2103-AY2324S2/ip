@@ -51,4 +51,12 @@ public class Todo extends Task {
         }
         return false;
     }
+
+    @Override
+    public int compareTo(Task otherTask) {
+        if (otherTask instanceof Todo) {
+            return this.description.compareTo(otherTask.description);
+        }
+        return 1;
+    }
 }

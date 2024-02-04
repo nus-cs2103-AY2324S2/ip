@@ -69,4 +69,8 @@ public class TaskList {
     public void resetTaskList(ArrayList<Task> taskList) {
         this.taskArrayList = taskList;
     }
+
+    public void sortTaskList() {
+        taskArrayList.sort((x, y) -> x.compareTo(y));
+    }
 }

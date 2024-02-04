@@ -39,6 +39,9 @@ class Parser {
         if (input.equals("current") || input.equals("curr")) {
             return new CurrentTask(tasks);
         }
+        if (input.equals("sort")) {
+            return new Sort(tasks);
+        }
         if ((inputs[0].equals("change") || inputs[0].equals("cd")) && inputs.length == TOKEN_NUM) {
             return new ChangeDataSource(inputs[1], storage, tasks);
         }

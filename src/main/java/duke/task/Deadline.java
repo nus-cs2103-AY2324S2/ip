@@ -67,6 +67,9 @@ public class Deadline extends Task {
         return current.compareTo(by) <= 0;
     }
 
+    public LocalDate getByTime() {
+        return this.by;
+    }
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Deadline) {
@@ -76,5 +79,18 @@ public class Deadline extends Task {
             return equalDescribe && equalBy;
         }
         return false;
+    }
+
+    @Override
+    public int compareTo(Task otherTask) {
+        if (otherTask instanceof Todo) {
+            return -1;
+        }
+        if (otherTask instanceof Event) {
+            Event temp = (Event) otherTask;
+            return this.by.compareTo(temp.getFromTime());
+        }
+        Deadline temp = (Deadline) otherTask;
+        return this.by.compareTo(temp.getByTime());
     }
 }

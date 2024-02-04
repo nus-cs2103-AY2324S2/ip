@@ -81,6 +81,13 @@ public class Event extends Task {
         return current.compareTo(to) <= 0 && current.compareTo(from) >= 0;
     }
 
+    public LocalDate getFromTime() {
+        return this.from;
+    }
+
+    public LocalDate getToTime() {
+        return this.to;
+    }
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Event) {
@@ -91,5 +98,18 @@ public class Event extends Task {
             return equalDescribe && equalFrom && equalTo;
         }
         return false;
+    }
+
+    @Override
+    public int compareTo(Task otherTask) {
+        if (otherTask instanceof Todo) {
+            return -1;
+        }
+        if (otherTask instanceof Deadline) {
+            Deadline temp = (Deadline) otherTask;
+            return this.from.compareTo(temp.getByTime());
+        }
+        Event temp = (Event) otherTask;
+        return this.from.compareTo(temp.getFromTime());
     }
 }

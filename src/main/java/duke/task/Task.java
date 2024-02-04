@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * A class for managing all kinds of Tasks.
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     /** The task list, update upon creation of task */
     protected String description;
     protected boolean isDone;
@@ -87,4 +87,7 @@ public abstract class Task {
         String temp = String.format("[%s][%s] %s", this.getTaskTypeIcon(), this.getStatusIcon(), this.description);
         return temp;
     }
+
+    @Override
+    public abstract int compareTo(Task otherTask);
 }
