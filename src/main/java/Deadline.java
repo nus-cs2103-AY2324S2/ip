@@ -1,21 +1,34 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
 
     private String deadline;
+    private LocalDateTime deadlineDateFormat;
     public Deadline(String description) throws DukeException {
         this.fullTaskDescription = description;
-        String[] command = description.split(" /by ");
-        if (command.length <= 1) {
+        try {
+            String[] command = description.split(" /by ");
+            if (command.length <= 1) {
+                throw new DukeException("____________________________________________________________\n" +
+                        " OOPS! Your Only Friend cannot take in a deadline entry with no time :(\n" +
+                        "____________________________________________________________\n");
+            }
+            this.deadlineDateFormat = LocalDateTime.parse(command[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            this.description = command[0];
+        } catch (DateTimeParseException e) {
             throw new DukeException("____________________________________________________________\n" +
-                    " OOPS! Your Only Friend cannot take in a deadline entry with no time :(\n" +
+                    " OOPS! Please enter deadline in a valid format (yyyy-mm-dd HH:mm). :(\n" +
                     "____________________________________________________________\n");
         }
-        this.deadline = command[1];
-        this.description = command[0];
+
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + this.description + " (by: " + this.deadline + ")";
+        return "[D]" + super.toString() + this.description + " (by: " + deadlineDateFormat.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
     }
 
     @Override
