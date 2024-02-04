@@ -1,4 +1,6 @@
-package main.java;
+package main.java.task;
+
+import main.java.FileHandler;
 
 import java.util.ArrayList;
 
@@ -27,9 +29,15 @@ public class TaskList {
         FileHandler.saveTaskList(this);
     }
 
-    public void markTask(int index, boolean isDone) {
-        this.list.get(index).setTaskState(isDone);
-        FileHandler.saveTaskList(this);
+    public boolean markTask(int index, boolean isDone) {
+        Task task = this.list.get(index);
+        if (task.isDone == isDone) {
+            return false;
+        } else {
+            task.setTaskState(isDone);
+            FileHandler.saveTaskList(this);
+            return true;
+        }
     }
     public String toString() {
         int size = this.list.size();

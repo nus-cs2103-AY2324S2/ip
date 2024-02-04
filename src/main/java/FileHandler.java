@@ -1,8 +1,9 @@
 package main.java;
 
+import main.java.task.*;
+
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Scanner;
 import java.io.FileWriter;
 
