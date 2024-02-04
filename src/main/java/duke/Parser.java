@@ -65,10 +65,8 @@ public class Parser {
                     null);
         }
 
-        int taskID;
-
         try {
-            taskID = Integer.parseInt(this.arguments);
+            return Integer.parseInt(this.arguments);
         } catch (NumberFormatException e) {
             throw new BadInputException(
                     "Task number must be an integer!",
@@ -76,8 +74,6 @@ public class Parser {
                     String.format("%s 1", this.arguments),
                     this.arguments);
         }
-
-        return taskID;
     }
 
     /**
