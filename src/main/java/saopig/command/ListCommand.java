@@ -50,20 +50,21 @@ public class ListCommand extends Command {
      * @param taskList The task list.
      * @param ui       The user interface.
      */
-    public void listTasks(TaskList taskList, Ui ui) {
+    public String listTasks(TaskList taskList, Ui ui) {
         if (taskList.getTasks().isEmpty()) {
-            ui.printMessage("\n"
+            return ("\n"
                     + "Oh dear, it looks like there are no tasks yet!\n "
                     + "But that's alright.\n "
                     + "It gives us a chance to start fresh and dream up some new plans.\n "
                     + "Whenever you're ready to add tasks, I'll be right here to assist you.\n "
                     + "Let's make it a magical journey together!");
-            return;
         }
+        StringBuilder response = new StringBuilder();
         for (int i = 0; i < taskList.getTasks().size(); i++) {
             Task task = taskList.getTasks().get(i);
-            ui.printMessage((i + 1) + ". " + task.toString());
+            response.append((i + 1)).append(". ").append(task.toString());
         }
+        return response.toString();
     }
 
     /**
@@ -77,13 +78,14 @@ public class ListCommand extends Command {
      * @param input    The input.
      * @param taskList The task list.
      * @param ui       The user interface.
+     * @return response to the user.
      */
-    public void listTasksOnDate(String input, TaskList taskList, Ui ui) {
+    public String listTasksOnDate(String input, TaskList taskList, Ui ui) {
         try {
+            StringBuilder response = new StringBuilder();
             checkValue(input.length(), 16, Integer.MAX_VALUE);
             String date = input.substring(15);
-            ui.printMessage("\n"
-                    + "Oh, splendid! Let me check my calendar for tasks on " + date + "...");
+            response.append("\n" + "Oh, splendid! Let me check my calendar for tasks on ").append(date).append("...");
             LocalDateTime dateTime = LocalDateTime.parse(date + " 00:00", DATE_TIME_FORMATTER);
             ArrayList<Task> tasksOnDate = new ArrayList<>();
             for (Task task : taskList.getTasks()) {
@@ -99,22 +101,23 @@ public class ListCommand extends Command {
                 }
             }
             if (tasksOnDate.isEmpty()) {
-                ui.printMessage("\n"
-                        + "Oh dear, it looks like there are no tasks on " + date + "!\n "
-                        + "But that's alright.\n "
-                        + "It gives us a chance to start fresh and dream up some new plans.\n "
-                        + "Whenever you're ready to add tasks, I'll be right here to assist you.\n "
-                        + "Let's make it a magical journey together!");
-                return;
+                response.append("\n" + "Oh dear, it looks like there are no tasks on ")
+                        .append(date).append("!\n ")
+                        .append("But that's alright.\n ")
+                        .append("It gives us a chance to start fresh and dream up some new plans.\n ")
+                        .append("Whenever you're ready to add tasks, I'll be right here to assist you.\n ")
+                        .append("Let's make it a magical journey together!");
+                return response.toString();
             }
-            ui.printMessage("\n"
-                    + "Oh, splendid! Here are the tasks on " + date + ":");
+            response.append("\n" + "Oh, splendid! Here are the tasks on ")
+                    .append(date).append(":");
             for (int i = 0; i < tasksOnDate.size(); i++) {
                 Task task = tasksOnDate.get(i);
-                ui.printMessage((i + 1) + ". " + task.toString());
+                response.append((i + 1)).append(". ").append(task.toString());
             }
+            return response.toString();
         } catch (SaopigInvaildSizeException e) {
-            ui.printMessage(e.getMessage()
+            return (e.getMessage()
                     + "\n"
                     + "Oopses daisy!\n "
                     + "It seems like you might have forgotten to give an argument for the listtaskondate command.\n "
@@ -122,7 +125,7 @@ public class ListCommand extends Command {
                     + "Just add the date for the task you'd like to list, and you'll be all set.\n "
                     + "Please try again, or type 'bye' to exit.");
         } catch (DateTimeParseException e) {
-            ui.printMessage("\n"
+            return ("\n"
                     + "Oopses daisy!\n "
                     + "It seems like you might have given an invalid date time format.\n "
                     + "Please use the format: yyyy-MM-dd");
@@ -135,14 +138,16 @@ public class ListCommand extends Command {
      * @param tasks   The task list.
      * @param ui      The user interface.
      * @param storage The storage.
+     * @return response to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (typeIndex == 0) {
-            listTasks(tasks, ui);
+            return listTasks(tasks, ui);
         } else if (typeIndex == 1) {
-            listTasksOnDate(command, tasks, ui);
+            return listTasksOnDate(command, tasks, ui);
         }
+        return null;
     }
 
     /**

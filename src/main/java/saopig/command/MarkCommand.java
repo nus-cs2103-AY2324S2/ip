@@ -41,19 +41,22 @@ public class MarkCommand extends Command {
      * @param ui        The user interface.
      * @param storage   The storage.
      */
-    public void markTaskAsDone(String input, TaskList taskList, Ui ui, Storage storage) {
+    public String markTaskAsDone(String input, TaskList taskList, Ui ui, Storage storage) {
         try {
+            StringBuilder response = new StringBuilder();
             checkValue(input.length(), 6, Integer.MAX_VALUE);
             int index = Integer.parseInt(input.substring(5)) - 1;
             Task task = taskList.getTask(index);
             task.markAsDone();
             storage.saveTaskList(taskList);
-            ui.printMessage("\n"
-                    + "Oh, splendid! Your task: {" + task.toString() + "} has been marked as done successfully.\n "
-                    + "Isn't it just wonderful when things go exactly as planned?\n "
-                    + "I'm so proud of you for getting it done!");
+            response.append("\n" + "Oh, splendid! Your task: {")
+                    .append(task.toString())
+                    .append("} has been marked as done successfully.\n ")
+                    .append("Isn't it just wonderful when things go exactly as planned?\n ")
+                    .append("I'm so proud of you for getting it done!");
+            return response.toString();
         } catch (SaopigInvaildSizeException e) {
-            ui.printMessage(e.getMessage()
+            return (e.getMessage()
                     + "\n"
                     + "Oopses daisy!\n "
                     + "It seems like you might have forgotten to give an argument for the mark command.\n "
@@ -61,11 +64,11 @@ public class MarkCommand extends Command {
                     + "Just add the index for the task you'd like to mark, and you'll be all set.\n "
                     + "Please try again, or type 'bye' to exit.");
         } catch (IndexOutOfBoundsException e) {
-            ui.printMessage("\n"
+            return ("\n"
                     + "Oopses daisy!\n "
                     + "It seems like you might have given an invalid index for the task list.");
         } catch (NumberFormatException e) {
-            ui.printMessage("\n"
+            return ("\n"
                     + "Oopses daisy!\n "
                     + "It seems like you might have given an invalid index for the task list "
                     + "or your input is not a number.");
@@ -82,19 +85,21 @@ public class MarkCommand extends Command {
      * @param ui        The user interface.
      * @param storage   The storage.
      */
-    public void unmarkTaskAsDone(String input, TaskList taskList, Ui ui, Storage storage) {
+    public String unmarkTaskAsDone(String input, TaskList taskList, Ui ui, Storage storage) {
         try {
+            StringBuilder response = new StringBuilder();
             checkValue(input.length(), 8, Integer.MAX_VALUE);
             int index = Integer.parseInt(input.substring(7)) - 1;
             Task task = taskList.getTask(index);
             task.unmarkAsDone();
             storage.saveTaskList(taskList);
-            ui.printMessage("\n"
-                    + "Oh, you've unmarked task: {" + task.toString() + "}?\n "
-                    + "No worries at all! It's always okay to reevaluate and adjust your plans.\n "
-                    + "Flexibility is a sign of strength, you know. Keep up the great work!");
+            response.append("\n" + "Oh, you've unmarked task: {")
+                    .append(task.toString()).append("}?\n ")
+                    .append("No worries at all! It's always okay to reevaluate and adjust your plans.\n ")
+                    .append("Flexibility is a sign of strength, you know. Keep up the great work!");
+            return response.toString();
         } catch (SaopigInvaildSizeException e) {
-            ui.printMessage(e.getMessage()
+            return (e.getMessage()
                     + "\n"
                     + "Oopses daisy!\n "
                     + "It seems like you might have forgotten to give an argument for the unmark command.\n "
@@ -102,11 +107,11 @@ public class MarkCommand extends Command {
                     + "Just add the index for the task you'd like to unmark, and you'll be all set.\n "
                     + "Please try again, or type 'bye' to exit.");
         } catch (IndexOutOfBoundsException e) {
-            ui.printMessage("\n"
+            return ("\n"
                     + "Oopses daisy!\n "
                     + "It seems like you might have given an invalid index for the task list.");
         } catch (NumberFormatException e) {
-            ui.printMessage("\n"
+            return ("\n"
                     + "Oopses daisy!\n "
                     + "It seems like you might have given an invalid index for the task list "
                     + "or your input is not a number.");
@@ -119,13 +124,14 @@ public class MarkCommand extends Command {
      * @param tasks   The task list.
      * @param ui      The user interface.
      * @param storage The storage.
+     * @return Response to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (typeIndex == 0) {
-            markTaskAsDone(command, tasks, ui, storage);
+            return markTaskAsDone(command, tasks, ui, storage);
         } else {
-            unmarkTaskAsDone(command, tasks, ui, storage);
+            return unmarkTaskAsDone(command, tasks, ui, storage);
         }
     }
 

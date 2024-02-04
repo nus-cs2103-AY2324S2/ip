@@ -32,7 +32,7 @@ public class FindCommand extends Command {
         }
     }
 
-    private void findTask(String input, TaskList tasks, Ui ui) {
+    private String findTask(String input, TaskList tasks, Ui ui) {
         try {
             checkValue(input.length(), 6, Integer.MAX_VALUE);
             String processedInput = input.substring(5);
@@ -44,26 +44,24 @@ public class FindCommand extends Command {
             }
 
             if (matchingTasks.isEmpty()) {
-                ui.printMessage("No matching tasks found.");
-                return;
+                return ("No matching tasks found.");
             }
-
-            ui.printMessage("Here are the matching tasks in your list:");
+            StringBuilder response = new StringBuilder("Here are the matching tasks in your list:");
 
             for (int i = 0; i < matchingTasks.size(); i++) {
-                ui.printMessage((i + 1) + ". " + matchingTasks.get(i).toString());
+                response.append((i + 1)).append(". ").append(matchingTasks.get(i).toString());
             }
-
+            return response.toString();
         } catch (SaopigInvaildSizeException e) {
-            ui.printMessage("\n"
+            return ("\n"
                     + "Oopses daisy!\n "
                     + "It seems like you might have given an invalid index for the task list.");
         }
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        findTask(command, tasks, ui);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return findTask(command, tasks, ui);
     }
 
     @Override

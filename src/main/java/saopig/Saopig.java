@@ -1,43 +1,57 @@
 package saopig;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import saopig.command.Command;
 import saopig.task.TaskList;
 
 /**
- * Represents a Saopig chat bot.
- * A <code>Saopig</code> object corresponds to a chat bot that can
+ * Represents a Saopig chatbot.
+ * A <code>Saopig</code> object corresponds to a chatbot that can
  * help users to manage their tasks.
  */
-public class Saopig {
+public class Saopig extends Application {
     private TaskList taskList = new TaskList();
     private Ui ui = new Ui();
     private Storage storage = new Storage(this.ui, this.taskList);
-
     /**
-     * Runs the Saopig chatbot.
+     * Constructs a Saopig object.
      */
-    public static void main(String[] args) {
-        new Saopig().run();
+    public Saopig() {
     }
 
-    /**
-     * Runs the Saopig chatbot until the user exits.
-     */
-    private void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(this.taskList, this.ui, this.storage);
-                isExit = c.isExit();
-                ui.printLine();
-            } catch (SaopigInvaildSizeException e) {
-                ui.showError("Unknown command error.");
-                ui.printLine();
-            }
+    @Override
+    public void start(Stage stage) throws Exception {
+        this.taskList = this.storage.loadTaskList(this.taskList);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
+        AnchorPane ap = fxmlLoader.load();
+        Scene scene = new Scene(ap);
+        stage.setScene(scene);
+        stage.setTitle("Saopig");
+        fxmlLoader.<MainWindow>getController().setSaopig(this);
+        fxmlLoader.<MainWindow>getController().initialize();
+        Button sendButton = fxmlLoader.<MainWindow>getController().getSendButton();
+        sendButton.setOnAction((event) -> {
+            fxmlLoader.<MainWindow>getController().handleUserInput();
+        });
+        TextField userInput = fxmlLoader.<MainWindow>getController().getUserInput();
+        userInput.setOnAction((event) -> {
+            fxmlLoader.<MainWindow>getController().handleUserInput();
+        });
+        stage.show();
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(this.taskList, this.ui, this.storage);
+        } catch (SaopigInvaildSizeException e) {
+            return "Unknown command error.";
         }
-        ui.showGoodbye();
     }
 }
