@@ -34,6 +34,9 @@ public class TaskManager {
         this.items = new ArrayList<>();
     }
 
+    public void addItem(Task item) {
+        items.add(item);
+    }
 
     public ArrayList<String> addTask(Actions options, String instruction) throws DukeException {
         Task item;
@@ -194,70 +197,8 @@ public class TaskManager {
         return hasChanged;
     }
 
-    private Task determineTask(String task) {
-        String[] data = task.split("\\|");
-        String type = data[0];
-        Task item;
-        String name;
-        String by;
-        LocalDateTime byDateTime;
-        LocalDateTime fromDateTime;
-        String from;
-        switch (type) {
-            case "D":
-                name = data[2];
-                by = data[3];
-                String temp = data[4];
-                if (!temp.equals("null")) {
-                    item = new Deadline(name, LocalDateTime.parse(temp.trim()));
-                } else {
-                    item = new Deadline(name, by);
-                }
-                break;
-            case "E":
-                name = data[2];
-                by = data[3];
-                from = data[4];
-                String tempBy = data[5];
-                String tempFrom = data[6];
-                if (!(tempBy.equals("null") || tempFrom.equals("null"))) {
-                    item = new Event(name, LocalDateTime.parse(tempFrom.trim()), LocalDateTime.parse(tempBy.trim()));
-                } else {
-                    item = new Event(name, by, from);
-                }
 
-                break;
-            case "T":
-                name = data[2];
-                item = new Todo(name);
-                break;
-            default:
-                item = new Task(data[2]);
-                break;
-        }
-        String isDone = data[1];
-        if (isDone.equals("x")) {
-            item.markAsDone();
-        }
-        return item;
 
-    }
-
-    public void loadTasksFromFile(File file) {
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String next;
-            while ((next = br.readLine()) != null) {
-                if (!next.isBlank()) {
-                    //Read task file
-                    Task item = determineTask(next);
-                    items.add(item);
-                }
-
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
 
 }
