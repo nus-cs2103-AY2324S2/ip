@@ -2,10 +2,19 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * Encapsulates the list of tasks that the user is currently tracking. Analogous to an ArrayList and supports
+ * the relevant operations.
+ */
 public class TaskList {
 
     private final ArrayList<Task> list = new ArrayList<>();
-
+    
+    /**
+     * Returns a string representation of this list. Intended to be printed as the chatbot's response
+     *
+     * @return A string containing the tasks in the list, generated with each tasks' describe method.
+     */
     public String toDisplayString() {
         // here's your """""effectively final""""" value bro
         var numBox = new Object() {
@@ -24,7 +33,12 @@ public class TaskList {
                         StringBuilder::append)
                 .toString();
     }
-    
+
+    /**
+     * Returns a string representation of this list that is intended to be stored as a database.
+     *
+     * @return A string containing the tasks in the list, using the tasks' toStorageString method.
+     */
     public String toStorageString() {
         StringBuilder sb = new StringBuilder();
 
@@ -33,11 +47,23 @@ public class TaskList {
         }
         return sb.toString();
     }
-
+    
+    /**
+     * Retrieves the task at the specified zero-based index. similar to ArrayList::get
+     *
+     * @param i The index of the task to retrieve.
+     * @return The task the index i.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
+     */
     public Task get(int i) throws IndexOutOfBoundsException {
         return this.list.get(i);
     }
 
+    /**
+     * Adds a new task to the list. similar to ArrayList::add
+     *
+     * @param t The task to be added to the list.
+     */
     public void add(Task t) {
         this.list.add(t);
     }
@@ -46,6 +72,13 @@ public class TaskList {
         return this.list.size();
     }
 
+    /**
+     * Deletes the task at the specified zero-based index. similar to ArrayList::remove, except it does not return
+     * the removed task.
+     *
+     * @param i The index of the task to be removed.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
+     */
     public void remove(int i) throws IndexOutOfBoundsException {
         this.list.remove(i);
     }
