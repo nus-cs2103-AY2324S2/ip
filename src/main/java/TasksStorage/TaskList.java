@@ -16,6 +16,10 @@ public class TaskList {
                 "list now.\n\n", t.toString(), this.tasks.size());
     }
 
+    public void loadTask(Task t) {
+        this.tasks.add(t);
+    }
+
     public void removeTask(int i) {
         Task t = this.tasks.get(i);
         this.tasks.remove(i);

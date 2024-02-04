@@ -32,7 +32,7 @@ public class Ui {
 
 
     public void dateFormatInstructions() {
-        System.out.printf("    Your date should be in this format:\n    <YYYY-MM-DD HH:mm> e.g. 2024-02-03 15:25\n");
+        System.out.printf("    Your date should be in this format:\n    <YYYY-MM-DD HH:mm> e.g. 2024-02-03 15:25\n\n");
     }
 
 

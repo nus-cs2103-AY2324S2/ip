@@ -53,7 +53,7 @@ public class Storage {
                 if (task[1].equals("1")) {
                     t.markTask();
                 }
-                tasks.addTask(t);
+                tasks.loadTask(t);
             }
             FileWriter fw = new FileWriter(this.file);
             fw.close();
