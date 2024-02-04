@@ -22,7 +22,6 @@ public class ExitCommand extends Command {
      * @param ui      The user interface to display messages.
      * @param storage The storage (not used in this command).
      */
-
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showExitMessage();
@@ -34,7 +33,6 @@ public class ExitCommand extends Command {
      *
      * @return {@code true} since this is an exit command.
      */
-
     @Override
     public boolean isExit() {
         return true;

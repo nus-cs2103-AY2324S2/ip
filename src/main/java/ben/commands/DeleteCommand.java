@@ -17,11 +17,9 @@ public class DeleteCommand extends Command {
      *
      * @param index The index of the task to be deleted.
      */
-
     public DeleteCommand(int index) {
         this.index = index;
     }
-
 
     /**
      * Executes the DeleteCommand by removing the task at the specified index from the task list.
@@ -31,14 +29,13 @@ public class DeleteCommand extends Command {
      * @param storage The storage to save the updated task list.
      * @throws BenException If an error occurs during the execution of the command.
      */
-
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BenException {
         if (tasks.isEmpty()) {
             throw new BenException("   No tasks to delete :)");
         }
 
-        if (!tasks.isWithinBounds(this.index)) {
+        if (tasks.isOutOfBounds(this.index)) {
             throw new BenException("   Please input a valid number between 1 and " + tasks.size());
         }
 

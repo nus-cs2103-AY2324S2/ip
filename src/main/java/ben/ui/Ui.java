@@ -140,5 +140,18 @@ public class Ui {
     public void showDeletedTaskMessage() {
         show("Noted. I've removed this task:");
     }
-}
 
+    /**
+     * Displays a message indicating that matching tasks have been found.
+     */
+    public void showTasksFoundMessage() {
+        show("Here are the matching tasks in your list:");
+    }
+
+    /**
+     * Displays a message indicating that no matching tasks have been found.
+     */
+    public void showNoTasksFoundMessage() {
+        show("Sorry, there are no matching tasks... Try another keyword!");
+    }
+}

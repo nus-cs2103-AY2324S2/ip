@@ -133,8 +133,21 @@ public class Parser {
                 return new DeleteCommand(index);
             }
 
+            case "find": {
+                // Find command
+
+                // empty field
+                if (tokens.length < 2) {
+                    throw new BenException("   Key in a value");
+                }
+
+                String keyword = tokens[1];
+
+                return new FindCommand(keyword);
+            }
+
             default:
-                // Unrecognized command
+                // Unrecognised command
                 throw new BenException("   OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }

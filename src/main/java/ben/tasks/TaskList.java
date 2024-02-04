@@ -94,8 +94,8 @@ public class TaskList {
      * @param index The index to check.
      * @return true if the index is within bounds, false otherwise.
      */
-    public boolean isWithinBounds(int index) {
-        return index < 0 || index > tasks.size() - 1;
+    public boolean isOutOfBounds(int index) {
+        return index < 0 || index >= tasks.size();
     }
 
     /**
@@ -142,7 +142,6 @@ public class TaskList {
      * Displays the entire TaskList.
      */
     public void showTaskList() {
-        StringBuilder s = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
             Task currTask = this.tasks.get(i);
             Ui.show((i + 1) + ". " + currTask);
@@ -181,5 +180,22 @@ public class TaskList {
                     .append(System.lineSeparator());
         }
         return s.toString();
+    }
+
+    /**
+     * Finds tasks containing a specific keyword in their description.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A list of tasks containing the specified keyword.
+     */
+    public List<Task> findTasks(String keyword) {
+        List<Task> matchedTasks = new ArrayList<>();
+        for (Task currTask : this.tasks) {
+            if (currTask.contains(keyword)) {
+                matchedTasks.add(currTask);
+            }
+        }
+
+        return matchedTasks;
     }
 }

@@ -9,7 +9,6 @@ import ben.ui.Ui;
  */
 public class ListCommand extends Command {
 
-
     /**
      * Creates a ListCommand.
      */

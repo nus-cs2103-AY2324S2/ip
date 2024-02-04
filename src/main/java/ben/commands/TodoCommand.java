@@ -12,7 +12,6 @@ import ben.ui.Ui;
 public class TodoCommand extends Command {
     private final String description;
 
-
     /**
      * Creates a TodoCommand with the specified description.
      *

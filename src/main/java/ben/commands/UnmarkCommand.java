@@ -11,7 +11,6 @@ import ben.ui.Ui;
 public class UnmarkCommand extends Command {
     private final int index;
 
-
     /**
      * Creates an UnmarkCommand with the specified index to unmark a task.
      *
@@ -38,7 +37,7 @@ public class UnmarkCommand extends Command {
         }
 
         // check if input is within bounds
-        if (!tasks.isWithinBounds(index)) {
+        if (tasks.isOutOfBounds(index)) {
             throw new BenException("   Please input a valid number between 1 and " + tasks.size());
         }
 

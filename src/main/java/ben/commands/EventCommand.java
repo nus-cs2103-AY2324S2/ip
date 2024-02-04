@@ -23,7 +23,6 @@ public class EventCommand extends Command {
      * @param startDate   The start date of the event.
      * @param endDate     The end date of the event.
      */
-
     public EventCommand(String description, LocalDate startDate, LocalDate endDate) {
         this.description = description;
         this.startDate = startDate;
@@ -37,7 +36,6 @@ public class EventCommand extends Command {
      * @param ui      The user interface to display messages.
      * @param storage The storage to save the updated task list.
      */
-
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task newEvent = new Event(false, description, startDate, endDate);
@@ -48,4 +46,3 @@ public class EventCommand extends Command {
         ui.showCurrNoOfTasks(tasks);
     }
 }
-
