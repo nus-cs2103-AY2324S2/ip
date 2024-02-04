@@ -33,7 +33,24 @@ public class Parser {
             } else {
                 throw new BozoException("Error: bozo.Task does not exist!");
             }
-        } else if (input.startsWith("unmark")) {
+        } else if (input.startsWith("find")) {
+            // Find a task
+            Ui.showLine();
+            String keyword = input.substring(input.indexOf(" ") + 1);
+            int counter = 1;
+            System.out.println("Here are the matching tasks in your list:");
+            for (Task task : list) {
+                if (task.toString().contains(keyword)) {
+                    System.out.println(counter + ". " + task.toString());
+                    counter++;
+                }
+            }
+            if (counter == 1) {
+                System.out.println("No matching tasks! :O");
+            }
+            Ui.showLine();
+        }
+        else if (input.startsWith("unmark")) {
             // Mark a task as not done
             Ui.showLine();
             String taskStr = input.substring(input.indexOf(" ") + 1);
