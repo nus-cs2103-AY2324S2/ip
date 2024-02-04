@@ -18,6 +18,6 @@ public class Event extends Task {
 
     @Override
     public String getDataString() {
-        return "E | " + (isDone? "1" : "0") + " | " + super.toString() + " | " + from + " | " + to;
+        return "E | " + (isDone? "1" : "0") + " | " + super.getDescription() + " | " + from + " | " + to;
     }
 }
