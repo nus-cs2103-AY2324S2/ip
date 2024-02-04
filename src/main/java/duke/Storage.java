@@ -1,15 +1,20 @@
 package duke;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 public class Storage {
     protected static String dataPath = "./data/duke.txt";
     protected static TaskList loadTasks() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dataPath))) {
             return (TaskList) ois.readObject();
         } catch (IOException | ClassCastException | ClassNotFoundException e) {
-            //
+            return new TaskList();
         }
-        return new TaskList();
     }
 
     protected static void saveTasks() {

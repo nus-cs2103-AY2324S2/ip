@@ -6,10 +6,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.io.*;
+import java.io.File;
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class StorageTest {
@@ -27,7 +28,7 @@ class StorageTest {
     }
 
     @Test
-    void testSaveAndLoadTasks() throws IOException, ClassNotFoundException {
+    void testSaveAndLoadTasks() {
         // Add a task to the list
         Duke.lst.add(new Todo("Test task"));
 
