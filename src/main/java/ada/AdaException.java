@@ -1,15 +1,15 @@
-package duke;
+package ada;
 
 /**
  * Represents an exception specific to Duke.
  */
-public class DukeException extends Exception {
+public class AdaException extends Exception {
     /**
      * Creates an exception with the provided error message.
      *
      * @param message The error message of the exception.
      */
-    public DukeException(String message) {
+    public AdaException(String message) {
         super(message);
     }
 

@@ -1,9 +1,9 @@
-package duke.command;
+package ada.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.task.TaskList;
-import duke.ui.Ui;
+import ada.AdaException;
+import ada.Storage;
+import ada.task.TaskList;
+import ada.ui.Ui;
 
 /**
  * @inheritDoc
@@ -26,9 +26,9 @@ public class DeleteCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdaException {
         String t = tasks.delete(this.taskNumber);
-        ui.showResult("Ok, I've removed this duke.task:");
+        ui.showResult("Ok, I've removed this task:");
         ui.showResult(t);
         ui.showResult("Now you have " + tasks.size() + " task(s) in the list.");
     }

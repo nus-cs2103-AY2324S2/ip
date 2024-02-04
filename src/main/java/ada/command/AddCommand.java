@@ -1,13 +1,13 @@
-package duke.command;
+package ada.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.Todo;
-import duke.ui.Ui;
+import ada.AdaException;
+import ada.Storage;
+import ada.task.Deadline;
+import ada.task.Event;
+import ada.task.Task;
+import ada.task.TaskList;
+import ada.task.Todo;
+import ada.ui.Ui;
 
 /**
  * @inheritDoc
@@ -37,7 +37,7 @@ public class AddCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdaException {
         Task t = null;
         switch (this.command) {
         case "todo":
@@ -53,7 +53,7 @@ public class AddCommand extends Command {
             tasks.add(t);
             break;
         }
-        ui.showResult("Got it. I've added this duke.task:");
+        ui.showResult("Got it. I've added this task:");
         ui.showResult(t.toString());
         ui.showResult("Now you have " + tasks.size() + " task(s) in the list.");
 

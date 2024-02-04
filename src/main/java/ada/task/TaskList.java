@@ -1,6 +1,6 @@
-package duke.task;
+package ada.task;
 
-import duke.DukeException;
+import ada.AdaException;
 
 import java.util.ArrayList;
 
@@ -40,11 +40,11 @@ public class TaskList {
      *
      * @param taskNumber The index of the task to delete.
      * @return The task deleted.
-     * @throws DukeException If the index provided is greater than the list of tasks.
+     * @throws AdaException If the index provided is greater than the list of tasks.
      */
-    public String delete(int taskNumber) throws DukeException {
+    public String delete(int taskNumber) throws AdaException {
         if (taskNumber > tasks.size()) {
-            throw new DukeException("You do not have " + taskNumber + " tasks.");
+            throw new AdaException("You do not have " + taskNumber + " tasks.");
         }
         Task t = tasks.remove(taskNumber - 1);
         return t.toString();
@@ -55,11 +55,11 @@ public class TaskList {
      *
      * @param taskNumber The index of the task to mark as done.
      * @return The task marked as done.
-     * @throws DukeException If the index provided is greater than the list of tasks.
+     * @throws AdaException If the index provided is greater than the list of tasks.
      */
-    public String mark(int taskNumber) throws DukeException {
+    public String mark(int taskNumber) throws AdaException {
         if (taskNumber > tasks.size()) {
-            throw new DukeException("You do not have " + taskNumber + " tasks.");
+            throw new AdaException("You do not have " + taskNumber + " tasks.");
         }
         Task t = tasks.get(taskNumber - 1);
         t.mark();
@@ -71,11 +71,11 @@ public class TaskList {
      *
      * @param taskNumber The index of the task to mark as not done.
      * @return The task marked as not done.
-     * @throws DukeException If the index provided is greater than the list of tasks.
+     * @throws AdaException If the index provided is greater than the list of tasks.
      */
-    public String unmark(int taskNumber) throws DukeException {
+    public String unmark(int taskNumber) throws AdaException {
         if (taskNumber > tasks.size()) {
-            throw new DukeException("You do not have " + taskNumber + " tasks.");
+            throw new AdaException("You do not have " + taskNumber + " tasks.");
         }
 
         Task t = tasks.get(taskNumber - 1);
@@ -83,7 +83,7 @@ public class TaskList {
         return t.toString();
     }
 
-    public ArrayList<String> find(String keyword) throws DukeException {
+    public ArrayList<String> find(String keyword) throws AdaException {
         ArrayList<String> found = new ArrayList<>();
         for (Task t : this.tasks) {
             if (t.canFind(keyword)) {

@@ -1,4 +1,4 @@
-package duke.task;
+package ada.task;
 
 /**
  * Represents a task to be stored in the list of tasks.
@@ -23,7 +23,7 @@ public class Task {
      * @return "X" if the task is done, " " if not done.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done duke.task with X
+        return (isDone ? "X" : " "); // mark done task with X
     }
 
     /**

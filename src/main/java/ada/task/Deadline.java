@@ -1,6 +1,6 @@
-package duke.task;
+package ada.task;
 
-import duke.DukeException;
+import ada.AdaException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,14 +18,14 @@ public class Deadline extends Task {
      *
      * @param description The description of the deadline.
      * @param by The date of the deadline.
-     * @throws DukeException If the date provided is in the wrong format.
+     * @throws AdaException If the date provided is in the wrong format.
      */
-    public Deadline(String description, String by) throws DukeException {
+    public Deadline(String description, String by) throws AdaException {
         super(description);
         try {
             this.by = LocalDate.parse(by);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date or date format");
+            throw new AdaException("Invalid date or date format");
         }
     }
 

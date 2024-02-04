@@ -1,9 +1,9 @@
-package duke.command;
+package ada.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.task.TaskList;
-import duke.ui.Ui;
+import ada.AdaException;
+import ada.Storage;
+import ada.task.TaskList;
+import ada.ui.Ui;
 
 /**
  * Represents a command to be executed by the program.
@@ -15,9 +15,9 @@ abstract public class Command {
      * @param tasks Current TaskList of program.
      * @param ui Ui used by the program.
      * @param storage Storage used by the program.
-     * @throws DukeException If command cannot be executed.
+     * @throws AdaException If command cannot be executed.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws AdaException;
 
     /**
      * Returns true if the command executed exits the program.

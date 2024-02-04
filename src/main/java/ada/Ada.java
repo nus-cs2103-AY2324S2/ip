@@ -1,13 +1,13 @@
-package duke;
+package ada;
 
-import duke.command.Command;
-import duke.task.TaskList;
-import duke.ui.Ui;
+import ada.command.Command;
+import ada.task.TaskList;
+import ada.ui.Ui;
 
 /**
  * The Duke program implements a chatbot that keeps track of tasks for the user.
  */
-public class Duke {
+public class Ada {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -17,12 +17,12 @@ public class Duke {
      *
      * @param filePath The filepath of the file to load/saves the tasks from/to.
      */
-    public Duke(String filePath) {
+    public Ada(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (AdaException e) {
             tasks = new TaskList();
         }
     }
@@ -39,7 +39,7 @@ public class Duke {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (AdaException e) {
                 ui.showError(e.getMessage());
             }
         }
@@ -51,6 +51,6 @@ public class Duke {
      * @param args Unused.
      */
     public static void main(String[] args) {
-        new Duke("duke.txt").run();
+        new Ada("ada.txt").run();
     }
 }

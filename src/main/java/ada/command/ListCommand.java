@@ -1,10 +1,10 @@
-package duke.command;
+package ada.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.ui.Ui;
+import ada.AdaException;
+import ada.Storage;
+import ada.task.Task;
+import ada.task.TaskList;
+import ada.ui.Ui;
 
 /**
  * @inheritDoc
@@ -22,7 +22,7 @@ public class ListCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdaException {
         for (Task t: tasks.getTasks()) {
             ui.showResult(t.toString());
         }

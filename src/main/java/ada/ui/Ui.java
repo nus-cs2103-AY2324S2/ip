@@ -1,4 +1,4 @@
-package duke.ui;
+package ada.ui;
 
 import java.util.Scanner;
 
@@ -8,7 +8,7 @@ public class Ui {
     }
     public void showWelcome() {
         System.out.println(
-                "Hello! I'm Bob\n" +
+                "Hello! I'm Ada\n" +
                 "What can I do for you?");
     }
     public String readCommand() {

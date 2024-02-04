@@ -1,9 +1,9 @@
-package duke.command;
+package ada.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.task.TaskList;
-import duke.ui.Ui;
+import ada.AdaException;
+import ada.Storage;
+import ada.task.TaskList;
+import ada.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdaException {
         ArrayList<String> matches = tasks.find(this.keyword);
         ui.showResult("Here are the matching tasks in your list:");
         for (String s: matches) {

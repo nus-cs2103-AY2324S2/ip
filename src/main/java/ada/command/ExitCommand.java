@@ -1,9 +1,9 @@
-package duke.command;
+package ada.command;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.task.TaskList;
-import duke.ui.Ui;
+import ada.AdaException;
+import ada.Storage;
+import ada.task.TaskList;
+import ada.ui.Ui;
 
 /**
  * @inheritDoc
@@ -21,7 +21,7 @@ public class ExitCommand extends Command {
      * @inheritDoc
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdaException {
         storage.save(tasks);
         ui.showBye();
     }

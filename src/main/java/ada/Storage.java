@@ -1,10 +1,10 @@
-package duke;
+package ada;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.Todo;
+import ada.task.Deadline;
+import ada.task.Event;
+import ada.task.Task;
+import ada.task.TaskList;
+import ada.task.Todo;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,19 +28,19 @@ public class Storage {
     }
 
     /**
-     * Returns an instance of a Storage object that will load/save to the default filepath "./duke.txt".
+     * Returns an instance of a Storage object that will load/save to the default filepath "./ada.txt".
      */
     public Storage() {
-        this("./duke.txt");
+        this("./ada.txt");
     }
 
     /**
      * Returns the list of tasks loaded from the storage file.
      *
      * @return The list of tasks loaded in an ArrayList.
-     * @throws DukeException If the file to load from cannot be loaded.
+     * @throws AdaException If the file to load from cannot be loaded.
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load() throws AdaException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             File file = new File(this.filepath);
@@ -70,7 +70,7 @@ public class Storage {
             }
             fileScanner.close();
         } catch (IOException e) {
-            throw new DukeException("Unable to load file");
+            throw new AdaException("Unable to load file");
         }
         return tasks;
     }
@@ -79,9 +79,9 @@ public class Storage {
      * Saves the current list of tasks to the storage file.
      *
      * @param tasklist The list of tasks to save.
-     * @throws DukeException If the file cannot be saved to.
+     * @throws AdaException If the file cannot be saved to.
      */
-    public void save(TaskList tasklist) throws DukeException {
+    public void save(TaskList tasklist) throws AdaException {
         try {
             ArrayList<Task> tasks = tasklist.getTasks();
             File file = new File(this.filepath);
@@ -95,7 +95,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new DukeException("Unable to save file");
+            throw new AdaException("Unable to save file");
         }
     }
 }
