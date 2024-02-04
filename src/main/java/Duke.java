@@ -1,131 +1,61 @@
-import java.io.*;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+=======
+import java.util.Scanner;
+
+/**
+ * HERE IS THE SEQUENCE OF EVENTS:
+ * In duke you can access TaskList which is the storage of the class
+ * You can also access Storage to store TaskList
+ * You can also access Ui to manage the user interactions
+ *
+ * first make a new ui
+ * make a new storage to the filepath
+ * then try to make a tasklist and take in the storage that is arleady inside
+ */
+>>>>>>> more-OOP
 
 /**
  * Duke - Main class that handles user interactions and task management.
  */
 public class Duke {
+<<<<<<< HEAD
     private static ArrayList<Task> storage = new ArrayList<>();
     //private static final String FILEPATH = "./data/duke.txt";
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+=======
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-        //SAY HI, don't change
-        String name = "____________________________________________________________ \n"
-                + "Hello! I'm RATZCHAT \n"
-                + "How can I help you today?";
-        System.out.println(name);
-        printLine();
-
-        //RESPONSIVE
-        while(true) {
-            String input = scanner.nextLine();
-            printLine();
-
-            if("bye".equalsIgnoreCase(input)) {
-                System.out.println("BYEBYE. Thank you for using RATZCHAT!");
-                printLine();
-                break;
-            }
-
-            if("list".equalsIgnoreCase(input)) {
-                System.out.println("These are your to-dos: ");
-                printList(storage);
-                printLine();
-                continue;
-            }
-
-            if(input.startsWith("mark") || input.startsWith("unmark")) {
-                markingHandler(input);
-                printLine();
-                continue;
-            }
-
-            if(input.startsWith("deadline")) {
-                if (!validateDeadlineInput(input)) {
-                    System.out.println("Sorry, please complete your request by specifying the details of the task!");
-                    printLine();
-                    continue;
-                }
-
-                handleDeadlines(input);
-                printLine();
-                continue;
-            }
-
-            if(input.startsWith("todo")) {
-                if (!validateTodoInput(input)) {
-                    System.out.println("Sorry, please complete your request by specifying the details of the task!");
-                    printLine();
-                    continue;
-                }
-
-                handleTodos(input);
-                printLine();
-                continue;
-            }
-
-            if(input.startsWith("event")) {
-                if (!validateEventInput(input)) {
-                    System.out.println("Sorry, please complete your request by specifying the details of the task!");
-                    printLine();
-                    continue;
-                }
-
-                handleEvents(input);
-                printLine();
-                continue;
-            }
-
-            if (input.startsWith("delete")) {
-                handleRemove(input);
-                printLine();
-                continue;
-            }
-
-            System.out.println("I'm sorry, I don't understand! Please type your request again.");
-            printLine();
-        }
-    }
-
-    /**
-     * Prints a line of underscores for formatting purposes.
-     */
-    private static void printLine() {
-        System.out.println("____________________________________________________________");
-    }
-
-    /**
-     * Prints the list of tasks with their corresponding indices.
-     * @param list ArrayList of Task objects.
-     */
-    private static void printList(ArrayList<Task> list) {
-        for(int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + "." + list.get(i));
-        }
-    }
-
-    /**
-     * Handles marking or unmarking tasks as done based on user input.
-     * @param input User input specifying the action and task index.
-     */
-
-    //HANDLING CLASSES AND FUNCTIONS
-    private static void markingHandler(String input) {
-        String[] split = input.split(" ");
-        if (split.length < 2) {
-            System.out.println("Please specify the task number!");
-            return;
-        }
+    public Duke(String filePath) {
+        ui = new Ui(null, null);
+        tasks = new TaskList();
+        storage = new Storage(filePath, tasks);
 
         try {
-            int index = Integer.parseInt(split[1]) - 1;
-            Task task = storage.get(index);
+            ArrayList<Task> loadedTasks = storage.loadFile();
+            tasks.getTasks().addAll(loadedTasks);
+        } catch (DukeException e) {
+            ui.printLoadingError();
+            tasks = new TaskList();
+        }
+    }
 
+    public void run() {
+        ui.sayHi();
+        storage.loadFile();
+>>>>>>> more-OOP
+        Scanner scanner = new Scanner(System.in);
+        while(true) {
+            String input = scanner.nextLine();
+            ui.handleInput(input);
+        }
+
+
+<<<<<<< HEAD
             if ("mark".equalsIgnoreCase(split[0])) {
                 task.markAsDone();
                 //saveTasks();
@@ -282,5 +212,12 @@ public class Duke {
 
         }
     }
-}
+=======
+    }
 
+    public static void main(String[] args) {
+        new Duke("data/tasks.txt").run();
+    }
+
+>>>>>>> more-OOP
+}
