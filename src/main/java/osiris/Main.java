@@ -14,12 +14,11 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+    /** The Osiris chatBot. */
     private final Osiris chatBot = new Osiris();
 
     @Override
     public void start(Stage stage) {
-        // chatBot.startChat();
-
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();

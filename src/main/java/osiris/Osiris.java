@@ -1,11 +1,5 @@
 package osiris;
 
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
 import osiris.commands.Command;
 import osiris.exceptions.OsirisException;
 import osiris.exceptions.OsirisStorageFileException;
@@ -19,14 +13,6 @@ import osiris.ui.Ui;
  */
 public class Osiris {
 
-    private ScrollPane dialogScrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image osiris = new Image(this.getClass().getResourceAsStream("/images/osiris.png"));
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-
     /** Represents the task manager responsible for managing tasks within the system. */
     private final TaskManager taskManager = new TaskManager();
 
@@ -34,8 +20,7 @@ public class Osiris {
     private final Ui userInterface = new Ui();
 
     /**
-     * Initiates the chat session with the user.
-     * Manages user input, interprets commands, and handles task management.
+     * Initiates the necessary dependencies & outputs introductions when done.
      */
     public String startChat() {
         try {
@@ -46,22 +31,14 @@ public class Osiris {
         } catch (OsirisException e) {
             return e.getMessage() + " Please restart system.";
         }
-
-
-//        boolean isTerminate = false;
-
-//        while (!isTerminate) {
-//            userInterface.displayOsirisPromptMessage();
-//            String userInput = scanner.nextLine();
-//
-//            Command userCommand = UserInputInterpreter.getInstance().interpretUserInput(userInput);
-//            userCommand.execute(taskManager, userInterface);
-//            isTerminate = userCommand.isTerminateChat();
-//        }
-
-//        userInterface.displayGoodbyes();
     }
 
+    /**
+     * Processes the user input.
+     *
+     * @param userInput The user input string.
+     * @return String to be outputted to the user.
+     */
     public String processInput(String userInput) {
         String response = "";
         boolean isTerminate = false;

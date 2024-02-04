@@ -7,29 +7,48 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Controller class for the MainWindow.fxml file.
+ * Handles user interactions and updates the main chat window accordingly.
  */
 public class MainWindow extends AnchorPane {
+
     @FXML
     private ScrollPane scrollPane;
+
     @FXML
     private VBox dialogContainer;
+
     @FXML
     private TextField userInput;
+
     @FXML
     private Button sendButton;
 
     private Osiris osiris;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image osirisImage = new Image(this.getClass().getResourceAsStream("/images/osiris.png"));
+    /** Image of Osiris. */
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
 
+    /** Image of User. */
+    private final Image osirisImage = new Image(this.getClass().getResourceAsStream("/images/osiris.png"));
+
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     * It binds the vertical value property of the scroll pane to the height property of the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Initializes the MainWindow with the provided Osiris instance.
+     * This method is typically called to start a chat session.
+     *
+     * @param chatBot The Osiris instance to be associated with this MainWindow.
+     */
     public void initialiseOsiris(Osiris chatBot) {
         osiris = chatBot;
         String status = osiris.startChat();
@@ -37,8 +56,9 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input when the send button is clicked.
+     * Processes the user input through the Osiris instance and updates the dialog container accordingly.
+     * Clears the user input field after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -51,8 +71,12 @@ public class MainWindow extends AnchorPane {
         this.userInput.clear();
     }
 
+    /**
+     * Outputs a dialog from Osiris to the dialog container.
+     *
+     * @param outputDialog The dialog string to be displayed.
+     */
     private void outputOsirisDialog(String outputDialog) {
         dialogContainer.getChildren().addAll(DialogBox.getOsirisDialog(outputDialog, osirisImage));
     }
 }
-
