@@ -1,3 +1,7 @@
+package badgpt.util;
+
+import badgpt.tasks.Task;
+
 public class TasksUi extends Ui {
     public void printAddTask(Task task, int numTasks) {
         printLine();

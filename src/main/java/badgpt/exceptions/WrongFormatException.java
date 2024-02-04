@@ -1,3 +1,5 @@
+package badgpt.exceptions;
+
 public class WrongFormatException extends CommandException {
     private String rightUsage = "Please type in the command as follows: ";
     private String example;

@@ -1,7 +1,9 @@
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+package badgpt;
+
+import badgpt.util.FileManager;
+import badgpt.util.Parser;
+import badgpt.util.TaskList;
+import badgpt.util.Ui;
 
 public class BadGpt {
     private static final String NAME = "BadGPT";
@@ -17,8 +19,6 @@ public class BadGpt {
 
     public static void main(String[] args) {
         new BadGpt().run();
-
-        Scanner sc = new Scanner(System.in);
     }
 
     public void run() {

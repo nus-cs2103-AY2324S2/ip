@@ -1,3 +1,5 @@
+package badgpt.exceptions;
+
 public class ListEmptyException extends TaskException {
     public ListEmptyException(String message) {
         super(message);

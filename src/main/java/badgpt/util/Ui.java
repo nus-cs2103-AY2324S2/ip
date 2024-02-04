@@ -1,3 +1,7 @@
+package badgpt.util;
+
+import badgpt.exceptions.BadException;
+
 import java.util.Scanner;
 
 public class Ui {

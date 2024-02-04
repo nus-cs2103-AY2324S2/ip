@@ -1,3 +1,7 @@
+package badgpt.exceptions;
+
+import badgpt.tasks.Task;
+
 public class SameStatusException extends TaskException {
     private Task task;
     private int type;

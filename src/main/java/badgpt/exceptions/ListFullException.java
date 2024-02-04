@@ -1,3 +1,5 @@
+package badgpt.exceptions;
+
 public class ListFullException extends TaskException {
     public ListFullException(String message) {
         super(message);

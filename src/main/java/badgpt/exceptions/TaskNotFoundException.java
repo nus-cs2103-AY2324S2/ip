@@ -1,3 +1,5 @@
+package badgpt.exceptions;
+
 public class TaskNotFoundException extends TaskException {
     private int numTasks;
 
