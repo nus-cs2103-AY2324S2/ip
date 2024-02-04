@@ -18,6 +18,7 @@ public class Paimon {
         System.out.println("-------------------->");
         System.out.println(closingMessage);
     }
+
     private static void sendTaskMessage(String mainMessage, String subMessage) {
         System.out.println(mainMessage);
         System.out.println("-------------------->");
@@ -25,6 +26,17 @@ public class Paimon {
         System.out.println("-------------------->");
     }
 
+    private static void printTaskList(TaskList list) {
+        if (list.getSize() == 0) {
+            System.out.println("Your list is currently empty, add some tasks!");
+        } else {
+            System.out.println("Here is your list so far!");
+            System.out.println("-------------------->");
+            System.out.println(list);
+            System.out.println("-------------------->");
+        }
+
+    }
 
     private static void greeting() {
         System.out.println("-------------------->" + "\nGreetings Traveller!\nI'm Paimon, your friendly guide!\nType help to see what I can help you with!" + "\n-------------------->");
@@ -49,7 +61,7 @@ public class Paimon {
                     isActive = false;
                     break;
                 case "list":
-                    taskList.printTaskList();
+                    printTaskList(taskList);
                     break;
                 case "help":
                     System.out.println("You can perform the following actions! Make sure to follow the syntax\n----->");
@@ -139,6 +151,23 @@ public class Paimon {
                         taskList.addTask(eventTask);
                         sendTaskMessage("Okay Traveller, I've added the following task!", eventTask.getTask(), "You now have " + taskList.getSize() + " tasks.");
 
+                    } catch (ChatException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case "delete":
+                    try {
+                        String deleteIndexString = parser.parseInput()[0];
+                        int deleteIndex = Integer.parseInt(deleteIndexString);
+                        if (deleteIndex >= 1 && deleteIndex <= taskList.getSize()) {
+                            taskList.deleteTask(deleteIndex - 1);
+                            sendTaskMessage("Okay Traveller, I've deleted the task. ", taskList.toString(), "You now have " + taskList.getSize() + " tasks.");
+
+                        } else {
+                            System.out.println("Sorry Traveller, that task does not exist");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Sorry Traveller, your input is invalid");
                     } catch (ChatException e) {
                         System.out.println(e.getMessage());
                     }

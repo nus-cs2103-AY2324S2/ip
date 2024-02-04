@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 public class CommandParser {
     private String input;
     private String type;
+
     public CommandParser(String input) {
         this.input = input;
         int firstSpaceIndex = input.indexOf(" ");
@@ -15,9 +16,11 @@ public class CommandParser {
             this.type = input;
         }
     }
+
     public String getType() {
         return this.type;
     }
+
     public String[] parseInput() throws ChatException {
         switch (this.type) {
             case "todo":
@@ -27,8 +30,7 @@ public class CommandParser {
                 if (matcher1.find()) {
                     String description = matcher1.group(3);
                     return new String[]{description};
-                }
-                else {
+                } else {
                     throw new ChatException("Input does not match expected format: todo <task>");
                 }
             case "deadline":
@@ -39,8 +41,7 @@ public class CommandParser {
                     String description = matcher2.group(2);
                     String toTime = matcher2.group(3);
                     return new String[]{description, toTime};
-                }
-                else {
+                } else {
                     throw new ChatException("Input does not match expected format: deadline <task> /by <time>");
                 }
             case "event":
@@ -52,8 +53,7 @@ public class CommandParser {
                     String fromTime = matcher3.group(3);
                     String toTime = matcher3.group(4);
                     return new String[]{description, fromTime, toTime};
-                }
-                else {
+                } else {
                     throw new ChatException("Input does not match expected format: event <task> /from <time> /to <time>");
                 }
             case "mark":
@@ -65,7 +65,17 @@ public class CommandParser {
                     String number = matcher4.group(2);
                     return new String[]{number};
                 } else {
-                    throw new ChatException("Input does not match expected format: mark/unmark <index>");
+                    throw new ChatException("Input does not match expected format: mark/unmark <number>");
+                }
+            case "delete":
+                String regex5 = "^(\\w+) (\\d+)";
+                Pattern pattern5 = Pattern.compile(regex5);
+                Matcher matcher5 = pattern5.matcher(input);
+                if (matcher5.find()) {
+                    String number = matcher5.group(2);
+                    return new String[]{number};
+                } else {
+                    throw new ChatException("Input does not match expected format: delete <number>");
                 }
             default:
                 return null;

@@ -3,30 +3,42 @@ package main.java;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> list = new ArrayList<Task>();
+    private final ArrayList<Task> list = new ArrayList<Task>();
 
     public TaskList() {
 
     }
+
     public Task getTask(int index) {
         return this.list.get(index);
     }
+
     public int getSize() {
         return this.list.size();
     }
+
     public void addTask(Task task) {
         this.list.add(task);
     }
-    public void printTaskList() {
+
+    public void deleteTask(int index) {
+        this.list.remove(index);
+    }
+
+    public String toString() {
         int size = this.list.size();
+        String returnString = "";
         if (size == 0) {
-            System.out.println("Your list is currently empty, add some tasks!");
-            return;
+            return returnString;
         }
-        System.out.println("Here is  your list so far! \n----->");
         for (int i = 0; i < size; i++) {
-            System.out.println(Integer.toString(i + 1) + ": " + this.list.get(i).getTask());
+            String current = String.valueOf(i + 1);
+            if (i == size - 1) {
+                returnString = returnString + current + ": " + this.list.get(i).getTask();
+            } else {
+                returnString = returnString + current + ": " + this.list.get(i).getTask() + "\n";
+            }
         }
-        System.out.println("----->");
+        return returnString;
     }
 }
