@@ -3,6 +3,7 @@ package duke.parser;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+import java.util.List;
 
 import duke.commands.Command;
 import duke.commands.CommandBye;
@@ -54,19 +55,21 @@ public class Parser {
      * @throws DukeException If the argument is missing or not an integer.
      */
     private static Command parseCommandMark(String[] args) throws DukeException {
+        if (args.length < 2) {
+            throw new InvalidArgumentException("task number", "is missing");
+        }
+
+        int taskNum;
         try {
-            if (args.length < 2) {
-                throw new InvalidArgumentException("task number", "is missing");
-            }
-
-            int taskNum = Integer.parseInt(args[1]);
-            int taskIndex = taskNum - 1;
-
-            return new CommandMark(taskIndex);
+            taskNum = Integer.parseInt(args[1]);
         } catch (NumberFormatException numberFormatException) {
             throw new InvalidArgumentException("task number", "cannot be parsed to an integer.",
                 numberFormatException.getMessage());
         }
+
+        int taskIndex = taskNum - 1;
+
+        return new CommandMark(taskIndex);
     }
 
     /**
@@ -77,19 +80,21 @@ public class Parser {
      * @throws DukeException If the argument is missing or not an integer.
      */
     private static Command parseCommandUnmark(String[] args) throws DukeException {
+        if (args.length < 2) {
+            throw new InvalidArgumentException("task number", "is missing");
+        }
+
+        int taskNum;
         try {
-            if (args.length < 2) {
-                throw new InvalidArgumentException("task number", "is missing");
-            }
-
-            int taskNum = Integer.parseInt(args[1]);
-            int taskIndex = taskNum - 1;
-
-            return new CommandUnmark(taskIndex);
+            taskNum = Integer.parseInt(args[1]);
         } catch (NumberFormatException numberFormatException) {
             throw new InvalidArgumentException("task number", "cannot be parsed to an integer",
                 numberFormatException.getMessage());
         }
+
+        int taskIndex = taskNum - 1;
+
+        return new CommandUnmark(taskIndex);
     }
 
     /**
@@ -113,14 +118,19 @@ public class Parser {
     }
 
 
-    private static Deadline getDeadline(int byIndex, String argsStr, String byDelim) throws DukeException {
-        if (byIndex == -1) {
+    private static Deadline getDeadline(String[] taskArgs) throws DukeException {
+        List<String> taskArgsList = Arrays.asList(taskArgs);
+
+        String byDelim = "/by";
+        int byIndex = taskArgsList.indexOf(byDelim);
+
+        if (byIndex == -1 || byIndex >= taskArgs.length - 1) {
             throw new InvalidArgumentException("/by", "not found");
         }
 
-        String description = argsStr.substring(0, byIndex).strip();
+        String description = String.join(" ", Arrays.copyOfRange(taskArgs, 0, byIndex));
 
-        String byStr = argsStr.substring(byIndex + byDelim.length()).strip();
+        String byStr = taskArgs[byIndex + 1];
         LocalDate by;
         try {
             by = LocalDate.parse(byStr);
@@ -144,15 +154,34 @@ public class Parser {
         }
 
         String[] taskArgs = Arrays.copyOfRange(args, 1, args.length);
-        String argsStr = String.join(" ", taskArgs);
 
-        String byDelim = "/by";
-        int byIndex = argsStr.indexOf(byDelim);
-        Deadline deadline = getDeadline(byIndex, argsStr, byDelim);
+        Deadline deadline = getDeadline(taskArgs);
         return new CommandDeadline(deadline);
     }
 
-    private static Event getEvent(String fromStr, String toStr, String description) throws DukeException {
+    private static Event getEvent(String[] taskArgs) throws DukeException {
+        List<String> taskArgsList = Arrays.asList(taskArgs);
+
+        String fromDelim = "/from";
+        String toDelim = "/to";
+
+        int fromIndex = taskArgsList.indexOf(fromDelim);
+        int toIndex = taskArgsList.indexOf(toDelim);
+
+        if (fromIndex == -1 || fromIndex >= taskArgs.length - 1) {
+            throw new InvalidArgumentException("/from", "not found");
+        }
+
+        if (toIndex == -1 || toIndex >= taskArgs.length - 1) {
+            throw new InvalidArgumentException("/to", "not found");
+        }
+
+        String fromStr = taskArgs[fromIndex + 1];
+        String toStr = taskArgs[toIndex + 1];
+
+        String description = String.join(" ",
+            Arrays.copyOfRange(taskArgs, 0, Math.min(fromIndex, toIndex)));
+
         LocalDate from;
         LocalDate to;
         try {
@@ -182,31 +211,8 @@ public class Parser {
         }
 
         String[] taskArgs = Arrays.copyOfRange(args, 1, args.length);
-        String argsStr = String.join(" ", taskArgs);
 
-        String fromDelim = "/from";
-        String toDelim = "/to";
-
-        int fromIndex = argsStr.indexOf(fromDelim);
-        int toIndex = argsStr.indexOf(toDelim);
-
-        if (fromIndex == -1) {
-            throw new InvalidArgumentException("/from", "not found");
-        }
-
-        if (toIndex == -1) {
-            throw new InvalidArgumentException("/to", "not found");
-        }
-
-        if (fromIndex > toIndex) {
-            throw new InvalidArgumentException("/from", "must come before '/to'");
-        }
-
-        String fromStr = argsStr.substring(fromIndex + fromDelim.length(), toIndex).strip();
-        String toStr = argsStr.substring(toIndex + toDelim.length()).strip();
-
-        String description = argsStr.substring(0, fromIndex).strip();
-        Event event = getEvent(fromStr, toStr, description);
+        Event event = getEvent(taskArgs);
         return new CommandEvent(event);
     }
 
@@ -218,19 +224,21 @@ public class Parser {
      * @throws DukeException If the argument is missing or not an integer.
      */
     private static Command parseCommandDelete(String[] args) throws DukeException {
+        if (args.length < 2) {
+            throw new InvalidArgumentException("task number", "is missing");
+        }
+
+        int taskNum;
         try {
-            if (args.length < 2) {
-                throw new InvalidArgumentException("task number", "is missing");
-            }
-
-            int taskNum = Integer.parseInt(args[1]);
-            int taskIndex = taskNum - 1;
-
-            return new CommandDelete(taskIndex);
+            taskNum = Integer.parseInt(args[1]);
         } catch (NumberFormatException numberFormatException) {
             throw new InvalidArgumentException("task number", "cannot be parsed to an integer",
                 numberFormatException.getMessage());
         }
+
+        int taskIndex = taskNum - 1;
+
+        return new CommandDelete(taskIndex);
     }
 
     /**

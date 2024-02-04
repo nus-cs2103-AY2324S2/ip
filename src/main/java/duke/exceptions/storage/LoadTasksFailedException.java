@@ -27,4 +27,18 @@ public class LoadTasksFailedException extends DukeException {
     public LoadTasksFailedException(Exception exception) {
         super(String.format("Failed to load tasks. %s", exception.getMessage()));
     }
+
+    /**
+     * Constructs a new LoadTasksFailedException with a detailed error message
+     * that includes the message from the original exception. This constructor
+     * is typically used when catching a lower-level exception (such as an
+     * IOException or a parsing exception) and wrapping it into a
+     * LoadTasksFailedException to be handled at a higher level.
+     *
+     * @param message The message containing details about the specific error encountered
+     *                during task loading.
+     */
+    public LoadTasksFailedException(String message) {
+        super(String.format("Failed to load tasks. %s", message));
+    }
 }

@@ -87,7 +87,7 @@ public class Storage {
             task = new Todo(description, isDone);
             break;
         default:
-            break;
+            throw new LoadTasksFailedException("Unknown task type.");
         }
 
         return task;
