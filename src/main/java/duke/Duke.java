@@ -1,8 +1,6 @@
 package duke;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  * Main class for the Duke task management application.
@@ -37,33 +35,23 @@ public class Duke {
      * Runs the main application loop.
      * Continuously reads user input commands and processes them until the "bye" command is entered.
      * Before exiting, saves the current state of tasks to the storage.
-     *
-     * @throws IOException If an I/O error occurs while reading user input.
      */
-    public void run() throws IOException {
-        ui.greet();
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String command;
-
-        while (!(command = br.readLine()).equals("bye")) {
+    public String run(String command) {
+        String dukeResponse = "";
+        if (command.equals("bye")) {
             try {
-                Parser.checkCmd(this.tasks, command);
+                storage.save(tasks);
+            } catch (IOException e) {
+                return "Error saving tasks to file";
+            }
+            dukeResponse = Ui.exit();
+        } else {
+            try {
+                dukeResponse = Ui.checkCmd(this.tasks, command);
             } catch (DukeException de) {
-                Ui.beautify(de.getMessage());
+                System.out.println(de.getMessage());
             }
         }
-        storage.save(tasks);
-        ui.exit();
-    }
-
-    /**
-     * The entry point of the application.
-     * Creates a new Duke instance and runs it.
-     *
-     * @param args Command line arguments (not used).
-     * @throws IOException If an I/O error occurs in the run method.
-     */
-    public static void main(String[] args) throws IOException {
-        new Duke("data/tasks.txt").run();
+        return dukeResponse;
     }
 }
