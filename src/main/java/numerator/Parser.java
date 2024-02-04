@@ -16,6 +16,7 @@ import numerator.task.TaskList;
  */
 public class Parser {
 
+    public static final String BYE_STRING = "Bye! Just close the window to exit";
 
     /**
      * Parses the input and performs the corresponding action
@@ -23,54 +24,53 @@ public class Parser {
      * @param input    the input from the user
      * @param taskList the list of tasks
      * @param storage  the storage object
-     * @return true if the user wants to exit the program, false otherwise
+     * @return the response to the user
      * @throws NumeratorException if the input is not recognised
      */
-    public static boolean parseArguments(String input, TaskList taskList, Storage storage) throws NumeratorException {
+    public static String parseArguments(String input, TaskList taskList, Storage storage) throws NumeratorException {
         if (input.equals("bye")) {
-            return true;
+            return BYE_STRING;
 
         } else if (input.startsWith("mark")) {
-            parseMark(input, taskList, storage);
+            return parseMark(input, taskList, storage);
 
         } else if (input.startsWith("unmark")) {
-            parseUnmark(input, taskList, storage);
+            return parseUnmark(input, taskList, storage);
 
         } else if (input.startsWith("delete")) {
-            parseDelete(input, taskList, storage);
+            return parseDelete(input, taskList, storage);
 
         } else if (input.startsWith("todo")) {
-            parseTodo(input, taskList, storage);
+            return parseTodo(input, taskList, storage);
 
         } else if (input.startsWith("deadline")) {
-            parseDeadline(input, taskList, storage);
+            return parseDeadline(input, taskList, storage);
 
         } else if (input.startsWith("event")) {
-            parseEvent(input, taskList, storage);
+            return parseEvent(input, taskList, storage);
 
         } else if (input.equals("list")) {
-            Ui.printMessage(taskList.toString());
+            return taskList.toString();
 
         } else if (input.startsWith("find")) {
-            parseFind(input, taskList);
+            return parseFind(input, taskList);
         } else {
             throw new InputNotRecognisedException();
         }
-        return false;
     }
 
-    private static void parseFind(String input, TaskList taskList) throws InputFormatException {
+    private static String parseFind(String input, TaskList taskList) throws InputFormatException {
         Pattern p = Pattern.compile("find (\\S+.*)");
         Matcher m = p.matcher(input);
         if (!m.find()) {
             throw new InputFormatException("Please use the format: find <keyword>");
         } else {
             String keyword = m.group(1);
-            Ui.printMessage(taskList.findTasks(keyword));
+            return taskList.findTasks(keyword);
         }
     }
 
-    private static void parseEvent(String input, TaskList taskList, Storage storage) throws NumeratorException {
+    private static String parseEvent(String input, TaskList taskList, Storage storage) throws NumeratorException {
         Pattern p = Pattern.compile("event (\\S+.*) /from (\\S+.*) /to (\\S+.*)");
         Matcher m = p.matcher(input);
         if (!m.find()) {
@@ -80,12 +80,12 @@ public class Parser {
             String from = m.group(2);
             String to = m.group(3);
             Task t = taskList.addEvent(taskDesc, from, to);
-            taskList.printAddTask(t);
             storage.save(taskList);
+            return taskList.getAddTaskString(t);
         }
     }
 
-    private static void parseDeadline(String input, TaskList taskList, Storage storage) throws NumeratorException {
+    private static String parseDeadline(String input, TaskList taskList, Storage storage) throws NumeratorException {
         Pattern p = Pattern.compile("deadline (\\S+.*) /by (\\S+.*)");
         Matcher m = p.matcher(input);
         if (!m.find()) {
@@ -95,15 +95,15 @@ public class Parser {
             String by = m.group(2);
             try {
                 Task t = taskList.addDeadline(taskDesc, by);
-                taskList.printAddTask(t);
                 storage.save(taskList);
+                return taskList.getAddTaskString(t);
             } catch (DateTimeParseException e) {
                 throw new InputFormatException("The date should be in the format: yyyy/MM/dd");
             }
         }
     }
 
-    private static void parseTodo(String input, TaskList taskList, Storage storage) throws NumeratorException {
+    private static String parseTodo(String input, TaskList taskList, Storage storage) throws NumeratorException {
         Pattern p = Pattern.compile("todo (\\S+.*)");
         Matcher m = p.matcher(input);
         if (!m.find()) {
@@ -111,12 +111,12 @@ public class Parser {
         } else {
             String taskDesc = m.group(1);
             Task t = taskList.addToDo(taskDesc);
-            taskList.printAddTask(t);
             storage.save(taskList);
+            return taskList.getAddTaskString(t);
         }
     }
 
-    private static void parseDelete(String input, TaskList taskList, Storage storage) throws NumeratorException {
+    private static String parseDelete(String input, TaskList taskList, Storage storage) throws NumeratorException {
         try {
             Pattern p = Pattern.compile("delete (\\d+)");
             Matcher m = p.matcher(input);
@@ -125,17 +125,15 @@ public class Parser {
             } else {
                 int taskNum = Integer.parseInt(m.group(1)) - 1;
                 Task t = taskList.removeTask(taskNum);
-                Ui.printMessage("Noted. I've removed this task:");
-                Ui.printMessage(t.toString() + "\n");
-                Ui.printMessage("Now you have " + taskList.getSizeAsString() + " tasks in the list");
                 storage.save(taskList);
+                return taskList.getDeleteTaskString(t);
             }
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfBoundsException("Task does not exist");
         }
     }
 
-    private static void parseUnmark(String input, TaskList taskList, Storage storage) throws NumeratorException {
+    private static String parseUnmark(String input, TaskList taskList, Storage storage) throws NumeratorException {
         try {
             Pattern p = Pattern.compile("unmark (\\d+)");
             Matcher m = p.matcher(input);
@@ -144,17 +142,15 @@ public class Parser {
             } else {
                 int taskNum = Integer.parseInt(m.group(1)) - 1;
                 taskList.markAsUndone(taskNum);
-
-                Ui.printMessage("OK, I've marked this task as not done yet:");
-                taskList.printTask(taskNum);
                 storage.save(taskList);
+                return "OK, I've marked this task as not done yet:" + taskList.getTaskAtIndex(taskNum);
             }
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfBoundsException("Task does not exist");
         }
     }
 
-    private static void parseMark(String input, TaskList taskList, Storage storage) throws NumeratorException {
+    private static String parseMark(String input, TaskList taskList, Storage storage) throws NumeratorException {
         try {
             Pattern p = Pattern.compile("mark (\\d+)");
             Matcher m = p.matcher(input);
@@ -163,12 +159,13 @@ public class Parser {
             } else {
                 int taskNum = Integer.parseInt(m.group(1)) - 1;
                 taskList.markAsDone(taskNum);
-                Ui.printMessage("Nice! I've marked this task as done:");
-                taskList.printTask(taskNum);
+                storage.save(taskList);
+                return "Nice! I've marked this task as done:\n" + taskList.getTaskAtIndex(taskNum);
             }
-            storage.save(taskList);
+
         } catch (IndexOutOfBoundsException e) {
             throw new TaskIndexOutOfBoundsException("Task does not exist");
         }
     }
+
 }

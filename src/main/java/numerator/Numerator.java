@@ -47,6 +47,14 @@ public class Numerator {
         new Numerator().run();
     }
 
+    public String getResponse(String response) {
+        try {
+            return Parser.parseArguments(response, taskList, storage);
+        } catch (NumeratorException e) {
+            return e.getMessage();
+        }
+    }
+
     /**
      * Runs the Numerator program
      */
@@ -59,10 +67,10 @@ public class Numerator {
             try {
                 input = sc.nextLine();
                 Ui.printLine();
-                boolean exit = Parser.parseArguments(input, taskList, storage);
+                String response = Parser.parseArguments(input, taskList, storage);
                 storage.save(taskList);
 
-                if (exit) {
+                if (response.equals(Parser.BYE_STRING)) {
                     Ui.printExit();
                     break;
                 }
