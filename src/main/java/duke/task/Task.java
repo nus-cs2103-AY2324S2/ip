@@ -82,8 +82,8 @@ public class Task {
             }
             return dl;
         case "E":
-            String[] time = date.split("-");
-            Event e = new Event(description, time[0], time[1]);
+            String[] timeDate = date.split("-");
+            Event e = new Event(description, timeDate[0], timeDate[1]);
             if (status.equals("X")) {
                 e.markAsDone();
             }
