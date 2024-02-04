@@ -1,17 +1,16 @@
 package ui;
 
+import static parser.Parser.parseCommand;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import actions.Action;
 import actions.Greet;
 import exceptionhandling.DukeException;
 import storage.Storage;
 import tasklist.TaskList;
 
-
-import java.util.ArrayList;
-
-import java.util.Scanner;
-
-import static parser.Parser.parseCommand;
 
 /**
  * Duke is a simple chatbot application that allows users to manage a list of tasks.

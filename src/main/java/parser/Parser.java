@@ -1,11 +1,22 @@
 package parser;
 
-import actions.*;
-import exceptionhandling.DukeException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import actions.Action;
+import actions.Bye;
+import actions.CreateDeadline;
+import actions.CreateEvent;
+import actions.CreateTodo;
+import actions.Delete;
+import actions.DisplayList;
+import actions.Find;
+import actions.InvalidAction;
+import actions.Mark;
+import actions.Unmark;
+import exceptionhandling.DukeException;
+
 /**
  * The `Parser` class is responsible for parsing user commands and converting them into executable actions.
  * It provides methods to parse different types of commands and handles various exceptions related to command parsing.
@@ -20,8 +31,8 @@ public class Parser {
      * @throws DukeException If there is an error in parsing the command or if the command is invalid.
      */
     public static Action parseCommand(String command) throws DukeException {
-        String[] split_command = command.split(" ", 2);
-        String method = split_command[0];
+        String[] splitCommand = command.split(" ", 2);
+        String method = splitCommand[0];
         switch (method) {
         case "list":
             return new DisplayList();
@@ -29,73 +40,73 @@ public class Parser {
             return new Bye();
 
         case "mark":
-            if (split_command.length <= 1) {
+            if (splitCommand.length <= 1) {
                 throw new DukeException("Please include a task index to mark");
             }
-            String s = split_command[1];
+            String s = splitCommand[1];
             return new Mark(Integer.parseInt(s));
 
         case "unmark":
-            if (split_command.length <= 1) {
+            if (splitCommand.length <= 1) {
                 throw new DukeException("Please include a task index to mark");
             }
-            String s2 = split_command[1];
+            String s2 = splitCommand[1];
             return new Unmark(Integer.parseInt(s2));
 
         case "todo":
-            if (split_command.length <= 1) {
+            if (splitCommand.length <= 1) {
                 throw new DukeException("Please write a description for your task!");
             }
-            return new CreateTodo(split_command[1]);
+            return new CreateTodo(splitCommand[1]);
 
         case "deadline":
-            if (split_command.length <= 1) {
+            if (splitCommand.length <= 1) {
                 throw new DukeException("Please write a description and a deadline for your task!");
             }
-            String[] info_split = split_command[1].split("/by ", 2);
-            if (info_split.length <= 1) {
+            String[] infoSplit = splitCommand[1].split("/by ", 2);
+            if (infoSplit.length <= 1) {
                 throw new DukeException("Please include a deadline by using by keyword like '/by Thursday'");
             }
-            String deadline_desc = info_split[0];
+            String deadlineDesc = infoSplit[0];
 
             try {
-                LocalDate date = parseDate(info_split[1]);
-                return new CreateDeadline(deadline_desc, date);
+                LocalDate date = parseDate(infoSplit[1]);
+                return new CreateDeadline(deadlineDesc, date);
             } catch (DateTimeParseException e) {
                 throw new DukeException("Date is in the wrong format! Follow yyyy-MM-dd format");
             }
 
         case "event":
-            if (split_command.length <= 1) {
+            if (splitCommand.length <= 1) {
                 throw new DukeException("Please write a description and the time period for your task!");
             }
-            String[] info_split2 = split_command[1].split("/from ", 2);
-            if (info_split2.length <= 1) {
-                throw new DukeException("Please include a time period by using from and to keyword such as" +
-                        "'/from today /to tomorrow");
+            String[] infoSplit2 = splitCommand[1].split("/from ", 2);
+            if (infoSplit2.length <= 1) {
+                throw new DukeException("Please include a time period by using from and to keyword such as"
+                        + "'/from today /to tomorrow");
             }
-            String[] info_split3 = info_split2[1].split("/to ", 2);
-            if (info_split3.length <= 1) {
-                throw new DukeException("Please include a time period by using from and to keyword such as" +
-                        "'/from today /to tomorrow");
+            String[] infoSplit3 = infoSplit2[1].split("/to ", 2);
+            if (infoSplit3.length <= 1) {
+                throw new DukeException("Please include a time period by using from and to keyword such as"
+                        + "'/from today /to tomorrow");
             }
-            String eventDesc = info_split2[0];
-            String from = info_split3[0];
-            String to = info_split3[1];
+            String eventDesc = infoSplit2[0];
+            String from = infoSplit3[0];
+            String to = infoSplit3[1];
             return new CreateEvent(eventDesc, from, to);
 
         case "delete":
-            if (split_command.length <= 1) {
+            if (splitCommand.length <= 1) {
                 throw new DukeException("Please include an index to delete");
             }
-            String s3 = split_command[1];
+            String s3 = splitCommand[1];
             return new Delete(Integer.parseInt(s3));
 
         case "find":
-            if (split_command.length <= 1) {
+            if (splitCommand.length <= 1) {
                 throw new DukeException("Please include search details");
             }
-            String search = split_command[1];
+            String search = splitCommand[1];
             return new Find(search);
 
         default:

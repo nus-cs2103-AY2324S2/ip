@@ -1,11 +1,11 @@
 package actions;
 
+import java.util.ArrayList;
+
 import tasks.Task;
 import ui.Duke;
 
-import java.util.ArrayList;
-
-public class Find implements Action{
+public class Find implements Action {
     private String search;
 
     public Find(String search) {
@@ -31,8 +31,7 @@ public class Find implements Action{
                         task.getDescription()));
                 index++;
             }
-        }
-        else {
+        } else {
             System.out.println("No matches found!");
         }
     }

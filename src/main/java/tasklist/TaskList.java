@@ -1,8 +1,9 @@
 package tasklist;
 
+import java.util.ArrayList;
+
 import tasks.Task;
 
-import java.util.ArrayList;
 
 /**
  * The `TaskList` class represents a list that holds tasks managed by the Duke chatbot.
@@ -101,8 +102,10 @@ public class TaskList {
         try {
             Task t = this.list.remove(index - 1);
             System.out.println("Noted. The following task is removed, you careless human being!");
-            System.out.println(String.format("[%s] [%s] %s\n", t.getTypeIcon(), t.getStatusIcon(), t.getDescription()));
-            System.out.println(String.format("Now you only have %d tasks left. %s", this.getListSize(), this.getListUpdate()));
+            System.out.println(String.format("[%s] [%s] %s\n", t.getTypeIcon(),
+                    t.getStatusIcon(), t.getDescription()));
+            System.out.println(String.format("Now you only have %d tasks left. %s",
+                    this.getListSize(), this.getListUpdate()));
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No task at that index! You fool!");
         }

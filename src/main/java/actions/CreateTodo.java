@@ -1,7 +1,8 @@
 package actions;
 
-import ui.Duke;
 import tasks.Todo;
+import ui.Duke;
+
 
 /**
  * The `CreateTodo` class implements the Action interface and represents an action to create a new Todo task.
