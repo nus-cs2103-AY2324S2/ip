@@ -10,16 +10,30 @@ import task.Todo;
 import task.Deadline;
 import task.Event;
 
+/**
+ * Handles interpreting strings for commands and task list data.
+ */
 public class Parser {
     private static final Scanner in = new Scanner(System.in);
     private static final String INDENT = Ui.indent();
 
-    // get next command and arguments
+    /**
+     * Parses next line user input into command and arguments.
+     * Splits out the first word (separated by whitespace) as a command with everything else treated as an argument.
+     *
+     * @return String array where first String is the command and second String is argument.
+     */
     public static String[] parseInput() {
         String input = in.nextLine().trim();
         return input.split(" ", 2); // [command, arguments]
     }
 
+    /**
+     * Takes parsed command and calls the related functions.
+     * Further parses argument String as required by the identified command.
+     *
+     * @throws YapperException Thrown when invalid command, arguments, index or formatting detected.
+     */
     public static void parseCommand() throws YapperException {
         String[] cmdArg = parseInput();
         Yapper.Command cmd = Yapper.Command.valueOfCommandName(cmdArg[0]);
@@ -102,6 +116,14 @@ public class Parser {
     }
 
     // add task according to what type they are
+
+    /**
+     * Parses arguments for their corresponding {@link Task} type for initialising and adding to {@link TaskList}.
+     *
+     * @param arg Parsed arguments to be split based on identified {@link Task} type.
+     * @param id Type of {@link Task} identified.
+     * @throws YapperException Incorrect types of formatting detected.
+     */
     public static void parseTask(String arg, Task.ID id) throws YapperException {
         switch (id) {
         case TODO:
@@ -163,15 +185,18 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses task list data to create and add tasks to the {@link TaskList}.
+     *
+     * @param data Task list data saved in the local file represented as a String.
+     * @throws YapperException Data found in local file is detected to be incorrectly formatted.
+     */
     public static void parseData(String data) throws YapperException {
         String[] taskData = data.split("" + " / ");
         boolean isDone; // used for creating new Task
         switch (taskData[0]) {
         case "T":
             if (taskData.length != 3) {
-                for (String s : taskData) {
-                    System.out.println(s);
-                }
                 throw new YapperException("Error in the save files 1");
             }
 
@@ -231,6 +256,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses all tasks in the {@link TaskList} into format to be saved in the local file.
+     *
+     * @return String representation of task list data to be saved to the local file.
+     */
     public static String parseToData() {
         String data = "";
         for (int i = 0; i < TaskList.listSize(); i++) {

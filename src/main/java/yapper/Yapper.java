@@ -5,7 +5,13 @@ import java.util.Map;
 
 import exception.YapperException;
 
+/**
+ * Main class for the Yapper program to run.
+ */
 public class Yapper {
+    /**
+     * Enum for the different types of commands available for the user to use.
+     */
     public enum Command {
         BYE("bye"),
         LIST("list"),
@@ -33,6 +39,9 @@ public class Yapper {
         }
     }
 
+    /**
+     * Runs the main program flow of the Yapper program.
+     */
     public static void run() {
         Ui.hello();
         FileManager.loadTasks();

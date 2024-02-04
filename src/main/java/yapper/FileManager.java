@@ -9,7 +9,13 @@ import java.util.Scanner;
 
 import exception.YapperException;
 
+/**
+ * Handles the loading and saving of data for the {@link TaskList} between the program and the local files.
+ */
 public class FileManager {
+    /**
+     * Reads the task list data from the local file and sends it to the {@link Parser} to parse the data.
+     */
     public static void loadTasks() {
         Path dir = Paths.get("data");
         try {
@@ -37,6 +43,9 @@ public class FileManager {
     }
 
     // can have a hasChanged check with the taskList to prevent rewriting data even if no changed occurred
+    /**
+     * Saves the task list data received from {@link Parser} and writes it to the local file.
+     */
     public static void saveTasks() throws YapperException {
         try (FileWriter fw = new FileWriter("data/taskData.txt")){
             fw.write(Parser.parseToData());
