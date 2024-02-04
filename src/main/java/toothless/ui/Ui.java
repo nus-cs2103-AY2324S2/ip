@@ -1,7 +1,6 @@
 package toothless.ui;
 
 import toothless.task.Task;
-import toothless.task.TaskList;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -21,7 +20,7 @@ public class Ui {
 
     /**
      * Reads command from the user.
-     * 
+     *
      * @return String of the command.
      */
     public String readCommand() {
@@ -30,7 +29,7 @@ public class Ui {
 
     /**
      * Prints the given message.
-     * 
+     *
      * @param message String to be printed.
      */
     public void printMessage(String message) {
@@ -59,9 +58,10 @@ public class Ui {
     }
 
     /**
+     * <<<<<<< HEAD
      * Prints new task message.
-     * 
-     * @param newTask New Task to be printed.
+     *
+     * @param newTask      New Task to be printed.
      * @param taskListSize Size of tasklist.
      */
     public void printNewTask(Task newTask, int taskListSize) {
@@ -73,8 +73,8 @@ public class Ui {
 
     /**
      * Prints deleted task message.
-     * 
-     * @param deletedTask Deleted Task to be printed.
+     *
+     * @param deletedTask  Deleted Task to be printed.
      * @param taskListSize Size of tasklist.
      */
     public void printDeletedTask(Task deletedTask, int taskListSize) {
@@ -86,7 +86,7 @@ public class Ui {
 
     /**
      * Prints marked task message.
-     * 
+     *
      * @param markedTask Marked Task to be printed.
      */
     public void printMarkedTask(Task markedTask) {
@@ -95,7 +95,7 @@ public class Ui {
 
     /**
      * Prints unmarked task message.
-     * 
+     *
      * @param unmarkedTask Unmarked Task to be printed.
      */
     public void printUnmarkedTask(Task unmarkedTask) {
@@ -104,22 +104,22 @@ public class Ui {
 
     /**
      * Prints the TaskList in order.
-     * 
+     *
      * @param taskArrayList The ArrayList of Tasks to be printed.
      */
-    public void printList(ArrayList<Task> taskArrayList) {
+    public void printList(ArrayList<Task> taskArrayList, String noTasksMessage, String introMessage) {
         if (taskArrayList.size() == 0) {
-            System.out.print("\tOops! Looks like you haven't added any tasks yet!");
-        }
-
-        String listString = "";
-        for (int i = 1; i <= taskArrayList.size(); i++) {
-            listString += "\t";
-            listString += i + ". " + taskArrayList.get(i - 1);
-            if (i < taskArrayList.size()) {
-                listString += "\n";
+            System.out.println(noTasksMessage);
+        } else {
+            String listString = introMessage;
+            for (int i = 1; i <= taskArrayList.size(); i++) {
+                listString += "\t";
+                listString += i + ". " + taskArrayList.get(i - 1);
+                if (i < taskArrayList.size()) {
+                    listString += "\n";
+                }
             }
+            System.out.println(listString);
         }
-        System.out.println(listString);
     }
 }

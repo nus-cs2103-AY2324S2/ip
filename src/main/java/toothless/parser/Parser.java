@@ -5,6 +5,8 @@ import toothless.task.Task;
 import toothless.task.TaskList;
 import toothless.ui.Ui;
 
+import java.util.ArrayList;
+
 /**
  * A class that parses, resolves and validates user input.
  */
@@ -40,7 +42,8 @@ public class Parser {
             ui.printMessage("Bye. Purr-lease chat again soon!");
             makeExit();
         } else if (userInput.equals("list")) {
-            ui.printList(tasks.getTasks());
+            ui.printList(tasks.getTasks(), 
+                    "\tOops! Looks like you haven't added any tasks yet!", "");
         } else if (userInput.startsWith("mark ") || userInput.equals("mark")) {
             int listIndex = validateListInput(userInput, "mark", tasks.size());
             Task markedTask = tasks.markTask(listIndex);
@@ -65,6 +68,12 @@ public class Parser {
             int listIndex = validateListInput(userInput, "delete", tasks.size());
             Task deletedTask = tasks.deleteTask(listIndex);
             ui.printDeletedTask(deletedTask, tasks.size());
+        } else if (userInput.startsWith("find ") || userInput.equals("find")) {
+            String keyword = validateFindInput(userInput);
+            ArrayList<Task> keywordTasks = tasks.findKeyword(keyword);
+            ui.printList(keywordTasks, 
+                    "\tOops! Looks like there are no tasks matching the keyword!",
+                    "\tHere are the meow-tching tasks in your list:\n");
         } else {
             throw new ToothlessException("Sorry, I don't understand what that means D:");
         }
@@ -176,5 +185,20 @@ public class Parser {
         }
 
         return eventAttributes;
+    }
+
+    /**
+     * Validates the user input for find command.
+     * 
+     * @param findInput The user input for find command.
+     * @return The keyword to be found.
+     * @throws ToothlessException if keyword is blank.
+     */
+    public String validateFindInput(String findInput) throws ToothlessException {
+        String keyword = findInput.replace("find ", "").strip();
+        if (keyword.isBlank()) {
+            throw new ToothlessException("Apurrlogies, the keyword cannot be empty.");
+        }
+        return keyword;
     }
 }

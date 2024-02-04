@@ -87,6 +87,22 @@ public class TaskList {
     }
 
     /**
+     * Finds and returns a list of tasks with given keyword.
+     *
+     * @param keyword A String to search in tasklist.
+     * @return List of tasks with keyword.
+     */
+    public ArrayList<Task> findKeyword(String keyword) {
+        ArrayList<Task> keywordTasks = new ArrayList<>();
+        for (Task currentTask : this.tasks) {
+            if (currentTask.toString().contains(keyword)) {
+                keywordTasks.add(currentTask);
+            }
+        }
+        return keywordTasks;
+    }
+
+    /**
      * Adds ToDo task to list.
      *
      * @param taskDescription String to describe the task.
