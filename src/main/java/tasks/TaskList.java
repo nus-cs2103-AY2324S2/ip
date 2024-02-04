@@ -18,6 +18,10 @@ public class TaskList {
         tasks = loadedTasks;
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
     public void addTask(String input, Ui ui, Storage storage) {
         String[] parts = input.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -113,7 +117,7 @@ public class TaskList {
         } else {
             ui.showMessage(ui.getUser() + ", your task list has the following tasks:");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+                ui.showMessage((i + 1) + "." + tasks.get(i));
             }
         }
     }
@@ -142,7 +146,7 @@ public class TaskList {
                             + date.format(DateTimeFormatter.ofPattern("MMM d yyyy").withLocale(Locale.US))
                             + ", you have the following tasks:");
                 }
-                System.out.println(task);
+                ui.showMessage(task.toString());
                 count++;
             }
         }
