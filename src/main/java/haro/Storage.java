@@ -12,9 +12,19 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.io.IOException;
 
+/**
+ * The Storage class manages the reading and saving of task data to a text file.
+ * It loads tasks from a specific text file and saves it back to the same file.
+ */
 public class Storage {
     private String filePath;
     private File file;
+
+    /**
+     * Constructs a Storage instance with specified file paths
+     * @param filePath Path to save file that the Storage instance will be loading and saving from
+     * @param directoryPath The directory that the text file is in
+     */
     public Storage(String filePath, String directoryPath) {
         this.filePath = filePath;
         file = new File(filePath);
@@ -35,6 +45,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the save file and returns them as an ArrayList
+     * @return An ArrayList of the Task objects loaded from the save file.
+     */
     public ArrayList<Task> loadSave() {
         ArrayList<Task> resultTasks = new ArrayList<Task>();
         try {
@@ -127,6 +141,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks from a TaskList to the save file
+     * @param sourceTaskList TaskList containing tasks to be saved
+     */
     public void saveToDisk(TaskList sourceTaskList) {
         ArrayList<Task> saveList = sourceTaskList.getArrayList();
         String content = "";
