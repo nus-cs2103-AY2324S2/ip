@@ -19,6 +19,11 @@ import haro.task.Deadline;
 import haro.task.Event;
 import haro.task.Task;
 import haro.task.ToDo;
+
+/**
+ * The parser class is responsible for parsing user input and creating corresponding Command objects
+ * It handles the interpretation of commands and their arguments, throwing exceptions for invalid input.
+ */
 public class Parser {
     enum Instruction {
         BYE,
@@ -33,6 +38,12 @@ public class Parser {
 
     }
 
+    /**
+     * Parses the user input and returns the corresponding Command object
+     * @param input The users input through the command line
+     * @return A Command object corresponding to the user input
+     * @throws Exception If there are errors in the user input or command execution
+     */
     public static Command parseCommand (String input) throws Exception {
         Instruction instruction = Instruction.NONE;
         String[] inputArr = input.split(" ", 2);
@@ -171,6 +182,11 @@ public class Parser {
         return resultCommand;
     }
 
+    /**
+     * Checks if the given string is numeric
+     * @param str String to be checked
+     * @return True if the string is numeric and false otherwise
+     */
     private static boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);

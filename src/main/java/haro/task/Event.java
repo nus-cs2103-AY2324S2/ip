@@ -6,11 +6,23 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Event class represents an event task in the application, extending the Task class.
+ * It provides specific functionality for handling event tasks with start and end dates.
+ */
 public class Event extends Task {
     String start;
     String end;
     LocalDate startDate;
     LocalDate endDate;
+
+    /**
+     * Constructs an Event instance with the specified task description, start date, and end date.
+     *
+     * @param task Task description
+     * @param start Start date of the event
+     * @param end   End date of the event
+     */
     public Event(String task, String start, String end) {
         super(task);
         this.start = start;
@@ -25,6 +37,14 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Constructs an Event instance with the specified task description, start date, end date, and done status.
+     *
+     * @param task Task description
+     * @param start Start date of the event
+     * @param end   End date of the event
+     * @param done  True if the task is marked as done, false otherwise
+     */
     public Event(String task, String start, String end, boolean done) {
         super(task, done);
         this.start = start;
@@ -39,6 +59,11 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns a formatted string representation of the event task.
+     *
+     * @return Formatted string representation of the event task
+     */
     @Override
     public String printTask() {
         String startString;
@@ -57,6 +82,12 @@ public class Event extends Task {
         return "[E]" + super.printTask() + " (from: " + startString + " to: " + endString + ")";
     }
 
+    /**
+     * Returns a string representation of the event task for storage purposes.
+     * Format: "E | {marked} | {task} | {start} | {end}"
+     *
+     * @return String representation of the event task for storage
+     */
     @Override
     public String toString() {
         int marked = this.done ? 1 : 0;

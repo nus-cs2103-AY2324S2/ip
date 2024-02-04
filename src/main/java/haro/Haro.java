@@ -1,6 +1,10 @@
 package haro;
 
 import haro.command.Command;
+/**
+ * The main class for the Haro application.
+ * Haro is a task management chatBot.
+ */
 public class Haro {
     private String haroLogo = " ___  ___  ________  ________  ________\n"
             + "|\\  \\|\\  \\|\\   __  \\|\\   __  \\|\\   __  \\\n"
@@ -16,6 +20,13 @@ public class Haro {
     private Storage haroStorage;
     private Ui haroUi;
 
+    /**
+     * Constructs a new Haro object.
+     * Initializes the storage, task list and ui components.
+     *
+     * @param dataPath   Path to the data file, where task data will be stored
+     * @param directory  directory that the data file will be in
+     */
     public Haro(String dataPath, String directory) {
         this.taskList = new TaskList();
         this.haroUi = new Ui();
@@ -23,6 +34,10 @@ public class Haro {
         this.taskList = new TaskList(haroStorage.loadSave());
     }
 
+    /**
+     * Initialises the haro application.
+     * Greets the user and prompts the user for input through the command line.
+     */
     public void initialise() {
         haroUi.greet();
         boolean isExit = false;
