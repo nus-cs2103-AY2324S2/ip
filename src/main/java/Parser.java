@@ -3,6 +3,9 @@ import java.util.List;
 
 public class Parser {
     public static Command parse(String text, State state) throws DukeException {
+        if (text.contains("|")) {
+            throw new DukeException("No | pleaserin-o!");
+        }
         List<String> parts = Arrays.asList(text.split(" "));
         if (parts.isEmpty()) {
             throw new DukeException("Invalid Commands");
