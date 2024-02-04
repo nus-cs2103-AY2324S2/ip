@@ -38,17 +38,22 @@ public class fileManager {
      * @return an array of type Task.
      */
     public ArrayList<Task> fetchTasks() {
-        File infile;
         Scanner scanner;
         Task currentTask;
         ArrayList<Task> taskList = new ArrayList<>();
+        File infile = new File(this.filePath 
+                    + File.separator + "data"
+                    + File.separator + "tasks.csv");
 
         try {
-            infile = new File(this.filePath);
-            infile.createNewFile();     // Creates new file if it does not exist.
-            scanner = new Scanner(infile);
+            // Creates new directory if does not exist.
+            new File(filePath + File.separator + "data").mkdir(); 
+            
+            // Creates new file if it does not exist.
+            infile.createNewFile(); 
 
-        } catch (IOException e) { // Not supposed to happen.
+            scanner = new Scanner(infile);
+        } catch (IOException e) { // not supposed to happen.
             e.printStackTrace();
             return null;
         }

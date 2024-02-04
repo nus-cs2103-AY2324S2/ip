@@ -24,7 +24,9 @@ public class someBOTy {
     }
 
     public static void main(String[] args) { 
-        String filePath = System.getProperty("user.dir") + "/data/tasks.csv";
+        String filePath = System.getProperty("user.dir");
+
+        System.out.println("filePath to data: " + filePath);
         new someBOTy(filePath);
     }
 }
