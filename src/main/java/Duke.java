@@ -7,41 +7,36 @@ import java.util.Scanner;
 /**
  * Represents a chat bot to keep track of user's tasks.
  */
-public class    Duke {
+public class Duke {
 
     private static final String FILE_PATH = "./data/Duke.txt";
-    private static final String INTRO = "____________________________________________________________\n"
-            + "        Hello! I'm sibehupzcoder9000\n"
-            + "        What you want sia\n"
-            + "____________________________________________________________\n";
-    private static final String OUTRO = "____________________________________________________________\n"
-            + "        wow so ur gg to leave me...\n"
-            + "____________________________________________________________\n";
     private static ArrayList<Task> list = new ArrayList<>();
-
+    private Ui ui;
 
     public static void main(String[] args) {
+        new Duke(FILE_PATH).run();
+    }
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println(INTRO);
-
-        //load file
+    public Duke(String filePath) {
+        ui = new Ui();
         try {
             Duke.loadFileContents();
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            ui.showLoadingError(e.getMessage());
         }
+    }
+
+    public void run() {
+        Scanner sc = new Scanner(System.in);
+        ui.showIntro();
 
         String original = sc.nextLine();
 
         while (!original.equals("bye")) {
             try {
-                Duke.processLine(original);
+                processLine(original);
             } catch (DukeException e) {
-                String message = "____________________________________________________________\n"
-                        + e.getMessage()
-                        + "\n____________________________________________________________\n";
-                System.out.println(message);
+                ui.showLoadingError(e.getMessage());
             }
             original = sc.nextLine();
         }
@@ -49,23 +44,10 @@ public class    Duke {
         try {
             Duke.writeToFile();
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            ui.showLoadingError(e.getMessage());
         }
-            System.out.print(OUTRO);
-            sc.close();
-    }
-
-    /**
-     * Lists out all tasks in task list.
-     */
-    public static void listOut() {
-        StringBuilder listOutput = new StringBuilder("____________________________________________________________\n"
-                + " Here are the tasks in your list:\n");
-        for (int i = 0; i < list.size(); i++) {
-            listOutput.append(" ").append(i + 1).append(". ").append(list.get(i).toString()).append("\n");
-        }
-        listOutput.append("____________________________________________________________\n");
-        System.out.print(listOutput);
+        ui.showOutro();
+        sc.close();
     }
 
     /**
@@ -141,7 +123,7 @@ public class    Duke {
         }
     }
 
-    public static void processLine(String original) throws DukeException {
+    public void processLine(String original) throws DukeException {
             String[] inputParts = original.split("\\s+");
 
             //handle mark || unmark
@@ -150,7 +132,7 @@ public class    Duke {
                 System.out.println(list.get(inputInt - 1).toggle());
             } else if (original.equals("list")) {
                 //handle "list"
-                Duke.listOut();
+                ui.showList(list);
             } else if (inputParts[0].equals("todo")) {
                 //handle "todoo"
                 String description = original.replace("todo", "");
