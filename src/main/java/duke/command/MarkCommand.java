@@ -10,7 +10,7 @@ import duke.exception.InvalidArgumentException;
  * Represents the command to mark a task in the taskList.
  */
 public class MarkCommand extends Command {
-    int positionToMark;
+    private int positionToMark;
 
     /**
      * Constructor for a mark task command,

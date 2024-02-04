@@ -11,7 +11,7 @@ import duke.exception.InvalidArgumentException;
  * Represents the command to mark a task in the taskList.
  */
 public class UnmarkCommand extends Command {
-    int positionToUnmark;
+    private int positionToUnmark;
 
     /**
      * Constructor for an unmark task command,

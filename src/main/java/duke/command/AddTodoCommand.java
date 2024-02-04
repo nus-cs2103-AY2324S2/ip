@@ -13,7 +13,7 @@ import duke.exception.InvalidArgumentException;
  * Represents the command to add a Todo task to the taskList.
  */
 public class AddTodoCommand extends Command {
-    String description;
+    private String description;
 
     /**
      * Constructor for an AddToDo command,

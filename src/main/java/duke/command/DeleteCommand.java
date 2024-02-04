@@ -12,7 +12,7 @@ import duke.exception.InvalidArgumentException;
  * Represents the command to delete a task from the taskList.
  */
 public class DeleteCommand extends Command {
-    int positionToDelete;
+    private int positionToDelete;
 
     // TODO : consider catching exception for invalid string which isn't a number
     /**

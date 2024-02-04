@@ -14,7 +14,7 @@ import duke.exception.InvalidArgumentException;
  * Represents the command to add a Deadline task to the taskList.
  */
 public class AddDeadlineCommand extends Command {
-    String description;
+    private String description;
 
     /**
      * Constructor for an AddDeadline command,

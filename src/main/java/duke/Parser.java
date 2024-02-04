@@ -20,11 +20,21 @@ import duke.command.Command;
 import duke.exception.InvalidArgumentException;
 import duke.exception.InvalidCommandException;
 
+/**
+ * Represents the class that deals with all the formatting and making sense of the String inputs.
+ */
 public class Parser {
-    public enum CommandType {
+    private enum CommandType {
         BYE, LIST, DELETE, MARK, UNMARK, TODO, EVENT, DEADLINE
     }
 
+    /**
+     * Returns the respective command to be executed after deconstructing the user input.
+     * Possible commands are : BYE, LIST, DELETE, MARK, UNMARK, TODO, EVENT, DEADLINE.
+     *
+     * @param userInput String of user input to be deconstructed and processed.
+     * @return Command to be executed.
+     */
     public static Command parseCommand(String userInput) throws InvalidCommandException, InvalidArgumentException {
         Command command = null;
 
@@ -83,7 +93,16 @@ public class Parser {
         return command;
     }
 
-    public static String formatDate(String byDate) {
+    /**
+     * Returns the reformatted date if input date matches the specific date formats.
+     * <p>
+     * If the input date does not match any of the formats, the input date String will be
+     * returned as it is.
+     *
+     * @param date Unformatted date String.
+     * @return Reformatted date if input matches any of the specific formats.
+     */
+    public static String formatDate(String date) {
         List<DateTimeFormatter> formatters = new ArrayList<>();
         formatters.add(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         formatters.add(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -92,13 +111,13 @@ public class Parser {
 
         for (DateTimeFormatter formatter : formatters) {
             try {
-                parsedDateTime = LocalDate.parse(byDate, formatter);
+                parsedDateTime = LocalDate.parse(date, formatter);
                 break;
             } catch (DateTimeParseException e) {
             }
         }
         if (parsedDateTime == null) {
-            return byDate;
+            return date;
         }
         return parsedDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }

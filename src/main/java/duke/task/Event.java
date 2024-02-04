@@ -4,9 +4,6 @@ package duke.task;
  * Represents an Event task with the format [ details (from: <code>date</code>) to: <code>date</code>) ].
  */
 public class Event extends Task {
-    protected String from;
-    protected String to;
-
     /**
      * Constructor for an Event task with status as default not done.
      *
