@@ -1,7 +1,9 @@
+package duke.util;
+
 public class Ui {
 
     public final String divider = "---------------------------------------------------------------";
-    Ui() {
+    public Ui() {
     }
 
     public void welcome() {

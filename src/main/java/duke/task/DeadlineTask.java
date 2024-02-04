@@ -1,11 +1,14 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import duke.exceptions.DukeException;
 
 public class DeadlineTask extends Task {
 
     protected LocalDateTime end_time;
-    DeadlineTask(String name, LocalDateTime end_time, String file_format) throws DukeException{
-        super(name, Type.D, file_format);
+    public DeadlineTask(String name, LocalDateTime end_time, String file_format) throws DukeException {
+        super(name, Task.Type.D, file_format);
         this.end_time = end_time;
 
         if (this.name.isBlank()) {

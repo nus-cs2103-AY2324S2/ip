@@ -1,3 +1,5 @@
+package duke.util;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -8,6 +10,11 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
+import duke.task.Task;
+import duke.task.TodoTask;
+import duke.task.DeadlineTask;
+import duke.task.EventTask;
+import duke.exceptions.DukeException;
 
 public class Storage {
     private final File FILE;
@@ -84,7 +91,7 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(FILE);
             for (Task task : todo) {
-                fw.write(task.file_format + System.lineSeparator());
+                fw.write(task.getFileFormat() + System.lineSeparator());
             }
             fw.close();
         } catch (IOException err) {

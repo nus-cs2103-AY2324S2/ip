@@ -1,4 +1,6 @@
-abstract class Task {
+package duke.task;
+
+public abstract class Task {
 
     protected Boolean done;
     protected final String name;
@@ -31,6 +33,9 @@ abstract class Task {
     }
     public String getName() {
         return this.name;
+    }
+    public String getFileFormat() {
+        return this.file_format;
     }
 
 }

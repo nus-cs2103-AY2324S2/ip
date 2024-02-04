@@ -1,8 +1,12 @@
+package duke.task;
+
+import duke.exceptions.DukeException;
+
 public class EventTask extends Task {
 
     protected String start_time, end_time;
-    EventTask(String name, String start_time, String end_time, String file_format) throws DukeException {
-        super(name, Type.E, file_format);
+    public EventTask(String name, String start_time, String end_time, String file_format) throws DukeException {
+        super(name, Task.Type.E, file_format);
         this.start_time = start_time;
         this.end_time = end_time;
         if (this.name.isBlank() || this.start_time.isBlank() || this.end_time.isBlank()) {
