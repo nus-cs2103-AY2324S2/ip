@@ -53,7 +53,7 @@ public class Duke {
         while (!isExit) {
             try {
 
-                String userInput = ui.getUserInput();
+                Ui.Command userInput = ui.getUserInput();
                 if (userInput.equals("Bye")) {
                     isExit = true;
                 }

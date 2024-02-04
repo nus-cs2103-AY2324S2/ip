@@ -10,6 +10,9 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner scanner;
+    public enum Command {
+        BYE, LIST, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND
+    }
 
     /**
      * Constructs an Ui object with a Scanner for user input.
@@ -30,10 +33,19 @@ public class Ui {
      *
      * @return The user's input command.
      */
-    public String getUserInput() {
+    public Command getUserInput() {
         System.out.print("Enter your command: ");
-        return scanner.next();
+        return getCommand(scanner.next());
     }
+
+    private static Command getCommand(String input) {
+        try {
+            return Command.valueOf(input.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return Command.UNKNOWN;
+        }
+    }
+
 
     /**
      * Gets user input from the command line, allowing for multiple words.

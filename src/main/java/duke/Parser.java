@@ -34,23 +34,23 @@ public class Parser {
      * @param storage   The Storage object for saving and loading tasks.
      * @throws DukeException If an error occurs during the parsing or execution of the command.
      */
-    public static void parseAndExecute(String userInput, TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public static void parseAndExecute(Ui.Command userInput, TaskList tasks, Ui ui, Storage storage) throws DukeException {
 
         //String[] words = userInput.split(" ");
-        String commandStr = userInput.toUpperCase();
+        //String commandStr = userInput.toUpperCase();
 
 
-        switch (commandStr) {
-            case "BYE":
+        switch (userInput) {
+            case BYE:
                 // Handle BYE command
                 ui.showGoodbyeMessage();
                 System.exit(0);
                 break;
-            case "LIST":
+            case LIST:
                 // Handle LIST command
                 tasks.listTasks(ui);
                 break;
-            case "DELETE":
+            case DELETE:
                 //if (words.length < 2) {
                 //    throw new DukeException("The task number to mark is missing.");
                 //}
@@ -64,7 +64,7 @@ public class Parser {
                 }
                 break; // Add break statement
 
-            case "MARK":
+            case MARK:
                 // Handle MARK command
 
                 if (ui.hasNextInt()) {
@@ -76,20 +76,20 @@ public class Parser {
                 }
 
                 break;
-            case "DEADLINE":
+            case DEADLINE:
                 parseDeadline( tasks, ui);
                 break;
 
-            case "EVENT":
+            case EVENT:
                 parseEvent( tasks, ui);
                 break;
-            case "TODO":
+            case TODO:
 
                 parseTodo( tasks, ui);
 
                 break;
 
-            case "FIND":
+            case FIND:
                 parseFind(tasks, ui);
                 break;
             default:
