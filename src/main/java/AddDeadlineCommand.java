@@ -8,13 +8,13 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(State state) {
+    public void execute(State state, Ui ui) {
         Task newDeadline = new Deadline(
                 getText(),
                 deadline,
                 false
         );
         state.addTask(newDeadline);
-        System.out.println("I added!–\n" + newDeadline +  "\n–Mamma-mia!");
+        ui.say("I added!–\n" + newDeadline +  "\n–Mamma-mia!");
     }
 }

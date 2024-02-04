@@ -4,9 +4,9 @@ public class AddTodoCommand extends Command {
     }
 
     @Override
-    public void execute(State state) {
+    public void execute(State state, Ui ui) {
         Task newTodo = new Todo(getText(), false);
         state.addTask(newTodo);
-        System.out.println("I added!–\n" + newTodo +  "\n–Mamma-mia!");
+        ui.say("I added!–\n" + newTodo +  "\n–Mamma-mia!");
     }
 }

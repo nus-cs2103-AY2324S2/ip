@@ -6,7 +6,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(State state) {
+    public void execute(State state, Ui ui) {
         int taskNo = this.index - 1;
         Task task = state.getTask(taskNo);
         if (task == null) {
@@ -14,7 +14,7 @@ public class MarkCommand extends Command {
             return;
         }
         task.setDone(true);
-        System.out.println("Mamma-mai! I've marked it done!");
-        System.out.println(task);
+        ui.say("Mamma-mai! I've marked it done!");
+        ui.say(task.toString());
     }
 }

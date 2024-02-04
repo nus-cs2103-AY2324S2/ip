@@ -5,6 +5,7 @@ public class Duke {
     public static void main(String[] args) {
         System.out.println("Hello it's a-me! Mario!\nWhat-a can I do fo' ya!");
         Scanner scanner = new Scanner(System.in);
+        Ui ui = new Ui();
         State state = Storage.load();
         while(true) {
             String line = scanner.nextLine();
@@ -13,12 +14,12 @@ public class Duke {
             }
             try {
                 Command c = Parser.parse(line, state);
-                c.execute(state);
+                c.execute(state, ui);
                 Storage.save(state);
             } catch (DukeException e) {
-                System.out.println("Uh Oh! " + e.getMessage());
+                ui.say("Uh Oh! " + e.getMessage());
             } catch (DateTimeParseException e) {
-                System.out.println("Uh Oh! Format your date as yyyy-mm-dd!");
+                ui.say("Uh Oh! Format your date as yyyy-mm-dd!");
             }
         }
     }
