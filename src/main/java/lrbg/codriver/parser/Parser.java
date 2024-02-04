@@ -10,6 +10,7 @@ import lrbg.codriver.command.DeadlineCommand;
 import lrbg.codriver.command.EventCommand;
 import lrbg.codriver.command.DeleteCommand;
 import lrbg.codriver.command.UnknownCommand;
+import lrbg.codriver.command.FindCommand;
 import lrbg.codriver.data.exception.CoDriverException;
 
 import java.time.LocalDate;
@@ -153,6 +154,14 @@ public class Parser {
             }
             int index = Integer.parseInt(arguments[1]);
             return new DeleteCommand(index);
+        }
+        case "find": {
+            if (arguments.length < 2) {
+                throw new CoDriverException("Error! You cannot provide a find with no description!");
+            } else if (arguments.length > 2) {
+                throw new CoDriverException("Error! You cannot provide a find with more than 1 keyword!");
+            }
+            return new FindCommand(commandLine.substring(5));
         }
         default:
             return new UnknownCommand(arguments[0]);

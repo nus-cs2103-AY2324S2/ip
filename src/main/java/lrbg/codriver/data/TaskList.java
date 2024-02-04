@@ -96,6 +96,21 @@ public class TaskList {
         System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
     }
 
+    /**
+     * Finds tasks in the task list that match a keyword.
+     * @param keyword The keyword to search for.
+     * @return A list of tasks that match the keyword.
+     */
+    public TaskList findTasks(String keyword) {
+        TaskList matchingTasks = new TaskList();
+        for (Task t : this.tasks) {
+            if (t.getDescription().contains(keyword)) {
+                matchingTasks.addTask(t);
+            }
+        }
+        return matchingTasks;
+    }
+
     public String toSaveString() {
         StringBuilder sb = new StringBuilder();
         for (Task t : this.tasks) {
