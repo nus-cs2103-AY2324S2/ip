@@ -11,7 +11,7 @@ public class MyList {
     }
     public void addTask(Task item) {
         mylist.add(item);
-        System.out.println("Have fun with more work: " + item.toString());
+        System.out.println("Got it. Added: " + item.toString());
     }
     public void loadTask(Task item) {
         mylist.add(item);

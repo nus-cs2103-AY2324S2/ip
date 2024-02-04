@@ -1,13 +1,27 @@
 package Riri;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
     String from;
     String to;
+    LocalDate fromDate;
+    LocalDate toDate;
 
     public Event(String task, String from, String to) {
         super(task);
-        this.from = from;
-        this.to = to;
+        this.fromDate = LocalDate.parse(from);
+        this.toDate = LocalDate.parse(to);
+        this.from = fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.to = toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
+    public Event(String task, LocalDate from, LocalDate to) {
+        super(task);
+        this.fromDate = from;
+        this.toDate = to;
+        this.from = fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.to = toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
     @Override
     public String toString() {
