@@ -1,6 +1,8 @@
+import java.time.LocalDate;
+
 public class AddDeadlineCommand extends Command {
-    String deadline;
-    public AddDeadlineCommand(String description, String deadline) {
+    LocalDate deadline;
+    public AddDeadlineCommand(String description, LocalDate deadline) {
         super(description, CommandType.ADD);
         this.deadline = deadline;
     }
