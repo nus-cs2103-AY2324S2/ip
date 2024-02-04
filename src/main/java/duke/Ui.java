@@ -37,55 +37,60 @@ public class Ui {
     /**
      * Shows the message if error when loading file
      */
-    public void showLoadingError() {
-        System.out.printf("____________________________________________________________%n");
-        System.out.printf(" Error loading file. Creating new file...%n");
-        System.out.printf("____________________________________________________________%n");
+    public String showLoadingError() {
+        String errorMessage = "Error loading file. Creating new file...";
+
+        return errorMessage;
     }
 
     /**
      * Shows welcome message
      */
-    public void showWelcome() {
-        System.out.printf("____________________________________________________________%n");
-        System.out.printf(" Hello! I'm %s%n", botName);
-        System.out.printf(" What can I do for you?%n");
-        System.out.printf("____________________________________________________________%n%n");
-
+    public String showWelcome() {
+        String welcomeMessage = String.format(
+                "Hello! I'm %s%n What can I do for you?%n",
+                 botName
+        );
+        return welcomeMessage;
     }
 
     /**
      * Shows a string representation of the list of tasks
      */
-    public void showTaskList(String[] tasks) {
-        System.out.print("____________________________________________________________\n");
-        System.out.print(" Here are the tasks in your list:\n");
+    public String showTaskList(String[] tasks) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(" Here are the tasks in your list:\n");
 
         for (int i = 0; i < tasks.length; i++) {
-            System.out.printf(" %d.%s%n", i + 1, tasks[i]);
+            stringBuilder.append(String.format(" %d.%s%n", i + 1, tasks[i]));
         }
 
+        return stringBuilder.toString();
     }
 
     /**
      * Shows a string representation of the task marked as done
      * @param task Task being marked as done
      */
-    public void showTaskMarked(Task task) {
-        System.out.printf("____________________________________________________________%n");
-        System.out.printf(" Nice! I've marked this task as done:%n");
-        System.out.printf("   %s%n", task);
+    public String showTaskMarked(Task task) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(" Nice! I've marked this task as done:\n");
+        stringBuilder.append(String.format("   %s%n", task));
 
+        return stringBuilder.toString();
     }
+
 
     /**
      * Shows a string representation of the task marked as undone
      * @param task Task being marked as undone
      */
-    public void showTaskUnmarked(Task task) {
-        System.out.printf("____________________________________________________________%n");
-        System.out.printf(" OK, I've marked this task as not done yet:%n");
-        System.out.printf("   %s%n", task);
+    public String showTaskUnmarked(Task task) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(" OK, I've marked this task as not done yet:\n");
+        stringBuilder.append(String.format("   %s%n", task));
+
+        return stringBuilder.toString();
     }
 
     /**
@@ -93,47 +98,50 @@ public class Ui {
      * @param task Task being added
      * @param len Length of the list of tasks
      */
-    public void showTaskAdded(Task task, int len) {
-        System.out.println("____________________________________________________________\n");
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + len + " tasks in the list.");
+    public String showTaskAdded(Task task, int len) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Got it. I've added this task:\n");
+        stringBuilder.append("  ").append(task).append('\n');
+        stringBuilder.append("Now you have ").append(len).append(" tasks in the list.");
+
+        return stringBuilder.toString();
     }
+
 
     /**
      * Shows a string representation of the task deleted
      * @param task Task being deleted
      * @param len Length of the list of tasks
      */
-    public void showTaskDeleted(Task task, int len) {
-        System.out.printf("____________________________________________________________%n");
-        System.out.printf(" Noted. I've removed this task:%n");
-        System.out.printf("   %s%n", task);
-        System.out.printf(" Now you have %d tasks in the list.%n", len);
+    public String showTaskDeleted(Task task, int len) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(" Noted. I've removed this task:\n");
+        stringBuilder.append(String.format("   %s%n", task));
+        stringBuilder.append(String.format(" Now you have %d tasks in the list.%n", len));
+
+        return stringBuilder.toString();
     }
+
 
     /**
      * Bids goodbye to the user
      */
-    public void showGoodbye() {
-        System.out.printf("____________________________________________________________%n");
-        System.out.printf(" Bye. Hope to see you again soon!%n");
-        System.out.printf("____________________________________________________________%n");
+    public String showGoodbye() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(" Bye. Hope to see you again soon!\n");
+
+        return stringBuilder.toString();
     }
 
-    public void showMatchingTasks(ArrayList<String> matchingTasks) {
-        System.out.printf("____________________________________________________________%n");
-        System.out.printf(" Here are the matching tasks in your list:%n");
+
+    public String showMatchingTasks(ArrayList<String> matchingTasks) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(" Here are the matching tasks in your list:\n");
+
         for (String task : matchingTasks) {
-            System.out.printf("   %s%n", task);
+            stringBuilder.append(String.format("   %s%n", task));
         }
-    }
 
-    /**
-     * Prints a line break
-     */
-    public void printLineBreak() {
-        System.out.println("____________________________________________________________\n");
+        return stringBuilder.toString();
     }
-
 }

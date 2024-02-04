@@ -23,6 +23,8 @@ public class Parser {
     public Command parse(String input) throws DukeException {
         String[] parts = input.split(" ");
         switch (parts[0]) {
+            case "bye":
+                return new Command(Duke.CommandType.BYE);
             case "list":
                 return new Command(Duke.CommandType.LIST);
             case "mark":
