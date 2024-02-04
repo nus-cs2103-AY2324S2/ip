@@ -1,15 +1,6 @@
 package duke;
 
-import duke.command.Command;
-import duke.command.DeadlineCommand;
-import duke.command.DeleteCommand;
-import duke.command.EventCommand;
-import duke.command.ExitCommand;
-import duke.command.HelpCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.ToDoCommand;
-import duke.command.UnmarkCommand;
+import duke.command.*;
 import duke.exception.DukeException;
 
 /**
@@ -19,7 +10,7 @@ import duke.exception.DukeException;
 public class Parser {
 
     private enum CommandType {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, HELP
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, HELP
     }
 
     /**
@@ -56,6 +47,8 @@ public class Parser {
                 return parseDeadlineCommand(inputs);
             case EVENT:
                 return parseEventCommand(inputs);
+            case FIND:
+                return parseFindCommand(inputs);
             default:
                 return null;
             }
@@ -144,8 +137,8 @@ public class Parser {
             throw new DukeException("OOPS! The date/time for the deadline cannot be left blank.\n"
                     + "Please enter 'help' command to find out more.");
         }
-        String[] description = inputs[1].split("/by ");
-        return new DeadlineCommand(description[0], description[1]);
+        String[] descriptions = inputs[1].split("/by ");
+        return new DeadlineCommand(descriptions[0], descriptions[1]);
     }
 
     /**
@@ -163,8 +156,22 @@ public class Parser {
             throw new DukeException("OOPS! The start time and end time cannot be left blank.\n"
                     + "Please enter 'help' command to find out more.");
         }
-        String[] description = inputs[1].split("/from|/to");
-        return new EventCommand(description[0], description[1], description[2]);
+        String[] descriptions = inputs[1].split("/from|/to");
+        return new EventCommand(descriptions[0], descriptions[1], descriptions[2]);
     }
 
+    /**
+     * Parses the user input to create a FindCommand for searching tasks by a keyword.
+     *
+     * @param inputs The string array containing the user inputs.
+     * @return A FindCommand for searching tasks by the specified keyword.
+     * @throws DukeException If the keyword is left blank.
+     */
+    public static Command parseFindCommand(String[] inputs) throws DukeException {
+        if (inputs.length == 1) {
+            throw new DukeException("OOPS! The keyword to find cannot be left blank.\n"
+                    + "Please enter 'help' command to find out more.");
+        }
+        return new FindCommand(inputs[1]);
+    }
 }
