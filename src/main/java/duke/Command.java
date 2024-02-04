@@ -11,7 +11,7 @@ public class Command {
     private final Consumer<Parser> executor;
 
     /**
-     * Execute the command. This runs the lambda previously passed to it in the constructor.
+     * Executes the command. This runs the lambda previously passed to it in the constructor.
      * @param args the Parser object that contains the args passed to the command in the user's input. It is assumed 
      *             that the parser has already read the first token (i.e. the name of the command).
      */
