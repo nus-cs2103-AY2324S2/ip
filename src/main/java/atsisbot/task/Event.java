@@ -36,6 +36,14 @@ public class Event extends Task {
                         this.endTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
     }
 
+    /**
+     * Encodes the Event object into a string representation.
+     * The encoded string follows the format: "E | status | description | start time | end time",
+     * where status is "1" if the event is done, and "0" otherwise.
+     * The start time and end time are formatted using the pattern "dd/MM/yyyy HH:mm".
+     *
+     * @return the encoded string representation of the Event object
+     */
     @Override
     public String encode() {
         String status = this.getStatus().isDone() ? "1" : "0";

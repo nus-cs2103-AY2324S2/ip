@@ -48,12 +48,22 @@ public class TaskList {
         return this.list.get(index - 1);
     }
 
+    /**
+     * Returns a string representation of the saved task list.
+     *
+     * @return A string representation of the saved task list.
+     */
     public String getSavedList() {
         StringBuilder sb = new StringBuilder();
         this.list.forEach((Task element) -> sb.append(element.encode() + "\n"));
         return sb.toString();
     }
 
+    /**
+     * Returns a string representation of the task list.
+     *
+     * @return A string representation of the task list.
+     */
     public String getList() {
         StringBuilder sb = new StringBuilder();
         AtomicInteger index = new AtomicInteger(1);
@@ -70,6 +80,11 @@ public class TaskList {
         return "Now you have " + list.size() + " tasks in the list.";
     }
 
+    /**
+     * Returns the number of tasks in the task list.
+     *
+     * @return the number of tasks in the task list
+     */
     public int size() {
         return list.size();
     }

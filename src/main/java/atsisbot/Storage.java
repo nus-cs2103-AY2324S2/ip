@@ -10,14 +10,29 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import atsisbot.task.*;
 
+/**
+ * The Storage class handles the saving and loading of the task list to/from a file.
+ */
 public class Storage {
 
     File file;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param path The path of the file to be handled by the storage.
+     */
     public Storage(String path) {
         this.file = new File(path);
     }
 
+    
+    /**
+     * Saves the given TaskList to a file.
+     * If the file does not exist, it will be created.
+     * 
+     * @param list The TaskList to be saved.
+     */
     public void saveList(TaskList list) {
         try {
             createFileIfNotExist();
@@ -29,6 +44,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the data from the file and returns a TaskList object.
+     *
+     * @return The TaskList object containing the loaded data.
+     */
     public TaskList loadData() {
         TaskList list = new TaskList();
         try {
@@ -45,6 +65,11 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Reads a line from the file and returns a Task object.
+     * @param line
+     * @return The Task object read from the line.
+     */
     private Task readLine(String line) {
         String[] taskInfo = line.split(" \\| ");
         Task task = null;
@@ -78,6 +103,9 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Creates the file if it does not exist.
+     */
     private void createFileIfNotExist() {
         try {
             if (!file.exists()) {
