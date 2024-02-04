@@ -27,10 +27,11 @@ public class Storage {
 
     /**
      * Saves the task list into a txt file, with a standard format.
-     * @param ls ArrayList containing the tasks.
+     * @param list TaskList object containing the tasks.
      * @return Boolean value indicating whether the save was successful.
      */
-    public boolean save(ArrayList<Task> ls) {
+    public boolean save(TaskList list) {
+        ArrayList<Task> ls = list.getList();
         File savedTasks = new File(filePath);
         try {
             //Creates missing directories and files
@@ -62,32 +63,26 @@ public class Storage {
 
     /**
      * Loads the task list from a txt file.
-     * @param ls Arraylist that will store the loaded tasks.
-     * @return Boolean value that indicates whether load was successful.
+     * @return ArrayList that contains the list of tasks read.
      */
-    public boolean load(ArrayList<Task> ls) {
+    public ArrayList<Task> load() throws FileNotFoundException, IllegalArgumentException {
         File savedTasks = new File(filePath);
+        ArrayList<Task> ls = new ArrayList<>();
         // Debug
 //        System.out.println(savedTasks.getAbsolutePath());
 
-        try {
-            Scanner fileReader = new Scanner(savedTasks);
-            System.out.println("Load status: File found");
-            while (fileReader.hasNext()) {
-                String line = fileReader.nextLine();
+        Scanner fileReader = new Scanner(savedTasks);
+        System.out.println("Load status: File found");
+        int i = 0;
+        while (fileReader.hasNext()) {
+            String line = fileReader.nextLine();
 //                System.out.println(line);
-                Task task = parseSave(line);
+            Task task = parseSave(line);
 //                System.out.println(task.toStatusString());
-                ls.add(task);
-            }
-            return true;
-        } catch (FileNotFoundException e){
-            System.out.println("Load status: File not found");
-            return false;
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return false;
+            ls.add(task);
+            i++;
         }
+        return ls;
     }
 
     /**
@@ -104,6 +99,7 @@ public class Storage {
         //Removes whitespace from save string. Whitespace was used to increase readability of save txt file.
         for (int i = 0; i < numberOfArguments; i ++) {
             args[i] = args[i].trim();
+            System.out.println(args[i]);
         }
 
         Task task = null;
@@ -130,12 +126,11 @@ public class Storage {
             throw new IllegalArgumentException("Load Error: Unknown task type.");
         }
 
-        if (args[1] == "1") {
+        if (args[1].equals("1")) {
             task.setDone();
-        } else if (args[1] != "0") {
+        } else if (!args[1].equals("0")) {
             throw new IllegalArgumentException("Load Error: File Corrupted");
         }
-
         return task;
     }
 }
