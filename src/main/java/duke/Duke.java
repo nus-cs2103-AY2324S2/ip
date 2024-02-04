@@ -12,7 +12,11 @@ public class Duke {
     private final Storage storage;
 
     /**
+<<<<<<< HEAD
      * Constructs a simple Duke-Object.
+=======
+     * Constructs a simple Duke Object.
+>>>>>>> branch-Level-9
      * @param filePath Stores the file path for loading and saving.
      */
     public Duke(String filePath) {

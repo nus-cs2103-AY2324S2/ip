@@ -52,7 +52,11 @@ public class Storage {
     /**
      * Saves the tasks in the file from the list of tasks.
      * @param list List of tasks.
+<<<<<<< HEAD
      * @throws FileIOException if unsuccessful in creating file.
+=======
+     * @throws FileIoException if unsuccessful in creating file.
+>>>>>>> branch-Level-9
      */
         protected void saveInFile(TaskList list) throws FileIOException {
             try {

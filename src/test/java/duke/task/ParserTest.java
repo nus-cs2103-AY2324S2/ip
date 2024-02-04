@@ -11,7 +11,11 @@ public class ParserTest {
 
     Storage storage = new Storage();
     IOHandler ioHandler = new IOHandler();
+<<<<<<< HEAD
     TaskList List = new TaskList();
+=======
+    TaskList list = new TaskList();
+>>>>>>> branch-Level-9
 
 
     @Test

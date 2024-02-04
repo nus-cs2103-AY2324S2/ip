@@ -29,7 +29,10 @@ import java.time.format.DateTimeFormatter;
 /**
  * Contains the details of events as a part of task.
  */
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch-Level-9
 public class Event extends Task {
 
     private LocalDateTime start;

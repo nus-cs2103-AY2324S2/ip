@@ -85,8 +85,13 @@ public class Parser {
                     io.exit();
                     return false;
                 case "find":
+<<<<<<< HEAD
                     ArrayList<Task> temp2 = taskList.find(str.substring(5));
                     io.displaySearchResults(temp2);
+=======
+                    ArrayList<Task> temp1 = taskList.find(str.substring(5));
+                    io.displaySearchResults(temp1);
+>>>>>>> branch-Level-9
                     return true;
                 default:
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
