@@ -19,6 +19,13 @@ public abstract class Task {
     }
 
     /**
+     * Format of task saved to text file.
+     *
+     * @return row of text to be saved to text file
+     */
+    public abstract String saveToText();
+
+    /**
      * Returns the status icon of the task.
      * If task is done, return "X", else return " ".
      *
@@ -40,15 +47,6 @@ public abstract class Task {
      */
     public void unmarkDone() {
         this.isDone = false;
-    }
-
-    /**
-     * Format of task saved to text file.
-     *
-     * @return row of text to be saved to text file
-     */
-    public String saveToText() {
-        return "";
     }
 
     @Override

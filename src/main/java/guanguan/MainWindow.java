@@ -2,12 +2,15 @@ package guanguan;
 
 import java.util.Objects;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for MainWindow.
@@ -41,7 +44,7 @@ public class MainWindow extends AnchorPane {
      * and then appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws InterruptedException {
         String input = userInput.getText();
         String response = guanguan.getResponse(input);
 
@@ -50,5 +53,10 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getGuanGuanDialog(response, guanguanImage)
         );
         userInput.clear();
+        if (input.equals("bye")) {
+            PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+            pause.setOnFinished(event -> Platform.exit());
+            pause.play();
+        }
     }
 }

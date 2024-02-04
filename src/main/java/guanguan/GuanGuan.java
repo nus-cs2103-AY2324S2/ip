@@ -1,10 +1,6 @@
 package guanguan;
 
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
-
-import javafx.application.Platform;
-
 
 /**
  * Main class of chatbot.
@@ -69,21 +65,11 @@ public class GuanGuan {
      * Replace this stub with your completed method.
      */
     String getResponse(String input) {
-        boolean isValid;
         try {
-            isValid = Parser.parse(input, items, ui);
+            Parser.parse(input, items, ui);
             storage.saveData(items);
-
-            if (!isValid) {
-                // TODO
-                TimeUnit.SECONDS.sleep(3);
-                Platform.exit();
-            }
-
         } catch (GgException e) {
             ui.error(e.getMessage());
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
         return ui.getTextOutput();
     }
