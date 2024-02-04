@@ -32,8 +32,8 @@ public class Event extends Task {
     public String toString() {
         return "[E][" + this.getStatus().getStatusIcon() + "] " + this.getDescription()
                 + String.format(" (from: %s to %s)\n",
-                        this.startTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")),
-                        this.endTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
+                this.startTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")),
+                this.endTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
     }
 
     @Override

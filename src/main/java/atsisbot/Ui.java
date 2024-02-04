@@ -1,12 +1,14 @@
 package atsisbot;
 
-import java.util.Scanner;
+import atsisbot.task.Task;
+import atsisbot.task.TaskList;
 
-import atsisbot.task.*;
+import java.util.Scanner;
 
 public class Ui {
     private static final String line = "____________________________________________________________\n";
-    private static final String welcomeMessage = line + "Hello! I'm atsisbot.ATSISBot\n" + "What can I do for you?\n" + line;
+    private static final String welcomeMessage = line + "Hello! I'm atsisbot.ATSISBot\n" + "What can I do for you?\n"
+            + line;
     private static final String endingMessage = line + "Bye. Hope to see you again soon!\n" + line;
     private static final String listMessage = "Here are the tasks in your list:\n";
     private static final String markMessage = "Nice! I've marked this atsisbot.task as done:\n";
@@ -17,7 +19,10 @@ public class Ui {
     private static final String invalidDeadlineFormatMessage = "Invalid deadline format. Please use: deadline <description> /by <date>\n";
     private static final String invalidEventFormatMessage = "Invalid event format. Please use: event <description> /from <date> /to <date>\n";
     private static final String invalidTaskNumberMessage = "Invalid atsisbot.task number. Please enter a valid atsisbot.task number.\n";
+    private static final String invalidInputFormatMessage = "Invalid input format. Please use the correct format.\n";
     private static final String unknownCommandMessage = "I'm sorry, but I don't understand that command.";
+    private static final String invalidFindMessage = "No matching tasks found.\n";
+    private static final String findMessage = "Here are the matching tasks in your list:\n";
 
     private static Scanner sc = new Scanner(System.in);
 
@@ -75,6 +80,28 @@ public class Ui {
 
     public static void closeScanner() {
         sc.close();
+    }
+
+    /**
+     * Prints the invalid input format message.
+     */
+    public static void printInvalidInputFormatMessage() {
+        System.out.println(invalidInputFormatMessage);
+    }
+
+    /**
+     * Prints the find message.
+     * If the message is empty, it prints an invalid find message.
+     * Otherwise, it prints the find message followed by the given message.
+     *
+     * @param message the message to be printed
+     */
+    public static void printFindMessage(String message) {
+        if (message.equals("")) {
+            System.out.print(invalidFindMessage);
+            return;
+        }
+        System.out.print(findMessage + message);
     }
 
     public static void printLine() {

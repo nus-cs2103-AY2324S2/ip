@@ -1,14 +1,10 @@
 package atsisbot;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import atsisbot.task.*;
+
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import atsisbot.task.*;
 
 public class Storage {
 
@@ -49,28 +45,28 @@ public class Storage {
         String[] taskInfo = line.split(" \\| ");
         Task task = null;
         switch (taskInfo[0]) {
-            case "T":
-                task = new Todo(taskInfo[2]);
-                break;
-            case "D":
-                try {
-                    LocalDateTime deadline = LocalDateTime.parse(taskInfo[3], Task.formatter);
-                    task = new Deadline(taskInfo[2], deadline);
-                } catch (DateTimeParseException e) {
-                    System.out.println("Invalid deadline format in the atsisbot.task list: " + e.getMessage());
-                }
-                break;
-            case "E":
-                try {
-                    LocalDateTime startDateTime = LocalDateTime.parse(taskInfo[3], Task.formatter);
-                    LocalDateTime endDateTime = LocalDateTime.parse(taskInfo[4], Task.formatter);
-                    task = new Event(taskInfo[2], startDateTime, endDateTime);
-                } catch (DateTimeParseException e) {
-                    System.out.println("Invalid event format in the atsisbot.task list: " + e.getMessage());
-                }
-                break;
-            default:
-                break;
+        case "T":
+            task = new Todo(taskInfo[2]);
+            break;
+        case "D":
+            try {
+                LocalDateTime deadline = LocalDateTime.parse(taskInfo[3], Task.formatter);
+                task = new Deadline(taskInfo[2], deadline);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid deadline format in the atsisbot.task list: " + e.getMessage());
+            }
+            break;
+        case "E":
+            try {
+                LocalDateTime startDateTime = LocalDateTime.parse(taskInfo[3], Task.formatter);
+                LocalDateTime endDateTime = LocalDateTime.parse(taskInfo[4], Task.formatter);
+                task = new Event(taskInfo[2], startDateTime, endDateTime);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid event format in the atsisbot.task list: " + e.getMessage());
+            }
+            break;
+        default:
+            break;
         }
         if (taskInfo[1].equals("1")) {
             task.markAsDone();

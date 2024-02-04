@@ -63,7 +63,7 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the list.
-     * 
+     *
      * @return a string representation of the number of tasks in the list
      */
     public String getSize() {
@@ -72,6 +72,21 @@ public class TaskList {
 
     public int size() {
         return list.size();
+    }
+
+    /**
+     * Finds tasks in the task list that contain the specified query string.
+     *
+     * @param query the query string to search for in the task descriptions
+     * @return a string representation of the found tasks, with each task numbered
+     */
+    public String findTasks(String query) {
+        StringBuilder sb = new StringBuilder();
+        AtomicInteger index = new AtomicInteger(1);
+        this.list.stream()
+                .filter((task) -> task.getDescription().contains(query))
+                .forEach((task) -> sb.append(index.getAndIncrement() + ". " + task.toString()));
+        return sb.toString();
     }
 
     /**

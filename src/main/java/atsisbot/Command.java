@@ -1,9 +1,9 @@
 package atsisbot;
 
+import atsisbot.task.*;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-
-import atsisbot.task.*;
 
 public class Command {
     public static void delete(String args, TaskList taskList) {
@@ -82,6 +82,21 @@ public class Command {
         } catch (DateTimeParseException e) {
             Ui.printInvalidDeadlineFormatMessage();
         }
+    }
+
+    /**
+     * Finds tasks in the task list that match the given search query.
+     * Prints the matching tasks to the user.
+     *
+     * @param args     the search query
+     * @param taskList the task list to search in
+     */
+    public static void find(String args, TaskList taskList) {
+        if (args.isBlank()) {
+            Ui.printInvalidInputFormatMessage();
+            return;
+        }
+        Ui.printFindMessage(taskList.findTasks(args));
     }
 
     public static void list(TaskList taskList) {
