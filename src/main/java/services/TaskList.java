@@ -45,6 +45,8 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Task to add cannot be null";
+        assert this.tasks.size() < MAX_ITEMS : "Task list is at maximum capacity";
         this.tasks.add(task);
         System.out.println("\tGot it. I've added this task: ");
         System.out.println("\t" + this.tasks.get(this.tasks.size() - 1));
@@ -122,7 +124,6 @@ public class TaskList {
         } else {
             StringBuilder sb = new StringBuilder();
             sb.append("\tHere are the tasks in your list: \n");
-            //System.out.println("\tHere are the tasks in your list: ");
             for (int i = 0; i < this.tasks.size(); i++) {
                 Task currTask = this.tasks.get(i);
                 sb.append("\t" + (i + 1) + "." + currTask.toString());
@@ -137,6 +138,7 @@ public class TaskList {
      * Finds task according to input.
      */
     public TaskList findTasks(String word) throws DukeException {
+        assert word != null && !word.isEmpty() : "Search word cannot be null or empty";
         Pattern pattern = Pattern.compile(Pattern.quote(word), Pattern.CASE_INSENSITIVE);
         List<Task> foundTasks = new ArrayList<>();
         for (Task task: this.tasks) {

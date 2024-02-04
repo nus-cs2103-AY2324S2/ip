@@ -25,6 +25,7 @@ public class Parser {
      * @return Command The command corresponding to the user's input.
      */
     public AbstractCommand parseCommand(String userInput) {
+        assert userInput != null && !userInput.isEmpty() : "userInput cannot be null or empty";
         String[] parsed = userInput.split(" ", 2);
         String initialCommand = parsed[0].toUpperCase();
         switch (initialCommand) {
@@ -58,6 +59,7 @@ public class Parser {
      * @return Command An AddEventCommand if input is valid, otherwise an InvalidCommand.
      */
     public AbstractCommand parseAddEvent(String userInput) {
+        assert userInput != null && !userInput.isEmpty() : "userInput cannot be null or empty";
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             return new InvalidCommand("OOPS! Please enter a task name");
@@ -85,6 +87,7 @@ public class Parser {
      * @return Command An AddDeadlineCommand if input is valid, otherwise an InvalidCommand.
      */
     public AbstractCommand parseAddDeadline(String userInput) {
+        assert userInput != null && !userInput.isEmpty() : "userInput cannot be null or empty";
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             return new InvalidCommand("OOPS! Please enter a task name");
@@ -111,6 +114,7 @@ public class Parser {
      * @return Command An AddTodoCommand if input is valid, otherwise an InvalidCommand.
      */
     public AbstractCommand parseAddTodo(String userInput) {
+        assert userInput != null && !userInput.isEmpty() : "userInput cannot be null or empty";
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             return new InvalidCommand("OOPS! Please enter a task name");
@@ -125,6 +129,7 @@ public class Parser {
      * @return Command A DeleteTaskCommand if input is valid, otherwise an InvalidCommand.
      */
     public AbstractCommand parseDelete(String userInput) {
+        assert userInput != null && !userInput.isEmpty() : "userInput cannot be null or empty";
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             return new InvalidCommand("OOPS! Please enter an index");
@@ -139,6 +144,7 @@ public class Parser {
      * @return Command A UnmarkTaskCommand if input is valid, otherwise an InvalidCommand.
      */
     public AbstractCommand parseUnmark(String userInput) {
+        assert userInput != null && !userInput.isEmpty() : "userInput cannot be null or empty";
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             return new InvalidCommand("OOPS! Please enter an index");
@@ -153,6 +159,7 @@ public class Parser {
      * @return Command A MarkTaskCommand if input is valid, otherwise an InvalidCommand.
      */
     public AbstractCommand parseMark(String userInput) {
+        assert userInput != null && !userInput.isEmpty() : "userInput cannot be null or empty";
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             return new InvalidCommand("OOPS! Please enter an index");
@@ -167,6 +174,7 @@ public class Parser {
      * @return Command A FindCommand if input is valid, otherwise an InvalidCommand.
      */
     public AbstractCommand parseFind(String userInput) {
+        assert userInput != null && !userInput.isEmpty() : "userInput cannot be null or empty";
         String[] parsed = userInput.split(" ", 2);
         if (parsed.length <= 1 || parsed[1].isEmpty()) {
             return new InvalidCommand("OOPS! Please enter an task to find");
@@ -183,6 +191,7 @@ public class Parser {
      * @throws DukeException If the date string cannot be parsed into a valid date and time.
      */
     public LocalDateTime parseDate(String dateString) throws DukeException {
+        assert dateString != null && !dateString.isEmpty() : "dateString cannot be null or empty";
         List<DateTimeFormatter> dateTimeFormatters = Arrays.asList(
                 DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
                 DateTimeFormatter.ofPattern("d-M-yyyy HHmm"),
@@ -238,7 +247,9 @@ public class Parser {
      * @throws DukeException If the task string cannot be parsed into a valid task.
      */
     public static Task parseTaskFromString(String taskString) throws DukeException {
+        assert taskString != null && !taskString.isEmpty() : "taskString cannot be null or empty";
         String[] parts = taskString.split(" \\| ");
+        assert parts.length >= 3 : "Task string format is invalid";
         String taskType = parts[0];
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();

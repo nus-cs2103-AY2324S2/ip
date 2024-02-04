@@ -22,11 +22,13 @@ public class Storage {
      * @throws IOException If an error occurs during file reading.
      */
     public void loadTasks(TaskList taskList) throws IOException {
+        assert taskList != null : "TaskList provided to loadTasks cannot be null";
         try {
             File file = new File(FILE_PATH);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
+                assert file.exists() : "File should exist after creation";
             }
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
@@ -47,11 +49,13 @@ public class Storage {
      * @param taskList The TaskList whose tasks are to be saved.
      */
     public void saveTasks(TaskList taskList) {
+        assert taskList != null : "TaskList provided to saveTasks cannot be null";
         try {
             File file = new File(FILE_PATH);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
+                assert file.exists() : "File should exist after creation";
             }
             FileWriter fileWriter = new FileWriter(file);
             for (Task task: taskList.getTasks()) {
