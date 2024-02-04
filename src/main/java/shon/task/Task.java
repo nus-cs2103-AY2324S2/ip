@@ -1,6 +1,6 @@
 package shon.task;
 
-abstract public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 
@@ -9,7 +9,7 @@ abstract public class Task {
         this.isDone = isDone;
     }
 
-    public String getStatusIcon() {
+    private String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
@@ -28,7 +28,7 @@ abstract public class Task {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 
-    public String formatTask() {
+    protected String formatTask() {
         return (this.isDone ? "1" : "0") + " | " + this.description;
     }
 
