@@ -14,14 +14,34 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class manages the loading and saving of tasks from/to a file in Duke.
+ * It interacts with the file system to store and retrieve tasks.
+ */
 public class Storage {
 
+    /**
+     * The file path for storing tasks.
+     */
     protected Path filePath;
+
+    /**
+     * Indicates whether the warning about potential overwriting has been printed.
+     */
     private boolean warningPrinted = false;
+
+    /**
+     * Constructs a Storage with the given file path.
+     *
+     * @param filePath The file path for storing tasks.
+     */
     public Storage(String filePath) {
        this.filePath = Paths.get(filePath);
     }
 
+    /**
+     * Prints a warning about potential overwriting of tasks.
+     */
     private void printWarning() {
         if (!warningPrinted) {
             System.err.println("Warning: Invalid input will be ignored and overwritten after new task is added.\n" +
@@ -30,6 +50,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Prepares the task file by creating directories and the file if they do not exist.
+     *
+     * @throws DukeException If there is an issue preparing the file.
+     */
     private void prepareFile() throws DukeException {
         try {
             if (!Files.exists(filePath)) {
@@ -41,6 +66,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the task file.
+     *
+     * @return The list of tasks loaded from the task file.
+     * @throws DukeException If there is an issue loading tasks.
+     */
     public ArrayList<Task> loadTasks() throws DukeException {
         prepareFile();
         ArrayList<Task> tasks = new ArrayList<>();
@@ -67,6 +98,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to the task file.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws DukeException If there is an issue saving tasks.
+     */
     public void saveTasks(ArrayList<Task> tasks) throws DukeException {
         prepareFile();
         try {
@@ -80,7 +117,13 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Loads a task from a string representation.
+     *
+     * @param line The string representation of the task.
+     * @return The Task object created from the string representation.
+     * @throws DukeException If there is an issue loading the task.
+     */
     public Task load(String line) throws DukeException {
         String[] parts = line.split(" \\| ");
 
