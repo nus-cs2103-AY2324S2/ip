@@ -1,4 +1,4 @@
-/**
+package duke.tasks; /**
  * This class represents a list of Tasks of up to 100 Tasks
  *
  * @author Billy Ho Cheng En

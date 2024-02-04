@@ -1,3 +1,7 @@
+package duke.commands;
+
+import duke.exceptions.MeanDukeException;
+
 public abstract class Command {
     public static String getUsage() {
         return "Usage:";

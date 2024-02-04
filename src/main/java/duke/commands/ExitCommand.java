@@ -1,3 +1,8 @@
+package duke.commands;
+
+import duke.exceptions.MeanDukeException;
+import duke.core.Ui;
+
 public class ExitCommand extends Command {
 
     @Override

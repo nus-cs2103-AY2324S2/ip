@@ -1,4 +1,8 @@
-import java.util.Scanner;
+package duke.core;
+
+import duke.commands.Command;
+import duke.exceptions.MeanDukeException;
+import duke.tasks.TaskList;
 
 /**
  * This class represents a MEAN chatbot with task-tracking capabilities

@@ -1,3 +1,9 @@
+package duke.commands;
+
+import duke.exceptions.MeanDukeException;
+import duke.tasks.TaskList;
+import duke.core.Ui;
+
 public class MarkCommand extends Command {
     private int index;
     private TaskList taskList;

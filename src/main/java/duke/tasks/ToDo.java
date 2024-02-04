@@ -1,3 +1,5 @@
+package duke.tasks;
+
 /**
  * This class represents a basic Task without any time constraints.
  */

@@ -1,3 +1,5 @@
+package duke.exceptions;
+
 /**
  * Checked exception thrown typically due to issues that affect the behaviour of the chatbot
  */

@@ -1,3 +1,7 @@
+package duke.tasks;
+
+import duke.exceptions.MeanDukeException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;

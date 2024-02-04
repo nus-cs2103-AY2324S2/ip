@@ -1,3 +1,5 @@
+package duke.tasks;
+
 /**
  * This class represents a task that tracks if it is completed.
  *

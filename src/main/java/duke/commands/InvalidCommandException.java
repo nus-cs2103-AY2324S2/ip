@@ -1,3 +1,7 @@
+package duke.commands;
+
+import duke.exceptions.MeanDukeException;
+
 public class InvalidCommandException extends MeanDukeException {
 
     private final String errorMessage;
