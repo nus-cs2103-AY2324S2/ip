@@ -1,8 +1,42 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 
 public class Gandalf {
+    /**
+     * Writes the contents of an ArrayList of Task objects to a text file.
+     * Creates the file if it does not exist in the filepath
+     * @param list
+     */
+    public static void writeToFile(ArrayList<Task> list){
+        File docsFolder = new File("docs");
+        if (!docsFolder.exists()) {
+            docsFolder.mkdir();
+        }
+        String filePath = "docs/gandalfData.txt";
+        File file = new File(filePath);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))){
+            for(int i = 0; i < list.size(); i++){
+                Task action = list.get(i);
+                writer.write((i + 1) + ". " + action);
+                writer.newLine();
+            }
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 
+    /**
+     * Checks and validates a command based on the provided task information and the existing task data.
+     * Throws a GandalfException with an appropriate message if the command is invalid.
+     * @param taskInfo
+     * @param data
+     * @throws GandalfException
+     */
     public static void checkCommand(String[] taskInfo, ArrayList<Task> data) throws GandalfException{
         if(!taskInfo[0].equals("todo") && !taskInfo[0].equals("deadline") && !taskInfo[0].equals("event") && !taskInfo[0].equals("delete") && !taskInfo[0].equals("mark")&& !taskInfo[0].equals("unmark")){
             throw new GandalfException("Please forgive me for I do not understand. They are spoken in a tongue lost in time.");
@@ -21,6 +55,7 @@ public class Gandalf {
     }
     public static void main(String[] args) {
         ArrayList<Task> faster_list = new ArrayList<>(100);
+        writeToFile(faster_list);
         int numOfActions = -1; //follows 0 indexing
         System.out.println("Through fire and shadow, I'm Gandalf");
         System.out.println("What can I do for you?\n");
@@ -62,6 +97,7 @@ public class Gandalf {
                 faster_list.remove(deleteNumber - 1);
                 numOfActions--;
                 System.out.println("Total number of tasks so far: " + (numOfActions + 1));
+                writeToFile(faster_list);
                 continue;
             }
             if(taskInfo[0].equals("mark") || taskInfo[0].equals("unmark")){
@@ -75,6 +111,7 @@ public class Gandalf {
                     correspondingTask.markStatus(false);
                     System.out.println("The task is undone, fret not, for it is not about how much you've missed but about how much you've done.");
                 }
+                writeToFile(faster_list);
                 System.out.println(correspondingTask);
                 continue;
             }
@@ -83,11 +120,13 @@ public class Gandalf {
             if(taskInfo[0].equals("todo")){
                 Task currentTask = new ToDos(taskInfo[1]);
                 faster_list.add(currentTask);
+                writeToFile(faster_list);
                 System.out.println("added new task: " + currentTask);
             }
             else if(taskInfo[0].equals("deadline")){
                 Task currentTask = new Deadlines(taskInfo[1], splitInput[1]);
                 faster_list.add(currentTask);
+                writeToFile(faster_list);
                 System.out.println("added new task: " + currentTask);
             }
             else if(taskInfo[0].equals("event")){
@@ -95,6 +134,7 @@ public class Gandalf {
                 String endDate = splitInput[2].split(" ",2)[1];
                 Task currentTask = new Events(taskInfo[1], startDate, endDate);
                 faster_list.add(currentTask);
+                writeToFile(faster_list);
                 System.out.println("added new task: " + currentTask);
             }
             System.out.println("Total number of tasks so far: " + (numOfActions + 1));
