@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -147,7 +146,7 @@ public class Taylor extends Application {
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
      */
-    private Label getDialogLabel(String text) {
+    public Label getDialogLabel(String text) {
         // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
@@ -161,11 +160,11 @@ public class Taylor extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        String userText = userInput.getText();
+        String tayText = getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(neu)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(wrio))
+                DialogBox.getUserDialog(userText, neu),
+                DialogBox.getDukeDialog(tayText, wrio)
         );
         userInput.clear();
     }
@@ -174,9 +173,7 @@ public class Taylor extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
+    public String getResponse(String input) {
         return "Duke heard: " + input;
     }
-
-
 }
