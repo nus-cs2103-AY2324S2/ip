@@ -1,6 +1,3 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,18 +6,17 @@ import java.util.Scanner;
  */
 public class Duke {
 
-    private static final String FILE_PATH = "./data/Duke.txt";
     private static ArrayList<Task> list = new ArrayList<>();
     private Ui ui;
 
     public static void main(String[] args) {
-        new Duke(FILE_PATH).run();
+        new Duke().run();
     }
 
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
         try {
-            Duke.loadFileContents();
+            Storage.loadFileContents();
         } catch (DukeException e) {
             ui.showLoadingError(e.getMessage());
         }
@@ -42,7 +38,7 @@ public class Duke {
         }
 
         try {
-            Duke.writeToFile();
+            Storage.writeToFile(list);
         } catch (DukeException e) {
             ui.showLoadingError(e.getMessage());
         }
@@ -79,48 +75,6 @@ public class Duke {
                 + "   " + task
                 + "\n Now you have " + (list.size()) + " tasks in the list.\n"
                 + "____________________________________________________________\n";
-    }
-
-    /**
-     * Reads from file and writes into ArrayList.
-     */
-    public static void loadFileContents() throws DukeException {
-        File f = new File(FILE_PATH);
-        try {
-            if (f.exists()) {
-                try (Scanner scanner = new Scanner(f)) {
-                    while (scanner.hasNextLine()) {
-                        String s = scanner.nextLine();
-                        try {
-                            Duke.loadLine(s);
-                        } catch (DukeException e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
-                }
-            } else {
-                throw new DukeException("eh walao i cant find the file sia where u put");
-            }
-        } catch (IOException e) {
-            throw new DukeException("omg i cant read");
-        }
-    }
-
-    /**
-     * Writes current tasklist into specified file.
-     *
-     * @throws DukeException If there is a problem with writing into file.
-     */
-    public static void writeToFile() throws DukeException {
-        try {
-            FileWriter fw = new FileWriter(FILE_PATH);
-            for (Task task : list) {
-                fw.write(task.writeToFileString() + "\n");
-            }
-            fw.close();
-        } catch (IOException e) {
-            throw new DukeException("omg i cant write sia :( too bad lol");
-        }
     }
 
     public void processLine(String original) throws DukeException {
