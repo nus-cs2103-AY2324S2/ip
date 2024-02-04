@@ -1,15 +1,27 @@
 package demon;
 
 import java.nio.file.NoSuchFileException;
-import java.util.Scanner;
+
 import java.io.IOException;
+
+import java.util.Scanner;
+
 import java.time.format.DateTimeParseException;
 
+/**
+ * A chatbot that allows user to add, delete, and modify tasks or reminders.
+ */
 public class Demon {
     private TaskList tasks;
     private Ui ui;
     String filePath = "src/main/taskList.txt";
 
+    /**
+     * Initializes the bot and load tasks saved in taskList.txt file
+     * if there is any previous tasks.
+     *
+     * @param filePath The relative path to the taskList.txt file
+     */
     public Demon(String filePath) {
         ui = new Ui();
         final Storage STORAGE = new Storage(filePath);
@@ -28,7 +40,6 @@ public class Demon {
         Commands command = new Commands(filePath);
         ui.welcomeMessage();
         String input = sc.nextLine();
-        // list to store actions specified by user.
 
         while (!input.equalsIgnoreCase("bye")) {
             ui.inputMessage(input);
@@ -56,29 +67,26 @@ public class Demon {
                 }
             } else if (input.split(" ",2)[0].equalsIgnoreCase("deadline")) {
                 try {
-                    command.deadline(this.tasks, input);
+                    command.addDeadline(this.tasks, input);
                 } catch (NoTimingException | EmptyDescriptionException | IOException | DateTimeParseException e) {
                     System.err.println("Error -> " + e);
                 } finally {
                     input = sc.nextLine();
                 }
-
-
             } else if (input.split(" ",2)[0].equalsIgnoreCase("todo")) {
                 try {
-                    command.toDo(this.tasks, input);
+                    command.addToDo(this.tasks, input);
                     Ui.promptNext();
                 } catch (EmptyDescriptionException | IOException e) {
                     System.err.println("Error -> " + e);
                 } finally {
                     input = sc.nextLine();
                 }
-
             } else if (input.split(" ",2)[0].equalsIgnoreCase("event")) {
                 try {
-                    command.event(this.tasks, input);
+                    command.addEvent(this.tasks, input);
                     Ui.promptNext();
-                } catch (NoTimingException | EmptyDescriptionException | IOException | DateTimeParseException  e) {
+                } catch (NoTimingException | EmptyDescriptionException | IOException | DateTimeParseException e) {
                     System.err.println("Error -> " + e);
                 } finally {
                     input = sc.nextLine();
@@ -91,6 +99,15 @@ public class Demon {
                     System.err.println("Error -> " + e);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
+                } finally {
+                    input = sc.nextLine();
+                }
+            } else if (input.split(" ",2)[0].equalsIgnoreCase("find")) {
+                try {
+                    command.findTask(this.tasks, input);
+                    Ui.promptNext();
+                } catch (EmptyDescriptionException e) {
+                    System.err.println("Error -> " + e);
                 } finally {
                     input = sc.nextLine();
                 }

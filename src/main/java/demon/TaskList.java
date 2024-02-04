@@ -2,18 +2,30 @@ package demon;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Facilitates the loading of tasks from taskList.txt file.
+ */
 public class TaskList {
-    List<Task> taskList;
+    private final List<Task> taskList;
 
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
+
+    /**
+     * Loads the saved tasks into the taskList array by verifying the type of tasks to store.
+     * The method creates the object, Deadline, Event, To-do, based on the type of tasks identified.
+     *
+     * @param storageArray The list of strings containing all tasks populated from the taskList.txt file.
+     */
     public TaskList(List<String> storageArray) {
         this.taskList = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
         // Read file line by line
         for (int i = 0; i < storageArray.size(); i++) {
             // Process the line
@@ -50,7 +62,18 @@ public class TaskList {
             if (isCompleted.equals("1")) {
                 item.markDone();
             }
-
         }
+    }
+
+    public List<Task> getTaskList() {
+        return this.taskList;
+    }
+
+    public int getSize() {
+        return this.taskList.size();
+    }
+
+    public Task getTask(int index) {
+        return this.taskList.get(index);
     }
 }
