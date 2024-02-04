@@ -1,9 +1,16 @@
 package harvard;
 
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Storage {
-    String filePath;
+    private String filePath;
     public Storage(String fP) {
         this.filePath = fP;
     }

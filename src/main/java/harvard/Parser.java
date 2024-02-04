@@ -1,6 +1,7 @@
 package harvard;
 
 import java.time.LocalDate;
+
 import harvard.tasks.Event;
 import harvard.tasks.Deadline;
 import harvard.tasks.Todo;
@@ -18,15 +19,13 @@ public class Parser {
 
     public void parse(String commandLine) throws HarvardException {
         String command = commandLine.split(" ")[0];
-//        try {
-            if (!command.equals("list") && !command.equals("todo") && !command.equals("deadline") &&
-                    !command.equals("event") && !command.equals("mark") && !command.equals("unmark") &&
-                    !command.equals("delete")) {
-                throw new HarvardException("Bro... Idk what that is man.");
-            }
-//        } catch (HarvardException e) {
-//            this.ui.printUnrecognisedCommand();
-//        }
+
+        if (!command.equals("list") && !command.equals("todo") && !command.equals("deadline") &&
+                !command.equals("event") && !command.equals("mark") && !command.equals("unmark") &&
+                !command.equals("delete")) {
+            throw new HarvardException("Bro... Idk what that is man.");
+        }
+
 
         if (command.equals("list")) {
             this.ui.printTasks(tasks);

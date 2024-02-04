@@ -2,9 +2,11 @@ package harvard;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 import harvard.tasks.Task;
 import harvard.tasks.Event;
 import harvard.tasks.Deadline;
@@ -12,7 +14,7 @@ import harvard.tasks.Todo;
 import harvard.exceptions.HarvardException;
 
 public class TaskList {
-    List<Task> taskList = new ArrayList<>();
+    private List<Task> taskList = new ArrayList<>();
 
     public TaskList(BufferedReader br) {
         populateTaskList(br);
