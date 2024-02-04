@@ -1,5 +1,6 @@
-import java.util.ArrayList;
+package Riri;
 
+import java.util.ArrayList;
 public class MyList {
     private ArrayList<Task> mylist = new ArrayList<>();
     public void returnList() {
@@ -8,9 +9,12 @@ public class MyList {
         }
         return;
     }
-    public void addTodo(Task item) {
+    public void addTask(Task item) {
         mylist.add(item);
         System.out.println("Have fun with more work: " + item.toString());
+    }
+    public void loadTask(Task item) {
+        mylist.add(item);
     }
     public void mark(int i) {
         this.mylist.get(i-1).markDone();
@@ -32,7 +36,7 @@ public class MyList {
     public String toString() {
         String s = "";
         for (int i = 1; i < mylist.size()+1; i++) {
-            s += (i + ". " + mylist.get(i-1).toString() + "\n");
+            s += (mylist.get(i-1).toString() + "\n");
         }
         return s;
     }
