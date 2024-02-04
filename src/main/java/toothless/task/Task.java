@@ -22,7 +22,9 @@ public abstract class Task {
         return (this.isDone ? "X" : " "); // mark done duke.task with X
     }
     
-    public String getStatusBinary() { return (this.isDone ? "1" : "0"); }
+    public String getStatusBinary() { 
+        return (this.isDone ? "1" : "0"); 
+    }
 
     public void markAsDone() {
         this.isDone = true;

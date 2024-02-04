@@ -8,7 +8,7 @@ import toothless.ui.Ui;
 
 public class Toothless {
     private boolean isRunning;
-    private TaskList taskList;
+    private TaskList tasks;
     private Storage storage;
     private Ui ui;
     private Parser parser;
@@ -24,11 +24,11 @@ public class Toothless {
         
         try {
             this.storage = new Storage(filepath);
-            this.taskList = new TaskList(this.storage.loadStorage());
+            this.tasks = new TaskList(this.storage.loadStorage());
         } catch (ToothlessException e) {
             ui.printMessage(e.getMessage());
             ui.printMessage("Sorry, tasklist.txt is corrupted. Starting a blank tasklist.");
-            this.taskList = new TaskList();
+            this.tasks = new TaskList();
         }
     }
 
@@ -40,7 +40,8 @@ public class Toothless {
             try {
                 String userInput = ui.readCommand();
                 ui.printLine();
-                this.isRunning = parser.parseInput(userInput, taskList, ui);
+                parser.parseInput(userInput, tasks, ui);
+                this.isRunning = parser.isStillRunning();
             } catch (ToothlessException e) {
                 ui.printMessage(e.getMessage());
             } finally {
@@ -49,7 +50,7 @@ public class Toothless {
         }
         
         try {
-            storage.saveToStorage(taskList.getTaskList());
+            storage.saveToStorage(tasks.getTasks());
         } catch (ToothlessException e) {
             ui.printMessage(e.getMessage());
         }

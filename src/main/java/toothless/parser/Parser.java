@@ -5,38 +5,43 @@ import toothless.task.TaskList;
 import toothless.ui.Ui;
 
 public class Parser {
+    private boolean isRunning = true;
     
-    public Parser() {
+    private void makeExit() {
+        this.isRunning = false;
     }
     
-    public boolean parseInput(String userInput, TaskList taskList, Ui ui) throws ToothlessException {
+    public boolean isStillRunning() {
+        return isRunning;
+    }
+     
+    public void parseInput(String userInput, TaskList tasks, Ui ui) throws ToothlessException {
         if (userInput.equals("bye")) {
             ui.printMessage("Bye. Purr-lease chat again soon!");
-            return false;
+            makeExit();
         } else if (userInput.equals("list")) {
-            taskList.printList();
+            tasks.printList();
         } else if (userInput.startsWith("mark ") || userInput.equals("mark")) {
-            int listIndex = validateListInput(userInput, "mark", taskList.size());
-            taskList.markTask(listIndex);
+            int listIndex = validateListInput(userInput, "mark", tasks.getSize());
+            tasks.markTask(listIndex);
         } else if (userInput.startsWith("unmark ") || userInput.equals("unmark")) {
-            int listIndex = validateListInput(userInput, "unmark", taskList.size());
-            taskList.unmarkTask(listIndex);
+            int listIndex = validateListInput(userInput, "unmark", tasks.getSize());
+            tasks.unmarkTask(listIndex);
         } else if (userInput.startsWith("todo ") || userInput.equals("todo")) {
             String taskDescription = validateToDoInput(userInput);
-            taskList.addToDoToList(taskDescription);
+            tasks.addToDoToList(taskDescription);
         } else if (userInput.startsWith("deadline ") || userInput.equals("deadline")) {
             String[] deadlineAttributes = validateDeadlineInput(userInput);
-            taskList.addDeadlineToList(deadlineAttributes[0], deadlineAttributes[1]);
+            tasks.addDeadlineToList(deadlineAttributes[0], deadlineAttributes[1]);
         } else if (userInput.startsWith("event ") || userInput.equals("event")) {
             String[] eventAttributes = validateEventInput(userInput);
-            taskList.addEventToList(eventAttributes[0], eventAttributes[1], eventAttributes[2]);
+            tasks.addEventToList(eventAttributes[0], eventAttributes[1], eventAttributes[2]);
         } else if (userInput.startsWith("delete ") || userInput.equals("delete")) {
-            int listIndex = validateListInput(userInput, "delete", taskList.size());
-            taskList.deleteTask(listIndex);
+            int listIndex = validateListInput(userInput, "delete", tasks.getSize());
+            tasks.deleteTask(listIndex);
         } else {
             throw new ToothlessException("Sorry, I don't understand what that means D:");
         }
-        return true;
     }
 
     public int validateListInput(String listInput, String command, int taskListSize) throws ToothlessException {

@@ -11,7 +11,7 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         taskList.addEventToList("event", "2024-02-02 18:30", "2024-02-02 22:00");
         assertEquals("[E][ ] event (from: Feb 2 2024, 18:30 to: Feb 2 2024, 22:00)", 
-                taskList.getTaskList().get(0).toString());
+                taskList.getTasks().get(0).toString());
     }
 
     @Test
