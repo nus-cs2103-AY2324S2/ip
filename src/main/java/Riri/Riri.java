@@ -111,7 +111,10 @@ public class Riri {
     private static void chat(MyList mylist) throws RiriException {
         boolean isOn = true;
         Scanner sc = new Scanner(System.in);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy-mm-dd HHmm");
+        DateTimeFormatter[] formatters = {formatter1, formatter2, formatter3};
 
         while (isOn) {
             String command = sc.nextLine();
@@ -131,15 +134,17 @@ public class Riri {
                 continue;
             } else if (command.matches("\\bdeadline\\b.*")) {
                 String[] words = command.split("/by");
-                mylist.addTask(new Deadline(words[0].trim(), LocalDate.parse(words[1].trim(), formatter)));
+                LocalDate date = LocalDate.parse(words[1].trim(), formatter1);
+                
+                mylist.addTask(new Deadline(words[0].trim(), date));
                 System.out.println("Added deadline.");
                 continue;
             } else if (command.matches("\\bevent\\b.*")) {
                 String[] words = command.split("/from+");
                 String[] from = words[1].split("/to");
-                mylist.addTask(new Event(words[0].trim(),
-                        LocalDate.parse(from[0].trim(), formatter),
-                        LocalDate.parse(from[1].trim(), formatter)));
+                LocalDate date1 = LocalDate.parse(from[0].trim(), formatter1);
+                LocalDate date2 =  LocalDate.parse(from[1].trim(), formatter1);
+                mylist.addTask(new Event(words[0].trim(), date1, date2));
                 System.out.println("Added event.");
                 continue;
             } else if (command.matches("\\btodo\\b.*")) {
