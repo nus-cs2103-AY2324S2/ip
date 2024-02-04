@@ -11,3 +11,5 @@ Let's,
 * add a script to migrate stress tests to the new format
 
 make PR on code quality branch
+
+C-BetterSearch is already fulfilled as I used regular expression for the find part at beginning.
