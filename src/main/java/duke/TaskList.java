@@ -2,6 +2,9 @@ package duke;
 
 import java.util.ArrayList;
 
+import duke.exception.DukeException;
+import duke.exception.DuplicateTaskException;
+import duke.exception.WrongUsageException;
 import duke.task.Task;
 
 /**
@@ -30,7 +33,10 @@ public class TaskList {
      * Add task to task list.
      * @param task The task we want to add.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DuplicateTaskException {
+        if (taskArrayList.contains(task)) {
+            throw new DuplicateTaskException(task);
+        }
         taskArrayList.add(task);
     }
 
@@ -61,4 +67,17 @@ public class TaskList {
         assert index < taskArrayList.size() : "index should not exceed the list length";
         return this.taskArrayList.get(index);
     }
+
+    public void resetTaskList(ArrayList<Task> taskList) {
+        this.taskArrayList = taskList;
+    }
+
+    public void sortTaskList() {
+        taskArrayList.sort((x, y) -> x.compareTo(y));
+    }
+
+    public void updateTask(int index, String updateField, String updateValue) throws DukeException {
+        taskArrayList.get(index).updateTask(updateField, updateValue);
+    }
+
 }

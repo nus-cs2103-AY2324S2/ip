@@ -16,7 +16,7 @@ import duke.task.Todo;
 /**
  * Class for file management
  */
-class Storage {
+public class Storage {
     private File taskFile;
 
     /**
@@ -30,15 +30,54 @@ class Storage {
     private Task readTask(String taskLine) {
         String[] token = taskLine.split(",");
         if (token[0].equals("T")) {
-            Todo temp = new Todo(token[2]);
+            if (token.length == 3) {
+                Todo temp = new Todo(token[2]);
+                checkAndSetDone(token, temp);
+                return temp;
+            }
+            String tagString = token[3];
+            ArrayList<String> tagList = new ArrayList<>();
+            String[] tagToken = tagString.split("#");
+            if (tagToken.length > 1) {
+                for (int i = 1; i < tagToken.length; i++) {
+                    tagList.add(tagToken[i]);
+                }
+            }
+            Todo temp = new Todo(token[2], tagList);
             checkAndSetDone(token, temp);
             return temp;
         } else if (token[0].equals("D")) {
-            Deadline temp = new Deadline(token[2], LocalDate.parse(token[3]));
+            if (token.length == 4) {
+                Deadline temp = new Deadline(token[2], LocalDate.parse(token[3]));
+                checkAndSetDone(token, temp);
+                return temp;
+            }
+            String tagString = token[4];
+            ArrayList<String> tagList = new ArrayList<>();
+            String[] tagToken = tagString.split("#");
+            if (tagToken.length > 1) {
+                for (int i = 1; i < tagToken.length; i++) {
+                    tagList.add(tagToken[i]);
+                }
+            }
+            Deadline temp = new Deadline(token[2], tagList, LocalDate.parse(token[3]));
             checkAndSetDone(token, temp);
             return temp;
         } else if (token[0].equals("E")) {
-            Event temp = new Event(token[2], LocalDate.parse(token[3]), LocalDate.parse(token[4]));
+            if (token.length == 5) {
+                Event temp = new Event(token[2], LocalDate.parse(token[3]), LocalDate.parse(token[4]));
+                checkAndSetDone(token, temp);
+                return temp;
+            }
+            String tagString = token[5];
+            ArrayList<String> tagList = new ArrayList<>();
+            String[] tagToken = tagString.split("#");
+            if (tagToken.length > 1) {
+                for (int i = 1; i < tagToken.length; i++) {
+                    tagList.add(tagToken[i]);
+                }
+            }
+            Event temp = new Event(token[2], tagList, LocalDate.parse(token[3]), LocalDate.parse(token[4]));
             checkAndSetDone(token, temp);
             return temp;
         } else {
@@ -57,13 +96,14 @@ class Storage {
         String icon = t.getTaskTypeIcon();
         int status = t.getStatus() ? 1 : 0;
         String description = t.getDescription();
+        String tags = t.printTags();
         if (icon.equals("T")) {
-            taskLine = String.format("%s,%s,%s\n", icon, status, description);
+            taskLine = String.format("%s,%s,%s,%s\n", icon, status, description, tags);
         } else if (icon.equals("D")) {
-            taskLine = String.format("%s,%s,%s,%s\n", icon, status, description, ((Deadline) t).getBy());
+            taskLine = String.format("%s,%s,%s,%s,%s\n", icon, status, description, ((Deadline) t).getBy(), tags);
         } else if (icon.equals("E")) {
-            taskLine = String.format("%s,%s,%s,%s,%s\n",
-                    icon, status, description, ((Event) t).getFrom(), ((Event) t).getTo());
+            taskLine = String.format("%s,%s,%s,%s,%s,%s\n",
+                    icon, status, description, ((Event) t).getFrom(), ((Event) t).getTo(), tags);
         }
         return taskLine;
     }
@@ -94,5 +134,9 @@ class Storage {
             fw.write(writeTask(t));
         }
         fw.close();
+    }
+
+    public void resetStorage(String filePath) {
+        this.taskFile = new File(filePath);
     }
 }

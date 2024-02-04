@@ -1,14 +1,20 @@
 package duke.task;
 
+import duke.exception.DukeException;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * A class for managing all kinds of Tasks.
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     /** The task list, update upon creation of task */
     protected String description;
     protected boolean isDone;
+    HashSet<String> tags;
 
     /**
      * Constructor
@@ -17,6 +23,13 @@ public abstract class Task {
      */
     public Task(String text) {
         this.description = text;
+        this.isDone = false;
+        this.tags = new HashSet<String>();
+    }
+
+    public Task(String text, ArrayList<String> tags) {
+        this.description = text;
+        this.tags = new HashSet<>(tags);
         this.isDone = false;
     }
 
@@ -78,14 +91,36 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public boolean addTag(String tagName) {
+        return this.tags.add(tagName);
+    }
+
+    public boolean removeTag(String tagName) {
+        return this.tags.remove(tagName);
+    }
+
+    public String printTags() {
+        Iterator<String> tagIterator = tags.iterator();
+        String result = "";
+        while (tagIterator.hasNext()) {
+            result += "#"+tagIterator.next();
+        }
+        return result;
+    }
+
     /**
      * To string method.
      * @return the String representation of duke.task.Task
      */
     @Override
     public String toString() {
-        String temp = String.format("[%s][%s] %s", this.getTaskTypeIcon(), this.getStatusIcon(), this.description);
+        String temp = String.format("[%s][%s] [%s] %s",
+                this.getTaskTypeIcon(), this.getStatusIcon(), this.printTags(), this.description);
         return temp;
     }
 
+    @Override
+    public abstract int compareTo(Task otherTask);
+
+    public abstract void updateTask(String updateField, String updateValue) throws DukeException;
 }

@@ -29,7 +29,7 @@ public class Duke {
             handleFileNotFound(filePath);
             tasks = new TaskList(new ArrayList<>());
         }
-        parser = new Parser(tasks);
+        parser = new Parser(tasks, storage);
     }
 
     private void handleFileNotFound(String filePath) {
