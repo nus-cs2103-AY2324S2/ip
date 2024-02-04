@@ -22,11 +22,11 @@ public class Storage {
         this.file = new File(path);
     }
 
-    
+
     /**
      * Saves the given TaskList to a file.
      * If the file does not exist, it will be created.
-     * 
+     *
      * @param list The TaskList to be saved.
      */
     public void saveList(TaskList list) {
@@ -63,6 +63,7 @@ public class Storage {
 
     /**
      * Reads a line from the file and returns a Task object.
+     *
      * @param line
      * @return The Task object read from the line.
      */

@@ -50,7 +50,7 @@ public class Command {
 
     /**
      * Marks a task as undone based on the given index.
-     * 
+     *
      * @param args     the index of the task to be marked as undone
      * @param taskList the list of tasks
      */
@@ -67,7 +67,7 @@ public class Command {
 
     /**
      * Adds a new todo task to the task list.
-     * 
+     *
      * @param args     The description of the todo task.
      * @param taskList The task list to add the task to.
      */
@@ -117,7 +117,7 @@ public class Command {
 
     /**
      * Adds a deadline task to the task list.
-     * 
+     *
      * @param args     the input arguments containing the task description and
      *                 deadline
      * @param taskList the task list to add the task to

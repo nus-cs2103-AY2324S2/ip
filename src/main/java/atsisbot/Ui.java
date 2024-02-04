@@ -80,7 +80,7 @@ public class Ui {
 
     /**
      * Prints a message indicating that a task has been added to the task list.
-     * 
+     *
      * @param task     The task that has been added.
      * @param taskList The task list containing the added task.
      */
@@ -90,7 +90,7 @@ public class Ui {
 
     /**
      * Prints a message indicating that a task has been deleted.
-     * 
+     *
      * @param task     The task that has been deleted.
      * @param taskList The task list containing the deleted task.
      */
