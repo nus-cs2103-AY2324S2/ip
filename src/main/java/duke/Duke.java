@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.ArrayList; // import the ArrayList class
 import java.util.Scanner;  // Import the Scanner class
 
