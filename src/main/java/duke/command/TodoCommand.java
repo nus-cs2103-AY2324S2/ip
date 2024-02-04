@@ -5,21 +5,26 @@ import duke.tasklist.TaskList;
 import duke.task.Todo;
 import duke.ui.Ui;
 
-/*
- * This TodoCommand class is a subclass of Command class. It is used to create a new Todo task
- * and add it to the task list.
- * It takes in a description String.
+/**
+ * Represents a command to add a todo task.
  */
 public class TodoCommand extends Command {
     protected String description;
 
-    /*
-     * Constructs TodoCommand object with description as a String.
+    /**
+     * Constructor for TodoCommand.
+     * @param description The description of the todo.
      */
     public TodoCommand(String description) {
         this.description = description;
     }
 
+    /**
+     * Executes the command to add a todo task.
+     * @param tasks The list of tasks.
+     * @param ui The user interface to interact with the user.
+     * @param storage The storage to save the tasks.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Todo todo = new Todo(description);

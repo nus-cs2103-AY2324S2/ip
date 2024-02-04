@@ -7,17 +7,19 @@ import duke.ui.Ui;
 
 import java.time.LocalDate;
 
-/*
-* The EventCommand class is a subclass of Command and represents a command to add an Event task to the task list.
-* It takes in a description String, from and to as LocalDate objects.
+/**
+ * Represents a command to add an event task.
  */
 public class EventCommand extends Command {
     protected String description;
     protected LocalDate from;
     protected LocalDate to;
 
-    /*
-     * Constructs EventCommand object with description, from and to as LocalDate objects.
+    /**
+     * Constructor for EventCommand.
+     * @param description The description of the event.
+     * @param from The start date of the event.
+     * @param to The end date of the event.
      */
     public EventCommand(String description, LocalDate from, LocalDate to) {
         this.description = description;
@@ -25,6 +27,12 @@ public class EventCommand extends Command {
         this.to = to;
     }
 
+    /**
+     * Executes the command to add an event task.
+     * @param tasks The list of tasks.
+     * @param ui The user interface to interact with the user.
+     * @param storage The storage to save the tasks.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage){
         Event event = new Event(description, from, to);

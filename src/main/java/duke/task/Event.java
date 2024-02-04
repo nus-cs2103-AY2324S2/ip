@@ -5,17 +5,19 @@ import duke.DukeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-/*
- * The Event class is a subclass of Task and represents a task that starts
- * at a specific time and ends at a specific time.
- * It takes in a LocalData as the start time and end time of the event.
+/**
+ * Represents an event task.
  */
 public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
 
-    /*
-     * Constructs Event object with description, from and to as Strings.
+    /**
+     * Constructor for Event.
+     * @param description The description of the event.
+     * @param from The start date of the event.
+     * @param to The end date of the event.
+     * @throws DukeException If the date is not in the correct format.
      */
     public Event(String description, String from, String to) throws DukeException {
         super(description);
@@ -27,8 +29,11 @@ public class Event extends Task {
         }
     }
 
-    /*
-     * Constructs Event object with description, from and to as LocalDate objects.
+    /**
+     * Constructor for Event.
+     * @param description The description of the event.
+     * @param from The start date of the event.
+     * @param to The end date of the event.
      */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
@@ -36,6 +41,13 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Constructor for Event.
+     * @param description The description of the event.
+     * @param from The start date of the event.
+     * @param to The end date of the event.
+     * @param isDone Whether the event is done.
+     */
     public Event(String description, LocalDate from, LocalDate to, boolean isDone) {
         super(description, isDone);
         this.from = from;
@@ -47,17 +59,30 @@ public class Event extends Task {
         return "E";
     }
 
+    /**
+     * Returns the event in the format to be displayed to the user.
+     * @return The event in the format to be displayed to the user.
+     */
     @Override
     public String toString() {
         return "[" + getType() + "]" + super.toString() + " (from: " + from.format(Task.DATE_TIME_FORMATTER) +
                " to: " + to.format(Task.DATE_TIME_FORMATTER) + ")";
     }
 
+    /**
+     * Returns the event in the format to be saved in the file.
+     * @return The event in the format to be saved in the file.
+     */
     @Override
     public String toFileString() {
         return getType() + " | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
     }
 
+    /**
+     * Factory method to create an event from a file string.
+     * @param fileString The file string to be converted to an event.
+     * @return The event from the file string.
+     */
     public static Event EventFromFileString(String fileString) {
         String[] taskDetails = fileString.split(" \\| ");
         boolean isDone = taskDetails[1].equals("1");

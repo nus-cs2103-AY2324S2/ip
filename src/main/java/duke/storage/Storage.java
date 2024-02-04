@@ -14,21 +14,24 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * The Storage class is used to read and write data to the hard disk.
+/**
+ * Represents a storage for saving and loading tasks to and from the hard disk.
  */
 public class Storage {
     protected String filePath;
 
-    /*
-     * Constructs Storage object with filePath as a String.
+    /**
+     * Constructor for Storage.
+     * @param filePath The file path of the storage.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    /*
-     * Writes data to the hard disk.
+    /**
+     * Saves data to the hard disk.
+     * @param tasks The list of tasks to be saved.
+     * @throws DukeException If an error occurs during the saving of the tasks.
      */
     public void save(TaskList tasks) throws DukeException {
         try {
@@ -42,8 +45,10 @@ public class Storage {
         }
     }
 
-    /*
-     * Reads data from the hard disk.
+    /**
+     * Loads data from the hard disk.
+     * @return The list of tasks loaded from the hard disk.
+     * @throws DukeException If an error occurs during the loading of the tasks.
      */
     public List<Task> load() throws DukeException {
         List<Task> tasks = new ArrayList<>();
@@ -58,7 +63,7 @@ public class Storage {
         return tasks;
     }
 
-    /*
+    /**
      * Encodes task to a String for saving to the hard disk.
      * Prepends the type of task to the task's fileString.
      *
@@ -69,6 +74,14 @@ public class Storage {
         return task.getType() + " | " + task.toFileString();
     }
 
+    /**
+     * Decodes task from a String read from the hard disk.
+     * Extracts the type of task from the encoded task String and creates the task accordingly.
+     *
+     * @param encodedTaskString the encoded task String read from the hard disk.
+     * @return Decoded task.
+     * @throws DukeException If an error occurs during the decoding of the task.
+     */
     public Task decodeTask(String encodedTaskString) throws DukeException{
         String[] taskDetails = encodedTaskString.split(" \\| ", 2);
         String taskType = taskDetails[0];

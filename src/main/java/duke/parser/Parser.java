@@ -5,10 +5,8 @@ import duke.command.*;
 
 import java.time.LocalDate;
 
-/*
- * The Parser class is responsible for making sense of the user command.
- * It takes in a user command and returns the corresponding Command object.
- * It is also responsible for parsing the user input into the command and description.
+/**
+ * Represents a parser to parse user input.
  */
 public class Parser {
     private static final String TODO_COMMAND = "todo";
@@ -20,8 +18,11 @@ public class Parser {
     private static final String DELETE_COMMAND = "delete";
     private static final String BYE_COMMAND = "bye";
 
-    /*
-     * Parses the user input and returns the corresponding Command object.
+    /**
+     * Parses the user input and returns the corresponding command.
+     * @param fullCommand The full user input.
+     * @return The corresponding command.
+     * @throws DukeException If the user input is invalid.
      */
     public static Command parse(String fullCommand) throws DukeException {
         String[] commandParts = fullCommand.split(" ", 2);
