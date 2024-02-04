@@ -1,11 +1,11 @@
-package duke;
+package kai;
 
-import duke.task.TaskList;
-import duke.util.Parser;
-import duke.util.Storage;
-import duke.util.Ui;
+import kai.task.TaskList;
+import kai.util.Parser;
+import kai.util.Storage;
+import kai.util.Ui;
 
-public class Duke {
+public class Kai {
     public Storage storage;
     public TaskList taskList;
     public Ui ui;
@@ -16,7 +16,7 @@ public class Duke {
      *
      * @param filePath FilePath of the save file.
      */
-    public Duke(String filePath) {
+    public Kai(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         taskList = new TaskList(storage.load());
@@ -40,6 +40,6 @@ public class Duke {
 
     public static void main(String[] args) {
         final String FILE_LOCATION = "data/duke.txt";
-        new Duke(FILE_LOCATION).run();
+        new Kai(FILE_LOCATION).run();
     }
 }

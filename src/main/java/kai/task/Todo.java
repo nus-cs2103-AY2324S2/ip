@@ -1,4 +1,4 @@
-package duke.task;
+package kai.task;
 
 public class Todo extends Task {
     public Todo(String description) {

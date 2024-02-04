@@ -1,10 +1,10 @@
-package duke.util;
+package kai.util;
 
-import duke.task.Task;
-import duke.task.Todo;
-import duke.task.Deadline;
-import duke.task.TaskList;
-import duke.task.Event;
+import kai.task.Task;
+import kai.task.Todo;
+import kai.task.Deadline;
+import kai.task.TaskList;
+import kai.task.Event;
 
 public class Parser {
     /**

@@ -1,4 +1,4 @@
-package duke.task;
+package kai.task;
 
 import org.junit.jupiter.api.Test;
 
