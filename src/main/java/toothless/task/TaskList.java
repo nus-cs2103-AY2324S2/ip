@@ -2,6 +2,7 @@ package toothless.task;
 
 import toothless.exception.ToothlessException;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -44,6 +45,22 @@ public class TaskList {
         Task deletedTask = taskList.get(index - 1);
         taskList.remove(index - 1);
         printDeletedTask(deletedTask);
+    }
+
+    /**
+     * Finds and returns a list of tasks with given keyword.
+     * 
+     * @param keyword A String to search in tasklist.
+     * @return List of tasks with keyword.
+     */
+    public ArrayList<Task> findKeyword(String keyword) {
+        ArrayList<Task> keywordTasks = new ArrayList<>();
+        for (Task currentTask : this.taskList) {
+            if (currentTask.toString().contains(keyword)) {
+                keywordTasks.add(currentTask);
+            }
+        }
+        return keywordTasks;
     }
 
     public void addToDoToList(String taskDescription) {
@@ -115,5 +132,4 @@ public class TaskList {
         }
         System.out.println(listString);
     }
-
 }

@@ -1,8 +1,11 @@
 package toothless.parser;
 
 import toothless.exception.ToothlessException;
+import toothless.task.Task;
 import toothless.task.TaskList;
 import toothless.ui.Ui;
+
+import java.util.ArrayList;
 
 public class Parser {
     
@@ -33,6 +36,10 @@ public class Parser {
         } else if (userInput.startsWith("delete ") || userInput.equals("delete")) {
             int listIndex = validateListInput(userInput, "delete", taskList.size());
             taskList.deleteTask(listIndex);
+        } else if (userInput.startsWith("find ") || userInput.equals("find")) {
+            String keyword = validateFindInput(userInput);
+            ArrayList<Task> keywordTasks = taskList.findKeyword(keyword);
+            ui.printKeywordList(keywordTasks);
         } else {
             throw new ToothlessException("Sorry, I don't understand what that means D:");
         }
@@ -115,5 +122,20 @@ public class Parser {
         }
 
         return eventAttributes;
+    }
+
+    /**
+     * Validates the user input for find command.
+     * 
+     * @param findInput The user input for find command.
+     * @return The keyword to be found.
+     * @throws ToothlessException if keyword is blank.
+     */
+    public String validateFindInput(String findInput) throws ToothlessException {
+        String keyword = findInput.replace("find ", "").strip();
+        if (keyword.isBlank()) {
+            throw new ToothlessException("Apurrlogies, the keyword cannot be empty.");
+        }
+        return keyword;
     }
 }
