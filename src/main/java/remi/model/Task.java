@@ -66,7 +66,7 @@ public class Task {
      *
      * @return a parsable string representation of the task and all its details
      */
-    public String parsableString() {
+    public String getParsableString() {
         String res = "";
         if (this.isDone) {
             res += "X";

@@ -23,7 +23,7 @@ public class Deadline extends Task{
      *
      * @return a parsable string representation of the task and all its details
      */
-    public String parsableString() {
-        return "D|" + super.parsableString() + "|" + by;
+    public String getParsableString() {
+        return "D|" + super.getParsableString() + "|" + by;
     }
 }

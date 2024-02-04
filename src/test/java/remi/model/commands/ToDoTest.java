@@ -10,6 +10,6 @@ public class ToDoTest {
     public void parsableString_dummyTask_returnString() {
         ToDo todo = new ToDo("dummy");
 
-        assertEquals(todo.parsableString(), "T|V|dummy");
+        assertEquals(todo.getParsableString(), "T|V|dummy");
     }
 }
