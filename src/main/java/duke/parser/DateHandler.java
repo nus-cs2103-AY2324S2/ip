@@ -87,7 +87,7 @@ public class DateHandler {
     }
 
     /**
-     * To format a LocalDateTime object into save format.
+     * Formats a LocalDateTime object into save format.
      *
      * @param date LocalDateTime objects to convert.
      * @return A formatted string of the LocalDateTime object.

@@ -18,7 +18,7 @@ public class Task {
     }
 
     /**
-     * Display the completion status in a nicely formatted String.
+     * Displays the completion status in a nicely formatted String.
      *
      * @return A String indicating the completion status of the task.
      */

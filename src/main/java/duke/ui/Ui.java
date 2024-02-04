@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- *  Commandlinne GUI class to handle all the printing in the application.
+ *  Commandline GUI class to handle all the printing in the application.
  */
 public class Ui {
     public static final String INDENT = "   ";
@@ -30,7 +30,7 @@ public class Ui {
     }
 
     /**
-     * Display a break line bar of dashes with indentation.
+     * Displays a break line bar of dashes with indentation.
      */
     public void showLine() {
         System.out.println(INDENT + BAR);
@@ -44,7 +44,7 @@ public class Ui {
     }
 
     /**
-     * Display the welcome greeting of the chatbot.
+     * Displays the welcome greeting of the chatbot.
      */
     public void showWelcome() {
         for (String l : GREET) {
@@ -68,7 +68,7 @@ public class Ui {
     }
 
     /**
-     * Print to the output console of all the items in the list object.
+     * Prints to the output console of all the items in the list object.
      * @param data An ArrayList of string to print everything to the output with indentation.
      */
     public void printOutput(ArrayList<String> data) {
@@ -78,7 +78,7 @@ public class Ui {
     }
 
     /**
-     * Print to the output console of all the items in the array object.
+     * Prints to the output console of all the items in the array object.
      * @param data A String array to print everything to the output with indentation.
      */
     public void printOutput(String[] data) {

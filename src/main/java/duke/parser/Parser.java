@@ -20,7 +20,7 @@ public class Parser {
     static final Pattern PATTERN_ACTIONS = Pattern.compile("((?i)todo|deadline|event) (.+)");
 
     /**
-     * Parse a String action and performs it on the TaskManager or decides when it is to exit the program.
+     * Parses a String action and performs it on the TaskManager or decides when it is to exit the program.
      * @param command  A string command to indicate what to do.
      * @param manager A TaskManager to perform actions on.
      * @return An ArrayList of string to output to the Ui for the actions from the parsed input
@@ -51,7 +51,7 @@ public class Parser {
     }
 
     /**
-     * @return Checks if it is time to exit the program.
+     * @returns Checks if it is time to exit the program.
      */
     public static boolean isExit() {
         return isDead;

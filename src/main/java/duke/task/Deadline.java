@@ -14,7 +14,7 @@ public class Deadline extends Task {
     protected LocalDateTime byDateTime = null;
 
     /**
-     * Legacy version to create a deadline task with string values only.
+     * Legacy version which creates a deadline task with string values only.
      *
      * @param description Name of the task.
      * @param by          Deadline of the task.
@@ -25,7 +25,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Create a deadline task with a LocalDateTime object.
+     * Creates a deadline task with a LocalDateTime object.
      *
      * @param description Name of the task.
      * @param by          Deadline of the task.

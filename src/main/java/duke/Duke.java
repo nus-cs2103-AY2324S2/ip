@@ -18,7 +18,7 @@ public class Duke {
     private Ui ui;
 
     /**
-     * Setups and initialise the chatbot, with an auto save feature every 2 seconds.
+     * Setups and initialises the chatbot, with an auto save feature every 2 seconds.
      *
      * @param filePath      string path from root where the user wants to store their task.
      * @param saveFrequency input in milliseconds to indicate the frequency of autosave.
@@ -46,7 +46,7 @@ public class Duke {
     }
 
     /**
-     * Execute and start running the Duke chatbot.
+     * Executes and start running the Duke chatbot.
      */
     public void run() {
         ui.showWelcome();

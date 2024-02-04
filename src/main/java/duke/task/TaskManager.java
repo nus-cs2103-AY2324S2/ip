@@ -35,7 +35,7 @@ public class TaskManager {
     }
 
     /**
-     * Add task to the current manager list.
+     * Adds task to the current manager list.
      *
      * @param item A task to add.
      */
@@ -129,7 +129,7 @@ public class TaskManager {
     }
 
     /**
-     * Manage a current task in the current task in TaskManager.
+     * Manages current task in TaskManager.
      *
      * @param act         A valid action.
      * @param instruction A command to indicate what to do based on the action.
@@ -181,7 +181,7 @@ public class TaskManager {
     }
 
     /**
-     * Return the number of task in the TaskManager.
+     * Returns the number of task in the TaskManager.
      *
      * @return Nicely formatted String of the number task in the TaskManager.
      */
