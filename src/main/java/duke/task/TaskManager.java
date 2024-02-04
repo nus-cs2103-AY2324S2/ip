@@ -1,8 +1,5 @@
 package duke.task;
 
-import duke.parser.DateHandler;
-import duke.DukeException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -11,22 +8,23 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import duke.DukeException;
+import duke.parser.DateHandler;
+
 /**
  * Manager class to manage and keep track of all the actions being performed on the task.
  */
 public class TaskManager {
-    private ArrayList<Task> items;
-    private boolean hasChanged = false;
     private static final String listingResponse = "Here are the tasks in your list:";
     //Strings for marking and unmarking
     private static final String RESPONSE_MARK = "Nice! I've marked this task as done:";
     private static final String RESPONSE_UMARK = "OK, I've marked this task as not done yet:";
     private static final String RESPONSE_REMOVE = "Noted. I've removed this task";
-
     //String and variables for task
     private static final String RESPONSE_ADD = "Got it. I've added this task:";
-
     private static final String RESPONSE_FIND = "Here are the matching tasks in your list";
+    private ArrayList<Task> items;
+    private boolean hasChanged = false;
 
 
     /**
@@ -80,10 +78,9 @@ public class TaskManager {
                 throw new DukeException("by");
             }
             Optional<LocalDate> testDate = DateHandler.checkDate(by);
-            item = testDate.map(localDate -> new Deadline(description,
-                            LocalDateTime.of(localDate, DateHandler.checkTime(by)
-                                    .orElse(LocalTime.of(0, 0)))))
-                    .orElseGet(() -> new Deadline(description, by));
+            item = testDate.map(localDate -> new Deadline(description, LocalDateTime.of(localDate, DateHandler
+                    .checkTime(by)
+                    .orElse(LocalTime.of(0, 0))))).orElseGet(() -> new Deadline(description, by));
             break;
         case EVENT:
             Matcher eventMatch = eventFormat.matcher(instruction);
@@ -112,10 +109,9 @@ public class TaskManager {
                 LocalTime time = DateHandler.checkTime(from).orElse(LocalTime.of(0, 0));
                 return Optional.of(LocalDateTime.of(fromDate, time));
             });
-            item = combineByDate.flatMap(byDate ->
-                            combineFromDate.flatMap(fromDate ->
-                                    Optional.of(new Event(description, fromDate, byDate))))
-                    .orElseGet(() -> new Event(description, from, by));
+            item = combineByDate.flatMap(byDate -> combineFromDate.flatMap(
+                    fromDate -> Optional.of(new Event(description, fromDate, byDate)))).orElseGet(
+                    () -> new Event(description, from, by));
             break;
         default:
             throw new DukeException("Invalid");
@@ -128,6 +124,15 @@ public class TaskManager {
         returnString.add(numOfTask());
         return returnString;
 
+    }
+
+    /**
+     * Returns the number of task in the TaskManager.
+     *
+     * @return Nicely formatted String of the number task in the TaskManager.
+     */
+    public String numOfTask() {
+        return "Now you have " + items.size() + " tasks in the list.";
     }
 
     /**
@@ -183,15 +188,6 @@ public class TaskManager {
     }
 
     /**
-     * Returns the number of task in the TaskManager.
-     *
-     * @return Nicely formatted String of the number task in the TaskManager.
-     */
-    public String numOfTask() {
-        return "Now you have " + items.size() + " tasks in the list.";
-    }
-
-    /**
      * Gets the current items in the TaskManager and produce them into a save format
      *
      * @return The tasks in a save format of String.
@@ -226,12 +222,12 @@ public class TaskManager {
         return ret;
     }
 
-    public void setUpdate(boolean hasChanged) {
-        this.hasChanged = hasChanged;
-    }
-
     public boolean getUpdate() {
         return hasChanged;
+    }
+
+    public void setUpdate(boolean hasChanged) {
+        this.hasChanged = hasChanged;
     }
 
     public ArrayList<String> findTask(String search) {

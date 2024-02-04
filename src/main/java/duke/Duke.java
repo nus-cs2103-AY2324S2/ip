@@ -15,9 +15,9 @@ import duke.ui.Ui;
 
 public class Duke {
 
-    private TaskManager manager;
     private Storage storage;
     private Ui ui;
+    private TaskManager manager;
 
     /**
      * Setups and initialises the chatbot, with an auto save feature every 2 seconds.
@@ -48,6 +48,11 @@ public class Duke {
 
     }
 
+    public static void main(String[] args) {
+        new Duke("data/tasks.txt", 2000).run();
+
+    }
+
     /**
      * Executes and start running the Duke chatbot.
      */
@@ -74,11 +79,6 @@ public class Duke {
         }
 
         System.exit(0);
-
-    }
-
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt", 2000).run();
 
     }
 }

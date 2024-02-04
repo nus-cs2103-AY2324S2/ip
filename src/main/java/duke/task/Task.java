@@ -18,15 +18,6 @@ public class Task {
     }
 
     /**
-     * Displays the completion status in a nicely formatted String.
-     *
-     * @return A String indicating the completion status of the task.
-     */
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
-    }
-
-    /**
      * Marks a task completed.
      */
     public void markAsDone() {
@@ -65,6 +56,15 @@ public class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
+    }
+
+    /**
+     * Displays the completion status in a nicely formatted String.
+     *
+     * @return A String indicating the completion status of the task.
+     */
+    public String getStatusIcon() {
+        return (isDone ? "X" : " ");
     }
 
 }

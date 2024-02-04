@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  * Storage to handle saving and loading.
  */
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     /**
      * Creates a storage instead with the given file path.
@@ -52,22 +52,6 @@ public class Storage {
             }
         }
         return manager;
-    }
-
-    /**
-     * Writes to the filepath of the items to save.
-     *
-     * @param manager TaskManager that contains all the items to save to file.
-     */
-    public void saveFile(TaskManager manager) {
-        if (manager.getUpdate()) {
-            try (FileWriter fw = new FileWriter(filePath)) {
-                fw.write(manager.getTasksSave());
-                manager.setUpdate(false);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
     }
 
     private void loadTasksFromFile(File file, TaskManager manager) {
@@ -131,6 +115,22 @@ public class Storage {
         }
         return item;
 
+    }
+
+    /**
+     * Writes to the filepath of the items to save.
+     *
+     * @param manager TaskManager that contains all the items to save to file.
+     */
+    public void saveFile(TaskManager manager) {
+        if (manager.getUpdate()) {
+            try (FileWriter fw = new FileWriter(filePath)) {
+                fw.write(manager.getTasksSave());
+                manager.setUpdate(false);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
 

@@ -15,14 +15,13 @@ import duke.DukeException;
 public class Ui {
     public static final String INDENT = "   ";
     public static final String BAR = "____________________________________________________________";
+    public static final String MESSAGE_BYE = " Bye. Hope to see you again soon!";
     private static final String FIRST = " Hello! I'm Pluiexo";
     private static final String SECOND = " What can I do for you?";
-    public static final String MESSAGE_BYE = " Bye. Hope to see you again soon!";
     private static final String[] GREET = new String[]{BAR, FIRST, SECOND, BAR};
     private static final String[] BYE = new String[]{BAR, MESSAGE_BYE, BAR};
 
     private final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
-    ;
 
     /**
      * Creates the GUI handler.
