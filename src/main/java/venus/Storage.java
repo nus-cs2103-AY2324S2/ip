@@ -13,13 +13,13 @@ import java.util.Scanner;
 public class Storage {
     private String filePath;
     public Storage (String filePath) {
-        File folder = new File (filePath.split("/")[0]);
+        File folder = new File (filePath.split(File.separator)[0]);
         if (!folder.exists()) { //handling folder does not exist issues
             folder.mkdir();
             System.out.println("Folder does not exist, data folder is created");
         }
-        if (!Files.exists(Path.of("data/venus.txt"))) { //handling file does not exist
-            File f = new File("data/venus.txt");
+        if (!Files.exists(Path.of("data" + File.separator + "venus.txt"))) { //handling file does not exist
+            File f = new File("data" + File.separator + "venus.txt");
         }
         this.filePath = filePath;
     }

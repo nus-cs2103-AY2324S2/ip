@@ -1,7 +1,7 @@
 package venus;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
 public class Venus {
 
     Storage storage;
@@ -31,7 +31,7 @@ public class Venus {
         System.out.println(Ui.getEnd());
     }
     public static void main(String[] args) {
-        Venus venus = new Venus("data/venus.txt");
+        Venus venus = new Venus("data" + File.separator + "venus.txt");
         venus.run();
     }
 }

@@ -26,7 +26,7 @@ public class Parser {
 
     public static String[] findDeadlineContent(String input) throws DukeException {
         String dString = input.substring(9);
-        String[] parts = dString.split("/by");
+        String[] parts = dString.split(File.separator + "by");
         if (parts.length != 2) {
             throw new DukeException("Incorrect, choose a specific deadline only please");
         }
@@ -37,7 +37,7 @@ public class Parser {
 
     public static String[] findEventParts(String input) throws DukeException {
         String dString = input.substring(6);
-        String[] parts = dString.split("/");
+        String[] parts = dString.split(File.separator);
         if (parts.length != 3) {
             throw new DukeException("Incorrect arguments for events");
         }
