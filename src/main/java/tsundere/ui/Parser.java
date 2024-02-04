@@ -15,26 +15,26 @@ public class Parser {
      *
      * @throws GeneralException If actions executed cause exceptions.
      */
-    public void execute() throws GeneralException {
+    public String execute() throws GeneralException {
 
         if (name.contains("unmark")) {
-            TaskList.unmark();
+            return TaskList.unmark();
         } else if (name.contains("mark")) {
-            TaskList.mark();
+            return TaskList.mark();
         } else if (name.contains("delete")) {
-            TaskList.delete();
+            return TaskList.delete();
         } else if (name.contains("list")) {
-            TaskList.list();
+            return TaskList.list();
         } else if (name.contains("deadline")) {
-            TaskList.addDeadline();
+            return TaskList.addDeadline();
         } else if (name.contains("event")) {
-            TaskList.addEvent();
+            return TaskList.addEvent();
         } else if (name.contains("todo")) {
-            TaskList.addToDo();
+            return TaskList.addToDo();
         } else if (name.contains("find")) {
-            TaskList.find();
+            return TaskList.find();
         } else {
-            System.out.println("Don't talk to me!\nGive me proper instructions!");
+            return ("Don't talk to me!\nGive me proper instructions!");
         }
 
     }
