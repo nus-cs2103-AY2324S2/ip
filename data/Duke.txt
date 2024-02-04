@@ -1,1 +1,2 @@
  T | 0 | eat apples
+ E | 0 | project meeting | Mon 2pm | 4pm

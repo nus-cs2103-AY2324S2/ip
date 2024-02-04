@@ -49,7 +49,7 @@ public class Duke {
                 } else if (userInput.startsWith("deadline")) {
                     String[] parts = Parser.parseDeadline(userInput);
                     String task = parts[0];
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
                     LocalDateTime deadline = LocalDateTime.parse(parts[1], formatter);
                     taskList.addItem(new Deadlines(task, deadline), true);
                 } else if (userInput.startsWith("event")) {
