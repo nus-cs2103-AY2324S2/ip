@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Represents a command.
  * Subclasses of this class must register itself with Parser.

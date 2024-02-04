@@ -1,3 +1,5 @@
+package duke;
+
 class ByeCommand extends Command {
     @Override
     public void execute(TaskList tasks, boolean silent) {
@@ -6,6 +8,4 @@ class ByeCommand extends Command {
         }
         System.exit(0);
     }
-
-
 }

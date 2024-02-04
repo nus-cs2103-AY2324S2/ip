@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Represents an exception where the command format is invalid.
  */

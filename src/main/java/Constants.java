@@ -1,3 +1,5 @@
+package duke;
+
 import java.time.format.DateTimeFormatter;
 public class Constants {
     public static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;

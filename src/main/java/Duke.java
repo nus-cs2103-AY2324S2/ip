@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.NoSuchElementException;
 
 public class Duke {
