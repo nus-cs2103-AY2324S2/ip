@@ -108,6 +108,18 @@ public class TaskList {
         this.taskList.get(index).unmark();
     }
 
+
+
+    public TaskList find(String searchString) {
+        TaskList filteredList = new TaskList();
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getDescription().contains(searchString)) {
+                filteredList.add(taskList.get(i));
+            }
+        }
+        return filteredList;
+    }
+    
     /**
      * Populates the task list with tasks from a BufferedReader.
      *
