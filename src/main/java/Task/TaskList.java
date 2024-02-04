@@ -16,11 +16,16 @@ public class TaskList {
     }
 
     public void printList() {
-        System.out.println("Here are the tasks in your list:");
         int length = this.todoList.size();
-        for (int i = 0; i < length; i++) {
-            String pos = String.valueOf(i + 1);
-            System.out.println(pos + "." + this.todoList.get(i));
+        if (length == 0) {
+            System.out.println("There is no task in your list.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+
+            for (int i = 0; i < length; i++) {
+                String pos = String.valueOf(i + 1);
+                System.out.println(pos + "." + this.todoList.get(i));
+            }
         }
     }
 

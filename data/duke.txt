@@ -1,3 +1,2 @@
-D | false | coding | 2024-02-03
-E | true | event chinese new year | 2024-02-03 | 2024-02-04
-T | false | play games
+T | false | learn CS2103
+D | true | ip | 2024-02-05
