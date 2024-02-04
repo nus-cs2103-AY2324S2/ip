@@ -8,6 +8,8 @@ import java.util.Scanner;
  * It provides a command-line interface for users to interact with their task list.
  */
 public class Duke {
+    private static final String FILE_PATH = "./data/duke.txt";
+
     private Ui ui;
     private Storage storage;
 
@@ -16,7 +18,7 @@ public class Duke {
      * Enumeration representing possible commands in Duke.
      */
 
-    private final static String FILE_PATH = "./data/duke.txt";
+
 
 
 

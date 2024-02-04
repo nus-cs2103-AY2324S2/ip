@@ -16,7 +16,8 @@ public class TaskListTest {
         private String output;
 
         public void showError(String str) {
-            output  = " Error: " + str;
+
+            output = " Error: " + str;
         }
 
         public void deleteMessage(String str) {
@@ -56,8 +57,8 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         UiMock uiMock = new UiMock();
         taskList.markTasks(1, uiMock);
-        assertTrue(uiMock.getOutput().contains("OOPS!!! The task number is out of bounds. " +
-                "Please provide a valid task number."));
+        assertTrue(uiMock.getOutput().contains("OOPS!!! The task number is out of bounds. "
+                + "Please provide a valid task number."));
     }
 
     @Test
