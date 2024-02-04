@@ -28,6 +28,7 @@ public class Duke extends Application {
         launch(args);
     }
 
+
     @Override
     public void start(Stage primaryStage) {
         ui = new Ui();
@@ -106,6 +107,7 @@ public class Duke extends Application {
         outputArea.appendText(text);
     }
 }
+
 
 /**
  * Exception class representing a corrupted data file in Duke.
