@@ -18,7 +18,7 @@ public abstract class Command {
             }
             String taskName = input.substring(9, endIndex);
             return taskName;
-        }else if (commandWord.equalsIgnoreCase("event")) {
+        } else if (commandWord.equalsIgnoreCase("event")) {
             int endIndex = input.indexOf("/from");
             if (input.length() < 7 || endIndex == -1) {
                 throw new DukeException("Please enter a task name for Duke.Tasks.Event!! >.<");

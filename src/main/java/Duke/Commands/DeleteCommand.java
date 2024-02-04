@@ -19,7 +19,7 @@ public class DeleteCommand extends Command {
     }
     @Override
     public void execute() throws DukeException {
-        if (taskList.size() < this.indexToDelete){
+        if (taskList.size() < this.indexToDelete) {
             throw new DukeException("Invalid task index to delete!");
         }
         Task taskToBeDeleted = taskList.getTask(this.indexToDelete - 1);

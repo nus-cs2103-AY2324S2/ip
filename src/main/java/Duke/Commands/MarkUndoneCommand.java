@@ -19,7 +19,7 @@ public class MarkUndoneCommand extends Command {
     }
     @Override
     public void execute() throws DukeException {
-        if(this.indexToUnmark < 1 || this.indexToUnmark > this.taskList.size()){
+        if (this.indexToUnmark < 1 || this.indexToUnmark > this.taskList.size()) {
             throw new DukeException("Invalid task number entered.");
         }
         taskList.setAsNotDone(this.indexToUnmark - 1);
