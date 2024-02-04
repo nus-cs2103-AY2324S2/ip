@@ -7,6 +7,11 @@ public abstract class Task {
     private String task;
     private boolean isDone;
 
+    /**
+     * Constructs a task object.
+     *
+     * @param task Description of task.
+     */
     public Task(String task) {
         this.task = task;
         this.isDone = false;

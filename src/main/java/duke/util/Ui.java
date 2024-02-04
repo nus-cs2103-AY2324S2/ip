@@ -1,9 +1,10 @@
 package duke.util;
 
-import duke.task.Task;
-
 import java.io.InputStream;
 import java.util.Scanner;
+
+import duke.task.Task;
+
 
 /**
  * Represents the mechanism of a user interface.
@@ -15,6 +16,13 @@ public class Ui {
     private String logo;
     private Scanner scanner;
 
+    /**
+     * Constructs a UI object.
+     *
+     * @param name
+     * @param logo
+     * @param inputStream
+     */
     public Ui(String name, String logo, InputStream inputStream) {
         this.name = name;
         this.logo = logo;
@@ -120,7 +128,8 @@ public class Ui {
     public void showDeleted(Task t, TaskList list) {
         System.out.println("\t Noted I've removed this task:");
         System.out.println("\t\t " + t.printTask());
-        System.out.println("\t Now you have " + list.getSize() + (list.getSize() > 1 ? " tasks" : " task") + " in the list.");
+        System.out.println("\t Now you have " + list.getSize() + (list.getSize() > 1 ? " tasks" : " task")
+                + " in the list.");
     }
 
     /**

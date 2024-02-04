@@ -1,12 +1,12 @@
 package duke.command;
 
+import java.util.ArrayList;
+
 import duke.exception.DukeException;
 import duke.task.Task;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command to find keyword.

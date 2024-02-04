@@ -1,5 +1,12 @@
 package duke.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Task;
@@ -8,12 +15,7 @@ import duke.util.StorageStub;
 import duke.util.TaskList;
 import duke.util.Ui;
 
-import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class MarkCommandTest {
 
@@ -53,7 +55,7 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void execute_markNegative_DukeException() {
+    public void execute_markNegative_dukeException() {
         MarkCommand mc = new MarkCommand("mark -2", true);
         Todo t = new Todo("read book");
         ArrayList<Task> arr = new ArrayList<Task>();

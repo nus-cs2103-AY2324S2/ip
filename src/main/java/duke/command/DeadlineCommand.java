@@ -1,13 +1,13 @@
 package duke.command;
 
+import java.time.format.DateTimeParseException;
+
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Task;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
-
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a command to add new deadline.

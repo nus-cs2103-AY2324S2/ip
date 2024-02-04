@@ -1,13 +1,19 @@
 package duke.util;
 
-import duke.command.*;
-import duke.exception.DukeException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import duke.command.DeadlineCommand;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.FindCommand;
+import duke.command.MarkCommand;
+import duke.command.TodoCommand;
+import duke.exception.DukeException;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 public class ParserTest {
 
@@ -47,7 +53,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_mark_MarkCommand() {
+    public void parseCommand_mark_markCommand() {
         String input = "Mark 1";
         try {
             assertEquals(new MarkCommand(input, true), Parser.parseCommand(input));
@@ -57,7 +63,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_unmark_MarkCommand() {
+    public void parseCommand_unmark_markCommand() {
         String input = "unmark 1";
         try {
             assertEquals(new MarkCommand(input, false), Parser.parseCommand(input));
@@ -67,7 +73,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_delete_DeleteCommand() {
+    public void parseCommand_delete_deleteCommand() {
         String input = "delete 1000";
         try {
             assertEquals(new DeleteCommand(input), Parser.parseCommand(input));
@@ -77,7 +83,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_deleted_DukeException() {
+    public void parseCommand_deleted_dukeException() {
         String input = "deleted 1000";
         try {
             Parser.parseCommand(input);
@@ -88,7 +94,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_todo_TodoCommand() {
+    public void parseCommand_todo_todoCommand() {
         String input = "todo read book";
         try {
             assertEquals(new TodoCommand(input), Parser.parseCommand(input));
@@ -98,7 +104,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_todoNoDescription_DukeException() {
+    public void parseCommand_todoNoDescription_dukeException() {
         String input = "todo  ";
         try {
             Parser.parseCommand(input);
@@ -110,7 +116,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_deadline_DeadlineCommand() {
+    public void parseCommand_deadline_deadlineCommand() {
         String input = "deadline return book /by 20-12-2023 17:10";
         try {
             assertEquals(new DeadlineCommand(input), Parser.parseCommand(input));
@@ -119,7 +125,7 @@ public class ParserTest {
         }
     }
     @Test
-    public void parseCommand_deadlineMissingDate_DukeException() {
+    public void parseCommand_deadlineMissingDate_dukeException() {
         String input = "deadline return book /by ";
         try {
             Parser.parseCommand(input);
@@ -131,7 +137,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_deadlineMissingDescription_DukeException() {
+    public void parseCommand_deadlineMissingDescription_dukeException() {
         String input = "deadline /by 20-12-2023 17:10";
         try {
             Parser.parseCommand(input);
@@ -143,7 +149,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_event_EventCommand() {
+    public void parseCommand_event_eventCommand() {
         String input = "event meeting /from 20-12-2023 17:10 /to 20-12-2023 17:30";
         try {
             assertEquals(new EventCommand(input), Parser.parseCommand(input));
@@ -153,31 +159,33 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_eventMissingStart_DukeException() {
+    public void parseCommand_eventMissingStart_dukeException() {
         String input = "event meeting /to 20-12-2023 17:10";
         try {
             Parser.parseCommand(input);
             fail();
         } catch (DukeException e) {
             assertEquals("The description, start and end time of an event cannot be empty.\n"
-                    + "\t Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.", e.getMessage());
+                    + "\t Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.",
+                    e.getMessage());
         }
     }
 
     @Test
-    public void parseCommand_eventSwapStartEnd_DukeException() {
+    public void parseCommand_eventSwapStartEnd_dukeException() {
         String input = "event meeting /to 20-12-2023 17:10 /from 20-12-2023 10:00";
         try {
             Parser.parseCommand(input);
             fail();
         } catch (DukeException e) {
             assertEquals("The description, start and end time of an event cannot be empty.\n"
-                    + "\t Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.", e.getMessage());
+                    + "\t Try 'event [task description] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]'.",
+                    e.getMessage());
         }
     }
 
     @Test
-    public void parseCommand_find_FindCommand() {
+    public void parseCommand_find_findCommand() {
         String input = "find meeting";
         try {
             assertEquals(new FindCommand(input), Parser.parseCommand(input));
@@ -187,7 +195,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_findNoKeyword_DukeException() {
+    public void parseCommand_findNoKeyword_dukeException() {
         String input = "find ";
         try {
             Parser.parseCommand(input);
@@ -198,7 +206,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_findTwoKeywords_DukeException() {
+    public void parseCommand_findTwoKeywords_dukeException() {
         String input = "find meeting two";
         try {
             Parser.parseCommand(input);
