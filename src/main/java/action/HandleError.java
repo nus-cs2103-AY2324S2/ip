@@ -1,8 +1,6 @@
 package action;
 
 import exception.NarutoException;
-import util.PrintUtil;
-
 /**
  * This class represents an action to handle an error by printing the error message.
  */
@@ -20,9 +18,11 @@ public class HandleError implements Action {
 
     /**
      * Executes the action by printing the error message.
+     *
+     * @return A string representing the result of the execution.
      */
     @Override
-    public void execute() {
-        PrintUtil.print(this.err.getMessage());
+    public String execute() {
+        return err.getMessage();
     }
 }

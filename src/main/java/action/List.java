@@ -1,6 +1,5 @@
 package action;
 
-import util.PrintUtil;
 import util.TaskList;
 
 /**
@@ -20,8 +19,10 @@ public class List implements Action {
 
     /**
      * Executes the List action by printing all tasks in the task list.
+     *
+     * @return A string representing the result of the execution.
      */
-    public void execute() {
-        PrintUtil.print("Here are the tasks in your list:\n" + this.taskList.toString());
+    public String execute() {
+        return "Here are the tasks in your list:\n" + taskList.toString();
     }
 }

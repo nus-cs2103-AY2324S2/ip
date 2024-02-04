@@ -10,7 +10,8 @@ public interface Action {
     /**
      * Executes the action.
      *
+     * @return A string representing the result of the execution.
      * @throws IOException if an I/O error occurs during the execution of the action.
      */
-    public void execute() throws IOException;
+    public String execute() throws IOException;
 }

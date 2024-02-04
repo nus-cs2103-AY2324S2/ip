@@ -1,7 +1,5 @@
 package action;
 
-import util.PrintUtil;
-
 /**
  * Represents an action that prints a goodbye message and exits the program.
  */
@@ -14,10 +12,11 @@ public class Goodbye implements Action {
 
     /**
      * Executes the action by printing a goodbye message and exiting the program.
+     *
+     * @return A string representing the result of the execution.
      */
     @Override
-    public void execute() {
-        PrintUtil.print("Bye bye! ヾ( ˃ᴗ˂ )◞ • *✰");
-        System.exit(0);
+    public String execute() {
+        return "Bye bye! ヾ( ˃ᴗ˂ )◞ • *✰";
     }
 }

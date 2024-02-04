@@ -32,15 +32,13 @@ public class Ui {
      * @param taskList The TaskList object containing the list of tasks.
      * @return The Action object based on the user input.
      */
-    public static Action parseInput(TaskList taskList) {
-        String input = sc.next();
-
-        // Pass the rest of the line to the Parser
-        String restOfLine = sc.nextLine();
-        // Tokenise input
-        String[] tokens;
+    public static Action parseInput(TaskList taskList, String s) {
+        String[] tokens = s.split(" ", 2);
+        String input = tokens[0];
+        String restOfLine = tokens.length == 1 ? null : tokens[1];
         String description;
         int idx;
+        assert restOfLine != null;
         switch (input) {
         case "bye":
             return new Goodbye();

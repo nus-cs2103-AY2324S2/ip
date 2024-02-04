@@ -24,10 +24,12 @@ public class Find implements Action {
     /**
      * Executes the find action by searching for tasks that match the search strings
      * and printing the results.
+     *
+     * @return A string representing the result of the execution.
      */
     @Override
-    public void execute() {
+    public String execute() {
         List<Task> list = TaskList.find(s);
-        PrintUtil.printList(list);
+        return PrintUtil.printList(list);
     }
 }

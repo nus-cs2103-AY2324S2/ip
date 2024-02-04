@@ -49,14 +49,14 @@ test {
 }
 
 application {
-    mainClass.set("Main")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
     archiveBaseName = "naruto.jar"
 }
 
-run{
+run {
     standardInput = System.in
 }
 
