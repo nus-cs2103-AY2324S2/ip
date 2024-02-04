@@ -6,16 +6,17 @@ import ben.ui.Ui;
 
 public class ExitCommand extends Command {
 
-  public ExitCommand() {}
+    public ExitCommand() {
+    }
 
-  @Override
-  public void execute(TaskList tasks, Ui ui, Storage storage) {
-    ui.showExitMessage();
-    ui.showLine();
-  }
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        ui.showExitMessage();
+        ui.showLine();
+    }
 
-  @Override
-  public boolean isExit() {
-    return true;
-  }
+    @Override
+    public boolean isExit() {
+        return true;
+    }
 }
