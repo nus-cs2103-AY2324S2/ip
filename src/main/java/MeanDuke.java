@@ -12,23 +12,9 @@ import java.util.Scanner;
  */
 public class MeanDuke {
 
-    //Text art to be used
-    private static final String LOGO =
-            " __       __  ________   ______   __    __          _______   __    __  __    __  ________\n"
-                    + "/  \\     /  |/        | /      \\ /  \\  /  |        /       \\ /  |  /  |/  |  /  |/        |\n"
-                    + "$$  \\   /$$ |$$$$$$$$/ /$$$$$$  |$$  \\ $$ |        $$$$$$$  |$$ |  $$ |$$ | /$$/ $$$$$$$$/\n"
-                    + "$$$  \\ /$$$ |$$ |__    $$ |__$$ |$$$  \\$$ | ______ $$ |  $$ |$$ |  $$ |$$ |/$$/  $$ |__\n"
-                    + "$$$$  /$$$$ |$$    |   $$    $$ |$$$$  $$ |/      |$$ |  $$ |$$ |  $$ |$$  $$<   $$    |\n"
-                    + "$$ $$ $$/$$ |$$$$$/    $$$$$$$$ |$$ $$ $$ |$$$$$$/ $$ |  $$ |$$ |  $$ |$$$$$  \\  $$$$$/\n"
-                    + "$$ |$$$/ $$ |$$ |_____ $$ |  $$ |$$ |$$$$ |        $$ |__$$ |$$ \\__$$ |$$ |$$  \\ $$ |_____\n"
-                    + "$$ | $/  $$ |$$       |$$ |  $$ |$$ | $$$ |        $$    $$/ $$    $$/ $$ | $$  |$$       |\n"
-                    + "$$/      $$/ $$$$$$$$/ $$/   $$/ $$/   $$/         $$$$$$$/   $$$$$$/  $$/   $$/ $$$$$$$$/\n";
-    private static final String SPACER = "__________________________________________________________________________________";
-    private static final String INTRO = LOGO + SPACER + "\n" + "What do you want this time?\n" + SPACER;
-    private static final String OUTRO = SPACER + "\n" + "Finally you're finished, thought you would never stop yapping.\n" + SPACER;
-
     //Creates an empty task list
     static TaskList tasklist = new TaskList();
+
 
     public static void main(String[] args) {
 
@@ -44,145 +30,24 @@ public class MeanDuke {
         }
 
         //Prints intro
-        System.out.println(INTRO);
+        Ui.printIntro();
 
         //Reads each line of user input and perform respective actions
         Scanner inputScanner = new Scanner(System.in);
-        String userInput = inputScanner.nextLine();
-        String output;
+        boolean isExit = false;
 
-        while (!userInput.equals("end")) {  //Session terminates when user inputs "end"
-            System.out.println(SPACER);
-            String[] command = userInput.split(" ", 2);
+        while (!isExit) {  //Session terminates when user inputs "end"
+            String userInput = inputScanner.nextLine();
+            Ui.printSpacer();
             try {
-                switch (command[0]) {
-                case "add":
-                    output = MeanDuke.add(userInput);
-                    save(savedTaskList);
-                    break;
-                case "list":
-                    output = tasklist.toString();
-                    break;
-                case "mark":
-                    output = MeanDuke.mark(userInput);
-                    save(savedTaskList);
-                    break;
-                case "unmark":
-                    output = MeanDuke.unmark(userInput);
-                    save(savedTaskList);
-                    break;
-                case "delete":
-                    output = MeanDuke.delete(userInput);
-                    save(savedTaskList);
-                    break;
-                default:
-                    output = "What are you saying? Read the damn user manual, it was written for a reason";
-                }
+                Command cmd = Parser.parseUserInput(userInput, tasklist);
+                cmd.execute();
+                isExit = cmd.isExitCommand();
             } catch (MeanDukeException e) {
-                output = e.getMessage();
+                Ui.printError(e);
             }
-            System.out.println(output);
-            System.out.println(SPACER);
-            userInput = inputScanner.nextLine();
-        }
 
-        //Outro message and end of program
-        System.out.println(OUTRO);
-    }
-
-    private static String add(String input) throws MeanDukeException {
-        //Check what type of task is being added
-        String[] split = input.split(" ", 3);
-        try {
-            switch (split[1]) {
-
-            case "todo":
-                try {
-                    tasklist.add(new ToDo(split[2].strip()));
-                    return "Added ToDo to list: " + split[2].strip();
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new MeanDukeException("Usage: \"add todo <description>\"");
-                }
-
-            case "deadline":
-                try {
-                    String[] desc_by = split[2].split("/by ", 2);
-                    String desc = desc_by[0].strip();
-                    String by = desc_by[1].strip();
-                    tasklist.add(new Deadline(desc, by));
-                    return "Added Deadline to list: " + desc + " (by: " + by + ")";
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new MeanDukeException("Usage: \"add deadline <description> /by <deadline>\"");
-                }
-
-            case "event":
-                try {
-                    String[] desc_fromTo = split[2].split("/from ", 2);
-                    String[] from_to = desc_fromTo[1].split("/to", 2);
-                    String desc = desc_fromTo[0].strip();
-                    String from = from_to[0].strip();
-                    String to = from_to[1].strip();
-                    tasklist.add(new Event(desc, from, to));
-                    return "Added Event to list: " + desc + " (" + from + " - " + to + ")";
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new MeanDukeException("Usage: \"add event <description> /from <start> /to <end>\"");
-                }
-
-            default:
-                throw new MeanDukeException("Usage: \"add <type> <description> ...\"");
-
-            }
-        } catch (
-                ArrayIndexOutOfBoundsException e) { //Catch any issues with formatting which results in split not working
-            throw new MeanDukeException("Usage: \"add <type> <description> ...\"");
-        }
-    }
-
-    private static String mark(String input) throws MeanDukeException {
-        String indexString = input.substring(4).strip(); //Remove "mark"
-        try {
-            int index = Integer.parseInt(indexString) - 1;
-            if (tasklist.markDone(index)) {
-                //Task successfully changed from not done to done
-                return "Marked task: " + indexString + " as completed.\nCould you have taken any longer?";
-            } else {
-                //Task was already completed
-                return "You have already marked task " + indexString + " as completed you goldfish...";
-            }
-        } catch (NumberFormatException e) {
-            throw new MeanDukeException("Usage: \"mark <task_number>\"");
-        } catch (IndexOutOfBoundsException e) {
-            throw new MeanDukeException("Dude... you don't even have a task " + indexString);
-        }
-    }
-
-    private static String unmark(String input) throws MeanDukeException {
-        String indexString = input.substring(6).strip(); //Remove "unmark"
-        try {
-            int index = Integer.parseInt(indexString) - 1;
-            if (tasklist.unmarkDone(index)) {
-                //Task successfully changed from done to not done
-                return "Marked task: " + indexString + " as not completed.\nWhy did you mark this in the first place?";
-            } else {
-                //Task was already not complete
-                return "Task " + indexString + " is already not completed. Maybe you should start working on it.";
-            }
-        } catch (NumberFormatException e) {
-            throw new MeanDukeException("Usage: \"unmark <task_number>\"");
-        } catch (IndexOutOfBoundsException e) {
-            throw new MeanDukeException("Dude... you don't even have a task " + indexString);
-        }
-    }
-
-    private static String delete(String input) throws MeanDukeException {
-        String indexString = input.substring(6).strip(); //Remove "delete"
-        try {
-            int index = Integer.parseInt(indexString) - 1;
-            return "deleted task:\n  " + tasklist.delete(index);
-        } catch (NumberFormatException e) {
-            throw new MeanDukeException("Usage: \"delete <task_number>\"");
-        } catch (IndexOutOfBoundsException e) {
-            throw new MeanDukeException("Dude... you don't even have a task " + indexString);
+            Ui.printSpacer();
         }
     }
 
