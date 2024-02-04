@@ -36,4 +36,5 @@ public enum CommandType {
      * Command to mark a task as not done.
      */
     UNMARK,
+    FIND,
 }

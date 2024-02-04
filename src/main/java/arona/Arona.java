@@ -80,6 +80,10 @@ public class Arona {
                 "    " + tasks.getTask(id));
     }
 
+    private void findTasks(String keyword) {
+        tasks.listTasksWithKeyword(keyword);
+    }
+
     private boolean processCommand(CommandType commandType, String[] commandSplit) throws
             AronaIncompleteCommandException, AronaInvalidIndexException,
             AronaInvalidCommandException, AronaInvalidDateException {
@@ -156,6 +160,12 @@ public class Arona {
 
             int index = Integer.parseInt(commandSplit[1]) - 1;
             deleteTask(index);
+        } else if (commandType == CommandType.FIND) {
+            if (commandSplit.length == 1 || commandSplit[1].equals("")) {
+                throw new AronaIncompleteCommandException("keyword");
+            }
+
+            findTasks(commandSplit[1]);
         } else {
             throw new AronaInvalidCommandException("");
         }

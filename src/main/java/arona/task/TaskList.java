@@ -2,6 +2,8 @@ package arona.task;
 
 import java.util.ArrayList;
 
+import arona.ui.Ui;
+
 /**
  * The TaskList class stores the tasks in a list.
  *
@@ -95,6 +97,36 @@ public class TaskList {
     public void markIndexAsUndone(int id) {
         Task task = tasks.get(id);
         task.setNotDone();
+    }
+
+    /**
+     * Prints all tasks that has a certain keyword.
+     *
+     * @param keyword Keyword the task needs to have
+     */
+    public void listTasksWithKeyword(String keyword) {
+        int id = 1;
+        ArrayList<String> linesToPrint = new ArrayList<>();
+        linesToPrint.add("Here are the matching tasks in your list:");
+
+        for (Task task : tasks) {
+            if (task.hasKeyword(keyword)) {
+                linesToPrint.add(id + "." + task);
+            }
+            id++;
+        }
+
+        if (id == 1) {
+            linesToPrint.set(0, "Cannot find any tasks with this keyword");
+        }
+
+        String lines[] = new String[linesToPrint.size()];
+
+        for (int i = 0; i < linesToPrint.size(); i++) {
+            lines[i] = linesToPrint.get(i);
+        }
+
+        Ui.printLines(lines);
     }
 
     @Override
