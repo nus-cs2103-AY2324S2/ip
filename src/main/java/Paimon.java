@@ -50,7 +50,7 @@ public class Paimon {
     public static void main(String[] args) {
         greeting();
         Scanner scanner = new Scanner(System.in);
-        TaskList taskList = new TaskList();
+        TaskList taskList = FileHandler.loadTaskList();
         boolean isActive = true;
         while (isActive) {
             String userInput = scanner.nextLine();
@@ -82,7 +82,7 @@ public class Paimon {
                             if (markTask.isDone) {
                                 System.out.println("Traveller, this task is already marked as done!");
                             } else {
-                                markTask.setTaskState(true);
+                                taskList.markTask(markIndex - 1, true);
                                 sendTaskMessage("Okay Traveller, I've marked this task as done!", taskList.getTask(markIndex - 1).getTask());
                             }
                         } else {
@@ -106,7 +106,7 @@ public class Paimon {
                             if (!unmarkTask.isDone) {
                                 System.out.print("Traveller, this task is already unmarked!");
                             } else {
-                                unmarkTask.setTaskState(false);
+                                taskList.markTask(unmarkIndex - 1, false);
                                 sendTaskMessage("Okay Traveller, I've unmarked this task!", taskList.getTask(unmarkIndex - 1).getTask());
                             }
                         } else {

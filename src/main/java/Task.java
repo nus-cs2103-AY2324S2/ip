@@ -9,6 +9,8 @@ public abstract class Task {
     }
 
     public abstract String getTask();
+
+    public abstract String toFileString();
     public void setTaskState(boolean isDone) {
         this.isDone = isDone;
     }
