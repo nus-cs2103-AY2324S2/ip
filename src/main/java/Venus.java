@@ -213,8 +213,9 @@ public class Venus {
             }
             words = sc.nextLine();
         }
-        sc.close();
+        sc.close(); //close sc
         FileControl.saveAllFile("data/venus.txt",data);
         System.out.println(end);
+
     }
 }
