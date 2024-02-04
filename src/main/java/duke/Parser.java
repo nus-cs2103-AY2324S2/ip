@@ -12,7 +12,6 @@ public class Parser {
         HashMap<String, String> res = new HashMap<>();
         String argRegex = "(?<=/%s\\s)(.*?)(?=\\s/|$)";
 
-
         String[] splitInput = input.split(" ", 2);
 
         res.put("command", input.split(" ", 2)[0]);
