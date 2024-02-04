@@ -2,8 +2,17 @@ public class Deadline extends Task {
 
     private String by;
     public Deadline(String name, String by) {
-        super(name);
+        this(name, by, false);
+    }
+
+    public Deadline(String name, String by, boolean mark) {
+        super(name, mark);
         this.by = by;
+    }
+
+    @Override
+    public String toSaveString() {
+        return String.format("D\t%s\t%s", super.toSaveString(), by);
     }
 
     @Override
