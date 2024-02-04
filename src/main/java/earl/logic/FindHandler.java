@@ -5,6 +5,9 @@ import earl.util.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Class responsible for the find command.
+ */
 public class FindHandler extends Handler {
 
     private final String [] COMMAND;
