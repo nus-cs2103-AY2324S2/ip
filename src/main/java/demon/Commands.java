@@ -88,7 +88,7 @@ public class Commands {
         // May produce IOException
         storage.writeToFile(stringToSave);
         Ui.printDivider();
-        Ui.addedTasksMessage();
+        Ui.showTaskAdded();
         System.out.println(item_deadline);
         System.out.println("Now you have " + tasks.taskList.size() + " tasks in the list.");
         Ui.printDivider();
@@ -107,7 +107,7 @@ public class Commands {
         // May produce IOException
         storage.writeToFile(stringToSave);
         Ui.printDivider();
-        Ui.addedTasksMessage();
+        Ui.showTaskAdded();
         System.out.println(item_toDo);
         System.out.println("Now you have " + tasks.taskList.size() + " tasks in the list.");
         Ui.printDivider();
@@ -147,7 +147,7 @@ public class Commands {
         // May produce IOException
         storage.writeToFile(stringToSave);
         Ui.printDivider();
-        Ui.addedTasksMessage();
+        Ui.showTaskAdded();
         System.out.println(item_event);
         System.out.println("Now you have " + tasks.taskList.size() + " tasks in the list.");
         Ui.printDivider();

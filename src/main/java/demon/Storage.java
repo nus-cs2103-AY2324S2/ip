@@ -3,12 +3,18 @@ package demon;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 import java.nio.file.Paths;
 import java.nio.file.Files;
-import java.io.IOException;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * This class is the central point for loading and modifying the taskList.txt file.
+ */
 public class Storage {
     List<String> storageArray;
     String filePath;
@@ -16,10 +22,15 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Returns a list of Strings from the text file to load into the chatbot upon starting up.
+     *
+     * @return A list of Strings.
+     * @throws IOException if fails to read the file
+     */
     public List<String> load() throws IOException {
         // Read all lines from the file as a List
         this.storageArray = Files.readAllLines(Paths.get(filePath));
-        System.out.println(this.storageArray);
         return this.storageArray;
     }
 
@@ -50,7 +61,6 @@ public class Storage {
             } else {
                 System.err.println("The line number to edit is beyond the file's line count.");
             }
-
             Files.write(path, lines);
             reader.close();
         } catch (IOException e) {
@@ -58,6 +68,7 @@ public class Storage {
             e.printStackTrace();
         }
     }
+
     public void writeToFile(String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(this.filePath, true);
         fw.write(textToAdd);
