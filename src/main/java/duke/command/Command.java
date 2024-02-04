@@ -4,6 +4,9 @@ import duke.helpers.Storage;
 import duke.helpers.Ui;
 import duke.task.TaskList;
 
+/**
+ * Abstract class Command
+ */
 public abstract class Command {
     /**
      * Executes command.

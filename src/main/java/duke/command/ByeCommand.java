@@ -4,6 +4,9 @@ import duke.helpers.Storage;
 import duke.helpers.Ui;
 import duke.task.TaskList;
 
+/**
+ * ByeCommand class
+ */
 public class ByeCommand extends Command {
     /**
      * Executes bye command.

@@ -1,9 +1,12 @@
 package duke.helpers;
 
-import duke.command.CommandType;
-
 import java.util.Scanner;
 
+import duke.command.CommandType;
+
+/**
+ * UI class
+ */
 public class Ui {
     private Scanner scanner;
 
@@ -18,8 +21,8 @@ public class Ui {
      * Prints out a line on the screen.
      */
     public void drawLine() {
-        System.out.println("------------------------------------------------------" +
-                "---------------------------------------------------");
+        System.out.println("------------------------------------------------------"
+               + "---------------------------------------------------");
     }
 
     /**
@@ -47,7 +50,7 @@ public class Ui {
                 + CommandType.DEADLINE.getCommand());
         System.out.println("3. Add " + CommandType.EVENT.toString() + " task : "
                 + CommandType.EVENT.getCommand());
-        System.out.println("4. To " + CommandType.LIST.toString() +" all tasks : "
+        System.out.println("4. To " + CommandType.LIST.toString() + " all tasks : "
                 + CommandType.LIST.getCommand());
         System.out.println("5. To " + CommandType.MARK.toString() + " task done : "
                 + CommandType.MARK.getCommand());

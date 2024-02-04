@@ -1,10 +1,10 @@
 package duke.task;
 
-import duke.command.CommandType;
-import duke.helpers.MyDateTime;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import duke.command.CommandType;
+import duke.helpers.MyDateTime;
 
 /**
  * duke.task.Event class with attributes from and to.

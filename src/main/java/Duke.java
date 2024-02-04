@@ -5,6 +5,9 @@ import duke.helpers.Storage;
 import duke.helpers.Ui;
 import duke.task.TaskList;
 
+/**
+ * Duke class
+ */
 public class Duke {
     private Ui ui;
     private TaskList tasks;
@@ -36,7 +39,6 @@ public class Duke {
             isExit = command.isExit();
         }
     }
-
 
     public static void main(String[] args) {
         new Duke().startChat();

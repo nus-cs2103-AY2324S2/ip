@@ -1,15 +1,18 @@
 package duke.helpers;
 
-import duke.exception.DukeException;
-import duke.task.Task;
-import duke.task.TaskList;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import duke.exception.DukeException;
+import duke.task.Task;
+import duke.task.TaskList;
+
+/**
+ * FileManaging class
+ */
 public class FileManaging {
     /**
      * Adds hard disk memory into local storage.

@@ -1,16 +1,17 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import duke.command.CommandType;
 import duke.helpers.MyDateTime;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * duke.task.Deadline class with atttribute of by which is deadline of a task
  */
 public class Deadline extends Task {
-     /** duke.task.Deadline of a task */
+    /** duke.task.Deadline of a task */
     private LocalDateTime by;
 
     /**

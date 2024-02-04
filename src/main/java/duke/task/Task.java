@@ -1,11 +1,11 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import duke.command.CommandType;
 import duke.exception.DukeException;
 import duke.helpers.MyDateTime;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * duke.task.Task is a class with description, can record whether a task is done or not done.
@@ -68,7 +68,8 @@ public abstract class Task {
      *
      * @return duke.task.Event task.
      */
-    public static Task of(String type, boolean isDone, String description, String from, String to) throws DukeException {
+    public static Task of(String type, boolean isDone, String description,
+                          String from, String to) throws DukeException {
         if (type.equals(CommandType.EVENT.toString())) {
             return new Event(description, MyDateTime.convertDateTime(from), MyDateTime.convertDateTime(to), isDone);
         } else {
