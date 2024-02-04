@@ -119,7 +119,7 @@ public abstract class Parser {
 
         // Invalid Command syntax
         if (!Parser.isValidCommand(components[0])) {
-            BondException.raiseException("NA",
+            BondException.raiseException("",
                     "INVALID_COMMAND_TYPE");
         }
 
@@ -262,8 +262,22 @@ public abstract class Parser {
             int index = Integer.parseInt(components[1]) - 1;
 
             return new DeleteCommand(index);
+
+        } else if (components[0].equalsIgnoreCase("find")) {
+
+            if (components.length == 1) {
+                BondException.raiseException("find", "EMPTY_DESCRIPTION");
+            } else if (components.length > 2) {
+                BondException.raiseException("find", "EXTRA_DETAILS");
+            } else if (Parser.isNumber(components[1])) {
+                BondException.raiseException("find", "INVALID_KEYWORD");
+            } 
+
+            String keyword = components[1];
+            return new FindCommand(keyword);
+
         } else {
-            return null;
+            return new InvalidCommand();
         }
 
     }

@@ -50,4 +50,21 @@ public class TaskList {
         return this.tasks.listIterator();
     }
 
+    /**
+     * Finds tasks in the task list that contain the keyword.
+     * Returns a new TaskList containing the found tasks.
+     * 
+     * @param keyword The keyword to search for in the task names.
+     */
+    public TaskList findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        
+        for (Task task : this.tasks) {
+            if (task.name.contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+
+        return new TaskList(foundTasks);
+    }
 }
