@@ -2,11 +2,15 @@ package squid.ui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+
+import java.io.IOException;
 
 /**
  * Control for dialog box between Squid and user.
@@ -14,7 +18,9 @@ import javafx.scene.layout.HBox;
  */
 public class DialogBox extends HBox {
 
+    @FXML
     private Label text;
+    @FXML
     private ImageView displayPicture;
 
     /**
@@ -22,7 +28,7 @@ public class DialogBox extends HBox {
      * @param l JavaFX label object
      * @param iv JavaFX imageview object
      */
-    public DialogBox(Label l, ImageView iv) {
+    private DialogBox(Label l, ImageView iv) {
         text = l;
         displayPicture = iv;
 
@@ -32,6 +38,15 @@ public class DialogBox extends HBox {
 
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
