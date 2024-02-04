@@ -4,6 +4,13 @@ import java.io.File;
 import java.util.Scanner;
 
 public class Parser {
+    /**
+     * Parses the user input and does the appropriate operation on the taskList and updates the hard disk
+     * @param input
+     * @param taskList
+     * @param txtFile
+     * @param inputTaker
+     */
     public void parse(String input, TaskList taskList, File txtFile, Scanner inputTaker) {
         String userReply = input;
         while (userReply != null) {

@@ -3,6 +3,11 @@ package Gops;
 import java.io.*;
 
 public class Storage {
+    /**
+     * Writes the list of tasks to a file in the hard disk
+     * @param taskList
+     * @param file
+     */
     public static void writeToHardDisk(TaskList taskList, File file) {
         int messageCount = taskList.size();
         BufferedWriter taskWriter = null;
@@ -25,6 +30,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads from a file in the hard disk and creates an ArrayList of tasks
+     * @param taskFile
+     * @return
+     */
     public static TaskList readFromHardDisk(File taskFile) {
         TaskList taskList = new TaskList();
         BufferedReader taskReader = null;

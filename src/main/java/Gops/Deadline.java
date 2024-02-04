@@ -8,6 +8,12 @@ public class Deadline extends Todo {
     String reformattedEndDateString;
     protected LocalDate endDate;
     protected boolean todoStatus = false;
+
+    /**
+     * Constructs new deadline object
+     * @param todoDescription
+     * @param endDateString
+     */
     public Deadline(String todoDescription, String endDateString) {
         super(todoDescription);
         this.endDateString = endDateString.trim();
@@ -24,11 +30,18 @@ public class Deadline extends Todo {
         reformattedEndDateString = endDate.format(dateFormatter);
     }
 
+    /**
+     * Returns string representation of deadline
+     * @return
+     */
     @Override
     public String stringPrinter() {
         return "D " + "| " + this.doneOrNot() + " | " + itemDescription + " | by: " + reformattedEndDateString;
     }
 
+    /**
+     * Prints string representation of deadline
+     */
     @Override
     public void Printer() {
         System.out.println(stringPrinter());
