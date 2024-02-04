@@ -1,9 +1,10 @@
 package duke;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+
 import java.util.ArrayList;
+
+import duke.task.Task;
+
+
 
 /**
  * TaskList class represents a list of tasks.
@@ -59,7 +60,7 @@ public class TaskList {
         try {
             tasks.get(index - 1).setStatus();
             ui.markedMessage(tasks.get(index - 1));
-        }  catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             ui.showError("OOPS!!! The task number is out of bounds. Please provide a valid task number.");
         }
     }
@@ -68,7 +69,7 @@ public class TaskList {
      * Removes a task from the TaskList.
      *
      * @param in The index of the task to be removed.
-     * @param ui    The Ui object for displaying messages.
+     * @param ui The Ui object for displaying messages.
      */
     public void removeTasks(int in, Ui ui) {
         try {

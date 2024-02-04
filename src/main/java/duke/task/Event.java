@@ -4,7 +4,7 @@ package duke.task;
  * Represents an Event task in the task list.
  * An Event task is a task with a start and end time.
  */
-public class Event extends Task{
+public class Event extends Task {
     protected String start;
     protected String end;
 

@@ -1,12 +1,16 @@
 package duke;
 import duke.task.Task;
 import duke.task.Todo;
-import duke.task.Deadline;
-import duke.task.Event;
-import org.junit.jupiter.api.Test;
+
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+
+import org.junit.jupiter.api.Test;
 
 /**
  * This class contains JUnit test cases to verify the functionality of the Ui class.

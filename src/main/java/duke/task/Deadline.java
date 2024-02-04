@@ -6,11 +6,11 @@ import java.time.format.DateTimeFormatter;
  * Represents a Deadline task in the task list.
  * A Deadline task is a task with a by time.
  */
-public class Deadline extends Task{
-
+public class Deadline extends Task {
+    private static final DateTimeFormatter OUTPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
     protected LocalDate by;
     protected String originalBy;
-    private static final DateTimeFormatter OUTPUT_DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
 
     /**
      * Constructs a Deadline task with the given by time.
@@ -41,7 +41,7 @@ public class Deadline extends Task{
      * @return by time of the Deadline task.
      */
     public String getBy() {
-        return  " (by: " + this.by.format(OUTPUT_DATE_FORMATTER) + ")";
+        return " (by: " + this.by.format(OUTPUT_DATE_FORMATTER) + ")";
     }
 
     /**
