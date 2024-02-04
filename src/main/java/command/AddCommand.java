@@ -1,8 +1,18 @@
+package command;
+
+import exceptions.InvalidInputFormatException;
+import helpers.TaskList;
+import helpers.Ui;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+
 public class AddCommand extends Command {
     private final CommandType commandType;
     private final String[] input;
 
-    AddCommand(CommandType commandType, String[] input) {
+    public AddCommand(CommandType commandType, String[] input) {
         this.commandType = commandType;
         this.input = input;
     }

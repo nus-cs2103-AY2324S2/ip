@@ -1,7 +1,13 @@
+package command;
+
+import helpers.TaskList;
+import helpers.Ui;
+import task.Task;
+
 public class DeleteCommand extends Command {
     private final int i;
 
-    DeleteCommand(int i) {
+    public DeleteCommand(int i) {
         this.i = i;
     }
 

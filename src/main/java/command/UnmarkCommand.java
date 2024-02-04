@@ -1,7 +1,13 @@
+package command;
+
+import helpers.TaskList;
+import helpers.Ui;
+import task.Task;
+
 public class UnmarkCommand extends Command {
     private final int i;
 
-    UnmarkCommand(int i) {
+    public UnmarkCommand(int i) {
         this.i = i;
     }
 

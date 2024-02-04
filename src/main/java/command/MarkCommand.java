@@ -1,7 +1,13 @@
+package command;
+
+import helpers.TaskList;
+import helpers.Ui;
+import task.Task;
+
 public class MarkCommand extends Command {
     private final int i;
 
-    MarkCommand(int i) {
+    public MarkCommand(int i) {
         this.i = i;
     }
 

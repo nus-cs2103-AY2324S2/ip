@@ -1,5 +1,9 @@
+package task;
+
+import helpers.DateFormatter;
+
 /**
- * Represents an event, which is a specialized form of Task.
+ * Represents an event, which is a specialized form of task.Task.
  * This class adds specific start and end times to the task description.
  */
 public class Event extends Task {
@@ -8,7 +12,7 @@ public class Event extends Task {
     private final String to;
 
     /**
-     * Constructs a new Event with the given description, start time, and end time.
+     * Constructs a new task.Event with the given description, start time, and end time.
      *
      * @param description The description of the event.
      * @param from The start time of the event as a String.
@@ -26,8 +30,8 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event.
-     * The string includes the Event identifier, followed by the Task's string representation,
+     * Returns a string representation of the task.Event.
+     * The string includes the task.Event identifier, followed by the task.Task's string representation,
      * and the specified start and end times.
      */
     @Override

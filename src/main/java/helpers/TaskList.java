@@ -1,3 +1,10 @@
+package helpers;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+
 import java.util.ArrayList;
 
 /**
@@ -8,7 +15,7 @@ public class TaskList {
     private static final String FILE_NAME = "data/task_list.txt";
 
     /**
-     * Constructs an empty TaskList.
+     * Constructs an empty helpers.TaskList.
      */
     public TaskList() {
         this.list = new ArrayList<>();
@@ -107,7 +114,7 @@ public class TaskList {
     }
 
     /**
-     * Returns a string representation of the TaskList.
+     * Returns a string representation of the helpers.TaskList.
      * Each task in the list is converted to a string and appended to the result.
      * Tasks are numbered and listed in the order they are stored in the list.
      */

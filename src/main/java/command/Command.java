@@ -1,3 +1,8 @@
+package command;
+import exceptions.InvalidInputFormatException;
+import helpers.TaskList;
+import helpers.Ui;
+
 public abstract class Command {
     private boolean isExit;
 
@@ -13,5 +18,5 @@ public abstract class Command {
         this.isExit = true;
     }
 
-    abstract void execute(Ui ui, TaskList taskList) throws InvalidInputFormatException;
+    public abstract void execute(Ui ui, TaskList taskList) throws InvalidInputFormatException;
 }
