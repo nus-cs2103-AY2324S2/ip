@@ -1,5 +1,8 @@
 package earl.tasks;
 
+/**
+ * Class representing a task of type todo.
+ */
 public class Todo extends Task {
     public Todo(String description) {
         super(description);

@@ -3,6 +3,9 @@ package earl.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class representing task of type event.
+ */
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;

@@ -5,6 +5,9 @@ import earl.util.Parser;
 import earl.util.TaskList;
 import earl.util.Ui;
 
+/**
+ * Class responsible for the delete command.
+ */
 public final class DeleteHandler extends Handler {
     private final String[] COMMAND;
 

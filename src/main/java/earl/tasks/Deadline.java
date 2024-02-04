@@ -3,6 +3,9 @@ package earl.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class representing task of type deadline.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
 

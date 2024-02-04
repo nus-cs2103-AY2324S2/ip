@@ -5,6 +5,9 @@ import earl.util.Parser;
 import earl.util.TaskList;
 import earl.util.Ui;
 
+/**
+ * Class responsible for the unmark command.
+ */
 public final class UnmarkHandler extends Handler {
     private final String[] COMMAND;
 

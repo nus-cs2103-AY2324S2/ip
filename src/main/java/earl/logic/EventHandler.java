@@ -6,6 +6,9 @@ import earl.util.Parser;
 import earl.util.TaskList;
 import earl.util.Ui;
 
+/**
+ * Class responsible for the event command.
+ */
 public class EventHandler extends Handler {
 
     private final String[] COMMAND;

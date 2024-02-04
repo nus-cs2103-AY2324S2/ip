@@ -6,6 +6,9 @@ import earl.util.Parser;
 import earl.util.TaskList;
 import earl.util.Ui;
 
+/**
+ * Class responsible for the deadline command.
+ */
 public class DeadlineHandler extends Handler {
 
     private final String[] COMMAND;

@@ -5,6 +5,9 @@ import earl.tasks.Todo;
 import earl.util.TaskList;
 import earl.util.Ui;
 
+/**
+ * Class responsible for the todo command.
+ */
 public class TodoHandler extends Handler {
 
     private final String[] COMMAND;

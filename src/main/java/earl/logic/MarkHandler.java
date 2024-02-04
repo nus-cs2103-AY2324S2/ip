@@ -5,6 +5,9 @@ import earl.util.Parser;
 import earl.util.TaskList;
 import earl.util.Ui;
 
+/**
+ * Class responsible for the mark command.
+ */
 public final class MarkHandler extends Handler {
 
     public final String[] COMMAND;
