@@ -1,4 +1,9 @@
+package shon.command;
+
 import java.time.format.DateTimeParseException;
+
+import shon.TaskList;
+import shon.Ui;
 
 public class AddEventCommand extends AddTaskCommand{
     private String from;
@@ -12,6 +17,6 @@ public class AddEventCommand extends AddTaskCommand{
 
     @Override
     public void execute(TaskList tasks, Ui ui) throws DateTimeParseException {
-        ui.print(tasks.addEvent(this.getDescription(), this.from, this.to));
+        ui.print(tasks.addEvent(this.description, this.from, this.to));
     }
 }

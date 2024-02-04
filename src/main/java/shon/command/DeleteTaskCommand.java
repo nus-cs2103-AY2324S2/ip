@@ -1,3 +1,10 @@
+package shon.command;
+
+import shon.exception.ParameterException;
+
+import shon.TaskList;
+import shon.Ui;
+
 public class DeleteTaskCommand extends Command {
     private int idx;
 

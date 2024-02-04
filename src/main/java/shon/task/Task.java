@@ -1,3 +1,5 @@
+package shon.task;
+
 abstract public class Task {
     private String description;
     private boolean isDone;

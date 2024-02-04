@@ -1,3 +1,8 @@
+package shon.command;
+
+import shon.TaskList;
+import shon.Ui;
+
 public class AddTodoCommand extends AddTaskCommand {
 
     public AddTodoCommand(String description) {
@@ -6,6 +11,6 @@ public class AddTodoCommand extends AddTaskCommand {
 
     @Override
     public void execute(TaskList tasks, Ui ui) {
-        ui.print(tasks.addTodo(this.getDescription()));
+        ui.print(tasks.addTodo(this.description));
     }
 }

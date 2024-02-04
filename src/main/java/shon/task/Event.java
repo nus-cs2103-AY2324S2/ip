@@ -1,8 +1,10 @@
+package shon.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Event extends Task{
+public class Event extends Task {
 
     private LocalDateTime from;
     private LocalDateTime to;

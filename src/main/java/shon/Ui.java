@@ -1,3 +1,5 @@
+package shon;
+
 import java.util.Scanner;
 
 public class Ui {
