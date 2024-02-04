@@ -1,20 +1,19 @@
 import java.io.Serializable;
 
 public interface Item extends Serializable {
-    public boolean isDone = false;
 
-    public abstract void markDone();
+    void markDone();
 
-    public abstract void markUndone();
+    void markUndone();
 
-    public abstract String doneMessage();
+    String doneMessage();
 
-    public abstract String undoneMessage();
+    String undoneMessage();
 
-    public abstract String printChecked(boolean b);
+    String printChecked(boolean b);
 
-    public abstract String addMessage(int num);
+    String addMessage(int num);
 
-    public abstract String removeMessage(int num);
+    String removeMessage(int num);
 
 }

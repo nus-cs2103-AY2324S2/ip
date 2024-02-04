@@ -1,9 +1,18 @@
 import java.io.*;
 
 public class Storage {
-    public static void writeToFile(ItemList il) {
+
+    String path = "./data/duke.txt";
+
+    public Storage(String filepath) {
+        if (new File(filepath).exists()) {
+            this.path = filepath;
+        }
+    }
+
+    public void writeToFile(ItemList il) {
         try {
-            final FileOutputStream fout = new FileOutputStream("./data/duke.txt");
+            final FileOutputStream fout = new FileOutputStream(this.path);
             final ObjectOutputStream out = new ObjectOutputStream(fout);
             out.writeObject(il);
             out.flush();
@@ -14,9 +23,9 @@ public class Storage {
         }
     }
 
-    public static ItemList readFromFile() {
+    public ItemList readFromFile() {
         try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream("./data/duke.txt"));
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(this.path));
             final ItemList il = (ItemList) in.readObject();
             return il;
         } catch (FileNotFoundException | EOFException e) {

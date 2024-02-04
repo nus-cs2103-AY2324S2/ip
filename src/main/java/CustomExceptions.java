@@ -9,6 +9,18 @@ public class CustomExceptions extends Exception{
         }
     }
 
+    public static class invalidTaskException extends CustomExceptions {
+        public invalidTaskException(String errorMessage) {
+            super(errorMessage);
+        }
+    }
+
+    public static class unrecognizedCommandException extends CustomExceptions {
+        public unrecognizedCommandException(String errorMessage) {
+            super(errorMessage);
+        }
+    }
+
     public static class toBeforeFromException extends CustomExceptions {
         public toBeforeFromException(String errorMessage) {
             super(errorMessage);
@@ -43,5 +55,9 @@ public class CustomExceptions extends Exception{
         public deadlineExceptionBy(String errorMessage) {
             super(errorMessage);
         }
+    }
+
+    public static class markException extends CustomExceptions {
+        public markException(String errorMessage) { super(errorMessage); }
     }
 }
