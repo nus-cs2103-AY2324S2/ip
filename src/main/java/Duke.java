@@ -4,6 +4,11 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Duke {
     private static String gap = "____________________________________________________________\n";
     private static HashSet<String> validCommands;
