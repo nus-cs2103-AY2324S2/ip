@@ -9,7 +9,6 @@
 -->
 
 <module name="Checker">
-
     <module name="FileTabCharacter">
         <!-- Checks that there are no tab characters in the file. -->
     </module>
@@ -429,6 +428,5 @@
 
         <!-- Checks that every public class, enumeration and interface has a header comment. -->
         <module name="MissingJavadocType"/>
-
     </module>
 </module>
