@@ -9,7 +9,6 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -46,21 +45,6 @@ public class Yapper {
     private volatile boolean isRunning = true;
     private MainWindow mainWindow;
 
-    public Ui getUi() {
-        return ui;
-    }
-
-    public void start() {
-        // Start the application loop in a separate thread
-        Thread yapperThread = new Thread(this::run);
-        yapperThread.start();
-    }
-
-    public void stop() {
-        // Set the termination condition to stop the application loop
-        isRunning = false;
-    }
-
     /**
      * Constructs a new Yapper instance.
      *
@@ -78,7 +62,26 @@ public class Yapper {
         }
         userScanner = new Scanner(inputStream);
     }
-
+    public Ui getUi() {
+        return ui;
+    }
+    /**
+     * Starts the application by initiating the application loop in a separate thread.
+     * The application loop is executed by invoking the {@link #run()} method.
+     */
+    public void start() {
+        // Start the application loop in a separate thread
+        Thread yapperThread = new Thread(this::run);
+        yapperThread.start();
+    }
+    /**
+     * Stops the application by setting the termination condition to stop the application loop.
+     * The application loop will terminate gracefully when this method is called.
+     */
+    public void stop() {
+        // Set the termination condition to stop the application loop
+        isRunning = false;
+    }
     /**
      * Runs the Yapper application, displaying welcome messages and handling user input.
      */
@@ -235,7 +238,12 @@ public class Yapper {
     public void setUi(Ui ui) {
         this.ui = ui;
     }
-
+    /**
+     * Displays a welcome message for the Yapper application.
+     * The welcome message includes a greeting and an invitation to start a conversation.
+     *
+     * @return The welcome message as a {@code String}.
+     */
     public String showWelcomeMessage() {
         String message = "Hello! I'm Yapper. \n"
                 + "What would you like to yap about today? :-)";
