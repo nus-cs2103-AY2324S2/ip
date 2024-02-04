@@ -1,11 +1,22 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.IOException;
 public class HughJazz {
     private static final int MAX_TASKS = 100;
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static int taskCount = 0;
+
+    private static String filePath = "." + File.separator + "data" + File.separator + "duke.txt";
     public static void main(String[] args) {
         greeting();
+        try {
+            loadTasks();
+        } catch (FileNotFoundException e){
+            System.out.println("No existing txt file found");
+        }
         Scanner scn = new Scanner(System.in);
         String userInput;
 
@@ -61,14 +72,14 @@ public class HughJazz {
         if (taskCount < MAX_TASKS) {
             Task newTask;
             if (taskType.equals("todo")) {
-                newTask = new Todo(taskDetails);
+                newTask = new Todo(taskDetails, false);
             } else if (taskType.equals("deadline")) {
                 String[] details = taskDetails.split(" /by ", 2);
-                newTask = new Deadline(details[0], details[1]);
+                newTask = new Deadline(details[0], false, details[1]);
             } else if (taskType.equals("event")) {
                 String[] details = taskDetails.split(" /from ", 2);
                 String[] times = details[1].split(" /to ", 2);
-                newTask = new Event(details[0], times[0], times[1]);
+                newTask = new Event(details[0], false, times[0], times[1]);
             } else {
                 // Handle invalid task type
                 System.out.println("Invalid task type");
@@ -79,6 +90,11 @@ public class HughJazz {
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + newTask);
             System.out.println("Now you have " + taskCount + " tasks in the list.");
+            try {
+                saveTasks();
+            } catch(IOException e) {
+                System.out.print(e);
+            }
         }
     }
 
@@ -87,6 +103,11 @@ public class HughJazz {
             throw new ChatbotException("Invalid task number");
         }
         Task removedTask = tasks.remove(taskNumber - 1);
+        try {
+            saveTasks();
+        } catch(IOException e) {
+            System.out.print(e);
+        }
         taskCount--;
         System.out.println("Noted. I've removed this task: ");
         System.out.println("  " + removedTask.toString());
@@ -99,10 +120,20 @@ public class HughJazz {
             if (taskNumber >= 0 && taskNumber < taskCount) {
                 if (isDone) {
                     tasks.get(taskNumber).markAsDone();
+                    try {
+                        saveTasks();
+                    } catch(IOException e) {
+                        System.out.print(e);
+                    }
                     System.out.println("Nice! I've marked this task as done: ");
                 }
                 else {
                     tasks.get(taskNumber).unmarkAsDone();
+                    try {
+                        saveTasks();
+                    } catch(IOException e) {
+                        System.out.print(e);
+                    }
                     System.out.println("OK, I've marked this task as not done yet:");
                 }
                 System.out.println("  " + tasks.get(taskNumber).toString());
@@ -114,6 +145,44 @@ public class HughJazz {
     private static void printTasks() {
         for (int i = 0; i < taskCount; i++) {
             System.out.println((i + 1) + ". " + tasks.get(i).toString());
+        }
+    }
+
+    private static void saveTasks() throws IOException {
+        new File("." + File.separator + "data").mkdirs(); // Ensure directory exists
+        PrintWriter writer = new PrintWriter(new File(filePath));
+        for (Task task : tasks) {
+            writer.println(task.toFileFormat());
+        }
+        writer.close();
+    }
+
+    private static void loadTasks() throws FileNotFoundException {
+        File file = new File(filePath);
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNext()) {
+            taskCount += 1;
+            String line = scanner.nextLine();
+            decodeTask(line);
+        }
+        scanner.close();
+    }
+
+    private static void decodeTask(String line) {
+        String[] parts = line.split(" \\| ");
+        switch (parts[0]) {
+            case "T":
+                tasks.add(new Todo(parts[2], Boolean.parseBoolean(parts[1])));
+                break;
+            case "D":
+                tasks.add(new Deadline(parts[2], Boolean.parseBoolean(parts[1]), parts[3]));
+                break;
+            case "E":
+                String[] time = parts[3].split("-");
+                String from = time[0];
+                String to  = time[1];
+                tasks.add(new Event(parts[2], Boolean.parseBoolean(parts[1]), from, to));
+                break;
         }
     }
 }

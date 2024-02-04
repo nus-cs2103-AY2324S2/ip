@@ -2,8 +2,13 @@ public class Todo extends Task {
 
     protected String by;
 
-    public Todo(String description) {
-        super(description);
+    public Todo(String description, Boolean isDone) {
+        super(description, isDone);
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "T | " +  this.isDone + " | " + this.description;
     }
 
     @Override

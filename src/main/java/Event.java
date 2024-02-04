@@ -3,10 +3,15 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
-    public Event(String description, String from, String to) {
-        super(description);
+    public Event(String description, Boolean isDone,String from, String to) {
+        super(description, isDone);
         this.from = from;
         this.to = to;
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "E | " +  this.isDone + " | " + this.description  + " | " + this.from + "-" + this.to;
     }
 
     @Override

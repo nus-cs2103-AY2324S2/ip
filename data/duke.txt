@@ -1,0 +1,3 @@
+T | true | borrow book
+D | false | return book | Sunday
+E | true | project meeting | Mon 2pm-4pm
