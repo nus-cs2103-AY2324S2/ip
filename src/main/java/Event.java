@@ -6,6 +6,14 @@ public class Event extends Task{
         this.deadline = deadline;
     }
 
+    public String getStart() {
+        return start;
+    }
+
+    public String getDeadline() {
+        return deadline;
+    }
+
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s; to: %s)", super.toString(), start, deadline);
