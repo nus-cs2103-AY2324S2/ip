@@ -1,8 +1,7 @@
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Duke {
+public class ByteTalker {
     private ArrayList<Task> storage = new ArrayList<>();
 
     public void returnList () {
@@ -32,7 +31,7 @@ public class Duke {
             if (split_message[0].equals("todo")) {
                 try {
                     if (split_message.length == 1) {
-                        throw new DukeException.TODONoTaskException("No Task");
+                        throw new ByteTalkerException.TODONoTaskException("No Task");
                     }
                     message = Task.TODO;
                     String task = " ";
@@ -41,7 +40,7 @@ public class Duke {
                     }
                     task = task.strip();
                     message.setTask(task);
-                } catch (DukeException.TODONoTaskException ex) {
+                } catch (ByteTalkerException.TODONoTaskException ex) {
                     System.out.println("    " + ex.getMessage() + ". Please enter the task, too.");
                     return;
                 }
@@ -78,13 +77,13 @@ public class Duke {
                 content = content.strip();
                 message.setTo(content);
             } else {
-                throw new DukeException.UnsupportedTaskException("This is unsupported task");
+                throw new ByteTalkerException.UnsupportedTaskException("This is unsupported task");
             }
             storage.add(message);
             System.out.println("    Got it. I've added this task:");
             System.out.println("       " + message.toString());
             System.out.println("    Now you have " + this.storage.size() + " tasks in the list.");
-        } catch (DukeException.UnsupportedTaskException ex) {
+        } catch (ByteTalkerException.UnsupportedTaskException ex) {
             System.out.println("    " + ex.getMessage() + ". Please only enter the supported types of task.");
         }
     }
@@ -105,7 +104,7 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         */
-        Duke chatbot = new Duke();
+        ByteTalker chatbot = new ByteTalker();
         System.out.println("    -----------------------------------");
         System.out.println("    Hello! I'm ByteTalker");
         System.out.println("    What can I do for you?");

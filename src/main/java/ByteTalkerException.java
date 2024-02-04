@@ -1,4 +1,4 @@
-public class DukeException {
+public class ByteTalkerException {
     public static class TODONoTaskException extends Exception {
         public TODONoTaskException(String errorMessage) {
             super(errorMessage);
