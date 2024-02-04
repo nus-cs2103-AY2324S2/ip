@@ -4,9 +4,10 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     protected LocalDate by;
 
-    public Deadline(String description, LocalDate by) {
+    public Deadline(String description, LocalDate by, boolean isDone) {
         super(description);
         this.by = by;
+        this.isDone = isDone;
     }
 
     @Override

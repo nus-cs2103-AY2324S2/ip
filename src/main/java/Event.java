@@ -5,10 +5,11 @@ public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
 
-    public Event(String description, LocalDate from, LocalDate to){
+    public Event(String description, LocalDate from, LocalDate to, boolean isDone){
         super(description);
         this.from = from;
         this.to = to;
+        this.isDone = isDone;
     }
 
     @Override
