@@ -1,0 +1,70 @@
+package panda.command;
+
+import panda.component.Storage;
+import panda.component.TaskList;
+import panda.component.Ui;
+
+public class FindCommand extends Command {
+    private String fString;
+
+    /**
+     * Constructs a new FindCommand.
+     * 
+     * @param fString the string to find in tasks.
+     */
+    public FindCommand(String fString) {
+        this.fString = fString;
+    }
+
+    /**
+     * Does nothing, as the FindCommand does not need to perform any action on the TaskList alone.
+     * 
+     * @param tlist the TaskList on which the command is executed.
+     */
+    public void execute(TaskList tlist) {
+        return;
+    }
+
+    /**
+     * Finds tasks in the TaskList that contain the find string, displays the resulting TaskList, and updates the UI.
+     * 
+     * @param tlist the TaskList on which the command is executed.
+     * @param ui the UI to update after execution.
+     * @param cacheFile the cache file to save changes to.
+     */
+    public void execute(TaskList tlist, Ui ui, Storage cacheFile) {
+        TaskList ftlist = tlist.find(fString);
+        ui.showList(ftlist);
+    }
+
+    /**
+     * Checks if the command is an exit command.
+     * 
+     * @return always false, as this command is not an exit command.
+     */
+    public boolean isExit() {
+        return false;
+    }
+
+    /**
+     * Checks if this command is equal to another object.
+     * 
+     * @param o the object to compare with.
+     * @return true if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof FindCommand)) {
+            return false;
+        }
+         
+        FindCommand c = (FindCommand) o;
+
+        return fString.equals(c.fString);
+    }
+}

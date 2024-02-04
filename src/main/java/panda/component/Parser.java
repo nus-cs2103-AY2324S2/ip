@@ -5,6 +5,7 @@ import panda.command.DeleteCommand;
 import panda.command.ExitCommand;
 import panda.command.NewTaskCommand;
 import panda.command.PrintListCommand;
+import panda.command.FindCommand;
 import panda.exception.EmptyDeadlineException;
 import panda.exception.EmptyEventException;
 import panda.exception.EmptyTodoException;
@@ -81,6 +82,13 @@ public class Parser {
                 throw new EmptyEventException("date");
             }
             return new NewTaskCommand(new Event(args[0].trim(), args[1].split("/to")[0].trim(), args[1].split("/to")[1].trim()));
+        }
+        if(userInput.split(" ")[0].equals("find")) {
+            String[] splitted = userInput.trim().split(" ", 2);
+            if(splitted.length < 2) {
+                throw new InvalidFormatException();
+            }
+            return new FindCommand(splitted[1].trim());
         }
         throw new UnknownCommandException();
     } 
