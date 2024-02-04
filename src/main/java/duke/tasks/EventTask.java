@@ -1,10 +1,10 @@
 package duke.tasks;
 
-import duke.exceptions.InvalidArgumentException;
-
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.DateTimeException;
+
+import duke.exceptions.InvalidArgumentException;
 
 public class EventTask extends Task {
     private static final String INVALID_DATE_FORMAT = "eh the date/time format is wrong la, must be yyyy-mm-dd";
@@ -18,14 +18,15 @@ public class EventTask extends Task {
     /**
      * Constructs an event task with the given name, start date, end date, and completion status.
      *
-     * @param name The name of the task.
-     * @param from The start date of the task.
-     * @param to The end date of the task.
+     * @param name   The name of the task.
+     * @param from   The start date of the task.
+     * @param to     The end date of the task.
      * @param isDone The completion status of the task.
-     * @throws DateTimeException If the date format is invalid.
+     * @throws DateTimeException        If the date format is invalid.
      * @throws InvalidArgumentException If the name, start date, or end date is empty.
      */
-    public EventTask(String name, String from, String to, boolean isDone) throws DateTimeException, InvalidArgumentException {
+    public EventTask(String name, String from, String to, boolean isDone)
+            throws DateTimeException, InvalidArgumentException {
         super(name, isDone);
         if (name.isEmpty()) {
             throw new InvalidArgumentException(INVALID_NAME);
@@ -37,7 +38,7 @@ public class EventTask extends Task {
             throw new InvalidArgumentException(INVALID_TO);
         }
 
-        try{
+        try {
             this.from = LocalDate.parse(from);
             this.to = LocalDate.parse(to);
         } catch (DateTimeException e) {
@@ -51,11 +52,11 @@ public class EventTask extends Task {
      *
      * @param name The name of the task.
      * @param from The start date of the task.
-     * @param to The end date of the task.
-     * @throws DateTimeException If the date format is invalid.
+     * @param to   The end date of the task.
+     * @throws DateTimeException        If the date format is invalid.
      * @throws InvalidArgumentException If the name, start date, or end date is empty.
      */
-    public EventTask(String name, String from, String to) throws DateTimeException, InvalidArgumentException{
+    public EventTask(String name, String from, String to) throws DateTimeException, InvalidArgumentException {
         this(name, from, to, false);
     }
 

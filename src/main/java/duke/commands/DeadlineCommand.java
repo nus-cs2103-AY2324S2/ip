@@ -1,12 +1,13 @@
 package duke.commands;
 
+import java.time.DateTimeException;
+
 import duke.TaskList;
 import duke.Ui;
 import duke.exceptions.InvalidArgumentException;
 import duke.tasks.DeadlineTask;
 import duke.tasks.Task;
 
-import java.time.DateTimeException;
 
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";

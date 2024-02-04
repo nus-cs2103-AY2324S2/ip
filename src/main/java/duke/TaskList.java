@@ -1,13 +1,14 @@
 package duke;
 
+import java.time.DateTimeException;
+import java.util.ArrayList;
+
 import duke.exceptions.InvalidArgumentException;
 import duke.tasks.DeadlineTask;
 import duke.tasks.EventTask;
 import duke.tasks.Task;
 import duke.tasks.TodoTask;
 
-import java.time.DateTimeException;
-import java.util.ArrayList;
 
 public class TaskList extends ArrayList<Task> {
 
@@ -28,18 +29,20 @@ public class TaskList extends ArrayList<Task> {
             String taskContent = taskDetails[2];
             try {
                 switch (taskType) {
-                    case "T":
-                        this.add(new TodoTask(taskContent, isDone));
-                        break;
-                    case "D":
-                        String deadline = taskDetails[3];
-                        this.add(new DeadlineTask(taskContent, deadline, isDone));
-                        break;
-                    case "E":
-                        String eventFrom = taskDetails[3];
-                        String eventTo = taskDetails[4];
-                        this.add(new EventTask(taskContent, eventFrom, eventTo, isDone));
-                        break;
+                case "T":
+                    this.add(new TodoTask(taskContent, isDone));
+                    break;
+                case "D":
+                    String deadline = taskDetails[3];
+                    this.add(new DeadlineTask(taskContent, deadline, isDone));
+                    break;
+                case "E":
+                    String eventFrom = taskDetails[3];
+                    String eventTo = taskDetails[4];
+                    this.add(new EventTask(taskContent, eventFrom, eventTo, isDone));
+                    break;
+                default:
+                    throw new InvalidArgumentException("Invalid task type in file.");
                 }
             } catch (DateTimeException | InvalidArgumentException e) {
                 System.out.println(e.getMessage());
