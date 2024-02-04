@@ -3,7 +3,10 @@ package duke.command;
 import duke.Storage;
 import duke.TaskList;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class ChangeDataSource implements Command{
     private boolean status = true;
@@ -15,7 +18,29 @@ public class ChangeDataSource implements Command{
         try {
             tasks.resetTaskList(storage.load());
         } catch (FileNotFoundException e) {
+            handleFileNotFound(filePath);
+            tasks.resetTaskList(new ArrayList<>());
             this.status = false;
+        }
+    }
+
+    private void handleFileNotFound(String filePath) {
+        String[] pathStep = filePath.split("/");
+        String progressivePath = "";
+        for (int i = 0; i < pathStep.length - 1; i++) {
+            String dir = pathStep[i];
+            progressivePath = String.format("%s%s/", progressivePath, dir);
+        }
+        File directory = new File(progressivePath);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        File makeupFile = new File(filePath);
+        try {
+            makeupFile.createNewFile();
+        } catch (IOException ex) {
+            System.out.println("Logically it won't happen, but who knows?");
+            System.exit(-1);
         }
     }
 
@@ -24,6 +49,7 @@ public class ChangeDataSource implements Command{
         if (status) {
             return String.format("Dear sir, your data source has been changed to %s\n.", this.filePath);
         }
-        return "Sorry sir, File not found";
+        return "Sir a bad news, file not found. But the good news is we create one for you!\n" +
+                "Please feel free to add task now\n";
     }
 }
