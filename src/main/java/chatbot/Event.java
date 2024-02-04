@@ -1,23 +1,26 @@
 package chatbot;
+import java.time.LocalDateTime;
 public class Event extends chatbot.Task {
-    protected String startTime;
-    protected String endTime;
+    protected java.time.LocalDateTime startTime;
+    protected java.time.LocalDateTime endTime;
 
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public String getStartTime() {
+    public LocalDateTime getStartTime() {
         return this.startTime;
     }
-    public String getEndTime() {
+    public LocalDateTime getEndTime() {
         return this.endTime;
     }
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), startTime, endTime);
+        String formattedStartTime = startTime.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        String formattedEndTime = endTime.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), formattedStartTime, formattedEndTime);
     }
 }

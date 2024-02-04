@@ -1,16 +1,19 @@
 package chatbot;
-public class Deadline extends chatbot.Task {
-    protected String by;
 
-    public Deadline(String description, String by) {
+import java.time.LocalDateTime;
+public class Deadline extends chatbot.Task {
+    protected LocalDateTime by;
+
+    public Deadline(String description, java.time.LocalDateTime by) {
         super(description);
         this.by = by;
     }
-    public String getBy() {
+    public java.time.LocalDateTime getBy() {
         return this.by;
     }
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), by);
+        String formattedBy = by.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        return String.format("[D]%s (by: %s)", super.toString(), formattedBy);
     }
 }

@@ -1,13 +1,18 @@
 package chatbot;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class Alfred {
     protected static final String LINE = "________________________________________________________________________________________";
-    protected static ArrayList<Task> list = new ArrayList<Task>();
+    protected static ArrayList<Task> taskList = new ArrayList<Task>();
 
     public Alfred(String data) {
         java.io.File file;
@@ -32,43 +37,48 @@ public class Alfred {
                     if (toggle == 1) {
                         todo.toggleDone();
                     }
-                    list.add(todo);
+                    taskList.add(todo);
                 } else if (input.startsWith("D")) {
                     String[] splitResult = input.split("\\|", 4);
                     int toggle = Integer.parseInt(splitResult[1].trim());
                     String description = splitResult[2].trim();
-                    String[] formattedBy = splitResult[3].split("\\|");
-                    for (int i = 0; i < formattedBy.length; i++) {
-                        formattedBy[i] = formattedBy[i].trim();
-                    }
-                    String by = String.join(" ", formattedBy).trim();
+                    // Parsing LocalDateTime directly from splitResult
+                    String[] dateParts = splitResult[3].split("\\|");
+                    LocalDateTime by = parseTime(dateParts);
+                    // Create Deadline object and add it to the list
                     Deadline deadline = new Deadline(description, by);
                     if (toggle == 1) {
                         deadline.toggleDone();
                     }
-                    list.add(deadline);
+                    taskList.add(deadline);
                 } else if (input.startsWith("E")) {
                     String[] splitResult = input.split("\\|", 4);
                     int toggle = Integer.parseInt(splitResult[1].trim());
                     String description = splitResult[2].trim();
                     String[] formattedBy = splitResult[3].split("\\|");
-                    String startTime = "";
-                    String endTime = "";
+                    // Split the formattedBy array into two parts: start and end times
                     int halfLength = formattedBy.length / 2;
-                    for (int i = 0; i < formattedBy.length; i++) {
-                        if (i < halfLength) {
-                            startTime += formattedBy[i].trim() + " ";
-                        } else {
-                            endTime += formattedBy[i].trim() + " ";
-                        }
-                    }
-                    Event event = new Event(description, startTime.trim(), endTime.trim());
+                    String[] startTimeParts = Arrays.copyOfRange(formattedBy, 0, halfLength);
+                    String[] endTimeParts = Arrays.copyOfRange(formattedBy, halfLength, formattedBy.length);
+                    LocalDateTime startTime = parseTime(startTimeParts);
+                    LocalDateTime endTime = parseTime(endTimeParts);
+                    Event event = new Event(description, startTime, endTime);
                     if (toggle == 1) {
                         event.toggleDone();
                     }
-                    list.add(event);
+                    taskList.add(event);
                 }
             }
+    }
+
+    private LocalDateTime parseTime(String[] endTimeParts) {
+        int endDay = Integer.parseInt(endTimeParts[0].trim());
+        int endMonth = Integer.parseInt(endTimeParts[1].trim());
+        int endYear = Integer.parseInt(endTimeParts[2].trim());
+        String endTimeStr = endTimeParts[3].trim();
+        int endHour = Integer.parseInt(endTimeStr.substring(0, 2));
+        int endMinute = Integer.parseInt(endTimeStr.substring(2));
+        return LocalDateTime.of(endYear, endMonth, endDay, endHour, endMinute);
     }
 
     public enum TaskType {
@@ -104,26 +114,51 @@ public class Alfred {
         try {
             java.io.FileWriter fw = new java.io.FileWriter("data/alfred.txt", true);
             String taskType = task.getClass().getName();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
             switch (taskType) {
                 case "chatbot.ToDo":
                     fw.write("T | " + (task.isDone() ? 1 : 0) + " | " + task.getDescription() + "\n");
                     break;
                 case "chatbot.Deadline":
                     Deadline deadline = (Deadline) task;
-                    String by = deadline.getBy();
-                    String[] splitResult = by.split(" ");
-                    // Join the parts with |
-                    String formattedBy = String.join(" | ", splitResult);
-                    fw.write("D | " + (task.isDone() ? 1 : 0) + " | " + task.getDescription() + " | " + formattedBy + "\n");
+                    LocalDateTime by = deadline.getBy();
+                    // Extract date components
+                    int day = by.getDayOfMonth();
+                    int month = by.getMonthValue(); // make this double-digit?
+                    int year = by.getYear();
+                    // Extract time components
+                    int hour = by.getHour();
+                    int minute = by.getMinute();
+                    // Write the components to the file
+                    fw.write("D | " + (task.isDone() ? 1 : 0) + " | " + task.getDescription() + " | " +
+                            day + " | " + month + " | " + year + " | " +
+                            String.format("%02d%02d", hour, minute) + "\n");
                     break;
-
                 case "chatbot.Event":
                     Event event = (Event) task;
-                    String[] splitResults = event.getStartTime().split(" ", 3);
-                    String[] splitResults2 = event.getEndTime().split(" ", 3);
-                    String startFormattedBy = String.join(" | ", splitResults);
-                    String endFormattedBy = String.join(" | ", splitResults2);
-                    fw.write("E | " + (task.isDone() ? 1 : 0) + " | " + task.getDescription() + " | " + startFormattedBy + " | "+ endFormattedBy + "\n");
+                    LocalDateTime startTime = event.getStartTime();
+                    LocalDateTime endTime = event.getEndTime();
+
+                    // Extract start time components
+                    int startDay = startTime.getDayOfMonth();
+                    int startMonth = startTime.getMonthValue();
+                    int startYear = startTime.getYear();
+                    int startHour = startTime.getHour();
+                    int startMinute = startTime.getMinute();
+
+                    // Extract end time components
+                    int endDay = endTime.getDayOfMonth();
+                    int endMonth = endTime.getMonthValue();
+                    int endYear = endTime.getYear();
+                    int endHour = endTime.getHour();
+                    int endMinute = endTime.getMinute();
+
+                    // Write the components to the file
+                    fw.write("E | " + (task.isDone() ? 1 : 0) + " | " + task.getDescription() + " | " +
+                            startDay + " | " + startMonth + " | " + startYear + " | " +
+                            String.format("%02d%02d", startHour, startMinute) + " | " +
+                            endDay + " | " + endMonth + " | " + endYear + " | " +
+                            String.format("%02d%02d", endHour, endMinute) + "\n");
                     break;
             }
             fw.close();
@@ -135,75 +170,92 @@ public class Alfred {
         try {
             TaskType taskType = determineTaskType(input);
             switch (taskType) {
-                case TODO:
-                    if (input.length() <= 5) {
-                        throw new AlfredException("Sorry Master Bruce. The description of a todo cannot be empty.");
-                    }
-                    input = input.substring(5).trim();
-                    ToDo todo = new ToDo(input);
-                    //addData(todo);
-                    list.add(todo);
-                    break;
-                case DEADLINE:
-                    if (input.length() <= 9) {
-                        throw new AlfredException("Sorry Master Bruce. Please specify the description and due-date/time of the deadline by including /by.");
-                    }
-                    input = input.substring(9).trim();
-                    String[] splitResult = input.split("/by", 2);
-                    String description = splitResult[0].trim();
-                    String by = null;
-                    try {
-                        by = splitResult[1].trim();
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        throw new AlfredException("Sorry Master Bruce. Please specify the due date or time by including /by due-date.");
-                    }
-                    if (description.isEmpty()) {
-                        throw new AlfredException("Sorry Master Bruce. The description of a deadline cannot be empty.");
-                    } else if (by.isEmpty()) {
-                        throw new AlfredException("Sorry Master Bruce. Please specify the due date or time by including /by due-date.");
-                    }
-                    Deadline deadline = new Deadline(description, by);
-                    //addData(deadline);
-                    list.add(deadline);
-                    break;
-                case EVENT:
-                    if (input.length() <= 6 || !input.contains("/from") || !input.contains("/to")) {
-                        throw new AlfredException("Sorry Master Bruce. Please specify the description, start time, and end time of the event by including /from start-time /to end-time.");
-                    }
-                    input = input.substring(6).trim();
-                    String[] splitResults = input.split("/", 3);
-                    String descriptionEvent = splitResults[0].trim();
-                    String startTime = null;
-                    String endTime = null;
-                    for (String s : splitResults) {
-                        if (s.startsWith("from")) {
-                            startTime = s.substring(4).trim();
-                        } else if (s.startsWith("to")) {
-                            endTime = s.substring(2).trim();
-                        }
-                    }
-                    if (descriptionEvent.isEmpty()) {
-                        throw new AlfredException("Sorry Master Bruce. The description of an event cannot be empty.");
-                    } else if (startTime == null || endTime == null || startTime.isEmpty() && endTime.isEmpty()) {
-                        throw new AlfredException("Sorry Master Bruce. Please specify the start time and end time by including /from start-time /to end-time.");
-                    }
-                    Event event = new Event(descriptionEvent, startTime, endTime);
-                    //addData(event);
-                    list.add(event);
-                    break;
-            }
+            case TODO:
+                if (input.length() <= 5) {
+                    throw new AlfredException("Sorry Master Bruce. The description of a todo cannot be empty.");
+                }
+                input = input.substring(5).trim();
+                ToDo todo = new ToDo(input);
+                taskList.add(todo);
+                break;
+            case DEADLINE:
+                if (input.length() <= 9) {
+                    throw new AlfredException("Sorry Master Bruce. Please specify the description and due-date/time of the deadline by including /by.");
+                }
+                input = input.substring(9).trim();
+                String[] splitResult = input.split("/by", 2);
+                String description = splitResult[0].trim();
+                String by = null;
+                try {
+                    by = splitResult[1].trim();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                    LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+                    Deadline deadline = new Deadline(description, dateTime);
+                    taskList.add(deadline);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new AlfredException("Sorry Master Bruce. Please specify the due date or time by including /by due-date.");
+                } catch (java.time.format.DateTimeParseException e) {
+                    throw new AlfredException("Sorry Master Bruce. Please specify the due date or time in the format of dd/MM/yyyy HHmm.");
+                }
+                if (description.isEmpty()) {
+                    throw new AlfredException("Sorry Master Bruce. The description of a deadline cannot be empty.");
+                } else if (by.isEmpty()) {
+                    throw new AlfredException("Sorry Master Bruce. Please specify the due date or time by including /by due-date.");
+                }
+                break;
+            case EVENT:
+                if (input.length() <= 6 || !input.contains("/from") || !input.contains("/to")) {
+                    throw new AlfredException("Sorry Master Bruce. Please specify the description, start time, and end time of the event by including /from start-time /to end-time.");
+                }
+                input = input.substring(6).trim();
+                // Regular expression patterns
+                Pattern descriptionPattern = Pattern.compile("^(.*?)\\s*/from");
+                Pattern fromPattern = Pattern.compile("/from\\s+(\\d{2}/\\d{2}/\\d{4}\\s+\\d{4})");
+                Pattern toPattern = Pattern.compile("/to\\s+(\\d{2}/\\d{2}/\\d{4}\\s+\\d{4})");
+                // Match patterns against input
+                Matcher descriptionMatcher = descriptionPattern.matcher(input);
+                Matcher fromMatcher = fromPattern.matcher(input);
+                Matcher toMatcher = toPattern.matcher(input);
+                String descriptionEvent = null;
+                String startTime = null;
+                String endTime = null;
+                // Find description, start time, and end time
+                if (descriptionMatcher.find()) {
+                    descriptionEvent = descriptionMatcher.group(1);
+                }
+                if (fromMatcher.find()) {
+                    startTime = fromMatcher.group(1);
+                }
+                if (toMatcher.find()) {
+                    endTime = toMatcher.group(1);
+                }
+                // Check if description, start time, and end time are found
+                if (descriptionEvent == null || startTime == null || endTime == null) {
+                    throw new AlfredException("Sorry Master Bruce. Please specify both description, start time, and end time.");
+                }
+                // Parse start time and end time
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+                LocalDateTime startDateTime = LocalDateTime.parse(startTime, formatter);
+                LocalDateTime endDateTime = LocalDateTime.parse(endTime, formatter);
+                // Create Event object and add it to the list
+                Event event = new Event(descriptionEvent, startDateTime, endDateTime);
+                taskList.add(event);
+                break;
+            default:
+                throw new AlfredException("Sorry Master Bruce. I don't understand what you mean.");
         }
-        catch (AlfredException e) {
+        } catch (AlfredException e) {
             e.printError();
         }
-        String singularTask = list.size() == 1 ? "task" : "tasks";
-        this.echo(String.format("Got it. I've added this task:\n  %s\nNow you have %d %s in the list.", list.get(list.size()-1).toString(), list.size(), singularTask));
+        String singularTask = taskList.size() == 1 ? "task" : "tasks";
+        this.echo(String.format("Got it. I've added this task:\n  %s\nNow you have %d %s in the list.",
+                taskList.get(taskList.size() - 1).toString(), taskList.size(), singularTask));
     }
 
     private void updateData() {
         try {
             java.io.FileWriter fw = new java.io.FileWriter("data/alfred.txt");
-            for (Task task : list) {
+            for (Task task : taskList) {
                 addData(task);
             }
             fw.close();
@@ -212,14 +264,14 @@ public class Alfred {
         }
     }
 
-    public void printList() {
-        if (list == null || list.size() == 0) {
-            this.echo("Sorry Master Bruce. There are no tasks in the list.");
+    public static void printList(ArrayList<Task> taskList, Alfred alfred) {
+        if (taskList == null || taskList.size() == 0) {
+            alfred.echo("Sorry Master Bruce. There are no tasks in the list.");
             return;
         }
         System.out.println(LINE);
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(i + 1 + ". " + list.get(i).toString());
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println(i + 1 + ". " + taskList.get(i).toString());
         }
         System.out.println(LINE);
     }
@@ -229,12 +281,12 @@ public class Alfred {
         if (extractedIdx == -1) {
             return;
         }
-        if (list.get(extractedIdx).isDone()) {
+        if (taskList.get(extractedIdx).isDone()) {
             this.echo("Sorry Master Bruce. This task has already been marked as done.");
             return;
         }
-        list.get(extractedIdx).toggleDone();
-        this.echo("Nice! I've marked this task as done:\n  " + list.get(extractedIdx).toString());
+        taskList.get(extractedIdx).toggleDone();
+        this.echo("Nice! I've marked this task as done:\n  " + taskList.get(extractedIdx).toString());
     }
 
     public void unmarkList(String index) {
@@ -242,12 +294,12 @@ public class Alfred {
         if (extractedIdx == -1) {
             return;
         }
-        if (!list.get(extractedIdx).isDone()) {
+        if (!taskList.get(extractedIdx).isDone()) {
             this.echo("Sorry Master Bruce. This task has already been marked as not done.");
             return;
         }
-        list.get(extractedIdx).toggleDone();
-        this.echo("OK, I've marked this task as not done yet:\n  " + list.get(extractedIdx).toString());
+        taskList.get(extractedIdx).toggleDone();
+        this.echo("OK, I've marked this task as not done yet:\n  " + taskList.get(extractedIdx).toString());
     }
 
     public void deleteList(String index) {
@@ -255,9 +307,9 @@ public class Alfred {
         if (extractedIdx == -1) {
             return;
         }
-        String removedTask = list.get(extractedIdx).toString();
-        list.remove(extractedIdx);
-        this.echo("Noted. I've removed this task:\n  " + removedTask + "\nNow you have " + list.size() + " tasks in the list.");
+        String removedTask = taskList.get(extractedIdx).toString();
+        taskList.remove(extractedIdx);
+        this.echo("Noted. I've removed this task:\n  " + removedTask + "\nNow you have " + taskList.size() + " tasks in the list.");
     }
     private int validateAndExtractIndex(String index) {
         try {
@@ -265,13 +317,14 @@ public class Alfred {
                 throw new AlfredException("Please enter a number after the command.");
             }
             int extractedIdx = Integer.parseInt(index) - 1;
-            if (list.isEmpty()) {
+            if (taskList.isEmpty()) {
                 throw new AlfredException("Sorry Master Bruce. There are no tasks in the list.");
-            } else if (extractedIdx < 0 || extractedIdx >= list.size()) {
-                if (list.size() == 1) {
+            } else if (extractedIdx < 0 || extractedIdx >= taskList.size()) {
+                if (taskList.size() == 1) {
                     throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list. There is only one item in the list.");
                 } else {
-                    throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list. Please enter a number in the range of 1 to " + list.size() + ".");
+                    throw new AlfredException("Sorry Master Bruce. The task number you have entered is not in the list. " +
+                            "Please enter a number in the range of 1 to " + taskList.size() + ".");
                 }
             }
             return extractedIdx;
@@ -282,6 +335,23 @@ public class Alfred {
         }
         return -1;
     }
+    private void findByDate(LocalDateTime dateTime) {
+        ArrayList<Task> result = new ArrayList<Task>();
+        for (Task task : taskList) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.getBy().equals(dateTime)) {
+                    result.add(deadline);
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.getStartTime().equals(dateTime) || event.getEndTime().equals(dateTime)) {
+                    result.add(event);
+                }
+            }
+        }
+        this.printList(result, this);
+    }
 
     public static void main(String[] args) {
         Alfred alfred = new Alfred("data/alfred.txt");
@@ -290,25 +360,27 @@ public class Alfred {
         while (true) {
             String input = sc.nextLine();
             switch (input.trim()) {
-                case "bye":
-                    alfred.bye();
-                    alfred.updateData();
-                    return;
-                case "list":
-                    alfred.printList();
-                    break;
-                default:
-                    if (input.startsWith("unmark")) {
-                        alfred.unmarkList(input.substring(6).trim());
-                    } else if (input.startsWith("mark")) {
-                        alfred.markList(input.substring(4).trim());
-                    } else if (input.startsWith("delete")) {
-                        alfred.deleteList(input.substring(6).trim());
-                    }
-                    else {
-                        alfred.addList(input);
-                    }
-                    break;
+            case "bye":
+                alfred.bye();
+                alfred.updateData();
+                return;
+            case "list":
+                alfred.printList(alfred.taskList, alfred);
+                break;
+            default:
+                if (input.startsWith("unmark")) {
+                    alfred.unmarkList(input.substring(6).trim());
+                } else if (input.startsWith("mark")) {
+                    alfred.markList(input.substring(4).trim());
+                } else if (input.startsWith("delete")) {
+                    alfred.deleteList(input.substring(6).trim());
+                } else if (input.startsWith("find by date")) {
+                    LocalDateTime dateTime = LocalDateTime.parse(input.substring(12).trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+                    alfred.findByDate(dateTime);
+                } else {
+                    alfred.addList(input);
+                }
+                break;
             }
         }
     }
