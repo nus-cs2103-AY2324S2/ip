@@ -9,7 +9,7 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(State state) {
+    public void execute(State state, Ui ui) {
         Task newEvent = new Event(
                 getText(),
                 start,
@@ -17,6 +17,6 @@ public class AddEventCommand extends Command {
                 false
         );
         state.addTask(newEvent);
-        System.out.println("I added!–\n" + newEvent +  "\n–Mamma-mia!");
+        ui.say("I added!–\n" + newEvent +  "\n–Mamma-mia!");
     }
 }
