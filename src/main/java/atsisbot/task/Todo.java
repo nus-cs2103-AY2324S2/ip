@@ -1,13 +1,12 @@
 package atsisbot.task;
 
 /**
- * Represents a todo atsisbot.task.
- * Inherits from the Task class.
+ * Represents a todo atsisbot.task. Inherits from the Task class.
  */
 public class Todo extends Task {
     /**
      * Constructs a Todo object with the given description.
-     * 
+     *
      * @param description The description of the todo atsisbot.task.
      */
     public Todo(String description) {
@@ -16,7 +15,7 @@ public class Todo extends Task {
 
     /**
      * Returns a string representation of the todo atsisbot.task.
-     * 
+     *
      * @return A string representation of the todo atsisbot.task.
      */
     @Override
@@ -26,7 +25,7 @@ public class Todo extends Task {
 
     /**
      * Encodes the todo atsisbot.task into a string representation.
-     * 
+     *
      * @return The encoded string representation of the todo atsisbot.task.
      */
     @Override

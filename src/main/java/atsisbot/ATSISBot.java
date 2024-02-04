@@ -1,23 +1,24 @@
 package atsisbot;
 
-import atsisbot.task.*;
+import atsisbot.task.TaskList;
 
 /**
- * The atsisbot.ATSISBot class represents a chatbot that can perform various tasks.
- * It allows users to interact with the bot by entering commands and receiving
- * responses.
- * The bot can manage a list of tasks, including adding, marking, and deleting
- * tasks.
+ * The atsisbot.AtsisBot class represents a chatbot that can perform various
+ * tasks. It allows users
+ * to interact with the bot by entering commands and receiving responses. The
+ * bot can manage a list
+ * of tasks, including adding, marking, and deleting tasks.
  */
-public class ATSISBot {
+public class AtsisBot {
   private static TaskList taskList;
   private static Storage storage;
 
   /**
-   * The main method is the entry point of the atsisbot.ATSISBot program.
-   * It prompts the user for input and executes corresponding commands based on
-   * the input.
-   * The program continues to accept input until the user enters "bye".
+   * The main method is the entry point of the atsisbot.AtsisBot program. It
+   * prompts the user for
+   * input and executes corresponding commands based on the input. The program
+   * continues to accept
+   * input until the user enters "bye".
    *
    * @param args The command line arguments.
    */
@@ -42,8 +43,9 @@ public class ATSISBot {
   /**
    * Executes the appropriate command based on the given commandEnum and args.
    * 
-   * @param commandEnum the command enum representing the type of command to execute
-   * @param args the arguments for the command
+   * @param commandEnum the command enum representing the type of command to
+   *                    execute
+   * @param args        the arguments for the command
    */
   private static void response(CommandEnum commandEnum, String args) {
     try {

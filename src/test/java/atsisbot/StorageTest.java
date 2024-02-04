@@ -1,11 +1,12 @@
 package atsisbot;
 
-import atsisbot.task.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import atsisbot.task.TaskList;
+import atsisbot.task.Todo;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
     @Test

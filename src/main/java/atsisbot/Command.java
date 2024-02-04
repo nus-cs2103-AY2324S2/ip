@@ -1,21 +1,24 @@
 package atsisbot;
 
+import atsisbot.task.*;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import atsisbot.task.*;
-
 /**
- * The Command class represents various commands that can be executed on a TaskList.
- * It provides methods for deleting tasks, marking tasks as done, marking tasks as undone,
- * adding a todo task, adding an event task, adding a deadline task, and listing all tasks.
+ * The Command class represents various commands that can be executed on a
+ * TaskList.
+ * It provides methods for deleting tasks, marking tasks as done, marking tasks
+ * as undone,
+ * adding a todo task, adding an event task, adding a deadline task, and listing
+ * all tasks.
  */
 public class Command {
     /**
      * Deletes a task from the task list based on the given index.
      *
-     * @param args      The index of the task to be deleted.
-     * @param taskList  The task list from which the task will be deleted.
+     * @param args     The index of the task to be deleted.
+     * @param taskList The task list from which the task will be deleted.
      */
     public static void delete(String args, TaskList taskList) {
         int index = Integer.parseInt(args);
@@ -31,8 +34,8 @@ public class Command {
     /**
      * Marks a task as done based on the given index.
      *
-     * @param args      the index of the task to be marked as done
-     * @param taskList  the list of tasks
+     * @param args     the index of the task to be marked as done
+     * @param taskList the list of tasks
      */
     public static void mark(String args, TaskList taskList) {
         int index = Integer.parseInt(args);
@@ -48,8 +51,8 @@ public class Command {
     /**
      * Marks a task as undone based on the given index.
      * 
-     * @param args      the index of the task to be marked as undone
-     * @param taskList  the list of tasks
+     * @param args     the index of the task to be marked as undone
+     * @param taskList the list of tasks
      */
     public static void unmark(String args, TaskList taskList) {
         int index = Integer.parseInt(args);
@@ -65,8 +68,8 @@ public class Command {
     /**
      * Adds a new todo task to the task list.
      * 
-     * @param args      The description of the todo task.
-     * @param taskList  The task list to add the task to.
+     * @param args     The description of the todo task.
+     * @param taskList The task list to add the task to.
      */
     public static void todo(String args, TaskList taskList) {
         if (args.equals("")) {
@@ -79,13 +82,17 @@ public class Command {
 
     /**
      * Parses the input arguments and creates a new Event task.
-     * The input arguments should be in the format "description /from startDateTime /to endDateTime".
-     * If the input arguments are not in the correct format, an error message is printed.
-     * If the startDateTime or endDateTime cannot be parsed, an error message is printed.
-     * The created Event task is added to the taskList and a success message is printed.
+     * The input arguments should be in the format "description /from startDateTime
+     * /to endDateTime".
+     * If the input arguments are not in the correct format, an error message is
+     * printed.
+     * If the startDateTime or endDateTime cannot be parsed, an error message is
+     * printed.
+     * The created Event task is added to the taskList and a success message is
+     * printed.
      *
-     * @param args      the input arguments for creating the Event task
-     * @param taskList  the list of tasks to add the Event task to
+     * @param args     the input arguments for creating the Event task
+     * @param taskList the list of tasks to add the Event task to
      */
     public static void event(String args, TaskList taskList) {
         String[] descriptionAndFromTo = args.split(" /from ");
@@ -111,8 +118,9 @@ public class Command {
     /**
      * Adds a deadline task to the task list.
      * 
-     * @param args      the input arguments containing the task description and deadline
-     * @param taskList  the task list to add the task to
+     * @param args     the input arguments containing the task description and
+     *                 deadline
+     * @param taskList the task list to add the task to
      */
     public static void deadline(String args, TaskList taskList) {
         String[] descriptionAndBy = args.split(" /by ");

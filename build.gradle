@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.atsisbot.ATSISBot")
+    mainClass.set("seedu.atsisbot.AtsisBot")
 }
 
 shadowJar {

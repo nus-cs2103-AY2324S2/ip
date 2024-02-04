@@ -1,16 +1,19 @@
 package atsisbot;
 
-import java.util.Scanner;
+import atsisbot.task.Task;
+import atsisbot.task.TaskList;
 
-import atsisbot.task.*;
+import java.util.Scanner;
 
 /**
  * The Ui class represents the user interface of the ATSISBot application.
- * It provides methods for reading user commands, printing messages, and displaying task lists.
+ * It provides methods for reading user commands, printing messages, and
+ * displaying task lists.
  */
 public class Ui {
     private static final String line = "____________________________________________________________\n";
-    private static final String welcomeMessage = line + "Hello! I'm atsisbot.ATSISBot\n" + "What can I do for you?\n" + line;
+    private static final String welcomeMessage = line + "Hello! I'm atsisbot.AtsisBot\n" + "What can I do for you?\n"
+            + line;
     private static final String endingMessage = line + "Bye. Hope to see you again soon!\n" + line;
     private static final String listMessage = "Here are the tasks in your list:\n";
     private static final String markMessage = "Nice! I've marked this atsisbot.task as done:\n";
@@ -110,7 +113,8 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating that a task of the specified type does not have a description.
+     * Prints a message indicating that a task of the specified type does not have a
+     * description.
      *
      * @param taskType the type of task
      */
