@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
@@ -16,6 +17,8 @@ public class Duke {
                 Storage.save(state);
             } catch (DukeException e) {
                 System.out.println("Uh Oh! " + e.getMessage());
+            } catch (DateTimeParseException e) {
+                System.out.println("Uh Oh! Format your date as yyyy-mm-dd!");
             }
         }
     }

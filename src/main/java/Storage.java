@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -22,13 +23,13 @@ public class Storage {
                 case Deadline deadline -> {
                     contents.add("DEADLINE");
                     contents.add(deadline.getDescription());
-                    contents.add(deadline.getByWhen());
+                    contents.add(deadline.getByWhen().toString());
                 }
                 case Event event -> {
                     contents.add("EVENT");
                     contents.add(event.getDescription());
-                    contents.add(event.getStart());
-                    contents.add(event.getDeadline());
+                    contents.add(event.getStart().toString());
+                    contents.add(event.getDeadline().toString());
                 }
                 default -> {
                     // TODO: add catch for default
@@ -65,10 +66,15 @@ public class Storage {
                         t = new Todo(description, done);
                         break;
                     case "EVENT":
-                        t = new Event(description, words[3], words[4], done);
+                        t = new Event(
+                                description,
+                                LocalDate.parse(words[3]),
+                                LocalDate.parse(words[4]),
+                                done
+                        );
                         break;
                     case "DEADLINE":
-                        t = new Deadline(description, words[3], done);
+                        t = new Deadline(description, LocalDate.parse(words[3]), done);
                         break;
                     default:
                         t = new Task("UNKNOWN FORMAT", false);
@@ -79,7 +85,7 @@ public class Storage {
 
             }
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+
         }
         return s;
     }
