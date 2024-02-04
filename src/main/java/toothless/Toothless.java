@@ -6,6 +6,9 @@ import toothless.storage.Storage;
 import toothless.task.TaskList;
 import toothless.ui.Ui;
 
+/**
+ * The main class for the Toothless TaskList chatbot.
+ */
 public class Toothless {
     private boolean isRunning;
     private TaskList taskList;
@@ -13,12 +16,22 @@ public class Toothless {
     private Ui ui;
     private Parser parser;
 
+    /**
+     * The main method and entry point of the program. 
+     * 
+     * @param args Command-line arguments passed to the program.
+     */
     public static void main(String[] args) {
         Toothless toothless = new Toothless("./data/tasklist.txt");
         toothless.run();
     }
-    
-    public Toothless(String filepath) {
+
+    /**
+     * A private constructor to initialize the chatbot.
+     * 
+     * @param filepath A String indicating the filepath where data would be stored.
+     */
+    private Toothless(String filepath) {
         ui = new Ui();
         parser = new Parser();
         
@@ -32,7 +45,10 @@ public class Toothless {
         }
     }
 
-    public void run() {
+    /**
+     * The main loop of the program.
+     */
+    private void run() {
         this.isRunning = true;
         ui.printWelcome();
         
@@ -50,6 +66,7 @@ public class Toothless {
         
         try {
             storage.saveToStorage(taskList.getTaskList());
+            ui.printMessage("Successfully saved task data to tasklist.txt.");
         } catch (ToothlessException e) {
             ui.printMessage(e.getMessage());
         }

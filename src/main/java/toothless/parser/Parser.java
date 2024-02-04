@@ -1,44 +1,68 @@
 package toothless.parser;
 
 import toothless.exception.ToothlessException;
+import toothless.task.Task;
 import toothless.task.TaskList;
 import toothless.ui.Ui;
 
+/**
+ * A class that parses, resolves and validates user input.
+ */
 public class Parser {
-    
-    public Parser() {
-    }
-    
+    /**
+     * The main method that parses user input.
+     * 
+     * @param userInput User input string to be parsed.
+     * @param taskList TaskList class that is operated on when user command is executed.
+     * @param ui Ui class used to print messages.
+     * @return Boolean of isRunning in Toothless. True if program continues, False if program stops.
+     * @throws ToothlessException if user input is invalid.
+     */
     public boolean parseInput(String userInput, TaskList taskList, Ui ui) throws ToothlessException {
         if (userInput.equals("bye")) {
             ui.printMessage("Bye. Purr-lease chat again soon!");
             return false;
         } else if (userInput.equals("list")) {
-            taskList.printList();
+            ui.printList(taskList.getTaskList());
         } else if (userInput.startsWith("mark ") || userInput.equals("mark")) {
             int listIndex = validateListInput(userInput, "mark", taskList.size());
-            taskList.markTask(listIndex);
+            Task markedTask = taskList.markTask(listIndex);
+            ui.printMarkedTask(markedTask);
         } else if (userInput.startsWith("unmark ") || userInput.equals("unmark")) {
             int listIndex = validateListInput(userInput, "unmark", taskList.size());
-            taskList.unmarkTask(listIndex);
+            Task unmarkedTask = taskList.unmarkTask(listIndex);
+            ui.printUnmarkedTask(unmarkedTask);
         } else if (userInput.startsWith("todo ") || userInput.equals("todo")) {
             String taskDescription = validateToDoInput(userInput);
-            taskList.addToDoToList(taskDescription);
+            Task newTask = taskList.addToDoToList(taskDescription);
+            ui.printNewTask(newTask, taskList.size());
         } else if (userInput.startsWith("deadline ") || userInput.equals("deadline")) {
             String[] deadlineAttributes = validateDeadlineInput(userInput);
-            taskList.addDeadlineToList(deadlineAttributes[0], deadlineAttributes[1]);
+            Task newTask = taskList.addDeadlineToList(deadlineAttributes[0], deadlineAttributes[1]);
+            ui.printNewTask(newTask, taskList.size());
         } else if (userInput.startsWith("event ") || userInput.equals("event")) {
             String[] eventAttributes = validateEventInput(userInput);
-            taskList.addEventToList(eventAttributes[0], eventAttributes[1], eventAttributes[2]);
+            Task newTask = taskList.addEventToList(eventAttributes[0], eventAttributes[1], eventAttributes[2]);
+            ui.printNewTask(newTask, taskList.size());
         } else if (userInput.startsWith("delete ") || userInput.equals("delete")) {
             int listIndex = validateListInput(userInput, "delete", taskList.size());
-            taskList.deleteTask(listIndex);
+            Task deletedTask = taskList.deleteTask(listIndex);
+            ui.printDeletedTask(deletedTask, taskList.size());
         } else {
             throw new ToothlessException("Sorry, I don't understand what that means D:");
         }
         return true;
     }
 
+    /**
+     * Validates the user input for commands dealing with list item.
+     * 
+     * @param listInput User input string for list item to be validated.
+     * @param command The user command that uses the list item.
+     * @param taskListSize The size of the taskList.
+     * @return Integer of the list index to be retrieved.
+     * @throws ToothlessException if user input is invalid or in the wrong format.
+     */
     public int validateListInput(String listInput, String command, int taskListSize) throws ToothlessException {
         // split string by spaces
         String[] markInputSplit = listInput.strip().split("\\s+");
@@ -61,6 +85,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Validates the user input for todo command.
+     * 
+     * @param toDoInput User input string for todo command.
+     * @return The todo task description.
+     * @throws ToothlessException if task description is empty.
+     */
     public String validateToDoInput(String toDoInput) throws ToothlessException {
         String taskDescription = toDoInput.replace("todo ", "").strip();
         if (taskDescription.isBlank()) {
@@ -69,6 +100,13 @@ public class Parser {
         return taskDescription;
     }
 
+    /**
+     * Validates the user input for deadline command.
+     * 
+     * @param deadlineInput User input string for deadline command.
+     * @return String array containing task description and /by field.
+     * @throws ToothlessException if user input is invalid or in the wrong format.
+     */
     public String[] validateDeadlineInput(String deadlineInput) throws ToothlessException {
         String[] deadlineAttributes = deadlineInput.replace("deadline ", "")
                 .strip().split("\\s+/by\\s+");
@@ -85,6 +123,13 @@ public class Parser {
         return deadlineAttributes;
     }
 
+    /**
+     * Validates the user input for event command.
+     * 
+     * @param eventInput User input string for event command.
+     * @return String array containing task description, /from field and /to field.
+     * @throws ToothlessException if user input is invalid or in the wrong format.
+     */
     public String[] validateEventInput(String eventInput) throws ToothlessException {
         String[] eventAttributes = new String[3];
         String[] tempAttributes = eventInput.replace("event ", "")
