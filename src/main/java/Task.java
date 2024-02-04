@@ -18,7 +18,7 @@ public class Task {
      * @return Status icon as a string, if done return "X" if done, else " ".
      */
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]"); // mark done task with X
+        return (isDone ? "[X]" : "[ ]");
     }
 
     /**

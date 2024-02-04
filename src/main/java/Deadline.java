@@ -13,8 +13,8 @@ public class Deadline extends Task {
         tasks.add(new Deadline(description, dueBy));
         taskCounter++;
         System.out.println("Got it. I've added this task:");
-        System.out.println(tasks.get(taskCounter - 1).getStatusIcon());
-        System.out.println("Now you have " + taskCounter + " task" + (taskCounter == 1 ? "" : "s") + " in the list.");
+        System.out.println(tasks.get(tasks.size() - 1).getStatusIcon());
+        System.out.println("Now you have " + tasks.size() + " task" + (tasks.size() == 1 ? "" : "s") + " in the list.");
     }
 
     @Override

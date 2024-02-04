@@ -12,7 +12,6 @@ public class CommandHandler {
         } else if (userInput.startsWith("unmark")) {
             markTaskAsNotDone(userInput, tasks);
         } else if (userInput.startsWith("todo")) {
-            // addTodoTask(userInput, tasks, taskCounter);
             if (userInput.length() <= 5) {
                 throw new DukeException("Umm... The todo command is incomplete!");
             }
@@ -31,7 +30,6 @@ public class CommandHandler {
             String dueBy = description[1];
             Deadline.addDeadlineTask(tasks, taskCounter, description[0], dueBy);
         } else if (userInput.startsWith("event")) {
-
             if (userInput.length() <= 6) {
                 throw new DukeException("Uh oh! The event command is incomplete.");
             }
