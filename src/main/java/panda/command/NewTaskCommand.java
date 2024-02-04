@@ -21,4 +21,20 @@ public class NewTaskCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof NewTaskCommand)) {
+            return false;
+        }
+         
+        NewTaskCommand c = (NewTaskCommand) o;
+
+        return task.equals(c.task);
+    }
 }

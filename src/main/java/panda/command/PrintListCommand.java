@@ -13,4 +13,9 @@ public class PrintListCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof PrintListCommand;
+    }
 }
