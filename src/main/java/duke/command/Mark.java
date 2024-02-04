@@ -7,8 +7,9 @@ import duke.exception.WrongIndexException;
  * class for mark an task finish.
  */
 public class Mark implements Command {
-    private final int oprand;
+    private final int operand;
     private TaskList tasks;
+
     /**
      * Constructor
      * change the status of task to finished.
@@ -19,8 +20,8 @@ public class Mark implements Command {
         if (operand >= taskList.getListLength() || operand < 0) {
             throw new WrongIndexException(taskList.getListLength());
         }
-        this.oprand = operand;
-        taskList.getTask(oprand).setDone();
+        this.operand = operand;
+        taskList.getTask(this.operand).setDone();
         this.tasks = taskList;
     }
 
@@ -29,6 +30,6 @@ public class Mark implements Command {
      */
     @Override
     public String reply() {
-        return String.format("Nice! I've marked this task as done:\n%s\n", tasks.getTask(oprand));
+        return String.format("Nice! I've marked this task as done:\n%s\n", tasks.getTask(operand));
     }
 }

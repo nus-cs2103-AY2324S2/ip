@@ -27,8 +27,10 @@ public class Add implements Command {
     static final int TO_LENGTH = 3;
     static final int DEADLINE_TOKEN_NUM = 2;
     static final int EVENT_TOKEN_NUM = 3;
+
     private Task task;
     private TaskList tasks;
+
     /**
      * Constructor
      * add task to task list.
@@ -39,16 +41,14 @@ public class Add implements Command {
     public Add(String text, TaskList taskList) throws DukeException {
         if (text.startsWith("todo")) {
             this.task = handleTodo(text);
-            taskList.addTask(this.task);
         } else if (text.startsWith("deadline")) {
             this.task = handleDeadline(text);
-            taskList.addTask(this.task);
         } else if (text.startsWith("event")) {
             this.task = handleEvent(text) ;
-            taskList.addTask(this.task);
         } else {
             throw new CommandNotDefinedException();
         }
+        taskList.addTask(this.task);
         this.tasks = taskList;
     }
 
