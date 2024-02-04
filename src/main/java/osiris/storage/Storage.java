@@ -36,7 +36,7 @@ public class Storage {
             File file = new File(filepath);
             return file.exists();
         } catch (SecurityException e) {
-            System.err.println("SecurityException occurred." );
+            System.err.println("SecurityException occurred.");
             return false;
         } catch (NullPointerException e) {
             System.err.println("NullPointerException occurred.");

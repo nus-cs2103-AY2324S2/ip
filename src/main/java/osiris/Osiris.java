@@ -2,6 +2,12 @@ package osiris;
 
 import java.util.Scanner;
 
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import osiris.commands.Command;
 import osiris.interpreters.UserInputInterpreter;
 import osiris.task.TaskManager;
@@ -12,6 +18,14 @@ import osiris.ui.Ui;
  * It manages user interactions, interprets commands, and handles task management.
  */
 public class Osiris {
+
+    private ScrollPane dialogScrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private Scene scene;
+    private Image osiris = new Image(this.getClass().getResourceAsStream("/images/osiris.png"));
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
 
     /** Represents the task manager responsible for managing tasks within the system. */
     private final TaskManager taskManager = new TaskManager();
@@ -43,4 +57,7 @@ public class Osiris {
         userInterface.displayGoodbyes();
     }
 
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
 }
