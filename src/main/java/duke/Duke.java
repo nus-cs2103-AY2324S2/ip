@@ -3,7 +3,13 @@ package duke;
 import duke.task.Task;
 import duke.task.Events;
 import duke.task.Deadlines;
+
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -63,6 +69,17 @@ public class Duke {
         ui.bye();
     }
     public static void main(String[] args) {
-        new Duke("./data/Duke.txt").run();
+        String filePath = "./data/Duke.txt";
+        File f = new File(filePath);
+        if (!f.exists()) {
+            try {
+                Files.createFile(Paths.get(filePath));
+            } catch (FileAlreadyExistsException e) {
+                System.out.println(e.getMessage());
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        new Duke(filePath).run();
     }
 }
