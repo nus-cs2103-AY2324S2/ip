@@ -100,11 +100,6 @@ public class TaskList {
         return tmp;
     }
 
-    /**
-     * Returns the string representation of the TaskList.
-     * 
-     * @return the string representation of the TaskList.
-     */
     public String toString() {
         if(tlist.size() == 0) {
             return "Your list is empty.";
