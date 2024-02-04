@@ -1,16 +1,36 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 public class Event extends Task{
 
     private String start;
     private String end;
+
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private boolean isParsed = false;
     public Event(String name, String start, String end, boolean isDone){
         super(name, isDone);
         this.start = start;
         this.end = end;
+
+        try {
+            this.startDate = LocalDate.parse(start);
+            this.endDate = LocalDate.parse(end);
+            this.isParsed = true;
+
+        } catch (DateTimeParseException e){
+
+            System.out.println("Date cannot be parsed, stored as String instead.");
+        }
     }
 
     @Override
     public String toString(){
 
+        if(isParsed){
+
+            return "[E]" + super.toString() +  "(from: " + startDate + " to: " + endDate + ")";
+        }
         return "[E]" + super.toString() +  "(from: " + start + " to: " + end + ")";
     }
 

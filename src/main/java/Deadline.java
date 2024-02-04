@@ -1,15 +1,30 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 public class Deadline extends Task{
 
     private String deadline;
+    private LocalDate deadlineDate;
+    private boolean isParsed = false;
 
     public Deadline(String name, String deadline, boolean isDone){
 
         super(name, isDone);
         this.deadline = deadline;
+        try {
+            this.deadlineDate = LocalDate.parse(deadline);
+            this.isParsed = true;
+        } catch(DateTimeParseException e){
+
+            System.out.println("Date cannot be parsed, stored as String instead.");
+        }
     }
 
     @Override
     public String toString(){
+        if(isParsed){
+
+            return "[D]" + super.toString() + "(by: " + deadlineDate + ")";
+        }
         return "[D]" + super.toString() + "(by: " + deadline + ")";
     }
 
