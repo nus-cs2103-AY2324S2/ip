@@ -2,7 +2,6 @@ package action;
 import java.io.IOException;
 
 import task.Task;
-import util.PrintUtil;
 import util.TaskList;
 
 /**
@@ -23,12 +22,22 @@ public class Delete implements Action {
         this.idx = idx;
     }
 
+    /**
+     * Executes the Delete action by adding the task to the task list and printing the updated task count.
+     *
+     * @return A string representing the result of the execution.
+     * @throws IOException If an I/O error occurs.
+     */
     @Override
-    public void execute() throws IOException {
+    public String execute() throws IOException {
         Task task = this.taskList.delete(this.idx);
         int size = this.taskList.getSize();
         String plural = size == 1 ? "task" : "tasks";
-        PrintUtil.print("Got it! Task deleted:\n  " + task + "\nNow you have "
-                + size + " " + plural + " remaining.");
+        return new StringBuilder()
+                .append("Got it! Task deleted:\n")
+                .append("  ").append(task)
+                .append("\n").append("Now you have ")
+                .append(size).append(" ").append(plural)
+                .append(" remaining.").toString();
     }
 }

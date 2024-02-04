@@ -1,7 +1,6 @@
 package action;
 import java.io.IOException;
 
-import util.PrintUtil;
 import util.TaskList;
 
 /**
@@ -23,16 +22,17 @@ public class Unmark implements Action {
     }
 
     /**
-     * Executes the unmark action by printing a message and unmarking the task in the task list.
+     * Executes the unmark action by constructing and returning a message and unmarking the task in the task list.
      *
+     * @return the constructed message
      * @throws IOException if there is an error executing the action
      */
     @Override
-    public void execute() throws IOException {
-        PrintUtil.print("You know, sometimes things don't go as planned, but that's okay! "
-                + "\nThe important part is to keep moving forward. "
-                + "\nUnmarking a task is just a step in the journey. Believe it! "
-                + "\nWe'll get there, one task at a time! ᕙ(⇀‸↼‶)ᕗ");
-        PrintUtil.print(this.taskList.unmark(i));
+    public String execute() throws IOException {
+        StringBuilder message = new StringBuilder();
+        message.append("You know, sometimes things don't go as planned, but that's okay! ")
+                .append("\nWe'll get there, one task at a time! ᕙ(⇀‸↼‶)ᕗ\n")
+                .append(this.taskList.unmark(i));
+        return message.toString();
     }
 }

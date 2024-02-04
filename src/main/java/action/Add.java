@@ -2,7 +2,6 @@ package action;
 import java.io.IOException;
 
 import task.Task;
-import util.PrintUtil;
 import util.TaskList;
 
 /**
@@ -26,14 +25,17 @@ public class Add implements Action {
     /**
      * Executes the Add action by adding the task to the task list and printing the updated task count.
      *
+     * @return A string representing the result of the execution.
      * @throws IOException If an I/O error occurs.
      */
     @Override
-    public void execute() throws IOException {
+    public String execute() throws IOException {
+        StringBuilder sb = new StringBuilder();
         this.taskList.add(this.task);
         int size = this.taskList.getSize();
         String plural = size == 1 ? "task" : "tasks";
-        PrintUtil.print("Got it! Task added:\n  " + this.task + "\nNow you have "
-                + size + " outstanding " + plural + ".");
+        sb.append("Got it! Task added:\n  ").append(task).append("\nNow you have ").append(size)
+                        .append(" outstanding ").append(plural).append(".");
+        return sb.toString();
     }
 }

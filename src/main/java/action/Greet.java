@@ -1,7 +1,5 @@
 package action;
 
-import util.PrintUtil;
-
 /**
  * Represents an action to greet the user.
  * Implements the Action interface.
@@ -15,10 +13,12 @@ public class Greet implements Action {
 
     /**
      * Executes the greet action by printing a greeting message.
+     *
+     * @return A string representing the result of the execution.
      */
     @Override
-    public void execute() {
-        PrintUtil.print("Hello! I'm Naruto, and I'm training to become a ninja!"
-                + "\nBelieve it!");
+    public String execute() {
+        return "Hello! I'm Naruto, and I'm training to become a ninja!"
+                + "\nBelieve it!";
     }
 }

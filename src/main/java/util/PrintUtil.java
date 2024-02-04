@@ -11,7 +11,7 @@ public class PrintUtil {
     /**
      * Private constructor to prevent instantiation of the PrintUtil class.
      */
-    public PrintUtil() {
+    private PrintUtil() {
 
     }
 
@@ -33,14 +33,6 @@ public class PrintUtil {
     }
 
     /**
-     * Prints an indentation for task-related output.
-     */
-    private static void taskIndent() {
-        indent();
-        System.out.print("  ");
-    }
-
-    /**
      * Prints a string with proper indentation and spacer lines.
      *
      * @param s the string to be printed
@@ -54,22 +46,11 @@ public class PrintUtil {
     }
 
     /**
-     * Prints a task object with proper indentation and spacer lines.
-     *
-     * @param t the task object to be printed
-     */
-    public static void print(Task t) {
-        taskIndent();
-        System.out.println(t);
-        printSpacer();
-    }
-
-    /**
      * Prints a list of tasks.
      *
      * @param tasks The list of tasks to be printed.
      */
-    public static void printList(List<Task> tasks) {
+    public static String printList(List<Task> tasks) {
         StringBuilder sb = new StringBuilder();
         if (!tasks.isEmpty()) {
             sb.append("I found these tasks!\n    ");
@@ -82,6 +63,6 @@ public class PrintUtil {
         } else {
             sb.append("You don't have any tasks which match that description... (◞‸◟；)");
         }
-        print(sb.toString());
+        return sb.toString();
     }
 }

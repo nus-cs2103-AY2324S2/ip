@@ -11,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 
@@ -27,7 +29,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img, Color backgroundColor) {
+    DialogBox(String text, Image img, Color backgroundColor) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -36,6 +38,13 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // Set the HBox to stretch and fill its content horizontally
+        HBox.setHgrow(this, Priority.ALWAYS);
+
+        // Create a VBox to contain the DialogBox
+        VBox vbox = new VBox(this);
+        vbox.setFillWidth(true); // Set the VBox to stretch and fill its content vertically
 
         dialog.setText(text);
         displayPicture.setImage(img);
@@ -46,7 +55,8 @@ public class DialogBox extends HBox {
         dialog.setStyle("-fx-background-color: " + toHex(backgroundColor) + "; "
                 + "-fx-background-radius: 10; "
                 + "-fx-padding: 10px; "
-                + "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 0, 2);");
+                + "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 0, 2); "
+                + "-fx-background-insets: 0;");
     }
 
     private String toHex(Color color) {

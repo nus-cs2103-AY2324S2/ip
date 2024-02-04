@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,7 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import naruto.Naruto;
 
-import java.util.Objects;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -29,9 +30,16 @@ public class MainWindow extends AnchorPane {
     private final Image narutoImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
             "/images/naruto.png")));
 
+    /**
+     * Initializes the main window.
+     * Binds the vertical scroll position of the scroll pane to the height of the dialog container.
+     * Adds a dialog box with a message from Naruto to the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(DialogBox.getNarutoDialog("Hello! I'm Naruto, and I'm "
+                        + "training to become a ninja!\nBelieve it!", narutoImage));
     }
 
     public void setNaruto(Naruto n) {

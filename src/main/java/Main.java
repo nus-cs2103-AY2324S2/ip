@@ -12,15 +12,7 @@ import naruto.Naruto;
  * It contains the main method that starts the execution of the program.
  */
 public class Main extends Application {
-    public static void main(String[] args) {
-        new Naruto();
-        while (Naruto.hasNextAction()) {
-            Naruto.act();
-            Naruto.listen();
-        }
-    }
-
-    private Naruto naruto = new Naruto();
+    private final Naruto naruto = new Naruto();
 
     @Override
     public void start(Stage stage) {
