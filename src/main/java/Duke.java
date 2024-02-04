@@ -125,13 +125,19 @@ public class Duke {
                             if (task == null || !(task.contains(" /from ") && task.contains(" /to "))) {
                                 success = false;
                                 System.out.println("-------------------------------- \n" +
-                                        "Oops, wrong format! Please follow this format for event task entries (e.g. event team project meeting /from June 9th 2pm /to 4pm ) \n" +
+                                        "Oops, wrong format! Please follow this format for event task entries (e.g. event team project meeting /from 11/10/2019 4pm /to 11/10/2019 5pm ) \n" +
                                         "-------------------------------- \n");
                             } else {
                                 String event = task.substring(0, task.indexOf(" /from "));
-                                LocalDateTime from = LocalDateTime.parse(task.substring(task.indexOf("/from ") + 6, task.indexOf(" /to ")), dateTimeFormatter);
-                                LocalDateTime to = LocalDateTime.parse(task.substring((task.indexOf("/to ") + 4)), dateTimeFormatter);
-                                t = new Event(event, false, from, to);
+                                try {
+                                    LocalDateTime from = LocalDateTime.parse(task.substring(task.indexOf("/from ") + 6, task.indexOf(" /to ")), dateTimeFormatter);
+                                    LocalDateTime to = LocalDateTime.parse(task.substring((task.indexOf("/to ") + 4)), dateTimeFormatter);
+                                    t = new Event(event, false, from, to);
+                                } catch (IndexOutOfBoundsException e) {
+                                    System.out.println("-------------------------------- \n" +
+                                            "Oops, wrong format! Please follow this format for event task entries (e.g. event team project meeting /from 11/10/2019 4pm /to 11/10/2019 5pm ) \n" +
+                                            "-------------------------------- \n");
+                                }
                             }
                         }
                         if (success) {
