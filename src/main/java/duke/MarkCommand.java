@@ -1,3 +1,5 @@
+package duke;
+
 public class MarkCommand extends Command {
     private final int index;
     public MarkCommand(int index) {
