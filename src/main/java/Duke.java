@@ -16,7 +16,7 @@ public class Duke {
     private static final String horiLine = "---------------------------------\n";
 
     enum Instruction {
-        LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE
+        List, Todo, Deadline, Event, Mark, Unmark, Delete
         }
     private static Instruction toInstruction(String input) throws DukeException {
         try {
@@ -61,31 +61,31 @@ public class Duke {
         Instruction ins = toInstruction(parsedInput[0]);
         String details = parsedInput.length > 1 ? parsedInput[1] : "";
         switch (ins) {
-            case LIST:
+            case List:
                 listTasks();
                 save();
                 break;
-            case MARK:
+            case Mark:
                 completeTask(details);
                 save();
                 break;
-            case UNMARK:
+            case Unmark:
                 uncompleteTask(details);
                 save();
                 break;
-            case TODO:
+            case Todo:
                 addTodo(details);
                 save();
                 break;
-            case DEADLINE:
+            case Deadline:
                 addDeadline(details);
                 save();
                 break;
-            case EVENT:
+            case Event:
                 addEvent(details);
                 save();
                 break;
-            case DELETE:
+            case Delete:
                 deleteTask(details);
                 save();
                 break;
