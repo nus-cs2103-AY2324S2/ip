@@ -68,7 +68,8 @@ public class UkeCat extends Application {
     public static void main(String[] args) {
         new UkeCat().run();
     }
-
+    VBox dialogContainer = new VBox();
+    TextField userInput = new TextField();
     /**
      * The start() method is called when the application is launched.
      *
@@ -79,10 +80,10 @@ public class UkeCat extends Application {
 
         // Step 1. Setting up required components
         ScrollPane scrollPane = new ScrollPane();
-        VBox dialogContainer = new VBox();
+
         scrollPane.setContent(dialogContainer);
 
-        TextField userInput = new TextField();
+
         Button sendButton = new Button("Send");
 
         AnchorPane mainLayout = new AnchorPane();
@@ -126,21 +127,21 @@ public class UkeCat extends Application {
 
         //Part 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
-            handleUserInput(dialogContainer, userInput);
+            handleUserInput();
         });
 
         userInput.setOnAction((event) -> {
-            handleUserInput(dialogContainer, userInput);
+            handleUserInput();
         });
 
     }
 
-    private void handleUserInput(VBox dialogContainer, TextField userInput) {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+    public void handleUserInput() {
+        String userText = userInput.getText();
+        String dukeText = userInput.getText();
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, user),
+                DialogBox.getDukeDialog(dukeText, duke)
         );
         userInput.clear();
     }
@@ -153,4 +154,3 @@ public class UkeCat extends Application {
         return "Duke heard: " + input;
     }
 }
-
