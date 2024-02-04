@@ -30,21 +30,14 @@ public class Parser {
     }
 
     /**
-     * Constantly active and listens for user input
+     * Responds on user input
      */
-    public void listen() {
-        Scanner scanner = new Scanner(System.in);
-        String userInput;
-        boolean isOnline = true;
-
-        do {
-            try {
-                userInput = scanner.nextLine();
-                isOnline = this.processCommand(userInput);
-            } catch (CampusException e) {
-                this.ui.displayErrorMessage(e);
-            }
-        } while (isOnline);
+    public String respond(String userInput) {
+        try {
+            return this.processCommand(userInput);
+        } catch (CampusException e) {
+            return this.ui.displayErrorMessage(e);
+        }
     }
 
     /**
@@ -54,7 +47,8 @@ public class Parser {
      * @return boolean true for continue feeding, false only in the case of "bye" that is to exit the ChatBot
      * @throws CampusException Exception in the case that the command is not understood
      */
-    public boolean processCommand(String userInput) throws CampusException {
+    public String processCommand(String userInput) throws CampusException {
+        String msg = null;
         String[] arr = userInput.split(" ", 2);
         String firstWord;
         String remaining;
@@ -69,41 +63,41 @@ public class Parser {
 
         switch(firstWord) {
         case "list":
-            this.ui.display(this.taskList);
+            msg = this.ui.display(this.taskList);
             break;
         case "mark":
             // Fallthrough
         case "unmark":
             // Fallthrough
         case "delete":
-            handleUpdateCommands(firstWord, userInput);
+            msg = handleUpdateCommands(firstWord, userInput);
             break;
         case "todo":
-            handleTodoCommand(remaining);
+            msg = handleTodoCommand(remaining);
             break;
         case "deadline":
-            handleDeadlineCommand(remaining);
+            msg = handleDeadlineCommand(remaining);
             break;
         case "event":
-            handleEventCommand(remaining);
+            msg = handleEventCommand(remaining);
             break;
         case "bye":
-            return false;
+            return firstWord;
         case "":
             break;
         case "find":
-            handleFindCommand(remaining);
+            msg = handleFindCommand(remaining);
             break;
         default:
             throw new CampusException("Sorry, I don't understand that command, please check for potential spelling errors");
         }
         this.storage.updateFileFromList(this.taskList);
-        return true;
+        return msg;
     }
 
-    public void handleFindCommand(String remaining) {
+    public String handleFindCommand(String remaining) {
         TaskList tempTaskList = this.taskList.getTaskListWhere(remaining);
-        this.ui.display(tempTaskList);
+        return this.ui.display(tempTaskList);
     }
 
     /**
@@ -112,22 +106,24 @@ public class Parser {
      * @param command mark/unmark/delete
      * @param userInput the index of the list
      */
-    public void handleUpdateCommands (String command, String userInput) {
+    public String handleUpdateCommands (String command, String userInput) {
         Task task = this.taskList.getIthTaskString(userInput);
+        String msg = null;
         switch (command) {
         case "mark":
             this.taskList.markDone(task);
-            this.ui.markDone(task);
+            msg = this.ui.markDone(task);
             break;
         case "unmark":
             this.taskList.markUndone(task);
-            this.ui.markUndone(task);
+            msg = this.ui.markUndone(task);
             break;
         case "delete":
             this.taskList.delete(task);
-            this.ui.delete(this.taskList, task);
+            msg = this.ui.delete(this.taskList, task);
             break;
         }
+        return msg;
     }
 
     /**
@@ -135,13 +131,13 @@ public class Parser {
      * @param remaining remaining split of the string
      * @throws CampusException throws an exception if the todo object is not initialised properly
      */
-    public void handleTodoCommand(String remaining) throws CampusException {
+    public String handleTodoCommand(String remaining) throws CampusException {
         if (remaining.isEmpty()) {
             throw new CampusException("Error! A todo task must have a name, please follow the following syntax: todo <task name>\n");
         } else {
             ToDos todo = new ToDos(remaining);
             this.taskList.add(todo);
-            this.ui.add(this.taskList, todo);
+            return this.ui.add(this.taskList, todo);
         }
     }
 
@@ -151,7 +147,7 @@ public class Parser {
      * @param remaining remaining split of the string
      * @throws CampusException throws an exception if the deadline object is not initialised properly
      */
-    public void handleDeadlineCommand(String remaining) throws CampusException {
+    public String handleDeadlineCommand(String remaining) throws CampusException {
         String[] temp = remaining.split("/by", 2);
         if (temp.length != 2) {
             throw new CampusException("Error! A deadline task must have the correct number of parameters, please follow the following syntax: deadline <deadline name> /by <endDateTime (HHmm dd/MM/yyyy)>\n");
@@ -163,9 +159,9 @@ public class Parser {
         try {
             Deadline deadline = new Deadline(deadlineName, endDateTime);
             this.taskList.add(deadline);
-            this.ui.add(this.taskList, deadline);
+            return this.ui.add(this.taskList, deadline);
         } catch (CampusException e) {
-            System.out.printf("%s\n%n", e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -174,7 +170,7 @@ public class Parser {
      * @param remaining remaining split of the string
      * @throws CampusException throws an exception if the event object is not initialised properly
      */
-    public void handleEventCommand(String remaining) throws CampusException {
+    public String handleEventCommand(String remaining) throws CampusException {
         String[] temp = remaining.split("/from", 2);
 
         if (temp.length != 2) {
@@ -195,9 +191,9 @@ public class Parser {
         try {
             Event event = new Event(eventName, from, to);
             this.taskList.add(event);
-            this.ui.add(this.taskList, event);
+            return this.ui.add(this.taskList, event);
         } catch (CampusException e) {
-            System.out.printf("%s\n%n", e.getMessage());
+            return e.getMessage();
         }
     }
 }

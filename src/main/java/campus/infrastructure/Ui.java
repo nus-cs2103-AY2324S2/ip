@@ -7,29 +7,29 @@ import campus.tasks.Task;
  * Deals with interactions with the User
  */
 public class Ui {
-    public void greet() {
+    public String greet() {
         String message = "------------------------------\n"
                 + "Hello! I'm Campus\n"
                 + "What can I do for you?\n"
                 + "\n"
                 + "------------------------------\n";
 
-        System.out.println(message);
+        return message;
     }
 
-    public void exit() {
+    public String exit() {
         String message = "------------------------------\n"
                 + "Bye. Hope to see you again soon!\n"
                 + "\n"
                 + "------------------------------\n";
-        System.out.println(message);
+        return message;
     }
 
     /**
      * Displays all the current items in the TaskList in a specified format with numbering
      * @param taskList the object containing all the tasks in a list
      */
-    public void display(TaskList taskList) {
+    public String display(TaskList taskList) {
         int numOfTasks = taskList.size();
         StringBuilder listOfTasks = new StringBuilder();
         for (int i = 0; i < numOfTasks; i++) {
@@ -42,28 +42,28 @@ public class Ui {
                 + String.format("%s\n", listOfTasks)
                 + "------------------------------\n";
 
-        System.out.println(message);
+        return message;
     }
 
-    public void markDone(Task task) {
+    public String markDone(Task task) {
         String message = "------------------------------\n"
                 + "Nice! I've completed this task successfully:\n"
                 + String.format("%s\n", task)
                 + "------------------------------\n";
 
-        System.out.println(message);
+        return message;
     }
 
-    public void markUndone(Task task) {
+    public String markUndone(Task task) {
         String message = "------------------------------\n"
                 + "Ok, this task is still not done yet:\n"
                 + String.format("%s\n", task)
                 + "------------------------------\n";
 
-        System.out.println(message);
+        return message;
     }
 
-    public void delete(TaskList taskList, Task task) {
+    public String delete(TaskList taskList, Task task) {
         int numOfTasks = taskList.size();
 
         String message = "------------------------------\n"
@@ -72,10 +72,10 @@ public class Ui {
                 + String.format("Now you have %s task(s) in the list.\n", numOfTasks)
                 + "------------------------------\n";
 
-        System.out.println(message);
+        return message;
     }
 
-    public void add(TaskList taskList, Task task) {
+    public String add(TaskList taskList, Task task) {
         int numOfTasks = taskList.size();
 
         String message = "------------------------------\n"
@@ -84,13 +84,13 @@ public class Ui {
                 + String.format("Now you have %s task(s) in the list.\n", numOfTasks)
                 + "------------------------------\n";
 
-        System.out.println(message);
+        return message;
     }
 
-    public void displayErrorMessage(CampusException e) {
+    public String displayErrorMessage(CampusException e) {
         String message = "------------------------------\n"
                 + String.format("%s\n", e.getMessage())
                 + "------------------------------\n";
-        System.out.println(message);
+        return message;
     }
 }

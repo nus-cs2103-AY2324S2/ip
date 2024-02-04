@@ -23,20 +23,19 @@ public class Campus {
         this.parser = new Parser(this.ui, taskList, storage);
     }
 
-    /**
-     * Main Driver Logic for the CampusBot - greet and exit are just sanity, main logic works in parser.listen()
-     */
-    public void run() {
-        this.ui.greet();
-        this.parser.listen();
-        this.ui.exit();
-    }
-
     public static void main(String[] args) {
-        new Campus().run();
+        new Campus();
     }
 
-    public String getResponse(String input) {
-        return "Campus heard: " + input;
+    public String respond(String input) {
+        return this.parser.respond(input);
+    }
+
+    public String greet() {
+        return this.ui.greet();
+    }
+
+    public void exit() {
+        this.ui.exit();
     }
 }
