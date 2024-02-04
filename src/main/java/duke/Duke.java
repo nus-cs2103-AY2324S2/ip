@@ -12,10 +12,15 @@ import java.nio.file.Paths;
 
 import java.time.LocalDateTime;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 /**
  * Represents the main Duke class
  */
-public class Duke {
+public class Duke extends Application {
 
     /**
      * Represents the type of command
@@ -46,6 +51,21 @@ public class Duke {
 
     /**
      * Constructor for Duke
+     */
+    public Duke() {
+        ui = new Ui("KokBot");
+        storage = new Storage(Paths.get("data", "duke.txt"));
+        parser = new Parser();
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    /**
+     * Constructor for Duke
      *
      * @param filePath Path of the file
      * @param botName  Name of the bot
@@ -60,6 +80,15 @@ public class Duke {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
+        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 
     /**
