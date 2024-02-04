@@ -1,4 +1,9 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
 
 // Class for the chatbot itself
 class handlerbot {
@@ -93,13 +98,129 @@ class handlerbot {
 
     }
 
+    // File name and path
+    private static final String FOLDER_PATH = "." + File.separator + "data";
+    private static final String FILE_PATH = FOLDER_PATH + File.separator + "hari.txt";
+
+    // Function to save tasks to a file
+    private void saveTasksToFile() {
+        try (FileWriter writer = new FileWriter(FILE_PATH)) {
+            for (int i = 0; i < countertaskings; i++) {
+                taskings task = arrtaskings[i];
+                writer.write(task.taskstatus() + " | " + (task.completion ? "1" : "0") + " | " +
+                        task.summarystatus() + " | " +
+                        (task.taskstatus().equals("D") ? task.deadlinestatus() : "") + " | " +
+                        (task.taskstatus().equals("E") ? task.timerstartstatus() + " to " + task.timerendstatus() : "") + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Function to load data from the file
+    public void loadFromFile() {
+        File folder = new File(FOLDER_PATH);
+        File file = new File(FILE_PATH);
+
+        try {
+            // Create the folder if it doesn't exist
+            if (!folder.exists()) {
+                if (folder.mkdirs()) {
+                    System.out.println("Data folder created.");
+                } else {
+                    System.out.println("Failed to create data folder.");
+                }
+            }
+
+            // Create the file if it doesn't exist
+            if (!file.exists()) {
+                if (file.createNewFile()) {
+                    System.out.println("Data file created.");
+                } else {
+                    System.out.println("Failed to create data file.");
+                }
+            }
+
+            // Load tasks from the file
+            loadTasksFromFile();
+
+        } catch (IOException e) {
+            System.out.println("Error handling file operations: " + e.getMessage());
+        } catch (CorruptedDataException e) {
+            System.out.println("Error loading data from file. The file may be corrupted.");
+
+            // Handle the corrupted file situation (prompt the user, take corrective actions, etc.)
+            // For example, you may choose to delete the corrupted file and create a new one.
+            if (file.exists() && file.delete()) {
+                System.out.println("Corrupted file deleted. A new file will be created.");
+                loadFromFile(); // Retry loading from file
+            } else {
+                System.out.println("Failed to delete corrupted file. Please create a new file manually.");
+            }
+        }
+    }
+
+    // Function to load tasks from the file
+    private void loadTasksFromFile() throws CorruptedDataException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                String type = parts[0];
+                boolean completion = parts[1].equals("1");
+                String summary = parts[2];
+                taskings task;
+                if (type.equals("T")) {
+                    task = new taskings(summary);
+                } else if (type.equals("D")) {
+                    task = new taskings(summary, parts[3]);
+                } else if (type.equals("E")) {
+                    task = new taskings(summary, parts[3], parts[4]);
+                } else {
+                    // Handle unrecognized task type
+                    throw new CorruptedDataException("Unrecognized task type in the file.");
+                }
+                if (completion) {
+                    task.completionmark();
+                }
+                arrtaskings[countertaskings++] = task;
+            }
+        } catch (IOException e) {
+            // Handle file not found or other IO exceptions
+            e.printStackTrace();
+        }
+    }
+
+    // Custom exception class for handling corrupted data
+    class CorruptedDataException extends Exception {
+        public CorruptedDataException(String message) {
+            super(message);
+        }
+    }
+
     // Function that handles the greeting message
     public void messagegreeting() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hey! I'm Hari!");
-        System.out.println(" How may I be of service today?");
-        System.out.println("____________________________________________________________");
+        try {
+            // Load tasks from file when the chatbot starts up
+            loadTasksFromFile();
+            System.out.println("____________________________________________________________");
+            System.out.println(" Hey! I'm Hari!");
+            System.out.println(" How may I be of service today?");
+            System.out.println("____________________________________________________________");
+        } catch (CorruptedDataException e) {
+            System.out.println("Error loading data from file. File may be corrupted.");
+
+            // Handle the corrupted file situation
+            File file = new File(FILE_PATH);
+            if (file.exists() && file.delete()) {
+                System.out.println("Corrupted file deleted. A new file will be created.");
+                messagegreeting(); // Retry loading from file
+            } else {
+                System.out.println("Failed to delete corrupted file. Please create new file manually.");
+            }
+        }
     }
+
 
     // Function that handles the exit message
     public void messagefarewell() {
@@ -159,6 +280,9 @@ class handlerbot {
 
         System.out.println(" Now you have " + countertaskings + " task(s) in the list");
         System.out.println("____________________________________________________________");
+
+        // Save tasks to file whenever the task list changes
+        saveTasksToFile();
     }
 
     // Function to display tasks
@@ -199,6 +323,9 @@ class handlerbot {
             System.out.println(" Hmmm...I don't seem to have a task under this number");
             System.out.println("____________________________________________________________");
         }
+
+        // Save tasks to file whenever the task list changes
+        saveTasksToFile();
     }
 
     // Function to unmark previously marked as completed task
@@ -219,6 +346,9 @@ class handlerbot {
             System.out.println(" Hmmm...I don't seem to have a task under this number");
             System.out.println("____________________________________________________________");
         }
+
+        // Save tasks to file whenever the task list changes
+        saveTasksToFile();
     }
 
     // Function to delete a task
@@ -243,6 +373,9 @@ class handlerbot {
             System.out.println(" Hmmm...I don't seem to have a task under this number");
             System.out.println("____________________________________________________________");
         }
+
+        // Save tasks to file whenever the task list changes
+        saveTasksToFile();
     }
 }
 
