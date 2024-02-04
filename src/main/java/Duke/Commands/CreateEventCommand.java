@@ -11,11 +11,23 @@ import Duke.Ui;
 
 import java.time.DateTimeException;
 
+/**
+ * Represents a command to create an event task.
+ */
 public class CreateEventCommand extends Command {
     Ui ui;
     TaskList taskList;
     Storage storage;
     String input;
+
+    /**
+     * Constructor for the CreateEventCommand class.
+     *
+     * @param ui The Ui object to interact with user.
+     * @param taskList The taskList object to record the tasks.
+     * @param storage The Storage object to save and load information.
+     * @param input The user input.
+     */
     public CreateEventCommand(Ui ui, TaskList taskList, Storage storage, String input) {
         this.ui = ui;
         this.taskList = taskList;

@@ -6,11 +6,23 @@ import Duke.TaskList;
 import Duke.Tasks.Task;
 import Duke.Ui;
 
+/**
+ * Represents a command to delete a task.
+ */
 public class DeleteCommand extends Command {
     Ui ui;
     TaskList taskList;
     Storage storage;
     int indexToDelete;
+
+    /**
+     * Constructor for the DeleteCommand class.
+     *
+     * @param ui The Ui object to interact with user.
+     * @param taskList The taskList object to record the tasks.
+     * @param storage The Storage object to save and load information.
+     * @param indexToDelete The index of task to be deleted.
+     */
     public DeleteCommand(Ui ui, TaskList taskList, Storage storage, int indexToDelete) {
         this.ui = ui;
         this.taskList = taskList;

@@ -1,9 +1,32 @@
 package Duke.Commands;
 import Duke.DukeException;
-import Duke.Ui;
+
+/**
+ * Represents an abstract command class.
+ */
 public abstract class Command {
+    /**
+     * Abstract method to perform action for a command.
+     *
+     * @throws  DukeException throws an exception when error arise in execute.
+     */
     public abstract void execute() throws DukeException;
+
+    /**
+     * Abstract method to check if command is exit command.
+     *
+     * @return boolean whether command is the exit command.
+     */
     public abstract boolean isExit();
+
+    /**
+     * Get the task name of the task.
+     *
+     * @param commandWord The command word of the input.
+     * @param input The user input.
+     * @return String The name of the task.
+     * @throws DukeException throws an exception when input or commandWord is not valid.
+     */
     public static String getTaskName(String commandWord, String input) throws DukeException {
         if (commandWord.equalsIgnoreCase("todo")) {
             if (input.length() < 6) {
@@ -29,6 +52,14 @@ public abstract class Command {
             throw new DukeException("Please use one of the 3 tasks!! >.<");
         }
     }
+
+    /**
+     * Get the starting date of the task.
+     *
+     * @param input The user input.
+     * @return String The start date of the task.
+     * @throws DukeException throws an exception when input is not valid.
+     */
     public static String getStartDate(String input) throws DukeException {
         int startIndex = input.indexOf("/from") + 6;
         int endIndex = input.indexOf("/to");
@@ -44,6 +75,14 @@ public abstract class Command {
         }
         return input.substring(startIndex, endIndex);
     }
+
+    /**
+     * Get the ending date of the task.
+     *
+     * @param input The user input.
+     * @return String The end date of the task.
+     * @throws DukeException throws an exception when input is not valid.
+     */
     public static String getEndDate(String task, String input) throws DukeException {
         String startWord = task.equalsIgnoreCase("deadline") ? "/by" : "/to";
         int startIndex = input.indexOf(startWord) + startWord.length() + 1;

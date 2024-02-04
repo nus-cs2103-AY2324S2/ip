@@ -6,11 +6,23 @@ import Duke.TaskList;
 import Duke.Tasks.Task;
 import Duke.Ui;
 
+/**
+ * Represents a command to mark a task as not done.
+ */
 public class MarkUndoneCommand extends Command {
     Ui ui;
     TaskList taskList;
     Storage storage;
     int indexToUnmark;
+
+    /**
+     * Constructor for the MarkUndoneCommand class.
+     *
+     * @param ui The Ui object to interact with user.
+     * @param taskList The taskList object to record the tasks.
+     * @param storage The Storage object to save and load information.
+     * @param indexToUnmark The index of task to be mark undone.
+     */
     public MarkUndoneCommand(Ui ui, TaskList taskList, Storage storage, int indexToUnmark) {
         this.ui = ui;
         this.taskList = taskList;
