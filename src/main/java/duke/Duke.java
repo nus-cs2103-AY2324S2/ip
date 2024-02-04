@@ -9,7 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Duke {
-    //Initialise variables for the programs
+
     private TaskManager manager;
     private Storage storage;
     private Ui ui;
@@ -56,7 +56,7 @@ public class Duke {
         }
 
     }
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
 
     }

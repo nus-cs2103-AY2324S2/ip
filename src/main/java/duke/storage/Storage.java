@@ -1,9 +1,17 @@
 package duke.storage;
 
 import duke.DukeException;
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskManager;
+import duke.task.Todo;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class Storage {
@@ -13,8 +21,6 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    //Try to load the task
-    //And get the items
     public TaskManager loadFile() throws DukeException {
         TaskManager manager = new TaskManager();
         File directory = new File("data");
@@ -60,6 +66,7 @@ public class Storage {
             System.out.println(e.getMessage());
         }
     }
+
     private Task determineTask(String task) {
         String[] data = task.split("\\|");
         String type = data[0];
