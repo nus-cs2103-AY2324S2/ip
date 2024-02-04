@@ -1,17 +1,76 @@
-import java.util.*;
-public class Duke {
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-    public static String horizontalLine = "_________________________________________________________________________\n";
+
+public class Duke {
+    public static File TASKS_FILE = new File("./data/tasks.txt");
+    public static String HORIZONTAL_LINE = "_________________________________________________________________________\n";
+
+    public static void initialise() {
+        try {
+            Scanner sc = new Scanner(TASKS_FILE);
+            int index = 0;
+            while (sc.hasNextLine()) {
+                String[] task = sc.nextLine().split(" \\| ", 5);
+                if (task[0].equals("T")) {
+                    list.add(new ToDo(task[2]));
+                }
+                else if (task[0].equals("D")) {
+                    list.add(new Deadline(task[2], task[3]));
+                }
+                else if (task[0].equals("E")) {
+                    list.add(new Event(task[2], task[3], task[4]));
+                }
+
+                if (task[1].equals("1")) {
+                    list.get(index).mark();
+                }
+                index++;
+            }
+        } catch (FileNotFoundException e) {
+            File parentDir = TASKS_FILE.getParentFile();
+            if (!parentDir.exists()) {
+                if (parentDir.mkdir()) {
+                    System.out.println(HORIZONTAL_LINE
+                            + "I've created a new directory for your tasks, my dear.\n"
+                            + HORIZONTAL_LINE);
+                } else {
+                    System.out.println(HORIZONTAL_LINE
+                            + "I'm afraid I've encountered an error while creating a directory for your tasks, my dear.\n"
+                            + HORIZONTAL_LINE);
+                }
+            }
+            try {
+                if (TASKS_FILE.createNewFile()) {
+                    System.out.println(HORIZONTAL_LINE
+                            + "I've created a new file for your tasks, my dear.\n"
+                            + HORIZONTAL_LINE);
+                } else {
+                    System.out.println(HORIZONTAL_LINE
+                            + "I'm afraid I've encountered an error while creating a file for your tasks, my dear.\n"
+                            + HORIZONTAL_LINE);
+                }
+            } catch (IOException newException) {
+                System.out.println(HORIZONTAL_LINE
+                        + "I'm afraid I've encountered an error while creating a file for your tasks, my dear.\n"
+                        + HORIZONTAL_LINE);
+            }
+        }
+    }
 
     public static String greet() {
-        return horizontalLine
+        return HORIZONTAL_LINE
                 + "Greetings, mortal! I am Alastor, the Radio Demon at your service.\n"
                 + "What desires or inquiries do you bring to my infernal realm?\n";
     }
     public static String exit() {
-        return horizontalLine
+        return HORIZONTAL_LINE
                 + "Farewell, fleeting soul! 'Til our paths entwine once more.\n"
-                + horizontalLine;
+                + HORIZONTAL_LINE;
     }
 
     public static void readInput(String input) throws DukeException{
@@ -41,9 +100,8 @@ public class Duke {
         }
         else if (input.startsWith("delete")) {
             delete(input);
+            editWrite();
         }
-
-
         else {
             throw new DukeException("I'm afraid I don't understand what you mean, my dear.\n"
                     + "The requests I can process are:\n"
@@ -60,11 +118,11 @@ public class Duke {
     public static ArrayList<Task> list = new ArrayList<>(100);
 
     public static void list() {
-        String output = horizontalLine
+        String output = HORIZONTAL_LINE
                 + "Behold, my dear! Here unfurls the tasks in your list.\n";
         for (Task task : list)
-            output += list.indexOf(task) + "." + task.toString() + "\n";
-        output += horizontalLine;
+            output += (list.indexOf(task) + 1) + "." + task.toString() + "\n";
+        output += HORIZONTAL_LINE;
         System.out.println(output);
     }
 
@@ -73,18 +131,19 @@ public class Duke {
             int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
             if (isMark) {
                 list.get(index).mark();
-                System.out.println(horizontalLine
+                System.out.println(HORIZONTAL_LINE
                         + "Well, isn't this delightful! I've marked this task as done, my dear.\n"
                         + "  " + list.get(index).toString() + "\n"
-                        + horizontalLine);
+                        + HORIZONTAL_LINE);
             }
             else {
                 list.get(index).unmark();
-                System.out.println(horizontalLine
+                System.out.println(HORIZONTAL_LINE
                         + "Very well, my dear! I've noted this task as yet untouched.\n"
                         + "  " + list.get(index).toString() + "\n"
-                        + horizontalLine);
+                        + HORIZONTAL_LINE);
             }
+            editWrite();
         } catch (Exception e) {
             throw new DukeException("Please enter a valid index.\n");
         }
@@ -92,7 +151,7 @@ public class Duke {
 
     public static void todo(String input) {
         Task temp = new ToDo(input);
-        added(temp);
+        added(temp, 'T');
     }
 
     public static void deadline(String input) throws DukeException{
@@ -101,7 +160,7 @@ public class Duke {
             throw new DukeException("Please format deadline <task> /by <date/time>.\n");
         }
         Task temp = new Deadline(deadline[0], deadline[1]);
-        added(temp);
+        added(temp, 'D');
     }
 
     public static void event(String input) throws DukeException {
@@ -109,18 +168,37 @@ public class Duke {
         if (event.length < 3 || event[0].isBlank() || event[1].isBlank() || event[2].isBlank()) {
             throw new DukeException("Please format event <task> /from <date/time> /to <date/time>.\n");
         }
+        System.out.println(event[1]);
         Task temp = new Event(event[0], event[1], event[2]);
-        added(temp);
+        added(temp, 'E');
     }
 
-    public static void added(Task task) {
+    public static void added(Task task, char type) {
         list.add(task);
-        System.out.println(horizontalLine
+
+        try {
+            FileWriter writer = new FileWriter(TASKS_FILE, true);
+            writer.write("\n" + type + " | " + (task.isDone ? "1" : "0") + " | " + task.description);
+            if (type == 'D') {
+                writer.write("|" + ((Deadline) task).by);
+            }
+            if (type == 'E') {
+                writer.write("|" + ((Event) task).from + "|" + ((Event) task).to);
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(HORIZONTAL_LINE
+                    + "I'm afraid I've encountered an error while writing your tasks, my dear.\n"
+                    + HORIZONTAL_LINE);
+        }
+
+        System.out.println(HORIZONTAL_LINE
                 + "Marvelous! Another task graces our repertoire:\n"
                 + "  " + task.toString() + "\n"
                 + "And with this latest addition, our list of tasks swells to a delightful "
                 + list.size() + ".\n"
-                + horizontalLine);
+                + HORIZONTAL_LINE);
+
     }
 
     public static void delete(String input) throws DukeException {
@@ -128,16 +206,45 @@ public class Duke {
             int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
             Task temp = list.get(index);
             list.remove(index);
-            System.out.println(horizontalLine
+            System.out.println(HORIZONTAL_LINE
                     + "Very well, my dear! I've removed this task from our list.\n"
                     + "  " + temp.toString() + "\n"
-                    + horizontalLine);
+                    + HORIZONTAL_LINE);
         } catch (Exception e) {
             throw new DukeException("Please enter a valid index.\n");
         }
     }
 
+    public static void editWrite() {
+        try {
+            FileWriter writer = new FileWriter(TASKS_FILE);
+            for (Task task : list) {
+                char type = 'T';
+                if (task instanceof Deadline) {
+                    type = 'D';
+                }
+                if (task instanceof Event) {
+                    type = 'E';
+                }
+                writer.write(type + " | " + (task.isDone ? "1" : "0") + " | " + task.description);
+                if (type == 'D') {
+                    writer.write(" | " + ((Deadline) task).by);
+                }
+                if (type == 'E') {
+                    writer.write(" | " + ((Event) task).from + " | " + ((Event) task).to);
+                }
+                writer.write("\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(HORIZONTAL_LINE
+                    + "I'm afraid I've encountered an error while writing your tasks, my dear.\n"
+                    + HORIZONTAL_LINE);
+        }
+    }
+
     public static void main(String[] args) {
+        initialise();
         Scanner sc = new Scanner(System.in);
 
         System.out.println(greet());
@@ -149,7 +256,7 @@ public class Duke {
             try {
                 readInput(input);
             } catch (DukeException e) {
-                System.out.println(horizontalLine + e.getMessage() + horizontalLine);
+                System.out.println(HORIZONTAL_LINE + e.getMessage() + HORIZONTAL_LINE);
             }
         }
         System.out.println(exit());
