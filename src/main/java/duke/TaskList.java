@@ -89,7 +89,6 @@ public class TaskList {
         this.taskList.set(ind-1, task);
     }
 
-
     public int getSize() {
         return this.count;
     }
