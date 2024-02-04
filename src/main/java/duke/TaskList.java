@@ -3,6 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -64,7 +65,11 @@ public class TaskList {
         }
         return filteredTasks;
     }
-    public ArrayList<Task> findTasks(String keyword) {
-        return tasks.stream().filter(task-> task.getDescription().contains(keyword)).collect(Collectors.toCollection(ArrayList::new));
+    public ArrayList<Task> findTasks(String... keywords) {
+        return tasks.stream()
+                .filter(task -> Arrays.stream(keywords)
+                        .anyMatch(keyword -> task.getDescription().contains(keyword)))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
+
 }

@@ -51,7 +51,8 @@ public class Parser {
                 if (parts.length < 2 || parts[1].trim().isEmpty()) {
                     throw new DukeException("The description of a find command cannot be empty.");
                 }
-                return new FindCommand(parts[1].trim());
+                String[] keywords = input.substring(input.indexOf(" ") + 1).trim().split("\\s+");
+                return new FindCommand(keywords);
 
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(" + "\n"
