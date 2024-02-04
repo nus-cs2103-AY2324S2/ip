@@ -12,7 +12,6 @@ public class Duke {
     private static ArrayList<Task> storage = new ArrayList<>();
     //private static final String FILEPATH = "./data/duke.txt";
     public static void main(String[] args) {
-        Storage fileSave = new Storage();
         Scanner scanner = new Scanner(System.in);
 
         //SAY HI, don't change
