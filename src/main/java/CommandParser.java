@@ -18,7 +18,7 @@ public class CommandParser {
     public String getType() {
         return this.type;
     }
-    public String[] parseInput() {
+    public String[] parseInput() throws ChatException {
         switch (this.type) {
             case "todo":
                 String regex1 = "^(\\w+)(\\s)(.*)";
@@ -29,9 +29,7 @@ public class CommandParser {
                     return new String[]{description};
                 }
                 else {
-                    // Throw Error, should not be doing text here
-                    System.out.println("Input does not match the expected format.");
-                    return null;
+                    throw new ChatException("Input does not match expected format: todo <task>");
                 }
             case "deadline":
                 String regex2 = "^(\\w+) (.+?)\\/by (.+)$";
@@ -43,9 +41,7 @@ public class CommandParser {
                     return new String[]{description, toTime};
                 }
                 else {
-                    // Throw Error, should not be doing text here
-                    System.out.println("Input does not match the expected format.");
-                    return null;
+                    throw new ChatException("Input does not match expected format: deadline <task> /by <time>");
                 }
             case "event":
                 String regex3 = "^(\\w+) (.+?) \\/from (.+?) \\/to (.+)$";
@@ -58,9 +54,7 @@ public class CommandParser {
                     return new String[]{description, fromTime, toTime};
                 }
                 else {
-                    // Throw Error, should not be doing text here
-                    System.out.println("Input does not match the expected format.");
-                    return null;
+                    throw new ChatException("Input does not match expected format: event <task> /from <time> /to <time>");
                 }
             case "mark":
             case "unmark":
@@ -71,8 +65,7 @@ public class CommandParser {
                     String number = matcher4.group(2);
                     return new String[]{number};
                 } else {
-                    System.out.println("Input does not match the expected format.");
-                    return null;
+                    throw new ChatException("Input does not match expected format: mark/unmark <index>");
                 }
             default:
                 return null;
