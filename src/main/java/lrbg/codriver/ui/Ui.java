@@ -23,7 +23,7 @@ public class Ui {
 
     public void showGreeting() {
         showLine();
-        System.out.println("Hello! I'm lrbg.codriver.CoDriver, your everyday AI companion!");
+        System.out.println("Hello! I'm CoDriver, your everyday AI companion!");
         System.out.println("What can I do for you?");
         showLine();
     }
