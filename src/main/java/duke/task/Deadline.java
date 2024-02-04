@@ -1,12 +1,27 @@
 package duke.task;
-public class Deadline extends Task {
-    protected String by;
 
+/**
+ * Represents the task with a deadline in the format [ <code>details</code> (by: <code>date</code>) ].
+ */
+public class Deadline extends Task {
+
+    /**
+     * Constructor for a Deadline task with its status as default not done.
+     *
+     * @param description Description of the deadline task.
+     */
     public Deadline(String description) {
         super(description);
     }
 
-    public Deadline(String description, Boolean isDone) {
+    /**
+     * Constructor for a Deadline task with its status dependent on the input.
+     * Used when retrieving tasks from the database.
+     *
+     * @param description Description of the deadline task.
+     * @param isDone Status of the deadline task.
+     */
+    public Deadline(String description, boolean isDone) {
         super(description, isDone);
     }
 
