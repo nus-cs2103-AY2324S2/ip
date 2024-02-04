@@ -6,9 +6,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 public class DateHandler {
-
     //Inspired from: https://www.baeldung.com/java-date-regular-expressions
     private static final Pattern PATTERN_DATE =
             Pattern.compile("([a-zA-Z]+)?\\s?(?<d>\\d{2})[-/](?<m>\\d{1,2})[-/](?<y>\\d{2,4})\\s?([a-zA-Z]+)?");

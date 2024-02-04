@@ -24,3 +24,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 #Removed save data from the application
 data/duke.txt
+data/*
