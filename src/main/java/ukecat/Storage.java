@@ -98,6 +98,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Finds tasks in the task list containing the specified keyword in their descriptions.
+     * Prints the matching tasks along with their indices.
+     * If no matching tasks are found, a message is displayed.
+     * Catches and handles a UkeCatException if there's an issue parsing the user input.
+     */
     public static void findTask() {
         try {
             String keyword = Parser.parseFindTask(words);
@@ -108,30 +114,24 @@ public class Storage {
                 return;
             }
 
-            int matchingTaskCount = 0;
             for (int i = 0; i < numT; i++) {
                 Task task = tasks.get(i);
-
                 if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                    matchingTaskCount++;
                     matchingTasks.add(task);
                 }
             }
 
-            if (matchingTaskCount == 0) {
+            if (matchingTasks.isEmpty()) {
                 System.out.println("  No tasks match the keyword.");
             } else {
                 System.out.println("  Here are the matching tasks in your list:");
-                for (int i = 0; i < matchingTaskCount; i++) {
+                for (int i = 0; i < matchingTasks.size(); i++) {
                     System.out.format("  %d. %s%n", i + 1, matchingTasks.get(i).toString());
                 }
             }
-
-
         } catch (UkeCatException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     /**

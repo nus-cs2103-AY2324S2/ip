@@ -122,6 +122,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user input for finding tasks and extracts the keyword.
+     *
+     * @param words The array of words representing the user input.
+     * @return The keyword used for finding tasks.
+     * @throws UkeCatException If the input format is incorrect.
+     */
     public static String parseFindTask(String[] words) throws UkeCatException {
         if (words.length == 2) {
             return words[1];
