@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Events extends Task {
 
-  protected String from;
-  protected String to;
+  protected LocalDateTime from;
+  protected LocalDateTime to;
 
-  public Events(String description, String from, String to) {
+  public Events(String description, LocalDateTime from, LocalDateTime to) {
     super(description);
     this.from = from;
     this.to = to;
@@ -11,13 +14,13 @@ public class Events extends Task {
 
   @Override
   public String toString() {
-    return "[E][" + getStatusIcon() + "] " + description + "(from: " + from + "to: " + to + ")";
+    String formattedDateFrom = from.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma"));
+    String formattedDateTo = to.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma"));
+    return "[E][" + getStatusIcon() + "] " + description + " (from: " + formattedDateFrom + " to: " + formattedDateTo + ")";
   }
 
   @Override
   public String toFileString() {
-    // Include the status in the output string
-    // For example: "E | 0 | project meeting | Aug 6th 2-4pm"
-    return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description, from, to);
+    return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description, from.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")), to.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")));
   }
 }
