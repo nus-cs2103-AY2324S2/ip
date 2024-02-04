@@ -1,5 +1,8 @@
 package Duke.tasks;
 
+import Duke.exceptions.InvalidEventException;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Event extends Task {
@@ -27,7 +30,7 @@ public class Event extends Task {
         }
         return true;
     }
-    public Event(String desc, String start, String end) {
+    public Event(String desc, String start, String end) throws InvalidEventException {
         super(desc);
         start = start.trim();
         end = end.trim();
@@ -52,6 +55,9 @@ public class Event extends Task {
                     Integer.parseInt(dateNumbers[3].substring(2)));
         } else {
             this.end = end;
+        }
+        if (this.startDate != null && this.endDate != null && this.endDate.isBefore(this.startDate)) {
+            throw new InvalidEventException();
         }
     }
     public Event(String status, String description, String start, String end) {
