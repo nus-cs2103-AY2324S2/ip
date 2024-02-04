@@ -2,11 +2,12 @@ package dylanbot;
 
 public class Task {
 
-    private String type, desc;
+    private String type;
+    private String desc;
     private boolean completed;
 
     public Task(String type, String desc) {
-        this.type  = type;
+        this.type = type;
         this.desc = desc;
         this.completed = false;
     }
@@ -36,6 +37,5 @@ public class Task {
                 + (completed ? "[X]" : "[ ]")
                 + " " + desc;
     }
-
 }
 

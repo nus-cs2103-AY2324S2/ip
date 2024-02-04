@@ -1,6 +1,7 @@
 package dylanbot;
 
-import java.io.*;
+import java.io.IOException;
+
 public class DylanBot {
     private Ui ui;
     private Storage st;
@@ -15,7 +16,7 @@ public class DylanBot {
             ui.print("Loaded data from file");
         } catch (IOException e) {
             System.out.println(e);
-            ui.displayIOError();
+            ui.displayIoError();
             this.tl = new TaskList(ui);
             ui.print("No data to load, created new file");
         }
@@ -35,7 +36,7 @@ public class DylanBot {
         try {
             st.saveDataToFile(tl);
         } catch (IOException e) {
-            ui.displayIOError();
+            ui.displayIoError();
         }
         ui.sendExit();
     }
@@ -44,5 +45,3 @@ public class DylanBot {
         new DylanBot("./data/DylanBotData.txt").run();
     }
 }
-
-

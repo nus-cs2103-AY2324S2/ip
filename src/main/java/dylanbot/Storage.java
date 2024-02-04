@@ -1,6 +1,10 @@
 package dylanbot;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -9,15 +13,15 @@ import java.util.regex.Pattern;
 
 // deals with loading tasks from the file and saving tasks in the file
 public class Storage {
-    private final String FILE_PATH;
+    private final String filePath;
     private final Ui ui;
-    public Storage(String FILE_PATH, Ui ui) {
-        this.FILE_PATH = FILE_PATH;
+    public Storage(String filePath, Ui ui) {
+        this.filePath = filePath;
         this.ui = ui;
     }
 
     public ArrayList<Task> loadDataFromFile() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String nextLine;
         ArrayList<Task> res = new ArrayList<>();
         try {
@@ -45,18 +49,18 @@ public class Storage {
 
     public void saveDataToFile(TaskList tl) throws IOException {
         ArrayList<Task> tasks = tl.getTasks();
-        File newFile = new File(FILE_PATH);
+        File newFile = new File(filePath);
         newFile.getParentFile().mkdirs();
         newFile.createNewFile();
 
-        FileWriter writer = new FileWriter(FILE_PATH);
+        FileWriter writer = new FileWriter(filePath);
         for (Task t : tasks) {
             String data = "";
             data += t.getType() + " | " + t.isCompleted() + " | " + t.getDesc();
             if (t.getType().equals("D")) {
-                data += " | " + ((DeadlineTask) t).deadline;
+                data += " | " + ((DeadlineTask) t).getDeadline();
             } else if (t.getType().equals("E")) {
-                data += " | " + ((EventTask) t).from + " | " + ((EventTask) t).to;
+                data += " | " + ((EventTask) t).getFrom() + " | " + ((EventTask) t).getTo();
             }
             writer.write(data);
             writer.write("\n");

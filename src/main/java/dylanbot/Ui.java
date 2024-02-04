@@ -51,7 +51,7 @@ public class Ui {
         System.out.println("ERROR: Issue loading data from file");
     }
 
-    public void displayIOError() {
+    public void displayIoError() {
         System.out.println("ERROR: Issue with IO");
     }
 

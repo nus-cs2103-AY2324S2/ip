@@ -1,10 +1,12 @@
 package dylanbot;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
     @Test
@@ -27,5 +29,4 @@ public class TaskListTest {
         tl.mark(1);
         assertTrue(tl.getTask(1).isCompleted());
     }
-
 }

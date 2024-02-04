@@ -4,11 +4,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DeadlineTask extends Task {
-    public LocalDateTime deadline;
-    DateTimeFormatter printFormat  = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm:ss");
+    private LocalDateTime deadline;
+    private DateTimeFormatter printFormat = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm:ss");
     public DeadlineTask(String desc, LocalDateTime deadline) {
         super("D", desc);
         this.deadline = deadline;
+    }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
     }
 
     @Override
@@ -20,6 +24,7 @@ public class DeadlineTask extends Task {
                     + " " + this.getDesc()
                     + " (by: " + deadline.format(printFormat) + ")";
         } catch (NullPointerException e) {
+            Ui.print(e.getMessage());
         }
         return res;
     }
