@@ -1,3 +1,13 @@
+/*
+ * Package: Echo.Storage
+ * Module/Project Name: Echo
+ * File: Storage.java
+ *
+ * Description:
+ * This class manages the reading and writing of tasks to a file, providing persistence for the task data.
+ *
+ */
+
 package Echo.Storage;
 
 import Echo.Task.Task;
@@ -9,26 +19,40 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Storage {
     private final String FILE_PATH;
 
+    /**
+     * Constructor for the Storage class.
+     *
+     * @param filePath The path to the file used for storing tasks.
+     */
     public Storage(String filePath) {
         this.FILE_PATH = filePath;
     }
+
+    /**
+     * Parses a line from the file and adds the corresponding task to the provided list of tasks.
+     *
+     * @param fileLine The line read from the file.
+     * @param tasks    The list of tasks to which the parsed task will be added.
+     */
     private void addTaskFromFileString(String fileLine, List<Task> tasks) {
         try {
+            // Parse the file line into task information
             String[] tokens = fileLine.split(" \\|");
             if (tokens.length <= 1) {
                 throw new IllegalArgumentException("Invalid task format in file!");
             }
 
+            // Extract task type and description
             String taskType = tokens[0];
             if (tokens[2].isEmpty()) {
                 throw new IllegalArgumentException("The description of a task cannot be empty.");
             }
             String taskDescription = tokens[2].trim();
 
+            // Create the corresponding task object based on the task type
             switch (taskType) {
                 case "T":
                     tasks.add(new Todo(taskDescription));
@@ -55,10 +79,14 @@ public class Storage {
         }
     }
 
-
-    // Method to save tasks to a file
+    /**
+     * Saves the list of tasks to the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void save(List<Task> tasks) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            // Write each task to the file
             for (Task task : tasks) {
                 writer.write(task.toFileString() + System.lineSeparator());
             }
@@ -67,7 +95,11 @@ public class Storage {
         }
     }
 
-    // Method to load tasks from a file
+    /**
+     * Loads tasks from the file and returns them as a list.
+     *
+     * @return The list of tasks loaded from the file.
+     */
     public List<Task> load() {
         List<Task> loadedTasks = new ArrayList<>();
 
@@ -80,6 +112,7 @@ public class Storage {
 
                 System.out.println("No tasks file found. Created a new tasks file.");
             } else {
+                // Read each line from the file and attempt to add the corresponding task
                 BufferedReader reader = new BufferedReader(new FileReader(file));
                 String line;
 
@@ -87,6 +120,7 @@ public class Storage {
                     try {
                         addTaskFromFileString(line, loadedTasks);
                     } catch (IllegalArgumentException e) {
+                        // Handle invalid task lines gracefully
                         System.out.println("Error loading a task. Skipping invalid task line: " + line);
                     }
                 }
@@ -105,5 +139,4 @@ public class Storage {
 
         return loadedTasks;
     }
-
 }
