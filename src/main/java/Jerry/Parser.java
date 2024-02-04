@@ -7,8 +7,8 @@ import Jerry.command.*;
  * It parses the input string and returns a Command object corresponding to the user's request.
  */
 public class Parser {
-    Ui ui;
-    TaskList taskList;
+    private Ui ui;
+    private TaskList taskList;
 
     /**
      * Constructs a Parser instance for interpreting user commands.

@@ -98,9 +98,7 @@ public class Storage {
                         System.out.println("event reading failed");
                         return null; // Missing event start and end times
                     }
-//                    for (int i = 0; i < parts.length; i++) {
-//                        System.out.println(parts[i]);
-//                    }
+
                     Event event = new Event(description, parts[3], parts[4]);
                     if (isDone) {
                         event.markDone();
