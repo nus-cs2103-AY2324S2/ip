@@ -79,7 +79,18 @@ public class Poe {
         printWriter.close();
     }
 
+    public void loadFromFile() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader("./data.txt"));
 
+        String line = "";
+
+        while(line != null){
+            addList(line);
+            line = reader.readLine();
+        }
+
+        reader.close();
+    }
 
     public void input(){
         Scanner sc = new Scanner(System.in);
@@ -170,7 +181,12 @@ public class Poe {
         Poe poe1 = new Poe();
 
         poe1.greetings();
-
+        try {
+            poe1.loadFromFile();
+            poe1.printList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         poe1.input();
 
