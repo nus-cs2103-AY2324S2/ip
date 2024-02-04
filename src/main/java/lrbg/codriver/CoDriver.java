@@ -2,9 +2,9 @@ package lrbg.codriver;
 
 import lrbg.codriver.command.Command;
 import lrbg.codriver.data.exception.CoDriverException;
+import lrbg.codriver.data.TaskList;
 import lrbg.codriver.parser.Parser;
 import lrbg.codriver.storage.Storage;
-import lrbg.codriver.data.TaskList;
 import lrbg.codriver.ui.Ui;
 
 public class CoDriver {

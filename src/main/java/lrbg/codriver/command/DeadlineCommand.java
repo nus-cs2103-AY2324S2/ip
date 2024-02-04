@@ -1,9 +1,9 @@
 package lrbg.codriver.command;
 
 import lrbg.codriver.data.Deadline;
+import lrbg.codriver.data.exception.CoDriverException;
 import lrbg.codriver.data.Task;
 import lrbg.codriver.data.TaskList;
-import lrbg.codriver.data.exception.CoDriverException;
 import lrbg.codriver.storage.Storage;
 import lrbg.codriver.ui.Ui;
 
@@ -14,7 +14,6 @@ public class DeadlineCommand extends Command {
     private final LocalDate date;
 
     public DeadlineCommand(String description, LocalDate date) {
-
         this.description = description;
         this.date = date;
     }
