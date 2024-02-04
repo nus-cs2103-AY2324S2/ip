@@ -6,12 +6,21 @@ import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
+/**
+ * The Duke program is a chatbot that helps users to keep track of their tasks.
+ * It can store and retrieve tasks from a file, and perform operations such as adding, deleting,
+ * and marking tasks as done.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for Duke.
+     * @param filePath The file path to store the tasks.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,6 +33,9 @@ public class Duke {
     }
 
 
+    /**
+     * Runs the Duke program.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -43,6 +55,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Main method to run the Duke program.
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }

@@ -7,22 +7,30 @@ import duke.ui.Ui;
 
 import java.time.LocalDate;
 
-/*
-* The DeadlineCommand class is a subclass of Command and represents a command to add a Deadline task to the task list.
-* It takes in a description String and a by as a LocalDate object.
+/**
+ * Represents a command to add a deadline task.
  */
 public class DeadlineCommand extends Command {
+
     protected String description;
     protected LocalDate by;
 
-    /*
-     * Constructs DeadlineCommand object with description and by as LocalDate objects.
+    /**
+     * Constructor for DeadlineCommand.
+     * @param description The description of the deadline.
+     * @param by The date of the deadline.
      */
     public DeadlineCommand(String description, LocalDate by) {
         this.description = description;
         this.by = by;
     }
 
+    /**
+     * Executes the command to add a deadline task.
+     * @param tasks The list of tasks.
+     * @param ui The user interface to interact with the user.
+     * @param storage The storage to save the tasks.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Deadline deadline = new Deadline(description, by);
@@ -30,6 +38,10 @@ public class DeadlineCommand extends Command {
         ui.showTaskAdded(deadline, tasks.getSize());
     }
 
+    /**
+     * Returns whether the command is an exit command.
+     * @return Whether the command is an exit command.
+     */
     @Override
     public boolean isExit() {
         return false;

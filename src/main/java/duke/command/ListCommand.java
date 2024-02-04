@@ -4,12 +4,17 @@ import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
-/*
-* The ListCommand class is a subclass of Command and represents a command to list all tasks in the task list.
-* It does not take in any parameters.
+/**
+ * Represents a command to list all tasks.
  */
 public class ListCommand extends Command {
 
+    /**
+     * Executes the command to list all tasks.
+     * @param tasks The list of tasks.
+     * @param ui The user interface to interact with the user.
+     * @param storage The storage to save the tasks.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showTaskList(tasks);
