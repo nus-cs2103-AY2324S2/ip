@@ -1,3 +1,10 @@
+package duchess.util;
+
+import duchess.tasks.Deadline;
+import duchess.tasks.Event;
+import duchess.tasks.Task;
+import duchess.tasks.ToDo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

@@ -1,3 +1,5 @@
+package duchess.util;
+
 public class Parser {
     public Parser() {
 

@@ -1,3 +1,5 @@
+package duchess.util;
+
 public class Ui {
     public Ui() {
 
