@@ -5,14 +5,10 @@ public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
 
-    public Event(String description, LocalDate from, LocalDate to) throws DukeException {
+    public Event(String description, LocalDate from, LocalDate to){
         super(description);
-        try {
-            this.from = from;
-            this.to = to;
-        } catch (DateTimeParseException e) {
-            throw new DukeException("Please specify the correct format date: yyyy-mm-dd");
-        }
+        this.from = from;
+        this.to = to;
     }
 
     @Override
