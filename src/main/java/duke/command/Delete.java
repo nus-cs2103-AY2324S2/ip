@@ -29,6 +29,7 @@ public class Delete implements Command {
      */
     @Override
     public String reply() {
+        assert this.deletedTask != null : "The deletion is not performed";
         return String.format("Noted. I've removed this task:\n"
                 + "  %s\nNow you have %s tasks in the list.\n",
                 this.deletedTask, this.tasks.getListLength());

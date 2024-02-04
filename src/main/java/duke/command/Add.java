@@ -29,6 +29,7 @@ public class Add implements Command {
      * @throws DukeException wrong inputs might happens
      */
     public Add(String text, TaskList taskList) throws DukeException {
+
         if (text.startsWith("todo")) {
             if (text.length() <= 5) {
                 throw new EmptyTextException("description", "todo");
@@ -104,6 +105,7 @@ public class Add implements Command {
      */
     @Override
     public String reply() {
+        assert this.task != null : "Add task not performed.";
         return String.format(
                 "Got it. I've added this task:\n  %s\nNow you have %s tasks in the list.\n",
                 this.task, this.tasks.getListLength());

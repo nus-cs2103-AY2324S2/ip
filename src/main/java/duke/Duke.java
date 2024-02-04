@@ -27,6 +27,7 @@ public class Duke {
      * @param filePath file to load.
      */
     public Duke(String filePath) {
+        assert filePath.length() > 0 : "file path should not be null";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -67,9 +68,9 @@ public class Duke {
     }
 
     private Label getDialogLabel(String text) {
+        assert text.length() > 0 : "Should say something";
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
-
         return textToAdd;
     }
 }

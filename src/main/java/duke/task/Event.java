@@ -18,6 +18,7 @@ public class Event extends Task {
      */
     public Event(String descrip, LocalDate from, LocalDate to) {
         super(descrip);
+        assert to.isAfter(from) || to.isEqual(from) : "to cannot before from";
         this.from = from;
         this.to = to;
     }
