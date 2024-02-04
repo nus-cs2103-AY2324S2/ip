@@ -5,18 +5,22 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Storage {
-    private static TaskList tasks;
-    private static String filePath;
+    private static final String FILEPATH = "./data/duke.txt";
 
-    public Storage(String filePath, TaskList tasks) {
-        this.filePath = filePath;
-        this.tasks = tasks;
-        loadFile();
+    public static void createFolder() {
+        Path folder = Paths.get("./data/");
+        if (Files.notExists(folder)) {
+            try {
+                Files.createDirectories(folder);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    public static void saveTasks() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (Task task : tasks.getTasks()) {
+    public static void saveTasks(ArrayList<Task> tasks) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILEPATH))) {
+            for (Task task : tasks) {
                 writer.write(task.toString());
                 writer.newLine();
             }
@@ -25,11 +29,10 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> loadFile() {
-        tasks = new TaskList();
-        File file = new File(filePath);
+    public static void loadFile(ArrayList<Task> tasks) {
+        File file = new File(FILEPATH);
         if (!file.exists()) {
-            return tasks.getTasks();
+            return;
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -40,18 +43,5 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return tasks.getTasks();
     }
-
-    //    public static void createFolder() {
-//        Path folder = Paths.get("./data/");
-//        if (Files.notExists(folder)) {
-//            try {
-//                Files.createDirectories(folder);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 }
