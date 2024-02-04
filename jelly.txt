@@ -1,0 +1,3 @@
+T1my todo
+D0my deadline /now
+E0my event /then/now

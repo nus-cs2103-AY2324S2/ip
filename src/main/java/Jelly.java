@@ -2,12 +2,16 @@ import java.util.*;
 //enum is not required
 public class Jelly {
 
-    private static TaskList list = new TaskList();
+    private static TaskList list;
     private static String line = "\n-------------------------------------------";
 
     private static String welcome = "(ᵔ_ᵔ) Hello! I'm Jelly\nWhat can I do for you?";
     private static String farewell = "(•́︿•̀) Bye. Hope to see you again soon!";
+
+    private static String path = "jelly.txt";
     public static void main(String[] args) {
+
+        list = new TaskList(path);
 
         System.out.println(line);
         System.out.println(welcome);
@@ -19,6 +23,8 @@ public class Jelly {
 
         System.out.println(farewell);
         System.out.println(line);
+
+        list.save(path);
     }
 
     public static String Read(Scanner scanner){
@@ -58,7 +64,7 @@ public class Jelly {
 
                     System.out.println("(X_x) Formatting error! Task name missing");
                 }
-                list.addTodo(argument);
+                list.addTodo(argument, false);
                 break;
 
             case "deadline":
@@ -89,7 +95,7 @@ public class Jelly {
                     break;
                 }
 
-                list.addDeadline(argument, deadline);
+                list.addDeadline(argument, deadline, false);
 
                 break;
 
@@ -150,7 +156,7 @@ public class Jelly {
                     break;
                 }
 
-                list.addEvent(argument, start, end);
+                list.addEvent(argument, start, end, false);
 
                 break;
 

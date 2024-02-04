@@ -1,10 +1,25 @@
 public class Task {
     private String name;
-    private Boolean isDone;
-    public Task(String name){
+    protected Boolean isDone;
+    public Task(String name, boolean isDone){
 
         this.name = name;
-        this.isDone = false;
+        this.isDone = isDone;
+    }
+
+    public String header(){
+
+        return "NULL";
+    }
+
+    public String type(){
+
+        return "N";
+    }
+
+    public String additionalInfo(){
+
+        return "";
     }
 
     public void mark(){
@@ -13,6 +28,10 @@ public class Task {
 
     public void unmark(){
         isDone = false;
+    }
+
+    public String getName(){
+        return name;
     }
 
     @Override
