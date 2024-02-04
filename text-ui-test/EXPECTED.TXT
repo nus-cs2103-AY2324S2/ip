@@ -18,3 +18,4 @@ Cool! Adding new task:
 [D][ ] return book (by: June 6th)
 Now you have 2 tasks in your list.
 ------------------------------------
+Goodbye! Till we meet again ~

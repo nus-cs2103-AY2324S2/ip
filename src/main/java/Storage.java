@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class Storage {
 
     /** The file path where Duke's task list is stored. */
-    private static final String filePath = "./data/duke.txt";
+    private static final String FILE_PATH = "./data/duke.txt";
 
     /**
      * Saves the given task list to the file specified by the file path.
@@ -22,15 +22,15 @@ public class Storage {
      *
      * @param taskList The task list to be saved.
      */
-    public static void saveToFile(TaskList taskList) {
+    public void saveToFile(TaskList taskList) {
         try {
             // These will do nothing if files already exists.
             Files.createDirectories(Paths.get("./data"));
-            File newFile = new File(filePath);
+            File newFile = new File(FILE_PATH);
             if (!newFile.exists()) {
                 boolean success = newFile.createNewFile();
             }
-            FileWriter fw = new FileWriter(filePath);
+            FileWriter fw = new FileWriter(FILE_PATH);
 
             for (int i = 1; i <= taskList.getSize(); i++) {
                 Task currentTask = taskList.getTask(i);
@@ -72,12 +72,12 @@ public class Storage {
      *
      * @return The task list loaded from the file.
      */
-    public static TaskList loadFile() {
+    public TaskList loadFile() {
         TaskList taskList = new TaskList();
         try {
             // These will do nothing if files already exists.
             Files.createDirectories(Paths.get("./data"));
-            File newFile = new File(filePath);
+            File newFile = new File(FILE_PATH);
             if (!newFile.exists()) {
                 boolean success = newFile.createNewFile();
             }
