@@ -3,6 +3,7 @@ package remi.model;
 import remi.utils.RemiError;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -30,6 +31,22 @@ public class TaskList {
 
     public Task getTask(int idx) {
         return taskList.get(idx - 1);
+    }
+
+    /**
+     * Gets a list of tasks that contain the queryString in their label.
+     *
+     * @param queryString the string to be queried in all the task labels
+     * @return the list of tasks
+     */
+    public List<Task> getTask(String queryString) {
+        ArrayList<Task> res = new ArrayList<>();
+        for (Task t: taskList) {
+            if (t.checkQuery(queryString)) {
+                res.add(t);
+            }
+        }
+        return res;
     }
 
     public void removeTask(int idx) throws RemiError{
