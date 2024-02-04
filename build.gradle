@@ -32,7 +32,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "badgpt"
+    archiveFileName = "badgpt.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
