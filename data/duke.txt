@@ -3,4 +3,10 @@ D|0|return book|June 6th
 E|0|project meeting|Aug 6th 2pm|4pm
 T|1|join sports club
 T|1|pray
-D|0|deadline dota |by Wed 5pm
+T|0|pray
+D|0|deadline dota |by 2 of February 2024, 12:00AM
+E|0|event project meeting |2-2-2024|4-2-2024
+E|0|event halflife |2/2/2024 1800|5/2/2024 1900
+D|0|deadline games |by 2 of February 2024, 6:00PM
+E|0|event halflife |2/2/2024 1800|5/2/2024 1900
+E|0|event halflife |2 of February 2024, 6:00PM|5 of February 2024, 7:00PM

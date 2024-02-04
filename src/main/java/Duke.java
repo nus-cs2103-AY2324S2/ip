@@ -1,12 +1,50 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Objects;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Locale;
+
+
 
 public class Duke {
+    public static String formatDateTime(String inputStr) {
+        String[] dateAndTimeParts = inputStr.split("\\s+");
+        // Split the input into parts
+        String[] dateParts = new String[0];
+        if (inputStr.contains("-")) {
+            dateParts = dateAndTimeParts[0].split("-");
+        } else if (inputStr.contains("/")) {
+            dateParts = dateAndTimeParts[0].split("/");
+        }
+
+        // Parse the date part
+        int day = Integer.parseInt(dateParts[0]);
+        int month = Integer.parseInt(dateParts[1]);
+        int year = Integer.parseInt(dateParts[2]);
+
+        // Parse the time part
+        int hour = 0; // Default hour value
+        int minute = 0; // Default minute value
+        if (dateAndTimeParts.length > 1) {
+            String timePart = dateAndTimeParts[1];
+            hour = Integer.parseInt(timePart.substring(0, 2));
+            minute = Integer.parseInt(timePart.substring(2));
+        }
+
+        // Create a LocalDateTime with the parsed parts
+        LocalDateTime localDateTime = LocalDateTime.of(year, month, day, hour, minute);
+
+        // Format the LocalDateTime as desired
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d 'of' MMMM yyyy, h:mma", Locale.ENGLISH);
+        return localDateTime.format(outputFormatter);
+    }
     public static void main(String[] args) {
         System.out.println("Hello! I'm PeWPeWPeW");
 
@@ -113,22 +151,36 @@ public class Duke {
                         System.out.println("ERROR: " + d);
                     }
                 } else if (userInput.toLowerCase().contains("deadline")) {
-                    String[] str = userInput.split("/");
-                    String deadline = str[1];
-                    task_arr.add(new Deadline(index, str[0], deadline));
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(task_arr.get(index).getTask());
-                    System.out.println("Now you have " + task_arr.size() + " tasks in the list");
-                    index++;
+                    try {
+                        String[] str = userInput.split("/by ");
+                        DukeException.validateDateTime(str[1]);
+                        System.out.println(str[1]);
+                        String deadline = "by " + formatDateTime(str[1]);
+                        task_arr.add(new Deadline(index, str[0], deadline));
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(task_arr.get(index).getTask());
+                        System.out.println("Now you have " + task_arr.size() + " tasks in the list");
+                        index++;
+                    } catch (DukeException d) {
+                        System.out.println("ERROR: " + d);
+                    }
                 } else if (userInput.toLowerCase().contains("event")) {
-                    String[] str = userInput.split("/");
-                    String start = str[1];
-                    String end = str[2];
-                    task_arr.add(new Event(index, str[0], start, end));
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(task_arr.get(index).getTask());
-                    System.out.println("Now you have " + task_arr.size() + " tasks in the list");
-                    index++;
+                    try {
+                        String[] front = userInput.split("/from ");
+                        String[] back = front[1].split("/to ");
+                        String start = back[0].trim();
+                        String end = back[1];
+                        DukeException.validateDateTime(start);
+                        System.out.println("HALF");
+                        DukeException.validateDateTime(end);
+                        task_arr.add(new Event(index, front[0], formatDateTime(start), formatDateTime(end)));
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(task_arr.get(index).getTask());
+                        System.out.println("Now you have " + task_arr.size() + " tasks in the list");
+                        index++;
+                    } catch (DukeException d) {
+                        System.out.println("ERROR: " + d);
+                    }
                 }
                 try {
                     FileWriter writer = new FileWriter("data/duke.txt");
