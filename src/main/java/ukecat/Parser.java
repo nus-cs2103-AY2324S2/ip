@@ -122,6 +122,14 @@ public class Parser {
         }
     }
 
+    public static String parseFindTask(String[] words) throws UkeCatException {
+        if (words.length == 2) {
+            return words[1];
+        } else {
+            throw new UkeCatException("Wrong format, use: find <keyword>");
+        }
+    }
+
     /**
      * Converts a Task object into a CSV (Comma-Separated Values) format string.
      * The CSV format is as follows:

@@ -1,2 +1,5 @@
 T,1,buy bread
-D,0,eat hotpot,2024-02-10
+T,0,eat bread
+T,0,buy egg
+T,0,cook egg
+T,0,eat egg
