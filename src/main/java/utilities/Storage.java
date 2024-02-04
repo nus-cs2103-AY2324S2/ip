@@ -38,12 +38,11 @@ public class Storage {
         File f = new File(this.filePath);
         Scanner sc = new Scanner(f);
         List<Task> tasks = new ArrayList<Task>();
-        /**
-         * Pattern to match lines with five parts separated by pipes ('|')
-         * 
-         * Each part can contain any characters, with whitespace handling Capture non-whitespace
-         * characters in the first two parts and at least one character in the last three parts
-         */
+
+        // Pattern to match lines with five parts separated by pipes ('|')
+        // Each part can contain any characters, with whitespace handling Capture non-whitespace
+        // characters in the first two parts and at least one character in the last three parts
+
         String matchingPattern =
                 "^\\s*(\\S+)\\s*\\|\\s*(\\S+)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*\\|\\s*(.+?)\\s*$";
         Pattern pattern = Pattern.compile(matchingPattern);
@@ -72,6 +71,8 @@ public class Storage {
                 tasks.add(new Deadline(name, DateAndTimeParser.convertStringToDate(firstPart),
                         isDone));
                 break;
+            default:
+                break;
             }
         }
         sc.close();
@@ -81,7 +82,6 @@ public class Storage {
     /**
      * Saves tasks into hard disk
      * 
-     * @param arraylist Arraylist of tasks
      * @throws IOException if the arraylist cannot be written to the file
      */
     public void writeToFile(List<Task> tasks) throws IOException {
