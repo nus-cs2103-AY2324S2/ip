@@ -11,7 +11,6 @@ import java.util.List;
 public class Storage {
 
     private static final String FILE_PATH = "./data/duke.txt";
-<<<<<<< HEAD:src/main/java/Storage.java
 
     public Storage(String filePath) {
         
@@ -20,12 +19,6 @@ public class Storage {
     private static void ensureFolderAndFileExists() {
         File folder = new File("./data");
         File file = new File(folder, "/duke.txt");
-=======
-
-    private static void ensureFolderAndFileExists() {
-        File folder = new File("./data");
-        File file = new File(folder, "duke.txt");
->>>>>>> branch-Level-7:src/main/java/SaveTask.java
 
         if(!folder.exists()) {
             // Creates the directory named by this abstract pathname, 
