@@ -39,7 +39,7 @@ public class Parser {
      * @param cmd The full user command string.
      * @throws DukeException If the Todo task description is empty.
      */
-    public static String addTodo(TaskList tl, String[] commandArr, String cmd) throws DukeException {
+    public static String addTodo(TaskList tl, String cmd, String ... commandArr) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, the description of a todo cannot be empty :(");
         }
@@ -61,7 +61,7 @@ public class Parser {
      * @param cmd The full user command string.
      * @throws DukeException If the Deadline description or date is empty or incorrectly formatted.
      */
-    public static String addDeadline(TaskList tl, String[] commandArr, String cmd) throws DukeException {
+    public static String addDeadline(TaskList tl, String cmd, String ... commandArr) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, the description and date of a deadline cannot be empty :(");
         }
@@ -92,7 +92,7 @@ public class Parser {
      * @param cmd The full user command string.
      * @throws DukeException If the Event description or dates are empty or incorrectly formatted.
      */
-    public static String addEvent(TaskList tl, String[] commandArr, String cmd) throws DukeException {
+    public static String addEvent(TaskList tl, String cmd, String ... commandArr) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, the description and start and end dates of an event cannot be empty :(");
         }
@@ -130,11 +130,11 @@ public class Parser {
      * @param commandArr The array of strings representing the split user command.
      * @throws DukeException If the search keyword is not provided.
      */
-    public static String findTask(TaskList tl, String[] commandArr) throws DukeException {
+    public static String findTask(TaskList tl, String cmd, String ... commandArr) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, please input what you want me to find");
         }
-        String keyword = commandArr[1];
+        String keyword = cmd.substring(5);
         ArrayList<Task> foundTasks = tl.find(keyword);
         StringBuilder toPrint = new StringBuilder();
         toPrint.append(" Here are the matching tasks in your list:");
@@ -159,7 +159,7 @@ public class Parser {
      * @param commandArr The array of strings representing the split user command.
      * @throws DukeException If the task index is invalid or not provided.
      */
-    public static String markTask(TaskList tl, String[] commandArr) throws DukeException {
+    public static String markTask(TaskList tl, String ... commandArr) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, please input the list index for me to mark");
         }
@@ -184,7 +184,7 @@ public class Parser {
      * @param commandArr The array of strings representing the split user command.
      * @throws DukeException If the task index is invalid or not provided.
      */
-    public static String unmarkTask(TaskList tl, String[] commandArr) throws DukeException {
+    public static String unmarkTask(TaskList tl, String ... commandArr) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, please input the list index for me to unmark");
         }
@@ -209,7 +209,7 @@ public class Parser {
      * @param commandArr The array of strings representing the split user command.
      * @throws DukeException If the task index is invalid or not provided.
      */
-    public static String deleteTask(TaskList tl, String[] commandArr) throws DukeException {
+    public static String deleteTask(TaskList tl, String ... commandArr) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, please input the list index for me to delete");
         }
