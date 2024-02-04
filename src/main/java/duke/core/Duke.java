@@ -85,14 +85,17 @@ public class Duke {
                     tasks.saveToStorage(storage);
                 } else if (msg.toUpperCase().startsWith(Duke.Command.TODO.name())) {
                     Task t = parser.parseTodo();
+                    tasks.addTask(t);
                     ui.formatReply(ui.showAddTaskMessage(t, tasks.getTasks().size()));
                     tasks.saveToStorage(storage);
                 } else if (msg.toUpperCase().startsWith(Command.DEADLINE.name())) {
                     Task t = parser.parseDeadline();
+                    tasks.addTask(t);
                     ui.formatReply(ui.showAddTaskMessage(t, tasks.getTasks().size()));
                     tasks.saveToStorage(storage);
                 } else if (msg.toUpperCase().startsWith(Command.EVENT.name())) {
                     Task t = parser.parseEvent();
+                    tasks.addTask(t);
                     ui.formatReply(ui.showAddTaskMessage(t, tasks.getTasks().size()));
                     tasks.saveToStorage(storage);
                 } else {
