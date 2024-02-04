@@ -48,11 +48,11 @@ test {
 }
 
 application {
-    mainClass.set("klee.Klee")
+    mainClass.set("klee.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "Klee"
+    archiveBaseName = "Launcher"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
