@@ -4,24 +4,35 @@ import Duke.DukeException;
 import Duke.Storage;
 import Duke.TaskList;
 import Duke.Tasks.Deadline;
-import Duke.Tasks.Event;
 import Duke.Tasks.Task;
-import Duke.Tasks.Todo;
 import Duke.Ui;
 
 import java.time.DateTimeException;
 
+/**
+ * Represents a command to create a deadline task.
+ */
 public class CreateDeadlineCommand extends Command {
     Ui ui;
     TaskList taskList;
     Storage storage;
     String input;
+
+    /**
+     * Constructor for the DeadlineCommand class.
+     *
+     * @param ui The Ui object to interact with user.
+     * @param taskList The taskList object to record the tasks.
+     * @param storage The Storage object to save and load information.
+     * @param input The user input.
+     */
     public CreateDeadlineCommand(Ui ui, TaskList taskList, Storage storage, String input) {
         this.ui = ui;
         this.taskList = taskList;
         this.storage = storage;
         this.input = input;
     }
+
     @Override
     public void execute() throws DukeException {
         Task addedTask = null;

@@ -6,11 +6,23 @@ import Duke.TaskList;
 import Duke.Tasks.Task;
 import Duke.Ui;
 
+/**
+ * Represents a command to mark a task as done.
+ */
 public class MarkDoneCommand extends Command {
     Ui ui;
     TaskList taskList;
     Storage storage;
     int indexToMark;
+
+    /**
+     * Constructor for the MarkDoneCommand class.
+     *
+     * @param ui The Ui object to interact with user.
+     * @param taskList The taskList object to record the tasks.
+     * @param storage The Storage object to save and load information.
+     * @param indexToMark The index of task to be mark done.
+     */
     public MarkDoneCommand(Ui ui, TaskList taskList, Storage storage, int indexToMark) {
         this.ui = ui;
         this.taskList = taskList;
