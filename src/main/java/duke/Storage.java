@@ -31,24 +31,24 @@ class Storage {
         String[] token = taskLine.split(",");
         if (token[0].equals("T")) {
             Todo temp = new Todo(token[2]);
-            if (token[1].equals("1")) {
-                temp.setDone();
-            }
+            checkAndSetDone(token, temp);
             return temp;
         } else if (token[0].equals("D")) {
             Deadline temp = new Deadline(token[2], LocalDate.parse(token[3]));
-            if (token[1].equals("1")) {
-                temp.setDone();
-            }
+            checkAndSetDone(token, temp);
             return temp;
         } else if (token[0].equals("E")) {
             Event temp = new Event(token[2], LocalDate.parse(token[3]), LocalDate.parse(token[4]));
-            if (token[1].equals("1")) {
-                temp.setDone();
-            }
+            checkAndSetDone(token, temp);
             return temp;
         } else {
             return null;
+        }
+    }
+
+    private void checkAndSetDone(String[] token, Task temp) {
+        if (token[1].equals("1")) {
+            temp.setDone();
         }
     }
 
