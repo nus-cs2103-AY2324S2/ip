@@ -77,6 +77,7 @@ public class Add implements Command {
             throw new EmptyTextException("due", "deadline");
         }
         String byText = by.substring(BY_LENGTH).trim();
+        byText = changeWordToDate(byText);
         if (!checkTimeForm(byText)) {
             throw new TimeFormatException();
         }
@@ -104,7 +105,9 @@ public class Add implements Command {
             throw new EmptyTextException("end", "event");
         }
         String fromText = from.substring(FROM_LENGTH).trim();
+        fromText = changeWordToDate(fromText);
         String toText = to.substring(TO_LENGTH).trim();
+        toText = changeWordToDate(toText);
         if (!checkTimeForm(fromText) || !checkTimeForm(toText)) {
             throw new TimeFormatException();
         }
@@ -133,6 +136,40 @@ public class Add implements Command {
             return true;
         } catch (DateTimeParseException e) {
             return false;
+        }
+    }
+
+    private String changeWordToDate(String time) {
+        LocalDate currentTime = LocalDate.now();
+        int todayDay = currentTime.getDayOfWeek().getValue();
+        int timeDay = 0;
+        if (time.equals("Mon") || time.equals("Monday")) {
+            timeDay = 1;
+        } else if (time.equals("Tues") || time.equals("Tuesday")) {
+            timeDay = 2;
+        } else if (time.equals("Wed") || time.equals("Wednesday")) {
+            timeDay = 3;
+        } else if (time.equals("Thurs") || time.equals("Thursday")) {
+            timeDay = 4;
+        } else if (time.equals("Fri") || time.equals("Friday")) {
+            timeDay = 5;
+        } else if (time.equals("Sat") || time.equals("Saturday")) {
+            timeDay = 6;
+        } else if (time.equals("Sun") || time.equals("Sunday")) {
+            timeDay = 7;
+        } else if (time.equals("Today") || time.equals("today")) {
+            return currentTime.toString();
+        } else if (time.equals("Tomorrow") || time.equals("tomorrow")) {
+            return currentTime.plusDays(1).toString();
+        } else {
+            return time;
+        }
+        if (timeDay <= todayDay) {
+            int minusDay = todayDay - timeDay;
+            return currentTime.plusWeeks(1).minusDays(minusDay).toString();
+        } else {
+            int plusDay = timeDay - todayDay;
+            return currentTime.plusDays(plusDay).toString();
         }
     }
 }
