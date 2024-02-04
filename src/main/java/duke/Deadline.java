@@ -1,3 +1,4 @@
+package duke;
 
 import java.io.Serializable;
 import java.time.DayOfWeek;

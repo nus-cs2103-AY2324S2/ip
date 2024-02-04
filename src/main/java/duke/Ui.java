@@ -1,9 +1,6 @@
-/*
- * Deals with iteractions with the user
- */
+package duke;
 
 import java.util.ArrayList;
-
 
 public class Ui {
 

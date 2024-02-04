@@ -1,5 +1,7 @@
+package duke;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -14,6 +16,8 @@ import java.util.Scanner;
 
 public class Duke {
 
+    private Storage storage;
+    private TaskList tasks;
     private Ui ui;
 
     public Duke(Storage filePath) {
@@ -55,4 +59,3 @@ public class Duke {
         new Duke(storage);
     }
 }
-
