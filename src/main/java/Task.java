@@ -33,4 +33,8 @@ public class Task {
         }
         return task;
     }
+
+    public String toFileString() {
+        return toString();
+    }
 }

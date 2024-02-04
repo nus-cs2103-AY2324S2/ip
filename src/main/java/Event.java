@@ -1,25 +1,45 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws DukeException {
         super(description);
-        this.from = from.split("from ")[1];
-        this.to = to.split("to ")[1];
-
+        try {
+            this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+            this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new DukeException(
+                    "Invalid date format. Please use dd/MM/yyyy HHmm format. Example: 02/12/2019 1800\n");
+        }
     }
 
     @Override
     public String toString() {
-        return "E | " + super.toString() + " | " + from + " | " + to;
+        return "E | " + super.toString() + " | " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"))
+                + " | "
+                + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
     }
 
     public static Event fromString(String input) {
         String[] split = input.split(" \\| ");
-        Event event = new Event(split[2], split[3], split[4]);
-        if (split[1].equals("X")) {
-            event.markAsDone();
+        try {
+            Event event = new Event(split[2], split[3], split[4]);
+            if (split[1].equals("X")) {
+                event.markAsDone();
+            }
+            return event;
+        } catch (DukeException e) {
+            System.out.println("Error creating event");
+            return null;
         }
-        return event;
+    }
+
+    public String toFileString() {
+        return "E | " + super.toString() + " | " + from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) + " | "
+                + to.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 }
