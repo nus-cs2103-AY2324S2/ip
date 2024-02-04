@@ -27,8 +27,10 @@ public class Add implements Command {
     static final int TO_LENGTH = 3;
     static final int DEADLINE_TOKEN_NUM = 2;
     static final int EVENT_TOKEN_NUM = 3;
+
     private Task task;
     private TaskList tasks;
+
     /**
      * Constructor
      * add task to task list.

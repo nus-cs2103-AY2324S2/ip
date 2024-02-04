@@ -7,8 +7,6 @@ import java.util.ArrayList;
 
 import duke.command.Command;
 import duke.exception.DukeException;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 
 /**
  * Main Class for our Chat bot
@@ -18,9 +16,6 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/husserl.jpg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/satre.jpg"));
 
     /**
      * Constructor for chatbot.
@@ -69,12 +64,5 @@ public class Duke {
         } catch (DukeException | IOException e) {
             return String.format("    %s\n", e.getMessage());
         }
-    }
-
-    private Label getDialogLabel(String text) {
-        assert text.length() > 0 : "Should say something";
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-        return textToAdd;
     }
 }

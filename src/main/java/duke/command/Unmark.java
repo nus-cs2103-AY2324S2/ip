@@ -7,8 +7,9 @@ import duke.exception.WrongIndexException;
  * class for mark an task to undone.
  */
 public class Unmark implements Command {
-    private final int oprand;
+    private final int operand;
     private TaskList tasks;
+
     /**
      * Constructor
      * change the status of task to unDone.
@@ -19,8 +20,8 @@ public class Unmark implements Command {
         if (operand >= taskList.getListLength() || operand < 0) {
             throw new WrongIndexException(taskList.getListLength());
         }
-        this.oprand = operand;
-        taskList.getTask(oprand).unDone();
+        this.operand = operand;
+        taskList.getTask(this.operand).unDone();
         this.tasks = taskList;
     }
 
@@ -29,6 +30,6 @@ public class Unmark implements Command {
      */
     @Override
     public String reply() {
-        return String.format("OK, I've marked this task as not done yet:\n%s\n", tasks.getTask(oprand));
+        return String.format("OK, I've marked this task as not done yet:\n%s\n", tasks.getTask(operand));
     }
 }
