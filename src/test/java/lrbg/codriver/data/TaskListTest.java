@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Test Class for TaskList.
+ */
 public class TaskListTest {
     @Test
     public void toSaveStringTest() {

@@ -15,6 +15,14 @@ import lrbg.codriver.data.exception.CoDriverException;
 import java.time.LocalDate;
 
 public class Parser {
+
+    /**
+     * Parses the command line and returns the corresponding Command object.
+     *
+     * @param commandLine The command line to be parsed.
+     * @return The corresponding Command object.
+     * @throws CoDriverException If the command line is invalid.
+     */
     public static Command parse(String commandLine) throws CoDriverException {
         String[] arguments = commandLine.split(" ");
         String commandStart = arguments[0];
@@ -159,6 +167,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the given string into a LocalDate object.
+     *
+     * @param dateString The string to be parsed.
+     * @return The LocalDate object parsed from the given string, or null if the string is not in the correct format.
+     */
     public static LocalDate parseDate(String dateString) {
         LocalDate date = null;
         // check if in yyyy-mm-dd format

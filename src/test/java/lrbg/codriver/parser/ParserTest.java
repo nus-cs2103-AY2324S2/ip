@@ -15,6 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Test Class for Parser.
+ */
 public class ParserTest {
     @Test
     public void parseTest_correctArgument_success() {
