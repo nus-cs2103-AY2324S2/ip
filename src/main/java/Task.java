@@ -1,22 +1,22 @@
 public class Task {
     private String task;
-    private boolean done;
+    private boolean isDone;
     public Task(String task) {
         this.task = task;
-        this.done = false;
+        this.isDone = false;
     }
     public void markDone() {
-        this.done = true;
+        this.isDone = true;
         return;
     }
     public void markUndone() {
-        this.done = false;
+        this.isDone = false;
     }
     public boolean done() {
-        return this.done;
+        return this.isDone;
     }
     public String getStatus() {
-        return (this.done) ? "X" : " ";
+        return (this.isDone) ? "X" : " ";
     }
     @Override
     public String toString() {
