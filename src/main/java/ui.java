@@ -23,6 +23,7 @@ public class ui {
         System.out.println("How may I assist you?");
         System.out.println(divider);
 
+        // retrieves tasks from storage
         Storage newTodoList = new Storage();
 
         //take in input
