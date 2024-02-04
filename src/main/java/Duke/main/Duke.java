@@ -41,6 +41,8 @@ public class Duke {
         case "date":
             res = new DateCommand(words);
             break;
+        case "find":
+            res = new FindCommand(words);
         }
         if (res == null) {
             throw new IllegalArgumentException();

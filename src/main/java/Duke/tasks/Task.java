@@ -3,7 +3,7 @@ package Duke.tasks;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public abstract class Task implements Serializable {
+public abstract class Task {
     private final static String hRULER = "____________________________________________________________\n";
     private final String description;
     private String status = "[ ]";
@@ -24,6 +24,9 @@ public abstract class Task implements Serializable {
     public Task unMarkDone() {
         this.status = "[ ]";
         return this;
+    }
+    public boolean descriptionHasWord(String toFind) {
+        return this.description.indexOf(toFind) != -1;
     }
     @Override
     public String toString() {

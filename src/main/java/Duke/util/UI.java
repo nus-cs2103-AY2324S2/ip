@@ -63,5 +63,12 @@ public class UI {
         }
         System.out.println(hRULER);
     }
+    public void displayFoundTask(ArrayList<Task> l) {
+        System.out.printf("%s Here are the deadlines/events with specified word in your list:\n", hRULER);
+        for (int i = 0; i < l.size(); i++) {
+            System.out.printf(" %d.%s\n", i + 1, l.get(i).toString());
+        }
+        System.out.println(hRULER);
+    }
 
 }
