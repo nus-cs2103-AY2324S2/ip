@@ -15,13 +15,13 @@ import bond.task.TaskList;
 
 public class Ui {
 
-    private Scanner sc;
+    private Scanner scanner;
 
     /**
      * Constructor for the Ui class.
      */
     public Ui() {
-        this.sc = new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
     }
 
     private static final String LINE = "____________________________________________________________";
@@ -51,8 +51,8 @@ public class Ui {
     public String readCommand() {
         String userInput = "";
 
-        if (sc.hasNextLine()) {
-            userInput = sc.nextLine();
+        if (this.scanner.hasNextLine()) {
+            userInput = this.scanner.nextLine();
         }
 
         return userInput;
@@ -163,6 +163,6 @@ public class Ui {
     }
 
     public void closeScanner() {
-        this.sc.close();
+        this.scanner.close();
     }
 }

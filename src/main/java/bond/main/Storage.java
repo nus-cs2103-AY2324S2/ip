@@ -39,7 +39,6 @@ public class Storage {
      *                       list.
      */
     public void parseAndAddTask(String task, ArrayList<Task> tasks) throws BondException {
-        // System.out.println(task);
         String remainder = task.substring(4);
         String taskName = "";
         boolean isMarked = false;
@@ -82,6 +81,7 @@ public class Storage {
             String[] components = remainder.split(" ");
 
             for (int i = 0; i < components.length; i++) {
+                
                 if (components[i].equals("from:")) {
 
                     for (int j = i + 1; j < components.length; j++) {
@@ -96,15 +96,17 @@ public class Storage {
                     for (int k = i + 1; k < components.length; k++) {
                         end += components[k] + " ";
                     }
+
                 }
+
             }
 
             String[] startComponents = start.split(" ");
-            start = Parser.changeDateFormat(startComponents[0], startComponents[1], startComponents[2]) + " "
-                    + startComponents[3];
+            start = Parser.changeDateFormat(startComponents[0], startComponents[1], startComponents[2]) 
+                    + " " + startComponents[3];
             String[] endComponents = end.split(" ");
-            end = Parser.changeDateFormat(endComponents[0], endComponents[1], endComponents[2]) + " "
-                    + endComponents[3];
+            end = Parser.changeDateFormat(endComponents[0], endComponents[1], endComponents[2]) 
+                    + " " + endComponents[3];
 
             newTask = new EventTask(taskName, start, end);
 
@@ -152,9 +154,7 @@ public class Storage {
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
 
             while (s.hasNextLine()) {
-                // System.out.println("I have reached Loop in " + "loadTasksFromFIle");
                 String currTask = s.nextLine();
-                // System.out.println("Current task read is: " + currTask);
                 parseAndAddTask(currTask, loadedTasks);
             }
 
@@ -202,7 +202,6 @@ public class Storage {
             ListIterator<Task> toWrite = taskList.getTasks();
 
             while (toWrite.hasNext()) {
-                // System.out.println("I have reached Loop in " + "updateFile");
                 fw.write(toWrite.next().toString());
                 fw.write(System.lineSeparator());
             }

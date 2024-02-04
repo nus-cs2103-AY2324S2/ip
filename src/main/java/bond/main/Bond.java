@@ -39,17 +39,17 @@ public final class Bond {
      */
     public void run() {
 
-        ui.showWelcome();
+        this.ui.showWelcome();
         boolean isExit = false;
 
         while (!isExit) {
             try {
-                String fullCommand = ui.readCommand();
+                String fullCommand = this.ui.readCommand();
                 Command c = Parser.parse(fullCommand);
                 c.execute(this.taskList, this.ui, this.storage);
                 isExit = c.isExit();
             } catch (BondException e) {
-                ui.showError(e);
+                this.ui.showError(e);
             }
         }
     }
