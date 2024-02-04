@@ -33,9 +33,8 @@ public class Parser {
         }
     }
 
-    public static Handler parseUserInput(String input) {
-        String[] command = input.split("\\s", 2);
-        return Handler.dispatch(command);
+    public static String[] parseUserInput(String input) {
+       return input.split("\\s", 2);
     }
 
     public static LocalDateTime parseDateTime(String dateTime) {

@@ -29,8 +29,6 @@ public abstract class Handler {
             return new taskHandler(command);
         case "delete":
             return new deleteHandler(command);
-        case "bye":
-            return null;
         default:
             return new unknownHandler();
         }

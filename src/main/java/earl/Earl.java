@@ -30,11 +30,11 @@ public class Earl {
         ui.showGreeting();
         // main loop
         String input = ui.getUserInput();
-        Handler handler;
+        String[] command;
         while (!input.equals("bye")) {
             try {
-                handler = Parser.parseUserInput(input);
-                handler.handle(tasks, ui);
+                command = Parser.parseUserInput(input);
+                Handler.dispatch(command).handle(tasks, ui);
             } catch (EarlException e) {
                 ui.makeResponse(e.getMessage());
             } finally {
