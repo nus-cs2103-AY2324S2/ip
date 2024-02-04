@@ -1,3 +1,4 @@
+package duke;
 // from https://stackoverflow.com/a/6045145/15346181
 
 public class Pair<F, S> {

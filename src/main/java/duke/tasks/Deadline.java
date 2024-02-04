@@ -1,3 +1,4 @@
+package duke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -7,12 +8,12 @@ import java.util.Optional;
 public class Deadline extends Task {
     public Optional<LocalDateTime> byDate;
 
-    Deadline(String name) {
+    public Deadline(String name) {
         super(name);
         this.byDate = Optional.empty();
     }
 
-    Deadline(String name, boolean isDone, String byDate, boolean useCustomFormatter) {
+    public Deadline(String name, boolean isDone, String byDate, boolean useCustomFormatter) {
         super(name, isDone);
         this.byDate = Optional.of(this.parseDate(byDate, useCustomFormatter));
     }

@@ -1,6 +1,8 @@
-import java.io.File;
+package duke;
 import java.io.IOException;
 import java.util.Scanner;
+
+import duke.exceptions.FileCorruptionException;
 
 public class GoldBot {
     public static void main(String[] args) {

@@ -1,4 +1,16 @@
+package duke;
 import java.util.List;
+
+import duke.commands.Bye;
+import duke.commands.DeadlineCommand;
+import duke.commands.Delete;
+import duke.commands.EventCommand;
+import duke.commands.ListTasks;
+import duke.commands.Mark;
+import duke.commands.NamedCommand;
+import duke.commands.ToDoCommand;
+import duke.commands.Unmark;
+import duke.exceptions.InvalidParametersException;
 
 public class Parser {
     private ChatSession session;

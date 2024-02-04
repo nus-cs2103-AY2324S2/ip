@@ -1,23 +1,26 @@
+package duke.commands;
 import java.util.List;
 
-public class EventCommand implements NamedCommand {
-    public String getName() { return "event"; }
+import duke.ChatSession;
+import duke.Pair;
+import duke.SubcommandParser;
+import duke.tasks.Deadline;
+
+public class DeadlineCommand implements NamedCommand {
+    public String getName() { return "deadline"; }
     public void execute(ChatSession session, String commandArgs) {
         Pair<String, List<Pair<String, String>>> data = SubcommandParser.parseSubcommands(commandArgs, "/");
         String name = data.getFirst();
         List<Pair<String, String>> subcommPairs = data.getSecond();
-        Event t = new Event(name);
+        Deadline t = new Deadline(name);
 
         for (Pair<String, String> subcommPair : subcommPairs) {
             String subcommString = subcommPair.getFirst();
             switch (subcommString) {
-                case "/from":
-                    String fromDate = subcommPair.getSecond();
-                    t.setFromDate(fromDate);
+                case "/by":
+                    String date = subcommPair.getSecond();
+                    t.setByDate(date);
                     break;
-                case "/to":
-                    String toDate = subcommPair.getSecond();
-                    t.setToDate(toDate);
                 default:
                     // add exception handling later
                     break;

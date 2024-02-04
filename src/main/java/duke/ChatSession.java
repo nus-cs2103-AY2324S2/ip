@@ -1,4 +1,7 @@
+package duke;
 import java.util.List;
+
+import duke.commands.NamedCommand;
 
 public class ChatSession {
     private Ui ui;

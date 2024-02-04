@@ -1,3 +1,6 @@
+package duke.commands;
+import duke.ChatSession;
+
 public class Bye implements NamedCommand {
     public static String NAME = "bye";
 

@@ -1,5 +1,6 @@
+package duke.exceptions;
 public class FileCorruptionException extends DukeException {
-    FileCorruptionException(String errorMessage) {
+    public FileCorruptionException(String errorMessage) {
         super(errorMessage);
     }
 }
