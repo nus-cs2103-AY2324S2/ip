@@ -11,63 +11,71 @@ public class Ui {
     /**
      * Displays a welcome message when the application starts.
      */
-    public void showWelcomeMessage() {
-        System.out.println("Hello! I'm Yapper.");
-    }
-    /**
-     * Displays instructions to guide the user.
-     */
-    public void showInstructions() {
-        System.out.println("What would you like to yap about today? :-)");
+    public String showWelcomeMessage() {
+        String message = "Hello! I'm Yapper. /n"
+                + "What would you like to yap about today? :-)";
+        System.out.println(message);
+        return message;
     }
     /**
      * Displays a user prompt.
      */
-    public void showUserPrompt() {
-        System.out.println("User: ");
+    public String showUserPrompt() {
+        String message = "User: ";
+        System.out.println(message);
+        return message;
     }
     /**
      * Displays an error message to the user.
      *
      * @param errorMessage The error message to be displayed.
      */
-    public void showError(String errorMessage) {
-        System.out.println(errorMessage);
+    public String showError(String errorMessage) {
+        String message = errorMessage;
+        System.out.println(message);
+        return message;
     }
     /**
      * Displays an error message when loading tasks from a file fails.
      */
-    public void showLoadingError() {
-        System.out.println("Error loading tasks from file. Creating a new task list.");
+    public String showLoadingError() {
+        String message = "Error loading tasks from file. Creating a new task list.";
+        System.out.println(message);
+        return message;
     }
     /**
      * Displays the list of tasks to the user.
      *
      * @param tasks The list of tasks to be displayed.
      */
-    public void showTaskList(List<Task> tasks) {
-        System.out.println("Here are the tasks in your yapping list:");
+    public String showTaskList(List<Task> tasks) {
+        StringBuilder result = new StringBuilder("Here are the tasks in your yapping list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            result.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
         }
+        String message = result.toString();
+        System.out.println(message);
+        return message;
     }
     /**
      * Displays a message after marking a task as done.
      *
      * @param task The task that has been marked as done.
      */
-    public void showMarkedDoneMessage(Task task) {
-        System.out.println("Nice yap! I've marked this task as done:");
-        System.out.println(" " + task);
+    public String showMarkedDoneMessage(Task task) {
+        String message = "Nice yap! I've marked this task as done:\n " + task;
+        System.out.println(message);
+        return message;
     }
     /**
      * Displays a message after marking a task as not done.
      *
      * @param task The task that has been marked as not done.
      */
-    public void showMarkedNotDoneMessage(Task task) {
-        System.out.println("Ok bro, I've marked this task as not done yet:");
-        System.out.println(" " + task);
+    public String showMarkedNotDoneMessage(Task task) {
+        String message = "Ok bro, I've marked this task as not done yet:\n " + task;
+        System.out.println(message);
+        return message;
     }
     /**
      * Displays a message after adding a new task.
@@ -75,11 +83,11 @@ public class Ui {
      * @param task      The task that has been added.
      * @param taskCount The total count of tasks after adding the new task.
      */
-    public void showAddedTaskMessage(Task task, int taskCount) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println("Now you have " + taskCount
-                + " tasks in the list.");
+    public String showAddedTaskMessage(Task task, int taskCount) {
+        String message = "Got it. I've added this task:\n   " + task + "\nNow you have " + taskCount
+                + " tasks in the list.";
+        System.out.println(message);
+        return message;
     }
     /**
      * Displays a message after removing a task.
@@ -87,17 +95,19 @@ public class Ui {
      * @param task      The task that has been removed.
      * @param taskCount The total count of tasks after removing the task.
      */
-    public void showRemovedTaskMessage(Task task, int taskCount) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("   " + task);
-        System.out.println("Now you have " + taskCount
-                + " tasks in the list.");
+    public String showRemovedTaskMessage(Task task, int taskCount) {
+        String message = "Noted. I've removed this task:\n   " + task + "\nNow you have " + taskCount
+                + " tasks in the list.";
+        System.out.println(message);
+        return message;
     }
     /**
      * Displays a goodbye message when the user exits the application.
      */
-    public void showGoodbyeMessage() {
-        System.out.println("Bye. Hope to yap with you again soon!");
+    public String showGoodbyeMessage() {
+        String message = "Bye. Hope to yap with you again soon!";
+        System.out.println(message);
+        return message;
     }
     /**
      * Displays matching tasks based on a keyword search.
@@ -105,10 +115,13 @@ public class Ui {
      * @param matchingTasks The list of matching tasks.
      * @param keyword       The keyword used for searching.
      */
-    public void showMatchingTasks(List<Task> matchingTasks, String keyword) {
-        System.out.println("Here are the matching tasks for keyword '" + keyword + "':");
+    public String showMatchingTasks(List<Task> matchingTasks, String keyword) {
+        StringBuilder result = new StringBuilder("Here are the matching tasks for keyword '" + keyword + "':\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println((i + 1) + "." + matchingTasks.get(i));
+            result.append((i + 1)).append(".").append(matchingTasks.get(i)).append("\n");
         }
+        String message = result.toString();
+        System.out.println(message);
+        return message;
     }
 }

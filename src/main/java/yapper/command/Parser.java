@@ -1,17 +1,22 @@
 package yapper.command;
-import yapper.tasks.*;
-import yapper.YapperException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import yapper.YapperException;
+import yapper.tasks.Deadline;
+import yapper.tasks.Event;
+import yapper.tasks.Task;
+import yapper.tasks.Todo;
+
+
 /**
  * The Parser class is responsible for parsing task strings and creating Task objects.
  */
 public class Parser {
-    private static final DateTimeFormatter DATE_TIME_FORMATTER
-            = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Parses a task string and returns the corresponding Task object.
@@ -39,7 +44,7 @@ public class Parser {
                         "Sorry the date format you yapped is invalid :(");
             }
         case "E":
-            try{
+            try {
                 LocalDateTime from = LocalDateTime.parse(parts[3], DATE_TIME_FORMATTER);
                 LocalDateTime to = LocalDateTime.parse(parts[4], DATE_TIME_FORMATTER);
                 return new Event(description, isDone, from, to);
