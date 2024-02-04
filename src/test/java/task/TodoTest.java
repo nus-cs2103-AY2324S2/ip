@@ -1,6 +1,7 @@
 package task;
 
-import nicoleexceptions.NicoleException;
+import nicole.task.Todo;
+import nicole.nicoleexceptions.NicoleException;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,7 +12,7 @@ public class TodoTest {
         try {
             new Todo("null");
         } catch (NicoleException e) {
-            assertEquals("Nicole: ERROR. What exactly do you want me to note...tell me in the form of: todo [task]",
+            assertEquals("ERROR. What exactly do you want me to note...tell me in the form of: todo [task]",
                     e.toString());
         }
     }

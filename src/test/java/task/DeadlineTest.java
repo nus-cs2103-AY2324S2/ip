@@ -1,6 +1,7 @@
 package task;
 
-import nicoleexceptions.NicoleException;
+import nicole.task.Deadline;
+import nicole.nicoleexceptions.NicoleException;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,7 +15,7 @@ public class DeadlineTest {
             fail();
         } catch (NicoleException e) {
             assertEquals(
-                    "Nicole: ERROR. Describe your deadline like this: deadline [task] by YYYY-MM-DD",
+                    "ERROR. Describe your deadline like this: deadline [task] by YYYY-MM-DD",
                     e.toString());
         }
     }
@@ -25,7 +26,7 @@ public class DeadlineTest {
             fail();
         } catch (NicoleException e) {
             assertEquals(
-                    "Nicole: ERROR. Describe your deadline like this: deadline [task] by YYYY-MM-DD",
+                    "ERROR. Describe your deadline like this: deadline [task] by YYYY-MM-DD",
                     e.toString());
         }
     }
@@ -37,7 +38,7 @@ public class DeadlineTest {
             fail();
         } catch (NicoleException e) {
             assertEquals(
-                    "Nicole: ERROR. Are you sure your date is in the proper [YYYY-MM-DD] format...?",
+                    "ERROR. Are you sure your date is in the proper [YYYY-MM-DD] format...?",
                     e.toString());
         }
     }
@@ -48,7 +49,7 @@ public class DeadlineTest {
             new Deadline("return book by 2010-01-01");
         } catch (NicoleException e) {
             assertEquals(
-                    "Nicole: ERROR. Erm, the deadline can't be before now right...",
+                    "ERROR. Erm, the deadline can't be before now right...",
                     e.toString());
         }
     }
@@ -56,8 +57,8 @@ public class DeadlineTest {
     @Test
     void deadlineCreation_perfectConditions_toStringCorrect() {
         try {
-            Deadline testDeadline = new Deadline("return book by 2024-01-29");
-            assertEquals("[D][I] return book by 2024-01-29", testDeadline.toString());
+            Deadline testDeadline = new Deadline("return book by 2024-12-31");
+            assertEquals("[D][I] return book by 2024-12-31", testDeadline.toString());
         } catch (NicoleException e) {
             fail();
         }

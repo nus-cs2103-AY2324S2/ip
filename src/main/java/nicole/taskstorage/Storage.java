@@ -1,4 +1,4 @@
-package taskstorage;
+package nicole.taskstorage;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,9 +9,8 @@ import java.io.IOException;
 
 import java.util.Scanner;
 
-import nicoleexceptions.NicoleException;
-
-import task.Task;
+import nicole.nicoleexceptions.NicoleException;
+import nicole.task.Task;
 
 public class Storage {
     public Storage() {
