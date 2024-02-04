@@ -33,7 +33,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "Jimmy"
+    archiveBaseName = "jimmy"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
