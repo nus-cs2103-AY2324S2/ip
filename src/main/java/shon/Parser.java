@@ -48,6 +48,7 @@ public class Parser {
             throw new CommandException("Please enter a command.");
         }
         try {
+            // guaranteed to have at least one item in split as input is stripped and empty string checked
             return Action.valueOf(input.split(" ")[0].toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new CommandException("OOPS!!! I'm sorry, but I don't know what that means :-)");
@@ -76,10 +77,22 @@ public class Parser {
         }
         String description = split[1].strip();
         // check empty description for deadline
-        description = description.split("/by")[0].strip();
+        split = description.split("/by", 2);
+        if (split.length == 0) {
+            throw new ParameterException("Description cannot be empty.");
+        }
+        description = split[0].strip();
         // check empty description for event
-        description = description.split("/to")[0].strip();
-        description = description.split("/from")[0].strip();
+        split = description.split("/to", 2);
+        if (split.length == 0) {
+            throw new ParameterException("Description cannot be empty.");
+        }
+        description = split[0].strip();
+        split = description.split("/from", 2);
+        if (split.length == 0) {
+            throw new ParameterException("Description cannot be empty.");
+        }
+        description = split[0].strip();
         if (description.equals("")) {
             throw new ParameterException("Description cannot be empty");
         }
@@ -92,7 +105,7 @@ public class Parser {
         }
         // description is guaranteed to be not empty since getDescription() is called first
         if (input.endsWith("/by")) {
-            throw new ParameterException("shon.task.Deadline's due date/time cannot be empty.");
+            throw new ParameterException("Deadline's due date/time cannot be empty.");
         }
         return input.split("/by", 2)[1].strip();
     }
@@ -106,12 +119,16 @@ public class Parser {
         String[] split = input.split("/from", 2);
         // description is guaranteed to be not empty since getDescription() is called first
         if (split.length == 1) {
-            throw new ParameterException("shon.task.Event from date/time cannot be empty.");
+            throw new ParameterException("Event from date/time cannot be empty.");
         }
         String from = split[1].strip();
-        from = from.split("/to")[0].strip();
+        split = from.split("/to", 2);
+        if (split.length == 0) {
+            throw new ParameterException("Event from date/time cannot be empty.");
+        }
+        from = split[0].strip();
         if (from.equals("")) {
-            throw new ParameterException("shon.task.Event from date/time cannot be empty.");
+            throw new ParameterException("Event from date/time cannot be empty.");
         }
         return from;
     }
@@ -126,7 +143,7 @@ public class Parser {
             throw new ParameterException("\"/to\" must come after \"/from\".");
         }
         if (to.endsWith("/to")) {
-            throw new ParameterException("shon.task.Event to date/time cannot be empty.");
+            throw new ParameterException("Event to date/time cannot be empty.");
         }
         return to.split("/to", 2)[1].strip();
     }
