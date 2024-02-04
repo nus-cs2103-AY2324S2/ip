@@ -9,11 +9,29 @@ import java.time.format.FormatStyle;
 import duke.CustomExceptions;
 import duke.Parser;
 
+/**
+ * Represents a Deadline, which differs from a To-do and an Event
+ * in that it contains 1 DateTime member representing when the
+ * doneBy time which the task with the deadline must be completed.
+ */
 public class Deadline implements Item, Serializable {
 
     private boolean isDone = false;
     private String name = "";
     private LocalDateTime doneBy;
+
+    /**
+     * Creates a new deadline object. The name, isDone and doneBy
+     * field values are obtained from parsing the info argument.
+     *
+     * @param info a string array obtained from splitting command with
+     *             the whitespace regex.
+     * @throws CustomExceptions.DeadlineExceptionBy if no /by command was found.
+     * @throws CustomExceptions.NamelessTaskException if the name in the command
+     *                                                cannot be parsed.
+     * @throws CustomExceptions.UnrecognizableDateException if the parser throws
+     *                                                      a DateTimeParseException.
+     */
     public Deadline(String[] info) throws CustomExceptions {
         int index = 1;
         String s = "";

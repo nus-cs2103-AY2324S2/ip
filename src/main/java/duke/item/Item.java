@@ -2,6 +2,12 @@ package duke.item;
 
 import java.io.Serializable;
 
+/**
+ * The Item interface ensures that ItemList is able to
+ * contain all implementing classes of the Item interface.
+ * All Items must implement the following methods to be
+ * compatible with ItemList methods.
+ */
 public interface Item extends Serializable {
 
     void markDone();
