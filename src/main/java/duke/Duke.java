@@ -19,8 +19,8 @@ public class Duke {
 
     public static void main(String[] args) {
         Duke elias = new Duke("./data/duke.txt");
-        System.out.println(elias.ui.logo);
-        System.out.println(elias.ui.format(elias.ui.greet));
+        System.out.println(elias.ui.getLogo());
+        System.out.println(elias.ui.format(elias.ui.getGreet()));
         elias.parser = new Parser(elias.itemList);
         Scanner sc = new Scanner(System.in);
         String command = sc.nextLine();
@@ -31,7 +31,7 @@ public class Duke {
                 if (!(out == null)) {
                     System.out.println(elias.ui.format(out));
                 }
-            } catch (CustomExceptions.unrecognizedCommandException e) {
+            } catch (CustomExceptions.UnrecognizedCommandException e) {
                 System.out.println(elias.ui.format("Sorry I do not recognize this command: " + command));
             } catch (CustomExceptions e) {
                 System.out.println(elias.ui.format(e.getMessage()));
@@ -40,6 +40,6 @@ public class Duke {
         }
 
         elias.storage.writeToFile(elias.itemList);
-        System.out.println(elias.ui.format(elias.ui.bye));
+        System.out.println(elias.ui.format(elias.ui.getBye()));
     }
 }
