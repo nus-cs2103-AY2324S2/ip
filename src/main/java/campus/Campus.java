@@ -16,7 +16,7 @@ public class Campus {
      * Creation of a Campus instance
      */
     public Campus() {
-        String filePath = "src/test/java/campus/dataTest.txt";
+        String filePath = "src/main/java/campus/dataTest.txt";
         this.ui = new Ui();
         TaskList taskList = new TaskList();
         Storage storage = new Storage(filePath);
@@ -35,7 +35,7 @@ public class Campus {
         return this.ui.greet();
     }
 
-    public void exit() {
-        this.ui.exit();
+    public String exit() {
+        return this.ui.exit();
     }
 }

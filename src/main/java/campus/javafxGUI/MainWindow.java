@@ -59,14 +59,18 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
 
-        if (Objects.equals(response, "bye")) {
-            campus.exit();
+        if (Objects.equals(input, "bye")) {
             terminate();
         }
     }
 
     public void greet() {
         String msg = campus.greet();
+        dialogContainer.getChildren().add(DialogBox.getCampusDialog(msg, campusImage));
+    }
+
+    public void exit() {
+        String msg = campus.exit();
         dialogContainer.getChildren().add(DialogBox.getCampusDialog(msg, campusImage));
     }
 

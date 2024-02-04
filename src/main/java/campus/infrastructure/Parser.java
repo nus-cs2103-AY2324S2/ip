@@ -82,7 +82,7 @@ public class Parser {
             msg = handleEventCommand(remaining);
             break;
         case "bye":
-            return firstWord;
+            return ui.exit();
         case "":
             break;
         case "find":
