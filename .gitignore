@@ -13,6 +13,6 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
-data/codriver.txt
+/text-lrbg.codriver.ui-test/ACTUAL.TXT
+text-lrbg.codriver.ui-test/EXPECTED-UNIX.TXT
+lrbg.codriver.data/codriver.txt

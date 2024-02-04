@@ -1,4 +1,4 @@
-package data.exception;
+package lrbg.codriver.data.exception;
 
 public class CoDriverException extends Exception {
     public CoDriverException(String message) {

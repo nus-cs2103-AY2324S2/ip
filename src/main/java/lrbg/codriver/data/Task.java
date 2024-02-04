@@ -1,4 +1,4 @@
-package data;
+package lrbg.codriver.data;
 
 public abstract class Task {
     private final String description;

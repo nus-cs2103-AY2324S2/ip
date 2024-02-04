@@ -1,4 +1,4 @@
-package data;
+package lrbg.codriver.data;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,8 +7,8 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import data.exception.CoDriverException;
-import parser.Parser;
+import lrbg.codriver.data.exception.CoDriverException;
+import lrbg.codriver.parser.Parser;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
@@ -108,10 +108,6 @@ public class TaskList {
             }
         }
         return sb.toString();
-    }
-
-    public void saveTaskList(String filePath) {
-
     }
 
     public static TaskList openTaskList(String filePath) {

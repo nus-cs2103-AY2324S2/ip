@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("CoDriver")
+    mainClass.set("lrbg.codriver.CoDriver")
 }
 
 shadowJar {

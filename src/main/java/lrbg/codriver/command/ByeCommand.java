@@ -1,8 +1,8 @@
-package command;
+package lrbg.codriver.command;
 
-import data.TaskList;
-import ui.Ui;
-import storage.Storage;
+import lrbg.codriver.data.TaskList;
+import lrbg.codriver.ui.Ui;
+import lrbg.codriver.storage.Storage;
 
 public class ByeCommand extends Command {
     public ByeCommand() {
@@ -14,5 +14,9 @@ public class ByeCommand extends Command {
     @Override
     public boolean isExit() {
         return true;
+    }
+
+    public boolean testEquals(Object obj) {
+        return obj instanceof ByeCommand;
     }
 }

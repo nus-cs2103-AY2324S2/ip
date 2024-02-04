@@ -1,4 +1,4 @@
-package data;
+package lrbg.codriver.data;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

@@ -1,4 +1,4 @@
-package storage;
+package lrbg.codriver.storage;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class Storage {
 
     public boolean save(String saveString) {
         try {
-            // if the data directory does not exist, create it
+            // if the lrbg.codriver.data directory does not exist, create it
             Files.createDirectory(Paths.get("./data"));
         } catch (IOException e) {
             // do nothing

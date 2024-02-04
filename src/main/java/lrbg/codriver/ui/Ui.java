@@ -1,8 +1,8 @@
-package ui;
+package lrbg.codriver.ui;
 
-import data.Task;
-import data.TaskList;
-import data.exception.CoDriverException;
+import lrbg.codriver.data.Task;
+import lrbg.codriver.data.TaskList;
+import lrbg.codriver.data.exception.CoDriverException;
 
 import java.util.Scanner;
 
@@ -23,7 +23,7 @@ public class Ui {
 
     public void showGreeting() {
         showLine();
-        System.out.println("Hello! I'm CoDriver, your everyday AI companion!");
+        System.out.println("Hello! I'm lrbg.codriver.CoDriver, your everyday AI companion!");
         System.out.println("What can I do for you?");
         showLine();
     }
