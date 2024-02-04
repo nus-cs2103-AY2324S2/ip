@@ -16,9 +16,12 @@ public class Parser {
     static final Pattern PATTERN_MANAGE = Pattern.compile("((?i)unmark|mark|delete) (\\d+)");
     static final Pattern PATTERN_ACTIONS = Pattern.compile("((?i)todo|deadline|event) (.+)");
 
+    static final Pattern PATTERN_QUERY = Pattern.compile("((?i)find) (.+)");
+
     public static ArrayList<String> parse(String command, TaskManager manager) throws DukeException {
         Matcher manageMatch = PATTERN_MANAGE.matcher(command);
         Matcher actionMatch = PATTERN_ACTIONS.matcher(command);
+        Matcher queryMatch = PATTERN_QUERY.matcher(command);
         if (command.matches("((?i)bye)")) {
             isDead = true;
             ArrayList<String> returnString = new ArrayList<>();
@@ -34,6 +37,8 @@ public class Parser {
             } else if (actionMatch.matches()) {
                 Actions act = Actions.valueOf(actionMatch.group(1).toUpperCase());
                 return manager.addTask(act, actionMatch.group(2));
+            } else if (queryMatch.matches()) {
+                return manager.findTask(queryMatch.group(2).trim());
             } else {
                 throw new DukeException("invalid");
             }

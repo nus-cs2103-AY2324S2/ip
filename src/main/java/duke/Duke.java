@@ -52,6 +52,7 @@ public class Duke {
                 ui.showError(" OPPPS!!!!That is not a number!!!!!!!!!!");
             } finally {
                 ui.spacer();
+                storage.saveFile(manager);
             }
         }
 
