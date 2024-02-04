@@ -78,13 +78,13 @@ public class Parser {
         }
         String[] eventParts = commandParts[1].split(" /from ");
         if (eventParts.length == 1) {
-            throw new DukeException("The start date of an event cannot be empty. " +
-                    "Please use /from to specify the start date.");
+            throw new DukeException("The start date of an event cannot be empty. "
+                    + "Please use /from to specify the start date.");
         }
         String[] eventParts2 = eventParts[1].split(" /to ");
         if (eventParts2.length == 1) {
-            throw new DukeException("The end date of an event cannot be empty. " +
-                    "Please use /to to specify the end date.");
+            throw new DukeException("The end date of an event cannot be empty. "
+                    + "Please use /to to specify the end date.");
         }
         LocalDate from;
         LocalDate to;
