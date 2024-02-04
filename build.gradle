@@ -15,7 +15,6 @@ dependencies {
 
 test {
     useJUnitPlatform()
-
     testLogging {
         events "passed", "skipped", "failed"
 
@@ -28,15 +27,17 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("UI.Duke")
 }
 
 shadowJar {
     archiveBaseName = "duke"
+    archiveFileName = "duke.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
