@@ -22,6 +22,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Main class of duke chatbot project. Upon running, creates a new ui to handle interactions with user and a parser to parse instructions
+ * from the user. Stores a txt file containing consequences of the instructions using Storage and parses the txt file for future
+ * use using the FileParser class.
+ */
 public class Toothless {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -67,6 +72,7 @@ public class Toothless {
         }
     }
 
+
     public void run() {
 
     }
@@ -82,4 +88,5 @@ public class Toothless {
     static void printLines() {
         System.out.println("____________________________________________________________");
     }
+
 }

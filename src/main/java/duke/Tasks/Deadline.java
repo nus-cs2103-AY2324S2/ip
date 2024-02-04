@@ -4,6 +4,9 @@ package duke.Tasks;
 import java.time.LocalDate;
 import duke.Parsers.DateTimeParser;
 
+/**
+ * Type of task with a deadline
+ */
 public class Deadline extends Task {
 
     String taskType;
@@ -16,10 +19,15 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * To mark the task as done using the superclass's mark method.
+     */
     public void mark() {
         super.mark();
     }
-
+    /**
+     * To unmark the task as done using the superclass's mark method.
+     */
     public void unmark() {
         super.unmark();
     }

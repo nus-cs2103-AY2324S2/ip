@@ -4,14 +4,15 @@ import duke.Exceptions.InvalidInstructionException;
 import duke.Exceptions.MissingTaskToMarkException;
 import duke.Exceptions.MissingToDoNameException;
 import duke.Parsers.DateTimeParser;
-import duke.Tasks.Deadline;
-import duke.Tasks.Event;
-import duke.Tasks.ToDo;
+import duke.Tasks.*;
 import javafx.util.Pair;
-import duke.Tasks.TaskList;
 
 import java.time.LocalDate;
 
+/**
+ * Class that takes in the user input and executes the command, returning a response string to be printed
+ * and the modified TaskList.
+ */
 public class Parser {
     //String response;
     String line;
@@ -20,6 +21,13 @@ public class Parser {
         this.line = "____________________________________________________________\n";
     }
 
+    /**
+     *
+     * @param tasksList TaskList to be modified depending on user input
+     * @param input User input to execute instructions on TaskList
+     * @return Returns a String response and modified TaskList
+     * @throws InvalidInstructionException if instruction is not formatted properly or has logical issues.
+     */
     public Pair<TaskList, String> parse(TaskList tasksList, String input) throws InvalidInstructionException {
         String output = "";
         if (!input.toLowerCase().equals("bye")) {
@@ -98,10 +106,25 @@ public class Parser {
                 }
 
 
-            } else if (input.toLowerCase().startsWith("delete")){
+            } else if (input.toLowerCase().startsWith("delete")) {
                 int index = Integer.parseInt(input.substring(7));
                 String response = tasksList.delete(index);
                 output += (response);
+
+            } else if (input.toLowerCase().startsWith("find")) {
+                String keyword = input.split(" ")[1];
+                TaskList temp = new TaskList();
+                for (Task t : tasksList.getTasksList()) {
+                    if (t.getTaskName().contains(keyword)) {
+                        temp.add(t);
+                    }
+
+                }
+                output += this.line;
+                output += "Here are the matching tasks in your list:\n";
+                output += temp.toString();
+                output += ("\n" + this.line);
+
             } else {
                 output += ("Try entering a valid instruction! Eg. 'Todo Chores' or 'Mark 2'\n");
             }
