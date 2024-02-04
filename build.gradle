@@ -1,8 +1,10 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
+
 
 repositories {
     mavenCentral()
@@ -15,10 +17,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
-
     testLogging {
         events "passed", "skipped", "failed"
-
         showExceptions true
         exceptionFormat "full"
         showCauses true
@@ -28,11 +28,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("Chitty")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "chitty"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
