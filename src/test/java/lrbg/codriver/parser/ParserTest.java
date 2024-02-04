@@ -15,8 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.time.LocalDate;
-
 public class ParserTest {
     @Test
     public void parseTest_correctArgument_success() {
@@ -58,6 +56,98 @@ public class ParserTest {
             fail();
         } catch (Exception e) {
             assertEquals("Error! You cannot provide a deadline with no parameters!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseTest_eventIncorrectArgument_exceptionThrown() {
+        try {
+            Parser.parse("event 1234 /from 202108-25 /to 2021-08-26");
+            fail();
+        } catch (Exception e) {
+            assertEquals("Error! The date provided must be in yyyy-mm-dd format!", e.getMessage());
+        }
+        try {
+            Parser.parse("event 1234 /from 2021-08-25 /to 202108-26");
+            fail();
+        } catch (Exception e) {
+            assertEquals("Error! The date provided must be in yyyy-mm-dd format!", e.getMessage());
+        }
+        try {
+            Parser.parse("event 1234 /from 2021-08-25 /to");
+            fail();
+        } catch (Exception e) {
+            assertEquals("Error! You must provide a /to date for an event!", e.getMessage());
+        }
+        try {
+            Parser.parse("event 1234 /from 2021-08-25");
+            fail();
+        } catch (Exception e) {
+            assertEquals("Error! You must provide a /to date for an event!", e.getMessage());
+        }
+        try {
+            Parser.parse("event 1234");
+            fail();
+        } catch (Exception e) {
+            assertEquals("Error! You must provide a /from date for an event!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseTest_todoIncorrectArgument_exceptionThrown() {
+        try {
+            Parser.parse("todo");
+            fail();
+        } catch (Exception e) {
+            assertEquals("Error! You cannot provide a todo with no description!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseTest_markIncorrectArgument_exceptionThrown() {
+        try {
+            Parser.parse("mark");
+            fail();
+        } catch (Exception e) {
+            assertEquals("Error! You should provide an integer argument for mark!", e.getMessage());
+        }
+        try {
+            Parser.parse("mark 1 2");
+            fail();
+        } catch (Exception e) {
+            assertEquals("Error! You should only provide 1 argument for mark!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseTest_unmarkIncorrectArgument_exceptionThrown() {
+        try {
+            Parser.parse("unmark");
+            fail();
+        } catch (Exception e) {
+            assertEquals("Error! You should provide an integer argument for unmark!", e.getMessage());
+        }
+        try {
+            Parser.parse("unmark 1 2");
+            fail();
+        } catch (Exception e) {
+            assertEquals("Error! You should only provide 1 argument for unmark!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseTest_deleteIncorrectArgument_exceptionThrown() {
+        try {
+            Parser.parse("delete");
+            fail();
+        } catch (Exception e) {
+            assertEquals("Error! You should provide an integer argument for delete!", e.getMessage());
+        }
+        try {
+            Parser.parse("delete 1 2");
+            fail();
+        } catch (Exception e) {
+            assertEquals("Error! You should only provide 1 argument for delete!", e.getMessage());
         }
     }
 }

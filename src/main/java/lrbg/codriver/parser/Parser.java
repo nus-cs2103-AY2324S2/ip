@@ -102,7 +102,7 @@ public class Parser {
             descriptionBuilder.deleteCharAt(descriptionBuilder.length() - 1); // remove the last space
 
             if (i >= arguments.length - 1) { // if the last word is /from or there is no /from
-                throw new CoDriverException("Error! You must provide a /from date/time for an event!");
+                throw new CoDriverException("Error! You must provide a /from date for an event!");
             }
 
 //        StringBuilder fromBuilder = new StringBuilder();
@@ -125,7 +125,7 @@ public class Parser {
 //        fromBuilder.deleteCharAt(fromBuilder.length() - 1);
 
             if (i >= arguments.length - 1) { // if the last word is /to or there is no /to
-                throw new CoDriverException("Error! You must provide a /to date/time for an event!");
+                throw new CoDriverException("Error! You must provide a /to date for an event!");
             }
 
 //        StringBuilder toBuilder = new StringBuilder();
