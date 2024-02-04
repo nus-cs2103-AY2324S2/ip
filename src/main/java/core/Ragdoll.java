@@ -2,8 +2,8 @@ package core;
 
 import commands.Command;
 import data.Storage;
-import tasks.TaskList;
 import java.nio.file.Paths;
+import tasks.TaskList;
 
 public class Ragdoll{
     private Storage storage;

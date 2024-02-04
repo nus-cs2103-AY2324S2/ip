@@ -71,10 +71,12 @@ public class Storage {
 
         try (BufferedReader reader = Files.newBufferedReader(path)) {
             String line;
+
             while ((line = reader.readLine()) != null) {
                 try {
                     String[] parts = line.split(" \\| ");
                     Task task = null;
+
                     switch (parts[0]) {
                     case "T":
                         task = new ToDo(parts[2]);
@@ -88,6 +90,7 @@ public class Storage {
                     default:
                         ui.showLoadingError("corrupted");
                     }
+
                     if (task != null) {
                         if (parts[1].equals("1")) {
                             task.mark();
@@ -104,6 +107,7 @@ public class Storage {
             ui.showLoadingError("cannot read the task file");
             e.printStackTrace();
         }
+
         return loadedTasks;
     }
 }
