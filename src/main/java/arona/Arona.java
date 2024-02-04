@@ -38,7 +38,7 @@ public class Arona {
         Ui.printLines("I've added this task, Sensei!",
                 "    " + task,
                 "Now, your task list has " + tasks.getSize() + " task"
-                + (tasks.getSize() == 1 ? "" : "s") + ".");
+                        + (tasks.getSize() == 1 ? "" : "s") + ".");
     }
 
     private void addDeadline(String str, String by) throws AronaInvalidDateException {
@@ -47,7 +47,7 @@ public class Arona {
         Ui.printLines("I've added this deadline, Sensei!",
                 "    " + deadline,
                 "Now, your task list has " + tasks.getSize() + " task"
-                + (tasks.getSize() == 1 ? "" : "s") + ".");
+                        + (tasks.getSize() == 1 ? "" : "s") + ".");
     }
 
     private void addEvent(String str, String start, String end) throws AronaInvalidDateException {
@@ -56,7 +56,7 @@ public class Arona {
         Ui.printLines("I've added this event, Sensei!",
                 "    " + event,
                 "Now, your task list has " + tasks.getSize() + " task"
-                + (tasks.getSize() == 1 ? "" : "s") + ".");
+                        + (tasks.getSize() == 1 ? "" : "s") + ".");
     }
 
     private void deleteTask(int id) {
@@ -65,7 +65,7 @@ public class Arona {
         Ui.printLines("I've removed this task, Sensei!",
                 "    " + task,
                 "Now, your task list has " + tasks.getSize() + " task"
-                + (tasks.getSize() == 1 ? "" : "s") + ".");
+                        + (tasks.getSize() == 1 ? "" : "s") + ".");
     }
 
     private void markDone(int id) {
@@ -80,7 +80,13 @@ public class Arona {
                 "    " + tasks.getTask(id));
     }
 
-    private boolean processCommand(CommandType commandType, String[] commandSplit) throws AronaIncompleteCommandException, AronaInvalidIndexException, AronaInvalidCommandException, AronaInvalidDateException {
+    private void findTasks(String keyword) {
+        tasks.listTasksWithKeyword(keyword);
+    }
+
+    private boolean processCommand(CommandType commandType, String[] commandSplit) throws
+            AronaIncompleteCommandException, AronaInvalidIndexException,
+            AronaInvalidCommandException, AronaInvalidDateException {
         if (commandType == CommandType.BYE) {
             return false;
         } else if (commandType == CommandType.LIST) {
@@ -154,6 +160,12 @@ public class Arona {
 
             int index = Integer.parseInt(commandSplit[1]) - 1;
             deleteTask(index);
+        } else if (commandType == CommandType.FIND) {
+            if (commandSplit.length == 1 || commandSplit[1].equals("")) {
+                throw new AronaIncompleteCommandException("keyword");
+            }
+
+            findTasks(commandSplit[1]);
         } else {
             throw new AronaInvalidCommandException("");
         }

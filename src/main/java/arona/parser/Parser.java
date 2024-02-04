@@ -24,6 +24,8 @@ public class Parser {
             return CommandType.MARK;
         } else if (command.equals("unmark")) {
             return CommandType.UNMARK;
+        } else if (command.equals("find")) {
+            return CommandType.FIND;
         } else {
             throw new AronaInvalidCommandException("");
         }
