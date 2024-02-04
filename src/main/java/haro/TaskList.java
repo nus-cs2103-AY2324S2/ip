@@ -122,6 +122,33 @@ public class TaskList {
     }
 
     /**
+     * Finds the tasks in task list with keyword present.
+     *
+     * @param searchString keyword that the task list will search for
+     * @return String representation of tasks with keyword present
+     */
+    public String findTask(String searchString) {
+        String resultString = "";
+        int index = 1;
+
+        if (tasks.isEmpty()) {
+            return resultString;
+        }
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currTask = tasks.get(i);
+            boolean isFound = currTask.isFound(searchString);
+
+            if (isFound) {
+                resultString += index + ". " + currTask.printTask() + "\n";
+                index++;
+            }
+        }
+
+        return resultString;
+    }
+
+    /**
      * Retrieves the ArrayList of Task objects.
      *
      * @return ArrayList of Task objects
