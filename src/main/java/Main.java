@@ -1,3 +1,6 @@
+/**
+ * Main class to run the bot.
+ */
 public class Main {
     static final String FOLDER_PATH = "./data";
     static final String FILE_PATH = FOLDER_PATH + "/jimmy";

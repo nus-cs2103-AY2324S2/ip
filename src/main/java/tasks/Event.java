@@ -5,6 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
+/**
+ * Represents an event with a start and end time.
+ */
 public class Event extends Task {
     private final LocalDate start;
     private final LocalDate end;
@@ -18,7 +21,8 @@ public class Event extends Task {
      * @param start    Start time of the event.
      * @param end      End time of the event.
      */
-    public Event(String taskName, String start, String end, boolean isCompleted) throws DateTimeParseException, IllegalArgumentException {
+    public Event(String taskName, String start, String end, boolean isCompleted)
+            throws DateTimeParseException, IllegalArgumentException {
         super(taskName, isCompleted);
         this.start = parseStringtoLocalDate(start);
         this.end = parseStringtoLocalDate(end);
@@ -70,7 +74,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + parseLocalDatetoString(this.start) + " to: " + parseLocalDatetoString(this.end) + ")";
+        return "[E]" + super.toString() + " (from: " + parseLocalDatetoString(this.start)
+                + " to: " + parseLocalDatetoString(this.end) + ")";
     }
 
     /**
@@ -79,6 +84,8 @@ public class Event extends Task {
      * @return String representation of an event.
      */
     public String toFileString() {
-        return String.format("%s | %d | %s | %s | %s", "E", Objects.equals(super.getStatus(), "X") ? 1 : 0, super.getDesc(), this.start.format(informalDateFormat), this.end.format(informalDateFormat));
+        return String.format("%s | %d | %s | %s | %s", "E", Objects.equals(super.getStatus(), "X") ? 1 : 0,
+                super.getDesc(), this.start.format(informalDateFormat),
+                this.end.format(informalDateFormat));
     }
 }

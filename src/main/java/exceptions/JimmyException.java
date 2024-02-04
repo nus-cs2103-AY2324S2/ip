@@ -1,5 +1,8 @@
 package exceptions;
 
+/**
+ * Represents the exceptions.JimmyException class.
+ */
 public class JimmyException extends Exception {
 
     /**

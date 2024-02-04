@@ -9,6 +9,9 @@ import tasks.Todo;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> taskList = new ArrayList<>();
     private final Parser parser = new Parser();
@@ -64,7 +67,8 @@ public class TaskList {
         } catch (IllegalArgumentException e) {
             throw new JimmyException("Please enter a valid task type.");
         } catch (DateTimeParseException e) {
-            throw new JimmyException("Error: Cannot parse the date written by the user. Please uselist the following format: dd-MMM-yyyy (e.g. 19-01-2025)");
+            throw new JimmyException("Error: Cannot parse the date written by the user. "
+                    + "Please use the following format: dd-MMM-yyyy (e.g. 19-01-2025)");
         }
 
         taskList.add(newTask);
@@ -92,7 +96,8 @@ public class TaskList {
      */
     private Deadline createNewDeadline(String details) throws JimmyException {
         String[] deadlineDetails = parser.parseDeadlineDetails(details);
-        String deadlineName = deadlineDetails[0], deadline = deadlineDetails[1];
+        String deadlineName = deadlineDetails[0];
+        String deadline = deadlineDetails[1];
         if (deadlineName.length() == 0 || deadline.length() == 0) {
             throw new JimmyException("Please check that you have entered a deadline name and a deadline.");
         }
@@ -108,7 +113,9 @@ public class TaskList {
      */
     private Event createNewEvent(String details) throws JimmyException {
         String[] eventDetails = parser.parseEventDetails(details);
-        String eventName = eventDetails[0], start = eventDetails[1], end = eventDetails[2];
+        String eventName = eventDetails[0];
+        String start = eventDetails[1];
+        String end = eventDetails[2];
         if (eventName.length() == 0 || start.length() == 0 || end.length() == 0) {
             throw new JimmyException("Please check that you have entered a event name, a start time and an end time.");
         }

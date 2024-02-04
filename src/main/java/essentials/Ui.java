@@ -1,5 +1,8 @@
 package essentials;
 
+/**
+ * Represents the user interface of the bot.
+ */
 public class Ui {
 
     /**

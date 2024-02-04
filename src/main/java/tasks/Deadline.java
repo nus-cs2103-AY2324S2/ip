@@ -1,10 +1,13 @@
 package tasks;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
-import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a deadline task.
+ */
 public class Deadline extends Task {
     private final LocalDate deadline;
     private final DateTimeFormatter informalDateFormat = DateTimeFormatter.ofPattern("d-MM-yyyy");
@@ -16,7 +19,8 @@ public class Deadline extends Task {
      * @param taskName Name of the task.
      * @param deadline tasks.Deadline of the task.
      */
-    public Deadline(String taskName, String deadline, boolean isCompleted) throws DateTimeParseException, IllegalArgumentException {
+    public Deadline(String taskName, String deadline, boolean isCompleted)
+            throws DateTimeParseException, IllegalArgumentException {
         super(taskName, isCompleted);
         this.deadline = this.parseStringtoLocalDate(deadline);
         if (this.deadline.isBefore(LocalDate.now())) {

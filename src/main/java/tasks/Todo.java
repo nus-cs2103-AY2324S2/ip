@@ -2,6 +2,9 @@ package tasks;
 
 import java.util.Objects;
 
+/**
+ * Represents a todo task.
+ */
 public class Todo extends Task {
 
     /**

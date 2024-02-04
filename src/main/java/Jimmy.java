@@ -6,6 +6,9 @@ import exceptions.JimmyException;
 
 import java.util.Scanner;
 
+/**
+ * Represents the main bot class.
+ */
 public class Jimmy {
     private final Storage storage;
     private TaskList tasks;

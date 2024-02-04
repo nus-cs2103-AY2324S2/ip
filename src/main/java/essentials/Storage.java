@@ -16,6 +16,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Represents a storage that stores the task list into a file.
+ */
 public class Storage {
     private final String storagePath;
 
@@ -84,7 +87,8 @@ public class Storage {
      * @param fileString The string to be parsed.
      */
     public Task parseFileString(String fileString) throws JimmyException {
-        String[] attributes = fileString.split(" \\| "); // split by delimiter to obtain the task name, status and timings (if any)
+        // split by delimiter to obtain the task name, status and timings (if any)
+        String[] attributes = fileString.split(" \\| ");
         String taskType = attributes[0];
         boolean isTaskCompleted = Objects.equals(attributes[1], "1");
 
@@ -102,10 +106,11 @@ public class Storage {
                 String start = attributes[3];
                 String end = attributes[4];
                 return new Event(eventDesc, start, end, isTaskCompleted);
+            default:
+                throw new JimmyException("Error: Cannot parse the task saved locally.");
             }
         } catch (DateTimeParseException e) {
             throw new JimmyException("Error: Cannot parse the date saved locally.");
         }
-        return null;
     }
 }

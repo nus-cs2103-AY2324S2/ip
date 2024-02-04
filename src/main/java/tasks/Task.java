@@ -2,10 +2,12 @@ package tasks;
 
 import java.io.Serializable;
 
-abstract public class Task implements Serializable {
+/**
+ * Represents a task template.
+ */
+public abstract class Task implements Serializable {
     protected final String desc;
     private boolean isCompleted;
-    public abstract String toFileString();
 
     /**
      * Constructor for tasks.Task class.
@@ -16,6 +18,8 @@ abstract public class Task implements Serializable {
         this.desc = taskName;
         this.isCompleted = isCompleted;
     }
+
+    public abstract String toFileString();
 
     /**
      * Marks the task as complete.

@@ -2,6 +2,9 @@ package essentials;
 
 import exceptions.JimmyException;
 
+/**
+ * Represents a parser that parses the user input and task details.
+ */
 public class Parser {
     /**
      * Parses the user input into an array of strings.
@@ -33,8 +36,8 @@ public class Parser {
      */
     public String[] parseDeadlineDetails(String details) throws JimmyException {
         if (!details.contains(" /by ")) {
-            throw new JimmyException("Sorry! " +
-                    "Please use the correct format when creating a new event.");
+            throw new JimmyException("Sorry! "
+                    + "Please use the correct format when creating a new event.");
         }
         return details.split(" /by ", 2);
     }
@@ -48,8 +51,8 @@ public class Parser {
      */
     public String[] parseEventDetails(String details) throws JimmyException {
         if (!details.contains(" /from ") || !details.contains(" /to ")) {
-            throw new JimmyException("Sorry! " +
-                    "Please use the correct format when creating a new event.");
+            throw new JimmyException("Sorry! "
+                    + "Please use the correct format when creating a new event.");
         }
         return details.split(" /from | /to ");
     }
