@@ -4,8 +4,8 @@ import jade.commands.Command;
 import jade.data.TaskList;
 import jade.exception.JadeException;
 import jade.parser.Parser;
-import jade.ui.Ui;
 import jade.storage.Storage;
+import jade.ui.Ui;
 
 /**
  * A <code>Jade</code> object is a personal chatbot assistant that

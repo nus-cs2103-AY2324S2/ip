@@ -1,12 +1,11 @@
 package jade.data;
 
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
     @Test
@@ -67,6 +66,7 @@ public class TaskListTest {
     @Test
     public void listFormatter() {
         assertEquals("T | 1 | first\n", new TaskList(List.of(new Todo("first", true))).listFormatter());
-        assertEquals("T | 0 | first\nT | 1 | second\n", new TaskList(List.of(new Todo("first", false), new Todo("second", true))).listFormatter());
+        assertEquals("T | 0 | first\nT | 1 | second\n", new TaskList(List.of(new Todo("first", false),
+                new Todo("second", true))).listFormatter());
     }
 }

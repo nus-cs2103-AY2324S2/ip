@@ -4,8 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import jade.data.TaskList;
-import jade.ui.Ui;
 import jade.storage.Storage;
+import jade.ui.Ui;
+
 
 /**
  * The <code>ListCommand</code> object represents the command to list all tasks.
@@ -29,8 +30,7 @@ public class ListCommand extends Command {
     }
 
     /**
-     * @inheritDoc
-     * This implementation prints all tasks with an option to specify a date.
+     * @inheritDoc This implementation prints all tasks with an option to specify a date.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
@@ -46,26 +46,26 @@ public class ListCommand extends Command {
         for (int i = 1; i <= tasks.size(); i++) {
             // case when user has specified a date for listing the tasks
             if (selectedDate != null) { // print tasks on a specific date
-                if (tasks.get(i-1).isSameDate(selectedDate)) {
-                    sb.append(String.format("\t%d. %s\n", i, tasks.get(i-1)));
+                if (tasks.get(i - 1).isSameDate(selectedDate)) {
+                    sb.append(String.format("\t%d. %s\n", i, tasks.get(i - 1)));
                     count++;
                 }
             } else {
                 // print all tasks in list
-                sb.append(String.format("\t%d. %s\n", i, tasks.get(i-1)));
+                sb.append(String.format("\t%d. %s\n", i, tasks.get(i - 1)));
                 count++;
             }
         }
         if (selectedDate != null && count == 0) {
-            ui.printMessage(String.format("\tThere are no tasks on %s", selectedDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))));
+            ui.printMessage(String.format("\tThere are no tasks on %s", selectedDate
+                    .format(DateTimeFormatter.ofPattern("MMM d yyyy"))));
         } else {
             ui.printMessage((sb.toString()));
         }
     }
 
     /**
-     * @inheritDoc
-     * The ListCommand does not indicate the exit of the program.
+     * @inheritDoc The ListCommand does not indicate the exit of the program.
      */
     @Override
     public boolean shouldExit() {

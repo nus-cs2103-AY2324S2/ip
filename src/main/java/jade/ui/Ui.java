@@ -7,7 +7,8 @@ import java.util.Scanner;
  * A <code>Ui</code> object reads user input and prints feedbacks to user.
  */
 public class Ui {
-    private static final String line = "\t——————————————————————————————————————————\n"; // line to separate output for each command
+    private static final String line = "\t"
+            + "——————————————————————————————————————————\n"; // line to separate output for each command
     private static final String logo = "\t  ____   ___    ____     ______\n"
             + "\t  |  |  / _ \\  |  ___ \\ / |____/\n"
             + "\t  |  | | | | | | |  | | | |____\n"
@@ -26,12 +27,16 @@ public class Ui {
     /**
      * Prints the error message returned by the program.
      */
-    public void showError(String errorMsg) { printMessage(errorMsg); }
+    public void showError(String errorMsg) {
+        printMessage(errorMsg);
+    }
 
     /**
      * Prints the error message returned by the program.
      */
-    public void showLoadingError() { printMessage("\t[There's no file under current storage path, a new task file has been created.]"); }
+    public void showLoadingError() {
+        printMessage("\t[There's no file under current storage path, a new task file has been created.]");
+    }
 
     /**
      * Prints a line.
@@ -51,10 +56,12 @@ public class Ui {
      * Prints welcome message, logo, and instructions about using the Jade object.
      */
     public void launch() {
-        System.out.printf("%s%s\tHello, I'm Jade, your task manager.\n\tFeel free to set reminders for your task by entering text using the following format:\n\t" +
-                "1. todo {Task Description} -> e.g. todo read a book\n\t" +
-                "2. deadline {Task Description} /by {yyyy-mm-dd} -> e.g. deadline read a book /by 2024-12-31\n\t" +
-                "3. event {Task Description} /from {yyyy-mm-dd} /to {yyyy-mm-dd} -> e.g. read a book /from 2024-12-30 /to 2024-12-31\n%s", logo, line, line);
+        System.out.printf("%s%s\tHello, I'm Jade, your task manager.\n\tFeel free to set reminders "
+                + "for your task by entering text using the following format:\n\t"
+                + "1. todo {Task Description} -> e.g. todo read a book\n\t"
+                + "2. deadline {Task Description} /by {yyyy-mm-dd} -> e.g. deadline read a book /by 2024-12-31\n\t"
+                + "3. event {Task Description} /from {yyyy-mm-dd} /to {yyyy-mm-dd} -> "
+                + "e.g. read a book /from 2024-12-30 /to 2024-12-31\n%s", logo, line, line);
     }
 
     /**

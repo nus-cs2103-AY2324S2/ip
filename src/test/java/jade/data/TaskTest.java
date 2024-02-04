@@ -1,8 +1,8 @@
 package jade.data;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class TaskTest {
     @Test
@@ -10,13 +10,13 @@ public class TaskTest {
         // task with done status will return "X"
         assertEquals("X", new Task("a", true).getStatusIcon());
         // task with undone status will return " "
-        assertEquals(" ",  new Task("a").getStatusIcon());
+        assertEquals(" ", new Task("a").getStatusIcon());
     }
 
     @Test
     public void statusFormatter() {
         assertEquals("1", new Task("a", true).statusFormatter());
-        assertEquals("0",  new Task("a").statusFormatter());
+        assertEquals("0", new Task("a").statusFormatter());
     }
 
     @Test

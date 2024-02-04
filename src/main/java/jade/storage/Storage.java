@@ -11,7 +11,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import jade.data.*;
+import jade.data.Deadline;
+import jade.data.Event;
+import jade.data.Task;
+import jade.data.TaskList;
+import jade.data.Todo;
 import jade.exception.JadeException;
 
 /**
@@ -35,9 +39,10 @@ public class Storage {
      * @return A list of user tasks.
      * @throws JadeException If directory or file does not exit
      */
-    public List<Task> load () throws JadeException {
+    public List<Task> load() throws JadeException {
         String[] dirs = filePath.split("/");
-        String jadeDirStr = System.getProperty("user.dir") + "/" + String.join("/", Arrays.copyOfRange(dirs, 0, dirs.length - 1));
+        String jadeDirStr = System.getProperty("user.dir") + "/" + String.join("/", Arrays
+                .copyOfRange(dirs, 0, dirs.length - 1));
         try {
             File jadeDir = new File(jadeDirStr);
             if (!jadeDir.exists()) {
@@ -48,7 +53,7 @@ public class Storage {
             File jadeFile = new File(jadeFileDirStr);
             if (!jadeFile.exists()) {
                 jadeFile.createNewFile();
-                throw new JadeException("File does not exist") ;
+                throw new JadeException("File does not exist");
             }
             Scanner sc = new Scanner(jadeFile);
             ArrayList<Task> savedTaskList = new ArrayList<>();
@@ -60,10 +65,15 @@ public class Storage {
                     savedTaskList.add(new Todo(task[2], isDone));
                     break;
                 case "D":
-                    savedTaskList.add(new Deadline(task[2], LocalDate.parse(task[3], DateTimeFormatter.ofPattern("MMM d yyyy")), isDone));
+                    savedTaskList.add(new Deadline(task[2], LocalDate.parse(task[3],
+                            DateTimeFormatter.ofPattern("MMM d yyyy")), isDone));
                     break;
                 case "E":
-                    savedTaskList.add(new Event(task[2], LocalDate.parse(task[3], DateTimeFormatter.ofPattern("MMM d yyyy")), LocalDate.parse(task[4], DateTimeFormatter.ofPattern("MMM d yyyy")), isDone));
+                    savedTaskList.add(new Event(task[2], LocalDate.parse(task[3], DateTimeFormatter
+                            .ofPattern("MMM d yyyy")), LocalDate.parse(task[4], DateTimeFormatter
+                            .ofPattern("MMM d yyyy")), isDone));
+                    break;
+                default:
                     break;
                 }
             }

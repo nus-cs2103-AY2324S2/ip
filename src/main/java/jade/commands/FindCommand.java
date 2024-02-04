@@ -20,8 +20,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * @inheritDoc
-     * This implementation prints all tasks that contain the keyword.
+     * @inheritDoc This implementation prints all tasks that contain the keyword.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JadeException {
@@ -37,11 +36,11 @@ public class FindCommand extends Command {
     }
 
     /**
-     * @inheritDoc
-     * The DeleteCommand does not indicate the exit of the program.
+     * @inheritDoc The DeleteCommand does not indicate the exit of the program.
      */
     @Override
     public boolean shouldExit() {
         return false;
     }
 }
+

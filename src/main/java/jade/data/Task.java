@@ -37,7 +37,9 @@ public class Task {
      * Returns the string of the completion status boolean value.
      * If is done then returns "1", otherwise returns "0".
      */
-    public String statusFormatter() { return (isDone ? "1" : "0"); }
+    public String statusFormatter() {
+        return (isDone ? "1" : "0");
+    }
 
     /**
      * Modifies the completion status as done.
@@ -74,6 +76,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s",this.getStatusIcon(),  this.description);
+        return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 }

@@ -1,12 +1,12 @@
 package jade.data;
 
-import  java.util.List;
-import  java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The <code>TaskList</code> object represents a list consists of user tasks.
  */
-public class TaskList{
+public class TaskList {
     private final List<Task> taskList;
 
     /**
@@ -85,4 +85,4 @@ public class TaskList{
         }
         return sb.toString();
     }
- }
+}

@@ -19,8 +19,7 @@ public class InvalidCommand extends Command {
     }
 
     /**
-     * @inheritDoc
-     * This implementation prints an error message to user
+     * @inheritDoc This implementation prints an error message to user
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
@@ -28,8 +27,7 @@ public class InvalidCommand extends Command {
     }
 
     /**
-     * @inheritDoc
-     * The InvalidCommand does not indicate the exit of the program.
+     * @inheritDoc The InvalidCommand does not indicate the exit of the program.
      */
     @Override
     public boolean shouldExit() {

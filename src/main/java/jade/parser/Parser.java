@@ -1,14 +1,25 @@
 package jade.parser;
 
-import jade.data.Deadline;
-import jade.data.Event;
-import jade.data.Todo;
-import jade.commands.*;
-import jade.exception.JadeException;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Arrays;
+
+import jade.commands.AddCommand;
+import jade.commands.Command;
+import jade.commands.DeleteCommand;
+import jade.commands.ExitCommand;
+import jade.commands.FindCommand;
+import jade.commands.InvalidCommand;
+import jade.commands.ListCommand;
+import jade.commands.MarkCommand;
+import jade.commands.UnmarkCommand;
+import jade.data.Deadline;
+import jade.data.Event;
+import jade.data.Todo;
+import jade.exception.JadeException;
+
+
+
 
 /**
  * The <code>Parser</code> object to parse command line input from user.
@@ -19,8 +30,10 @@ public class Parser {
      * Returns the concatenated string of the descriptions.
      *
      * @param commands Array of commands.
-     * @param start The string where the description starts in the array, if empty then starts at 1 by default.
-     * @param end The string where the description ends in the array, if empty then ends at the end of the command by default.
+     * @param start The string where the description starts in the array,
+     *              if empty then starts at 1 by default.
+     * @param end The string where the description ends in the array,
+     *            if empty then ends at the end of the command by default.
      * @return The concatenated description of the task.
      * @throws JadeException If IllegalArgumentException is caught.
      */
@@ -90,10 +103,13 @@ public class Parser {
                 return new AddCommand(new Todo(concatDescription(commands, "", "")));
             case "deadline":
                 checkEmptyDescription(commands, 3);
-                return new AddCommand(new Deadline(concatDescription(commands, "", "/by"), parseDate(concatDescription(commands, "/by", ""))));
+                return new AddCommand(new Deadline(concatDescription(commands, "", "/by"),
+                        parseDate(concatDescription(commands, "/by", ""))));
             case "event":
                 checkEmptyDescription(commands, 4);
-                return new AddCommand(new Event(concatDescription(commands, "", "/from"), parseDate(concatDescription(commands, "/from", "/to")), parseDate(concatDescription(commands, "/to", ""))));
+                return new AddCommand(new Event(concatDescription(commands, "", "/from"),
+                        parseDate(concatDescription(commands, "/from", "/to")),
+                        parseDate(concatDescription(commands, "/to", ""))));
             case "list":
                 if (commands.length != 1) {
                     return new ListCommand(parseDate(concatDescription(commands, "", "")));
