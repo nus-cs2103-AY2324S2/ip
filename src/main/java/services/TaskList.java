@@ -133,7 +133,9 @@ public class TaskList {
         }
 
     }
-
+    /**
+     * Finds task according to input.
+     */
     public TaskList findTasks(String word) throws DukeException {
         Pattern pattern = Pattern.compile(Pattern.quote(word), Pattern.CASE_INSENSITIVE);
         List<Task> foundTasks = new ArrayList<>();
