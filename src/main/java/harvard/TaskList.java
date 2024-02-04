@@ -11,16 +11,39 @@ import harvard.tasks.Deadline;
 import harvard.tasks.Todo;
 import harvard.exceptions.HarvardException;
 
+/**
+ * The TaskList class represents a list of tasks in the Harvard application.
+ * It provides methods to manipulate the task list, such as adding, deleting, and marking tasks.
+ */
 public class TaskList {
+
+    /**
+     * The list that stores tasks.
+     */
     List<Task> taskList = new ArrayList<>();
 
+    /**
+     * Constructs a TaskList instance and populates it with tasks from a BufferedReader.
+     *
+     * @param br The BufferedReader containing task information.
+     */
     public TaskList(BufferedReader br) {
         populateTaskList(br);
     }
 
+    /**
+     * Constructs an empty TaskList instance.
+     */
     public TaskList() {
     }
 
+    /**
+     * Retrieves the string representation of the task at the specified index.
+     *
+     * @param index The index of the task in the list.
+     * @return The string representation of the task.
+     * @throws HarvardException If the index is out of bounds.
+     */
     public String printString(int index) throws HarvardException{
         if (index > this.taskList.size() - 1) {
             throw new HarvardException("Sorry, this task could not be found.");
@@ -28,29 +51,66 @@ public class TaskList {
         return taskList.get(index).toString();
     }
 
+    /**
+     * Gets the number of tasks in the list.
+     *
+     * @return The number of tasks in the list.
+     */
     public int getSize() {
         return taskList.size();
     }
 
+    /**
+     * Gets the task at the specified index.
+     *
+     * @param index The index of the task in the list.
+     * @return The task at the specified index.
+     */
     public Task getTask(int index) {
         return this.taskList.get(index);
     }
 
+    /**
+     * Deletes the task at the specified index.
+     *
+     * @param index The index of the task to be deleted.
+     */
     public void delete(int index) {
         taskList.remove(index);
     }
 
+    /**
+     * Adds a new task to the list.
+     *
+     * @param task The task to be added.
+     */
     public void add(Task task) {
         taskList.add(task);
     }
 
+    /**
+     * Marks the task at the specified index as done.
+     *
+     * @param index The index of the task to be marked as done.
+     */
     public void mark(int index) {
         this.taskList.get(index).mark();
     }
 
+    /**
+     * Marks the task at the specified index as not done.
+     *
+     * @param index The index of the task to be marked as not done.
+     */
     public void unmark(int index) {
         this.taskList.get(index).unmark();
     }
+
+    /**
+     * Populates the task list with tasks from a BufferedReader.
+     *
+     * @param buffReader The BufferedReader containing task information.
+     */
     public void populateTaskList(BufferedReader buffReader) {
         try {
             String line;

@@ -6,27 +6,43 @@ import harvard.tasks.Deadline;
 import harvard.tasks.Todo;
 import harvard.exceptions.HarvardException;
 
+/**
+ * The Parser class is responsible for interpreting user commands in the Harvard application.
+ * It processes user input and performs corresponding actions such as adding tasks, deleting tasks,
+ * marking tasks as done, and displaying the task list.
+ */
 public class Parser {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+    /**
+     * Constructs a Parser instance with references to Storage, TaskList, and Ui.
+     *
+     * @param s The Storage instance for storing tasks.
+     * @param tL The TaskList instance for managing tasks.
+     * @param ui The Ui instance for displaying messages.
+     */
     public Parser(Storage s, TaskList tL, Ui ui) {
         this.storage = s;
         this.tasks = tL;
         this.ui = ui;
     }
 
+    /**
+     * Parses the user command and performs corresponding actions.
+     *
+     * @param commandLine The user command to be parsed.
+     * @throws HarvardException If an error occurs during parsing or task manipulation.
+     */
     public void parse(String commandLine) throws HarvardException {
         String command = commandLine.split(" ")[0];
-//        try {
-            if (!command.equals("list") && !command.equals("todo") && !command.equals("deadline") &&
-                    !command.equals("event") && !command.equals("mark") && !command.equals("unmark") &&
-                    !command.equals("delete")) {
-                throw new HarvardException("Bro... Idk what that is man.");
-            }
-//        } catch (HarvardException e) {
-//            this.ui.printUnrecognisedCommand();
-//        }
+
+        if (!command.equals("list") && !command.equals("todo") && !command.equals("deadline") &&
+                !command.equals("event") && !command.equals("mark") && !command.equals("unmark") &&
+                !command.equals("delete")) {
+            throw new HarvardException("Bro... Idk what that is man.");
+        }
 
         if (command.equals("list")) {
             this.ui.printTasks(tasks);

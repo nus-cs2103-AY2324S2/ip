@@ -2,12 +2,31 @@ package harvard;
 
 import java.io.*;
 
+/**
+ * The Storage class is responsible for handling the storage of tasks in the Harvard application.
+ * It provides methods to load tasks from and store tasks to a text file.
+ */
 public class Storage {
+    /**
+     * The file path for storing tasks.
+     */
     String filePath;
+
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param fP The file path for storing tasks.
+     */
     public Storage(String fP) {
         this.filePath = fP;
     }
 
+    /**
+     * Loads tasks from the stored text file and returns a BufferedReader.
+     * If the file is not found, it creates a new text file.
+     *
+     * @return The BufferedReader containing task information.
+     */
     public BufferedReader load() {
         try {
             BufferedReader buffReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/data/harvard.txt"));
@@ -18,7 +37,9 @@ public class Storage {
         return null;
     }
 
-
+    /**
+     * Creates a new text file for storing tasks.
+     */
     public void CreateTextFile() {
         try {
             File file = new File(System.getProperty("user.dir") + "/data/harvard.txt");
@@ -32,6 +53,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Stores the tasks from the TaskList to the text file.
+     *
+     * @param tasks The TaskList containing tasks to be stored.
+     */
     public void store(TaskList tasks) {
         String textToSave = "";
         for (int i = 0; i < tasks.getSize(); i++) {
