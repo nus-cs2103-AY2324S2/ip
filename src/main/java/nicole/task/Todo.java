@@ -1,6 +1,6 @@
-package task;
+package nicole.task;
 
-import nicoleexceptions.NicoleException;
+import nicole.nicoleexceptions.NicoleException;
 
 public class Todo extends Task {
 

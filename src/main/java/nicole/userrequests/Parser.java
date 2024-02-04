@@ -1,10 +1,10 @@
-package userrequests;
+package nicole.userrequests;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import nicoleexceptions.NicoleException;
-import task.Task;
+import nicole.nicoleexceptions.NicoleException;
+import nicole.task.Task;
 
 public class Parser {
     public Parser() {

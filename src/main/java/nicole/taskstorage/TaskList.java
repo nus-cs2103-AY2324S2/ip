@@ -1,4 +1,4 @@
-package taskstorage;
+package nicole.taskstorage;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,22 +7,19 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import nicoleexceptions.NicoleException;
-
-import task.Task;
+import nicole.nicoleexceptions.NicoleException;
+import nicole.task.Task;
 
 public class TaskList {
     protected static final List<Task> TASKS = new ArrayList<>();
-    private final Storage storage;
+    private final Storage STORAGE;
 
     /**
      * Initialises a TaskList and creates Storage for tasks.
      *
-     * @throws NicoleException if Storage throws it due to IO issues with the
-     *                         tasks file.
      */
-    public TaskList() throws NicoleException {
-        this.storage = new Storage();
+    public TaskList() {
+        this.STORAGE = new Storage();
     }
 
     private void crudChecker(int taskNumber) throws NicoleException {
@@ -34,43 +31,49 @@ public class TaskList {
     /**
      * Unmarks a task in the list.
      *
-     * @throws NicoleException if the unmark index is out of bounds of the list.
+     * @return a success response if the task is unmarked
+     * @throws NicoleException if the unmark index is out of bounds of the list or the task is already unmarked.
      */
-    public void unmarkTask(int taskNumber) throws NicoleException {
+    public String unmarkTask(int taskNumber) throws NicoleException {
         this.crudChecker(taskNumber);
-        System.out.println(TaskList.TASKS.get(taskNumber - 1).markUndone());
-        this.storage.saveTasksToFile();
+        String unmarkedMessage = TaskList.TASKS.get(taskNumber - 1).markUndone();
+        this.STORAGE.saveTasksToFile();
+        return unmarkedMessage;
     }
 
     /**
      * Marks a task in the list.
      *
-     * @throws NicoleException if the mark index is out of bounds of the list.
+     * @return a success response if the task is marked
+     * @throws NicoleException if the mark index is out of bounds of the list or the task is already marked.
      */
-    public void markTask(int taskNumber) throws NicoleException {
+    public String markTask(int taskNumber) throws NicoleException {
         this.crudChecker(taskNumber);
-        System.out.println(TaskList.TASKS.get(taskNumber - 1).markDone());
-        this.storage.saveTasksToFile();
+        String markedMessage = TaskList.TASKS.get(taskNumber - 1).markDone();
+        this.STORAGE.saveTasksToFile();
+        return markedMessage;
     }
 
     /**
      * Deletes a task in the list.
      *
+     * @return a success response if the task is deleted.
      * @throws NicoleException if the delete index is out of bounds of the list.
      */
-    public void deleteTask(int taskNumber) throws NicoleException {
+    public String deleteTask(int taskNumber) throws NicoleException {
         this.crudChecker(taskNumber);
         TaskList.TASKS.remove(taskNumber - 1);
-        System.out.println("Nicole: Phew...deleted  :>");
-        this.storage.saveTasksToFile();
+        this.STORAGE.saveTasksToFile();
+        return "Phew...deleted  :>";
     }
 
     /**
      * Adds a task to the list.
      *
+     * @return a success response if the task is added.
      * @throws NicoleException if there are write issues to tasks.txt
      */
-    public void addTask(Task newTask) throws NicoleException {
+    public String addTask(Task newTask) throws NicoleException {
         TaskList.TASKS.add(newTask);
         try {
             FileWriter taskFileWriter = new FileWriter("tasks.txt", true);
@@ -79,52 +82,58 @@ public class TaskList {
         } catch (IOException e) {
             throw new NicoleException("I couldn't save the task >< try again plss");
         }
-        System.out.println("Nicole: Oki I added " + "\"" + newTask.toString().substring(7) + "\"");
+        return "Oki I added " + "\"" + newTask.toString().substring(7) + "\"";
     }
 
     /**
      * Searches for a task using a specific keyword.
      *
      * @param name the keyword.
+     * @return a filler message and the matching tasks, each on a new line.
      * @throws NicoleException if there are no matching tasks.
      */
-    public void findTasks(String name) throws NicoleException {
+    public String findTasks(String name) throws NicoleException {
+        StringBuilder namesMatchingTasks = new StringBuilder();
         int numMatchingTasks = 0;
-        System.out.println("Nicole: Let me see..");
+        namesMatchingTasks.append("Hmmm let me see...").append("\n");
         for (int i = 0; i < TaskList.TASKS.size(); i++) {
             if (TaskList.TASKS.get(i).contains(name)) {
-                System.out.println((i + 1) + ". " + TASKS.get(i));
+                namesMatchingTasks.append(i + 1).append(". ").append(TASKS.get(i)).append("\n");
                 numMatchingTasks += 1;
             }
         }
-
         if (numMatchingTasks == 0) {
             throw new NicoleException("Sorry I couldn't find any matching tasks");
         }
+        return namesMatchingTasks.toString();
     }
 
     /**
      * Lists the present tasks. Sorts the list by task date if the user requests it
      * before printing the tasks.
      *
+     * @return a filler message and the saved tasks or just a filler message if there are no tasks yet.
      */
-    public void listTasks() {
+    public String listTasks() {
+        StringBuilder savedTasks = new StringBuilder();
         if (TaskList.TASKS.size() == 0) {
-            System.out.println("Nicole: No tasks yet. Let's make some moves BD");
+            savedTasks.append("No tasks yet. Let's make some moves BD");
         } else {
-            System.out.println("Nicole: Here's the tasks I saved so far,");
+            savedTasks.append("Here's the tasks I saved so far,").append("\n");
         }
 
         for (int i = 0; i < TaskList.TASKS.size(); i++) {
-            System.out.println((i + 1) + ". " + TaskList.TASKS.get(i));
+            savedTasks.append(i + 1).append(". ").append(TaskList.TASKS.get(i)).append("\n");
         }
+        return savedTasks.toString();
     }
 
     /**
      * Sorts the list by task date if the user requests priority ordering.
      *
+     * @return a success message if the tasklist is sorted.
      */
-    public void sortTasksByPriority() {
+    public String sortTasksByPriority() {
         Comparator<Task> sorter = (task1, task2) -> {
             if (task1.getDate().isBefore(task2.getDate())) {
                 return -1;
@@ -135,5 +144,6 @@ public class TaskList {
             }
         };
         TaskList.TASKS.sort(sorter);
+        return "Alriiiiighty sorted by date :6";
     }
 }

@@ -1,13 +1,13 @@
-package nicoleexceptions;
+package nicole.nicoleexceptions;
 
 public class NicoleException extends Exception {
-    private String errorMessage;
+    private final String ERROR_MESSAGE;
     public NicoleException(String errorMessage) {
-        this.errorMessage = errorMessage;
+        this.ERROR_MESSAGE = errorMessage;
     }
 
     @Override
     public String toString() {
-        return "Nicole: ERROR. " + errorMessage;
+        return "ERROR. " + ERROR_MESSAGE;
     }
 }
