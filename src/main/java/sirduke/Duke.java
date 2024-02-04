@@ -1,18 +1,21 @@
-package Duke;
+package sirduke;
 import java.util.Scanner;
-import DukeExceptions.DeadlineEmptyException;
-import DukeExceptions.EventEmptyException;
-import DukeExceptions.InvalidCmd;
-import Msg.Msg;
-import Msg.Std_msgs;
-import Items.Items;
-import Task.Deadline;
-import Task.Event;
-import Task.Todo;
-import Task.Task;
+import dukeexecpetions.DeadlineEmptyException;
+import dukeexecpetions.EventEmptyException;
+import dukeexecpetions.InvalidCmd;
+import msg.Msg;
+import msg.StdMsgs;
+import items.Items;
+import task.Deadline;
+import task.Event;
+import task.Todo;
+import task.Task;
 
-/** Sir Duke Chatbot Class */
+/**
+ * This class represents the Sir Duke Chatbot
+ */
 public class Duke {
+    /** The Items object that Sir Duke will use to store his tasks */
     private static Items items = new Items();
     public enum Commands {
         BYE,
@@ -27,17 +30,17 @@ public class Duke {
     }
 
     /**
-     * Runs the Duke Chatbot
+     * Runs Sir Duke
      *
      * @param args String arguments to be passes by User
      * @throws InvalidCmd If command is not in Commands
      */
-    public static void main(String[] args) throws InvalidCmd {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         // Should I create a profile about the user by having them answer a few questions?
         // welcome_msg
-        System.out.println(Std_msgs.LOGO);
-        System.out.println(Std_msgs.WELCOME);
+        System.out.println(StdMsgs.LOGO);
+        System.out.println(StdMsgs.WELCOME);
         // await input from user
         String userInput = "";
         while (true) {
@@ -51,10 +54,10 @@ public class Duke {
                 }
                 switch (cmd) {
                     case BYE:
-                        System.out.println(Std_msgs.BYE);
+                        System.out.println(StdMsgs.BYE);
                         return;
                     case LIST:
-                        // unsure if i should extend Items as a Msg
+                        // unsure if i should extend items as a msg
                         System.out.println(new Msg(Duke.items.toString()));
                         break;
                     case UNMARK:

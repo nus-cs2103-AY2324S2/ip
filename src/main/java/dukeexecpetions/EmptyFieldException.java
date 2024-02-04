@@ -1,0 +1,12 @@
+package dukeexecpetions;
+/** Exception when correct command is passed but is missing an empty field */
+public class EmptyFieldException extends Exception{
+    /**
+     * Concatenates the missing message to the corresponding empty field text
+     * @param err
+     */
+    public EmptyFieldException  (String err) {
+        super("\nApologies Sir/Mdm, it appears as though you left the following fields empty:\n" + err);
+    }
+
+}
