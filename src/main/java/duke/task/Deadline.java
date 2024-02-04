@@ -7,6 +7,7 @@ import duke.exception.WrongUsageException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * Class for task start with deadline
@@ -21,6 +22,11 @@ public class Deadline extends Task {
      */
     public Deadline(String descrip, LocalDate by) {
         super(descrip);
+        this.by = by;
+    }
+
+    public Deadline(String descrip, ArrayList<String> tags, LocalDate by) {
+        super(descrip, tags);
         this.by = by;
     }
 

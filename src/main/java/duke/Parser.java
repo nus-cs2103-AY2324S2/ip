@@ -53,6 +53,12 @@ class Parser {
         if (inputs[0].equals("unmark") && inputs.length == TOKEN_NUM) {
             return new Unmark(Integer.parseInt(inputs[1]) - 1, tasks);
         }
+        if (inputs[0].equals("tag") && inputs.length == TOKEN_NUM + 1) {
+            return new Tag(Integer.parseInt(inputs[1]) - 1, inputs[2], tasks);
+        }
+        if (inputs[0].equals("untag") && inputs.length == TOKEN_NUM + 1) {
+            return new Untag(Integer.parseInt(inputs[1]) - 1, inputs[2], tasks);
+        }
         if ((inputs[0].equals("delete") || inputs[0].equals("remove")) && inputs.length == TOKEN_NUM) {
             return new Delete(Integer.parseInt(inputs[1]) - 1, tasks);
         }

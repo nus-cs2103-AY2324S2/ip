@@ -3,6 +3,7 @@ package duke.task;
 import duke.exception.WrongUsageException;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * Class for task start with todo
@@ -15,6 +16,10 @@ public class Todo extends Task {
      */
     public Todo(String descrip) {
         super(descrip);
+    }
+
+    public Todo(String descrip, ArrayList<String> tags) {
+        super(descrip, tags);
     }
 
     /**

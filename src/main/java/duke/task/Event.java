@@ -8,6 +8,7 @@ import duke.exception.WrongUsageException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * Class for task start with event
@@ -24,6 +25,13 @@ public class Event extends Task {
      */
     public Event(String descrip, LocalDate from, LocalDate to) {
         super(descrip);
+        assert to.isAfter(from) || to.isEqual(from) : "to cannot before from";
+        this.from = from;
+        this.to = to;
+    }
+
+    public Event(String descrip, ArrayList<String> tags, LocalDate from, LocalDate to) {
+        super(descrip, tags);
         assert to.isAfter(from) || to.isEqual(from) : "to cannot before from";
         this.from = from;
         this.to = to;
