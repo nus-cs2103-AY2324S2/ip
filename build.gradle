@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("java.duke.Duke")
+    mainClass.set("duke.Duke")
 }
 
 shadowJar {

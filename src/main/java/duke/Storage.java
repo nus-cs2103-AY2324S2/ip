@@ -4,7 +4,7 @@ import java.io.*;
 
 public class Storage {
 
-    String path = "./data/duke.txt";
+    String path = "./duke.txt";
 
     public Storage(String filepath) {
         if (new File(filepath).exists()) {
