@@ -10,6 +10,12 @@ public abstract class AddCommand extends Command {
 
     public String taskName;
 
+    /**
+     * Constructor for the AddCommand class.
+     * 
+     * @param commandType The type of command.
+     * @param taskName    The name of the task.
+     */
     public AddCommand(String commandType, String taskName) {
         super(commandType);
         this.taskName = taskName;

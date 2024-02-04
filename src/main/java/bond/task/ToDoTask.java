@@ -8,6 +8,11 @@ package bond.task;
 
 public class ToDoTask extends Task {
 
+  /**
+   * Constructor for the ToDoTask class.
+   * 
+   * @param name The name of the to-do task.
+   */
   public ToDoTask(String name) {
     super(name);
   }

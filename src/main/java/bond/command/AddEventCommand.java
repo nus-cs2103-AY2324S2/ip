@@ -19,12 +19,27 @@ public class AddEventCommand extends AddCommand {
     private String start;
     private String end;
 
+    /**
+     * Constructor for the AddEventCommand class.
+     * 
+     * @param taskName The name of the event task.
+     * @param start    The start datetime of the event.
+     * @param end      The end datetime of the event.
+     */
     public AddEventCommand(String taskName, String start, String end) {
         super("event", taskName);
         this.start = start;
         this.end = end;
     }
 
+    /**
+     * Executes the add event task command.
+     * 
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
+     * @param storage The storage object.
+     * @throws BondException If an error occurs during the execution of the command.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
         Task newTask = new EventTask(super.taskName, this.start, this.end);

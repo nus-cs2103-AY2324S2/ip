@@ -11,10 +11,22 @@ import bond.command.*;
 
 public abstract class Parser {
 
+    /**
+     * Checks if the user input is a valid command.
+     * 
+     * @param input The user input to be checked.
+     * @return True if the user input is a valid command, false otherwise.
+     */
     public static boolean isValidCommand(String input) {
         return Command.Commands.contains(input.toLowerCase());
     }
 
+    /**
+     * Checks if the input is a number.
+     * 
+     * @param input The input to be checked.
+     * @return True if the input is a number, false otherwise.
+     */
     public static boolean isNumber(String input) {
         char[] digits = input.toCharArray();
         boolean isNumber = true;
@@ -29,6 +41,14 @@ public abstract class Parser {
         return isNumber;
     }
 
+    /**
+     * Changes the date format from "MMM dd yyyy" to "yyyy-MM-dd".
+     * 
+     * @param month The month in the date.
+     * @param day   The day in the date.
+     * @param year  The year in the date.
+     * @return The date in the format "yyyy-MM-dd".
+     */
     public static String changeDateFormat(String month, String day, String year) {
         String newMonth = "";
         String newDay = "";
@@ -81,6 +101,14 @@ public abstract class Parser {
         return year + "-" + newMonth + "-" + newDay;
     }
 
+    /**
+     * Parses the user input and creates the appropriate Command object.
+     * 
+     * @param userCommand The user input to be parsed.
+     * @return The Command object that is created based on the user input.
+     * @throws BondException The exception that is raised if the user input is
+     *                       invalid.
+     */
     public static Command parse(String userCommand) throws BondException {
 
         // System.out.println("I have reached Loop " + "in MAIN function");

@@ -16,10 +16,23 @@ import bond.task.ToDoTask;
 
 public class AddToDoCommand extends AddCommand {
 
+    /**
+     * Constructor for the AddToDoCommand class.
+     * 
+     * @param taskName The name of the todo task.
+     */
     public AddToDoCommand(String taskName) {
         super("todo", taskName);
     }
 
+    /**
+     * Executes the add todo task command.
+     * 
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
+     * @param storage The storage object.
+     * @throws BondException If an error occurs during the execution of the command.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
         Task newTask = new ToDoTask(super.taskName);

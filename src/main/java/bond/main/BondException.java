@@ -14,10 +14,22 @@ public class BondException extends Exception {
         LOAD_FAILURE, INVALID_DATE_FORMAT
     }
 
+    /**
+     * Constructor for the BondException class.
+     * 
+     * @param message The message to be displayed when the exception is raised.
+     */
     private BondException(String message) {
         super(message);
     }
 
+    /**
+     * Raises an exception based on the task name and the exception type.
+     * 
+     * @param taskName      The name of the task that the exception is raised for.
+     * @param exceptionType The reason why the exception that is raised.
+     * @throws BondException The exception that is raised.
+     */
     public static void raiseException(String taskName, String exceptionType) throws BondException {
 
         String message = "";

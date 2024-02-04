@@ -17,11 +17,24 @@ public class DeleteCommand extends Command {
 
     private int index;
 
+    /**
+     * Constructor for the DeleteCommand class.
+     * 
+     * @param index The index of the task to be deleted.
+     */
     public DeleteCommand(int index) {
         super("delete");
         this.index = index;
     }
 
+    /**
+     * Executes the delete task command.
+     * 
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
+     * @param storage The storage.
+     * @throws BondException If an error occurs during the execution of the command.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
         if (tasks.noTasks()) {

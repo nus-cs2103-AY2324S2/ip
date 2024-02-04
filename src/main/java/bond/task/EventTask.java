@@ -18,6 +18,16 @@ public class EventTask extends Task {
   private LocalDate endDate;
   private String endTiming;
 
+  /**
+   * Constructor for the EventTask class.
+   * Throws a BondException if the start and/or end datetime is in an incorrect
+   * format.
+   * 
+   * @param name  The name of the event task.
+   * @param start The start date and time of the event.
+   * @param end   The end date and time of the event.
+   * @throws BondException If the event task cannot be created.
+   */
   public EventTask(String name, String start, String end) throws BondException {
     super(name);
 

@@ -11,6 +11,11 @@ public abstract class Task {
     private Boolean isCompleted;
     private String name;
 
+    /**
+     * Constructor for the Task class.
+     * 
+     * @param name The name of the task.
+     */
     public Task(String name) {
         this.isCompleted = false;
         this.name = name;

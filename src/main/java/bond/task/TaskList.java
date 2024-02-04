@@ -14,6 +14,11 @@ public class TaskList {
 
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructor for the TaskList class.
+     * 
+     * @param taskList The list of tasks to be stored in the TaskList.
+     */
     public TaskList(ArrayList<Task> taskList) {
         this.tasks = taskList == null ? new ArrayList<>() : taskList;
     }
@@ -38,6 +43,9 @@ public class TaskList {
         return this.tasks.isEmpty();
     }
 
+    /**
+     * Returns a list iterator for the tasks in the task list.
+     */
     public ListIterator<Task> getTasks() {
         return this.tasks.listIterator();
     }

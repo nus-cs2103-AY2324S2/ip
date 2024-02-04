@@ -18,11 +18,25 @@ public class AddDeadlineCommand extends AddCommand {
 
     private String deadline;
 
+    /**
+     * Constructor for the AddDeadlineCommand class.
+     * 
+     * @param taskName The name of the deadline task.
+     * @param deadline The end datetime of the task.
+     */
     public AddDeadlineCommand(String taskName, String deadline) {
         super("deadline", taskName);
         this.deadline = deadline;
     }
 
+    /**
+     * Executes the add deadline task command.
+     * 
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
+     * @param storage The storage object.
+     * @throws BondException If an error occurs during the execution of the command.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
         Task newTask = new DeadlineTask(super.taskName, this.deadline);
