@@ -30,7 +30,7 @@ public class ParserTest {
     public void checkCmd_testInvalidDeadlineCommand_exceptionThrown() {
         String command = "deadline read book";
         Exception exception = assertThrows(DukeException.class, () -> {
-            Parser.checkCmd(list, command);
+            Ui.checkCmd(list, command);
         });
         String expectedMessage = " Sorry, the date of a deadline cannot be empty :(";
         String actualMessage = exception.getMessage();

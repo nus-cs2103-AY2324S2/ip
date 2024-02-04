@@ -6,41 +6,12 @@ package duke;
  * It provides methods to print various types of messages to the console.
  */
 public class Ui {
-
-    private static final String LINEBREAK =
-            "_______________________________________________________________________________";
-
     /**
      * Displays a greeting message to the user.
      * This includes an ASCII art representation of a snowman and a welcome message.
      */
-    public void greet() {
-        String snowBoyAscii =
-                "      *      \n"
-                        + "     ***     \n"
-                        + "   *******   \n"
-                        + "  *  o o  *  \n"
-                        + " *    >    * \n"
-                        + " *  \\___/  * \n"
-                        + "  *       *  \n"
-                        + "   *******   \n"
-                        + "     ***     \n"
-                        + "      *      ";
-        String toPrint = snowBoyAscii + "\n";
-        toPrint += " Hello! I'm SnowBoy\n" + " What can I do for you?";
-        Ui.beautify(toPrint);
-    }
-
-    /**
-     * Beautifies and formats a string message for display.
-     * This method adds line breaks before and after the message for better readability.
-     *
-     * @param toPrint The string message to be formatted and displayed.
-     */
-    public static void beautify(String toPrint) {
-        System.out.println(LINEBREAK);
-        System.out.println(toPrint);
-        System.out.println(LINEBREAK);
+    public static String greet() {
+        return " Hello! I'm SnowBoy\n" + " What can I do for you?";
     }
 
     /**
@@ -49,16 +20,46 @@ public class Ui {
      * and needs to create a new one.
      */
     public void showLoadingError() {
-        String toPrint = " No existing list detected. Creating new list...";
-        Ui.beautify(toPrint);
+        System.out.println(" No existing list detected. Creating new list...");
     }
 
     /**
      * Displays an exit message to the user.
      * This message is shown when the user decides to exit the application.
      */
-    public void exit() {
-        String toPrint = " Bye. Hope to see you again soon!";
-        Ui.beautify(toPrint);
+    public static String exit() {
+        return " Bye. Hope to see you again soon!";
+    }
+
+    /**
+     * Processes the user command and directs it to the appropriate method.
+     * Supports a variety of commands such as adding, deleting, and listing tasks.
+     *
+     * @param tl The TaskList to perform operations on.
+     * @param cmd The user input command to be processed.
+     * @throws DukeException If the command is invalid or incorrectly used.
+     */
+    public static String checkCmd(TaskList tl, String cmd) throws DukeException {
+        String[] commandArr = cmd.split(" ");
+        switch (commandArr[0]) {
+        case "list":
+            return Parser.printLst(tl);
+        case "find":
+            return Parser.findTask(tl, commandArr);
+        case "mark":
+            return Parser.markTask(tl, commandArr);
+        case "unmark":
+            return Parser.unmarkTask(tl, commandArr);
+        case "todo":
+            return Parser.addTodo(tl, commandArr, cmd);
+        case "deadline":
+            return Parser.addDeadline(tl, commandArr, cmd);
+        case "event":
+            return Parser.addEvent(tl, commandArr, cmd);
+        case "delete":
+            return Parser.deleteTask(tl, commandArr);
+        default:
+            throw new DukeException(String.format(" Sorry, %s is not a valid command :(", cmd));
+        }
     }
 }

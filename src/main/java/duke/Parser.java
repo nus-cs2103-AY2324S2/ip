@@ -11,52 +11,12 @@ import java.util.ArrayList;
 public class Parser {
 
     /**
-     * Processes the user command and directs it to the appropriate method.
-     * Supports a variety of commands such as adding, deleting, and listing tasks.
-     *
-     * @param tl The TaskList to perform operations on.
-     * @param cmd The user input command to be processed.
-     * @throws DukeException If the command is invalid or incorrectly used.
-     */
-    public static void checkCmd(TaskList tl, String cmd) throws DukeException {
-        String[] commandArr = cmd.split(" ");
-        switch (commandArr[0]) {
-        case "list":
-            printLst(tl);
-            break;
-        case "find":
-            findTask(tl, commandArr);
-            break;
-        case "mark":
-            markTask(tl, commandArr);
-            break;
-        case "unmark":
-            unmarkTask(tl, commandArr);
-            break;
-        case "todo":
-            addTodo(tl, commandArr, cmd);
-            break;
-        case "deadline":
-            addDeadline(tl, commandArr, cmd);
-            break;
-        case "event":
-            addEvent(tl, commandArr, cmd);
-            break;
-        case "delete":
-            deleteTask(tl, commandArr);
-            break;
-        default:
-            throw new DukeException(String.format(" Sorry, %s is not a valid command :(", cmd));
-        }
-    }
-
-    /**
      * Prints all tasks in the TaskList.
      * Outputs a formatted list of tasks or a message if the list is empty.
      *
      * @param tl The TaskList containing the tasks to be printed.
      */
-    public static void printLst(TaskList tl) {
+    public static String printLst(TaskList tl) {
         StringBuilder toPrint = new StringBuilder();
         if (tl.getLst().isEmpty()) {
             toPrint.append(" Whoops! Your list is empty :(");
@@ -67,7 +27,7 @@ public class Parser {
                 toPrint.append(taskPrintout);
             }
         }
-        Ui.beautify(toPrint.toString());
+        return toPrint.toString();
     }
 
     /**
@@ -79,7 +39,7 @@ public class Parser {
      * @param cmd The full user command string.
      * @throws DukeException If the Todo task description is empty.
      */
-    public static void addTodo(TaskList tl, String[] commandArr, String cmd) throws DukeException {
+    public static String addTodo(TaskList tl, String[] commandArr, String cmd) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, the description of a todo cannot be empty :(");
         }
@@ -89,7 +49,7 @@ public class Parser {
         String toPrint = " Got it. I've added this task:\n";
         toPrint += "   " + newTodo + "\n";
         toPrint += " Now you have " + tl.size() + " tasks in the list.";
-        Ui.beautify(toPrint);
+        return toPrint;
     }
 
     /**
@@ -101,7 +61,7 @@ public class Parser {
      * @param cmd The full user command string.
      * @throws DukeException If the Deadline description or date is empty or incorrectly formatted.
      */
-    public static void addDeadline(TaskList tl, String[] commandArr, String cmd) throws DukeException {
+    public static String addDeadline(TaskList tl, String[] commandArr, String cmd) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, the description and date of a deadline cannot be empty :(");
         }
@@ -120,7 +80,7 @@ public class Parser {
         String toPrint = " Got it. I've added this task:\n";
         toPrint += "   " + newDeadline + "\n";
         toPrint += " Now you have " + tl.size() + " tasks in the list.";
-        Ui.beautify(toPrint);
+        return toPrint;
     }
 
     /**
@@ -132,7 +92,7 @@ public class Parser {
      * @param cmd The full user command string.
      * @throws DukeException If the Event description or dates are empty or incorrectly formatted.
      */
-    public static void addEvent(TaskList tl, String[] commandArr, String cmd) throws DukeException {
+    public static String addEvent(TaskList tl, String[] commandArr, String cmd) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, the description and start and end dates of an event cannot be empty :(");
         }
@@ -160,7 +120,7 @@ public class Parser {
         String toPrint = " Got it. I've added this task:\n";
         toPrint += "   " + newEvent + "\n";
         toPrint += " Now you have " + tl.size() + " tasks in the list.";
-        Ui.beautify(toPrint);
+        return toPrint;
     }
 
     /**
@@ -170,7 +130,7 @@ public class Parser {
      * @param commandArr The array of strings representing the split user command.
      * @throws DukeException If the search keyword is not provided.
      */
-    public static void findTask(TaskList tl, String[] commandArr) throws DukeException {
+    public static String findTask(TaskList tl, String[] commandArr) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, please input what you want me to find");
         }
@@ -188,7 +148,7 @@ public class Parser {
             toPrint = new StringBuilder();
             toPrint.append("\n Whoops! No matching tasks found :(");
         }
-        Ui.beautify(toPrint.toString());
+        return toPrint.toString();
     }
 
     /**
@@ -199,7 +159,7 @@ public class Parser {
      * @param commandArr The array of strings representing the split user command.
      * @throws DukeException If the task index is invalid or not provided.
      */
-    public static void markTask(TaskList tl, String[] commandArr) throws DukeException {
+    public static String markTask(TaskList tl, String[] commandArr) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, please input the list index for me to mark");
         }
@@ -213,7 +173,7 @@ public class Parser {
         tl.get(toMark - 1).markAsDone();
         String toPrint = " Nice! I've marked this task as done:\n";
         toPrint += "   " + tl.get(toMark - 1).toString();
-        Ui.beautify(toPrint);
+        return toPrint;
     }
 
     /**
@@ -224,7 +184,7 @@ public class Parser {
      * @param commandArr The array of strings representing the split user command.
      * @throws DukeException If the task index is invalid or not provided.
      */
-    public static void unmarkTask(TaskList tl, String[] commandArr) throws DukeException {
+    public static String unmarkTask(TaskList tl, String[] commandArr) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, please input the list index for me to unmark");
         }
@@ -238,7 +198,7 @@ public class Parser {
         tl.get(toUnmark - 1).markAsUndone();
         String toPrint = " OK! I've marked this task as not done yet:\n";
         toPrint += "   " + tl.get(toUnmark - 1).toString();
-        Ui.beautify(toPrint);
+        return toPrint;
     }
 
     /**
@@ -249,7 +209,7 @@ public class Parser {
      * @param commandArr The array of strings representing the split user command.
      * @throws DukeException If the task index is invalid or not provided.
      */
-    public static void deleteTask(TaskList tl, String[] commandArr) throws DukeException {
+    public static String deleteTask(TaskList tl, String[] commandArr) throws DukeException {
         if (commandArr.length == 1) {
             throw new DukeException(" Sorry, please input the list index for me to delete");
         }
@@ -264,6 +224,6 @@ public class Parser {
         toPrint += "   " + tl.get(toDelete - 1).toString() + "\n";
         tl.deleteTask(toDelete - 1);
         toPrint += " Now you have " + tl.size() + " tasks in the list.";
-        Ui.beautify(toPrint);
+        return toPrint;
     }
 }
