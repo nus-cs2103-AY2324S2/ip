@@ -3,6 +3,10 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
     private static final String FILE_PATH = "./data/duke.txt";
@@ -54,7 +58,11 @@ public class Duke {
                 } else {
                     String[] parts = input.substring(9).split(" /by ");
                     if (parts.length == 2) {
-                        addTask(new Deadline(parts[0], parts[1]));
+                        try {
+                            addTask(new Deadline(parts[0], parts[1]));
+                        } catch (DukeException e) {
+                            System.out.println(e.getMessage());
+                        }
                     } else {
                         System.out.println("That's not a valid Deadline!");
                     }
@@ -71,7 +79,11 @@ public class Duke {
                     if (description.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
                         System.out.println("The description, start time, and end time of an event cannot be empty.");
                     } else {
-                        addTask(new Event(description, startTime, endTime));
+                        try {
+                            addTask(new Event(description, startTime, endTime));
+                        } catch (DukeException e) {
+                            System.out.println(e.getMessage());
+                        }
                     }
                 } else {
                     System.out.println("That's not a valid Event!");
@@ -174,8 +186,8 @@ public class Duke {
             }
 
             scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found. Starting with an empty task list.");
+        } catch (FileNotFoundException | DukeException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -188,17 +200,17 @@ public class Duke {
 
         if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            details += " | " + deadline.by;
+            details += " | " + deadline.getByForFile();
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            details += " | " + event.start + " | " + event.end;
+            details += " | " + event.getStartForFile() + " | " + event.getEndForFile();
         }
 
         return details;
     }
 
 
-    private static Task fileStringToTask(String line) {
+    private static Task fileStringToTask(String line) throws DukeException {
         // Convert a string from a file back to a task
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
