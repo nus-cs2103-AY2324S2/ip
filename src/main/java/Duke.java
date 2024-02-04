@@ -1,8 +1,10 @@
 public class Duke {
     private Ui ui;
     private Storage storage;
+    private Tasklist tasklist;
 
     public Duke() {
+        tasklist = new Tasklist();
         ui = new Ui();
         storage = new Storage();
     }
