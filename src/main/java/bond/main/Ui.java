@@ -1,3 +1,10 @@
+/**
+ * The Ui class is used to handle the user interface of the Bond task management
+ * program.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.main;
 
 import java.util.ListIterator;
@@ -10,6 +17,9 @@ public class Ui {
 
     private Scanner sc;
 
+    /**
+     * Constructor for the Ui class.
+     */
     public Ui() {
         this.sc = new Scanner(System.in);
     }
@@ -24,12 +34,20 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Shows the welcome message when the program starts.
+     */
     public void showWelcome() {
         System.out.println(String.format("Hello! I'm %s. \nWhat can I do for you?\n", "Bond"));
         this.showLine();
         this.newLine();
     }
 
+    /**
+     * Reads the user input.
+     * 
+     * @return The user input.
+     */
     public String readCommand() {
         String userInput = "";
 
@@ -40,6 +58,12 @@ public class Ui {
         return userInput;
     }
 
+    /**
+     * Shows the message when a task is added.
+     * 
+     * @param newTask  The task that is added.
+     * @param taskList The task list that the task is added to.
+     */
     public void taskAdded(Task newTask, TaskList taskList) {
         this.showLine();
         System.out.println(String.format(
@@ -49,6 +73,12 @@ public class Ui {
         this.newLine();
     }
 
+    /**
+     * Shows the message when a task is deleted.
+     * 
+     * @param deletedTask The task that is deleted.
+     * @param taskList    The task list that the task is deleted from.
+     */
     public void taskDeleted(Task deletedTask, TaskList taskList) {
         this.showLine();
         System.out.println(String.format(
@@ -58,6 +88,12 @@ public class Ui {
         this.newLine();
     }
 
+    /**
+     * Shows the message when a task is marked as done.
+     * 
+     * @param markedTask The task that is marked as done.
+     * @param taskList   The task list that the task is marked as done in.
+     */
     public void taskMarked(Task markedTask, TaskList taskList) {
         this.showLine();
         System.out
@@ -68,6 +104,12 @@ public class Ui {
         this.newLine();
     }
 
+    /**
+     * Shows the message when a task is marked as not done.
+     * 
+     * @param unmarkedTask The task that is marked as not done.
+     * @param taskList     The task list that the task is marked as not done in.
+     */
     public void taskUnmarked(Task unmarkedTask, TaskList taskList) {
         this.showLine();
         System.out
@@ -78,6 +120,11 @@ public class Ui {
         this.newLine();
     }
 
+    /**
+     * Shows all tasks in the task list.
+     * 
+     * @param taskList The task list to read from.
+     */
     public void showList(TaskList taskList) {
         ListIterator<Task> tasks = taskList.getTasks();
 
@@ -93,6 +140,11 @@ public class Ui {
         this.newLine();
     }
 
+    /**
+     * Shows the formatted error message of an exception.
+     * 
+     * @param e The exception to be shown.
+     */
     public void showError(Exception e) {
         this.showLine();
         System.out.println(String.format("\n    %s", e.getMessage()));
@@ -100,6 +152,9 @@ public class Ui {
         this.newLine();
     }
 
+    /**
+     * Shows the goodbye message when the user exits the program.
+     */
     public void showGoodbye() {
         this.showLine();
         System.out.println("\n    Bye. Hope to see you again soon!");

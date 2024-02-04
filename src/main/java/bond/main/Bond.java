@@ -1,3 +1,9 @@
+/**
+ * The main class for the Bond task management program.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.main;
 
 import bond.command.Command;
@@ -11,9 +17,14 @@ public final class Bond {
 
     private TaskList taskList;
 
-    public Bond() {
+    /**
+     * Constructor for the Bond class.
+     * 
+     * @param filePath The file path to the file where the tasks are stored.
+     */
+    public Bond(String filePath) {
         this.ui = new Ui();
-        this.storage = new Storage(System.getProperty("user.home") + "/data/Bond.txt");
+        this.storage = new Storage(filePath);
 
         try {
             this.taskList = new TaskList(this.storage.load());
@@ -23,6 +34,9 @@ public final class Bond {
         }
     }
 
+    /**
+     * Serves as core method to run the Bond task management program.
+     */
     public void run() {
 
         ui.showWelcome();
@@ -40,8 +54,13 @@ public final class Bond {
         }
     }
 
+    /**
+     * Serves as main entry point method to start the Bond task management program.
+     * 
+     * @param args The arguments passed in to the program, not used.
+     */
     public static void main(String[] args) {
-        Bond bond = new Bond();
+        Bond bond = new Bond(System.getProperty("user.home") + "/data/Bond.txt");
         bond.run();
     }
 }

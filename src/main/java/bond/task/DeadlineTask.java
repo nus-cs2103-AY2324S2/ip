@@ -1,3 +1,9 @@
+/**
+ * Represents a deadline task in the Bond task management program.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.task;
 
 import java.time.LocalDate;
@@ -11,6 +17,14 @@ public class DeadlineTask extends Task {
     private LocalDate dueDate;
     private String timing;
 
+    /**
+     * Constructor for the DeadlineTask class.
+     * Throws a BondException if the deadline is in an incorrect format.
+     * 
+     * @param name     The name of the deadline task.
+     * @param deadline The deadline of the task.
+     * @throws BondException If the deadline task cannot be created.
+     */
     public DeadlineTask(String name, String deadline) throws BondException {
         super(name);
 

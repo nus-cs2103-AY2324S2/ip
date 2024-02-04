@@ -1,3 +1,10 @@
+/**
+ * The Storage class is used to handle the loading and storing of tasks in the
+ * Bond task management program.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.main;
 
 import java.io.File;
@@ -14,10 +21,23 @@ public class Storage {
 
     private String pathToFile;
 
+    /**
+     * Constructor for the Storage class.
+     * 
+     * @param filePath The file path to the file where the tasks are stored.
+     */
     public Storage(String filePath) {
         this.pathToFile = filePath;
     }
 
+    /**
+     * Parses the task and adds it to the task list.
+     * 
+     * @param task  The task to be parsed and added to the task list.
+     * @param tasks The task list to add the parsed task to.
+     * @throws BondException If the task cannot be parsed and added to the task
+     *                       list.
+     */
     public void parseAndAddTask(String task, ArrayList<Task> tasks) throws BondException {
         // System.out.println(task);
         String remainder = task.substring(4);
@@ -100,6 +120,12 @@ public class Storage {
         tasks.add(newTask);
     }
 
+    /**
+     * Loads the tasks from the file and returns the tasks as an ArrayList.
+     * 
+     * @return The tasks loaded from the file as an ArrayList.
+     * @throws BondException If the tasks cannot be loaded from the file.
+     */
     public ArrayList<Task> load() throws BondException {
 
         try {
@@ -145,6 +171,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Stores the new task in the file.
+     * 
+     * @param newTask  The new task to be stored in the file.
+     * @param taskList The task list to store the new task in.
+     * @throws BondException If the new task cannot be stored in the file.
+     */
     public void storeTask(Task newTask, TaskList taskList) throws BondException {
         try {
             FileWriter fw = new FileWriter(this.pathToFile, true); // create a FileWriter in append mode
@@ -156,6 +189,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Overwrites the previous save in the file with the new task list.
+     * 
+     * @param taskList The new task list to overwrite the previous save in the file.
+     * @throws BondException If the new task list cannot overwrite the previous save
+     *                       in the file.
+     */
     public void overwritePreviousSave(TaskList taskList) throws BondException {
         try {
             FileWriter fw = new FileWriter(pathToFile, false); // create a FileWriter in overwrite mode
@@ -171,10 +211,5 @@ public class Storage {
         } catch (IOException e) {
             BondException.raiseException("store", "STORE_FAILURE");
         }
-    }
-
-    public void save() {
-        System.out.println("Saving data to file...");
-
     }
 }

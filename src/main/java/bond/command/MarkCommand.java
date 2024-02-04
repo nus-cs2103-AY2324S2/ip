@@ -1,3 +1,10 @@
+/**
+ * The MarkCommand class is used to encapsulate a mark task command, which is
+ * executed upon invoking the execute() method.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.command;
 
 import bond.main.BondException;
@@ -10,11 +17,24 @@ public class MarkCommand extends Command {
 
     private int index;
 
+    /**
+     * Constructor for the MarkCommand class.
+     * 
+     * @param index The index of the task to be marked as complete.
+     */
     public MarkCommand(int index) {
         super("mark");
         this.index = index;
     }
 
+    /**
+     * Executes the mark task command.
+     * 
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
+     * @param storage The storage.
+     * @throws BondException If an error occurs during the execution of the command.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BondException {
         if (this.index >= tasks.numberOfTasks()) {

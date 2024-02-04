@@ -1,3 +1,10 @@
+/**
+ * The AddToDoCommand class is used to encapsulate an add todo task
+ * command, which is executed upon invoking the execute() method.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.command;
 
 import java.util.ArrayList;
@@ -25,11 +32,26 @@ public abstract class Command {
     public String commandType;
     public boolean isExit;
 
+    /**
+     * Constructor for the Command class.
+     * 
+     * @param commandType The type of command.
+     */
     public Command(String commandType) {
         this.commandType = commandType;
         this.isExit = false;
     }
 
+    /**
+     * Executes the command.
+     * Actual behaviour of the command is implemented in the sub-classes.
+     * Any changes to the task list will be reflected in the storage.
+     * 
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
+     * @param storage The storage.
+     * @throws BondException If an error occurs during the execution of the command.
+     */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws BondException;
 
     public boolean isExit() {

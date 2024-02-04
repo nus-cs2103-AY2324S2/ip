@@ -1,13 +1,18 @@
+/**
+ * Tests for the Parser class.
+ * 
+ * @author Benny Loh
+ * @version 0.1
+ */
 package bond.main;
+
+import java.util.ArrayList;
 
 import bond.task.DeadlineTask;
 import bond.task.EventTask;
 import bond.task.Task;
 import bond.task.ToDoTask;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
