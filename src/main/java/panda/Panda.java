@@ -13,6 +13,12 @@ public class Panda {
     private Storage cacheFile;
     private Ui ui;
 
+    /**
+     * Constructs a new Panda instance.
+     * Initializes the user interface, storage file, and task list.
+     * 
+     * @param filePath the path to the file where tasks are stored.
+     */
     public Panda(String filePath) {
         ui = new Ui();
         cacheFile = new Storage(filePath);
@@ -24,6 +30,10 @@ public class Panda {
         }
     }
 
+    /**
+     * Runs the Panda application.
+     * Displays a welcome message, reads and executes commands until the exit command is received, and handles exceptions.
+     */
     private void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -39,6 +49,12 @@ public class Panda {
         }
     }
 
+    /**
+     * Entry point for the Panda application.
+     * Creates a new Panda instance and runs it.
+     * 
+     * @param args command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Panda(filePath).run();
     }

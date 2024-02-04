@@ -6,11 +6,23 @@ public class AlterMarkCommand extends Command {
     private int idx;
     private boolean isMarked;
 
+    /**
+     * Constructs a new AlterMarkCommand.
+     * 
+     * @param idx the index of the task to alter mark.
+     * @param isMarked the logic to mark the task
+     */
     public AlterMarkCommand(int idx, boolean isMarked) {
         this.idx = idx;
         this.isMarked = isMarked;
     }
 
+    /**
+     * Executes the command on the given TaskList.
+     * 
+     * @param tlist the TaskList on which the command is executed.
+     * @throws PandaException if an error occurs during execution.
+     */
     public void execute(TaskList tlist) throws PandaException {
         if(idx - 1 >= tlist.size()) {
             throw new OutOfBoundsException();
@@ -23,6 +35,14 @@ public class AlterMarkCommand extends Command {
         }
     }
 
+    /**
+     * Executes the command on the given TaskList, updates the UI, and saves changes to the cache file.
+     * 
+     * @param tlist the TaskList on which the command is executed.
+     * @param ui the UI to update after execution.
+     * @param cacheFile the cache file to save changes to.
+     * @throws PandaException if an error occurs during execution.
+     */
     public void execute(TaskList tlist, Ui ui, Storage cacheFile) throws PandaException {
         if(idx - 1 >= tlist.size()) {
             throw new OutOfBoundsException();
@@ -38,6 +58,11 @@ public class AlterMarkCommand extends Command {
         return;
     }
 
+    /**
+     * Checks if the command is an exit command.
+     * 
+     * @return always false, as this command is not an exit command.
+     */
     public boolean isExit() {
         return false;
     }

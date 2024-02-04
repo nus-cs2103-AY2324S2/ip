@@ -7,6 +7,12 @@ import java.util.Locale;
 public class Deadline extends Task {
     private LocalDateTime date;
 
+    /**
+     * Constructs a new Deadline with the given description and deadline.
+     * 
+     * @param desc the description of the task.
+     * @param datestr the deadline of the task.
+     */
     public Deadline(String desc, String datestr) {
         super(desc);
         DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder();
@@ -22,14 +28,29 @@ public class Deadline extends Task {
         this.date = LocalDateTime.parse(datestr, formatter);
     }
 
+    /**
+     * Returns the string representation of the deadline.
+     * 
+     * @return the string representation of the deadline.
+     */
     private String dateString() {
         return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy ha"));
     }
 
+    /**
+     * Returns the string representation of the Deadline.
+     * 
+     * @return the string representation of the Deadline.
+     */
     public String toString() {
         return "[D]" + super.toString() + " (by: " + dateString() + ")";
     }
 
+    /**
+     * Returns the string representation of the Deadline suitable for saving to a file.
+     * 
+     * @return the string representation of the Deadline.
+     */
     public String saveString() {
         return "D | " + super.saveString() + " | " + dateString();
     }

@@ -8,6 +8,13 @@ public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
+    /**
+     * Constructs a new Event with the given description, start time, and end time.
+     * 
+     * @param desc the description of the event.
+     * @param from the start time of the event.
+     * @param to the end time of the event.
+     */
     public Event(String desc, String from, String to) {
         super(desc);
         DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder();
@@ -27,14 +34,29 @@ public class Event extends Task {
         this.to = LocalDateTime.parse(to, formatter);
     }
 
+    /**
+     * Returns the formatted string representation of the start time of the event.
+     * 
+     * @return the formatted string representation of the start time of the event.
+     */
     private String startString() {
         return from.format(DateTimeFormatter.ofPattern("MMM dd yyyy ha"));
     }
 
+    /**
+     * Returns the formatted string representation of the end time of the event.
+     * 
+     * @return the formatted string representation of the end time of the event.
+     */
     private String stopString() {
         return to.format(DateTimeFormatter.ofPattern("MMM dd yyyy ha"));
     }
 
+    /**
+     * Returns the string representation of the event.
+     * 
+     * @return the string representation of the event.
+     */
     public String toString() {
         String from = startString();
         String to = stopString();
@@ -44,6 +66,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 
+    /**
+     * Returns the string representation of the event suitable for saving to a file.
+     * 
+     * @return the string representation of the event.
+     */
     public String saveString() {
         return "E | " + super.saveString() + " | " + startString() + " | " + stopString();
     }
