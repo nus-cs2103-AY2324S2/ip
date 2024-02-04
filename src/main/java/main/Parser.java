@@ -3,6 +3,7 @@ package main;
 import static commands.Constants.DEADLINE;
 import static commands.Constants.DELETE;
 import static commands.Constants.EVENT;
+import static commands.Constants.FIND;
 import static commands.Constants.HELP;
 import static commands.Constants.LIST;
 import static commands.Constants.MARK;
@@ -19,6 +20,7 @@ import commands.CreateDeadline;
 import commands.CreateEvent;
 import commands.CreateTodo;
 import commands.DeleteTask;
+import commands.Find;
 import commands.Help;
 import commands.ListTasks;
 import commands.MarkTask;
@@ -70,7 +72,7 @@ public class Parser {
 
 
             case TODO:
-                command = new CreateTodo(tasks, parseTodo(input));
+                command = new CreateTodo(tasks, parseName(input));
                 break;
 
             case DEADLINE:
@@ -83,6 +85,10 @@ public class Parser {
 
             case HELP:
                 command = new Help();
+                break;
+
+            case FIND:
+                command = new Find(tasks, parseName(input));
                 break;
 
             default:
@@ -124,7 +130,7 @@ public class Parser {
      * @throws InvalidTodoException   If the description is missing.
      * @throws InvalidCommandException If the command is invalid.
      */
-    public static String parseTodo(String input) throws InvalidTodoException, InvalidCommandException {
+    public static String parseName(String input) throws InvalidTodoException, InvalidCommandException {
         String[] details = input.split(" ", 2);
 
         if (details.length < 2) {

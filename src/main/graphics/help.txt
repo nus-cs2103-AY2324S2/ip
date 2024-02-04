@@ -1,5 +1,6 @@
 Command     Description
 list        Lists all tasks
+find        Finds task with matching name
 todo        Creates task of type todo
 event       Creates task of type event
 deadline    Creates task of type deadline

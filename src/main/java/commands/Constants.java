@@ -29,5 +29,8 @@ public class Constants {
 
     /** Command keyword for displaying help information. */
     public static final String HELP = "help";
+
+    /** Command keyword to search for a task. */
+    public static final String FIND = "find";
 }
 
