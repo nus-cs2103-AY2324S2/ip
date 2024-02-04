@@ -1,7 +1,7 @@
 package core;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -117,6 +117,7 @@ public class Ui {
         } else {
             System.out.println(user + ", I could not read the tasklist file..!");
         }
+
         showLine();
     }
 
