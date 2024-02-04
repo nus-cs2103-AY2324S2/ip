@@ -20,4 +20,8 @@ public class Task {
         String status_icon = this.isDone ? "X" : " ";
         return "[" + status_icon + "] " + this.description;
     }
+
+    public String dataString() {
+        return String.format("%s|%s", this.isDone, this.description);
+    }
 }

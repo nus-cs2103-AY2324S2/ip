@@ -13,4 +13,8 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + this.date_from + " to: " + this.date_to + ")";
     }
 
+    @Override
+    public String dataString() {
+        return String.format("event|%s|%s|%s", super.dataString(), this.date_from, this.date_to);
+    }
 }
