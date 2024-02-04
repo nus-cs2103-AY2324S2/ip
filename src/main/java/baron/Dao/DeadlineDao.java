@@ -57,5 +57,6 @@ public class DeadlineDao extends TaskDao {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
+        return deadlines;
     }
+}

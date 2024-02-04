@@ -41,4 +41,7 @@ public class TodoDao extends TaskDao {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        return todos;
     }
+
+}

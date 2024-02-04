@@ -13,6 +13,11 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    public Deadline(int id, String name, boolean isDone, LocalDateTime deadline) {
+        super(id, name, isDone);
+        this.deadline = deadline;
+    }
+
     /**
      * Parses data string to create a deadline object.
      *
@@ -32,5 +37,10 @@ public class Deadline extends Task {
     @Override
     public String toDataString() {
         return super.toDataString() + " | " + this.deadline.format(DateUtils.INPUT_FORMATTER);
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + DateUtils.formatDate(deadline) + ")";
     }
 }
