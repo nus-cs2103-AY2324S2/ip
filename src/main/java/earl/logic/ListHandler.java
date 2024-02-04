@@ -3,7 +3,7 @@ package earl.logic;
 import earl.util.TaskList;
 import earl.util.Ui;
 
-public final class listHandler extends Handler {
+public final class ListHandler extends Handler {
     public void handle(TaskList tasks, Ui ui) {
         if (!tasks.isEmpty()) {
             int n = tasks.getSize();

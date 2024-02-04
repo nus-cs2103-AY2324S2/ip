@@ -5,10 +5,10 @@ import earl.util.Parser;
 import earl.util.TaskList;
 import earl.util.Ui;
 
-public final class unmarkHandler extends Handler {
+public final class UnmarkHandler extends Handler {
     private final String[] COMMAND;
 
-    public unmarkHandler(String[] command) {
+    public UnmarkHandler(String[] command) {
         COMMAND = command;
     }
 

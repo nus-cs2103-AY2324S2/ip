@@ -5,28 +5,24 @@ import earl.util.Parser;
 import earl.util.TaskList;
 import earl.util.Ui;
 
-public final class markHandler extends Handler {
+public final class DeleteHandler extends Handler {
+    private final String[] COMMAND;
 
-    public final String[] COMMAND;
-
-    public markHandler(String[] command) {
+    public DeleteHandler(String[] command) {
         COMMAND = command;
     }
 
     public void handle(TaskList tasks, Ui ui) throws EarlException {
         try {
             int idx = Parser.parseIndex(COMMAND[1]);
-            if (tasks.mark(idx)) {
-                ui.makeResponse("Item marked as done.");
-            } else {
-                ui.makeResponse("Item already marked as done.");
-            }
+            ui.makeResponse("Item deleted.",
+                    "\t" + tasks.delete(idx));
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new EarlException(
                     "Error, not a valid item number within range.\n"
-                            + "\tExample use:\n\tmark 3");
+                            + "\tExample use:\n\tdelete 3");
         } catch (Exception e) {
-            throw new EarlException("Error, unknown use of mark.\n"
+            throw new EarlException("Error, unknown use of delete.\n"
                     + e.getMessage());
         }
     }

@@ -11,22 +11,21 @@ public abstract class Handler {
     public static Handler dispatch(String[] command) {
         switch (command[0]) {
         case "list":
-            return new listHandler();
+            return new ListHandler();
         case "mark":
-            return new markHandler(command);
+            return new MarkHandler(command);
         case "unmark":
-            return new unmarkHandler(command);
+            return new UnmarkHandler(command);
         case "todo":
-            // fallthrough
+            return new TodoHandler(command);
         case "deadline":
-            // fallthrough
+            return new DeadlineHandler(command);
         case "event":
-            // fallthrough
-            return new taskHandler(command);
+            return new EventHandler(command);
         case "delete":
-            return new deleteHandler(command);
+            return new DeleteHandler(command);
         default:
-            return new unknownHandler();
+            return new UnknownHandler();
         }
     }
 }
