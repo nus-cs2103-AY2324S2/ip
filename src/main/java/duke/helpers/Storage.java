@@ -1,11 +1,14 @@
 package duke.helpers;
 
+import java.io.FileNotFoundException;
+
 import duke.command.CommandType;
 import duke.exception.DukeException;
 import duke.task.TaskList;
 
-import java.io.FileNotFoundException;
-
+/**
+ * Storage class
+ */
 public class Storage {
     private String filePath;
     private Ui ui;

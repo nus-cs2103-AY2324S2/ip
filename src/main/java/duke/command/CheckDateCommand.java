@@ -4,6 +4,9 @@ import duke.helpers.Storage;
 import duke.helpers.Ui;
 import duke.task.TaskList;
 
+/**
+ * CheckDateCommand class
+ */
 public class CheckDateCommand extends Command {
     private String[] commandArr;
 

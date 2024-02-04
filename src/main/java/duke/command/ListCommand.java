@@ -4,6 +4,9 @@ import duke.helpers.Storage;
 import duke.helpers.Ui;
 import duke.task.TaskList;
 
+/**
+ * ListCommand class
+ */
 public class ListCommand extends Command {
     /**
      * Executes list command.
