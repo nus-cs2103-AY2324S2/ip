@@ -9,49 +9,65 @@ import toothless.ui.Ui;
  * A class that parses, resolves and validates user input.
  */
 public class Parser {
+    private boolean isRunning = true;
+
+    /**
+     * Sets isRunning boolean to false for stopping program.
+     */
+    private void makeExit() {
+        this.isRunning = false;
+    }
+
+    /**
+     * Returns isRunning boolean.
+     * 
+     * @return A boolean that indicates if program is still running.
+     */
+    public boolean isStillRunning() {
+        return isRunning;
+    }
+    
     /**
      * The main method that parses user input.
      * 
      * @param userInput User input string to be parsed.
-     * @param taskList TaskList class that is operated on when user command is executed.
+     * @param tasks TaskList class that is operated on when user command is executed.
      * @param ui Ui class used to print messages.
-     * @return Boolean of isRunning in Toothless. True if program continues, False if program stops.
      * @throws ToothlessException if user input is invalid.
      */
-    public boolean parseInput(String userInput, TaskList taskList, Ui ui) throws ToothlessException {
+    public void parseInput(String userInput, TaskList tasks, Ui ui) throws ToothlessException {
         if (userInput.equals("bye")) {
             ui.printMessage("Bye. Purr-lease chat again soon!");
-            return false;
+            makeExit();
         } else if (userInput.equals("list")) {
-            ui.printList(taskList.getTaskList());
+            ui.printList(tasks.getTasks());
         } else if (userInput.startsWith("mark ") || userInput.equals("mark")) {
-            int listIndex = validateListInput(userInput, "mark", taskList.size());
-            Task markedTask = taskList.markTask(listIndex);
+            int listIndex = validateListInput(userInput, "mark", tasks.size());
+            Task markedTask = tasks.markTask(listIndex);
             ui.printMarkedTask(markedTask);
         } else if (userInput.startsWith("unmark ") || userInput.equals("unmark")) {
-            int listIndex = validateListInput(userInput, "unmark", taskList.size());
-            Task unmarkedTask = taskList.unmarkTask(listIndex);
+            int listIndex = validateListInput(userInput, "unmark", tasks.size());
+            Task unmarkedTask = tasks.unmarkTask(listIndex);
             ui.printUnmarkedTask(unmarkedTask);
         } else if (userInput.startsWith("todo ") || userInput.equals("todo")) {
             String taskDescription = validateToDoInput(userInput);
-            Task newTask = taskList.addToDoToList(taskDescription);
-            ui.printNewTask(newTask, taskList.size());
+            Task newTask = tasks.addToDoToList(taskDescription);
+            ui.printNewTask(newTask, tasks.size());
         } else if (userInput.startsWith("deadline ") || userInput.equals("deadline")) {
             String[] deadlineAttributes = validateDeadlineInput(userInput);
-            Task newTask = taskList.addDeadlineToList(deadlineAttributes[0], deadlineAttributes[1]);
-            ui.printNewTask(newTask, taskList.size());
+            Task newTask = tasks.addDeadlineToList(deadlineAttributes[0], deadlineAttributes[1]);
+            ui.printNewTask(newTask, tasks.size());
         } else if (userInput.startsWith("event ") || userInput.equals("event")) {
             String[] eventAttributes = validateEventInput(userInput);
-            Task newTask = taskList.addEventToList(eventAttributes[0], eventAttributes[1], eventAttributes[2]);
-            ui.printNewTask(newTask, taskList.size());
+            Task newTask = tasks.addEventToList(eventAttributes[0], eventAttributes[1], eventAttributes[2]);
+            ui.printNewTask(newTask, tasks.size());
         } else if (userInput.startsWith("delete ") || userInput.equals("delete")) {
-            int listIndex = validateListInput(userInput, "delete", taskList.size());
-            Task deletedTask = taskList.deleteTask(listIndex);
-            ui.printDeletedTask(deletedTask, taskList.size());
+            int listIndex = validateListInput(userInput, "delete", tasks.size());
+            Task deletedTask = tasks.deleteTask(listIndex);
+            ui.printDeletedTask(deletedTask, tasks.size());
         } else {
             throw new ToothlessException("Sorry, I don't understand what that means D:");
         }
-        return true;
     }
 
     /**

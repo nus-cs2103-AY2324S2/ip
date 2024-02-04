@@ -36,13 +36,15 @@ public abstract class Task {
     public String getStatusIcon() {
         return (this.isDone ? "X" : " "); // mark done duke.task with X
     }
-
+    
     /**
      * Returns a binary of the done status of the task.
      * 
      * @return The String indicating 1 if done, and 0 if not.
      */
-    public String getStatusBinary() { return (this.isDone ? "1" : "0"); }
+    public String getStatusBinary() { 
+        return (this.isDone ? "1" : "0"); 
+    }
 
     /**
      * Marks the task as done.

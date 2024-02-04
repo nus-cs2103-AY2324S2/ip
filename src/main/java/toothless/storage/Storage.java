@@ -20,7 +20,7 @@ import java.util.Scanner;
  */
 public class Storage {
     private String filePath;
-    private File f;
+    private File file;
 
     private static final DateTimeFormatter DATETIME_PARSE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -32,13 +32,13 @@ public class Storage {
      */
     public Storage(String filePath) throws ToothlessException {
         this.filePath = filePath;
-        this.f = new File(filePath);
+        this.file = new File(filePath);
         try {
-            if (!f.exists()) {
-                if (!f.getParentFile().exists()) {
-                    f.getParentFile().mkdirs();
+            if (!file.exists()) {
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs();
                 }
-                f.createNewFile();
+                file.createNewFile();
             }
         } catch (IOException e) {
             throw new ToothlessException(e.getMessage());
@@ -52,9 +52,9 @@ public class Storage {
      * @throws ToothlessException if file is corrupted.
      */
     public ArrayList<Task> loadStorage() throws ToothlessException {
-        ArrayList<Task> taskArrayList = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         try {
-            Scanner tasklistScanner = new Scanner(this.f);
+            Scanner tasklistScanner = new Scanner(this.file);
             while (tasklistScanner.hasNext()) {
                 try {
                     String line = tasklistScanner.nextLine();
@@ -65,16 +65,16 @@ public class Storage {
                     
                     if (taskType.equals("T")) {
                         ToDo newToDo = new ToDo(taskDescription, isDone);
-                        taskArrayList.add(newToDo);
+                        tasks.add(newToDo);
                     } else if (taskType.equals("D")) {
                         LocalDateTime deadlineBy = LocalDateTime.parse(taskArgs[3], DATETIME_PARSE_FORMATTER);
                         Deadline newDeadline = new Deadline(taskDescription, isDone, deadlineBy);
-                        taskArrayList.add(newDeadline);
+                        tasks.add(newDeadline);
                     } else if (taskArgs[0].equals("E")) {
                         LocalDateTime eventFrom = LocalDateTime.parse(taskArgs[3], DATETIME_PARSE_FORMATTER);
                         LocalDateTime eventTo = LocalDateTime.parse(taskArgs[4], DATETIME_PARSE_FORMATTER);
                         Event newEvent = new Event(taskDescription, isDone, eventFrom, eventTo);
-                        taskArrayList.add(newEvent);
+                        tasks.add(newEvent);
                     } else {
                         throw new ToothlessException("Sorry, tasklist.txt seems to contain a corrupted task type.");
                     }
@@ -89,19 +89,19 @@ public class Storage {
         } catch (IOException e) {
             throw new ToothlessException(e.getMessage());
         } 
-        return taskArrayList;
+        return tasks;
     }
 
     /**
      * Saves data from ArrayList of Tasks to data file.
      * 
-     * @param taskArrayList ArrayList of Tasks to save into file.
+     * @param tasks ArrayList of Tasks to save into file.
      * @throws ToothlessException if saving failed.
      */
-    public void saveToStorage(ArrayList<Task> taskArrayList) throws ToothlessException {
+    public void saveToStorage(ArrayList<Task> tasks) throws ToothlessException {
         try {
             FileWriter fw = new FileWriter(this.filePath, false);
-            for (Task t : taskArrayList) {
+            for (Task t : tasks) {
                 fw.write(t.toStorageString() + System.lineSeparator());
             }
             fw.close();
