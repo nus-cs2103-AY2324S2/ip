@@ -30,8 +30,10 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Osiris chatBot) {
+    public void initialiseOsiris(Osiris chatBot) {
         osiris = chatBot;
+        String status = osiris.startChat();
+        outputOsirisDialog(status);
     }
 
     /**
@@ -40,13 +42,17 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        String response = osiris.getResponse(input);
+        String userInput = this.userInput.getText();
+        String response = osiris.processInput(userInput);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, osirisImage)
+                DialogBox.getUserDialog(userInput, userImage),
+                DialogBox.getOsirisDialog(response, osirisImage)
         );
-        userInput.clear();
+        this.userInput.clear();
+    }
+
+    private void outputOsirisDialog(String outputDialog) {
+        dialogContainer.getChildren().addAll(DialogBox.getOsirisDialog(outputDialog, osirisImage));
     }
 }
 

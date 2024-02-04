@@ -13,11 +13,10 @@ public class UnsupportedCommand extends Command {
      *
      * @param taskManager   The TaskManager instance.
      * @param userInterface The Ui instance.
-     * @return Always returns true.
+     * @return String notification of unsupported command being entered.
      */
     @Override
-    public boolean execute(TaskManager taskManager, Ui userInterface) {
-        userInterface.displayUnsupportedCommandMessage();
-        return true;
+    public String execute(TaskManager taskManager, Ui userInterface) {
+        return userInterface.displayUnsupportedCommandMessage();
     }
 }

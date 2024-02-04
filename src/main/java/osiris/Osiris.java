@@ -1,7 +1,5 @@
 package osiris;
 
-import java.util.Scanner;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import osiris.commands.Command;
+import osiris.exceptions.OsirisException;
+import osiris.exceptions.OsirisStorageFileException;
 import osiris.interpreters.UserInputInterpreter;
 import osiris.task.TaskManager;
 import osiris.ui.Ui;
@@ -37,27 +37,41 @@ public class Osiris {
      * Initiates the chat session with the user.
      * Manages user input, interprets commands, and handles task management.
      */
-    public void startChat() {
-        Scanner scanner = new Scanner(System.in);
-        taskManager.initialise();
-
-        userInterface.displayIntroductions();
-
-        boolean isTerminate = false;
-
-        while (!isTerminate) {
-            userInterface.displayOsirisPromptMessage();
-            String userInput = scanner.nextLine();
-
-            Command userCommand = UserInputInterpreter.getInstance().interpretUserInput(userInput);
-            userCommand.execute(taskManager, userInterface);
-            isTerminate = userCommand.isTerminateChat();
+    public String startChat() {
+        try {
+            taskManager.initialise();
+            return userInterface.displayIntroductions();
+        } catch (OsirisStorageFileException e) {
+            return e.getMessage() + " Please restart system.";
+        } catch (OsirisException e) {
+            return e.getMessage() + " Please restart system.";
         }
 
-        userInterface.displayGoodbyes();
+
+//        boolean isTerminate = false;
+
+//        while (!isTerminate) {
+//            userInterface.displayOsirisPromptMessage();
+//            String userInput = scanner.nextLine();
+//
+//            Command userCommand = UserInputInterpreter.getInstance().interpretUserInput(userInput);
+//            userCommand.execute(taskManager, userInterface);
+//            isTerminate = userCommand.isTerminateChat();
+//        }
+
+//        userInterface.displayGoodbyes();
     }
 
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
+    public String processInput(String userInput) {
+        String response = "";
+        boolean isTerminate = false;
+        try {
+            Command userCommand = UserInputInterpreter.getInstance().interpretUserInput(userInput);
+            response = userCommand.execute(taskManager, userInterface);
+            isTerminate = userCommand.isTerminateChat();
+        } catch (OsirisException e) {
+            return e.getMessage();
+        }
+        return response;
     }
 }

@@ -15,10 +15,10 @@ public class NoCommand extends Command {
      *
      * @param taskManager   The TaskManager instance.
      * @param userInterface The Ui instance.
-     * @return Always returns true.
+     * @return String notification if the command is executed successfully.
      */
     @Override
-    public boolean execute(TaskManager taskManager, Ui userInterface) {
-        return true;
+    public String execute(TaskManager taskManager, Ui userInterface) {
+        return "";
     }
 }

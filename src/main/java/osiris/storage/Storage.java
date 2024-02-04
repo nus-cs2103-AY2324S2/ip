@@ -1,5 +1,8 @@
 package osiris.storage;
+
 import java.io.File;
+
+import osiris.exceptions.OsirisStorageFileException;
 
 /**
  * Manages file storage for the Osiris.
@@ -30,6 +33,7 @@ public class Storage {
      * Checks if the storage file exists.
      *
      * @return True if the storage file exists, false otherwise.
+     * @throws OsirisStorageFileException If error accessing file.
      */
     public boolean doesStorageFileExist() {
         try {
@@ -37,13 +41,13 @@ public class Storage {
             return file.exists();
         } catch (SecurityException e) {
             System.err.println("SecurityException occurred.");
-            return false;
+            throw new OsirisStorageFileException("Trouble accessing storage file: " + filepath);
         } catch (NullPointerException e) {
             System.err.println("NullPointerException occurred.");
-            return false;
+            throw new OsirisStorageFileException("Trouble accessing storage file: " + filepath);
         } catch (Exception e) {
             System.err.println("An error occurred with Function storageFileExist().");
-            return false;
+            throw new OsirisStorageFileException("Trouble accessing storage file: " + filepath);
         }
     }
 }

@@ -15,6 +15,7 @@ import osiris.commands.NoCommand;
 import osiris.commands.PrintUserTasksCommand;
 import osiris.commands.TerminateChatCommand;
 import osiris.commands.UnsupportedCommand;
+import osiris.exceptions.OsirisException;
 import osiris.formatters.DateTimeFormatters;
 import osiris.validation.InputsValidator;
 
@@ -46,8 +47,9 @@ public class UserInputInterpreter {
      *
      * @param userInput The user input string.
      * @return The appropriate Command object based on the user input.
+     * @throws OsirisException If there is an error in interpreting data.
      */
-    public Command interpretUserInput(String userInput) {
+    public Command interpretUserInput(String userInput) throws OsirisException {
 
         String[] inputtedWords = userInput.split(" ");
         String taskName = "";

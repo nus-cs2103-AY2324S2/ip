@@ -30,12 +30,11 @@ public class FindTasksCommand extends Command {
      *
      * @param taskManager   The TaskManager instance managing the tasks.
      * @param userInterface The Ui instance for interacting with the user.
-     * @return True if the command execution is successful, false otherwise.
+     * @return String of all the found tasks.
      */
     @Override
-    public boolean execute(TaskManager taskManager, Ui userInterface) {
+    public String execute(TaskManager taskManager, Ui userInterface) {
         ArrayList<String> relevantTasks = taskManager.findTask(searchSting);
-        userInterface.printFoundUserTasks(relevantTasks);
-        return true;
+        return userInterface.printFoundUserTasks(relevantTasks);
     }
 }

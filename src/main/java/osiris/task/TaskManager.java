@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import osiris.exceptions.OsirisInvalidIndexException;
+import osiris.exceptions.OsirisStorageFileException;
 import osiris.formatters.DateTimeFormatters;
 import osiris.storage.StorageTxtFile;
 
@@ -24,7 +26,7 @@ public class TaskManager {
     /**
      * Initializes the task manager by loading tasks from file storage.
      */
-    public void initialise() {
+    public void initialise() throws OsirisStorageFileException {
         taskStorage.initialiseStorageTxtFile();
         this.loadUserTaskFromFileStorage();
     }
@@ -32,7 +34,7 @@ public class TaskManager {
     /**
      * Terminates the task manager by clearing file storage and storing tasks.
      */
-    public void terminate() {
+    public void terminate() throws OsirisStorageFileException {
         taskStorage.clearStorageTxtFile();
         this.storeUserTaskToFileStorage();
     }
@@ -104,6 +106,7 @@ public class TaskManager {
      *
      * @param index The index of the task to be removed.
      * @return The removed task, or null if the index is out of bounds.
+     * @throws OsirisInvalidIndexException If index provided is invalid.
      */
     public Task deleteTask(int index) {
         try {
@@ -112,7 +115,7 @@ public class TaskManager {
             return deletedTask;
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No task with index " + (index + 1) + ". Enter 'list' to view tasks.");
-            return null;
+            throw new OsirisInvalidIndexException(index + 1);
         }
     }
 
@@ -130,6 +133,7 @@ public class TaskManager {
      *
      * @param index The index of the task to be marked as completed.
      * @return True if the task is marked as completed successfully, false otherwise.
+     * @throws OsirisInvalidIndexException If index provided is invalid.
      */
     public boolean markTaskComplete(int index) {
         try {
@@ -137,7 +141,7 @@ public class TaskManager {
             return true;
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No task with index " + (index + 1) + ". Enter 'list' to view tasks.");
-            return false;
+            throw new OsirisInvalidIndexException(index + 1);
         }
     }
 
@@ -146,6 +150,7 @@ public class TaskManager {
      *
      * @param index The index of the task to be marked as incomplete.
      * @return True if the task is marked as incomplete successfully, false otherwise.
+     * @throws OsirisInvalidIndexException If index provided is invalid.
      */
     public boolean markTaskIncomplete(int index) {
         try {
@@ -153,7 +158,7 @@ public class TaskManager {
             return true;
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No task with index " + (index + 1) + ". Enter 'list' to view tasks.");
-            return false;
+            throw new OsirisInvalidIndexException(index + 1);
         }
     }
 
@@ -176,7 +181,7 @@ public class TaskManager {
     /**
      * Stores user tasks to file storage.
      */
-    private void storeUserTaskToFileStorage() {
+    private void storeUserTaskToFileStorage() throws OsirisStorageFileException {
         for (Task task : userTasks) {
             taskStorage.appendToStorageTxtFile(task.getStringStorageRepresentation());
         }
@@ -185,7 +190,7 @@ public class TaskManager {
     /**
      * Loads user tasks from file storage.
      */
-    private void loadUserTaskFromFileStorage() {
+    private void loadUserTaskFromFileStorage() throws OsirisStorageFileException {
         ArrayList<String> readContents = taskStorage.readStorageTxtFile();
         for (String readContentString : readContents) {
             String[] readContentWord = readContentString.split("\\|");
