@@ -5,72 +5,139 @@ import ben.tasks.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Represents the user interface for the Ben task management application.
+ */
 public class Ui {
-  private final Scanner in;
+    private final Scanner in;
 
-  public Ui() {
-    this.in = new Scanner(System.in);
-  }
+    /**
+     * Constructs a Ui object with a Scanner for user input.
+     */
+    public Ui() {
+        this.in = new Scanner(System.in);
+    }
 
-  public static void show(String message) {
-    System.out.println("      " + message);
-  }
-  public void showWelcome() {
-    show("______________________________________________");
-    show("Hello! I'm Ben");
-    show("What can I do for you?");
-    show("______________________________________________");
-  }
+    /**
+     * Displays a message to the user.
+     *
+     * @param message The message to be displayed.
+     */
+    public static void show(String message) {
+        System.out.println("      " + message);
+    }
 
-  public void showLine() {
-    show("______________________________________________");
-  }
+    /**
+     * Displays the welcome message to the user.
+     */
+    public void showWelcome() {
+        show("______________________________________________");
+        show("Hello! I'm Ben");
+        show("What can I do for you?");
+        show("______________________________________________");
+    }
 
-  public String readCommand() {
-    return in.nextLine();
-  }
+    /**
+     * Displays a line separator.
+     */
+    public void showLine() {
+        show("______________________________________________");
+    }
 
-  public void showError(String message) {
-    show(message);
-  }
+    /**
+     * Reads a command entered by the user.
+     *
+     * @return The user-entered command.
+     */
+    public String readCommand() {
+        return in.nextLine();
+    }
 
-  public void showExitMessage() {
-    show("Bye. Hope to see you again soon!");
-  }
+    /**
+     * Displays an error message to the user.
+     *
+     * @param message The error message to be displayed.
+     */
+    public void showError(String message) {
+        show(message);
+    }
 
-  public void showListMessage() {
-    show("Here are the tasks in your list:");
-  }
+    /**
+     * Displays the exit message to the user.
+     */
+    public void showExitMessage() {
+        show("Bye. Hope to see you again soon!");
+    }
 
-  public void showTask(Task task) {
-    show(task.toString());
-  }
+    /**
+     * Displays the message for listing tasks to the user.
+     */
+    public void showListMessage() {
+        show("Here are the tasks in your list:");
+    }
 
-  public void showTask(TaskList tasks, int index) {
-    show(tasks.toString(index));
-  }
+    /**
+     * Displays a task to the user.
+     *
+     * @param task The task to be displayed.
+     */
+    public void showTask(Task task) {
+        show(task.toString());
+    }
 
-  public void showTaskList(TaskList tasks) {
-    tasks.showTaskList();
-  }
+    /**
+     * Displays a specific task from the TaskList to the user.
+     *
+     * @param tasks The TaskList containing tasks.
+     * @param index The index of the task to be displayed.
+     */
+    public void showTask(TaskList tasks, int index) {
+        show(tasks.toString(index));
+    }
 
-  public void showMarkedTaskMessage() {
-    show("Nice! I've marked this task as done:");
-  }
+    /**
+     * Displays the entire TaskList to the user.
+     *
+     * @param tasks The TaskList containing tasks.
+     */
+    public void showTaskList(TaskList tasks) {
+        tasks.showTaskList();
+    }
 
-  public void showUnmarkedTaskMessage() {
-    show("OK, I've marked this task as not done yet:");
-  }
+    /**
+     * Displays a message for a marked task to the user.
+     */
+    public void showMarkedTaskMessage() {
+        show("Nice! I've marked this task as done:");
+    }
 
-  public void showAddedTaskMessage() {
-    show("Got it. I've added this task:");
-  }
+    /**
+     * Displays a message for an unmarked task to the user.
+     */
+    public void showUnmarkedTaskMessage() {
+        show("OK, I've marked this task as not done yet:");
+    }
 
-  public void showCurrNoOfTasks(TaskList tasks) {
-    show("Now you have " + tasks.size() + " tasks in the list.");
-  }
+    /**
+     * Displays a message for an added task to the user.
+     */
+    public void showAddedTaskMessage() {
+        show("Got it. I've added this task:");
+    }
 
-  public void showDeletedTaskMessage() {
-    show("Noted. I've removed this task:");
-  }
+    /**
+     * Displays the current number of tasks in the TaskList to the user.
+     *
+     * @param tasks The TaskList containing tasks.
+     */
+    public void showCurrNoOfTasks(TaskList tasks) {
+        show("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    /**
+     * Displays a message for a deleted task to the user.
+     */
+    public void showDeletedTaskMessage() {
+        show("Noted. I've removed this task:");
+    }
 }

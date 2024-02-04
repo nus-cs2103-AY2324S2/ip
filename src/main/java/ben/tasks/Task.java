@@ -1,37 +1,62 @@
 package ben.tasks;
 
+/**
+ * Represents a generic task in the Ben task management application.
+ */
 public class Task {
-  protected String description;
-  protected boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
-  // instantiate a new Ben.tasks.Task Object
-  public Task(boolean isDone, String description) {
-    this.description = description;
-    this.isDone = isDone;
-  }
+    /**
+     * Constructs a Task object with the specified attributes.
+     *
+     * @param isDone      Indicates if the task is done or not.
+     * @param description The description of the task.
+     */
+    public Task(boolean isDone, String description) {
+        this.description = description;
+        this.isDone = isDone;
+    }
 
-  // gets Status icon for the Ben.tasks.Task itself
-  public String getStatusIcon() {
-    return (this.isDone ? "[X]" : "[ ]");
-  }
+    /**
+     * Gets the status icon for the task.
+     *
+     * @return A string representing the status icon.
+     */
+    public String getStatusIcon() {
+        return (this.isDone ? "[X]" : "[ ]");
+    }
 
-  public String saveTask() {
-    return (this.isDone ? "1" : "0") + " | " + this.description;
-  }
+    /**
+     * Converts the task to a string representation for saving to a file.
+     *
+     * @return A string representing the task for saving to a file.
+     */
+    public String saveTask() {
+        return (this.isDone ? "1" : "0") + " | " + this.description;
+    }
 
-  // get status for task
-  @Override
-  public String toString() {
-    return this.getStatusIcon() + " " + this.description;
-  }
+    /**
+     * Returns a string representation of the task.
+     *
+     * @return A string representation of the task.
+     */
+    @Override
+    public String toString() {
+        return this.getStatusIcon() + " " + this.description;
+    }
 
-  // mark task
-  public void markTask() {
-    this.isDone = true;
-  }
+    /**
+     * Marks the task as done.
+     */
+    public void markTask() {
+        this.isDone = true;
+    }
 
-  // unmark task
-  public void unmarkTask() {
-    this.isDone = false;
-  }
+    /**
+     * Unmarks the task as done.
+     */
+    public void unmarkTask() {
+        this.isDone = false;
+    }
 }
