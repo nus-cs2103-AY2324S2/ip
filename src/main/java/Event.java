@@ -1,10 +1,12 @@
+
 import java.io.Serializable;
+
 
 public class Event extends Task implements Serializable {
 
     protected String from;
     protected String to;
-
+    
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
@@ -16,4 +18,3 @@ public class Event extends Task implements Serializable {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + " )" ;
     }
 }
-

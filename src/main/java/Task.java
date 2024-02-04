@@ -8,10 +8,12 @@ public class Task implements Serializable {
     private boolean isDone;
     private LocalDateTime deadline;
 
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
+
 
     // Constructor with deadline
     public Task(String description, LocalDateTime deadline) {
