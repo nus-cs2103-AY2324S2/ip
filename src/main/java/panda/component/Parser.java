@@ -80,7 +80,10 @@ public class Parser {
             if(args.length < 2 || args[1].split("/to").length < 2) {
                 throw new EmptyEventException("date");
             }
-            return new NewTaskCommand(new Event(args[0].trim(), args[1].split("/to")[0].trim(), args[1].split("/to")[1].trim()));
+            return new NewTaskCommand(new Event(
+                args[0].trim(), 
+                args[1].split("/to")[0].trim(), 
+                args[1].split("/to")[1].trim()));
         }
         throw new UnknownCommandException();
     } 
