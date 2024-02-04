@@ -1,6 +1,4 @@
 abstract public class Task {
-
-    protected String fullTaskDescription; //include timeline
     protected String description;
     protected boolean isDone;
 
@@ -30,7 +28,5 @@ abstract public class Task {
         str = "[" + this.getStatusIcon() + "] ";
         return str;
     }
-
-    public abstract String toSave();
 
 }

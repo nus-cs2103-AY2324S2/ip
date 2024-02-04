@@ -6,11 +6,10 @@ public class Event extends Task {
     private String to;
 
     public Event(String description) throws DukeException{
-        this.fullTaskDescription = description;
         String[] command = description.split(" /from ", 2);
         if (command.length <= 1) {
             throw new DukeException("____________________________________________________________\n" +
-                    " OOPS! Your Only Friend cannot take in an event entry with no timeline :(\n" +
+                    "OOPS! Your Only Friend cannot take in an event entry with no timeline :(\n" +
                     "____________________________________________________________\n");
         }
 
@@ -18,7 +17,7 @@ public class Event extends Task {
         String[] eventDates = timeline.split(" /to ");
         if (eventDates.length <= 1) {
             throw new DukeException("____________________________________________________________\n" +
-                    " OOPS! Your Only Friend cannot take in a deadline entry with no timeline :(\n" +
+                    "OOPS! Your Only Friend cannot take in a deadline entry with no timeline :(\n" +
                     "____________________________________________________________\n");
         }
 
@@ -31,11 +30,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + this.description + " (from: " + this.from + " to: " + this.to + ")";
-    }
-
-    @Override
-    public String toSave() {
-        return " E" + (super.getStatusIcon().equals("X") ? " | 1 | " : " | 0 | ") + this.fullTaskDescription;
     }
 
 }
