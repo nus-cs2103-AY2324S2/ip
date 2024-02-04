@@ -1,5 +1,8 @@
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import  java.util.EnumSet;
@@ -23,6 +26,8 @@ enum Command {
     }
 }
 public class Duke {
+
+    public static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -60,77 +65,89 @@ public class Duke {
                 if (command.equals(Command.LIST.commandName)) {
                     printTaskList(list);
                 } else if (command.equals(Command.MARK.commandName) | command.equals(Command.UNMARK.commandName) | command.equals(Command.DELETE.commandName)) {
-                    int taskNo = Integer.parseInt(task) - 1;
+                    try {
+                        int taskNo = Integer.parseInt(task) - 1;
 
-                    if (taskNo >= list.size()) {
+                        if (taskNo >= list.size()) {
+                            System.out.println("-------------------------------- \n" +
+                                    "Oops, task " + task + " does not exist. Please try again! \n" +
+                                    "Here is your list for reference: \n");
+                            printTaskList(list);
+                            System.out.println("-------------------------------- \n");
+                        } else {
+                            Task t = list.get(taskNo);
+                            if (command.equals(Command.MARK.commandName)) {
+                                t.done();
+                                System.out.println("-------------------------------- \n" +
+                                        "Nice! I've marked task " + task + " as done: \n" +
+                                        t.toString() + "\n" +
+                                        "-------------------------------- \n");
+                            } else if (command.equals(Command.UNMARK.commandName)) {
+                                t.undone();
+                                System.out.println("-------------------------------- \n" +
+                                        "Sure, I've marked task " + task + " as not done yet: \n" +
+                                        t.toString() + "\n" +
+                                        "-------------------------------- \n");
+                            } else {
+                                list.remove(taskNo);
+                                System.out.println("-------------------------------- \n" +
+                                        "Okay, I will delete this task: \n" +
+                                        t.toString() + "\n" +
+                                        "You now have " + list.size() + " in the list. \n" +
+                                        "-------------------------------- \n");
+                            }
+                        }
+                    } catch (NumberFormatException e) {
                         System.out.println("-------------------------------- \n" +
-                                "Oops, task " + task + " does not exist. Please try again! \n" +
-                                "Here is your list for reference: \n");
-                        printTaskList(list);
-                        System.out.println("-------------------------------- \n");
-                    } else {
-                        Task t = list.get(taskNo);
-                        if (command.equals(Command.MARK.commandName)) {
-                            t.done();
-                            System.out.println("-------------------------------- \n" +
-                                    "Nice! I've marked task " + task + " as done: \n" +
-                                    t.toString() + "\n" +
-                                    "-------------------------------- \n");
-                        }
-                        else if (command.equals(Command.UNMARK.commandName)) {
-                            t.undone();
-                            System.out.println("-------------------------------- \n" +
-                                    "Sure, I've marked task " + task + " as not done yet: \n" +
-                                    t.toString() + "\n" +
-                                    "-------------------------------- \n");
-                        }
-                        else {
-                            list.remove(taskNo);
-                            System.out.println("-------------------------------- \n" +
-                                    "Okay, I will delete this task: \n" +
-                                    t.toString() + "\n" +
-                                    "You now have " + list.size() + " in the list. \n" +
-                                    "-------------------------------- \n");
-                        }
+                                "Oops, please enter task numbers instead! \n" +
+                                "(e.g. mark 1) \n" +
+                                "-------------------------------- \n");
                     }
                 } else if (command.equals(Command.TODO.commandName) | command.equals(Command.DEADLINE.commandName) | command.equals(Command.EVENT.commandName)) {
                     Task t = null;
                     boolean success = true;
-                    if (command.equals(Command.TODO.commandName)) {
-                        t = new ToDo(task, false);
-                    }
-                    else if (command.equals(Command.DEADLINE.commandName)) {
-                        if (task == null || !task.contains(" /by ")) {
-                            success = false;
-                            System.out.println("-------------------------------- \n" +
-                                    "Oops, wrong format! Please follow this format for deadline task entries (e.g. deadline submit report /by 11/10/2019 5pm ) \n" +
-                                    "-------------------------------- \n");
+                    try {
+                        if (command.equals(Command.TODO.commandName)) {
+                            t = new ToDo(task, false);
+                        } else if (command.equals(Command.DEADLINE.commandName)) {
+                            if (task == null || !task.contains(" /by ")) {
+                                success = false;
+                                System.out.println("-------------------------------- \n" +
+                                        "Oops, wrong format! Please follow this format for deadline task entries (e.g. deadline submit report /by 11/10/2019 5pm ) \n" +
+                                        "-------------------------------- \n");
+                            } else {
+                                String[] deadline = task.split(" /by ");
+                                t = new Deadline(deadline[0], false, LocalDateTime.parse(deadline[1], dateTimeFormatter));
+
+
+                            }
                         } else {
-                            String[] deadline = task.split(" /by ");
-                            t = new Deadline(deadline[0], false, deadline[1]);
+                            if (task == null || !(task.contains(" /from ") && task.contains(" /to "))) {
+                                success = false;
+                                System.out.println("-------------------------------- \n" +
+                                        "Oops, wrong format! Please follow this format for event task entries (e.g. event team project meeting /from June 9th 2pm /to 4pm ) \n" +
+                                        "-------------------------------- \n");
+                            } else {
+                                String event = task.substring(0, task.indexOf(" /from "));
+                                LocalDateTime from = LocalDateTime.parse(task.substring(task.indexOf("/from ") + 6, task.indexOf(" /to ")), dateTimeFormatter);
+                                LocalDateTime to = LocalDateTime.parse(task.substring((task.indexOf("/to ") + 4)), dateTimeFormatter);
+                                t = new Event(event, false, from, to);
+                            }
                         }
-                    }
-                    else {
-                        if (task == null || !(task.contains(" /from ") && task.contains(" /to "))) {
-                            success = false;
+                        if (success) {
+                            list.add(t);
                             System.out.println("-------------------------------- \n" +
-                                    "Oops, wrong format! Please follow this format for event task entries (e.g. event team project meeting /from June 9th 2pm /to 4pm ) \n" +
+                                    "Sure, I've added this task: \n" +
+                                    t.toString() + "\n" +
+                                    "Now you have " + list.size() + " task(s) in the list. \n" +
                                     "-------------------------------- \n");
-                        } else {
-                            String event = task.substring(0, task.indexOf(" /from "));
-                            String from = task.substring(task.indexOf("/from ") + 6, task.indexOf(" /to "));
-                            String to = task.substring((task.indexOf("/to ") + 4));
-                            t = new Event(event, false, from, to);
+                            Storage.updateFile(list);
                         }
-                    }
-                    if (success) {
-                        list.add(t);
+                    } catch (DateTimeException e) {
                         System.out.println("-------------------------------- \n" +
-                                "Sure, I've added this task: \n" +
-                                t.toString() + "\n" +
-                                "Now you have " + list.size() + " task(s) in the list. \n" +
+                                "Oops, wrong datetime format! \n" +
+                                "Please follow this format <dd/MM/yyyy HHmm> (e.g. 2/12/2019 1800) \n" +
                                 "-------------------------------- \n");
-                        Storage.updateFile(list);
                     }
                 } else {
                     System.out.println( "-------------------------------- \n" +

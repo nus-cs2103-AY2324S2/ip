@@ -6,6 +6,8 @@ import java.nio.file.Files;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,17 +33,23 @@ public class Storage {
                                 taskList.add(t);
                                 break;
                             case "D":
-                                Deadline d = new Deadline(inputs[2], isDone, inputs[3]);
+                                LocalDateTime by = LocalDateTime.parse(inputs[3], Duke.dateTimeFormatter);
+                                Deadline d = new Deadline(inputs[2], isDone, by);
                                 taskList.add(d);
                                 break;
 
                             case "E":
-                                Event e = new Event(inputs[0], isDone, inputs[1], inputs[2]);
+                                LocalDateTime from = LocalDateTime.parse(inputs[3], Duke.dateTimeFormatter);
+                                LocalDateTime to = LocalDateTime.parse(inputs[4], Duke.dateTimeFormatter);
+                                Event e = new Event(inputs[0], isDone, from, to);
                                 taskList.add(e);
                                 break;
                         }
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("LOG: Task file corrupted.");
+                        return new ArrayList<>();
+                    } catch (DateTimeException e) {
+                        System.out.println("LOG: Dates of tasks corrupted.");
                         return new ArrayList<>();
                     }
                 }
