@@ -14,6 +14,12 @@ import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
 
+/**
+ * The Parser class helps to parse string inputs into both
+ * DateTime objects and Command objects. It also handles exceptions
+ * that are not CustomExceptions, and throw the equivalent CustomExceptions
+ * to be caught by Duke.
+ */
 public class Parser {
 
     private static DateTimeFormatterBuilder[] dtFormats = {
@@ -30,6 +36,14 @@ public class Parser {
     private HashMap<String, Command> commands = new HashMap<>();
     private ItemList itemList;
 
+    /**
+     * Creates a parser object, and populates the commands hashmap
+     * with recognized commands. This makes the command range more
+     * easily extensible.
+     *
+     * @param itemlist is the current instance of the ItemList that is
+     *                 being modified by the current Duke instance Elias.
+     */
     public Parser(ItemList itemlist) {
         this.itemList = itemlist;
         commands.put("event", new AddCommand());
@@ -41,6 +55,16 @@ public class Parser {
         commands.put("list", new ListCommand());
     }
 
+    /**
+     * Parses a string input into a LocalDateTime object. If the input
+     * cannot be parsed according to any format in dtFormats,
+     * it throws a DateTimeParse Exception.
+     *
+     * @param s is the input string to be parsed as a LocalDateTime object.
+     * @return a LocalDateTime object.
+     * @throws DateTimeParseException when the input fails to parse, based on
+     *                                the above list of patterns in dtFormats.
+     */
     public static LocalDateTime parseDtString(String s) throws DateTimeParseException {
         DateTimeParseException thrown = null;
         for (DateTimeFormatterBuilder f : dtFormats) {
@@ -54,6 +78,16 @@ public class Parser {
         throw thrown;
     }
 
+    /**
+     * Parses a string input into a LocalDateTime object. If the input
+     * cannot be parsed, it throws a DateTimeParse Exception.
+     *
+     * @param command is the input string to be parsed as a command object.
+     * @return a string that confirms that the command has been executed correctly.
+     * @throws CustomExceptions.UnrecognizedCommandException when the input fails
+     *                                                       to parse, based on the
+     *                                                       map containing commands.
+     */
     public String parse(String command) throws CustomExceptions {
         String[] arr = command.split(" ");
         try {

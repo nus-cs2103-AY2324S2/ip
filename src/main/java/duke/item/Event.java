@@ -9,11 +9,32 @@ import java.time.format.FormatStyle;
 import duke.CustomExceptions;
 import duke.Parser;
 
+/**
+ * Represents an Event, which differs from a To-do and a Deadline
+ * in that it contains 2 DateTime members representing when the
+ * event starts and ends respectively.
+ */
 public class Event implements Item, Serializable {
     private boolean isDone = false;
     private String name = "";
     private LocalDateTime start = LocalDateTime.now();
     private LocalDateTime end = LocalDateTime.now();
+
+    /**
+     * Creates a new deadline object. The name, isDone, start and end
+     * field values are obtained from parsing the info argument.
+     *
+     * @param info a string array obtained from splitting command with
+     *             the whitespace regex.
+     * @throws CustomExceptions.ToBeforeFromException if the /to command comes
+     *                                                before the /from command.
+     * @throws CustomExceptions.EventExceptionForFromTo if the start and end time
+     *                                                  of the event fails to parse.
+     * @throws CustomExceptions.NamelessTaskException if the name in the command
+     *                                                cannot be parsed.
+     * @throws CustomExceptions.UnrecognizableDateException if the parser throws
+     *                                                      a DateTimeParseException.
+     */
     public Event(String[] info) throws CustomExceptions {
         int index = 1;
         String s = "";

@@ -1,10 +1,25 @@
 package duke.item;
 
+import duke.CustomExceptions;
+
 import java.io.Serializable;
 
+/**
+ * Represents a To-do, which differs from an Event and a Deadline
+ * in that it contains no DateTime members. A To-do represents a
+ * task that is not tied to any period or moment in time.
+ */
 public class ToDo implements Item, Serializable {
     private boolean isDone = false;
     private String name = "";
+
+    /**
+     * Creates a new deadline object. The name and isDone
+     * field values are obtained from parsing the name argument.
+     *
+     * @param name a string array obtained from splitting command with
+     *             the whitespace regex.
+     */
     public ToDo(String[] name) {
         for (int i = 1; i < name.length; i++) {
             this.name += name[i] + " ";
