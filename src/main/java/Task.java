@@ -12,6 +12,11 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    public String toTaskSaveString() {
+        int isDoneInt = this.isDone? 1 : 0;
+        return isDoneInt + "|" + this.description;
+    }
+
     public String getStatusIcon() {
         return isDone ? "X" : " ";
     }
